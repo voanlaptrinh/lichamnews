@@ -46,6 +46,48 @@ class AstrologyHelper
         return $zodiacs[$index];
     }
 
+    // Thêm vào file app/Helpers/AstrologyHelper.php
+    public static function checkThaiTue(int $birthYear, int $checkYear): array
+    {
+        $birthChi = self::getZodiacSign($birthYear);
+        $checkChi = self::getZodiacSign($checkYear);
+
+        $phamList = [];
+
+        // 1. Trực Thái Tuế (Năm tuổi)
+        if ($birthChi === $checkChi) {
+            $phamList[] = ['type' => 'Trực Thái Tuế', 'is_bad' => true, 'description' => "Năm tuổi của bản mệnh, dễ gặp nhiều biến động."];
+        }
+
+        // 2. Xung Thái Tuế (Lục Xung)
+        $lucXungMap = [
+            'Tý' => 'Ngọ',
+            'Sửu' => 'Mùi',
+            'Dần' => 'Thân',
+            'Mão' => 'Dậu',
+            'Thìn' => 'Tuất',
+            'Tỵ' => 'Hợi',
+            'Ngọ' => 'Tý',
+            'Mùi' => 'Sửu',
+            'Thân' => 'Dần',
+            'Dậu' => 'Mão',
+            'Tuất' => 'Thìn',
+            'Hợi' => 'Tỵ',
+        ];
+        if (isset($lucXungMap[$birthChi]) && $lucXungMap[$birthChi] === $checkChi) {
+            $phamList[] = ['type' => 'Xung Thái Tuế', 'is_bad' => true, 'description' => "Năm có nhiều biến động lớn, xung khắc."];
+        }
+
+        // (Bạn có thể thêm các trường hợp Hình, Hại, Phá ở đây nếu muốn)
+
+        $uniquePhamList = array_map("unserialize", array_unique(array_map("serialize", $phamList)));
+
+        return [
+            'is_pham' => !empty($uniquePhamList),
+            'details' => $uniquePhamList,
+        ];
+    }
+
     /**
      * ======================================================
      * KIỂM TRA KIM LÂU
@@ -106,7 +148,7 @@ class AstrologyHelper
         }
 
         $result = $cung[$index];
-        $message = "{$result['name']}: {$result['meaning']}";
+        $message = "({$result['name']}): {$result['meaning']}";
         return ['is_bad' => $result['is_bad'], 'message' => $message];
     }
 
@@ -145,14 +187,18 @@ class AstrologyHelper
         ];
 
         $tamTaiMeanings = [
-            1 => 'Năm thứ nhất: Được xem là năm "khởi sự xấu". Đây là năm không nên bắt đầu công việc lớn như xây nhà, khởi nghiệp, kết hôn, hoặc đầu tư lớn.
-Tuy nhiên, mức độ xui xẻo thường chưa nghiêm trọng nhất.',
-            2 => 'Năm thứ hai (nặng nhất): Là năm nặng nhất trong chu kỳ tam tai.
-Các vấn đề trong công việc, gia đình, sức khỏe hoặc tài chính có thể trở nên rõ ràng và nghiêm trọng hơn.
-Không nên thay đổi công việc, xuất hành xa hoặc làm việc lớn trong năm này.',
-            3 => 'Năm thứ ba (nhẹ nhất): Là năm "kết thúc". Dù vẫn còn khó khăn nhưng tình hình sẽ nhẹ nhàng hơn so với năm thứ hai.
-Đây là thời điểm để giải quyết và kết thúc các vấn đề còn tồn đọng, tránh để kéo dài sang các năm tiếp theo.',
+            1 => 'Năm thứ nhất: Được xem là năm "khởi sự xấu". Đây là năm không nên bắt đầu công việc lớn như xây nhà, khởi nghiệp, kết hôn, hoặc đầu tư lớn. Tuy nhiên, mức độ xui xẻo thường chưa nghiêm trọng nhất.',
+            2 => 'Năm thứ hai (nặng nhất): Là năm nặng nhất trong chu kỳ tam tai. Các vấn đề trong công việc, gia đình, sức khỏe hoặc tài chính có thể trở nên rõ ràng và nghiêm trọng hơn. Không nên thay đổi công việc, xuất hành xa hoặc làm việc lớn trong năm này.',
+            3 => 'Năm thứ ba (nhẹ nhất): Là năm "kết thúc". Dù vẫn còn khó khăn nhưng tình hình sẽ nhẹ nhàng hơn so với năm thứ hai. Đây là thời điểm để giải quyết và kết thúc các vấn đề còn tồn đọng, tránh để kéo dài sang các năm tiếp theo.',
         ];
+
+        // *** THÊM MẢNG NÀY VÀO ***
+        $numberToWord = [
+            1 => 'thứ nhất',
+            2 => 'thứ hai',
+            3 => 'thứ ba',
+        ];
+        // **************************
 
         if (!isset($tamTaiMap[$personZodiac])) {
             return ['is_bad' => false, 'message' => 'Không phạm Tam Tai.'];
@@ -165,16 +211,21 @@ Không nên thay đổi công việc, xuất hành xa hoặc làm việc lớn t
 
         if ($key !== false) {
             $tamTaiYearNumber = $key + 1;
+
+            // *** SỬA ĐỔI DÒNG NÀY ***
+            $tamTaiYearWord = $numberToWord[$tamTaiYearNumber] ?? "thứ {$tamTaiYearNumber}";
+
             return [
                 'is_bad' => true,
-                'message' => "Phạm Tam Tai năm {$checkYearZodiac}. Đây là năm Tam Tai thứ {$tamTaiYearNumber}.",
+                // Sử dụng $tamTaiYearWord thay cho $tamTaiYearNumber trong chuỗi message
+                'message' => "Phạm Tam Tai năm {$checkYearZodiac}. Đây là năm Tam Tai {$tamTaiYearWord}.",
                 'details' => $tamTaiMeanings[$tamTaiYearNumber],
             ];
         }
 
         return ['is_bad' => false, 'message' => "Không phạm Tam Tai trong năm {$checkYearZodiac}."];
     }
-     /**
+    /**
      * Phân tích một năm cụ thể có phạm Thái Tuế, Tuế Phá với tuổi người mất không.
      *
      * @param int $deceasedBirthYearLunar (Năm sinh ÂM LỊCH của người mất)
@@ -196,9 +247,18 @@ Không nên thay đổi công việc, xuất hành xa hoặc làm việc lớn t
 
         // Phạm Tuế Phá: Năm cần xem có Địa Chi XUNG với Địa Chi năm sinh người mất.
         $lucXungMap = [
-            'Tý' => 'Ngọ', 'Ngọ' => 'Tý', 'Sửu' => 'Mùi', 'Mùi' => 'Sửu',
-            'Dần' => 'Thân', 'Thân' => 'Dần', 'Mão' => 'Dậu', 'Dậu' => 'Mão',
-            'Thìn' => 'Tuất', 'Tuất' => 'Thìn', 'Tị' => 'Hợi', 'Hợi' => 'Tị',
+            'Tý' => 'Ngọ',
+            'Ngọ' => 'Tý',
+            'Sửu' => 'Mùi',
+            'Mùi' => 'Sửu',
+            'Dần' => 'Thân',
+            'Thân' => 'Dần',
+            'Mão' => 'Dậu',
+            'Dậu' => 'Mão',
+            'Thìn' => 'Tuất',
+            'Tuất' => 'Thìn',
+            'Tị' => 'Hợi',
+            'Hợi' => 'Tị',
         ];
         $isTuePha = (isset($lucXungMap[$chiNguoiMat]) && $lucXungMap[$chiNguoiMat] === $chiNamKiemTra);
 
@@ -216,8 +276,8 @@ Không nên thay đổi công việc, xuất hành xa hoặc làm việc lớn t
             $phamGi = $isThaiTue ? 'Thái Tuế' : 'Tuế Phá';
             $conclusion = sprintf(
                 'Năm <strong>%s (%d)</strong> có xung tuổi với người mất, phạm vào <strong>%s</strong> – đây là dấu hiệu không tốt trong phong thủy âm phần.<br>
-                <span class="d-block mt-2">👉 Nên cân nhắc chuyển sang năm khác để thực hiện việc động mộ, cải táng hoặc sang cát.</span>
-                <span class="d-block mt-1">👉 Nếu vẫn cần tiến hành trong năm nay, nên chọn ngày giờ thật tốt và thực hiện lễ hóa giải đầy đủ để giảm rủi ro.</span>',
+                <span class="d-block mt-2">- Nên cân nhắc chuyển sang năm khác để thực hiện việc động mộ, cải táng hoặc sang cát.</span>
+                <span class="d-block mt-1">- Nếu vẫn cần tiến hành trong năm nay, nên chọn ngày giờ thật tốt và thực hiện lễ hóa giải đầy đủ để giảm rủi ro.</span>',
                 $canChiNamKiemTra,
                 $yearToCheck,
                 $phamGi

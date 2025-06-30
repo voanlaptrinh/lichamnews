@@ -11,10 +11,11 @@ use App\Helpers\LunarHelper;
 use Carbon\CarbonPeriod;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
+
 class CaiTangController extends Controller
 {
-   
- 
+
+
     /**
      * Hiển thị form xem ngày cải táng.
      */
@@ -22,7 +23,7 @@ class CaiTangController extends Controller
     {
         return view('cai-tang.index'); // Sử dụng 1 view duy nhất cho cả form và kết quả
     }
- /**
+    /**
      * Xử lý dữ liệu, phân tích và trả kết quả.
      */
     public function checkDays(Request $request)
@@ -74,7 +75,7 @@ class CaiTangController extends Controller
         // Lấy thông tin cho người đã mất
         $deceasedBirthYear = (int)$validated['birth_mat'];
         $deceasedDeathYear = (int)$validated['nam_mat'];
-        
+
         $deceasedInfo = [
             'birth_year_lunar' => $deceasedBirthYear,
             'death_year_lunar' => $deceasedDeathYear,
@@ -83,7 +84,7 @@ class CaiTangController extends Controller
         ];
 
         // 3. Phân tích các năm trong khoảng thời gian đã chọn
-        $uniqueYears = collect($period)->map(fn ($date) => $date->year)->unique()->values();
+        $uniqueYears = collect($period)->map(fn($date) => $date->year)->unique()->values();
         $resultsByYear = [];
 
         foreach ($uniqueYears as $year) {
@@ -116,7 +117,7 @@ class CaiTangController extends Controller
             $fullLunarDateStr = sprintf('Ngày %s (tức %02d/%02d/%d âm lịch)', $dayCanChi, $lunarParts[0], $lunarParts[1], $lunarParts[2]);
 
             $resultsByYear[$year]['days'][] = [
-                
+
                 'date' => $date->copy(),
                 'weekday_name' => $date->isoFormat('dddd'),
                 'full_lunar_date_str' => $fullLunarDateStr,
@@ -144,25 +145,33 @@ class CaiTangController extends Controller
         $kimLau = AstrologyHelper::checkKimLau($lunarAge);
         $hoangOc = AstrologyHelper::checkHoangOc($lunarAge);
         $tamTai = AstrologyHelper::checkTamTai($birthYear, $yearToCheck);
-
+        $thaiTue = AstrologyHelper::checkThaiTue($birthYear, $yearToCheck);
         $badFactors = [];
         if ($kimLau['is_bad']) $badFactors[] = 'Kim Lâu';
         if ($hoangOc['is_bad']) $badFactors[] = 'Hoang Ốc';
         if ($tamTai['is_bad']) $badFactors[] = 'Tam Tai';
-
+        if ($thaiTue['is_pham']) {
+            foreach ($thaiTue['details'] as $pham) {
+                $badFactors[] = $pham['type']; // Ví dụ: 'Xung Thái Tuế', 'Trực Thái Tuế'
+            }
+        }
         $isBadYear = count($badFactors) > 0;
         $message = $isBadYear
             ? "Năm {$yearToCheck}, người đứng lễ phạm: <strong>" . implode(', ', $badFactors) . "</strong>. Nên đây không phải là năm thích hợp để đứng lễ. Nếu vẫn quyết định tiến hành công việc thì hãy nhờ người khác hợp tuổi để đứng lễ hoặc chọn năm khác để tiến hành."
             : "Năm {$yearToCheck}, người đứng lễ không phạm: Kim Lâu, Hoang Ốc, Tam Tai năm không xung với tuổi. Nên đây là năm thích hợp để có thể tiến hành các công việc trọng đại về âm phần.";
 
         return [
+            'kimLau' => $kimLau,
+            'hoangOc' => $hoangOc,
+            'tamTai' => $tamTai,
+            'thaiTue' => $thaiTue,
             'is_bad_year' => $isBadYear,
             'lunar_age' => $lunarAge,
             'description' => $message,
         ];
     }
 
-      /**
+    /**
      * Hàm trợ giúp: Lấy thông tin cơ bản của một người.
      */
     private function getPersonBasicInfo(Carbon $dob): array
@@ -171,7 +180,7 @@ class CaiTangController extends Controller
         $canChiNam = KhiVanHelper::canchiNam((int)$birthYear);
         $menh = DataHelper::$napAmTable[$canChiNam] ?? 'Không rõ';
         $lunarDob = LunarHelper::convertSolar2Lunar($dob->day, $dob->month, $dob->year);
-        
+
         // Tính tuổi âm cho năm hiện tại
         $currentLunarAge = AstrologyHelper::getLunarAge($birthYear, date('Y'));
 
@@ -184,5 +193,4 @@ class CaiTangController extends Controller
             'lunar_age_now' => $currentLunarAge, // Thêm tuổi âm hiện tại
         ];
     }
-
 }

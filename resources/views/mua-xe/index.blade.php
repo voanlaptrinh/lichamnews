@@ -5,14 +5,14 @@
         {{-- PHẦN FORM GIỮ NGUYÊN --}}
         <div class="card shadow-sm">
             <div class="card-header bg-light">
-                <h1 class="h3 mb-0">Xem ngày xuất hành</h1>
+                <h1 class="h3 mb-0">Xem ngày mua xe - nhận xe mới</h1>
             </div>
             <div class="card-body">
-                <form action="{{ route('xuat-hanh.check') }}" method="POST">
+                <form action="{{ route('mua-xe.check') }}" method="POST">
                     @csrf
 
                     <div class="row">
-                       
+
                         <div class="col-md-6 mb-3">
                             <label for="birthdate" class="form-label">Ngày sinh</label>
                             {{-- SỬA Ở ĐÂY: Thêm lại class "dateuser" --}}
@@ -26,7 +26,8 @@
 
 
                         <div class="col-md-6 mb-3">
-                            <label for="wedding_date_range" class="form-label">Dự kiến thời gian mua</label>
+                            <label for="wedding_date_range" class="form-label">dự kiến thời gian Mua xe - 
+nhận xe mới</label>
                             {{-- SỬA Ở ĐÂY: Thêm lại class "wedding_date_range" --}}
                             <input type="text"
                                 class="form-control wedding_date_range @error('date_range') is-invalid @enderror"
@@ -41,22 +42,11 @@
                 </form>
             </div>
         </div>
-        
+
         {{-- Giả sử bạn có biến $resultsByYear sau khi form được submit --}}
         @if (isset($resultsByYear))
             <div class="results-container mt-5">
-                {{-- Hiển thị thông tin gia chủ --}}
-                {{-- <div class="card mb-4">
-                    <div class="card-header">
-                        <h4>Thông tin gia chủ</h4>
-                    </div>
-                    <div class="card-body">
-                        <p><strong>Ngày sinh:</strong> {{ $birthdateInfo['dob']->format('d/m/Y') }} (Âm lịch:
-                            {{ $birthdateInfo['lunar_dob_str'] }})</p>
-                        <p><strong>Tuổi:</strong> {{ $birthdateInfo['can_chi_nam'] }} - <strong>Mệnh:</strong>
-                            {{ $birthdateInfo['menh']['napAm'] }}</p>
-                    </div>
-                </div> --}}
+
                 <div class="card-header">
                     <ul class="nav nav-tabs card-header-tabs" id="yearTab" role="tablist">
                         @foreach ($resultsByYear as $year => $data)
@@ -73,7 +63,7 @@
                     </ul>
                 </div>
                 <div class="card-body">
-                
+
                     <div class="tab-content" id="yearTabContent">
                         @foreach ($resultsByYear as $year => $data)
                             <div class="tab-pane fade @if ($loop->first) show active @endif"
@@ -84,7 +74,7 @@
                                         <div class="card p-4 ">
                                             <h4 class="mb-3">Thông tin gia chủ</h4>
                                             <ul>
-                                               
+
                                                 <li>Ngày sinh dương lịch:
                                                     <b>{{ $birthdateInfo['dob']->format('d/m/Y') }}</b>
                                                 </li>
@@ -93,14 +83,15 @@
                                                     {{ $birthdateInfo['menh']['hanh'] }}
                                                     ({{ $birthdateInfo['menh']['napAm'] }})
                                                 </li>
-                                                <li>Tuổi âm: <b>{{ $data['year_analysis']['lunar_age'] }}</b></li>
-                                                <li>Dự kiến xuất hành: Trong khoảng {{$date_start_end[0]}} đến {{$date_start_end[1]}} </li>
+                                                <li>Tuổi âm: <b>{{ $data['year_analysis']['lunar_age'] }} Tuổi</b></li>
+                                                <li>Dự kiến thời gian mua xe - nhận xe mới: Trong khoảng
+                                                    {{ $date_start_end[0] }} đến {{ $date_start_end[1] }} </li>
                                             </ul>
 
                                         </div>
                                     </div>
 
-                                    <p>{!! $data['year_analysis']['description'] !!}</p>
+                                    {{-- <p>{!! $data['year_analysis']['description'] !!}</p> --}}
                                 </div>
 
 
@@ -120,14 +111,6 @@
                                             </thead>
                                             <tbody>
                                                 {{-- Lọc và chỉ hiển thị những ngày có điểm TỐT hoặc RẤT TỐT --}}
-                                                @php
-                                                    $goodDays = array_filter($data['days'], function ($day) {
-                                                        $rating = $day['day_score']['rating'];
-                                                        return $rating === 'Tốt' ||
-                                                            $rating === 'Rất tốt' ||
-                                                            $rating === 'Khá';
-                                                    });
-                                                @endphp
 
                                                 @forelse($data['days'] as $day)
                                                     @php

@@ -2,25 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Helpers\AstrologyHelper;
 use App\Helpers\DataHelper;
 use App\Helpers\GoodBadDayHelper;
 use App\Helpers\KhiVanHelper;
 use App\Helpers\LunarHelper;
 use Carbon\CarbonPeriod;
-use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
 
-class DongThoController extends Controller
+class LapBanThoController extends Controller
 {
     /**
-     * Hiển thị form xem ngày làm nhà.
+     * Hiển thị form xem ngày lập bàn thờ.
      */
     public function showForm()
     {
         // Không cần truyền dateRanges nữa
-        return view('dong-tho.form');
+        return view('lap-ban-tho.index');
     }
 
     /**
@@ -48,6 +48,7 @@ class DongThoController extends Controller
         $request->merge($input);
 
         $validator = Validator::make($request->all(), [
+
             'birthdate' => 'required|date',
             'date_range' => 'required',
             'start_date' => 'required|date_format:d/m/Y',
@@ -94,7 +95,7 @@ class DongThoController extends Controller
         // ---------------------------------------------------------------------
 
         // a. Xác định mục đích (purpose) cho việc xem ngày làm nhà
-        $purpose = 'DONG_THO'; // Hoặc 'LAM_NHA', tùy theo bạn định nghĩa trong DataHelper
+        $purpose = 'LAP_BAN_THO'; // Hoặc 'LAM_NHA', tùy theo bạn định nghĩa trong DataHelper
 
         foreach ($period as $date) {
             $year = $date->year;
@@ -126,7 +127,8 @@ class DongThoController extends Controller
         }
 
         // 4. Trả kết quả về cho view
-        return view('dong-tho.form', [
+        return view('lap-ban-tho.index', [
+            'date_start_end' => $dates,
             'inputs' => $originalInputs,
             'birthdateInfo' => $birthdateInfo,
             'resultsByYear' => $resultsByYear,
@@ -142,7 +144,7 @@ class DongThoController extends Controller
 
         $kimLau = AstrologyHelper::checkKimLau($lunarAge);
         $hoangOc = AstrologyHelper::checkHoangOc($lunarAge);
-        $tamTai = AstrologyHelper::checkTamTai( $birthYear, $yearToCheck);
+        $tamTai = AstrologyHelper::checkTamTai($birthYear, $yearToCheck);
 
         $badFactors = [];
         if ($kimLau['is_bad']) $badFactors[] = 'Kim Lâu';
@@ -150,16 +152,11 @@ class DongThoController extends Controller
         if ($tamTai['is_bad']) $badFactors[] = 'Tam Tai';
 
         $isBadYear = count($badFactors) > 0;
-        $message = $isBadYear
-            ? "Năm {$yearToCheck}, gia chủ vướng phải: <strong>" . implode(', ', $badFactors) . "</strong>  - đại kỵ phong thủy khi làm việc trọng đại như động thổ, xây dựng. Vì vậy, không nên khởi công trong năm nay.
-Nếu buộc phải thực hiện, gia chủ nên mượn tuổi hợp để hóa giải vận xấu."
-            : "Năm {$yearToCheck}, gia chủ không phạm Kim Lâu, Hoang Ốc hay Tam Tai – đây là tín hiệu rất tốt trong phong thủy. Bạn hoàn toàn có thể an tâm tiến hành các công việc trọng đại liên quan đến nhà cửa như mua nhà/đất, xây dựng, hoặc chuyển về nhà mới trong năm nay.
-Thời điểm cát lợi, vận khí hanh thông – rất thích hợp để an cư, lập nghiệp.";
+
 
         return [
             'is_bad_year' => $isBadYear,
             'lunar_age' => $lunarAge,
-            'description' => $message,
             'details' => compact('kimLau', 'hoangOc', 'tamTai'),
         ];
     }

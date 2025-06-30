@@ -280,7 +280,7 @@
                                                     });
                                                 @endphp
 
-                                                @forelse($goodDays as $day)
+                                                @forelse($data['days'] as $day)
                                                     @php
                                                         if (!function_exists('getRatingClassBuildHouse')) {
                                                             function getRatingClassBuildHouse(string $rating): string

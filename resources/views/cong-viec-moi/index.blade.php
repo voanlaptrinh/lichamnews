@@ -5,13 +5,14 @@
         {{-- PHẦN FORM GIỮ NGUYÊN --}}
         <div class="card shadow-sm">
             <div class="card-header bg-light">
-                <h1 class="h3 mb-0">Xem ngày Động thổ</h1>
+                <h1 class="h3 mb-0">Xem Ngày Nhận công việc mới</h1>
             </div>
             <div class="card-body">
-                <form action="{{ route('breaking.check') }}" method="POST">
+                <form action="{{ route('cong-viec-moi.check') }}" method="POST">
                     @csrf
 
                     <div class="row">
+
                         <div class="col-md-6 mb-3">
                             <label for="birthdate" class="form-label">Ngày sinh</label>
                             {{-- SỬA Ở ĐÂY: Thêm lại class "dateuser" --}}
@@ -25,7 +26,7 @@
 
 
                         <div class="col-md-6 mb-3">
-                            <label for="wedding_date_range" class="form-label">Dự kiến thời gian mua</label>
+                            <label for="wedding_date_range" class="form-label">dự kiến thời gian nhận công việc mới</label>
                             {{-- SỬA Ở ĐÂY: Thêm lại class "wedding_date_range" --}}
                             <input type="text"
                                 class="form-control wedding_date_range @error('date_range') is-invalid @enderror"
@@ -40,6 +41,7 @@
                 </form>
             </div>
         </div>
+
         {{-- Giả sử bạn có biến $resultsByYear sau khi form được submit --}}
         @if (isset($resultsByYear))
             <div class="results-container mt-5">
@@ -60,16 +62,18 @@
                     </ul>
                 </div>
                 <div class="card-body">
+
                     <div class="tab-content" id="yearTabContent">
                         @foreach ($resultsByYear as $year => $data)
                             <div class="tab-pane fade @if ($loop->first) show active @endif"
                                 id="tab-{{ $year }}" role="tabpanel"
                                 aria-labelledby="tab-{{ $year }}-tab">
                                 <div class="row">
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-12">
                                         <div class="card p-4 ">
                                             <h4 class="mb-3">Thông tin gia chủ</h4>
                                             <ul>
+
                                                 <li>Ngày sinh dương lịch:
                                                     <b>{{ $birthdateInfo['dob']->format('d/m/Y') }}</b>
                                                 </li>
@@ -78,39 +82,15 @@
                                                     {{ $birthdateInfo['menh']['hanh'] }}
                                                     ({{ $birthdateInfo['menh']['napAm'] }})
                                                 </li>
-                                                <li>Tuổi âm: <b>{{ $data['year_analysis']['lunar_age'] }}</b></li>
-
+                                                <li>Tuổi âm: <b>{{ $data['year_analysis']['lunar_age'] }} Tuổi</b></li>
+                                                <li>Dự kiến thời gian nhận công việc mới: Trong khoảng
+                                                    {{ $date_start_end[0] }} đến {{ $date_start_end[1] }} </li>
                                             </ul>
 
                                         </div>
                                     </div>
-                                    {{-- @dd($data) --}}
-                                    <div class="col-lg-8">
-                                        <div class="card p-4 ">
-                                            <h5 class="text-center">
-                                                kiểm tra kim lâu - hoang ốc - tam tai
-                                            </h5>
-                                            <p>
-                                                Kiểm tra xem năm {{ $year }} {{ $data['canchi'] }} gia chủ tuổi
-                                                {{ $birthdateInfo['can_chi_nam'] }}
-                                                ({{ $data['year_analysis']['lunar_age'] }} tuổi) có phạm phải Kim Lâu,
-                                                Hoang Ốc, Tam Tai không?
-                                            </p>
-                                            <ul>
-                                                <li>
-                                                    {{ $data['year_analysis']['details']['kimLau']['message'] }}
-                                                </li>
-                                                <li>
-                                                    {{ $data['year_analysis']['details']['hoangOc']['message'] }}
-                                                </li>
-                                                <li>
-                                                    {{ $data['year_analysis']['details']['tamTai']['message'] }}
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    {{-- @dd($data) --}}
-                                    <p>{!! $data['year_analysis']['description'] !!}</p>
+
+                                    {{-- <p>{!! $data['year_analysis']['description'] !!}</p> --}}
                                 </div>
 
 
@@ -130,14 +110,8 @@
                                             </thead>
                                             <tbody>
                                                 {{-- Lọc và chỉ hiển thị những ngày có điểm TỐT hoặc RẤT TỐT --}}
-                                                @php
-                                                    $goodDays = array_filter($data['days'], function ($day) {
-                                                        $rating = $day['day_score']['rating'];
-                                                        return $rating === 'Tốt' || $rating === 'Rất tốt';
-                                                    });
-                                                @endphp
 
-                                                @forelse($goodDays as $day)
+                                                @forelse($data['days'] as $day)
                                                     @php
                                                         if (!function_exists('getRatingClassBuildHouse')) {
                                                             function getRatingClassBuildHouse(string $rating): string

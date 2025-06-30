@@ -104,7 +104,7 @@
 
                                         </div>
                                     </div>
-                                    {{-- @dd($data) --}}
+
                                     <div class="col-lg-8">
                                         <div class="card p-4 ">
                                             <h5 class="text-center">
@@ -134,73 +134,76 @@
                                 </div>
 
 
- @if($data['year_analysis'])
-                        <h4 class="mt-4 mb-3">Bảng điểm chi tiết các ngày tốt</h4>
-                        
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-hover text-center align-middle">
-                                <thead class="table-light">
-                                    <tr>
-                                        <th>Ngày Dương Lịch</th>
-                                        <th>Ngày Âm Lịch</th>
-                                        <th>Điểm</th>
-                                        <th>Đánh giá</th>
-                                        <th>Giờ tốt (Hoàng Đạo)</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {{-- Lọc và chỉ hiển thị những ngày có điểm TỐT hoặc RẤT TỐT --}}
-                                    @php
-                                        $goodDays = array_filter($data['days'], function($day) {
-                                            $rating = $day['day_score']['rating'];
-                                            return $rating === 'Tốt' || $rating === 'Rất tốt';
-                                        });
-                                    @endphp
+                                @if ($data['year_analysis'])
+                                    <h4 class="mt-4 mb-3">Bảng điểm chi tiết các ngày tốt</h4>
 
-                                    @forelse($goodDays as $day)
-                                   
-                                       @php
-    if (!function_exists('getRatingClassBuildHouse')) {
-        function getRatingClassBuildHouse(string $rating): string
-        {
-            return match ($rating) {
-                'Rất tốt' => 'table-success',
-                'Tốt' => 'table-info',
-                'Trung bình' => 'table-warning',
-                default => 'table-danger',
-            };
-        }
-    }
-@endphp
-                                        <tr class="{{ getRatingClassBuildHouse($day['day_score']['rating']) }}">
-                                            <td>
-                                                <strong>{{ $day['date']->format('d/m/Y') }}</strong>
-                                                <br>
-                                                <small>{{ $day['weekday_name'] }}</small>
-                                            </td>
-                                            <td>{{ $day['full_lunar_date_str'] }}</td>
-                                            <td class="fw-bold fs-5">{{ $day['day_score']['percentage'] }}%</td>
-                                            <td><strong>{{ $day['day_score']['rating'] }}</strong></td>
-                                            <td>
-                                                @if(!empty($day['good_hours']))
-                                                    {{ implode('; ', $day['good_hours']) }}
-                                                @else
-                                                    <span class="text-muted">Không có</span>
-                                                @endif
-                                            </td>
-                                        </tr>
-                                    @empty
-                                        <tr>
-                                            <td colspan="5" class="text-center p-4">
-                                                <p class="mb-0">Trong khoảng thời gian bạn chọn của năm nay, không tìm thấy ngày nào thực sự tốt để tiến hành xây dựng.</p>
-                                                <small>Bạn có thể thử mở rộng khoảng thời gian tìm kiếm.</small>
-                                            </td>
-                                        </tr>
-                                    @endforelse
-                                </tbody>
-                            </table>
-                        </div>
-                    @endif
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-hover text-center align-middle">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th>Ngày Dương Lịch</th>
+                                                    <th>Ngày Âm Lịch</th>
+                                                    <th>Điểm</th>
+                                                    <th>Đánh giá</th>
+                                                    <th>Giờ tốt (Hoàng Đạo)</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {{-- Lọc và chỉ hiển thị những ngày có điểm TỐT hoặc RẤT TỐT --}}
+                                                @php
+                                                    $goodDays = array_filter($data['days'], function ($day) {
+                                                        $rating = $day['day_score']['rating'];
+                                                        return $rating === 'Tốt' || $rating === 'Rất tốt';
+                                                    });
+                                                @endphp
+
+                                                @forelse($data['days'] as $day)
+                                                    @php
+                                                        if (!function_exists('getRatingClassBuildHouse')) {
+                                                            function getRatingClassBuildHouse(string $rating): string
+                                                            {
+                                                                return match ($rating) {
+                                                                    'Rất tốt' => 'table-success',
+                                                                    'Tốt' => 'table-info',
+                                                                    'Trung bình' => 'table-warning',
+                                                                    default => 'table-danger',
+                                                                };
+                                                            }
+                                                        }
+                                                    @endphp
+                                                    <tr
+                                                        class="{{ getRatingClassBuildHouse($day['day_score']['rating']) }}">
+                                                        <td>
+                                                            <strong>{{ $day['date']->format('d/m/Y') }}</strong>
+                                                            <br>
+                                                            <small>{{ $day['weekday_name'] }}</small>
+                                                        </td>
+                                                        <td>{{ $day['full_lunar_date_str'] }}</td>
+                                                        <td class="fw-bold fs-5">{{ $day['day_score']['percentage'] }}%
+                                                        </td>
+                                                        <td><strong>{{ $day['day_score']['rating'] }}</strong></td>
+                                                        <td>
+                                                            @if (!empty($day['good_hours']))
+                                                                {{ implode('; ', $day['good_hours']) }}
+                                                            @else
+                                                                <span class="text-muted">Không có</span>
+                                                            @endif
+                                                        </td>
+                                                    </tr>
+                                                @empty
+                                                    <tr>
+                                                        <td colspan="5" class="text-center p-4">
+                                                            <p class="mb-0">Trong khoảng thời gian bạn chọn của năm nay,
+                                                                không tìm thấy ngày nào thực sự tốt để tiến hành xây dựng.
+                                                            </p>
+                                                            <small>Bạn có thể thử mở rộng khoảng thời gian tìm kiếm.</small>
+                                                        </td>
+                                                    </tr>
+                                                @endforelse
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                @endif
 
                             </div>
                         @endforeach
