@@ -19,6 +19,11 @@ use App\Http\Controllers\PhongSinhController;
 use App\Http\Controllers\ThiCuPhongVanController;
 use App\Http\Controllers\TranTrachController;
 use App\Http\Controllers\WeddingController;
+use App\Http\Controllers\XemHuongBanLamViecController;
+use App\Http\Controllers\XemHuongBanThoController;
+use App\Http\Controllers\XemHuongBepController;
+use App\Http\Controllers\XemHuongNhaController;
+use App\Http\Controllers\XemHuongPhongNguController;
 use App\Http\Controllers\XuatHanhController;
 use Illuminate\Support\Facades\Route;
 
@@ -42,7 +47,7 @@ Route::match(['get', 'post'], '/am-sang-duong', [LunarController::class, 'conver
 
 Route::get('/lich/nam/{nam}', [LichController::class, 'nam'])->name('lich.nam');
 Route::get('/lich/nam/{nam}/thang/{thang}', [LichController::class, 'thang'])->name('lich.thang');
-Route::get('/am-lich/nam/{nam}/thang/{thang}/ngay/{ngay}', [LichController::class, 'ngay'])->name('lich.nam.ngay');
+Route::get('/am-lich/nam/{nam}/thang/{thang}/ngay/{ngay}', [LunarController::class, 'ngay'])->name('lich.nam.ngay');
 
 
 // Đổi tên route cho phù hợp hơn
@@ -120,3 +125,23 @@ Route::post('/xem-ngay-nhan-cong-viec-moi', [NhanCongViecMoiController::class, '
 // === ROUTE Xem Ngày làm giấy tờ - cccd, hộ chiếu ===
 Route::get('/xem-ngay-lam-giay-to', [GiayToController::class, 'showForm'])->name('giay-to.form');
 Route::post('/xem-ngay-lam-giay-to', [GiayToController::class, 'checkDays'])->name('giay-to.check');
+
+// === ROUTE Xem hướng ban thờ ===
+Route::get('/xem-huong-ban-tho', [XemHuongBanThoController::class, 'showForm'])->name('huong-ban-tho.form');
+Route::post('/xem-huong-ban-tho', [XemHuongBanThoController::class, 'check'])->name('huong-ban-tho.check');
+
+// === ROUTE Xem hướng nhà ===
+Route::get('/xem-huong-nha', [XemHuongNhaController::class, 'showForm'])->name('huong-nha.form');
+Route::post('/xem-huong-nha', [XemHuongNhaController::class, 'check'])->name('huong-nha.check');
+
+// === ROUTE Xem hướng bếp ===
+Route::get('/xem-huong-bep', [XemHuongBepController::class, 'showForm'])->name('huong-bep.form');
+Route::post('/xem-huong-bep', [XemHuongBepController::class, 'check'])->name('huong-bep.check');
+
+// === ROUTE Xem hướng phòng ngủ ===
+Route::get('/xem-huong-phong-ngu', [XemHuongPhongNguController::class, 'showForm'])->name('huong-phong-ngu.form');
+Route::post('/xem-huong-phong-ngu', [XemHuongPhongNguController::class, 'check'])->name('huong-phong-ngu.check');
+
+// === ROUTE Xem hướng bàn làm việc ===
+Route::get('/xem-huong-ban-lam-viec', [XemHuongBanLamViecController::class, 'showForm'])->name('huong-ban-lam-viec.form');
+Route::post('/xem-huong-ban-lam-viec', [XemHuongBanLamViecController::class, 'check'])->name('huong-ban-lam-viec.check');

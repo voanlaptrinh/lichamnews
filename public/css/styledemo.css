@@ -330,5 +330,36 @@ a{
 .calendar-table td:hover{
     background: rgb(240, 148, 212);
 }
+.header-calendar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
+            /* Thêm padding cho đẹp */
+            font-size: 1.2rem;
+            /* Tăng kích thước font */
+            font-weight: bold;
+            color: #fff;
+            background-color: #8b4513;
+            /* Màu nền ví dụ */
+        }
 
+        .header-calendar-title {
+            flex-grow: 1;
+            text-align: center;
+        }
+
+        .nav-arrow {
+            color: #161414;
+            text-decoration: none;
+            font-size: 1.5rem;
+            padding: 0 10px;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .nav-arrow:hover {
+            color: #ffd700;
+            /* Màu vàng khi hover */
+            transform: scale(1.2);
+        }
 /* ──────────────────────────────────────────────────── */

@@ -1,5 +1,6 @@
 @extends('welcome')
 @section('content')
+ 
     <div class="container mt-5">
         <div class="row g-5">
 
@@ -42,18 +43,30 @@
                     <p><b>Giờ hoàng đạo</b> {{ $gioHd }}</p>
                 @endif
             </div>
+            {{-- Dán đoạn này để thay thế cho div class="col-lg-6" của bạn --}}
             <div class="col-lg-6">
                 <div class="calendar-container">
 
+                    {{-- SỬA ĐỔI BẮT ĐẦU TỪ ĐÂY --}}
                     <div class="header-calendar">
-                        Tháng {{ $mm }} năm {{ $yy }}
+
+                        <span class="header-calendar-title">
+                            Tháng {{ $mm }} năm {{ $yy }}
+                        </span>
                     </div>
+                    {{-- SỬA ĐỔI KẾT THÚC TẠI ĐÂY --}}
+
                     <div class="body-calendar">
                         <div class="p-2">
                             <div class="day-calendar">
+                               <div class="d-flex align-items-center justify-content-between" >
+                                 <a href="#" id="prev-day-btn" class="nav-arrow" title="Ngày hôm trước"><i class="bi bi-chevron-left"></i></a>
                                 <div class="day-name">
                                     {{ $dd }}
                                 </div>
+                                <a href="#" id="next-day-btn" class="nav-arrow" title="Ngày hôm sau"><i class="bi bi-chevron-right"></i></a>
+                               </div>
+
                             </div>
                             <div class="weekday-calendar">
                                 <div class="weekday-name">{{ $weekday }}</div>
@@ -67,7 +80,7 @@
                                                 <img src="{{ $getThongTinCanChiVaIcon['icon_nam'] }}" alt="Chi Icon"
                                                     width="40" height="23">
                                             @else
-                                                <p>Không tìm thấy icon tương ứng.</p>
+                                                <p>Không tìm thấy icon.</p>
                                             @endif
                                         </span> Năm {{ $getThongTinCanChiVaIcon['can_chi_nam'] }}
                                     </div>
@@ -77,7 +90,7 @@
                                                 <img src="{{ $getThongTinCanChiVaIcon['icon_thang'] }}" alt="Chi Icon"
                                                     width="40" height="23">
                                             @else
-                                                <p>Không tìm thấy icon tương ứng.</p>
+                                                <p>Không tìm thấy icon.</p>
                                             @endif
                                         </span>
                                         Tháng {{ $getThongTinCanChiVaIcon['can_chi_thang'] }}
@@ -88,7 +101,7 @@
                                                 <img src="{{ $getThongTinCanChiVaIcon['icon_ngay'] }}" alt="Chi Icon"
                                                     width="40" height="23">
                                             @else
-                                                <p>Không tìm thấy icon tương ứng.</p>
+                                                <p>Không tìm thấy icon.</p>
                                             @endif
                                         </span> Ngày {{ $canChi }}
                                     </div>
@@ -102,8 +115,7 @@
                                 </div>
                             </div>
                             <div class="am-lich-tietkhi">
-
-                                <span>Tiết khí: {{ $tietkhi['icon'] }} <b
+                                <span>Tiết khí: {!! $tietkhi['icon'] !!} <b
                                         class="text-uppercase">{{ $tietkhi['tiet_khi'] }}</b></span>
                             </div>
                             <div class="pt-3">
@@ -113,8 +125,6 @@
                             </div>
                         </div>
                     </div>
-
-
                 </div>
             </div>
         </div>
@@ -462,4 +472,57 @@
         </table> --}}
 
     </div>
+    @push('scripts')
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                // Lấy ngày tháng năm hiện tại từ Blade
+                const currentYear = {{ $yy }};
+                const currentMonth = {{ $mm }}; // Tháng từ PHP (1-12)
+                const currentDay = {{ $dd }};
+
+                // Tạo đối tượng Date trong JavaScript
+                // Lưu ý: Tháng trong JS là 0-11, nên phải trừ đi 1
+                const currentDate = new Date(currentYear, currentMonth - 1, currentDay);
+
+                // Lấy các element nút bấm
+                const prevBtn = document.getElementById('prev-day-btn');
+                const nextBtn = document.getElementById('next-day-btn');
+
+                // --- Xử lý nút "Ngày trước" ---
+                // Chỉ thực hiện nếu nút tồn tại
+                if (prevBtn) {
+                    // Tạo một bản sao của ngày hiện tại để tính toán
+                    const prevDate = new Date(currentDate);
+                    // Đặt ngày thành ngày hôm trước, JS sẽ tự xử lý việc chuyển tháng/năm
+                    prevDate.setDate(currentDate.getDate() - 1);
+
+                    // Lấy các thành phần của ngày mới (không thêm số 0)
+                    const prevYear = prevDate.getFullYear();
+                    const prevMonth = prevDate.getMonth() + 1; // +1 để quay lại định dạng 1-12
+                    const prevDay = prevDate.getDate();
+
+                    // Gán URL mới cho nút
+                    prevBtn.href = `/am-lich/nam/${prevYear}/thang/${prevMonth}/ngay/${prevDay}`;
+                }
+
+                // --- Xử lý nút "Ngày sau" ---
+                // Chỉ thực hiện nếu nút tồn tại
+                if (nextBtn) {
+                    // Tạo một bản sao của ngày hiện tại để tính toán
+                    const nextDate = new Date(currentDate);
+                    // Đặt ngày thành ngày hôm sau
+                    nextDate.setDate(currentDate.getDate() + 1);
+
+                    // Lấy các thành phần của ngày mới (không thêm số 0)
+                    const nextYear = nextDate.getFullYear();
+                    const nextMonth = nextDate.getMonth() + 1; // +1 để quay lại định dạng 1-12
+                    const nextDay = nextDate.getDate();
+
+                    // Gán URL mới cho nút
+                    nextBtn.href = `/am-lich/nam/${nextYear}/thang/${nextMonth}/ngay/${nextDay}`;
+                }
+            });
+        </script>
+    @endpush
+
 @endsection

@@ -109,6 +109,7 @@
                                                     {{ $data['groom_analysis']['tam_tai']['message'] }}
                                                 </li>
                                             </ul>
+                                            <p>Mệnh: {{$groomInfo['menh']['hanh']}} ({{$groomInfo['menh']['napAm']}})</p>
                                             <p>Kết luận {!! $data['groom_analysis']['description'] !!}</p>
                                         </div>
                                     </div>
@@ -133,6 +134,7 @@
                                                     {{ $data['bride_analysis']['tam_tai']['message'] }}
                                                 </li>
                                             </ul>
+                                             <p>Mệnh: {{$brideInfo['menh']['hanh']}} ({{$brideInfo['menh']['napAm']}})</p>
                                             <p>Kết luận {!! $data['bride_analysis']['description'] !!}</p>
                                         </div>
                                     </div>

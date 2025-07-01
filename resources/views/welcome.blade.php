@@ -8,7 +8,7 @@
     <!-- Các link CSS nếu cần, ví dụ: Bootstrap hoặc custom CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/airbnb.css"> {{-- hoặc dark, material_red --}}
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="{{ asset('/css/styledemo.css') }}">
 </head>
 
@@ -16,25 +16,50 @@
     <div class="container">
         <header class="d-flex justify-content-center py-3" style=" background: papayawhip">
             <ul class="nav nav-pills">
-                <li class="nav-item"><a href="{{route('home')}}" class="nav-link active" aria-current="page">Trang chủ</a></li>
+                <li class="nav-item"><a href="{{ route('home') }}" class="nav-link active" aria-current="page">Trang
+                        chủ</a></li>
                 <li class="nav-item"><a href="{{ route('astrology.form') }}" class="nav-link">Xem tuổi cưới hỏi</a></li>
                 <li class="nav-item"><a href="{{ route('buy-house.form') }}" class="nav-link">Xem ngày mua nhà</a></li>
                 <li class="nav-item"><a href="{{ route('breaking.form') }}" class="nav-link">Xem ngày động thổ</a></li>
-                <li class="nav-item"><a href="{{ route('nhap-trach.form') }}" class="nav-link">Xem ngày nhập trạch</a> </li>
-                <li class="nav-item"><a href="{{ route('xuat-hanh.form') }}" class="nav-link">Xem ngày xuất hành</a> </li>
-                <li class="nav-item"><a href="{{ route('khai-truong.form') }}" class="nav-link">Xem ngày khai trương</a> </li>
-                <li class="nav-item"><a href="{{ route('ky-hop-dong.form') }}" class="nav-link">Xem ngày hý hợp đồng</a></li>
+                <li class="nav-item"><a href="{{ route('nhap-trach.form') }}" class="nav-link">Xem ngày nhập trạch</a>
+                </li>
+                <li class="nav-item"><a href="{{ route('xuat-hanh.form') }}" class="nav-link">Xem ngày xuất hành</a>
+                </li>
+                <li class="nav-item"><a href="{{ route('khai-truong.form') }}" class="nav-link">Xem ngày khai trương</a>
+                </li>
+                <li class="nav-item"><a href="{{ route('ky-hop-dong.form') }}" class="nav-link">Xem ngày hý hợp đồng</a>
+                </li>
                 <li class="nav-item"><a href="{{ route('cai-tang.form') }}" class="nav-link">Xem ngày cải táng</a></li>
-                <li class="nav-item"><a href="{{ route('ban-tho.form') }}" class="nav-link">Xem ngày Đổi ban thờ</a> </li>
-                <li class="nav-item"><a href="{{ route('lap-ban-tho.form') }}" class="nav-link">Xem ngày Lập ban thờ</a> </li>
-                <li class="nav-item"><a href="{{ route('giai-han.form') }}" class="nav-link">Xem Ngày Cúng sao - giải hạn</a> </li>
-                <li class="nav-item"><a href="{{ route('tran-trach.form') }}" class="nav-link">Xem Ngày yểm trấn - trấn trạch</a> </li>
-                <li class="nav-item"><a href="{{ route('phong-sinh.form') }}" class="nav-link">Xem Ngày Cầu an - làm phúc - phóng sinh</a> </li>
-                <li class="nav-item"><a href="{{ route('mua-xe.form') }}" class="nav-link">Xem ngày mua xe - nhận xe mới</a> </li>
-                <li class="nav-item"><a href="{{ route('du-lich.form') }}" class="nav-link">Xem ngày xuất hành - du lịch - công tác</a> </li>
-                <li class="nav-item"><a href="{{ route('thi-cu.form') }}" class="nav-link">Xem ngày thi cử phỏng vấn</a> </li>
-                <li class="nav-item"><a href="{{ route('cong-viec-moi.form') }}" class="nav-link">Xem Ngày Nhận công việc mới</a> </li>
-                <li class="nav-item"><a href="{{ route('giay-to.form') }}" class="nav-link">Xem ngày làm giấy tờ - cccd, hộ chiếu  </a> </li>
+                <li class="nav-item"><a href="{{ route('ban-tho.form') }}" class="nav-link">Xem ngày Đổi ban thờ</a>
+                </li>
+                <li class="nav-item"><a href="{{ route('lap-ban-tho.form') }}" class="nav-link">Xem ngày Lập ban
+                        thờ</a> </li>
+                <li class="nav-item"><a href="{{ route('giai-han.form') }}" class="nav-link">Xem Ngày Cúng sao - giải
+                        hạn</a> </li>
+                <li class="nav-item"><a href="{{ route('tran-trach.form') }}" class="nav-link">Xem Ngày yểm trấn - trấn
+                        trạch</a> </li>
+                <li class="nav-item"><a href="{{ route('phong-sinh.form') }}" class="nav-link">Xem Ngày Cầu an - làm
+                        phúc - phóng sinh</a> </li>
+                <li class="nav-item"><a href="{{ route('mua-xe.form') }}" class="nav-link">Xem ngày mua xe - nhận xe
+                        mới</a> </li>
+                <li class="nav-item"><a href="{{ route('du-lich.form') }}" class="nav-link">Xem ngày xuất hành - du
+                        lịch - công tác</a> </li>
+                <li class="nav-item"><a href="{{ route('thi-cu.form') }}" class="nav-link">Xem ngày thi cử phỏng
+                        vấn</a> </li>
+                <li class="nav-item"><a href="{{ route('cong-viec-moi.form') }}" class="nav-link">Xem Ngày Nhận công
+                        việc mới</a> </li>
+                <li class="nav-item"><a href="{{ route('giay-to.form') }}" class="nav-link">Xem ngày làm giấy tờ -
+                        cccd, hộ chiếu </a> </li>
+                <li class="nav-item"><a href="{{ route('huong-ban-tho.form') }}" class="nav-link">Xem Hướng ban thờ
+                    </a> </li>
+                <li class="nav-item"><a href="{{ route('huong-nha.form') }}" class="nav-link">Xem Hướng nhà hợp
+                        tuổi</a> </li>
+                <li class="nav-item"><a href="{{ route('huong-bep.form') }}" class="nav-link">Xem Hướng bếp hợp
+                        tuổi</a> </li>
+                <li class="nav-item"><a href="{{ route('huong-phong-ngu.form') }}" class="nav-link">Xem Hướng phòng ngủ
+                        hợp tuổi</a> </li>
+                <li class="nav-item"><a href="{{ route('huong-ban-lam-viec.form') }}" class="nav-link">Xem Hướng Bàn
+                        làm việc</a> </li>
             </ul>
         </header>
     </div>
@@ -47,9 +72,16 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/vn.js"></script>
 
 
+    @stack('scripts')
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
+
+
+
+
+
+
 
             const maxDate = new Date(new Date().getFullYear(), 11, 31); // 31/12 năm nay
             function rangeShortcutPlugin() {
@@ -128,6 +160,13 @@
                 locale: "vn",
 
             });
+            flatpickr(".datehome", {
+                altFormat: "d/m/Y", // Định dạng cho người dùng xem
+                dateFormat: "d/m/Y", // ĐỊNH DẠNG GỬI LÊN SERVER -> Đây là cái quyết định
+                maxDate: maxDate,
+                locale: "vn",
+
+            });
 
             const overallMinDate = new Date(new Date().getFullYear() - 10, 0, 1);
             const overallMaxDate = new Date(new Date().getFullYear() + 10, 11, 31);
@@ -182,66 +221,85 @@
 
             const duongInput = document.getElementById('duong_date');
             const amInput = document.getElementById('am_date');
-            const cdateInput = document.getElementById('cdate');
-            const csrf = document.querySelector('input[name="_token"]').value;
+            const cdateInput = document.getElementById('cdate'); // Input ẩn để submit
+            const form = document.getElementById('convertForm');
+            // Lấy CSRF token từ form, an toàn hơn
+            const csrf = form.querySelector('input[name="_token"]').value;
+
+            // Hàm helper để tránh lặp code
+            async function updateDate(sourceElement, targetElement, apiUrl) {
+                const dateValue = sourceElement.value;
+
+                // Nếu người dùng xóa ngày, thì cũng xóa ngày ở ô còn lại
+                if (!dateValue) {
+                    targetElement.value = '';
+                    // Nếu xóa ngày dương, xóa luôn cdate
+                    if (sourceElement.id === 'duong_date') {
+                        cdateInput.value = '';
+                    }
+                    return;
+                }
+
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json',
+                            'X-CSRF-TOKEN': csrf
+                        },
+                        body: JSON.stringify({
+                            date: dateValue
+                        })
+                    });
+
+                    if (!response.ok) {
+                        // Xử lý lỗi từ server, ví dụ hiển thị thông báo
+                        console.error('Lỗi server:', await response.text());
+                        return;
+                    }
+
+                    const data = await response.json();
+
+                    if (data.date) {
+                        targetElement.value = data.date;
+
+                        // Luôn cập nhật input ẩn `cdate` với giá trị DƯƠNG LỊCH
+                        if (sourceElement.id === 'duong_date') {
+                            cdateInput.value = sourceElement.value; // Là chính nó
+                        } else { // Nếu nguồn là ngày âm, thì `cdate` là kết quả chuyển đổi
+                            cdateInput.value = data.date;
+                        }
+                    } else if (data.error) {
+                        console.error('Lỗi chuyển đổi:', data.error);
+                    }
+                } catch (error) {
+                    console.error('Lỗi fetch:', error);
+                }
+            }
 
             // Sự kiện đổi ngày dương → âm
             if (duongInput) {
-                duongInput.addEventListener('change', async () => {
-                    const duongDate = duongInput.value;
-                    if (duongDate) {
-                        const res = await fetch('/api/convert-to-am', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': csrf
-                            },
-                            body: JSON.stringify({
-                                date: duongDate
-                            })
-                        });
-
-                        const data = await res.json();
-                        if (data.date) {
-                            amInput.value = data.date;
-                            cdateInput.value = duongDate;
-                        }
-                    }
+                duongInput.addEventListener('change', () => {
+                    // Sử dụng route() của Laravel để lấy URL an toàn
+                    updateDate(duongInput, amInput, "{{ route('api.to.am') }}");
                 });
             }
 
             // Sự kiện đổi ngày âm → dương
             if (amInput) {
-                amInput.addEventListener('change', async () => {
-                    const amDate = amInput.value;
-                    if (amDate) {
-                        const res = await fetch('/api/convert-to-duong', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': csrf
-                            },
-                            body: JSON.stringify({
-                                date: amDate
-                            })
-                        });
-
-                        const data = await res.json();
-                        if (data.date) {
-                            duongInput.value = data.date;
-                            cdateInput.value = data.date;
-                        }
-                    }
+                amInput.addEventListener('change', () => {
+                    updateDate(amInput, duongInput, "{{ route('api.to.duong') }}");
                 });
             }
 
             // Kiểm tra trước khi submit form
-            const form = document.getElementById('convertForm');
             if (form) {
                 form.addEventListener('submit', (e) => {
+                    // Chỉ cần kiểm tra `cdate` vì nó luôn là ngày dương cuối cùng
                     if (!cdateInput.value) {
-                        e.preventDefault();
-                        alert("Vui lòng chọn ngày dương hoặc ngày âm.");
+                        e.preventDefault(); // Ngăn form submit
+                        alert("Vui lòng chọn ngày để xem chi tiết.");
                     }
                 });
             }
