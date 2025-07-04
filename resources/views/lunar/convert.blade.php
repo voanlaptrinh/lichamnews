@@ -1,7 +1,7 @@
 @extends('welcome')
 @section('content')
- 
-    <div class="container mt-5">
+
+    <div class=" mt-5">
         <div class="row g-5">
 
 
@@ -50,26 +50,49 @@
                     {{-- SỬA ĐỔI BẮT ĐẦU TỪ ĐÂY --}}
                     <div class="header-calendar">
 
+                        <a href="{{ route('lich.thang', ['nam' => $prevYear, 'thang' => $prevMonth]) }}" class="nav-arrow"
+                            title="Tháng trước">
+                            <i class="bi bi-chevron-left"></i>
+                        </a>
+
+                        {{-- HIỂN THỊ THÁNG/NĂM HIỆN TẠI --}}
                         <span class="header-calendar-title">
                             Tháng {{ $mm }} năm {{ $yy }}
                         </span>
+
+                        {{-- NÚT THÁNG SAU --}}
+                        <a href="{{ route('lich.thang', ['nam' => $nextYear, 'thang' => $nextMonth]) }}" class="nav-arrow"
+                            title="Tháng sau">
+                            <i class="bi bi-chevron-right"></i>
+                        </a>
+
                     </div>
                     {{-- SỬA ĐỔI KẾT THÚC TẠI ĐÂY --}}
 
                     <div class="body-calendar">
                         <div class="p-2">
                             <div class="day-calendar">
-                               <div class="d-flex align-items-center justify-content-between" >
-                                 <a href="#" id="prev-day-btn" class="nav-arrow" title="Ngày hôm trước"><i class="bi bi-chevron-left"></i></a>
-                                <div class="day-name">
-                                    {{ $dd }}
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <a href="#" id="prev-day-btn" class="nav-arrow" title="Ngày hôm trước"><i
+                                            class="bi bi-chevron-left"></i></a>
+                                    <div class="day-name">
+                                        {{ $dd }}
+                                    </div>
+                                    <a href="#" id="next-day-btn" class="nav-arrow" title="Ngày hôm sau"><i
+                                            class="bi bi-chevron-right"></i></a>
                                 </div>
-                                <a href="#" id="next-day-btn" class="nav-arrow" title="Ngày hôm sau"><i class="bi bi-chevron-right"></i></a>
-                               </div>
 
                             </div>
                             <div class="weekday-calendar">
                                 <div class="weekday-name">{{ $weekday }}</div>
+
+                                @foreach ($suKienHomNay as $suKien)
+                                    <div class="text-center">
+                                        <div class="su-kien-info">
+                                            <strong>{{ $suKien['ten_su_kien'] ?? $suKien }}</strong>
+                                        </div>
+                                    </div>
+                                @endforeach
                             </div>
                             <hr>
                             <div class="d-flex justify-content-between align-items-center am-lich-header">
@@ -453,7 +476,7 @@
             </div>
         </div>
 
-        {{-- <table class="calendar-table">
+        <table class="calendar-table">
             <thead>
                 <tr>
                     <th><span class="title-lich-pc">Thứ hai</span> <span class="title-lich-mobie">Th 2</span></th>
@@ -469,7 +492,7 @@
             <tbody>
                 {!! $table_html !!}
             </tbody>
-        </table> --}}
+        </table>
 
     </div>
     @push('scripts')

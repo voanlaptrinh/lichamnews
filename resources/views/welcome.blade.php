@@ -18,53 +18,130 @@
             <ul class="nav nav-pills">
                 <li class="nav-item"><a href="{{ route('home') }}" class="nav-link active" aria-current="page">Trang
                         chủ</a></li>
-                <li class="nav-item"><a href="{{ route('astrology.form') }}" class="nav-link">Xem tuổi cưới hỏi</a></li>
-                <li class="nav-item"><a href="{{ route('buy-house.form') }}" class="nav-link">Xem ngày mua nhà</a></li>
-                <li class="nav-item"><a href="{{ route('breaking.form') }}" class="nav-link">Xem ngày động thổ</a></li>
-                <li class="nav-item"><a href="{{ route('nhap-trach.form') }}" class="nav-link">Xem ngày nhập trạch</a>
+                <li class="nav-item"><a href="{{ route('horoscope.index') }}" class="nav-link text-dark" aria-current="page">Cung
+                        hoàng đạo</a></li>
+                <li>
+                    <div class="dropdown">
+                        <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Lịch Tháng
+                        </button>
+                        <ul class="dropdown-menu">
+                            @php($currentYear = date('Y'))
+                            @for ($month = 1; $month <= 12; $month++)
+                                <li>
+                                    <a class="dropdown-item"
+                                        href="{{ route('lich.thang', ['nam' => $currentYear, 'thang' => $month]) }}">Tháng
+                                        {{ $month }}</a>
+                                </li>
+                            @endfor
+
+                        </ul>
+                    </div>
+
                 </li>
-                <li class="nav-item"><a href="{{ route('xuat-hanh.form') }}" class="nav-link">Xem ngày xuất hành</a>
+                <li>
+                    <div class="dropdown">
+                        <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Lịch năm
+                        </button>
+                        <ul class="dropdown-menu">
+                            @php($currentYearHeader = date('Y'))
+                            @php($startYearHeader = $currentYearHeader - 1)
+                            @php($endYearHeader = $currentYearHeader + 10)
+
+                            @for ($year = $startYearHeader; $year <= $endYearHeader; $year++)
+                                <li>
+                                    <a href="{{ route('lich.nam', ['nam' => $year]) }}">
+                                        Xem lịch năm {{ $year }}
+                                    </a>
+                                </li>
+                            @endfor
+                        </ul>
+                    </div>
+
                 </li>
-                <li class="nav-item"><a href="{{ route('khai-truong.form') }}" class="nav-link">Xem ngày khai trương</a>
-                </li>
-                <li class="nav-item"><a href="{{ route('ky-hop-dong.form') }}" class="nav-link">Xem ngày hý hợp đồng</a>
-                </li>
-                <li class="nav-item"><a href="{{ route('cai-tang.form') }}" class="nav-link">Xem ngày cải táng</a></li>
-                <li class="nav-item"><a href="{{ route('ban-tho.form') }}" class="nav-link">Xem ngày Đổi ban thờ</a>
-                </li>
-                <li class="nav-item"><a href="{{ route('lap-ban-tho.form') }}" class="nav-link">Xem ngày Lập ban
-                        thờ</a> </li>
-                <li class="nav-item"><a href="{{ route('giai-han.form') }}" class="nav-link">Xem Ngày Cúng sao - giải
-                        hạn</a> </li>
-                <li class="nav-item"><a href="{{ route('tran-trach.form') }}" class="nav-link">Xem Ngày yểm trấn - trấn
-                        trạch</a> </li>
-                <li class="nav-item"><a href="{{ route('phong-sinh.form') }}" class="nav-link">Xem Ngày Cầu an - làm
-                        phúc - phóng sinh</a> </li>
-                <li class="nav-item"><a href="{{ route('mua-xe.form') }}" class="nav-link">Xem ngày mua xe - nhận xe
-                        mới</a> </li>
-                <li class="nav-item"><a href="{{ route('du-lich.form') }}" class="nav-link">Xem ngày xuất hành - du
-                        lịch - công tác</a> </li>
-                <li class="nav-item"><a href="{{ route('thi-cu.form') }}" class="nav-link">Xem ngày thi cử phỏng
-                        vấn</a> </li>
-                <li class="nav-item"><a href="{{ route('cong-viec-moi.form') }}" class="nav-link">Xem Ngày Nhận công
-                        việc mới</a> </li>
-                <li class="nav-item"><a href="{{ route('giay-to.form') }}" class="nav-link">Xem ngày làm giấy tờ -
-                        cccd, hộ chiếu </a> </li>
-                <li class="nav-item"><a href="{{ route('huong-ban-tho.form') }}" class="nav-link">Xem Hướng ban thờ
-                    </a> </li>
-                <li class="nav-item"><a href="{{ route('huong-nha.form') }}" class="nav-link">Xem Hướng nhà hợp
-                        tuổi</a> </li>
-                <li class="nav-item"><a href="{{ route('huong-bep.form') }}" class="nav-link">Xem Hướng bếp hợp
-                        tuổi</a> </li>
-                <li class="nav-item"><a href="{{ route('huong-phong-ngu.form') }}" class="nav-link">Xem Hướng phòng ngủ
-                        hợp tuổi</a> </li>
-                <li class="nav-item"><a href="{{ route('huong-ban-lam-viec.form') }}" class="nav-link">Xem Hướng Bàn
-                        làm việc</a> </li>
+                <li class="nav-item"><a href="{{ route('van-khan.index') }}" class="nav-link text-dark" aria-current="page">Văn
+                        khấn</a></li>
+                <li class="nav-item"><a href="{{ route('thuoc-lo-ban.index') }}" class="nav-link text-dark" aria-current="page">Thước lỗ ban</a></li>
             </ul>
         </header>
     </div>
 
-    @yield('content')
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                @yield('content')
+            </div>
+            <div class="col-lg-3">
+                <ul class="">
+
+                    <li class="nav-item"><a href="{{ route('astrology.form') }}" class="nav-link">Xem tuổi cưới hỏi</a>
+                    </li>
+                    <li class="nav-item"><a href="{{ route('buy-house.form') }}" class="nav-link">Xem ngày mua nhà</a>
+                    </li>
+                    <li class="nav-item"><a href="{{ route('breaking.form') }}" class="nav-link">Xem ngày động thổ</a>
+                    </li>
+                    <li class="nav-item"><a href="{{ route('nhap-trach.form') }}" class="nav-link">Xem ngày nhập
+                            trạch</a>
+                    </li>
+                    <li class="nav-item"><a href="{{ route('xuat-hanh.form') }}" class="nav-link">Xem ngày xuất
+                            hành</a>
+                    </li>
+                    <li class="nav-item"><a href="{{ route('khai-truong.form') }}" class="nav-link">Xem ngày khai
+                            trương</a>
+                    </li>
+                    <li class="nav-item"><a href="{{ route('ky-hop-dong.form') }}" class="nav-link">Xem ngày hý hợp
+                            đồng</a>
+                    </li>
+                    <li class="nav-item"><a href="{{ route('cai-tang.form') }}" class="nav-link">Xem ngày cải táng</a>
+                    </li>
+                    <li class="nav-item"><a href="{{ route('ban-tho.form') }}" class="nav-link">Xem ngày Đổi ban
+                            thờ</a>
+                    </li>
+                    <li class="nav-item"><a href="{{ route('lap-ban-tho.form') }}" class="nav-link">Xem ngày Lập ban
+                            thờ</a> </li>
+                    <li class="nav-item"><a href="{{ route('giai-han.form') }}" class="nav-link">Xem Ngày Cúng sao -
+                            giải
+                            hạn</a> </li>
+                    <li class="nav-item"><a href="{{ route('tran-trach.form') }}" class="nav-link">Xem Ngày yểm trấn -
+                            trấn
+                            trạch</a> </li>
+                    <li class="nav-item"><a href="{{ route('phong-sinh.form') }}" class="nav-link">Xem Ngày Cầu an -
+                            làm
+                            phúc - phóng sinh</a> </li>
+                    <li class="nav-item"><a href="{{ route('mua-xe.form') }}" class="nav-link">Xem ngày mua xe - nhận
+                            xe
+                            mới</a> </li>
+                    <li class="nav-item"><a href="{{ route('du-lich.form') }}" class="nav-link">Xem ngày xuất hành - du
+                            lịch - công tác</a> </li>
+                    <li class="nav-item"><a href="{{ route('thi-cu.form') }}" class="nav-link">Xem ngày thi cử phỏng
+                            vấn</a> </li>
+                    <li class="nav-item"><a href="{{ route('cong-viec-moi.form') }}" class="nav-link">Xem Ngày Nhận
+                            công
+                            việc mới</a> </li>
+                    <li class="nav-item"><a href="{{ route('giay-to.form') }}" class="nav-link">Xem ngày làm giấy tờ
+                            -
+                            cccd, hộ chiếu </a> </li>
+                    <li class="nav-item"><a href="{{ route('huong-ban-tho.form') }}" class="nav-link">Xem Hướng ban
+                            thờ
+                        </a> </li>
+                    <li class="nav-item"><a href="{{ route('huong-nha.form') }}" class="nav-link">Xem Hướng nhà hợp
+                            tuổi</a> </li>
+                    <li class="nav-item"><a href="{{ route('huong-bep.form') }}" class="nav-link">Xem Hướng bếp hợp
+                            tuổi</a> </li>
+                    <li class="nav-item"><a href="{{ route('huong-phong-ngu.form') }}" class="nav-link">Xem Hướng
+                            phòng
+                            ngủ
+                            hợp tuổi</a> </li>
+                    <li class="nav-item"><a href="{{ route('huong-ban-lam-viec.form') }}" class="nav-link">Xem Hướng
+                            Bàn
+                            làm việc</a> </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 
     <!-- JS của Bootstrap (nếu sử dụng Bootstrap) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -224,7 +301,7 @@
             const cdateInput = document.getElementById('cdate'); // Input ẩn để submit
             const form = document.getElementById('convertForm');
             // Lấy CSRF token từ form, an toàn hơn
-            const csrf = form.querySelector('input[name="_token"]').value;
+            // const csrf = form.querySelector('input[name="_token"]').value;
 
             // Hàm helper để tránh lặp code
             async function updateDate(sourceElement, targetElement, apiUrl) {
@@ -246,7 +323,6 @@
                         headers: {
                             'Content-Type': 'application/json',
                             'Accept': 'application/json',
-                            'X-CSRF-TOKEN': csrf
                         },
                         body: JSON.stringify({
                             date: dateValue

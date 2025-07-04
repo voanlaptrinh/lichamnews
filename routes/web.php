@@ -7,6 +7,7 @@ use App\Http\Controllers\DongThoController;
 use App\Http\Controllers\DuLichCongTacController;
 use App\Http\Controllers\GiaiHanController;
 use App\Http\Controllers\GiayToController;
+use App\Http\Controllers\HoroscopeController;
 use App\Http\Controllers\KhaiTruongController;
 use App\Http\Controllers\KyHopDongController;
 use App\Http\Controllers\LapBanThoController;
@@ -17,7 +18,9 @@ use App\Http\Controllers\NhanCongViecMoiController;
 use App\Http\Controllers\NhapTrachController;
 use App\Http\Controllers\PhongSinhController;
 use App\Http\Controllers\ThiCuPhongVanController;
+use App\Http\Controllers\ThuocLoBanController;
 use App\Http\Controllers\TranTrachController;
+use App\Http\Controllers\VanKhanController;
 use App\Http\Controllers\WeddingController;
 use App\Http\Controllers\XemHuongBanLamViecController;
 use App\Http\Controllers\XemHuongBanThoController;
@@ -145,3 +148,27 @@ Route::post('/xem-huong-phong-ngu', [XemHuongPhongNguController::class, 'check']
 // === ROUTE Xem hướng bàn làm việc ===
 Route::get('/xem-huong-ban-lam-viec', [XemHuongBanLamViecController::class, 'showForm'])->name('huong-ban-lam-viec.form');
 Route::post('/xem-huong-ban-lam-viec', [XemHuongBanLamViecController::class, 'check'])->name('huong-ban-lam-viec.check');
+
+// === ROUTE Xem 12 cung hoàng đạo ===
+
+// Route hiển thị danh sách 12 cung hoàng đạo
+Route::get('/cung-hoang-dao', [HoroscopeController::class, 'index'])->name('horoscope.index');
+// Route hiển thị trang chi tiết của một cung
+Route::get('/cung-hoang-dao/{sign}', [HoroscopeController::class, 'show'])->name('horoscope.show');
+// Route API nội bộ để JavaScript gọi đến, route này sẽ gọi API bên ngoài
+Route::get('/api/horoscope-data/{sign}/{type}', [HoroscopeController::class, 'fetchData'])->name('horoscope.data');
+
+//===End ROute xem 12 cung hoàng đạo ===
+
+
+
+Route::get('/thuoc-lo-ban', [ThuocLoBanController::class, 'index'])->name('thuoc-lo-ban.index');
+
+
+
+// Route để hiển thị danh sách
+Route::get('/van-khan', [VanKhanController::class, 'index'])->name('van-khan.index');
+
+// Route để hiển thị chi tiết, với {id} là tham số động
+Route::get('/van-khan/{id}', [VanKhanController::class, 'show'])->name('van-khan.show');
+

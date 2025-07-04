@@ -476,9 +476,9 @@ class LunarHelper
 
     // Phần ngày âm
     if ($lunarDate['day'] == 1) {
-        $am_html = '<span style="color: red">' . $lunarDate['day'] . '/' . $lunarDate['month'] . ($lunarDate['leap'] ? ' (nhuận)' : '') . '</span>';
+        $am_html = '<span style="color: red">' . $lunarDate['day'] . '/' . $lunarDate['month'] . ($lunarDate['leap'] ? ' <span class="nhuan-khong">(nhuận)</span>' : '') . '</span>';
     } elseif ($solarDate == 1) {
-        $am_html = $lunarDate['day'] . '/' . $lunarDate['month'] . ($lunarDate['leap'] ? ' (nhuận)' : '');
+        $am_html = $lunarDate['day'] . '/' . $lunarDate['month'] . ($lunarDate['leap'] ? ' <span class="nhuan-khong">(nhuận)</span>' : '');
     } else {
         $am_html = $lunarDate['day'];
     }
@@ -1064,4 +1064,55 @@ class LunarHelper
         // Sắp xếp lại chỉ số mảng
         return array_values($filteredHours);
     }
+
+
+
+
+     /**
+     * Lấy danh sách các sự kiện/ngày lễ lớn của Việt Nam theo LỊCH ÂM.
+     * Trả về một mảng các sự kiện cho tháng âm lịch được chỉ định.
+     *
+     * @param int $lunarMonth Tháng âm lịch (1-12)
+     * @param int $lunarYear Năm âm lịch
+     * @return array Mảng sự kiện, key là ngày âm, value là thông tin sự kiện
+     */
+    static function getVietnamLunarEvent2($lunarMonth, $lunarYear)
+    {
+        // Danh sách các sự kiện Âm lịch cố định trong năm
+        $events = [
+            // key là "ngày-tháng" âm lịch
+            '1-1'   => ['ten_su_kien' => 'Mùng 1 Tết Nguyên Đán', 'loai_su_kien' => 'le_lon', 'mo_ta' => 'Ngày đầu tiên của năm mới âm lịch, ngày lễ quan trọng nhất của Việt Nam.'],
+            '2-1'   => ['ten_su_kien' => 'Mùng 2 Tết Nguyên Đán', 'loai_su_kien' => 'le_lon', 'mo_ta' => 'Ngày thứ hai của Tết, thường dành để thăm hỏi bạn bè, họ hàng.'],
+            '3-1'   => ['ten_su_kien' => 'Mùng 3 Tết Nguyên Đán', 'loai_su_kien' => 'le_lon', 'mo_ta' => 'Ngày cuối cùng trong kỳ nghỉ Tết chính thức, hóa vàng và tiễn tổ tiên.'],
+            '15-1'  => ['ten_su_kien' => 'Tết Nguyên Tiêu (Rằm tháng Giêng)', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Đêm rằm đầu tiên của năm mới, còn được gọi là Lễ Thượng Nguyên.'],
+            '3-3'   => ['ten_su_kien' => 'Tết Hàn Thực', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Người Việt thường làm bánh trôi, bánh chay để dâng lên tổ tiên.'],
+            '10-3'  => ['ten_su_kien' => 'Giỗ Tổ Hùng Vương', 'loai_su_kien' => 'le_lon', 'mo_ta' => 'Tưởng nhớ công lao dựng nước của các Vua Hùng. Là ngày nghỉ lễ toàn quốc.'],
+            '15-4'  => ['ten_su_kien' => 'Lễ Phật Đản', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Kỷ niệm ngày sinh của Đức Phật Thích Ca Mâu Ni.'],
+            '5-5'   => ['ten_su_kien' => 'Tết Đoan Ngọ', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Còn gọi là Tết diệt sâu bọ, diễn ra vào giữa năm.'],
+            '15-7'  => ['ten_su_kien' => 'Lễ Vu Lan', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày lễ báo hiếu cha mẹ, một trong những ngày lễ chính của Phật giáo.'],
+            '15-8'  => ['ten_su_kien' => 'Tết Trung Thu', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Còn gọi là Tết trông Trăng hay Tết Đoàn viên, dành cho thiếu nhi.'],
+            '23-12' => ['ten_su_kien' => 'Ông Công, Ông Táo', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày các vị thần Bếp lên chầu trời để báo cáo mọi việc trong năm.'],
+        ];
+
+        $result = [];
+        
+        // Lấy các sự kiện cố định cho tháng được yêu cầu
+        foreach ($events as $key => $eventData) {
+            list($ed, $em) = explode('-', $key);
+            if ((int)$em == (int)$lunarMonth) {
+                $result[(int)$ed] = $eventData;
+            }
+        }
+
+   
+
+       
+
+        // Sắp xếp lại mảng kết quả theo key (ngày) để đảm bảo thứ tự
+        ksort($result);
+
+        return $result;
+    }
+
+    
 }

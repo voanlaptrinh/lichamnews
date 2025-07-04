@@ -30,7 +30,9 @@
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-body text-center">
+                                    <a href="{{route('lich.nam.ngay', ['nam' => $data_tot['yy'], 'thang' => $data_tot['mm'], 'ngay' => $data_tot['dd']])}}">
                                     Ngày {{ $data_tot['dd'] }} Tháng {{ $data_tot['mm'] }} Năm {{ $data_tot['yy'] }}
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -45,7 +47,9 @@
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-body text-center">
-                                    Ngày {{ $data_xau['dd'] }} Tháng {{ $data_xau['mm'] }} Năm {{ $data_xau['yy'] }}
+                                  <a href="{{route('lich.nam.ngay', ['nam' => $data_xau['yy'], 'thang' => $data_xau['mm'], 'ngay' => $data_xau['dd']])}}">
+                                      Ngày {{ $data_xau['dd'] }} Tháng {{ $data_xau['mm'] }} Năm {{ $data_xau['yy'] }}
+                                  </a>
                                 </div>
                             </div>
                         </div>
