@@ -109,7 +109,8 @@
                                                     {{ $data['groom_analysis']['tam_tai']['message'] }}
                                                 </li>
                                             </ul>
-                                            <p>Mệnh: {{$groomInfo['menh']['hanh']}} ({{$groomInfo['menh']['napAm']}})</p>
+                                            <p>Mệnh: {{ $groomInfo['menh']['hanh'] }} ({{ $groomInfo['menh']['napAm'] }})
+                                            </p>
                                             <p>Kết luận {!! $data['groom_analysis']['description'] !!}</p>
                                         </div>
                                     </div>
@@ -134,7 +135,8 @@
                                                     {{ $data['bride_analysis']['tam_tai']['message'] }}
                                                 </li>
                                             </ul>
-                                             <p>Mệnh: {{$brideInfo['menh']['hanh']}} ({{$brideInfo['menh']['napAm']}})</p>
+                                            <p>Mệnh: {{ $brideInfo['menh']['hanh'] }} ({{ $brideInfo['menh']['napAm'] }})
+                                            </p>
                                             <p>Kết luận {!! $data['bride_analysis']['description'] !!}</p>
                                         </div>
                                     </div>
@@ -172,7 +174,16 @@
                                                             <small>Thứ {{ $day['weekday_name'] }}</small>
                                                         </td>
                                                         <td>{{ $day['lunar_date_str'] }} <br>
-                                                            {{ $day['full_lunar_date_str'] }}
+                                                            {{ $day['full_lunar_date_str'] }} <br>
+                                                              <a href="{{ route('wedding.day.details', [
+                                                                    'date' => $day['date']->format('Y-m-d'),
+                                                                  
+                                                                    'groom_dob' => $groomInfo['dob']->format('Y-m-d'),
+                                                                    'bride_dob' => $brideInfo['dob']->format('Y-m-d'),
+                                                                ]) }}"
+                                                                    class="btn btn-sm btn-outline-primary" target="_blank">
+                                                                    Xem chi tiết
+                                                                </a>
                                                             <p>
                                                                 @if (!empty($day['good_hours']))
                                                                     <div class="mt-2">
@@ -190,7 +201,7 @@
                                                         <td>
                                                             <div class="fw-bold fs-5">
                                                                 {{ $day['groom_score']['percentage'] }}
-
+                                                              
 
 
                                                             </div>
@@ -199,7 +210,11 @@
                                                         {{-- Cô dâu --}}
                                                         <td>
                                                             <div class="fw-bold fs-5">
-                                                                {{ $day['bride_score']['percentage'] }}</div>
+                                                                {{ $day['bride_score']['percentage'] }}
+
+                                                               
+
+                                                            </div>
                                                         </td>
 
                                                     </tr>

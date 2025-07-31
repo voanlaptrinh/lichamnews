@@ -220,30 +220,55 @@
                                 {{ $getDaySummaryInfo['score']['rating'] }}</h5>
                             ☼ Các yếu tố tốt xuất hiện trong ngày
                             <p>
-                                @if ($nhiThapBatTu['nature'] == 'Tốt')
-                                    Sao {{ $nhiThapBatTu['name'] }} (Nhị thập bát tú)
-                                @endif
-                                @if ($getThongTinTruc['description']['rating'] == 'Tốt')
-                                    , Trực {{ $getThongTinTruc['title'] }} (Thập nhị trực),
-                                @endif
-                                @foreach ($getSaoTotXauInfo['sao_tot'] as $tenSao => $yNghia)
-                                    @if (!empty($getSaoTotXauInfo['sao_tot']))
-                                        , Sao: {{ $loop->first ? '' : ', ' }}{{ $tenSao }}
+                                @if (
+                                    $nhiThapBatTu['nature'] == 'Tốt' ||
+                                        $getThongTinTruc['description']['rating'] == 'Tốt' ||
+                                        $getSaoTotXauInfo['sao_tot']
+                                )
+                                    @if ($nhiThapBatTu['nature'] == 'Tốt')
+                                        Sao {{ $nhiThapBatTu['name'] }} (Nhị thập bát tú)
                                     @endif
-                                @endforeach
+                                    @if ($getThongTinTruc['description']['rating'] == 'Tốt')
+                                        Trực {{ $getThongTinTruc['title'] }} (Thập nhị trực),
+                                    @endif
+                                    @if ($getSaoTotXauInfo['sao_tot'])
+                                        Sao:
+                                    @endif
+
+                                    @foreach ($getSaoTotXauInfo['sao_tot'] as $tenSao => $yNghia)
+                                        @if (!empty($getSaoTotXauInfo['sao_tot']))
+                                            {{ $loop->first ? '' : ', ' }}{{ $tenSao }}
+                                        @endif
+                                    @endforeach
+                                @else
+                                    Không có Yếu tố nào
+                                @endif
                             </p>
                             ☼ Các yếu tố xấu xuất hiện trong ngày
                             <p>
-                                @if ($nhiThapBatTu['nature'] == 'Xấu')
-                                    Sao {{ $nhiThapBatTu['name'] }} (Nhị thập bát tú),
-                                @endif
+                                @if (
+                                    $nhiThapBatTu['nature'] == 'Xấu' ||
+                                        $getThongTinTruc['description']['rating'] == 'Xấu' ||
+                                        $getSaoTotXauInfo['sao_xau']
+                                )
+                                    @if ($nhiThapBatTu['nature'] == 'Xấu')
+                                        Sao {{ $nhiThapBatTu['name'] }} (Nhị thập bát tú),
+                                    @endif
 
-                                @if ($getThongTinTruc['description']['rating'] == 'Xấu')
-                                    Trực {{ $getThongTinTruc['title'] }} (Thập nhị trực),
+                                    @if ($getThongTinTruc['description']['rating'] == 'Xấu')
+                                        Trực {{ $getThongTinTruc['title'] }} (Thập nhị trực),
+                                    @endif
+                                  @if ($getSaoTotXauInfo['sao_xau'])
+                                        Sao:
+                                    @endif 
+                                    @foreach ($getSaoTotXauInfo['sao_xau'] as $tenSao => $yNghia)
+                                       @if (!empty($getSaoTotXauInfo['sao_xau']))
+                                        {{ $loop->first ? '' : ', ' }}{{ $tenSao }}
+                                        @endif
+                                    @endforeach
+                                @else
+                                    Không có yếu tố xấu nào
                                 @endif
-                                Sao: @foreach ($getSaoTotXauInfo['sao_xau'] as $tenSao => $yNghia)
-                                    {{ $loop->first ? '' : ', ' }}{{ $tenSao }}
-                                @endforeach
                             </p>
                             <div>
                                 ♥ Việc nên làm

@@ -3,6 +3,7 @@
 use App\Http\Controllers\BanThoController;
 use App\Http\Controllers\BuyHouseController;
 use App\Http\Controllers\CaiTangController;
+use App\Http\Controllers\CompatibilityController;
 use App\Http\Controllers\DongThoController;
 use App\Http\Controllers\DuLichCongTacController;
 use App\Http\Controllers\GiaiHanController;
@@ -53,10 +54,12 @@ Route::get('/lich/nam/{nam}/thang/{thang}', [LichController::class, 'thang'])->n
 Route::get('/am-lich/nam/{nam}/thang/{thang}/ngay/{ngay}', [LunarController::class, 'ngay'])->name('lich.nam.ngay');
 
 
-// Đổi tên route cho phù hợp hơn
-Route::get('/xem-tuoi-cuoi-hoi', [WeddingController::class, 'showForm'])->name('astrology.form');
-Route::post('/xem-tuoi-cuoi-hoi', [WeddingController::class, 'check'])->name('astrology.check');
-
+// Xem tuổi để cưới hỏi
+Route::prefix('xem-tuoi-cuoi-hoi')->group(function () {
+    Route::get('/', [WeddingController::class, 'showForm'])->name('astrology.form');
+    Route::post('/', [WeddingController::class, 'check'])->name('astrology.check');
+    Route::get('/chi-tiet', [WeddingController::class, 'showDayDetails'])->name('wedding.day.details');
+});
 
 //Xem ngày mua nhà
 Route::get('/xem-ngay-mua-nha', [BuyHouseController::class, 'showForm'])->name('buy-house.form');
@@ -172,3 +175,7 @@ Route::get('/van-khan', [VanKhanController::class, 'index'])->name('van-khan.ind
 // Route để hiển thị chi tiết, với {id} là tham số động
 Route::get('/van-khan/{id}', [VanKhanController::class, 'show'])->name('van-khan.show');
 
+Route::get('/xem-tuoi', [CompatibilityController::class, 'showForm'])->name('compatibility.form');
+
+// Route để xử lý và trả kết quả (POST)
+Route::post('/xem-tuoi', [CompatibilityController::class, 'calculate'])->name('compatibility.calculate');

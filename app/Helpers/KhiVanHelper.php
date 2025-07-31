@@ -724,7 +724,7 @@ class KhiVanHelper
             $totalScore += DataHelper::$khiThangChiChiScores[$chiRelationKey] ?? 0.0;
 
             // --- PHẦN 3: TỔNG HỢP KẾT QUẢ ---
-            $finalAnalysis = implode("\n", $analysisParts);
+            $finalAnalysis = implode("</br>", $analysisParts);
             $finalConclusion = self::getKhiThangConclusion($totalScore);
 
             return [

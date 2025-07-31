@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chuyển Đổi Ngày Dương Sang Âm</title>
     <!-- Các link CSS nếu cần, ví dụ: Bootstrap hoặc custom CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/airbnb.css"> {{-- hoặc dark, material_red --}}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link href="{{ asset('/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('/css/airbnb.css') }}"> {{-- hoặc dark, material_red --}}
+    <link rel="stylesheet" href="{{ asset('/css/bootstrap-icons.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/styledemo.css') }}">
 </head>
 
@@ -138,26 +138,20 @@
                     <li class="nav-item"><a href="{{ route('huong-ban-lam-viec.form') }}" class="nav-link">Xem Hướng
                             Bàn
                             làm việc</a> </li>
+                    <li class="nav-item"><a href="{{ route('compatibility.form') }}" class="nav-link">Xem tuổi hợp nhau</a> </li>
                 </ul>
             </div>
         </div>
     </div>
 
     <!-- JS của Bootstrap (nếu sử dụng Bootstrap) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/vn.js"></script>
-
-
+    <script src="{{ asset('/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('/js/flatpickr.js') }}"></script>
+    <script src="{{ asset('/js/vn.js') }}"></script>
     @stack('scripts')
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-
-
-
-
-
 
 
             const maxDate = new Date(new Date().getFullYear(), 11, 31); // 31/12 năm nay

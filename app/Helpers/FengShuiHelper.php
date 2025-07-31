@@ -471,4 +471,470 @@ class FengShuiHelper //cần xác định xem gia chủ thuộc Tây Tứ Mệnh
             ['Huong' => $huongTotGoc['phuc_vi'], 'Loai' => 'Phục Vị', 'Y_nghia' => $yNghia['phuc_vi'], 'Uu_tien' => 'Ưu tiên 4'],
         ];
     }
+
+
+
+
+
+    // --- PHẦN 1: VẬN KHÍ NGÀY & THÁNG ---
+
+    /**
+     * Phân tích vận khí giữa ngày và tháng.
+     * @param string $canChiNgay Ví dụ: "Nhâm Thìn"
+     * @param string $canChiThang Ví dụ: "Kỷ Mão"
+     * @return array
+     */
+    public static function getVongKhiNgayThang(string $canChiNgay, string $canChiThang): array
+    {
+        $canNgay = self::getCan($canChiNgay);
+        $chiNgay = self::getChi($canChiNgay);
+        $canThang = self::getCan($canChiThang);
+        $chiThang = self::getChi($canChiThang);
+
+        // Lấy hành từ DataHelper
+        $hanhCanNgay = DataHelper::$canToHanh[$canNgay] ?? 'Không rõ';
+        $hanhCanThang = DataHelper::$canToHanh[$canThang] ?? 'Không rõ';
+        $hanhChiNgay = DataHelper::$chiToHanh[$chiNgay] ?? 'Không rõ';
+        $hanhChiThang = DataHelper::$chiToHanh[$chiThang] ?? 'Không rõ';
+
+        // Tính toán quan hệ
+        $canRelation = self::getNguHanhRelationship($hanhCanThang, $hanhCanNgay);
+        $chiRelation = self::getNguHanhRelationship($hanhChiThang, $hanhChiNgay);
+
+        $score = ($canRelation['score'] ?? 0) + ($chiRelation['score'] ?? 0);
+
+        // Tạo chuỗi kết luận
+        $ketLuan = KhiVanHelper::getKhiThangConclusion($score);
+
+
+        return [
+            'title' => "Vận khí ngày & tháng (khí tháng)",
+            'header' => "Ngày {$canChiNgay} tháng {$canChiThang}",
+            'phan_tich' => [
+                "Can ngày {$canNgay} ({$hanhCanNgay}), can tháng {$canThang} ({$hanhCanThang}) → {$canRelation['description']} ({$canRelation['score']})",
+                "Chi ngày {$chiNgay} ({$hanhChiNgay}), chi tháng {$chiThang} ({$hanhChiThang}) → {$chiRelation['description']} ({$chiRelation['score']})",
+            ],
+            'ket_luan' => "Vận khí ngày - tháng ({$score}) {$ketLuan}",
+        ];
+    }
+
+    // --- PHẦN 2: CỤC KHÍ - HỢP XUNG ---
+
+    /**
+     * Phân tích cục khí Hợp-Xung của một ngày.
+     * @param string $chiNgay Ví dụ: "Thìn"
+     * @return array
+     */
+    public static function getCucKhiHopXung(string $chiNgay): array
+    {
+        // Sử dụng dữ liệu Hợp-Xung từ các mảng riêng lẻ trong DataHelper của bạn
+        $tamHop = DataHelper::$TAM_HOP_GROUPS[strtolower($chiNgay)] ?? [];
+        $lucHop = DataHelper::$LUC_HOP[strtolower($chiNgay)] ?? '';
+
+        $hopText = "Ngày này hợp với các tuổi: " . ucfirst(implode(' – ', $tamHop)) . " – " . ucfirst($chiNgay) . " (Tam hợp) và các tuổi " . ucfirst($chiNgay) . " – " . ucfirst($lucHop) . " (Lục hợp)";
+
+        $kyArr = [];
+        if (isset(DataHelper::$LUC_XUNG[$chiNgay])) {
+            $kyArr[] = ucfirst(DataHelper::$LUC_XUNG[$chiNgay]) . " (xung)";
+        }
+        if (isset(DataHelper::$TUONG_HAI[$chiNgay])) {
+            $kyArr[] = ucfirst(DataHelper::$TUONG_HAI[$chiNgay]) . " (hại)";
+        }
+        if (isset(DataHelper::$TUONG_PHA[$chiNgay])) {
+            $kyArr[] = ucfirst(DataHelper::$TUONG_PHA[$chiNgay]) . " (phá)";
+        }
+        if (in_array($chiNgay, DataHelper::$TU_HINH_CHIS)) {
+            $kyArr[] = ucfirst($chiNgay) . " (tự hình)";
+        }
+        // Thêm các loại hình khác nếu cần
+
+        $kyText = "Ngày này kỵ với các tuổi: " . implode(', ', $kyArr);
+
+        return [
+            'title' => 'Cục khí - hợp xung',
+            'hop' => $hopText,
+            'ky' => $kyText,
+        ];
+    }
+
+    // --- PHẦN 3: SO SÁNH NGÀY VỚI MỆNH TUỔI ---
+
+    /**
+     * So sánh chi tiết ngày với Mệnh của một người.
+     * @param string $canChiNgay Ví dụ: "Canh Ngọ"
+     * @param string $canChiTuoi Ví dụ: "Giáp Tý"
+     * @return array
+     */
+    public static function soSanhNgayVoiTuoi(string $canChiNgay, string $canChiTuoi): array
+    {
+        // 1. Phân tích Thiên Can
+        $canNgay = self::getCan($canChiNgay);
+        $canTuoi = self::getCan($canChiTuoi);
+        $hanhCanNgay = DataHelper::$canToHanh[$canNgay] ?? null;
+        $hanhCanTuoi = DataHelper::$canToHanh[$canTuoi] ?? null;
+        $canRelation = self::getNguHanhRelationship($hanhCanNgay, $hanhCanTuoi);
+
+        // 2. Phân tích Địa Chi
+        $chiNgay = self::getChi($canChiNgay);
+        $chiTuoi = self::getChi($canChiTuoi);
+        $chiRelationText = self::getChiChiRelationship($chiNgay, $chiTuoi);
+
+        // 3. Phân tích Nạp Âm (Mệnh)
+        $napAmNgayInfo = DataHelper::$napAmTable[$canChiNgay] ?? null;
+        $napAmTuoiInfo = DataHelper::$napAmTable[$canChiTuoi] ?? null;
+        $napAmRelation = self::getNguHanhRelationship($napAmNgayInfo['hanh'] ?? null, $napAmTuoiInfo['hanh'] ?? null);
+
+        return [
+            'title' => 'So sánh ngày với mệnh tuổi của bạn (năm_sinh) (trường hợp xem cá nhân hóa)',
+            'phan_tich' => [
+                "Thiên can ngày - thiên can tuổi: {$canRelation['description']}",
+                "Địa chi ngày - địa chi tuổi: {$chiRelationText}",
+                "Nạp âm ngày - nạp âm tuổi (tổng hợp): {$napAmRelation['description']}",
+            ]
+        ];
+    }
+
+    // --- CÁC HÀM HELPER NỘI BỘ ---
+
+    public static function getCan(string $canChi): string
+    {
+        return explode(' ', $canChi)[0] ?? '';
+    }
+    public static function getChi(string $canChi): string
+    {
+        return explode(' ', $canChi)[1] ?? '';
+    }
+
+    public static function getNguHanhRelationship(?string $element1, ?string $element2): array
+    {
+        if (!$element1 || !$element2) {
+            return ['description' => 'Không rõ', 'score' => 0];
+        }
+
+        $sinh = DataHelper::$SINH_RELATIONS;
+        $khac = DataHelper::$KHAC_RELATIONS;
+
+        if ($element1 === $element2) {
+            return ['description' => "Đồng hành ({$element1})", 'score' => 1.0];
+        }
+        if (isset($sinh[$element1]) && $sinh[$element1] === $element2) {
+            return ['description' => "{$element1} sinh {$element2} (Tốt)", 'score' => 2.0];
+        }
+        if (isset($sinh[$element2]) && $sinh[$element2] === $element1) {
+            return ['description' => "{$element2} sinh {$element1} (Hao tổn)", 'score' => 0.0];
+        }
+        if (isset($khac[$element1]) && $khac[$element1] === $element2) {
+            return ['description' => "{$element1} khắc {$element2} (Xấu)", 'score' => -2.0];
+        }
+        if (isset($khac[$element2]) && $khac[$element2] === $element1) {
+            return ['description' => "{$element2} khắc {$element1} (Xấu nhẹ)", 'score' => -1.0];
+        }
+
+        return ['description' => 'Trung tính', 'score' => 0.0];
+    }
+
+    public static function getChiChiRelationship(string $chi1, string $chi2): string
+    {
+        $chi1Lower = strtolower($chi1);
+
+        if ($chi1 === $chi2) {
+            if (in_array($chi1, DataHelper::$TU_HINH_CHIS)) return "Tự Hình (Xấu)";
+            return "Trùng (Bình thường)";
+        }
+        if ((DataHelper::$LUC_HOP[$chi1Lower] ?? '') === strtolower($chi2)) return "Lục Hợp (Rất tốt)";
+        if (in_array(strtolower($chi2), DataHelper::$TAM_HOP_GROUPS[$chi1Lower] ?? [])) return "Tam Hợp (Tốt)";
+        if ((DataHelper::$LUC_XUNG[$chi1] ?? '') === $chi2) return "Lục Xung (Rất xấu)";
+        if ((DataHelper::$TUONG_HAI[$chi1] ?? '') === $chi2) return "Tương Hại (Xấu)";
+        if ((DataHelper::$TUONG_PHA[$chi1] ?? '') === $chi2) return "Tương Phá (Xấu)";
+
+        // Thêm logic cho bộ ba hình nếu cần
+        if (in_array($chi1, DataHelper::$HINH_VO_AN_TRIPLE) && in_array($chi2, DataHelper::$HINH_VO_AN_TRIPLE)) return "Hình Vô Ân (Xấu)";
+
+        return "Bình thường";
+    }
+    /**
+     * HÀM ĐÃ VIẾT LẠI HOÀN TOÀN: Phân tích quan hệ giữa Can ngày và Can tuổi.
+     * Xử lý chi tiết các trường hợp Tương sinh, Tương khắc, Tương hợp, và đặc biệt là Hợp Hóa (thật/giả).
+     *
+     * @param string $canChiNgay Ví dụ: "Canh Ngọ"
+     * @param string $canChiTuoi Ví dụ: "Giáp Tý"
+     * @return array Kết quả phân tích chi tiết.
+     */
+    public static function analyzeCanCanRelationship(string $canChiNgay, string $canChiTuoi): array
+    {
+        try {
+            $canNgay = self::getCan($canChiNgay);
+            $chiNgay = self::getChi($canChiNgay);
+            $canTuoi = self::getCan($canChiTuoi);
+            $chiTuoi = self::getChi($canChiTuoi);
+
+            // Truy cập dữ liệu quan hệ Can-Can
+            $relationBaseData = DataHelper::$canCanNewRelationships[$canNgay][$canTuoi] ?? null;
+
+            if ($relationBaseData === null) {
+                Log::error("FengShuiService: LỖI - Không tìm thấy dữ liệu Can-Can cho {$canNgay} (ngày) - {$canTuoi} (tuổi).");
+                return [
+                    'score' => 0.0,
+                    'rating' => 'Lỗi dữ liệu',
+                    'explanation' => "Can ngày là {$canNgay}, Can tuổi là {$canTuoi} → Quan hệ không xác định do thiếu dữ liệu cấu hình.",
+                    'relation' => 'LỖI_DỮ_LIỆU_CAN_CAN',
+                ];
+            }
+
+            // --- Xử lý logic Hợp Hóa ---
+            // Kiểm tra xem có phải là trường hợp Hợp Hóa không
+            if (str_starts_with($relationBaseData['relation'], 'Hợp Hóa')) {
+                $hoaKhi = $relationBaseData['hoaKhi'] ?? null;
+                $conditionString = $relationBaseData['condition'] ?? null;
+                $fakeScore = $relationBaseData['fakeHợpScore'] ?? null;
+                $fakeRating = $relationBaseData['fakeHợpRating'] ?? null;
+                $fakeExplanation = $relationBaseData['fakeHợpExplanation'] ?? null;
+
+                // Chỉ xử lý nếu có đủ dữ liệu Hợp Hóa
+                if ($hoaKhi && $conditionString) {
+                    // Tách các hành điều kiện từ chuỗi "Thủy hoặc Kim"
+                    preg_match_all('/(\p{L}+)/u', strtolower($conditionString), $matches);
+                    $conditionHanhList = $matches[1] ?? [];
+
+                    $hanhChiNgay = strtolower(DataHelper::$chiToHanh[$chiNgay] ?? '');
+                    $hanhChiTuoi = strtolower(DataHelper::$chiToHanh[$chiTuoi] ?? '');
+
+                    $isTrueHoa = false;
+                    // Kiểm tra xem Hành của Chi Ngày hoặc Chi Tuổi có nằm trong danh sách điều kiện không
+                    if (!empty($hanhChiNgay) && in_array($hanhChiNgay, $conditionHanhList)) {
+                        $isTrueHoa = true;
+                    }
+                    if (!$isTrueHoa && !empty($hanhChiTuoi) && in_array($hanhChiTuoi, $conditionHanhList)) {
+                        $isTrueHoa = true;
+                    }
+
+                    if ($isTrueHoa) {
+                        // Hóa Thật: Dữ liệu gốc đã là của hóa thật
+                        return [
+                            'score'       => (float)($relationBaseData['baseScore'] ?? 0.0),
+                            'explanation' => $relationBaseData['explanation'] ?? 'Không có diễn giải.',
+                            'rating'      => $relationBaseData['rating'] ?? 'Không rõ đánh giá.',
+                            'relation'    => $relationBaseData['relation'] ?? 'Hợp Hóa',
+                            'canNgay'    => $canNgay ?? '',
+                            'canTuoi'    => $canTuoi ?? '',
+                        ];
+                    } else {
+                        // Hóa Giả
+                        return [
+                            'score'       => (float)($fakeScore ?? 0.5),
+                            'explanation' => $fakeExplanation ?? 'Hợp hóa nhưng không đủ điều kiện.',
+                            'rating'      => $fakeRating ?? 'Hợp hóa giả',
+                            'relation'    => 'Hợp Hóa Giả',
+                            'canNgay'    => $canNgay ?? '',
+                            'canTuoi'    => $canTuoi ?? '',
+                        ];
+                    }
+                } else {
+                    // Dữ liệu Hợp Hóa không đầy đủ, fallback về Bình Hòa
+                    Log::warning("FengShuiService: Dữ liệu Hợp Hóa không đầy đủ cho {$canNgay} - {$canTuoi}. Coi như Bình Hòa.");
+                    $relationBaseData = DataHelper::$canCanNewRelationships[$canNgay][$canNgay] ?? $relationBaseData;
+                }
+            }
+
+            // --- Trả về kết quả cho các trường hợp không phải Hợp Hóa ---
+            return [
+                'score'       => (float)($relationBaseData['baseScore'] ?? 0.0),
+                'explanation' => $relationBaseData['explanation'] ?? 'Không có diễn giải.',
+                'rating'      => $relationBaseData['rating'] ?? 'Không rõ đánh giá.',
+                'relation'    => $relationBaseData['relation'] ?? 'Không rõ',
+                'canNgay'    => $canNgay ?? '',
+                'canTuoi'    => $canTuoi ?? '',
+            ];
+        } catch (\Exception $e) {
+            Log::error("Lỗi nghiêm trọng khi tính Can-Can: " . $e->getMessage());
+            return [
+                'score' => 0.0,
+                'rating' => 'Lỗi hệ thống',
+                'explanation' => 'Lỗi nghiêm trọng trong quá trình tính toán Can-Can.',
+                'relation' => 'ERROR_CAN_CAN',
+                'canNgay'    => $canNgay ?? '',
+                'canTuoi'    => $canTuoi ?? '',
+            ];
+        }
+    }
+
+    /**
+     * HÀM ĐÃ VIẾT LẠI: Phân tích quan hệ giữa Chi ngày và Chi tuổi.
+     *
+     * @param string $canChiNgay
+     * @param string $canChiTuoi
+     * @return array
+     */
+    public static function analyzeChiChiRelationship(string $canChiNgay, string $canChiTuoi): array
+    {
+        try {
+            $chiNgay = self::getChi($canChiNgay);
+            $chiTuoi = self::getChi($canChiTuoi);
+
+            $relationKey = self::getChiChiRelationshipKey($chiNgay, $chiTuoi);
+
+            $info = DataHelper::$chiChiAgeInfo[$relationKey] ?? null;
+
+            if ($info === null) {
+                Log::error("FengShuiService: LỖI - Không tìm thấy dữ liệu Chi-Chi cho key '{$relationKey}' trong DataHelper.");
+                return [
+                    'score' => 0.0,
+                    'rating' => 'Lỗi cấu hình',
+                    'explanation' => "Chi ngày là {$chiNgay}, Chi tuổi là {$chiTuoi} → Quan hệ không xác định (Lỗi dữ liệu).",
+                    'relationKey' => 'LỖI_DỮ_LIỆU_CHI_CHI',
+                    'chiNgay' => $chiNgay ?? 'Không xác định',
+                    'chiTuoi' => $chiTuoi ?? 'Không xác định',
+                ];
+            }
+
+            return [
+                'score'       => (float)($info['score'] ?? 0.0),
+                'rating'      => $info['rating'] ?? 'Không rõ',
+                'explanation' => $info['explanation'] ?? 'Không có diễn giải.',
+                'relationKey' => $relationKey,
+                'chiNgay' => $chiNgay ?? 'Không xác định',
+                'chiTuoi' => $chiTuoi ?? 'Không xác định',
+            ];
+        } catch (\Exception $e) {
+            Log::error("Lỗi nghiêm trọng khi tính Chi-Chi: " . $e->getMessage());
+            return [
+                'score' => 0.0,
+                'rating' => 'Lỗi hệ thống',
+                'explanation' => 'Lỗi nghiêm trọng trong quá trình tính toán Chi-Chi.',
+                'relationKey' => 'ERROR_CHI_CHI',
+                'chiNgay' => $chiNgay ?? 'Không xác định',
+                'chiTuoi' => $chiTuoi ?? 'Không xác định',
+            ];
+        }
+    }
+
+    /**
+     * HÀM ĐÃ VIẾT LẠI: Phân tích quan hệ giữa Nạp âm ngày và Nạp âm tuổi.
+     *
+     * @param string $canChiNgay
+     * @param string $canChiTuoi
+     * @return array
+     */
+    public static function analyzeNapAmRelationship(string $canChiNgay, string $canChiTuoi): array
+    {
+        try {
+            // dd($canChiNgay, $canChiTuoi);
+            $dayNapAmData = DataHelper::$napAmTable[$canChiNgay] ?? ['napAm' => 'Không xác định', 'hanh' => 'Không rõ'];
+            $birthNapAmData = DataHelper::$napAmTable[$canChiTuoi] ?? ['napAm' => 'Không xác định', 'hanh' => 'Không rõ'];
+
+            $dayHanh = $dayNapAmData['hanh'];
+            $birthHanh = $birthNapAmData['hanh'];
+
+            $relationKey = 'Trung bình (không xung, không hợp)'; // Giá trị mặc định
+
+            if ($dayHanh !== 'Không rõ' && $birthHanh !== 'Không rõ') {
+                if ($dayHanh === $birthHanh) {
+                    $relationKey = 'Đồng hành';
+                } elseif ((DataHelper::$SINH_RELATIONS[$dayHanh] ?? null) === $birthHanh) {
+                    $relationKey = 'Ngày sinh Tuổi';
+                } elseif ((DataHelper::$SINH_RELATIONS[$birthHanh] ?? null) === $dayHanh) {
+                    $relationKey = 'Tuổi sinh Ngày';
+                } elseif ((DataHelper::$KHAC_RELATIONS[$dayHanh] ?? null) === $birthHanh) {
+                    $relationKey = 'Ngày khắc Tuổi';
+                } elseif ((DataHelper::$KHAC_RELATIONS[$birthHanh] ?? null) === $dayHanh) {
+                    $relationKey = 'Tuổi khắc Ngày';
+                }
+            }
+
+            $info = DataHelper::$napAmAgeInfo[$relationKey] ?? null;
+
+            if ($info === null) {
+                Log::error("FengShuiService: LỖI - Không tìm thấy dữ liệu Nạp Âm cho key '{$relationKey}' trong DataHelper.");
+                return [
+                    'score' => 0.0,
+                    'rating' => 'Lỗi cấu hình',
+                    'explanation' => "Quan hệ Nạp âm không xác định (Lỗi dữ liệu).",
+                    'relationKey' => 'LỖI_DỮ_LIỆU_NAP_AM',
+                    'canchiNgay' => $canChiNgay ?? 'Không xác định',
+                    'canchiTuoi' => $canChiTuoi ?? 'Không xác định',
+                    'napAmNgay' => $dayNapAmData ?? 'Không xác định',
+                    'napAmTuoi' => $birthNapAmData ?? 'Không xác định',
+                ];
+            }
+
+            return [
+                'score'       => (float)($info['score'] ?? 0.0),
+                'rating'      => $info['rating'] ?? 'Không rõ',
+                'explanation' => $info['explanation'] ?? 'Không có diễn giải.',
+                'relationKey' => $relationKey,
+                'canchiNgay' => $canChiNgay ?? 'Không xác định',
+                'canchiTuoi' => $canChiTuoi ?? 'Không xác định',
+                'napAmNgay' => $dayNapAmData ?? 'Không xác định',
+                'napAmTuoi' => $birthNapAmData ?? 'Không xác định',
+            ];
+        } catch (\Exception $e) {
+            Log::error("Lỗi nghiêm trọng khi tính Nạp Âm: " . $e->getMessage());
+            return [
+                'score' => 0.0,
+                'rating' => 'Lỗi hệ thống',
+                'explanation' => 'Lỗi nghiêm trọng trong quá trình tính toán Nạp Âm.',
+                'relationKey' => 'ERROR_NAP_AM',
+                'canchiNgay' => $canChiNgay ?? 'Không xác định',
+                'canchiTuoi' => $canChiTuoi ?? 'Không xác định',
+                'napAmNgay' => $dayNapAmData ?? 'Không xác định',
+                'napAmTuoi' => $birthNapAmData ?? 'Không xác định',
+            ];
+        }
+    }
+
+    /**
+     * Helper: Xác định key quan hệ Chi-Chi để tra cứu.
+     * (Giữ nguyên từ câu trả lời trước, không cần thay đổi)
+     * @return string
+     */
+    public static function getChiChiRelationshipKey(string $chi1, string $chi2): string
+    {
+        if ($chi1 === $chi2) {
+            return in_array($chi1, DataHelper::$TU_HINH_CHIS ?? []) ? "Tự hình" : "Trùng (Đồng Chi)";
+        }
+        $chi1Lower = strtolower($chi1);
+        $chi2Lower = strtolower($chi2);
+
+        if ((DataHelper::$LUC_XUNG[$chi1] ?? '') === $chi2) return "Lục xung";
+        if ((DataHelper::$TUONG_HAI[$chi1] ?? '') === $chi2) return "Tương hại";
+        if ((DataHelper::$TUONG_PHA[$chi1] ?? '') === $chi2) return "Tương phá";
+        if ((DataHelper::$LUC_HOP[$chi1Lower] ?? '') === $chi2Lower) return "Lục hợp";
+        if (in_array($chi2Lower, DataHelper::$TAM_HOP_GROUPS[$chi1Lower] ?? [])) return "Tam hợp";
+
+        if (in_array($chi1, DataHelper::$HINH_VO_AN_TRIPLE ?? []) && in_array($chi2, DataHelper::$HINH_VO_AN_TRIPLE ?? [])) return "Tương hình";
+        if (in_array($chi1, DataHelper::$HINH_Y_THE_TRIPLE ?? []) && in_array($chi2, DataHelper::$HINH_Y_THE_TRIPLE ?? [])) return "Tương hình";
+        if ((DataHelper::$HINH_VO_LE_PAIR[$chi1] ?? '') === $chi2) return "Tương hình";
+
+        return "Trung bình (không xung, không hợp)";
+    }
+    public static function analyzeNgayVoiTuoi(string $canChiNgay, string $canChiTuoi): array
+    {
+        $canResult = self::analyzeCanCanRelationship($canChiNgay, $canChiTuoi);
+        $chiResult = self::analyzeChiChiRelationship($canChiNgay, $canChiTuoi);
+        $napAmResult = self::analyzeNapAmRelationship($canChiNgay, $canChiTuoi);
+
+        // Lấy thông tin chi tiết để xây dựng chuỗi mô tả
+        $canNgay = self::getCan($canChiNgay);
+        $canTuoi = self::getCan($canChiTuoi);
+        $chiNgay = self::getChi($canChiNgay);
+        $chiTuoi = self::getChi($canChiTuoi);
+
+        $dayNapAmData = DataHelper::$napAmTable[$canChiNgay] ?? ['napAm' => 'Không xác định', 'hanh' => 'Không rõ'];
+        $birthNapAmData = DataHelper::$napAmTable[$canChiTuoi] ?? ['napAm' => 'Không xác định', 'hanh' => 'Không rõ'];
+
+        return [
+            'title' => 'So sánh ngày với mệnh tuổi của bạn (năm_sinh) (trường hợp xem cá nhân hóa)',
+            'phan_tich' => [
+                'thien_can' => "Thiên can ngày - thiên can tuổi: Can ngày là {$canNgay}, Can tuổi là {$canTuoi} → {$canResult['relation']} ({$canResult['rating']}). {$canResult['explanation']}",
+                'dia_chi'   => "Địa chi ngày - địa chi tuổi: Chi ngày là {$chiNgay}, Chi tuổi là {$chiTuoi} → {$chiResult['relationKey']} ({$chiResult['rating']}). {$chiResult['explanation']}",
+                'nap_am'    => "Nạp âm ngày - nạp âm tuổi (tổng hợp): Ngày {$canChiNgay} ({$dayNapAmData['hanh']}), tuổi {$canChiTuoi} ({$birthNapAmData['hanh']}) → {$napAmResult['relationKey']} ({$napAmResult['rating']}). {$napAmResult['explanation']}",
+            ],
+            // Trả về dữ liệu chi tiết để có thể dùng trong view nếu cần
+            'details' => [
+                'can' => $canResult,
+                'chi' => $chiResult,
+                'nap_am' => $napAmResult,
+            ]
+        ];
+    }
 }
