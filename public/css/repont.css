@@ -1,0 +1,294 @@
+@media screen and (min-width: 2560px) {
+    .date_number_lich {
+        font-size: 120px;
+    }
+
+    .nave-left {
+        left: 20px;
+    }
+
+    .nave-right {
+        right: 20px;
+    }
+
+    .btn-mobie-next-prev {
+        display: none;
+    }
+
+    .boxx-col-lg-8 {
+        background: #DCEEFD;
+    }
+
+    .container-setup {
+        width: 1500px;
+    }
+    .icon_tiet_khi,.icon_nap_am,.icon_hoang_dao{
+        max-width: 100%;
+        height: auto;
+    }
+    .date-display-card .date-special-event{
+        font-size: 20px;
+    }
+}
+
+@media screen and (min-width: 1400px) {
+    .date_number_lich {
+        font-size: 120px;
+    }
+
+    .nave-left {
+        left: 20px;
+    }
+
+    .nave-right {
+        right: 20px;
+    }
+
+    .btn-mobie-next-prev {
+        display: none;
+    }
+
+    .boxx-col-lg-8 {
+        background: #DCEEFD;
+    }
+
+    .box-content-lg-8 {
+        padding: 20px;
+    }
+
+    .container-setup {
+        width: 1400px;
+    }
+    .btn-today-home-pc{
+        display: block;
+    }
+     .icon_tiet_khi,.icon_nap_am,.icon_hoang_dao{
+        max-width: 100%;
+        height: auto;
+    }
+    .date-display-card .date-special-event{
+        font-size: 20px;
+    }
+}
+
+@media screen and (min-width: 1200px) and (max-width: 1399.98px) {
+    .date_number_lich {
+        font-size: 120px;
+    }
+
+    .nave-left {
+        left: 20px;
+    }
+
+    .nave-right {
+        right: 20px;
+    }
+
+    .btn-mobie-next-prev {
+        display: none;
+    }
+
+    .container-setup {
+        width: 1200px;
+    }
+     .btn-today-home-pc{
+        display: block;
+    }
+    .icon_tiet_khi,.icon_nap_am,.icon_hoang_dao{
+        max-width: 100%;
+        height: auto;
+    }
+    .date-display-card .date-special-event{
+        font-size: 18px;
+    }
+}
+
+@media screen and (min-width: 992px) and (max-width: 1199.98px) {
+    .date_number_lich {
+        font-size: 90px;
+    }
+
+    .nave-left {
+        left: 20px;
+    }
+
+    .nave-right {
+        right: 20px;
+    }
+
+    .btn-mobie-next-prev {
+        display: none;
+    }
+
+    .container-setup {
+        width: 1000px;
+    }
+     .btn-today-home-pc{
+        display: block;
+    }
+    .icon_tiet_khi,.icon_nap_am,.icon_hoang_dao{
+        max-width: 100%;
+        height: auto;
+    }
+     .date-display-card .date-special-event{
+        font-size: 16px;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 991.98px) {
+    .date_number_lich {
+        font-size: 90px;
+    }
+
+    .nave-left {
+        left: 20px;
+    }
+
+    .nave-right {
+        right: 20px;
+    }
+
+    .btn-mobie-next-prev {
+        display: none;
+    }
+
+    .container-setup {
+        width: 100%;
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+     .btn-today-home-pc{
+        display: block;
+    }
+      .info-item{
+        margin-bottom: 5px;
+    }
+    .icon_tiet_khi,.icon_nap_am,.icon_hoang_dao{
+        max-width: 100%;
+        height: auto;
+    }
+      .date-display-card .date-special-event{
+        font-size: 16px;
+    }
+}
+
+@media screen and (min-width: 480px) and (max-width: 767.98px) {
+    .date_number_lich {
+        font-size: 75px;
+    }
+
+    .nav-home-date {
+        display: none;
+    }
+
+    .btn-mobie-next-prev {
+        display: flex;
+    }
+
+    .calendar-table td {
+        height: auto;
+    }
+
+    .nhuan-khong {
+        display: none;
+    }
+
+    .calendar-table {
+        border-spacing: 0.2rem;
+    }
+
+    .container-setup {
+        max-width: 100%;
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+     .btn-today-home-pc{
+        display: none;
+    }
+      .info-item{
+        gap: 8px;
+        margin-bottom: 5px;
+    }
+     .icon_tiet_khi,.icon_nap_am,.icon_hoang_dao{
+       width: 20px;
+       height: 20px;
+    }
+      .date-display-card .date-special-event{
+        font-size: 14px;
+    }
+     .utility-title{
+        height: 34px;
+    }
+}
+
+@media screen and (max-width: 479.98px) {
+    .date_number_lich {
+        font-size: 75px;
+    }
+
+    .nav-home-date {
+        display: none;
+    }
+
+    .date-display-card {
+        padding-top: 20px;
+        padding-bottom: 20px;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    .btn-mobie-next-prev {
+        display: flex;
+    }
+
+    .calendar-wrapper {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .calendar-table td {
+        height: auto;
+    }
+
+    .nhuan-khong {
+        display: none;
+    }
+
+    .am_table {
+        font-size: 12px;
+    }
+
+    .calendar-table {
+        border-spacing: 0.2rem;
+    }
+
+    .container-setup {
+        width: 100%;
+        padding-left: 14px;
+        padding-right: 14px;
+    }
+
+    .text-lever-label-mobie {
+        font-size: 16px;
+    }
+      .btn-today-home-pc{
+        display: none;
+    }
+    .info-item{
+        gap: 8px;
+        margin-bottom: 3px;
+    }
+    .icon_tiet_khi,.icon_nap_am,.icon_hoang_dao{
+       width: 20px;
+       height: 20px;
+    }
+      .date-display-card .date-special-event{
+        font-size: 14px;
+    }
+    .calendar-legend{
+        gap: 2px;
+    }
+    .utility-title{
+        height: 34px;
+    }
+}

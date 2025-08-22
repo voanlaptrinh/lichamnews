@@ -1,786 +1,2321 @@
-   /* Tùy chỉnh giao diện cho input[type="date"] */
-   .custom-date-input {
-       background-color: #f8f9fa;
-       border: 1px solid #ced4da;
-       border-radius: 0.25rem;
-       padding: 0.375rem 0.75rem;
-       font-size: 1rem;
-   }
-
-   /* Khi người dùng hover vào input */
-   .custom-date-input:hover {
-       border-color: #007bff;
-       box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
-   }
-
-   /* Tùy chỉnh style của label */
-   .form-group label {
-       font-size: 1.2rem;
-       font-weight: 600;
-   }
-
-   /* Tùy chỉnh nút submit */
-   .btn-primary {
-       background-color: #007bff;
-       border-color: #007bff;
-   }
-
-   .btn-primary:hover {
-       background-color: #0056b3;
-       border-color: #004085;
-   }
-
-
-   .calendar-table {
-       width: 100%;
-       border-collapse: collapse;
-       text-align: center;
-       font-family: sans-serif;
-       table-layout: fixed;
-   }
-
-   .calendar-table th {
-       border: 1px solid #dee2e6;
-       padding: 0.75rem 0 0.75rem 0;
-       vertical-align: top;
-   }
-
-   .calendar-table td {
-       border: 1px solid #dee2e6;
-       vertical-align: top;
-   }
-
-   .calendar-table th {
-       background-color: #f8f9fa;
-       font-weight: 700;
-   }
-
-   .calendar-table td.current {
-       background-color: #e2f0ff;
-       font-weight: bold;
-       color: #0d6efd;
-   }
-
-   .box-contnet-date {
-       display: flex;
-   }
-
-   .dao.tot {
-       color: #FF0000;
-   }
-
-   .dao.xau {
-       color: #95149A;
-   }
-
-   a {
-       text-decoration: none;
-       color: black;
-   }
-
-   .calendar-container {
-       border-radius: 10px;
-   }
-
-   .header-calendar {
-       background: #00B732;
-       text-align: center;
-       border-radius: 15px 15px 0 0;
-       padding: 10px 0 10px 0;
-       color: #fff;
-       font-size: 16px;
-       font-weight: 700;
-   }
-
-   .body-calendar {
-       background: #f6f6f7;
-       border-radius: 0 0 15px 15px;
-       padding-bottom: 100px;
-   }
-
-   .day-calendar {
-       font-size: 80px;
-       text-align: center;
-       font-weight: 900;
-       color: #00B732;
-
-   }
-
-   .weekday-calendar {
-       text-align: center;
-   }
-
-   .weekday-name {
-       font-weight: 800;
-       font-size: 20px;
-   }
-
-   .am-lich-box {
-       border: 2px solid #e0e0e0;
-       border-radius: 12px;
-       padding: 16px;
-       max-width: 350px;
-       font-family: 'Segoe UI', sans-serif;
-       background: #fff;
-       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-   }
-
-   .am-lich-info {
-       display: flex;
-       flex-direction: column;
-       gap: 6px;
-       font-size: 16px;
-       margin-bottom: 12px;
-   }
-
-   .am-lich-item {
-       display: flex;
-       align-items: center;
-       gap: 6px;
-   }
-
-   .icon {
-       font-size: 20px;
-   }
-
-   .am-lich-date {
-       display: flex;
-       align-items: center;
-       gap: 12px;
-       font-size: 16px;
-       margin-bottom: 12px;
-   }
-
-   .date-number {
-       font-size: 42px;
-       font-weight: bold;
-       color: #f4511e;
-   }
-
-   .date-label {
-       line-height: 1.4;
-       color: #444;
-   }
-
-   .am-lich-tietkhi {
-       font-size: 20px;
-       margin-top: 4px;
-       color: #2e7d32;
-       text-align: center;
-   }
-
-   .gio-lich-info {
-       padding-left: 10px;
-       padding-right: 10px;
-       text-align: center;
-       font-size: 17px;
-   }
-
-   /* ───────────── Responsive Media Queries ───────────── */
-
-   /* >= 1400px (Màn hình lớn, 4K) */
-   @media (min-width: 1400px) {
-       .calendar-table th {
-           font-size: 16px;
-
-       }
-
-       .title-lich-pc {
-           display: block;
-       }
-
-       .title-lich-mobie {
-           display: none;
-       }
-
-       .calendar-table td {
-           padding: 20px;
-       }
-
-       .duong {
-           font-size: 28px;
-       }
-
-       .can_chi_text {
-           height: 35px;
-           font-size: 10px;
-       }
-   }
-
-   /* >= 1200px (Desktop full HD) */
-   @media (min-width: 1200px) and (max-width: 1399.98px) {
-       .calendar-table th {
-           font-size: 16px;
-
-       }
-
-       .title-lich-pc {
-           display: block;
-       }
-
-       .title-lich-mobie {
-           display: none;
-       }
-
-       .calendar-table td {
-           padding: 15px;
-       }
-
-       .duong {
-           font-size: 28px;
-       }
-
-       .can_chi_text {
-           height: 35px;
-           font-size: 11px;
-       }
-   }
-
-   /* >= 992px (Laptop) */
-   @media (min-width: 992px) and (max-width: 1199.98px) {
-       .calendar-table th {
-           font-size: 16px;
-
-       }
-
-       .title-lich-pc {
-           display: block;
-       }
-
-       .title-lich-mobie {
-           display: none;
-       }
-
-       .calendar-table td {
-           padding: 11px;
-       }
-
-       .duong {
-           font-size: 28px;
-       }
-
-       .can_chi_text {
-           height: 35px;
-           font-size: 8px;
-       }
-   }
-
-   /* >= 768px (Tablet ngang) */
-   @media (min-width: 768px) and (max-width: 991.98px) {
-       .calendar-table th {
-           font-size: 16px;
-
-       }
-
-       .title-lich-pc {
-           display: block;
-       }
-
-       .title-lich-mobie {
-           display: none;
-       }
-
-       .calendar-table td {
-           padding: 13px;
-       }
-
-       .duong {
-           font-size: 28px;
-       }
-
-       .can_chi_text {
-           height: 40px;
-           font-size: 10px;
-       }
-   }
-
-   /* >= 576px (Tablet đứng) */
-   @media (min-width: 576px) and (max-width: 767.98px) {
-       .calendar-table th {
-           font-size: 13px;
-       }
-
-       .title-lich-pc {
-           display: none;
-       }
-
-       .title-lich-mobie {
-           display: block;
-       }
-
-       .calendar-table td {
-           padding: 12px;
-       }
-
-       .duong {
-           font-size: 16px;
-       }
-
-       .box-contnet-date {
-           justify-content: space-evenly;
-       }
-
-       .can_chi_text {
-           display: none;
-           font-size: 11px;
-       }
-
-       .am {
-           font-size: 11px;
-       }
-
-       .dao {
-           font-size: 10px;
-       }
-   }
-
-   /* < 576px (Mobile) */
-   @media (max-width: 575.98px) {
-       .calendar-table th {
-           font-size: 13px;
-       }
-
-       .title-lich-pc {
-           display: none;
-       }
-
-       .title-lich-mobie {
-           display: block;
-       }
-
-       .calendar-table td {
-           padding: 10px;
-       }
-
-       .duong {
-           font-size: 16px;
-       }
-
-       .box-contnet-date {
-           justify-content: space-evenly;
-       }
-
-       .can_chi_text {
-           display: none;
-           font-size: 11px;
-       }
-
-       .am {
-           font-size: 11px;
-       }
-
-       .dao {
-           font-size: 10px;
-       }
-
-       .nhuan-khong {
-           display: none;
-       }
-   }
-
-   .calendar-table td:hover {
-       background: rgb(240, 148, 212);
-   }
-
-   .header-calendar {
-       display: flex;
-       justify-content: space-between;
-       align-items: center;
-       padding: 10px 15px;
-       /* Thêm padding cho đẹp */
-       font-size: 1.2rem;
-       /* Tăng kích thước font */
-       font-weight: bold;
-       color: #fff;
-       background-color: #8b4513;
-       /* Màu nền ví dụ */
-   }
-
-   .header-calendar-title {
-       flex-grow: 1;
-       text-align: center;
-   }
-
-   .nav-arrow {
-       color: #161414;
-       text-decoration: none;
-       font-size: 1.5rem;
-       padding: 0 10px;
-       transition: transform 0.2s ease-in-out;
-   }
-
-   .nav-arrow:hover {
-       color: #ffd700;
-       /* Màu vàng khi hover */
-       transform: scale(1.2);
-   }
-
-   .tab-horoscope.active {
-       background: red;
-   }
-
-   .loader {
-       width: 96px;
-       box-sizing: content-box;
-       height: 48px;
-       background: #FFF;
-       border-color: #000000;
-       border-style: solid;
-       border-width: 2px 2px 50px 2px;
-       border-radius: 100%;
-       position: relative;
-       animation: 3s yinYang linear infinite;
-   }
-
-   .loader:before {
-       content: "";
-       position: absolute;
-       top: 50%;
-       left: 0;
-       background: #FFF;
-       border: 18px solid #000000;
-       border-radius: 100%;
-       width: 12px;
-       height: 12px;
-       box-sizing: content-box;
-   }
-
-   .loader:after {
-       content: "";
-       position: absolute;
-       top: 50%;
-       left: 50%;
-       background: #000000;
-       border: 18px solid #FFF;
-       border-radius: 100%;
-       width: 12px;
-       height: 12px;
-       box-sizing: content-box;
-   }
-
-   @keyframes yinYang {
-       100% {
-           transform: rotate(360deg)
-       }
-   }
-
-
-
-
-
-   /* Sty thước lỗ ban */
-   :root {
-       --marker-color: #fbc02d;
-       --ruler-height: 55px;
-       --scale-height: 25px;
-       --border-color: #cccccc;
-       --border-strong-color: #999999;
-       --text-good-color: #d32f2f;
-       --text-bad-color: #212529;
-       --bg-info-panel: #fff9e6;
-   }
-
-
-   .header-section {
-       text-align: center;
-       margin-bottom: 25px;
-   }
-
-   .header-section h1 {
-       font-size: 2em;
-       margin-bottom: 15px;
-       text-transform: uppercase;
-       letter-spacing: 1px;
-   }
-
-   .header-section .input-group {
-       display: inline-flex;
-       align-items: center;
-       justify-content: center;
-   }
-
-   .header-section input {
-       width: 80px;
-       text-align: center;
-       font-size: 1.5em;
-       font-weight: bold;
-       color: var(--text-good-color);
-       padding: 5px;
-       border: 2px solid var(--marker-color);
-       border-radius: 4px;
-       outline: none;
-   }
-
-   .header-section input::-webkit-outer-spin-button,
-   .header-section input::-webkit-inner-spin-button {
-       -webkit-appearance: none;
-       margin: 0;
-   }
-
-   .header-section input[type=number] {
-       -moz-appearance: textfield;
-   }
-
-   .header-section span {
-       margin-left: 10px;
-       font-size: 1.1em;
-       color: #555;
-   }
-
-   .ruler-area {
-       position: relative;
-   }
-
-   .ruler-viewport {
-       width: 100%;
-       overflow-x: scroll;
-       cursor: grab;
-       user-select: none;
-       scrollbar-width: thin;
-       scrollbar-color: #ccc #f1f1f1;
-
-   }
-
-   .ruler-viewport::-webkit-scrollbar {
-       height: 8px;
-       display: none
-   }
-
-   .ruler-viewport::-webkit-scrollbar-track {
-       background: #f1f1f1;
-   }
-
-   .ruler-viewport::-webkit-scrollbar-thumb {
-       background: #ccc;
-       border-radius: 4px;
-   }
-
-   .ruler-viewport:active {
-       cursor: grabbing;
-   }
-
-   .ruler-canvas {
-       position: relative;
-       height: 500px;
-   }
-
-   .ruler-chunk {
-       position: absolute;
-       top: 0;
-   }
-
-   .marker {
-       position: absolute;
-       top: 0;
-       left: 50%;
-       width: 2px;
-       height: 100%;
-       background-color: var(--marker-color);
-       transform: translateX(-1px);
-       z-index: 10;
-       pointer-events: none;
-   }
-
-   .drag-hint {
-       position: absolute;
-       top: -20px;
-       right: 0;
-       font-size: 0.8em;
-       color: #666;
-   }
-
-   .ruler {
-       margin-bottom: 0px;
-       border-bottom: 1px solid var(--border-strong-color);
-   }
-
-   .ruler-body {
-       border-top: 1px solid var(--border-strong-color);
-   }
-
-   .ruler-title {
-       font-weight: bold;
-       margin-bottom: 20px;
-       margin-top: 20px;
-       font-size: 0.9em;
-       padding-left: 10px;
-   }
-
-   .ruler-body {
-       display: flex;
-       flex-direction: column;
-       width: 100%;
-   }
-
-   .ruler-scale {
-       margin-bottom: 5px;
-       display: flex;
-   }
-
-   /* .khoang-container {
+@font-face {
+    font-family: "sf-compact-display-medium";
+    src:
+        url("../fonts/fonnts.com-SF_UI_Text_Bold.ttf")format("woff2");
+}
+
+@font-face {
+    font-family: "InstrumentSans";
+    src:
+        url("../fonts/InstrumentSans-VariableFont_wdth,wght.ttf")format("woff2");
+}
+
+/* body {
+    font-family: 'InstrumentSans';
+} */
+
+/* Tùy chỉnh giao diện cho input[type="date"] */
+.custom-date-input {
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+}
+
+/* Khi người dùng hover vào input */
+.custom-date-input:hover {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
+}
+
+/* Tùy chỉnh style của label */
+.form-group label {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+/* Tùy chỉnh nút submit */
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
+
+
+.calendar-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+    font-family: sans-serif;
+    table-layout: fixed;
+}
+
+.calendar-table th {
+    border: 1px solid #dee2e6;
+    padding: 0.75rem 0 0.75rem 0;
+    vertical-align: top;
+}
+
+.calendar-table td {
+    border: 1px solid #dee2e6;
+    vertical-align: top;
+
+
+}
+
+.duong {
+    font-weight: 600;
+}
+
+.calendar-table th {
+    background-color: #f8f9fa;
+    font-weight: 700;
+}
+
+.calendar-table td.current {
+    background-color: #e2f0ff;
+    font-weight: bold;
+    color: #050505;
+}
+
+.box-contnet-date {
+    display: flex;
+    gap: 3px;
+}
+
+.dao.tot {
+    color: #3CAF1F;
+}
+
+.dao.xau {
+    color: #95149A;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.calendar-container {
+    border-radius: 10px;
+}
+
+.header-calendar {
+    background: #00B732;
+    text-align: center;
+    border-radius: 15px 15px 0 0;
+    padding: 10px 0 10px 0;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.body-calendar {
+    background: #f6f6f7;
+    border-radius: 0 0 15px 15px;
+    padding-bottom: 100px;
+}
+
+.day-calendar {
+    font-size: 80px;
+    text-align: center;
+    font-weight: 900;
+    color: #00B732;
+
+}
+
+.weekday-calendar {
+    text-align: center;
+}
+
+.weekday-name {
+    font-weight: 800;
+    font-size: 20px;
+}
+
+.am-lich-box {
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 16px;
+    max-width: 350px;
+    font-family: 'Segoe UI', sans-serif;
+    background: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.am-lich-info {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 16px;
+    margin-bottom: 12px;
+}
+
+.am-lich-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.icon {
+    font-size: 20px;
+}
+
+.am-lich-date {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 16px;
+    margin-bottom: 12px;
+}
+
+.date-number {
+    font-size: 42px;
+    font-weight: bold;
+    color: #f4511e;
+}
+
+.date-label {
+    line-height: 1.4;
+    color: #444;
+}
+
+.am-lich-tietkhi {
+    font-size: 20px;
+    margin-top: 4px;
+    color: #2e7d32;
+    text-align: center;
+}
+
+.gio-lich-info {
+    padding-left: 10px;
+    padding-right: 10px;
+    text-align: center;
+    font-size: 17px;
+}
+
+.can_chi_text {
+    /* 1. Bật chế độ hiển thị đặc biệt để line-clamp hoạt động */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+
+    /* 2. Giới hạn số dòng hiển thị là 2 */
+    -webkit-line-clamp: 2;
+
+    /* 3. Ẩn đi phần văn bản bị tràn ra ngoài */
+    overflow: hidden;
+
+    /* 4. (Tùy chọn nhưng nên có) Đảm bảo dấu "..." xuất hiện */
+    text-overflow: ellipsis;
+
+}
+
+/* ───────────── Responsive Media Queries ───────────── */
+
+/* >= 1400px (Màn hình lớn, 4K) */
+@media (min-width: 1400px) {
+    .calendar-table th {
+        font-size: 16px;
+
+    }
+
+    .title-lich-pc {
+        display: block;
+    }
+
+    .title-lich-mobie {
+        display: none;
+    }
+
+    .calendar-table td {
+        padding: 20px;
+    }
+
+
+
+    .can_chi_text {
+        height: 35px;
+        font-size: 12px;
+    }
+}
+
+/* >= 1200px (Desktop full HD) */
+@media (min-width: 1200px) and (max-width: 1399.98px) {
+    .calendar-table th {
+        font-size: 16px;
+
+    }
+
+    .title-lich-pc {
+        display: block;
+    }
+
+    .title-lich-mobie {
+        display: none;
+    }
+
+    .calendar-table td {
+        padding: 15px;
+    }
+
+
+
+    .can_chi_text {
+        height: 35px;
+        font-size: 11px;
+    }
+}
+
+/* >= 992px (Laptop) */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+    .calendar-table th {
+        font-size: 16px;
+
+    }
+
+    .title-lich-pc {
+        display: block;
+    }
+
+    .title-lich-mobie {
+        display: none;
+    }
+
+    .calendar-table td {
+        padding: 11px;
+    }
+
+
+    .calendar-table td {
+        height: auto;
+    }
+
+    .can_chi_text {
+        /* height: 35px; */
+        font-size: 8px;
+    }
+}
+
+/* >= 768px (Tablet ngang) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .calendar-table th {
+        font-size: 16px;
+
+    }
+
+    .title-lich-pc {
+        display: block;
+    }
+
+    .title-lich-mobie {
+        display: none;
+    }
+
+    .calendar-table td {
+        padding: 13px;
+    }
+
+
+    .can_chi_text {
+        /* height: 40px; */
+        font-size: 10px;
+    }
+}
+
+/* >= 576px (Tablet đứng) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .calendar-table th {
+        font-size: 13px;
+    }
+
+    .title-lich-pc {
+        display: none;
+    }
+
+    .title-lich-mobie {
+        display: block;
+    }
+
+    .calendar-table td {
+        padding: 12px;
+    }
+
+
+
+    .box-contnet-date {
+        justify-content: space-evenly;
+    }
+
+    .can_chi_text {
+        display: none;
+        font-size: 11px;
+    }
+
+    .am {
+        font-size: 11px;
+    }
+
+    .dao {
+        font-size: 10px;
+    }
+}
+
+/* < 576px (Mobile) */
+@media (max-width: 575.98px) {
+    .calendar-table th {
+        font-size: 13px;
+    }
+
+    .title-lich-pc {
+        display: none;
+    }
+
+    .title-lich-mobie {
+        display: block;
+    }
+
+    .calendar-table td {
+        padding: 10px;
+    }
+
+
+
+    .box-contnet-date {
+        justify-content: space-evenly;
+    }
+
+    .can_chi_text {
+        display: none;
+        font-size: 11px;
+    }
+
+    .am {
+        font-size: 11px;
+    }
+
+    .dao {
+        font-size: 10px;
+    }
+
+    .nhuan-khong {
+        display: none;
+    }
+}
+
+.calendar-table td:hover {
+    /* This creates a soft, light yellow glow from the center */
+    background: linear-gradient(318deg, #FDFAE9, #FFFFFF);
+
+    /* From "Borders" section */
+    border: 1px solid #CACACA;
+
+    /* Keeping some useful properties from the old hover effect */
+    cursor: pointer;
+
+    /* We remove the old transform and box-shadow to match the new, flatter design */
+    transform: none;
+    box-shadow: none;
+}
+
+.header-calendar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    /* Thêm padding cho đẹp */
+    font-size: 1.2rem;
+    /* Tăng kích thước font */
+    font-weight: bold;
+    color: #fff;
+    background-color: #8b4513;
+    /* Màu nền ví dụ */
+}
+
+.header-calendar-title {
+    flex-grow: 1;
+    text-align: center;
+}
+
+.nav-arrow {
+    color: #161414;
+    text-decoration: none;
+    font-size: 1.5rem;
+    padding: 0 10px;
+    transition: transform 0.2s ease-in-out;
+}
+
+.nav-arrow:hover {
+    color: #ffd700;
+    /* Màu vàng khi hover */
+    transform: scale(1.1);
+}
+
+.tab-horoscope.active {
+    background: red;
+}
+
+.loader {
+    width: 96px;
+    box-sizing: content-box;
+    height: 48px;
+    background: #FFF;
+    border-color: #000000;
+    border-style: solid;
+    border-width: 2px 2px 50px 2px;
+    border-radius: 100%;
+    position: relative;
+    animation: 3s yinYang linear infinite;
+}
+
+.loader:before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    background: #FFF;
+    border: 18px solid #000000;
+    border-radius: 100%;
+    width: 12px;
+    height: 12px;
+    box-sizing: content-box;
+}
+
+.loader:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background: #000000;
+    border: 18px solid #FFF;
+    border-radius: 100%;
+    width: 12px;
+    height: 12px;
+    box-sizing: content-box;
+}
+
+@keyframes yinYang {
+    100% {
+        transform: rotate(360deg)
+    }
+}
+
+
+
+
+
+/* Sty thước lỗ ban */
+:root {
+    --marker-color: #fbc02d;
+    --ruler-height: 55px;
+    --scale-height: 25px;
+    --border-color: #cccccc;
+    --border-strong-color: #999999;
+    --text-good-color: #d32f2f;
+    --text-bad-color: #212529;
+    --bg-info-panel: #fff9e6;
+}
+
+
+.header-section {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.header-section h1 {
+    font-size: 2em;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.header-section .input-group {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-section input {
+    width: 80px;
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: var(--text-good-color);
+    padding: 5px;
+    border: 2px solid var(--marker-color);
+    border-radius: 4px;
+    outline: none;
+}
+
+.header-section input::-webkit-outer-spin-button,
+.header-section input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.header-section input[type=number] {
+    -moz-appearance: textfield;
+}
+
+.header-section span {
+    margin-left: 10px;
+    font-size: 1.1em;
+    color: #555;
+}
+
+.ruler-area {
+    position: relative;
+}
+
+.ruler-viewport {
+    width: 100%;
+    overflow-x: scroll;
+    cursor: grab;
+    user-select: none;
+    scrollbar-width: thin;
+    scrollbar-color: #ccc #f1f1f1;
+
+}
+
+.ruler-viewport::-webkit-scrollbar {
+    height: 8px;
+    display: none
+}
+
+.ruler-viewport::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.ruler-viewport::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+
+.ruler-viewport:active {
+    cursor: grabbing;
+}
+
+.ruler-canvas {
+    position: relative;
+    height: 500px;
+}
+
+.ruler-chunk {
+    position: absolute;
+    top: 0;
+}
+
+.marker {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 2px;
+    height: 100%;
+    background-color: var(--marker-color);
+    transform: translateX(-1px);
+    z-index: 10;
+    pointer-events: none;
+}
+
+.drag-hint {
+    position: absolute;
+    top: -20px;
+    right: 0;
+    font-size: 0.8em;
+    color: #666;
+}
+
+.ruler {
+    margin-bottom: 0px;
+    border-bottom: 1px solid var(--border-strong-color);
+}
+
+.ruler-body {
+    border-top: 1px solid var(--border-strong-color);
+}
+
+.ruler-title {
+    font-weight: bold;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    font-size: 0.9em;
+    padding-left: 10px;
+}
+
+.ruler-body {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.ruler-scale {
+    margin-bottom: 5px;
+    display: flex;
+}
+
+/* .khoang-container {
             margin-bottom: 5px;
             display: flex;
         } */
-   .cung-container .cung-item:first-child {
-       /* border-left: 2px solid red; */
-   }
+.cung-container .cung-item:first-child {
+    /* border-left: 2px solid red; */
+}
 
-   .scale-mark {
-       height: var(--scale-height);
-       border-left: 1px solid var(--border-color);
-       position: relative;
-   }
+.scale-mark {
+    height: var(--scale-height);
+    border-left: 1px solid var(--border-color);
+    position: relative;
+}
 
-   .scale-mark.cm::after {
-       content: attr(data-cm) 'cm';
-       position: absolute;
-       top: -15px;
-       left: 2px;
-       font-size: 11px;
-       color: #555;
-   }
+.scale-mark.cm::after {
+    content: attr(data-cm) 'cm';
+    position: absolute;
+    top: -15px;
+    left: 2px;
+    font-size: 11px;
+    color: #555;
+}
 
-   .scale-mark.mm-5 {
-       height: -26px;
-       /* border-left-width: 1px; */
-       /* border-color: #999; */
-   }
+.scale-mark.mm-5 {
+    height: -26px;
+    /* border-left-width: 1px; */
+    /* border-color: #999; */
+}
 
-   .scale-mark.mm {
-       height: 0px;
-   }
+.scale-mark.mm {
+    height: 0px;
+}
 
-   .khoang-container {
-       display: flex;
-       text-align: center;
-       background-color: #fff;
-   }
+.khoang-container {
+    display: flex;
+    text-align: center;
+    background-color: #fff;
+}
 
-   .ruler-khoang {
-       border-left: 1px solid var(--border-strong-color);
-   }
+.ruler-khoang {
+    border-left: 1px solid var(--border-strong-color);
+}
 
-   .ruler-khoang:first-child {
-       border-left: none;
-   }
+.ruler-khoang:first-child {
+    border-left: none;
+}
 
-   .khoang-name {
-       font-size: 0.8em;
-       font-weight: bold;
-       text-transform: uppercase;
-       padding: 4px 0;
-       border: 1px solid var(--border-strong-color);
-   }
+.khoang-name {
+    font-size: 0.8em;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 4px 0;
+    border: 1px solid var(--border-strong-color);
+}
 
-   .cung-container {
-       display: flex;
-   }
+.cung-container {
+    display: flex;
+}
 
-   .cung-item {
-       display: flex;
-       justify-content: center;
-       align-items: center;
-       height: calc(var(--ruler-height) - 18px);
-       font-size: 0.8em;
-       text-transform: uppercase;
-       border-right: 1px solid var(--border-color);
-       white-space: nowrap;
-       padding: 0 5px;
-       border-bottom-width: 2px;
-       border-bottom-style: solid;
-   }
+.cung-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(var(--ruler-height) - 18px);
+    font-size: 0.6em;
+    text-transform: uppercase;
+    border-right: 1px solid var(--border-color);
+    white-space: nowrap;
+    padding: 0 5px;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+}
 
-   .cung-item.text-good {
-       border-bottom-color: var(--text-good-color);
-   }
+.cung-item.text-good {
+    border-bottom-color: var(--text-good-color);
+}
 
-   .cung-item.text-bad {
-       border-bottom-color: black;
-   }
+.cung-item.text-bad {
+    border-bottom-color: black;
+}
 
-   .cung-item:last-child {
-       border-right: none;
-   }
+.cung-item:last-child {
+    border-right: none;
+}
 
-   .text-good {
-       color: var(--text-good-color);
-   }
+.text-good {
+    color: var(--text-good-color);
+}
 
-   .text-bad {
-       color: var(--text-bad-color);
-   }
+.text-bad {
+    color: var(--text-bad-color);
+}
 
-   .info-panel {
-       margin-top: 25px;
-       padding: 20px;
-       background-color: var(--bg-info-panel);
-       border: 1px solid #ffe58f;
-       border-radius: 8px;
-       transition: opacity 0.3s;
-   }
+.info-panel {
+    margin-top: 25px;
+    padding: 20px;
+    background-color: var(--bg-info-panel);
+    border: 1px solid #ffe58f;
+    border-radius: 8px;
+    transition: opacity 0.3s;
+}
 
-   .info-item {
-       margin-bottom: 15px;
-       line-height: 1.6;
-   }
+.info-item {
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
 
-   .info-item:last-child {
-       margin-bottom: 0;
-   }
+.info-item:last-child {
+    margin-bottom: 0;
+}
 
-   .info-item .title {
-       font-weight: bold;
-       color: var(--text-good-color);
-   }
+.info-item .title {
+    font-weight: bold;
+    color: var(--text-good-color);
+}
 
-   .info-item .khoang,
-   .info-item .cung {
-       text-transform: uppercase;
-       font-weight: bold;
-   }
+.info-item .khoang,
+.info-item .cung {
+    text-transform: uppercase;
+    font-weight: bold;
+}
 
-   .info-item .type-good {
-       font-weight: bold;
-       color: var(--text-good-color);
-   }
+.info-item .type-good {
+    font-weight: bold;
+    color: var(--text-good-color);
+}
 
-   .info-item .type-bad {
-       font-weight: bold;
-       color: var(--text-bad-color);
-   }
+.info-item .type-bad {
+    font-weight: bold;
+    color: var(--text-bad-color);
+}
 
-   .scale-mark-wrapper {
-       display: flex;
-       align-items: flex-end;
-       /* Căn các vạch mm xuống dưới */
-       height: var(--scale-height);
-       border-left: 1px solid var(--border-strong-color);
-       /* Vạch cm chính */
-       position: relative;
-   }
+.scale-mark-wrapper {
+    display: flex;
+    align-items: flex-end;
+    /* Căn các vạch mm xuống dưới */
+    height: var(--scale-height);
+    border-left: 1px solid var(--border-strong-color);
+    /* Vạch cm chính */
+    position: relative;
+}
 
-   .scale-mark-wrapper::after {
-       content: attr(data-cm) 'cm';
-       position: absolute;
-       top: -15px;
-       left: 2px;
-       font-size: 11px;
-       color: #555;
-   }
+.scale-mark-wrapper::after {
+    content: attr(data-cm) 'cm';
+    position: absolute;
+    top: -15px;
+    left: 2px;
+    font-size: 11px;
+    color: #555;
+}
 
-   .scale-mark-mm {
-       height: 40%;
-       /* Chiều cao vạch mm thường */
-       width: 1px;
-       background-color: var(--border-color);
-       /* Dùng biến CSS từ JS để tính toán khoảng cách */
-       margin-right: calc(var(--pixel-per-mm) - 1px);
-   }
+.scale-mark-mm {
+    height: 40%;
+    /* Chiều cao vạch mm thường */
+    width: 1px;
+    background-color: var(--border-color);
+    /* Dùng biến CSS từ JS để tính toán khoảng cách */
+    margin-right: calc(var(--pixel-per-mm) - 1px);
+}
 
-   .scale-mark-mm.mid {
-       height: 60%;
-       /* Chiều cao vạch 5mm */
-   }
+.scale-mark-mm.mid {
+    height: 60%;
+    /* Chiều cao vạch 5mm */
+}
 
-   /* End thước lỗ ban */
-   /* ──────────────────────────────────────────────────── */
+/* End thước lỗ ban */
+/* ──────────────────────────────────────────────────── */
+
+
+
+
+
+
+
+/* --- Container chính của header --- */
+.site-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    transition: all 0.3s ease;
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Logo --- */
+.site-logo a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+/* .site-logo img {
+     height: 100px;
+ } */
+.title-logo {
+    display: none;
+    /* font-size: 24px; */
+    font-weight: 400;
+    /* Bước 1: Dùng 'background' để TẠO dải màu gradient.
+       Đây là bước bắt buộc. Gradient này chỉ tồn tại bên trong phần tử h1. */
+    background: linear-gradient(to right, #efe5b8, #f2e7c3, #f4d297);
+
+    /* Bước 2: Ra lệnh cho trình duyệt: "Hãy lấy nền ở trên và chỉ hiển thị
+       nó ở những nơi có chữ". */
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    /* Bước 3: Làm cho màu của chữ trở nên trong suốt.
+       Nếu không có dòng này, màu chữ (mặc định là đen) sẽ che mất
+       lớp nền gradient bên dưới. */
+    color: transparent;
+    font-family: Anton-Regular, sans-serif;
+}
+
+/* --- Thanh Menu --- */
+.main-navigation {
+    flex-grow: 1;
+
+    border-radius: 50px;
+    padding: 5px 50px;
+}
+
+.main-navigation ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Sửa lại cho li có position relative */
+.main-navigation li {
+    position: relative;
+}
+
+.main-navigation li a {
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 170px;
+    height: 50px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #ffffff;
+    background-image: none;
+    transition: color 0.3s ease;
+    font-family: CormorantGaramond-Bold, serif;
+}
+
+/* --- KHI HOVER HOẶC ACTIVE: HIỂN THỊ ẢNH NỀN VÀ ĐỔI MÀU CHỮ --- */
+
+.site-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 72px;
+    background-color: #002178;
+}
+
+/* .site-logo img {
+     max-height: 40px;
+ } */
+
+.main-navigation ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+}
+
+.main-navigation a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    padding: 5px 0;
+    position: relative;
+    transition: color 0.3s;
+}
+
+/* 2. Menu trượt ra từ bên phải */
+.mobile-navigation {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 280px;
+    height: 100%;
+    background: #002178;
+    z-index: 1001;
+    /* Phải cao hơn lớp phủ */
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+    transform: translateX(100%);
+    /* Ẩn menu ra ngoài màn hình bên phải */
+    transition: transform 0.3s ease-in-out;
+    padding: 6px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+/* Trạng thái khi menu mở */
+.mobile-navigation.is-open {
+    transform: translateX(0);
+}
+
+/* Nút đóng menu mobile */
+.mobile-nav-close {
+    text-align: right;
+    font-size: 24px;
+
+    cursor: pointer;
+    color: #333;
+}
+
+.mobile-navigation ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.mobile-navigation a {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 18px;
+    display: block;
+    /* padding: 10px; */
+    font-weight: 600;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    font-family: OpenSans_Condensed-Bold, serif;
+}
+
+.mobile-navigation a.active,
+.mobile-navigation a:hover {
+    background-color: #f0f0f0;
+}
+
+a:hover {
+    color: #000;
+}
+
+/* 3. Lớp phủ nền */
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    /* Ẩn hoàn toàn */
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+/* Trạng thái khi lớp phủ hiện */
+.menu-overlay.is-open {
+    opacity: 1;
+    visibility: visible;
+    /* Cho phép tương tác */
+}
+
+/* --- Khung chứa icon (div chính) --- */
+.mobile-menu-toggle {
+    /* Kích thước */
+    width: 40px;
+    height: 40px;
+
+    /* Màu nền */
+    background-color: #ffffff;
+
+    /* Bo góc (ước tính từ Figma) */
+    border-radius: 8px;
+
+    /* Hiệu ứng Inner Shadow từ Figma */
+    box-shadow: inset -1px -4px 2px 0 rgba(0, 0, 0, 0.24),
+        inset 1px 2px 4px 0 rgba(255, 255, 255, 0.5);
+
+    /* Thiết lập để căn giữa icon bên trong */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /* Con trỏ để người dùng biết có thể click */
+    cursor: pointer;
+
+    /* Hiệu ứng chuyển động mượt mà */
+    transition: all 0.2s ease-in-out;
+}
+
+/* --- Icon Font Awesome bên trong --- */
+.mobile-menu-toggle i.fas.fa-bars {
+    /* Kích thước của icon */
+    font-size: 20px;
+
+    /* --- Kỹ thuật tạo màu gradient cho icon (chữ) --- */
+    /* 1. Đặt nền là dải màu gradient vàng gold */
+    background: #000000;
+
+    /* 2. Cắt nền theo hình dạng của chữ (icon) */
+    -webkit-background-clip: text;
+    /* Dành cho trình duyệt Safari/Chrome */
+    background-clip: text;
+
+    /* 3. Làm cho màu của chữ/icon trong suốt để nền hiện ra */
+    color: transparent;
+}
+
+/* --- Hiệu ứng khi di chuột và nhấn (tùy chọn) --- */
+.mobile-menu-toggle:hover {
+    filter: brightness(1.1);
+}
+
+.mobile-menu-toggle:active {
+    transform: scale(0.98);
+    filter: brightness(0.9);
+}
+
+.mobile-menu-toggle {
+    display: none;
+}
+
+.main-navigation {
+    display: block;
+}
+
+@media screen and (max-width: 479.98px) {
+    .mobile-menu-toggle {
+        display: flex;
+    }
+
+    .main-navigation {
+        display: none;
+    }
+}
+
+@media screen and (min-width: 480px) and (max-width: 767.98px) {
+    .main-navigation {
+        display: none;
+    }
+
+    .mobile-menu-toggle {
+        display: flex;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 991.98px) {
+    .main-navigation {
+        display: none;
+    }
+
+    .mobile-menu-toggle {
+        display: flex;
+    }
+}
+
+/* --- MENU MOBILE --- */
+
+/* --- 1. Header của menu --- */
+.mobile-nav-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    flex-shrink: 0;
+    /* Không co lại */
+}
+
+.mobile-nav-logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #8c1c13;
+    /* Màu đỏ sẫm */
+    font-weight: 700;
+}
+
+/* Nút đóng [X] */
+.mobile-nav-close {
+    background-color: #ffffff;
+    /* Nền đỏ sẫm */
+    color: #000000;
+    border: none;
+    width: 35px;
+    height: 35px;
+    border-radius: 8px;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* --- 2. Phần thân menu (các link) --- */
+.mobile-nav-main {
+    flex: 1;
+    /* Giãn ra để chiếm hết không gian còn lại */
+    overflow-y: auto;
+    /* TỰ ĐỘNG CÓ THANH CUỘN KHI CẦN */
+    padding-bottom: 50px;
+    /* Khoảng đệm ở dưới */
+}
+
+.mobile-nav-main ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    /* Để bo góc có tác dụng */
+}
+
+.mobile-nav-main ul li a {
+    display: block;
+    padding: 15px 20px;
+    color: #fff;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 16px;
+    transition: background-color 0.2s ease;
+    font-family: OpenSans_Condensed-Bold, serif;
+}
+
+.mobile-nav-main ul li:last-child a {
+    border-bottom: none;
+    /* Bỏ đường kẻ của link cuối cùng */
+}
+
+.mobile-nav-main ul li a.active {
+    background-color: #a4ccff;
+    /* Màu đỏ đậm hơn khi hover hoặc active */
+}
+
+.mobile-nav-main ul li a:hover {
+    background-color: #001b64;
+}
+
+/* --- 3. Footer của menu (các nút chức năng) --- */
+.mobile-nav-footer {
+    flex-shrink: 0;
+    /* Không co lại */
+    /* Đây là chìa khóa để đẩy footer xuống dưới cùng */
+    margin-top: auto;
+}
+
+.mobile-nav-button {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    background-image: url("../images/btn_ho_tro.svg");
+    background-repeat: no-repeat;
+    /* QUAN TRỌNG: Không lặp lại ảnh */
+    background-size: cover;
+    /* QUAN TRỌNG: Che phủ toàn bộ khối */
+    background-position: center;
+    /* QUAN TRỌNG: Căn ảnh ra giữa */
+    overflow: hidden;
+}
+
+.mobile-nav-button:hover {
+    background-color: #a0805c;
+    /* Màu đậm hơn khi hover */
+    color: #fff;
+}
+
+.mobile-nav-button i {
+    margin-right: 10px;
+}
+
+/* ---------------------------------------------------- */
+/* --- BẮT ĐẦU: CSS CHO DROPDOWN (PHẦN THÊM MỚI) --- */
+/* ---------------------------------------------------- */
+
+/* --- Dropdown Menu (Desktop) --- */
+.main-navigation .has-dropdown>a i.bi-chevron-down {
+    font-size: 14px;
+    /* Điều chỉnh kích thước icon */
+    margin-left: 6px;
+    /* Khoảng cách giữa chữ và icon */
+    vertical-align: middle;
+    /* Căn icon cho đẹp hơn */
+    transition: transform 0.3s ease;
+}
+
+.main-navigation .has-dropdown:hover>a i.bi-chevron-down {
+    transform: rotate(180deg);
+}
+
+.main-navigation .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 200px;
+    background-color: #001b64;
+    /* Màu nền dropdown */
+    list-style: none;
+    padding: 10px 0;
+    margin: 0;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    z-index: 100;
+    flex-direction: column;
+    /* Mặc định ẩn dropdown */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+}
+
+.main-navigation .has-dropdown:hover>.dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.main-navigation .dropdown-menu li a {
+    /* min-width: 100%; */
+    height: auto;
+    max-width: 200px;
+    padding: 10px 20px;
+    justify-content: center;
+    /* Căn text về bên trái */
+    font-size: 16px;
+    box-sizing: border-box;
+    /* Quan trọng để padding không làm vỡ layout */
+}
+
+.main-navigation .dropdown-menu li a:hover {
+    background-color: #00288d;
+    width: 100%;
+    /* min-width: 200px; */
+    text-align: center;
+}
+
+/* --- Dropdown Menu (Mobile) --- */
+.mobile-nav-main .has-dropdown>a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mobile-nav-main .has-dropdown>a .arrow-icon {
+    transition: transform 0.3s ease;
+}
+
+/* Xoay mũi tên khi menu con mở */
+.mobile-nav-main .has-dropdown.submenu-open>a .arrow-icon {
+    transform: rotate(180deg);
+}
+
+.mobile-nav-main .mobile-submenu {
+    list-style: none;
+    padding-left: 20px;
+    /* Thụt vào để phân cấp */
+    margin: 0;
+    background-color: #001b64;
+    /* Màu nền khác để phân biệt */
+    max-height: 0;
+    /* Dùng max-height để tạo animation */
+    overflow: hidden;
+    transition: max-height 0.4s ease-out;
+}
+
+.mobile-nav-main .mobile-submenu a {
+    padding: 12px 20px;
+    font-size: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* 1. Thiết lập cho item cha của menu cấp 2 (Không đổi) */
+.main-navigation .dropdown-menu .has-submenu {
+    position: relative;
+}
+
+/* --- BẮT ĐẦU THAY ĐỔI --- */
+
+/* 2. Style cho thẻ <a> chứa text và icon */
+.main-navigation .has-submenu>a {
+    position: relative;
+    /* BẮT BUỘC: Để làm gốc định vị cho icon */
+    text-align: center;
+    /* Căn giữa text một cách hoàn hảo */
+
+    /* Tạo khoảng trống bên phải để text không bị đè lên icon */
+    /* Bạn có thể điều chỉnh giá trị này */
+    padding-right: 35px !important;
+}
+
+/* 3. Style cho icon mũi tên */
+.main-navigation .has-submenu>a>i {
+    position: absolute;
+    /* Tách icon ra khỏi dòng chảy của text */
+    right: 15px;
+    /* Căn icon cách cạnh phải 15px */
+    top: 50%;
+    /* Đặt icon ở giữa theo chiều dọc */
+    transform: translateY(-50%);
+    /* Căn chỉnh lại cho chính xác tuyệt đối */
+
+    /* (Tùy chọn) Đảm bảo icon không quá to hoặc nhỏ */
+    font-size: 0.8em;
+}
+
+/* --- KẾT THÚC THAY ĐỔI --- */
+
+
+/* 4. Định dạng cho menu cấp 2 (submenu) (Không đổi) */
+.main-navigation .has-submenu .submenu {
+    display: none;
+    position: absolute;
+    left: 100%;
+    top: -5px;
+    min-width: 200px;
+    padding: 5px 0;
+    margin: 0;
+    list-style: none;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+}
+
+/* 5. Hiển thị menu cấp 2 khi hover (Không đổi) */
+.main-navigation .has-submenu:hover>.submenu {
+    display: block;
+}
+
+/* 6. Style cho các link trong submenu (Không đổi) */
+.main-navigation .submenu li a {
+    padding: 8px 20px;
+    display: block;
+    clear: both;
+    font-weight: normal;
+    line-height: 1.42857143;
+    color: #333;
+    white-space: nowrap;
+    text-decoration: none;
+    text-align: center;
+    /* Đảm bảo text trong menu cấp 2 căn trái */
+}
+
+.main-navigation .submenu li a:hover {
+    background-color: #f5f5f5;
+    color: #262626;
+}
+
+.mobile-submenu .mobile-submenu {
+    padding-left: 20px;
+    /* Điều chỉnh giá trị này nếu muốn thụt lề nhiều hơn hoặc ít hơn */
+    background-color: rgba(0, 0, 0, 0.05);
+    /* (Tùy chọn) Thêm màu nền hơi khác để phân biệt */
+}
+
+#mobile-navigation {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* 
+  (Tùy chọn) Có thể làm cho font chữ của menu cấp 2 nhỏ hơn một chút
+*/
+.mobile-submenu .mobile-submenu li a {
+    font-size: 0.9em;
+}
+
+/* ---------------------------------------------------- */
+/* --- KẾT THÚC: CSS CHO DROPDOWN --- */
+/* ---------------------------------------------------- */
+
+/* ---- TOP DATE DISPLAY CARDS ---- */
+/* ---- TOP DATE DISPLAY CARDS (CORRECTED SHADOW) ---- */
+.date-display-card {
+    /* From "Colors" section */
+    background-color: #ffffff;
+
+    /* From "Borders" section */
+    border: 1px solid #2254AB;
+
+    /* From "Shadows and blurs" section - CORRECTED */
+    /* X: 2px, Y: 2px, Blur: 5px, Spread: 0, Color: #2B7EE5 (solid) */
+    box-shadow: 2px 2px 5px 0px #2B7EE5;
+
+    /* Keeping existing properties for layout consistency */
+    border-radius: 1rem;
+    padding: 1.5rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    position: relative;
+}
+
+.date-display-card .card-title {
+    font-size: 1rem;
+    color: #6c757d;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.date-display-card .date-number {
+
+    /* From "Colors" section */
+    color: #214987;
+
+    font-weight: 700;
+    line-height: 1;
+    /* Xóa các thuộc tính cũ không cần thiết */
+    background-image: none;
+    -webkit-background-clip: initial;
+    background-clip: initial;
+
+}
+
+.date-number.dương {
+    background-image: linear-gradient(45deg, #0d6efd, #0d6efd);
+}
+
+.date-number.âm {
+    background-image: linear-gradient(45deg, #ffc107, #fd7e14);
+}
+
+.date-display-card .date-weekday {
+    font-size: 1rem;
+    color: #343a40;
+}
+
+.date-display-card .date-special-event {
+    color: #dc3545;
+    font-weight: 500;
+    /* font-size: 0.9rem; */
+    margin-top: 0.25rem;
+    height: 36px;
+}
+
+.date-display-card .nav-arrow {
+    color: #adb5bd;
+    font-size: 1.5rem;
+    text-decoration: none;
+    padding: 0 0.5rem;
+}
+
+.date-display-card .nav-arrow.placeholder {
+    visibility: hidden;
+}
+
+.nav-home-date {
+    position: absolute;
+}
+
+/* ---- CALENDAR WRAPPER & TABLE ---- */
+.calendar-wrapper {
+    background-color: #fff;
+    border: 1px solid #e0e6f1;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: 0 4px 15px rgba(212, 217, 236, 0.4);
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1.5rem;
+      position: relative;
+}
+.btn-today-home {
+    /* --- Định vị tuyệt đối ở góc phải --- */
+    position: absolute;
+    top: 50%; /* Căn giữa theo chiều dọc */
+    right: 0; /* Khoảng cách so với lề phải */
+    transform: translateY(-50%); /* Căn giữa chính xác theo chiều dọc */
+
+    /* --- Kiểu dáng của nút --- */
+    background-color: #ffffff; /* Màu nền xám nhạt */
+    color: #192E52; /* Màu chữ */
+    border: 1px solid #2254AB;
+    border-radius: 16px; /* Bo góc */
+    padding: 6px 12px; /* Khoảng đệm bên trong */
+    font-size: 20px;
+    font-weight: 600;
+    text-decoration: none; /* Bỏ gạch chân của thẻ <a> */
+    white-space: nowrap; /* Đảm bảo chữ "Hôm nay" không bị xuống dòng */
+
+    /* --- Hiệu ứng chuyển động mượt mà --- */
+    transition: all 0.2s ease-in-out;
+}
+
+/* --- Hiệu ứng khi di chuột vào nút --- */
+.btn-today-home:hover {
+    background-color: #C1E3FC;
+    border-color: #2254AB;
+    color: #192E52;
+}
+.btn-today-home-mob {
+    /* --- Định vị tuyệt đối ở góc phải --- */
+ 
+
+    /* --- Kiểu dáng của nút --- */
+    background-color: #ffffff; /* Màu nền xám nhạt */
+    color: #192E52; /* Màu chữ */
+    border: 1px solid #2254AB;
+    border-radius: 16px; /* Bo góc */
+    padding: 6px 12px; /* Khoảng đệm bên trong */
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none; /* Bỏ gạch chân của thẻ <a> */
+    white-space: nowrap; /* Đảm bảo chữ "Hôm nay" không bị xuống dòng */
+
+    /* --- Hiệu ứng chuyển động mượt mà --- */
+    transition: all 0.2s ease-in-out;
+}
+
+/* --- Hiệu ứng khi di chuột vào nút --- */
+.btn-today-home-mob:hover {
+    background-color: #C1E3FC;
+    border-color: #2254AB;
+    color: #192E52;
+}
+
+.calendar-header h5 {
+    color: #001F50;
+    font-weight: 700;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+.calendar-header .month-nav {
+    color: #6c757d;
+    font-size: 1.25rem;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.calendar-table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: separate;
+    border-spacing: 0.5rem;
+}
+
+.calendar-table th {
+    text-align: center;
+    font-weight: 600;
+    color: #6c757d;
+    padding-bottom: 0.5rem;
+}
+
+.calendar-table td {
+    border: 1px solid #CACACA;
+    border-radius: 0.75rem;
+    vertical-align: top;
+    padding: 0.5rem;
+    height: 100px;
+    transition: all 0.2s ease-in-out;
+}
+
+.calendar-table td:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+.calendar-table td .day-content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.calendar-table .day-number {
+    font-weight: 600;
+    font-size: 1rem;
+    color: #343a40;
+}
+
+.calendar-table .lunar-day {
+    font-size: 0.8rem;
+    color: #6c757d;
+}
+
+.calendar-table .day-note {
+    font-size: 0.8rem;
+    color: #6c757d;
+    margin-top: 0.25rem;
+}
+
+.calendar-table .event-text {
+    color: #dc3545;
+    font-weight: 500;
+}
+
+.calendar-table .other-month {
+    opacity: 0.5;
+    background-color: #f8f9fa;
+}
+
+.calendar-table .current-day {
+    background-color: #eaf3ff;
+    border-color: #8abcfc;
+}
+
+.calendar-table .current-day .day-number,
+.calendar-table .current-day .event-text {
+    color: #dc3545;
+    font-weight: bold;
+}
+
+/* Dots for days */
+.dot-hoangdao,
+.dot-hacdao,
+.dot-special,
+.dot-chủ.nhật {
+    position: relative;
+}
+
+.dot-hoangdao::after,
+.dot-hacdao::after,
+.dot-special::after,
+.dot-chủ.nhật::after {
+    content: '';
+    position: absolute;
+    top: 0px;
+    right: -7px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+}
+
+.dot-hoangdao::after {
+    background-color: #3CAF1F;
+}
+
+.dot-hacdao::after {
+    background-color: #95149A;
+}
+
+.dot-special::after {
+    background-color: #dc3545;
+}
+
+.dot-chủ.nhật::after {
+    background-color: #0d6efd;
+}
+
+/* Calendar Legend */
+.calendar-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    /* margin-top: 1.5rem; */
+    font-size: 0.9rem;
+}
+
+.calendar-legend .dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+}
+
+/* ---- RIGHT SIDEBAR CARDS ---- */
+.info-card {
+    background-color: #fff;
+    border: 1px solid #e0e6f1;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: 0 4px 15px rgba(212, 217, 236, 0.4);
+}
+
+.card-title-right {
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.info-item .icon {
+    font-size: 1.5rem;
+    color: #0d6efd;
+}
+
+/* Progress Circle */
+.progress-circle-container {
+    position: relative;
+}
+
+.progress-circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: conic-gradient(var(--color) calc(var(--value) * 1%), #ededed 0);
+    transition: background 0.5s;
+}
+
+.progress-circle::before {
+    content: '';
+    position: absolute;
+    width: 65px;
+    height: 65px;
+    background: #fff;
+    border-radius: 50%;
+}
+
+.progress-text {
+    position: relative;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    line-height: 1.2;
+}
+
+.progress-text small {
+    display: block;
+    font-size: 0.8rem;
+    color: #6c757d;
+    font-weight: 500;
+}
+
+/* Events List */
+/* .events-list .event-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding-left: 0;
+    padding-right: 0;
+} */
+
+/* .events-list .event-date {
+    background-color: #f8f9fa;
+    border-radius: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+} */
+
+.events-list .event-icon {
+    font-size: 1.5rem;
+}
+
+.events-list .event-details {
+    flex-grow: 1;
+}
+
+
+
+
+
+
+.date_number_lich {
+    font-family: 'sf-compact-display-medium';
+    color: #214987;
+
+    font-weight: bold;
+    line-height: 1;
+    text-align: center;
+
+    /* 2. Inner Gradient & Emboss Effect */
+    /* We create a blue gradient background... */
+    background: linear-gradient(180deg, #638bc6 0%, #295798 100%);
+    /* ...and then clip that background to the shape of the text. */
+    -webkit-background-clip: text;
+    background-clip: text;
+    /* The actual text color is made transparent to let the background show through. */
+    color: transparent;
+
+    /* 3. White Outline & Drop Shadow */
+    /* We stack multiple text shadows. The last shadow is rendered first (at the bottom). */
+    text-shadow:
+        /* The soft gray drop shadow for depth (bottom layer) */
+        3px 3px 5px rgba(0, 0, 0, 0.25),
+
+        /* The solid white "sticker" outline (middle layer) */
+        /* This uses multiple, non-blurry shadows to create a crisp border. */
+        -2px -2px 0 white,
+        2px -2px 0 white,
+        -2px 2px 0 white,
+        2px 2px 0 white;
+
+    /* Optional: Add padding to ensure shadows are not cut off by the element's box */
+    padding: 5px;
+
+}
+.convenience-level{
+    background: #FFFFFF;
+    border-radius: 20px;
+    padding: 16px 20px;
+}
+.info-card{
+     padding: 20px;
+  border-radius: 36px; /* The spec doesn't show a radius, but it's common. Adjust as needed. */
+
+  /* 1. Colors: A linear gradient from a very light blue to a slightly darker blue */
+  background: linear-gradient(160deg, #EFF8FF, #C1E3FC);
+
+  /* 2. Borders & Shadows: We combine the inner border and drop shadow using a multi-layer box-shadow */
+  /* The properties are listed in the order they are stacked (top layer first) */
+  box-shadow:
+    /* Layer 1: Inner border. This creates a 1px border on the inside of the box. */
+    inset 0 0 0 1px #C1E3FC,
+
+    /* Layer 2: Drop shadow. 2px offset on X/Y, 0 blur, 0 spread, with 30% opacity. */
+    2px 2px 0 0 rgba(33, 73, 135, 0.3);
+
+}
+.nav-home-date {
+    border: 1px solid #409BF1;
+    border-radius: 50%;
+}
+
+.prev-day-btn-mobie,
+.next-day-btn-mobie {
+    border: 1px solid #409BF1;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-self: center;
+}
+
+.btn-mobie-next-prev {
+    gap: 15px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-mobie-next-prev .prev-day-btn-mobie,.next-day-btn-mobie {
+    /* Kích thước của nút */
+    width: 35px;
+    height: 35px;
+
+    /* Bo tròn góc để tạo thành hình tròn */
+    border-radius: 50%;
+
+    /* Màu nền và viền */
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+
+    /* === PHẦN QUAN TRỌNG NHẤT: CĂN GIỮA ICON === */
+    display: flex;
+    align-items: center;
+    /* Căn giữa theo chiều dọc */
+    justify-content: center;
+    /* Căn giữa theo chiều ngang */
+
+    /* Hiệu ứng chuyển động mượt mà */
+    transition: all 0.2s ease-in-out;
+}
+
+/* --- 3. Style cho icon bên trong (thẻ <i>) --- */
+.btn-mobie-next-prev .prev-day-btn-mobie i {
+    /* Kích thước của icon (nhỏ hơn) */
+    font-size: 1.25rem;
+    /* ~20px */
+    color: #495057;
+    /* Màu icon */
+}
+
+/* --- 4. (Tùy chọn) Thêm hiệu ứng khi di chuột hoặc chạm vào --- */
+.btn-mobie-next-prev a:hover {
+    background-color: #e9ecef;
+    border-color: #adb5bd;
+    transform: scale(1.05);
+    /* Phóng to nhẹ */
+    cursor: pointer;
+}
+
+.btn-mobie-next-prev a:hover i {
+    color: #212529;
+}
+
+.am_table {
+    display: flex;
+    justify-self: flex-end;
+    font-size: 16px;
+}
+
+.nhuan-khong {
+    font-size: 8px;
+}
+
+.boxx-col-lg-8 {
+    border-radius: 36px;
+}
+
+.sun {
+    color: #BF7F0F !important;
+}
+
+/* ============================================= */
+/* == STYLE CHO ĐỒNG HỒ ĐO MỨC THUẬN LỢI == */
+/* ============================================= */
+
+/* --- 1. Container chính và nhãn văn bản --- */
+.level-label {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a2c4e;
+    /* Màu xanh đậm */
+    line-height: 1.4;
+}
+
+/* --- 2. Vòng tròn chính (progress-dial) --- */
+.progress-dial {
+    --size: 97px;
+    /* Kích thước của đồng hồ */
+    --track-width: 10px;
+    /* Độ dày của vạch */
+    --track-color: #f0f0f0;
+    /* Màu của vạch nền */
+    --thumb-size: 14px;
+    /* Kích thước của tay cầm (màu xanh lá) */
+    width: var(--size);
+    height: var(--size);
+
+    /* === THÊM DÒNG NÀY ĐỂ SỬA LỖI === */
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* --- 3. Tạo vạch nền và vạch tiến trình bằng pseudo-elements --- */
+.progress-dial::before,
+.progress-dial::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    /* 
+      Kỹ thuật chính: Dùng conic-gradient để vẽ hình cung.
+      - 270deg tạo ra một hình cung 3/4.
+      - transform: rotate(-135deg) xoay hình cung về đúng vị trí.
+    */
+    background: conic-gradient(var(--track-color) 0 270deg, transparent 270deg 360deg);
+    transform: rotate(-135deg);
+}
+
+/* ::after sẽ là vạch tiến trình nằm đè lên trên */
+.progress-dial::after {
+    /* 
+      Gradient màu cho vạch tiến trình (Nâu -> Vàng)
+      Góc 45deg làm cho gradient chạy dọc theo vạch
+    */
+    background: linear-gradient(45deg, #a57e28, #f0c142);
+
+    /* 
+      Dùng mask để cắt vạch tiến trình theo giá trị --value
+      - 2.7deg = 270deg (tổng độ của cung) / 100 (giá trị max)
+    */
+    -webkit-mask: conic-gradient(white calc(var(--value) * 2.7deg), transparent 0);
+    mask: conic-gradient(white calc(var(--value) * 2.7deg), transparent 0);
+}
+
+/* --- 4. Tạo tay cầm (thumb) màu xanh lá --- */
+.progress-dial .dial-text::before {
+    content: "";
+    position: absolute;
+    width: var(--thumb-size);
+    height: var(--thumb-size);
+    background-color: #28a745;
+    /* Màu xanh lá */
+    border-radius: 50%;
+    border: 2px solid white;
+    /* 
+      Tính toán vị trí của tay cầm:
+      - Xoay tay cầm đến vị trí tương ứng với --value.
+      - translateY để đẩy nó ra đúng mép của vạch.
+    */
+    transform:
+        rotate(calc(var(--value) * 2.7deg - 135deg)) translateY(calc(var(--size) / -2.2));
+}
+
+/* --- 5. Style cho văn bản bên trong --- */
+.dial-text {
+    /* Tạo một lớp nền trắng bên trong để che đi phần giữa của vạch */
+    background: white;
+    width: calc(100% - var(--track-width) * 2);
+    height: calc(100% - var(--track-width) * 2);
+    border-radius: 50%;
+
+    /* Căn giữa nội dung */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    /* Đảm bảo nó nằm trên các lớp ::before, ::after */
+    position: relative;
+    z-index: 1;
+}
+
+.dial-percent {
+    font-size: 18px;
+    font-weight: 700;
+    color: #212529;
+}
+
+.dial-status {
+    font-size: 13px;
+    color: #dc3545;
+    /* Màu đỏ */
+    font-weight: 500;
+    margin-top: -5px;
+}
+.container-setup{
+    margin-right: auto; 
+     margin-left: auto;
+
+}
+.font-detail-ngay{
+    font-size: 16px;
+}
+.font-detail-ngay strong{
+    font-weight: 600;
+}
+.text-warning-tb{
+    color: #BF7F0F !important;
+}
+.btn-today-home, .btn-today-home-mob{
+      box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.15);
+  
+  /* Tùy chọn: Thêm tiền tố cho các trình duyệt cũ hơn để đảm bảo tương thích */
+  -webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.15);
+
+  /* Tùy chọn: Thêm transition để hiệu ứng mượt mà khi kết hợp với hover */
+  transition: box-shadow 0.3s ease-in-out
+}
+.text-detail-date-hand-pc{
+    color: #214987;
+    font-size: 22px;
+    font-weight: 600;
+}
+.btn0mobie{
+    border-radius: 36px;
+}
+
+.events-card {
+  
+    background-color: #fff;
+    padding: 24px;
+    border-radius: 12px;
+}
+
+/* Tiêu đề "Sự kiện, ngày lễ sắp tới" */
+.card-title-right {
+    font-size: 24px;
+    font-weight: 700;
+    color: #192E52; /* Màu xanh đậm */
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+/* Xóa các style mặc định của Bootstrap list-group */
+.events-list.list-group-flush {
+    border-radius: 0;
+}
+.events-list .list-group-item {
+    padding: 0;
+    border: 0;
+}
+
+/* Từng mục sự kiện */
+.event-item {
+    /* Quan trọng: Bỏ qua các style padding/border mặc định của .list-group-item */
+    padding-bottom: 16px !important;
+    margin-bottom: 16px !important;
+    border-bottom: 1px solid #E0E3E8 !important; /* Đường kẻ ngăn cách */
+    
+    /* Chúng ta sẽ không dùng flex ở đây để giữ cấu trúc của bạn */
+}
+
+/* Xóa đường kẻ của mục cuối cùng */
+.event-item:last-child {
+    border-bottom: none !important;
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+/* Thẻ "Ngày 10/3" (được đổi tên thành .event-date trong HTML của bạn) */
+.event-date {
+    display: inline-block;
+    background-color: #FBF4C6; /* Màu vàng kem */
+    color: #25282D; /* Màu chữ đen */
+    border: 0.5px solid #BF7F0F; /* Viền vàng nhạt */
+    border-radius: 99px; /* Bo tròn tuyệt đối */
+    padding: 4px 12px;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+/* Ẩn thẻ ngày nếu không có nội dung */
+.event-date:empty {
+    display: none;
+}
+
+
+/* Tên sự kiện "Giỗ Tổ Hùng Vương" */
+.event-name {
+    font-size: 17px;
+    font-weight: 600;
+    color: #192E52; /* Màu xanh đậm */
+    margin-bottom: 8px;
+    line-height: 1.5; /* Giãn dòng cho dễ đọc */
+}
+
+/* Dòng "còn 9 ngày nữa" */
+.event-countdown {
+    font-size: 15px;
+    color: #212121; /* Màu xám */
+    display: flex;
+    gap: 3px;
+    align-items: center; /* Căn icon và chữ thẳng hàng */
+    transition: color 0.2s ease;
+    cursor: pointer; /* Thêm con trỏ để người dùng biết có thể click */
+}
+
+.event-countdown:hover {
+    color: #1A2B4D; /* Chuyển sang màu xanh đậm khi hover */
+}
+
+/* Icon mũi tên */
+.event-countdown i.bi-arrow-right-circle {
+    /* Thay đổi icon này cho giống với ảnh gốc */
+    /* Nếu bạn vẫn muốn dùng icon này, đây là style */
+    font-size: 14px;
+    margin-left: 5px;
+}
+
+/* --- PHẦN BỔ SUNG ĐỂ GIỐNG HƠN --- */
+/* Ẩn các icon emoji (🗓️, 🧧) vì thiết kế gốc không có */
+.event-icon {
+    display: none;
+}
+
+
+/* --- Bắt đầu phần CSS chính --- */
+.popular-utilities {
+    font-family: 'Public Sans', sans-serif;
+    padding: 40px 0;
+    background-color: #F7FAFC; /* Màu nền xám rất nhạt */
+}
+
+.container {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+/* Tiêu đề "Tiện ích phổ biến" */
+.section-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1A2B4D; /* Màu xanh đậm */
+    margin-top: 0;
+    position: relative;
+}
+
+
+
+
+/* Từng mục tiện ích */
+.utility-item {
+   
+    display: flex;
+    flex-direction: column; /* Sắp xếp các phần tử bên trong theo chiều dọc */
+    align-items: center;   /* Căn giữa theo chiều ngang */
+    text-align: center;
+    text-decoration: none;
+    background-color: #fff;
+    border-radius: 16px; /* Bo góc cho toàn bộ box */
+    height: 100%; /* Đảm bảo các box trong cùng một hàng cao bằng nhau */
+
+    /* Hiệu ứng chuyển động */
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+/* Hiệu ứng khi di chuột */
+/* .utility-item:hover {
+    transform: translateY(-5px); 
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08); 
+} */
+
+/* Khung bo tròn chứa icon */
+.icon-wrapper {
+    width: 110px;
+    height: 110px;
+    border-radius: 16px; /* Bo góc */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 16px; /* Khoảng cách giữa icon và tiêu đề */
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.04); /* Đổ bóng nhẹ */
+     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+
+    /* --- BẮT ĐẦU PHẦN CẬP NHẬT TỪ ẢNH --- */
+
+    /* 1. Nền chuyển sắc dạng tỏa tròn (Radial Gradient) */
+    /* Màu đi từ trong ra ngoài: trắng xanh -> xanh nhạt -> xanh đậm hơn */
+    background: radial-gradient(circle, #C1E3FC, #96D2FA, #EFF8FF);
+
+    /* 2. Viền (Border) */
+    border: 1px solid #214987;
+    /* Thêm transition cho icon wrapper để hiệu ứng hover mượt hơn */
+    transition: all 0.2s ease-in-out; 
+    box-shadow: 2px 2px 2px rgba(49, 144, 233, 0.5);
+}
+
+/* Style cho icon bên trong */
+.icon-wrapper img {
+    max-width: 70%;
+    max-height: 70%;
+    object-fit: contain;
+}
+
+/* Style khi di chuột vào tiện ích (ảnh hưởng đến icon-wrapper) */
+.utility-item:hover .icon-wrapper {
+    border-color: #A8CCFF;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Tiêu đề tiện ích "Đổi ngày Âm - Dương" */
+.utility-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1A2B4D; /* Màu xanh đậm */
+    margin: 0 0 8px 0;
+}
+
+/* Mô tả tiện ích */
+.utility-description {
+    font-size: 14px;
+    color: #525C6F; /* Màu xám */
+    line-height: 1.5;
+    margin: 0;
+    padding-left: 20px;
+    padding-right: 20px;
+    /* Giới hạn 2 dòng chữ */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}

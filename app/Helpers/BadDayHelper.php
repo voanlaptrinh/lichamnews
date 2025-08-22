@@ -43,8 +43,18 @@ class BadDayHelper
     ];
 
     private static $satChuAm = [
-        1 => 'Tỵ', 2 => 'Tý', 3 => 'Sửu', 4 => 'Mão', 5 => 'Thân', 6 => 'Tuất',
-        7 => 'Hợi', 8 => 'Sửu', 9 => 'Ngọ', 10 => 'Dậu', 11 => 'Dần', 12 => 'Thìn'
+        1 => 'Tỵ',
+        2 => 'Tý',
+        3 => 'Sửu',
+        4 => 'Mão',
+        5 => 'Thân',
+        6 => 'Tuất',
+        7 => 'Hợi',
+        8 => 'Sửu',
+        9 => 'Ngọ',
+        10 => 'Dậu',
+        11 => 'Dần',
+        12 => 'Thìn'
     ];
 
     private static $satChuDuong = [
@@ -69,13 +79,33 @@ class BadDayHelper
     ];
 
     private static $trungPhuc = [
-        1 => 'Canh', 2 => 'Tân', 3 => 'Kỷ', 4 => 'Nhâm', 5 => 'Quý', 6 => 'Mậu',
-        7 => 'Giáp', 8 => 'Ất', 9 => 'Kỷ', 10 => 'Nhâm', 11 => 'Quý', 12 => 'Kỷ'
+        1 => 'Canh',
+        2 => 'Tân',
+        3 => 'Kỷ',
+        4 => 'Nhâm',
+        5 => 'Quý',
+        6 => 'Mậu',
+        7 => 'Giáp',
+        8 => 'Ất',
+        9 => 'Kỷ',
+        10 => 'Nhâm',
+        11 => 'Quý',
+        12 => 'Kỷ'
     ];
-    
+
     private static $thoTu = [
-        1 => 'Tuất', 2 => 'Thìn', 3 => 'Hợi', 4 => 'Tỵ', 5 => 'Tý', 6 => 'Ngọ',
-        7 => 'Sửu', 8 => 'Mùi', 9 => 'Dần', 10 => 'Thân', 11 => 'Mão', 12 => 'Dậu'
+        1 => 'Tuất',
+        2 => 'Thìn',
+        3 => 'Hợi',
+        4 => 'Tỵ',
+        5 => 'Tý',
+        6 => 'Ngọ',
+        7 => 'Sửu',
+        8 => 'Mùi',
+        9 => 'Dần',
+        10 => 'Thân',
+        11 => 'Mão',
+        12 => 'Dậu'
     ];
 
     // --- GIẢI THÍCH Ý NGHĨA ---
@@ -98,7 +128,7 @@ class BadDayHelper
      * @param Carbon $date Đối tượng Carbon của ngày cần kiểm tra.
      * @return array Mảng chứa các ngày kỵ mà ngày đó phạm phải. Key là tên ngày, value là giải thích.
      */
-     public static function checkBadDays(Carbon $date): array
+    public static function checkBadDays(Carbon $date): array
     {
         // --- PHẦN LẤY DỮ LIỆU ÂM LỊCH (ĐÃ SỬA) ---
         // Gọi hàm của bạn và nhận đủ 5 phần tử
@@ -107,14 +137,14 @@ class BadDayHelper
         $jd = \App\Helpers\LunarHelper::jdFromDate($date->day, $date->month, $date->year);
         $canChiNgay = \App\Helpers\LunarHelper::canchiNgayByJD($jd);
         list($dayCan, $dayChi) = explode(' ', $canChiNgay);
-        
-        
+
+
         // Lưu ý: hàm canchiNam của bạn không có trong file, nên tôi sẽ tạm thời comment nó lại
         // hoặc bạn có thể thay bằng hàm có sẵn nếu có.
         // Giả sử KhiVanHelper tồn tại và có hàm canchiNam
         $canChiNam = \App\Helpers\KhiVanHelper::canchiNam($date->year);
         list($yearCan, $yearChi) = explode(' ', $canChiNam);
-        
+
         $results = [];
 
         // 1. Kiểm tra Tam Nương
@@ -140,7 +170,7 @@ class BadDayHelper
         if (isset(self::$duongCongKyDays[$lunarMonth]) && in_array($lunarDay, self::$duongCongKyDays[$lunarMonth])) {
             $results['Dương Công Kỵ Nhật'] = self::$badDayMeanings['DUONG_CONG_KY_NHAT'];
         }
-        
+
         // 5. Kiểm tra Sát Chủ Âm
         // Chuyển chi thành chữ thường để khớp với dữ liệu
         $dayChiLower = mb_strtolower($dayChi, 'UTF-8');
@@ -152,26 +182,84 @@ class BadDayHelper
         if (isset(self::$satChuDuong[$dayChiLower]) && in_array($lunarMonth, self::$satChuDuong[$dayChiLower])) {
             $results['Sát Chủ Dương'] = self::$badDayMeanings['SAT_CHU_DUONG'];
         }
-        
+
         // 7. Kiểm tra Kim Thần Thất Sát
         // Chuyển can năm thành chữ thường
         $yearCanLower = mb_strtolower($yearCan, 'UTF-8');
         if (isset(self::$kimThanThatSat[$yearCanLower]) && in_array($dayChiLower, self::$kimThanThatSat[$yearCanLower])) {
-             $results['Kim Thần Thất Sát'] = self::$badDayMeanings['KIM_THAN_THAT_SAT'];
+            $results['Kim Thần Thất Sát'] = self::$badDayMeanings['KIM_THAN_THAT_SAT'];
         }
-        
+
         // 8. Kiểm tra Trùng Phục
         // Chuyển can ngày thành chữ thường
         $dayCanLower = mb_strtolower($dayCan, 'UTF-8');
         if (isset(self::$trungPhuc[$lunarMonth]) && self::$trungPhuc[$lunarMonth] === $dayCanLower) {
-             $results['Trùng Phục'] = self::$badDayMeanings['TRUNG_PHUC'];
+            $results['Trùng Phục'] = self::$badDayMeanings['TRUNG_PHUC'];
         }
-        
+
         // 9. Kiểm tra Thọ Tử
         if (isset(self::$thoTu[$lunarMonth]) && self::$thoTu[$lunarMonth] === $dayChiLower) {
             $results['Thọ Tử (Thụ Tử)'] = self::$badDayMeanings['THO_TU'];
         }
 
         return $results;
+    }
+
+
+    public static function getPersonBasicInfo(Carbon $dob): array
+    {
+        $birthYear = $dob->year;
+        $canChiNam = KhiVanHelper::canchiNam($birthYear);
+        $menh = DataHelper::$napAmTable[$canChiNam];
+        $zodiac = AstrologyHelper::getZodiacSign($birthYear);
+        $lunarDob = LunarHelper::convertSolar2Lunar($dob->day, $dob->month, $dob->year);
+
+        return [
+            'dob' => $dob,
+            'lunar_dob_str' => sprintf('%02d/%02d/%d', $lunarDob[0], $lunarDob[1], $lunarDob[2]),
+            'can_chi_nam' => $canChiNam,
+            'menh' => $menh,
+            'zodiac' => $zodiac,
+        ];
+    }
+
+    public static function getDetailedAnalysisForPerson(Carbon $dateToCheck, Carbon $personDob, string $personTitle): array
+    {
+        $personInfo = self::getPersonBasicInfo($personDob);
+        $getThongTinCanChiVaIcon = FunctionHelper::getThongTinCanChiVaIcon($dateToCheck->day, $dateToCheck->month, $dateToCheck->year);
+        $chiNgay = explode(' ', $getThongTinCanChiVaIcon['can_chi_ngay'])[1] ?? '';
+
+        return [
+            'personTitle' => $personTitle,
+            'personInfo' => $personInfo,
+            'score' => GoodBadDayHelper::calculateDayScore($dateToCheck, $personDob->year, 'CUOI_HOI'),
+            'noiKhiNgay' => KhiVanHelper::getDetailedNoiKhiExplanation($dateToCheck->day, $dateToCheck->month, $dateToCheck->year),
+            'getThongTinCanChiVaIcon' => $getThongTinCanChiVaIcon,
+            'getVongKhiNgayThang' => KhiVanHelper::getDetailedKhiThangInfo($dateToCheck),
+            'getCucKhiHopXung' => FengShuiHelper::getCucKhiHopXung($chiNgay),
+            'analyzeNgayVoiTuoi' => FengShuiHelper::analyzeNgayVoiTuoi($getThongTinCanChiVaIcon['can_chi_ngay'], $personInfo['can_chi_nam']),
+        ];
+    }
+
+
+
+    public static function getdetailtable(Carbon $dateToCheck){
+          $lunarParts = LunarHelper::convertSolar2Lunar($dateToCheck->day, $dateToCheck->month, $dateToCheck->year);
+        $dayCanChi = LunarHelper::canchiNgayByJD(LunarHelper::jdFromDate($dateToCheck->day, $dateToCheck->month, $dateToCheck->year));
+        $jd = \App\Helpers\LunarHelper::jdFromDate($dateToCheck->day, $dateToCheck->month, $dateToCheck->year);
+        $canChiNgay = \App\Helpers\LunarHelper::canchiNgayByJD($jd);
+        list($dayCan, $dayChi) = explode(' ', $canChiNgay);
+        $hopxungNgay = FengShuiHelper::getCucKhiHopXung($dayChi);
+        return [
+            'dateToCheck' => $dateToCheck,
+            'lunarDateStr' => sprintf('Ngày %s (%02d/%02d)', $dayCanChi, $lunarParts[0], $lunarParts[1]),
+            'badDays' => BadDayHelper::checkBadDays($dateToCheck),
+            'getThongTinNgay' => FunctionHelper::getThongTinNgay($dateToCheck->day, $dateToCheck->month, $dateToCheck->year),
+            'nhiThapBatTu' => FunctionHelper::nhiThapBatTu($dateToCheck->year, $dateToCheck->month, $dateToCheck->day),
+            'getThongTinTruc' => FunctionHelper::getThongTinTruc($dateToCheck->day, $dateToCheck->month, $dateToCheck->year),
+            'getSaoTotXauInfo' => FunctionHelper::getSaoTotXauInfo($dateToCheck->day, $dateToCheck->month, $dateToCheck->year),
+            'al' => $lunarParts, // Giữ lại biến 'al' cho tiện
+            'hopxungNgay' => $hopxungNgay,
+        ];
     }
 }

@@ -60,10 +60,12 @@ Route::prefix('xem-tuoi-cuoi-hoi')->group(function () {
     Route::post('/', [WeddingController::class, 'check'])->name('astrology.check');
     Route::get('/chi-tiet', [WeddingController::class, 'showDayDetails'])->name('wedding.day.details');
 });
-
-//Xem ngày mua nhà
-Route::get('/xem-ngay-mua-nha', [BuyHouseController::class, 'showForm'])->name('buy-house.form');
-Route::post('/xem-ngay-mua-nha', [BuyHouseController::class, 'checkDays'])->name('buy-house.check');
+Route::prefix('xem-ngay-mua-nha')->group(function () {
+    //Xem ngày mua nhà
+    Route::get('/', [BuyHouseController::class, 'showForm'])->name('buy-house.form');
+    Route::post('/', [BuyHouseController::class, 'checkDays'])->name('buy-house.check');
+    Route::get('/chi-tiet', [BuyHouseController::class, 'showDayDetails'])->name('buy-house.details');
+});
 
 
 //Xem ngày động thổ

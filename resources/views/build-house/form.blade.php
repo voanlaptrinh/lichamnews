@@ -10,16 +10,7 @@
             <div class="card-body">
                 <form action="{{ route('buy-house.check') }}" method="POST">
                     @csrf
-                    {{-- @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <strong>Có lỗi xảy ra! Vui lòng kiểm tra lại:</strong>
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif --}}
+
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="birthdate" class="form-label">Ngày sinh</label>
@@ -145,6 +136,7 @@
                                                     <th>Ngày Âm Lịch</th>
                                                     <th>Điểm</th>
                                                     <th>Đánh giá</th>
+                                                    <th>Phạm</th>
                                                     <th>Giờ tốt (Hoàng Đạo)</th>
                                                 </tr>
                                             </thead>
@@ -180,8 +172,57 @@
                                                         </td>
                                                         <td>{{ $day['full_lunar_date_str'] }}</td>
                                                         <td class="fw-bold fs-5">{{ $day['day_score']['percentage'] }}%
+                                                            <a href="{{ route('buy-house.details', [
+                                                                'date' => $day['date']->format('Y-m-d'),
+                                                                'birthdate' => $birthdateInfo['dob']->format('Y-m-d'),
+                                                            ]) }}"
+                                                                class="btn btn-sm btn-outline-primary" target="_blank">
+                                                                Xem chi tiết
+                                                            </a>
                                                         </td>
                                                         <td><strong>{{ $day['day_score']['rating'] }}</strong></td>
+                                                        <td class="text-start">
+                                                            @php
+                                                                // Khởi tạo một mảng rỗng để chứa tên các yếu tố xấu
+                                                                $badFactors = [];
+
+                                                                // Kiểm tra xem có mảng 'issues' không
+                                                                if (
+                                                                    isset($day['day_score']['issues']) &&
+                                                                    !empty($day['day_score']['issues'])
+                                                                ) {
+                                                                    // Lặp qua mỗi 'issue' (vấn đề) của ngày
+                                                                    foreach ($day['day_score']['issues'] as $issue) {
+                                                                        // Lấy ra chuỗi lý do
+                                                                        $reason = $issue['reason'];
+
+                                                                        // BỎ QUA NẾU LÀ "SAO XẤU"
+                                                                        if (str_starts_with($reason, 'Sao xấu:')) {
+                                                                            continue; // Bỏ qua lần lặp này và đi đến issue tiếp theo
+                                                                        }
+                                                                        $parts = explode(':', $reason, 2);
+                                                                        $factorName = trim($parts[0]);
+
+                                                                        // Thêm tên đã được xử lý vào mảng
+                                                                        $badFactors[] = $factorName;
+                                                                    }
+                                                                }
+                                                                // Loại bỏ các yếu tố trùng lặp nếu có
+                                                                $badFactors = array_unique($badFactors);
+                                                            @endphp
+
+                                                            {{-- Hiển thị danh sách các yếu tố xấu còn lại --}}
+                                                            @forelse ($badFactors as $factorName)
+                                                                <span
+                                                                    class="badge bg-danger-subtle text-dark mb-1 d-inline-block">
+                                                                    {{ $factorName }}
+                                                                </span><br>
+                                                            @empty
+                                                                {{-- Nếu không có yếu tố xấu nào (sau khi đã lọc), hiển thị thông báo tích cực --}}
+                                                                <span class="text-success small">✓ Không phạm điều xấu
+                                                                    chính</span>
+                                                            @endforelse
+                                                        </td>
                                                         <td>
                                                             @if (!empty($day['good_hours']))
                                                                 {{ implode('; ', $day['good_hours']) }}

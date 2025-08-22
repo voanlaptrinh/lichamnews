@@ -10,10 +10,12 @@
     <link rel="stylesheet" href="{{ asset('/css/airbnb.css') }}"> {{-- hoặc dark, material_red --}}
     <link rel="stylesheet" href="{{ asset('/css/bootstrap-icons.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/styledemo.css') }}">
+    <link rel="stylesheet" href="{{ asset('/css/repont.css') }}">
 </head>
 
 <body>
-    <div class="container">
+     @include('layout.header')
+    {{-- <div class="container">
         <header class="d-flex justify-content-center py-3" style=" background: papayawhip">
             <ul class="nav nav-pills">
                 <li class="nav-item"><a href="{{ route('home') }}" class="nav-link active" aria-current="page">Trang
@@ -67,12 +69,15 @@
                 <li class="nav-item"><a href="{{ route('thuoc-lo-ban.index') }}" class="nav-link text-dark" aria-current="page">Thước lỗ ban</a></li>
             </ul>
         </header>
-    </div>
+    </div> --}}
+    <div class=" container-setup">
 
-    <div class="container">
+        @yield('content')
+    </div>
+    {{-- <div class="container">
         <div class="row">
             <div class="col-lg-9">
-                @yield('content')
+              
             </div>
             <div class="col-lg-3">
                 <ul class="">
@@ -142,7 +147,7 @@
                 </ul>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     <!-- JS của Bootstrap (nếu sử dụng Bootstrap) -->
     <script src="{{ asset('/js/bootstrap.bundle.min.js') }}"></script>

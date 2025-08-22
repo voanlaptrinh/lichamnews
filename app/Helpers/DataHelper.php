@@ -3752,7 +3752,6 @@ class DataHelper
             "Địa Tài" => 1.5,
             "Địa Tặc" => -1.5,
         ]
-
     ];
     public static $starDisplayNames = [
         'Thiên Đức' => 'Thiên Đức',

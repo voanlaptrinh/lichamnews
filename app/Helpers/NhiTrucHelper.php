@@ -10,45 +10,71 @@ use Illuminate\Support\Str;
 class NhiTrucHelper
 {
     //Hàm lấy ra thập nhị trực
+    /**
+     * Lấy Kiến Chi (Nguyệt Kiến) của một tháng âm lịch.
+     * Đây là quy tắc cố định.
+     * @param int $lunarMonth
+     * @return string
+     */
+    private static function getKienChiByLunarMonth(int $lunarMonth): string
+    {
+        // Mảng Kiến Chi tương ứng với tháng Âm lịch (tháng 1 => Dần, tháng 2 => Mão...)
+        $kienChiMapping = [
+            1 => 'Dần', 2 => 'Mão', 3 => 'Thìn', 4 => 'Tỵ', 5 => 'Ngọ', 6 => 'Mùi',
+            7 => 'Thân', 8 => 'Dậu', 9 => 'Tuất', 10 => 'Hợi', 11 => 'Tý', 12 => 'Sửu'
+        ];
+        return $kienChiMapping[$lunarMonth] ?? 'Dần'; // Fallback về Dần cho tháng 1
+    }
+       /**
+     * Lấy Trực của một ngày dương lịch.
+     *
+     * @param int $dd Ngày dương
+     * @param int $mm Tháng dương
+     * @param int $yy Năm dương
+     * @return string
+     */
     public static function getTruc(int $dd, int $mm, int $yy): string
     {
         try {
-            // Lấy ngày âm lịch
+            // BƯỚC 1: Lấy thông tin cơ bản
+            // Chuyển đổi sang Âm lịch chỉ để lấy tháng âm
             $lunarDate = LunarHelper::convertSolar2Lunar($dd, $mm, $yy);
-            // $jd = LunarHelper::jdFromDate($dd, $mm, $yy);
+            $lunarMonth = (int) $lunarDate[1];
 
-            // // Lấy Chi của ngày (ví dụ: "Ất Mão" → "Mão")
-            // $canChi = LunarHelper::canchiNgayByJD($jd);
-            // $chi = explode(' ', $canChi)[1] ?? null;
-            $jd = LunarHelper::jdFromLunarDate((int)$lunarDate[0], (int)$lunarDate[1], (int)$lunarDate[2], (int)$lunarDate[3]);
-            $canChiNgayAm = LunarHelper::canchiNgayByJD($jd);
-            $chi = explode(' ', $canChiNgayAm)[1] ?? null;
-            if (!$chi) {
-                throw new \Exception("Không xác định được Chi từ ngày.");
+            // Lấy Julian Day trực tiếp từ ngày Dương lịch cho chính xác
+            $jd = LunarHelper::jdFromDate($dd, $mm, $yy);
+
+            // BƯỚC 2: Xác định Chi của ngày
+            $canChiNgay = LunarHelper::canchiNgayByJD($jd);
+            $chiNgay = explode(' ', $canChiNgay)[1] ?? null;
+
+            if (!$chiNgay) {
+                throw new \Exception("Không xác định được Chi của ngày.");
             }
-            $tietkhi = LunarHelper::tietKhiWithIcon($jd);
 
-            // Lấy kiến chi theo tháng âm (không cần tiet khi nữa)
-            $kienChi = self::getKienChi($tietkhi['tiet_khi'], (int) $lunarDate[1]);
+            // BƯỚC 3: Xác định Kiến Chi của tháng (đã sửa lại theo đúng quy tắc)
+            $kienChi = self::getKienChiByLunarMonth($lunarMonth);
 
+            // BƯỚC 4: Tính toán Trực
             $trucList = [
-                'Kiến',
-                'Trừ',
-                'Mãn',
-                'Bình',
-                'Định',
-                'Chấp',
-                'Phá',
-                'Nguy',
-                'Thành',
-                'Thu',
-                'Khai',
-                'Bế'
+                'Kiến', 'Trừ', 'Mãn', 'Bình', 'Định', 'Chấp',
+                'Phá', 'Nguy', 'Thành', 'Thu', 'Khai', 'Bế'
             ];
-            $trucIdx = (self::getChiIndex($chi) - self::getChiIndex($kienChi) + 12) % 12;
+
+            $chiNgayIndex = self::getChiIndex($chiNgay);
+            $kienChiIndex = self::getChiIndex($kienChi);
+
+            if ($chiNgayIndex === -1 || $kienChiIndex === -1) {
+                throw new \Exception("Không tìm thấy chỉ số cho Chi ngày ($chiNgay) hoặc Kiến Chi ($kienChi).");
+            }
+            
+            // Công thức tính chỉ số của Trực
+            $trucIdx = ($chiNgayIndex - $kienChiIndex + 12) % 12;
+
             return $trucList[$trucIdx];
         } catch (\Exception $e) {
-            Log::error("[TRUC] Error: " . $e->getMessage());
+            // Log::error("[TRUC] Error: " . $e->getMessage());
+            // echo "[TRUC] Error: " . $e->getMessage();
             return "Kiến"; // fallback nếu có lỗi
         }
     }

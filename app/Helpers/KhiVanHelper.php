@@ -10,10 +10,12 @@ class KhiVanHelper
 {
     public static function getDetailedNoiKhiExplanation($dd, $mm, $yy)
     {
-         $al = LunarHelper::convertSolar2Lunar((int)$dd, (int)$mm, (int)$yy);
-           $jdNgayAm = LunarHelper::jdFromLunarDate((int)$al[0], (int)$al[1], (int)$al[2], (int)$al[3]);
-        $canChiNgayAm = LunarHelper::canchiNgayByJD($jdNgayAm);
-        
+        //  $al = LunarHelper::convertSolar2Lunar((int)$dd, (int)$mm, (int)$yy);
+        //    $jdNgayAm = LunarHelper::jdFromLunarDate((int)$al[0], (int)$al[1], (int)$al[2], (int)$al[3]);
+        // $canChiNgayAm = LunarHelper::canchiNgayByJD($jdNgayAm);
+         $jday = LunarHelper::jdFromDate((int)$dd, (int)$mm, (int)$yy);
+        $canChiNgayAm = LunarHelper::canchiNgayByJD($jday);
+        // $parts = explode(' ', $dayCanChi);
         $noiKhiExplanations = DataHelper::$noiKhiExplanations;
 
         return $noiKhiExplanations[$canChiNgayAm]['explanation'] ?? 'Không có giải thích chi tiết.';
@@ -264,13 +266,15 @@ class KhiVanHelper
     {
         // --- PHẦN 1: LẤY DỮ LIỆU CAN CHI (Giữ nguyên) ---
         $carbonDate = Carbon::instance($date);
-        $al = LunarHelper::convertSolar2Lunar($carbonDate->day, $carbonDate->month, $carbonDate->year, 7.0);
+        $al = LunarHelper::convertSolar2Lunar($carbonDate->day,  $carbonDate->month, $carbonDate->year, 7.0);
         $jdNgayAm = LunarHelper::jdFromLunarDate((int)$al[0], (int)$al[1], (int)$al[2], (int)$al[3]);
 
         $canChiDay = LunarHelper::canchiNgayByJD($jdNgayAm);
+         $jday = LunarHelper::jdFromDate((int)$carbonDate->day, (int)$carbonDate->month, (int)$carbonDate->year);
+        $dayCanChi = LunarHelper::canchiNgayByJD($jday);
         $canChiMonth = LunarHelper::canchiThang((int)$al[2], (int)$al[1]);
 
-        $dayParts = explode(' ', $canChiDay);
+        $dayParts = explode(' ', $dayCanChi);
         $monthParts = explode(' ', $canChiMonth);
 
         if (count($dayParts) != 2 || count($monthParts) != 2) {

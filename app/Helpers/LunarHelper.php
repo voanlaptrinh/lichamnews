@@ -500,8 +500,8 @@ class LunarHelper
             <div class="duong' . ($dow == 0 ? ' sun' : ($dow == 6 ? ' sat' : '')) . '">' . $solarDate . '</div>
             <div class="dao' . ($tot_xau ? ' ' . $tot_xau : '') . '">' . ($tot_xau ? '●' : '&nbsp;') . '</div>
         </div>
-        <div class="am">' . $am_html . '</div>
-        <div class="can_chi_text">' . $can_chi_html . '</div>
+        <div class="am am_table">' . $am_html . '</div>
+        <div class="can_chi_text" title="' . htmlspecialchars(strip_tags($can_chi_html)) . '">' . $can_chi_html . '</div>
     </a></td>';
 
     return $rturn_totxau ? array($html, $tot_xau) : $html;
@@ -784,48 +784,139 @@ class LunarHelper
         } while ($arc != $last && $i < 14);
         return $i - 1;
     }
-
-    static function convertSolar2Lunar($dd, $mm, $yy, $timeZone = 7.0)
-    {
-        $dayNumber = self::jdFromDate($dd, $mm, $yy);
-        $k = floor(($dayNumber - 2415021.076998695) / 29.530588853);
-        $monthStart = self::getNewMoonDay($k + 1, $timeZone);
-        if ($monthStart > $dayNumber) {
-            $monthStart = self::getNewMoonDay($k, $timeZone);
-        }
-        $a11 = self::getLunarMonth11($yy, $timeZone);
-        $b11 = $a11;
-        if ($a11 >= $monthStart) {
-            $lunarYear = $yy;
-            $a11 = self::getLunarMonth11($yy - 1, $timeZone);
-        } else {
-            $lunarYear = $yy + 1;
-            $b11 = self::getLunarMonth11($yy + 1, $timeZone);
-        }
-        $lunarDay = $dayNumber - $monthStart + 1;
-        $diff = floor(($monthStart - $a11) / 29);
-        $lunarLeap = 0;
-        $lunarMonth = $diff + 11;
-        if ($b11 - $a11 > 365) {
-            $leapMonthDiff = self::getLeapMonthOffset($a11, $timeZone);
-            if ($diff >= $leapMonthDiff) {
-                $lunarMonth = $diff + 10;
-                if ($diff == $leapMonthDiff) {
-                    $lunarLeap = 1;
-                }
+static function convertSolar2Lunar($dd, $mm, $yy, $timeZone = 7.0)
+{
+    // --- Phần đầu của hàm giữ nguyên, nó tính toán ngày/tháng/năm Âm lịch chính xác ---
+    $dayNumber = self::jdFromDate($dd, $mm, $yy);
+    $k = floor(($dayNumber - 2415021.076998695) / 29.530588853);
+    $monthStart = self::getNewMoonDay($k + 1, $timeZone);
+    if ($monthStart > $dayNumber) {
+        $monthStart = self::getNewMoonDay($k, $timeZone);
+    }
+    $a11 = self::getLunarMonth11($yy, $timeZone);
+    $b11 = $a11;
+    if ($a11 >= $monthStart) {
+        $lunarYear = $yy;
+        $a11 = self::getLunarMonth11($yy - 1, $timeZone);
+    } else {
+        $lunarYear = $yy + 1;
+        $b11 = self::getLunarMonth11($yy + 1, $timeZone);
+    }
+    $lunarDay = $dayNumber - $monthStart + 1;
+    $diff = floor(($monthStart - $a11) / 29);
+    $lunarLeap = 0;
+    $lunarMonth = $diff + 11;
+    if ($b11 - $a11 > 365) {
+        $leapMonthDiff = self::getLeapMonthOffset($a11, $timeZone);
+        if ($diff >= $leapMonthDiff) {
+            $lunarMonth = $diff + 10;
+            if ($diff == $leapMonthDiff) {
+                $lunarLeap = 1;
             }
         }
-        if ($lunarMonth > 12) {
-            $lunarMonth = $lunarMonth - 12;
-        }
-        if ($lunarMonth >= 11 && $diff < 4) {
-            $lunarYear -= 1;
-        }
-        $nextMonthStart = self::getNewMoonDay($k + 1, $timeZone);
-        $monthLength = $nextMonthStart - $monthStart;
-        $isFullMonth = $monthLength == 30 ? 'Đủ' : 'Thiếu';
-        return array($lunarDay, $lunarMonth, $lunarYear, $lunarLeap, $isFullMonth);
     }
+    if ($lunarMonth > 12) {
+        $lunarMonth = $lunarMonth - 12;
+    }
+    if ($lunarMonth >= 11 && $diff < 4) {
+        $lunarYear -= 1;
+    }
+    
+    // =========================================================================
+    // BẮT ĐẦU PHẦN SỬA LỖI TÍNH THÁNG ĐỦ/THIẾU
+    // =========================================================================
+
+    // Thay vì dùng $k+1, chúng ta sẽ tìm ngày Sóc của tháng kế tiếp một cách chính xác
+    // dựa trên tháng/năm Âm lịch mà chúng ta vừa tính được.
+    
+    $isLeap = ($b11 - $a11 > 365);
+    $leapMonthOffset = $isLeap ? self::getLeapMonthOffset($a11, $timeZone) : 0;
+    
+    // Tính toán 'diff' của tháng kế tiếp
+    $nextDiff = $diff + 1;
+
+    // Nếu tháng hiện tại là tháng trước tháng nhuận, tháng sau sẽ là tháng nhuận
+    if ($isLeap && $diff + 1 == $leapMonthOffset) {
+        // diff của tháng nhuận sẽ bằng diff của tháng chính trước nó
+        // nên chúng ta không cần thay đổi nextDiff
+    } 
+    // Nếu tháng hiện tại là tháng nhuận, tháng sau sẽ là tháng chính
+    // và diff của nó sẽ bằng diff của tháng nhuận
+    else if ($isLeap && $diff == $leapMonthOffset) {
+        // Không thay đổi nextDiff, vì tháng chính sau tháng nhuận sẽ có diff = diff tháng nhuận.
+        // Logic ban đầu đã đúng cho trường hợp này.
+    }
+
+    // Tính toán ngày Sóc của tháng sau dựa trên `nextDiff` đã điều chỉnh
+    $nextMonth_k_estimate = floor($a11 + ($nextDiff - 11) * 29.530588853 - 2415021.076998695);
+    $nextMonthStart = self::getNewMoonDay($nextMonth_k_estimate, $timeZone);
+
+    // Đôi khi ước lượng bị lệch 1 chu kỳ, cần kiểm tra và điều chỉnh
+    if($nextMonthStart <= $monthStart) {
+        $nextMonthStart = self::getNewMoonDay($nextMonth_k_estimate + 1, $timeZone);
+    }
+    if($nextMonthStart <= $monthStart) { // Kiểm tra lại một lần nữa
+         $nextMonthStart = self::getNewMoonDay($nextMonth_k_estimate + 2, $timeZone);
+    }
+    
+    $monthLength = $nextMonthStart - $monthStart;
+    
+    // Một tháng âm lịch chỉ có thể có 29 hoặc 30 ngày.
+    // Nếu kết quả khác, có thể do lỗi tính toán ngày sóc.
+    // Ta làm tròn kết quả để đảm bảo an toàn.
+    if ($monthLength > 29.5) {
+        $isFullMonth = 'Đủ'; // 30 ngày
+    } else {
+        $isFullMonth = 'Thiếu'; // 29 ngày
+    }
+
+    // =========================================================================
+    // KẾT THÚC PHẦN SỬA LỖI
+    // =========================================================================
+    
+    return array($lunarDay, $lunarMonth, $lunarYear, $lunarLeap, $isFullMonth);
+}
+    // static function convertSolar2Lunar($dd, $mm, $yy, $timeZone = 7.0)
+    // {
+    //     $dayNumber = self::jdFromDate($dd, $mm, $yy);
+    //     $k = floor(($dayNumber - 2415021.076998695) / 29.530588853);
+    //     $monthStart = self::getNewMoonDay($k + 1, $timeZone);
+    //     if ($monthStart > $dayNumber) {
+    //         $monthStart = self::getNewMoonDay($k, $timeZone);
+    //     }
+    //     $a11 = self::getLunarMonth11($yy, $timeZone);
+    //     $b11 = $a11;
+    //     if ($a11 >= $monthStart) {
+    //         $lunarYear = $yy;
+    //         $a11 = self::getLunarMonth11($yy - 1, $timeZone);
+    //     } else {
+    //         $lunarYear = $yy + 1;
+    //         $b11 = self::getLunarMonth11($yy + 1, $timeZone);
+    //     }
+    //     $lunarDay = $dayNumber - $monthStart + 1;
+    //     $diff = floor(($monthStart - $a11) / 29);
+    //     $lunarLeap = 0;
+    //     $lunarMonth = $diff + 11;
+    //     if ($b11 - $a11 > 365) {
+    //         $leapMonthDiff = self::getLeapMonthOffset($a11, $timeZone);
+    //         if ($diff >= $leapMonthDiff) {
+    //             $lunarMonth = $diff + 10;
+    //             if ($diff == $leapMonthDiff) {
+    //                 $lunarLeap = 1;
+    //             }
+    //         }
+    //     }
+    //     if ($lunarMonth > 12) {
+    //         $lunarMonth = $lunarMonth - 12;
+    //     }
+    //     if ($lunarMonth >= 11 && $diff < 4) {
+    //         $lunarYear -= 1;
+    //     }
+    //     $nextMonthStart = self::getNewMoonDay($k + 1, $timeZone);
+    //     $monthLength = $nextMonthStart - $monthStart;
+    //     $isFullMonth = $monthLength == 30 ? 'Đủ' : 'Thiếu';
+    //     return array($lunarDay, $lunarMonth, $lunarYear, $lunarLeap, $isFullMonth);
+    // }
 
     static function convertLunar2Solar($lunarDay, $lunarMonth, $lunarYear, $lunarLeap, $timeZone = 7.0)
     {

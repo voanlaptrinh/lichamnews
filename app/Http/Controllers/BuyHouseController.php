@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\AstrologyHelper;
+use App\Helpers\BadDayHelper;
 use App\Helpers\DataHelper;
 use App\Helpers\GoodBadDayHelper;
 use App\Helpers\KhiVanHelper;
@@ -184,4 +185,40 @@ Thời điểm cát lợi, vận khí hanh thông – rất thích hợp để a
             'menh' => $menh,
         ];
     }
+
+
+
+     public function showDayDetails(Request $request)
+    {
+        // 1. Validate dữ liệu - đã loại bỏ 'person_type'
+        $validator = Validator::make($request->all(), [
+            'date' => 'required|date_format:Y-m-d',
+            'birthdate' => 'required|date_format:Y-m-d',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors('Dữ liệu không hợp lệ để xem chi tiết.');
+        }
+
+        $validated = $validator->validated();
+
+        // 2. Chuẩn bị các đối tượng ngày tháng
+        $dateToCheck = Carbon::parse($validated['date']);
+        $groomDob = Carbon::parse($validated['birthdate']);
+
+        // 3. Lấy thông tin chung của ngày (tính 1 lần, vì nó không đổi)
+
+        $commonDayInfo = BadDayHelper::getdetailtable($dateToCheck);
+       
+        // 4. Lấy thông tin chi tiết cho Chú Rể
+        $groomData = BadDayHelper::getDetailedAnalysisForPerson($dateToCheck, $groomDob, 'Ngày mua nhà');
+
+
+        // 6. Trả về view với toàn bộ dữ liệu
+        return view('build-house.day_details', compact(
+            'commonDayInfo',
+            'groomData'
+        ));
+    }
+
 }

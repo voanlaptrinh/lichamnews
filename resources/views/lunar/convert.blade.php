@@ -1,14 +1,371 @@
 @extends('welcome')
 @section('content')
+    <div class="calendar-app-container py-4">
+        <div class="row g-3">
+            <!-- ==== CỘT LỊCH CHÍNH (BÊN TRÁI) ==== -->
+            <div class="col-xl-9 col-sm-12 col-12">
+                <div class="boxx-col-lg-8">
+                    <div class="d-flex flex-column gap-3 box-content-lg-8">
 
-    <div class=" mt-5">
+                        <!-- ** KHỐI NGÀY DƯƠNG LỊCH VÀ ÂM LỊCH ** -->
+                        <div class="row g-3">
+                            <div class="col-6">
+                                <div class="date-display-card">
+
+                                    <a href="#" class="nav-arrow nav-home-date nave-left prev-day-btn"
+                                        title="Ngày hôm trước"><i class="bi bi-chevron-left"></i></a>
+                                    <div class="text-center">
+                                        <div class="card-title"><img src="{{ asset('icons/icon_duong.svg') }}"
+                                                alt="icon_duong" width="20px" height="20px"> Dương lịch</div>
+                                        <div class="date-number duong date_number_lich"> {{ $dd }}</div>
+                                        <div class="date-weekday">{{ $weekday }}, tháng {{ $mm }} năm
+                                            {{ $yy }}</div>
+                                        <div class="date-special-event">
+                                            @foreach ($suKienHomNay as $suKien)
+                                                {{ $suKien['ten_su_kien'] ?? $suKien }}
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                    <a href="#" class=""></a>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="date-display-card">
+
+                                    <div class="text-center">
+                                        <div class="card-title"><img src="{{ asset('icons/icon_am.svg') }}" alt="icon_am"
+                                                width="20px" height="20px"> Âm lịch</div>
+                                        <div class="date-number am date_number_lich">{{ $al[0] }}</div>
+                                        <div class="date-weekday">Tháng {{ $al[1] }} ({{ $al[4] }}) năm
+                                            {{ $getThongTinCanChiVaIcon['can_chi_nam'] }}</div>
+                                        <div class="date-special-event">Ngày {{ $getThongTinCanChiVaIcon['can_chi_ngay'] }}
+                                            -
+                                            Tháng {{ $getThongTinCanChiVaIcon['can_chi_thang'] }}</div>
+                                    </div>
+                                    <a href="#" class="nav-arrow nav-home-date nave-right next-day-btn"
+                                        title="Ngày hôm sau"> <i class="bi bi-chevron-right"></i></a>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 btn-mobie-next-prev">
+                                <div>
+                                    <a href="{{ route('lich.thang', ['nam' => date('Y'), 'thang' => date('n')]) }}"
+                                        class="btn-today-home-mob">
+                                        <i class="bi bi-calendar-plus pe-1"></i> Hôm nay
+                                    </a>
+                                </div>
+                                <div class="d-flex gap-2">
+                                    <div class="div">
+                                        <a href="#" class="nav-arrow prev-day-btn-mobie  nave-left prev-day-btn"
+                                            title="Ngày hôm trước"><i class="bi bi-chevron-left"></i></a>
+                                    </div>
+                                    <div class="div">
+                                        <a href="#" class="nav-arrow  next-day-btn-mobie nave-right next-day-btn"
+                                            title="Ngày hôm sau"> <i class="bi bi-chevron-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="info-card d-sm-block d-block d-xl-none">
+                            <div class="row g-4">
+                                <div class="col-sm-6">
+                                    <div class="info-item">
+                                        <img src="{{ asset('icons/icon_tiet_khi.png') }}" alt="icon_tiet_khi"
+                                            class="icon_tiet_khi">
+                                        <div class="font-detail-ngay">
+                                            <strong>Tiết khí:</strong> {!! $tietkhi['icon'] !!} <span
+                                                class="text-uppercase">{{ $tietkhi['tiet_khi'] }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="info-item">
+                                        <img src="{{ asset('icons/icon_nap_am.png') }}" alt="icon_nap_am"
+                                            class="icon_nap_am">
+                                        <div class="font-detail-ngay">
+                                            <strong>Ngũ hành nạp âm:</strong> {{ $getThongTinNgay['nap_am']['napAm'] }}
+                                        </div>
+                                    </div>
+                                    <div class="info-item">
+                                        <img src="{{ asset('icons/icon_hoang_dao.png') }}" alt="icon_hoang_dao"
+                                            class="icon_hoang_dao">
+                                        <div class="font-detail-ngay">
+                                            <strong>Giờ Hoàng đạo:</strong> {{ $getThongTinNgay['gio_hac_dao'] }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <!-- BẮT ĐẦU: KHỐI MỨC THUẬN LỢI (ĐÃ CẬP NHẬT) -->
+                                    <div
+                                        class="convenience-level d-flex justify-content-between align-items-center row h-100">
+                                        <div class="col-6">
+                                            <div class="level-label text-lever-label-mobie">
+                                                Mức thuận lợi<br>hôm nay:
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-6">
+                                            <div class="progress-dial"
+                                                style="--value: {{ round($getDaySummaryInfo['score']['percentage']) }};">
+                                                <div class="dial-text">
+                                                    <span
+                                                        class="dial-percent">{{ round($getDaySummaryInfo['score']['percentage']) }}%</span>
+                                                    @php
+                                                        $ratingColors = [
+                                                            'Tốt' => 'text-success',
+                                                            'Xấu' => 'text-danger',
+                                                            'Trung bình' => 'text-warning-tb',
+                                                        ];
+                                                    @endphp
+
+                                                    <small
+                                                        class="dial-status {{ $ratingColors[$getDaySummaryInfo['score']['rating']] ?? 'text-secondary' }}">
+                                                        {{ $getDaySummaryInfo['score']['rating'] }}
+                                                    </small>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!-- KẾT THÚC: KHỐI MỨC THUẬN LỢI -->
+                                </div>
+                            </div>
+
+
+                            <a href="#" class="btn btn-primary w-100 mt-3 btn0mobie"><img
+                                    src="{{ asset('icons/hand_2_white.svg') }}" alt="hand_2" class="img-fluid"> Xem
+                                chi
+                                tiết ngày</a>
+                        </div>
+                        <!-- ** LỊCH THÁNG ** -->
+                        <div class="calendar-wrapper">
+                            <div class="calendar-header">
+                                {{-- Nút Quay lại tháng trước --}}
+                                <a href="{{ route('lich.thang', ['nam' => $prevYear, 'thang' => $prevMonth]) }}"
+                                    class="month-nav">
+                                    <i class="bi bi-chevron-left"></i>
+                                </a>
+
+                                {{-- Tiêu đề Tháng/Năm --}}
+                                <h5 class="mb-0">Tháng {{ $mm }} năm {{ $yy }}</h5>
+
+                                {{-- Nút Tới tháng sau --}}
+                                <a href="{{ route('lich.thang', ['nam' => $nextYear, 'thang' => $nextMonth]) }}"
+                                    class="month-nav">
+                                    <i class="bi bi-chevron-right"></i>
+                                </a>
+
+                                {{-- ============================================= --}}
+                                {{-- BẮT ĐẦU: THÊM NÚT "HÔM NAY" VÀO ĐÂY --}}
+                                {{-- ============================================= --}}
+                                <a href="{{ route('lich.thang', ['nam' => date('Y'), 'thang' => date('n')]) }}"
+                                    class="btn-today-home-pc btn-today-home">
+                                    <i class="bi bi-calendar-plus pe-1"></i> Hôm nay
+                                </a>
+                                {{-- ============================================= --}}
+                                {{-- KẾT THÚC: NÚT "HÔM NAY" --}}
+                                {{-- ============================================= --}}
+                            </div>
+                            <table class="calendar-table">
+
+                                <tbody>
+                                    {!! $table_html !!}
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <div class="calendar-legend">
+                            <span><span class="dot dot-hoangdao"></span> Ngày hoàng đạo</span>
+                            <span><span class="dot dot-hacdao"></span> Ngày hắc đạo</span>
+                            <span><span class="dot dot-chủ nhật"></span> Ngày chủ nhật</span>
+                            <span><span class="dot dot-special"></span> Ngày đặc biệt</span>
+                        </div>
+                    </div>
+                </div>
+                <section class="popular-utilities">
+                    <div class="container">
+                        <h2 class="section-title">Tiện ích phổ biến</h2>
+                        <hr>
+                        <div class="utilities-grid row g-4 pt-2">
+
+                            <!-- Tiện ích 1 -->
+                            <a href="#" class="utility-item col-6 col-md-6 col-lg-3 mb-4 ">
+                                 <h4 class="utility-title">Đổi ngày Âm - Dương</h4>
+                                <div class="icon-wrapper">
+                                    <img src="{{asset('icons/doi_ngay_am_duong.svg')}}" alt="Đổi ngày Âm - Dương" class="img-fluid">
+                                </div>
+                               
+                                <p class="utility-description">Chuyển đổi nhanh giữa dương lịch và âm lịch.</p>
+                            </a>
+
+                            <!-- Tiện ích 2 -->
+                            <a href="#" class="utility-item col-6 col-md-6 col-lg-3 mb-4">
+                                 <h4 class="utility-title">Xem ngày Tốt</h4>
+                                <div class="icon-wrapper">
+                                    <img src="{{asset('icons/xem_ngay_tot.svg')}}" alt="Xem ngày Tốt" class="img-fluid">
+                                </div>
+                               
+                                <p class="utility-description">Tra cứu ngày hoàng đạo để cưới hỏi, khai trương...</p>
+                            </a>
+
+                            <!-- Tiện ích 3 -->
+                            <a href="#" class="utility-item col-6 col-md-6 col-lg-3 mb-4">
+                                <h4 class="utility-title">Xem hướng hợp mệnh</h4>
+                                <div class="icon-wrapper">
+                                    <img src="{{asset('icons/huong_dep.svg')}}" alt="Xem hướng hợp mệnh" class="img-fluid">
+                                </div>
+                                <p class="utility-description">Tìm hướng hợp tuổi để làm nhà, đặt bàn thờ...</p>
+                            </a>
+
+                            <!-- Tiện ích 4 -->
+                            <a href="#" class="utility-item col-6 col-md-6 col-lg-3 mb-4">
+                                   <h4 class="utility-title">Lá số tử vi</h4>
+                                <div class="icon-wrapper">
+                                    <img src="{{asset('icons/la_so_tu_vi.svg')}}" alt="Lá số tử vi" class="img-fluid">
+                                </div>
+                             
+                                <p class="utility-description">Lập lá số chi tiết theo giờ/ngày sinh.</p>
+                            </a>
+
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- ==== CỘT THÔNG TIN (BÊN PHẢI) ==== -->
+            <div class="col-xl-3  col-sm-12 col-12">
+                <div class="d-flex flex-column gap-4">
+
+                    <!-- ** KHỐI THÔNG TIN CHI TIẾT ** -->
+                    <div class="info-card d-sm-none d-none d-xl-block">
+                        <div class="info-item">
+                            <img src="{{ asset('icons/icon_tiet_khi.png') }}" alt="icon_tiet_khi" class="icon_tiet_khi">
+                            <div>
+                                <strong>Tiết khí:</strong> {!! $tietkhi['icon'] !!} <span
+                                    class="text-uppercase">{{ $tietkhi['tiet_khi'] }}</span>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <img src="{{ asset('icons/icon_nap_am.png') }}" alt="icon_nap_am" class="icon_nap_am">
+                            <div>
+                                <strong>Ngũ hành nạp âm:</strong> {{ $getThongTinNgay['nap_am']['napAm'] }}
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <img src="{{ asset('icons/icon_hoang_dao.png') }}" alt="icon_hoang_dao"
+                                class="icon_hoang_dao">
+                            <div>
+                                <strong>Giờ Hoàng đạo:</strong> {{ $getThongTinNgay['gio_hac_dao'] }}
+                            </div>
+                        </div>
+                        <!-- BẮT ĐẦU: KHỐI MỨC THUẬN LỢI (ĐÃ CẬP NHẬT) -->
+                        <div class="convenience-level d-flex justify-content-between align-items-centerrow h-100">
+                            <div class="col-lg-6">
+                                <div class="level-label">
+                                    Mức thuận lợi<br>hôm nay:
+                                </div>
+                            </div>
+
+
+                            <div class="col-lg-6">
+                                <div class="progress-dial"
+                                    style="--value: {{ round($getDaySummaryInfo['score']['percentage']) }};">
+                                    <div class="dial-text">
+                                        <span
+                                            class="dial-percent">{{ round($getDaySummaryInfo['score']['percentage']) }}%</span>
+                                        <small
+                                            class="dial-status {{ $ratingColors[$getDaySummaryInfo['score']['rating']] ?? 'text-secondary' }}">
+                                            {{ $getDaySummaryInfo['score']['rating'] }}</small>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- KẾT THÚC: KHỐI MỨC THUẬN LỢI -->
+                        <a href="#"
+                            class="btn w-100 text-detail-date-hand-pc pt-3 text-start text-decoration-underline"><img
+                                src="{{ asset('icons/hand_2.svg') }}" alt="hand_2" class="img-fluid">
+                            Xem chi tiết ngày</a>
+                    </div>
+
+                    <!-- ** KHỐI SỰ KIỆN SẮP TỚI ** -->
+                    <div class="events-card">
+                        <h5 class="card-title-right">Sự kiện, ngày lễ sắp tới</h5>
+                        <ul class="list-group list-group-flush events-list">
+                            <li class="list-group-item event-item">
+                                <div class="event-date">Ngày 10/3</div>
+                                <div class="event-icon">🗓️</div>
+                                <div class="event-details">
+                                    <div class="event-name">Giỗ Tổ Hùng Vương</div>
+                                    <div class="event-countdown">còn 9 ngày nữa <i class="bi bi-chevron-right"></i>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item event-item">
+                                <div class="event-date"></div>
+                                <div class="event-icon">🧧</div>
+                                <div class="event-details">
+                                    <div class="event-name">Tết Dương Lịch (1/1)</div>
+                                    <div class="event-countdown">46 ngày nữa <i class="bi bi-chevron-right"></i>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item event-item">
+                                <div class="event-date"></div>
+                                <div class="event-icon">🇻🇳</div>
+                                <div class="event-details">
+                                    <div class="event-name">Ngày Giải phóng Côn Đảo (4/5)</div>
+                                    <div class="event-countdown">2 ngày nữa <i class="bi bi-chevron-right"></i></div>
+                                </div>
+                            </li>
+                            <li class="list-group-item event-item">
+                                <div class="event-date"></div>
+                                <div class="event-icon">🎉</div>
+                                <div class="event-details">
+                                    <div class="event-name">Ngày Giải phóng miền Nam, thống nhất đất nước (30/4)</div>
+                                    <div class="event-countdown">13 ngày nữa <i class="bi bi-chevron-right"></i>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    {{-- <div class=" mt-5">
         <div class="row g-5">
 
 
             <div class="col-lg-6">
                 <h1>Chuyển Đổi Ngày Dương Sang Âm</h1>
 
-                <!-- Form nhập ngày Dương -->
 
 
                 <form method="POST" action="{{ url('/doi-lich') }}" id="convertForm">
@@ -43,11 +400,11 @@
                     <p><b>Giờ hoàng đạo</b> {{ $gioHd }}</p>
                 @endif
             </div>
-            {{-- Dán đoạn này để thay thế cho div class="col-lg-6" của bạn --}}
+
             <div class="col-lg-6">
                 <div class="calendar-container">
 
-                    {{-- SỬA ĐỔI BẮT ĐẦU TỪ ĐÂY --}}
+ 
                     <div class="header-calendar">
 
                         <a href="{{ route('lich.thang', ['nam' => $prevYear, 'thang' => $prevMonth]) }}" class="nav-arrow"
@@ -55,19 +412,18 @@
                             <i class="bi bi-chevron-left"></i>
                         </a>
 
-                        {{-- HIỂN THỊ THÁNG/NĂM HIỆN TẠI --}}
                         <span class="header-calendar-title">
                             Tháng {{ $mm }} năm {{ $yy }}
                         </span>
 
-                        {{-- NÚT THÁNG SAU --}}
+           
                         <a href="{{ route('lich.thang', ['nam' => $nextYear, 'thang' => $nextMonth]) }}" class="nav-arrow"
                             title="Tháng sau">
                             <i class="bi bi-chevron-right"></i>
                         </a>
 
                     </div>
-                    {{-- SỬA ĐỔI KẾT THÚC TẠI ĐÂY --}}
+       
 
                     <div class="body-calendar">
                         <div class="p-2">
@@ -215,59 +571,74 @@
                         <div class="tab-pane fade show active" id="pills-home-nobd" role="tabpanel"
                             aria-labelledby="pills-home-tab-nobd">
                             <p>{{ $getDaySummaryInfo['intro_paragraph'] }}</p>
-                            {{-- <h5>Đánh giá ngày {{ round($scoresDate['percentage']) }} Điểm - {{ $scoresDate['rating'] }}</h5> --}}
+                         
                             <h5>Đánh giá ngày {{ round($getDaySummaryInfo['score']['percentage']) }} Điểm -
                                 {{ $getDaySummaryInfo['score']['rating'] }}</h5>
-                            ☼ Các yếu tố tốt xuất hiện trong ngày
-                            <p>
-                                @if (
-                                    $nhiThapBatTu['nature'] == 'Tốt' ||
-                                        $getThongTinTruc['description']['rating'] == 'Tốt' ||
-                                        $getSaoTotXauInfo['sao_tot']
-                                )
-                                    @if ($nhiThapBatTu['nature'] == 'Tốt')
-                                        Sao {{ $nhiThapBatTu['name'] }} (Nhị thập bát tú)
-                                    @endif
-                                    @if ($getThongTinTruc['description']['rating'] == 'Tốt')
-                                        Trực {{ $getThongTinTruc['title'] }} (Thập nhị trực),
-                                    @endif
-                                    @if ($getSaoTotXauInfo['sao_tot'])
-                                        Sao:
-                                    @endif
+                        
+                            @php
+                                $goodFactors = []; 
 
-                                    @foreach ($getSaoTotXauInfo['sao_tot'] as $tenSao => $yNghia)
-                                        @if (!empty($getSaoTotXauInfo['sao_tot']))
-                                            {{ $loop->first ? '' : ', ' }}{{ $tenSao }}
-                                        @endif
-                                    @endforeach
+                              
+                                if ($nhiThapBatTu['nature'] == 'Tốt') {
+                                    $goodFactors[] =
+                                        'Sao <strong>' . $nhiThapBatTu['name'] . '</strong> (Nhị thập bát tú)';
+                                }
+
+                          
+                                if ($getThongTinTruc['description']['rating'] == 'Tốt') {
+                                    $goodFactors[] =
+                                        'Trực <strong>' . $getThongTinTruc['title'] . '</strong> (Thập nhị trực)';
+                                }
+
+                            
+                                if (!empty($getSaoTotXauInfo['sao_tot'])) {
+                               
+                                    $saoTotList = implode(', ', array_keys($getSaoTotXauInfo['sao_tot']));
+                                    $goodFactors[] = 'Các sao tốt khác: ' . $saoTotList;
+                                }
+                            @endphp
+
+                            <p>
+                           
+                                @if (!empty($goodFactors))
+                                
+                                    {!! implode('<br>', $goodFactors) !!}
                                 @else
-                                    Không có Yếu tố nào
+                               
+                                    Không có yếu tố tốt nào.
                                 @endif
                             </p>
-                            ☼ Các yếu tố xấu xuất hiện trong ngày
-                            <p>
-                                @if (
-                                    $nhiThapBatTu['nature'] == 'Xấu' ||
-                                        $getThongTinTruc['description']['rating'] == 'Xấu' ||
-                                        $getSaoTotXauInfo['sao_xau']
-                                )
-                                    @if ($nhiThapBatTu['nature'] == 'Xấu')
-                                        Sao {{ $nhiThapBatTu['name'] }} (Nhị thập bát tú),
-                                    @endif
 
-                                    @if ($getThongTinTruc['description']['rating'] == 'Xấu')
-                                        Trực {{ $getThongTinTruc['title'] }} (Thập nhị trực),
-                                    @endif
-                                  @if ($getSaoTotXauInfo['sao_xau'])
-                                        Sao:
-                                    @endif 
-                                    @foreach ($getSaoTotXauInfo['sao_xau'] as $tenSao => $yNghia)
-                                       @if (!empty($getSaoTotXauInfo['sao_xau']))
-                                        {{ $loop->first ? '' : ', ' }}{{ $tenSao }}
-                                        @endif
-                                    @endforeach
+
+                         
+                            @php
+                                $badFactors = []; 
+
+                              
+                                if ($nhiThapBatTu['nature'] == 'Xấu') {
+                                    $badFactors[] =
+                                        'Sao <strong>' . $nhiThapBatTu['name'] . '</strong> (Nhị thập bát tú)';
+                                }
+
+                              
+                                if ($getThongTinTruc['description']['rating'] == 'Xấu') {
+                                    $badFactors[] =
+                                        'Trực <strong>' . $getThongTinTruc['title'] . '</strong> (Thập nhị trực)';
+                                }
+
+                              
+                                if (!empty($getSaoTotXauInfo['sao_xau'])) {
+                                 
+                                    $saoXauList = implode(', ', array_keys($getSaoTotXauInfo['sao_xau']));
+                                    $badFactors[] = 'Các sao xấu khác: ' . $saoXauList;
+                                }
+                            @endphp
+
+                            <p>
+                                @if (!empty($badFactors))
+                                    {!! implode('<br>', $badFactors) !!}
                                 @else
-                                    Không có yếu tố xấu nào
+                                    Không có yếu tố xấu nào.
                                 @endif
                             </p>
                             <div>
@@ -334,7 +705,7 @@
                                     {{ $nhiThapBatTu['description'] }}</p>
                                 <li>
                                     Việc nên làm : {{ $nhiThapBatTu['guidance']['good'] }}
-                                    @if (!empty($nhiThapBatTu['guidance']['bad']))
+                                    @if ($nhiThapBatTu['guidance']['bad'])
                                         Việc không nên làm : {{ $nhiThapBatTu['guidance']['bad'] }}
                                     @endif
                                 </li>
@@ -349,6 +720,7 @@
                                 <h4>4. Các sao tốt - xấu theo Ngọc Hạp Thông Thư</h4>
                                 <div>
                                     <h6>- Sao tốt</h6>
+                                   
                                     @if (!empty($getSaoTotXauInfo['sao_tot']))
                                         @foreach ($getSaoTotXauInfo['sao_tot'] as $tenSao => $yNghia)
                                             <li><strong>{{ $tenSao }}:</strong> {{ $yNghia }}</li>
@@ -519,7 +891,7 @@
             </tbody>
         </table>
 
-    </div>
+    </div> --}}
     @push('scripts')
         <script>
             document.addEventListener("DOMContentLoaded", () => {
@@ -532,45 +904,46 @@
                 // Lưu ý: Tháng trong JS là 0-11, nên phải trừ đi 1
                 const currentDate = new Date(currentYear, currentMonth - 1, currentDay);
 
-                // Lấy các element nút bấm
-                const prevBtn = document.getElementById('prev-day-btn');
-                const nextBtn = document.getElementById('next-day-btn');
+                // Lấy TẤT CẢ các element nút bấm
+                const prevBtns = document.querySelectorAll('.prev-day-btn'); // <-- SỬA Ở ĐÂY
+                const nextBtns = document.querySelectorAll('.next-day-btn'); // <-- SỬA Ở ĐÂY
 
-                // --- Xử lý nút "Ngày trước" ---
-                // Chỉ thực hiện nếu nút tồn tại
-                if (prevBtn) {
-                    // Tạo một bản sao của ngày hiện tại để tính toán
+                // --- Xử lý các nút "Ngày trước" ---
+                // Chỉ thực hiện nếu tìm thấy bất kỳ nút nào
+                if (prevBtns.length > 0) { // <-- SỬA Ở ĐÂY
                     const prevDate = new Date(currentDate);
-                    // Đặt ngày thành ngày hôm trước, JS sẽ tự xử lý việc chuyển tháng/năm
                     prevDate.setDate(currentDate.getDate() - 1);
 
-                    // Lấy các thành phần của ngày mới (không thêm số 0)
                     const prevYear = prevDate.getFullYear();
-                    const prevMonth = prevDate.getMonth() + 1; // +1 để quay lại định dạng 1-12
+                    const prevMonth = prevDate.getMonth() + 1;
                     const prevDay = prevDate.getDate();
 
-                    // Gán URL mới cho nút
-                    prevBtn.href = `/am-lich/nam/${prevYear}/thang/${prevMonth}/ngay/${prevDay}`;
+                    const newPrevUrl = `/am-lich/nam/${prevYear}/thang/${prevMonth}/ngay/${prevDay}`;
+
+                    // Lặp qua TẤT CẢ các nút "prev" và gán URL mới
+                    prevBtns.forEach(btn => { // <-- SỬA Ở ĐÂY
+                        btn.href = newPrevUrl;
+                    });
                 }
 
-                // --- Xử lý nút "Ngày sau" ---
-                // Chỉ thực hiện nếu nút tồn tại
-                if (nextBtn) {
-                    // Tạo một bản sao của ngày hiện tại để tính toán
+                // --- Xử lý các nút "Ngày sau" ---
+                // Chỉ thực hiện nếu tìm thấy bất kỳ nút nào
+                if (nextBtns.length > 0) { // <-- SỬA Ở ĐÂY
                     const nextDate = new Date(currentDate);
-                    // Đặt ngày thành ngày hôm sau
                     nextDate.setDate(currentDate.getDate() + 1);
 
-                    // Lấy các thành phần của ngày mới (không thêm số 0)
                     const nextYear = nextDate.getFullYear();
-                    const nextMonth = nextDate.getMonth() + 1; // +1 để quay lại định dạng 1-12
+                    const nextMonth = nextDate.getMonth() + 1;
                     const nextDay = nextDate.getDate();
 
-                    // Gán URL mới cho nút
-                    nextBtn.href = `/am-lich/nam/${nextYear}/thang/${nextMonth}/ngay/${nextDay}`;
+                    const newNextUrl = `/am-lich/nam/${nextYear}/thang/${nextMonth}/ngay/${nextDay}`;
+
+                    // Lặp qua TẤT CẢ các nút "next" và gán URL mới
+                    nextBtns.forEach(btn => { // <-- SỬA Ở ĐÂY
+                        btn.href = newNextUrl;
+                    });
                 }
             });
         </script>
     @endpush
-
 @endsection

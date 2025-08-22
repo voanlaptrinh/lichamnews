@@ -83,8 +83,8 @@ class WeddingController extends Controller
 
         // 2. Logic mới: Nhóm theo năm
         $period = CarbonPeriod::create($startDate, $endDate);
-        $groomInfo = $this->getPersonBasicInfo($groomDob);
-        $brideInfo = $this->getPersonBasicInfo($brideDob);
+        $groomInfo = BadDayHelper::getPersonBasicInfo($groomDob);
+        $brideInfo = BadDayHelper::getPersonBasicInfo($brideDob);
 
         // Lấy danh sách các năm duy nhất trong khoảng đã chọn
         $uniqueYears = [];
@@ -326,29 +326,15 @@ class WeddingController extends Controller
         $brideDob = Carbon::parse($validated['bride_dob']);
 
         // 3. Lấy thông tin chung của ngày (tính 1 lần, vì nó không đổi)
-        $lunarParts = LunarHelper::convertSolar2Lunar($dateToCheck->day, $dateToCheck->month, $dateToCheck->year);
-        $dayCanChi = LunarHelper::canchiNgayByJD(LunarHelper::jdFromDate($dateToCheck->day, $dateToCheck->month, $dateToCheck->year));
-  $jd = \App\Helpers\LunarHelper::jdFromDate($dateToCheck->day, $dateToCheck->month, $dateToCheck->year);
-        $canChiNgay = \App\Helpers\LunarHelper::canchiNgayByJD($jd);
-        list($dayCan, $dayChi) = explode(' ', $canChiNgay);
-        $hopxungNgay = FengShuiHelper::getCucKhiHopXung($dayChi);
-        $commonDayInfo = [
-            'dateToCheck' => $dateToCheck,
-            'lunarDateStr' => sprintf('Ngày %s (%02d/%02d)', $dayCanChi, $lunarParts[0], $lunarParts[1]),
-            'badDays' => BadDayHelper::checkBadDays($dateToCheck),
-            'getThongTinNgay' => FunctionHelper::getThongTinNgay($dateToCheck->day, $dateToCheck->month, $dateToCheck->year),
-            'nhiThapBatTu' => FunctionHelper::nhiThapBatTu($dateToCheck->year, $dateToCheck->month, $dateToCheck->day),
-            'getThongTinTruc' => FunctionHelper::getThongTinTruc($dateToCheck->day, $dateToCheck->month, $dateToCheck->year),
-            'getSaoTotXauInfo' => FunctionHelper::getSaoTotXauInfo($dateToCheck->day, $dateToCheck->month, $dateToCheck->year),
-            'al' => $lunarParts, // Giữ lại biến 'al' cho tiện
-            'hopxungNgay' => $hopxungNgay,
-        ];
+
+        $commonDayInfo = BadDayHelper::getdetailtable($dateToCheck);
+       
 
         // 4. Lấy thông tin chi tiết cho Chú Rể
-        $groomData = $this->getDetailedAnalysisForPerson($dateToCheck, $groomDob, 'Chú Rể');
+        $groomData = BadDayHelper::getDetailedAnalysisForPerson($dateToCheck, $groomDob, 'Chú Rể');
 
         // 5. Lấy thông tin chi tiết cho Cô Dâu
-        $brideData = $this->getDetailedAnalysisForPerson($dateToCheck, $brideDob, 'Cô Dâu');
+        $brideData = BadDayHelper::getDetailedAnalysisForPerson($dateToCheck, $brideDob, 'Cô Dâu');
 
         // 6. Trả về view với toàn bộ dữ liệu
         return view('wedding.day_details', compact(
@@ -357,31 +343,6 @@ class WeddingController extends Controller
             'brideData'
         ));
     }
+
     
-    /**
-     * [HELPER MỚI] Gom logic tính toán chi tiết cho một người cụ thể.
-     * Hàm này sẽ được gọi 2 lần: 1 cho chú rể, 1 cho cô dâu.
-     *
-     * @param Carbon $dateToCheck Ngày cần xem
-     * @param Carbon $personDob Ngày sinh của người đó
-     * @param string $personTitle "Chú Rể" hoặc "Cô Dâu"
-     * @return array
-     */
-    private function getDetailedAnalysisForPerson(Carbon $dateToCheck, Carbon $personDob, string $personTitle): array
-    {
-        $personInfo = $this->getPersonBasicInfo($personDob);
-        $getThongTinCanChiVaIcon = FunctionHelper::getThongTinCanChiVaIcon($dateToCheck->day, $dateToCheck->month, $dateToCheck->year);
-        $chiNgay = explode(' ', $getThongTinCanChiVaIcon['can_chi_ngay'])[1] ?? '';
-        
-        return [
-            'personTitle' => $personTitle,
-            'personInfo' => $personInfo,
-            'score' => GoodBadDayHelper::calculateDayScore($dateToCheck, $personDob->year, 'CUOI_HOI'),
-            'noiKhiNgay' => KhiVanHelper::getDetailedNoiKhiExplanation($dateToCheck->day, $dateToCheck->month, $dateToCheck->year),
-            'getThongTinCanChiVaIcon' => $getThongTinCanChiVaIcon,
-            'getVongKhiNgayThang' => KhiVanHelper::getDetailedKhiThangInfo($dateToCheck),
-            'getCucKhiHopXung' => FengShuiHelper::getCucKhiHopXung($chiNgay),
-            'analyzeNgayVoiTuoi' => FengShuiHelper::analyzeNgayVoiTuoi($getThongTinCanChiVaIcon['can_chi_ngay'], $personInfo['can_chi_nam']),
-        ];
-    }
 }

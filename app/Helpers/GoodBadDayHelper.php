@@ -51,13 +51,13 @@ class GoodBadDayHelper
         $vanKhiNormalized = (float) $vanKhiResult['normalizedScore'];
         $vanKhiWeightedScore = $vanKhiNormalized * self::getWeight($effectivePurpose, 'VanKhi', $isPersonalized);
         $allIssues = array_merge($allIssues, $vanKhiResult['issues'] ?? []);
+       
         
         // 4. Cát Hung
         $catHungResult = CatHungHelper::evaluateCatHung($date, $effectivePurpose);
         $catHungScoreValue = (float) $catHungResult['score'];
         $catHungWeightedScore = $catHungScoreValue * self::getWeight($effectivePurpose, 'CatHung', $isPersonalized);
         $allIssues = array_merge($allIssues, $catHungResult['issues'] ?? []);
-
 
         // 5. 28 Tú
         $starName = NhiThapBatTuHelper::getNhiThapBatTu($date)['name'];
@@ -72,7 +72,6 @@ class GoodBadDayHelper
         $trucWeightedScore = $trucScoreValue * self::getWeight( $effectivePurpose, '12Truc', $isPersonalized);
         $trucIssues = NhiTrucHelper::checkTrucIssues($trucName, $effectivePurpose);
         $allIssues = array_merge($allIssues, $trucIssues);
-
         // 7. Tổng hợp điểm có trọng số
         $totalWeights = self::getTotalWeight($effectivePurpose, $isPersonalized);
         $totalWeightedScore = $vanKhiWeightedScore + $catHungWeightedScore + $tuWeightedScore + $trucWeightedScore;

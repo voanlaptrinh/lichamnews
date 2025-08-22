@@ -31,7 +31,8 @@ class FunctionHelper
     {
         $al = LunarHelper::convertSolar2Lunar((int)$dd, (int)$mm, (int)$yy);
         $jdNgayAm = LunarHelper::jdFromLunarDate((int)$al[0], (int)$al[1], (int)$al[2], (int)$al[3]);
-        $canChiNgayAm = LunarHelper::canchiNgayByJD($jdNgayAm);
+         $jday = LunarHelper::jdFromDate((int)$dd, (int)$mm, (int)$yy);
+        $canChiNgayAm = LunarHelper::canchiNgayByJD($jday);
 
         $chi_ngay_am = explode(' ', $canChiNgayAm);
         $ngayThienCan = $chi_ngay_am[0] ?? '';
