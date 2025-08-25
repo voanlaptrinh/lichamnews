@@ -15,61 +15,7 @@
 
 <body>
      @include('layout.header')
-    {{-- <div class="container">
-        <header class="d-flex justify-content-center py-3" style=" background: papayawhip">
-            <ul class="nav nav-pills">
-                <li class="nav-item"><a href="{{ route('home') }}" class="nav-link active" aria-current="page">Trang
-                        chủ</a></li>
-                <li class="nav-item"><a href="{{ route('horoscope.index') }}" class="nav-link text-dark" aria-current="page">Cung
-                        hoàng đạo</a></li>
-                <li>
-                    <div class="dropdown">
-                        <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Lịch Tháng
-                        </button>
-                        <ul class="dropdown-menu">
-                            @php($currentYear = date('Y'))
-                            @for ($month = 1; $month <= 12; $month++)
-                                <li>
-                                    <a class="dropdown-item"
-                                        href="{{ route('lich.thang', ['nam' => $currentYear, 'thang' => $month]) }}">Tháng
-                                        {{ $month }}</a>
-                                </li>
-                            @endfor
-
-                        </ul>
-                    </div>
-
-                </li>
-                <li>
-                    <div class="dropdown">
-                        <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Lịch năm
-                        </button>
-                        <ul class="dropdown-menu">
-                            @php($currentYearHeader = date('Y'))
-                            @php($startYearHeader = $currentYearHeader - 1)
-                            @php($endYearHeader = $currentYearHeader + 10)
-
-                            @for ($year = $startYearHeader; $year <= $endYearHeader; $year++)
-                                <li>
-                                    <a href="{{ route('lich.nam', ['nam' => $year]) }}">
-                                        Xem lịch năm {{ $year }}
-                                    </a>
-                                </li>
-                            @endfor
-                        </ul>
-                    </div>
-
-                </li>
-                <li class="nav-item"><a href="{{ route('van-khan.index') }}" class="nav-link text-dark" aria-current="page">Văn
-                        khấn</a></li>
-                <li class="nav-item"><a href="{{ route('thuoc-lo-ban.index') }}" class="nav-link text-dark" aria-current="page">Thước lỗ ban</a></li>
-            </ul>
-        </header>
-    </div> --}}
+   
     <div class=" container-setup">
 
         @yield('content')
@@ -148,6 +94,7 @@
             </div>
         </div>
     </div> --}}
+     @include('layout.footer')
 
     <!-- JS của Bootstrap (nếu sử dụng Bootstrap) -->
     <script src="{{ asset('/js/bootstrap.bundle.min.js') }}"></script>

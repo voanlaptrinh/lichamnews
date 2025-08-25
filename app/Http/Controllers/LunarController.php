@@ -226,7 +226,7 @@ class LunarController extends Controller
         $yy = (int)$yy;
 
         // Tạo chuỗi ngày Y-m-d từ các tham số để truyền cho view
-        $cdate = sprintf('%04d-%02d-%02d', $yy, $mm, $dd);
+        $cdate = sprintf('%04d-%02d-%02d',  $yy, $mm, $dd);
 
         // --- Bắt đầu toàn bộ logic tính toán (giữ nguyên từ hàm index cũ) ---
 
@@ -332,8 +332,8 @@ class LunarController extends Controller
         $nextDate = $currentDate->copy()->addMonth();
         $nextYear = $nextDate->year;
         $nextMonth = $nextDate->month;
-
-
+  $tot_xau_result = LunarHelper::checkTotXau($canChi, $al[1]);
+   
         // Trả về view với đầy đủ dữ liệu
         return view('lunar.convert', [
             'cdate' => $cdate, // Ngày đang xem, định dạng Y-m-d
@@ -345,7 +345,7 @@ class LunarController extends Controller
             'prevMonth' => $prevMonth,
             'nextYear' => $nextYear,
             'nextMonth' => $nextMonth,
-
+  'tot_xau_result' => $tot_xau_result,
             'yy' => $yy,
             'al' => $al,
             'canChi' => $canChi,

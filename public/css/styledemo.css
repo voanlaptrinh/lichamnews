@@ -10,9 +10,10 @@
         url("../fonts/InstrumentSans-VariableFont_wdth,wght.ttf")format("woff2");
 }
 
-/* body {
+body {
     font-family: 'InstrumentSans';
-} */
+    background: #EDF0F3;
+}
 
 /* Tùy chỉnh giao diện cho input[type="date"] */
 .custom-date-input {
@@ -922,7 +923,14 @@ a {
     justify-content: space-between;
     align-items: center;
     height: 72px;
-    background-color: #002178;
+    background: linear-gradient(
+    90deg,
+    #2254AB 100%,   
+    #2B7EE5 100%,  
+    #2254AB 100%, 
+    #2B7EE5 100% 
+  
+  );
 }
 
 /* .site-logo img {
@@ -1458,6 +1466,44 @@ a:hover {
     justify-content: center;
     height: 100%;
     position: relative;
+}
+.day-status {
+    /* --- Định vị tuyệt đối ở góc phải trên --- */
+    position: absolute;
+    top: 10px; /* Cùng khoảng cách với padding của thẻ cha */
+    right: 10px; /* Cùng khoảng cách với padding của thẻ cha */
+
+    /* --- Căn chỉnh nội dung bên trong --- */
+    display: flex;
+    align-items: center;
+    gap: 6px; /* Khoảng cách giữa chấm tròn và chữ */
+
+    /* --- Kiểu chữ --- */
+    font-size: 15px;
+    font-weight: 500;
+}
+
+/* 3. Style cho chấm tròn */
+.status-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+/* 4. Style màu sắc riêng cho từng trạng thái */
+.day-status.hac-dao {
+    color: #783636; /* Màu chữ nâu sẫm */
+}
+.day-status.hac-dao .status-dot {
+    background-color: #ACACAC; /* Màu chấm xám */
+}
+
+.day-status.hoang-dao {
+    color: #BE123C; /* Màu chữ đỏ hồng */
+}
+.day-status.hoang-dao .status-dot {
+    background-color: #FACC15; /* Màu chấm vàng */
 }
 
 .date-display-card .card-title {
@@ -2138,22 +2184,23 @@ a:hover {
     border: 0;
 }
 
-/* Từng mục sự kiện */
 .event-item {
-    /* Quan trọng: Bỏ qua các style padding/border mặc định của .list-group-item */
     padding-bottom: 16px !important;
     margin-bottom: 16px !important;
-    border-bottom: 1px solid #E0E3E8 !important; /* Đường kẻ ngăn cách */
-    
-    /* Chúng ta sẽ không dùng flex ở đây để giữ cấu trúc của bạn */
+    border-bottom: 2px solid; /* bắt buộc hiện border */
 }
 
-/* Xóa đường kẻ của mục cuối cùng */
-.event-item:last-child {
-    border-bottom: none !important;
-    margin-bottom: 0 !important;
-    padding-bottom: 0 !important;
+/* Item lẻ: n = 1,3,5... */
+.event-item:nth-child(odd)  {
+     border-bottom: 1px solid #985B10 !important;
 }
+
+/* Item chẵn: n = 2,4,6... */
+.event-item:nth-child(even) {
+    border-bottom: 1px solid #2254AB !important;
+}
+
+
 
 /* Thẻ "Ngày 10/3" (được đổi tên thành .event-date trong HTML của bạn) */
 .event-date {
@@ -2215,8 +2262,8 @@ a:hover {
 /* --- Bắt đầu phần CSS chính --- */
 .popular-utilities {
     font-family: 'Public Sans', sans-serif;
-    padding: 40px 0;
-    background-color: #F7FAFC; /* Màu nền xám rất nhạt */
+   padding: 40px 0;
+     /* background-color: #F7FAFC;  */
 }
 
 .container {
@@ -2275,7 +2322,7 @@ a:hover {
 
     /* 1. Nền chuyển sắc dạng tỏa tròn (Radial Gradient) */
     /* Màu đi từ trong ra ngoài: trắng xanh -> xanh nhạt -> xanh đậm hơn */
-    background: radial-gradient(circle, #C1E3FC, #96D2FA, #EFF8FF);
+    background: radial-gradient(circle, #C1E3FC, #EFF8FF);
 
     /* 2. Viền (Border) */
     border: 1px solid #214987;
@@ -2319,3 +2366,251 @@ a:hover {
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
+
+/* --- Bắt đầu phần CSS chính --- */
+.van-lien-hows {
+    font-family: 'Public Sans', sans-serif;
+    background-color: #ffffff;
+    border-radius: 16px; /* Bo góc mềm mại */
+    padding: 32px;
+    border: 1px solid #E2E8F0; /* Viền xám rất nhạt */
+    box-shadow: 0 4px 20px rgba(30, 41, 59, 0.05); /* Đổ bóng nhẹ nhàng */
+
+}
+
+/* Kiểu chữ chung cho các đoạn văn */
+.van-lien-hows p,
+.van-lien-hows li {
+    font-size: 16px;
+    color: #212121; /* Màu xám đậm */
+    line-height: 1.7; /* Giãn dòng cho dễ đọc */
+}
+
+/* Tiêu đề chính (H2) */
+.van-lien-hows h2 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #192E52; /* Màu xanh đen */
+    margin-top: 0;
+    margin-bottom: 16px;
+}
+
+/* Tiêu đề phụ (H3) */
+.van-lien-hows h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #192E52;
+    margin-top: 18px; /* Khoảng cách với nội dung phía trên */
+    margin-bottom: 20px;
+}
+
+
+/* Danh sách có dấu chấm đầu dòng (ul) */
+.van-lien-hows ul {
+    list-style-type: none; /* Bỏ dấu chấm mặc định */
+    padding-left: 0;
+    margin-bottom: 1rem;
+}
+
+.van-lien-hows ul li {
+    padding-left: 24px; /* Tạo không gian cho dấu chấm tùy chỉnh */
+    position: relative;
+    margin-bottom: 12px;
+}
+
+/* Tạo dấu chấm tùy chỉnh */
+.van-lien-hows ul li::before {
+    content: '•';
+    position: absolute;
+    left: 8px;
+    top: 1px;
+    color: #212121; /* Màu xám nhạt */
+    font-size: 18px;
+}
+
+/* Danh sách có số thứ tự (ol) */
+.van-lien-hows ol {
+    list-style-type: none; /* Bỏ số mặc định */
+    counter-reset: ordered-list; /* Khởi tạo bộ đếm */
+    padding-left: 0;
+}
+
+.van-lien-hows ol li {
+    counter-increment: ordered-list; /* Tăng bộ đếm cho mỗi <li> */
+    margin-bottom: 16px;
+    padding-left: 28px; /* Tạo không gian cho số */
+    position: relative;
+}
+
+/* Tạo số thứ tự tùy chỉnh */
+.van-lien-hows ol li::before {
+    content: counter(ordered-list) ".";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-weight: 700;
+    color: #1E293B; /* Cùng màu với tiêu đề */
+}
+
+/* Style cho phần chữ trong danh sách có số */
+.van-lien-hows ol li strong {
+    display: block;
+    color: #212121;
+    margin-bottom: 4px;
+}
+
+.van-lien-hows ol li p {
+    margin: 0;
+}
+
+
+
+
+/* --- BẮT ĐẦU: CSS CHO FOOTER --- */
+
+.site-footer {
+    /* Nền gradient đã chính xác */
+    background: linear-gradient(90deg, #2254AB 0%, #2254AB 30%, #2B7EE5 100%);
+    color: #E0EFFF; /* Đổi màu chữ thành trắng xanh nhạt để dễ đọc hơn */
+    padding: 60px 0;
+    font-size: 15px;
+    position: relative; /* Giữ lại position:relative cho các ảnh trang trí */
+    overflow: hidden; /* Ẩn các phần thừa của ảnh trang trí */
+}
+
+.footer-col {
+    /* 
+     * QUAN TRỌNG: Thêm position: relative để làm "khung tham chiếu"
+     * cho đường kẻ dọc mà chúng ta sẽ tạo bằng ::before.
+    */
+    position: relative;
+
+    /* 
+     * Thêm padding để tạo khoảng trống bên trong cột,
+     * giúp nội dung không dính sát vào đường kẻ.
+    */
+    padding: 0 15px;
+    margin-bottom: 30px; /* Giữ lại margin cho responsive mobile */
+}
+
+/* --- TẠO ĐƯỜNG KẺ DỌC --- */
+
+/* 
+ * Áp dụng cho TẤT CẢ các cột NGOẠI TRỪ cột đầu tiên.
+ * Chỉ hiển thị trên màn hình desktop (lg trở lên).
+*/
+@media (min-width: 992px) {
+    .footer-col:not(:first-child)::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0; /* Kéo dài từ trên xuống dưới */
+        width: 1px;
+        background-color: rgba(255, 255, 255, 0.2); /* Màu trắng mờ */
+    }
+}
+
+
+/* --- CĂN CHỈNH VÀ STYLE NỘI DUNG --- */
+
+.footer-title {
+    font-size: 22px; /* Giảm kích thước cho cân đối */
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #fff;
+    text-transform: uppercase; /* Thêm chữ in hoa */
+}
+
+/* Cột 1: Giới thiệu ngắn */
+.footer-about {
+    line-height: 1.7; /* Giảm line-height cho dễ đọc */
+    margin-bottom: 20px;
+    font-size: 15px; /* Giảm font size cho đồng bộ */
+}
+.footer-about a {
+    color: #FFD700; /* Màu vàng gold sáng hơn */
+    text-decoration: none; /* Bỏ gạch chân, trông hiện đại hơn */
+    font-weight: 600;
+}
+.footer-about a:hover {
+    text-decoration: underline;
+}
+
+.footer-contact-info {
+    font-size: 15px;
+    margin-bottom: 8px;
+    line-height: 1.6;
+}
+.footer-contact-info a {
+    text-decoration: none;
+}
+
+/* Cột 2 & 3: Các link */
+.footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.footer-links li {
+    margin-bottom: 12px;
+}
+.footer-links a {
+    color: #E0EFFF;
+    text-decoration: none;
+    font-size: 20px;
+    transition: all 0.2s ease;
+}
+.footer-links a:hover {
+    color: #fff;
+    padding-left: 5px;
+}
+
+/* Cột 4: Kết nối và Tải ứng dụng (Thêm vào để giống ảnh) */
+.footer-col h5.footer-title:not(:first-child) {
+    margin-top: 30px; /* Tạo khoảng cách giữa "Kết nối" và "Tải ứng dụng" */
+}
+
+.social-icons {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px; /* Thêm khoảng cách dưới */
+}
+.social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 18px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+.social-icon img, .social-icon svg { /* Style cho icon Zalo */
+    width: 24px;
+    height: 24px;
+}
+.social-icon:hover {
+    transform: translateY(-3px);
+}
+.social-icon.facebook { background-color: #1877F2; }
+.social-icon.youtube { background-color: #FF0000; }
+.social-icon.zalo { background-color: #fff; padding: 5px; } /* Zalo nền trắng */
+
+
+/* Các nút tải ứng dụng */
+.app-download-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: flex-start; /* Căn lề trái */
+}
+
+.app-download-buttons a img {
+    height: 45px; /* Điều chỉnh chiều cao cho phù hợp */
+    width: auto;
+}
+
+/* --- KẾT THÚC: CSS CHO FOOTER --- */

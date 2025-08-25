@@ -22,12 +22,27 @@
     .container-setup {
         width: 1500px;
     }
-    .icon_tiet_khi,.icon_nap_am,.icon_hoang_dao{
+
+    .icon_tiet_khi,
+    .icon_nap_am,
+    .icon_hoang_dao {
         max-width: 100%;
         height: auto;
     }
-    .date-display-card .date-special-event{
+
+    .date-display-card .date-special-event {
         font-size: 20px;
+    }
+
+    .footer-about {
+        font-size: 22px;
+    }
+
+    .footer-contact-info {
+        font-size: 22px;
+    }
+    .title-status-dot{
+        display: block;
     }
 }
 
@@ -59,15 +74,31 @@
     .container-setup {
         width: 1400px;
     }
-    .btn-today-home-pc{
+
+    .btn-today-home-pc {
         display: block;
     }
-     .icon_tiet_khi,.icon_nap_am,.icon_hoang_dao{
+
+    .icon_tiet_khi,
+    .icon_nap_am,
+    .icon_hoang_dao {
         max-width: 100%;
         height: auto;
     }
-    .date-display-card .date-special-event{
+
+    .date-display-card .date-special-event {
         font-size: 20px;
+    }
+
+    .footer-about {
+        font-size: 22px;
+    }
+
+    .footer-contact-info {
+        font-size: 22px;
+    }
+     .title-status-dot{
+        display: block;
     }
 }
 
@@ -91,15 +122,31 @@
     .container-setup {
         width: 1200px;
     }
-     .btn-today-home-pc{
+
+    .btn-today-home-pc {
         display: block;
     }
-    .icon_tiet_khi,.icon_nap_am,.icon_hoang_dao{
+
+    .icon_tiet_khi,
+    .icon_nap_am,
+    .icon_hoang_dao {
         max-width: 100%;
         height: auto;
     }
-    .date-display-card .date-special-event{
+
+    .date-display-card .date-special-event {
         font-size: 18px;
+    }
+
+    .footer-about {
+        font-size: 22px;
+    }
+
+    .footer-contact-info {
+        font-size: 22px;
+    }
+     .title-status-dot{
+        display: block;
     }
 }
 
@@ -123,15 +170,31 @@
     .container-setup {
         width: 1000px;
     }
-     .btn-today-home-pc{
+
+    .btn-today-home-pc {
         display: block;
     }
-    .icon_tiet_khi,.icon_nap_am,.icon_hoang_dao{
+
+    .icon_tiet_khi,
+    .icon_nap_am,
+    .icon_hoang_dao {
         max-width: 100%;
         height: auto;
     }
-     .date-display-card .date-special-event{
+
+    .date-display-card .date-special-event {
         font-size: 16px;
+    }
+
+    .footer-about {
+        font-size: 22px;
+    }
+
+    .footer-contact-info {
+        font-size: 22px;
+    }
+     .title-status-dot{
+        display: block;
     }
 }
 
@@ -157,18 +220,35 @@
         padding-left: 16px;
         padding-right: 16px;
     }
-     .btn-today-home-pc{
+
+    .btn-today-home-pc {
         display: block;
     }
-      .info-item{
+
+    .info-item {
         margin-bottom: 5px;
     }
-    .icon_tiet_khi,.icon_nap_am,.icon_hoang_dao{
+
+    .icon_tiet_khi,
+    .icon_nap_am,
+    .icon_hoang_dao {
         max-width: 100%;
         height: auto;
     }
-      .date-display-card .date-special-event{
+
+    .date-display-card .date-special-event {
         font-size: 16px;
+    }
+
+    .footer-about {
+        font-size: 22px;
+    }
+
+    .footer-contact-info {
+        font-size: 22px;
+    }
+     .title-status-dot{
+        display: block;
     }
 }
 
@@ -202,22 +282,40 @@
         padding-left: 16px;
         padding-right: 16px;
     }
-     .btn-today-home-pc{
+
+    .btn-today-home-pc {
         display: none;
     }
-      .info-item{
+
+    .info-item {
         gap: 8px;
         margin-bottom: 5px;
     }
-     .icon_tiet_khi,.icon_nap_am,.icon_hoang_dao{
-       width: 20px;
-       height: 20px;
+
+    .icon_tiet_khi,
+    .icon_nap_am,
+    .icon_hoang_dao {
+        width: 20px;
+        height: 20px;
     }
-      .date-display-card .date-special-event{
+
+    .date-display-card .date-special-event {
         font-size: 14px;
     }
-     .utility-title{
+
+    .utility-title {
         height: 34px;
+    }
+
+    .footer-about {
+        font-size: 20px;
+    }
+
+    .footer-contact-info {
+        font-size: 20px;
+    }
+     .title-status-dot{
+        display: none;
     }
 }
 
@@ -271,24 +369,43 @@
     .text-lever-label-mobie {
         font-size: 16px;
     }
-      .btn-today-home-pc{
+
+    .btn-today-home-pc {
         display: none;
     }
-    .info-item{
+
+    .info-item {
         gap: 8px;
         margin-bottom: 3px;
     }
-    .icon_tiet_khi,.icon_nap_am,.icon_hoang_dao{
-       width: 20px;
-       height: 20px;
+
+    .icon_tiet_khi,
+    .icon_nap_am,
+    .icon_hoang_dao {
+        width: 20px;
+        height: 20px;
     }
-      .date-display-card .date-special-event{
+
+    .date-display-card .date-special-event {
         font-size: 14px;
     }
-    .calendar-legend{
+
+    .calendar-legend {
         gap: 2px;
     }
-    .utility-title{
+
+    .utility-title {
         height: 34px;
+    }
+
+    .footer-about {
+        font-size: 20px;
+    }
+
+    .footer-contact-info {
+        font-size: 20px;
+    }
+      .title-status-dot{
+        display: none;
     }
 }

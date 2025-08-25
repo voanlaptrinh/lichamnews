@@ -44,11 +44,27 @@
                                     </div>
                                     <a href="#" class="nav-arrow nav-home-date nave-right next-day-btn"
                                         title="Ngày hôm sau"> <i class="bi bi-chevron-right"></i></a>
+                                    @if ($tot_xau_result == 'tot')
+                                        <div class="day-status hoang-dao">
+                                            <span class="status-dot"></span>
+                                           <span class="title-status-dot"> Hoàng đạo</span>
+                                        </div>
+                                    @elseif($tot_xau_result == 'xau')
+                                        <div class="day-status hac-dao">
+                                            <span class="status-dot"></span>
+                                           <span class="title-status-dot"> Hắc đạo</span>
+                                        </div>
+                                    @else
+                                        <div class="day-status ">
+
+                                        </div>
+                                    @endif
+
                                 </div>
                             </div>
                             <div class="col-lg-12 btn-mobie-next-prev">
                                 <div>
-                                    <a href="{{ route('lich.thang', ['nam' => date('Y'), 'thang' => date('n')]) }}"
+                                    <a href="{{ route('lich.nam.ngay', ['nam' => date('Y'), 'thang' => date('n'), 'ngay' => date('d')]) }} "
                                         class="btn-today-home-mob">
                                         <i class="bi bi-calendar-plus pe-1"></i> Hôm nay
                                     </a>
@@ -156,7 +172,7 @@
                                 {{-- ============================================= --}}
                                 {{-- BẮT ĐẦU: THÊM NÚT "HÔM NAY" VÀO ĐÂY --}}
                                 {{-- ============================================= --}}
-                                <a href="{{ route('lich.thang', ['nam' => date('Y'), 'thang' => date('n')]) }}"
+                                <a href="{{ route('lich.nam.ngay', ['nam' => date('Y'), 'thang' => date('n'), 'ngay' => date('d')]) }}"
                                     class="btn-today-home-pc btn-today-home">
                                     <i class="bi bi-calendar-plus pe-1"></i> Hôm nay
                                 </a>
@@ -188,21 +204,23 @@
 
                             <!-- Tiện ích 1 -->
                             <a href="#" class="utility-item col-6 col-md-6 col-lg-3 mb-4 ">
-                                 <h4 class="utility-title">Đổi ngày Âm - Dương</h4>
+                                <h4 class="utility-title">Đổi ngày Âm - Dương</h4>
                                 <div class="icon-wrapper">
-                                    <img src="{{asset('icons/doi_ngay_am_duong.svg')}}" alt="Đổi ngày Âm - Dương" class="img-fluid">
+                                    <img src="{{ asset('icons/doi_ngay_am_duong.svg') }}" alt="Đổi ngày Âm - Dương"
+                                        class="img-fluid">
                                 </div>
-                               
+
                                 <p class="utility-description">Chuyển đổi nhanh giữa dương lịch và âm lịch.</p>
                             </a>
 
                             <!-- Tiện ích 2 -->
                             <a href="#" class="utility-item col-6 col-md-6 col-lg-3 mb-4">
-                                 <h4 class="utility-title">Xem ngày Tốt</h4>
+                                <h4 class="utility-title">Xem ngày Tốt</h4>
                                 <div class="icon-wrapper">
-                                    <img src="{{asset('icons/xem_ngay_tot.svg')}}" alt="Xem ngày Tốt" class="img-fluid">
+                                    <img src="{{ asset('icons/xem_ngay_tot.svg') }}" alt="Xem ngày Tốt"
+                                        class="img-fluid">
                                 </div>
-                               
+
                                 <p class="utility-description">Tra cứu ngày hoàng đạo để cưới hỏi, khai trương...</p>
                             </a>
 
@@ -210,24 +228,78 @@
                             <a href="#" class="utility-item col-6 col-md-6 col-lg-3 mb-4">
                                 <h4 class="utility-title">Xem hướng hợp mệnh</h4>
                                 <div class="icon-wrapper">
-                                    <img src="{{asset('icons/huong_dep.svg')}}" alt="Xem hướng hợp mệnh" class="img-fluid">
+                                    <img src="{{ asset('icons/huong_dep.svg') }}" alt="Xem hướng hợp mệnh"
+                                        class="img-fluid">
                                 </div>
                                 <p class="utility-description">Tìm hướng hợp tuổi để làm nhà, đặt bàn thờ...</p>
                             </a>
 
                             <!-- Tiện ích 4 -->
                             <a href="#" class="utility-item col-6 col-md-6 col-lg-3 mb-4">
-                                   <h4 class="utility-title">Lá số tử vi</h4>
+                                <h4 class="utility-title">Lá số tử vi</h4>
                                 <div class="icon-wrapper">
-                                    <img src="{{asset('icons/la_so_tu_vi.svg')}}" alt="Lá số tử vi" class="img-fluid">
+                                    <img src="{{ asset('icons/la_so_tu_vi.svg') }}" alt="Lá số tử vi" class="img-fluid">
                                 </div>
-                             
+
                                 <p class="utility-description">Lập lá số chi tiết theo giờ/ngày sinh.</p>
                             </a>
 
                         </div>
                     </div>
                 </section>
+                <div class="van-lien-hows">
+                    <h2>Lịch Vạn Niên Là Gì?</h2>
+                    <hr>
+                    <ul>
+                        <li>Lịch Vạn Niên là công cụ tra cứu ngày tháng theo cả hai hệ thống lịch: Dương lịch (lịch phương
+                            Tây) và Âm lịch (lịch truyền thống phương Đông). Từ xa xưa, ông cha ta đã sử dụng lịch âm dương
+                            để xác định ngày lành tháng tốt cho các công việc trọng đại như cưới hỏi, làm nhà, xuất hành,
+                            khai trương, và nhiều hoạt động mang tính tâm linh, phong thủy khác.</li>
+                        <li>
+                            Trải qua hàng nghìn năm hình thành và phát triển, Lịch Vạn Niên không chỉ là cuốn lịch đơn
+                            thuần, mà còn là kho tàng tri thức cổ truyền – nơi hội tụ những tinh hoa của Thiên văn học
+                            phương Đông, Ngũ hành, Bát tự, Can Chi, và Tử vi lý số.</li>
+                    </ul>
+
+                    <h3>
+                        <span>👉 Tại Sao Nên Sử Dụng Lịch Vạn Niên Của Nguyệt Lịch?</span>
+                    </h3>
+                    <ol>
+                        <li>
+                            <strong>Tra cứu nhanh chóng và chính xác:</strong>
+                            <p>Dễ dàng xem ngày âm - dương, ngày hoàng đạo, tiết khí, sao chiếu, và các yếu tố phong thủy.
+                            </p>
+                        </li>
+                        <li>
+                            <strong>Chọn ngày tốt hợp tuổi:</strong>
+                            <p>Lên kế hoạch cho các việc trọng đại như cưới hỏi, khởi công, động thổ, xuất hành... dựa trên
+                                tuổi và can chi của gia chủ.</p>
+                        </li>
+                        <li>
+                            <strong>Tích hợp kiến thức tử vi – phong thủy:</strong>
+                            <p>Lập lá số tử vi, xem vận hạn theo năm, tra cứu hướng tốt, hóa giải Tam Tai – Hoang Ốc – Kim
+                                Lâu.</p>
+                        </li>
+                        <li>
+                            <strong>Giao diện thân thiện – dễ sử dụng:</strong>
+                            <p>Thiết kế đơn giản, hiện đại, phù hợp mọi đối tượng sử dụng: từ người cao tuổi đến thế hệ trẻ.
+                            </p>
+                        </li>
+                    </ol>
+
+                    <h3>
+
+                        <span>👉 Lịch Vạn Niên Trong Thời Đại Số</span>
+                    </h3>
+                    <ul>
+                        <li>Trong kỷ nguyên công nghệ, Lịch Vạn Niên không còn chỉ nằm trong những cuốn sách cổ mà đã được
+                            số hóa hoàn toàn, giúp người dùng tra cứu mọi lúc, mọi nơi – trên máy tính, điện thoại và cả các
+                            thiết bị thông minh khác. Việc kết hợp giữa tri thức cổ truyền và công nghệ hiện đại mang lại
+                            trải nghiệm tiện lợi, chính xác và đầy tin cậy.</li>
+                        <li>Dù bạn là người quan tâm đến tử vi, phong thủy, hay chỉ đơn giản muốn biết hôm nay là ngày gì,
+                            tốt hay xấu, Nguyệt Lịch luôn sẵn sàng đồng hành cùng bạn trên mỗi hành trình.</li>
+                    </ul>
+                </div>
             </div>
 
             <!-- ==== CỘT THÔNG TIN (BÊN PHẢI) ==== -->
