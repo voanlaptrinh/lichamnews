@@ -1,6 +1,7 @@
 @extends('welcome')
 @section('content')
     <div class="calendar-app-container py-4">
+        <h1 class="content-title-home-lich">LỊCH VẠN LIÊN 2025 - LỊCH ÂM</h1>
         <div class="row g-3">
             <!-- ==== CỘT LỊCH CHÍNH (BÊN TRÁI) ==== -->
             <div class="col-xl-9 col-sm-12 col-12">
@@ -197,7 +198,7 @@
                     </div>
                 </div>
                 <section class="popular-utilities">
-                    <div class="container">
+                    <div class="container bg-section-tienich">
                         <h2 class="section-title">Tiện ích phổ biến</h2>
                         <hr>
                         <div class="utilities-grid row g-4 pt-2">
@@ -330,7 +331,7 @@
                         </div>
                         <!-- BẮT ĐẦU: KHỐI MỨC THUẬN LỢI (ĐÃ CẬP NHẬT) -->
                         <div class="convenience-level d-flex justify-content-between align-items-centerrow h-100">
-                            <div class="col-lg-6">
+                            <div class="col-lg-6 d-flex align-items-center">
                                 <div class="level-label">
                                     Mức thuận lợi<br>hôm nay:
                                 </div>

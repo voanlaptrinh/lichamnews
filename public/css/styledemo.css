@@ -14,7 +14,27 @@ body {
     font-family: 'InstrumentSans';
     background: #EDF0F3;
 }
-
+.content-title-home-lich{
+    display: flex;
+    align-items: center;
+    color: #192E52;
+    padding-bottom: 12px;
+}
+.content-title-home-lich::before {
+  content: ''; /* Bắt buộc phải có cho ::before */
+  display: inline-block;
+  
+  /* Kích thước của thanh */
+  width: 7px;
+  height: 28px;
+  
+  /* Màu sắc và bo góc */
+  background-color: #4299e1; /* Màu xanh dương của thanh */
+  border-radius: 999px; /* Bo tròn tối đa để tạo hình con nhộng */
+  
+  /* Khoảng cách giữa thanh và chữ */
+  margin-right: 12px;
+}
 /* Tùy chỉnh giao diện cho input[type="date"] */
 .custom-date-input {
     background-color: #f8f9fa;
@@ -1774,13 +1794,7 @@ a:hover {
 }
 
 /* ---- RIGHT SIDEBAR CARDS ---- */
-.info-card {
-    background-color: #fff;
-    border: 1px solid #e0e6f1;
-    border-radius: 1rem;
-    padding: 1.5rem;
-    box-shadow: 0 4px 15px rgba(212, 217, 236, 0.4);
-}
+
 
 .card-title-right {
     margin-bottom: 1rem;
@@ -1903,26 +1917,22 @@ a:hover {
 
 }
 .convenience-level{
-    background: #FFFFFF;
-    border-radius: 20px;
+    background: #FDFAE9;
+    border-radius: 24px;
     padding: 16px 20px;
+        box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
 }
 .info-card{
      padding: 20px;
   border-radius: 36px; /* The spec doesn't show a radius, but it's common. Adjust as needed. */
-
+background: #ffffff;
   /* 1. Colors: A linear gradient from a very light blue to a slightly darker blue */
-  background: linear-gradient(160deg, #EFF8FF, #C1E3FC);
+  /* background: linear-gradient(160deg, #EFF8FF, #C1E3FC); */
 
   /* 2. Borders & Shadows: We combine the inner border and drop shadow using a multi-layer box-shadow */
   /* The properties are listed in the order they are stacked (top layer first) */
-  box-shadow:
-    /* Layer 1: Inner border. This creates a 1px border on the inside of the box. */
-    inset 0 0 0 1px #C1E3FC,
 
-    /* Layer 2: Drop shadow. 2px offset on X/Y, 0 blur, 0 spread, with 30% opacity. */
-    2px 2px 0 0 rgba(33, 73, 135, 0.3);
-
+  border: 1px solid rgba(33, 73, 135, 0.3);
 }
 .nav-home-date {
     border: 1px solid #409BF1;
@@ -2000,7 +2010,7 @@ a:hover {
 }
 
 .boxx-col-lg-8 {
-    border-radius: 36px;
+    border-radius: 24px;
 }
 
 .sun {
@@ -2097,7 +2107,7 @@ a:hover {
 /* --- 5. Style cho văn bản bên trong --- */
 .dial-text {
     /* Tạo một lớp nền trắng bên trong để che đi phần giữa của vạch */
-    background: white;
+    background: #FDFAE9;
     width: calc(100% - var(--track-width) * 2);
     height: calc(100% - var(--track-width) * 2);
     border-radius: 50%;
@@ -2614,3 +2624,8 @@ a:hover {
 }
 
 /* --- KẾT THÚC: CSS CHO FOOTER --- */
+.bg-section-tienich{
+    background: white;
+    padding-top: 20px;
+    border-radius: 24px;
+}
