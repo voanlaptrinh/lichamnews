@@ -92,7 +92,17 @@
                         <li><a href="">Tìm phòng</a></li>
                     </ul>
                 </li>
+<li class="has-dropdown">
+                <a href="#">
+                    Tiện ích
+                    <i class="bi bi-chevron-down"></i>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="">Dịch vụ</a></li>
+                    <li><a href="">Tìm phòng</a></li>
 
+                </ul>
+            </li>
             </ul>
         </nav>
 
@@ -186,6 +196,17 @@
             <li class="has-dropdown">
                 <a href="#">
                     HỆ THỐNG
+                    <i class="fas fa-chevron-down arrow-icon"></i>
+                </a>
+                <ul class="mobile-submenu">
+                    <li><a href="">Dịch vụ</a></li>
+                    <li><a href="">Tìm phòng</a></li>
+
+                </ul>
+            </li>
+            <li class="has-dropdown">
+                <a href="#">
+                    Tiện ích
                     <i class="fas fa-chevron-down arrow-icon"></i>
                 </a>
                 <ul class="mobile-submenu">

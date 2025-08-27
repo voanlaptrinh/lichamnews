@@ -84,16 +84,19 @@ class FunctionHelper
     {
         $al = LunarHelper::convertSolar2Lunar((int)$dd, (int)$mm, (int)$yy);
         $jdNgayAm = LunarHelper::jdFromLunarDate((int)$al[0], (int)$al[1], (int)$al[2], (int)$al[3]);
-        $canChiNgayAm = LunarHelper::canchiNgayByJD($jdNgayAm);
-
-        $chi_ngay_am = explode(' ', $canChiNgayAm);
-        $ngayThienCan = $chi_ngay_am[0] ?? '';
-        $ngayDiaChi = $chi_ngay_am[1] ?? '';
+       
+   
+        $jday = LunarHelper::jdFromDate((int)$dd, (int)$mm, (int)$yy);
+        $dayCanChi = LunarHelper::canchiNgayByJD($jday);
+        $chi_ngay = explode(' ', $dayCanChi)[1];
+        // dd($chi_ngay);
+        $can_ngay = explode(' ', $dayCanChi)[0];
+    
         return [
-            'nap_am' => TimeConstantHelper::getNapAmFromCanChi($canChiNgayAm),
-            'tuoi_xung' => TimeConstantHelper::getConflictAge($canChiNgayAm),
-            'gio_hoang_dao' => TimeConstantHelper::getGioHDTrongNgayTXT($ngayDiaChi, true, true),
-            'gio_hac_dao' => TimeConstantHelper::getGioHDTrongNgayTXT($ngayDiaChi, false, true),
+            'nap_am' => TimeConstantHelper::getNapAmFromCanChi($dayCanChi),
+            'tuoi_xung' => TimeConstantHelper::getConflictAge($dayCanChi),
+            'gio_hoang_dao' => TimeConstantHelper::getGioHDTrongNgayTXT($chi_ngay, true, true),
+            'gio_hac_dao' => TimeConstantHelper::getGioHDTrongNgayTXT($chi_ngay, false, true),
         ];
     }
     public static function getThongTinCanChiVaIcon($dd, $mm, $yy)
@@ -105,7 +108,7 @@ class FunctionHelper
         $can_chi_nam = KhiVanHelper::canchiNam($al[2]);
         $can_chi_thang = KhiVanHelper::canchiThang($al[2], $al[1]);
         $chi_thang = KhiVanHelper::extractChi(KhiVanHelper::canchiThang($al[2], $al[1]));
-        $chi_nam   = KhiVanHelper::extractChi(KhiVanHelper::canchiNam($al[2]));
+        $chi_nam   = KhiVanHelper::extractChi(KhiVanHelper::canchiNam(yy: $al[2]));
         $icon_ngay  = KhiVanHelper::getChiSvg($chi_ngay);
         $icon_thang = KhiVanHelper::getChiSvg($chi_thang);
         $icon_nam   = KhiVanHelper::getChiSvg($chi_nam);
