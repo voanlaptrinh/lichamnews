@@ -7,34 +7,40 @@
 @font-face {
     font-family: "InstrumentSans";
     src:
-        url("../fonts/InstrumentSans-VariableFont_wdth,wght.ttf")format("woff2");
+        url("../fonts/BeVietnamPro-Regular.ttf")format("woff2");
 }
 
 body {
     font-family: 'InstrumentSans';
     background: #EDF0F3;
 }
-.content-title-home-lich{
+
+.content-title-home-lich {
     display: flex;
     align-items: center;
     color: #192E52;
     padding-bottom: 12px;
 }
+
 .content-title-home-lich::before {
-  content: ''; /* Bắt buộc phải có cho ::before */
-  display: inline-block;
-  
-  /* Kích thước của thanh */
-  width: 7px;
-  height: 28px;
-  
-  /* Màu sắc và bo góc */
-  background-color: #4299e1; /* Màu xanh dương của thanh */
-  border-radius: 999px; /* Bo tròn tối đa để tạo hình con nhộng */
-  
-  /* Khoảng cách giữa thanh và chữ */
-  margin-right: 12px;
+    content: '';
+    /* Bắt buộc phải có cho ::before */
+    display: inline-block;
+
+    /* Kích thước của thanh */
+    width: 7px;
+    height: 28px;
+
+    /* Màu sắc và bo góc */
+    background-color: #4299e1;
+    /* Màu xanh dương của thanh */
+    border-radius: 999px;
+    /* Bo tròn tối đa để tạo hình con nhộng */
+
+    /* Khoảng cách giữa thanh và chữ */
+    margin-right: 12px;
 }
+
 /* Tùy chỉnh giao diện cho input[type="date"] */
 .custom-date-input {
     background-color: #f8f9fa;
@@ -99,11 +105,17 @@ body {
 }
 
 .calendar-table td.current {
-    background-color: #e2f0ff;
+    background-color: #2254AB;
+    border: 1px solid #2268D3;
     font-weight: bold;
-    color: #050505;
+    box-shadow: 5px 0px 13.6px 0px rgba(0, 113, 206, 0.25);
 }
-
+.calendar-table td.current a {
+    color: #FFFFFF;
+}
+.calendar-table td.current a:hover {
+    color: #000000;
+}
 .box-contnet-date {
     display: flex;
     gap: 3px;
@@ -114,7 +126,7 @@ body {
 }
 
 .dao.xau {
-    color: #95149A;
+    color: #ACACAC;
 }
 
 a {
@@ -943,14 +955,11 @@ a {
     justify-content: space-between;
     align-items: center;
     height: 72px;
-    background: linear-gradient(
-    90deg,
-    #2254AB 100%,   
-    #2B7EE5 100%,  
-    #2254AB 100%, 
-    #2B7EE5 100% 
-  
-  );
+    background: linear-gradient(90deg,
+            #2254AB 100%,
+            #2B7EE5 100%,
+            #2254AB 100%,
+            #2B7EE5 100%);
 }
 
 /* .site-logo img {
@@ -1487,16 +1496,20 @@ a:hover {
     height: 100%;
     position: relative;
 }
+
 .day-status {
     /* --- Định vị tuyệt đối ở góc phải trên --- */
     position: absolute;
-    top: 10px; /* Cùng khoảng cách với padding của thẻ cha */
-    right: 10px; /* Cùng khoảng cách với padding của thẻ cha */
+    top: 10px;
+    /* Cùng khoảng cách với padding của thẻ cha */
+    right: 10px;
+    /* Cùng khoảng cách với padding của thẻ cha */
 
     /* --- Căn chỉnh nội dung bên trong --- */
     display: flex;
     align-items: center;
-    gap: 6px; /* Khoảng cách giữa chấm tròn và chữ */
+    gap: 6px;
+    /* Khoảng cách giữa chấm tròn và chữ */
 
     /* --- Kiểu chữ --- */
     font-size: 15px;
@@ -1513,17 +1526,23 @@ a:hover {
 
 /* 4. Style màu sắc riêng cho từng trạng thái */
 .day-status.hac-dao {
-    color: #783636; /* Màu chữ nâu sẫm */
+    color: #783636;
+    /* Màu chữ nâu sẫm */
 }
+
 .day-status.hac-dao .status-dot {
-    background-color: #ACACAC; /* Màu chấm xám */
+    background-color: #ACACAC;
+    /* Màu chấm xám */
 }
 
 .day-status.hoang-dao {
-    color: #BE123C; /* Màu chữ đỏ hồng */
+    color: #BE123C;
+    /* Màu chữ đỏ hồng */
 }
+
 .day-status.hoang-dao .status-dot {
-    background-color: #FACC15; /* Màu chấm vàng */
+    background-color: #3CAF1F;
+    /* Màu chấm vàng */
 }
 
 .date-display-card .card-title {
@@ -1561,7 +1580,7 @@ a:hover {
 }
 
 .date-display-card .date-special-event {
-    color: #dc3545;
+    color: #BE0000;
     font-weight: 500;
     /* font-size: 0.9rem; */
     margin-top: 0.25rem;
@@ -1569,7 +1588,7 @@ a:hover {
 }
 
 .date-display-card .nav-arrow {
-    color: #adb5bd;
+    color: #214987;
     font-size: 1.5rem;
     text-decoration: none;
     padding: 0 0.5rem;
@@ -1588,7 +1607,7 @@ a:hover {
     background-color: #fff;
     border: 1px solid #e0e6f1;
     border-radius: 1rem;
-    padding: 1.5rem;
+    padding: 12px;
     box-shadow: 0 4px 15px rgba(212, 217, 236, 0.4);
 }
 
@@ -1596,26 +1615,37 @@ a:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 1.5rem;
-      position: relative;
+    margin-bottom: 12px;
+    position: relative;
+    margin-top: 22px;
 }
+
 .btn-today-home {
     /* --- Định vị tuyệt đối ở góc phải --- */
     position: absolute;
-    top: 50%; /* Căn giữa theo chiều dọc */
-    right: 0; /* Khoảng cách so với lề phải */
-    transform: translateY(-50%); /* Căn giữa chính xác theo chiều dọc */
+    top: 50%;
+    /* Căn giữa theo chiều dọc */
+    right: 0;
+    /* Khoảng cách so với lề phải */
+    transform: translateY(-50%);
+    /* Căn giữa chính xác theo chiều dọc */
 
     /* --- Kiểu dáng của nút --- */
-    background-color: #ffffff; /* Màu nền xám nhạt */
-    color: #192E52; /* Màu chữ */
+    background-color: #ffffff;
+    /* Màu nền xám nhạt */
+    color: #192E52;
+    /* Màu chữ */
     border: 1px solid #2254AB;
-    border-radius: 16px; /* Bo góc */
-    padding: 6px 12px; /* Khoảng đệm bên trong */
+    border-radius: 12px;
+    /* Bo góc */
+    padding: 6px 12px;
+    /* Khoảng đệm bên trong */
     font-size: 20px;
     font-weight: 600;
-    text-decoration: none; /* Bỏ gạch chân của thẻ <a> */
-    white-space: nowrap; /* Đảm bảo chữ "Hôm nay" không bị xuống dòng */
+    text-decoration: none;
+    /* Bỏ gạch chân của thẻ <a> */
+    white-space: nowrap;
+    /* Đảm bảo chữ "Hôm nay" không bị xuống dòng */
 
     /* --- Hiệu ứng chuyển động mượt mà --- */
     transition: all 0.2s ease-in-out;
@@ -1627,20 +1657,27 @@ a:hover {
     border-color: #2254AB;
     color: #192E52;
 }
+
 .btn-today-home-mob {
     /* --- Định vị tuyệt đối ở góc phải --- */
- 
+
 
     /* --- Kiểu dáng của nút --- */
-    background-color: #ffffff; /* Màu nền xám nhạt */
-    color: #192E52; /* Màu chữ */
+    background-color: #ffffff;
+    /* Màu nền xám nhạt */
+    color: #192E52;
+    /* Màu chữ */
     border: 1px solid #2254AB;
-    border-radius: 16px; /* Bo góc */
-    padding: 6px 12px; /* Khoảng đệm bên trong */
+    border-radius: 16px;
+    /* Bo góc */
+    padding: 6px 12px;
+    /* Khoảng đệm bên trong */
     font-size: 16px;
     font-weight: 600;
-    text-decoration: none; /* Bỏ gạch chân của thẻ <a> */
-    white-space: nowrap; /* Đảm bảo chữ "Hôm nay" không bị xuống dòng */
+    text-decoration: none;
+    /* Bỏ gạch chân của thẻ <a> */
+    white-space: nowrap;
+    /* Đảm bảo chữ "Hôm nay" không bị xuống dòng */
 
     /* --- Hiệu ứng chuyển động mượt mà --- */
     transition: all 0.2s ease-in-out;
@@ -1765,15 +1802,15 @@ a:hover {
 }
 
 .dot-hacdao::after {
-    background-color: #95149A;
+    background-color: #ACACAC;
 }
 
 .dot-special::after {
-    background-color: #dc3545;
+    background-color: #C02904;
 }
 
 .dot-chủ.nhật::after {
-    background-color: #0d6efd;
+    background-color: #BF7F0F;
 }
 
 /* Calendar Legend */
@@ -1885,63 +1922,49 @@ a:hover {
 .date_number_lich {
     font-family: 'sf-compact-display-medium';
     color: #214987;
-
+    letter-spacing: 0;
     font-weight: bold;
     line-height: 1;
     text-align: center;
-
-    /* 2. Inner Gradient & Emboss Effect */
-    /* We create a blue gradient background... */
-    background: linear-gradient(180deg, #638bc6 0%, #295798 100%);
-    /* ...and then clip that background to the shape of the text. */
+    font-weight: 700;
     -webkit-background-clip: text;
     background-clip: text;
-    /* The actual text color is made transparent to let the background show through. */
     color: transparent;
-
-    /* 3. White Outline & Drop Shadow */
-    /* We stack multiple text shadows. The last shadow is rendered first (at the bottom). */
     text-shadow:
-        /* The soft gray drop shadow for depth (bottom layer) */
-        3px 3px 5px rgba(0, 0, 0, 0.25),
-
-        /* The solid white "sticker" outline (middle layer) */
-        /* This uses multiple, non-blurry shadows to create a crisp border. */
-        -2px -2px 0 white,
-        2px -2px 0 white,
-        -2px 2px 0 white,
-        2px 2px 0 white;
-
-    /* Optional: Add padding to ensure shadows are not cut off by the element's box */
+        1px 1px 0 #FFFFFF, -1px 1px 0 #FFFFFF, 1px -1px 0 #FFFFFF, -1px -1px 0 #FFFFFF, 0px 1px 0 #FFFFFF, 0 -1px 0 #FFFFFF, 1px 0 0 #FFFFFF, -1px 0 0 #FFFFFF, 0px 2px 3px rgba(0, 0, 0, 0.6);
     padding: 5px;
 
 }
-.convenience-level{
+
+.convenience-level {
     background: #FDFAE9;
     border-radius: 24px;
     padding: 16px 20px;
-        box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
 }
-.info-card{
-     padding: 20px;
-  border-radius: 36px; /* The spec doesn't show a radius, but it's common. Adjust as needed. */
-background: #ffffff;
-  /* 1. Colors: A linear gradient from a very light blue to a slightly darker blue */
-  /* background: linear-gradient(160deg, #EFF8FF, #C1E3FC); */
 
-  /* 2. Borders & Shadows: We combine the inner border and drop shadow using a multi-layer box-shadow */
-  /* The properties are listed in the order they are stacked (top layer first) */
+.info-card {
+    padding: 20px;
+    border-radius: 36px;
+    /* The spec doesn't show a radius, but it's common. Adjust as needed. */
+    background: #ffffff;
+    /* 1. Colors: A linear gradient from a very light blue to a slightly darker blue */
+    /* background: linear-gradient(160deg, #EFF8FF, #C1E3FC); */
 
-  border: 1px solid rgba(33, 73, 135, 0.3);
+    /* 2. Borders & Shadows: We combine the inner border and drop shadow using a multi-layer box-shadow */
+    /* The properties are listed in the order they are stacked (top layer first) */
+
+    border: 1px solid rgba(33, 73, 135, 0.3);
 }
+
 .nav-home-date {
-    border: 1px solid #409BF1;
+    border: 1px solid #2268D3;
     border-radius: 50%;
 }
 
 .prev-day-btn-mobie,
 .next-day-btn-mobie {
-    border: 1px solid #409BF1;
+    border: 1px solid #2268D3;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -1954,7 +1977,8 @@ background: #ffffff;
     align-items: center;
 }
 
-.btn-mobie-next-prev .prev-day-btn-mobie,.next-day-btn-mobie {
+.btn-mobie-next-prev .prev-day-btn-mobie,
+.next-day-btn-mobie {
     /* Kích thước của nút */
     width: 35px;
     height: 35px;
@@ -2010,6 +2034,7 @@ background: #ffffff;
 }
 
 .boxx-col-lg-8 {
+    position: relative;
     border-radius: 24px;
 }
 
@@ -2136,51 +2161,60 @@ background: #ffffff;
     font-weight: 500;
     margin-top: -5px;
 }
-.container-setup{
-    margin-right: auto; 
-     margin-left: auto;
+
+.container-setup {
+    margin-right: auto;
+    margin-left: auto;
 
 }
-.font-detail-ngay{
+
+.font-detail-ngay {
     font-size: 16px;
 }
-.font-detail-ngay strong{
+
+.font-detail-ngay strong {
     font-weight: 600;
 }
-.text-warning-tb{
+
+.text-warning-tb {
     color: #BF7F0F !important;
 }
-.btn-today-home, .btn-today-home-mob{
-      box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.15);
-  
-  /* Tùy chọn: Thêm tiền tố cho các trình duyệt cũ hơn để đảm bảo tương thích */
-  -webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.15);
-  -moz-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.15);
 
-  /* Tùy chọn: Thêm transition để hiệu ứng mượt mà khi kết hợp với hover */
-  transition: box-shadow 0.3s ease-in-out
+.btn-today-home,
+.btn-today-home-mob {
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.15);
+
+    /* Tùy chọn: Thêm tiền tố cho các trình duyệt cũ hơn để đảm bảo tương thích */
+    -webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.15);
+
+    /* Tùy chọn: Thêm transition để hiệu ứng mượt mà khi kết hợp với hover */
+    transition: box-shadow 0.3s ease-in-out
 }
-.text-detail-date-hand-pc{
+
+.text-detail-date-hand-pc {
     color: #214987;
     font-size: 22px;
     font-weight: 600;
 }
-.btn0mobie{
+
+.btn0mobie {
     border-radius: 36px;
 }
 
 .events-card {
-  
+
     background-color: #fff;
-    padding: 24px;
-    border-radius: 12px;
+    padding: 20px;
+    border-radius: 24px;
 }
 
 /* Tiêu đề "Sự kiện, ngày lễ sắp tới" */
 .card-title-right {
     font-size: 24px;
     font-weight: 700;
-    color: #192E52; /* Màu xanh đậm */
+    color: #192E52;
+    /* Màu xanh đậm */
     margin-top: 0;
     margin-bottom: 20px;
 }
@@ -2189,6 +2223,7 @@ background: #ffffff;
 .events-list.list-group-flush {
     border-radius: 0;
 }
+
 .events-list .list-group-item {
     padding: 0;
     border: 0;
@@ -2197,33 +2232,41 @@ background: #ffffff;
 .event-item {
     padding-bottom: 16px !important;
     margin-bottom: 16px !important;
-    border-bottom: 2px solid; /* bắt buộc hiện border */
+    border-bottom: 2px solid;
+    /* bắt buộc hiện border */
 }
 
 /* Item lẻ: n = 1,3,5... */
-.event-item:nth-child(odd)  {
-     border-bottom: 1px solid #985B10 !important;
+.event-item:nth-child(odd) {
+    border-bottom: 1px solid #985B10 !important;
 }
 
 /* Item chẵn: n = 2,4,6... */
 .event-item:nth-child(even) {
     border-bottom: 1px solid #2254AB !important;
 }
-
+.event-item:last-child {
+    border-bottom: none !important;
+}
 
 
 /* Thẻ "Ngày 10/3" (được đổi tên thành .event-date trong HTML của bạn) */
 .event-date {
     display: inline-block;
-    background-color: #FBF4C6; /* Màu vàng kem */
-    color: #25282D; /* Màu chữ đen */
-    border: 0.5px solid #BF7F0F; /* Viền vàng nhạt */
-    border-radius: 99px; /* Bo tròn tuyệt đối */
+    background-color: #FBF4C6;
+    /* Màu vàng kem */
+    color: #25282D;
+    /* Màu chữ đen */
+    border: 0.5px solid #BF7F0F;
+    /* Viền vàng nhạt */
+    border-radius: 99px;
+    /* Bo tròn tuyệt đối */
     padding: 4px 12px;
     font-size: 16px;
     font-weight: 500;
     margin-bottom: 10px;
 }
+
 /* Ẩn thẻ ngày nếu không có nội dung */
 .event-date:empty {
     display: none;
@@ -2234,24 +2277,31 @@ background: #ffffff;
 .event-name {
     font-size: 17px;
     font-weight: 600;
-    color: #192E52; /* Màu xanh đậm */
+    color: #192E52;
+    /* Màu xanh đậm */
     margin-bottom: 8px;
-    line-height: 1.5; /* Giãn dòng cho dễ đọc */
+    line-height: 1.5;
+    /* Giãn dòng cho dễ đọc */
 }
 
 /* Dòng "còn 9 ngày nữa" */
 .event-countdown {
-    font-size: 15px;
-    color: #212121; /* Màu xám */
+    font-size: 16px;
+    color: #212121;
+    /* Màu xám */
     display: flex;
     gap: 3px;
-    align-items: center; /* Căn icon và chữ thẳng hàng */
+    align-items: center;
+    /* Căn icon và chữ thẳng hàng */
     transition: color 0.2s ease;
-    cursor: pointer; /* Thêm con trỏ để người dùng biết có thể click */
+    cursor: pointer;
+    font-weight: 500;
+    /* Thêm con trỏ để người dùng biết có thể click */
 }
 
 .event-countdown:hover {
-    color: #1A2B4D; /* Chuyển sang màu xanh đậm khi hover */
+    color: #1A2B4D;
+    /* Chuyển sang màu xanh đậm khi hover */
 }
 
 /* Icon mũi tên */
@@ -2272,8 +2322,8 @@ background: #ffffff;
 /* --- Bắt đầu phần CSS chính --- */
 .popular-utilities {
     font-family: 'Public Sans', sans-serif;
-   padding: 40px 0;
-     /* background-color: #F7FAFC;  */
+    padding: 40px 0;
+    /* background-color: #F7FAFC;  */
 }
 
 .container {
@@ -2286,7 +2336,8 @@ background: #ffffff;
 .section-title {
     font-size: 24px;
     font-weight: 700;
-    color: #1A2B4D; /* Màu xanh đậm */
+    color: #1A2B4D;
+    /* Màu xanh đậm */
     margin-top: 0;
     position: relative;
 }
@@ -2296,15 +2347,19 @@ background: #ffffff;
 
 /* Từng mục tiện ích */
 .utility-item {
-   
+
     display: flex;
-    flex-direction: column; /* Sắp xếp các phần tử bên trong theo chiều dọc */
-    align-items: center;   /* Căn giữa theo chiều ngang */
+    flex-direction: column;
+    /* Sắp xếp các phần tử bên trong theo chiều dọc */
+    align-items: center;
+    /* Căn giữa theo chiều ngang */
     text-align: center;
     text-decoration: none;
     background-color: #fff;
-    border-radius: 16px; /* Bo góc cho toàn bộ box */
-    height: 100%; /* Đảm bảo các box trong cùng một hàng cao bằng nhau */
+    border-radius: 16px;
+    /* Bo góc cho toàn bộ box */
+    height: 100%;
+    /* Đảm bảo các box trong cùng một hàng cao bằng nhau */
 
     /* Hiệu ứng chuyển động */
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
@@ -2320,13 +2375,16 @@ background: #ffffff;
 .icon-wrapper {
     width: 110px;
     height: 110px;
-    border-radius: 16px; /* Bo góc */
+    border-radius: 16px;
+    /* Bo góc */
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 16px; /* Khoảng cách giữa icon và tiêu đề */
-    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.04); /* Đổ bóng nhẹ */
-     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    margin-bottom: 16px;
+    /* Khoảng cách giữa icon và tiêu đề */
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.04);
+    /* Đổ bóng nhẹ */
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 
     /* --- BẮT ĐẦU PHẦN CẬP NHẬT TỪ ẢNH --- */
 
@@ -2337,7 +2395,7 @@ background: #ffffff;
     /* 2. Viền (Border) */
     border: 1px solid #214987;
     /* Thêm transition cho icon wrapper để hiệu ứng hover mượt hơn */
-    transition: all 0.2s ease-in-out; 
+    transition: all 0.2s ease-in-out;
     box-shadow: 2px 2px 2px rgba(49, 144, 233, 0.5);
 }
 
@@ -2358,14 +2416,16 @@ background: #ffffff;
 .utility-title {
     font-size: 16px;
     font-weight: 700;
-    color: #1A2B4D; /* Màu xanh đậm */
+    color: #1A2B4D;
+    /* Màu xanh đậm */
     margin: 0 0 8px 0;
 }
 
 /* Mô tả tiện ích */
 .utility-description {
     font-size: 14px;
-    color: #525C6F; /* Màu xám */
+    color: #525C6F;
+    /* Màu xám */
     line-height: 1.5;
     margin: 0;
     padding-left: 20px;
@@ -2381,10 +2441,13 @@ background: #ffffff;
 .van-lien-hows {
     font-family: 'Public Sans', sans-serif;
     background-color: #ffffff;
-    border-radius: 16px; /* Bo góc mềm mại */
+    border-radius: 16px;
+    /* Bo góc mềm mại */
     padding: 32px;
-    border: 1px solid #E2E8F0; /* Viền xám rất nhạt */
-    box-shadow: 0 4px 20px rgba(30, 41, 59, 0.05); /* Đổ bóng nhẹ nhàng */
+    border: 1px solid #E2E8F0;
+    /* Viền xám rất nhạt */
+    box-shadow: 0 4px 20px rgba(30, 41, 59, 0.05);
+    /* Đổ bóng nhẹ nhàng */
 
 }
 
@@ -2392,15 +2455,18 @@ background: #ffffff;
 .van-lien-hows p,
 .van-lien-hows li {
     font-size: 16px;
-    color: #212121; /* Màu xám đậm */
-    line-height: 1.7; /* Giãn dòng cho dễ đọc */
+    color: #212121;
+    /* Màu xám đậm */
+    line-height: 1.7;
+    /* Giãn dòng cho dễ đọc */
 }
 
 /* Tiêu đề chính (H2) */
 .van-lien-hows h2 {
     font-size: 28px;
     font-weight: 700;
-    color: #192E52; /* Màu xanh đen */
+    color: #192E52;
+    /* Màu xanh đen */
     margin-top: 0;
     margin-bottom: 16px;
 }
@@ -2410,20 +2476,23 @@ background: #ffffff;
     font-size: 20px;
     font-weight: 700;
     color: #192E52;
-    margin-top: 18px; /* Khoảng cách với nội dung phía trên */
-    margin-bottom: 20px;
+    margin-top: 8px;
+    /* Khoảng cách với nội dung phía trên */
+    margin-bottom: 10px;
 }
 
 
 /* Danh sách có dấu chấm đầu dòng (ul) */
 .van-lien-hows ul {
-    list-style-type: none; /* Bỏ dấu chấm mặc định */
+    list-style-type: none;
+    /* Bỏ dấu chấm mặc định */
     padding-left: 0;
     margin-bottom: 1rem;
 }
 
 .van-lien-hows ul li {
-    padding-left: 24px; /* Tạo không gian cho dấu chấm tùy chỉnh */
+    padding-left: 24px;
+    /* Tạo không gian cho dấu chấm tùy chỉnh */
     position: relative;
     margin-bottom: 12px;
 }
@@ -2434,21 +2503,27 @@ background: #ffffff;
     position: absolute;
     left: 8px;
     top: 1px;
-    color: #212121; /* Màu xám nhạt */
+    color: #212121;
+    /* Màu xám nhạt */
     font-size: 18px;
 }
 
 /* Danh sách có số thứ tự (ol) */
 .van-lien-hows ol {
-    list-style-type: none; /* Bỏ số mặc định */
-    counter-reset: ordered-list; /* Khởi tạo bộ đếm */
+    list-style-type: none;
+    /* Bỏ số mặc định */
+    counter-reset: ordered-list;
+    /* Khởi tạo bộ đếm */
     padding-left: 0;
+    margin-bottom: 0 !important;
 }
 
 .van-lien-hows ol li {
-    counter-increment: ordered-list; /* Tăng bộ đếm cho mỗi <li> */
+    counter-increment: ordered-list;
+    /* Tăng bộ đếm cho mỗi <li> */
     margin-bottom: 16px;
-    padding-left: 28px; /* Tạo không gian cho số */
+    padding-left: 28px;
+    /* Tạo không gian cho số */
     position: relative;
 }
 
@@ -2459,7 +2534,8 @@ background: #ffffff;
     left: 0;
     top: 0;
     font-weight: 700;
-    color: #1E293B; /* Cùng màu với tiêu đề */
+    color: #1E293B;
+    /* Cùng màu với tiêu đề */
 }
 
 /* Style cho phần chữ trong danh sách có số */
@@ -2481,11 +2557,14 @@ background: #ffffff;
 .site-footer {
     /* Nền gradient đã chính xác */
     background: linear-gradient(90deg, #2254AB 0%, #2254AB 30%, #2B7EE5 100%);
-    color: #E0EFFF; /* Đổi màu chữ thành trắng xanh nhạt để dễ đọc hơn */
+    color: #E0EFFF;
+    /* Đổi màu chữ thành trắng xanh nhạt để dễ đọc hơn */
     padding: 60px 0;
     font-size: 15px;
-    position: relative; /* Giữ lại position:relative cho các ảnh trang trí */
-    overflow: hidden; /* Ẩn các phần thừa của ảnh trang trí */
+    position: relative;
+    /* Giữ lại position:relative cho các ảnh trang trí */
+    overflow: hidden;
+    /* Ẩn các phần thừa của ảnh trang trí */
 }
 
 .footer-col {
@@ -2500,7 +2579,8 @@ background: #ffffff;
      * giúp nội dung không dính sát vào đường kẻ.
     */
     padding: 0 15px;
-    margin-bottom: 30px; /* Giữ lại margin cho responsive mobile */
+    margin-bottom: 30px;
+    /* Giữ lại margin cho responsive mobile */
 }
 
 /* --- TẠO ĐƯỜNG KẺ DỌC --- */
@@ -2515,9 +2595,11 @@ background: #ffffff;
         position: absolute;
         left: 0;
         top: 0;
-        bottom: 0; /* Kéo dài từ trên xuống dưới */
+        bottom: 0;
+        /* Kéo dài từ trên xuống dưới */
         width: 1px;
-        background-color: rgba(255, 255, 255, 0.2); /* Màu trắng mờ */
+        background-color: rgba(255, 255, 255, 0.2);
+        /* Màu trắng mờ */
     }
 }
 
@@ -2525,24 +2607,32 @@ background: #ffffff;
 /* --- CĂN CHỈNH VÀ STYLE NỘI DUNG --- */
 
 .footer-title {
-    font-size: 22px; /* Giảm kích thước cho cân đối */
+    font-size: 22px;
+    /* Giảm kích thước cho cân đối */
     font-weight: 700;
     margin-bottom: 20px;
     color: #fff;
-    text-transform: uppercase; /* Thêm chữ in hoa */
+    text-transform: uppercase;
+    /* Thêm chữ in hoa */
 }
 
 /* Cột 1: Giới thiệu ngắn */
 .footer-about {
-    line-height: 1.7; /* Giảm line-height cho dễ đọc */
+    line-height: 1.7;
+    /* Giảm line-height cho dễ đọc */
     margin-bottom: 20px;
-    font-size: 15px; /* Giảm font size cho đồng bộ */
+    font-size: 15px;
+    /* Giảm font size cho đồng bộ */
 }
+
 .footer-about a {
-    color: #FFD700; /* Màu vàng gold sáng hơn */
-    text-decoration: none; /* Bỏ gạch chân, trông hiện đại hơn */
+    color: #FFD700;
+    /* Màu vàng gold sáng hơn */
+    text-decoration: none;
+    /* Bỏ gạch chân, trông hiện đại hơn */
     font-weight: 600;
 }
+
 .footer-about a:hover {
     text-decoration: underline;
 }
@@ -2552,6 +2642,7 @@ background: #ffffff;
     margin-bottom: 8px;
     line-height: 1.6;
 }
+
 .footer-contact-info a {
     text-decoration: none;
 }
@@ -2562,15 +2653,18 @@ background: #ffffff;
     padding: 0;
     margin: 0;
 }
+
 .footer-links li {
     margin-bottom: 12px;
 }
+
 .footer-links a {
     color: #E0EFFF;
     text-decoration: none;
     font-size: 20px;
     transition: all 0.2s ease;
 }
+
 .footer-links a:hover {
     color: #fff;
     padding-left: 5px;
@@ -2578,14 +2672,17 @@ background: #ffffff;
 
 /* Cột 4: Kết nối và Tải ứng dụng (Thêm vào để giống ảnh) */
 .footer-col h5.footer-title:not(:first-child) {
-    margin-top: 30px; /* Tạo khoảng cách giữa "Kết nối" và "Tải ứng dụng" */
+    margin-top: 30px;
+    /* Tạo khoảng cách giữa "Kết nối" và "Tải ứng dụng" */
 }
 
 .social-icons {
     display: flex;
     gap: 15px;
-    margin-bottom: 20px; /* Thêm khoảng cách dưới */
+    margin-bottom: 20px;
+    /* Thêm khoảng cách dưới */
 }
+
 .social-icon {
     display: flex;
     align-items: center;
@@ -2598,16 +2695,32 @@ background: #ffffff;
     text-decoration: none;
     transition: all 0.3s ease;
 }
-.social-icon img, .social-icon svg { /* Style cho icon Zalo */
+
+.social-icon img,
+.social-icon svg {
+    /* Style cho icon Zalo */
     width: 24px;
     height: 24px;
 }
+
 .social-icon:hover {
     transform: translateY(-3px);
 }
-.social-icon.facebook { background-color: #1877F2; }
-.social-icon.youtube { background-color: #FF0000; }
-.social-icon.zalo { background-color: #fff; padding: 5px; } /* Zalo nền trắng */
+
+.social-icon.facebook {
+    background-color: #1877F2;
+}
+
+.social-icon.youtube {
+    background-color: #FF0000;
+}
+
+.social-icon.zalo {
+    background-color: #fff;
+    padding: 5px;
+}
+
+/* Zalo nền trắng */
 
 
 /* Các nút tải ứng dụng */
@@ -2615,17 +2728,47 @@ background: #ffffff;
     display: flex;
     flex-direction: column;
     gap: 15px;
-    align-items: flex-start; /* Căn lề trái */
+    align-items: flex-start;
+    /* Căn lề trái */
 }
 
 .app-download-buttons a img {
-    height: 45px; /* Điều chỉnh chiều cao cho phù hợp */
+    height: 45px;
+    /* Điều chỉnh chiều cao cho phù hợp */
     width: auto;
 }
 
 /* --- KẾT THÚC: CSS CHO FOOTER --- */
-.bg-section-tienich{
+.bg-section-tienich {
     background: white;
     padding-top: 20px;
     border-radius: 24px;
+}
+
+.title-font-detail-ngay {
+    color: #214987;
+}
+
+.date_number_lich_am {
+    color: #BE8800 !important;
+}
+.pe-1-pc-home{
+    padding-right: 8px;
+}
+.item-rings{
+    position: absolute;
+}
+.ring-item1-left{
+    justify-content: start;
+    padding-top: 258px;
+   left: 26px;
+   display: flex;
+   gap: 19px;
+}
+.ring-item2-right{
+    justify-content: end;
+    padding-top: 258px;
+   right: 26px;
+   display: flex;
+   gap: 19px;
 }

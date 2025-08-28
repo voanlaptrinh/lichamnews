@@ -487,7 +487,7 @@ class LunarHelper
     if ($event_text) {
         $can_chi_html = '<span class="hidden-xs" style="color:#d9534f; font-weight:bold">' . $event_text . '</span>';
     } elseif ($lunarDate['day'] == 15) {
-        $can_chi_html = '<span class="hidden-xs" style="color: purple; font-weight: bold;">Ngày Rằm</span>';
+        $can_chi_html = '<span class="hidden-xs" style="color: #BE0000; font-weight: bold;">Ngày Rằm</span>';
     } else {
         $can_chi_html = $show_canchi ? '<span class="hidden-xs">' . $canChi . '</span>' : '';
     }

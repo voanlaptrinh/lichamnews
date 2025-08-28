@@ -36,7 +36,8 @@
                                     <div class="text-center">
                                         <div class="card-title"><img src="{{ asset('icons/icon_am.svg') }}" alt="icon_am"
                                                 width="20px" height="20px"> Âm lịch</div>
-                                        <div class="date-number am date_number_lich">{{ $al[0] }}</div>
+                                        <div class="date-number am date_number_lich date_number_lich_am">{{ $al[0] }}
+                                        </div>
                                         <div class="date-weekday">Tháng {{ $al[1] }} ({{ $al[4] }}) năm
                                             {{ $getThongTinCanChiVaIcon['can_chi_nam'] }}</div>
                                         <div class="date-special-event">Ngày {{ $getThongTinCanChiVaIcon['can_chi_ngay'] }}
@@ -48,12 +49,12 @@
                                     @if ($tot_xau_result == 'tot')
                                         <div class="day-status hoang-dao">
                                             <span class="status-dot"></span>
-                                           <span class="title-status-dot"> Hoàng đạo</span>
+                                            <span class="title-status-dot"> Hoàng đạo</span>
                                         </div>
                                     @elseif($tot_xau_result == 'xau')
                                         <div class="day-status hac-dao">
                                             <span class="status-dot"></span>
-                                           <span class="title-status-dot"> Hắc đạo</span>
+                                            <span class="title-status-dot"> Hắc đạo</span>
                                         </div>
                                     @else
                                         <div class="day-status ">
@@ -63,6 +64,23 @@
 
                                 </div>
                             </div>
+                            <div class="ring-item1-left item-rings">
+                                <div class="item-ring1">
+                                    <img src="{{ asset('icons/cairing.png') }}" alt="">
+                                </div>
+                                <div class="item-ring2">
+                                    <img src="{{ asset('icons/cairing.png') }}" alt="">
+                                </div>
+                            </div>
+                            <div class="ring-item2-right item-rings">
+                                <div class="item-ring3">
+                                    <img src="{{ asset('icons/cairing.png') }}" alt="">
+                                </div>
+                                <div class="item-ring4">
+                                    <img src="{{ asset('icons/cairing.png') }}" alt="">
+                                </div>
+                            </div>
+
                             <div class="col-lg-12 btn-mobie-next-prev">
                                 <div>
                                     <a href="{{ route('lich.nam.ngay', ['nam' => date('Y'), 'thang' => date('n'), 'ngay' => date('d')]) }} "
@@ -89,7 +107,8 @@
                                         <img src="{{ asset('icons/icon_tiet_khi.png') }}" alt="icon_tiet_khi"
                                             class="icon_tiet_khi">
                                         <div class="font-detail-ngay">
-                                            <strong>Tiết khí:</strong> {!! $tietkhi['icon'] !!} <span
+                                            <strong class="title-font-detail-ngay">Tiết khí:</strong>
+                                            {!! $tietkhi['icon'] !!} <span
                                                 class="text-uppercase">{{ $tietkhi['tiet_khi'] }}</span>
                                         </div>
                                     </div>
@@ -97,14 +116,16 @@
                                         <img src="{{ asset('icons/icon_nap_am.png') }}" alt="icon_nap_am"
                                             class="icon_nap_am">
                                         <div class="font-detail-ngay">
-                                            <strong>Ngũ hành nạp âm:</strong> {{ $getThongTinNgay['nap_am']['napAm'] }}
+                                            <strong class="title-font-detail-ngay">Ngũ hành nạp âm:</strong>
+                                            {{ $getThongTinNgay['nap_am']['napAm'] }}
                                         </div>
                                     </div>
                                     <div class="info-item">
                                         <img src="{{ asset('icons/icon_hoang_dao.png') }}" alt="icon_hoang_dao"
                                             class="icon_hoang_dao">
                                         <div class="font-detail-ngay">
-                                            <strong>Giờ Hoàng đạo:</strong> {{ $getThongTinNgay['gio_hac_dao'] }}
+                                            <strong class="title-font-detail-ngay">Giờ Hoàng đạo:</strong>
+                                            {{ $getThongTinNgay['gio_hac_dao'] }}
                                         </div>
                                     </div>
                                 </div>
@@ -175,7 +196,7 @@
                                 {{-- ============================================= --}}
                                 <a href="{{ route('lich.nam.ngay', ['nam' => date('Y'), 'thang' => date('n'), 'ngay' => date('d')]) }}"
                                     class="btn-today-home-pc btn-today-home">
-                                    <i class="bi bi-calendar-plus pe-1"></i> Hôm nay
+                                    <i class="bi bi-calendar-plus pe-1-pc-home"></i> Hôm nay
                                 </a>
                                 {{-- ============================================= --}}
                                 {{-- KẾT THÚC: NÚT "HÔM NAY" --}}
@@ -312,21 +333,23 @@
                         <div class="info-item">
                             <img src="{{ asset('icons/icon_tiet_khi.png') }}" alt="icon_tiet_khi" class="icon_tiet_khi">
                             <div>
-                                <strong>Tiết khí:</strong> {!! $tietkhi['icon'] !!} <span
+                                <strong class="title-font-detail-ngay">Tiết khí:</strong> {!! $tietkhi['icon'] !!} <span
                                     class="text-uppercase">{{ $tietkhi['tiet_khi'] }}</span>
                             </div>
                         </div>
                         <div class="info-item">
                             <img src="{{ asset('icons/icon_nap_am.png') }}" alt="icon_nap_am" class="icon_nap_am">
                             <div>
-                                <strong>Ngũ hành nạp âm:</strong> {{ $getThongTinNgay['nap_am']['napAm'] }}
+                                <strong class="title-font-detail-ngay">Ngũ hành nạp âm:</strong>
+                                {{ $getThongTinNgay['nap_am']['napAm'] }}
                             </div>
                         </div>
                         <div class="info-item">
                             <img src="{{ asset('icons/icon_hoang_dao.png') }}" alt="icon_hoang_dao"
                                 class="icon_hoang_dao">
                             <div>
-                                <strong>Giờ Hoàng đạo:</strong> {{ $getThongTinNgay['gio_hac_dao'] }}
+                                <strong class="title-font-detail-ngay">Giờ Hoàng đạo:</strong>
+                                {{ $getThongTinNgay['gio_hac_dao'] }}
                             </div>
                         </div>
                         <!-- BẮT ĐẦU: KHỐI MỨC THUẬN LỢI (ĐÃ CẬP NHẬT) -->
@@ -363,41 +386,38 @@
                     <div class="events-card">
                         <h5 class="card-title-right">Sự kiện, ngày lễ sắp tới</h5>
                         <ul class="list-group list-group-flush events-list">
-                            <li class="list-group-item event-item">
-                                <div class="event-date">Ngày 10/3</div>
-                                <div class="event-icon">🗓️</div>
-                                <div class="event-details">
-                                    <div class="event-name">Giỗ Tổ Hùng Vương</div>
-                                    <div class="event-countdown">còn 9 ngày nữa <i class="bi bi-chevron-right"></i>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="list-group-item event-item">
-                                <div class="event-date"></div>
-                                <div class="event-icon">🧧</div>
-                                <div class="event-details">
-                                    <div class="event-name">Tết Dương Lịch (1/1)</div>
-                                    <div class="event-countdown">46 ngày nữa <i class="bi bi-chevron-right"></i>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="list-group-item event-item">
-                                <div class="event-date"></div>
-                                <div class="event-icon">🇻🇳</div>
-                                <div class="event-details">
-                                    <div class="event-name">Ngày Giải phóng Côn Đảo (4/5)</div>
-                                    <div class="event-countdown">2 ngày nữa <i class="bi bi-chevron-right"></i></div>
-                                </div>
-                            </li>
-                            <li class="list-group-item event-item">
-                                <div class="event-date"></div>
-                                <div class="event-icon">🎉</div>
-                                <div class="event-details">
-                                    <div class="event-name">Ngày Giải phóng miền Nam, thống nhất đất nước (30/4)</div>
-                                    <div class="event-countdown">13 ngày nữa <i class="bi bi-chevron-right"></i>
-                                    </div>
-                                </div>
-                            </li>
+                            @foreach ($upcomingEvents as $event)
+                                @php
+                                    // Phân tích cú pháp ngày sự kiện một lần để lấy các phần tử năm, tháng, ngày
+                                    $eventCarbonDate = Carbon\Carbon::parse($event['date']);
+                                    $routeParams = [
+                                        'nam' => $eventCarbonDate->year,
+                                        'thang' => $eventCarbonDate->month,
+                                        'ngay' => $eventCarbonDate->day,
+                                    ];
+                                @endphp
+                                <li class="list-group-item event-item">
+                                    <a href="{{ route('lich.nam.ngay', $routeParams) }}">
+                                        <div class="event-date">Ngày
+                                            {{ Carbon\Carbon::parse($event['date'])->format('d/m') }}</div>
+                                        <div class="event-icon">🗓️</div>
+                                        <div class="event-details">
+                                            <div class="event-name">{{ $event['description'] }}</div>
+                                            <div class="event-countdown">
+                                                @if ($event['days_remaining'] === 0)
+                                                    Hôm nay
+                                                @elseif ($event['days_remaining'] === 1)
+                                                    Còn 1 ngày
+                                                @else
+                                                    Còn {{ $event['days_remaining'] }} ngày
+                                                @endif
+
+                                                <i class="bi bi-chevron-right"></i>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>
