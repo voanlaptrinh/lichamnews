@@ -2772,3 +2772,101 @@ a:hover {
    display: flex;
    gap: 19px;
 }
+/* keyframes cho hiệu ứng lắc nghiêng */
+@keyframes tilt-shake {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(-20deg); } /* Nghiêng trái 20 độ */
+    50% { transform: rotate(20deg); }  /* Nghiêng phải 20 độ */
+    75% { transform: rotate(-20deg); } /* Nghiêng trái lại */
+    100% { transform: rotate(0deg); }  /* Về vị trí ban đầu */
+}
+
+/* Class để áp dụng hiệu ứng lắc nghiêng cho ảnh */
+.shake-tilt-animation img { /* Áp dụng animation trực tiếp cho thẻ img bên trong */
+    animation: tilt-shake 1.1s ease-in-out infinite; /* Thời gian lắc 1.2s, lặp lại vô hạn */
+    transform-origin: center center; /* Đảm bảo xoay quanh tâm ảnh */
+    border-radius: 50%;
+}
+
+/* Định vị nút cố định trên màn hình (sticky) */
+.sticky-buttons {
+    position: fixed; /* Cố định vị trí */
+    bottom: 20px; /* Cách đáy 20px */
+    right: 20px; /* Cách lề phải 20px */
+    z-index: 1000; /* Đảm bảo nó hiển thị trên các phần tử khác */
+}
+
+/* Tùy chỉnh thêm cho nút gieo quẻ nếu cần */
+.btn-gieo {
+    border: none; /* Bỏ viền nếu không muốn */
+    background: none; /* Bỏ nền nếu chỉ muốn hình ảnh */
+    padding: 0; /* Bỏ padding mặc định của button nếu cần */
+    display: flex; /* Để hình ảnh có thể căn giữa trong button nếu cần */
+    align-items: center;
+    justify-content: center;
+}
+
+/* Đảm bảo hình ảnh không bị thu nhỏ quá mức */
+.btn-gieo img {
+    max-width: 60px; /* Giữ kích thước ban đầu */
+    height: auto;
+}
+.contetn-popup1{
+        background-color: unset;
+    border: unset;
+}
+.btn-gieu-tu-dong {
+    /* Base styles */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 48px; /* Chiều cao theo hình ảnh mới */
+    padding: 0 40px; /* Khoảng cách để text không bị che bởi họa tiết */
+    width: 65%;
+    border-radius: 16px; /* Bo tròn theo hình ảnh mới */
+    
+    /* Gradient màu sắc theo hình ảnh */
+    background: linear-gradient(to right, #FF7B00, #FF0000);
+    color: white;
+    font-size: 1.2em; /* Kích thước chữ */
+    font-weight: bold;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    position: relative; 
+    overflow: hidden; 
+
+    box-shadow: 0 0 10px rgba(255, 123, 0, 0.7);
+    white-space: nowrap; 
+    z-index: 1; 
+    transform-origin: center center; 
+}
+
+.btn-gieu-tu-dong::before,
+.btn-gieu-tu-dong::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 46%; 
+    background-size: cover; 
+    background-repeat: no-repeat;
+    pointer-events: none; 
+    z-index: 0;
+}
+
+.btn-gieu-tu-dong::before {
+    left: 0;
+    background-image: url('/icons/btn-hop-left.svg'); 
+    background-position: left center;
+}
+
+.btn-gieu-tu-dong::after {
+    right: 0;
+    background-image: url('/icons/btn-hop-right.svg');
+    background-position: right center;
+}
+.fortune-btn-text{
+    position: absolute;
+    z-index: 99;
+}

@@ -1,0 +1,578 @@
+[
+  {
+    "so": 1,
+    "chu_Han": "Càn",
+    "chu_Tau": "乾",
+    "ten_day_du": "Thiên Vi Càn",
+    "trieu_tuong": "Khốn Long Đắc Thủy – Thời vận đã đến",
+    "tinh_chat": "Đại Cát – Năng lượng bùng nổ – Thời vận mở lối – Dễ khởi sự thành công",
+    "luan_giai": "Thời thế đang thuận – bạn đang ở vị trí có thể bứt phá. Vận khí mạnh mẽ ủng hộ hành động táo bạo và dứt khoát. Đây là lúc tốt để bắt đầu, triển khai và tiến lên không ngần ngại."
+  },
+  {
+    "so": 2,
+    "chu_Han": "Khôn",
+    "chu_Tau": "坤",
+    "ten_day_du": "Địa Vi Khôn",
+    "trieu_tuong": "Ngạ Hổ Đắc Thực – Thỏa lòng mãn ý",
+    "tinh_chat": "Đại Cát – Vận ổn định – Năng lượng bền vững – Dễ thu hút điều tốt",
+    "luan_giai": "Nguồn lực hỗ trợ đang hiện diện một cách thầm lặng nhưng rõ ràng. Mọi việc thuận lợi hơn nếu bạn duy trì sự ổn định và linh hoạt. Đây là thời điểm lý tưởng để bồi đắp vận may bằng những hành động chắc chắn và đều đặn."
+  },
+  {
+    "so": 3,
+    "chu_Han": "Truân",
+    "chu_Tau": "屯",
+    "ten_day_du": "Thủy Lôi Truân",
+    "trieu_tuong": "Loạn Ti Vô Đầu – Lòng dạ rối bời",
+    "tinh_chat": "Khởi đầu thử thách – Dễ rối rắm – Cần định hướng và kiên trì",
+    "luan_giai": "Nếu hôm nay có chút ngổn ngang, cũng đừng vội nản lòng. Mọi hành trình đều bắt đầu từ sự chưa hoàn hảo. Cứ chậm rãi tiến bước – bạn sẽ dần thấy mọi thứ rõ ràng hơn."
+  },
+  {
+    "so": 4,
+    "chu_Han": "Mông",
+    "chu_Tau": "蒙",
+    "ten_day_du": "Sơn Thủy Mông",
+    "trieu_tuong": "Tiểu Quỷ Thâu Tiền – Thời vận không hay",
+    "tinh_chat": "Chưa rõ ràng – Dễ thiếu sót – Cần bổ sung kiến thức và giữ tỉnh táo",
+    "luan_giai": "Mọi khởi đầu đều có thể mơ hồ – và đó là cơ hội để học, để sáng tỏ dần. Đây là thời điểm phù hợp để cập nhật thông tin, quan sát kỹ hơn và hành động khi bạn đã thấy rõ đường đi. Sự hiểu đúng sẽ mở lối cho vận tốt sắp tới."
+  },
+  {
+    "so": 5,
+    "chu_Han": "Nhu",
+    "chu_Tau": "需",
+    "ten_day_du": "Thủy Thiên Nhu",
+    "trieu_tuong": "Minh Châu Xuất Thổ – Vận tốt đã đến",
+    "tinh_chat": "Cát – Vận may đang đến gần – Hành động đúng thời điểm sẽ mang lại kết quả lớn",
+    "luan_giai": "Thời cơ đang xuất hiện – nhưng kết quả tốt sẽ chỉ dành cho người kiên nhẫn. Vận khí thuận lợi đang tiến tới, và nếu bạn giữ đúng nhịp, lựa chọn thời điểm phù hợp, cơ hội sẽ nở rộ mà không cần vội vàng."
+  },
+  {
+    "so": 6,
+    "chu_Han": "Tụng",
+    "chu_Tau": "訟",
+    "ten_day_du": "Thiên Thủy Tụng",
+    "trieu_tuong": "Nhị Nhân Tranh Lộ – Việc làm không thuận",
+    "tinh_chat": "Dễ phát sinh mâu thuẫn – Nên giữ hòa khí – Tránh tranh chấp",
+    "luan_giai": "Nếu điều gì đó khiến bạn khó chịu, hãy chọn sự lùi lại đầy tinh tế. Hôm nay không phải để thắng – mà là để giữ cho lòng mình nhẹ. Hòa khí là món quà tốt nhất bạn có thể gìn giữ hôm nay."
+  },
+  {
+    "so": 7,
+    "chu_Han": "Sư",
+    "chu_Tau": "師",
+    "ten_day_du": "Địa Thủy Sư",
+    "trieu_tuong": "Mã Đáo Thành Công – Mọi sự tốt đẹp",
+    "tinh_chat": "Cát – Năng lượng ổn định – Dễ thành công khi có tổ chức rõ ràng – Vận khí ủng hộ kế hoạch dài hạn",
+    "luan_giai": "Vận thế đang vững và thuận. Những hành động có kế hoạch, kiên trì theo đúng nhịp sẽ gặt hái kết quả bền chắc. Đây là thời điểm lý tưởng để triển khai công việc mang tính chiến lược – cứ đều đặn tiến bước, may mắn đang ở phía bạn."
+  },
+  {
+    "so": 8,
+    "chu_Han": "Tỷ",
+    "chu_Tau": "比",
+    "ten_day_du": "Thủy Địa Tỷ",
+    "trieu_tuong": "Thuận Phong Hành Thuyền – Việc gì cũng lợi",
+    "tinh_chat": "Cát – Vận khí hài hòa – Dễ gặp người hỗ trợ – Kết nối đúng nơi sẽ có lộc",
+    "luan_giai": "Vận trình đang thuận chiều, đặc biệt trong giao tiếp và cộng tác. Những kết nối hôm nay có thể mở ra cơ hội mới. Hãy chủ động gắn kết – càng chia sẻ đúng lúc, càng dễ gặp đúng người và đúng vận."
+  },
+  {
+    "so": 9,
+    "chu_Han": "Tiểu Súc",
+    "chu_Tau": "小畜",
+    "ten_day_du": "Phong Thiên Tiểu Súc",
+    "trieu_tuong": "Mật Vân Bất Vũ – Tạm thời phải nhẫn",
+    "tinh_chat": "Tạm thời chưa hanh thông – Nên kiềm chế – Chờ thời điểm phù hợp",
+    "luan_giai": "Mọi việc chưa rõ ràng không phải là ngõ cụt – chỉ là tạm dừng. Hôm nay, hãy giữ bình yên bên trong, đừng vội phản ứng. Điều bạn cần lúc này là kiên nhẫn và tiết chế – rồi nắng sẽ lại về."
+  },
+  {
+    "so": 10,
+    "chu_Han": "Lý",
+    "chu_Tau": "履",
+    "ten_day_du": "Thiên Trạch Lý",
+    "trieu_tuong": "Phượng Minh Kỳ Sơn – Quốc gia cát tường",
+    "tinh_chat": "Cát – Hành xử đúng mực – Đường đi sáng rõ – Có quý nhân",
+    "luan_giai": "Mỗi hành động hôm nay đều có giá trị lâu dài – chỉ cần bạn giữ mình ngay thẳng. Hãy bước đi với sự tôn trọng và tử tế. Bạn sẽ được dẫn đường, nếu lòng bạn trong sáng."
+  },
+  {
+    "so": 11,
+    "chu_Han": "Thái",
+    "chu_Tau": "泰",
+    "ten_day_du": "Địa Thiên Thái",
+    "trieu_tuong": "Hỷ Báo Tam Nguyên – Đại cát đại lợi",
+    "tinh_chat": "Cát – Mọi việc hanh thông – Hòa khí sinh phúc – Có thể tiến bước với lòng tin vững",
+    "luan_giai": "Một ngày tươi sáng đang mở ra trước mắt bạn. Mọi việc bạn làm hôm nay đều có nền tảng tốt để phát triển. Hãy tin rằng mình đang đi đúng hướng – và còn nhiều điều tốt đẹp đang chờ phía trước."
+  },
+  {
+    "so": 12,
+    "chu_Han": "Bĩ",
+    "chu_Tau": "否",
+    "ten_day_du": "Thiên Địa Bĩ",
+    "trieu_tuong": "Hổ Lạc Hãm Khanh – Cát ít hung nhiều",
+    "tinh_chat": "Thời vận chưa hanh thông – Cần giữ vững nội tâm – Tạm thời không nên tiến",
+    "luan_giai": "Mọi thứ hôm nay có thể chưa như mong đợi. Nhưng không sao cả – đây là lúc bạn nghỉ đôi chút, để nhìn lại, để dưỡng tâm. Giữ cho lòng yên – và vận sáng sẽ đến khi bạn sẵn sàng."
+  },
+  {
+    "so": 13,
+    "chu_Han": "Đồng Nhân",
+    "chu_Tau": "同人",
+    "ten_day_du": "Thiên Hỏa Đồng Nhân",
+    "trieu_tuong": "Tiên Nhân Chỉ Lộ – Đi đâu cũng lợi",
+    "tinh_chat": "Cát – Hợp tác dễ thành – Kết nối thuận hòa – Cơ hội đến từ sự đồng lòng",
+    "luan_giai": "Bạn đang được nâng đỡ bởi những kết nối tích cực. Mọi cánh cửa hôm nay đều rộng mở nếu bạn bước đi cùng thiện chí. Hãy hành động với sự vui vẻ – vì cơ hội đang ở rất gần bạn."
+  },
+  {
+    "so": 14,
+    "chu_Han": "Đại Hữu",
+    "chu_Tau": "大有",
+    "ten_day_du": "Hỏa Thiên Đại Hữu",
+    "trieu_tuong": "Nhuyễn Mộc Nô Tước – Làm việc chắc chắn",
+    "tinh_chat": "Đại Cát – Rộng mở – Tốt lành – Có quý nhân – Vượng khí",
+    "luan_giai": "Sự đầy đủ và sáng suốt đang ở bên bạn. Hôm nay là thời điểm tốt để làm việc lớn, với một trái tim rộng rãi và biết sẻ chia. Bạn không chỉ gặp may – mà còn là người mang lại may mắn cho người khác."
+  },
+  {
+    "so": 15,
+    "chu_Han": "Khiêm",
+    "chu_Tau": "謙",
+    "ten_day_du": "Địa Sơn Khiêm",
+    "trieu_tuong": "Nhị Nhân Phân Kim – Vạn sự hanh thông",
+    "tinh_chat": "Cát – Khiêm cung sinh phúc – Thành công trong tĩnh – Hành sự nhẹ nhàng",
+    "luan_giai": "Bạn đang ở trong thế thuận – càng điềm đạm, càng dễ thành công. Không cần phô trương – chỉ cần vững lòng, bạn sẽ thấy mọi việc hanh thông theo cách tự nhiên nhất."
+  },
+  {
+    "so": 16,
+    "chu_Han": "Dự",
+    "chu_Tau": "豫",
+    "ten_day_du": "Lôi Địa Dự",
+    "trieu_tuong": "Thanh Long Đắc Vị – Gặp hung hóa cát",
+    "tinh_chat": "Cát – Hứng khởi dâng trào – Nên chủ động đón cơ hội",
+    "luan_giai": "Niềm vui đang đến gần, và bạn xứng đáng đón nhận nó. Hãy để bản thân được truyền cảm hứng – hôm nay là lúc bạn chủ động tạo nên bầu không khí tích cực cho chính mình và cả những người xung quanh."
+  },
+  {
+    "so": 17,
+    "chu_Han": "Tùy",
+    "chu_Tau": "隨",
+    "ten_day_du": "Trạch Lôi Tùy",
+    "trieu_tuong": "Bộ Bộ Đăng Cao – Lên cao từng bước",
+    "tinh_chat": "Trung dung – Không rõ ràng – Cần giữ cân bằng và quan sát",
+    "luan_giai": "Mỗi tình huống đều mang theo một tín hiệu nhỏ. Hôm nay, bạn càng linh hoạt, càng dễ tiến xa. Cứ giữ tinh thần chủ động và thích nghi, bạn sẽ thấy đường đi dần sáng rõ."
+  },
+  {
+    "so": 18,
+    "chu_Han": "Cổ",
+    "chu_Tau": "蠱",
+    "ten_day_du": "Sơn Phong Cổ",
+    "trieu_tuong": "Thôi Ma Phần Đạo – Làm không đúng cách",
+    "tinh_chat": "Có thử thách – Nên cẩn trọng – Dễ phát sinh bất lợi",
+    "luan_giai": "Đây là thời điểm để bạn quay lại xử lý điều còn tồn đọng. Đừng để điều chưa hoàn thiện tiếp tục ảnh hưởng đến bạn. Khi bạn sẵn sàng đối diện, mọi vướng mắc sẽ được tháo gỡ nhẹ nhàng."
+  },
+  {
+    "so": 19,
+    "chu_Han": "Lâm",
+    "chu_Tau": "臨",
+    "ten_day_du": "Địa Trạch Lâm",
+    "trieu_tuong": "Phát Chánh Thi Nhân – Thời vận hanh thông",
+    "tinh_chat": "Trung dung thiên Cát – Vận khí nâng đỡ – Có cơ hội tiến gần điều mong muốn – Dễ được tin cậy",
+    "luan_giai": "Năng lượng hỗ trợ đang dần hội tụ – điều bạn đang hướng tới đang đến gần hơn bạn nghĩ. Khi bạn giữ được sự chủ động và chỉn chu trong hành động, cơ hội sẽ tự tìm đến và lan tỏa thuận lợi từ bạn sang cả những người xung quanh."
+  },
+  {
+    "so": 20,
+    "chu_Han": "Quán",
+    "chu_Tau": "觀",
+    "ten_day_du": "Phong Địa Quán",
+    "trieu_tuong": "Hạn Bồng Phùng Hà – Quý nhân phù trợ",
+    "tinh_chat": "Trung dung – Không rõ ràng – Cần giữ cân bằng và quan sát",
+    "luan_giai": "Bạn đang được lắng nghe – dù không ai nói ra. Hãy giữ sự chỉn chu trong lời nói và hành động, vì bạn đang truyền cảm hứng cho người khác một cách tự nhiên."
+  },
+  {
+    "so": 21,
+    "chu_Han": "Thế Hạp",
+    "chu_Tau": "噬嗑",
+    "ten_day_du": "Hỏa Lôi Phệ Hạp",
+    "trieu_tuong": "Cô Nhân Ngộ Thực - Gặp may gặp mắn",
+    "tinh_chat": "Trung dung – Không rõ ràng – Cần giữ cân bằng và quan sát",
+    "luan_giai": "Nếu có điều gì bạn đang do dự, hôm nay là lúc thích hợp để dứt khoát. Sự cứng rắn đi kèm tỉnh táo sẽ giúp bạn tháo gỡ những vướng mắc đang âm thầm làm chậm bước tiến."
+  },
+  {
+    "so": 22,
+    "chu_Han": "Bí",
+    "chu_Tau": "賁",
+    "ten_day_du": "Sơn Hỏa Bí",
+    "trieu_tuong": "Hỷ Khí Doanh Môn - Vạn sự như ý",
+    "tinh_chat": "Cát – Mọi sự dễ đẹp lòng người – Tốt lành đến từ sự chỉn chu – Dễ gặt kết quả tốt",
+    "luan_giai": "Mọi thứ hôm nay dễ trở nên hài hòa nếu bạn biết chăm chút cái đẹp từ trong ra ngoài. Sự chỉnh chu và tử tế sẽ khiến vận may tự tìm đến bạn."
+  },
+  {
+    "so": 23,
+    "chu_Han": "Bác",
+    "chu_Tau": "剝",
+    "ten_day_du": "Sơn Địa Bác",
+    "trieu_tuong": "Ưng Thước Đồng Lâm - Việc không thành",
+    "tinh_chat": "Thời vận chưa hanh thông – Cần giữ vững nội tâm – Tạm thời không nên tiến",
+    "luan_giai": "Hôm nay nên là ngày để bạn nghỉ ngơi và buông bỏ điều đã cũ. Đừng cố níu giữ điều không còn phù hợp – càng nhẹ lòng, càng rộng đường cho điều mới đến."
+  },
+  {
+    "so": 24,
+    "chu_Han": "Phục",
+    "chu_Tau": "復",
+    "ten_day_du": "Địa Lôi Phục",
+    "trieu_tuong": "Phu Thê Phản Mục - Tráo trở lật lọng",
+    "tinh_chat": "Trung dung – Không rõ ràng – Cần giữ cân bằng và quan sát",
+    "luan_giai": "Bạn có cơ hội quay lại một điều từng bỏ dở. Đây là lúc để bắt đầu lại, nhưng lần này với sự hiểu biết và bình thản hơn."
+  },
+  {
+    "so": 25,
+    "chu_Han": "Vô Vọng",
+    "chu_Tau": "無妄",
+    "ten_day_du": "Thiên Lôi Vô Vọng",
+    "trieu_tuong": "Điểu Bị Lao Lung - Tù túng buồn lo",
+    "tinh_chat": "Thời vận chưa hanh thông – Cần giữ vững nội tâm – Tạm thời không nên tiến",
+    "luan_giai": "Hãy để ngày hôm nay trôi qua với sự chân thành và giản đơn. Đừng để tâm đến điều không rõ ràng – điều đúng sẽ tự sáng tỏ khi bạn hành động bằng niềm tin trong sạch."
+  },
+  {
+    "so": 26,
+    "chu_Han": "Đại Súc",
+    "chu_Tau": "大畜",
+    "ten_day_du": "Sơn Thiên Đại Súc",
+    "trieu_tuong": "Trận Thế Đắc Khai - Không còn trở ngại",
+    "tinh_chat": "Cát – Thuận lợi – Có thể tiến hành",
+    "luan_giai": "Bạn đang giữ một nguồn lực quan trọng – có thể là thời gian, năng lượng hoặc ý tưởng. Hãy dùng nó đúng lúc, đúng chỗ. Kiên trì chính là chìa khóa hôm nay."
+  },
+  {
+    "so": 27,
+    "chu_Han": "Di",
+    "chu_Tau": "頤",
+    "ten_day_du": "Sơn Lôi Di",
+    "trieu_tuong": "Vị Thủy Phỏng Hiền - Bĩ cực thái lai",
+    "tinh_chat": "Cát – Thuận lợi – Gieo nhân tốt – Có thể tiến hành",
+    "luan_giai": "Sự nuôi dưỡng không chỉ dành cho thể chất, mà cả tâm hồn. Hôm nay, hãy để bản thân được đọc một điều hay, nói một điều thiện và nghĩ về những điều khiến bạn lớn lên."
+  },
+  {
+    "so": 28,
+    "chu_Han": "Đại Quá",
+    "chu_Tau": "大過",
+    "ten_day_du": "Trạch Phong Đại Quá",
+    "trieu_tuong": "Dạ Mộng Kim Ngân - Không vẫn hoàn không",
+    "tinh_chat": "Cát – Có thể chuyển nguy thành an – Sức bền và bản lĩnh tạo ra bước ngoặt",
+    "luan_giai": "Nếu cảm thấy mọi thứ đang đè nặng, hãy biết rằng bạn đang chạm ngưỡng để thay đổi. Hôm nay, điều bạn cần là một quyết định dứt khoát để sắp xếp lại trật tự bên trong."
+  },
+  {
+    "so": 29,
+    "chu_Han": "Khảm",
+    "chu_Tau": "坎",
+    "ten_day_du": "Thủy Vi Khảm",
+    "trieu_tuong": "Thủy Để Lao Nguyệt - Uổng công phí sức",
+    "tinh_chat": "Trung dung – Không rõ ràng – Cần giữ cân bằng và quan sát",
+    "luan_giai": "Đây không phải ngày để mạo hiểm. Cẩn trọng, từng bước một, và luôn giữ sự bình tĩnh trong mọi tình huống – đó là cách để bạn đi qua được mọi đoạn đường gập ghềnh."
+  },
+  {
+    "so": 30,
+    "chu_Han": "Ly",
+    "chu_Tau": "離",
+    "ten_day_du": "Hỏa Vi Ly",
+    "trieu_tuong": "Thiên Quan Tứ Phước - Phát phúc sinh tài",
+    "tinh_chat": "Cát – Thuận lợi – Có thể tiến hành",
+    "luan_giai": "Hôm nay là ngày để bạn tỏa sáng. Hãy nói điều bạn tin, làm điều bạn yêu – vì ánh sáng bên trong bạn đang đủ mạnh để truyền cảm hứng cho người khác."
+  },
+  {
+    "so": 31,
+    "chu_Han": "Hàm",
+    "chu_Tau": "咸",
+    "ten_day_du": "Trạch Sơn Hàm",
+    "trieu_tuong": "Manh Nha Xuất Thổ - Thời vận đã đến",
+    "tinh_chat": "Cát – Vận khí đang mở – Mọi việc có điểm khởi sắc",
+    "luan_giai": "Hôm nay là ngày của sự kết nối và rung cảm nhẹ nhàng. Hãy mở lòng với những ai khiến bạn cảm thấy an yên – sự đồng điệu có thể mở ra những cánh cửa bất ngờ."
+  },
+  {
+    "so": 32,
+    "chu_Han": "Hằng",
+    "chu_Tau": "恆",
+    "ten_day_du": "Lôi Phong Hằng",
+    "trieu_tuong": "Ngư Lai Tràng Võng - Vạn sự như ý",
+    "tinh_chat": "Cát – Vận trình ổn định – Hành động đều đặn sẽ thu kết quả bền vững",
+    "luan_giai": "Kiên định với giá trị của mình là cách bạn giữ vững vận khí. Đừng để những điều tạm thời làm bạn lung lay. Hôm nay, cứ bền lòng – kết quả sẽ đến đúng lúc."
+  },
+  {
+    "so": 33,
+    "chu_Han": "Độn",
+    "chu_Tau": "遯",
+    "ten_day_du": "Thiên Sơn Độn",
+    "trieu_tuong": "Nùng Vân Tế Nhật - Mưu sự bất thành",
+    "tinh_chat": "Thời vận chưa hanh thông – Cần giữ vững nội tâm – Tạm thời không nên tiến",
+    "luan_giai": "Lùi lại một bước không phải là thua, mà là để giữ thế mạnh. Hôm nay, nếu bạn thấy điều gì đó không hợp thời, cứ yên tâm tạm rút – sự chín muồi sẽ trở lại."
+  },
+  {
+    "so": 34,
+    "chu_Han": "Đại Tráng",
+    "chu_Tau": "大壯",
+    "ten_day_du": "Lôi Thiên Đại Tráng",
+    "trieu_tuong": "Công Sư Đắc Mộc - Vận khí sắp lên",
+    "tinh_chat": "Cát – Năng lượng mạnh – Hành sự quyết đoán dễ tạo đà đột phá",
+    "luan_giai": "Bạn đang có cơ hội thể hiện sức mạnh tích cực của mình. Hãy hành động rõ ràng, minh bạch và dũng cảm – hôm nay là ngày để bứt phá mà không cần phô trương."
+  },
+  {
+    "so": 35,
+    "chu_Han": "Tấn",
+    "chu_Tau": "晉",
+    "ten_day_du": "Hỏa Địa Tấn",
+    "trieu_tuong": "Sừ Địa Đắc Kim - Vận đỏ sắp đến",
+    "tinh_chat": "Cát – Vận may đang lên – Dễ gặp thời – Hành động chủ động sẽ có kết quả nhanh",
+    "luan_giai": "Sự tiến bộ hôm nay đến từ ánh sáng bên trong bạn. Đừng ngại chủ động – người có tâm sáng sẽ luôn được nhìn thấy và công nhận."
+  },
+  {
+    "so": 36,
+    "chu_Han": "Minh Di",
+    "chu_Tau": "明夷",
+    "ten_day_du": "Địa Hỏa Minh Di",
+    "trieu_tuong": "Quá Giang Chiết Kiều - Vô cùng khó khăn",
+    "tinh_chat": "Thời vận chưa hanh thông – Cần giữ vững nội tâm – Tạm thời không nên tiến",
+    "luan_giai": "Đôi khi ánh sáng cần được che lại để bảo vệ chính nó. Nếu hôm nay bạn thấy chưa thể tiến, hãy giữ vững giá trị trong âm thầm – điều đó cũng là một dạng rực rỡ."
+  },
+  {
+    "so": 37,
+    "chu_Han": "Gia Nhân",
+    "chu_Tau": "家人",
+    "ten_day_du": "Phong Hỏa Gia Nhân",
+    "trieu_tuong": "Cảnh Lý Quan Hoa - Theo đuổi ảo ảnh",
+    "tinh_chat": "Cát – Vận thế ổn – Dễ xử lý việc trong ngoài – Năng lượng ổn định để tiến xa",
+    "luan_giai": "Gia đình và những người thân cận là nền tảng hôm nay. Dành sự quan tâm nhỏ, một lời ấm áp hay một cử chỉ lặng lẽ – bạn sẽ cảm thấy lòng mình đầy đặn hơn."
+  },
+  {
+    "so": 38,
+    "chu_Han": "Khổn",
+    "chu_Tau": "睽",
+    "ten_day_du": "Hỏa Trạch Khuê",
+    "trieu_tuong": "Phản Mại Trư Dương - Long đong lận đận",
+    "tinh_chat": "Thời vận chưa hanh thông – Cần giữ vững nội tâm – Tạm thời không nên tiến",
+    "luan_giai": "Không phải lúc nào khác biệt cũng là xung đột. Hôm nay, bạn có thể giữ quan điểm của mình mà không cần đối đầu – sự tôn trọng là cầu nối cho hòa hợp."
+  },
+  {
+    "so": 39,
+    "chu_Han": "Kiển",
+    "chu_Tau": "蹇",
+    "ten_day_du": "Thủy Sơn Kiển",
+    "trieu_tuong": "Vũ Tuyết Tải Đồ - Mưu sự không đúng",
+    "tinh_chat": "Thời vận chưa hanh thông – Cần giữ vững nội tâm – Tạm thời không nên tiến",
+    "luan_giai": "Nếu gặp khó khăn, đừng gắng sức một mình. Hãy cho phép mình được nhờ trợ giúp – sự khiêm nhường hôm nay chính là chìa khóa để vượt trở ngại."
+  },
+  {
+    "so": 40,
+    "chu_Han": "Giải",
+    "chu_Tau": "解",
+    "ten_day_du": "Lôi Thủy Giải",
+    "trieu_tuong": "Ngũ Quan Thoát Nạn - May mắn thoát nạn",
+    "tinh_chat": "Cát – Áp lực được tháo gỡ – Năng lượng phục hồi – Việc làm trôi chảy",
+    "luan_giai": "Một ngày để thở ra nhẹ nhõm. Hãy gỡ bỏ những áp lực không cần thiết và cho bản thân một nhịp nghỉ đúng lúc – sự nhẹ nhàng sẽ giúp bạn bước xa hơn."
+  },
+  {
+    "so": 41,
+    "chu_Han": "Tổn",
+    "chu_Tau": "損",
+    "ten_day_du": "Sơn Trạch Tổn",
+    "trieu_tuong": "Thôi Xa Phí Lực - Uổng phí công sức",
+    "tinh_chat": "Trung dung – Không rõ ràng – Cần giữ cân bằng và quan sát",
+    "luan_giai": "Đôi khi, việc chủ động buông bớt mới là cách để tiến lên. Hôm nay, bạn có thể sẽ phải cho đi điều gì đó – nhưng chính điều đó lại giúp bạn nhẹ bước hơn về sau."
+  },
+  {
+    "so": 42,
+    "chu_Han": "Ích",
+    "chu_Tau": "益",
+    "ten_day_du": "Phong Lôi Ích",
+    "trieu_tuong": "Khô Mộc Khai Hoa - Bĩ cực vinh lai",
+    "tinh_chat": "Cát – Vận may hỗ trợ – Dễ được nâng đỡ",
+    "luan_giai": "Bạn đang ở thế được giúp, được nâng đỡ. Hôm nay, hãy làm điều gì đó không toan tính – bởi sự tử tế luôn có đường quay về."
+  },
+  {
+    "so": 43,
+    "chu_Han": "Quải",
+    "chu_Tau": "夬",
+    "ten_day_du": "Trạch Thiên Quải",
+    "trieu_tuong": "Du Phong Thoát Võng - Gặp hung hoá cát",
+    "tinh_chat": "Thời vận chưa hanh thông – Cần giữ vững nội tâm – Tạm thời không nên tiến",
+    "luan_giai": "Đây là lúc cần rõ ràng, dứt khoát và không lùi bước. Đừng ngại nói điều bạn cần nói – sự mạnh mẽ hôm nay chính là bước khởi đầu của tự do."
+  },
+  {
+    "so": 44,
+    "chu_Han": "Cấu",
+    "chu_Tau": "姤",
+    "ten_day_du": "Thiên Phong Cấu",
+    "trieu_tuong": "Tha Hương Ngộ Hữu - Thời vận đã đến",
+    "tinh_chat": "Trung dung – Bất ngờ – Cần tỉnh táo và giữ vững lập trường",
+    "luan_giai": "Một điều bất ngờ có thể xuất hiện – tốt hay xấu sẽ phụ thuộc vào cách bạn đón nhận. Hãy giữ lòng tỉnh táo, và luôn đặt giá trị bản thân lên hàng đầu."
+  },
+  {
+    "so": 45,
+    "chu_Han": "Tụy",
+    "chu_Tau": "萃",
+    "ten_day_du": "Trạch Địa Tụy",
+    "trieu_tuong": "Ngư Lý Hóa Long - Rồng bay lên trời",
+    "tinh_chat": "Cát – Thời vận tụ hội – Dễ gặt hái kết quả tốt",
+    "luan_giai": "Bạn không đơn độc. Hôm nay là ngày tốt để cùng người khác hướng tới mục tiêu chung. Đừng ngại chia sẻ – tinh thần hội tụ đang dẫn lối cho bạn."
+  },
+  {
+    "so": 46,
+    "chu_Han": "Thăng",
+    "chu_Tau": "升",
+    "ten_day_du": "Địa Phong Thăng",
+    "trieu_tuong": "Chỉ Nhật Cao Thăng - Phát tài phát lộc",
+    "tinh_chat": "Cát – Năng lượng đi lên – Hành động ổn định sẽ gặp thời và có lộc",
+    "luan_giai": "Từng bước kiên trì sẽ đưa bạn lên cao. Hôm nay, chỉ cần bạn chăm chỉ và tử tế, thì cơ hội thăng tiến sẽ mở ra rất tự nhiên."
+  },
+  {
+    "so": 47,
+    "chu_Han": "Khốn",
+    "chu_Tau": "困",
+    "ten_day_du": "Trạch Thủy Khốn",
+    "trieu_tuong": "Thoát Lãng Trừu Đê - Tình trạng bất ổn",
+    "tinh_chat": "Nội lực bị thử thách – Dễ bế tắc nếu nóng vội – Cần kiên định và tiết chế",
+    "luan_giai": "Nếu bạn cảm thấy bị kìm hãm, hãy nhớ: áp lực không làm bạn yếu đi – nó đang tôi luyện bạn. Hãy giữ vững tinh thần, rồi lối ra sẽ xuất hiện."
+  },
+  {
+    "so": 48,
+    "chu_Han": "Tỉnh",
+    "chu_Tau": "井",
+    "ten_day_du": "Thủy Phong Tỉnh",
+    "trieu_tuong": "Khô Tỉnh Sanh Tuyền - Vận tốt đã đến",
+    "tinh_chat": "Trung dung – Không rõ ràng – Cần giữ cân bằng và quan sát",
+    "luan_giai": "Mọi người đều đang khát điều gì đó – và bạn có thứ người khác cần. Hôm nay, bạn có cơ hội trở thành người mang giá trị – chỉ cần chia sẻ một cách chân thành."
+  },
+  {
+    "so": 49,
+    "chu_Han": "Cách",
+    "chu_Tau": "革",
+    "ten_day_du": "Trạch Hỏa Cách",
+    "trieu_tuong": "Hạn Miêu Đắc Vũ - Vận tốt đã đến",
+    "tinh_chat": "Cát – Cơ hội thay đổi tích cực – Thời điểm tốt để tạo bước ngoặt",
+    "luan_giai": "Thay đổi là không tránh khỏi. Nhưng hôm nay, bạn có cơ hội chủ động dẫn dắt sự thay đổi theo hướng tích cực. Đừng sợ khác biệt – hãy sợ đứng yên quá lâu."
+  },
+  {
+    "so": 50,
+    "chu_Han": "Đỉnh",
+    "chu_Tau": "鼎",
+    "ten_day_du": "Hỏa Phong Đỉnh",
+    "trieu_tuong": "Ngư Ông Đắc Lợi - Nhất cử lưỡng tiện",
+    "tinh_chat": "Cát – Dễ đạt thành tựu cao – Vận sáng rõ",
+    "luan_giai": "Năng lượng của bạn hôm nay rất mạnh – thích hợp để tạo ra điều có giá trị lâu dài. Hãy nghĩ lớn, làm sâu, và tin rằng bạn đang góp phần làm đẹp cho thế giới."
+  },
+  {
+    "so": 51,
+    "chu_Han": "Chấn",
+    "chu_Tau": "震",
+    "ten_day_du": "Lôi Vi Chấn",
+    "trieu_tuong": "Kim Chung Dạ Tràng - Mọi sự thành công",
+    "tinh_chat": "Trung dung – Không rõ ràng – Cần giữ cân bằng và quan sát",
+    "luan_giai": "Mỗi sự va chạm đều là lời đánh thức. Sự thay đổi bất ngờ có thể xảy đến, nhưng khi bạn giữ được nội tâm tĩnh tại, mọi rung động bên ngoài sẽ không thể làm bạn xao động."
+  },
+  {
+    "so": 52,
+    "chu_Han": "Cấn",
+    "chu_Tau": "艮",
+    "ten_day_du": "Sơn Vi Cấn",
+    "trieu_tuong": "Nhân Đoản Táo Cao - Mọi việc bất thuận",
+    "tinh_chat": "Trung dung – Không rõ ràng – Cần giữ cân bằng và quan sát",
+    "luan_giai": "Biết dừng lại đúng lúc là một dạng trí tuệ. Khi bạn giữ được sự tĩnh tại cả trong hành động và tâm hồn, thì ngay cả những rối ren cũng sẽ trở nên rõ ràng."
+  },
+  {
+    "so": 53,
+    "chu_Han": "Tiến",
+    "chu_Tau": "漸",
+    "ten_day_du": "Phong Sơn Tiệm",
+    "trieu_tuong": "Tuấn Mã Xuất Lung – Vận động chậm mà chắc",
+    "tinh_chat": "Cát – Vận khí ổn định – Dễ có tiến triển đều – Hành sự bền bỉ sẽ gặp thuận lợi",
+    "luan_giai": "Năng lượng hôm nay hỗ trợ những bước đi chắc chắn. Không cần vội – mọi tiến triển dù chậm cũng đang đi đúng hướng. Hành động ổn định sẽ mở ra lộ trình bền vững và tích lũy vận may lâu dài."
+  },
+  {
+    "so": 54,
+    "chu_Han": "Quy Muội",
+    "chu_Tau": "歸妹",
+    "ten_day_du": "Lôi Trạch Quy Muội",
+    "trieu_tuong": "Duyên Mộc Cầu Ngư - Mưu sự bất thành",
+    "tinh_chat": "Thời vận chưa hanh thông – Cần giữ vững nội tâm – Tạm thời không nên tiến",
+    "luan_giai": "Một sự kết hợp không cân bằng dễ khiến bạn hoang mang. Đừng vội ràng buộc điều gì khi bạn còn chưa thật sự hiểu rõ giá trị của chính mình. Giữ mình tỉnh táo là cách để tránh va vấp."
+  },
+  {
+    "so": 55,
+    "chu_Han": "Phong",
+    "chu_Tau": "豐",
+    "ten_day_du": "Lôi Hỏa Phong",
+    "trieu_tuong": "Cổ Kính Trùng Minh - Vận tốt trở lại",
+    "tinh_chat": "Cát – Vận khí cực thịnh – Hành động dứt khoát dễ mang lại nhiều lộc",
+    "luan_giai": "Thời vận đang mở ra với ánh sáng lớn. Khi bạn dám đón nhận những điều to lớn bằng lòng biết ơn và không kiêu ngạo, thì vận may không chỉ đến – mà còn ở lại thật lâu."
+  },
+  {
+    "so": 56,
+    "chu_Han": "Lữ",
+    "chu_Tau": "旅",
+    "ten_day_du": "Hỏa Sơn Lữ",
+    "trieu_tuong": "Túc Điểu Phần Sào - Việc làm không thành",
+    "tinh_chat": "Trung dung – Không rõ ràng – Cần giữ cân bằng và quan sát",
+    "luan_giai": "Có lúc bạn cần di chuyển, thích nghi và không dừng quá lâu ở một chốn. Sự linh hoạt và tinh thần khám phá sẽ giúp bạn giữ được định hướng ngay cả khi chưa rõ điểm đến."
+  },
+  {
+    "so": 57,
+    "chu_Han": "Tốn",
+    "chu_Tau": "巽",
+    "ten_day_du": "Phong Vi Tốn",
+    "trieu_tuong": "Châu Đắc Thuận Phong - Khốn cực sinh phúc",
+    "tinh_chat": "Trung dung – Không rõ ràng – Cần giữ cân bằng và quan sát",
+    "luan_giai": "Sự lan tỏa nhẹ nhàng, bền bỉ sẽ tạo ra ảnh hưởng sâu xa. Khi bạn nói lời chân thành và hành động bằng sự kiên định, mọi điều bạn chạm đến đều sẽ chuyển mình theo chiều tốt đẹp."
+  },
+  {
+    "so": 58,
+    "chu_Han": "Đoài",
+    "chu_Tau": "兌",
+    "ten_day_du": "Trạch Vi Đoài",
+    "trieu_tuong": "Chẩn Thủy Hòa Nê - Vô cùng thuận tiện",
+    "tinh_chat": "Cát – May mắn dễ đến – Không khí thuận lợi",
+    "luan_giai": "Niềm vui không đến từ những điều lớn lao, mà từ những trao đổi chân thành. Khi bạn biết lắng nghe và chia sẻ đúng cách, mối liên kết giữa người với người sẽ trở nên ấm áp và bền chặt."
+  },
+  {
+    "so": 59,
+    "chu_Han": "Hoán",
+    "chu_Tau": "渙",
+    "ten_day_du": "Phong Thủy Hoán",
+    "trieu_tuong": "Cách Hà Vọng Kim - Uổng công phí sức",
+    "tinh_chat": "Thời vận chưa hanh thông – Cần giữ vững nội tâm – Tạm thời không nên tiến",
+    "luan_giai": "Khi mọi thứ đang dần tan rã hoặc phân tán, đó cũng là lúc bạn cần tập hợp lại những gì thật sự quan trọng. Sự chân thành sẽ là sức mạnh giúp bạn nối lại điều tưởng chừng rời rạc."
+  },
+  {
+    "so": 60,
+    "chu_Han": "Tiết",
+    "chu_Tau": "節",
+    "ten_day_du": "Thủy Trạch Tiết",
+    "trieu_tuong": "Trảm Tướng Phong Thần - Không phải kiêng kị",
+    "tinh_chat": "Cát – Giai đoạn ổn định – Vận hành đúng cách dễ có tiến triển tốt",
+    "luan_giai": "Biết đâu là giới hạn chính là sự tự do bền vững. Khi bạn đặt được ranh giới rõ ràng mà vẫn giữ lòng bao dung, mọi việc trở nên nhẹ nhàng, trật tự và dễ tiến xa hơn."
+  },
+  {
+    "so": 61,
+    "chu_Han": "Trung Phu",
+    "chu_Tau": "中孚",
+    "ten_day_du": "Phong Trạch Trung Phu",
+    "trieu_tuong": "Hành Tẩu Bạc Băng - Vô cùng tốt lành",
+    "tinh_chat": "Cát – Vận tốt đang ủng hộ – Giao dịch dễ suôn sẻ – Kết quả khả quan",
+    "luan_giai": "Khi tâm bạn trong sáng và lời nói xuất phát từ lòng chân thành, mọi điều bạn làm sẽ chạm đến lòng người. Sự thật được nói bằng lòng tin sẽ luôn có sức mạnh chuyển hóa."
+  },
+  {
+    "so": 62,
+    "chu_Han": "Tiểu Quá",
+    "chu_Tau": "小過",
+    "ten_day_du": "Lôi Sơn Tiểu Quá",
+    "trieu_tuong": "Cấp Quá Độc Kiều - Tiến lợi lui hại.",
+    "tinh_chat": "Trung dung – Không rõ ràng – Cần giữ cân bằng và quan sát",
+    "luan_giai": "Đôi khi, điều nhỏ nhặt lại mang ý nghĩa lớn. Hãy để tâm đến chi tiết, cư xử cẩn trọng và kiên nhẫn với từng bước – sự tinh tế chính là may mắn của bạn lúc này."
+  },
+  {
+    "so": 63,
+    "chu_Han": "Ký Tế",
+    "chu_Tau": "既濟",
+    "ten_day_du": "Thủy Hỏa Ký Tế",
+    "trieu_tuong": "Kim Bảng Đề Danh - Cát khánh như ý",
+    "tinh_chat": "Đại Cát – Rộng mở – Tốt lành – Có quý nhân – Vượng khí",
+    "luan_giai": "Sự hoàn thiện không phải lúc kết thúc, mà là lúc cần giữ nhịp bền vững nhất. Đừng lơi tay khi mọi thứ đang tốt – sự tỉnh táo sẽ giúp bạn duy trì được điều quý giá lâu dài."
+  },
+  {
+    "so": 64,
+    "chu_Han": "Vị Tế",
+    "chu_Tau": "未濟",
+    "ten_day_du": "Hỏa Thủy Vị Tế",
+    "trieu_tuong": "Thái Tuế Nguyệt Kiến - Tiểu nhân ám hại",
+    "tinh_chat": "Thời vận chưa hanh thông – Cần giữ vững nội tâm – Tạm thời không nên tiến",
+    "luan_giai": "Dù còn dang dở, bạn đang ở rất gần điểm chuyển mình. Chỉ cần giữ lửa và tiến thêm một bước nữa, điều bạn mong đợi sẽ dần thành hình. Giai đoạn này, giữ vững lòng tin là điều quan trọng nhất."
+  }
+]
