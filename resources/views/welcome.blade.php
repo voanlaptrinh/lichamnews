@@ -27,8 +27,7 @@
 
     <!-- Nút gieo quẻ sticky, đặt ở đây cho dễ nhìn -->
     <div class="sticky-buttons">
-        <button type="button" class="btn ms-auto shake-tilt-animation" id="openFortuneModalBtn" data-bs-toggle="modal"
-            data-bs-target="#fortuneModal">
+        <button type="button" class="btn ms-auto shake-tilt-animation" id="openFortuneModalBtn">
             <img src="{{ asset('icons/btn-hopque.svg') }}" width="60px" alt="hộp gieo quẻ" class="img-fluid">
         </button>
     </div>
@@ -41,10 +40,53 @@
     <script src="{{ asset('/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('/js/flatpickr.js') }}"></script>
     <script src="{{ asset('/js/vn.js') }}"></script>
+    
     @stack('scripts')
 
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
+        // --- Helper functions for cookie management ---
+        function getTodayDateString() {
+            const today = new Date();
+            return today.getFullYear() + '-' +
+                String(today.getMonth() + 1).padStart(2, '0') + '-' +
+                String(today.getDate()).padStart(2, '0');
+        }
+
+        // Function to set fortune cookie with fortune index
+        // Cookie expires at the end of the current day
+        function setFortuneCookie(fortuneIndex) {
+            const today = getTodayDateString();
+            const endOfDay = new Date();
+            endOfDay.setHours(23, 59, 59, 999); // Set to end of day
+            const cookieValue = JSON.stringify({
+                date: today,
+                fortuneIndex: fortuneIndex
+            });
+            document.cookie = `lastFortuneDraw=${encodeURIComponent(cookieValue)}; expires=${endOfDay.toUTCString()}; path=/`;
+        }
+
+        // Function to get fortune cookie
+        function getFortuneCookie() {
+            const nameEQ = "lastFortuneDraw=";
+            const ca = document.cookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) === 0) {
+                    try {
+                        return JSON.parse(decodeURIComponent(c.substring(nameEQ.length, c.length)));
+                    } catch (e) {
+                        console.error("Error parsing fortune cookie:", e);
+                        // Clear invalid cookie
+                        document.cookie = "lastFortuneDraw=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                        return null;
+                    }
+                }
+            }
+            return null;
+        }
+
+        document.addEventListener("DOMContentLoaded", async () => {
             // --- Existing Flatpickr and Date Conversion Logic ---
             const maxDate = new Date(new Date().getFullYear(), 11, 31);
 
@@ -74,7 +116,7 @@
                                     const startDate = new Date();
                                     const endDate = new Date();
                                     endDate.setDate(startDate.getDate() + shortcut.days -
-                                    1);
+                                        1);
                                     fp.setDate([startDate, endDate], false);
                                     fp.altInput.value = fp.formatDate(startDate, "d/m/Y") +
                                         " - " + fp.formatDate(endDate, "d/m/Y");
@@ -214,108 +256,125 @@
             const fortuneResultModal = new bootstrap.Modal(document.getElementById('fortuneResultModal'));
             const fullDescriptionModal = new bootstrap.Modal(document.getElementById('fullDescriptionModal'));
 
-            const fortuneNameElem = document.getElementById('fortuneName');
-            const fortuneShortDescriptionElem = document.getElementById('fortuneShortDescription');
-            const fortuneFullDescriptionElem = document.getElementById('fortuneFullDescription');
-            const fullDescFortuneNameElem = document.getElementById('fullDescFortuneName');
+            const fortuneNameElem = document.getElementById('fortuneName'); // For result modal
+            // const fortuneShortDescriptionElem = document.getElementById('fortuneShortDescription'); // For result modal
+            const fortuneFullDescriptionElem = document.getElementById('fortuneFullDescription'); // For full description modal
+            const fullDescFortuneNameElem = document.getElementById('fullDescFortuneName'); // For full description modal title
 
-            let currentFortune = null; // Biến lưu quẻ hiện tại đã gieo
+            let currentFortune = null; // Biến toàn cục lưu quẻ hiện tại đã gieo
 
-            // Hàm để lấy ngày hiện tại ở định dạng YYYY-MM-DD
-            function getTodayDateString() {
-                const today = new Date();
-                return today.getFullYear() + '-' +
-                    String(today.getMonth() + 1).padStart(2, '0') + '-' +
-                    String(today.getDate()).padStart(2, '0');
-            }
+            const today = getTodayDateString();
+            const lastFortuneDrawData = getFortuneCookie();
 
-            // Hàm để đặt cookie
-            function setCookie(name, value, days) {
-                let expires = "";
-                if (days) {
-                    const date = new Date();
-                    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-                    expires = "; expires=" + date.toUTCString();
-                }
-                document.cookie = name + "=" + (value || "") + expires + "; path=/";
-            }
+            // --- Logic kiểm tra và hiển thị quẻ ngay khi tải trang ---
+            if (lastFortuneDrawData && lastFortuneDrawData.date === today && typeof lastFortuneDrawData.fortuneIndex === 'number') {
+                try {
+                    const response = await fetch("{{ asset('data/divinations.json') }}");
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    const fortunes = await response.json();
 
-            // Hàm để lấy cookie
-            function getCookie(name) {
-                const nameEQ = name + "=";
-                const ca = document.cookie.split(';');
-                for (let i = 0; i < ca.length; i++) {
-                    let c = ca[i];
-                    while (c.charAt(0) === ' ') c = c.substring(1, c.length);
-                    if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
-                }
-                return null;
-            }
+                    currentFortune = fortunes[lastFortuneDrawData.fortuneIndex];
 
-            // Kiểm tra cookie khi mở modal gieo quẻ
-            if (openFortuneModalBtn) {
-                openFortuneModalBtn.addEventListener('click', () => {
-                    const lastDrawDate = getCookie('lastFortuneDrawDate');
-                    const today = getTodayDateString();
+                    if (currentFortune) {
+                        // Điền dữ liệu vào modal hiển thị chi tiết quẻ
+                        fullDescFortuneNameElem.textContent = currentFortune.ten_day_du;
+                        fortuneFullDescriptionElem.innerHTML = `
+                            <p><strong>Số Quẻ:</strong> ${currentFortune.so}</p>
+                            <p><strong>Chữ Hán:</strong> ${currentFortune.chu_Han} (${currentFortune.chu_Tau})</p>
+                            <p><strong>Tên đầy đủ:</strong> ${currentFortune.ten_day_du}</p>
+                            <p><strong>Triệu Tượng:</strong> ${currentFortune.trieu_tuong}</p>
+                            <p><strong>Tính chất:</strong> ${currentFortune.tinh_chat}</p>
+                            <p><strong>Luận giải:</strong> ${currentFortune.luan_giai}</p>
+                        `;
+                        // Hiển thị modal chi tiết quẻ ngay lập tức
+                        // fullDescriptionModal.show();
 
-                    if (lastDrawDate === today) {
-                        drawFortuneBtn.disabled = true;
-                        drawFortuneBtn.innerHTML =
-                            '<span class="fortune-btn-text">Đã Gieo Quẻ Hôm Nay</span>'; // Đã chỉnh sửa
-                        drawFortuneBtn.classList.remove('btn-success');
-                        drawFortuneBtn.classList.add('btn-secondary');
+                        // Vô hiệu hóa nút "Gieo Quẻ" nếu nó tồn tại
+                        if (drawFortuneBtn) {
+                            drawFortuneBtn.disabled = true;
+                            drawFortuneBtn.innerHTML = '<span class="fortune-btn-text">Đã Gieo Quẻ Hôm Nay</span>';
+                            drawFortuneBtn.classList.remove('btn-success');
+                            drawFortuneBtn.classList.add('btn-secondary');
+                        }
                     } else {
+                        console.warn("Không tìm thấy quẻ cho index:", lastFortuneDrawData.fortuneIndex, "Xóa cookie.");
+                        document.cookie = "lastFortuneDraw=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"; // Xóa cookie không hợp lệ
+                        // Kích hoạt lại nút "Gieo Quẻ"
+                        if (drawFortuneBtn) {
+                            drawFortuneBtn.disabled = false;
+                            drawFortuneBtn.innerHTML = '<span class="fortune-btn-text">Gieo Quẻ</span>';
+                            drawFortuneBtn.classList.remove('btn-secondary');
+                            drawFortuneBtn.classList.add('btn-success');
+                        }
+                    }
+                } catch (error) {
+                    console.error('Lỗi khi tải dữ liệu quẻ bói hoặc hiển thị:', error);
+                    // Trong trường hợp lỗi, cho phép gieo lại
+                    if (drawFortuneBtn) {
                         drawFortuneBtn.disabled = false;
-                        drawFortuneBtn.innerHTML =
-                        '<span class="fortune-btn-text">Gieo Quẻ</span>'; // Đã chỉnh sửa
+                        drawFortuneBtn.innerHTML = '<span class="fortune-btn-text">Gieo Quẻ</span>';
                         drawFortuneBtn.classList.remove('btn-secondary');
                         drawFortuneBtn.classList.add('btn-success');
+                    }
+                }
+            } else {
+                // Không có quẻ nào được gieo hôm nay, đảm bảo nút gieo quẻ được kích hoạt
+                if (drawFortuneBtn) {
+                    drawFortuneBtn.disabled = false;
+                    drawFortuneBtn.innerHTML = '<span class="fortune-btn-text">Gieo Quẻ</span>';
+                    drawFortuneBtn.classList.remove('btn-secondary');
+                    drawFortuneBtn.classList.add('btn-success');
+                }
+            }
+
+            // --- Event Listeners ---
+
+            // Xử lý khi nhấn nút sticky "hộp gieo quẻ"
+            if (openFortuneModalBtn) {
+                openFortuneModalBtn.addEventListener('click', () => {
+                    const currentDrawState = getFortuneCookie();
+                    // Nếu đã gieo quẻ hôm nay VÀ biến currentFortune đã được điền (từ lúc tải trang hoặc đã gieo),
+                    // thì hiển thị thẳng modal chi tiết quẻ.
+                    // Ngược lại, hiển thị modal gieo quẻ ban đầu.
+                    if (currentDrawState && currentDrawState.date === today && currentFortune) {
+                         fullDescriptionModal.show();
+                    } else {
+                         fortuneModal.show();
                     }
                 });
             }
 
-
-            // Xử lý khi nhấn nút "Gieo Quẻ"
+            // Xử lý khi nhấn nút "Gieo Quẻ" trong modal fortuneModal
             if (drawFortuneBtn) {
                 drawFortuneBtn.addEventListener('click', async () => {
-                    const lastDrawDate = getCookie('lastFortuneDrawDate');
-                    const today = getTodayDateString();
-
-                    if (lastDrawDate === today) {
+                    const currentDrawState = getFortuneCookie();
+                    if (currentDrawState && currentDrawState.date === today) {
                         alert('Bạn đã gieo quẻ hôm nay rồi. Vui lòng quay lại vào ngày mai!');
                         return;
                     }
 
                     try {
-                        // Tải dữ liệu quẻ bói từ JSON file mới
-                        const response = await fetch(
-                        "{{ asset('data/divinations.json') }}"); // CẬP NHẬT ĐƯỜNG DẪN
+                        const response = await fetch("{{ asset('data/divinations.json') }}");
                         if (!response.ok) {
                             throw new Error(`HTTP error! status: ${response.status}`);
                         }
                         const fortunes = await response.json();
 
-                        // Random một quẻ
-                        currentFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
+                        const randomIndex = Math.floor(Math.random() * fortunes.length);
+                        currentFortune = fortunes[randomIndex]; // Lưu trữ đối tượng quẻ đầy đủ
 
-                        // Cập nhật cookie để ghi nhận đã gieo quẻ hôm nay
-                        setCookie('lastFortuneDrawDate', today, 1); // Cookie hết hạn sau 1 ngày
+                        setFortuneCookie(randomIndex); // Lưu index của quẻ vào cookie
 
-                        // Đổ dữ liệu vào popup kết quả (sử dụng các trường mới)
-                        fortuneNameElem.textContent = currentFortune.ten_day_du; // Tên đầy đủ
-                        // Kết hợp trieu_tuong và tinh_chat cho phần mô tả ngắn gọn
-                        fortuneShortDescriptionElem.textContent =
-                            `${currentFortune.trieu_tuong} - ${currentFortune.tinh_chat}`;
+                        fortuneNameElem.textContent = currentFortune.chu_Tau;
+                        // fortuneShortDescriptionElem.textContent = `${currentFortune.chu_Han}`;
 
-                        // Ẩn modal gieo quẻ, hiện modal kết quả
                         fortuneModal.hide();
                         fortuneResultModal.show();
 
-                        // Vô hiệu hóa nút gieo quẻ sau khi gieo thành công
                         drawFortuneBtn.disabled = true;
-                        drawFortuneBtn.innerHTML =
-                            '<span class="fortune-btn-text">Đã Gieo Quẻ Hôm Nay</span>'; // Đã chỉnh sửa
-
+                        drawFortuneBtn.innerHTML = '<span class="fortune-btn-text">Đã Gieo Quẻ Hôm Nay</span>';
                         drawFortuneBtn.classList.remove('btn-success');
                         drawFortuneBtn.classList.add('btn-secondary');
 
@@ -326,13 +385,11 @@
                 });
             }
 
-            // Xử lý khi nhấn nút "Giải Quẻ" trong popup kết quả
+            // Xử lý khi nhấn nút "Giải Quẻ" trong modal fortuneResultModal
             if (revealFortuneBtn) {
                 revealFortuneBtn.addEventListener('click', () => {
                     if (currentFortune) {
-                        fullDescFortuneNameElem.textContent = currentFortune
-                        .ten_day_du; // Tên đầy đủ cho tiêu đề giải quẻ
-                        // Format chi tiết quẻ bói với HTML
+                        fullDescFortuneNameElem.textContent = currentFortune.ten_day_du;
                         fortuneFullDescriptionElem.innerHTML = `
                             <p><strong>Số Quẻ:</strong> ${currentFortune.so}</p>
                             <p><strong>Chữ Hán:</strong> ${currentFortune.chu_Han} (${currentFortune.chu_Tau})</p>
@@ -341,8 +398,8 @@
                             <p><strong>Tính chất:</strong> ${currentFortune.tinh_chat}</p>
                             <p><strong>Luận giải:</strong> ${currentFortune.luan_giai}</p>
                         `;
-                        fortuneResultModal.hide(); // Ẩn popup kết quả
-                        fullDescriptionModal.show(); // Hiện popup giải quẻ chi tiết
+                        fortuneResultModal.hide();
+                        fullDescriptionModal.show();
                     }
                 });
             }

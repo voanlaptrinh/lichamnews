@@ -1592,6 +1592,7 @@ a:hover {
     font-size: 1.5rem;
     text-decoration: none;
     padding: 0 0.5rem;
+    z-index: 10;
 }
 
 .date-display-card .nav-arrow.placeholder {
@@ -2869,4 +2870,30 @@ a:hover {
 .fortune-btn-text{
     position: absolute;
     z-index: 99;
+}
+
+
+/* Trong styledemo.css hoặc một file CSS khác của bạn */
+
+.modal-body.fortune-overlay-container {
+    position: relative; /* Đặt modal-body làm điểm neo cho phần tử absolute */
+    text-align: center; /* Căn giữa ảnh và các phần tử inline/inline-block khác */
+    /* Thêm padding-bottom nếu nội dung của bạn có thể tràn ra ngoài ảnh */
+    padding-bottom: 20px; /* Ví dụ: để nút không quá sát dưới */
+}
+
+.fortune-overlay-text {
+    font-size: 14px;
+    /* border-radius: 5px; */
+    color: #000000; /* Đảm bảo màu sắc hiển thị rõ */
+  
+    font-weight: bold;
+}
+.box-que-gieo{
+position: absolute; /* Đặt tiêu đề ở vị trí tuyệt đối */
+    top: 66px; /* Điều chỉnh giá trị này để thay đổi vị trí dọc trên ảnh */
+    left: 50%; /* Dịch sang giữa theo chiều ngang */
+    transform: translateX(-50%); /* Căn giữa hoàn toàn theo chiều ngang */
+    z-index: 10; /* Đảm bảo văn bản nằm trên ảnh */
+    width: 90%; /* Giới hạn chiều rộng của tiêu đề để không tràn ra ngoài */
 }

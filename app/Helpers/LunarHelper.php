@@ -148,7 +148,7 @@ class LunarHelper
         return DataHelper::$TIETKHI[self::getSunLongitudeKinh($jd + 1)];
     }
 
-    static function tietKhiWithIcon($jd)
+    static function tietKhiWithIcon($jd): array
     {
         $tietKhi = self::tietKhiByJD($jd);
 

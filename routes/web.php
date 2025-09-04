@@ -45,6 +45,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', [LunarController::class, 'index'])->name('home');
+Route::get('/chi-tiet/{nam}/thang/{thang}/ngay/{ngay}', [LunarController::class, 'detail'])->name('detai_home');
 Route::post('/doi-lich', [LunarController::class, 'index'])->name('doi-lich');
 
 Route::match(['get', 'post'], '/am-sang-duong', [LunarController::class, 'convertAmToDuong'])->name('convert.am.to.duong');
