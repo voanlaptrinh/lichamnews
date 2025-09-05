@@ -392,8 +392,8 @@
 
     .container-setup {
         width: 100%;
-        padding-left: 14px;
-        padding-right: 14px;
+        padding-left: 10px;
+        padding-right: 10px;
     }
 
     .text-lever-label-mobie {
@@ -451,5 +451,9 @@
     }
      .item-rings{
         display: none;
+    }
+    .box-date-detail{
+        padding: 0;
+        background: none;
     }
 }

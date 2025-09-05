@@ -1,9 +1,5 @@
 @extends('welcome')
 @section('content')
-    <div class="calendar-app-container py-4">
-
-
-    </div>
     {{-- <div class=" mt-5">
         <div class="row g-5">
 
@@ -537,4 +533,348 @@
         </table>
 
     </div> --}}
+    <div class="container-setup">
+        <h6 class="content-title-date-detail">Trang chủ <i class="bi bi-chevron-right"></i> <span>Chi tiết ngày</span></h6>
+        <div class="box-date-detail">
+            <div class="row g-3">
+                <div class="col-6">
+                    <div class="date-display-card">
+                        {{-- Nút Prev Day PC --}}
+                        <a href="#" class="nav-arrow nav-home-date nave-left prev-day-btn" title="Ngày hôm trước"><i
+                                class="bi bi-chevron-left"></i></a>
+                        <div class="text-center">
+                            <div class="card-title"><img src="{{ asset('icons/icon_duong.svg') }}" alt="icon_duong"
+                                    width="20px" height="20px"> Dương lịch</div>
+                            <div class="date-number duong date_number_lich"> {{ $dd }}</div>
+                            <div class="date-weekday">{{ $weekday }}, tháng {{ $mm }} năm
+                                {{ $yy }}</div>
+                            <div class="date-special-event">
+                                @foreach ($suKienHomNay as $suKien)
+                                    {{ $suKien['ten_su_kien'] ?? $suKien }}
+                                @endforeach
+                            </div>
+                        </div>
+                        {{-- Nút Next Day PC (Đã sửa) --}}
+                        {{-- Nút này thường nằm trong phần Âm lịch để căn chỉnh đẹp hơn, tôi sẽ di chuyển nó sang đó. --}}
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="date-display-card">
+                        <div class="text-center">
+                            <div class="card-title"><img src="{{ asset('icons/icon_am.svg') }}" alt="icon_am"
+                                    width="20px" height="20px"> Âm lịch</div>
+                            <div class="date-number am date_number_lich date_number_lich_am">{{ $al[0] }}
+                            </div>
+                            <div class="date-weekday">Tháng {{ $al[1] }} ({{ $al[4] }}) năm
+                                {{ $getThongTinCanChiVaIcon['can_chi_nam'] }}</div>
+                            <div class="date-special-event">Ngày {{ $getThongTinCanChiVaIcon['can_chi_ngay'] }}
+                                -
+                                Tháng {{ $getThongTinCanChiVaIcon['can_chi_thang'] }}</div>
+                        </div>
+                        {{-- Nút Next Day PC (Đã sửa và di chuyển vào đây) --}}
+                        <a href="#" class="nav-arrow nav-home-date nave-right next-day-btn" title="Ngày hôm sau"> <i
+                                class="bi bi-chevron-right"></i></a>
+                        @if ($tot_xau_result == 'tot')
+                            <div class="day-status hoang-dao">
+                                <span class="status-dot"></span>
+                                <span class="title-status-dot"> Hoàng đạo</span>
+                            </div>
+                        @elseif($tot_xau_result == 'xau')
+                            <div class="day-status hac-dao">
+                                <span class="status-dot"></span>
+                                <span class="title-status-dot"> Hắc đạo</span>
+                            </div>
+                        @else
+                            <div class="day-status ">
+
+                            </div>
+                        @endif
+
+                    </div>
+                </div>
+
+
+                <div class="col-lg-12 btn-mobie-next-prev">
+                    <div>
+
+                    </div>
+                    <div class="d-flex gap-2">
+                        <div class="div">
+                            {{-- Nút Prev Day Mobile --}}
+                            <a href="#" class="nav-arrow prev-day-btn-mobie  nave-left prev-day-btn"
+                                title="Ngày hôm trước"><i class="bi bi-chevron-left"></i></a>
+                        </div>
+                        <div class="div">
+                            {{-- Nút Next Day Mobile --}}
+                            <a href="#" class="nav-arrow  next-day-btn-mobie nave-right next-day-btn"
+                                title="Ngày hôm sau"> <i class="bi bi-chevron-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="mt-lg-5 mt-3 mb-5">
+
+            <div class="tong-quan-date">
+
+
+                <div class="card-body p-4 position-relative">
+                    <!-- Nút "Tổng quan" ở góc trên bên phải -->
+
+
+                    <div class="row"> <!-- Sử dụng row thay vì d-flex flex-column flex-md-row -->
+                        <!-- Cột bên trái: Navigation (Tabs) -->
+                        <div class="left-sidebar col-12 col-md-auto  border-end-md pb-3 pb-md-0 mb-3 mb-md-0">
+                            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist"
+                                aria-orientation="vertical">
+                                <!-- Tab 1: Thông tin chung (Active mặc định) -->
+                                <button
+                                    class="nav-link text-start p-3 active d-flex justify-content-between align-items-center"
+                                    id="v-pills-general-info-tab" data-bs-toggle="pill"
+                                    data-bs-target="#v-pills-general-info" type="button" role="tab"
+                                    aria-controls="v-pills-general-info" aria-selected="true">
+                                    <span>Thông tin chung</span>
+                                </button>
+
+                                <!-- Tab 2: Luận giải ngày -->
+                                <button class="nav-link text-start p-3 d-flex justify-content-between align-items-center"
+                                    id="v-pills-daily-analysis-tab" data-bs-toggle="pill"
+                                    data-bs-target="#v-pills-daily-analysis" type="button" role="tab"
+                                    aria-controls="v-pills-daily-analysis" aria-selected="false">
+                                    <span>Luận giải ngày</span>
+                                    <i class="fas fa-chevron-down ms-2"></i>
+                                </button>
+
+                                <!-- Tab 3: Giờ hoàng đạo -->
+                                <button class="nav-link text-start p-3" id="v-pills-auspicious-hours-tab"
+                                    data-bs-toggle="pill" data-bs-target="#v-pills-auspicious-hours" type="button"
+                                    role="tab" aria-controls="v-pills-auspicious-hours" aria-selected="false">Giờ hoàng
+                                    đạo</button>
+
+                                <!-- Tab 4: Điểm ngày đẹp -->
+                                <button class="nav-link text-start p-3" id="v-pills-good-day-score-tab"
+                                    data-bs-toggle="pill" data-bs-target="#v-pills-good-day-score" type="button"
+                                    role="tab" aria-controls="v-pills-good-day-score" aria-selected="false">Điểm ngày
+                                    đẹp</button>
+
+                                <!-- Tab 5: Bốc quẻ tò mò -->
+                                <button class="nav-link text-start p-3" id="v-pills-curious-hexagram-tab"
+                                    data-bs-toggle="pill" data-bs-target="#v-pills-curious-hexagram" type="button"
+                                    role="tab" aria-controls="v-pills-curious-hexagram" aria-selected="false">Bốc quẻ
+                                    tò
+                                    mò</button>
+                            </div>
+                        </div>
+
+                        <!-- Cột bên phải: Nội dung chính (Tab Content) -->
+                        <div class="main-content col pt-3 pt-md-0 tab-content" id="v-pills-tabContent">
+                            <!-- Nội dung cho "Thông tin chung" (Tab 1 - active mặc định) -->
+                            <div class="tab-pane fade show active" id="v-pills-general-info" role="tabpanel"
+                                aria-labelledby="v-pills-general-info-tab" tabindex="0">
+                                <p class="mb-2 text-secondary small">
+                                    <span class="fw-bold text-dark">Tiết khí:</span> {!! $tietkhi['icon'] !!} <span
+                                        class="text-uppercase">{{ $tietkhi['tiet_khi'] }}</span>
+                                </p>
+                                <p class="mb-2 text-secondary small">
+                                    <span class="fw-bold text-dark">Ngũ hành nạp âm:</span>
+                                    {{ $getThongTinNgay['nap_am']['napAm'] }}
+                                </p>
+                                <p class="mb-2 text-secondary small">
+                                    <span class="fw-bold text-dark">Sao, trực:</span> sao {{ $nhiThapBatTu['name'] }}
+                                    ({{ $nhiThapBatTu['fullName'] }}), trực {{ $getThongTinTruc['title'] }}
+
+
+                                </p>
+                                <p class="mb-2 text-secondary small">
+                                    <span class="fw-bold text-dark">Tuổi xung:</span> {{ $getThongTinNgay['tuoi_xung'] }}
+                                </p>
+                                <p class="mb-4 text-secondary small">
+                                    <span class="fw-bold text-dark">Giờ hoàng đạo:</span>
+                                    {{ $getThongTinNgay['gio_hoang_dao'] }}
+                                </p>
+
+                                <!-- Mức thuận lợi hôm nay box -->
+                                <div class="row g-3 p-3 rounded-3 border custom-light-yellow-bg">
+                                    <div class="col-xl-6 col-sm-6 col-12">
+                                        <span class=" fw-bold me-4 text-dark">Mức thuận lợi hôm nay:</span>
+                                    </div>
+                                    <div
+                                        class="col-xl-6 col-sm-6 col-12 p-0 m-0 d-flex justify-content-center align-items-center">
+                                        <div class="progress-dial"
+                                            style="--value: {{ round($getDaySummaryInfo['score']['percentage']) }};">
+                                            <div class="dial-text">
+                                                <span
+                                                    class="dial-percent">{{ round($getDaySummaryInfo['score']['percentage']) }}%</span>
+                                                @php
+                                                    $ratingColors = [
+                                                        'Tốt' => 'text-success',
+                                                        'Xấu' => 'text-danger',
+                                                        'Trung bình' => 'text-warning-tb',
+                                                    ];
+                                                @endphp
+
+                                                <small
+                                                    class="dial-status pt-2 {{ $ratingColors[$getDaySummaryInfo['score']['rating']] ?? 'text-secondary' }}">
+                                                    {{ $getDaySummaryInfo['score']['rating'] }}
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Nội dung cho "Luận giải ngày" (Tab 2 - Nội dung chi tiết ban đầu) -->
+                            <div class="tab-pane fade" id="v-pills-daily-analysis" role="tabpanel"
+                                aria-labelledby="v-pills-daily-analysis-tab" tabindex="0">
+                                @php
+                                    $badFactors = [];
+
+                                    if ($nhiThapBatTu['nature'] == 'Xấu') {
+                                        $badFactors[] =
+                                            'Sao <strong>' . $nhiThapBatTu['name'] . '</strong> (Nhị thập bát tú)';
+                                    }
+
+                                    if ($getThongTinTruc['description']['rating'] == 'Xấu') {
+                                        $badFactors[] =
+                                            'Trực <strong>' . $getThongTinTruc['title'] . '</strong> (Thập nhị trực)';
+                                    }
+
+                                    if (!empty($getSaoTotXauInfo['sao_xau'])) {
+                                        $saoXauList = implode(', ', array_keys($getSaoTotXauInfo['sao_xau']));
+                                        $badFactors[] = 'Các sao xấu khác: ' . $saoXauList;
+                                    }
+                                @endphp
+
+                                <!-- Đặc điểm ngày -->
+                                <div class="content-section mb-4">
+                                    <!-- Nút chuyển đổi (Toggle Switch) -->
+                                   <div class="d-flex justify-content-end">
+                                     <ul class="nav nav-pills mb-3 custom-tab-switch " id="pills-tab" role="tablist">
+                                        <li class="nav-item flex-grow-1" role="presentation">
+                                            <!-- Thêm flex-grow-1 vào nav-item -->
+                                            <button class="btn btn-sm custom-tab-btn active" id="pills-summary-tab"
+                                                data-bs-toggle="pill" data-bs-target="#content-tab-summary"
+                                                type="button" role="tab" aria-controls="content-tab-summary"
+                                                aria-selected="false">Tóm tắt</button>
+                                        </li>
+                                        <li class="nav-item flex-grow-1" role="presentation">
+                                            <!-- Thêm flex-grow-1 vào nav-item -->
+                                            <button class="btn btn-sm custom-tab-btn " id="pills-details-tab"
+                                                data-bs-toggle="pill" data-bs-target="#content-tab-details"
+                                                type="button" role="tab" aria-controls="content-tab-details"
+                                                aria-selected="true">Chi tiết</button>
+                                        </li>
+                                    </ul>
+
+                                   </div>
+                                    <!-- Nội dung của các tab sẽ hiển thị ở đây -->
+                                    <div class="tab-content" id="myDynamicTabContent">
+                                        <!-- Thẻ div thứ nhất (Nội dung tóm tắt) -->
+                                        <div class="tab-pane fade  show active" id="content-tab-summary" role="tabpanel"
+                                            aria-labelledby="tab-summary-button" tabindex="0">
+                                            <h6 class="fw-bold mb-2">
+                                                <img src="{{ asset('icons/dac-diem1.svg') }}" alt="Đặc điểm"
+                                                    class="img-fluid me-2">Đặc điểm ngày 
+                                            </h6>
+                                            <p class="text-secondary small">
+                                                @if (!empty($getDaySummaryInfo['intro_paragraph']))
+                                                    {{ $getDaySummaryInfo['intro_paragraph'] }}
+                                                @else
+                                                    Đang cập nhật (Nội dung tóm tắt)
+                                                @endif
+                                            </p>
+                                            @if (!empty($nhiThapBatTu['guidance']['good']))
+                                                <div class="content-section mb-4">
+                                                    <h6 class="fw-bold mb-2">
+                                                        <img src="{{ asset('icons/dac-diem2.svg') }}" alt="Đặc điểm"
+                                                            class="img-fluid me-2">Việc nên làm
+                                                    </h6>
+                                                    <ul class="list-unstyled text-secondary small">
+                                                        <li>{{ $nhiThapBatTu['guidance']['good'] }}</li>
+                                                    </ul>
+                                                </div>
+                                            @endif
+
+                                            <!-- Không nên -->
+                                            @if (!empty($nhiThapBatTu['guidance']['bad']))
+                                                <div class="content-section mb-4">
+                                                    <h6 class="fw-bold mb-2">
+                                                        <img src="{{ asset('icons/dac-diem3.svg') }}" alt="Đặc điểm"
+                                                            class="img-fluid me-2">Không nên
+                                                    </h6>
+                                                    <ul class="list-unstyled text-secondary small">
+                                                        <li>{{ $nhiThapBatTu['guidance']['bad'] }}</li>
+                                                    </ul>
+                                                </div>
+                                            @endif
+
+                                           
+                                        </div>
+
+                                        <!-- Thẻ div thứ hai (Nội dung chi tiết - Active mặc định) -->
+                                        <div class="tab-pane fade" id="content-tab-details" role="tabpanel"
+                                            aria-labelledby="tab-details-button" tabindex="0">
+                                            <!-- Nội dung chi tiết của bạn ở đây -->
+                                            fsdfds (Nội dung chi tiết được hiển thị khi click vào "Chi tiết")
+                                            <p class="text-secondary small mt-2">
+                                                Đây là nội dung chi tiết đầy đủ hơn về một chủ đề nào đó, có thể bao gồm các
+                                                phân tích sâu hơn hoặc các phần bổ sung.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Việc nên làm -->
+
+                            </div>
+
+                            <!-- Nội dung placeholder cho "Giờ hoàng đạo" (Tab 3) -->
+                            <div class="tab-pane fade" id="v-pills-auspicious-hours" role="tabpanel"
+                                aria-labelledby="v-pills-auspicious-hours-tab" tabindex="0">
+                                <h6 class="fw-bold mb-2"><i class="fas fa-clock text-info me-2"></i>Chi tiết Giờ hoàng
+                                    đạo
+                                </h6>
+                                <p class="text-secondary small">Nội dung về các giờ hoàng đạo trong ngày sẽ được hiển
+                                    thị ở
+                                    đây, giúp bạn lựa chọn thời điểm tốt nhất cho các hoạt động quan trọng.</p>
+                                <ul class="list-unstyled text-secondary small">
+                                    <li>Giờ Tý (23h-1h): Nên làm gì...</li>
+                                    <li>Giờ Sửu (1h-3h): Nên làm gì...</li>
+                                    <li>Giờ Dần (3h-5h): Nên làm gì...</li>
+                                    <li>...</li>
+                                </ul>
+                            </div>
+
+                            <!-- Nội dung placeholder cho "Điểm ngày đẹp" (Tab 4) -->
+                            <div class="tab-pane fade" id="v-pills-good-day-score" role="tabpanel"
+                                aria-labelledby="v-pills-good-day-score-tab" tabindex="0">
+                                <h6 class="fw-bold mb-2"><i class="fas fa-star text-warning me-2"></i>Điểm ngày đẹp
+                                </h6>
+                                <p class="text-secondary small">Thông tin chi tiết về điểm số và đánh giá tổng thể của
+                                    ngày dựa trên các yếu tố phong thủy, giúp bạn nắm bắt mức độ thuận lợi của hôm nay.
+                                </p>
+                                <div class="alert alert-info small mt-3">Ngày hôm nay đạt 85/100 điểm với nhiều sao tốt
+                                    chiếu mệnh, hứa hẹn một ngày nhiều may mắn và thành công!</div>
+                            </div>
+
+                            <!-- Nội dung placeholder cho "Bốc quẻ tò mò" (Tab 5) -->
+                            <div class="tab-pane fade" id="v-pills-curious-hexagram" role="tabpanel"
+                                aria-labelledby="v-pills-curious-hexagram-tab" tabindex="0">
+                                <h6 class="fw-bold mb-2"><i class="fas fa-question-circle text-muted me-2"></i>Bốc quẻ
+                                    tò
+                                    mò</h6>
+                                <p class="text-secondary small">Hãy nhấp vào đây để bốc một quẻ ngẫu nhiên và nhận lời
+                                    khuyên, tiên đoán cho một khía cạnh cụ thể của cuộc sống trong ngày hôm nay.</p>
+                                <button class="btn btn-outline-secondary mt-3">Bốc quẻ ngay!</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
 @endsection

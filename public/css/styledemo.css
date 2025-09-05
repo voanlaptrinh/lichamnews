@@ -110,12 +110,15 @@ body {
     font-weight: bold;
     box-shadow: 5px 0px 13.6px 0px rgba(0, 113, 206, 0.25);
 }
+
 .calendar-table td.current a {
     color: #FFFFFF;
 }
+
 .calendar-table td.current a:hover {
     color: #000000;
 }
+
 .box-contnet-date {
     display: flex;
     gap: 3px;
@@ -2069,7 +2072,6 @@ a:hover {
     width: var(--size);
     height: var(--size);
 
-    /* === THÊM DÒNG NÀY ĐỂ SỬA LỖI === */
     position: relative;
     display: flex;
     align-items: center;
@@ -2086,29 +2088,26 @@ a:hover {
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    /* 
-      Kỹ thuật chính: Dùng conic-gradient để vẽ hình cung.
-      - 270deg tạo ra một hình cung 3/4.
-      - transform: rotate(-135deg) xoay hình cung về đúng vị trí.
-    */
-    background: conic-gradient(var(--track-color) 0 270deg, transparent 270deg 360deg);
-    transform: rotate(-135deg);
+}
+
+/* ::before sẽ là vạch nền hình tròn đầy đủ */
+.progress-dial::before {
+    /* Thay vì conic-gradient, chỉ cần màu nền cho vòng tròn đầy đủ */
+    background: var(--track-color);
+    /* Xoay để đặt 0% ở vị trí 12 giờ (trên cùng) */
+    transform: rotate(-90deg);
 }
 
 /* ::after sẽ là vạch tiến trình nằm đè lên trên */
 .progress-dial::after {
-    /* 
-      Gradient màu cho vạch tiến trình (Nâu -> Vàng)
-      Góc 45deg làm cho gradient chạy dọc theo vạch
-    */
     background: linear-gradient(45deg, #a57e28, #f0c142);
 
-    /* 
-      Dùng mask để cắt vạch tiến trình theo giá trị --value
-      - 2.7deg = 270deg (tổng độ của cung) / 100 (giá trị max)
-    */
-    -webkit-mask: conic-gradient(white calc(var(--value) * 2.7deg), transparent 0);
-    mask: conic-gradient(white calc(var(--value) * 2.7deg), transparent 0);
+    /* Dùng mask để cắt vạch tiến trình theo giá trị --value */
+    /* Tổng độ của cung là 360 độ, nên 360 / 100 = 3.6deg */
+    -webkit-mask: conic-gradient(white calc(var(--value) * 3.6deg), transparent 0);
+    mask: conic-gradient(white calc(var(--value) * 3.6deg), transparent 0);
+    /* Xoay để đặt điểm bắt đầu (0%) ở vị trí 12 giờ (trên cùng) */
+    transform: rotate(-90deg);
 }
 
 /* --- 4. Tạo tay cầm (thumb) màu xanh lá --- */
@@ -2121,13 +2120,15 @@ a:hover {
     /* Màu xanh lá */
     border-radius: 50%;
     border: 2px solid white;
-    /* 
+    /*
       Tính toán vị trí của tay cầm:
       - Xoay tay cầm đến vị trí tương ứng với --value.
-      - translateY để đẩy nó ra đúng mép của vạch.
+      - 3.6deg = 360deg / 100.
+      - -90deg để đồng bộ với 0% ở 12 giờ.
+      - translateY để đẩy nó ra đúng mép của vạch (tính đến giữa của vạch).
     */
     transform:
-        rotate(calc(var(--value) * 2.7deg - 135deg)) translateY(calc(var(--size) / -2.2));
+        rotate(calc(var(--value) * 3.6deg - 90deg)) translateY(calc(var(--size) / -2 + var(--track-width) / 2));
 }
 
 /* --- 5. Style cho văn bản bên trong --- */
@@ -2246,6 +2247,7 @@ a:hover {
 .event-item:nth-child(even) {
     border-bottom: 1px solid #2254AB !important;
 }
+
 .event-item:last-child {
     border-bottom: none !important;
 }
@@ -2464,7 +2466,7 @@ a:hover {
 
 /* Tiêu đề chính (H2) */
 .van-lien-hows h2 {
-    font-size: 28px;
+    font-size: 24px;
     font-weight: 700;
     color: #192E52;
     /* Màu xanh đen */
@@ -2753,94 +2755,136 @@ a:hover {
 .date_number_lich_am {
     color: #BE8800 !important;
 }
-.pe-1-pc-home{
+
+.pe-1-pc-home {
     padding-right: 8px;
 }
-.item-rings{
+
+.item-rings {
     position: absolute;
 }
-.ring-item1-left{
+
+.ring-item1-left {
     justify-content: start;
     padding-top: 258px;
-   left: 26px;
-   display: flex;
-   gap: 19px;
+    left: 26px;
+    display: flex;
+    gap: 19px;
 }
-.ring-item2-right{
+
+.ring-item2-right {
     justify-content: end;
     padding-top: 258px;
-   right: 26px;
-   display: flex;
-   gap: 19px;
+    right: 26px;
+    display: flex;
+    gap: 19px;
 }
+
 /* keyframes cho hiệu ứng lắc nghiêng */
 @keyframes tilt-shake {
-    0% { transform: rotate(0deg); }
-    25% { transform: rotate(-20deg); } /* Nghiêng trái 20 độ */
-    50% { transform: rotate(20deg); }  /* Nghiêng phải 20 độ */
-    75% { transform: rotate(-20deg); } /* Nghiêng trái lại */
-    100% { transform: rotate(0deg); }  /* Về vị trí ban đầu */
+    0% {
+        transform: rotate(0deg);
+    }
+
+    25% {
+        transform: rotate(-20deg);
+    }
+
+    /* Nghiêng trái 20 độ */
+    50% {
+        transform: rotate(20deg);
+    }
+
+    /* Nghiêng phải 20 độ */
+    75% {
+        transform: rotate(-20deg);
+    }
+
+    /* Nghiêng trái lại */
+    100% {
+        transform: rotate(0deg);
+    }
+
+    /* Về vị trí ban đầu */
 }
 
 /* Class để áp dụng hiệu ứng lắc nghiêng cho ảnh */
-.shake-tilt-animation img { /* Áp dụng animation trực tiếp cho thẻ img bên trong */
-    animation: tilt-shake 1.1s ease-in-out infinite; /* Thời gian lắc 1.2s, lặp lại vô hạn */
-    transform-origin: center center; /* Đảm bảo xoay quanh tâm ảnh */
+.shake-tilt-animation img {
+    /* Áp dụng animation trực tiếp cho thẻ img bên trong */
+    animation: tilt-shake 1.1s ease-in-out infinite;
+    /* Thời gian lắc 1.2s, lặp lại vô hạn */
+    transform-origin: center center;
+    /* Đảm bảo xoay quanh tâm ảnh */
     border-radius: 50%;
 }
 
 /* Định vị nút cố định trên màn hình (sticky) */
 .sticky-buttons {
-    position: fixed; /* Cố định vị trí */
-    bottom: 20px; /* Cách đáy 20px */
-    right: 20px; /* Cách lề phải 20px */
-    z-index: 1000; /* Đảm bảo nó hiển thị trên các phần tử khác */
+    position: fixed;
+    /* Cố định vị trí */
+    bottom: 20px;
+    /* Cách đáy 20px */
+    right: 20px;
+    /* Cách lề phải 20px */
+    z-index: 1000;
+    /* Đảm bảo nó hiển thị trên các phần tử khác */
 }
 
 /* Tùy chỉnh thêm cho nút gieo quẻ nếu cần */
 .btn-gieo {
-    border: none; /* Bỏ viền nếu không muốn */
-    background: none; /* Bỏ nền nếu chỉ muốn hình ảnh */
-    padding: 0; /* Bỏ padding mặc định của button nếu cần */
-    display: flex; /* Để hình ảnh có thể căn giữa trong button nếu cần */
+    border: none;
+    /* Bỏ viền nếu không muốn */
+    background: none;
+    /* Bỏ nền nếu chỉ muốn hình ảnh */
+    padding: 0;
+    /* Bỏ padding mặc định của button nếu cần */
+    display: flex;
+    /* Để hình ảnh có thể căn giữa trong button nếu cần */
     align-items: center;
     justify-content: center;
 }
 
 /* Đảm bảo hình ảnh không bị thu nhỏ quá mức */
 .btn-gieo img {
-    max-width: 60px; /* Giữ kích thước ban đầu */
+    max-width: 60px;
+    /* Giữ kích thước ban đầu */
     height: auto;
 }
-.contetn-popup1{
-        background-color: unset;
+
+.contetn-popup1 {
+    background-color: unset;
     border: unset;
 }
+
 .btn-gieu-tu-dong {
     /* Base styles */
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 48px; /* Chiều cao theo hình ảnh mới */
-    padding: 0 40px; /* Khoảng cách để text không bị che bởi họa tiết */
+    height: 48px;
+    /* Chiều cao theo hình ảnh mới */
+    padding: 0 40px;
+    /* Khoảng cách để text không bị che bởi họa tiết */
     width: 65%;
-    border-radius: 16px; /* Bo tròn theo hình ảnh mới */
-    
+    border-radius: 16px;
+    /* Bo tròn theo hình ảnh mới */
+
     /* Gradient màu sắc theo hình ảnh */
     background: linear-gradient(to right, #FF7B00, #FF0000);
     color: white;
-    font-size: 1.2em; /* Kích thước chữ */
+    font-size: 1.2em;
+    /* Kích thước chữ */
     font-weight: bold;
     text-transform: uppercase;
     border: none;
     cursor: pointer;
-    position: relative; 
-    overflow: hidden; 
+    position: relative;
+    overflow: hidden;
 
     box-shadow: 0 0 10px rgba(255, 123, 0, 0.7);
-    white-space: nowrap; 
-    z-index: 1; 
-    transform-origin: center center; 
+    white-space: nowrap;
+    z-index: 1;
+    transform-origin: center center;
 }
 
 .btn-gieu-tu-dong::before,
@@ -2849,16 +2893,16 @@ a:hover {
     position: absolute;
     top: 0;
     bottom: 0;
-    width: 46%; 
-    background-size: cover; 
+    width: 46%;
+    background-size: cover;
     background-repeat: no-repeat;
-    pointer-events: none; 
+    pointer-events: none;
     z-index: 0;
 }
 
 .btn-gieu-tu-dong::before {
     left: 0;
-    background-image: url('/icons/btn-hop-left.svg'); 
+    background-image: url('/icons/btn-hop-left.svg');
     background-position: left center;
 }
 
@@ -2867,7 +2911,8 @@ a:hover {
     background-image: url('/icons/btn-hop-right.svg');
     background-position: right center;
 }
-.fortune-btn-text{
+
+.fortune-btn-text {
     position: absolute;
     z-index: 99;
 }
@@ -2876,24 +2921,167 @@ a:hover {
 /* Trong styledemo.css hoặc một file CSS khác của bạn */
 
 .modal-body.fortune-overlay-container {
-    position: relative; /* Đặt modal-body làm điểm neo cho phần tử absolute */
-    text-align: center; /* Căn giữa ảnh và các phần tử inline/inline-block khác */
+    position: relative;
+    /* Đặt modal-body làm điểm neo cho phần tử absolute */
+    text-align: center;
+    /* Căn giữa ảnh và các phần tử inline/inline-block khác */
     /* Thêm padding-bottom nếu nội dung của bạn có thể tràn ra ngoài ảnh */
-    padding-bottom: 20px; /* Ví dụ: để nút không quá sát dưới */
+    padding-bottom: 20px;
+    /* Ví dụ: để nút không quá sát dưới */
 }
 
 .fortune-overlay-text {
     font-size: 14px;
     /* border-radius: 5px; */
-    color: #000000; /* Đảm bảo màu sắc hiển thị rõ */
-  
+    color: #000000;
+    /* Đảm bảo màu sắc hiển thị rõ */
+
     font-weight: bold;
 }
-.box-que-gieo{
-position: absolute; /* Đặt tiêu đề ở vị trí tuyệt đối */
-    top: 66px; /* Điều chỉnh giá trị này để thay đổi vị trí dọc trên ảnh */
-    left: 50%; /* Dịch sang giữa theo chiều ngang */
-    transform: translateX(-50%); /* Căn giữa hoàn toàn theo chiều ngang */
-    z-index: 10; /* Đảm bảo văn bản nằm trên ảnh */
-    width: 90%; /* Giới hạn chiều rộng của tiêu đề để không tràn ra ngoài */
+
+.box-que-gieo {
+    position: absolute;
+    /* Đặt tiêu đề ở vị trí tuyệt đối */
+    top: 66px;
+    /* Điều chỉnh giá trị này để thay đổi vị trí dọc trên ảnh */
+    left: 50%;
+    /* Dịch sang giữa theo chiều ngang */
+    transform: translateX(-50%);
+    /* Căn giữa hoàn toàn theo chiều ngang */
+    z-index: 10;
+    /* Đảm bảo văn bản nằm trên ảnh */
+    width: 90%;
+    /* Giới hạn chiều rộng của tiêu đề để không tràn ra ngoài */
 }
+
+.box-date-detail {
+    background: #DCEEFD;
+    border-radius: 36px;
+    padding: 20px;
+}
+
+.content-title-date-detail {
+    font-size: 18px;
+    padding: 24px 0;
+}
+
+.content-title-date-detail span {
+    color: #2254AB;
+    font-weight: 600;
+}
+
+.tong-quan-date {
+    background: #FFFFFF;
+    border-radius: 32px;
+    box-shadow: #4646460D 2px 2px 5px 0px;
+}
+
+.left-sidebar .nav-pills .nav-link {
+    color: #333;
+    /* Màu chữ mặc định (darker grey) */
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    font-weight: 500;
+    border-radius: 0.4rem;
+    /* Giữ bo góc nhẹ */
+    background-color: transparent;
+    /* Nền trong suốt mặc định */
+    position: relative;
+    /* Để kiểm soát đường viền dưới */
+    /* Loại bỏ margin-bottom từ HTML để đường viền liền mạch hơn */
+    margin-bottom: 0 !important;
+    /* Loại bỏ mb-2 */
+}
+
+/* Thêm đường viền dưới cho tất cả các nav-link */
+.left-sidebar .nav-pills .nav-link:not(:last-child) {
+    border-bottom: 1px solid #f0f0f0;
+    /* Đường viền mảnh màu xám nhạt */
+}
+
+.left-sidebar .nav-pills .nav-link:hover:not(.active) {
+    background-color: #f8f9fa;
+    /* Nền hơi xám khi hover */
+    color: #212529;
+    /* Chữ đậm hơn khi hover */
+}
+
+/* Tab active */
+.left-sidebar .nav-pills .nav-link.active {
+    background-color: #f0f2f5;
+    /* Nền màu xám nhạt theo hình ảnh */
+    color: #333;
+    /* Chữ màu đen đậm */
+    font-weight: 600;
+    /* Bolder text for active tab */
+    /* Loại bỏ đường viền dưới của tab active để tạo hiệu ứng đứt đoạn */
+    border-bottom-color: transparent !important;
+}
+
+/* Xử lý đường viền cho tab trước và sau tab active */
+.left-sidebar .nav-pills .nav-link.active+.nav-link {
+    border-top-color: transparent !important;
+    /* Loại bỏ đường viền trên của tab ngay sau tab active */
+}
+
+/* Nếu bạn muốn tab active không có đường viền nào xung quanh, 
+       cần dùng kỹ thuật phức tạp hơn, nhưng với ảnh này chỉ cần loại bỏ đường viền dưới của chính nó */
+
+
+/* Icon chevron-down */
+.left-sidebar .nav-pills .nav-link .fa-chevron-down {
+    color: #6c757d;
+    /* Màu xám cho icon mặc định */
+    font-size: 0.8rem;
+    /* Kích thước nhỏ hơn */
+    transition: color 0.2s ease;
+}
+
+.left-sidebar .nav-pills .nav-link.active .fa-chevron-down {
+    color: #333;
+    /* Màu đen khớp với chữ active */
+}
+.custom-light-yellow-bg{
+    background: #FDFAE9;
+    max-width: 450px;
+}
+  .custom-tab-switch {
+        background-color: #f0f2f5 !important; /* Nền xám nhạt cho toàn bộ pill */
+        border: 1px solid #e0e0e0 !important; /* Viền của pill */
+        border-radius: 9999px !important; /* Bo tròn hoàn toàn */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Bóng nhẹ */
+        padding: 4px; /* Khoảng cách giữa viền và nút bên trong */
+        display: flex; /* Đảm bảo các nav-item nằm ngang */
+        width: fit-content; /* Chỉ chiếm chiều rộng vừa đủ */
+    }
+
+    /* Đảm bảo các nav-item không thêm padding/margin không mong muốn */
+    .custom-tab-switch .nav-item {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .custom-tab-switch .custom-tab-btn {
+        flex: 1; /* Các nút sẽ chia đều không gian trong pill */
+        border: none !important; /* Loại bỏ viền riêng của nút */
+        background-color: transparent !important; /* Nền trong suốt khi không active */
+        color: #333 !important; /* Màu chữ mặc định */
+        font-weight: 500 !important;
+        font-size: 0.85rem !important; /* Kích thước chữ */
+        padding: 0.4rem 1.2rem !important; /* Padding của nút */
+        border-radius: 9999px !important; /* Tạo hình tròn hoàn toàn cho nút */
+        transition: all 0.2s ease !important; /* Hiệu ứng chuyển động mượt mà */
+        white-space: nowrap; /* Ngăn chữ bị xuống dòng */
+        text-align: center; /* Căn giữa chữ */
+    }
+
+    .custom-tab-switch .custom-tab-btn.active {
+        background-color: #0d6efd !important; /* Nền màu xanh dương cho nút active */
+        color: white !important; /* Chữ màu trắng cho nút active */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Bóng nhẹ cho nút active */
+    }
+
+    .custom-tab-switch .custom-tab-btn:hover:not(.active) {
+        background-color: rgba(0, 0, 0, 0.05) !important; /* Hiệu ứng hover nhẹ khi không active */
+    }

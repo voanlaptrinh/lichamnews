@@ -559,8 +559,30 @@ class LunarController extends Controller
         $amToday = sprintf('%04d-%02d-%02d', $al[2], $al[1], $al[0]);
 
         $getDaySummaryInfo = FunctionHelper::getDaySummaryInfo((int)$dd, (int)$mm, (int)$yy, $birthdate);
+        $suKienHomNay = [];
 
+        // 1. Xử lý sự kiện DƯƠNG LỊCH
+        // Lấy tất cả sự kiện DƯƠNG LỊCH trong tháng từ Helper
+        $suKienTrongThangDuong = LunarHelper::getVietnamEvent($mm, $yy);
 
+        // Bây giờ, kiểm tra xem ngày DƯƠNG LỊCH hiện tại ($dd) có tồn tại
+        // như một key trong danh sách sự kiện của tháng không.
+        if (isset($suKienTrongThangDuong[$dd])) {
+            // Nếu có, thêm sự kiện của ngày đó vào mảng kết quả
+            $suKienHomNay[] = $suKienTrongThangDuong[$dd];
+        }
+
+        // 2. Xử lý sự kiện ÂM LỊCH (tương tự)
+        // Lấy tất cả sự kiện ÂM LỊCH trong tháng từ Helper
+        // Giả sử $al[0] là ngày âm, $al[1] là tháng âm
+        $suKienTrongThangAm = LunarHelper::getVietnamLunarEvent2($al[1], $al[2]);
+        // dd($suKienTrongThangAm);
+        // Kiểm tra xem ngày ÂM LỊCH hiện tại ($al[0]) có trong danh sách không
+        if (isset($suKienTrongThangAm[$al[0]])) {
+            // Nếu có, cũng thêm vào mảng kết quả
+            $suKienHomNay[] = $suKienTrongThangAm[$al[0]];
+        }
+$tot_xau_result = LunarHelper::checkTotXau($canChi, $al[1]);
         return view('lunar.detail', [
             'cdate' => $cdate,
             'dd' => $dd,
@@ -580,10 +602,11 @@ class LunarController extends Controller
             'banhToChi' => $banhToChi, //giải thích ngày theo Bành Tổ Bách Kỵ
             'chiNgay' => $chiNgay,
             'amToday' => $amToday,
-
+            'tot_xau_result' => $tot_xau_result,
+            'suKienHomNay' => $suKienHomNay,
             'khongMinhLucDieu' => $khongMinhLucDieu, // lịch khổng minh lục diệu
             'getDetailedGioHoangDao' => $getDetailedGioHoangDao,
-            'getThongTinXuatHanhVaLyThuanPhong' => $getThongTinXuatHanhVaLyThuanPhong,//Hướng xuất hành và giờ xuất hành lý thuần phong
+            'getThongTinXuatHanhVaLyThuanPhong' => $getThongTinXuatHanhVaLyThuanPhong, //Hướng xuất hành và giờ xuất hành lý thuần phong
             'getThongTinTruc' => $getThongTinTruc,
             'getThongTinCanChiVaIcon' => $getThongTinCanChiVaIcon, //Lấy thông tin ngày và icon
             'nhiThapBatTu' => $nhiThapBatTu, //THoong tin nhị thập bát tú
@@ -592,6 +615,5 @@ class LunarController extends Controller
             'getDaySummaryInfo' => $getDaySummaryInfo
 
         ]);
-    
     }
 }

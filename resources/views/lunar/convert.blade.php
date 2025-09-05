@@ -354,7 +354,7 @@
                             </div>
                         </div>
                         <!-- BẮT ĐẦU: KHỐI MỨC THUẬN LỢI (ĐÃ CẬP NHẬT) -->
-                        <div class="convenience-level d-flex justify-content-between align-items-centerrow h-100">
+                        <div class="convenience-level d-flex justify-content-between align-items-centerrow h-100 mb-3">
                             <div class="col-lg-6 d-flex align-items-center">
                                 <div class="level-label">
                                     Mức thuận lợi<br>hôm nay:
@@ -378,7 +378,7 @@
                         </div>
                         <!-- KẾT THÚC: KHỐI MỨC THUẬN LỢI -->
                         <a href="{{ route('detai_home', ['nam' => $yy, 'thang' =>$mm, 'ngay' => $dd ]) }}"
-                            class="btn w-100 text-detail-date-hand-pc pt-3 text-start text-decoration-underline"><img
+                            class="m w-100 text-detail-date-hand-pc pt-3 text-start text-decoration-underline"><img
                                 src="{{ asset('icons/hand_2.svg') }}" alt="hand_2" class="img-fluid">
                             Xem chi tiết ngày</a>
                     </div>
