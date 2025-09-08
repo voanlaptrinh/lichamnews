@@ -32,7 +32,7 @@ class GioHoangDaoHelper
 
                 $hourNapAmData = DataHelper::$napAmTable[$canChiGio] ?? ['hanh' => 'Không rõ'];
                 $menhGio = $hourNapAmData['hanh'];
-                $canChiMenh = "$canChiGio</br>Mệnh $menhGio";
+                $canChiMenh = "$canChiGio / Mệnh $menhGio";
                 $typeAndRating = self::determineHourTypeAndRating($hourCan, $hourChi, $menhGio, $dayCan, $dayChi, $dayHanh);
 
                 $zodiacIcon = DataHelper::$chiIcons[$hourChi] ?? '❓';

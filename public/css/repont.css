@@ -47,6 +47,9 @@
     .content-title-home-lich{
         font-size: 24px;
     }
+    .left-sidebar{
+        width: 300px;
+    }
 }
 
 @media screen and (min-width: 1400px) {
@@ -106,6 +109,9 @@
     .content-title-home-lich{
         font-size: 24px;
     }
+    .left-sidebar{
+        width: 300px;
+    }
 }
 
 @media screen and (min-width: 1200px) and (max-width: 1399.98px) {
@@ -156,6 +162,9 @@
     }
     .content-title-home-lich{
         font-size: 24px;
+    }
+    .left-sidebar{
+        width: 300px;
     }
 }
 
@@ -210,6 +219,9 @@
     }
      .item-rings{
         display: none;
+    }
+    .left-sidebar{
+        width: 300px;
     }
 }
 

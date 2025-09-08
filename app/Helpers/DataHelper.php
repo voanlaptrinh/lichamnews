@@ -5083,18 +5083,18 @@ class DataHelper
         ],
     ];
     public static array $chiIcons = [
-        'Tý' => '🐀',
-        'Sửu' => '🐂',
-        'Dần' => '🐅',
-        'Mão' => '🐈',
-        'Thìn' => '🐉',
-        'Tỵ' => '🐍',
-        'Ngọ' => '🐎',
-        'Mùi' => '🐐',
-        'Thân' => '🐒',
-        'Dậu' => '🐓',
-        'Tuất' => '🐕',
-        'Hợi' => '🐖',
+        'Tý' => '/icons/ti_icon_tab.svg',
+        'Sửu' => '/icons/suu_icon_tab.svg',
+        'Dần' => '/icons/dan_icon_tab.svg',
+        'Mão' => '/icons/mao_icon_tab.svg',
+        'Thìn' => '/icons/thin_icon_tab.svg',
+        'Tỵ' => '/icons/ty_icon_tab.svg',
+        'Ngọ' => '/icons/ngo_icon_tab.svg',
+        'Mùi' => '/icons/mui_icon_tab.svg',
+        'Thân' => '/icons/than_icon_tab.svg',
+        'Dậu' => '/icons/dau_icon_tab.svg',
+        'Tuất' => '/icons/tuat_icon_tab.svg',
+        'Hợi' => '/icons/hoi_icon_tab.svg',
     ];
     public static array $chiColors = [
         // Các màu được chọn đậm hơn/bão hòa hơn để nổi bật trên nền F8E3BA (vàng be)

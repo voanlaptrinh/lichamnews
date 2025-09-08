@@ -53,7 +53,8 @@ class NhiTrucHelper
             }
 
             // BƯỚC 3: Xác định Kiến Chi của tháng (đã sửa lại theo đúng quy tắc)
-            $kienChi = self::getKienChiByLunarMonth($lunarMonth);
+            $tietKhi = LunarHelper::tietKhiByJD($jd);
+            $kienChi = self::getKienChi($tietKhi, $lunarMonth);
 
             // BƯỚC 4: Tính toán Trực
             $trucList = [

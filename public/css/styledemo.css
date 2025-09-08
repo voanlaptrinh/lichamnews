@@ -3042,46 +3042,109 @@ a:hover {
     color: #333;
     /* Màu đen khớp với chữ active */
 }
-.custom-light-yellow-bg{
+
+.custom-light-yellow-bg {
     background: #FDFAE9;
     max-width: 450px;
 }
-  .custom-tab-switch {
-        background-color: #f0f2f5 !important; /* Nền xám nhạt cho toàn bộ pill */
-        border: 1px solid #e0e0e0 !important; /* Viền của pill */
-        border-radius: 9999px !important; /* Bo tròn hoàn toàn */
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Bóng nhẹ */
-        padding: 4px; /* Khoảng cách giữa viền và nút bên trong */
-        display: flex; /* Đảm bảo các nav-item nằm ngang */
-        width: fit-content; /* Chỉ chiếm chiều rộng vừa đủ */
-    }
 
-    /* Đảm bảo các nav-item không thêm padding/margin không mong muốn */
-    .custom-tab-switch .nav-item {
-        margin: 0 !important;
-        padding: 0 !important;
-    }
+.custom-tab-switch {
+    background-color: #f0f2f5 !important;
+    /* Nền xám nhạt cho toàn bộ pill */
+    border: 1px solid #e0e0e0 !important;
+    /* Viền của pill */
+    border-radius: 9999px !important;
+    /* Bo tròn hoàn toàn */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    /* Bóng nhẹ */
+    padding: 4px;
+    /* Khoảng cách giữa viền và nút bên trong */
+    display: flex;
+    /* Đảm bảo các nav-item nằm ngang */
+    width: fit-content;
+    /* Chỉ chiếm chiều rộng vừa đủ */
+}
 
-    .custom-tab-switch .custom-tab-btn {
-        flex: 1; /* Các nút sẽ chia đều không gian trong pill */
-        border: none !important; /* Loại bỏ viền riêng của nút */
-        background-color: transparent !important; /* Nền trong suốt khi không active */
-        color: #333 !important; /* Màu chữ mặc định */
-        font-weight: 500 !important;
-        font-size: 0.85rem !important; /* Kích thước chữ */
-        padding: 0.4rem 1.2rem !important; /* Padding của nút */
-        border-radius: 9999px !important; /* Tạo hình tròn hoàn toàn cho nút */
-        transition: all 0.2s ease !important; /* Hiệu ứng chuyển động mượt mà */
-        white-space: nowrap; /* Ngăn chữ bị xuống dòng */
-        text-align: center; /* Căn giữa chữ */
-    }
+/* Đảm bảo các nav-item không thêm padding/margin không mong muốn */
+.custom-tab-switch .nav-item {
+    margin: 0 !important;
+    padding: 0 !important;
+}
 
-    .custom-tab-switch .custom-tab-btn.active {
-        background-color: #0d6efd !important; /* Nền màu xanh dương cho nút active */
-        color: white !important; /* Chữ màu trắng cho nút active */
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Bóng nhẹ cho nút active */
-    }
+.custom-tab-switch .custom-tab-btn {
+    flex: 1;
+    /* Các nút sẽ chia đều không gian trong pill */
+    border: none !important;
+    /* Loại bỏ viền riêng của nút */
+    background-color: transparent !important;
+    /* Nền trong suốt khi không active */
+    color: #333 !important;
+    /* Màu chữ mặc định */
+    font-weight: 500 !important;
+    font-size: 0.85rem !important;
+    /* Kích thước chữ */
+    padding: 0.4rem 1.2rem !important;
+    /* Padding của nút */
+    border-radius: 9999px !important;
+    /* Tạo hình tròn hoàn toàn cho nút */
+    transition: all 0.2s ease !important;
+    /* Hiệu ứng chuyển động mượt mà */
+    white-space: nowrap;
+    /* Ngăn chữ bị xuống dòng */
+    text-align: center;
+    /* Căn giữa chữ */
+}
 
-    .custom-tab-switch .custom-tab-btn:hover:not(.active) {
-        background-color: rgba(0, 0, 0, 0.05) !important; /* Hiệu ứng hover nhẹ khi không active */
-    }
+.custom-tab-switch .custom-tab-btn.active {
+    background-color: #0d6efd !important;
+    /* Nền màu xanh dương cho nút active */
+    color: white !important;
+    /* Chữ màu trắng cho nút active */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Bóng nhẹ cho nút active */
+}
+
+.custom-tab-switch .custom-tab-btn:hover:not(.active) {
+    background-color: rgba(0, 0, 0, 0.05) !important;
+    /* Hiệu ứng hover nhẹ khi không active */
+}
+
+.accordion-item {
+    border: none !important;
+}
+
+.item-container {
+    display: flex;
+    align-items: flex-start;
+    /* Căn các item con lên đầu */
+   
+}
+
+.star-wrapper {
+    margin-right: 5px;
+    flex-shrink: 0;
+}
+
+.star-icon {
+    color: #FFC107;
+    line-height: 1;
+    display: block;
+}
+
+
+.text-content h1 {
+    font-size: 16px;
+    font-weight: normal;
+    margin: 0 0 10px 0;
+    line-height: 1.5;
+}
+
+.text-content p {
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.text-content strong {
+    font-weight: bold;
+}

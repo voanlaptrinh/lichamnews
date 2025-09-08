@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\BadDayHelper;
 use App\Helpers\CatHungHelper;
 use App\Helpers\DataHelper;
+use App\Helpers\FengShuiHelper;
 use App\Helpers\FunctionHelper;
 use App\Helpers\GioHoangDaoHelper;
 use App\Helpers\GoodBadDayHelper;
@@ -582,7 +584,13 @@ class LunarController extends Controller
             // Nếu có, cũng thêm vào mảng kết quả
             $suKienHomNay[] = $suKienTrongThangAm[$al[0]];
         }
-$tot_xau_result = LunarHelper::checkTotXau($canChi, $al[1]);
+        $tot_xau_result = LunarHelper::checkTotXau($canChi, $al[1]);
+
+        $dateToCheck = Carbon::create($yy, $mm, $dd);
+        $getVongKhiNgayThang = KhiVanHelper::getDetailedKhiThangInfo($dateToCheck);
+        $getCucKhiHopXung = FengShuiHelper::getCucKhiHopXung($chiNgay[1]);
+        $checkBadDays = BadDayHelper::checkBadDays($dateToCheck);
+        // dd($checkBadDays);
         return view('lunar.detail', [
             'cdate' => $cdate,
             'dd' => $dd,
@@ -612,7 +620,10 @@ $tot_xau_result = LunarHelper::checkTotXau($canChi, $al[1]);
             'nhiThapBatTu' => $nhiThapBatTu, //THoong tin nhị thập bát tú
             'getSaoTotXauInfo' => $getSaoTotXauInfo, //Ngọc hạp thông thư
             'getThongTinNgay' => $getThongTinNgay, //Tổng quan ngày
-            'getDaySummaryInfo' => $getDaySummaryInfo
+            'getDaySummaryInfo' => $getDaySummaryInfo,
+            'getVongKhiNgayThang' => $getVongKhiNgayThang,
+            'getCucKhiHopXung' => $getCucKhiHopXung,
+            'checkBadDays' => $checkBadDays,
 
         ]);
     }
