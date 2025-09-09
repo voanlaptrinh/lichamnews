@@ -451,13 +451,13 @@
             <div class="tong-quan-date">
 
 
-                <div class="card-body p-4 position-relative">
+                <div class="card-body  p-4 position-relative">
                     <!-- Nút "Tổng quan" ở góc trên bên phải -->
 
 
                     <div class="row"> <!-- Sử dụng row thay vì d-flex flex-column flex-md-row -->
                         <!-- Cột bên trái: Navigation (Tabs) -->
-                        <div class="left-sidebar col-12 col-md-auto  border-end-md pb-3 pb-md-0 mb-3 mb-md-0">
+                        <div class="left-sidebar col-12 col-md-auto  border-end-md pb-3 pb-md-0 mb-md-0">
                             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist"
                                 aria-orientation="vertical">
                                 <!-- Tab 1: Thông tin chung (Active mặc định) -->
@@ -490,47 +490,40 @@
                                     data-bs-toggle="pill" data-bs-target="#v-pills-good-day-score" type="button"
                                     role="tab" aria-controls="v-pills-good-day-score" aria-selected="false">Điểm ngày
                                     đẹp</button>
-
-                                <!-- Tab 5: Bốc quẻ tò mò -->
-                                <button class="nav-link text-start p-3" id="v-pills-curious-hexagram-tab"
-                                    data-bs-toggle="pill" data-bs-target="#v-pills-curious-hexagram" type="button"
-                                    role="tab" aria-controls="v-pills-curious-hexagram" aria-selected="false">Bốc quẻ
-                                    tò
-                                    mò</button>
                             </div>
                         </div>
 
                         <!-- Cột bên phải: Nội dung chính (Tab Content) -->
-                        <div class="main-content col pt-3 pt-md-0 tab-content" id="v-pills-tabContent">
+                        <div class="main-content content-lunar-detail col pt-3 pt-md-0 tab-content" id="v-pills-tabContent">
                             <!-- Nội dung cho "Thông tin chung" (Tab 1 - active mặc định) -->
                             <div class="tab-pane fade show active" id="v-pills-general-info" role="tabpanel"
                                 aria-labelledby="v-pills-general-info-tab" tabindex="0">
-                                <p class="mb-2 text-secondary small">
+                                <p class="mb-2  small">
                                     <span class="fw-bold text-dark">Tiết khí:</span> {!! $tietkhi['icon'] !!} <span
                                         class="text-uppercase">{{ $tietkhi['tiet_khi'] }}</span>
                                 </p>
-                                <p class="mb-2 text-secondary small">
+                                <p class="mb-2  small">
                                     <span class="fw-bold text-dark">Ngũ hành nạp âm:</span>
                                     {{ $getThongTinNgay['nap_am']['napAm'] }}
                                 </p>
-                                <p class="mb-2 text-secondary small">
+                                <p class="mb-2  small">
                                     <span class="fw-bold text-dark">Sao, trực:</span> sao {{ $nhiThapBatTu['name'] }}
                                     ({{ $nhiThapBatTu['fullName'] }}), trực {{ $getThongTinTruc['title'] }}
 
 
                                 </p>
-                                <p class="mb-2 text-secondary small">
+                                <p class="mb-2  small">
                                     <span class="fw-bold text-dark">Tuổi xung:</span> {{ $getThongTinNgay['tuoi_xung'] }}
                                 </p>
-                                <p class="mb-4 text-secondary small">
+                                <p class="mb-4  small">
                                     <span class="fw-bold text-dark">Giờ hoàng đạo:</span>
                                     {{ $getThongTinNgay['gio_hoang_dao'] }}
                                 </p>
 
                                 <!-- Mức thuận lợi hôm nay box -->
-                                <div class="row g-3 p-3 rounded-3 border custom-light-yellow-bg">
+                                <div class="row g-3 p-sm-3 p-2 rounded-3 border custom-light-yellow-bg">
                                     <div class="col-xl-6 col-sm-6 col-12">
-                                        <span class=" fw-bold me-4 text-dark">Mức thuận lợi hôm nay:</span>
+                                        <span class=" fw-bold me-4 text-dark pb-2">Mức thuận lợi hôm nay:</span>
                                     </div>
                                     <div
                                         class="col-xl-6 col-sm-6 col-12 p-0 m-0 d-flex justify-content-center align-items-center">
@@ -548,7 +541,7 @@
                                                 @endphp
 
                                                 <small
-                                                    class="dial-status pt-2 {{ $ratingColors[$getDaySummaryInfo['score']['rating']] ?? 'text-secondary' }}">
+                                                    class="dial-status pt-2 {{ $ratingColors[$getDaySummaryInfo['score']['rating']] ?? '' }}">
                                                     {{ $getDaySummaryInfo['score']['rating'] }}
                                                 </small>
                                             </div>
@@ -610,7 +603,7 @@
                                                 <img src="{{ asset('icons/dac-diem1.svg') }}" alt="Đặc điểm"
                                                     class="img-fluid me-2">Đặc điểm ngày
                                             </h6>
-                                            <p class="text-secondary small">
+                                            <p class=" small">
                                                 @if (!empty($getDaySummaryInfo['intro_paragraph']))
                                                     {{ $getDaySummaryInfo['intro_paragraph'] }}
                                                 @else
@@ -623,7 +616,7 @@
                                                         <img src="{{ asset('icons/dac-diem2.svg') }}" alt="Đặc điểm"
                                                             class="img-fluid me-2">Việc nên làm
                                                     </h6>
-                                                    <ul class="list-unstyled text-secondary small">
+                                                    <ul class="list-unstyled  small">
                                                         <li>{{ $nhiThapBatTu['guidance']['good'] }}</li>
                                                     </ul>
                                                 </div>
@@ -636,7 +629,7 @@
                                                         <img src="{{ asset('icons/dac-diem3.svg') }}" alt="Đặc điểm"
                                                             class="img-fluid me-2">Không nên
                                                     </h6>
-                                                    <ul class="list-unstyled text-secondary small">
+                                                    <ul class="list-unstyled  small">
                                                         <li>{{ $nhiThapBatTu['guidance']['bad'] }}</li>
                                                     </ul>
                                                 </div>
@@ -947,7 +940,7 @@
                                                                             <li>Đón Hỷ thần:
                                                                                 {{ $getThongTinXuatHanhVaLyThuanPhong['huong_xuat_hanh']['hyThan']['direction'] }}
                                                                             </li>
-                                                                            <li>ĐónTài thần:
+                                                                            <li>Đón Tài thần:
                                                                                 {{ $getThongTinXuatHanhVaLyThuanPhong['huong_xuat_hanh']['taiThan']['direction'] }}
                                                                             </li>
                                                                         </ul>
@@ -1033,26 +1026,31 @@
                                         {
                                             $stars = '';
                                             for ($i = 1; $i <= 5; $i++) {
-                                                $stars .= $i <= $rating ? '★' : '☆';
+                                                $stars .=
+                                                    $i <= $rating
+                                                        ? '<i class="bi bi-star-fill text-warning" style="margin-right: 5px;"></i>'
+                                                        : '<i class="bi bi-star text-warning" style="margin-right: 5px;"></i>';
                                             }
                                             return $stars;
                                         }
                                     @endphp
-                                    @foreach ($getDetailedGioHoangDao as $itemgio)
-                                        <div class="col-lg-4">
-                                            <div class="position-relative" style="background: #EFF8FF; padding: 20px; overflow: hidden;">
+                                    @foreach ($getDetailedGioHoangDao as $index => $itemgio)
+                                        <div class="col-lg-4 col-md-6 col-12">
+                                            <div
+                                                class="position-relative boxgetGioHoangDao colorgiogoangdao-{{ $index + 1 }}">
                                                 <div>
-                                                    {{ $itemgio['name'] }}
+                                                    {{ $itemgio['standardRangeMini'] }}
                                                 </div>
 
-                                                <div>
+                                                <div style="color: #0F172A; font-weight: 600; font-size: 20px;">
                                                     {!! $itemgio['canChiMenh'] !!}
                                                 </div>
                                                 <div>
                                                     {!! renderStars($itemgio['rating']) !!}
                                                 </div>
-                                                <div style="position: absolute;right: 0;bottom: 0;">
-                                                    <img src="{!! $itemgio['zodiacIcon'] !!}" alt="icon zodiacicon" class="img-fluid" style="width: 70px;">
+                                                <div style="position: absolute;right: 10px;bottom: 0;">
+                                                    <img src="{!! $itemgio['zodiacIcon'] !!}" alt="icon zodiacicon"
+                                                        class="img-fluid" style="width: 50px;">
                                                 </div>
                                             </div>
                                         </div>
@@ -1063,24 +1061,14 @@
                             <!-- Nội dung placeholder cho "Điểm ngày đẹp" (Tab 4) -->
                             <div class="tab-pane fade" id="v-pills-good-day-score" role="tabpanel"
                                 aria-labelledby="v-pills-good-day-score-tab" tabindex="0">
-                                <h6 class="fw-bold mb-2"><i class="fas fa-star text-warning me-2"></i>Điểm ngày đẹp
-                                </h6>
-                                <p class="text-secondary small">Thông tin chi tiết về điểm số và đánh giá tổng thể của
-                                    ngày dựa trên các yếu tố phong thủy, giúp bạn nắm bắt mức độ thuận lợi của hôm nay.
-                                </p>
-                                <div class="alert alert-info small mt-3">Ngày hôm nay đạt 85/100 điểm với nhiều sao tốt
-                                    chiếu mệnh, hứa hẹn một ngày nhiều may mắn và thành công!</div>
-                            </div>
 
-                            <!-- Nội dung placeholder cho "Bốc quẻ tò mò" (Tab 5) -->
-                            <div class="tab-pane fade" id="v-pills-curious-hexagram" role="tabpanel"
-                                aria-labelledby="v-pills-curious-hexagram-tab" tabindex="0">
-                                <h6 class="fw-bold mb-2"><i class="fas fa-question-circle text-muted me-2"></i>Bốc quẻ
-                                    tò
-                                    mò</h6>
-                                <p class="text-secondary small">Hãy nhấp vào đây để bốc một quẻ ngẫu nhiên và nhận lời
-                                    khuyên, tiên đoán cho một khía cạnh cụ thể của cuộc sống trong ngày hôm nay.</p>
-                                <button class="btn btn-outline-secondary mt-3">Bốc quẻ ngay!</button>
+
+                                <div class="chart-container">
+
+                                    <div class="chart-canvas-wrapper">
+                                        <canvas id="myChart"></canvas>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1092,3 +1080,173 @@
 
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('myChart').getContext('2d');
+            const labels = @json($labels);
+            const dataValues = @json($dataValues);
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Điểm ngày',
+                        data: dataValues,
+                        backgroundColor: function(context) {
+                            const chart = context.chart;
+                            const {
+                                ctx,
+                                chartArea
+                            } = chart;
+                            if (!chartArea) return;
+
+                            const gradient = ctx.createLinearGradient(0, chartArea.bottom, 0,
+                                chartArea.top);
+                            gradient.addColorStop(0, getComputedStyle(document.documentElement)
+                                .getPropertyValue('--bar-bottom-color') || '#4e79a7');
+                            gradient.addColorStop(0.6, getComputedStyle(document
+                                    .documentElement).getPropertyValue('--bar-mid-color') ||
+                                '#59a14f');
+                            gradient.addColorStop(1, getComputedStyle(document.documentElement)
+                                .getPropertyValue('--bar-top-color') || '#9c755f');
+                            return gradient;
+                        },
+                        borderRadius: {
+                            topLeft: 8,
+                            topRight: 8
+                        },
+                        borderSkipped: false,
+                        hoverBackgroundColor: getComputedStyle(document.documentElement)
+                            .getPropertyValue('--bar-top-color') || '#9c755f',
+                        barPercentage: 0.7,
+                        categoryPercentage: 0.8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            enabled: true,
+                            callbacks: {
+                                label: function(context) {
+                                    return context.raw + '%';
+                                }
+                            },
+                            backgroundColor: 'rgba(0,0,0,0.7)',
+                            titleColor: '#fff',
+                            bodyColor: '#fff',
+                            padding: 8,
+                            displayColors: false
+                        }
+                    },
+                    layout: {
+                        padding: {
+                            top: 10,
+                            bottom: 10
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: {
+                                display: false,
+                                drawBorder: false
+                            },
+                            ticks: {
+                                color: getComputedStyle(document.documentElement).getPropertyValue(
+                                    '--text-color-light') || '#333',
+                                font: {
+                                    size: 13,
+                                    weight: '500'
+                                },
+                                padding: 10
+                            }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: {
+                                stepSize: 20,
+                                callback: function(value) {
+                                    return value + '%';
+                                },
+                                color: getComputedStyle(document.documentElement).getPropertyValue(
+                                    '--text-color-light') || '#333',
+                                font: {
+                                    size: 13,
+                                    weight: '500'
+                                },
+                                padding: 10,
+
+                            },
+                            grid: {
+                                color: getComputedStyle(document.documentElement).getPropertyValue(
+                                    '--grid-line-color') || '#ddd',
+                                borderDash: [5, 5],
+                                drawBorder: false,
+                                drawOnChartArea: true,
+                                drawTicks: false
+                            }
+                        }
+                    }
+                },
+
+            });
+       
+       
+         // Lấy ngày tháng năm hiện tại từ Blade
+        const currentYear = {{ $yy }};
+        const currentMonth = {{ $mm }}; // Tháng từ PHP (1-12)
+        const currentDay = {{ $dd }};
+
+        // Tạo đối tượng Date trong JavaScript
+        // Lưu ý: Tháng trong JS là 0-11, nên phải trừ đi 1
+        const currentDate = new Date(currentYear, currentMonth - 1, currentDay);
+
+        // Lấy TẤT CẢ các element nút bấm prev
+        const prevBtns = document.querySelectorAll('.prev-day-btn'); 
+        // Lấy TẤT CẢ các element nút bấm next
+        const nextBtns = document.querySelectorAll('.next-day-btn'); 
+
+        // --- Xử lý các nút "Ngày trước" ---
+        if (prevBtns.length > 0) { 
+            const prevDate = new Date(currentDate);
+            prevDate.setDate(currentDate.getDate() - 1);
+
+            const prevYear = prevDate.getFullYear();
+            const prevMonth = prevDate.getMonth() + 1;
+            const prevDay = prevDate.getDate();
+
+            const newPrevUrl = `/chi-tiet/${prevYear}/thang/${prevMonth}/ngay/${prevDay}`;
+
+            // Lặp qua TẤT CẢ các nút "prev" và gán URL mới
+            prevBtns.forEach(btn => { 
+                btn.href = newPrevUrl;
+            });
+        }
+
+        // --- Xử lý các nút "Ngày sau" ---
+        if (nextBtns.length > 0) { 
+            const nextDate = new Date(currentDate);
+            nextDate.setDate(currentDate.getDate() + 1);
+
+            const nextYear = nextDate.getFullYear();
+            const nextMonth = nextDate.getMonth() + 1;
+            const nextDay = nextDate.getDate();
+
+            const newNextUrl = `/chi-tiet/${nextYear}/thang/${nextMonth}/ngay/${nextDay}`;
+
+            // Lặp qua TẤT CẢ các nút "next" và gán URL mới
+            nextBtns.forEach(btn => { 
+                btn.href = newNextUrl;
+            });
+        }
+       
+        });
+    </script>
+@endpush

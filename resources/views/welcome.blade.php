@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="{{ asset('/css/repont.css') }}">
     <!-- ĐẢM BẢO CÓ DÒNG NÀY ĐỂ CSRF TOKEN HOẠT ĐỘNG! -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+      <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 </head>
 
 <body>

@@ -13,7 +13,7 @@ class KhiVanHelper
         //  $al = LunarHelper::convertSolar2Lunar((int)$dd, (int)$mm, (int)$yy);
         //    $jdNgayAm = LunarHelper::jdFromLunarDate((int)$al[0], (int)$al[1], (int)$al[2], (int)$al[3]);
         // $canChiNgayAm = LunarHelper::canchiNgayByJD($jdNgayAm);
-         $jday = LunarHelper::jdFromDate((int)$dd, (int)$mm, (int)$yy);
+        $jday = LunarHelper::jdFromDate((int)$dd, (int)$mm, (int)$yy);
         $canChiNgayAm = LunarHelper::canchiNgayByJD($jday);
         // $parts = explode(' ', $dayCanChi);
         $noiKhiExplanations = DataHelper::$noiKhiExplanations;
@@ -75,126 +75,126 @@ class KhiVanHelper
 
     public static function calculateVanKhi(string $purpose, Carbon $date, $birthDate = null): array
     {
-            $isPersonalized = $birthDate !== null;
+        $isPersonalized = $birthDate !== null;
 
-            // --- BƯỚC 1: LẤY KẾT QUẢ VÀ ĐIỂM THÔ TỪ CÁC SERVICE ---
-            $noiKhiResult = self::calculateNoiKhi($date); // Giả sử có self
-            $khiThangFullResult = self::getDetailedKhiThangInfo($date); // Giả sử có self
-            $canCanResult = $isPersonalized ? self::calculateCanCan($date, $birthDate) : null;
-            $chiChiResult = $isPersonalized ? self::calculateChiChi($date, $birthDate) : null;
-            $napAmResult = $isPersonalized ? self::calculateNapAm($date, $birthDate) : null;
+        // --- BƯỚC 1: LẤY KẾT QUẢ VÀ ĐIỂM THÔ TỪ CÁC SERVICE ---
+        $noiKhiResult = self::calculateNoiKhi($date); // Giả sử có self
+        $khiThangFullResult = self::getDetailedKhiThangInfo($date); // Giả sử có self
+        $canCanResult = $isPersonalized ? self::calculateCanCan($date, $birthDate) : null;
+        $chiChiResult = $isPersonalized ? self::calculateChiChi($date, $birthDate) : null;
+        $napAmResult = $isPersonalized ? self::calculateNapAm($date, $birthDate) : null;
 
-            // Lấy điểm số thô
-            $noiKhiScore = (float)($noiKhiResult['score'] ?? 0.0);
-            $khiThangScoreData = self::calculateKhiThang($date);
-            $khiThangScore = (float)($khiThangScoreData['score'] ?? 0.0);
+        // Lấy điểm số thô
+        $noiKhiScore = (float)($noiKhiResult['score'] ?? 0.0);
+        $khiThangScoreData = self::calculateKhiThang($date);
+        $khiThangScore = (float)($khiThangScoreData['score'] ?? 0.0);
 
-            $canCanScore = $isPersonalized ? (float)($canCanResult['score'] ?? 0.0) : 0.0;
-            $chiChiScore = $isPersonalized ? (float)($chiChiResult['score'] ?? 0.0) : 0.0;
-            $napAmScore = $isPersonalized ? (float)($napAmResult['score'] ?? 0.0) : 0.0;
+        $canCanScore = $isPersonalized ? (float)($canCanResult['score'] ?? 0.0) : 0.0;
+        $chiChiScore = $isPersonalized ? (float)($chiChiResult['score'] ?? 0.0) : 0.0;
+        $napAmScore = $isPersonalized ? (float)($napAmResult['score'] ?? 0.0) : 0.0;
 
-            // --- BƯỚC 2: CHUYỂN ĐỔI TỪNG ĐIỂM SANG PHẦN TRĂM (0-100) ---
-            $noiKhiPercent = DataHelper::$noiKhiScoreToPercentage[number_format($noiKhiScore, 1)] ?? self::defaultScoreToPercentage($noiKhiScore);
-            $khiThangPercent = DataHelper::$khiThangScoreToPercentage[number_format($khiThangScore, 1)] ?? self::defaultScoreToPercentage($khiThangScore, -3.0, 3.0);
+        // --- BƯỚC 2: CHUYỂN ĐỔI TỪNG ĐIỂM SANG PHẦN TRĂM (0-100) ---
+        $noiKhiPercent = DataHelper::$noiKhiScoreToPercentage[number_format($noiKhiScore, 1)] ?? self::defaultScoreToPercentage($noiKhiScore);
+        $khiThangPercent = DataHelper::$khiThangScoreToPercentage[number_format($khiThangScore, 1)] ?? self::defaultScoreToPercentage($khiThangScore, -3.0, 3.0);
 
-            $canCanPercent = $isPersonalized ? (DataHelper::$canCanAgeScoreToPercentage[number_format($canCanScore, 1)] ?? self::defaultScoreToPercentage($canCanScore, -2.0, 2.0)) : 0.0;
-            $chiChiPercent = $isPersonalized ? (DataHelper::$chiChiAgeScoreToPercentage[number_format($chiChiScore, 1)] ?? self::defaultScoreToPercentage($chiChiScore)) : 0.0;
-            $napAmPercent = $isPersonalized ? (DataHelper::$napAmAgeScoreToPercentage[number_format($napAmScore, 1)] ?? self::defaultScoreToPercentage($napAmScore)) : 0.0;
+        $canCanPercent = $isPersonalized ? (DataHelper::$canCanAgeScoreToPercentage[number_format($canCanScore, 1)] ?? self::defaultScoreToPercentage($canCanScore, -2.0, 2.0)) : 0.0;
+        $chiChiPercent = $isPersonalized ? (DataHelper::$chiChiAgeScoreToPercentage[number_format($chiChiScore, 1)] ?? self::defaultScoreToPercentage($chiChiScore)) : 0.0;
+        $napAmPercent = $isPersonalized ? (DataHelper::$napAmAgeScoreToPercentage[number_format($napAmScore, 1)] ?? self::defaultScoreToPercentage($napAmScore)) : 0.0;
 
-            // --- BƯỚC 3: TÍNH TỔNG PHẦN TRĂM CÓ TRỌNG SỐ ---
-            $componentWeights = $isPersonalized ? DataHelper::$vanKhiComponentWeightsFractionPersonalized : DataHelper::$vanKhiComponentWeightsFractionGeneral;
+        // --- BƯỚC 3: TÍNH TỔNG PHẦN TRĂM CÓ TRỌNG SỐ ---
+        $componentWeights = $isPersonalized ? DataHelper::$vanKhiComponentWeightsFractionPersonalized : DataHelper::$vanKhiComponentWeightsFractionGeneral;
 
-            $totalVanKhiPercentage = 0.0;
-            $totalVanKhiPercentage += $noiKhiPercent * $componentWeights['NoiKhi'];
-            $totalVanKhiPercentage += $khiThangPercent * $componentWeights['KhiThang'];
-            if ($isPersonalized) {
-                $totalVanKhiPercentage += $canCanPercent * $componentWeights['CanCan'];
-                $totalVanKhiPercentage += $chiChiPercent * $componentWeights['ChiChi'];
-                $totalVanKhiPercentage += $napAmPercent * $componentWeights['NapAm'];
-            }
-            $totalVanKhiPercentage = max(0.0, min(100.0, $totalVanKhiPercentage));
+        $totalVanKhiPercentage = 0.0;
+        $totalVanKhiPercentage += $noiKhiPercent * $componentWeights['NoiKhi'];
+        $totalVanKhiPercentage += $khiThangPercent * $componentWeights['KhiThang'];
+        if ($isPersonalized) {
+            $totalVanKhiPercentage += $canCanPercent * $componentWeights['CanCan'];
+            $totalVanKhiPercentage += $chiChiPercent * $componentWeights['ChiChi'];
+            $totalVanKhiPercentage += $napAmPercent * $componentWeights['NapAm'];
+        }
+        $totalVanKhiPercentage = max(0.0, min(100.0, $totalVanKhiPercentage));
 
-            // --- BƯỚC 4: CHUYỂN ĐỔI TỔNG PHẦN TRĂM VỀ ĐIỂM CHUẨN HÓA [-2, 2] ---
-            $finalNormalizedVanKhiScore = ($totalVanKhiPercentage / 100.0 * 4.0) - 2.0;
+        // --- BƯỚC 4: CHUYỂN ĐỔI TỔNG PHẦN TRĂM VỀ ĐIỂM CHUẨN HÓA [-2, 2] ---
+        $finalNormalizedVanKhiScore = ($totalVanKhiPercentage / 100.0 * 4.0) - 2.0;
 
-            // --- BƯỚC 5: XỬ LÝ CÁC VẤN ĐỀ (ISSUES) ---
-            $issues = [];
-            if ($isPersonalized) {
-                // Xử lý Chi Chi
-                $chiChiRelationKey = $chiChiResult['relationKey'] ?? null;
-                $badChiChiRelationsForRules = ['Tương phá', 'Tương hại', 'Lục xung'];
-                if ($chiChiRelationKey && in_array($chiChiRelationKey, $badChiChiRelationsForRules)) {
-                    $ruleLevel = self::getRule('CHI_CHI', $chiChiRelationKey, $purpose);
-                    if (in_array($ruleLevel, ['exclude', 'warn'])) {
-                        $reasonText = self::getChiChiWarningName($chiChiRelationKey) . " với tuổi ({$chiChiResult['dayChi']}-{$chiChiResult['birthChi']}).";
-                        if ($purpose !== 'TOT_XAU_CHUNG') {
-                            $purposeDisplayName = self::getPurposeDisplayName($purpose);
-                            $reasonText .= ($ruleLevel === 'exclude') ? " Kỵ thực hiện $purposeDisplayName." : " Thận trọng khi $purposeDisplayName.";
-                        }
-                        $issues[] = [
-                            'level' => $ruleLevel,
-                            'source' => 'VanKhi',
-                            'reason' => "$reasonText ({$chiChiResult['dayChi']}-{$chiChiResult['birthChi']}) - Cần cân nhắc cho mục đích này.",
-                            'details' => [
-                                'type' => 'ChiChi',
-                                'key' => $chiChiRelationKey,
-                                'dayChi' => $chiChiResult['dayChi'],
-                                'birthChi' => $chiChiResult['birthChi']
-                            ]
-                        ];
+        // --- BƯỚC 5: XỬ LÝ CÁC VẤN ĐỀ (ISSUES) ---
+        $issues = [];
+        if ($isPersonalized) {
+            // Xử lý Chi Chi
+            $chiChiRelationKey = $chiChiResult['relationKey'] ?? null;
+            $badChiChiRelationsForRules = ['Tương phá', 'Tương hại', 'Lục xung'];
+            if ($chiChiRelationKey && in_array($chiChiRelationKey, $badChiChiRelationsForRules)) {
+                $ruleLevel = self::getRule('CHI_CHI', $chiChiRelationKey, $purpose);
+                if (in_array($ruleLevel, ['exclude', 'warn'])) {
+                    $reasonText = self::getChiChiWarningName($chiChiRelationKey) . " với tuổi ({$chiChiResult['dayChi']}-{$chiChiResult['birthChi']}).";
+                    if ($purpose !== 'TOT_XAU_CHUNG') {
+                        $purposeDisplayName = self::getPurposeDisplayName($purpose);
+                        $reasonText .= ($ruleLevel === 'exclude') ? " Kỵ thực hiện $purposeDisplayName." : " Thận trọng khi $purposeDisplayName.";
                     }
-                }
-
-                // Xử lý Nạp Âm
-                $napAmRelationKey = $napAmResult['relationKey'] ?? null;
-                $badNapAmRelationsForRules = ['Ngày khắc Tuổi', 'Tuổi khắc Ngày'];
-                if ($napAmRelationKey && in_array($napAmRelationKey, $badNapAmRelationsForRules)) {
-                    $ruleLevel = self::getRule('NAP_AM', $napAmRelationKey, $purpose);
-                    if (in_array($ruleLevel, ['exclude', 'warn'])) {
-                       $purposeDisplayName = self::getNapAmWarningName($napAmRelationKey);
-                  if ($purpose !== 'NGAY_KHAC_TUOI') {
-                            $purposeDisplayName = self::getPurposeDisplayName($purpose);
-                            $reasonText .= ($ruleLevel === 'exclude') ? " Kỵ thực hiện $purposeDisplayName." : " Thận trọng khi $purposeDisplayName.";
-                        }
-                        $issues[] = [  
-                            'level' => $ruleLevel,
-                            'source' => 'VanKhi',
-                            'reason' => "$reasonText ({$napAmResult['dayNapAm']}-{$napAmResult['birthNapAm']}) - Cần cân nhắc cho mục đích này.",
-                            'details' => [
-                                'type' => 'NapAm',
-                                'key' => $napAmRelationKey,
-                                'dayNapAm' => $napAmResult['dayNapAm'],
-                                'birthNapAm' => $napAmResult['birthNapAm']
-                            ]];
-                    }
+                    $issues[] = [
+                        'level' => $ruleLevel,
+                        'source' => 'VanKhi',
+                        'reason' => "$reasonText ({$chiChiResult['dayChi']}-{$chiChiResult['birthChi']}) - Cần cân nhắc cho mục đích này.",
+                        'details' => [
+                            'type' => 'ChiChi',
+                            'key' => $chiChiRelationKey,
+                            'dayChi' => $chiChiResult['dayChi'],
+                            'birthChi' => $chiChiResult['birthChi']
+                        ]
+                    ];
                 }
             }
-            // Loại bỏ các issue trùng lặp
-            $issues = array_values(array_unique($issues, SORT_REGULAR));
 
-            // --- BƯỚC 6: PHÂN LOẠI KẾT QUẢ ---
-            if ($finalNormalizedVanKhiScore >= 1.5) $type = 'Rất tốt';
-            else if ($finalNormalizedVanKhiScore >= 0.5) $type = 'Tốt';
-            else if ($finalNormalizedVanKhiScore > -0.5) $type = 'Trung bình';
-            else if ($finalNormalizedVanKhiScore >= -1.5) $type = 'Kém';
-            else $type = 'Rất xấu';
+            // Xử lý Nạp Âm
+            $napAmRelationKey = $napAmResult['relationKey'] ?? null;
+            $badNapAmRelationsForRules = ['Ngày khắc Tuổi', 'Tuổi khắc Ngày'];
+            if ($napAmRelationKey && in_array($napAmRelationKey, $badNapAmRelationsForRules)) {
+                $ruleLevel = self::getRule('NAP_AM', $napAmRelationKey, $purpose);
+                if (in_array($ruleLevel, ['exclude', 'warn'])) {
+                    $purposeDisplayName = self::getNapAmWarningName($napAmRelationKey);
+                    if ($purpose !== 'NGAY_KHAC_TUOI') {
+                        $purposeDisplayName = self::getPurposeDisplayName($purpose);
+                        $reasonText .= ($ruleLevel === 'exclude') ? " Kỵ thực hiện $purposeDisplayName." : " Thận trọng khi $purposeDisplayName.";
+                    }
+                    $issues[] = [
+                        'level' => $ruleLevel,
+                        'source' => 'VanKhi',
+                        'reason' => "$reasonText ({$napAmResult['dayNapAm']}-{$napAmResult['birthNapAm']}) - Cần cân nhắc cho mục đích này.",
+                        'details' => [
+                            'type' => 'NapAm',
+                            'key' => $napAmRelationKey,
+                            'dayNapAm' => $napAmResult['dayNapAm'],
+                            'birthNapAm' => $napAmResult['birthNapAm']
+                        ]
+                    ];
+                }
+            }
+        }
+        // Loại bỏ các issue trùng lặp
+        $issues = array_values(array_unique($issues, SORT_REGULAR));
 
-            // --- BƯỚC 7: TRẢ VỀ KẾT QUẢ ---
-            return [
-                'normalizedScore' => max(-2.0, min(2.0, $finalNormalizedVanKhiScore)),
-                'type' => $type,
-                'issues' => $issues,
-                'details' => [
-                    'noiKhi' => ['score' => $noiKhiScore, 'percentage' => $noiKhiPercent, 'description' => $noiKhiResult['description']],
-                    'khiThang' => ['score' => $khiThangScore, 'percentage' => $khiThangPercent, 'description' => $khiThangFullResult['analysis'], 'conclusion' => $khiThangFullResult['conclusion']],
-                    'canCan' => $isPersonalized ? ['score' => $canCanScore, 'percentage' => $canCanPercent, 'description' => $canCanResult['description']] : null,
-                    'chiChi' => $isPersonalized ? ['score' => $chiChiScore, 'percentage' => $chiChiPercent, 'description' => $chiChiResult['description']] : null,
-                    'napAm' => $isPersonalized ? ['score' => $napAmScore, 'percentage' => $napAmPercent, 'description' => $napAmResult['description']] : null,
-                    'totalVanKhiPercentage' => $totalVanKhiPercentage,
-                    'isPersonalizedCalculation' => $isPersonalized,
-                ]
-            ];
-       
+        // --- BƯỚC 6: PHÂN LOẠI KẾT QUẢ ---
+        if ($finalNormalizedVanKhiScore >= 1.5) $type = 'Rất tốt';
+        else if ($finalNormalizedVanKhiScore >= 0.5) $type = 'Tốt';
+        else if ($finalNormalizedVanKhiScore > -0.5) $type = 'Trung bình';
+        else if ($finalNormalizedVanKhiScore >= -1.5) $type = 'Kém';
+        else $type = 'Rất xấu';
+
+        // --- BƯỚC 7: TRẢ VỀ KẾT QUẢ ---
+        return [
+            'normalizedScore' => max(-2.0, min(2.0, $finalNormalizedVanKhiScore)),
+            'type' => $type,
+            'issues' => $issues,
+            'details' => [
+                'noiKhi' => ['score' => $noiKhiScore, 'percentage' => $noiKhiPercent, 'description' => $noiKhiResult['description']],
+                'khiThang' => ['score' => $khiThangScore, 'percentage' => $khiThangPercent, 'description' => $khiThangFullResult['analysis'], 'conclusion' => $khiThangFullResult['conclusion']],
+                'canCan' => $isPersonalized ? ['score' => $canCanScore, 'percentage' => $canCanPercent, 'description' => $canCanResult['description']] : null,
+                'chiChi' => $isPersonalized ? ['score' => $chiChiScore, 'percentage' => $chiChiPercent, 'description' => $chiChiResult['description']] : null,
+                'napAm' => $isPersonalized ? ['score' => $napAmScore, 'percentage' => $napAmPercent, 'description' => $napAmResult['description']] : null,
+                'totalVanKhiPercentage' => $totalVanKhiPercentage,
+                'isPersonalizedCalculation' => $isPersonalized,
+            ]
+        ];
     }
 
 
@@ -270,7 +270,7 @@ class KhiVanHelper
         $jdNgayAm = LunarHelper::jdFromLunarDate((int)$al[0], (int)$al[1], (int)$al[2], (int)$al[3]);
 
         $canChiDay = LunarHelper::canchiNgayByJD($jdNgayAm);
-         $jday = LunarHelper::jdFromDate((int)$carbonDate->day, (int)$carbonDate->month, (int)$carbonDate->year);
+        $jday = LunarHelper::jdFromDate((int)$carbonDate->day, (int)$carbonDate->month, (int)$carbonDate->year);
         $dayCanChi = LunarHelper::canchiNgayByJD($jday);
         $canChiMonth = LunarHelper::canchiThang((int)$al[2], (int)$al[1]);
 
@@ -375,13 +375,13 @@ class KhiVanHelper
         $jdNgayAm = LunarHelper::jdFromLunarDate((int)$al[0], (int)$al[1], (int)$al[2], (int)$al[3]);
         $canChiDay = LunarHelper::canchiNgayByJD($jdNgayAm);
         $dayCan = explode(' ', $canChiDay)[0] ?? null;
-        
-     
+
+
 
         if ($birthDate === null) {
             $birthCan = ''; // Mặc định nếu không có ngày sinh
-        }else{
-   $birthCan = LunarHelper::canchiNam($birthDate);
+        } else {
+            $birthCan = LunarHelper::canchiNam($birthDate);
         }
         if ($dayCan === $birthCan) {
             return [
@@ -487,15 +487,15 @@ class KhiVanHelper
         $jdNgayAm = LunarHelper::jdFromLunarDate((int)$al[0], (int)$al[1], (int)$al[2], (int)$al[3]);
         $dayCanChi = LunarHelper::canchiNgayByJD($jdNgayAm);
         // $dayCanChi = LunarHelper::canchiNgay($date->year, $date->month, $date->day);
-       
+
 
         $dayChi = explode(' ', $dayCanChi)[1];
-    
+
         if ($birthDate === null) {
             $birthChi = ''; // Mặc định nếu không có ngày sinh
-        }else{
-             $birthCanChi = LunarHelper::canchiNam($birthDate);
-                $birthChi = explode(' ', $birthCanChi)[1];
+        } else {
+            $birthCanChi = LunarHelper::canchiNam($birthDate);
+            $birthChi = explode(' ', $birthCanChi)[1];
         }
 
         $relationKey = '';
@@ -660,7 +660,7 @@ class KhiVanHelper
 
 
 
-   /**
+    /**
      * Tạo phân tích chi tiết và kết luận cho Khí Tháng.
      * Tương đương hàm getDetailedKhiThangInfo trong Dart.
      *
@@ -673,11 +673,14 @@ class KhiVanHelper
             // --- PHẦN 1: LẤY DỮ LIỆU CAN CHI (Tương tự hàm trước) ---
             $carbonDate = Carbon::instance($date);
             $al = LunarHelper::convertSolar2Lunar($carbonDate->day, $carbonDate->month, $carbonDate->year, 7.0);
-            $jdNgayAm = LunarHelper::jdFromLunarDate((int)$al[0], (int)$al[1], (int)$al[2], (int)$al[3]);
-            
-            $canChiDay = LunarHelper::canchiNgayByJD($jdNgayAm);
+            // $jdNgayAm = LunarHelper::jdFromLunarDate((int)$al[0], (int)$al[1], (int)$al[2], (int)$al[3]);
+
+            // $canChiDay = LunarHelper::canchiNgayByJD($jdNgayAm);
+            $jd = LunarHelper::jdFromDate((int)$carbonDate->day, (int)$carbonDate->month, (int)$carbonDate->year);
+
+            $canChiDay = LunarHelper::canchiNgayByJD($jd);
             $canChiMonth = LunarHelper::canchiThang((int)$al[2], (int)$al[1]);
-            
+
             $dayParts = explode(' ', $canChiDay);
             $monthParts = explode(' ', $canChiMonth);
 
@@ -685,14 +688,16 @@ class KhiVanHelper
                 return ['analysis' => 'Lỗi xác định Can Chi ngày/tháng.', 'conclusion' => 'Lỗi'];
             }
 
-            $dayCan = $dayParts[0]; $dayChi = $dayParts[1];
-            $monthCan = $monthParts[0]; $monthChi = $monthParts[1];
+            $dayCan = $dayParts[0];
+            $dayChi = $dayParts[1];
+            $monthCan = $monthParts[0];
+            $monthChi = $monthParts[1];
 
             $dayCanHanh = DataHelper::$canToHanh[$dayCan] ?? 'N/A';
             $monthCanHanh = DataHelper::$canToHanh[$monthCan] ?? 'N/A';
             $dayChiHanh = DataHelper::$chiToHanh[$dayChi] ?? 'N/A';
             $monthChiHanh = DataHelper::$chiToHanh[$monthChi] ?? 'N/A';
-            
+
             // --- PHẦN 2: PHÂN TÍCH VÀ TÍNH ĐIỂM ---
             $analysisParts = [];
             $totalScore = 0.0;
@@ -735,18 +740,17 @@ class KhiVanHelper
                 'analysis' => $finalAnalysis,
                 'conclusion' => $finalConclusion,
             ];
-
         } catch (\Throwable $e) {
             Log::error("Lỗi tính Khí Tháng chi tiết: " . $e->getMessage());
             return ['analysis' => 'Lỗi tính toán Khí Tháng.', 'conclusion' => 'Lỗi'];
         }
     }
-//  * Tạo xếp hạng và kết luận chi tiết cho Khí Tháng chỉ từ tổng điểm.
-//      * Đây là phiên bản cải tiến, tự suy ra 'rating' bên trong.
-//      *
-//      * @param float $totalScore Tổng điểm của Khí Tháng.
-//      * @return string Chuỗi kết luận cuối cùng.
-//      */
+    //  * Tạo xếp hạng và kết luận chi tiết cho Khí Tháng chỉ từ tổng điểm.
+    //      * Đây là phiên bản cải tiến, tự suy ra 'rating' bên trong.
+    //      *
+    //      * @param float $totalScore Tổng điểm của Khí Tháng.
+    //      * @return string Chuỗi kết luận cuối cùng.
+    //      */
     public static function getKhiThangConclusion(float $totalScore): string
     {
         // Bước 1: Xác định xếp hạng (rating) dựa trên điểm số
@@ -781,7 +785,7 @@ class KhiVanHelper
         } else { // Điểm < -2.0
             $description = ': Cực kỳ nghịch khí – nên tránh làm việc lớn';
         }
-        
+
         // Bước 3: Kết hợp lại thành chuỗi kết luận cuối cùng
         return "👉 Tổng khí ngày – tháng: $rating$description";
     }
@@ -813,14 +817,25 @@ class KhiVanHelper
 
         return 'Rất xấu';
     }
-   
+
     public static function getPurposeDisplayName(String $shortName)
     {
         return DataHelper::$purposeShortNameToDisplayName[$shortName] ??
             $shortName; // Trả về tên ngắn nếu không tìm thấy
     }
-     private static $diaChi = [
-        'Thân', 'Dậu', 'Tuất', 'Hợi', 'Tý', 'Sửu', 'Dần', 'Mão', 'Thìn', 'Tị', 'Ngọ', 'Mùi'
+    private static $diaChi = [
+        'Thân',
+        'Dậu',
+        'Tuất',
+        'Hợi',
+        'Tý',
+        'Sửu',
+        'Dần',
+        'Mão',
+        'Thìn',
+        'Tị',
+        'Ngọ',
+        'Mùi'
     ];
 
     /**

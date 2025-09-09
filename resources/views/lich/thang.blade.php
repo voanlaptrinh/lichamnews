@@ -1,6 +1,6 @@
 @extends('welcome')
 @section('content')
-    <div class="container">
+ <div class="container-setup">
         <h2>Lịch âm tháng {{ $mm }} năm {{ $yy }}</h2>
         <h5>Tháng {{ $can_chi_thang }}</h5>
         <p>{{ $desrtipton_thang }}</p>

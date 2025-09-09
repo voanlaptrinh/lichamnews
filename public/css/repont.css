@@ -311,7 +311,7 @@
     }
 
     .container-setup {
-        max-width: 100%;
+        width: 100%;
         padding-left: 16px;
         padding-right: 16px;
     }
@@ -467,5 +467,9 @@
     .box-date-detail{
         padding: 0;
         background: none;
+    }
+    .accordion-button{
+padding: 0.7rem 0.75rem;
+        font-size: 14px;
     }
 }

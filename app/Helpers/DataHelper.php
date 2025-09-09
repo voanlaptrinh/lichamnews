@@ -5220,20 +5220,19 @@ class DataHelper
         'Dậu' => 'Tý',
         'Ngọ' => 'Mão',
         'Mão' => 'Ngọ',
-        'Thân' => 'Tỵ',
-        'Tỵ' => 'Thân',
-        'Dần' => 'Hợi',
-        'Hợi' => 'Dần',
         'Thìn' => 'Sửu',
         'Sửu' => 'Thìn',
         'Tuất' => 'Mùi',
         'Mùi' => 'Tuất',
+
+
     ];
 
     // Bộ ba Hình Vô Ân ( <<< THÊM MỚI)
     public static array $HINH_VO_AN_TRIPLE = ['Sửu', 'Tuất', 'Mùi'];
     // Bộ ba Hình Ỷ Thế
-    public static array $HINH_Y_THE_TRIPLE = ['Dần', 'Tỵ', 'Thân'];
+    public static array $HINH_Y_THE_TRIPLE = [ 'Dần'=> 'Tỵ',
+    'Thân'=> 'Dậu'];
     // Cặp Hình Vô Lễ
     public static array $HINH_VO_LE_PAIR = ['Tý' => 'Mão', 'Mão' => 'Tý'];
 
@@ -7013,7 +7012,7 @@ class DataHelper
             'Trung tính'      => 'Quan hệ Chi trung tính.',
         ],
     ];
-     public static $cungBatTrachDescriptions = [
+    public static $cungBatTrachDescriptions = [
         'sinh_khi' => 'Là cung tốt nhất, thu hút tài lộc, danh vọng, thăng quan phát tài.',
         'thien_y' => 'Cải thiện sức khỏe, trường thọ, được quý nhân phù trợ.',
         'phuoc_duc' => 'Củng cố các mối quan hệ gia đình, tình yêu, hòa thuận, yên ổn. (Còn gọi là Diên Niên)',
@@ -7023,7 +7022,7 @@ class DataHelper
         'luc_sat' => 'Gây xáo trộn trong quan hệ tình cảm, thù hận, kiện tụng, tai nạn.',
         'hoa_hai' => 'Gây xui xẻo, thất bại, mọi việc làm khó thành.',
     ];
-     /**
+    /**
      * Bảng ánh xạ từ KEY sang TÊN HIỂN THỊ CÓ DẤU của các cung.
      * @var array
      */
@@ -7032,12 +7031,12 @@ class DataHelper
         'thien_y'   => 'Thiên Y',
         'phuoc_duc' => 'Phước Đức (Diên Niên)',
         'phuc_vi'   => 'Phục Vị',
-        'tuyet_menh'=> 'Tuyệt Mệnh',
+        'tuyet_menh' => 'Tuyệt Mệnh',
         'ngu_quy'   => 'Ngũ Quỷ',
         'luc_sat'   => 'Lục Sát',
         'hoa_hai'   => 'Họa Hại',
     ];
- 
+
 
 
 
@@ -7167,7 +7166,7 @@ class DataHelper
         ],
     ];
 
- 
+
 
     // 3. QUAN HỆ NẠP ÂM NGÀY - NẠP ÂM TUỔI
     public static array $napAmAgeInfo = [
@@ -7178,5 +7177,4 @@ class DataHelper
         "Tuổi khắc Ngày" => ['score' => -1.0, 'rating' => "Kém – tuổi khắc lại ngày, khí nghịch", 'explanation' => "Tuổi khắc ngũ hành ngày, bản thân dễ sinh chống đối khí vận của ngày, công việc dễ trục trặc hoặc không như ý."],
         "Trung bình (không xung, không hợp)" => ['score' => 0.0, 'rating' => "Bình", 'explanation' => "Nạp âm bình thường"],
     ];
-
 }

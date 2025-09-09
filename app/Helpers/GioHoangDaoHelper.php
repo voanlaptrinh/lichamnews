@@ -3,15 +3,17 @@
 namespace App\Helpers;
 
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\FacadesLog;
 
 class GioHoangDaoHelper
 {
     public static function getDetailedGioHoangDao($dd, $mm, $yy): array
     {
         $al = LunarHelper::convertSolar2Lunar((int)$dd, (int)$mm, (int)$yy);
-        $jdNgayAm = LunarHelper::jdFromLunarDate((int)$al[0], (int)$al[1], (int)$al[2], (int)$al[3]);
-        $dayCanChi = LunarHelper::canchiNgayByJD($jdNgayAm);
+        // $jdNgayAm = LunarHelper::jdFromLunarDate((int)$al[0], (int)$al[1], (int)$al[2], (int)$al[3]);
+        // $dayCanChi = LunarHelper::canchiNgayByJD($jdNgayAm);
+        $jd = LunarHelper::jdFromDate((int)$dd, (int)$mm, (int)$yy);
+        $dayCanChi = LunarHelper::canchiNgayByJD($jd);
+
         $results = [];
         [$dayCan, $dayChi] = explode(' ', $dayCanChi);
         $dayNapAmData = TimeConstantHelper::getNapAmFromCanChi($dayCanChi);
@@ -24,9 +26,10 @@ class GioHoangDaoHelper
 
                 $hourNameCapitalized = ucfirst($gioName);
                 $standardRange = DataHelper::$khungGio[$gioName] ?? '(??-??:??)';
+                $standardRangeMini = DataHelper::$khungGioMini[$gioName] ?? '(??-??:??)';
+
                 $formattedTimeRange = self::formatHourRangeForDisplay($standardRange);
                 $startHour = self::getStartHourFromRange($standardRange);
-
                 $canChiGio = self::getCanChiGioString($startHour, $dayCan); // "Bính Tý"
                 [$hourCan, $hourChi] = explode(' ', $canChiGio);
 
@@ -48,6 +51,7 @@ class GioHoangDaoHelper
                     'rating' => $typeAndRating['rating'],
                     'zodiacSign' => $hourChi,
                     'zodiacIcon' => $zodiacIcon,
+                    'standardRangeMini' => $standardRangeMini,
                     'zodiacBackgroundColor' => $zodiacBackgroundColor,
                     'zodiacBorderColor' => $zodiacBorderColor,
                 ];

@@ -916,7 +916,7 @@ a {
     flex-grow: 1;
 
     border-radius: 50px;
-    padding: 5px 50px;
+    /* padding: 5px 50px; */
 }
 
 .main-navigation ul {
@@ -1539,7 +1539,7 @@ a:hover {
 }
 
 .day-status.hoang-dao {
-    color: #BE123C;
+    color: #3CAF1F;
     /* Màu chữ đỏ hồng */
 }
 
@@ -2753,7 +2753,7 @@ a:hover {
 }
 
 .date_number_lich_am {
-    color: #BE8800 !important;
+    color: #BF7F0F !important;
 }
 
 .pe-1-pc-home {
@@ -3011,7 +3011,7 @@ a:hover {
 .left-sidebar .nav-pills .nav-link.active {
     background-color: #f0f2f5;
     /* Nền màu xám nhạt theo hình ảnh */
-    color: #333;
+    color:rgba(33, 33, 33, 1);
     /* Chữ màu đen đậm */
     font-weight: 600;
     /* Bolder text for active tab */
@@ -3117,7 +3117,7 @@ a:hover {
     display: flex;
     align-items: flex-start;
     /* Căn các item con lên đầu */
-   
+
 }
 
 .star-wrapper {
@@ -3147,4 +3147,196 @@ a:hover {
 
 .text-content strong {
     font-weight: bold;
+}
+
+:root {
+    --chart-bg: #fff;
+    --chart-border-color: #eee;
+    --text-color-dark: #333d47;
+    /* Màu chữ chính */
+    --text-color-light: #777;
+    /* Màu chữ phụ, nhãn */
+
+    /* Màu sắc cột */
+    --bar-top-color: #a081ff;
+    /* Màu sáng nhất ở đỉnh cột */
+    --bar-mid-color: #8c60ff;
+    /* Màu giữa cột */
+    --bar-bottom-color: #7a50ff;
+    /* Màu tối nhất ở đáy cột */
+
+    /* Màu cạnh 3D của cột */
+    --bar-side-top-color: #8c60ff;
+    --bar-side-bottom-color: #6b40e7;
+
+    --tooltip-bg: #333d47;
+    --tooltip-text: #fff;
+    --grid-line-color: #e0e0e0;
+
+    --bar-width: 32px;
+    /* Chiều rộng của mỗi cột */
+    --bar-radius: 8px;
+    /* Bo góc trên của cột */
+    --bar-side-width: 5px;
+    /* Độ sâu của cạnh 3D */
+    --date-label-height: 25px;
+    /* Chiều cao dành cho nhãn ngày */
+}
+
+
+
+
+:root {
+    --chart-bg: #fff;
+    --chart-border-color: #eee;
+    --text-color-dark: #333d47;
+    /* Màu chữ chính */
+    --text-color-light: #777;
+    /* Màu chữ phụ, nhãn */
+
+    /* Màu sắc cột (điều này sẽ được sử dụng trong JS để tạo gradient) */
+    --bar-top-color: #2B7EE5;
+    /* Màu sáng nhất ở đỉnh cột */
+    --bar-mid-color: #2B7EE5;
+    /* Màu giữa cột */
+    --bar-bottom-color: #2254AB ;
+    /* Màu tối nhất ở đáy cột */
+
+    --tooltip-bg: #333d47;
+    --tooltip-text: #fff;
+    --grid-line-color: #e0e0e0;
+
+    --bar-width-ratio: 0.6;
+    /* Tỷ lệ chiều rộng của cột so với khoảng cách giữa các cột */
+    --bar-radius: 8px;
+    /* Bo góc trên của cột */
+    --date-label-height: 25px;
+    /* Chiều cao dành cho nhãn ngày */
+    
+}
+
+.chart-container {
+    position: relative;
+    /* Quan trọng để đặt tooltip tùy chỉnh */
+
+    padding: 25px 30px;
+    /* Padding cho toàn bộ container */
+
+    /* Điều chỉnh responsive */
+    max-width: 960px;
+    /* Giới hạn chiều rộng tối đa */
+    width: 100%;
+    /* Cho phép co giãn 100% của phần tử cha (body) */
+    height: auto;
+    /* Cho phép chiều cao tự động theo nội dung */
+    aspect-ratio: 2 / 1.7;
+    /* Tỷ lệ khung hình của biểu đồ gốc (~760/400) */
+    box-sizing: border-box;
+    display: flex;
+    /* Flexbox để căn giữa canvas */
+    justify-content: center;
+    align-items: center;
+}
+
+/* Wrapper cho canvas để Chart.js có thể quản lý kích thước */
+/* Đây là cách tốt nhất để làm cho Chart.js responsive trong một container có tỷ lệ khung hình */
+.chart-canvas-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+#myChart {
+    position: absolute;
+    /* Quan trọng để Canvas lấp đầy chart-canvas-wrapper */
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    /* Ghi đè inline style của Chart.js */
+    height: 100% !important;
+    /* Ghi đè inline style của Chart.js */
+    /* Chart.js sẽ tự động vẽ trục Y và X trong canvas */
+}
+
+/* CSS cho tooltip tùy chỉnh (cho cột 24/8) */
+.custom-static-tooltip {
+    position: absolute;
+    background-color: var(--tooltip-bg);
+    color: var(--tooltip-text);
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 0.85em;
+    font-weight: 600;
+    white-space: nowrap;
+    z-index: 10;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    /* Vị trí top và left sẽ được tính toán bằng JS */
+    visibility: hidden;
+    /* Ban đầu ẩn, JS sẽ hiển thị */
+    transition: opacity 0.2s ease-in-out;
+    /* Hiệu ứng mượt mà khi hiển thị */
+}
+
+.custom-static-tooltip::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    width: 10px;
+    height: 10px;
+    background-color: var(--tooltip-bg);
+    z-index: 9;
+}
+
+/* Media Queries cho các màn hình nhỏ hơn (tùy chọn) */
+@media (max-width: 600px) {
+    .chart-container {
+        padding: 0;
+    }
+
+    .custom-static-tooltip {
+        font-size: 0.8em;
+        padding: 4px 8px;
+    }
+}
+.boxgetGioHoangDao{
+    border-radius: 24px;
+    padding: 20px; 
+    overflow: hidden;
+}
+/* .boxgetGioHoangDao img{
+    opacity: 0.6;
+} */
+.colorgiogoangdao-1 {
+    background: #EFF8FF;
+    border: 1px solid #C1E3FC;
+}
+.colorgiogoangdao-2 {
+    background: #F2EFFF;
+    border: 1px solid #C7C1FC;
+}
+.colorgiogoangdao-3 {
+    background: #FEFFE5;
+    border: 1px solid #F6EE93;
+}
+.colorgiogoangdao-4 {
+    background: #EFFFF0;
+    border: 1px solid #BCFFA8;
+}
+.colorgiogoangdao-5 {
+    background: #FFF1EF;
+    border: 1px solid #FCCAC1;
+}
+.colorgiogoangdao-6 {
+    background: #EFFDFF;
+    border: 1px solid #B5FDFF;
+}
+.content-lunar-detail{
+color: rgba(33, 33, 33, 1);
+}
+.accordion-button:not(.collapsed){
+    color: rgba(33, 33, 33, 1) !important;
+    font-weight: 600;
 }

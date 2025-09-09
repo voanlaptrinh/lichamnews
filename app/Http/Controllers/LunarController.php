@@ -316,16 +316,8 @@ class LunarController extends Controller
         $getDetailedGioHoangDao = GioHoangDaoHelper::getDetailedGioHoangDao($dd, $mm, $yy);
 
         $amToday = sprintf('%04d-%02d-%02d', $al[2], $al[1], $al[0]);
-        // $amToday = sprintf('%02d-%02d%04d-', $al[2], $al[1], $al[0]);
-
-        // Tính toán thông tin tổng hợp (có thể phụ thuộc vào ngày sinh)
         $getDaySummaryInfo = FunctionHelper::getDaySummaryInfo($dd, $mm, $yy, $birthdate);
 
-        // --- Kết thúc logic tính toán ---
-
-        // =========================================================
-        // ===  LOGIC LẤY SỰ KIỆN SẮP TỚI  ===
-        // =========================================================
         $upcomingEvents = [];
         $currentCarbonDate = Carbon::create($yy, $mm, $dd)->startOfDay();
         $lookAheadMonths = 3; // Số tháng tiếp theo muốn tìm sự kiện
@@ -590,6 +582,27 @@ class LunarController extends Controller
         $getVongKhiNgayThang = KhiVanHelper::getDetailedKhiThangInfo($dateToCheck);
         $getCucKhiHopXung = FengShuiHelper::getCucKhiHopXung($chiNgay[1]);
         $checkBadDays = BadDayHelper::checkBadDays($dateToCheck);
+
+
+        $startDate = Carbon::createFromDate((int)$yy, (int)$mm, (int)$dd);
+
+        // mảng dữ liệu cho chart
+        $labels = [];
+        $dataValues = [];
+
+        for ($i = 0; $i < 7; $i++) {
+            $date = $startDate->copy()->addDays($i);
+            $day   = (int)$date->day;
+            $month = (int)$date->month;
+            $year  = (int)$date->year;
+
+            // gọi hàm lấy điểm
+            $info = FunctionHelper::getDaySummaryInfo($day, $month, $year, $birthdate);
+
+            // giả sử trong $info có trường 'score'
+            $labels[] = $date->format('d/m');
+            $dataValues[] = $info['score']['percentage'];
+        }
         // dd($checkBadDays);
         return view('lunar.detail', [
             'cdate' => $cdate,
@@ -624,6 +637,8 @@ class LunarController extends Controller
             'getVongKhiNgayThang' => $getVongKhiNgayThang,
             'getCucKhiHopXung' => $getCucKhiHopXung,
             'checkBadDays' => $checkBadDays,
+            'labels' => $labels,
+            'dataValues' => $dataValues,
 
         ]);
     }

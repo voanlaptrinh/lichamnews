@@ -1,5 +1,5 @@
 <header class="site-header fbs__net-navbar">
-    <div class="container d-flex align-items-center justify-content-between">
+    <div class="container-setup d-flex align-items-center justify-content-between">
         <div class="site-logo d-flex align-items-center">
             <a href="#" class="text-white">
                 {{-- <img class="img-logo w-100" src="{{ asset('/users/images/logo-FunHome.svg') }}" alt=""> --}}
