@@ -4477,11 +4477,11 @@ class DataHelper
         "Kiến" => [
             "rating" => "Tốt", // Đánh giá theo tài liệu
             "description" => // Ý nghĩa
-            "Ngày có Trực Kiến là ngày đầu tiên trong 12 ngày trực. Đây được coi như một khởi đầu mới mẻ, sự nảy nở và sinh sôi. Ngày trực này vô cùng cát lợi cho các việc như=> khai trương, nhậm chức, cưới hỏi, trồng cây, đền ơn đáp nghĩa. Xấu cho các việc động thổ, chôn cất, đào giếng, lợp nhà.",
+            "Ngày có Trực Kiến là ngày đầu tiên trong 12 ngày trực. Đây được coi như một khởi đầu mới mẻ, sự nảy nở và sinh sôi. Ngày trực này vô cùng cát lợi cho các việc như: khai trương, nhậm chức, cưới hỏi, trồng cây, đền ơn đáp nghĩa. Xấu cho các việc động thổ, chôn cất, đào giếng, lợp nhà.",
             "good" => // Nên làm
-            "Khai trương, cưới hỏi, nhậm chức, trồng cây, khởi công nhỏ.",
+            "Khai trương, cưới hỏi, nhậm chức, trồng cây, khởi công nhỏ",
             "bad" => // Không nên làm
-            "Động thổ sâu, đào giếng, chôn cất.",
+            "Động thổ sâu, đào giếng, chôn cất",
             "solution" => // Giữ nguyên hoặc cập nhật nếu có thông tin mới
             "Thiên Đức, Nguyệt Đức",
             "isCat" => true, // Tốt -> Cát
@@ -4489,11 +4489,11 @@ class DataHelper
         "Trừ" => [
             "rating" => "Tốt", // Đánh giá theo tài liệu
             "description" => // Ý nghĩa
-            "Ngày có Trực Trừ là ngày thứ hai trong 12 ngày trực. Đây là giai đoạn thứ hai vừa mang ý nghĩa cát lẫn hung. Nghĩa là bớt đi những điều không tốt đẹp, trừ đi những thứ không phù hợp và thay thế những thứ tốt hơn, chất lượng hơn. Ngày có trực này nên tiến hành các công việc như=> trừ phục, dâng sao giải hạn, tỉa chân nhang, thay bát hương… Bên cạnh đó cũng không nên làm các việc như chi xuất tiền lớn, ký hợp đồng, khai trương, cưới hỏi.",
+            "Ngày có Trực Trừ là ngày thứ hai trong 12 ngày trực. Đây là giai đoạn thứ hai vừa mang ý nghĩa cát lẫn hung. Nghĩa là bớt đi những điều không tốt đẹp, trừ đi những thứ không phù hợp và thay thế những thứ tốt hơn, chất lượng hơn. Ngày có trực này nên tiến hành các công việc như: trừ phục, dâng sao giải hạn, tỉa chân nhang, thay bát hương… Bên cạnh đó cũng không nên làm các việc như chi xuất tiền lớn, ký hợp đồng, khai trương, cưới hỏi.",
             "good" => // Nên làm
-            "Giải hạn, dâng sao, tỉa chân nhang, thanh lọc.",
+            "Giải hạn, dâng sao, tỉa chân nhang, thanh lọc",
             "bad" => // Không nên làm
-            "Ký hợp đồng, xuất tiền lớn, khai trương, cưới hỏi.",
+            "Ký hợp đồng, xuất tiền lớn, khai trương, cưới hỏi",
             "solution" => // Giữ nguyên
             "Thiên Hỷ, Giải Thần",
             "isCat" => true, // Tốt -> Cát
@@ -4503,9 +4503,9 @@ class DataHelper
             "description" => // Ý nghĩa
             "Ngày có Trực Mãn là ngày thứ ba trong 12 ngày trực. Đây là giai đoạn phát triển sung mãn của vạn vật, đi đến vẹn toàn và đủ đầy. Ngày có trực này nên làm những việc như cúng lễ, xuất hành, sửa kho. Ngoài ra cần lưu ý ngày này xấu cho việc chôn cất, kiện tụng, hay nhậm chức.",
             "good" => // Nên làm
-            "Cúng tế, xuất hành, nhập kho, khai kho nhỏ.",
+            "Cúng tế, xuất hành, nhập kho, khai kho nhỏ",
             "bad" => // Không nên làm
-            "Chôn cất, kiện tụng, cưới hỏi.", // Tài liệu có ghi "nhậm chức" là xấu, có thể thêm vào nếu muốn chi tiết hơn
+            "Chôn cất, kiện tụng, cưới hỏi", // Tài liệu có ghi "nhậm chức" là xấu, có thể thêm vào nếu muốn chi tiết hơn
             "solution" => // Giữ nguyên
             "Thiên Hỷ, Nguyệt Ân",
             "isCat" => false, // Trung bình -> Không phải Cát rõ ràng
@@ -4515,9 +4515,9 @@ class DataHelper
             "description" => // Ý nghĩa
             "Ngày có Trực Bình là ngày thứ tư trong 12 ngày trực. Đây là giai đoạn lấy lại bình hòa cho vạn vật. Vì thế mà ngày có trực này mọi việc đều tốt. Tốt nhất cho các việc di dời bếp, giao thương, mua bán.",
             "good" => // Nên làm
-            "Giao dịch nhỏ, di dời bếp, mua bán nhỏ.",
+            "Giao dịch nhỏ, di dời bếp, mua bán nhỏ",
             "bad" => // Không nên làm
-            "Việc lớn, đầu tư, động thổ.",
+            "Việc lớn, đầu tư, động thổ",
             "solution" => // Giữ nguyên
             "Tùy thuộc sao tốt trong ngày",
             "isCat" => false, // Trung bình -> Không phải Cát rõ ràng
@@ -4527,7 +4527,7 @@ class DataHelper
             "description" => // Ý nghĩa
             "Ngày có Trực Định là ngày thứ năm trong 12 ngày trực. Cũng giống như Trực Bình, Trực Định cũng mang những ý nghĩa tốt đẹp về sự vẹn toàn, đủ đầy. Ngày có trực này nên làm các việc buôn bán, giao thương, làm chuồng gia súc. Bên cạnh đó, cần tránh các việc như thưa kiện, xuất hành đi xa.",
             "good" => // Nên làm
-            "Buôn bán, kê bàn thờ, lập gia trang, an vị thần linh.",
+            "Buôn bán, kê bàn thờ, lập gia trang, an vị thần linh",
             "bad" => // Không nên làm
             "Thưa kiện, xuất hành đi xa.",
             "solution" => // Giữ nguyên
@@ -4539,9 +4539,9 @@ class DataHelper
             "description" => // Ý nghĩa
             "Ngày có Trực Chấp là ngày thứ sáu trong 12 ngày trực. Khác với Trực Bình, Trực Định thì Trực Chấp mang ý nghĩa giữ gìn, bảo toàn nhưng lại có tâm lý “cố chấp”, bảo thủ, không chịu tiếp thu những cái mới mẻ. Đây cũng là giai đoạn báo hiệu sắp xảy ra một thời kỳ suy thoái. Ngày có trực này tốt cho các việc tu sửa, tuyển dụng, thuê mướn người làm. Ngoài ra nên chú ý không nên xuất nhập kho, truy xuất tiền nong, an sàng.",
             "good" => // Nên làm
-            "Tu sửa, trồng trọt, tu tập.", // Tài liệu có "tuyển dụng, thuê mướn người làm", bạn có thể thêm nếu cần
+            "Tu sửa, trồng trọt, tu tập", // Tài liệu có "tuyển dụng, thuê mướn người làm", bạn có thể thêm nếu cần
             "bad" => // Không nên làm
-            "Mở cửa hàng, đi xa, xuất tiền.", // Tài liệu có "xuất nhập kho, truy xuất tiền nong, an sàng", bạn có thể thêm nếu cần
+            "Mở cửa hàng, đi xa, xuất tiền", // Tài liệu có "xuất nhập kho, truy xuất tiền nong, an sàng", bạn có thể thêm nếu cần
             "solution" => // Giữ nguyên
             "Nguyệt Giải, Long Đức",
             "isCat" => false, // Trung bình -> Không phải Cát rõ ràng
@@ -4551,9 +4551,9 @@ class DataHelper
             "description" => // Ý nghĩa
             "Ngày có Trực Phá là ngày thứ bảy trong 12 ngày trực. Đây là giai đoạn báo hiểu những sụp đổ của những thứ lỗi thời, cũ kỹ. Cho nên, việc tốt nên làm trong ngày có trực này là đi xa, phá bỏ công trình, nhà ở cũ kỹ. Cần lưu ý thêm rất xấu cho những việc mở hàng, cưới hỏi, hội họp.",
             "good" => // Nên làm
-            "Phá dỡ công trình cũ, thanh lý, đi xa.",
+            "Phá dỡ công trình cũ, thanh lý, đi xa",
             "bad" => // Không nên làm
-            "Mở hàng, cưới hỏi, hội họp, ký kết đầu tư.",
+            "Mở hàng, cưới hỏi, hội họp, ký kết đầu tư",
             "solution" => // Giữ nguyên
             "Thiên Đức, Nguyệt Tài",
             "isCat" => false, // Xấu -> Không phải Cát
@@ -4563,9 +4563,9 @@ class DataHelper
             "description" => // Ý nghĩa
             "Ngày có Trực Nguy là ngày thứ tám trong 12 ngày trực. Đây là giai đoạn báo hiệu sự nguy hiểm, suy thoái đến cực điểm. Ngày có trực này cực kỳ xấu, rất ít người lựa chọn làm các công việc làm ăn kinh doanh buôn bán, động thổ, khai trương hay cưới xin, thăm hỏi. Vào ngày có Trực Nguy nên làm lễ bái, cầu tự, tụng kinh.",
             "good" => // Nên làm
-            "Lễ cầu an, tụng kinh, cầu tự, xin lộc.",
+            "Lễ cầu an, tụng kinh, cầu tự, xin lộc",
             "bad" => // Không nên làm
-            "Mọi đại sự, xuất hành, cưới hỏi.", // Bao gồm các việc liệt kê trong mô tả=> làm ăn, động thổ, khai trương, thăm hỏi...
+            "Mọi đại sự, xuất hành, cưới hỏi", // Bao gồm các việc liệt kê trong mô tả=> làm ăn, động thổ, khai trương, thăm hỏi...
             "solution" => // Giữ nguyên
             "Thiên Giải, Thiên Hỷ",
             "isCat" => false, // Rất xấu -> Không phải Cát
@@ -4575,9 +4575,9 @@ class DataHelper
             "description" => // Ý nghĩa
             "Ngày có Trực Thành là ngày thứ chín trong 12 ngày trực. Đây là giai đoạn cái mới được khởi đầu, tạo ra và hình thành. Chính vì vậy, ngày có trực này rất tốt. Nên làm các việc như nhập học, kết hôn, dọn về nhà mới. Tránh các việc kiện tụng, cãi vã, tranh chấp.",
             "good" => // Nên làm
-            "Khai trương, cưới hỏi, nhậm chức.", // Tài liệu có "nhập học, dọn về nhà mới", bạn có thể thêm nếu cần
+            "Khai trương, cưới hỏi, nhậm chức", // Tài liệu có "nhập học, dọn về nhà mới", bạn có thể thêm nếu cần
             "bad" => // Không nên làm
-            "Kiện tụng, tranh chấp, chặt phá, họp hành tranh luận.", // Tài liệu có "cãi vã", bao hàm trong tranh chấp/họp hành tranh luận
+            "Kiện tụng, tranh chấp, chặt phá, họp hành tranh luận", // Tài liệu có "cãi vã", bao hàm trong tranh chấp/họp hành tranh luận
             "solution" => // Giữ nguyên
             "Không cần sao hóa giải",
             "isCat" => true, // Rất tốt -> Cát
@@ -4587,9 +4587,9 @@ class DataHelper
             "description" => // Ý nghĩa
             "Ngày có Trực Thu (Thâu) là ngày thứ mười trong 12 ngày trực. Đây là giai đoạn gặt hái thành công, thu về kết quả. Ngày có trực này nên làm các việc mở cửa hàng, cửa tiệm, lập kho, buôn bán. Không nên làm các việc như ma chay, an táng, tảo mộ.",
             "good" => // Nên làm
-            "Mở kho, thu nợ, lập kho bãi, bán hàng nhỏ.", // Tài liệu có "mở cửa hàng, cửa tiệm, buôn bán", có thể thêm/thay thế nếu muốn
+            "Mở kho, thu nợ, lập kho bãi, bán hàng nhỏ", // Tài liệu có "mở cửa hàng, cửa tiệm, buôn bán", có thể thêm/thay thế nếu muốn
             "bad" => // Không nên làm
-            "Ma chay, an táng, tảo mộ.", // Tài liệu chỉ rõ 3 việc này
+            "Ma chay, an táng, tảo mộ", // Tài liệu chỉ rõ 3 việc này
             "solution" => // Giữ nguyên
             "Nguyệt Đức, Thiên Ân",
             "isCat" => true, // Tốt -> Cát
@@ -4599,9 +4599,9 @@ class DataHelper
             "description" => // Ý nghĩa
             "Ngày có Trực Khai là ngày thứ mười một trong 12 ngày trực. Đây là giai đoạn mọi vật sau khi quy tàng, thì thuận lợi, hanh thông bắt đầu mở ra. Ngày có trực này thường được nhiều người sử dụng để làm các việc lớn như động thổ làm nhà, kết hôn vì đây là ngày có nhiều cát lành, may mắn. Bên cạnh đó, cần lưu ý kiêng các việc như an táng, động mộ vì người ta quan niệm nó không được sạch sẽ.",
             "good" => // Nên làm
-            "Khai trương, động thổ, cưới hỏi, mở cửa tiệm.", // Tài liệu có "động thổ làm nhà, kết hôn"
+            "Khai trương, động thổ, cưới hỏi, mở cửa tiệm", // Tài liệu có "động thổ làm nhà, kết hôn"
             "bad" => // Không nên làm
-            "An táng, động thổ liên quan mồ mả.", // Tài liệu có "động mộ"
+            "An táng, động thổ liên quan mồ mả", // Tài liệu có "động mộ"
             "solution" => // Giữ nguyên
             "Thiên Hỷ (thêm may mắn)",
             "isCat" => true, // Rất tốt -> Cát
@@ -4611,9 +4611,9 @@ class DataHelper
             "description" => // Ý nghĩa
             "Ngày có Trực Bế là ngày cuối cùng trong 12 ngày trực. Đây là giai đoạn mọi việc trở lại khó khăn, gặp nhiều gian nan, trở ngại. Ngày có trực này thường không được sử dụng cho các việc nhậm chức, khiếu kiện, đào giếng mà chỉ nên làm các việc như đắp đập đê điều, ngăn nước, xây vá tường vách đã lở.",
             "good" => // Nên làm
-            "Đắp đê, chắn nước, sửa chữa nhỏ, phòng hộ.", // Tài liệu có "đắp đập đê điều, ngăn nước, xây vá tường vách đã lở"
+            "Đắp đê, chắn nước, sửa chữa nhỏ, phòng hộ", // Tài liệu có "đắp đập đê điều, ngăn nước, xây vá tường vách đã lở"
             "bad" => // Không nên làm
-            "Nhậm chức, khai trương, đào giếng, khởi sự việc lớn.", // Tài liệu có "khiếu kiện"
+            "Nhậm chức, khai trương, đào giếng, khởi sự việc lớn", // Tài liệu có "khiếu kiện"
             "solution" => // Giữ nguyên
             "Thiên Giải, Long Đức (nếu cần)",
             "isCat" => false, // Rất xấu -> Không phải Cát
@@ -5168,20 +5168,21 @@ class DataHelper
         'hợi'  => 'dần',
     ];
 
-    // Nhóm Tam Hợp
+    // Nhóm Tam Hợp - Theo quy tắc tứ trụ chính thống
+    // Thân-Tý-Thìn (Thủy cục), Tỵ-Dậu-Sửu (Kim cục), Dần-Ngọ-Tuất (Hỏa cục), Hợi-Mão-Mùi (Mộc cục)
     public static array $TAM_HOP_GROUPS = [
-        'tý'   => ['thìn', 'thân'],
-        'sửu'  => ['tỵ', 'dậu'],
-        'dần'  => ['ngọ', 'tuất'],
-        'mão'  => ['mùi', 'hợi'],
-        'thìn' => ['tý', 'thân'],
-        'tỵ'   => ['sửu', 'dậu'],
-        'ngọ'  => ['dần', 'tuất'],
-        'mùi'  => ['mão', 'hợi'],
-        'thân' => ['tý', 'thìn'],
-        'dậu'  => ['sửu', 'tỵ'],
-        'tuất' => ['dần', 'ngọ'],
-        'hợi'  => ['mão', 'mùi'],
+        'tý'   => ['thân', 'thìn'],  // Thân-Tý-Thìn hợp Thủy
+        'sửu'  => ['tỵ', 'dậu'],     // Tỵ-Dậu-Sửu hợp Kim
+        'dần'  => ['ngọ', 'tuất'],   // Dần-Ngọ-Tuất hợp Hỏa
+        'mão'  => ['hợi', 'mùi'],    // Hợi-Mão-Mùi hợp Mộc
+        'thìn' => ['thân', 'tý'],    // Thân-Tý-Thìn hợp Thủy
+        'tỵ'   => ['dậu', 'sửu'],    // Tỵ-Dậu-Sửu hợp Kim
+        'ngọ'  => ['dần', 'tuất'],   // Dần-Ngọ-Tuất hợp Hỏa
+        'mùi'  => ['hợi', 'mão'],    // Hợi-Mão-Mùi hợp Mộc
+        'thân' => ['tý', 'thìn'],    // Thân-Tý-Thìn hợp Thủy
+        'dậu'  => ['tỵ', 'sửu'],     // Tỵ-Dậu-Sửu hợp Kim
+        'tuất' => ['dần', 'ngọ'],    // Dần-Ngọ-Tuất hợp Hỏa
+        'hợi'  => ['mão', 'mùi'],    // Hợi-Mão-Mùi hợp Mộc
     ];
     public static array $LUC_XUNG = [
         'Tý' => 'Ngọ',

@@ -365,7 +365,9 @@
 
     </div> --}}
     <div class="container-setup">
-        <h6 class="content-title-date-detail">Trang chủ <i class="bi bi-chevron-right"></i> <span>Chi tiết ngày</span></h6>
+        <h6 class="content-title-date-detail"><a href="{{ route('home') }}">Trang chủ</a> <i class="bi bi-chevron-right"></i>
+            <span>Chi tiết ngày</span>
+        </h6>
         <div class="box-date-detail">
             <div class="row g-3">
                 <div class="col-6">
@@ -377,12 +379,16 @@
                             <div class="card-title"><img src="{{ asset('icons/icon_duong.svg') }}" alt="icon_duong"
                                     width="20px" height="20px"> Dương lịch</div>
                             <div class="date-number duong date_number_lich"> {{ $dd }}</div>
-                            <div class="date-weekday">{{ $weekday }}, tháng {{ $mm }} năm
+                            <div class="date-weekday">{{ $weekday }}</div>
+                            <div class="date-special-event text-dark">Tháng {{ $mm }} năm
                                 {{ $yy }}</div>
                             <div class="date-special-event">
-                                @foreach ($suKienHomNay as $suKien)
-                                    {{ $suKien['ten_su_kien'] ?? $suKien }}
-                                @endforeach
+                                @if (!empty($suKienDuongLich))
+                                    @foreach ($suKienDuongLich as $suKien)
+                                        <div class="su-kien-duong">{{ $suKien['ten_su_kien'] ?? $suKien }}</div>
+                                    @endforeach
+                                @endif
+
                             </div>
                         </div>
                         {{-- Nút Next Day PC (Đã sửa) --}}
@@ -398,9 +404,17 @@
                             </div>
                             <div class="date-weekday">Tháng {{ $al[1] }} ({{ $al[4] }}) năm
                                 {{ $getThongTinCanChiVaIcon['can_chi_nam'] }}</div>
-                            <div class="date-special-event">Ngày {{ $getThongTinCanChiVaIcon['can_chi_ngay'] }}
+                            <div class="date-special-event text-dark">Ngày {{ $getThongTinCanChiVaIcon['can_chi_ngay'] }}
                                 -
                                 Tháng {{ $getThongTinCanChiVaIcon['can_chi_thang'] }}</div>
+                            <div class="date-special-event">
+                                @if (!empty($suKienAmLich))
+                                    @foreach ($suKienAmLich as $suKien)
+                                        <div class="su-kien-duong">{{ $suKien['ten_su_kien'] ?? $suKien }}</div>
+                                    @endforeach
+                                @endif
+
+                            </div>
                         </div>
                         {{-- Nút Next Day PC (Đã sửa và di chuyển vào đây) --}}
                         <a href="#" class="nav-arrow nav-home-date nave-right next-day-btn" title="Ngày hôm sau"> <i
@@ -494,7 +508,8 @@
                         </div>
 
                         <!-- Cột bên phải: Nội dung chính (Tab Content) -->
-                        <div class="main-content content-lunar-detail col pt-3 pt-md-0 tab-content" id="v-pills-tabContent">
+                        <div class="main-content content-lunar-detail col pt-3 pt-md-0 tab-content"
+                            id="v-pills-tabContent">
                             <!-- Nội dung cho "Thông tin chung" (Tab 1 - active mặc định) -->
                             <div class="tab-pane fade show active" id="v-pills-general-info" role="tabpanel"
                                 aria-labelledby="v-pills-general-info-tab" tabindex="0">
@@ -521,13 +536,13 @@
                                 </p>
 
                                 <!-- Mức thuận lợi hôm nay box -->
-                                <div class="row g-3 p-sm-3 p-2 rounded-3 border custom-light-yellow-bg">
+                                <div class="row g-3 p-sm-3 p-2 rounded-3 border custom-light-yellow-bg box-custom_yeloow">
                                     <div class="col-xl-6 col-sm-6 col-12">
                                         <span class=" fw-bold me-4 text-dark pb-2">Mức thuận lợi hôm nay:</span>
                                     </div>
                                     <div
                                         class="col-xl-6 col-sm-6 col-12 p-0 m-0 d-flex justify-content-center align-items-center">
-                                        <div class="progress-dial"
+                                        <div class="progress-dial mt-2"
                                             style="--value: {{ round($getDaySummaryInfo['score']['percentage']) }};">
                                             <div class="dial-text">
                                                 <span
@@ -610,30 +625,123 @@
                                                     Đang cập nhật (Nội dung tóm tắt)
                                                 @endif
                                             </p>
-                                            @if (!empty($nhiThapBatTu['guidance']['good']))
-                                                <div class="content-section mb-4">
-                                                    <h6 class="fw-bold mb-2">
-                                                        <img src="{{ asset('icons/dac-diem2.svg') }}" alt="Đặc điểm"
-                                                            class="img-fluid me-2">Việc nên làm
-                                                    </h6>
-                                                    <ul class="list-unstyled  small">
-                                                        <li>{{ $nhiThapBatTu['guidance']['good'] }}</li>
-                                                    </ul>
-                                                </div>
-                                            @endif
+                                            @php
+                                                $goodFactors = [];
+
+                                                if ($nhiThapBatTu['nature'] == 'Tốt') {
+                                                    $goodFactors[] =
+                                                        'Sao <strong>' .
+                                                        $nhiThapBatTu['name'] .
+                                                        '</strong> (Nhị thập bát tú)';
+                                                }
+
+                                                if ($getThongTinTruc['description']['rating'] == 'Tốt') {
+                                                    $goodFactors[] =
+                                                        'Trực <strong>' .
+                                                        $getThongTinTruc['title'] .
+                                                        '</strong> (Thập nhị trực)';
+                                                }
+
+                                                if (!empty($getSaoTotXauInfo['sao_tot'])) {
+                                                    $saoTotList = implode(
+                                                        ', ',
+                                                        array_keys($getSaoTotXauInfo['sao_tot']),
+                                                    );
+                                                    $goodFactors[] = 'Sao tốt: ' . $saoTotList;
+                                                }
+                                            @endphp
+
+                                            <p>
+
+                                                @if (!empty($goodFactors))
+                                                    {!! implode('; ', $goodFactors) !!}
+                                                @else
+                                                    Không có yếu tố tốt nào.
+                                                @endif
+                                            </p>
+
+
+
+                                            @php
+                                                $badFactors = [];
+
+                                                if ($nhiThapBatTu['nature'] == 'Xấu') {
+                                                    $badFactors[] =
+                                                        'Sao <strong>' .
+                                                        $nhiThapBatTu['name'] .
+                                                        '</strong> (Nhị thập bát tú)';
+                                                }
+
+                                                if ($getThongTinTruc['description']['rating'] == 'Xấu') {
+                                                    $badFactors[] =
+                                                        'Trực <strong>' .
+                                                        $getThongTinTruc['title'] .
+                                                        '</strong> (Thập nhị trực)';
+                                                }
+
+                                                if (!empty($getSaoTotXauInfo['sao_xau'])) {
+                                                    $saoXauList = implode(
+                                                        ', ',
+                                                        array_keys($getSaoTotXauInfo['sao_xau']),
+                                                    );
+                                                    $badFactors[] = 'Sao xấu: ' . $saoXauList;
+                                                }
+                                            @endphp
+
+                                            <p>
+                                                @if (!empty($badFactors))
+                                                    {!! implode('; ', $badFactors) !!}
+                                                @else
+                                                    Không có yếu tố xấu nào.
+                                                @endif
+                                            </p>
+                                            <div class="content-section mb-4">
+                                                <h6 class="fw-bold mb-2">
+                                                    <img src="{{ asset('icons/dac-diem2.svg') }}" alt="Đặc điểm"
+                                                        class="img-fluid me-2">Việc nên làm
+                                                </h6>
+                                                <ul class="  small">
+
+
+                                                    @if (!empty($nhiThapBatTu['guidance']['good']))
+                                                        <li>{{ $nhiThapBatTu['guidance']['good'] }} (Nhị thập bát tú -
+                                                            {{ $nhiThapBatTu['name'] }}).</li>
+                                                    @endif
+                                                    @if (!empty($getThongTinTruc['description']['good']))
+                                                        <li>
+                                                            {{ $getThongTinTruc['description']['good'] }} (Thập nhị
+                                                            trực -
+                                                            {{ $getThongTinTruc['title'] }}).
+                                                        </li>
+                                                    @endif
+                                                    {{-- <li>{{ $nhiThapBatTu['guidance']['good'] }}</li> --}}
+                                                </ul>
+                                            </div>
+
 
                                             <!-- Không nên -->
-                                            @if (!empty($nhiThapBatTu['guidance']['bad']))
-                                                <div class="content-section mb-4">
-                                                    <h6 class="fw-bold mb-2">
-                                                        <img src="{{ asset('icons/dac-diem3.svg') }}" alt="Đặc điểm"
-                                                            class="img-fluid me-2">Không nên
-                                                    </h6>
-                                                    <ul class="list-unstyled  small">
-                                                        <li>{{ $nhiThapBatTu['guidance']['bad'] }}</li>
-                                                    </ul>
-                                                </div>
-                                            @endif
+
+                                            <div class="content-section mb-4">
+                                                <h6 class="fw-bold mb-2">
+                                                    <img src="{{ asset('icons/dac-diem3.svg') }}" alt="Đặc điểm"
+                                                        class="img-fluid me-2">Không nên làm
+                                                </h6>
+                                                <ul class="  small">
+                                                    @if (!empty($nhiThapBatTu['guidance']['bad']))
+                                                        <li>{{ $nhiThapBatTu['guidance']['bad'] }} (Nhị thập bát tú -
+                                                            sao
+                                                            {{ $nhiThapBatTu['name'] }}).</li>
+                                                    @endif
+                                                    @if (!empty($getThongTinTruc['description']['bad']))
+                                                        <li>
+                                                            {{ $getThongTinTruc['description']['bad'] }} (Thập nhị trực
+                                                            -
+                                                            {{ $getThongTinTruc['title'] }}).
+                                                        </li>
+                                                    @endif
+                                                    {{-- <li>{{ $nhiThapBatTu['guidance']['bad'] }}</li> --}}
+                                                </ul>
+                                            </div>
 
 
                                         </div>
@@ -703,8 +811,8 @@
                                                                     <div class="text-content">
                                                                         <h6>Cục khí - hợp xung:</h6>
                                                                         <ul>
-                                                                            <li> {{ $getCucKhiHopXung['hop'] }}</li>
-                                                                            <li> {{ $getCucKhiHopXung['ky'] }}</li>
+                                                                            <li> {{ $getCucKhiHopXung['hop'] }}.</li>
+                                                                            <li> {{ $getCucKhiHopXung['ky'] }}.</li>
                                                                         </ul>
                                                                     </div>
                                                                 </div>
@@ -717,7 +825,8 @@
                                                                         {{ $al[0] }}-{{ $al[1] }}-{{ $al[2] }}
                                                                         Âm lịch có xuất
                                                                         hiện sao:
-                                                                        <b>{{ $nhiThapBatTu['name'] }}({{ $nhiThapBatTu['fullName'] }})</b>
+                                                                        <b>{{ $nhiThapBatTu['name'] }}
+                                                                            ({{ $nhiThapBatTu['fullName'] }})</b>
                                                                         <div> <i class="bi bi-arrow-right-short"></i> Đây
                                                                             là sao
                                                                             <b>{{ $nhiThapBatTu['nature'] }} </b>-
@@ -729,17 +838,17 @@
                                                                         <div>
                                                                             @if ($nhiThapBatTu['guidance']['good'])
                                                                                 <span class="fw-bolder">
-                                                                                    Việc nên làm :
+                                                                                    Việc nên làm:
                                                                                 </span>
-                                                                                {{ $nhiThapBatTu['guidance']['good'] }}
+                                                                                {{ $nhiThapBatTu['guidance']['good'] }}.
                                                                             @endif
                                                                         </div>
 
                                                                         <div>
                                                                             @if ($nhiThapBatTu['guidance']['bad'])
-                                                                                <span class="fw-bolder"> Việc không nên làm
-                                                                                    : </span>
-                                                                                {{ $nhiThapBatTu['guidance']['bad'] }}
+                                                                                <span class="fw-bolder"> Việc không nên
+                                                                                    làm: </span>
+                                                                                {{ $nhiThapBatTu['guidance']['bad'] }}.
                                                                             @endif
                                                                         </div>
 
@@ -767,7 +876,7 @@
                                                                         <div>
                                                                             @if ($getThongTinTruc['description']['good'])
                                                                                 <span class="fw-bolder">
-                                                                                    Việc nên làm :
+                                                                                    Việc nên làm:
                                                                                 </span>
                                                                                 {{ $getThongTinTruc['description']['good'] }}
                                                                             @endif
@@ -775,8 +884,8 @@
 
                                                                         <div>
                                                                             @if ($getThongTinTruc['description']['bad'])
-                                                                                <span class="fw-bolder"> Việc không nên làm
-                                                                                    : </span>
+                                                                                <span class="fw-bolder"> Việc không nên
+                                                                                    làm: </span>
                                                                                 {{ $getThongTinTruc['description']['bad'] }}
                                                                             @endif
                                                                         </div>
@@ -797,7 +906,8 @@
                                                                         <!-- Sử dụng ký tự unicode cho ngôi sao -->
                                                                     </div>
                                                                     <div class="text-content">
-                                                                        <h6>Sao Tốt:</h6>
+                                                                        <h6 style="color: rgba(240, 93, 7, 1)">Sao Tốt:
+                                                                        </h6>
                                                                         <ul>
                                                                             @if (!empty($getSaoTotXauInfo['sao_tot']))
                                                                                 @foreach ($getSaoTotXauInfo['sao_tot'] as $tenSao => $yNghia)
@@ -842,7 +952,8 @@
                                                                 <div>
                                                                     <div>
                                                                         <div>Ngày này là ngày
-                                                                            <b>{{ $khongMinhLucDieu['name'] }}</b>({{ $khongMinhLucDieu['rating'] }})
+                                                                            <b>{{ $khongMinhLucDieu['name'] }}</b>
+                                                                            ({{ $khongMinhLucDieu['rating'] }})
                                                                         </div>
                                                                         <div>-> {{ $khongMinhLucDieu['description'] }}
                                                                         </div>
@@ -877,10 +988,10 @@
                                                                 <div>
                                                                     Ngày <b>{{ $canChi }}</b>
                                                                     <ul>
-                                                                        <li><b>{{ $chiNgay[0] }}</b>
-                                                                            {{ $banhToCan }}</li>
-                                                                        <li><b>{{ $chiNgay[1] }}</b>
-                                                                            {{ $banhToChi }}</li>
+                                                                        <li><b>{{ $chiNgay[0] }}: </b>
+                                                                            {{ $banhToCan }}.</li>
+                                                                        <li><b>{{ $chiNgay[1] }}: </b>
+                                                                            {{ $banhToChi }}.</li>
                                                                     </ul>
                                                                 </div>
                                                             </div>
@@ -970,8 +1081,7 @@
                                                                             @foreach ($items as $item)
                                                                                 <li> {{ $item['name'] }}
                                                                                     ({{ $item['rating'] }})
-                                                                                    :
-                                                                                    {{ $item['timeRange'][0] }}
+                                                                                    :{{ $item['timeRange'][0] }}
                                                                                     ({{ $item['chi'][0] }}) và
                                                                                     {{ $item['timeRange'][1] }}
                                                                                     ({{ $item['chi'][1] }}) ->
@@ -988,8 +1098,7 @@
                                                                             @foreach ($items as $item)
                                                                                 <li> {{ $item['name'] }}
                                                                                     ({{ $item['rating'] }})
-                                                                                    :
-                                                                                    {{ $item['timeRange'][0] }}
+                                                                                    : {{ $item['timeRange'][0] }}
                                                                                     ({{ $item['chi'][0] }}) và
                                                                                     {{ $item['timeRange'][1] }}
                                                                                     ({{ $item['chi'][1] }}) ->
@@ -1197,56 +1306,56 @@
                 },
 
             });
-       
-       
-         // Lấy ngày tháng năm hiện tại từ Blade
-        const currentYear = {{ $yy }};
-        const currentMonth = {{ $mm }}; // Tháng từ PHP (1-12)
-        const currentDay = {{ $dd }};
 
-        // Tạo đối tượng Date trong JavaScript
-        // Lưu ý: Tháng trong JS là 0-11, nên phải trừ đi 1
-        const currentDate = new Date(currentYear, currentMonth - 1, currentDay);
 
-        // Lấy TẤT CẢ các element nút bấm prev
-        const prevBtns = document.querySelectorAll('.prev-day-btn'); 
-        // Lấy TẤT CẢ các element nút bấm next
-        const nextBtns = document.querySelectorAll('.next-day-btn'); 
+            // Lấy ngày tháng năm hiện tại từ Blade
+            const currentYear = {{ $yy }};
+            const currentMonth = {{ $mm }}; // Tháng từ PHP (1-12)
+            const currentDay = {{ $dd }};
 
-        // --- Xử lý các nút "Ngày trước" ---
-        if (prevBtns.length > 0) { 
-            const prevDate = new Date(currentDate);
-            prevDate.setDate(currentDate.getDate() - 1);
+            // Tạo đối tượng Date trong JavaScript
+            // Lưu ý: Tháng trong JS là 0-11, nên phải trừ đi 1
+            const currentDate = new Date(currentYear, currentMonth - 1, currentDay);
 
-            const prevYear = prevDate.getFullYear();
-            const prevMonth = prevDate.getMonth() + 1;
-            const prevDay = prevDate.getDate();
+            // Lấy TẤT CẢ các element nút bấm prev
+            const prevBtns = document.querySelectorAll('.prev-day-btn');
+            // Lấy TẤT CẢ các element nút bấm next
+            const nextBtns = document.querySelectorAll('.next-day-btn');
 
-            const newPrevUrl = `/chi-tiet/${prevYear}/thang/${prevMonth}/ngay/${prevDay}`;
+            // --- Xử lý các nút "Ngày trước" ---
+            if (prevBtns.length > 0) {
+                const prevDate = new Date(currentDate);
+                prevDate.setDate(currentDate.getDate() - 1);
 
-            // Lặp qua TẤT CẢ các nút "prev" và gán URL mới
-            prevBtns.forEach(btn => { 
-                btn.href = newPrevUrl;
-            });
-        }
+                const prevYear = prevDate.getFullYear();
+                const prevMonth = prevDate.getMonth() + 1;
+                const prevDay = prevDate.getDate();
 
-        // --- Xử lý các nút "Ngày sau" ---
-        if (nextBtns.length > 0) { 
-            const nextDate = new Date(currentDate);
-            nextDate.setDate(currentDate.getDate() + 1);
+                const newPrevUrl = `/chi-tiet/${prevYear}/thang/${prevMonth}/ngay/${prevDay}`;
 
-            const nextYear = nextDate.getFullYear();
-            const nextMonth = nextDate.getMonth() + 1;
-            const nextDay = nextDate.getDate();
+                // Lặp qua TẤT CẢ các nút "prev" và gán URL mới
+                prevBtns.forEach(btn => {
+                    btn.href = newPrevUrl;
+                });
+            }
 
-            const newNextUrl = `/chi-tiet/${nextYear}/thang/${nextMonth}/ngay/${nextDay}`;
+            // --- Xử lý các nút "Ngày sau" ---
+            if (nextBtns.length > 0) {
+                const nextDate = new Date(currentDate);
+                nextDate.setDate(currentDate.getDate() + 1);
 
-            // Lặp qua TẤT CẢ các nút "next" và gán URL mới
-            nextBtns.forEach(btn => { 
-                btn.href = newNextUrl;
-            });
-        }
-       
+                const nextYear = nextDate.getFullYear();
+                const nextMonth = nextDate.getMonth() + 1;
+                const nextDay = nextDate.getDate();
+
+                const newNextUrl = `/chi-tiet/${nextYear}/thang/${nextMonth}/ngay/${nextDay}`;
+
+                // Lặp qua TẤT CẢ các nút "next" và gán URL mới
+                nextBtns.forEach(btn => {
+                    btn.href = newNextUrl;
+                });
+            }
+
         });
     </script>
 @endpush

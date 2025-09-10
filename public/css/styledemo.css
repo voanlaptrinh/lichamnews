@@ -1484,11 +1484,11 @@ a:hover {
     background-color: #ffffff;
 
     /* From "Borders" section */
-    border: 1px solid #2254AB;
+    border: 1px solid #2268D3B2;
 
     /* From "Shadows and blurs" section - CORRECTED */
     /* X: 2px, Y: 2px, Blur: 5px, Spread: 0, Color: #2B7EE5 (solid) */
-    box-shadow: 2px 2px 5px 0px #2B7EE5;
+    box-shadow: 2px 2px 5px 0px #7E7E7E80;
 
     /* Keeping existing properties for layout consistency */
     border-radius: 1rem;
@@ -1588,6 +1588,11 @@ a:hover {
     /* font-size: 0.9rem; */
     margin-top: 0.25rem;
     height: 36px;
+     display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .date-display-card .nav-arrow {
@@ -1779,7 +1784,9 @@ a:hover {
     color: #dc3545;
     font-weight: bold;
 }
-
+.current .hidden-xs{
+    color: white !important ;
+}
 /* Dots for days */
 .dot-hoangdao,
 .dot-hacdao,
@@ -1846,7 +1853,7 @@ a:hover {
     display: flex;
     align-items: center;
     gap: 1rem;
-    margin-bottom: 1rem;
+    margin-bottom: 5px;
 }
 
 .info-item .icon {
@@ -2766,7 +2773,7 @@ a:hover {
 
 .ring-item1-left {
     justify-content: start;
-    padding-top: 258px;
+    padding-top: 297px;
     left: 26px;
     display: flex;
     gap: 19px;
@@ -2774,7 +2781,7 @@ a:hover {
 
 .ring-item2-right {
     justify-content: end;
-    padding-top: 258px;
+    padding-top: 297px;
     right: 26px;
     display: flex;
     gap: 19px;
@@ -3011,7 +3018,7 @@ a:hover {
 .left-sidebar .nav-pills .nav-link.active {
     background-color: #f0f2f5;
     /* Nền màu xám nhạt theo hình ảnh */
-    color:rgba(33, 33, 33, 1);
+    color: rgba(33, 33, 33, 1);
     /* Chữ màu đen đậm */
     font-weight: 600;
     /* Bolder text for active tab */
@@ -3045,7 +3052,7 @@ a:hover {
 
 .custom-light-yellow-bg {
     background: #FDFAE9;
-    max-width: 450px;
+    max-width: 350px;
 }
 
 .custom-tab-switch {
@@ -3199,7 +3206,7 @@ a:hover {
     /* Màu sáng nhất ở đỉnh cột */
     --bar-mid-color: #2B7EE5;
     /* Màu giữa cột */
-    --bar-bottom-color: #2254AB ;
+    --bar-bottom-color: #2254AB;
     /* Màu tối nhất ở đáy cột */
 
     --tooltip-bg: #333d47;
@@ -3212,7 +3219,7 @@ a:hover {
     /* Bo góc trên của cột */
     --date-label-height: 25px;
     /* Chiều cao dành cho nhãn ngày */
-    
+
 }
 
 .chart-container {
@@ -3301,11 +3308,13 @@ a:hover {
         padding: 4px 8px;
     }
 }
-.boxgetGioHoangDao{
+
+.boxgetGioHoangDao {
     border-radius: 24px;
-    padding: 20px; 
+    padding: 20px;
     overflow: hidden;
 }
+
 /* .boxgetGioHoangDao img{
     opacity: 0.6;
 } */
@@ -3313,30 +3322,74 @@ a:hover {
     background: #EFF8FF;
     border: 1px solid #C1E3FC;
 }
+
 .colorgiogoangdao-2 {
     background: #F2EFFF;
     border: 1px solid #C7C1FC;
 }
+
 .colorgiogoangdao-3 {
     background: #FEFFE5;
     border: 1px solid #F6EE93;
 }
+
 .colorgiogoangdao-4 {
     background: #EFFFF0;
     border: 1px solid #BCFFA8;
 }
+
 .colorgiogoangdao-5 {
     background: #FFF1EF;
     border: 1px solid #FCCAC1;
 }
+
 .colorgiogoangdao-6 {
     background: #EFFDFF;
     border: 1px solid #B5FDFF;
 }
-.content-lunar-detail{
-color: rgba(33, 33, 33, 1);
+
+.content-lunar-detail {
+    color: rgba(33, 33, 33, 1);
 }
-.accordion-button:not(.collapsed){
+
+.accordion-button:not(.collapsed) {
     color: rgba(33, 33, 33, 1) !important;
     font-weight: 600;
+}
+
+.custom-pill-btn {
+    background: rgba(239, 248, 255, 1);
+    border: 1px solid rgba(64, 155, 241, 1);
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+    justify-content: center;
+}
+
+.ngay-tot-thang {
+    color: rgba(25, 46, 82, 1);
+    font-weight: 700;
+}
+
+.custom-pill-btn-date {
+    font-size: 12px;
+    background: rgba(250, 255, 249, 1);
+    border-radius: 16px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    color: rgba(33, 33, 33, 1);
+}
+
+.active-date {
+    background: rgba(220, 238, 253, 1);
+    border: 1px solid rgba(34, 104, 211, 1);
+}
+.box-custom_yeloow{
+    border: 1px solid #2B7EE5 !important;
+    background: #FDFAE9;
+    border-radius: 16px !important;
+}
+.title-amduowngbox{
+    font-weight: 700 !important;
+    color: #192E52 !important;
 }

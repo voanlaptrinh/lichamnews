@@ -255,8 +255,9 @@ class LunarController extends Controller
         // ===  LOGIC LỌC VÀ LẤY SỰ KIỆN CHO NGÀY ĐANG XEM  ===
         // =========================================================
 
-        // Khởi tạo một mảng rỗng để chứa các sự kiện CỦA RIÊNG ngày này
-        $suKienHomNay = [];
+        // Khởi tạo các mảng riêng cho sự kiện dương lịch và âm lịch
+        $suKienDuongLich = [];
+        $suKienAmLich = [];
 
         // 1. Xử lý sự kiện DƯƠNG LỊCH
         // Lấy tất cả sự kiện DƯƠNG LỊCH trong tháng từ Helper
@@ -265,8 +266,8 @@ class LunarController extends Controller
         // Bây giờ, kiểm tra xem ngày DƯƠNG LỊCH hiện tại ($dd) có tồn tại
         // như một key trong danh sách sự kiện của tháng không.
         if (isset($suKienTrongThangDuong[$dd])) {
-            // Nếu có, thêm sự kiện của ngày đó vào mảng kết quả
-            $suKienHomNay[] = $suKienTrongThangDuong[$dd];
+            // Nếu có, thêm sự kiện của ngày đó vào mảng sự kiện dương lịch
+            $suKienDuongLich[] = $suKienTrongThangDuong[$dd];
         }
 
         // 2. Xử lý sự kiện ÂM LỊCH (tương tự)
@@ -276,9 +277,12 @@ class LunarController extends Controller
         // dd($suKienTrongThangAm);
         // Kiểm tra xem ngày ÂM LỊCH hiện tại ($al[0]) có trong danh sách không
         if (isset($suKienTrongThangAm[$al[0]])) {
-            // Nếu có, cũng thêm vào mảng kết quả
-            $suKienHomNay[] = $suKienTrongThangAm[$al[0]];
+            // Nếu có, thêm vào mảng sự kiện âm lịch
+            $suKienAmLich[] = $suKienTrongThangAm[$al[0]];
         }
+
+        // Tạo mảng tổng hợp (để tương thích với code cũ nếu cần)
+        $suKienHomNay = array_merge($suKienDuongLich, $suKienAmLich);
 
         // =========================================================
         // ===  KẾT THÚC LOGIC LỌC SỰ KIỆN  ===
@@ -400,7 +404,23 @@ class LunarController extends Controller
         $nextYear = $nextDate->year;
         $nextMonth = $nextDate->month;
         $tot_xau_result = LunarHelper::checkTotXau($canChi, $al[1]);
+          $startDate = Carbon::createFromDate((int)$yy, (int)$mm, (int)$dd);
+$labels = [];
+        $dataValues = [];
 
+        for ($i = 0; $i < 7; $i++) {
+            $date = $startDate->copy()->addDays($i);
+            $day   = (int)$date->day;
+            $month = (int)$date->month;
+            $year  = (int)$date->year;
+
+            // gọi hàm lấy điểm
+            $info = FunctionHelper::getDaySummaryInfo($day, $month, $year, $birthdate);
+
+            // giả sử trong $info có trường 'score'
+            $labels[] = $date->format('d/m');
+            $dataValues[] = $info['score']['percentage'];
+        }
         // Trả về view với đầy đủ dữ liệu
         return view('lunar.convert', [
             'cdate' => $cdate, // Ngày đang xem, định dạng Y-m-d
@@ -440,7 +460,11 @@ class LunarController extends Controller
             // Thêm birthdate để hiển thị lại trên form nếu có
             'birthdate' => $birthdate,
             'suKienHomNay' => $suKienHomNay,
+            'suKienDuongLich' => $suKienDuongLich, // Sự kiện dương lịch riêng
+            'suKienAmLich' => $suKienAmLich, // Sự kiện âm lịch riêng
             'upcomingEvents' => $upcomingEvents, // Thêm biến mới này
+            'labels' => $labels,
+            'dataValues' => $dataValues,
         ]);
     }
 
@@ -553,29 +577,19 @@ class LunarController extends Controller
         $amToday = sprintf('%04d-%02d-%02d', $al[2], $al[1], $al[0]);
 
         $getDaySummaryInfo = FunctionHelper::getDaySummaryInfo((int)$dd, (int)$mm, (int)$yy, $birthdate);
-        $suKienHomNay = [];
 
-        // 1. Xử lý sự kiện DƯƠNG LỊCH
-        // Lấy tất cả sự kiện DƯƠNG LỊCH trong tháng từ Helper
+        $suKienDuongLich = [];
+        $suKienAmLich = [];
         $suKienTrongThangDuong = LunarHelper::getVietnamEvent($mm, $yy);
-
-        // Bây giờ, kiểm tra xem ngày DƯƠNG LỊCH hiện tại ($dd) có tồn tại
-        // như một key trong danh sách sự kiện của tháng không.
         if (isset($suKienTrongThangDuong[$dd])) {
-            // Nếu có, thêm sự kiện của ngày đó vào mảng kết quả
-            $suKienHomNay[] = $suKienTrongThangDuong[$dd];
+            $suKienDuongLich[] = $suKienTrongThangDuong[$dd];
         }
-
-        // 2. Xử lý sự kiện ÂM LỊCH (tương tự)
-        // Lấy tất cả sự kiện ÂM LỊCH trong tháng từ Helper
-        // Giả sử $al[0] là ngày âm, $al[1] là tháng âm
         $suKienTrongThangAm = LunarHelper::getVietnamLunarEvent2($al[1], $al[2]);
-        // dd($suKienTrongThangAm);
-        // Kiểm tra xem ngày ÂM LỊCH hiện tại ($al[0]) có trong danh sách không
         if (isset($suKienTrongThangAm[$al[0]])) {
-            // Nếu có, cũng thêm vào mảng kết quả
-            $suKienHomNay[] = $suKienTrongThangAm[$al[0]];
+            $suKienAmLich[] = $suKienTrongThangAm[$al[0]];
         }
+        $suKienHomNay = array_merge($suKienDuongLich, $suKienAmLich);
+
         $tot_xau_result = LunarHelper::checkTotXau($canChi, $al[1]);
 
         $dateToCheck = Carbon::create($yy, $mm, $dd);
@@ -624,7 +638,9 @@ class LunarController extends Controller
             'chiNgay' => $chiNgay,
             'amToday' => $amToday,
             'tot_xau_result' => $tot_xau_result,
-            'suKienHomNay' => $suKienHomNay,
+            'suKienHomNay' => $suKienHomNay, // Tổng hợp (để tương thích với code cũ)
+            'suKienDuongLich' => $suKienDuongLich, // Sự kiện dương lịch riêng
+            'suKienAmLich' => $suKienAmLich, // Sự kiện âm lịch riêng
             'khongMinhLucDieu' => $khongMinhLucDieu, // lịch khổng minh lục diệu
             'getDetailedGioHoangDao' => $getDetailedGioHoangDao,
             'getThongTinXuatHanhVaLyThuanPhong' => $getThongTinXuatHanhVaLyThuanPhong, //Hướng xuất hành và giờ xuất hành lý thuần phong

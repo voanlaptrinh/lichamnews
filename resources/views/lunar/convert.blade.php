@@ -16,34 +16,46 @@
                                     <a href="#" class="nav-arrow nav-home-date nave-left prev-day-btn"
                                         title="Ngày hôm trước"><i class="bi bi-chevron-left"></i></a>
                                     <div class="text-center">
-                                        <div class="card-title"><img src="{{ asset('icons/icon_duong.svg') }}"
-                                                alt="icon_duong" width="20px" height="20px"> Dương lịch</div>
-                                        <div class="date-number duong date_number_lich"> {{ $dd }}</div>
-                                        <div class="date-weekday">{{ $weekday }}, tháng {{ $mm }} năm
-                                            {{ $yy }}</div>
-                                        <div class="date-special-event">
-                                            @foreach ($suKienHomNay as $suKien)
-                                                {{ $suKien['ten_su_kien'] ?? $suKien }}
-                                            @endforeach
-                                        </div>
-                                    </div>
+                            <div class="card-title title-amduowngbox"><img src="{{ asset('icons/icon_duong.svg') }}" alt="icon_duong"
+                                    width="20px" height="20px"> Dương lịch</div>
+                            <div class="date-number duong date_number_lich"> {{ $dd }}</div>
+                            <div class="date-weekday">{{ $weekday }}</div>
+                            <div class="date-special-event text-dark">Tháng {{ $mm }} năm
+                                {{ $yy }}</div>
+                            <div class="date-special-event">
+                                @if (!empty($suKienDuongLich))
+                                    @foreach ($suKienDuongLich as $suKien)
+                                        <div class="su-kien-duong">{{ $suKien['ten_su_kien'] ?? $suKien }}</div>
+                                    @endforeach
+                                @endif
+
+                            </div>
+                        </div>
                                     {{-- Nút Next Day PC (Đã sửa) --}}
                                     {{-- Nút này thường nằm trong phần Âm lịch để căn chỉnh đẹp hơn, tôi sẽ di chuyển nó sang đó. --}}
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="date-display-card">
-                                    <div class="text-center">
-                                        <div class="card-title"><img src="{{ asset('icons/icon_am.svg') }}" alt="icon_am"
-                                                width="20px" height="20px"> Âm lịch</div>
-                                        <div class="date-number am date_number_lich date_number_lich_am">{{ $al[0] }}
-                                        </div>
-                                        <div class="date-weekday">Tháng {{ $al[1] }} ({{ $al[4] }}) năm
-                                            {{ $getThongTinCanChiVaIcon['can_chi_nam'] }}</div>
-                                        <div class="date-special-event">Ngày {{ $getThongTinCanChiVaIcon['can_chi_ngay'] }}
-                                            -
-                                            Tháng {{ $getThongTinCanChiVaIcon['can_chi_thang'] }}</div>
-                                    </div>
+                                   <div class="text-center">
+                            <div class="card-title title-amduowngbox"><img src="{{ asset('icons/icon_am.svg') }}" alt="icon_am"
+                                    width="20px" height="20px"> Âm lịch</div>
+                            <div class="date-number am date_number_lich date_number_lich_am">{{ $al[0] }}
+                            </div>
+                            <div class="date-weekday">Tháng {{ $al[1] }} ({{ $al[4] }}) năm
+                                {{ $getThongTinCanChiVaIcon['can_chi_nam'] }}</div>
+                            <div class="date-special-event text-dark">Ngày {{ $getThongTinCanChiVaIcon['can_chi_ngay'] }}
+                                -
+                                Tháng {{ $getThongTinCanChiVaIcon['can_chi_thang'] }}</div>
+                            <div class="date-special-event">
+                                @if (!empty($suKienAmLich))
+                                    @foreach ($suKienAmLich as $suKien)
+                                        <div class="su-kien-duong">{{ $suKien['ten_su_kien'] ?? $suKien }}</div>
+                                    @endforeach
+                                @endif
+
+                            </div>
+                        </div>
                                     {{-- Nút Next Day PC (Đã sửa và di chuyển vào đây) --}}
                                     <a href="#" class="nav-arrow nav-home-date nave-right next-day-btn"
                                         title="Ngày hôm sau"> <i class="bi bi-chevron-right"></i></a>
@@ -144,7 +156,7 @@
 
 
                                         <div class="col-6">
-                                            <div class="progress-dial"
+                                            <div class="progress-dial mt-2"
                                                 style="--value: {{ round($getDaySummaryInfo['score']['percentage']) }};">
                                                 <div class="dial-text">
                                                     <span
@@ -223,7 +235,7 @@
                     <div class="container bg-section-tienich">
                         <h2 class="section-title">Tiện ích phổ biến</h2>
                         <hr>
-                        <div class="utilities-grid row g-4 pt-2">
+                        <div class="utilities-grid pt-2">
 
                             <!-- Tiện ích 1 -->
                             <a href="#" class="utility-item col-6 col-md-6 col-lg-3 mb-4 ">
@@ -266,6 +278,21 @@
 
                                 <p class="utility-description">Lập lá số chi tiết theo giờ/ngày sinh.</p>
                             </a>
+
+                        </div>
+                    </div>
+                </section>
+                 <section class="popular-utilities">
+                    <div class="container bg-section-tienich">
+                        <h2 class="section-title">Điểm ngày trong 7 ngày tới</h2>
+                        <hr>
+                        <div class="utilities-grid row g-4 pt-2">
+ <div class="chart-container">
+
+                                    <div class="chart-canvas-wrapper">
+                                        <canvas id="myChart"></canvas>
+                                    </div>
+                                </div>
 
                         </div>
                     </div>
@@ -430,6 +457,119 @@
 @push('scripts')
 <script>
     document.addEventListener("DOMContentLoaded", () => {
+          const ctx = document.getElementById('myChart').getContext('2d');
+            const labels = @json($labels);
+            const dataValues = @json($dataValues);
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Điểm ngày',
+                        data: dataValues,
+                        backgroundColor: function(context) {
+                            const chart = context.chart;
+                            const {
+                                ctx,
+                                chartArea
+                            } = chart;
+                            if (!chartArea) return;
+
+                            const gradient = ctx.createLinearGradient(0, chartArea.bottom, 0,
+                                chartArea.top);
+                            gradient.addColorStop(0, getComputedStyle(document.documentElement)
+                                .getPropertyValue('--bar-bottom-color') || '#4e79a7');
+                            gradient.addColorStop(0.6, getComputedStyle(document
+                                    .documentElement).getPropertyValue('--bar-mid-color') ||
+                                '#59a14f');
+                            gradient.addColorStop(1, getComputedStyle(document.documentElement)
+                                .getPropertyValue('--bar-top-color') || '#9c755f');
+                            return gradient;
+                        },
+                        borderRadius: {
+                            topLeft: 8,
+                            topRight: 8
+                        },
+                        borderSkipped: false,
+                        hoverBackgroundColor: getComputedStyle(document.documentElement)
+                            .getPropertyValue('--bar-top-color') || '#9c755f',
+                        barPercentage: 0.7,
+                        categoryPercentage: 0.8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            enabled: true,
+                            callbacks: {
+                                label: function(context) {
+                                    return context.raw + '%';
+                                }
+                            },
+                            backgroundColor: 'rgba(0,0,0,0.7)',
+                            titleColor: '#fff',
+                            bodyColor: '#fff',
+                            padding: 8,
+                            displayColors: false
+                        }
+                    },
+                    layout: {
+                        padding: {
+                            top: 10,
+                            bottom: 10
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: {
+                                display: false,
+                                drawBorder: false
+                            },
+                            ticks: {
+                                color: getComputedStyle(document.documentElement).getPropertyValue(
+                                    '--text-color-light') || '#333',
+                                font: {
+                                    size: 13,
+                                    weight: '500'
+                                },
+                                padding: 10
+                            }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: {
+                                stepSize: 20,
+                                callback: function(value) {
+                                    return value + '%';
+                                },
+                                color: getComputedStyle(document.documentElement).getPropertyValue(
+                                    '--text-color-light') || '#333',
+                                font: {
+                                    size: 13,
+                                    weight: '500'
+                                },
+                                padding: 10,
+
+                            },
+                            grid: {
+                                color: getComputedStyle(document.documentElement).getPropertyValue(
+                                    '--grid-line-color') || '#ddd',
+                                borderDash: [5, 5],
+                                drawBorder: false,
+                                drawOnChartArea: true,
+                                drawTicks: false
+                            }
+                        }
+                    }
+                },
+
+            });
         // Lấy ngày tháng năm hiện tại từ Blade
         const currentYear = {{ $yy }};
         const currentMonth = {{ $mm }}; // Tháng từ PHP (1-12)

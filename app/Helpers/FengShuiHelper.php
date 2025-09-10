@@ -527,28 +527,48 @@ class FengShuiHelper //cần xác định xem gia chủ thuộc Tây Tứ Mệnh
      */
     public static function getCucKhiHopXung(string $chiNgay): array
     {
-        // Sử dụng dữ liệu Hợp-Xung từ các mảng riêng lẻ trong DataHelper của bạn
-        $tamHop = DataHelper::$TAM_HOP_GROUPS[strtolower($chiNgay)] ?? [];
-        $lucHop = DataHelper::$LUC_HOP[strtolower($chiNgay)] ?? '';
+        // Chuẩn hóa chiNgay với chữ hoa đầu cho các mảng cần
+        $chiNgayCapitalized = ucfirst(strtolower($chiNgay));
+        $chiNgayLower = strtolower($chiNgay);
+        
+        // Sử dụng dữ liệu Hợp-Xung từ các mảng riêng lẻ trong DataHelper
+        $tamHop = DataHelper::$TAM_HOP_GROUPS[$chiNgayLower] ?? [];
+        $lucHop = DataHelper::$LUC_HOP[$chiNgayLower] ?? '';
+        
+        // Format tam hợp với chữ hoa đầu
+        $tamHopFormatted = array_map('ucfirst', $tamHop);
+        
+        // Tạo text cho hợp
+        $hopParts = [];
+        if (!empty($tamHopFormatted)) {
+            $hopParts[] = implode(' - ', $tamHopFormatted) . ' (Tam hợp)';
+        }
+        if (!empty($lucHop)) {
+            $hopParts[] = ucfirst($lucHop) . ' (Lục hợp)';
+        }
+        
+        $hopText = !empty($hopParts) 
+            ? "Ngày này hợp với các tuổi: " . implode(' và ', $hopParts)
+            : "Ngày này không có tuổi hợp đặc biệt";
 
-        $hopText = "Ngày này hợp với các tuổi: " . ucfirst(implode(' – ', $tamHop)) . " – " . ucfirst($chiNgay) . " (Tam hợp) và các tuổi " . ucfirst($chiNgay) . " – " . ucfirst($lucHop) . " (Lục hợp)";
-
+        // Xử lý các tuổi kỵ
         $kyArr = [];
-        if (isset(DataHelper::$LUC_XUNG[$chiNgay])) {
-            $kyArr[] = ucfirst(DataHelper::$LUC_XUNG[$chiNgay]) . " (xung)";
+        if (isset(DataHelper::$LUC_XUNG[$chiNgayCapitalized])) {
+            $kyArr[] = ucfirst(DataHelper::$LUC_XUNG[$chiNgayCapitalized]) . " (xung)";
         }
-        if (isset(DataHelper::$TUONG_HAI[$chiNgay])) {
-            $kyArr[] = ucfirst(DataHelper::$TUONG_HAI[$chiNgay]) . " (hại)";
+        if (isset(DataHelper::$TUONG_HAI[$chiNgayCapitalized])) {
+            $kyArr[] = ucfirst(DataHelper::$TUONG_HAI[$chiNgayCapitalized]) . " (hại)";
         }
-        if (isset(DataHelper::$TUONG_PHA[$chiNgay])) {
-            $kyArr[] = ucfirst(DataHelper::$TUONG_PHA[$chiNgay]) . " (phá)";
+        if (isset(DataHelper::$TUONG_PHA[$chiNgayCapitalized])) {
+            $kyArr[] = ucfirst(DataHelper::$TUONG_PHA[$chiNgayCapitalized]) . " (phá)";
         }
-        if (in_array($chiNgay, DataHelper::$TU_HINH_CHIS)) {
-            $kyArr[] = ucfirst($chiNgay) . " (tự hình)";
+        if (in_array($chiNgayCapitalized, DataHelper::$TU_HINH_CHIS)) {
+            $kyArr[] = ucfirst($chiNgayCapitalized) . " (tự hình)";
         }
-        // Thêm các loại hình khác nếu cần
 
-        $kyText = "Ngày này kỵ với các tuổi: " . implode(', ', $kyArr);
+        $kyText = !empty($kyArr)
+            ? "Ngày này kỵ với các tuổi: " . implode(', ', $kyArr)
+            : "Ngày này không có tuổi kỵ đặc biệt";
 
         return [
             'title' => 'Cục khí - hợp xung',

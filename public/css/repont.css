@@ -41,13 +41,16 @@
     .footer-contact-info {
         font-size: 22px;
     }
-    .title-status-dot{
+
+    .title-status-dot {
         display: block;
     }
-    .content-title-home-lich{
+
+    .content-title-home-lich {
         font-size: 24px;
     }
-    .left-sidebar{
+
+    .left-sidebar {
         width: 300px;
     }
 }
@@ -103,14 +106,33 @@
     .footer-contact-info {
         font-size: 22px;
     }
-     .title-status-dot{
+
+    .title-status-dot {
         display: block;
     }
-    .content-title-home-lich{
+
+    .content-title-home-lich {
         font-size: 24px;
     }
-    .left-sidebar{
+
+    .left-sidebar {
         width: 300px;
+    }
+
+    .content-title-detail {
+        font-size: 18px;
+        padding-top: 20px;
+    }
+
+    .row-btn-date {
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+    .section-thang-lich{
+        padding-top: 20px;
+    }
+    .ngay-tot-thang{
+        font-size: 24px;
     }
 }
 
@@ -157,14 +179,33 @@
     .footer-contact-info {
         font-size: 22px;
     }
-     .title-status-dot{
+
+    .title-status-dot {
         display: block;
     }
-    .content-title-home-lich{
+
+    .content-title-home-lich {
         font-size: 24px;
     }
-    .left-sidebar{
+
+    .left-sidebar {
         width: 300px;
+    }
+
+    .content-title-detail {
+        font-size: 18px;
+        padding-top: 20px;
+    }
+
+    .row-btn-date {
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+     .section-thang-lich{
+        padding-top: 20px;
+    }
+     .ngay-tot-thang{
+        font-size: 24px;
     }
 }
 
@@ -211,17 +252,37 @@
     .footer-contact-info {
         font-size: 22px;
     }
-     .title-status-dot{
+
+    .title-status-dot {
         display: block;
     }
-    .content-title-home-lich{
+
+    .content-title-home-lich {
         font-size: 24px;
     }
-     .item-rings{
+
+    .item-rings {
         display: none;
     }
-    .left-sidebar{
+
+    .left-sidebar {
         width: 300px;
+    }
+
+    .content-title-detail {
+        font-size: 18px;
+        padding-top: 20px;
+    }
+
+    .row-btn-date {
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+     .section-thang-lich{
+        padding-top: 20px;
+    }
+     .ngay-tot-thang{
+        font-size: 24px;
     }
 }
 
@@ -274,14 +335,33 @@
     .footer-contact-info {
         font-size: 22px;
     }
-     .title-status-dot{
+
+    .title-status-dot {
         display: block;
     }
-    .content-title-home-lich{
+
+    .content-title-home-lich {
         font-size: 22px;
     }
-     .item-rings{
+
+    .item-rings {
         display: none;
+    }
+
+    .content-title-detail {
+        font-size: 18px;
+        padding-top: 20px;
+    }
+
+    .row-btn-date {
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+     .section-thang-lich{
+        padding-top: 20px;
+    }
+     .ngay-tot-thang{
+        font-size: 24px;
     }
 }
 
@@ -347,17 +427,37 @@
     .footer-contact-info {
         font-size: 20px;
     }
-     .title-status-dot{
+
+    .title-status-dot {
         display: none;
     }
-     .content-title-home-lich{
+
+    .content-title-home-lich {
         font-size: 20px;
     }
-    .van-lien-hows{
+
+    .van-lien-hows {
         padding: 20px;
     }
-    .item-rings{
+
+    .item-rings {
         display: none;
+    }
+
+    .content-title-detail {
+        font-size: 18px;
+        padding-top: 20px;
+    }
+
+    .row-btn-date {
+        padding-top: 10px;
+        padding-bottom: 15px;
+    }
+     .section-thang-lich{
+        padding-top: 10px;
+    }
+     .ngay-tot-thang{
+        font-size: 18px;
     }
 }
 
@@ -447,29 +547,53 @@
     .footer-contact-info {
         font-size: 20px;
     }
-      .title-status-dot{
+
+    .title-status-dot {
         display: none;
     }
-    .content-title-home-lich{
+
+    .content-title-home-lich {
         font-size: 20px;
     }
-    .van-lien-hows{
+
+    .van-lien-hows {
         padding: 20px;
     }
-    .date-display-card .date-weekday{
-        height: 72px;
+
+    .date-display-card .date-weekday {
+     height: 52px;
         display: flex;
+        justify-content: center;
         align-items: center;
     }
-     .item-rings{
+
+    .item-rings {
         display: none;
     }
-    .box-date-detail{
+
+    .box-date-detail {
         padding: 0;
         background: none;
     }
-    .accordion-button{
-padding: 0.7rem 0.75rem;
+
+    .accordion-button {
+        padding: 0.7rem 0.75rem;
         font-size: 14px;
+    }
+
+    .content-title-detail {
+        font-size: 16px;
+        padding-top: 18px;
+    }
+
+    .row-btn-date {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+       .section-thang-lich{
+        padding-top: 10px;
+    }
+     .ngay-tot-thang{
+        font-size: 18px;
     }
 }

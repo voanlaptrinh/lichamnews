@@ -713,7 +713,7 @@ class KhiVanHelper
             }
             // Lấy mô tả từ DataHelper
             $canDescription = DataHelper::$khiThangRelationDescriptions['can'][$canRelationKey] ?? 'Lỗi mô tả Can.';
-            $analysisParts[] = "• Can ngày $dayCan ($dayCanHanh), Can tháng $monthCan ($monthCanHanh) → $canDescription";
+            $analysisParts[] = "<li>Can ngày $dayCan ($dayCanHanh), Can tháng $monthCan ($monthCanHanh) → $canDescription</li>";
             // Lấy điểm và cộng vào tổng
             $totalScore += DataHelper::$khiThangCanCanScores[$canRelationKey] ?? 0.0;
 
@@ -728,12 +728,12 @@ class KhiVanHelper
             }
             // Lấy mô tả từ DataHelper
             $chiDescription = DataHelper::$khiThangRelationDescriptions['chi'][$chiRelationKey] ?? 'Lỗi mô tả Chi.';
-            $analysisParts[] = "• Chi ngày $dayChi ($dayChiHanh), Chi tháng $monthChi ($monthChiHanh) → $chiDescription";
+            $analysisParts[] = "<li>Chi ngày $dayChi ($dayChiHanh), Chi tháng $monthChi ($monthChiHanh) → $chiDescription</li>";
             // Lấy điểm và cộng vào tổng
             $totalScore += DataHelper::$khiThangChiChiScores[$chiRelationKey] ?? 0.0;
 
             // --- PHẦN 3: TỔNG HỢP KẾT QUẢ ---
-            $finalAnalysis = implode("</br>", $analysisParts);
+            $finalAnalysis = implode("", $analysisParts);
             $finalConclusion = self::getKhiThangConclusion($totalScore);
 
             return [
