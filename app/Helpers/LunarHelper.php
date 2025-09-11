@@ -483,13 +483,14 @@ class LunarHelper
         $am_html = $lunarDate['day'];
     }
 
-    // ✅ Thay thế Can Chi nếu là ngày 15
+    // ✅ Hiển thị sự kiện hoặc can chi ngày
     if ($event_text) {
         $can_chi_html = '<span class="hidden-xs" style="color:#d9534f; font-weight:bold">' . $event_text . '</span>';
     } elseif ($lunarDate['day'] == 15) {
         $can_chi_html = '<span class="hidden-xs" style="color: #BE0000; font-weight: bold;">Ngày Rằm</span>';
     } else {
-        $can_chi_html = $show_canchi ? '<span class="hidden-xs">' . $canChi . '</span>' : '';
+        // Luôn hiển thị can chi ngày khi không có sự kiện
+        $can_chi_html = '<span class="hidden-xs">' . $canChi . '</span>';
     }
 
     $base = rtrim(config('app.url'), '/');
@@ -1073,11 +1074,16 @@ static function convertSolar2Lunar($dd, $mm, $yy, $timeZone = 7.0)
             return (int)$monthA - (int)$monthB;
         });
 
-        $html = '<ul>';
+        $html = '<div class="row g-lg-3 g-2 row-btn-date">';
         foreach ($allEvents as $date => $title) {
-            $html .= "<li>$date: $title</li>";
+            $html .= "
+           <div class='col-12'> <div class='btn custom-pill-btn-date w-100 text-start'>
+            <img src='/icons/sukienn1.svg' alt='Sự kiện'
+                                class='img-fluid me-2'> $date: $title
+            </div> </div>
+            ";
         }
-        $html .= '</ul>';
+        $html .= '</div>';
         return $html;
     }
 
@@ -1096,13 +1102,17 @@ static function convertSolar2Lunar($dd, $mm, $yy, $timeZone = 7.0)
             return (int)$monthA - (int)$monthB;
         });
 
-        $html = '<ul>';
+        $html = '<div class="row g-lg-3 g-2 row-btn-date">';
         foreach ($events as $md => $title) {
             list($mm, $dd) = explode('-', $md);
             $dateDisplay = $dd . '/' . $mm; // in ra dd/mm âm lịch
-            $html .= "<li>$dateDisplay (Âm lịch): $title</li>";
+            $html .= "
+             <div class='col-12'> <div class='btn custom-pill-btn-date w-100 text-start'>
+            <img src='/icons/sukienn1.svg' alt='Sự kiện'
+                                class='img-fluid me-2'> $dateDisplay (Âm lịch): $title
+            </div> </div>";
         }
-        $html .= '</ul>';
+        $html .= '</div>';
 
         return $html;
     }

@@ -596,4 +596,10 @@
      .ngay-tot-thang{
         font-size: 18px;
     }
+    .am_table{
+        justify-self: center;
+    }
+    .backv-doi-lich .--pading{
+        padding: 20px;
+    }
 }

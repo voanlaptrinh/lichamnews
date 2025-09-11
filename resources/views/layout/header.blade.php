@@ -18,10 +18,13 @@
                         <i class="bi bi-chevron-down"></i>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="">Về chúng tôi</a></li>
-                        <li><a href="">Thành viên</a></li>
-                        <li><a href="">History</a></li>
-                        <li><a href="">Dịch vụ</a></li>
+                        @php
+                            $todayHref = "/am-lich/nam/" . date('Y') . "/thang/" . date('n') . "/ngay/" . date('j');
+                            $tomorrowHref = "/am-lich/nam/" . date('Y', strtotime('+1 day')) . "/thang/" . date('n', strtotime('+1 day')) . "/ngay/" . date('j', strtotime('+1 day'));
+                        @endphp
+                        <li><a href="{{ $todayHref }}">Lịch âm hôm nay</a></li>
+                        <li><a href="{{ $tomorrowHref }}">Lịch âm ngày mai</a></li>
+                        
                     </ul>
                 </li>
                 <li class="has-dropdown">
@@ -31,7 +34,7 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li class="has-submenu"> <!-- << Class mới để xác định mục có menu con -->
-                            <a href="/lich-thang">
+                            <a href="#">
                                 Lịch Tháng
                                 <i class="bi bi-chevron-right "></i> <!-- << Icon mũi tên phải -->
                             </a>
@@ -135,20 +138,19 @@
             <!-- Bắt đầu: HTML cho Dropdown Mobile -->
             <li class="has-dropdown">
                 <a href="#">
-                    ABOUT
-                    <i class="fas fa-chevron-down arrow-icon"></i>
+                    Lịch ngày
+                    <i class="bi bi-chevron-down arrow-icon"></i>
                 </a>
                 <ul class="mobile-submenu">
-                    <li><a href="">Về chúng tôi</a></li>
-                    <li><a href="">Thành viên</a></li>
-                    <li><a href="">History</a></li>
-                    <li><a href="">Dịch vụ</a></li>
+                    <li><a href="{{ $todayHref }}">Lịch âm hôm nay</a></li>
+                    <li><a href="{{ $tomorrowHref }}">Lịch âm ngày mai</a></li>
+                   
                 </ul>
             </li>
             <li class="has-dropdown">
                 <a href="#">
                     Lịch tháng & năm
-                    <i class="fas fa-chevron-down arrow-icon"></i>
+                    <i class="bi bi-chevron-down arrow-icon"></i>
                 </a>
                 <!-- Menu cấp 1 -->
                 <ul class="mobile-submenu">
@@ -156,7 +158,7 @@
                     <li class="has-dropdown">
                         <a href="#">
                             Lịch Tháng
-                            <i class="fas fa-chevron-down arrow-icon"></i>
+                            <i class="bi bi-chevron-down arrow-icon"></i>
                         </a>
                         <!-- Menu cấp 2 -->
                         <ul class="mobile-submenu">
@@ -173,7 +175,7 @@
                     <li class="has-dropdown">
                         <a href="#">
                             Lịch Năm
-                            <i class="fas fa-chevron-down arrow-icon"></i>
+                            <i class="bi bi-chevron-down arrow-icon"></i>
                         </a>
                         <!-- Menu cấp 2 -->
                         <ul class="mobile-submenu">

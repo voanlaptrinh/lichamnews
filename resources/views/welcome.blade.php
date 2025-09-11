@@ -181,71 +181,71 @@
                 plugins: [rangeShortcutPlugin()]
             });
 
-            const duongInput = document.getElementById('duong_date');
-            const amInput = document.getElementById('am_date');
-            const cdateInput = document.getElementById('cdate');
-            const form = document.getElementById('convertForm');
-            const csrfToken = document.querySelector('meta[name="csrf-token"]') ? document.querySelector(
-                'meta[name="csrf-token"]').getAttribute('content') : '';
+            // const duongInput = document.getElementById('duong_date');
+            // const amInput = document.getElementById('am_date');
+            // const cdateInput = document.getElementById('cdate');
+            // const form = document.getElementById('convertForm');
+            // const csrfToken = document.querySelector('meta[name="csrf-token"]') ? document.querySelector(
+            //     'meta[name="csrf-token"]').getAttribute('content') : '';
 
-            async function updateDate(sourceElement, targetElement, apiUrl) {
-                const dateValue = sourceElement.value;
-                if (!dateValue) {
-                    targetElement.value = '';
-                    if (sourceElement.id === 'duong_date') {
-                        cdateInput.value = '';
-                    }
-                    return;
-                }
-                try {
-                    const response = await fetch(apiUrl, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Accept': 'application/json',
-                            'X-CSRF-TOKEN': csrfToken
-                        },
-                        body: JSON.stringify({
-                            date: dateValue
-                        })
-                    });
-                    if (!response.ok) {
-                        console.error('Lỗi server:', await response.text());
-                        return;
-                    }
-                    const data = await response.json();
-                    if (data.date) {
-                        targetElement.value = data.date;
-                        if (sourceElement.id === 'duong_date') {
-                            cdateInput.value = sourceElement.value;
-                        } else {
-                            cdateInput.value = data.date;
-                        }
-                    } else if (data.error) {
-                        console.error('Lỗi chuyển đổi:', data.error);
-                    }
-                } catch (error) {
-                    console.error('Lỗi fetch:', error);
-                }
-            }
-            if (duongInput) {
-                duongInput.addEventListener('change', () => {
-                    updateDate(duongInput, amInput, "{{ route('api.to.am') }}");
-                });
-            }
-            if (amInput) {
-                amInput.addEventListener('change', () => {
-                    updateDate(amInput, duongInput, "{{ route('api.to.duong') }}");
-                });
-            }
-            if (form) {
-                form.addEventListener('submit', (e) => {
-                    if (!cdateInput.value) {
-                        e.preventDefault();
-                        alert("Vui lòng chọn ngày để xem chi tiết.");
-                    }
-                });
-            }
+            // async function updateDate(sourceElement, targetElement, apiUrl) {
+            //     const dateValue = sourceElement.value;
+            //     if (!dateValue) {
+            //         targetElement.value = '';
+            //         if (sourceElement.id === 'duong_date') {
+            //             cdateInput.value = '';
+            //         }
+            //         return;
+            //     }
+            //     try {
+            //         const response = await fetch(apiUrl, {
+            //             method: 'POST',
+            //             headers: {
+            //                 'Content-Type': 'application/json',
+            //                 'Accept': 'application/json',
+            //                 'X-CSRF-TOKEN': csrfToken
+            //             },
+            //             body: JSON.stringify({
+            //                 date: dateValue
+            //             })
+            //         });
+            //         if (!response.ok) {
+            //             console.error('Lỗi server:', await response.text());
+            //             return;
+            //         }
+            //         const data = await response.json();
+            //         if (data.date) {
+            //             targetElement.value = data.date;
+            //             if (sourceElement.id === 'duong_date') {
+            //                 cdateInput.value = sourceElement.value;
+            //             } else {
+            //                 cdateInput.value = data.date;
+            //             }
+            //         } else if (data.error) {
+            //             console.error('Lỗi chuyển đổi:', data.error);
+            //         }
+            //     } catch (error) {
+            //         console.error('Lỗi fetch:', error);
+            //     }
+            // }
+            // if (duongInput) {
+            //     duongInput.addEventListener('change', () => {
+            //         updateDate(duongInput, amInput, "{{ route('api.to.am') }}");
+            //     });
+            // }
+            // if (amInput) {
+            //     amInput.addEventListener('change', () => {
+            //         updateDate(amInput, duongInput, "{{ route('api.to.duong') }}");
+            //     });
+            // }
+            // if (form) {
+            //     form.addEventListener('submit', (e) => {
+            //         if (!cdateInput.value) {
+            //             e.preventDefault();
+            //             alert("Vui lòng chọn ngày để xem chi tiết.");
+            //         }
+            //     });
+            // }
             // --- END Existing Flatpickr and Date Conversion Logic ---
 
             // --- FORTUNE TELLING LOGIC ---

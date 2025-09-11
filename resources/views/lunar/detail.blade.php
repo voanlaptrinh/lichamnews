@@ -1,369 +1,6 @@
 @extends('welcome')
 @section('content')
-    {{-- <div class=" mt-5">
 
-        <div class="row mt-5 mb-5 g-3 d-flex justify-content-center">
-            @php
-                function renderStars($rating)
-                {
-                    $stars = '';
-                    for ($i = 1; $i <= 5; $i++) {
-                        $stars .=
-                            $i <= $rating
-                                ? '<i class="bi bi-star-fill text-warning"></i>'
-                                : '<i class="bi bi-star text-warning"></i>';
-                    }
-                    return $stars;
-                }
-            @endphp
-            @foreach ($getDetailedGioHoangDao as $itemgio)
-                <div class="col-xl-4 col-sm-6 mb-xl-0 mb-4">
-                    <div class="card">
-                        <div class="card-body p-3">
-                            <div class="row">
-                                <div class="col-8">
-                                    <div class="numbers">
-                                        <p class="text-sm mb-0 text-uppercase font-weight-bold">{{ $itemgio['name'] }}
-                                        </p>
-                                        <h5 class="font-weight-bolder">
-                                            {!! $itemgio['zodiacIcon'] !!}
-                                        </h5>
-                                        <p class="mb-0 text-center">
-
-                                            {!! $itemgio['canChiMenh'] !!}
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="col-4 text-end">
-                                    <div
-                                        class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
-                                        {!! renderStars($itemgio['rating']) !!}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
-
-        </div>
-        <div>
-            <div class="col-lg-12">
-
-                <div class="card-body p-0">
-                    <ul class="nav nav-pills nav-secondary nav-pills-no-bd row g-3" role="tablist"
-                        style="border: none !important">
-                        <li class="nav-item  pa-right w-50" role="presentation">
-                            <a class="nav-link btn active  pt-3 pb-3 text-center text-black fw-bold"
-                                id="pills-home-tab-nobd" data-bs-toggle="pill" href="#pills-home-nobd" role="tab"
-                                aria-controls="pills-home-nobd" aria-selected="true">Tóm tắt </a>
-                        </li>
-                        <li class="nav-item tba-ks pa-left  w-50" role="presentation">
-                            <a class="nav-link  btn pt-3 pb-3 text-center text-black fw-bold" id="pills-profile-tab-nobd"
-                                data-bs-toggle="pill" href="#pills-profile-nobd" role="tab"
-                                aria-controls="pills-profile-nobd" aria-selected="false">Chi tiết</a>
-                        </li>
-                    </ul>
-
-                    <div class="tab-content mb-3" id="pills-without-border-tabContent">
-                        <div class="tab-pane fade show active" id="pills-home-nobd" role="tabpanel"
-                            aria-labelledby="pills-home-tab-nobd">
-                            <p>{{ $getDaySummaryInfo['intro_paragraph'] }}</p>
-
-                            <h5>Đánh giá ngày {{ round($getDaySummaryInfo['score']['percentage']) }} Điểm -
-                                {{ $getDaySummaryInfo['score']['rating'] }}</h5>
-
-                            @php
-                                $goodFactors = [];
-
-                                if ($nhiThapBatTu['nature'] == 'Tốt') {
-                                    $goodFactors[] =
-                                        'Sao <strong>' . $nhiThapBatTu['name'] . '</strong> (Nhị thập bát tú)';
-                                }
-
-                                if ($getThongTinTruc['description']['rating'] == 'Tốt') {
-                                    $goodFactors[] =
-                                        'Trực <strong>' . $getThongTinTruc['title'] . '</strong> (Thập nhị trực)';
-                                }
-
-                                if (!empty($getSaoTotXauInfo['sao_tot'])) {
-                                    $saoTotList = implode(', ', array_keys($getSaoTotXauInfo['sao_tot']));
-                                    $goodFactors[] = 'Các sao tốt khác: ' . $saoTotList;
-                                }
-                            @endphp
-
-                            <p>
-
-                                @if (!empty($goodFactors))
-                                    {!! implode('<br>', $goodFactors) !!}
-                                @else
-                                    Không có yếu tố tốt nào.
-                                @endif
-                            </p>
-
-
-
-                            @php
-                                $badFactors = [];
-
-                                if ($nhiThapBatTu['nature'] == 'Xấu') {
-                                    $badFactors[] =
-                                        'Sao <strong>' . $nhiThapBatTu['name'] . '</strong> (Nhị thập bát tú)';
-                                }
-
-                                if ($getThongTinTruc['description']['rating'] == 'Xấu') {
-                                    $badFactors[] =
-                                        'Trực <strong>' . $getThongTinTruc['title'] . '</strong> (Thập nhị trực)';
-                                }
-
-                                if (!empty($getSaoTotXauInfo['sao_xau'])) {
-                                    $saoXauList = implode(', ', array_keys($getSaoTotXauInfo['sao_xau']));
-                                    $badFactors[] = 'Các sao xấu khác: ' . $saoXauList;
-                                }
-                            @endphp
-
-                            <p>
-                                @if (!empty($badFactors))
-                                    {!! implode('<br>', $badFactors) !!}
-                                @else
-                                    Không có yếu tố xấu nào.
-                                @endif
-                            </p>
-                            <div>
-                                ♥ Việc nên làm
-                                <div>
-                                    <ul>
-                                        @if (!empty($nhiThapBatTu['guidance']['good']))
-                                            <li>{{ $nhiThapBatTu['guidance']['good'] }} (Nhị thập bát tú -
-                                                {{ $nhiThapBatTu['name'] }})</li>
-                                        @endif
-                                        @if (!empty($getThongTinTruc['description']['good']))
-                                            <li>
-                                                {{ $getThongTinTruc['description']['good'] }} (Thập nhị trực -
-                                                {{ $getThongTinTruc['title'] }})
-                                            </li>
-                                        @endif
-                                    </ul>
-                                </div>
-                                ♥ Việc không nên làm
-                                <div>
-                                    <ul>
-                                        @if (!empty($nhiThapBatTu['guidance']['bad']))
-                                            <li>{{ $nhiThapBatTu['guidance']['bad'] }} (Nhị thập bát tú - sao
-                                                {{ $nhiThapBatTu['name'] }})</li>
-                                        @endif
-                                        @if (!empty($getThongTinTruc['description']['bad']))
-                                            <li>
-                                                {{ $getThongTinTruc['description']['bad'] }} (Thập nhị trực -
-                                                {{ $getThongTinTruc['title'] }})
-                                            </li>
-                                        @endif
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade " id="pills-profile-nobd" role="tabpanel"
-                            aria-labelledby="pills-profile-tab-nobd">
-                            <div class="border border-top-0 p-2">
-                                <h4> Tổng quan ngay {{ $dd }}/{{ $mm }}/{{ $yy }}</h4>
-                                <ul>
-                                    <li> Ngày dương lịch: {{ $dd }}/{{ $mm }}/{{ $yy }}
-                                    </li>
-                                    <li> Ngày âm lịch: {{ $al[0] }}/{{ $al[1] }}/{{ $al[2] }}
-                                    </li>
-                                    <li>Nạp âm ngũ hành: {{ $getThongTinNgay['nap_am']['napAm'] }}</li>
-                                    <li>Tuổi xung: {{ $getThongTinNgay['tuoi_xung'] }}</li>
-                                    <li>Giờ hoàng đạo: {{ $getThongTinNgay['gio_hoang_dao'] }}</li>
-                                    <li>Giờ hắc đạo: {{ $getThongTinNgay['gio_hac_dao'] }}</li>
-                                </ul>
-                                <h5>Đánh giá ngày {{ round($getDaySummaryInfo['score']['percentage']) }} / 100 Điểm - Ngày
-                                    {{ $getDaySummaryInfo['description'] }}
-                                </h5>
-
-                                <h3>PHÂN TÍCH NGŨ HÀNH, SAO, TRỰC, LỤC DIỆU</h3>
-                                <h4>1. Xem Can Chi - Khí vận & tuổi hợp/Xung trong ngày</h4>
-                                <div>
-                                    Nội khí ngày (Can Chi ngày): <br>
-                                    - {{ $noiKhiNgay }}
-                                </div>
-                                <h4>2. Nhị thập bát tú</h4>
-                                <p>Ngày {{ $al[0] }}-{{ $al[1] }}-{{ $al[2] }} Âm lịch có xuất
-                                    hiện sao: <b>{{ $nhiThapBatTu['name'] }}({{ $nhiThapBatTu['fullName'] }})</b></p>
-                                <p>Đây là sao <b>{{ $nhiThapBatTu['nature'] }} </b>-
-                                    {{ $nhiThapBatTu['description'] }}</p>
-                                <li>
-                                    Việc nên làm : {{ $nhiThapBatTu['guidance']['good'] }}
-                                    @if ($nhiThapBatTu['guidance']['bad'])
-                                        Việc không nên làm : {{ $nhiThapBatTu['guidance']['bad'] }}
-                                    @endif
-                                </li>
-                                <h4>3. Thập nhị trực (12 trực)</h4>
-                                <p><b>Trực ngày: </b>Trực <b>{{ $getThongTinTruc['title'] }}</b></p>
-                                <p>- Đây là trực {{ $getThongTinTruc['description']['rating'] }} -
-                                    {{ $getThongTinTruc['description']['description'] }}</p>
-                                <ul>
-                                    <li>Việc nên làm: {{ $getThongTinTruc['description']['good'] }}</li>
-                                    <li>Việc không nên làm: {{ $getThongTinTruc['description']['bad'] }}</li>
-                                </ul>
-                                <h4>4. Các sao tốt - xấu theo Ngọc Hạp Thông Thư</h4>
-                                <div>
-                                    <h6>- Sao tốt</h6>
-
-                                    @if (!empty($getSaoTotXauInfo['sao_tot']))
-                                        @foreach ($getSaoTotXauInfo['sao_tot'] as $tenSao => $yNghia)
-                                            <li><strong>{{ $tenSao }}:</strong> {{ $yNghia }}</li>
-                                        @endforeach
-                                    @else
-                                        Không có sao tốt trong ngày này
-                                    @endif
-
-                                    </ul>
-                                    <h6>- Sao xấu</h6>
-                                    <ul>
-                                        @if (!empty($getSaoTotXauInfo['sao_xau']))
-                                            @foreach ($getSaoTotXauInfo['sao_xau'] as $tenSao => $yNghia)
-                                                <li><strong>{{ $tenSao }}:</strong> {{ $yNghia }}</li>
-                                            @endforeach
-                                        @else
-                                            Không có sao xấu trong ngày này
-                                        @endif
-
-                                    </ul>
-                                    <p>{{ $getSaoTotXauInfo['ket_luan'] }}</p>
-                                </div>
-                                <h4>5. Ngày theo Khổng minh lục diệu</h4>
-                                <div>
-                                    <p>Ngày này là ngày <b>{{ $khongMinhLucDieu['name'] }}</b>
-                                        ({{ $khongMinhLucDieu['rating'] }})</p>
-                                    <p>-> {{ $khongMinhLucDieu['description'] }}</p>
-                                    <p>{!! $khongMinhLucDieu['poem'] !!}</p>
-                                </div>
-                                <h3>BÁCH KỴ VÀ CẢNH BÁO ĐẠI KỴ</h3>
-                                <div>
-                                    <h4>1.Giải thích ý nghĩa theo ngày Bành Tổ Bách Kỵ</h4>
-                                    Ngày <b>{{ $canChi }}</b>
-                                    <ul>
-                                        <li><b>{{ $chiNgay[0] }}</b> {{ $banhToCan }}</li>
-                                        <li><b>{{ $chiNgay[1] }}</b> {{ $banhToChi }}</li>
-                                    </ul>
-                                </div>
-
-                                <h3>NGÀY, GIỜ HƯỚNG XUẤT HÀNH</h3>
-                                <div>
-                                    <h4>1. Ngày xuất hành</h4>
-                                    Đây là ngày <b>{{ $getThongTinXuatHanhVaLyThuanPhong['xuat_hanh_info']['title'] }}
-                                        ({{ $getThongTinXuatHanhVaLyThuanPhong['xuat_hanh_info']['rating'] }})</b>:
-                                    {{ $getThongTinXuatHanhVaLyThuanPhong['xuat_hanh_info']['description'] }}
-                                    <h4>2. Hướng xuất hành</h4>
-                                    <h5>Hướng xuất hành tốt:</h5>
-                                    <p> ĐÓn Hỷ thần:
-                                        {{ $getThongTinXuatHanhVaLyThuanPhong['huong_xuat_hanh']['hyThan']['direction'] }}
-                                    </p>
-                                    <p> ĐÓn Tài thần:
-                                        {{ $getThongTinXuatHanhVaLyThuanPhong['huong_xuat_hanh']['taiThan']['direction'] }}
-                                    </p>
-                                    @if ($getThongTinXuatHanhVaLyThuanPhong['huong_xuat_hanh']['hacThan']['direction'] != 'Hạc Thần bận việc trên trời')
-                                        <p> Hắc thần:
-                                            {{ $getThongTinXuatHanhVaLyThuanPhong['huong_xuat_hanh']['hacThan']['direction'] }}
-                                        </p>
-                                    @endif
-                                    <h4>3.Giờ xuất hành Lý Thuần Phong</h4>
-                                    <h5>Giờ tốt:</h5>
-                                    @foreach ($getThongTinXuatHanhVaLyThuanPhong['ly_thuan_phong']['good'] as $name => $items)
-                                        @foreach ($items as $item)
-                                            <p> - {{ $item['name'] }} ({{ $item['rating'] }}):
-                                                {{ $item['timeRange'][0] }} ({{ $item['chi'][0] }}) và
-                                                {{ $item['timeRange'][1] }} ({{ $item['chi'][1] }}) ->
-                                                {{ $item['description'] }}
-                                            </p>
-                                        @endforeach
-                                    @endforeach
-                                    <h5>Giờ Xấu:</h5>
-                                    @foreach ($getThongTinXuatHanhVaLyThuanPhong['ly_thuan_phong']['bad'] as $name => $items)
-                                        @foreach ($items as $item)
-                                            <p> - {{ $item['name'] }} ({{ $item['rating'] }}):
-                                                {{ $item['timeRange'][0] }} ({{ $item['chi'][0] }}) và
-                                                {{ $item['timeRange'][1] }} ({{ $item['chi'][1] }}) ->
-                                                {{ $item['description'] }}
-                                            </p>
-                                        @endforeach
-                                    @endforeach
-                                    {{ $getThongTinXuatHanhVaLyThuanPhong['ly_thuan_phong_description'] }}
-
-
-                                </div>
-                                <h5>KẾT LUẬN CHUNG</h5>
-                                <p>{{ $getDaySummaryInfo['intro_paragraph'] }}</p>
-                                ☼ Các yếu tố tốt xuất hiện trong ngày
-                                <p>
-                                    @if ($nhiThapBatTu['nature'] == 'Tốt')
-                                        Sao {{ $nhiThapBatTu['name'] }} (Nhị thập bát tú),
-                                    @endif
-                                    @if ($getThongTinTruc['description']['rating'] == 'Tốt')
-                                        Trực {{ $getThongTinTruc['title'] }} (Thập nhị trực),
-                                    @endif
-                                    @foreach ($getSaoTotXauInfo['sao_tot'] as $tenSao => $yNghia)
-                                        @if ($getSaoTotXauInfo['sao_tot'])
-                                            Sao: {{ $loop->first ? '' : ', ' }}{{ $tenSao }}
-                                        @endif
-                                    @endforeach
-                                </p>
-                                ☼ Các yếu tố xấu xuất hiện trong ngày
-                                <p>
-                                    @if ($nhiThapBatTu['nature'] == 'Xấu')
-                                        Sao {{ $nhiThapBatTu['name'] }} (Nhị thập bát tú),
-                                    @endif
-
-                                    @if ($getThongTinTruc['description']['rating'] == 'Xấu')
-                                        Trực {{ $getThongTinTruc['title'] }} (Thập nhị trực),
-                                    @endif
-                                    Sao: @foreach ($getSaoTotXauInfo['sao_xau'] as $tenSao => $yNghia)
-                                        {{ $loop->first ? '' : ', ' }}{{ $tenSao }}
-                                    @endforeach
-                                </p>
-                                <div>
-                                    ♥ Việc nên làm
-                                    <div>
-                                        <ul>
-                                            @if (!empty($nhiThapBatTu['guidance']['good']))
-                                                <li>{{ $nhiThapBatTu['guidance']['good'] }} (Nhị thập bát tú -
-                                                    {{ $nhiThapBatTu['name'] }})</li>
-                                            @endif
-                                            @if (!empty($getThongTinTruc['description']['good']))
-                                                <li>
-                                                    {{ $getThongTinTruc['description']['good'] }} (Thập nhị trực -
-                                                    {{ $getThongTinTruc['title'] }})
-                                                </li>
-                                            @endif
-                                        </ul>
-                                    </div>
-                                    ♥ Việc không nên làm
-                                    <div>
-                                        <ul>
-                                            @if (!empty($nhiThapBatTu['guidance']['bad']))
-                                                <li>{{ $nhiThapBatTu['guidance']['bad'] }} (Nhị thập bát tú - sao
-                                                    {{ $nhiThapBatTu['name'] }})</li>
-                                            @endif
-                                            @if (!empty($getThongTinTruc['description']['bad']))
-                                                <li>
-                                                    {{ $getThongTinTruc['description']['bad'] }} (Thập nhị trực -
-                                                    {{ $getThongTinTruc['title'] }})
-                                                </li>
-                                            @endif
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
-    </div> --}}
     <div class="container-setup">
         <h6 class="content-title-date-detail"><a href="{{ route('home') }}">Trang chủ</a> <i class="bi bi-chevron-right"></i>
             <span>Chi tiết ngày</span>
@@ -513,6 +150,142 @@
                             <!-- Nội dung cho "Thông tin chung" (Tab 1 - active mặc định) -->
                             <div class="tab-pane fade show active" id="v-pills-general-info" role="tabpanel"
                                 aria-labelledby="v-pills-general-info-tab" tabindex="0">
+                                <h6 class="fw-bold mb-2">
+                                    <img src="{{ asset('icons/dac-diem1.svg') }}" alt="Đặc điểm"
+                                        class="img-fluid me-2">Đặc điểm ngày
+                                </h6>
+                                <p class=" small">
+                                    @if (!empty($getDaySummaryInfo['intro_paragraph']))
+                                        {{ $getDaySummaryInfo['intro_paragraph'] }}
+                                    @else
+                                        Đang cập nhật (Nội dung tóm tắt)
+                                    @endif
+                                </p>
+                                <div class="pb-3">
+                                    @php
+                                        $goodFactors = [];
+
+                                        if ($nhiThapBatTu['nature'] == 'Tốt') {
+                                            $goodFactors[] =
+                                                'Sao <strong>' . $nhiThapBatTu['name'] . '</strong> (Nhị thập bát tú)';
+                                        }
+
+                                        if ($getThongTinTruc['description']['rating'] == 'Tốt') {
+                                            $goodFactors[] =
+                                                'Trực <strong>' .
+                                                $getThongTinTruc['title'] .
+                                                '</strong> (Thập nhị trực)';
+                                        }
+
+                                        if (!empty($getSaoTotXauInfo['sao_tot'])) {
+                                            $saoTotList = implode(', ', array_keys($getSaoTotXauInfo['sao_tot']));
+                                            $goodFactors[] = 'Sao tốt: ' . $saoTotList;
+                                        }
+                                    @endphp
+                                    <div class="pb-2">
+                                        <div class="star-wrapper d-flex">
+                                            <span class="star-icon"><img
+                                                    src="{{ asset('icons/fluent-color_star-16.svg') }}"
+                                                    alt="Can chi start" class="img-fluid"></span>
+                                            <div class="fs-6">Các yếu tố tốt:</div>
+                                            <!-- Sử dụng ký tự unicode cho ngôi sao -->
+                                        </div>
+                                        <div class="text-content">
+                                            <div>
+                                                @if (!empty($goodFactors))
+                                                    {!! implode('; ', $goodFactors) !!}
+                                                @else
+                                                    Không có yếu tố tốt nào.
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    @php
+                                        $badFactors = [];
+
+                                        if ($nhiThapBatTu['nature'] == 'Xấu') {
+                                            $badFactors[] =
+                                                'Sao <strong>' . $nhiThapBatTu['name'] . '</strong> (Nhị thập bát tú)';
+                                        }
+
+                                        if ($getThongTinTruc['description']['rating'] == 'Xấu') {
+                                            $badFactors[] =
+                                                'Trực <strong>' .
+                                                $getThongTinTruc['title'] .
+                                                '</strong> (Thập nhị trực)';
+                                        }
+
+                                        if (!empty($getSaoTotXauInfo['sao_xau'])) {
+                                            $saoXauList = implode(', ', array_keys($getSaoTotXauInfo['sao_xau']));
+                                            $badFactors[] = 'Sao xấu: ' . $saoXauList;
+                                        }
+                                    @endphp
+                                    <div class="star-wrapper d-flex">
+                                        <span class="star-icon"><img
+                                                src="{{ asset('icons/fluent-color_star-16-defu.svg') }}"
+                                                alt="Can chi start" class="img-fluid"></span>
+                                        <div class="fs-6">Các yếu tố xấu:</div>
+                                        <!-- Sử dụng ký tự unicode cho ngôi sao -->
+                                    </div>
+                                    <div class="text-content">
+                                        <div>
+                                            @if (!empty($badFactors))
+                                                {!! implode('; ', $badFactors) !!}
+                                            @else
+                                                Không có yếu tố xấu nào.
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="content-section mb-3">
+                                    <h6 class="fw-bold mb-2">
+                                        <img src="{{ asset('icons/dac-diem2.svg') }}" alt="Đặc điểm"
+                                            class="img-fluid me-2">Việc nên làm
+                                    </h6>
+                                    <ul class="  small">
+
+
+                                        @if (!empty($nhiThapBatTu['guidance']['good']))
+                                            <li>{{ $nhiThapBatTu['guidance']['good'] }} (Nhị thập bát tú -
+                                                {{ $nhiThapBatTu['name'] }}).</li>
+                                        @endif
+                                        @if (!empty($getThongTinTruc['description']['good']))
+                                            <li>
+                                                {{ $getThongTinTruc['description']['good'] }} (Thập nhị
+                                                trực -
+                                                {{ $getThongTinTruc['title'] }}).
+                                            </li>
+                                        @endif
+                                        {{-- <li>{{ $nhiThapBatTu['guidance']['good'] }}</li> --}}
+                                    </ul>
+                                </div>
+
+
+                                <!-- Không nên -->
+
+                                <div class="content-section mb-3">
+                                    <h6 class="fw-bold mb-2">
+                                        <img src="{{ asset('icons/dac-diem3.svg') }}" alt="Đặc điểm"
+                                            class="img-fluid me-2">Không nên làm
+                                    </h6>
+                                    <ul class="  small">
+                                        @if (!empty($nhiThapBatTu['guidance']['bad']))
+                                            <li>{{ $nhiThapBatTu['guidance']['bad'] }} (Nhị thập bát tú -
+                                                sao
+                                                {{ $nhiThapBatTu['name'] }}).</li>
+                                        @endif
+                                        @if (!empty($getThongTinTruc['description']['bad']))
+                                            <li>
+                                                {{ $getThongTinTruc['description']['bad'] }} (Thập nhị trực
+                                                -
+                                                {{ $getThongTinTruc['title'] }}).
+                                            </li>
+                                        @endif
+                                        {{-- <li>{{ $nhiThapBatTu['guidance']['bad'] }}</li> --}}
+                                    </ul>
+                                </div>
                                 <p class="mb-2  small">
                                     <span class="fw-bold text-dark">Tiết khí:</span> {!! $tietkhi['icon'] !!} <span
                                         class="text-uppercase">{{ $tietkhi['tiet_khi'] }}</span>
@@ -534,6 +307,7 @@
                                     <span class="fw-bold text-dark">Giờ hoàng đạo:</span>
                                     {{ $getThongTinNgay['gio_hoang_dao'] }}
                                 </p>
+
 
                                 <!-- Mức thuận lợi hôm nay box -->
                                 <div class="row g-3 p-sm-3 p-2 rounded-3 border custom-light-yellow-bg box-custom_yeloow">
@@ -589,538 +363,372 @@
 
                                 <!-- Đặc điểm ngày -->
                                 <div class="content-section mb-4">
-                                    <!-- Nút chuyển đổi (Toggle Switch) -->
-                                    <div class="d-flex justify-content-end">
-                                        <ul class="nav nav-pills mb-3 custom-tab-switch " id="pills-tab" role="tablist">
-                                            <li class="nav-item flex-grow-1" role="presentation">
-                                                <!-- Thêm flex-grow-1 vào nav-item -->
-                                                <button class="btn btn-sm custom-tab-btn active" id="pills-summary-tab"
-                                                    data-bs-toggle="pill" data-bs-target="#content-tab-summary"
-                                                    type="button" role="tab" aria-controls="content-tab-summary"
-                                                    aria-selected="false">Tóm tắt</button>
-                                            </li>
-                                            <li class="nav-item flex-grow-1" role="presentation">
-                                                <!-- Thêm flex-grow-1 vào nav-item -->
-                                                <button class="btn btn-sm custom-tab-btn " id="pills-details-tab"
-                                                    data-bs-toggle="pill" data-bs-target="#content-tab-details"
-                                                    type="button" role="tab" aria-controls="content-tab-details"
-                                                    aria-selected="true">Chi tiết</button>
-                                            </li>
-                                        </ul>
 
-                                    </div>
-                                    <!-- Nội dung của các tab sẽ hiển thị ở đây -->
-                                    <div class="tab-content" id="myDynamicTabContent">
-                                        <!-- Thẻ div thứ nhất (Nội dung tóm tắt) -->
-                                        <div class="tab-pane fade  show active" id="content-tab-summary" role="tabpanel"
-                                            aria-labelledby="tab-summary-button" tabindex="0">
-                                            <h6 class="fw-bold mb-2">
-                                                <img src="{{ asset('icons/dac-diem1.svg') }}" alt="Đặc điểm"
-                                                    class="img-fluid me-2">Đặc điểm ngày
-                                            </h6>
-                                            <p class=" small">
-                                                @if (!empty($getDaySummaryInfo['intro_paragraph']))
-                                                    {{ $getDaySummaryInfo['intro_paragraph'] }}
-                                                @else
-                                                    Đang cập nhật (Nội dung tóm tắt)
-                                                @endif
-                                            </p>
-                                            @php
-                                                $goodFactors = [];
-
-                                                if ($nhiThapBatTu['nature'] == 'Tốt') {
-                                                    $goodFactors[] =
-                                                        'Sao <strong>' .
-                                                        $nhiThapBatTu['name'] .
-                                                        '</strong> (Nhị thập bát tú)';
-                                                }
-
-                                                if ($getThongTinTruc['description']['rating'] == 'Tốt') {
-                                                    $goodFactors[] =
-                                                        'Trực <strong>' .
-                                                        $getThongTinTruc['title'] .
-                                                        '</strong> (Thập nhị trực)';
-                                                }
-
-                                                if (!empty($getSaoTotXauInfo['sao_tot'])) {
-                                                    $saoTotList = implode(
-                                                        ', ',
-                                                        array_keys($getSaoTotXauInfo['sao_tot']),
-                                                    );
-                                                    $goodFactors[] = 'Sao tốt: ' . $saoTotList;
-                                                }
-                                            @endphp
-
-                                            <p>
-
-                                                @if (!empty($goodFactors))
-                                                    {!! implode('; ', $goodFactors) !!}
-                                                @else
-                                                    Không có yếu tố tốt nào.
-                                                @endif
-                                            </p>
-
-
-
-                                            @php
-                                                $badFactors = [];
-
-                                                if ($nhiThapBatTu['nature'] == 'Xấu') {
-                                                    $badFactors[] =
-                                                        'Sao <strong>' .
-                                                        $nhiThapBatTu['name'] .
-                                                        '</strong> (Nhị thập bát tú)';
-                                                }
-
-                                                if ($getThongTinTruc['description']['rating'] == 'Xấu') {
-                                                    $badFactors[] =
-                                                        'Trực <strong>' .
-                                                        $getThongTinTruc['title'] .
-                                                        '</strong> (Thập nhị trực)';
-                                                }
-
-                                                if (!empty($getSaoTotXauInfo['sao_xau'])) {
-                                                    $saoXauList = implode(
-                                                        ', ',
-                                                        array_keys($getSaoTotXauInfo['sao_xau']),
-                                                    );
-                                                    $badFactors[] = 'Sao xấu: ' . $saoXauList;
-                                                }
-                                            @endphp
-
-                                            <p>
-                                                @if (!empty($badFactors))
-                                                    {!! implode('; ', $badFactors) !!}
-                                                @else
-                                                    Không có yếu tố xấu nào.
-                                                @endif
-                                            </p>
-                                            <div class="content-section mb-4">
-                                                <h6 class="fw-bold mb-2">
-                                                    <img src="{{ asset('icons/dac-diem2.svg') }}" alt="Đặc điểm"
-                                                        class="img-fluid me-2">Việc nên làm
-                                                </h6>
-                                                <ul class="  small">
-
-
-                                                    @if (!empty($nhiThapBatTu['guidance']['good']))
-                                                        <li>{{ $nhiThapBatTu['guidance']['good'] }} (Nhị thập bát tú -
-                                                            {{ $nhiThapBatTu['name'] }}).</li>
-                                                    @endif
-                                                    @if (!empty($getThongTinTruc['description']['good']))
-                                                        <li>
-                                                            {{ $getThongTinTruc['description']['good'] }} (Thập nhị
-                                                            trực -
-                                                            {{ $getThongTinTruc['title'] }}).
-                                                        </li>
-                                                    @endif
-                                                    {{-- <li>{{ $nhiThapBatTu['guidance']['good'] }}</li> --}}
-                                                </ul>
-                                            </div>
-
-
-                                            <!-- Không nên -->
-
-                                            <div class="content-section mb-4">
-                                                <h6 class="fw-bold mb-2">
-                                                    <img src="{{ asset('icons/dac-diem3.svg') }}" alt="Đặc điểm"
-                                                        class="img-fluid me-2">Không nên làm
-                                                </h6>
-                                                <ul class="  small">
-                                                    @if (!empty($nhiThapBatTu['guidance']['bad']))
-                                                        <li>{{ $nhiThapBatTu['guidance']['bad'] }} (Nhị thập bát tú -
-                                                            sao
-                                                            {{ $nhiThapBatTu['name'] }}).</li>
-                                                    @endif
-                                                    @if (!empty($getThongTinTruc['description']['bad']))
-                                                        <li>
-                                                            {{ $getThongTinTruc['description']['bad'] }} (Thập nhị trực
-                                                            -
-                                                            {{ $getThongTinTruc['title'] }}).
-                                                        </li>
-                                                    @endif
-                                                    {{-- <li>{{ $nhiThapBatTu['guidance']['bad'] }}</li> --}}
-                                                </ul>
-                                            </div>
-
-
-                                        </div>
-
-                                        <!-- Thẻ div thứ hai (Nội dung chi tiết - Active mặc định) -->
-                                        <div class="tab-pane fade" id="content-tab-details" role="tabpanel"
-                                            aria-labelledby="tab-details-button" tabindex="0">
-                                            <!-- Nội dung chi tiết của bạn ở đây -->
-                                            <div class="accordion" id="accordionRental">
-                                                <div class="accordion-item mb-1">
-                                                    <h5 class="accordion-header" id="headingOne">
-                                                        <button
-                                                            class="accordion-button  border-bottom font-weight-bold size-20 weight-500 collapsed"
-                                                            type="button" data-bs-toggle="collapse"
-                                                            data-bs-target="#collapseOne" aria-expanded="false"
-                                                            aria-controls="collapseOne">
-                                                            <img src="{{ asset('icons/dac-diem1.svg') }}"
-                                                                alt="PHÂN TÍCH NGŨ HÀNH, SAO, TRỰC, LỤC DIỆU"
-                                                                class="img-fluid"> PHÂN TÍCH NGŨ HÀNH, SAO, TRỰC, LỤC DIỆU
-                                                        </button>
-                                                    </h5>
-                                                    <div id="collapseOne" class="accordion-collapse collapse"
-                                                        aria-labelledby="headingOne" data-bs-parent="#accordionRental">
-                                                        <div
-                                                            class="accordion-body text-sm opacity-8 size-18 backgroud-whil pe-0 ps-0">
-                                                            <div>
-                                                                <h5 class="fw-bolder y-nguhanh">1. Can chi và ngũ hành</h5>
-                                                                <div class="item-container">
-                                                                    <div class="star-wrapper">
-                                                                        <span class="star-icon"><img
-                                                                                src="{{ asset('icons/fluent-color_star-16.svg') }}"
-                                                                                alt="Can chi start"
-                                                                                class="img-fluid"></span>
-                                                                        <!-- Sử dụng ký tự unicode cho ngôi sao -->
-                                                                    </div>
-                                                                    <div class="text-content">
-                                                                        <h6>Quan hệ Can chi ngày (nội khí):</h6>
-                                                                        <p>
-                                                                            {!! $noiKhiNgay !!}
-                                                                        </p>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="item-container pt-2">
-                                                                    <div class="star-wrapper">
-                                                                        <span class="star-icon"><img
-                                                                                src="{{ asset('icons/fluent-color_star-16.svg') }}"
-                                                                                alt="Can chi start"
-                                                                                class="img-fluid"></span>
-
-                                                                    </div>
-                                                                    <div class="text-content">
-                                                                        <h6>Vận khí ngày & tháng (khí tháng):</h6>
-                                                                        <ul>
-                                                                            {!! $getVongKhiNgayThang['analysis'] !!}
-                                                                        </ul>
-                                                                        <p>{{ $getVongKhiNgayThang['conclusion'] }}</p>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="item-container pt-2">
-                                                                    <div class="star-wrapper">
-                                                                        <span class="star-icon"><img
-                                                                                src="{{ asset('icons/fluent-color_star-16.svg') }}"
-                                                                                alt="Can chi start"
-                                                                                class="img-fluid"></span>
-
-                                                                    </div>
-                                                                    <div class="text-content">
-                                                                        <h6>Cục khí - hợp xung:</h6>
-                                                                        <ul>
-                                                                            <li> {{ $getCucKhiHopXung['hop'] }}.</li>
-                                                                            <li> {{ $getCucKhiHopXung['ky'] }}.</li>
-                                                                        </ul>
-                                                                    </div>
-                                                                </div>
+                                    <div class="accordion" id="accordionRental">
+                                        <div class="accordion-item mb-1">
+                                            <h5 class="accordion-header" id="headingOne">
+                                                <button
+                                                    class="accordion-button  border-bottom font-weight-bold size-20 weight-500 collapsed"
+                                                    type="button" data-bs-toggle="collapse"
+                                                    data-bs-target="#collapseOne" aria-expanded="false"
+                                                    aria-controls="collapseOne">
+                                                    <img src="{{ asset('icons/dac-diem1.svg') }}"
+                                                        alt="PHÂN TÍCH NGŨ HÀNH, SAO, TRỰC, LỤC DIỆU" class="img-fluid">
+                                                    PHÂN TÍCH NGŨ HÀNH, SAO, TRỰC, LỤC DIỆU
+                                                </button>
+                                            </h5>
+                                            <div id="collapseOne" class="accordion-collapse collapse"
+                                                aria-labelledby="headingOne" data-bs-parent="#accordionRental">
+                                                <div
+                                                    class="accordion-body text-sm opacity-8 size-18 backgroud-whil pe-0 ps-0">
+                                                    <div>
+                                                        <h5 class="fw-bolder y-nguhanh">1. Can chi và ngũ hành</h5>
+                                                        <div class="item-container">
+                                                            <div class="star-wrapper">
+                                                                <span class="star-icon"><img
+                                                                        src="{{ asset('icons/fluent-color_star-16.svg') }}"
+                                                                        alt="Can chi start" class="img-fluid"></span>
+                                                                <!-- Sử dụng ký tự unicode cho ngôi sao -->
                                                             </div>
-                                                            <div>
-                                                                <h5 class="fw-bolder y-nguhanh">2. Nhị Thập Bát Tú (28 Sao)
-                                                                </h5>
-                                                                <div class="me-sm-2">
-                                                                    <div>Ngày
-                                                                        {{ $al[0] }}-{{ $al[1] }}-{{ $al[2] }}
-                                                                        Âm lịch có xuất
-                                                                        hiện sao:
-                                                                        <b>{{ $nhiThapBatTu['name'] }}
-                                                                            ({{ $nhiThapBatTu['fullName'] }})</b>
-                                                                        <div> <i class="bi bi-arrow-right-short"></i> Đây
-                                                                            là sao
-                                                                            <b>{{ $nhiThapBatTu['nature'] }} </b>-
-                                                                            {{ $nhiThapBatTu['description'] }}
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="mt-2">
-                                                                        <div>
-                                                                            @if ($nhiThapBatTu['guidance']['good'])
-                                                                                <span class="fw-bolder">
-                                                                                    Việc nên làm:
-                                                                                </span>
-                                                                                {{ $nhiThapBatTu['guidance']['good'] }}.
-                                                                            @endif
-                                                                        </div>
-
-                                                                        <div>
-                                                                            @if ($nhiThapBatTu['guidance']['bad'])
-                                                                                <span class="fw-bolder"> Việc không nên
-                                                                                    làm: </span>
-                                                                                {{ $nhiThapBatTu['guidance']['bad'] }}.
-                                                                            @endif
-                                                                        </div>
-
-                                                                    </div>
-                                                                </div>
+                                                            <div class="text-content">
+                                                                <h6>Quan hệ Can chi ngày (nội khí):</h6>
+                                                                <p>
+                                                                    {!! $noiKhiNgay !!}
+                                                                </p>
                                                             </div>
-                                                            <div class="pt-2">
-                                                                <h5 class="fw-bolder y-nguhanh">3. Thập Nhị Trực (12 Trực)
-                                                                </h5>
-                                                                <div class="me-sm-2">
-                                                                    <div>
-                                                                        Trực ngày: Trực
-                                                                        <b>{{ $getThongTinTruc['title'] }}</b>
-                                                                        <div>
-                                                                            <i class="bi bi-arrow-right-short"></i> Đây
-                                                                            là trực
-                                                                            <b>
-                                                                                {{ $getThongTinTruc['description']['rating'] }}</b>
-                                                                            -
-                                                                            {{ $getThongTinTruc['description']['description'] }}
-                                                                        </div>
+                                                        </div>
+                                                        <div class="item-container pt-2">
+                                                            <div class="star-wrapper">
+                                                                <span class="star-icon"><img
+                                                                        src="{{ asset('icons/fluent-color_star-16.svg') }}"
+                                                                        alt="Can chi start" class="img-fluid"></span>
 
-                                                                    </div>
-                                                                    <div class="mt-2">
-                                                                        <div>
-                                                                            @if ($getThongTinTruc['description']['good'])
-                                                                                <span class="fw-bolder">
-                                                                                    Việc nên làm:
-                                                                                </span>
-                                                                                {{ $getThongTinTruc['description']['good'] }}
-                                                                            @endif
-                                                                        </div>
-
-                                                                        <div>
-                                                                            @if ($getThongTinTruc['description']['bad'])
-                                                                                <span class="fw-bolder"> Việc không nên
-                                                                                    làm: </span>
-                                                                                {{ $getThongTinTruc['description']['bad'] }}
-                                                                            @endif
-                                                                        </div>
-
-                                                                    </div>
-                                                                </div>
                                                             </div>
-                                                            <div class="pt-2">
-                                                                <h5 class="fw-bolder y-nguhanh">4. Các sao tốt - xấu theo
-                                                                    Ngọc Hạp Thông Thư
-                                                                </h5>
-                                                                <div class="item-container">
-                                                                    <div class="star-wrapper">
-                                                                        <span class="star-icon"><img
-                                                                                src="{{ asset('icons/fluent-color_star-16.svg') }}"
-                                                                                alt="Can chi start"
-                                                                                class="img-fluid"></span>
-                                                                        <!-- Sử dụng ký tự unicode cho ngôi sao -->
-                                                                    </div>
-                                                                    <div class="text-content">
-                                                                        <h6 style="color: rgba(240, 93, 7, 1)">Sao Tốt:
-                                                                        </h6>
-                                                                        <ul>
-                                                                            @if (!empty($getSaoTotXauInfo['sao_tot']))
-                                                                                @foreach ($getSaoTotXauInfo['sao_tot'] as $tenSao => $yNghia)
-                                                                                    <li><strong>{{ $tenSao }}:</strong>
-                                                                                        {{ $yNghia }}</li>
-                                                                                @endforeach
-                                                                            @else
-                                                                                Không có sao tốt trong ngày này
-                                                                            @endif
-
-                                                                        </ul>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="item-container">
-                                                                    <div class="star-wrapper">
-                                                                        <span class="star-icon"><img
-                                                                                src="{{ asset('icons/fluent-color_star-16-defu.svg') }}"
-                                                                                alt="Can chi start"
-                                                                                class="img-fluid"></span>
-                                                                        <!-- Sử dụng ký tự unicode cho ngôi sao -->
-                                                                    </div>
-                                                                    <div class="text-content">
-                                                                        <h6>Sao Xấu:</h6>
-                                                                        <ul>
-                                                                            @if (!empty($getSaoTotXauInfo['sao_xau']))
-                                                                                @foreach ($getSaoTotXauInfo['sao_xau'] as $tenSao => $yNghia)
-                                                                                    <li><strong>{{ $tenSao }}:</strong>
-                                                                                        {{ $yNghia }}</li>
-                                                                                @endforeach
-                                                                            @else
-                                                                                Không có sao xấu trong ngày này
-                                                                            @endif
-
-                                                                        </ul>
-                                                                    </div>
-                                                                </div>
-                                                                <p>{{ $getSaoTotXauInfo['ket_luan'] }}</p>
+                                                            <div class="text-content">
+                                                                <h6>Vận khí ngày & tháng (khí tháng):</h6>
+                                                                <ul>
+                                                                    {!! $getVongKhiNgayThang['analysis'] !!}
+                                                                </ul>
+                                                                <p>{{ $getVongKhiNgayThang['conclusion'] }}</p>
                                                             </div>
-                                                            <div class="pt-2">
-                                                                <h5 class="fw-bolder y-nguhanh">5. Ngày theo Khổng Minh Lục
-                                                                    Diệu</h5>
-                                                                <div>
-                                                                    <div>
-                                                                        <div>Ngày này là ngày
-                                                                            <b>{{ $khongMinhLucDieu['name'] }}</b>
-                                                                            ({{ $khongMinhLucDieu['rating'] }})
-                                                                        </div>
-                                                                        <div>-> {{ $khongMinhLucDieu['description'] }}
-                                                                        </div>
-                                                                        <div class="pt-2 text-center fst-italic">
-                                                                            "{!! $khongMinhLucDieu['poem'] !!}"
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
+                                                        </div>
+                                                        <div class="item-container pt-2">
+                                                            <div class="star-wrapper">
+                                                                <span class="star-icon"><img
+                                                                        src="{{ asset('icons/fluent-color_star-16.svg') }}"
+                                                                        alt="Can chi start" class="img-fluid"></span>
+
+                                                            </div>
+                                                            <div class="text-content">
+                                                                <h6>Cục khí - hợp xung:</h6>
+                                                                <ul>
+                                                                    <li> {{ $getCucKhiHopXung['hop'] }}.</li>
+                                                                    <li> {{ $getCucKhiHopXung['ky'] }}.</li>
+                                                                </ul>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="accordion-item mb-1">
-                                                    <h5 class="accordion-header" id="headingTwo">
-                                                        <button
-                                                            class="accordion-button border-bottom font-weight-bold size-20 weight-500 collapsed"
-                                                            type="button" data-bs-toggle="collapse"
-                                                            data-bs-target="#collapseTwo" aria-expanded="false"
-                                                            aria-controls="collapseTwo">
-                                                            <img src="{{ asset('icons/dac-diem1.svg') }}"
-                                                                alt="BÁCH KỴ VÀ CẢNH BÁO ĐẠI KỴ" class="img-fluid"> BÁCH
-                                                            KỴ VÀ CẢNH BÁO ĐẠI KỴ
-                                                        </button>
-                                                    </h5>
-                                                    <div id="collapseTwo" class="accordion-collapse collapse"
-                                                        aria-labelledby="headingTwo" data-bs-parent="#accordionRental">
-                                                        <div
-                                                            class="accordion-body text-sm opacity-8 size-18 backgroud-whil ps-4 pt-4">
-                                                            <div>
-                                                                <h6 class="fw-bolder">1. Giải thích ý nghĩa ngày theo Bành
-                                                                    Tổ Bách Kỵ</h6>
-                                                                <div>
-                                                                    Ngày <b>{{ $canChi }}</b>
-                                                                    <ul>
-                                                                        <li><b>{{ $chiNgay[0] }}: </b>
-                                                                            {{ $banhToCan }}.</li>
-                                                                        <li><b>{{ $chiNgay[1] }}: </b>
-                                                                            {{ $banhToChi }}.</li>
-                                                                    </ul>
+                                                    <div>
+                                                        <h5 class="fw-bolder y-nguhanh">2. Nhị Thập Bát Tú (28 Sao)
+                                                        </h5>
+                                                        <div class="me-sm-2">
+                                                            <div>Ngày
+                                                                {{ $al[0] }}-{{ $al[1] }}-{{ $al[2] }}
+                                                                Âm lịch có xuất
+                                                                hiện sao:
+                                                                <b>{{ $nhiThapBatTu['name'] }}
+                                                                    ({{ $nhiThapBatTu['fullName'] }})</b>
+                                                                <div> <i class="bi bi-arrow-right-short"></i> Đây
+                                                                    là sao
+                                                                    <b>{{ $nhiThapBatTu['nature'] }} </b>-
+                                                                    {{ $nhiThapBatTu['description'] }}
                                                                 </div>
                                                             </div>
-                                                            <div>
-                                                                <h6 class="fw-bolder">2. Cảnh báo ngày đại Kỵ</h6>
+
+                                                            <div class="mt-2">
                                                                 <div>
-                                                                    @if (!empty($checkBadDays))
-                                                                        Ngày này phạm phải ngày:
-                                                                        @foreach ($checkBadDays as $name => $description)
-                                                                            <div>
-                                                                                <strong>{{ $name }}:</strong>
-                                                                                {{ $description }}
-                                                                            </div>
+                                                                    @if ($nhiThapBatTu['guidance']['good'])
+                                                                        <span class="fw-bolder">
+                                                                            Việc nên làm:
+                                                                        </span>
+                                                                        {{ $nhiThapBatTu['guidance']['good'] }}.
+                                                                    @endif
+                                                                </div>
+
+                                                                <div>
+                                                                    @if ($nhiThapBatTu['guidance']['bad'])
+                                                                        <span class="fw-bolder"> Việc không nên
+                                                                            làm: </span>
+                                                                        {{ $nhiThapBatTu['guidance']['bad'] }}.
+                                                                    @endif
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="pt-2">
+                                                        <h5 class="fw-bolder y-nguhanh">3. Thập Nhị Trực (12 Trực)
+                                                        </h5>
+                                                        <div class="me-sm-2">
+                                                            <div>
+                                                                Trực ngày: Trực
+                                                                <b>{{ $getThongTinTruc['title'] }}</b>
+                                                                <div>
+                                                                    <i class="bi bi-arrow-right-short"></i> Đây
+                                                                    là trực
+                                                                    <b>
+                                                                        {{ $getThongTinTruc['description']['rating'] }}</b>
+                                                                    -
+                                                                    {{ $getThongTinTruc['description']['description'] }}
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="mt-2">
+                                                                <div>
+                                                                    @if ($getThongTinTruc['description']['good'])
+                                                                        <span class="fw-bolder">
+                                                                            Việc nên làm:
+                                                                        </span>
+                                                                        {{ $getThongTinTruc['description']['good'] }}
+                                                                    @endif
+                                                                </div>
+
+                                                                <div>
+                                                                    @if ($getThongTinTruc['description']['bad'])
+                                                                        <span class="fw-bolder"> Việc không nên
+                                                                            làm: </span>
+                                                                        {{ $getThongTinTruc['description']['bad'] }}
+                                                                    @endif
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="pt-2">
+                                                        <h5 class="fw-bolder y-nguhanh">4. Các sao tốt - xấu theo
+                                                            Ngọc Hạp Thông Thư
+                                                        </h5>
+                                                        <div class="item-container">
+                                                            <div class="star-wrapper">
+                                                                <span class="star-icon"><img
+                                                                        src="{{ asset('icons/fluent-color_star-16.svg') }}"
+                                                                        alt="Can chi start" class="img-fluid"></span>
+                                                                <!-- Sử dụng ký tự unicode cho ngôi sao -->
+                                                            </div>
+                                                            <div class="text-content">
+                                                                <h6 style="color: rgba(240, 93, 7, 1)">Sao Tốt:
+                                                                </h6>
+                                                                <ul>
+                                                                    @if (!empty($getSaoTotXauInfo['sao_tot']))
+                                                                        @foreach ($getSaoTotXauInfo['sao_tot'] as $tenSao => $yNghia)
+                                                                            <li><strong>{{ $tenSao }}:</strong>
+                                                                                {{ $yNghia }}</li>
                                                                         @endforeach
                                                                     @else
-                                                                        <div>Không phạm ngày đại kỵ nào!</div>
+                                                                        Không có sao tốt trong ngày này
                                                                     @endif
 
-
-                                                                </div>
+                                                                </ul>
                                                             </div>
-
                                                         </div>
+                                                        <div class="item-container">
+                                                            <div class="star-wrapper">
+                                                                <span class="star-icon"><img
+                                                                        src="{{ asset('icons/fluent-color_star-16-defu.svg') }}"
+                                                                        alt="Can chi start" class="img-fluid"></span>
+                                                                <!-- Sử dụng ký tự unicode cho ngôi sao -->
+                                                            </div>
+                                                            <div class="text-content">
+                                                                <h6>Sao Xấu:</h6>
+                                                                <ul>
+                                                                    @if (!empty($getSaoTotXauInfo['sao_xau']))
+                                                                        @foreach ($getSaoTotXauInfo['sao_xau'] as $tenSao => $yNghia)
+                                                                            <li><strong>{{ $tenSao }}:</strong>
+                                                                                {{ $yNghia }}</li>
+                                                                        @endforeach
+                                                                    @else
+                                                                        Không có sao xấu trong ngày này
+                                                                    @endif
+
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                        <p>{{ $getSaoTotXauInfo['ket_luan'] }}</p>
                                                     </div>
-                                                </div>
-                                                <div class="accordion-item mb-1">
-                                                    <h5 class="accordion-header" id="headingThree">
-                                                        <button
-                                                            class="accordion-button border-bottom font-weight-bold size-20 weight-500 collapsed"
-                                                            type="button" data-bs-toggle="collapse"
-                                                            data-bs-target="#collapseThree" aria-expanded="false"
-                                                            aria-controls="collapseThree">
-                                                            <img src="{{ asset('icons/dac-diem1.svg') }}"
-                                                                alt="NGÀY, GIỜ VÀ HƯỚNG XUẤT HÀNH" class="img-fluid">
-                                                            NGÀY, GIỜ VÀ HƯỚNG XUẤT HÀNH
-                                                        </button>
-                                                    </h5>
-                                                    <div id="collapseThree" class="accordion-collapse collapse"
-                                                        aria-labelledby="headingThree" data-bs-parent="#accordionRental">
-                                                        <div
-                                                            class="accordion-body text-sm opacity-8 size-18 backgroud-whil ps-4 pt-4">
+                                                    <div class="pt-2">
+                                                        <h5 class="fw-bolder y-nguhanh">5. Ngày theo Khổng Minh Lục
+                                                            Diệu</h5>
+                                                        <div>
                                                             <div>
-                                                                <h6 class="fw-bolder">1. Ngày xuất hành</h6>
-                                                                <div>
-                                                                    Đây là ngày
-                                                                    <b>{{ $getThongTinXuatHanhVaLyThuanPhong['xuat_hanh_info']['title'] }}
-                                                                        ({{ $getThongTinXuatHanhVaLyThuanPhong['xuat_hanh_info']['rating'] }})</b>:
-                                                                    {{ $getThongTinXuatHanhVaLyThuanPhong['xuat_hanh_info']['description'] }}
+                                                                <div>Ngày này là ngày
+                                                                    <b>{{ $khongMinhLucDieu['name'] }}</b>
+                                                                    ({{ $khongMinhLucDieu['rating'] }})
+                                                                </div>
+                                                                <div>-> {{ $khongMinhLucDieu['description'] }}
+                                                                </div>
+                                                                <div class="pt-2 text-center fst-italic">
+                                                                    "{!! $khongMinhLucDieu['poem'] !!}"
                                                                 </div>
                                                             </div>
-                                                            <div class="pt-2">
-                                                                <h6 class="fw-bolder">2. Hướng xuất hành</h6>
-                                                                <div>
-                                                                    <div>
-                                                                        <div class="fw-semibold">Hướng xuất hành tốt:</div>
-                                                                        <ul>
-                                                                            <li>Đón Hỷ thần:
-                                                                                {{ $getThongTinXuatHanhVaLyThuanPhong['huong_xuat_hanh']['hyThan']['direction'] }}
-                                                                            </li>
-                                                                            <li>Đón Tài thần:
-                                                                                {{ $getThongTinXuatHanhVaLyThuanPhong['huong_xuat_hanh']['taiThan']['direction'] }}
-                                                                            </li>
-                                                                        </ul>
-                                                                    </div>
-
-                                                                    @if ($getThongTinXuatHanhVaLyThuanPhong['huong_xuat_hanh']['hacThan']['direction'] != 'Hạc Thần bận việc trên trời')
-                                                                        <div>
-                                                                            <div class="fw-semibold">Hướng xuất hành xấu:
-                                                                            </div>
-                                                                            <ul>
-                                                                                <li>Gặp hạc thần:
-                                                                                    {{ $getThongTinXuatHanhVaLyThuanPhong['huong_xuat_hanh']['hacThan']['direction'] }}
-                                                                                </li>
-                                                                            </ul>
-
-                                                                        </div>
-                                                                    @endif
-                                                                </div>
-                                                            </div>
-                                                            <div class="pt-2">
-                                                                <h6 class="fw-bolder">3. Giờ xuất hành theo Lý Thuần Phong
-                                                                </h6>
-                                                                <div>
-                                                                    <div class="fw-bolder">Giờ tốt:</div>
-                                                                    <ul>
-                                                                        @foreach ($getThongTinXuatHanhVaLyThuanPhong['ly_thuan_phong']['good'] as $name => $items)
-                                                                            @foreach ($items as $item)
-                                                                                <li> {{ $item['name'] }}
-                                                                                    ({{ $item['rating'] }})
-                                                                                    :{{ $item['timeRange'][0] }}
-                                                                                    ({{ $item['chi'][0] }}) và
-                                                                                    {{ $item['timeRange'][1] }}
-                                                                                    ({{ $item['chi'][1] }}) ->
-                                                                                    {{ $item['description'] }}
-                                                                                </li>
-                                                                            @endforeach
-                                                                        @endforeach
-                                                                    </ul>
-                                                                </div>
-                                                                <div>
-                                                                    <div class="fw-bolder">Giờ xấu:</div>
-                                                                    <ul>
-                                                                        @foreach ($getThongTinXuatHanhVaLyThuanPhong['ly_thuan_phong']['bad'] as $name => $items)
-                                                                            @foreach ($items as $item)
-                                                                                <li> {{ $item['name'] }}
-                                                                                    ({{ $item['rating'] }})
-                                                                                    : {{ $item['timeRange'][0] }}
-                                                                                    ({{ $item['chi'][0] }}) và
-                                                                                    {{ $item['timeRange'][1] }}
-                                                                                    ({{ $item['chi'][1] }}) ->
-                                                                                    {{ $item['description'] }}
-                                                                                </li>
-                                                                            @endforeach
-                                                                        @endforeach
-                                                                    </ul>
-                                                                </div>
-                                                                <div>
-                                                                    {{ $getThongTinXuatHanhVaLyThuanPhong['ly_thuan_phong_description'] }}
-                                                                </div>
-                                                            </div>
-
                                                         </div>
                                                     </div>
                                                 </div>
-
-
                                             </div>
                                         </div>
+                                        <div class="accordion-item mb-1">
+                                            <h5 class="accordion-header" id="headingTwo">
+                                                <button
+                                                    class="accordion-button border-bottom font-weight-bold size-20 weight-500 collapsed"
+                                                    type="button" data-bs-toggle="collapse"
+                                                    data-bs-target="#collapseTwo" aria-expanded="false"
+                                                    aria-controls="collapseTwo">
+                                                    <img src="{{ asset('icons/dac-diem1.svg') }}"
+                                                        alt="BÁCH KỴ VÀ CẢNH BÁO ĐẠI KỴ" class="img-fluid"> BÁCH
+                                                    KỴ VÀ CẢNH BÁO ĐẠI KỴ
+                                                </button>
+                                            </h5>
+                                            <div id="collapseTwo" class="accordion-collapse collapse"
+                                                aria-labelledby="headingTwo" data-bs-parent="#accordionRental">
+                                                <div
+                                                    class="accordion-body text-sm opacity-8 size-18 backgroud-whil ps-4 pt-4">
+                                                    <div>
+                                                        <h6 class="fw-bolder">1. Giải thích ý nghĩa ngày theo Bành
+                                                            Tổ Bách Kỵ</h6>
+                                                        <div>
+                                                            Ngày <b>{{ $canChi }}</b>
+                                                            <ul>
+                                                                <li><b>{{ $chiNgay[0] }}: </b>
+                                                                    {{ $banhToCan }}.</li>
+                                                                <li><b>{{ $chiNgay[1] }}: </b>
+                                                                    {{ $banhToChi }}.</li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <h6 class="fw-bolder">2. Cảnh báo ngày đại Kỵ</h6>
+                                                        <div>
+                                                            @if (!empty($checkBadDays))
+                                                                Ngày này phạm phải ngày:
+                                                                @foreach ($checkBadDays as $name => $description)
+                                                                    <div>
+                                                                        <strong>{{ $name }}:</strong>
+                                                                        {{ $description }}
+                                                                    </div>
+                                                                @endforeach
+                                                            @else
+                                                                <div>Không phạm ngày đại kỵ nào!</div>
+                                                            @endif
+
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-item mb-1">
+                                            <h5 class="accordion-header" id="headingThree">
+                                                <button
+                                                    class="accordion-button border-bottom font-weight-bold size-20 weight-500 collapsed"
+                                                    type="button" data-bs-toggle="collapse"
+                                                    data-bs-target="#collapseThree" aria-expanded="false"
+                                                    aria-controls="collapseThree">
+                                                    <img src="{{ asset('icons/dac-diem1.svg') }}"
+                                                        alt="NGÀY, GIỜ VÀ HƯỚNG XUẤT HÀNH" class="img-fluid">
+                                                    NGÀY, GIỜ VÀ HƯỚNG XUẤT HÀNH
+                                                </button>
+                                            </h5>
+                                            <div id="collapseThree" class="accordion-collapse collapse"
+                                                aria-labelledby="headingThree" data-bs-parent="#accordionRental">
+                                                <div
+                                                    class="accordion-body text-sm opacity-8 size-18 backgroud-whil ps-4 pt-4">
+                                                    <div>
+                                                        <h6 class="fw-bolder">1. Ngày xuất hành</h6>
+                                                        <div>
+                                                            Đây là ngày
+                                                            <b>{{ $getThongTinXuatHanhVaLyThuanPhong['xuat_hanh_info']['title'] }}
+                                                                ({{ $getThongTinXuatHanhVaLyThuanPhong['xuat_hanh_info']['rating'] }})</b>:
+                                                            {{ $getThongTinXuatHanhVaLyThuanPhong['xuat_hanh_info']['description'] }}
+                                                        </div>
+                                                    </div>
+                                                    <div class="pt-2">
+                                                        <h6 class="fw-bolder">2. Hướng xuất hành</h6>
+                                                        <div>
+                                                            <div>
+                                                                <div class="fw-semibold">Hướng xuất hành tốt:</div>
+                                                                <ul>
+                                                                    <li>Đón Hỷ thần:
+                                                                        {{ $getThongTinXuatHanhVaLyThuanPhong['huong_xuat_hanh']['hyThan']['direction'] }}
+                                                                    </li>
+                                                                    <li>Đón Tài thần:
+                                                                        {{ $getThongTinXuatHanhVaLyThuanPhong['huong_xuat_hanh']['taiThan']['direction'] }}
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+
+                                                            @if ($getThongTinXuatHanhVaLyThuanPhong['huong_xuat_hanh']['hacThan']['direction'] != 'Hạc Thần bận việc trên trời')
+                                                                <div>
+                                                                    <div class="fw-semibold">Hướng xuất hành xấu:
+                                                                    </div>
+                                                                    <ul>
+                                                                        <li>Gặp hạc thần:
+                                                                            {{ $getThongTinXuatHanhVaLyThuanPhong['huong_xuat_hanh']['hacThan']['direction'] }}
+                                                                        </li>
+                                                                    </ul>
+
+                                                                </div>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                    <div class="pt-2">
+                                                        <h6 class="fw-bolder">3. Giờ xuất hành theo Lý Thuần Phong
+                                                        </h6>
+                                                        <div>
+                                                            <div class="fw-bolder">Giờ tốt:</div>
+                                                            <ul>
+                                                                @foreach ($getThongTinXuatHanhVaLyThuanPhong['ly_thuan_phong']['good'] as $name => $items)
+                                                                    @foreach ($items as $item)
+                                                                        <li> {{ $item['name'] }}
+                                                                            ({{ $item['rating'] }})
+                                                                            :{{ $item['timeRange'][0] }}
+                                                                            ({{ $item['chi'][0] }}) và
+                                                                            {{ $item['timeRange'][1] }}
+                                                                            ({{ $item['chi'][1] }}) ->
+                                                                            {{ $item['description'] }}
+                                                                        </li>
+                                                                    @endforeach
+                                                                @endforeach
+                                                            </ul>
+                                                        </div>
+                                                        <div>
+                                                            <div class="fw-bolder">Giờ xấu:</div>
+                                                            <ul>
+                                                                @foreach ($getThongTinXuatHanhVaLyThuanPhong['ly_thuan_phong']['bad'] as $name => $items)
+                                                                    @foreach ($items as $item)
+                                                                        <li> {{ $item['name'] }}
+                                                                            ({{ $item['rating'] }})
+                                                                            : {{ $item['timeRange'][0] }}
+                                                                            ({{ $item['chi'][0] }}) và
+                                                                            {{ $item['timeRange'][1] }}
+                                                                            ({{ $item['chi'][1] }}) ->
+                                                                            {{ $item['description'] }}
+                                                                        </li>
+                                                                    @endforeach
+                                                                @endforeach
+                                                            </ul>
+                                                        </div>
+                                                        <div>
+                                                            {{ $getThongTinXuatHanhVaLyThuanPhong['ly_thuan_phong_description'] }}
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
                                     </div>
+
                                 </div>
                                 <!-- Việc nên làm -->
 

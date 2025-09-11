@@ -771,19 +771,19 @@ class KhiVanHelper
         // Bước 2: Xác định mô tả chi tiết (description) dựa trên điểm số
         $description = '';
         if ($totalScore >= 3.0) {
-            $description = ': Can – Chi ngày đều được khí tháng nâng đỡ';
+            $description = ' (Can – Chi ngày đều được khí tháng nâng đỡ)';
         } elseif ($totalScore >= 2.0) {
-            $description = ': Một phần vượng khí, khí trường ổn định';
+            $description = ' (Một phần vượng khí, khí trường ổn định)';
         } elseif ($totalScore >= 1.0) {
-            $description = ': Có hỗ trợ nhẹ từ khí tháng';
+            $description = ' (Có hỗ trợ nhẹ từ khí tháng)';
         } elseif (abs($totalScore) < 0.001) { // So sánh số thực với 0 một cách an toàn
-            $description = ': Khí trung tính – không tốt, không xấu';
+            $description = ' (Khí trung tính – không tốt, không xấu)';
         } elseif ($totalScore >= -1.0) {
-            $description = ': Có nghịch khí nhẹ từ tháng âm';
+            $description = ' (Có nghịch khí nhẹ từ tháng âm)';
         } elseif ($totalScore >= -2.0) {
-            $description = ': Tháng khắc ngày – khí bị áp chế rõ';
+            $description = ' (Tháng khắc ngày – khí bị áp chế rõ)';
         } else { // Điểm < -2.0
-            $description = ': Cực kỳ nghịch khí – nên tránh làm việc lớn';
+            $description = ' (Cực kỳ nghịch khí – nên tránh làm việc lớn)';
         }
 
         // Bước 3: Kết hợp lại thành chuỗi kết luận cuối cùng

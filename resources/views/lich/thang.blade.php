@@ -3,20 +3,20 @@
     <div class="container-setup">
         <h6 class="content-title-detail"><a href="{{ route('home') }}">Trang chủ</a> <i class="bi bi-chevron-right"></i>
             Lịch tháng & năm <i class="bi bi-chevron-right"></i> Lịch tháng <i class="bi bi-chevron-right"></i> <span>Lịch âm
-                tháng {{$mm}}</span></h6>
+                tháng {{ $mm }}</span></h6>
         <div class="row g-lg-3 g-2 row-btn-date">
-            <!-- Ngày tốt tháng {{$mm}} (Good day of August) -->
+            <!-- Ngày tốt tháng {{ $mm }} (Good day of August) -->
             <div class="col-xl-2 col-lg-4 col-md-6 col-12"> <!--  để cột chỉ chiếm chiều rộng cần thiết -->
                 <button type="button" class="btn custom-pill-btn rounded-pill d-flex align-items-center">
                     <img src="{{ asset('/icons/dac-diem2.svg') }}" alt="Đặc điểm" class="img-fluid me-2" width="20px">
-                    <span>Ngày tốt tháng {{$mm}}</span>
+                    <span>Ngày tốt tháng {{ $mm }}</span>
                 </button>
             </div>
-            <!-- Ngày xấu tháng {{$mm}} (Bad day of August) - Cloud with red X -->
+            <!-- Ngày xấu tháng {{ $mm }} (Bad day of August) - Cloud with red X -->
             <div class="col-xl-2 col-lg-4 col-md-6 col-12">
                 <button type="button" class="btn custom-pill-btn rounded-pill d-flex align-items-center">
                     <img src="{{ asset('/icons/dac-diem3.svg') }}" alt="Đặc điểm" class="img-fluid me-2" width="20px">
-                    <span>Ngày xấu tháng {{$mm}}</span>
+                    <span>Ngày xấu tháng {{ $mm }}</span>
                 </button>
             </div>
             <!-- Ngày lễ dương lịch (Solar calendar holiday / Public holiday) -->
@@ -56,12 +56,14 @@
             <div class="calendar-wrapper">
                 <div class="calendar-header">
 
-                    <a href="{{ route('lich.thang', ['nam' => ($mm == 1) ? $yy - 1 : $yy, 'thang' => ($mm == 1) ? 12 : $mm - 1]) }}" class="month-nav">
+                    <a href="{{ route('lich.thang', ['nam' => $mm == 1 ? $yy - 1 : $yy, 'thang' => $mm == 1 ? 12 : $mm - 1]) }}"
+                        class="month-nav">
                         <i class="bi bi-chevron-left"></i>
                     </a>
                     <h5 class="mb-0">Tháng {{ $mm }} năm {{ $yy }}</h5>
-                    
-                    <a href="{{ route('lich.thang', ['nam' => ($mm == 12) ? $yy + 1 : $yy, 'thang' => ($mm == 12) ? 1 : $mm + 1]) }}" class="month-nav">
+
+                    <a href="{{ route('lich.thang', ['nam' => $mm == 12 ? $yy + 1 : $yy, 'thang' => $mm == 12 ? 1 : $mm + 1]) }}"
+                        class="month-nav">
                         <i class="bi bi-chevron-right"></i>
                     </a>
 
@@ -72,7 +74,31 @@
 
                 </div>
                 <table class="calendar-table">
+                    <thead>
+                        <tr>
+                            <th><span class="title-lich-pc">Thứ hai</span> <span class="title-lich-mobie">Th
+                                    2</span>
+                            </th>
+                            <th><span class="title-lich-pc">Thứ ba</span> <span class="title-lich-mobie">Th
+                                    3</span>
+                            </th>
+                            <th><span class="title-lich-pc">Thứ tư</span> <span class="title-lich-mobie">Th
+                                    4</span>
+                            </th>
+                            <th><span class="title-lich-pc">Thứ năm</span> <span class="title-lich-mobie">Th
+                                    5</span>
+                            </th>
+                            <th><span class="title-lich-pc">Thứ sau</span> <span class="title-lich-mobie">Th
+                                    6</span>
+                            </th>
+                            <th><span class="title-lich-pc">Thứ bảy</span> <span class="title-lich-mobie">Th
+                                    7</span>
+                            </th>
+                            <th><span class="title-lich-pc">Chủ nhật</span> <span class="title-lich-mobie">CN</span>
+                            </th>
 
+                        </tr>
+                    </thead>
                     <tbody>
                         {!! $table_html !!}
                     </tbody>
@@ -91,13 +117,13 @@
     <section class="section-thang-lich">
         <div class="">
             <div class="ngay-tot-thang">
-                Ngày tốt tháng {{$mm}} ( Hoàng Đạo )
+                Ngày tốt tháng {{ $mm }} ( Hoàng Đạo )
             </div>
             <div class="row g-lg-3 g-2 row-btn-date">
                 @foreach ($data_totxau['tot'] as $data_tot)
                     <div class="col-xl-2 col-lg-4 col-md-6 col-12"> <!--  để cột chỉ chiếm chiều rộng cần thiết -->
                         <a href="{{ route('lich.nam.ngay', ['nam' => $data_tot['yy'], 'thang' => $data_tot['mm'], 'ngay' => $data_tot['dd']]) }}"
-                            class="btn custom-pill-btn-date  d-flex align-items-center">
+                            class="btn custom-pill-btn-date  d-flex align-items-center justify-content-center">
                             <span> Ngày {{ $data_tot['dd'] }} Tháng {{ $data_tot['mm'] }} Năm
                                 {{ $data_tot['yy'] }}</span>
                         </a>
@@ -107,13 +133,13 @@
         </div>
         <div class="">
             <div class="ngay-tot-thang">
-                Ngày tốt tháng {{$mm}} ( Hắc Đạo )
+                Ngày tốt tháng {{ $mm }} ( Hắc Đạo )
             </div>
             <div class="row g-lg-3 g-2 row-btn-date">
                 @foreach ($data_totxau['xau'] as $data_xau)
                     <div class="col-xl-2 col-lg-4 col-md-6 col-12"> <!--  để cột chỉ chiếm chiều rộng cần thiết -->
                         <a href="{{ route('lich.nam.ngay', ['nam' => $data_xau['yy'], 'thang' => $data_xau['mm'], 'ngay' => $data_xau['dd']]) }}"
-                            class="btn custom-pill-btn-date  d-flex align-items-center">
+                            class="btn custom-pill-btn-date  d-flex align-items-center justify-content-center">
                             <span> Ngày {{ $data_xau['dd'] }} Tháng {{ $data_xau['mm'] }} Năm
                                 {{ $data_xau['yy'] }}</span>
                         </a>
@@ -123,7 +149,7 @@
         </div>
         <div class="">
             <div class="ngay-tot-thang">
-                Ngày lễ dương lịch tháng {{$mm}}
+                Ngày lễ dương lịch tháng {{ $mm }}
             </div>
             <div class="row g-lg-3 g-2 row-btn-date">
                 @foreach ($le_lichs as $le_lich)
@@ -139,7 +165,7 @@
         </div>
         <div class="">
             <div class="ngay-tot-thang">
-                Sự kiện lịch sử tháng {{$mm}}
+                Sự kiện lịch sử tháng {{ $mm }}
             </div>
             <div class="row g-lg-3 g-2 row-btn-date">
                 @foreach ($su_kiens as $su_kien)
@@ -178,14 +204,14 @@
                 Xem lịch âm các tháng khác
             </div>
             <div class="row g-lg-2 g-2 row-btn-date">
-                 @for ($i = 1; $i <= 12; $i++)
+                @for ($i = 1; $i <= 12; $i++)
                     <div class="col-xl-2 col-lg-4 col-md-6 col-12"> <!--  để cột chỉ chiếm chiều rộng cần thiết -->
-                         <a href="{{ route('lich.thang', ['nam' => $yy, 'thang' => $i]) }}" class="">
-                        <div class="btn custom-pill-btn-date w-100 text-center {{ $mm == $i ? 'active-date' : '' }}">
+                        <a href="{{ route('lich.thang', ['nam' => $yy, 'thang' => $i]) }}" class="">
+                            <div class="btn custom-pill-btn-date w-100 text-center {{ $mm == $i ? 'active-date' : '' }}">
 
-                               Lịch âm tháng {{ $i }} năm {{ $yy }}
-                        </div>
-                    </a>
+                                Lịch âm tháng {{ $i }} năm {{ $yy }}
+                            </div>
+                        </a>
                     </div>
                 @endfor
             </div>

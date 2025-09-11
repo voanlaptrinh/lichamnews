@@ -16,46 +16,50 @@
                                     <a href="#" class="nav-arrow nav-home-date nave-left prev-day-btn"
                                         title="Ngày hôm trước"><i class="bi bi-chevron-left"></i></a>
                                     <div class="text-center">
-                            <div class="card-title title-amduowngbox"><img src="{{ asset('icons/icon_duong.svg') }}" alt="icon_duong"
-                                    width="20px" height="20px"> Dương lịch</div>
-                            <div class="date-number duong date_number_lich"> {{ $dd }}</div>
-                            <div class="date-weekday">{{ $weekday }}</div>
-                            <div class="date-special-event text-dark">Tháng {{ $mm }} năm
-                                {{ $yy }}</div>
-                            <div class="date-special-event">
-                                @if (!empty($suKienDuongLich))
-                                    @foreach ($suKienDuongLich as $suKien)
-                                        <div class="su-kien-duong">{{ $suKien['ten_su_kien'] ?? $suKien }}</div>
-                                    @endforeach
-                                @endif
+                                        <div class="card-title title-amduowngbox"><img
+                                                src="{{ asset('icons/icon_duong.svg') }}" alt="icon_duong" width="20px"
+                                                height="20px"> Dương lịch</div>
+                                        <div class="date-number duong date_number_lich"> {{ $dd }}</div>
+                                        <div class="date-weekday">{{ $weekday }}</div>
+                                        <div class="date-special-event text-dark">Tháng {{ $mm }} năm
+                                            {{ $yy }}</div>
+                                        <div class="date-special-event">
+                                            @if (!empty($suKienDuongLich))
+                                                @foreach ($suKienDuongLich as $suKien)
+                                                    <div class="su-kien-duong">{{ $suKien['ten_su_kien'] ?? $suKien }}</div>
+                                                @endforeach
+                                            @endif
 
-                            </div>
-                        </div>
+                                        </div>
+                                    </div>
                                     {{-- Nút Next Day PC (Đã sửa) --}}
                                     {{-- Nút này thường nằm trong phần Âm lịch để căn chỉnh đẹp hơn, tôi sẽ di chuyển nó sang đó. --}}
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="date-display-card">
-                                   <div class="text-center">
-                            <div class="card-title title-amduowngbox"><img src="{{ asset('icons/icon_am.svg') }}" alt="icon_am"
-                                    width="20px" height="20px"> Âm lịch</div>
-                            <div class="date-number am date_number_lich date_number_lich_am">{{ $al[0] }}
-                            </div>
-                            <div class="date-weekday">Tháng {{ $al[1] }} ({{ $al[4] }}) năm
-                                {{ $getThongTinCanChiVaIcon['can_chi_nam'] }}</div>
-                            <div class="date-special-event text-dark">Ngày {{ $getThongTinCanChiVaIcon['can_chi_ngay'] }}
-                                -
-                                Tháng {{ $getThongTinCanChiVaIcon['can_chi_thang'] }}</div>
-                            <div class="date-special-event">
-                                @if (!empty($suKienAmLich))
-                                    @foreach ($suKienAmLich as $suKien)
-                                        <div class="su-kien-duong">{{ $suKien['ten_su_kien'] ?? $suKien }}</div>
-                                    @endforeach
-                                @endif
+                                    <div class="text-center">
+                                        <div class="card-title title-amduowngbox"><img
+                                                src="{{ asset('icons/icon_am.svg') }}" alt="icon_am" width="20px"
+                                                height="20px"> Âm lịch</div>
+                                        <div class="date-number am date_number_lich date_number_lich_am">{{ $al[0] }}
+                                        </div>
+                                        <div class="date-weekday">Tháng {{ $al[1] }} ({{ $al[4] }}) năm
+                                            {{ $getThongTinCanChiVaIcon['can_chi_nam'] }}</div>
+                                        <div class="date-special-event text-dark">Ngày
+                                            {{ $getThongTinCanChiVaIcon['can_chi_ngay'] }}
+                                            -
+                                            Tháng {{ $getThongTinCanChiVaIcon['can_chi_thang'] }}</div>
+                                        <div class="date-special-event">
+                                            @if (!empty($suKienAmLich))
+                                                @foreach ($suKienAmLich as $suKien)
+                                                    <div class="su-kien-duong">{{ $suKien['ten_su_kien'] ?? $suKien }}
+                                                    </div>
+                                                @endforeach
+                                            @endif
 
-                            </div>
-                        </div>
+                                        </div>
+                                    </div>
                                     {{-- Nút Next Day PC (Đã sửa và di chuyển vào đây) --}}
                                     <a href="#" class="nav-arrow nav-home-date nave-right next-day-btn"
                                         title="Ngày hôm sau"> <i class="bi bi-chevron-right"></i></a>
@@ -183,8 +187,10 @@
                             </div>
 
 
-                            <a href="{{ route('detai_home', ['nam' => $yy, 'thang' =>$mm, 'ngay' => $dd ]) }}" class="btn btn-primary w-100 mt-3 btn0mobie"><img
-                                    src="{{ asset('icons/hand_2_white.svg') }}" alt="hand_2" class="img-fluid"> Xem chi tiết ngày</a>
+                            <a href="{{ route('detai_home', ['nam' => $yy, 'thang' => $mm, 'ngay' => $dd]) }}"
+                                class="btn btn-primary w-100 mt-3 btn0mobie"><img
+                                    src="{{ asset('icons/hand_2_white.svg') }}" alt="hand_2" class="img-fluid"> Xem
+                                chi tiết ngày</a>
                         </div>
                         <!-- ** LỊCH THÁNG ** -->
                         <div class="calendar-wrapper">
@@ -216,7 +222,32 @@
                                 {{-- ============================================= --}}
                             </div>
                             <table class="calendar-table">
+                                <thead>
+                                    <tr>
+                                        <th><span class="title-lich-pc">Thứ hai</span> <span class="title-lich-mobie">Th
+                                                2</span>
+                                        </th>
+                                        <th><span class="title-lich-pc">Thứ ba</span> <span class="title-lich-mobie">Th
+                                                3</span>
+                                        </th>
+                                        <th><span class="title-lich-pc">Thứ tư</span> <span class="title-lich-mobie">Th
+                                                4</span>
+                                        </th>
+                                        <th><span class="title-lich-pc">Thứ năm</span> <span class="title-lich-mobie">Th
+                                                5</span>
+                                        </th>
+                                        <th><span class="title-lich-pc">Thứ sau</span> <span class="title-lich-mobie">Th
+                                                6</span>
+                                        </th>
+                                        <th><span class="title-lich-pc">Thứ bảy</span> <span class="title-lich-mobie">Th
+                                                7</span>
+                                        </th>
+                                        <th><span class="title-lich-pc">Chủ nhật</span> <span
+                                                class="title-lich-mobie">CN</span>
+                                        </th>
 
+                                    </tr>
+                                </thead>
                                 <tbody>
                                     {!! $table_html !!}
                                 </tbody>
@@ -235,7 +266,7 @@
                     <div class="container bg-section-tienich">
                         <h2 class="section-title">Tiện ích phổ biến</h2>
                         <hr>
-                        <div class="utilities-grid pt-2">
+                        <div class="utilities-grid pt-2 row">
 
                             <!-- Tiện ích 1 -->
                             <a href="#" class="utility-item col-6 col-md-6 col-lg-3 mb-4 ">
@@ -282,17 +313,17 @@
                         </div>
                     </div>
                 </section>
-                 <section class="popular-utilities">
+                <section class="popular-utilities pt-0">
                     <div class="container bg-section-tienich">
                         <h2 class="section-title">Điểm ngày trong 7 ngày tới</h2>
                         <hr>
                         <div class="utilities-grid row g-4 pt-2">
- <div class="chart-container">
+                            <div class="chart-container">
 
-                                    <div class="chart-canvas-wrapper">
-                                        <canvas id="myChart"></canvas>
-                                    </div>
+                                <div class="chart-canvas-wrapper">
+                                    <canvas id="myChart"></canvas>
                                 </div>
+                            </div>
 
                         </div>
                     </div>
@@ -404,7 +435,7 @@
 
                         </div>
                         <!-- KẾT THÚC: KHỐI MỨC THUẬN LỢI -->
-                        <a href="{{ route('detai_home', ['nam' => $yy, 'thang' =>$mm, 'ngay' => $dd ]) }}"
+                        <a href="{{ route('detai_home', ['nam' => $yy, 'thang' => $mm, 'ngay' => $dd]) }}"
                             class="m w-100 text-detail-date-hand-pc pt-3 text-start text-decoration-underline"><img
                                 src="{{ asset('icons/hand_2.svg') }}" alt="hand_2" class="img-fluid">
                             Xem chi tiết ngày</a>
@@ -455,9 +486,9 @@
 
 @endsection
 @push('scripts')
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-          const ctx = document.getElementById('myChart').getContext('2d');
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const ctx = document.getElementById('myChart').getContext('2d');
             const labels = @json($labels);
             const dataValues = @json($dataValues);
             new Chart(ctx, {
@@ -570,53 +601,53 @@
                 },
 
             });
-        // Lấy ngày tháng năm hiện tại từ Blade
-        const currentYear = {{ $yy }};
-        const currentMonth = {{ $mm }}; // Tháng từ PHP (1-12)
-        const currentDay = {{ $dd }};
+            // Lấy ngày tháng năm hiện tại từ Blade
+            const currentYear = {{ $yy }};
+            const currentMonth = {{ $mm }}; // Tháng từ PHP (1-12)
+            const currentDay = {{ $dd }};
 
-        // Tạo đối tượng Date trong JavaScript
-        // Lưu ý: Tháng trong JS là 0-11, nên phải trừ đi 1
-        const currentDate = new Date(currentYear, currentMonth - 1, currentDay);
+            // Tạo đối tượng Date trong JavaScript
+            // Lưu ý: Tháng trong JS là 0-11, nên phải trừ đi 1
+            const currentDate = new Date(currentYear, currentMonth - 1, currentDay);
 
-        // Lấy TẤT CẢ các element nút bấm prev
-        const prevBtns = document.querySelectorAll('.prev-day-btn'); 
-        // Lấy TẤT CẢ các element nút bấm next
-        const nextBtns = document.querySelectorAll('.next-day-btn'); 
+            // Lấy TẤT CẢ các element nút bấm prev
+            const prevBtns = document.querySelectorAll('.prev-day-btn');
+            // Lấy TẤT CẢ các element nút bấm next
+            const nextBtns = document.querySelectorAll('.next-day-btn');
 
-        // --- Xử lý các nút "Ngày trước" ---
-        if (prevBtns.length > 0) { 
-            const prevDate = new Date(currentDate);
-            prevDate.setDate(currentDate.getDate() - 1);
+            // --- Xử lý các nút "Ngày trước" ---
+            if (prevBtns.length > 0) {
+                const prevDate = new Date(currentDate);
+                prevDate.setDate(currentDate.getDate() - 1);
 
-            const prevYear = prevDate.getFullYear();
-            const prevMonth = prevDate.getMonth() + 1;
-            const prevDay = prevDate.getDate();
+                const prevYear = prevDate.getFullYear();
+                const prevMonth = prevDate.getMonth() + 1;
+                const prevDay = prevDate.getDate();
 
-            const newPrevUrl = `/am-lich/nam/${prevYear}/thang/${prevMonth}/ngay/${prevDay}`;
+                const newPrevUrl = `/am-lich/nam/${prevYear}/thang/${prevMonth}/ngay/${prevDay}`;
 
-            // Lặp qua TẤT CẢ các nút "prev" và gán URL mới
-            prevBtns.forEach(btn => { 
-                btn.href = newPrevUrl;
-            });
-        }
+                // Lặp qua TẤT CẢ các nút "prev" và gán URL mới
+                prevBtns.forEach(btn => {
+                    btn.href = newPrevUrl;
+                });
+            }
 
-        // --- Xử lý các nút "Ngày sau" ---
-        if (nextBtns.length > 0) { 
-            const nextDate = new Date(currentDate);
-            nextDate.setDate(currentDate.getDate() + 1);
+            // --- Xử lý các nút "Ngày sau" ---
+            if (nextBtns.length > 0) {
+                const nextDate = new Date(currentDate);
+                nextDate.setDate(currentDate.getDate() + 1);
 
-            const nextYear = nextDate.getFullYear();
-            const nextMonth = nextDate.getMonth() + 1;
-            const nextDay = nextDate.getDate();
+                const nextYear = nextDate.getFullYear();
+                const nextMonth = nextDate.getMonth() + 1;
+                const nextDay = nextDate.getDate();
 
-            const newNextUrl = `/am-lich/nam/${nextYear}/thang/${nextMonth}/ngay/${nextDay}`;
+                const newNextUrl = `/am-lich/nam/${nextYear}/thang/${nextMonth}/ngay/${nextDay}`;
 
-            // Lặp qua TẤT CẢ các nút "next" và gán URL mới
-            nextBtns.forEach(btn => { 
-                btn.href = newNextUrl;
-            });
-        }
-    });
-</script>
+                // Lặp qua TẤT CẢ các nút "next" và gán URL mới
+                nextBtns.forEach(btn => {
+                    btn.href = newNextUrl;
+                });
+            }
+        });
+    </script>
 @endpush
