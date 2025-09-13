@@ -11,17 +11,22 @@
     <link rel="stylesheet" href="{{ asset('/css/bootstrap-icons.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/styledemo.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/repont.css') }}">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
     <!-- ĐẢM BẢO CÓ DÒNG NÀY ĐỂ CSRF TOKEN HOẠT ĐỘNG! -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    @stack('styles')
       <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 </head>
 
 <body>
-    @include('layout.header')
+    <div class="main-content-wrapper">
+        @include('layout.header')
 
-    <div class=" container-setup">
+        <div class=" container-setup">
 
-        @yield('content')
+            @yield('content')
+        </div>
     </div>
 
     @include('layout.footer')
@@ -36,7 +41,9 @@
     <!-- Đảm bảo file gieo-que.blade.php chứa các modal popup -->
     @include('gieo-que')
 
-
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <!-- JS của Bootstrap (nếu sử dụng Bootstrap) -->
     <script src="{{ asset('/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('/js/flatpickr.js') }}"></script>

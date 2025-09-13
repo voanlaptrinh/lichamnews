@@ -108,8 +108,7 @@
             <div class="calendar-legend pt-3 pb-2">
                 <span><span class="dot dot-hoangdao"></span> Ngày hoàng đạo</span>
                 <span><span class="dot dot-hacdao"></span> Ngày hắc đạo</span>
-                <span><span class="dot dot-chủ nhật"></span> Ngày chủ nhật</span>
-                <span><span class="dot dot-special"></span> Ngày đặc biệt</span>
+               
             </div>
         </div>
     </div>

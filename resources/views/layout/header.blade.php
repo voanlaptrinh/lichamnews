@@ -19,14 +19,21 @@
                     </a>
                     <ul class="dropdown-menu">
                         @php
-                            $todayHref = "/am-lich/nam/" . date('Y') . "/thang/" . date('n') . "/ngay/" . date('j');
-                            $tomorrowHref = "/am-lich/nam/" . date('Y', strtotime('+1 day')) . "/thang/" . date('n', strtotime('+1 day')) . "/ngay/" . date('j', strtotime('+1 day'));
+                            $todayHref = '/am-lich/nam/' . date('Y') . '/thang/' . date('n') . '/ngay/' . date('j');
+                            $tomorrowHref =
+                                '/am-lich/nam/' .
+                                date('Y', strtotime('+1 day')) .
+                                '/thang/' .
+                                date('n', strtotime('+1 day')) .
+                                '/ngay/' .
+                                date('j', strtotime('+1 day'));
                         @endphp
                         <li><a href="{{ $todayHref }}">Lịch âm hôm nay</a></li>
                         <li><a href="{{ $tomorrowHref }}">Lịch âm ngày mai</a></li>
-                        
+
                     </ul>
                 </li>
+                <li><a href="{{route('convert.am.to.duong')}}">Đổi lịch</a></li>
                 <li class="has-dropdown">
                     <a href="#"> Lịch tháng & năm
 
@@ -53,6 +60,7 @@
                                 <!-- Thêm các tháng khác nếu muốn -->
                             </ul>
                         </li>
+
                         <li class="has-submenu"> <!-- << Class mới -->
                             <a href="/lich-nam">
                                 Lịch Năm
@@ -95,23 +103,23 @@
                         <li><a href="">Tìm phòng</a></li>
                     </ul>
                 </li>
-<li class="has-dropdown">
-                <a href="#">
-                    Tiện ích
-                    <i class="bi bi-chevron-down"></i>
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a href="">Dịch vụ</a></li>
-                    <li><a href="">Tìm phòng</a></li>
+                <li class="has-dropdown">
+                    <a href="#">
+                        Tiện ích
+                        <i class="bi bi-chevron-down"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="">Dịch vụ</a></li>
+                        <li><a href="">Tìm phòng</a></li>
 
-                </ul>
-            </li>
+                    </ul>
+                </li>
             </ul>
         </nav>
 
         <!-- Icon Hamburger cho Mobile -->
         <div class="mobile-menu-toggle" id="mobile-menu-toggle">
-            <i class="fas fa-bars"></i>
+            <i class="bi bi-grid"></i>
         </div>
     </div>
 </header>
@@ -127,7 +135,7 @@
             <img src="" alt="Logo" class="img-fluid">
         </a>
         <button class="mobile-nav-close" id="mobile-nav-close" aria-label="Đóng menu">
-            <i class="fas fa-times"></i>
+            <i class="bi bi-x"></i>
         </button>
     </div>
 
@@ -144,8 +152,11 @@
                 <ul class="mobile-submenu">
                     <li><a href="{{ $todayHref }}">Lịch âm hôm nay</a></li>
                     <li><a href="{{ $tomorrowHref }}">Lịch âm ngày mai</a></li>
-                   
+
                 </ul>
+            </li>
+            <li>
+                <a href="{{route('convert.am.to.duong')}}">Đổi lịch</a>
             </li>
             <li class="has-dropdown">
                 <a href="#">

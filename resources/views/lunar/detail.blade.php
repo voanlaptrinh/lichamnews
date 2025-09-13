@@ -13,7 +13,7 @@
                         <a href="#" class="nav-arrow nav-home-date nave-left prev-day-btn" title="Ngày hôm trước"><i
                                 class="bi bi-chevron-left"></i></a>
                         <div class="text-center">
-                            <div class="card-title"><img src="{{ asset('icons/icon_duong.svg') }}" alt="icon_duong"
+                            <div class="card-title title-amduowngbox"><img src="{{ asset('icons/icon_duong.svg') }}" alt="icon_duong"
                                     width="20px" height="20px"> Dương lịch</div>
                             <div class="date-number duong date_number_lich"> {{ $dd }}</div>
                             <div class="date-weekday">{{ $weekday }}</div>
@@ -35,7 +35,7 @@
                 <div class="col-6">
                     <div class="date-display-card">
                         <div class="text-center">
-                            <div class="card-title"><img src="{{ asset('icons/icon_am.svg') }}" alt="icon_am"
+                            <div class="card-title title-amduowngbox"><img src="{{ asset('icons/icon_am.svg') }}" alt="icon_am"
                                     width="20px" height="20px"> Âm lịch</div>
                             <div class="date-number am date_number_lich date_number_lich_am">{{ $al[0] }}
                             </div>
@@ -150,11 +150,63 @@
                             <!-- Nội dung cho "Thông tin chung" (Tab 1 - active mặc định) -->
                             <div class="tab-pane fade show active" id="v-pills-general-info" role="tabpanel"
                                 aria-labelledby="v-pills-general-info-tab" tabindex="0">
-                                <h6 class="fw-bold mb-2">
+                               
+                                <p class="mb-2 ">
+                                    <span class="fw-bold text-dark">Tiết khí:</span> {!! $tietkhi['icon'] !!} <span
+                                        class="text-uppercase">{{ $tietkhi['tiet_khi'] }}</span>
+                                </p>
+                                <p class="mb-2 ">
+                                    <span class="fw-bold text-dark">Ngũ hành nạp âm:</span>
+                                    {{ $getThongTinNgay['nap_am']['napAm'] }}
+                                </p>
+                                <p class="mb-2 ">
+                                    <span class="fw-bold text-dark">Sao, trực:</span> sao {{ $nhiThapBatTu['name'] }}
+                                    ({{ $nhiThapBatTu['fullName'] }}), trực {{ $getThongTinTruc['title'] }}
+
+
+                                </p>
+                                <p class="mb-2 ">
+                                    <span class="fw-bold text-dark">Tuổi xung:</span> {{ $getThongTinNgay['tuoi_xung'] }}
+                                </p>
+                                <p class="mb-4 ">
+                                    <span class="fw-bold text-dark">Giờ hoàng đạo:</span>
+                                    {{ $getThongTinNgay['gio_hoang_dao'] }}
+                                </p>
+
+
+                                <!-- Mức thuận lợi hôm nay box -->
+                                <div class="row g-3 p-sm-3 p-2 rounded-3 border custom-light-yellow-bg box-custom_yeloow ms-lg-1">
+                                    <div class="col-xl-6 col-sm-6 col-12">
+                                        <span class=" fw-bold me-4 text-dark pb-2">Mức thuận lợi hôm nay:</span>
+                                    </div>
+                                    <div
+                                        class="col-xl-6 col-sm-6 col-12 p-0 m-0 d-flex justify-content-center align-items-center">
+                                        <div class="progress-dial mt-2"
+                                            style="--value: {{ round($getDaySummaryInfo['score']['percentage']) }};">
+                                            <div class="dial-text">
+                                                <span
+                                                    class="dial-percent">{{ round($getDaySummaryInfo['score']['percentage']) }}%</span>
+                                                @php
+                                                    $ratingColors = [
+                                                        'Tốt' => 'text-success',
+                                                        'Xấu' => 'text-danger',
+                                                        'Trung bình' => 'text-warning-tb',
+                                                    ];
+                                                @endphp
+
+                                                <small
+                                                    class="dial-status pt-2 {{ $ratingColors[$getDaySummaryInfo['score']['rating']] ?? '' }}">
+                                                    {{ $getDaySummaryInfo['score']['rating'] }}
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                 <h6 class="fw-bold mb-2 pt-3">
                                     <img src="{{ asset('icons/dac-diem1.svg') }}" alt="Đặc điểm"
                                         class="img-fluid me-2">Đặc điểm ngày
                                 </h6>
-                                <p class=" small">
+                                <p class="">
                                     @if (!empty($getDaySummaryInfo['intro_paragraph']))
                                         {{ $getDaySummaryInfo['intro_paragraph'] }}
                                     @else
@@ -193,7 +245,7 @@
                                         <div class="text-content">
                                             <div>
                                                 @if (!empty($goodFactors))
-                                                    {!! implode('; ', $goodFactors) !!}
+                                                    {!! implode('; ', $goodFactors) !!}.
                                                 @else
                                                     Không có yếu tố tốt nào.
                                                 @endif
@@ -231,20 +283,19 @@
                                     <div class="text-content">
                                         <div>
                                             @if (!empty($badFactors))
-                                                {!! implode('; ', $badFactors) !!}
+                                                {!! implode('; ', $badFactors) !!}.
                                             @else
                                                 Không có yếu tố xấu nào.
                                             @endif
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="content-section mb-3">
                                     <h6 class="fw-bold mb-2">
                                         <img src="{{ asset('icons/dac-diem2.svg') }}" alt="Đặc điểm"
                                             class="img-fluid me-2">Việc nên làm
                                     </h6>
-                                    <ul class="  small">
+                                    <ul class=" ">
 
 
                                         @if (!empty($nhiThapBatTu['guidance']['good']))
@@ -261,16 +312,13 @@
                                         {{-- <li>{{ $nhiThapBatTu['guidance']['good'] }}</li> --}}
                                     </ul>
                                 </div>
-
-
                                 <!-- Không nên -->
-
                                 <div class="content-section mb-3">
                                     <h6 class="fw-bold mb-2">
                                         <img src="{{ asset('icons/dac-diem3.svg') }}" alt="Đặc điểm"
                                             class="img-fluid me-2">Không nên làm
                                     </h6>
-                                    <ul class="  small">
+                                    <ul class=" ">
                                         @if (!empty($nhiThapBatTu['guidance']['bad']))
                                             <li>{{ $nhiThapBatTu['guidance']['bad'] }} (Nhị thập bát tú -
                                                 sao
@@ -285,57 +333,6 @@
                                         @endif
                                         {{-- <li>{{ $nhiThapBatTu['guidance']['bad'] }}</li> --}}
                                     </ul>
-                                </div>
-                                <p class="mb-2  small">
-                                    <span class="fw-bold text-dark">Tiết khí:</span> {!! $tietkhi['icon'] !!} <span
-                                        class="text-uppercase">{{ $tietkhi['tiet_khi'] }}</span>
-                                </p>
-                                <p class="mb-2  small">
-                                    <span class="fw-bold text-dark">Ngũ hành nạp âm:</span>
-                                    {{ $getThongTinNgay['nap_am']['napAm'] }}
-                                </p>
-                                <p class="mb-2  small">
-                                    <span class="fw-bold text-dark">Sao, trực:</span> sao {{ $nhiThapBatTu['name'] }}
-                                    ({{ $nhiThapBatTu['fullName'] }}), trực {{ $getThongTinTruc['title'] }}
-
-
-                                </p>
-                                <p class="mb-2  small">
-                                    <span class="fw-bold text-dark">Tuổi xung:</span> {{ $getThongTinNgay['tuoi_xung'] }}
-                                </p>
-                                <p class="mb-4  small">
-                                    <span class="fw-bold text-dark">Giờ hoàng đạo:</span>
-                                    {{ $getThongTinNgay['gio_hoang_dao'] }}
-                                </p>
-
-
-                                <!-- Mức thuận lợi hôm nay box -->
-                                <div class="row g-3 p-sm-3 p-2 rounded-3 border custom-light-yellow-bg box-custom_yeloow">
-                                    <div class="col-xl-6 col-sm-6 col-12">
-                                        <span class=" fw-bold me-4 text-dark pb-2">Mức thuận lợi hôm nay:</span>
-                                    </div>
-                                    <div
-                                        class="col-xl-6 col-sm-6 col-12 p-0 m-0 d-flex justify-content-center align-items-center">
-                                        <div class="progress-dial mt-2"
-                                            style="--value: {{ round($getDaySummaryInfo['score']['percentage']) }};">
-                                            <div class="dial-text">
-                                                <span
-                                                    class="dial-percent">{{ round($getDaySummaryInfo['score']['percentage']) }}%</span>
-                                                @php
-                                                    $ratingColors = [
-                                                        'Tốt' => 'text-success',
-                                                        'Xấu' => 'text-danger',
-                                                        'Trung bình' => 'text-warning-tb',
-                                                    ];
-                                                @endphp
-
-                                                <small
-                                                    class="dial-status pt-2 {{ $ratingColors[$getDaySummaryInfo['score']['rating']] ?? '' }}">
-                                                    {{ $getDaySummaryInfo['score']['rating'] }}
-                                                </small>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
 
@@ -590,7 +587,7 @@
                                             <div id="collapseTwo" class="accordion-collapse collapse"
                                                 aria-labelledby="headingTwo" data-bs-parent="#accordionRental">
                                                 <div
-                                                    class="accordion-body text-sm opacity-8 size-18 backgroud-whil ps-4 pt-4">
+                                                    class="accordion-body text-sm  size-18 backgroud-whil ps-lg-4 pe-lg-4 p-0 pt-4">
                                                     <div>
                                                         <h6 class="fw-bolder">1. Giải thích ý nghĩa ngày theo Bành
                                                             Tổ Bách Kỵ</h6>
@@ -641,7 +638,7 @@
                                             <div id="collapseThree" class="accordion-collapse collapse"
                                                 aria-labelledby="headingThree" data-bs-parent="#accordionRental">
                                                 <div
-                                                    class="accordion-body text-sm opacity-8 size-18 backgroud-whil ps-4 pt-4">
+                                                    class="accordion-body text-sm  size-18 backgroud-whil ps-lg-4 pe-lg-4 p-0 pt-4">
                                                     <div>
                                                         <h6 class="fw-bolder">1. Ngày xuất hành</h6>
                                                         <div>
@@ -759,7 +756,7 @@
                                                     {{ $itemgio['standardRangeMini'] }}
                                                 </div>
 
-                                                <div style="color: #0F172A; font-weight: 600; font-size: 20px;">
+                                                <div style="color: #0F172A; font-weight: 600; font-size: 20px; max-width: 85%">
                                                     {!! $itemgio['canChiMenh'] !!}
                                                 </div>
                                                 <div>

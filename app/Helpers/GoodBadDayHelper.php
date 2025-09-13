@@ -455,19 +455,19 @@ class GoodBadDayHelper
     }
     public static function getIntroParagraph(string $dateStr, float $percentage, $isPersonalized)
     {
-        $withUser = $isPersonalized ? 'với bạn' : '';
+        $withUser = $isPersonalized ? ' với bạn' : '';
         $introText = "";
 
         if ($percentage == 0) {
-            $introText = "Ngày $dateStr là một ngày Xấu $withUser. Hầu hết các công việc quan trọng nên tránh triển khai vào hôm nay. Nếu bắt buộc phải thực hiện những việc lớn như khai trương, cưới hỏi, động thổ…, hãy ưu tiên hóa giải các yếu tố bất lợi như sao xấu, ngày đại kỵ để giảm thiểu rủi ro.";
+            $introText = "Ngày $dateStr là một ngày Rất Xấu$withUser. Hầu hết các công việc quan trọng nên tránh triển khai vào hôm nay. Nếu bắt buộc phải thực hiện những việc lớn như khai trương, cưới hỏi, động thổ…, hãy ưu tiên hóa giải các yếu tố bất lợi như sao xấu, ngày đại kỵ để giảm thiểu rủi ro.";
         } elseif ($percentage <= 39) {
-            $introText = "Ngày $dateStr là một ngày Xấu $withUser. Không thích hợp để thực hiện các công việc quan trọng. Bạn nên trì hoãn những kế hoạch lớn, chỉ nên giải quyết các việc nhỏ mang tính duy trì. Nếu không thể trì hoãn, hãy cân nhắc chọn giờ tốt và hóa giải ảnh hưởng từ các yếu tố hung tinh.";
+            $introText = "Ngày $dateStr là một ngày Xấu$withUser. Không thích hợp để thực hiện các công việc quan trọng. Bạn nên trì hoãn những kế hoạch lớn, chỉ nên giải quyết các việc nhỏ mang tính duy trì. Nếu không thể trì hoãn, hãy cân nhắc chọn giờ tốt và hóa giải ảnh hưởng từ các yếu tố hung tinh.";
         } elseif ($percentage <= 59) {
-            $introText = "Ngày $dateStr là một ngày Trung bình $withUser. Có thể thực hiện những công việc nhỏ, lặp lại, hoặc mang tính hỗ trợ. Nếu muốn triển khai việc lớn, hãy đảm bảo xem xét kỹ lưỡng các yếu tố phụ trợ như sao tốt/xấu, ngày kỵ, tuổi xung, trực ngày… để đảm bảo thuận lợi.";
+            $introText = "Ngày $dateStr là một ngày Trung bình$withUser. Có thể thực hiện những công việc nhỏ, lặp lại, hoặc mang tính hỗ trợ. Nếu muốn triển khai việc lớn, hãy đảm bảo xem xét kỹ lưỡng các yếu tố phụ trợ như sao tốt/xấu, ngày kỵ, tuổi xung, trực ngày… để đảm bảo thuận lợi.";
         } elseif ($percentage <= 79) {
-            $introText = "Ngày $dateStr là một ngày Tốt $withUser. Thích hợp để triển khai các công việc quan trọng như ký kết, đi xa, làm lễ, khai trương, động thổ… Tuy nhiên, để đạt kết quả tốt nhất, bạn vẫn nên xem lại các yếu tố như ngày kỵ, tuổi xung, sao đại hung, hoặc vận khí ngày/tháng so với tuổi của bạn.";
+            $introText = "Ngày $dateStr là một ngày Tốt$withUser. Thích hợp để triển khai các công việc quan trọng như ký kết, đi xa, làm lễ, khai trương, động thổ… Tuy nhiên, để đạt kết quả tốt nhất, bạn vẫn nên xem lại các yếu tố như ngày kỵ, tuổi xung, sao đại hung, hoặc vận khí ngày/tháng so với tuổi của bạn.";
         } else {
-            $introText = "Ngày $dateStr là một ngày Rất tốt $withUser. Đây là thời điểm cực kỳ thuận lợi để thực hiện các việc đại sự, bao gồm cưới hỏi, mở hàng, khởi công, động thổ… Tuy vậy, để đảm bảo trọn vẹn cát lợi, bạn vẫn nên xét kỹ các sao chiếu, giờ hoàng đạo và các mối quan hệ xung tuổi nếu có.";
+            $introText = "Ngày $dateStr là một ngày Rất tốt$withUser. Đây là thời điểm cực kỳ thuận lợi để thực hiện các việc đại sự, bao gồm cưới hỏi, mở hàng, khởi công, động thổ… Tuy vậy, để đảm bảo trọn vẹn cát lợi, bạn vẫn nên xét kỹ các sao chiếu, giờ hoàng đạo và các mối quan hệ xung tuổi nếu có.";
         }
 
         return trim($introText);

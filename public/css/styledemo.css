@@ -10,9 +10,21 @@
         url("../fonts/BeVietnamPro-Regular.ttf")format("woff2");
 }
 
+html {
+    height: 100%;
+}
+
 body {
     font-family: 'InstrumentSans';
     background: #EDF0F3;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Wrapper cho nội dung chính để đẩy footer xuống */
+.main-content-wrapper {
+    flex: 1 0 auto;
 }
 
 .content-title-home-lich {
@@ -116,6 +128,10 @@ body {
 }
 
 .calendar-table td.current a:hover {
+    color: #000000;
+}
+
+.calendar-table td.current a .can_chi_text:hover {
     color: #000000;
 }
 
@@ -940,7 +956,7 @@ a {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-width: 170px;
+    min-width: 160px;
     height: 50px;
     background-size: contain;
     background-position: center;
@@ -1132,36 +1148,6 @@ a:hover {
 
 .main-navigation {
     display: block;
-}
-
-@media screen and (max-width: 479.98px) {
-    .mobile-menu-toggle {
-        display: flex;
-    }
-
-    .main-navigation {
-        display: none;
-    }
-}
-
-@media screen and (min-width: 480px) and (max-width: 767.98px) {
-    .main-navigation {
-        display: none;
-    }
-
-    .mobile-menu-toggle {
-        display: flex;
-    }
-}
-
-@media screen and (min-width: 768px) and (max-width: 991.98px) {
-    .main-navigation {
-        display: none;
-    }
-
-    .mobile-menu-toggle {
-        display: flex;
-    }
 }
 
 /* --- MENU MOBILE --- */
@@ -1578,8 +1564,8 @@ a:hover {
 }
 
 .date-display-card .date-weekday {
-    font-size: 1rem;
-    color: #343a40;
+    /* font-size: 1rem; */
+    color: #000000;
 }
 
 .date-display-card .date-special-event {
@@ -1588,7 +1574,7 @@ a:hover {
     /* font-size: 0.9rem; */
     margin-top: 0.25rem;
     height: 36px;
-     display: -webkit-box;
+    display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
@@ -1784,9 +1770,12 @@ a:hover {
     color: #dc3545;
     font-weight: bold;
 }
-.current .hidden-xs{
-    color: white !important ;
-}
+
+/* .has-event{
+    background: #BC51361F;
+} */
+
+
 /* Dots for days */
 .dot-hoangdao,
 .dot-hacdao,
@@ -2568,6 +2557,8 @@ a:hover {
     /* Nền gradient đã chính xác */
     background: linear-gradient(90deg, #2254AB 0%, #2254AB 30%, #2B7EE5 100%);
     color: #E0EFFF;
+    flex-shrink: 0;
+    margin-top: auto;
     /* Đổi màu chữ thành trắng xanh nhạt để dễ đọc hơn */
     padding: 60px 0;
     font-size: 15px;
@@ -2706,12 +2697,11 @@ a:hover {
     transition: all 0.3s ease;
 }
 
-.social-icon img,
+/* .social-icon img,
 .social-icon svg {
-    /* Style cho icon Zalo */
     width: 24px;
     height: 24px;
-}
+} */
 
 .social-icon:hover {
     transform: translateY(-3px);
@@ -3379,7 +3369,8 @@ a:hover {
     padding-bottom: 12px;
     color: rgba(33, 33, 33, 1);
 }
-.custom-pill-btn-date:hover{
+
+.custom-pill-btn-date:hover {
     border: 1px solid #2268D3;
     background: #DCEEFD;
 }
@@ -3388,38 +3379,487 @@ a:hover {
     background: rgba(220, 238, 253, 1);
     border: 1px solid rgba(34, 104, 211, 1);
 }
-.box-custom_yeloow{
+
+.box-custom_yeloow {
     border: 1px solid #2B7EE5 !important;
     background: #FDFAE9;
     border-radius: 16px !important;
 }
-.title-amduowngbox{
+
+.title-amduowngbox {
     font-weight: 700 !important;
     color: #192E52 !important;
 }
-.backv-doi-lich{
-     background: linear-gradient(to right, 
-        #DCEEFD 0%, 
-        #EFF8FF 50%, 
-        #DCEEFD 100%);
+
+.backv-doi-lich {
+    background: linear-gradient(to right,
+            #DCEEFD 0%,
+            #EFF8FF 50%,
+            #DCEEFD 100%);
+    border: 0.5px solid #C1E3FC;
+    border-radius: 32px;
+    box-shadow: 2px 2px 5px 0px #7E7E7E80;
 }
-.backv-doi-lich .--pading{
+
+.backv-doi-lich .--pading {
     padding: 40px;
 }
+
 .input-group-text {
-      cursor: pointer;
-      background-color: white;
-      border-left: none;
-  }
+    cursor: pointer;
+    background-color: white;
+    border-left: none;
+}
 
-  .input-group .form-control {
-      border-right: none;
-  }
+.input-group .form-control {
+    border-right: none;
+}
 
-  /* Khi hover vào icon */
-  .input-group-text:hover {
-      background-color: #f8f9fa;
-  }
-  .dateuser[readonly]{
+/* Khi hover vào icon */
+.input-group-text:hover {
+    background-color: #f8f9fa;
+}
+
+.dateuser[readonly],
+.dateuse2r[readonly] {
     background: white;
-  }
+}
+
+.lunar-full-moon {
+    background: #E8A4361F;
+}
+
+.lunar-first-day {
+    background: #BC51361F;
+}
+
+/* Custom date input wrapper với icon - Modern Design */
+.date-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.date-input-wrapper .form-control {
+    padding: 12px 50px 12px 16px;
+    border: 2px solid #e1e5e9;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 500;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.date-input-wrapper .form-control:hover {
+    border-color: #007bff;
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15);
+    transform: translateY(-1px);
+}
+
+.date-input-wrapper .form-control:hover+.date-icon-custom {
+    transform: translateY(-53%);
+}
+
+.date-input-wrapper .form-control:focus {
+    border-color: #007bff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25), 0 8px 25px rgba(0, 123, 255, 0.12);
+    transform: translateY(-2px);
+    background: #ffffff;
+}
+
+.date-icon-custom {
+    position: absolute;
+    right: 2px;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 10px 12px;
+    /* background: linear-gradient(135deg, #007bff 0%, #0056b3 100%); */
+    border: none;
+    /* border-radius: 10px; */
+    color: rgb(0, 0, 0);
+    pointer-events: auto;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: calc(100% - 4px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    /* box-shadow: 0 2px 4px rgba(0, 123, 255, 0.3); */
+}
+
+.date-icon-custom:hover {
+    background: linear-gradient(135deg, #0056b3 0%, #004085 100%);
+    transform: translateY(-50%) scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+}
+
+.date-icon-custom:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+.date-icon-custom i {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* Focus state for icon when input is focused */
+.date-input-wrapper .form-control:focus+.date-icon-custom {
+    /* background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%); */
+    /* box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4); */
+    transform: translateY(-56%);
+}
+
+
+/* Placeholder styling */
+.date-input-wrapper .form-control::placeholder {
+    color: #6c757d;
+    font-weight: 400;
+    font-style: italic;
+}
+
+/* Animation when typing/selecting */
+.date-input-wrapper .form-control:valid {
+    border-color: #28a745;
+    background: linear-gradient(135deg, #f8fff9 0%, #e6f7e6 100%);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .date-input-wrapper .form-control {
+        padding: 14px 50px 14px 18px;
+        font-size: 16px;
+        border-radius: 14px;
+    }
+
+    .date-icon-custom {
+        width: 44px;
+        height: calc(100% - 4px);
+        border-radius: 12px;
+    }
+
+    .date-icon-custom i {
+        font-size: 18px;
+    }
+}
+
+.flatpickr-wrapper {
+    width: 100vh;
+}
+
+.daterangepicker select.monthselect,
+.daterangepicker select.yearselect {
+    border-radius: 15px;
+}
+
+.daterangepicker .drp-calendar {
+    max-width: 100% !important;
+}
+
+/* Css đate */
+
+.daterangepicker {
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15), 0 8px 25px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    animation: slideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Header styling */
+.daterangepicker .calendar-table {
+    background: transparent;
+    margin: 0;
+}
+
+.daterangepicker .month {
+
+    color: white;
+    padding: 16px 20px;
+    border-radius: 0;
+    margin: 0;
+}
+
+.daterangepicker .month .month-element {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.daterangepicker .prev,
+.daterangepicker .next {
+    color: white;
+    border: none;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.daterangepicker .prev:hover,
+.daterangepicker .next:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+    color: white;
+}
+
+/* Week days header */
+.daterangepicker .calendar-table thead th {
+
+    color: #495057;
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 0px;
+    border: none;
+}
+
+/* Calendar days */
+.daterangepicker .calendar-table tbody td {
+    padding: 0;
+    border: none;
+    position: relative;
+}
+
+.daterangepicker .calendar-table tbody td:not(.off) {
+    background: white;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 8px;
+    margin: 2px;
+    font-weight: 500;
+    position: relative;
+    overflow: hidden;
+}
+
+.daterangepicker .calendar-table tbody td:not(.off):hover {
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+    color: white;
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+    z-index: 10;
+}
+
+/* Today styling */
+.daterangepicker .calendar-table tbody td.today:not(.active) {
+    background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);
+    color: white;
+    font-weight: 700;
+    position: relative;
+}
+
+
+
+/* Active/Selected day */
+.daterangepicker .calendar-table tbody td.active {
+    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%) !important;
+    color: white !important;
+    font-weight: 700;
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4);
+    z-index: 10;
+}
+
+/* Weekend styling */
+.daterangepicker .calendar-table tbody td.weekend:not(.active):not(.today) {
+    color: #dc3545;
+    font-weight: 600;
+}
+
+/* Off days (other months) */
+.daterangepicker .calendar-table tbody td.off {
+    color: #000000;
+    background: transparent;
+}
+
+/* Buttons */
+.daterangepicker .drp-buttons {
+    background: #f8f9fa;
+    padding: 16px 20px;
+    border-top: 1px solid #dee2e6;
+    text-align: right;
+}
+
+.daterangepicker .btn {
+    border-radius: 10px;
+    font-weight: 600;
+    padding: 8px 16px;
+    margin-left: 8px;
+    transition: all 0.3s ease;
+    border: 2px solid;
+}
+
+.daterangepicker .applyBtn {
+    background: #2B7EE5;
+    color: white;
+}
+
+.daterangepicker .applyBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(40, 167, 69, 0.3);
+}
+
+.daterangepicker .cancelBtn {
+    background: transparent;
+    border-color: #6c757d;
+    color: #6c757d;
+}
+
+.daterangepicker .cancelBtn:hover {
+    background: #6c757d;
+    color: white;
+}
+
+/* Hoàn toàn loại bỏ ranges */
+.daterangepicker .ranges {
+    display: none !important;
+}
+
+/* Đảm bảo calendar chiếm full width khi không có ranges */
+.daterangepicker .drp-calendar {
+    width: 100% !important;
+    border-right: none !important;
+}
+
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .daterangepicker {
+        position: fixed !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        z-index: 9999 !important;
+        width: 95vw !important;
+        max-width: 380px !important;
+        border-radius: 24px;
+    }
+
+    .daterangepicker .calendar-table tbody td:not(.off) {
+        padding: 14px 8px;
+        font-size: 16px;
+        margin: 3px;
+        border-radius: 12px;
+    }
+
+    .daterangepicker .month {
+        padding: 20px;
+    }
+
+    .daterangepicker .month .month-element {
+        font-size: 20px;
+    }
+
+    .daterangepicker .prev,
+    .daterangepicker .next {
+        width: 42px;
+        height: 42px;
+        font-size: 18px;
+    }
+
+    .daterangepicker .calendar-table thead th {
+
+        font-size: 14px;
+    }
+
+    .daterangepicker .ranges {
+        display: none !important;
+    }
+
+    .daterangepicker .drp-buttons {
+        padding: 20px;
+    }
+
+    .daterangepicker .btn {
+        padding: 12px 20px;
+        font-size: 16px;
+    }
+}
+
+/* Custom overlay */
+.daterangepicker-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.6) 100%);
+    backdrop-filter: blur(8px);
+    z-index: 9998;
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Pulse animation for today */
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.4);
+    }
+
+    70% {
+        box-shadow: 0 0 0 6px rgba(40, 167, 69, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(40, 167, 69, 0);
+    }
+}
+
+.daterangepicker .calendar-table tbody td.today:not(.active) {
+    animation: pulse 2s infinite;
+}
+
+.table-condensed thead tr:nth-child(1) {
+    margin-bottom: 12px;
+}
+.btnd-nfay{
+    width: 200px;
+    background: #2B7EE5;
+    box-shadow: 5px 0px 13.6px 0px #00000040;
+    padding: 15px;
+    border-radius: 99px;
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 18px;
+
+}
+.title-chon-lich{
+    color: #192E52;
+    font-weight: 700;
+}
+.--text-down-convert{
+    color: #192E52;
+    font-weight: 700;
+}
+
+

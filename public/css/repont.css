@@ -33,6 +33,9 @@
     .date-display-card .date-special-event {
         font-size: 18px;
     }
+    .date-weekday {
+        font-size: 18px;
+    }
 
     .footer-about {
         font-size: 22px;
@@ -52,6 +55,10 @@
 
     .left-sidebar {
         width: 300px;
+    }
+     .search-am-duong-lich{
+      margin-top: 60px;
+        margin-bottom: 60px;
     }
 }
 
@@ -98,6 +105,9 @@
     .date-display-card .date-special-event {
         font-size: 18px;
     }
+    .date-weekday {
+        font-size: 18px;
+    }
 
     .footer-about {
         font-size: 22px;
@@ -133,6 +143,16 @@
     }
     .ngay-tot-thang{
         font-size: 24px;
+    }
+    .title-chon-lich{
+        font-size: 34px;
+    }
+    .--text-down-convert{
+        font-size: 28px;
+    }
+    .search-am-duong-lich{
+        margin-top: 60px;
+        margin-bottom: 60px;
     }
 }
 
@@ -171,6 +191,9 @@
     .date-display-card .date-special-event {
         font-size: 16px;
     }
+    .date-weekday {
+        font-size: 16px;
+    }
 
     .footer-about {
         font-size: 22px;
@@ -207,9 +230,26 @@
      .ngay-tot-thang{
         font-size: 24px;
     }
+      .title-chon-lich{
+        font-size: 32px;
+    }
+     .--text-down-convert{
+        font-size: 28px;
+    }
+      .search-am-duong-lich{
+        margin-top: 60px;
+        margin-bottom: 60px;
+    }
 }
 
 @media screen and (min-width: 992px) and (max-width: 1199.98px) {
+    .main-navigation {
+        display: none;
+    }
+
+    .mobile-menu-toggle {
+        display: flex;
+    }
     .date_number_lich {
         font-size: 90px;
     }
@@ -242,6 +282,9 @@
     }
 
     .date-display-card .date-special-event {
+        font-size: 16px;
+    }
+    .date-weekday {
         font-size: 16px;
     }
 
@@ -284,9 +327,26 @@
      .ngay-tot-thang{
         font-size: 24px;
     }
+      .title-chon-lich{
+        font-size: 32px;
+    }
+     .--text-down-convert{
+        font-size: 24px;
+    }
+      .search-am-duong-lich{
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
 }
 
 @media screen and (min-width: 768px) and (max-width: 991.98px) {
+     .main-navigation {
+        display: none;
+    }
+
+    .mobile-menu-toggle {
+        display: flex;
+    }
     .date_number_lich {
         font-size: 90px;
     }
@@ -327,6 +387,9 @@
     .date-display-card .date-special-event {
         font-size: 16px;
     }
+    .date-weekday {
+        font-size: 16px;
+    }
 
     .footer-about {
         font-size: 22px;
@@ -363,9 +426,26 @@
      .ngay-tot-thang{
         font-size: 24px;
     }
+      .title-chon-lich{
+        font-size: 32px;
+    }
+      .--text-down-convert{
+        font-size: 24px;
+    }
+    .search-am-duong-lich{
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
 }
 
 @media screen and (min-width: 480px) and (max-width: 767.98px) {
+    .main-navigation {
+        display: none;
+    }
+
+    .mobile-menu-toggle {
+        display: flex;
+    }
     .date_number_lich {
         font-size: 75px;
     }
@@ -415,6 +495,9 @@
     .date-display-card .date-special-event {
         font-size: 14px;
     }
+    .date-weekday {
+        font-size: 14px;
+    }
 
     .utility-title {
         height: 34px;
@@ -459,9 +542,26 @@
      .ngay-tot-thang{
         font-size: 18px;
     }
+      .title-chon-lich{
+        font-size: 30px;
+    }
+      .--text-down-convert{
+        font-size: 24px;
+    }
+    .search-am-duong-lich{
+        margin-top:30px;
+        margin-bottom: 30px;
+    }
 }
 
 @media screen and (max-width: 479.98px) {
+     .mobile-menu-toggle {
+        display: flex;
+    }
+
+    .main-navigation {
+        display: none;
+    }
     .date_number_lich {
         font-size: 75px;
     }
@@ -531,6 +631,9 @@
     .date-display-card .date-special-event {
         font-size: 12px;
     }
+    .date-weekday {
+        font-size: 12px;
+    }
 
     .calendar-legend {
         gap: 2px;
@@ -561,7 +664,7 @@
     }
 
     .date-display-card .date-weekday {
-     height: 52px;
+     height: 35px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -601,5 +704,15 @@
     }
     .backv-doi-lich .--pading{
         padding: 20px;
+    }
+    .title-chon-lich{
+        font-size: 26px;
+    }
+      .--text-down-convert{
+        font-size: 22px;
+    }
+     .search-am-duong-lich{
+        margin-top:30px;
+        margin-bottom: 30px;
     }
 }

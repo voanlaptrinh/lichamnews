@@ -454,8 +454,6 @@ class LunarHelper
     if ($solarYear == $yy && $solarMonth == $mm && $solarDate == $dd) $classCell[] = 'current';
     if ($solarYear == $selected_yy && $solarMonth == $selected_mm && $solarDate == $selected_dd) $classCell[] = 'hovered';
 
-    $classCellHTML = $classCell ? ' class="' . implode(' ', $classCell) . '"' : '';
-
     // ✅ Sự kiện ngày dương
     $event_text_duong = @$events[$solarDate];
 
@@ -473,6 +471,23 @@ class LunarHelper
     } else {
         $event_text = '';
     }
+    
+    // Thêm class has-event nếu có sự kiện
+    if ($event_text) {
+        $classCell[] = 'has-event';
+    }
+    
+    // Thêm class cho ngày mồng 1 âm lịch
+    if ($lunarDate['day'] == 1) {
+        $classCell[] = 'lunar-first-day';
+    }
+    
+    // Thêm class cho ngày rằm (15 âm lịch)
+    if ($lunarDate['day'] == 15) {
+        $classCell[] = 'lunar-full-moon';
+    }
+
+    $classCellHTML = $classCell ? ' class="' . implode(' ', $classCell) . '"' : '';
 
     // Phần ngày âm
     if ($lunarDate['day'] == 1) {

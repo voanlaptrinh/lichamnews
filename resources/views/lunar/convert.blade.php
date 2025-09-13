@@ -257,8 +257,7 @@
                         <div class="calendar-legend">
                             <span><span class="dot dot-hoangdao"></span> Ngày hoàng đạo</span>
                             <span><span class="dot dot-hacdao"></span> Ngày hắc đạo</span>
-                            <span><span class="dot dot-chủ nhật"></span> Ngày chủ nhật</span>
-                            <span><span class="dot dot-special"></span> Ngày đặc biệt</span>
+                      
                         </div>
                     </div>
                 </div>
@@ -315,7 +314,7 @@
                 </section>
                 <section class="popular-utilities pt-0">
                     <div class="container bg-section-tienich">
-                        <h2 class="section-title">Điểm ngày trong 7 ngày tới</h2>
+                        <h2 class="section-title">Điểm chỉ số trong bảy ngày tới</h2>
                         <hr>
                         <div class="utilities-grid row g-4 pt-2">
                             <div class="chart-container">
@@ -408,7 +407,7 @@
                                 class="icon_hoang_dao">
                             <div>
                                 <strong class="title-font-detail-ngay">Giờ Hoàng đạo:</strong>
-                                {{ $getThongTinNgay['gio_hac_dao'] }}
+                                {{ $getThongTinNgay['gio_hoang_dao'] }}
                             </div>
                         </div>
                         <!-- BẮT ĐẦU: KHỐI MỨC THUẬN LỢI (ĐÃ CẬP NHẬT) -->

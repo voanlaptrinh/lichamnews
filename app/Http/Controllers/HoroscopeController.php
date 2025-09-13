@@ -13,18 +13,18 @@ class HoroscopeController extends Controller
     private function getZodiacsData()
     {
         return [
-            'aries' => ['name' => 'Bạch Dương', 'icon' => 'https://cdn-icons-png.flaticon.com/512/3429/3429869.png'],
-            'taurus' => ['name' => 'Kim Ngưu', 'icon' => 'https://cdn-icons-png.flaticon.com/512/3429/3429934.png'],
-            'gemini' => ['name' => 'Song Tử', 'icon' => 'https://cdn-icons-png.flaticon.com/512/3429/3429881.png'],
-            'cancer' => ['name' => 'Cự Giải', 'icon' => 'https://cdn-icons-png.flaticon.com/512/3429/3429872.png'],
-            'leo' => ['name' => 'Sư Tử', 'icon' => 'https://cdn-icons-png.flaticon.com/512/3429/3429889.png'],
-            'virgo' => ['name' => 'Xử Nữ', 'icon' => 'https://cdn-icons-png.flaticon.com/512/3429/3429944.png'],
-            'libra' => ['name' => 'Thiên Bình', 'icon' => 'https://cdn-icons-png.flaticon.com/512/3429/3429891.png'],
-            'scorpio' => ['name' => 'Bọ Cạp', 'icon' => 'https://cdn-icons-png.flaticon.com/512/3429/3429916.png'],
-            'sagittarius' => ['name' => 'Nhân Mã', 'icon' => 'https://cdn-icons-png.flaticon.com/512/3429/3429913.png'],
-            'capricorn' => ['name' => 'Ma Kết', 'icon' => 'https://cdn-icons-png.flaticon.com/512/3429/3429875.png'],
-            'aquarius' => ['name' => 'Bảo Bình', 'icon' => 'https://cdn-icons-png.flaticon.com/512/3429/3429864.png'],
-            'pisces' => ['name' => 'Song Ngư', 'icon' => 'https://cdn-icons-png.flaticon.com/512/3429/3429906.png']
+            'aries' => ['name' => 'Bạch Dương', 'icon' => '/icons/aries.svg'],
+            'taurus' => ['name' => 'Kim Ngưu', 'icon' => '/icons/taurus.svg'],
+            'gemini' => ['name' => 'Song Tử', 'icon' => '/icons/gemini.svg'],
+            'cancer' => ['name' => 'Cự Giải', 'icon' => '/icons/cances.svg'],
+            'leo' => ['name' => 'Sư Tử', 'icon' => '/icons/leo.svg'],
+            'virgo' => ['name' => 'Xử Nữ', 'icon' => '/icons/virgo.svg'],
+            'libra' => ['name' => 'Thiên Bình', 'icon' => '/icons/libra.svg'],
+            'scorpio' => ['name' => 'Bọ Cạp', 'icon' => '/icons/scor.svg'],
+            'sagittarius' => ['name' => 'Nhân Mã', 'icon' => '/icons/sagi.svg'],
+            'capricorn' => ['name' => 'Ma Kết', 'icon' => '/icons/capri.svg'],
+            'aquarius' => ['name' => 'Bảo Bình', 'icon' => '/icons/aquarius.svg'],
+            'pisces' => ['name' => 'Song Ngư', 'icon' => '/icons/pisces.svg']
         ];
     }
 
@@ -61,8 +61,8 @@ class HoroscopeController extends Controller
         if (!in_array($sign, $validSigns) || !in_array($type, $validTypes)) {
             return response()->json(['error' => 'Cung hoặc loại không hợp lệ'], 400);
         }
-        
-        $apiUrl = "https://cloudrun.xemlicham.com/horoscopes/{$sign}?type={$type}";
+
+        $apiUrl = "https://cloudrun-v2.xemlicham.com/horoscopes/{$sign}?type={$type}";
 
         try {
             $response = Http::timeout(10)->get($apiUrl);

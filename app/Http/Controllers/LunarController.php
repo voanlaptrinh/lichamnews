@@ -30,7 +30,7 @@ use Jetfuel\SolarLunar\SolarLunar;
 
 class LunarController extends Controller
 {
-  
+
 
     /**
      * Trang chủ, hiển thị thông tin cho ngày hiện tại hoặc ngày được chọn từ form.
@@ -269,8 +269,8 @@ class LunarController extends Controller
         $nextYear = $nextDate->year;
         $nextMonth = $nextDate->month;
         $tot_xau_result = LunarHelper::checkTotXau($canChi, $al[1]);
-          $startDate = Carbon::createFromDate((int)$yy, (int)$mm, (int)$dd);
-$labels = [];
+        $startDate = Carbon::createFromDate((int)$yy, (int)$mm, (int)$dd);
+        $labels = [];
         $dataValues = [];
 
         for ($i = 0; $i < 7; $i++) {
@@ -524,8 +524,107 @@ $labels = [];
         ]);
     }
 
-    public function convertAmToDuong(){
-        return view('lunar.doi-lich');
-    }
+    public function convertAmToDuong(Request $request)
+    {
 
+
+        $solar_date = $request->input('solar_date');
+
+        // Mặc định sử dụng ngày hôm nay
+        $dd = (int)date('d');
+        $mm = (int)date('m');
+        $yy = (int)date('Y');
+
+        if ($solar_date) {
+            // Tách ngày tháng năm từ format dd/mm/yyyy
+            $parts = explode('/', $solar_date);
+            if (count($parts) === 3) {
+                $dd = (int)$parts[0];
+                $mm = (int)$parts[1];
+                $yy = (int)$parts[2];
+
+                // Validate ngày tháng năm
+                if (!checkdate($mm, $dd, $yy)) {
+                    // Nếu không hợp lệ, dùng ngày hôm nay
+                    $dd = (int)date('d');
+                    $mm = (int)date('m');
+                    $yy = (int)date('Y');
+                }
+            }
+        }
+        $al = LunarHelper::convertSolar2Lunar((int)$dd, (int)$mm, (int)$yy);
+        $jd = LunarHelper::jdFromDate($dd, $mm, $yy);
+        $canChi = LunarHelper::canchiNgayByJD($jd);
+        $chiNgay = explode(' ', $canChi);
+  $cdate = sprintf('%04d-%02d-%02d',  $yy, $mm, $dd);
+   $thu = LunarHelper::sw_get_weekday($cdate);
+        $chi_ngay = @$chiNgay[1];
+        $gioHd = LunarHelper::gioHDTrongNgayTXT($chi_ngay);
+
+
+        // $ngaySuatHanh = LichKhongMinhHelper::numToNgay($al[1], $al[0]);
+        // $ngaySuatHanhHTML = LichKhongMinhHelper::ngayToHTML($ngaySuatHanh);
+
+        $tietkhi = LunarHelper::tietKhiWithIcon($jd);
+        list($table_html, $data_totxau) = LunarHelper::printTable($mm, $yy, true, true);
+        $getThongTinNgay = FunctionHelper::getThongTinNgay($dd, $mm, $yy);
+ $suKienDuongLich = [];
+        $suKienAmLich = [];
+
+        // 1. Xử lý sự kiện DƯƠNG LỊCH
+        // Lấy tất cả sự kiện DƯƠNG LỊCH trong tháng từ Helper
+        $suKienTrongThangDuong = LunarHelper::getVietnamEvent($mm, $yy);
+
+        // Bây giờ, kiểm tra xem ngày DƯƠNG LỊCH hiện tại ($dd) có tồn tại
+        // như một key trong danh sách sự kiện của tháng không.
+        if (isset($suKienTrongThangDuong[$dd])) {
+            // Nếu có, thêm sự kiện của ngày đó vào mảng sự kiện dương lịch
+            $suKienDuongLich[] = $suKienTrongThangDuong[$dd];
+        }
+
+        // 2. Xử lý sự kiện ÂM LỊCH (tương tự)
+        // Lấy tất cả sự kiện ÂM LỊCH trong tháng từ Helper
+        // Giả sử $al[0] là ngày âm, $al[1] là tháng âm
+        $suKienTrongThangAm = LunarHelper::getVietnamLunarEvent2($al[1], $al[2]);
+        // dd($suKienTrongThangAm);
+        // Kiểm tra xem ngày ÂM LỊCH hiện tại ($al[0]) có trong danh sách không
+        if (isset($suKienTrongThangAm[$al[0]])) {
+            // Nếu có, thêm vào mảng sự kiện âm lịch
+            $suKienAmLich[] = $suKienTrongThangAm[$al[0]];
+        }
+ $getThongTinCanChiVaIcon = FunctionHelper::getThongTinCanChiVaIcon($dd, $mm, $yy);
+  $currentDate = Carbon::create($yy, $mm, 1);
+        // Tính toán tháng trước
+        $prevDate = $currentDate->copy()->subMonth();
+        $prevYear = $prevDate->year;
+        $prevMonth = $prevDate->month;
+
+        // Tính toán tháng sau
+        $nextDate = $currentDate->copy()->addMonth();
+        $nextYear = $nextDate->year;
+        $nextMonth = $nextDate->month;
+         $tot_xau_result = LunarHelper::checkTotXau($canChi, $al[1]);
+        return view(
+            'lunar.doi-lich',
+            [
+                'dd' => sprintf('%02d', $dd),
+                'mm' => sprintf('%02d', $mm),
+                'yy' => $yy,
+                'weekday' => $thu,
+                'al' => $al,
+                'tietkhi' => $tietkhi,
+                'getThongTinNgay' => $getThongTinNgay,
+                'table_html' => $table_html,
+                'suKienDuongLich' => $suKienDuongLich,
+                'suKienAmLich' => $suKienAmLich,
+                 'getThongTinCanChiVaIcon' => $getThongTinCanChiVaIcon,
+                  'prevYear' => $prevYear,
+            'prevMonth' => $prevMonth,
+            'nextYear' => $nextYear,
+            'nextMonth' => $nextMonth,
+            'tot_xau_result' => $tot_xau_result,
+              
+            ]
+        );
+    }
 }

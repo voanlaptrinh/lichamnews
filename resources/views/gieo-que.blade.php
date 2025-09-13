@@ -20,9 +20,9 @@
 <div class="modal fade" id="fortuneResultModal" tabindex="-1" aria-labelledby="fortuneResultModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="fortuneResultModalLabel">Kết Quả Quẻ Bói</h5>
+        <div class="modal-content" style="background-color: unset;border: unset">
+            <div class="modal-header" style="border-bottom: none;">
+                <h5 class="modal-title" id="fortuneResultModalLabel"></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <!-- Thêm class 'fortune-overlay-container' vào modal-body -->
@@ -36,8 +36,8 @@
 
                 <img src="{{ asset('icons/que_gieo_que.svg') }}" alt="Que rút quẻ" class="img-fluid">
             </div>
-            <div class="modal-footer justify-content-center">
-                <button type="button" class="btn btn-info" id="revealFortuneBtn">Giải Quẻ</button>
+            <div class="modal-footer justify-content-center" style="border-top: none">
+                <button type="button" class="btn-gieu-tu-dong" id="revealFortuneBtn">Giải Quẻ</button>
             </div>
         </div>
     </div>
@@ -59,7 +59,7 @@
                     <p id="fortuneFullDescription"></p>
                 </div>
             </div>
-           
+
         </div>
     </div>
 </div>

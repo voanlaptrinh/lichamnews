@@ -1,19 +1,21 @@
 @extends('welcome')
 
 @section('content')
-    <h1>Khám Phá 12 Cung Hoàng Đạo</h1>
-    <div class="row g-3">
-        @foreach ($zodiacs as $sign => $details)
-            <div class="col-lg-3">
-                <div class="card">
-                    <div class="card-body">
-                        <a href="{{ route('horoscope.show', ['sign' => $sign]) }}" class="zodiac-card">
-                            <img src="{{ $details['icon'] }}" alt="{{ $details['name'] }}" class="img-fluid">
-                            <div class="name text-center">{{ $details['name'] }}</div>
-                        </a>
-                    </div>
+    <div class="container-setup">
+        <h6 class="content-title-date-detail"><a href="{{ route('home') }}">Trang chủ</a> <i class="bi bi-chevron-right"></i> Phong thủy & tử vi <i class="bi bi-chevron-right"></i>
+            <span>12 cung hoàng đạo</span>
+        </h6>
+        <div class="row g-4">
+            @foreach ($zodiacs as $sign => $details)
+                <div class="col-lg-2 d-flex justify-content-center">
+
+                    <a href="{{ route('horoscope.show', ['sign' => $sign]) }}" class="zodiac-card">
+                        <img src="{{ $details['icon'] }}" alt="{{ $details['name'] }}" class="img-fluid">
+
+                    </a>
+
                 </div>
-            </div>
-        @endforeach
+            @endforeach
+        </div>
     </div>
 @endsection
