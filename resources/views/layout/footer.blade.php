@@ -60,6 +60,5 @@
 
         </div>
     </div>
-    <img src="/assets/images/img-leftfooter.svg" alt="" class="position-absolute bottom-0 start-0">
-    <img src="/assets/images/img-right-footer.svg" alt="" class="position-absolute bottom-0 end-0">
+   
 </footer>

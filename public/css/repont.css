@@ -33,6 +33,7 @@
     .date-display-card .date-special-event {
         font-size: 18px;
     }
+
     .date-weekday {
         font-size: 18px;
     }
@@ -56,13 +57,43 @@
     .left-sidebar {
         width: 300px;
     }
-     .search-am-duong-lich{
-      margin-top: 60px;
+
+    .search-am-duong-lich {
+        margin-top: 60px;
         margin-bottom: 60px;
+    }
+
+    .zodiac-header {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .coli-row {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .title-tong-quan-h2 {
+        font-size: 32px;
+    }
+
+    .title-tong-quan-h3 {
+        font-size: 26px;
+    }
+    .title-tong-quan-h4 {
+        font-size: 22px;
+    }
+    .title-tong-quan-h5 {
+        font-size: 20px;
+    }
+
+    .text-box-tong-quan {
+        font-size: 18px;
     }
 }
 
 @media screen and (min-width: 1400px) {
+
     .date_number_lich {
         font-size: 120px;
     }
@@ -105,6 +136,7 @@
     .date-display-card .date-special-event {
         font-size: 18px;
     }
+
     .date-weekday {
         font-size: 18px;
     }
@@ -138,21 +170,56 @@
         padding-top: 20px;
         padding-bottom: 20px;
     }
-    .section-thang-lich{
+
+    .section-thang-lich {
         padding-top: 20px;
     }
-    .ngay-tot-thang{
+
+    .ngay-tot-thang {
         font-size: 24px;
     }
-    .title-chon-lich{
+
+    .title-chon-lich {
         font-size: 34px;
     }
-    .--text-down-convert{
+
+    .--text-down-convert {
         font-size: 28px;
     }
-    .search-am-duong-lich{
+
+    .search-am-duong-lich {
         margin-top: 60px;
         margin-bottom: 60px;
+    }
+
+    .zodiac-header {
+        display: flex;
+        justify-content: start;
+        gap: 15px;
+
+    }
+
+    .coli-row {
+        display: flex;
+        flex-wrap: wrap;
+
+    }
+
+    .title-tong-quan-h2 {
+        font-size: 32px;
+    }
+
+    .title-tong-quan-h3 {
+        font-size: 26px;
+    }
+ .title-tong-quan-h4 {
+        font-size: 22px;
+    }
+    .title-tong-quan-h5 {
+        font-size: 20px;
+    }
+    .text-box-tong-quan {
+        font-size: 18px;
     }
 }
 
@@ -191,6 +258,7 @@
     .date-display-card .date-special-event {
         font-size: 16px;
     }
+
     .date-weekday {
         font-size: 16px;
     }
@@ -224,21 +292,56 @@
         padding-top: 40px;
         padding-bottom: 40px;
     }
-     .section-thang-lich{
+
+    .section-thang-lich {
         padding-top: 20px;
     }
-     .ngay-tot-thang{
+
+    .ngay-tot-thang {
         font-size: 24px;
     }
-      .title-chon-lich{
+
+    .title-chon-lich {
         font-size: 32px;
     }
-     .--text-down-convert{
+
+    .--text-down-convert {
         font-size: 28px;
     }
-      .search-am-duong-lich{
+
+    .search-am-duong-lich {
         margin-top: 60px;
         margin-bottom: 60px;
+    }
+
+    .zodiac-header {
+        display: flex;
+        justify-content: start;
+        gap: 15px;
+
+    }
+
+    .coli-row {
+        display: flex;
+        flex-wrap: wrap;
+
+    }
+
+    .title-tong-quan-h2 {
+        font-size: 32px;
+    }
+
+    .title-tong-quan-h3 {
+        font-size: 26px;
+    }
+ .title-tong-quan-h4 {
+        font-size: 22px;
+    }
+    .title-tong-quan-h5 {
+        font-size: 20px;
+    }
+    .text-box-tong-quan {
+        font-size: 18px;
     }
 }
 
@@ -250,6 +353,7 @@
     .mobile-menu-toggle {
         display: flex;
     }
+
     .date_number_lich {
         font-size: 90px;
     }
@@ -284,6 +388,7 @@
     .date-display-card .date-special-event {
         font-size: 16px;
     }
+
     .date-weekday {
         font-size: 16px;
     }
@@ -321,32 +426,68 @@
         padding-top: 40px;
         padding-bottom: 40px;
     }
-     .section-thang-lich{
+
+    .section-thang-lich {
         padding-top: 20px;
     }
-     .ngay-tot-thang{
+
+    .ngay-tot-thang {
         font-size: 24px;
     }
-      .title-chon-lich{
+
+    .title-chon-lich {
         font-size: 32px;
     }
-     .--text-down-convert{
+
+    .--text-down-convert {
         font-size: 24px;
     }
-      .search-am-duong-lich{
+
+    .search-am-duong-lich {
         margin-top: 50px;
         margin-bottom: 50px;
+    }
+
+    .zodiac-header {
+        display: flex;
+        justify-content: start;
+        gap: 15px;
+
+    }
+
+    .coli-row {
+        display: flex;
+        flex-wrap: wrap;
+
+    }
+
+    .title-tong-quan-h2 {
+        font-size: 32px;
+    }
+
+    .title-tong-quan-h3 {
+        font-size: 26px;
+    }
+ .title-tong-quan-h4 {
+        font-size: 22px;
+    }
+    .title-tong-quan-h5 {
+        font-size: 20px;
+    }
+    .text-box-tong-quan {
+        font-size: 18px;
     }
 }
 
 @media screen and (min-width: 768px) and (max-width: 991.98px) {
-     .main-navigation {
+    .main-navigation {
         display: none;
     }
 
     .mobile-menu-toggle {
         display: flex;
     }
+
     .date_number_lich {
         font-size: 90px;
     }
@@ -387,6 +528,7 @@
     .date-display-card .date-special-event {
         font-size: 16px;
     }
+
     .date-weekday {
         font-size: 16px;
     }
@@ -420,21 +562,58 @@
         padding-top: 20px;
         padding-bottom: 20px;
     }
-     .section-thang-lich{
+
+    .section-thang-lich {
         padding-top: 20px;
     }
-     .ngay-tot-thang{
+
+    .ngay-tot-thang {
         font-size: 24px;
     }
-      .title-chon-lich{
+
+    .title-chon-lich {
         font-size: 32px;
     }
-      .--text-down-convert{
+
+    .--text-down-convert {
         font-size: 24px;
     }
-    .search-am-duong-lich{
+
+    .search-am-duong-lich {
         margin-top: 50px;
         margin-bottom: 50px;
+    }
+
+    .zodiac-header {
+        display: flex;
+        justify-content: start;
+        gap: 15px;
+
+    }
+
+    .coli-row {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: center;
+        gap: 20px;
+
+    }
+
+    .title-tong-quan-h2 {
+        font-size: 32px;
+    }
+
+    .title-tong-quan-h3 {
+        font-size: 26px;
+    }
+ .title-tong-quan-h4 {
+        font-size: 22px;
+    }
+    .title-tong-quan-h5 {
+        font-size: 20px;
+    }
+    .text-box-tong-quan {
+        font-size: 18px;
     }
 }
 
@@ -446,6 +625,7 @@
     .mobile-menu-toggle {
         display: flex;
     }
+
     .date_number_lich {
         font-size: 75px;
     }
@@ -495,6 +675,7 @@
     .date-display-card .date-special-event {
         font-size: 14px;
     }
+
     .date-weekday {
         font-size: 14px;
     }
@@ -536,32 +717,72 @@
         padding-top: 10px;
         padding-bottom: 15px;
     }
-     .section-thang-lich{
+
+    .section-thang-lich {
         padding-top: 10px;
     }
-     .ngay-tot-thang{
+
+    .ngay-tot-thang {
         font-size: 18px;
     }
-      .title-chon-lich{
+
+    .title-chon-lich {
         font-size: 30px;
     }
-      .--text-down-convert{
+
+    .--text-down-convert {
         font-size: 24px;
     }
-    .search-am-duong-lich{
-        margin-top:30px;
+
+    .search-am-duong-lich {
+        margin-top: 30px;
         margin-bottom: 30px;
     }
+
+    .zodiac-header {
+        display: flex;
+        justify-content: start;
+        gap: 15px;
+
+    }
+
+    .coli-row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+
+    }
+
+    .title-tong-quan-h2 {
+        font-size: 30px;
+    }
+
+    .title-tong-quan-h3 {
+        font-size: 22px;
+    }
+     .title-tong-quan-h4 {
+        font-size: 20px;
+    }
+    .title-tong-quan-h5 {
+        font-size: 18px;
+    }
+
+    .text-box-tong-quan {
+        font-size: 16px;
+    }
+
 }
 
 @media screen and (max-width: 479.98px) {
-     .mobile-menu-toggle {
+    .mobile-menu-toggle {
         display: flex;
     }
 
     .main-navigation {
         display: none;
     }
+
     .date_number_lich {
         font-size: 75px;
     }
@@ -631,6 +852,7 @@
     .date-display-card .date-special-event {
         font-size: 12px;
     }
+
     .date-weekday {
         font-size: 12px;
     }
@@ -664,7 +886,7 @@
     }
 
     .date-display-card .date-weekday {
-     height: 35px;
+        height: 35px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -693,26 +915,241 @@
         padding-top: 10px;
         padding-bottom: 10px;
     }
-       .section-thang-lich{
+
+    .section-thang-lich {
         padding-top: 10px;
     }
-     .ngay-tot-thang{
+
+    .ngay-tot-thang {
         font-size: 18px;
     }
-    .am_table{
+
+    .am_table {
         justify-self: center;
     }
-    .backv-doi-lich .--pading{
+
+    .backv-doi-lich .--pading {
         padding: 20px;
     }
-    .title-chon-lich{
+
+    .title-chon-lich {
         font-size: 26px;
     }
-      .--text-down-convert{
+
+    .--text-down-convert {
         font-size: 22px;
     }
-     .search-am-duong-lich{
-        margin-top:30px;
+
+    .search-am-duong-lich {
+        margin-top: 30px;
         margin-bottom: 30px;
+    }
+
+    .zodiac-header {
+        display: grid;
+        justify-content: start;
+        gap: 15px;
+    }
+
+    .tab-horoscope {
+        width: 100%;
+    }
+
+    /* DateRangePicker Responsive Styles */
+    .daterangepicker {
+        width: auto !important;
+        max-width: 100%;
+    }
+
+    .daterangepicker .ranges {
+        display: none;
+    }
+
+    .daterangepicker.show-ranges .ranges {
+        display: block;
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #e0e0e0;
+        border-radius: 16px 16px 0 0;
+    }
+
+    .daterangepicker.show-ranges .drp-calendar {
+        width: 100%;
+    }
+
+    .daterangepicker .drp-calendar.left,
+    .daterangepicker .drp-calendar.right {
+        padding: 8px;
+    }
+
+    .daterangepicker .calendar-table {
+        padding: 5px;
+    }
+
+    .daterangepicker .calendar-table th,
+    .daterangepicker .calendar-table td {
+        padding: 5px;
+        font-size: 13px;
+    }
+
+    .daterangepicker select.monthselect,
+    .daterangepicker select.yearselect {
+        font-size: 13px;
+        padding: 2px 4px;
+        height: 28px;
+    }
+
+    .daterangepicker .drp-buttons {
+        padding: 10px;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .daterangepicker .drp-buttons .btn {
+        width: 100%;
+        padding: 10px;
+    }
+
+    input.daterangepicker-input {
+        width: 100%;
+        font-size: 16px;
+        /* Prevent zoom on iOS */
+    }
+
+    .coli-row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+
+    }
+
+    .title-tong-quan-h2 {
+        font-size: 25px;
+    }
+
+    .title-tong-quan-h3 {
+        font-size: 20px;
+    }
+  .title-tong-quan-h4 {
+        font-size: 18px;
+    }
+    .title-tong-quan-h5 {
+        font-size: 16px;
+    }
+    .text-box-tong-quan {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 576px) {
+    .daterangepicker {
+        position: fixed !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        width: calc(100% - 20px) !important;
+        max-width: 360px !important;
+    }
+
+    .daterangepicker.single .drp-calendar {
+        max-width: 100%;
+    }
+
+    .daterangepicker.show-calendar .drp-calendar.left,
+    .daterangepicker.show-calendar .drp-calendar.right {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        float: none;
+    }
+
+    .daterangepicker .drp-calendar.right {
+        margin-top: 10px;
+    }
+
+    .daterangepicker .ranges ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+
+    .daterangepicker .ranges li {
+        flex: 1 1 calc(50% - 5px);
+        text-align: center;
+        font-size: 13px;
+        padding: 6px 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .daterangepicker {
+        width: calc(100% - 10px) !important;
+        max-width: 100% !important;
+    }
+
+    .daterangepicker .calendar-table th {
+        font-size: 11px;
+        letter-spacing: 0;
+    }
+
+    .daterangepicker .calendar-table td {
+        padding: 4px;
+        font-size: 12px;
+    }
+
+    .daterangepicker .prev,
+    .daterangepicker .next {
+        font-size: 16px;
+        padding: 2px 6px;
+    }
+
+    .daterangepicker select.monthselect,
+    .daterangepicker select.yearselect {
+        font-size: 12px;
+        margin: 0 2px;
+    }
+
+    .daterangepicker .drp-selected {
+        font-size: 13px;
+        padding: 6px 10px;
+    }
+}
+
+/* iPad and Tablet specific */
+@media (min-width: 577px) and (max-width: 768px) {
+    .daterangepicker {
+        max-width: 600px;
+    }
+
+    .daterangepicker.show-calendar .drp-calendar.left,
+    .daterangepicker.show-calendar .drp-calendar.right {
+        width: 48%;
+    }
+
+    .daterangepicker .ranges {
+        width: 150px;
+    }
+
+    .daterangepicker .ranges li {
+        font-size: 13px;
+        padding: 7px 10px;
+    }
+}
+
+/* Landscape mode adjustments */
+@media (max-height: 500px) and (orientation: landscape) {
+    .daterangepicker {
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+
+    .daterangepicker .drp-calendar {
+        max-height: 250px;
+    }
+
+    .daterangepicker .calendar-table td {
+        padding: 3px;
+        font-size: 12px;
     }
 }

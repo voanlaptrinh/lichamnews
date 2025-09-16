@@ -9,7 +9,7 @@
 
         <!-- Menu cho Desktop -->
         <nav class="main-navigation">
-            <ul>
+            <ul class="main-navigation-list">
 
                 <!-- Bắt đầu: HTML cho Dropdown -->
                 <li class="has-dropdown">
@@ -33,7 +33,7 @@
 
                     </ul>
                 </li>
-                <li><a href="{{route('convert.am.to.duong')}}">Đổi lịch</a></li>
+                <li><a href="{{ route('convert.am.to.duong') }}">Đổi lịch</a></li>
                 <li class="has-dropdown">
                     <a href="#"> Lịch tháng & năm
 
@@ -62,7 +62,7 @@
                         </li>
 
                         <li class="has-submenu"> <!-- << Class mới -->
-                            <a href="/lich-nam">
+                            <a href="#">
                                 Lịch Năm
                                 <i class="bi bi-chevron-right "></i> <!-- << Icon mũi tên phải -->
                             </a>
@@ -83,7 +83,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="has-dropdown">
+                {{-- <li class="has-dropdown">
                     <a href="#"> Xem ngày tốt
 
                         <i class="bi bi-chevron-down"></i>
@@ -92,18 +92,19 @@
                         <li><a href="/dich-vu">Dịch vụ</a></li>
                         <li><a href="">Tìm phòng</a></li>
                     </ul>
-                </li>
+                </li> --}}
                 <li class="has-dropdown">
                     <a href="#">Phong thủy & tử vi
 
                         <i class="bi bi-chevron-down"></i>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="/dich-vu">Dịch vụ</a></li>
-                        <li><a href="">Tìm phòng</a></li>
+                        <li><a href="{{ route('horoscope.index') }}">Cung hoàng đạo</a></li>
+
+                        {{-- <li><a href="">Tìm phòng</a></li> --}}
                     </ul>
                 </li>
-                <li class="has-dropdown">
+                {{-- <li class="has-dropdown">
                     <a href="#">
                         Tiện ích
                         <i class="bi bi-chevron-down"></i>
@@ -113,7 +114,7 @@
                         <li><a href="">Tìm phòng</a></li>
 
                     </ul>
-                </li>
+                </li> --}}
             </ul>
         </nav>
 
@@ -156,7 +157,7 @@
                 </ul>
             </li>
             <li>
-                <a href="{{route('convert.am.to.duong')}}">Đổi lịch</a>
+                <a href="{{ route('convert.am.to.duong') }}">Đổi lịch</a>
             </li>
             <li class="has-dropdown">
                 <a href="#">
@@ -204,8 +205,18 @@
                     </li>
                 </ul>
             </li>
+            <li class="has-dropdown">
+                <a href="#">
+                    Phong thuỷ & tử vi
+                    <i class="bi bi-chevron-down arrow-icon"></i>
+                </a>
+                <ul class="mobile-submenu">
+                    <li><a href="{{ route('horoscope.index') }}">Cung hoàng đạo</a></li>
+                    {{-- <li><a href="{{ $tomorrowHref }}">Lịch âm ngày mai</a></li> --}}
 
-            <!-- Bắt đầu: HTML cho Dropdown Mobile -->
+                </ul>
+            </li>
+            {{-- <!-- Bắt đầu: HTML cho Dropdown Mobile -->
             <li class="has-dropdown">
                 <a href="#">
                     HỆ THỐNG
@@ -230,7 +241,7 @@
             </li>
             <!-- Kết thúc: HTML cho Dropdown Mobile -->
             <li><a href="">TIN TỨC</a></li>
-            <li><a href="">LIÊN HỆ</a></li>
+            <li><a href="">LIÊN HỆ</a></li> --}}
         </ul>
     </nav>
 </div>

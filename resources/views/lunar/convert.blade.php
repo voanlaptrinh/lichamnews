@@ -6,7 +6,7 @@
             <!-- ==== CỘT LỊCH CHÍNH (BÊN TRÁI) ==== -->
             <div class="col-xl-9 col-sm-12 col-12">
                 <div class="boxx-col-lg-8">
-                    <div class="d-flex flex-column gap-3 box-content-lg-8">
+                    <div class="d-flex flex-column gap-20 box-content-lg-8">
 
                         <!-- ** KHỐI NGÀY DƯƠNG LỊCH VÀ ÂM LỊCH ** -->
                         <div class="row g-3">
@@ -119,8 +119,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="info-card d-sm-block d-block d-xl-none">
-                            <div class="row g-4">
+                        {{-- d-sm-block d-block d-xl-none --}}
+                        <div class="info-card ">
+                            <div class="coli-row">
                                 <div class="col-sm-6">
                                     <div class="info-item">
                                         <img src="{{ asset('icons/icon_tiet_khi.png') }}" alt="icon_tiet_khi"
@@ -151,7 +152,7 @@
                                 <div class="col-sm-6">
                                     <!-- BẮT ĐẦU: KHỐI MỨC THUẬN LỢI (ĐÃ CẬP NHẬT) -->
                                     <div
-                                        class="convenience-level d-flex justify-content-between align-items-center row h-100">
+                                        class="convenience-level g-0 d-flex justify-content-between align-items-center row h-100">
                                         <div class="col-6">
                                             <div class="level-label text-lever-label-mobie">
                                                 Mức thuận lợi<br>hôm nay:
@@ -159,7 +160,7 @@
                                         </div>
 
 
-                                        <div class="col-6">
+                                        <div class="col-6 d-flex justify-content-center">
                                             <div class="progress-dial mt-2"
                                                 style="--value: {{ round($getDaySummaryInfo['score']['percentage']) }};">
                                                 <div class="dial-text">
@@ -387,7 +388,7 @@
                 <div class="d-flex flex-column gap-4">
 
                     <!-- ** KHỐI THÔNG TIN CHI TIẾT ** -->
-                    <div class="info-card d-sm-none d-none d-xl-block">
+                    {{-- <div class="info-card d-sm-none d-none d-xl-block">
                         <div class="info-item">
                             <img src="{{ asset('icons/icon_tiet_khi.png') }}" alt="icon_tiet_khi" class="icon_tiet_khi">
                             <div>
@@ -438,7 +439,7 @@
                             class="m w-100 text-detail-date-hand-pc pt-3 text-start text-decoration-underline"><img
                                 src="{{ asset('icons/hand_2.svg') }}" alt="hand_2" class="img-fluid">
                             Xem chi tiết ngày</a>
-                    </div>
+                    </div> --}}
 
                     <!-- ** KHỐI SỰ KIỆN SẮP TỚI ** -->
                     <div class="events-card">

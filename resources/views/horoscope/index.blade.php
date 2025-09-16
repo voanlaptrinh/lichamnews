@@ -2,18 +2,17 @@
 
 @section('content')
     <div class="container-setup">
-        <h6 class="content-title-date-detail"><a href="{{ route('home') }}">Trang chủ</a> <i class="bi bi-chevron-right"></i> Phong thủy & tử vi <i class="bi bi-chevron-right"></i>
+        <h6 class="content-title-date-detail"><a href="{{ route('home') }}">Trang chủ</a> <i class="bi bi-chevron-right"></i>
+            Phong thủy & tử vi <i class="bi bi-chevron-right"></i>
             <span>12 cung hoàng đạo</span>
         </h6>
-        <div class="row g-4">
+        <div class="row g-4 mb-4">
             @foreach ($zodiacs as $sign => $details)
-                <div class="col-lg-2 d-flex justify-content-center">
-
+                <div class="col-6 col-md-4 col-lg-2 d-flex justify-content-center">
                     <a href="{{ route('horoscope.show', ['sign' => $sign]) }}" class="zodiac-card">
                         <img src="{{ $details['icon'] }}" alt="{{ $details['name'] }}" class="img-fluid">
 
                     </a>
-
                 </div>
             @endforeach
         </div>

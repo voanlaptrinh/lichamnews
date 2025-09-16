@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chuyển Đổi Ngày Dương Sang Âm</title>
+    <title>{{ $metaTitle ?? 'Xem Lịch Âm' }}</title>
+    <meta name="description" content="{{ $metaDescription ?? '' }}">
     <!-- Các link CSS nếu cần, ví dụ: Bootstrap hoặc custom CSS -->
     <link href="{{ asset('/css/bootstrap.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('/css/airbnb.css') }}"> {{-- hoặc dark, material_red --}}
@@ -16,7 +17,7 @@
     <!-- ĐẢM BẢO CÓ DÒNG NÀY ĐỂ CSRF TOKEN HOẠT ĐỘNG! -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @stack('styles')
-      <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 </head>
 
 <body>
@@ -41,14 +42,14 @@
     <!-- Đảm bảo file gieo-que.blade.php chứa các modal popup -->
     @include('gieo-que')
 
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <!-- JS của Bootstrap (nếu sử dụng Bootstrap) -->
     <script src="{{ asset('/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('/js/flatpickr.js') }}"></script>
     <script src="{{ asset('/js/vn.js') }}"></script>
-    
+
     @stack('scripts')
 
     <script>
@@ -70,7 +71,8 @@
                 date: today,
                 fortuneIndex: fortuneIndex
             });
-            document.cookie = `lastFortuneDraw=${encodeURIComponent(cookieValue)}; expires=${endOfDay.toUTCString()}; path=/`;
+            document.cookie =
+                `lastFortuneDraw=${encodeURIComponent(cookieValue)}; expires=${endOfDay.toUTCString()}; path=/`;
         }
 
         // Function to get fortune cookie
@@ -123,10 +125,12 @@
                                 btn.addEventListener("click", () => {
                                     const startDate = new Date();
                                     const endDate = new Date();
-                                    endDate.setDate(startDate.getDate() + shortcut.days -
+                                    endDate.setDate(startDate.getDate() + shortcut
+                                        .days -
                                         1);
                                     fp.setDate([startDate, endDate], false);
-                                    fp.altInput.value = fp.formatDate(startDate, "d/m/Y") +
+                                    fp.altInput.value = fp.formatDate(startDate,
+                                            "d/m/Y") +
                                         " - " + fp.formatDate(endDate, "d/m/Y");
                                     fp.close();
                                 });
@@ -266,8 +270,10 @@
 
             const fortuneNameElem = document.getElementById('fortuneName'); // For result modal
             // const fortuneShortDescriptionElem = document.getElementById('fortuneShortDescription'); // For result modal
-            const fortuneFullDescriptionElem = document.getElementById('fortuneFullDescription'); // For full description modal
-            const fullDescFortuneNameElem = document.getElementById('fullDescFortuneName'); // For full description modal title
+            const fortuneFullDescriptionElem = document.getElementById(
+            'fortuneFullDescription'); // For full description modal
+            const fullDescFortuneNameElem = document.getElementById(
+            'fullDescFortuneName'); // For full description modal title
 
             let currentFortune = null; // Biến toàn cục lưu quẻ hiện tại đã gieo
 
@@ -275,7 +281,8 @@
             const lastFortuneDrawData = getFortuneCookie();
 
             // --- Logic kiểm tra và hiển thị quẻ ngay khi tải trang ---
-            if (lastFortuneDrawData && lastFortuneDrawData.date === today && typeof lastFortuneDrawData.fortuneIndex === 'number') {
+            if (lastFortuneDrawData && lastFortuneDrawData.date === today && typeof lastFortuneDrawData
+                .fortuneIndex === 'number') {
                 try {
                     const response = await fetch("{{ asset('data/divinations.json') }}");
                     if (!response.ok) {
@@ -287,14 +294,15 @@
 
                     if (currentFortune) {
                         // Điền dữ liệu vào modal hiển thị chi tiết quẻ
-                        fullDescFortuneNameElem.textContent = currentFortune.ten_day_du;
+                        // fullDescFortuneNameElem.textContent = currentFortune.ten_day_du;
                         fortuneFullDescriptionElem.innerHTML = `
-                            <p><strong>Số Quẻ:</strong> ${currentFortune.so}</p>
-                            <p><strong>Chữ Hán:</strong> ${currentFortune.chu_Han} (${currentFortune.chu_Tau})</p>
-                            <p><strong>Tên đầy đủ:</strong> ${currentFortune.ten_day_du}</p>
-                            <p><strong>Triệu Tượng:</strong> ${currentFortune.trieu_tuong}</p>
-                            <p><strong>Tính chất:</strong> ${currentFortune.tinh_chat}</p>
-                            <p><strong>Luận giải:</strong> ${currentFortune.luan_giai}</p>
+                        <div>
+                            <h3 class="currenfortune-daydu"> ${currentFortune.ten_day_du}</h3>
+                            <div class="currenfortune-trieu-tuong">${currentFortune.trieu_tuong}</div>
+
+                            <div class="currenfortune-tinh-chat"> ${currentFortune.tinh_chat}</div>
+                            <div class="currenfortune-luan-giai"> ${currentFortune.luan_giai}</div>
+                            </div>
                         `;
                         // Hiển thị modal chi tiết quẻ ngay lập tức
                         // fullDescriptionModal.show();
@@ -302,13 +310,16 @@
                         // Vô hiệu hóa nút "Gieo Quẻ" nếu nó tồn tại
                         if (drawFortuneBtn) {
                             drawFortuneBtn.disabled = true;
-                            drawFortuneBtn.innerHTML = '<span class="fortune-btn-text">Đã Gieo Quẻ Hôm Nay</span>';
+                            drawFortuneBtn.innerHTML =
+                                '<span class="fortune-btn-text">Đã Gieo Quẻ Hôm Nay</span>';
                             drawFortuneBtn.classList.remove('btn-success');
                             drawFortuneBtn.classList.add('btn-secondary');
                         }
                     } else {
-                        console.warn("Không tìm thấy quẻ cho index:", lastFortuneDrawData.fortuneIndex, "Xóa cookie.");
-                        document.cookie = "lastFortuneDraw=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"; // Xóa cookie không hợp lệ
+                        console.warn("Không tìm thấy quẻ cho index:", lastFortuneDrawData.fortuneIndex,
+                            "Xóa cookie.");
+                        document.cookie =
+                        "lastFortuneDraw=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"; // Xóa cookie không hợp lệ
                         // Kích hoạt lại nút "Gieo Quẻ"
                         if (drawFortuneBtn) {
                             drawFortuneBtn.disabled = false;
@@ -347,9 +358,9 @@
                     // thì hiển thị thẳng modal chi tiết quẻ.
                     // Ngược lại, hiển thị modal gieo quẻ ban đầu.
                     if (currentDrawState && currentDrawState.date === today && currentFortune) {
-                         fullDescriptionModal.show();
+                        fullDescriptionModal.show();
                     } else {
-                         fortuneModal.show();
+                        fortuneModal.show();
                     }
                 });
             }
@@ -382,7 +393,8 @@
                         fortuneResultModal.show();
 
                         drawFortuneBtn.disabled = true;
-                        drawFortuneBtn.innerHTML = '<span class="fortune-btn-text">Đã Gieo Quẻ Hôm Nay</span>';
+                        drawFortuneBtn.innerHTML =
+                            '<span class="fortune-btn-text">Đã Gieo Quẻ Hôm Nay</span>';
                         drawFortuneBtn.classList.remove('btn-success');
                         drawFortuneBtn.classList.add('btn-secondary');
 
@@ -397,7 +409,7 @@
             if (revealFortuneBtn) {
                 revealFortuneBtn.addEventListener('click', () => {
                     if (currentFortune) {
-                        fullDescFortuneNameElem.textContent = currentFortune.ten_day_du;
+                        // fullDescFortuneNameElem.textContent = currentFortune.ten_day_du;
                         fortuneFullDescriptionElem.innerHTML = `
                             <p><strong>Số Quẻ:</strong> ${currentFortune.so}</p>
                             <p><strong>Chữ Hán:</strong> ${currentFortune.chu_Han} (${currentFortune.chu_Tau})</p>

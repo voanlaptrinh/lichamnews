@@ -8,18 +8,11 @@ use App\Helpers\DataHelper;
 use App\Helpers\FengShuiHelper;
 use App\Helpers\FunctionHelper;
 use App\Helpers\GioHoangDaoHelper;
-use App\Helpers\GoodBadDayHelper;
-use App\Helpers\HuongXuatHanhHelper;
 use App\Helpers\KhiVanHelper;
 use App\Helpers\LichKhongMinhHelper;
-use App\Helpers\LoadConfigHelper;
+
 use App\Helpers\LunarHelper;
-use App\Helpers\LyThuanPhongHelper;
-use App\Helpers\NhiThapBatTuHelper;
-use App\Helpers\NhiTrucHelper;
-use App\Helpers\SaoTotXauHelper;
-use App\Helpers\TimeConstantHelper;
-use App\Helpers\XemNgayTotXauHelper;
+
 use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\Request;
@@ -526,6 +519,8 @@ class LunarController extends Controller
 
     public function convertAmToDuong(Request $request)
     {
+        $metaTitle = 'Đổi lịch âm dương ' . date('Y') . ' | Chuyển đổi ngày âm sang dương, dương sang âm';
+        $metaDescription = "Công cụ đổi lịch âm dương " . date('Y') . " chính xác nhất. Chuyển đổi nhanh ngày âm sang dương, dương sang âm. Xem lịch vạn niên, ngày tốt xấu, ngày hoàng đạo hôm nay.";
 
 
         $solar_date = $request->input('solar_date');
@@ -556,8 +551,8 @@ class LunarController extends Controller
         $jd = LunarHelper::jdFromDate($dd, $mm, $yy);
         $canChi = LunarHelper::canchiNgayByJD($jd);
         $chiNgay = explode(' ', $canChi);
-  $cdate = sprintf('%04d-%02d-%02d',  $yy, $mm, $dd);
-   $thu = LunarHelper::sw_get_weekday($cdate);
+        $cdate = sprintf('%04d-%02d-%02d',  $yy, $mm, $dd);
+        $thu = LunarHelper::sw_get_weekday($cdate);
         $chi_ngay = @$chiNgay[1];
         $gioHd = LunarHelper::gioHDTrongNgayTXT($chi_ngay);
 
@@ -568,7 +563,7 @@ class LunarController extends Controller
         $tietkhi = LunarHelper::tietKhiWithIcon($jd);
         list($table_html, $data_totxau) = LunarHelper::printTable($mm, $yy, true, true);
         $getThongTinNgay = FunctionHelper::getThongTinNgay($dd, $mm, $yy);
- $suKienDuongLich = [];
+        $suKienDuongLich = [];
         $suKienAmLich = [];
 
         // 1. Xử lý sự kiện DƯƠNG LỊCH
@@ -592,8 +587,8 @@ class LunarController extends Controller
             // Nếu có, thêm vào mảng sự kiện âm lịch
             $suKienAmLich[] = $suKienTrongThangAm[$al[0]];
         }
- $getThongTinCanChiVaIcon = FunctionHelper::getThongTinCanChiVaIcon($dd, $mm, $yy);
-  $currentDate = Carbon::create($yy, $mm, 1);
+        $getThongTinCanChiVaIcon = FunctionHelper::getThongTinCanChiVaIcon($dd, $mm, $yy);
+        $currentDate = Carbon::create($yy, $mm, 1);
         // Tính toán tháng trước
         $prevDate = $currentDate->copy()->subMonth();
         $prevYear = $prevDate->year;
@@ -603,10 +598,12 @@ class LunarController extends Controller
         $nextDate = $currentDate->copy()->addMonth();
         $nextYear = $nextDate->year;
         $nextMonth = $nextDate->month;
-         $tot_xau_result = LunarHelper::checkTotXau($canChi, $al[1]);
+        $tot_xau_result = LunarHelper::checkTotXau($canChi, $al[1]);
         return view(
             'lunar.doi-lich',
             [
+                'metaTitle' => $metaTitle,
+                'metaDescription' => $metaDescription,
                 'dd' => sprintf('%02d', $dd),
                 'mm' => sprintf('%02d', $mm),
                 'yy' => $yy,
@@ -617,13 +614,13 @@ class LunarController extends Controller
                 'table_html' => $table_html,
                 'suKienDuongLich' => $suKienDuongLich,
                 'suKienAmLich' => $suKienAmLich,
-                 'getThongTinCanChiVaIcon' => $getThongTinCanChiVaIcon,
-                  'prevYear' => $prevYear,
-            'prevMonth' => $prevMonth,
-            'nextYear' => $nextYear,
-            'nextMonth' => $nextMonth,
-            'tot_xau_result' => $tot_xau_result,
-              
+                'getThongTinCanChiVaIcon' => $getThongTinCanChiVaIcon,
+                'prevYear' => $prevYear,
+                'prevMonth' => $prevMonth,
+                'nextYear' => $nextYear,
+                'nextMonth' => $nextMonth,
+                'tot_xau_result' => $tot_xau_result,
+
             ]
         );
     }

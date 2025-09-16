@@ -334,31 +334,98 @@ class LunarHelper
     {
         $currentMonth = self::getMonth($mm, $yy);
         if (!$currentMonth) return '';
+
+        // Lấy ngày đầu tiên của tháng hiện tại
         $ld1 = $currentMonth[0];
-        $emptyCells = ($ld1['jd'] + 1) % 7 - 1;
-        $emptyCells = $emptyCells >= 0 ? $emptyCells : 6;
-        $res = "";
-        $data_totxau = array();
+        $firstDayOfWeek = ($ld1['jd'] + 1) % 7; // 0 = Chủ nhật, 1 = Thứ 2, ...
+
+        // Tính số ngày cần hiển thị từ tháng trước
+        $daysFromPrevMonth = $firstDayOfWeek == 0 ? 6 : $firstDayOfWeek - 1;
+
+        // Lấy thông tin tháng trước
+        $prevMonth = $mm - 1;
+        $prevYear = $yy;
+        if ($prevMonth < 1) {
+            $prevMonth = 12;
+            $prevYear = $yy - 1;
+        }
+
+        // Lấy thông tin tháng sau
+        $nextMonth = $mm + 1;
+        $nextYear = $yy;
+        if ($nextMonth > 12) {
+            $nextMonth = 1;
+            $nextYear = $yy + 1;
+        }
+
+        // Lấy dữ liệu tháng trước và tháng sau
+        $prevMonthData = self::getMonth($prevMonth, $prevYear);
+        $nextMonthData = self::getMonth($nextMonth, $nextYear);
+
+        // Thêm can chi cho tất cả các ngày
         foreach ($currentMonth as &$item) {
             $item['canchi'] = self::canchiNgayByJD($item['jd']);
         }
+        if ($prevMonthData) {
+            foreach ($prevMonthData as &$item) {
+                $item['canchi'] = self::canchiNgayByJD($item['jd']);
+            }
+        }
+        if ($nextMonthData) {
+            foreach ($nextMonthData as &$item) {
+                $item['canchi'] = self::canchiNgayByJD($item['jd']);
+            }
+        }
 
+        $res = "";
+        $data_totxau = array();
         $selected_date = $dd ? getdate(strtotime($yy . '-' . $mm . '-' . $dd)) : '';
         $date_array = getdate();
+
         // Sự kiện trong tháng
         $events_duong = self::getVietnamEvent($mm, $yy);
         $events_am = self::getVietnamLunarEvent($mm, $yy);
 
+        // Sự kiện tháng trước và sau (cho việc hiển thị)
+        $events_duong_prev = self::getVietnamEvent($prevMonth, $prevYear);
+        $events_am_prev = self::getVietnamLunarEvent($prevMonth, $prevYear);
+        $events_duong_next = self::getVietnamEvent($nextMonth, $nextYear);
+        $events_am_next = self::getVietnamLunarEvent($nextMonth, $nextYear);
 
-        for ($i = 0; $i < ceil(($emptyCells + count($currentMonth)) / 7); $i++) {
+        // Tính số hàng cần thiết để hiển thị đầy đủ tháng
+        $currentMonthDays = count($currentMonth);
+        $totalCellsNeeded = $daysFromPrevMonth + $currentMonthDays;
+        $numRows = ceil($totalCellsNeeded / 7);
+
+        // Tính tổng số ô sẽ hiển thị (bao gồm cả ngày tháng sau nếu cần)
+        $totalCells = $numRows * 7;
+
+        $cellIndex = 0;
+
+        for ($i = 0; $i < $numRows; $i++) { // Hiển thị số hàng cần thiết
             $res .= ("<tr>");
             for ($j = 0; $j < 7; $j++) {
-                $k = 7 * $i + $j;
-                if ($k < $emptyCells || $k >= $emptyCells + count($currentMonth)) {
-                    $res .= '<td class="skip"></td>';
-                } else {
-                    $solar = $k - $emptyCells + 1;
-                    $ld1 = $currentMonth[$k - $emptyCells];
+                if ($cellIndex < $daysFromPrevMonth) {
+                    // Hiển thị ngày từ tháng trước
+                    if ($prevMonthData) {
+                        $prevDayIndex = count($prevMonthData) - $daysFromPrevMonth + $cellIndex;
+                        $prevDay = $prevMonthData[$prevDayIndex];
+                        $solarDate = $prevDayIndex + 1;
+
+                        if ($rturn_totxau) {
+                            list($html, $totxau) = self::printCell($prevDay, $solarDate, $prevMonth, $prevYear, $show_canchi, $rturn_totxau, $date_array, $selected_date, $events_duong_prev, $events_am_prev, 'other-month');
+                            $res .= $html;
+                        } else {
+                            $res .= self::printCell($prevDay, $solarDate, $prevMonth, $prevYear, $show_canchi, $rturn_totxau, $date_array, $selected_date, $events_duong_prev, $events_am_prev, 'other-month');
+                        }
+                    } else {
+                        $res .= '<td class="skip"></td>';
+                    }
+                } elseif ($cellIndex < $daysFromPrevMonth + $currentMonthDays) {
+                    // Hiển thị ngày của tháng hiện tại
+                    $currentDayIndex = $cellIndex - $daysFromPrevMonth;
+                    $solar = $currentDayIndex + 1;
+                    $ld1 = $currentMonth[$currentDayIndex];
 
                     if ($rturn_totxau) {
                         list($html, $totxau) = self::printCell($ld1, $solar, $mm, $yy, $show_canchi, $rturn_totxau, $date_array, $selected_date, $events_duong, $events_am);
@@ -367,7 +434,28 @@ class LunarHelper
                     } else {
                         $res .= self::printCell($ld1, $solar, $mm, $yy, $show_canchi, $rturn_totxau, $date_array, $selected_date, $events_duong, $events_am);
                     }
+                } else {
+                    // Hiển thị ngày từ tháng sau
+                    if ($nextMonthData) {
+                        $nextDayIndex = $cellIndex - $daysFromPrevMonth - $currentMonthDays;
+                        if ($nextDayIndex < count($nextMonthData)) {
+                            $nextDay = $nextMonthData[$nextDayIndex];
+                            $solarDate = $nextDayIndex + 1;
+
+                            if ($rturn_totxau) {
+                                list($html, $totxau) = self::printCell($nextDay, $solarDate, $nextMonth, $nextYear, $show_canchi, $rturn_totxau, $date_array, $selected_date, $events_duong_next, $events_am_next, 'other-month');
+                                $res .= $html;
+                            } else {
+                                $res .= self::printCell($nextDay, $solarDate, $nextMonth, $nextYear, $show_canchi, $rturn_totxau, $date_array, $selected_date, $events_duong_next, $events_am_next, 'other-month');
+                            }
+                        } else {
+                            $res .= '<td class="skip"></td>';
+                        }
+                    } else {
+                        $res .= '<td class="skip"></td>';
+                    }
                 }
+                $cellIndex++;
             }
             $res .= ("</tr>");
         }
@@ -436,7 +524,7 @@ class LunarHelper
         ];
     }
 
-   static function printCell($lunarDate, $solarDate, $solarMonth, $solarYear, $show_canchi, $rturn_totxau, $date_array, $selected_date, $events = [], $events_am = [])
+   static function printCell($lunarDate, $solarDate, $solarMonth, $solarYear, $show_canchi, $rturn_totxau, $date_array, $selected_date, $events = [], $events_am = [], $additionalClass = '')
 {
     $dd = $date_array['mday'];
     $mm = $date_array['mon'];
@@ -450,6 +538,12 @@ class LunarHelper
     $canChi = @$lunarDate['canchi'];
     $tot_xau = self::checkTotXau($canChi, $lunarDate['month']);
     $classCell = [];
+
+    // Thêm class cho ngày của tháng khác
+    if ($additionalClass) {
+        $classCell[] = $additionalClass;
+    }
+
     if ($lunarDate['month'] == 1 && $lunarDate['day'] <= 10) $classCell[] = 'tet';
     if ($solarYear == $yy && $solarMonth == $mm && $solarDate == $dd) $classCell[] = 'current';
     if ($solarYear == $selected_yy && $solarMonth == $selected_mm && $solarDate == $selected_dd) $classCell[] = 'hovered';
@@ -975,51 +1069,76 @@ static function convertSolar2Lunar($dd, $mm, $yy, $timeZone = 7.0)
     }
     static function getVietnamEvent($mm, $yy)
     {
-        // Chỉ xử lý các sự kiện trong tháng cố định (âm lịch hoặc dương lịch tuỳ chọn)
+        // Danh sách các sự kiện Dương lịch cố định theo định dạng 'mm-dd'
         $events = [
-            '5-1' => 'Quốc tế Lao động',
-            '5-7' => 'Chiến thắng Điện Biên Phủ',
-            '5-9' => 'Chiến thắng phát xít',
-            '5-19' => 'Sinh nhật Bác Hồ',
-            '5-31' => 'Tết Đoan Ngọ',
+            // THÁNG 1
             '1-1' => 'Tết Dương Lịch',
-            '2-14' => 'Valentine',
-            '1-27' => 'Ngày Thầy thuốc Việt Nam',
-            '3-8' => 'Quốc tế Phụ nữ',
-            '4-30' => 'Giải phóng miền Nam',
-            '9-2' => 'Quốc khánh Việt Nam',
+
+            // THÁNG 2
+            '2-3' => 'Ngày thành lập Đảng Cộng sản Việt Nam',
+            '2-14' => 'Lễ tình nhân (Valentine)',
+            '2-27' => 'Ngày thầy thuốc Việt Nam',
+
+            // THÁNG 3
+            '3-8' => 'Ngày Quốc tế Phụ nữ',
+            '3-10' => 'Ngày thành lập Hội Liên hiệp Phụ nữ Việt Nam',
+            '3-20' => 'Ngày Quốc tế Hạnh phúc',
+            '3-24' => 'Ngày Thế giới chống lao',
             '3-26' => 'Ngày thành lập Đoàn TNCS Hồ Chí Minh',
+
+            // THÁNG 4
             '4-1' => 'Ngày Cá tháng Tư',
-            '5-13' => 'Ngày của mẹ',
-            '6-1' => 'Ngày Quốc tế Thiếu nhi',
-            '6-17' => 'Ngày của cha',
+            '4-22' => 'Ngày Trái Đất',
+            '4-30' => 'Ngày giải phóng miền Nam',
+
+            // THÁNG 5
+            '5-1' => 'Ngày Quốc tế Lao động',
+            '5-7' => 'Ngày chiến thắng Điện Biên Phủ',
+            '5-8' => 'Ngày chiến thắng phát xít',
+            '5-19' => 'Ngày sinh chủ tịch Hồ Chí Minh',
+
+            // THÁNG 6
+            '6-1' => 'Ngày Quốc tế thiếu nhi',
+            '6-5' => 'Ngày Môi trường Thế giới',
             '6-21' => 'Ngày báo chí Việt Nam',
             '6-28' => 'Ngày gia đình Việt Nam',
+
+            // THÁNG 7
             '7-11' => 'Ngày dân số thế giới',
-            '7-27' => 'Ngày Thương binh Liệt sĩ',
+            '7-27' => 'Ngày Thương binh liệt sĩ',
             '7-28' => 'Ngày thành lập công đoàn Việt Nam',
+
+            // THÁNG 8
+            '8-10' => 'Ngày vì nạn nhân chất độc da cam',
+            '8-15' => 'Ngày Độc lập',
             '8-19' => 'Ngày tổng khởi nghĩa',
-            '9-10' => 'Ngày thành lập mặt trận tổ quốc Việt Nam',
-            '10-1' => 'Ngày Quốc tế người cao tuổi',
-            '10-10' => 'Ngày giải phóng Thủ đô',
-            '10-13' => 'Ngày Doanh nhân Việt Nam',
+
+            // THÁNG 9
+            '9-2' => 'Ngày Quốc khánh',
+            '9-10' => 'Ngày thành lập Mặt trận Tổ quốc Việt Nam',
+            '9-15' => 'Ngày trẻ em Việt Nam',
+
+            // THÁNG 10
+            '10-1' => 'Ngày quốc tế người cao tuổi',
+            '10-10' => 'Ngày giải phóng thủ đô',
+            '10-13' => 'Ngày doanh nhân Việt Nam',
+            '10-15' => 'Ngày truyền thống Hội LHTN Việt Nam',
             '10-20' => 'Ngày Phụ nữ Việt Nam',
             '10-31' => 'Ngày Halloween',
+
+            // THÁNG 11
             '11-9' => 'Ngày pháp luật Việt Nam',
-            '11-20' => 'Ngày Nhà giáo Việt Nam',
-            '11-23' => 'Ngày thành lập Hội chữ thập đỏ Việt Nam.',
-            '12-1' => 'Ngày thế giới phòng chống AIDS',
-            '19-12' => 'Ngày toàn quốc kháng chiến',
-            '12-24' => 'Ngày lễ Giáng sinh',
-            '12-22' => 'Ngày thành lập Quân đội nhân dân Việt Nam',
-            '2-3' => 'Ngày thành lập Đảng Cộng sản Việt Nam',
-            '3-20' => 'Ngày Quốc tế Hạnh phúc',
-            '4-22' => 'Ngày Trái Đất',
-            '6-5' => 'Ngày Môi trường Thế giới',
-            '8-10' => 'Ngày vì nạn nhân chất độc da cam',
-            '10-15' => 'Ngày truyền thống Hội LHTN Việt Nam',
             '11-17' => 'Ngày truyền thống Mặt trận Tổ quốc Việt Nam',
+            '11-20' => 'Ngày Nhà giáo Việt Nam',
+            '11-23' => 'Ngày thành lập Hội chữ thập đỏ Việt Nam',
+
+            // THÁNG 12
+            '12-1' => 'Ngày thế giới phòng chống AIDS',
             '12-9' => 'Ngày phòng chống tham nhũng quốc tế',
+            '12-19' => 'Ngày toàn quốc kháng chiến',
+            '12-22' => 'Ngày thành lập quân đội nhân dân Việt Nam',
+            '12-24' => 'Đêm Giáng sinh',
+            '12-25' => 'Lễ Giáng sinh',
         ];
 
         $result = [];
@@ -1197,17 +1316,67 @@ static function convertSolar2Lunar($dd, $mm, $yy, $timeZone = 7.0)
         // Danh sách các sự kiện Âm lịch cố định trong năm
         $events = [
             // key là "ngày-tháng" âm lịch
+
+            // THÁNG GIÊNG (Tháng 1)
             '1-1'   => ['ten_su_kien' => 'Mùng 1 Tết Nguyên Đán', 'loai_su_kien' => 'le_lon', 'mo_ta' => 'Ngày đầu tiên của năm mới âm lịch, ngày lễ quan trọng nhất của Việt Nam.'],
             '2-1'   => ['ten_su_kien' => 'Mùng 2 Tết Nguyên Đán', 'loai_su_kien' => 'le_lon', 'mo_ta' => 'Ngày thứ hai của Tết, thường dành để thăm hỏi bạn bè, họ hàng.'],
             '3-1'   => ['ten_su_kien' => 'Mùng 3 Tết Nguyên Đán', 'loai_su_kien' => 'le_lon', 'mo_ta' => 'Ngày cuối cùng trong kỳ nghỉ Tết chính thức, hóa vàng và tiễn tổ tiên.'],
+            '4-1'   => ['ten_su_kien' => 'Mùng 4 Tết - Ngày Mở Hàng', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày mở lại hoạt động kinh doanh sau kỳ nghỉ Tết.'],
+            '7-1'   => ['ten_su_kien' => 'Ngày Nhân Thắng', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày của con người, theo quan niệm cổ truyền.'],
+            '9-1'   => ['ten_su_kien' => 'Ngày Ngọc Hoàng', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày cúng Ngọc Hoàng Thượng Đế.'],
             '15-1'  => ['ten_su_kien' => 'Tết Nguyên Tiêu (Rằm tháng Giêng)', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Đêm rằm đầu tiên của năm mới, còn được gọi là Lễ Thượng Nguyên.'],
+
+            // THÁNG HAI (Tháng 2)
+            '1-2'   => ['ten_su_kien' => 'Lễ Đất', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày thổ địa và thành hoàng.'],
+            '15-2'  => ['ten_su_kien' => 'Rằm tháng Hai', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày cúng tổ tiên và thần linh.'],
+
+            // THÁNG BA (Tháng 3)
             '3-3'   => ['ten_su_kien' => 'Tết Hàn Thực', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Người Việt thường làm bánh trôi, bánh chay để dâng lên tổ tiên.'],
             '10-3'  => ['ten_su_kien' => 'Giỗ Tổ Hùng Vương', 'loai_su_kien' => 'le_lon', 'mo_ta' => 'Tưởng nhớ công lao dựng nước của các Vua Hùng. Là ngày nghỉ lễ toàn quốc.'],
+            '15-3'  => ['ten_su_kien' => 'Rằm tháng Ba', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày cúng Quan Âm Bồ Tát.'],
+            '23-3'  => ['ten_su_kien' => 'Lễ Thanh Minh', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày tảo mộ, dọn dẹp mồ mả tổ tiên.'],
+
+            // THÁNG TƯ (Tháng 4)
+            '1-4'   => ['ten_su_kien' => 'Lễ Thánh Mẫu', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày lễ Thánh Mẫu Liễu Hạnh.'],
+            '8-4'   => ['ten_su_kien' => 'Lễ Phật Đản (Phật Thích Ca)', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày sinh của Đức Phật Thích Ca (theo một số địa phương).'],
             '15-4'  => ['ten_su_kien' => 'Lễ Phật Đản', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Kỷ niệm ngày sinh của Đức Phật Thích Ca Mâu Ni.'],
+
+            // THÁNG NĂM (Tháng 5)
             '5-5'   => ['ten_su_kien' => 'Tết Đoan Ngọ', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Còn gọi là Tết diệt sâu bọ, diễn ra vào giữa năm.'],
+            '13-5'  => ['ten_su_kien' => 'Lễ Đức Ông', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày lễ thần Nông, thần của nông nghiệp.'],
+            '15-5'  => ['ten_su_kien' => 'Rằm tháng Năm', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày cúng Phật và tổ tiên.'],
+
+            // THÁNG SÁU (Tháng 6)
+            '1-6'   => ['ten_su_kien' => 'Lễ Đức Thánh Trần', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày giỗ Đức Thánh Trần Hưng Đạo.'],
+            '15-6'  => ['ten_su_kien' => 'Rằm tháng Sáu', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày cúng Quan Âm và tổ tiên.'],
+
+            // THÁNG BẢY (Tháng 7)
+            '1-7'   => ['ten_su_kien' => 'Lễ Đại Thệ', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày lễ cúng tế linh thiêng.'],
+            '7-7'   => ['ten_su_kien' => 'Lễ Thất Tịch', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày Ngưu Lang Chức Nữ gặp nhau, lễ tình yêu của người Việt.'],
             '15-7'  => ['ten_su_kien' => 'Lễ Vu Lan', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày lễ báo hiếu cha mẹ, một trong những ngày lễ chính của Phật giáo.'],
+            '30-7'  => ['ten_su_kien' => 'Ngày Địa Tạng', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày cúng Địa Tạng Bồ Tát.'],
+
+            // THÁNG TÁM (Tháng 8)
+            '1-8'   => ['ten_su_kien' => 'Lễ Thánh Mẫu Liễu Hạnh', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày sinh của Thánh Mẫu Liễu Hạnh.'],
             '15-8'  => ['ten_su_kien' => 'Tết Trung Thu', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Còn gọi là Tết trông Trăng hay Tết Đoàn viên, dành cho thiếu nhi.'],
+
+            // THÁNG CHÍN (Tháng 9)
+            '9-9'   => ['ten_su_kien' => 'Tết Trùng Cửu', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày lễ trùng dương, cúng tổ tiên và cầu sức khỏe.'],
+            '15-9'  => ['ten_su_kien' => 'Rằm tháng Chín', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày cúng Quan Âm và tổ tiên.'],
+
+            // THÁNG MƯỜI (Tháng 10)
+            '1-10'  => ['ten_su_kien' => 'Lễ Cửu Trùng Thiên', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày lễ thần linh cao cả.'],
+            '10-10' => ['ten_su_kien' => 'Tết Thường Tân', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày cúng tế cuối thu.'],
+            '15-10' => ['ten_su_kien' => 'Tết Hạ Nguyên', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày lễ Thủy Quan Đại Đế, cầu xin giải ách.'],
+
+            // THÁNG MƯỜI MỘT (Tháng 11)
+            '15-11' => ['ten_su_kien' => 'Rằm tháng Mười một', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày cúng tổ tiên và Phật.'],
+
+            // THÁNG CHẠP (Tháng 12)
+            '8-12'  => ['ten_su_kien' => 'Lễ Phật Thành Đạo', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày Đức Phật thành đạo dưới cây Bồ Đề.'],
+            '15-12' => ['ten_su_kien' => 'Rằm tháng Chạp', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Rằm cuối năm, cúng tổ tiên.'],
             '23-12' => ['ten_su_kien' => 'Ông Công, Ông Táo', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày các vị thần Bếp lên chầu trời để báo cáo mọi việc trong năm.'],
+            '30-12' => ['ten_su_kien' => 'Giao Thừa', 'loai_su_kien' => 'le_lon', 'mo_ta' => 'Đêm giao thừa, đón năm mới âm lịch.'],
         ];
 
         $result = [];
@@ -1219,11 +1388,6 @@ static function convertSolar2Lunar($dd, $mm, $yy, $timeZone = 7.0)
                 $result[(int)$ed] = $eventData;
             }
         }
-
-   
-
-       
-
         // Sắp xếp lại mảng kết quả theo key (ngày) để đảm bảo thứ tự
         ksort($result);
 

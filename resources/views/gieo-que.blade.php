@@ -46,18 +46,17 @@
 <!-- Full Description Modal (Popup hiển thị giải quẻ chi tiết) -->
 <div class="modal fade" id="fullDescriptionModal" tabindex="-1" aria-labelledby="fullDescriptionModalLabel"
     aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-dialog modal-dialog-centered modal-lg-box-fullDescription">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="fullDescriptionModalLabel">Giải Quẻ Chi Tiết: <span
-                        id="fullDescFortuneName"></span></h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body fortune-card-inner-border">
+            <div class="modal-body fortune-card-inner-border modal-body-fullDescriptionModal">
+                <img src="{{asset('/icons/fulltop-left.svg')}}" alt="fulltop-left" class="img-fluid fulltop-left">
+                <img src="{{asset('/icons/fulltop-right.svg')}}" alt="fulltop-right" class="img-fluid fulltop-right">
                 <!-- Lớp chứa nội dung thực tế của quẻ -->
                 <div class="fortune-card-content-area">
                     <p id="fortuneFullDescription"></p>
                 </div>
+                 <img src="{{asset('/icons/fullbottom-left.svg')}}" alt="fullbottom-left" class="img-fluid fullbottom-left">
+                <img src="{{asset('/icons/fullbottom-right.svg')}}" alt="fullbottom-right" class="img-fluid fullbottom-right">
             </div>
 
         </div>

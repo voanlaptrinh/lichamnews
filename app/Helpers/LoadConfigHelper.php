@@ -49,6 +49,11 @@ class LoadConfigHelper
             'name' => 'Lễ tình nhân (Valentine).'
         ),
         array(
+            'dd' => 3,
+            'mm' => 2,
+            'name' => 'Ngày thành lập Đảng Cộng sản Việt Nam.'
+        ),
+        array(
             'dd' => 27,
             'mm' => 2,
             'name' => 'Ngày thầy thuốc Việt Nam.'
@@ -57,6 +62,16 @@ class LoadConfigHelper
             'dd' => 8,
             'mm' => 3,
             'name' => 'Ngày Quốc tế Phụ nữ.'
+        ),
+        array(
+            'dd' => 10,
+            'mm' => 3,
+            'name' => 'Ngày thành lập Hội Liên hiệp Phụ nữ Việt Nam.'
+        ),
+        array(
+            'dd' => 24,
+            'mm' => 3,
+            'name' => 'Ngày Thế giới chống lao.'
         ),
         array(
             'dd' => 26,
@@ -84,9 +99,9 @@ class LoadConfigHelper
             'name' => 'Ngày chiến thắng Điện Biên Phủ.'
         ),
         array(
-            'dd' => 13,
+            'dd' => 8,
             'mm' => 5,
-            'name' => 'Ngày của mẹ.'
+            'name' => 'Ngày chiến thắng phát xít.'
         ),
         array(
             'dd' => 19,
@@ -129,6 +144,11 @@ class LoadConfigHelper
             'name' => 'Ngày thành lập công đoàn Việt Nam.'
         ),
         array(
+            'dd' => 15,
+            'mm' => 8,
+            'name' => 'Ngày Độc lập.'
+        ),
+        array(
             'dd' => 19,
             'mm' => 8,
             'name' => 'Ngày tổng khởi nghĩa.'
@@ -142,6 +162,11 @@ class LoadConfigHelper
             'dd' => 10,
             'mm' => 9,
             'name' => 'Ngày thành lập Mặt trận Tổ quốc Việt Nam.'
+        ),
+        array(
+            'dd' => 15,
+            'mm' => 9,
+            'name' => 'Ngày trẻ em Việt Nam.'
         ),
         array(
             'dd' => 1,
@@ -196,7 +221,12 @@ class LoadConfigHelper
         array(
             'dd' => 24,
             'mm' => 12,
-            'name' => 'Ngày lễ Giáng sinh.'
+            'name' => 'Đêm Giáng sinh.'
+        ),
+        array(
+            'dd' => 25,
+            'mm' => 12,
+            'name' => 'Lễ Giáng sinh.'
         ),
         array(
             'dd' => 22,
@@ -210,6 +240,16 @@ class LoadConfigHelper
             'dd' => 1,
             'mm' => 1,
             'name' => 'Tết Nguyên Đán.',
+        ),
+        array(
+            'dd' => 2,
+            'mm' => 1,
+            'name' => 'Mùng 2 Tết (Khai ấn).',
+        ),
+        array(
+            'dd' => 3,
+            'mm' => 1,
+            'name' => 'Mùng 3 Tết (Khai hạ).',
         ),
         array(
             'dd' => 15,
@@ -237,9 +277,19 @@ class LoadConfigHelper
             'name' => 'Tết Đoan Ngọ.',
         ),
         array(
+            'dd' => 1,
+            'mm' => 7,
+            'name' => 'Lễ Đại Thệ.',
+        ),
+        array(
             'dd' => 15,
             'mm' => 7,
             'name' => 'Lễ Vu Lan.',
+        ),
+        array(
+            'dd' => 1,
+            'mm' => 8,
+            'name' => 'Lễ Thánh Mẫu.',
         ),
         array(
             'dd' => 15,

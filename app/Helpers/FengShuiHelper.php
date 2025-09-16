@@ -548,7 +548,7 @@ class FengShuiHelper //cần xác định xem gia chủ thuộc Tây Tứ Mệnh
         }
         
         $hopText = !empty($hopParts) 
-            ? "Ngày này hợp với các tuổi: " . implode(' và ', $hopParts)
+            ? "Ngày này <b>hợp</b> với các tuổi: " . implode(' và ', $hopParts)
             : "Ngày này không có tuổi hợp đặc biệt";
 
         // Xử lý các tuổi kỵ
@@ -567,7 +567,7 @@ class FengShuiHelper //cần xác định xem gia chủ thuộc Tây Tứ Mệnh
         }
 
         $kyText = !empty($kyArr)
-            ? "Ngày này kỵ với các tuổi: " . implode(', ', $kyArr)
+            ? "Ngày này <b>kỵ</b> với các tuổi: " . implode(', ', $kyArr)
             : "Ngày này không có tuổi kỵ đặc biệt";
 
         return [

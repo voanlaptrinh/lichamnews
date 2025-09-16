@@ -11,8 +11,8 @@
                     <div class="">
                         <div class="row g-3 --pading">
                             <div class="col-lg-8">
-                                <h6 class="title-chon-lich">Chọn ngày dương lịch bất kỳ:</h6>
-                                <p>Chọn ngày dương lịch bất kỳ ngày dương lịch bất kỳ ngày dương lịch bất kỳ.</p>
+                                <h6 class="title-chon-lich">Chọn ngày dương hoặc âm bất kỳ:</h6>
+                                <p>Chọn ngày dương lịch hoặc ngày âm lịch bất kỳ.</p>
                                 <form action="{{ route('convert.am.to.duong') }}" method="POST">
                                     @csrf
                                     <div class="row g-3">

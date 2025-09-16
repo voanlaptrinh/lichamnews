@@ -1049,361 +1049,361 @@ class DataHelper
             "relation" => "Chi sinh Can",
             "rating" => "Cát (nghĩa nhật)",
             "explanation" =>
-            "Ngày Giáp Tý có Can và Chi tương sinh – cụ thể là Chi (thuộc hành Thủy) sinh Can (thuộc hành Mộc), nội khí hài hòa, sinh khí thuận. Xét riêng về nội khí, đây là ngày tương đối cát lợi, có thể hỗ trợ cho các công việc cần sự phối hợp hoặc trợ lực. Tuy nhiên, để xác định mức độ tốt xấu một cách toàn diện, cần xét thêm các yếu tố như trực ngày, sao tốt – xấu, tuổi của người hành sự…"
+            "Ngày <b>Giáp Tý</b> có Can và Chi tương sinh – cụ thể là Chi (thuộc hành Thủy) sinh Can (thuộc hành Mộc), nội khí hài hòa, sinh khí thuận. Xét riêng về nội khí, đây là ngày tương đối cát lợi, có thể hỗ trợ cho các công việc cần sự phối hợp hoặc trợ lực. Tuy nhiên, để xác định mức độ tốt xấu một cách toàn diện, cần xét thêm các yếu tố như trực ngày, sao tốt – xấu, tuổi của người hành sự…"
         ],
         "Ất Sửu" => [
             "relation" => "Can khắc Chi",
             "rating" => "Cát trung bình (chế nhật)",
             "explanation" =>
-            "Ngày Ất Sửu là ngày Can (thuộc hành Mộc) khắc Chi (thuộc hành Thổ), tạo nên nội khí đối kháng. Đây là dạng ngày 'chế nhật', mang tính kiềm chế, dễ phát sinh căng thẳng hoặc bất đồng. Không hẳn là đại hung, nhưng nếu dùng cho việc lớn thì cần có thêm yếu tố hóa giải hoặc trợ lực từ cát tinh khác."
+            "Ngày <b>Ất Sửu</b> là ngày Can (thuộc hành Mộc) khắc Chi (thuộc hành Thổ), tạo nên nội khí đối kháng. Đây là dạng ngày 'chế nhật', mang tính kiềm chế, dễ phát sinh căng thẳng hoặc bất đồng. Không hẳn là đại hung, nhưng nếu dùng cho việc lớn thì cần có thêm yếu tố hóa giải hoặc trợ lực từ cát tinh khác."
         ],
         "Bính Dần" => [
             "relation" => "Chi sinh Can",
             "rating" => "Cát (nghĩa nhật)",
             "explanation" =>
-            "Ngày Bính Dần có Can và Chi tương sinh – cụ thể là Chi (thuộc hành Mộc) sinh Can (thuộc hành Hỏa), nội khí hài hòa, sinh khí thuận. Xét riêng về nội khí, đây là ngày tương đối cát lợi, có thể hỗ trợ cho các công việc cần sự phối hợp hoặc trợ lực. Tuy nhiên, để xác định mức độ tốt xấu một cách toàn diện, cần xét thêm các yếu tố như trực ngày, sao tốt – xấu, tuổi của người hành sự…"
+            "Ngày <b>Bính Dần</b> có Can và Chi tương sinh – cụ thể là Chi (thuộc hành Mộc) sinh Can (thuộc hành Hỏa), nội khí hài hòa, sinh khí thuận. Xét riêng về nội khí, đây là ngày tương đối cát lợi, có thể hỗ trợ cho các công việc cần sự phối hợp hoặc trợ lực. Tuy nhiên, để xác định mức độ tốt xấu một cách toàn diện, cần xét thêm các yếu tố như trực ngày, sao tốt – xấu, tuổi của người hành sự…"
         ],
         "Đinh Mão" => [
             "relation" => "Chi sinh Can",
             "rating" => "Cát (nghĩa nhật)",
             "explanation" =>
-            "Ngày Đinh Mão có Can và Chi tương sinh – cụ thể là Chi (thuộc hành Mộc) sinh Can (thuộc hành Hỏa), nội khí hài hòa, sinh khí thuận. Xét riêng về nội khí, đây là ngày tương đối cát lợi, có thể hỗ trợ cho các công việc cần sự phối hợp hoặc trợ lực. Tuy nhiên, để xác định mức độ tốt xấu một cách toàn diện, cần xét thêm các yếu tố như trực ngày, sao tốt – xấu, tuổi của người hành sự…"
+            "Ngày <b>Đinh Mão</b> có Can và Chi tương sinh – cụ thể là Chi (thuộc hành Mộc) sinh Can (thuộc hành Hỏa), nội khí hài hòa, sinh khí thuận. Xét riêng về nội khí, đây là ngày tương đối cát lợi, có thể hỗ trợ cho các công việc cần sự phối hợp hoặc trợ lực. Tuy nhiên, để xác định mức độ tốt xấu một cách toàn diện, cần xét thêm các yếu tố như trực ngày, sao tốt – xấu, tuổi của người hành sự…"
         ],
         "Mậu Thìn" => [
             "relation" => "Can Chi tương đồng",
             "rating" => "Cát",
             "explanation" =>
-            "Ngày Mậu Thìn có Can và Chi cùng thuộc hành Thổ, tạo nên nội khí nhất quán và đồng bộ. Xét riêng về khía cạnh nội khí, đây là ngày khá ổn định, có thể tạo ra sự cân bằng trong tâm lý và hành sự. Tuy nhiên, để kết luận đây là ngày tốt toàn diện, vẫn cần xét đến các yếu tố khác như sao ngày, trực, và tuổi người sử dụng."
+            "Ngày <b>Mậu Thìn</b> có Can và Chi cùng thuộc hành Thổ, tạo nên nội khí nhất quán và đồng bộ. Xét riêng về khía cạnh nội khí, đây là ngày khá ổn định, có thể tạo ra sự cân bằng trong tâm lý và hành sự. Tuy nhiên, để kết luận đây là ngày tốt toàn diện, vẫn cần xét đến các yếu tố khác như sao ngày, trực, và tuổi người sử dụng."
         ],
         "Kỷ Tỵ" => [
             "relation" => "Chi sinh Can",
             "rating" => "Cát (nghĩa nhật)",
             "explanation" =>
-            "Ngày Kỷ Tỵ có Can và Chi tương sinh – cụ thể là Chi (thuộc hành Hỏa) sinh Can (thuộc hành Thổ), nội khí hài hòa, sinh khí thuận. Xét riêng về nội khí, đây là ngày tương đối cát lợi, có thể hỗ trợ cho các công việc cần sự phối hợp hoặc trợ lực. Tuy nhiên, để xác định mức độ tốt xấu một cách toàn diện, cần xét thêm các yếu tố như trực ngày, sao tốt – xấu, tuổi của người hành sự…"
+            "Ngày <b>Kỷ Tỵ</b> có Can và Chi tương sinh – cụ thể là Chi (thuộc hành Hỏa) sinh Can (thuộc hành Thổ), nội khí hài hòa, sinh khí thuận. Xét riêng về nội khí, đây là ngày tương đối cát lợi, có thể hỗ trợ cho các công việc cần sự phối hợp hoặc trợ lực. Tuy nhiên, để xác định mức độ tốt xấu một cách toàn diện, cần xét thêm các yếu tố như trực ngày, sao tốt – xấu, tuổi của người hành sự…"
         ],
         "Canh Ngọ" => [
             "relation" => "Chi khắc Can",
             "rating" => "Hung (phạt nhật)",
             "explanation" =>
-            "Ngày Canh Ngọ có Chi (thuộc hành Hỏa) khắc Can (thuộc hành Kim) – tạo thành thế 'Chi khắc Can', hay còn gọi là Phạt Nhật. Nội khí nghịch, dễ sinh bất lợi hoặc hao tổn. Đây là dạng ngày không nên xem nhẹ, đặc biệt với các việc lớn như cưới hỏi, động thổ, khai trương,… nên cân nhắc kỹ lưỡng và kết hợp thêm các tiêu chí khác."
+            "Ngày <b>Canh Ngọ</b> có Chi (thuộc hành Hỏa) khắc Can (thuộc hành Kim) – tạo thành thế 'Chi khắc Can', hay còn gọi là Phạt Nhật. Nội khí nghịch, dễ sinh bất lợi hoặc hao tổn. Đây là dạng ngày không nên xem nhẹ, đặc biệt với các việc lớn như cưới hỏi, động thổ, khai trương,… nên cân nhắc kỹ lưỡng và kết hợp thêm các tiêu chí khác."
         ],
         "Tân Mùi" => [
             "relation" => "Chi sinh Can",
             "rating" => "Cát (nghĩa nhật)",
             "explanation" =>
-            "Ngày Tân Mùi có Can và Chi tương sinh – cụ thể là Chi (thuộc hành Thổ) sinh Can (thuộc hành Kim), nội khí hài hòa, sinh khí thuận. Xét riêng về nội khí, đây là ngày tương đối cát lợi, có thể hỗ trợ cho các công việc cần sự phối hợp hoặc trợ lực. Tuy nhiên, để xác định mức độ tốt xấu một cách toàn diện, cần xét thêm các yếu tố như trực ngày, sao tốt – xấu, tuổi của người hành sự…"
+            "Ngày <b>Tân Mùi</b> có Can và Chi tương sinh – cụ thể là Chi (thuộc hành Thổ) sinh Can (thuộc hành Kim), nội khí hài hòa, sinh khí thuận. Xét riêng về nội khí, đây là ngày tương đối cát lợi, có thể hỗ trợ cho các công việc cần sự phối hợp hoặc trợ lực. Tuy nhiên, để xác định mức độ tốt xấu một cách toàn diện, cần xét thêm các yếu tố như trực ngày, sao tốt – xấu, tuổi của người hành sự…"
         ],
         "Nhâm Thân" => [
             "relation" => "Chi sinh Can",
             "rating" => "Cát (nghĩa nhật)",
             "explanation" =>
-            "Ngày Nhâm Thân có Can và Chi tương sinh – cụ thể là Chi (thuộc hành Kim) sinh Can (thuộc hành Thủy), nội khí hài hòa, sinh khí thuận. Xét riêng về nội khí, đây là ngày tương đối cát lợi, có thể hỗ trợ cho các công việc cần sự phối hợp hoặc trợ lực. Tuy nhiên, để xác định mức độ tốt xấu một cách toàn diện, cần xét thêm các yếu tố như trực ngày, sao tốt – xấu, tuổi của người hành sự…"
+            "Ngày <b>Nhâm Thân</b> có Can và Chi tương sinh – cụ thể là Chi (thuộc hành Kim) sinh Can (thuộc hành Thủy), nội khí hài hòa, sinh khí thuận. Xét riêng về nội khí, đây là ngày tương đối cát lợi, có thể hỗ trợ cho các công việc cần sự phối hợp hoặc trợ lực. Tuy nhiên, để xác định mức độ tốt xấu một cách toàn diện, cần xét thêm các yếu tố như trực ngày, sao tốt – xấu, tuổi của người hành sự…"
         ],
         "Quý Dậu" => [
             "relation" => "Chi sinh Can",
             "rating" => "Cát (nghĩa nhật)",
             "explanation" =>
-            "Ngày Quý Dậu có Can và Chi tương sinh – cụ thể là Chi (thuộc hành Kim) sinh Can (thuộc hành Thủy), nội khí hài hòa, sinh khí thuận. Xét riêng về nội khí, đây là ngày tương đối cát lợi, có thể hỗ trợ cho các công việc cần sự phối hợp hoặc trợ lực. Tuy nhiên, để xác định mức độ tốt xấu một cách toàn diện, cần xét thêm các yếu tố như trực ngày, sao tốt – xấu, tuổi của người hành sự…"
+            "Ngày <b>Quý Dậu</b> có Can và Chi tương sinh – cụ thể là Chi (thuộc hành Kim) sinh Can (thuộc hành Thủy), nội khí hài hòa, sinh khí thuận. Xét riêng về nội khí, đây là ngày tương đối cát lợi, có thể hỗ trợ cho các công việc cần sự phối hợp hoặc trợ lực. Tuy nhiên, để xác định mức độ tốt xấu một cách toàn diện, cần xét thêm các yếu tố như trực ngày, sao tốt – xấu, tuổi của người hành sự…"
         ],
         "Giáp Tuất" => [
             "relation" => "Can khắc Chi",
             "rating" => "Cát trung bình (chế nhật)",
             "explanation" =>
-            "Ngày Giáp Tuất là ngày Can (thuộc hành Mộc) khắc Chi (thuộc hành Thổ), tạo nên nội khí đối kháng. Đây là dạng ngày 'chế nhật', mang tính kiềm chế, dễ phát sinh căng thẳng hoặc bất đồng. Không hẳn là đại hung, nhưng nếu dùng cho việc lớn thì cần có thêm yếu tố hóa giải hoặc trợ lực từ cát tinh khác."
+            "Ngày <b?>Giáp Tuất</b> là ngày Can (thuộc hành Mộc) khắc Chi (thuộc hành Thổ), tạo nên nội khí đối kháng. Đây là dạng ngày 'chế nhật', mang tính kiềm chế, dễ phát sinh căng thẳng hoặc bất đồng. Không hẳn là đại hung, nhưng nếu dùng cho việc lớn thì cần có thêm yếu tố hóa giải hoặc trợ lực từ cát tinh khác."
         ],
         "Ất Hợi" => [
             "relation" => "Chi sinh Can",
             "rating" => "Cát (nghĩa nhật)",
             "explanation" =>
-            "Ngày Ất Hợi có Can và Chi tương sinh – cụ thể là Chi (thuộc hành Thủy) sinh Can (thuộc hành Mộc), nội khí hài hòa, sinh khí thuận. Xét riêng về nội khí, đây là ngày tương đối cát lợi, có thể hỗ trợ cho các công việc cần sự phối hợp hoặc trợ lực. Tuy nhiên, để xác định mức độ tốt xấu một cách toàn diện, cần xét thêm các yếu tố như trực ngày, sao tốt – xấu, tuổi của người hành sự…"
+            "Ngày <b>Ất Hợi</b> có Can và Chi tương sinh – cụ thể là Chi (thuộc hành Thủy) sinh Can (thuộc hành Mộc), nội khí hài hòa, sinh khí thuận. Xét riêng về nội khí, đây là ngày tương đối cát lợi, có thể hỗ trợ cho các công việc cần sự phối hợp hoặc trợ lực. Tuy nhiên, để xác định mức độ tốt xấu một cách toàn diện, cần xét thêm các yếu tố như trực ngày, sao tốt – xấu, tuổi của người hành sự…"
         ],
         "Bính Tý" => [
             "relation" => "Chi khắc Can",
             "rating" => "Hung (phạt nhật)",
             "explanation" =>
-            "Ngày Bính Tý có Chi (thuộc hành Thủy) khắc Can (thuộc hành Hỏa) – tạo thành thế 'Chi khắc Can', hay còn gọi là Phạt Nhật. Nội khí nghịch, dễ sinh bất lợi hoặc hao tổn. Đây là dạng ngày không nên xem nhẹ, đặc biệt với các việc lớn như cưới hỏi, động thổ, khai trương,… nên cân nhắc kỹ lưỡng và kết hợp thêm các tiêu chí khác."
+            "Ngày <b>Bính Tý</b> có Chi (thuộc hành Thủy) khắc Can (thuộc hành Hỏa) – tạo thành thế 'Chi khắc Can', hay còn gọi là Phạt Nhật. Nội khí nghịch, dễ sinh bất lợi hoặc hao tổn. Đây là dạng ngày không nên xem nhẹ, đặc biệt với các việc lớn như cưới hỏi, động thổ, khai trương,… nên cân nhắc kỹ lưỡng và kết hợp thêm các tiêu chí khác."
         ],
         "Đinh Sửu" => [
             "relation" => "Can sinh Chi",
             "rating" => "Cát (bảo nhật)",
             "explanation" =>
-            "Ngày Đinh Sửu là ngày Can sinh Chi – tức Can (thuộc hành Hỏa) sinh Chi (thuộc hành Thổ). Nội khí có xu hướng tiêu hao từ Can để nuôi Chi, tuy không quá xấu nhưng cũng không phải ngày cát khí mạnh. Có thể sử dụng cho các công việc thường nhật, song với việc trọng đại vẫn nên kết hợp thêm các yếu tố khác để đảm bảo toàn diện."
+            "Ngày <b>Đinh Sửu</b> là ngày Can sinh Chi – tức Can (thuộc hành Hỏa) sinh Chi (thuộc hành Thổ). Nội khí có xu hướng tiêu hao từ Can để nuôi Chi, tuy không quá xấu nhưng cũng không phải ngày cát khí mạnh. Có thể sử dụng cho các công việc thường nhật, song với việc trọng đại vẫn nên kết hợp thêm các yếu tố khác để đảm bảo toàn diện."
         ],
         "Mậu Dần" => [
             "relation" => "Chi khắc Can",
             "rating" => "Hung (phạt nhật)",
             "explanation" =>
-            "Ngày Mậu Dần có Chi (thuộc hành Mộc) khắc Can (thuộc hành Thổ) – tạo thành thế 'Chi khắc Can', hay còn gọi là Phạt Nhật. Nội khí nghịch, dễ sinh bất lợi hoặc hao tổn. Đây là dạng ngày không nên xem nhẹ, đặc biệt với các việc lớn như cưới hỏi, động thổ, khai trương,… nên cân nhắc kỹ lưỡng và kết hợp thêm các tiêu chí khác."
+            "Ngày <b>Mậu Dần</b> có Chi (thuộc hành Mộc) khắc Can (thuộc hành Thổ) – tạo thành thế 'Chi khắc Can', hay còn gọi là Phạt Nhật. Nội khí nghịch, dễ sinh bất lợi hoặc hao tổn. Đây là dạng ngày không nên xem nhẹ, đặc biệt với các việc lớn như cưới hỏi, động thổ, khai trương,… nên cân nhắc kỹ lưỡng và kết hợp thêm các tiêu chí khác."
         ],
         "Kỷ Mão" => [
             "relation" => "Chi khắc Can",
             "rating" => "Hung (phạt nhật)",
             "explanation" =>
-            "Ngày Kỷ Mão có Chi (thuộc hành Mộc) khắc Can (thuộc hành Thổ) – tạo thành thế 'Chi khắc Can', hay còn gọi là Phạt Nhật. Nội khí nghịch, dễ sinh bất lợi hoặc hao tổn. Đây là dạng ngày không nên xem nhẹ, đặc biệt với các việc lớn như cưới hỏi, động thổ, khai trương,… nên cân nhắc kỹ lưỡng và kết hợp thêm các tiêu chí khác."
+            "Ngày <b>Kỷ Mão</b> có Chi (thuộc hành Mộc) khắc Can (thuộc hành Thổ) – tạo thành thế 'Chi khắc Can', hay còn gọi là Phạt Nhật. Nội khí nghịch, dễ sinh bất lợi hoặc hao tổn. Đây là dạng ngày không nên xem nhẹ, đặc biệt với các việc lớn như cưới hỏi, động thổ, khai trương,… nên cân nhắc kỹ lưỡng và kết hợp thêm các tiêu chí khác."
         ],
         "Canh Thìn" => [
             "relation" => "Chi sinh Can",
             "rating" => "Cát (nghĩa nhật)",
             "explanation" =>
-            "Ngày Canh Thìn có Can và Chi tương sinh – cụ thể là Chi (thuộc hành Thổ) sinh Can (thuộc hành Kim), nội khí hài hòa, sinh khí thuận. Xét riêng về nội khí, đây là ngày tương đối cát lợi, có thể hỗ trợ cho các công việc cần sự phối hợp hoặc trợ lực. Tuy nhiên, để xác định mức độ tốt xấu một cách toàn diện, cần xét thêm các yếu tố như trực ngày, sao tốt – xấu, tuổi của người hành sự…"
+            "Ngày <b>Canh Thìn</b> có Can và Chi tương sinh – cụ thể là Chi (thuộc hành Thổ) sinh Can (thuộc hành Kim), nội khí hài hòa, sinh khí thuận. Xét riêng về nội khí, đây là ngày tương đối cát lợi, có thể hỗ trợ cho các công việc cần sự phối hợp hoặc trợ lực. Tuy nhiên, để xác định mức độ tốt xấu một cách toàn diện, cần xét thêm các yếu tố như trực ngày, sao tốt – xấu, tuổi của người hành sự…"
         ],
         "Tân Tỵ" => [
             "relation" => "Chi khắc Can",
             "rating" => "Hung (phạt nhật)",
             "explanation" =>
-            "Ngày Tân Tỵ có Chi (thuộc hành Hỏa) khắc Can (thuộc hành Kim) – tạo thành thế 'Chi khắc Can', hay còn gọi là Phạt Nhật. Nội khí nghịch, dễ sinh bất lợi hoặc hao tổn. Đây là dạng ngày không nên xem nhẹ, đặc biệt với các việc lớn như cưới hỏi, động thổ, khai trương,… nên cân nhắc kỹ lưỡng và kết hợp thêm các tiêu chí khác."
+            "Ngày <b>Tân Tỵ</b> có Chi (thuộc hành Hỏa) khắc Can (thuộc hành Kim) – tạo thành thế 'Chi khắc Can', hay còn gọi là Phạt Nhật. Nội khí nghịch, dễ sinh bất lợi hoặc hao tổn. Đây là dạng ngày không nên xem nhẹ, đặc biệt với các việc lớn như cưới hỏi, động thổ, khai trương,… nên cân nhắc kỹ lưỡng và kết hợp thêm các tiêu chí khác."
         ],
         "Nhâm Ngọ" => [
             "relation" => "Can khắc Chi",
             "rating" => "Cát trung bình (chế nhật)",
             "explanation" =>
-            "Ngày Nhâm Ngọ là ngày Can (thuộc hành Thủy) khắc Chi (thuộc hành Hỏa), tạo nên nội khí đối kháng. Đây là dạng ngày 'chế nhật', mang tính kiềm chế, dễ phát sinh căng thẳng hoặc bất đồng. Không hẳn là đại hung, nhưng nếu dùng cho việc lớn thì cần có thêm yếu tố hóa giải hoặc trợ lực từ cát tinh khác."
+            "Ngày <b>Nhâm Ngọ</b> là ngày Can (thuộc hành Thủy) khắc Chi (thuộc hành Hỏa), tạo nên nội khí đối kháng. Đây là dạng ngày 'chế nhật', mang tính kiềm chế, dễ phát sinh căng thẳng hoặc bất đồng. Không hẳn là đại hung, nhưng nếu dùng cho việc lớn thì cần có thêm yếu tố hóa giải hoặc trợ lực từ cát tinh khác."
         ],
         "Quý Mùi" => [
             "relation" => "Chi khắc Can",
             "rating" => "Hung (phạt nhật)",
             "explanation" =>
-            "Ngày Quý Mùi có Chi (thuộc hành Thổ) khắc Can (thuộc hành Thủy) – tạo thành thế 'Chi khắc Can', hay còn gọi là Phạt Nhật. Nội khí nghịch, dễ sinh bất lợi hoặc hao tổn. Đây là dạng ngày không nên xem nhẹ, đặc biệt với các việc lớn như cưới hỏi, động thổ, khai trương,… nên cân nhắc kỹ lưỡng và kết hợp thêm các tiêu chí khác."
+            "Ngày <b>Quý Mùi</b> có Chi (thuộc hành Thổ) khắc Can (thuộc hành Thủy) – tạo thành thế 'Chi khắc Can', hay còn gọi là Phạt Nhật. Nội khí nghịch, dễ sinh bất lợi hoặc hao tổn. Đây là dạng ngày không nên xem nhẹ, đặc biệt với các việc lớn như cưới hỏi, động thổ, khai trương,… nên cân nhắc kỹ lưỡng và kết hợp thêm các tiêu chí khác."
         ],
         "Giáp Thân" => [
             "relation" => "Chi khắc Can",
             "rating" => "Hung (phạt nhật)",
             "explanation" =>
-            "Ngày Giáp Thân có Chi (thuộc hành Kim) khắc Can (thuộc hành Mộc) – tạo thành thế 'Chi khắc Can', hay còn gọi là Phạt Nhật. Nội khí nghịch, dễ sinh bất lợi hoặc hao tổn. Đây là dạng ngày không nên xem nhẹ, đặc biệt với các việc lớn như cưới hỏi, động thổ, khai trương,… nên cân nhắc kỹ lưỡng và kết hợp thêm các tiêu chí khác."
+            "Ngày <b>Giáp Thân</b> có Chi (thuộc hành Kim) khắc Can (thuộc hành Mộc) – tạo thành thế 'Chi khắc Can', hay còn gọi là Phạt Nhật. Nội khí nghịch, dễ sinh bất lợi hoặc hao tổn. Đây là dạng ngày không nên xem nhẹ, đặc biệt với các việc lớn như cưới hỏi, động thổ, khai trương,… nên cân nhắc kỹ lưỡng và kết hợp thêm các tiêu chí khác."
         ],
         "Ất Dậu" => [
             "relation" => "Chi khắc Can",
             "rating" => "Hung (phạt nhật)",
             "explanation" =>
-            "Ngày Ất Dậu có Chi (thuộc hành Kim) khắc Can (thuộc hành Mộc) – tạo thành thế 'Chi khắc Can', hay còn gọi là Phạt Nhật. Nội khí nghịch, dễ sinh bất lợi hoặc hao tổn. Đây là dạng ngày không nên xem nhẹ, đặc biệt với các việc lớn như cưới hỏi, động thổ, khai trương,… nên cân nhắc kỹ lưỡng và kết hợp thêm các tiêu chí khác."
+            "Ngày <b>Ất Dậu</b> có Chi (thuộc hành Kim) khắc Can (thuộc hành Mộc) – tạo thành thế 'Chi khắc Can', hay còn gọi là Phạt Nhật. Nội khí nghịch, dễ sinh bất lợi hoặc hao tổn. Đây là dạng ngày không nên xem nhẹ, đặc biệt với các việc lớn như cưới hỏi, động thổ, khai trương,… nên cân nhắc kỹ lưỡng và kết hợp thêm các tiêu chí khác."
         ],
         "Bính Tuất" => [
             "relation" => "Can sinh Chi",
             "rating" => "Cát (bảo nhật)",
             "explanation" =>
-            "Ngày Bính Tuất là ngày Can sinh Chi – tức Can (thuộc hành Hỏa) sinh Chi (thuộc hành Thổ). Nội khí có xu hướng tiêu hao từ Can để nuôi Chi, tuy không quá xấu nhưng cũng không phải ngày cát khí mạnh. Có thể sử dụng cho các công việc thường nhật, song với việc trọng đại vẫn nên kết hợp thêm các yếu tố khác để đảm bảo toàn diện."
+            "Ngày <b>Bính Tuất</b> là ngày Can sinh Chi – tức Can (thuộc hành Hỏa) sinh Chi (thuộc hành Thổ). Nội khí có xu hướng tiêu hao từ Can để nuôi Chi, tuy không quá xấu nhưng cũng không phải ngày cát khí mạnh. Có thể sử dụng cho các công việc thường nhật, song với việc trọng đại vẫn nên kết hợp thêm các yếu tố khác để đảm bảo toàn diện."
         ],
         "Đinh Hợi" => [
             "relation" => "Chi khắc Can",
             "rating" => "Hung (phạt nhật)",
             "explanation" =>
-            "Ngày Đinh Hợi có Chi (thuộc hành Thủy) khắc Can (thuộc hành Hỏa) – tạo thành thế 'Chi khắc Can', hay còn gọi là Phạt Nhật. Nội khí nghịch, dễ sinh bất lợi hoặc hao tổn. Đây là dạng ngày không nên xem nhẹ, đặc biệt với các việc lớn như cưới hỏi, động thổ, khai trương,… nên cân nhắc kỹ lưỡng và kết hợp thêm các tiêu chí khác."
+            "Ngày <b>Đinh Hợi</b> có Chi (thuộc hành Thủy) khắc Can (thuộc hành Hỏa) – tạo thành thế 'Chi khắc Can', hay còn gọi là Phạt Nhật. Nội khí nghịch, dễ sinh bất lợi hoặc hao tổn. Đây là dạng ngày không nên xem nhẹ, đặc biệt với các việc lớn như cưới hỏi, động thổ, khai trương,… nên cân nhắc kỹ lưỡng và kết hợp thêm các tiêu chí khác."
         ],
         "Mậu Tý" => [
             "relation" => "Can khắc Chi",
             "rating" => "Cát trung bình (chế nhật)",
             "explanation" =>
-            "Ngày Mậu Tý là ngày Can (thuộc hành Thổ) khắc Chi (thuộc hành Thủy), tạo nên nội khí đối kháng. Đây là dạng ngày 'chế nhật', mang tính kiềm chế, dễ phát sinh căng thẳng hoặc bất đồng. Không hẳn là đại hung, nhưng nếu dùng cho việc lớn thì cần có thêm yếu tố hóa giải hoặc trợ lực từ cát tinh khác."
+            "Ngày <b>Mậu Tý</b> là ngày Can (thuộc hành Thổ) khắc Chi (thuộc hành Thủy), tạo nên nội khí đối kháng. Đây là dạng ngày 'chế nhật', mang tính kiềm chế, dễ phát sinh căng thẳng hoặc bất đồng. Không hẳn là đại hung, nhưng nếu dùng cho việc lớn thì cần có thêm yếu tố hóa giải hoặc trợ lực từ cát tinh khác."
         ],
         "Kỷ Sửu" => [
             "relation" => "Can Chi tương đồng",
             "rating" => "Cát",
             "explanation" =>
-            "Ngày Kỷ Sửu có Can và Chi cùng thuộc hành Thổ, tạo nên nội khí nhất quán và đồng bộ. Xét riêng về khía cạnh nội khí, đây là ngày khá ổn định, có thể tạo ra sự cân bằng trong tâm lý và hành sự. Tuy nhiên, để kết luận đây là ngày tốt toàn diện, vẫn cần xét đến các yếu tố khác như sao ngày, trực, và tuổi người sử dụng."
+            "Ngày <b>Kỷ Sửu</b> có Can và Chi cùng thuộc hành Thổ, tạo nên nội khí nhất quán và đồng bộ. Xét riêng về khía cạnh nội khí, đây là ngày khá ổn định, có thể tạo ra sự cân bằng trong tâm lý và hành sự. Tuy nhiên, để kết luận đây là ngày tốt toàn diện, vẫn cần xét đến các yếu tố khác như sao ngày, trực, và tuổi người sử dụng."
         ],
         "Canh Dần" => [
             "relation" => "Can khắc Chi",
             "rating" => "Cát trung bình (chế nhật)",
             "explanation" =>
-            "Ngày Canh Dần là ngày Can (thuộc hành Kim) khắc Chi (thuộc hành Mộc), tạo nên nội khí đối kháng. Đây là dạng ngày 'chế nhật', mang tính kiềm chế, dễ phát sinh căng thẳng hoặc bất đồng. Không hẳn là đại hung, nhưng nếu dùng cho việc lớn thì cần có thêm yếu tố hóa giải hoặc trợ lực từ cát tinh khác."
+            "Ngày <b>Canh Dần</b> là ngày Can (thuộc hành Kim) khắc Chi (thuộc hành Mộc), tạo nên nội khí đối kháng. Đây là dạng ngày 'chế nhật', mang tính kiềm chế, dễ phát sinh căng thẳng hoặc bất đồng. Không hẳn là đại hung, nhưng nếu dùng cho việc lớn thì cần có thêm yếu tố hóa giải hoặc trợ lực từ cát tinh khác."
         ],
         "Tân Mão" => [
             "relation" => "Can khắc Chi",
             "rating" => "Cát trung bình (chế nhật)",
             "explanation" =>
-            "Ngày Tân Mão là ngày Can (thuộc hành Kim) khắc Chi (thuộc hành Mộc), tạo nên nội khí đối kháng. Đây là dạng ngày 'chế nhật', mang tính kiềm chế, dễ phát sinh căng thẳng hoặc bất đồng. Không hẳn là đại hung, nhưng nếu dùng cho việc lớn thì cần có thêm yếu tố hóa giải hoặc trợ lực từ cát tinh khác."
+            "Ngày <b>Tân Mão</b> là ngày Can (thuộc hành Kim) khắc Chi (thuộc hành Mộc), tạo nên nội khí đối kháng. Đây là dạng ngày 'chế nhật', mang tính kiềm chế, dễ phát sinh căng thẳng hoặc bất đồng. Không hẳn là đại hung, nhưng nếu dùng cho việc lớn thì cần có thêm yếu tố hóa giải hoặc trợ lực từ cát tinh khác."
         ],
         "Nhâm Thìn" => [
             "relation" => "Chi khắc Can",
             "rating" => "Hung (phạt nhật)",
             "explanation" =>
-            "Ngày Nhâm Thìn có Chi (thuộc hành Thổ) khắc Can (thuộc hành Thủy) – tạo thành thế 'Chi khắc Can', hay còn gọi là Phạt Nhật. Nội khí nghịch, dễ sinh bất lợi hoặc hao tổn. Đây là dạng ngày không nên xem nhẹ, đặc biệt với các việc lớn như cưới hỏi, động thổ, khai trương,… nên cân nhắc kỹ lưỡng và kết hợp thêm các tiêu chí khác."
+            "Ngày <b>Nhâm Thìn</b> có Chi (thuộc hành Thổ) khắc Can (thuộc hành Thủy) – tạo thành thế 'Chi khắc Can', hay còn gọi là Phạt Nhật. Nội khí nghịch, dễ sinh bất lợi hoặc hao tổn. Đây là dạng ngày không nên xem nhẹ, đặc biệt với các việc lớn như cưới hỏi, động thổ, khai trương,… nên cân nhắc kỹ lưỡng và kết hợp thêm các tiêu chí khác."
         ],
         "Quý Tỵ" => [
             "relation" => "Can khắc Chi",
             "rating" => "Cát trung bình (chế nhật)",
             "explanation" =>
-            "Ngày Quý Tỵ là ngày Can (thuộc hành Thủy) khắc Chi (thuộc hành Hỏa), tạo nên nội khí đối kháng. Đây là dạng ngày 'chế nhật', mang tính kiềm chế, dễ phát sinh căng thẳng hoặc bất đồng. Không hẳn là đại hung, nhưng nếu dùng cho việc lớn thì cần có thêm yếu tố hóa giải hoặc trợ lực từ cát tinh khác."
+            "Ngày <b>Quý Tỵ</b> là ngày Can (thuộc hành Thủy) khắc Chi (thuộc hành Hỏa), tạo nên nội khí đối kháng. Đây là dạng ngày 'chế nhật', mang tính kiềm chế, dễ phát sinh căng thẳng hoặc bất đồng. Không hẳn là đại hung, nhưng nếu dùng cho việc lớn thì cần có thêm yếu tố hóa giải hoặc trợ lực từ cát tinh khác."
         ],
         "Giáp Ngọ" => [
             "relation" => "Can sinh Chi",
             "rating" => "Cát (bảo nhật)",
             "explanation" =>
-            "Ngày Giáp Ngọ là ngày Can sinh Chi – tức Can (thuộc hành Mộc) sinh Chi (thuộc hành Hỏa). Nội khí có xu hướng tiêu hao từ Can để nuôi Chi, tuy không quá xấu nhưng cũng không phải ngày cát khí mạnh. Có thể sử dụng cho các công việc thường nhật, song với việc trọng đại vẫn nên kết hợp thêm các yếu tố khác để đảm bảo toàn diện."
+            "Ngày <b>Giáp Ngọ</b> là ngày Can sinh Chi – tức Can (thuộc hành Mộc) sinh Chi (thuộc hành Hỏa). Nội khí có xu hướng tiêu hao từ Can để nuôi Chi, tuy không quá xấu nhưng cũng không phải ngày cát khí mạnh. Có thể sử dụng cho các công việc thường nhật, song với việc trọng đại vẫn nên kết hợp thêm các yếu tố khác để đảm bảo toàn diện."
         ],
         "Ất Mùi" => [
             "relation" => "Can khắc Chi",
             "rating" => "Cát trung bình (chế nhật)",
             "explanation" =>
-            "Ngày Ất Mùi là ngày Can (thuộc hành Mộc) khắc Chi (thuộc hành Thổ), tạo nên nội khí đối kháng. Đây là dạng ngày 'chế nhật', mang tính kiềm chế, dễ phát sinh căng thẳng hoặc bất đồng. Không hẳn là đại hung, nhưng nếu dùng cho việc lớn thì cần có thêm yếu tố hóa giải hoặc trợ lực từ cát tinh khác."
+            "Ngày <b>Ất Mùi</b> là ngày Can (thuộc hành Mộc) khắc Chi (thuộc hành Thổ), tạo nên nội khí đối kháng. Đây là dạng ngày 'chế nhật', mang tính kiềm chế, dễ phát sinh căng thẳng hoặc bất đồng. Không hẳn là đại hung, nhưng nếu dùng cho việc lớn thì cần có thêm yếu tố hóa giải hoặc trợ lực từ cát tinh khác."
         ],
         "Bính Thân" => [
             "relation" => "Can khắc Chi",
             "rating" => "Cát trung bình (chế nhật)",
             "explanation" =>
-            "Ngày Bính Thân là ngày Can (thuộc hành Hỏa) khắc Chi (thuộc hành Kim), tạo nên nội khí đối kháng. Đây là dạng ngày 'chế nhật', mang tính kiềm chế, dễ phát sinh căng thẳng hoặc bất đồng. Không hẳn là đại hung, nhưng nếu dùng cho việc lớn thì cần có thêm yếu tố hóa giải hoặc trợ lực từ cát tinh khác."
+            "Ngày <b>Bính Thân</b> là ngày Can (thuộc hành Hỏa) khắc Chi (thuộc hành Kim), tạo nên nội khí đối kháng. Đây là dạng ngày 'chế nhật', mang tính kiềm chế, dễ phát sinh căng thẳng hoặc bất đồng. Không hẳn là đại hung, nhưng nếu dùng cho việc lớn thì cần có thêm yếu tố hóa giải hoặc trợ lực từ cát tinh khác."
         ],
         "Đinh Dậu" => [
             "relation" => "Can khắc Chi",
             "rating" => "Cát trung bình (chế nhật)",
             "explanation" =>
-            "Ngày Đinh Dậu là ngày Can (thuộc hành Hỏa) khắc Chi (thuộc hành Kim), tạo nên nội khí đối kháng. Đây là dạng ngày 'chế nhật', mang tính kiềm chế, dễ phát sinh căng thẳng hoặc bất đồng. Không hẳn là đại hung, nhưng nếu dùng cho việc lớn thì cần có thêm yếu tố hóa giải hoặc trợ lực từ cát tinh khác."
+            "Ngày <b>Đinh Dậu</b> là ngày Can (thuộc hành Hỏa) khắc Chi (thuộc hành Kim), tạo nên nội khí đối kháng. Đây là dạng ngày 'chế nhật', mang tính kiềm chế, dễ phát sinh căng thẳng hoặc bất đồng. Không hẳn là đại hung, nhưng nếu dùng cho việc lớn thì cần có thêm yếu tố hóa giải hoặc trợ lực từ cát tinh khác."
         ],
         "Mậu Tuất" => [
             "relation" => "Can Chi tương đồng",
             "rating" => "Cát",
             "explanation" =>
-            "Ngày Mậu Tuất có Can và Chi cùng thuộc hành Thổ, tạo nên nội khí nhất quán và đồng bộ. Xét riêng về khía cạnh nội khí, đây là ngày khá ổn định, có thể tạo ra sự cân bằng trong tâm lý và hành sự. Tuy nhiên, để kết luận đây là ngày tốt toàn diện, vẫn cần xét đến các yếu tố khác như sao ngày, trực, và tuổi người sử dụng."
+            "Ngày <b>Mậu Tuất</b> có Can và Chi cùng thuộc hành Thổ, tạo nên nội khí nhất quán và đồng bộ. Xét riêng về khía cạnh nội khí, đây là ngày khá ổn định, có thể tạo ra sự cân bằng trong tâm lý và hành sự. Tuy nhiên, để kết luận đây là ngày tốt toàn diện, vẫn cần xét đến các yếu tố khác như sao ngày, trực, và tuổi người sử dụng."
         ],
         "Kỷ Hợi" => [
             "relation" => "Can khắc Chi",
             "rating" => "Cát trung bình (chế nhật)",
             "explanation" =>
-            "Ngày Kỷ Hợi là ngày Can (thuộc hành Thổ) khắc Chi (thuộc hành Thủy), tạo nên nội khí đối kháng. Đây là dạng ngày 'chế nhật', mang tính kiềm chế, dễ phát sinh căng thẳng hoặc bất đồng. Không hẳn là đại hung, nhưng nếu dùng cho việc lớn thì cần có thêm yếu tố hóa giải hoặc trợ lực từ cát tinh khác."
+            "Ngày <b>Kỷ Hợi</b> là ngày Can (thuộc hành Thổ) khắc Chi (thuộc hành Thủy), tạo nên nội khí đối kháng. Đây là dạng ngày 'chế nhật', mang tính kiềm chế, dễ phát sinh căng thẳng hoặc bất đồng. Không hẳn là đại hung, nhưng nếu dùng cho việc lớn thì cần có thêm yếu tố hóa giải hoặc trợ lực từ cát tinh khác."
         ],
         "Canh Tý" => [
             "relation" => "Can sinh Chi",
             "rating" => "Cát (bảo nhật)",
             "explanation" =>
-            "Ngày Canh Tý là ngày Can sinh Chi – tức Can (thuộc hành Kim) sinh Chi (thuộc hành Thủy). Nội khí có xu hướng tiêu hao từ Can để nuôi Chi, tuy không quá xấu nhưng cũng không phải ngày cát khí mạnh. Có thể sử dụng cho các công việc thường nhật, song với việc trọng đại vẫn nên kết hợp thêm các yếu tố khác để đảm bảo toàn diện."
+            "Ngày <b>Canh Tý</b> là ngày Can sinh Chi – tức Can (thuộc hành Kim) sinh Chi (thuộc hành Thủy). Nội khí có xu hướng tiêu hao từ Can để nuôi Chi, tuy không quá xấu nhưng cũng không phải ngày cát khí mạnh. Có thể sử dụng cho các công việc thường nhật, song với việc trọng đại vẫn nên kết hợp thêm các yếu tố khác để đảm bảo toàn diện."
         ],
         "Tân Sửu" => [
             "relation" => "Chi sinh Can",
             "rating" => "Cát (nghĩa nhật)",
             "explanation" =>
-            "Ngày Tân Sửu có Can và Chi tương sinh – cụ thể là Chi (thuộc hành Thổ) sinh Can (thuộc hành Kim), nội khí hài hòa, sinh khí thuận. Xét riêng về nội khí, đây là ngày tương đối cát lợi, có thể hỗ trợ cho các công việc cần sự phối hợp hoặc trợ lực. Tuy nhiên, để xác định mức độ tốt xấu một cách toàn diện, cần xét thêm các yếu tố như trực ngày, sao tốt – xấu, tuổi của người hành sự…"
+            "Ngày <b>Tân Sửu</b> có Can và Chi tương sinh – cụ thể là Chi (thuộc hành Thổ) sinh Can (thuộc hành Kim), nội khí hài hòa, sinh khí thuận. Xét riêng về nội khí, đây là ngày tương đối cát lợi, có thể hỗ trợ cho các công việc cần sự phối hợp hoặc trợ lực. Tuy nhiên, để xác định mức độ tốt xấu một cách toàn diện, cần xét thêm các yếu tố như trực ngày, sao tốt – xấu, tuổi của người hành sự…"
         ],
         "Nhâm Dần" => [
             "relation" => "Can sinh Chi",
             "rating" => "Cát (bảo nhật)",
             "explanation" =>
-            "Ngày Nhâm Dần là ngày Can sinh Chi – tức Can (thuộc hành Thủy) sinh Chi (thuộc hành Mộc). Nội khí có xu hướng tiêu hao từ Can để nuôi Chi, tuy không quá xấu nhưng cũng không phải ngày cát khí mạnh. Có thể sử dụng cho các công việc thường nhật, song với việc trọng đại vẫn nên kết hợp thêm các yếu tố khác để đảm bảo toàn diện."
+            "Ngày <b>Nhâm Dần</b> là ngày Can sinh Chi – tức Can (thuộc hành Thủy) sinh Chi (thuộc hành Mộc). Nội khí có xu hướng tiêu hao từ Can để nuôi Chi, tuy không quá xấu nhưng cũng không phải ngày cát khí mạnh. Có thể sử dụng cho các công việc thường nhật, song với việc trọng đại vẫn nên kết hợp thêm các yếu tố khác để đảm bảo toàn diện."
         ],
         "Quý Mão" => [
             "relation" => "Can sinh Chi",
             "rating" => "Cát (bảo nhật)",
             "explanation" =>
-            "Ngày Quý Mão là ngày Can sinh Chi – tức Can (thuộc hành Thủy) sinh Chi (thuộc hành Mộc). Nội khí có xu hướng tiêu hao từ Can để nuôi Chi, tuy không quá xấu nhưng cũng không phải ngày cát khí mạnh. Có thể sử dụng cho các công việc thường nhật, song với việc trọng đại vẫn nên kết hợp thêm các yếu tố khác để đảm bảo toàn diện."
+            "Ngày <b>Quý Mão</b> là ngày Can sinh Chi – tức Can (thuộc hành Thủy) sinh Chi (thuộc hành Mộc). Nội khí có xu hướng tiêu hao từ Can để nuôi Chi, tuy không quá xấu nhưng cũng không phải ngày cát khí mạnh. Có thể sử dụng cho các công việc thường nhật, song với việc trọng đại vẫn nên kết hợp thêm các yếu tố khác để đảm bảo toàn diện."
         ],
         "Giáp Thìn" => [
             "relation" => "Can khắc Chi",
             "rating" => "Cát trung bình (chế nhật)",
             "explanation" =>
-            "Ngày Giáp Thìn là ngày Can (thuộc hành Mộc) khắc Chi (thuộc hành Thổ), tạo nên nội khí đối kháng. Đây là dạng ngày 'chế nhật', mang tính kiềm chế, dễ phát sinh căng thẳng hoặc bất đồng. Không hẳn là đại hung, nhưng nếu dùng cho việc lớn thì cần có thêm yếu tố hóa giải hoặc trợ lực từ cát tinh khác."
+            "Ngày <b>Giáp Thìn</b> là ngày Can (thuộc hành Mộc) khắc Chi (thuộc hành Thổ), tạo nên nội khí đối kháng. Đây là dạng ngày 'chế nhật', mang tính kiềm chế, dễ phát sinh căng thẳng hoặc bất đồng. Không hẳn là đại hung, nhưng nếu dùng cho việc lớn thì cần có thêm yếu tố hóa giải hoặc trợ lực từ cát tinh khác."
         ],
         "Ất Tỵ" => [
             "relation" => "Can sinh Chi",
             "rating" => "Cát (bảo nhật)",
             "explanation" =>
-            "Ngày Ất Tỵ là ngày Can sinh Chi – tức Can (thuộc hành Mộc) sinh Chi (thuộc hành Hỏa). Nội khí có xu hướng tiêu hao từ Can để nuôi Chi, tuy không quá xấu nhưng cũng không phải ngày cát khí mạnh. Có thể sử dụng cho các công việc thường nhật, song với việc trọng đại vẫn nên kết hợp thêm các yếu tố khác để đảm bảo toàn diện."
+            "Ngày <b>Ất Tỵ</b> là ngày Can sinh Chi – tức Can (thuộc hành Mộc) sinh Chi (thuộc hành Hỏa). Nội khí có xu hướng tiêu hao từ Can để nuôi Chi, tuy không quá xấu nhưng cũng không phải ngày cát khí mạnh. Có thể sử dụng cho các công việc thường nhật, song với việc trọng đại vẫn nên kết hợp thêm các yếu tố khác để đảm bảo toàn diện."
         ],
         "Bính Ngọ" => [
             "relation" => "Can Chi tương đồng",
             "rating" => "Cát",
             "explanation" =>
-            "Ngày Bính Ngọ có Can và Chi cùng thuộc hành Hỏa, tạo nên nội khí nhất quán và đồng bộ. Xét riêng về khía cạnh nội khí, đây là ngày khá ổn định, có thể tạo ra sự cân bằng trong tâm lý và hành sự. Tuy nhiên, để kết luận đây là ngày tốt toàn diện, vẫn cần xét đến các yếu tố khác như sao ngày, trực, và tuổi người sử dụng."
+            "Ngày <b>Bính Ngọ</b> có Can và Chi cùng thuộc hành Hỏa, tạo nên nội khí nhất quán và đồng bộ. Xét riêng về khía cạnh nội khí, đây là ngày khá ổn định, có thể tạo ra sự cân bằng trong tâm lý và hành sự. Tuy nhiên, để kết luận đây là ngày tốt toàn diện, vẫn cần xét đến các yếu tố khác như sao ngày, trực, và tuổi người sử dụng."
         ],
         "Đinh Mùi" => [
             "relation" => "Can sinh Chi",
             "rating" => "Cát (bảo nhật)",
             "explanation" =>
-            "Ngày Đinh Mùi là ngày Can sinh Chi – tức Can (thuộc hành Hỏa) sinh Chi (thuộc hành Thổ). Nội khí có xu hướng tiêu hao từ Can để nuôi Chi, tuy không quá xấu nhưng cũng không phải ngày cát khí mạnh. Có thể sử dụng cho các công việc thường nhật, song với việc trọng đại vẫn nên kết hợp thêm các yếu tố khác để đảm bảo toàn diện."
+            "Ngày <b>Đinh Mùi</b> là ngày Can sinh Chi – tức Can (thuộc hành Hỏa) sinh Chi (thuộc hành Thổ). Nội khí có xu hướng tiêu hao từ Can để nuôi Chi, tuy không quá xấu nhưng cũng không phải ngày cát khí mạnh. Có thể sử dụng cho các công việc thường nhật, song với việc trọng đại vẫn nên kết hợp thêm các yếu tố khác để đảm bảo toàn diện."
         ],
         "Mậu Thân" => [
             "relation" => "Can sinh Chi",
             "rating" => "Cát (bảo nhật)",
             "explanation" =>
-            "Ngày Mậu Thân là ngày Can sinh Chi – tức Can (thuộc hành Thổ) sinh Chi (thuộc hành Kim). Nội khí có xu hướng tiêu hao từ Can để nuôi Chi, tuy không quá xấu nhưng cũng không phải ngày cát khí mạnh. Có thể sử dụng cho các công việc thường nhật, song với việc trọng đại vẫn nên kết hợp thêm các yếu tố khác để đảm bảo toàn diện."
+            "Ngày <b>Mậu Thân</b> là ngày Can sinh Chi – tức Can (thuộc hành Thổ) sinh Chi (thuộc hành Kim). Nội khí có xu hướng tiêu hao từ Can để nuôi Chi, tuy không quá xấu nhưng cũng không phải ngày cát khí mạnh. Có thể sử dụng cho các công việc thường nhật, song với việc trọng đại vẫn nên kết hợp thêm các yếu tố khác để đảm bảo toàn diện."
         ],
         "Kỷ Dậu" => [
             "relation" => "Can sinh Chi",
             "rating" => "Cát (bảo nhật)",
             "explanation" =>
-            "Ngày Kỷ Dậu là ngày Can sinh Chi – tức Can (thuộc hành Thổ) sinh Chi (thuộc hành Kim). Nội khí có xu hướng tiêu hao từ Can để nuôi Chi, tuy không quá xấu nhưng cũng không phải ngày cát khí mạnh. Có thể sử dụng cho các công việc thường nhật, song với việc trọng đại vẫn nên kết hợp thêm các yếu tố khác để đảm bảo toàn diện."
+            "Ngày <b>Kỷ Dậu</b> là ngày Can sinh Chi – tức Can (thuộc hành Thổ) sinh Chi (thuộc hành Kim). Nội khí có xu hướng tiêu hao từ Can để nuôi Chi, tuy không quá xấu nhưng cũng không phải ngày cát khí mạnh. Có thể sử dụng cho các công việc thường nhật, song với việc trọng đại vẫn nên kết hợp thêm các yếu tố khác để đảm bảo toàn diện."
         ],
         "Canh Tuất" => [
             "relation" => "Chi sinh Can",
             "rating" => "Cát (nghĩa nhật)",
             "explanation" =>
-            "Ngày Canh Tuất có Can và Chi tương sinh – cụ thể là Chi (thuộc hành Thổ) sinh Can (thuộc hành Kim), nội khí hài hòa, sinh khí thuận. Xét riêng về nội khí, đây là ngày tương đối cát lợi, có thể hỗ trợ cho các công việc cần sự phối hợp hoặc trợ lực. Tuy nhiên, để xác định mức độ tốt xấu một cách toàn diện, cần xét thêm các yếu tố như trực ngày, sao tốt – xấu, tuổi của người hành sự…"
+            "Ngày <b>Canh Tuất</b> có Can và Chi tương sinh – cụ thể là Chi (thuộc hành Thổ) sinh Can (thuộc hành Kim), nội khí hài hòa, sinh khí thuận. Xét riêng về nội khí, đây là ngày tương đối cát lợi, có thể hỗ trợ cho các công việc cần sự phối hợp hoặc trợ lực. Tuy nhiên, để xác định mức độ tốt xấu một cách toàn diện, cần xét thêm các yếu tố như trực ngày, sao tốt – xấu, tuổi của người hành sự…"
         ],
         "Tân Hợi" => [
             "relation" => "Can sinh Chi",
             "rating" => "Cát (bảo nhật)",
             "explanation" =>
-            "Ngày Tân Hợi là ngày Can sinh Chi – tức Can (thuộc hành Kim) sinh Chi (thuộc hành Thủy). Nội khí có xu hướng tiêu hao từ Can để nuôi Chi, tuy không quá xấu nhưng cũng không phải ngày cát khí mạnh. Có thể sử dụng cho các công việc thường nhật, song với việc trọng đại vẫn nên kết hợp thêm các yếu tố khác để đảm bảo toàn diện."
+            "Ngày <b>Tân Hợi</b> là ngày Can sinh Chi – tức Can (thuộc hành Kim) sinh Chi (thuộc hành Thủy). Nội khí có xu hướng tiêu hao từ Can để nuôi Chi, tuy không quá xấu nhưng cũng không phải ngày cát khí mạnh. Có thể sử dụng cho các công việc thường nhật, song với việc trọng đại vẫn nên kết hợp thêm các yếu tố khác để đảm bảo toàn diện."
         ],
         "Nhâm Tý" => [
             "relation" => "Can Chi tương đồng",
             "rating" => "Cát",
             "explanation" =>
-            "Ngày Nhâm Tý có Can và Chi cùng thuộc hành Thủy, tạo nên nội khí nhất quán và đồng bộ. Xét riêng về khía cạnh nội khí, đây là ngày khá ổn định, có thể tạo ra sự cân bằng trong tâm lý và hành sự. Tuy nhiên, để kết luận đây là ngày tốt toàn diện, vẫn cần xét đến các yếu tố khác như sao ngày, trực, và tuổi người sử dụng."
+            "Ngày <b>Nhâm Tý</b> có Can và Chi cùng thuộc hành Thủy, tạo nên nội khí nhất quán và đồng bộ. Xét riêng về khía cạnh nội khí, đây là ngày khá ổn định, có thể tạo ra sự cân bằng trong tâm lý và hành sự. Tuy nhiên, để kết luận đây là ngày tốt toàn diện, vẫn cần xét đến các yếu tố khác như sao ngày, trực, và tuổi người sử dụng."
         ],
         "Quý Sửu" => [
             "relation" => "Chi khắc Can",
             "rating" => "Hung (phạt nhật)",
             "explanation" =>
-            "Ngày Quý Sửu có Chi (thuộc hành Thổ) khắc Can (thuộc hành Thủy) – tạo thành thế 'Chi khắc Can', hay còn gọi là Phạt Nhật. Nội khí nghịch, dễ sinh bất lợi hoặc hao tổn. Đây là dạng ngày không nên xem nhẹ, đặc biệt với các việc lớn như cưới hỏi, động thổ, khai trương,… nên cân nhắc kỹ lưỡng và kết hợp thêm các tiêu chí khác."
+            "Ngày <b>Quý Sửu</b> có Chi (thuộc hành Thổ) khắc Can (thuộc hành Thủy) – tạo thành thế 'Chi khắc Can', hay còn gọi là Phạt Nhật. Nội khí nghịch, dễ sinh bất lợi hoặc hao tổn. Đây là dạng ngày không nên xem nhẹ, đặc biệt với các việc lớn như cưới hỏi, động thổ, khai trương,… nên cân nhắc kỹ lưỡng và kết hợp thêm các tiêu chí khác."
         ],
         "Giáp Dần" => [
             "relation" => "Can Chi tương đồng",
             "rating" => "Cát",
             "explanation" =>
-            "Ngày Giáp Dần có Can và Chi cùng thuộc hành Mộc, tạo nên nội khí nhất quán và đồng bộ. Xét riêng về khía cạnh nội khí, đây là ngày khá ổn định, có thể tạo ra sự cân bằng trong tâm lý và hành sự. Tuy nhiên, để kết luận đây là ngày tốt toàn diện, vẫn cần xét đến các yếu tố khác như sao ngày, trực, và tuổi người sử dụng."
+            "Ngày <b>Giáp Dần</b> có Can và Chi cùng thuộc hành Mộc, tạo nên nội khí nhất quán và đồng bộ. Xét riêng về khía cạnh nội khí, đây là ngày khá ổn định, có thể tạo ra sự cân bằng trong tâm lý và hành sự. Tuy nhiên, để kết luận đây là ngày tốt toàn diện, vẫn cần xét đến các yếu tố khác như sao ngày, trực, và tuổi người sử dụng."
         ],
         "Ất Mão" => [
             "relation" => "Can Chi tương đồng",
             "rating" => "Cát",
             "explanation" =>
-            "Ngày Ất Mão có Can và Chi cùng thuộc hành Mộc, tạo nên nội khí nhất quán và đồng bộ. Xét riêng về khía cạnh nội khí, đây là ngày khá ổn định, có thể tạo ra sự cân bằng trong tâm lý và hành sự. Tuy nhiên, để kết luận đây là ngày tốt toàn diện, vẫn cần xét đến các yếu tố khác như sao ngày, trực, và tuổi người sử dụng."
+            "Ngày <b>Ất Mão</b> có Can và Chi cùng thuộc hành Mộc, tạo nên nội khí nhất quán và đồng bộ. Xét riêng về khía cạnh nội khí, đây là ngày khá ổn định, có thể tạo ra sự cân bằng trong tâm lý và hành sự. Tuy nhiên, để kết luận đây là ngày tốt toàn diện, vẫn cần xét đến các yếu tố khác như sao ngày, trực, và tuổi người sử dụng."
         ],
         "Bính Thìn" => [
             "relation" => "Can sinh Chi",
             "rating" => "Cát (bảo nhật)",
             "explanation" =>
-            "Ngày Bính Thìn là ngày Can sinh Chi – tức Can (thuộc hành Hỏa) sinh Chi (thuộc hành Thổ). Nội khí có xu hướng tiêu hao từ Can để nuôi Chi, tuy không quá xấu nhưng cũng không phải ngày cát khí mạnh. Có thể sử dụng cho các công việc thường nhật, song với việc trọng đại vẫn nên kết hợp thêm các yếu tố khác để đảm bảo toàn diện."
+            "Ngày <b>Bính Thìn</b> là ngày Can sinh Chi – tức Can (thuộc hành Hỏa) sinh Chi (thuộc hành Thổ). Nội khí có xu hướng tiêu hao từ Can để nuôi Chi, tuy không quá xấu nhưng cũng không phải ngày cát khí mạnh. Có thể sử dụng cho các công việc thường nhật, song với việc trọng đại vẫn nên kết hợp thêm các yếu tố khác để đảm bảo toàn diện."
         ],
         "Đinh Tỵ" => [
             "relation" => "Can Chi tương đồng",
             "rating" => "Cát",
             "explanation" =>
-            "Ngày Đinh Tỵ có Can và Chi cùng thuộc hành Hỏa, tạo nên nội khí nhất quán và đồng bộ. Xét riêng về khía cạnh nội khí, đây là ngày khá ổn định, có thể tạo ra sự cân bằng trong tâm lý và hành sự. Tuy nhiên, để kết luận đây là ngày tốt toàn diện, vẫn cần xét đến các yếu tố khác như sao ngày, trực, và tuổi người sử dụng."
+            "Ngày <b>Đinh Tỵ</b> có Can và Chi cùng thuộc hành Hỏa, tạo nên nội khí nhất quán và đồng bộ. Xét riêng về khía cạnh nội khí, đây là ngày khá ổn định, có thể tạo ra sự cân bằng trong tâm lý và hành sự. Tuy nhiên, để kết luận đây là ngày tốt toàn diện, vẫn cần xét đến các yếu tố khác như sao ngày, trực, và tuổi người sử dụng."
         ],
         "Mậu Ngọ" => [
             "relation" => "Chi sinh Can",
             "rating" => "Cát (nghĩa nhật)",
             "explanation" =>
-            "Ngày Mậu Ngọ có Can và Chi tương sinh – cụ thể là Chi (thuộc hành Hỏa) sinh Can (thuộc hành Thổ), nội khí hài hòa, sinh khí thuận. Xét riêng về nội khí, đây là ngày tương đối cát lợi, có thể hỗ trợ cho các công việc cần sự phối hợp hoặc trợ lực. Tuy nhiên, để xác định mức độ tốt xấu một cách toàn diện, cần xét thêm các yếu tố như trực ngày, sao tốt – xấu, tuổi của người hành sự…"
+            "Ngày <b>Mậu Ngọ</b> có Can và Chi tương sinh – cụ thể là Chi (thuộc hành Hỏa) sinh Can (thuộc hành Thổ), nội khí hài hòa, sinh khí thuận. Xét riêng về nội khí, đây là ngày tương đối cát lợi, có thể hỗ trợ cho các công việc cần sự phối hợp hoặc trợ lực. Tuy nhiên, để xác định mức độ tốt xấu một cách toàn diện, cần xét thêm các yếu tố như trực ngày, sao tốt – xấu, tuổi của người hành sự…"
         ],
         "Kỷ Mùi" => [
             "relation" => "Can Chi tương đồng",
             "rating" => "Cát",
             "explanation" =>
-            "Ngày Kỷ Mùi có Can và Chi cùng thuộc hành Thổ, tạo nên nội khí nhất quán và đồng bộ. Xét riêng về khía cạnh nội khí, đây là ngày khá ổn định, có thể tạo ra sự cân bằng trong tâm lý và hành sự. Tuy nhiên, để kết luận đây là ngày tốt toàn diện, vẫn cần xét đến các yếu tố khác như sao ngày, trực, và tuổi người sử dụng."
+            "Ngày <b>Kỷ Mùi</b> có Can và Chi cùng thuộc hành Thổ, tạo nên nội khí nhất quán và đồng bộ. Xét riêng về khía cạnh nội khí, đây là ngày khá ổn định, có thể tạo ra sự cân bằng trong tâm lý và hành sự. Tuy nhiên, để kết luận đây là ngày tốt toàn diện, vẫn cần xét đến các yếu tố khác như sao ngày, trực, và tuổi người sử dụng."
         ],
         "Canh Thân" => [
             "relation" => "Can Chi tương đồng",
             "rating" => "Cát",
             "explanation" =>
-            "Ngày Canh Thân có Can và Chi cùng thuộc hành Kim, tạo nên nội khí nhất quán và đồng bộ. Xét riêng về khía cạnh nội khí, đây là ngày khá ổn định, có thể tạo ra sự cân bằng trong tâm lý và hành sự. Tuy nhiên, để kết luận đây là ngày tốt toàn diện, vẫn cần xét đến các yếu tố khác như sao ngày, trực, và tuổi người sử dụng."
+            "Ngày <b>Canh Thân</b> có Can và Chi cùng thuộc hành Kim, tạo nên nội khí nhất quán và đồng bộ. Xét riêng về khía cạnh nội khí, đây là ngày khá ổn định, có thể tạo ra sự cân bằng trong tâm lý và hành sự. Tuy nhiên, để kết luận đây là ngày tốt toàn diện, vẫn cần xét đến các yếu tố khác như sao ngày, trực, và tuổi người sử dụng."
         ],
         "Tân Dậu" => [
             "relation" => "Can Chi tương đồng",
             "rating" => "Cát",
             "explanation" =>
-            "Ngày Tân Dậu có Can và Chi cùng thuộc hành Kim, tạo nên nội khí nhất quán và đồng bộ. Xét riêng về khía cạnh nội khí, đây là ngày khá ổn định, có thể tạo ra sự cân bằng trong tâm lý và hành sự. Tuy nhiên, để kết luận đây là ngày tốt toàn diện, vẫn cần xét đến các yếu tố khác như sao ngày, trực, và tuổi người sử dụng."
+            "Ngày <b>Tân Dậu</b> có Can và Chi cùng thuộc hành Kim, tạo nên nội khí nhất quán và đồng bộ. Xét riêng về khía cạnh nội khí, đây là ngày khá ổn định, có thể tạo ra sự cân bằng trong tâm lý và hành sự. Tuy nhiên, để kết luận đây là ngày tốt toàn diện, vẫn cần xét đến các yếu tố khác như sao ngày, trực, và tuổi người sử dụng."
         ],
         "Nhâm Tuất" => [
             "relation" => "Chi khắc Can",
             "rating" => "Hung (phạt nhật)",
             "explanation" =>
-            "Ngày Nhâm Tuất có Chi (thuộc hành Thổ) khắc Can (thuộc hành Thủy) – tạo thành thế 'Chi khắc Can', hay còn gọi là Phạt Nhật. Nội khí nghịch, dễ sinh bất lợi hoặc hao tổn. Đây là dạng ngày không nên xem nhẹ, đặc biệt với các việc lớn như cưới hỏi, động thổ, khai trương,… nên cân nhắc kỹ lưỡng và kết hợp thêm các tiêu chí khác."
+            "Ngày <b>Nhâm Tuất</b> có Chi (thuộc hành Thổ) khắc Can (thuộc hành Thủy) – tạo thành thế 'Chi khắc Can', hay còn gọi là Phạt Nhật. Nội khí nghịch, dễ sinh bất lợi hoặc hao tổn. Đây là dạng ngày không nên xem nhẹ, đặc biệt với các việc lớn như cưới hỏi, động thổ, khai trương,… nên cân nhắc kỹ lưỡng và kết hợp thêm các tiêu chí khác."
         ],
         "Quý Hợi" => [
             "relation" => "Can Chi tương đồng",
             "rating" => "Cát",
             "explanation" =>
-            "Ngày Quý Hợi có Can và Chi cùng thuộc hành Thủy, tạo nên nội khí nhất quán và đồng bộ. Xét riêng về khía cạnh nội khí, đây là ngày khá ổn định, có thể tạo ra sự cân bằng trong tâm lý và hành sự. Tuy nhiên, để kết luận đây là ngày tốt toàn diện, vẫn cần xét đến các yếu tố khác như sao ngày, trực, và tuổi người sử dụng."
+            "Ngày <b>Quý Hợi</b> có Can và Chi cùng thuộc hành Thủy, tạo nên nội khí nhất quán và đồng bộ. Xét riêng về khía cạnh nội khí, đây là ngày khá ổn định, có thể tạo ra sự cân bằng trong tâm lý và hành sự. Tuy nhiên, để kết luận đây là ngày tốt toàn diện, vẫn cần xét đến các yếu tố khác như sao ngày, trực, và tuổi người sử dụng."
         ]
     ];
 

@@ -16,12 +16,9 @@ class LichController extends Controller
         if (!$nam || $nam < 1800 || $nam > 2300) {
             abort(404);
         }
-
+        $metaTitle = "Lịch âm dương năm {$nam} | Lịch vạn niên, ngày tốt xấu, hoàng đạo";
+        $metaDescription = "Xem lịch âm dương năm {$nam} đầy đủ và chính xác: lịch vạn niên, ngày tốt xấu, ngày hoàng đạo, ngày lễ âm lịch và dương lịch. Tra cứu nhanh chóng, dễ sử dụng.";
         $can_chi_nam = KhiVanHelper::canchiNam($nam);
-
-        // SEO data (có thể truyền vào layout nếu bạn dùng blade layout)
-        $metaTitle = "Lịch Âm $nam - Lich Van Nien $nam - Lịch $nam";
-        $metaDescription = "Lịch âm $nam hay lich van nien $nam. Xem ngay năm " . mb_strtolower($can_chi_nam) . " để biết ☯ những ngày xấu ☯ những ngày tốt ☯ ngày hoàng đạo của 12 tháng";
         $metaKeywords = "lịch âm $nam,lich am $nam,lich van nien $nam,âm lịch $nam,am lich $nam,lich am " . mb_strtolower($can_chi_nam);
         $ogImg = url("/image/nam/$nam");
         $sukienduong = LunarHelper::printAllDuongLichEvents($nam);
@@ -44,6 +41,8 @@ class LichController extends Controller
         if (!$nam || $nam < 1800 || $nam > 2300 || !$thang || $thang > 12) {
             abort(404);
         }
+        $metaTitle = "Lịch âm dương tháng {$thang} Năm {$nam} | Xem ngày tốt xấu, ngày hoàng đạo";
+        $metaDescription = "Xem lịch âm dương tháng {$thang} năm {$nam} đầy đủ: ngày tốt xấu, ngày hoàng đạo, ngày lễ âm lịch và dương lịch. Lịch vạn niên chính xác, dễ tra cứu.";
         $desrtipton_thang = LoadConfigHelper::$mheaders[$thang];
         // Dữ liệu lịch âm (giả định bạn đã viết lại hàm tương đương printTable)
         [$table_html, $data_totxau, $data_al] = LunarHelper::printTable($thang, $nam, true, true, true);
@@ -74,7 +73,8 @@ class LichController extends Controller
         }
 
         return view('lich.thang', [
-
+            'metaTitle' => $metaTitle,
+            'metaDescription' => $metaDescription,
             'yy' => $nam,
             'mm' => $thang,
             'can_chi_nam' => $can_chi_nam,
