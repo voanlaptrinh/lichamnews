@@ -593,8 +593,8 @@
                             </div>
                         </div>
                     </div>
-                    <div>
-                        <h2 class="title-tong-quan-h2">Giờ hoàng đạo</h2>
+                    <div class="mb-3">
+                        <h2 class="title-tong-quan-h2">III. Giờ hoàng đạo</h2>
                         <div class="row g-3">
                             @php
                                 function renderStars($rating)
@@ -632,7 +632,7 @@
                         </div>
                     </div>
                     <div>
-                        <h2 class="title-tong-quan-h2">Điểm ngày đẹp</h2>
+                        <h2 class="title-tong-quan-h2">IV. Điểm ngày đẹp</h2>
                         <div>
                             <div class="chart-container">
 
