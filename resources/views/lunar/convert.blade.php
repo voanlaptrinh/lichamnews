@@ -1,7 +1,7 @@
 @extends('welcome')
 @section('content')
     <div class="calendar-app-container py-4">
-        <h1 class="content-title-home-lich">LỊCH VẠN LIÊN 2025 - LỊCH ÂM</h1>
+        <h1 class="content-title-home-lich">LỊCH ÂM - LỊCH VẠN LIÊN 2025</h1>
         <div class="row g-3">
             <!-- ==== CỘT LỊCH CHÍNH (BÊN TRÁI) ==== -->
             <div class="col-xl-9 col-sm-12 col-12">
@@ -83,18 +83,18 @@
                             </div>
                             <div class="ring-item1-left item-rings">
                                 <div class="item-ring1">
-                                    <img src="{{ asset('icons/cairing.png') }}" alt="">
+                                    <img src="{{ asset('icons/cairing.png') }}" alt="cairing">
                                 </div>
                                 <div class="item-ring2">
-                                    <img src="{{ asset('icons/cairing.png') }}" alt="">
+                                    <img src="{{ asset('icons/cairing.png') }}" alt="cairing">
                                 </div>
                             </div>
                             <div class="ring-item2-right item-rings">
                                 <div class="item-ring3">
-                                    <img src="{{ asset('icons/cairing.png') }}" alt="">
+                                    <img src="{{ asset('icons/cairing.png') }}" alt="cairing">
                                 </div>
                                 <div class="item-ring4">
-                                    <img src="{{ asset('icons/cairing.png') }}" alt="">
+                                    <img src="{{ asset('icons/cairing.png') }}" alt="cairing">
                                 </div>
                             </div>
 
@@ -197,16 +197,17 @@
                         <div class="calendar-wrapper">
                             <div class="calendar-header">
                                 {{-- Nút Quay lại tháng trước --}}
-                                <a href="{{ route('lich.thang', ['nam' => $prevYear, 'thang' => $prevMonth]) }}"
+                                <a href="{{ route('lich.nam.ngay', ['nam' => $prevYear, 'thang' => $prevMonth, 'ngay' => 1]) }}"
                                     class="month-nav">
                                     <i class="bi bi-chevron-left"></i>
                                 </a>
 
                                 {{-- Tiêu đề Tháng/Năm --}}
-                                <h5 class="mb-0">Tháng {{ $mm }} năm {{ $yy }}</h5>
+                                <h5 class="mb-0" id="month-year-picker" style="cursor: pointer; text-decoration: underline;">Tháng
+                                    {{ $mm }} năm {{ $yy }}</h5>
 
                                 {{-- Nút Tới tháng sau --}}
-                                <a href="{{ route('lich.thang', ['nam' => $nextYear, 'thang' => $nextMonth]) }}"
+                                <a href="{{ route('lich.nam.ngay', ['nam' => $nextYear, 'thang' => $nextMonth, 'ngay' => 1]) }}"
                                     class="month-nav">
                                     <i class="bi bi-chevron-right"></i>
                                 </a>
@@ -237,7 +238,7 @@
                                         <th><span class="title-lich-pc">Thứ năm</span> <span class="title-lich-mobie">Th
                                                 5</span>
                                         </th>
-                                        <th><span class="title-lich-pc">Thứ sau</span> <span class="title-lich-mobie">Th
+                                        <th><span class="title-lich-pc">Thứ sáu</span> <span class="title-lich-mobie">Th
                                                 6</span>
                                         </th>
                                         <th><span class="title-lich-pc">Thứ bảy</span> <span class="title-lich-mobie">Th
@@ -258,7 +259,7 @@
                         <div class="calendar-legend">
                             <span><span class="dot dot-hoangdao"></span> Ngày hoàng đạo</span>
                             <span><span class="dot dot-hacdao"></span> Ngày hắc đạo</span>
-                      
+
                         </div>
                     </div>
                 </div>
@@ -485,9 +486,37 @@
     </div>
 
 @endsection
+
 @push('scripts')
     <script>
         document.addEventListener("DOMContentLoaded", () => {
+            let overlay = null;
+            // Tạo overlay cho mobile
+            function createOverlay() {
+                if (!overlay) {
+                    overlay = document.createElement('div');
+                    overlay.className = 'daterangepicker-overlay';
+                    document.body.appendChild(overlay);
+
+                    overlay.addEventListener('click', function() {
+                        $('#month-year-picker').data('daterangepicker').hide();
+                    });
+                }
+                return overlay;
+            }
+
+            $('#month-year-picker').on('show.daterangepicker', function(ev, picker) {
+                if (window.innerWidth <= 768) {
+                    const overlay = createOverlay();
+                    overlay.style.display = 'block';
+                }
+            });
+
+            $('#month-year-picker').on('hide.daterangepicker', function(ev, picker) {
+                if (overlay) {
+                    overlay.style.display = 'none';
+                }
+            });
             const ctx = document.getElementById('myChart').getContext('2d');
             const labels = @json($labels);
             const dataValues = @json($dataValues);
@@ -649,5 +678,49 @@
                 });
             }
         });
+        $('#month-year-picker').daterangepicker({
+            singleDatePicker: true,
+            showDropdowns: true,
+            locale: {
+                format: 'MM-YYYY',
+                "applyLabel": "Chọn",
+                "cancelLabel": "Hủy",
+                "fromLabel": "Từ",
+                "toLabel": "Đến",
+                "customRangeLabel": "Tùy chỉnh",
+                "weekLabel": "W",
+                "daysOfWeek": [
+                    "CN",
+                    "T2",
+                    "T3",
+                    "T4",
+                    "T5",
+                    "T6",
+                    "T7"
+                ],
+                "monthNames": [
+                    "Tháng 1",
+                    "Tháng 2",
+                    "Tháng 3",
+                    "Tháng 4",
+                    "Tháng 5",
+                    "Tháng 6",
+                    "Tháng 7",
+                    "Tháng 8",
+                    "Tháng 9",
+                    "Tháng 10",
+                    "Tháng 11",
+                    "Tháng 12"
+                ],
+                "firstDay": 1
+            }
+        }, function(start, end, label) {
+            const year = start.format('YYYY');
+            const month = start.format('M');
+            const day = start.format('D');
+            const url = `{{ route('lich.nam.ngay', ['nam' => ':nam', 'thang' => ':thang', 'ngay' => ':ngay']) }}`.replace(':nam', year).replace(':thang', month).replace(':ngay', day);
+            window.location.href = url;
+        });
     </script>
+    
 @endpush

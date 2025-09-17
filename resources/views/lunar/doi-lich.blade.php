@@ -222,7 +222,7 @@
                             <th><span class="title-lich-pc">Thứ năm</span> <span class="title-lich-mobie">Th
                                     5</span>
                             </th>
-                            <th><span class="title-lich-pc">Thứ sau</span> <span class="title-lich-mobie">Th
+                            <th><span class="title-lich-pc">Thứ sáu</span> <span class="title-lich-mobie">Th
                                     6</span>
                             </th>
                             <th><span class="title-lich-pc">Thứ bảy</span> <span class="title-lich-mobie">Th

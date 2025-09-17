@@ -12,7 +12,7 @@ class SaoTotXauHelper
     {
         try {
             if (empty($ngocHapCatTinh) && empty($ngocHapHungSat)) {
-                return "👉 Không có thông tin sao tốt/xấu đặc biệt theo Ngọc Hạp cho ngày này.";
+                return "Không có thông tin sao tốt/xấu đặc biệt theo Ngọc Hạp cho ngày này.";
             }
 
             $catScoreRaw = 0.0;
@@ -67,7 +67,7 @@ class SaoTotXauHelper
 
             $totalScore = $catScoreRaw + $hungScoreRaw;
 
-            $conclusion = "👉 Sao tốt liệu có hóa giải được sao xấu không? ";
+            $conclusion = "Sao tốt liệu có hóa giải được sao xấu không? ";
             if ($totalScore < 0) {
                 $badNames = implode(', ', array_column($topBadStars, 'name'));
                 if (empty($badNames) && !empty($ngocHapHungSat)) {

@@ -169,7 +169,7 @@ class LyThuanPhongHelper
     {
         try {
             // 1. Đánh giá ngày
-            $dayRatingConclusion = "ngày {$dayDailyRating} để xuất hành";
+            $dayRatingConclusion = "ngày <b>{$dayDailyRating}</b> để xuất hành";
 
             // 2. Hướng tốt và xấu
             $directionConclusion = '';
@@ -252,10 +252,10 @@ class LyThuanPhongHelper
             }
 
             // 4. Kết luận tổng
-            return "👉 Đây là $dayRatingConclusion{$directionConclusion}{$timeConclusion}";
+            return "Đây là $dayRatingConclusion{$directionConclusion}{$timeConclusion}";
         } catch (\Throwable $e) {
             \Log::error("Lỗi tạo kết luận Xuất hành: " . $e->getMessage());
-            return "👉 Không thể tạo kết luận xuất hành.";
+            return "Không thể tạo kết luận xuất hành.";
         }
     }
 

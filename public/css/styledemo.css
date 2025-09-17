@@ -3222,13 +3222,13 @@ a:hover {
     /* Padding cho toàn bộ container */
 
     /* Điều chỉnh responsive */
-    max-width: 960px;
+    /* max-width: 960px; */
     /* Giới hạn chiều rộng tối đa */
     width: 100%;
     /* Cho phép co giãn 100% của phần tử cha (body) */
     height: auto;
     /* Cho phép chiều cao tự động theo nội dung */
-    aspect-ratio: 2 / 1.7;
+  
     /* Tỷ lệ khung hình của biểu đồ gốc (~760/400) */
     box-sizing: border-box;
     display: flex;
@@ -4356,5 +4356,9 @@ input.daterangepicker-input:hover {
 }
 .title-tong-quan-h3{
     font-weight: 500;
+    color: #192E52;
+}
+.title-tong-quan-h2{
+    font-weight: 700;
     color: #192E52;
 }

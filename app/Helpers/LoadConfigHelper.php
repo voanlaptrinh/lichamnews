@@ -41,197 +41,197 @@ class LoadConfigHelper
         array(
             'dd' => 1,
             'mm' => 1,
-            'name' => 'Tết Dương lịch.'
+            'name' => 'Tết Dương lịch'
         ),
         array(
             'dd' => 14,
             'mm' => 2,
-            'name' => 'Lễ tình nhân (Valentine).'
+            'name' => 'Lễ tình nhân (Valentine)'
         ),
         array(
             'dd' => 3,
             'mm' => 2,
-            'name' => 'Ngày thành lập Đảng Cộng sản Việt Nam.'
+            'name' => 'Ngày thành lập Đảng Cộng sản Việt Nam'
         ),
         array(
             'dd' => 27,
             'mm' => 2,
-            'name' => 'Ngày thầy thuốc Việt Nam.'
+            'name' => 'Ngày Thầy thuốc Việt Nam'
         ),
         array(
             'dd' => 8,
             'mm' => 3,
-            'name' => 'Ngày Quốc tế Phụ nữ.'
+            'name' => 'Ngày Quốc tế Phụ nữ'
         ),
         array(
             'dd' => 10,
             'mm' => 3,
-            'name' => 'Ngày thành lập Hội Liên hiệp Phụ nữ Việt Nam.'
+            'name' => 'Ngày thành lập Hội Liên hiệp Phụ nữ Việt Nam'
         ),
         array(
             'dd' => 24,
             'mm' => 3,
-            'name' => 'Ngày Thế giới chống lao.'
+            'name' => 'Ngày Thế giới chống lao'
         ),
         array(
             'dd' => 26,
             'mm' => 3,
-            'name' => 'Ngày thành lập Đoàn TNCS Hồ Chí Minh.'
+            'name' => 'Ngày thành lập Đoàn TNCS Hồ Chí Minh'
         ),
         array(
             'dd' => 1,
             'mm' => 4,
-            'name' => 'Ngày Cá tháng Tư.'
+            'name' => 'Ngày Cá tháng Tư'
         ),
         array(
             'dd' => 30,
             'mm' => 4,
-            'name' => 'Ngày giải phóng miền Nam.'
+            'name' => 'Ngày giải phóng miền Nam'
         ),
         array(
             'dd' => 1,
             'mm' => 5,
-            'name' => 'Ngày Quốc tế Lao động.'
+            'name' => 'Ngày Quốc tế Lao động'
         ),
         array(
             'dd' => 7,
             'mm' => 5,
-            'name' => 'Ngày chiến thắng Điện Biên Phủ.'
+            'name' => 'Ngày chiến thắng Điện Biên Phủ'
         ),
         array(
             'dd' => 8,
             'mm' => 5,
-            'name' => 'Ngày chiến thắng phát xít.'
+            'name' => 'Ngày chiến thắng phát xít'
         ),
         array(
             'dd' => 19,
             'mm' => 5,
-            'name' => 'Ngày sinh chủ tịch Hồ Chí Minh.'
+            'name' => 'Ngày sinh chủ tịch Hồ Chí Minh'
         ),
         array(
             'dd' => 1,
             'mm' => 6,
-            'name' => 'Ngày Quốc tế thiếu nhi.'
+            'name' => 'Ngày Quốc tế Thiếu Nhi'
         ),
         array(
             'dd' => 17,
             'mm' => 6,
-            'name' => 'Ngày của cha.'
+            'name' => 'Ngày của cha'
         ),
         array(
             'dd' => 21,
             'mm' => 6,
-            'name' => 'Ngày báo chí Việt Nam.'
+            'name' => 'Ngày báo chí Việt Nam'
         ),
         array(
             'dd' => 28,
             'mm' => 6,
-            'name' => 'Ngày gia đình Việt Nam.'
+            'name' => 'Ngày gia đình Việt Nam'
         ),
         array(
             'dd' => 11,
             'mm' => 7,
-            'name' => 'Ngày dân số thế giới.'//
+            'name' => 'Ngày dân số thế giới'//
         ),
         array(
             'dd' => 27,
             'mm' => 7,
-            'name' => 'Ngày Thương binh liệt sĩ.'
+            'name' => 'Ngày Thương binh liệt sĩ'
         ),
         array(
             'dd' => 28,
             'mm' => 7,
-            'name' => 'Ngày thành lập công đoàn Việt Nam.'
+            'name' => 'Ngày thành lập công đoàn Việt Nam'
         ),
         array(
             'dd' => 15,
             'mm' => 8,
-            'name' => 'Ngày Độc lập.'
+            'name' => 'Ngày Độc lập'
         ),
         array(
             'dd' => 19,
             'mm' => 8,
-            'name' => 'Ngày tổng khởi nghĩa.'
+            'name' => 'Ngày tổng khởi nghĩa'
         ),
         array(
             'dd' => 2,
             'mm' => 9,
-            'name' => 'Ngày Quốc Khánh.'
+            'name' => 'Ngày Quốc Khánh'
         ),
         array(
             'dd' => 10,
             'mm' => 9,
-            'name' => 'Ngày thành lập Mặt trận Tổ quốc Việt Nam.'
+            'name' => 'Ngày thành lập Mặt trận Tổ quốc Việt Nam'
         ),
         array(
             'dd' => 15,
             'mm' => 9,
-            'name' => 'Ngày trẻ em Việt Nam.'
+            'name' => 'Ngày trẻ em Việt Nam'
         ),
         array(
             'dd' => 1,
             'mm' => 10,
-            'name' => 'Ngày quốc tế người cao tuổi.'
+            'name' => 'Ngày Quốc tế Người cao tuổi'
         ),
         array(
             'dd' => 10,
             'mm' => 10,
-            'name' => 'Ngày giải phóng thủ đô.'
+            'name' => 'Ngày Giải phóng Thủ đô'
         ),
         array(
             'dd' => 13,
             'mm' => 10,
-            'name' => 'Ngày doanh nhân Việt Nam.'
+            'name' => 'Ngày Doanh nhân Việt Nam'
         ),
         array(
             'dd' => 20,
             'mm' => 10,
-            'name' => 'Ngày Phụ nữ Việt Nam.'
+            'name' => 'Ngày Phụ nữ Việt Nam'
         ),
         array(
             'dd' => 31,
             'mm' => 10,
-            'name' => 'Ngày Hallowen.'
+            'name' => 'Ngày Hallowen'
         ),
         array(
             'dd' => 9,
             'mm' => 11,
-            'name' => 'Ngày pháp luật Việt Nam.'
+            'name' => 'Ngày pháp luật Việt Nam'
         ),
         array(
             'dd' => 20,
             'mm' => 11,
-            'name' => 'Ngày Nhà giáo Việt Nam.'
+            'name' => 'Ngày Nhà giáo Việt Nam'
         ),
         array(
             'dd' => 23,
             'mm' => 11,
-            'name' => 'Ngày thành lập Hội chữ thập đỏ Việt Nam.'
+            'name' => 'Ngày thành lập Hội chữ thập đỏ Việt Nam'
         ),
         array(
             'dd' => 1,
             'mm' => 12,
-            'name' => 'Ngày thế giới phòng chống AIDS.'
+            'name' => 'Ngày thế giới phòng chống AIDS'
         ),
         array(
             'dd' => 19,
             'mm' => 12,
-            'name' => 'Ngày toàn quốc kháng chiến.'
+            'name' => 'Ngày toàn quốc kháng chiến'
         ),
         array(
             'dd' => 24,
             'mm' => 12,
-            'name' => 'Đêm Giáng sinh.'
+            'name' => 'Đêm Giáng sinh'
         ),
         array(
             'dd' => 25,
             'mm' => 12,
-            'name' => 'Lễ Giáng sinh.'
+            'name' => 'Lễ Giáng sinh'
         ),
         array(
             'dd' => 22,
             'mm' => 12,
-            'name' => 'Ngày thành lập quân đội nhân dân Việt Nam.'
+            'name' => 'Ngày thành lập Quân đội Nhân dân Việt Nam'
         ),
     );
 
@@ -239,82 +239,83 @@ class LoadConfigHelper
         array(
             'dd' => 1,
             'mm' => 1,
-            'name' => 'Tết Nguyên Đán.',
+            'name' => 'Tết Nguyên Đán',
         ),
         array(
             'dd' => 2,
             'mm' => 1,
-            'name' => 'Mùng 2 Tết (Khai ấn).',
+            'name' => 'Mùng 2 Tết (Khai ấn)',
         ),
         array(
             'dd' => 3,
             'mm' => 1,
-            'name' => 'Mùng 3 Tết (Khai hạ).',
+            'name' => 'Mùng 3 Tết (Khai hạ)',
         ),
         array(
             'dd' => 15,
             'mm' => 1,
-            'name' => 'Tết Nguyên Tiêu (Lễ Thượng Nguyên).',
+            'name' => 'Tết Nguyên Tiêu (Lễ Thượng Nguyên)',
         ),
         array(
             'dd' => 3,
             'mm' => 3,
-            'name' => 'Tết Hàn Thực.',
+            'name' => 'Tết Hàn Thực',
         ),
         array(
             'dd' => 10,
             'mm' => 3,
-            'name' => 'Giỗ Tổ Hùng Vương.',
+            'name' => 'Giỗ Tổ Hùng Vương',
         ),
         array(
             'dd' => 15,
             'mm' => 4,
-            'name' => 'Lễ Phật Đản.',
+            'name' => 'Lễ Phật Đản',
         ),
         array(
             'dd' => 5,
             'mm' => 5,
-            'name' => 'Tết Đoan Ngọ.',
+            'name' => 'Tết Đoan Ngọ',
         ),
         array(
             'dd' => 1,
             'mm' => 7,
-            'name' => 'Lễ Đại Thệ.',
+            'name' => 'Lễ Đại Thệ',
         ),
         array(
             'dd' => 15,
             'mm' => 7,
-            'name' => 'Lễ Vu Lan.',
+            'name' => 'Lễ Vu Lan',
         ),
         array(
             'dd' => 1,
             'mm' => 8,
-            'name' => 'Lễ Thánh Mẫu.',
+            'name' => 'Lễ Thánh Mẫu',
         ),
         array(
             'dd' => 15,
             'mm' => 8,
-            'name' => 'Tết Trung Thu.',
+            'name' => 'Tết Trung Thu',
         ),
         array(
             'dd' => 9,
             'mm' => 9,
-            'name' => 'Tết Trùng Cửu.',
+            'name' => 'Tết Trùng Cửu',
         ),
         array(
             'dd' => 10,
             'mm' => 10,
-            'name' => 'Tết Thường Tân.',
+            'name' => 'Tết Thường Tân',
         ),
         array(
             'dd' => 15,
             'mm' => 10,
-            'name' => 'Tết Hạ Nguyên.',
+            'name' => 'Tết Hạ Nguyên',
         ),
         array(
+
             'dd' => 23,
             'mm' => 12,
-            'name' => 'Tiễn Táo Quân về trời.',
+            'name' => 'Tiễn Táo Quân về trời',
         ),
     );
 
@@ -330,7 +331,7 @@ class LoadConfigHelper
         2 => array(
             '03/02/1930 : Thành lập Đảng cộng sản Việt Nam',
             '08/02/1941 : Lãnh tụ Hồ Chí Minh trở về nước trực tiếp lãnh đạo cách mạng Việt Nam',
-            '27/02/1955 : Ngày thầy thuốc Việt Nam',
+            '27/02/1955 : Ngày Thầy thuốc Việt Nam',
             '14/02 : Ngày lễ tình yêu',
         ),
         3 => array(
@@ -353,7 +354,7 @@ class LoadConfigHelper
             '19/05/1941: Thành lập mặt trận Việt Minh',
         ),
         6 => array(
-            '01/06: Quốc tế thiếu nhi',
+            '01/06: Quốc tế Thiếu Nhi',
             '05/06/1911: Nguyễn Tất Thành rời cảng Nhà Rồng ra đi tìm đường cứu nước',
             '17/06 : Ngày của Bố',
             '21/06/1925: Ngày báo chí Việt Nam',
@@ -379,8 +380,8 @@ class LoadConfigHelper
             '27/09/1940: Khởi nghĩa Bắc Sơn',
         ),
         10 => array(
-            '01/10/1991: Ngày quốc tế người cao tuổi',
-            '10/10/1954: Giải phóng thủ đô',
+            '01/10/1991: Ngày Quốc tế Người cao tuổi',
+            '10/10/1954: Giải phóng Thủ đô',
             '14/10/1930: Ngày hội Nông dân Việt Nam',
             '15/10/1956: Ngày truyền thống Hội thanh niên Việt Nam',
             '20/10/1930: Thành lập Hội liên hiệp phụ nữ Việt Nam',

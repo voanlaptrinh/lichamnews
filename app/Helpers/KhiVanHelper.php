@@ -755,17 +755,17 @@ class KhiVanHelper
     {
         // Bước 1: Xác định xếp hạng (rating) dựa trên điểm số
         if ($totalScore >= 3.0) {
-            $rating = "Rất Tốt";
+            $rating = "<b>Rất Tốt</b>";
         } elseif ($totalScore >= 2.0) {
-            $rating = "Tốt";
+            $rating = "<b>Tốt</b>";
         } elseif ($totalScore >= 1.0) {
-            $rating = "Khá"; // Thêm "Khá" cho phù hợp hơn
+            $rating = "<b>Khá</b>"; // Thêm "Khá" cho phù hợp hơn
         } elseif ($totalScore > -1.0) { // Điểm từ -0.5 đến 0.5
-            $rating = "Trung bình";
+            $rating = "<b>Trung bình</b>";
         } elseif ($totalScore >= -2.0) {
-            $rating = "Kém";
+            $rating = "<b>Kém</b>";
         } else {
-            $rating = "Rất Xấu";
+            $rating = "<b>Rất Xấu</b>";
         }
 
         // Bước 2: Xác định mô tả chi tiết (description) dựa trên điểm số
@@ -787,7 +787,7 @@ class KhiVanHelper
         }
 
         // Bước 3: Kết hợp lại thành chuỗi kết luận cuối cùng
-        return "👉 Tổng khí ngày – tháng: $rating$description";
+        return "Tổng khí ngày – tháng: $rating$description";
     }
     public static function getKhiThangRating(float $totalScore): string
     {

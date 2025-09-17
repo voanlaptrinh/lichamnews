@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="{{ asset('/css/bootstrap-icons.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/styledemo.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/repont.css') }}">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('/css/daterangepicker.css') }}" />
 
     <!-- ĐẢM BẢO CÓ DÒNG NÀY ĐỂ CSRF TOKEN HOẠT ĐỘNG! -->
     <meta name="csrf-token" content="{{ csrf_token() }}">

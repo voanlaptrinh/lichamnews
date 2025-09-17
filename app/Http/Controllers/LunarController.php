@@ -393,6 +393,20 @@ class LunarController extends Controller
 
         //Lấy sao tốt xấu theo ngọc Hạp thông thư
         $getSaoTotXauInfo = FunctionHelper::getSaoTotXauInfo($dd, $mm, $yy);
+
+        $hoangDaoStars = [];
+        foreach ($getSaoTotXauInfo['sao_tot'] as $starName => $starDescription) {
+            if (str_contains($starName, 'Hoàng Đạo')) {
+                $hoangDaoStars[$starName] = $starDescription;
+            }
+        }
+
+        $hacDaoStars = [];
+        foreach ($getSaoTotXauInfo['sao_xau'] as $starName => $starDescription) {
+            if (str_contains($starName, 'Hắc Đạo')) {
+                $hacDaoStars[$starName] = $starDescription;
+            }
+        }
         //end
 
         //can chi tháng năm
@@ -513,6 +527,8 @@ class LunarController extends Controller
             'checkBadDays' => $checkBadDays,
             'labels' => $labels,
             'dataValues' => $dataValues,
+            'hoangDaoStars' => $hoangDaoStars,
+            'hacDaoStars' => $hacDaoStars,
 
         ]);
     }

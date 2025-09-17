@@ -88,7 +88,7 @@
                             <th><span class="title-lich-pc">Thứ năm</span> <span class="title-lich-mobie">Th
                                     5</span>
                             </th>
-                            <th><span class="title-lich-pc">Thứ sau</span> <span class="title-lich-mobie">Th
+                            <th><span class="title-lich-pc">Thứ sáu</span> <span class="title-lich-mobie">Th
                                     6</span>
                             </th>
                             <th><span class="title-lich-pc">Thứ bảy</span> <span class="title-lich-mobie">Th
@@ -272,7 +272,7 @@
         @foreach ($su_kiens as $su_kien)
             <div class="col-lg-12">
                 <div class="card">
-                    <div class="card-body text-start">
+                    <div class.card-body text-start">
                         {{ $su_kien }}
                     </div>
                 </div>

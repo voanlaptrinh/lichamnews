@@ -511,15 +511,15 @@ class LunarHelper
         return [
             '1-1' => 'Tết Nguyên Đán',
             '1-15' => 'Rằm tháng Giêng',
-            '3-3' => 'Tết Hàn Thực.',
+            '3-3' => 'Tết Hàn Thực',
             '3-10' => 'Giỗ tổ Hùng Vương',
             '4-8' => 'Lễ Phật Đản',
             '5-5' => 'Tết Đoan Ngọ',
             '7-15' => 'Lễ Vu Lan',
             '8-15' => 'Tết Trung Thu',
             '9-9' => 'Tết Trùng Cửu',
-            '10-10' => 'Tết Thường Tân.',
-            '10-15' => 'Tết Hạ Nguyên.',
+            '10-10' => 'Tết Thường Tân',
+            '10-15' => 'Tết Hạ Nguyên',
             '12-23' => 'Ông Công Ông Táo',
         ];
     }
@@ -1077,7 +1077,7 @@ static function convertSolar2Lunar($dd, $mm, $yy, $timeZone = 7.0)
             // THÁNG 2
             '2-3' => 'Ngày thành lập Đảng Cộng sản Việt Nam',
             '2-14' => 'Lễ tình nhân (Valentine)',
-            '2-27' => 'Ngày thầy thuốc Việt Nam',
+            '2-27' => 'Ngày Thầy thuốc Việt Nam',
 
             // THÁNG 3
             '3-8' => 'Ngày Quốc tế Phụ nữ',
@@ -1098,7 +1098,7 @@ static function convertSolar2Lunar($dd, $mm, $yy, $timeZone = 7.0)
             '5-19' => 'Ngày sinh chủ tịch Hồ Chí Minh',
 
             // THÁNG 6
-            '6-1' => 'Ngày Quốc tế thiếu nhi',
+            '6-1' => 'Ngày Quốc tế Thiếu Nhi',
             '6-5' => 'Ngày Môi trường Thế giới',
             '6-21' => 'Ngày báo chí Việt Nam',
             '6-28' => 'Ngày gia đình Việt Nam',
@@ -1114,14 +1114,14 @@ static function convertSolar2Lunar($dd, $mm, $yy, $timeZone = 7.0)
             '8-19' => 'Ngày tổng khởi nghĩa',
 
             // THÁNG 9
-            '9-2' => 'Ngày Quốc khánh',
+            '9-2' => 'Ngày Quốc Khánh',
             '9-10' => 'Ngày thành lập Mặt trận Tổ quốc Việt Nam',
             '9-15' => 'Ngày trẻ em Việt Nam',
 
             // THÁNG 10
-            '10-1' => 'Ngày quốc tế người cao tuổi',
-            '10-10' => 'Ngày giải phóng thủ đô',
-            '10-13' => 'Ngày doanh nhân Việt Nam',
+            '10-1' => 'Ngày Quốc tế Người cao tuổi',
+            '10-10' => 'Ngày Giải phóng Thủ đô',
+            '10-13' => 'Ngày Doanh nhân Việt Nam',
             '10-15' => 'Ngày truyền thống Hội LHTN Việt Nam',
             '10-20' => 'Ngày Phụ nữ Việt Nam',
             '10-31' => 'Ngày Halloween',
@@ -1136,7 +1136,7 @@ static function convertSolar2Lunar($dd, $mm, $yy, $timeZone = 7.0)
             '12-1' => 'Ngày thế giới phòng chống AIDS',
             '12-9' => 'Ngày phòng chống tham nhũng quốc tế',
             '12-19' => 'Ngày toàn quốc kháng chiến',
-            '12-22' => 'Ngày thành lập quân đội nhân dân Việt Nam',
+            '12-22' => 'Ngày thành lập Quân đội Nhân dân Việt Nam',
             '12-24' => 'Đêm Giáng sinh',
             '12-25' => 'Lễ Giáng sinh',
         ];
