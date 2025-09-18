@@ -4,7 +4,7 @@
         <h6 class="content-title-detail"><a href="{{ route('home') }}">Trang chủ</a> <i class="bi bi-chevron-right"></i>
             Lịch tháng & năm <i class="bi bi-chevron-right"></i> Lịch tháng <i class="bi bi-chevron-right"></i> <span>Lịch âm
                 âm năm {{ $nam }} </span></h6>
-
+   <h1 class="content-title-home-lich">LỊCH ÂM NĂM {{ $nam }}</h1>
         {{-- Hiển thị thông tin chi tiết tại đây --}}
         <div class="row g-lg-3 g-2 row-btn-date">
             <!-- Ngày tốt tháng 1 (Good day of August) -->

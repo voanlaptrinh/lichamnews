@@ -4,6 +4,7 @@
         <h6 class="content-title-detail"><a href="{{ route('home') }}">Trang chủ</a> <i class="bi bi-chevron-right"></i>
             Lịch tháng & năm <i class="bi bi-chevron-right"></i> Lịch tháng <i class="bi bi-chevron-right"></i> <span>Lịch âm
                 tháng {{ $mm }}</span></h6>
+                  <h1 class="content-title-home-lich">LỊCH ÂM THÁNG {{ $mm }}</h1>
         <div class="row g-lg-3 g-2 row-btn-date">
             <!-- Ngày tốt tháng {{ $mm }} (Good day of August) -->
             <div class="col-xl-2 col-lg-4 col-md-6 col-12"> <!--  để cột chỉ chiếm chiều rộng cần thiết -->
@@ -67,10 +68,10 @@
                         <i class="bi bi-chevron-right"></i>
                     </a>
 
-                    <a href="{{ route('lich.nam.ngay', ['nam' => date('Y'), 'thang' => date('n'), 'ngay' => date('d')]) }}"
+                    {{-- <a href="{{ route('lich.nam.ngay', ['nam' => date('Y'), 'thang' => date('n'), 'ngay' => date('d')]) }}"
                         class="btn-today-home-pc btn-today-home">
                         <i class="bi bi-calendar-plus pe-1-pc-home"></i> Hôm nay
-                    </a>
+                    </a> --}}
 
                 </div>
                 <table class="calendar-table">

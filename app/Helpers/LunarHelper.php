@@ -510,17 +510,49 @@ class LunarHelper
         // Các sự kiện cố định theo ngày âm
         return [
             '1-1' => 'Tết Nguyên Đán',
+            '1-2' => 'Mùng 2 Tết',
+            '1-3' => 'Mùng 3 Tết',
+            '1-10' => 'Vía Thần Tài',
             '1-15' => 'Rằm tháng Giêng',
+            '2-1' => 'Mùng 1 tháng Hai',
+            '2-2' => 'Vía Thổ Địa',
+            '2-15' => 'Rằm tháng Hai',
+            '2-19' => 'Vía Quan Âm',
+            '3-1' => 'Mùng 1 tháng Ba',
             '3-3' => 'Tết Hàn Thực',
             '3-10' => 'Giỗ tổ Hùng Vương',
+            '3-15' => 'Rằm tháng Ba',
+            '4-1' => 'Mùng 1 tháng Tư',
             '4-8' => 'Lễ Phật Đản',
+            '4-15' => 'Rằm tháng Tư',
+            '5-1' => 'Mùng 1 tháng Năm',
             '5-5' => 'Tết Đoan Ngọ',
+            '5-15' => 'Rằm tháng Năm',
+            '6-1' => 'Mùng 1 tháng Sáu',
+            '6-15' => 'Rằm tháng Sáu',
+            '6-19' => 'Vía Quan Âm thành đạo',
+            '7-1' => 'Mùng 1 tháng Bảy',
+            '7-7' => 'Thất Tịch',
             '7-15' => 'Lễ Vu Lan',
+            '7-30' => 'Ngày địa tạng',
+            '8-1' => 'Lễ Thánh Mẫu Liễu Hạnh',
             '8-15' => 'Tết Trung Thu',
+            '9-1' => 'Mùng 1 tháng Chín',
             '9-9' => 'Tết Trùng Cửu',
+            '9-15' => 'Rằm tháng Chín',
+            '9-19' => 'Vía Quan Âm xuất gia',
+            '10-1' => 'Mùng 1 tháng Mười',
             '10-10' => 'Tết Thường Tân',
             '10-15' => 'Tết Hạ Nguyên',
+            '10-20' => 'Ngày Phụ nữ Việt Nam',
+            '11-1' => 'Mùng 1 tháng Mười một',
+            '11-15' => 'Rằm tháng Mười một',
+            '11-23' => 'Ngày Thầy thuốc Việt Nam',
+            '12-1' => 'Mùng 1 tháng Chạp',
+            '12-15' => 'Rằm tháng Chạp',
             '12-23' => 'Ông Công Ông Táo',
+            '12-29' => 'Tất niên (29 tháng Chạp)',
+            '12-30' => 'Tất niên (30 tháng Chạp)',
         ];
     }
 
@@ -543,10 +575,12 @@ class LunarHelper
     if ($additionalClass) {
         $classCell[] = $additionalClass;
     }
-
     if ($lunarDate['month'] == 1 && $lunarDate['day'] <= 10) $classCell[] = 'tet';
     if ($solarYear == $yy && $solarMonth == $mm && $solarDate == $dd) $classCell[] = 'current';
-    if ($solarYear == $selected_yy && $solarMonth == $selected_mm && $solarDate == $selected_dd) $classCell[] = 'hovered';
+    if ($solarYear == $selected_yy && $solarMonth == $selected_mm && $solarDate == $selected_dd) {
+        $classCell[] = 'hovered';
+        $classCell[] = 'viewing-day'; // Thêm class rõ ràng cho ngày đang xem
+    }
 
     // ✅ Sự kiện ngày dương
     $event_text_duong = @$events[$solarDate];

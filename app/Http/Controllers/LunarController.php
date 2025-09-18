@@ -107,7 +107,7 @@ class LunarController extends Controller
         $ngaySuatHanhHTML = LichKhongMinhHelper::ngayToHTML($ngaySuatHanh);
 
         $tietkhi = LunarHelper::tietKhiWithIcon($jd);
-        list($table_html, $data_totxau) = LunarHelper::printTable($mm, $yy, true, true);
+        list($table_html, $data_totxau) = LunarHelper::printTable($mm, $yy, true, true, false, $dd);
 
         // =========================================================
         // ===  LOGIC LỌC VÀ LẤY SỰ KIỆN CHO NGÀY ĐANG XEM  ===
@@ -389,7 +389,7 @@ class LunarController extends Controller
         $ngaySuatHanhHTML = LichKhongMinhHelper::ngayToHTML($ngaySuatHanh); // HTML cho ngày xuất hành
 
         $tietkhi = LunarHelper::tietKhiWithIcon($jd);
-        list($table_html, $data_totxau) = LunarHelper::printTable($mm, $yy, true, true);
+        list($table_html, $data_totxau) = LunarHelper::printTable($mm, $yy, true, true, false, $dd);
 
         //Lấy sao tốt xấu theo ngọc Hạp thông thư
         $getSaoTotXauInfo = FunctionHelper::getSaoTotXauInfo($dd, $mm, $yy);
@@ -489,6 +489,73 @@ class LunarController extends Controller
             $labels[] = $date->format('d/m');
             $dataValues[] = $info['score']['percentage'];
         }
+
+         $upcomingEvents = [];
+        $currentCarbonDate = Carbon::create($yy, $mm, $dd)->startOfDay();
+        $lookAheadMonths = 3; // Số tháng tiếp theo muốn tìm sự kiện
+
+        for ($i = 0; $i <= $lookAheadMonths; $i++) {
+            $solarDateToCheck = Carbon::create($yy, $mm, $dd)->addMonthsNoOverflow($i);
+            $solarMonthToCheck = $solarDateToCheck->month;
+            $solarYearToCheck = $solarDateToCheck->year;
+
+            // Lấy sự kiện dương lịch
+            $eventsSolar = LunarHelper::getVietnamEvent($solarMonthToCheck, $solarYearToCheck);
+            foreach ($eventsSolar as $eventDay => $eventDescription) {
+                $eventCarbon = Carbon::create($solarYearToCheck, $solarMonthToCheck, $eventDay)->startOfDay();
+                // Chỉ lấy sự kiện từ ngày hiện tại trở đi
+                if ($eventCarbon->greaterThanOrEqualTo($currentCarbonDate)) {
+                    $daysRemaining = $eventCarbon->diffInDays($currentCarbonDate);
+                    $upcomingEvents[] = [
+                        'date' => $eventCarbon->format('Y-m-d'),
+                        'description' => $eventDescription . " (Dương lịch)",
+                        'days_remaining' => $daysRemaining,
+                        'type' => 'solar',
+                    ];
+                }
+            }
+
+            // Chuyển đổi tháng dương lịch hiện tại thành tháng âm lịch tương ứng
+            // (Đây là một cách ước tính đơn giản, có thể không hoàn hảo khi có tháng nhuận hoặc thay đổi đầu năm âm lịch)
+            $tempLunar = LunarHelper::convertSolar2Lunar(1, $solarMonthToCheck, $solarYearToCheck);
+            $lunarMonthToCheck = $tempLunar[1];
+            $lunarYearToCheck = $tempLunar[2];
+            $lunarLeap = $tempLunar[3];
+
+            // Lấy sự kiện âm lịch
+            $eventsLunar = LunarHelper::getVietnamLunarEvent2($lunarMonthToCheck, $lunarYearToCheck);
+            foreach ($eventsLunar as $lunarEventDay => $eventDescription) {
+                // Chuyển đổi ngày âm lịch sang ngày dương lịch để so sánh
+                $solarEquivalent = LunarHelper::convertLunar2Solar($lunarEventDay,  $lunarMonthToCheck, $lunarYearToCheck, $lunarLeap);
+                if ($solarEquivalent) {
+                    $eventCarbon = Carbon::create($solarEquivalent[2], $solarEquivalent[1], $solarEquivalent[0])->startOfDay();
+                    // Chỉ lấy sự kiện từ ngày hiện tại trở đi
+                    if ($eventCarbon->greaterThanOrEqualTo($currentCarbonDate)) {
+                        $daysRemaining = $eventCarbon->diffInDays($currentCarbonDate);
+                        $upcomingEvents[] = [
+                            'date' => $eventCarbon->format('Y-m-d'),
+                            'description' => $eventDescription['ten_su_kien'] . " (Âm lịch)",
+                            'days_remaining' => $daysRemaining,
+                            'type' => 'lunar',
+                        ];
+                    }
+                }
+            }
+        }
+
+        // Lọc bỏ các sự kiện trùng lặp (ví dụ, nếu một sự kiện dương lịch và âm lịch rơi vào cùng một ngày dương lịch và có cùng mô tả)
+        // Và sắp xếp các sự kiện theo ngày tăng dần, sau đó lọc các sự kiện có số ngày còn lại > 0
+        usort($upcomingEvents, function ($a, $b) {
+            return strtotime($a['date']) - strtotime($b['date']);
+        });
+
+        // Lọc các sự kiện có days_remaining = 0 nếu bạn không muốn hiển thị lại sự kiện của chính ngày hôm nay ở mục sắp tới
+        $upcomingEvents = array_filter($upcomingEvents, function ($event) {
+            return $event['days_remaining'] > 0;
+        });
+
+        // Giới hạn số lượng sự kiện sắp tới hiển thị (tùy chọn)
+        $upcomingEvents = array_slice($upcomingEvents, 0, 5);
         // dd($checkBadDays);
         return view('lunar.detail', [
             'cdate' => $cdate,
@@ -529,6 +596,7 @@ class LunarController extends Controller
             'dataValues' => $dataValues,
             'hoangDaoStars' => $hoangDaoStars,
             'hacDaoStars' => $hacDaoStars,
+            'upcomingEvents' => $upcomingEvents,
 
         ]);
     }
@@ -563,6 +631,9 @@ class LunarController extends Controller
                 }
             }
         }
+         if (!$yy || $yy < 1900 || $yy > 2100 || !$mm || $mm < 1 || $mm > 12) {
+            return back()->withErrors(['solar_date' => 'Vui lòng nhập ngày dương lịch hợp lệ.']);
+        }
         $al = LunarHelper::convertSolar2Lunar((int)$dd, (int)$mm, (int)$yy);
         $jd = LunarHelper::jdFromDate($dd, $mm, $yy);
         $canChi = LunarHelper::canchiNgayByJD($jd);
@@ -577,7 +648,7 @@ class LunarController extends Controller
         // $ngaySuatHanhHTML = LichKhongMinhHelper::ngayToHTML($ngaySuatHanh);
 
         $tietkhi = LunarHelper::tietKhiWithIcon($jd);
-        list($table_html, $data_totxau) = LunarHelper::printTable($mm, $yy, true, true);
+        list($table_html, $data_totxau) = LunarHelper::printTable($mm, $yy, true, true, false, $dd);
         $getThongTinNgay = FunctionHelper::getThongTinNgay($dd, $mm, $yy);
         $suKienDuongLich = [];
         $suKienAmLich = [];
@@ -615,6 +686,72 @@ class LunarController extends Controller
         $nextYear = $nextDate->year;
         $nextMonth = $nextDate->month;
         $tot_xau_result = LunarHelper::checkTotXau($canChi, $al[1]);
+        $upcomingEvents = [];
+        $currentCarbonDate = Carbon::create($yy, $mm, $dd)->startOfDay();
+        $lookAheadMonths = 3; // Số tháng tiếp theo muốn tìm sự kiện
+
+        for ($i = 0; $i <= $lookAheadMonths; $i++) {
+            $solarDateToCheck = Carbon::create($yy, $mm, $dd)->addMonthsNoOverflow($i);
+            $solarMonthToCheck = $solarDateToCheck->month;
+            $solarYearToCheck = $solarDateToCheck->year;
+
+            // Lấy sự kiện dương lịch
+            $eventsSolar = LunarHelper::getVietnamEvent($solarMonthToCheck, $solarYearToCheck);
+            foreach ($eventsSolar as $eventDay => $eventDescription) {
+                $eventCarbon = Carbon::create($solarYearToCheck, $solarMonthToCheck, $eventDay)->startOfDay();
+                // Chỉ lấy sự kiện từ ngày hiện tại trở đi
+                if ($eventCarbon->greaterThanOrEqualTo($currentCarbonDate)) {
+                    $daysRemaining = $eventCarbon->diffInDays($currentCarbonDate);
+                    $upcomingEvents[] = [
+                        'date' => $eventCarbon->format('Y-m-d'),
+                        'description' => $eventDescription . " (Dương lịch)",
+                        'days_remaining' => $daysRemaining,
+                        'type' => 'solar',
+                    ];
+                }
+            }
+
+            // Chuyển đổi tháng dương lịch hiện tại thành tháng âm lịch tương ứng
+            // (Đây là một cách ước tính đơn giản, có thể không hoàn hảo khi có tháng nhuận hoặc thay đổi đầu năm âm lịch)
+            $tempLunar = LunarHelper::convertSolar2Lunar(1, $solarMonthToCheck, $solarYearToCheck);
+            $lunarMonthToCheck = $tempLunar[1];
+            $lunarYearToCheck = $tempLunar[2];
+            $lunarLeap = $tempLunar[3];
+
+            // Lấy sự kiện âm lịch
+            $eventsLunar = LunarHelper::getVietnamLunarEvent2($lunarMonthToCheck, $lunarYearToCheck);
+            foreach ($eventsLunar as $lunarEventDay => $eventDescription) {
+                // Chuyển đổi ngày âm lịch sang ngày dương lịch để so sánh
+                $solarEquivalent = LunarHelper::convertLunar2Solar($lunarEventDay,  $lunarMonthToCheck, $lunarYearToCheck, $lunarLeap);
+                if ($solarEquivalent) {
+                    $eventCarbon = Carbon::create($solarEquivalent[2], $solarEquivalent[1], $solarEquivalent[0])->startOfDay();
+                    // Chỉ lấy sự kiện từ ngày hiện tại trở đi
+                    if ($eventCarbon->greaterThanOrEqualTo($currentCarbonDate)) {
+                        $daysRemaining = $eventCarbon->diffInDays($currentCarbonDate);
+                        $upcomingEvents[] = [
+                            'date' => $eventCarbon->format('Y-m-d'),
+                            'description' => $eventDescription['ten_su_kien'] . " (Âm lịch)",
+                            'days_remaining' => $daysRemaining,
+                            'type' => 'lunar',
+                        ];
+                    }
+                }
+            }
+        }
+
+        // Lọc bỏ các sự kiện trùng lặp (ví dụ, nếu một sự kiện dương lịch và âm lịch rơi vào cùng một ngày dương lịch và có cùng mô tả)
+        // Và sắp xếp các sự kiện theo ngày tăng dần, sau đó lọc các sự kiện có số ngày còn lại > 0
+        usort($upcomingEvents, function ($a, $b) {
+            return strtotime($a['date']) - strtotime($b['date']);
+        });
+
+        // Lọc các sự kiện có days_remaining = 0 nếu bạn không muốn hiển thị lại sự kiện của chính ngày hôm nay ở mục sắp tới
+        $upcomingEvents = array_filter($upcomingEvents, function ($event) {
+            return $event['days_remaining'] > 0;
+        });
+
+        // Giới hạn số lượng sự kiện sắp tới hiển thị (tùy chọn)
+        $upcomingEvents = array_slice($upcomingEvents, 0, 10);
         return view(
             'lunar.doi-lich',
             [
@@ -636,6 +773,7 @@ class LunarController extends Controller
                 'nextYear' => $nextYear,
                 'nextMonth' => $nextMonth,
                 'tot_xau_result' => $tot_xau_result,
+                'upcomingEvents' => $upcomingEvents,
 
             ]
         );

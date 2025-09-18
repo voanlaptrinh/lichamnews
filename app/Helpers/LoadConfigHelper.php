@@ -286,6 +286,11 @@ class LoadConfigHelper
             'mm' => 7,
             'name' => 'Lễ Vu Lan',
         ),
+         array(
+            'dd' => 30,
+            'mm' => 7,
+            'name' => 'Ngày địa tạng',
+        ),
         array(
             'dd' => 1,
             'mm' => 8,

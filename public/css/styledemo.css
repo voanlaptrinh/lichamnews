@@ -1,3 +1,4 @@
+
 @font-face {
     font-family: "sf-compact-display-medium";
     src:
@@ -31,7 +32,8 @@ body {
     display: flex;
     align-items: center;
     color: #192E52;
-    padding-bottom: 12px;
+    /* padding-bottom: 12px; */
+    font-weight:800;
 }
 
 .content-title-home-lich::before {
@@ -881,8 +883,6 @@ a {
 
 
 
-
-
 /* --- Container chính của header --- */
 .site-header {
     display: flex;
@@ -1618,14 +1618,17 @@ a:hover {
     margin-top: 22px;
 }
 
+.calendar-header-convert{
+      display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+    position: relative;
+    margin-top: 22px;
+}
+
 .btn-today-home {
     /* --- Định vị tuyệt đối ở góc phải --- */
-    position: absolute;
-    top: 50%;
-    /* Căn giữa theo chiều dọc */
-    right: 0;
-    /* Khoảng cách so với lề phải */
-    transform: translateY(-50%);
+
     /* Căn giữa chính xác theo chiều dọc */
 
     /* --- Kiểu dáng của nút --- */
@@ -1665,7 +1668,7 @@ a:hover {
     /* Màu nền xám nhạt */
     color: #192E52;
     /* Màu chữ */
-    border: 1px solid #2254AB;
+    border: 0.7px solid #2254AB;
     border-radius: 16px;
     /* Bo góc */
     padding: 6px 12px;
@@ -1919,6 +1922,7 @@ a:hover {
 
 
 
+
 .date_number_lich {
     font-family: 'sf-compact-display-medium';
     color: #214987;
@@ -1931,7 +1935,7 @@ a:hover {
     background-clip: text;
     color: transparent;
     text-shadow:
-        1px 1px 0 #FFFFFF, -1px 1px 0 #FFFFFF, 1px -1px 0 #FFFFFF, -1px -1px 0 #FFFFFF, 0px 1px 0 #FFFFFF, 0 -1px 0 #FFFFFF, 1px 0 0 #FFFFFF, -1px 0 0 #FFFFFF, 0px 2px 3px rgba(0, 0, 0, 0.6);
+        1px 1px 0 #FFFFFF, -1px 1px 0 #FFFFFF, 1px -1px 0 #FFFFFF, -1px -1px 0 #FFFFFF, 0px 1px 0 #FFFFFF, 0 -1px 0 #FFFFFF, 1px 0 0 #FFFFFF, -1px 0 0 #FFFFFF, 0px 2px 3px rgba(0, 0, 0, 0.2);
     padding: 5px;
 
 }
@@ -2038,9 +2042,7 @@ a:hover {
     border-radius: 24px;
 }
 
-.sun {
-    color: #BF7F0F !important;
-}
+
 
 /* ============================================= */
 /* == STYLE CHO ĐỒNG HỒ ĐO MỨC THUẬN LỢI == */
@@ -2052,7 +2054,7 @@ a:hover {
     font-weight: 700;
     color: #1a2c4e;
     /* Màu xanh đậm */
-    line-height: 1.4;
+    line-height: 1.2;
 }
 
 /* --- 2. Vòng tròn chính (progress-dial) --- */
@@ -2182,11 +2184,11 @@ a:hover {
 
 .btn-today-home,
 .btn-today-home-mob {
-    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.15);
+   /* box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.15);
 
-    /* Tùy chọn: Thêm tiền tố cho các trình duyệt cũ hơn để đảm bảo tương thích */
+   
     -webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.15);
-    -moz-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.15);*/
 
     /* Tùy chọn: Thêm transition để hiệu ứng mượt mà khi kết hợp với hover */
     transition: box-shadow 0.3s ease-in-out
@@ -2200,6 +2202,8 @@ a:hover {
 
 .btn0mobie {
     border-radius: 36px;
+    background: #214987;
+    max-width: 285px;
 }
 
 .events-card {
@@ -2393,8 +2397,6 @@ a:hover {
     /* Màu đi từ trong ra ngoài: trắng xanh -> xanh nhạt -> xanh đậm hơn */
     background: radial-gradient(circle, #C1E3FC, #EFF8FF);
 
-    /* 2. Viền (Border) */
-    border: 1px solid #214987;
     /* Thêm transition cho icon wrapper để hiệu ứng hover mượt hơn */
     transition: all 0.2s ease-in-out;
     box-shadow: 2px 2px 2px rgba(49, 144, 233, 0.5);
@@ -3404,7 +3406,7 @@ a:hover {
 }
 
 .backv-doi-lich .--pading {
-    padding: 40px;
+    padding: 30px;
 }
 
 .input-group-text {
@@ -3426,14 +3428,10 @@ a:hover {
 .dateuse2r[readonly] {
     background: white;
 }
-
-.lunar-full-moon {
-    background: #E8A4361F;
+.viewing-day{
+    background: #FDFAE9;
 }
 
-.lunar-first-day {
-    background: #BC51361F;
-}
 
 /* Custom date input wrapper với icon - Modern Design */
 .date-input-wrapper {
@@ -3997,7 +3995,6 @@ a:hover {
 .other-month .can-chi {
     color: #ccc !important;
 }
-
 .other-month.tot,
 .other-month.xau {
     background-color: #fafafa !important;
@@ -4361,4 +4358,102 @@ input.daterangepicker-input:hover {
 .title-tong-quan-h2{
     font-weight: 700;
     color: #192E52;
+}
+
+/* Custom Select Z-index fix */
+.custom-select-style:focus {
+    position: relative;
+    z-index: 10;
+}
+
+/* Custom Select Styling */
+/* Custom styles for select elements */
+.custom-select-style {
+    /* Remove default browser styling */
+    appearance: none;
+    -webkit-appearance: none; /* For Safari */
+    -moz-appearance: none; /* For Firefox */
+
+    /* Basic styling for the box */
+    background-color: #ffffff; /* White background */
+    border: 0.5px solid #94A3B8; /* Light gray border, similar to Bootstrap's default input border */
+    border-radius: 12px; /* Rounded corners */
+    padding: 8px 12px; /* Top/bottom padding, left/right padding */
+    padding-right: 36px; /* Add extra padding on the right for the custom arrow */
+
+    /* Font styling */
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; /* A clear sans-serif font */
+    font-size: 1rem; /* Base font size */
+    color: #001F50; /* Dark blue text color from the image */
+    font-weight: 600; /* Semi-bold text */
+    line-height: 1.5; /* Standard line height */
+
+    /* Custom arrow using SVG as background image */
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2.5 4.5L6 8L9.5 4.5' stroke='%23002856' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center; /* Position the arrow on the right, vertically centered */
+    background-size: 12px 12px; /* Size of the arrow */
+
+    /* Cursor style */
+    cursor: pointer;
+
+    /* Override Bootstrap's default focus styles */
+    outline: none;
+    box-shadow: none;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+/* Style on focus */
+.custom-select-style:focus {
+    border-color: #80bdff; /* A standard blue border on focus, or you can use your custom blue */
+    box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25); /* Standard blue shadow on focus */
+    /* If you want the focus style to match the dark blue theme more closely: */
+    /* border-color: #002856; */
+    /* box-shadow: 0 0 0 0.25rem rgba(0, 40, 86, 0.25); */
+}
+
+/* Optional: Set specific widths if needed to match the image precisely */
+#month-select {
+      bottom: auto !important;
+    width: 140px; /* Adjust as necessary */
+}
+
+#year-select {
+      top: auto !important;
+    width: 140px; /* Adjust as necessary */
+}
+.card-ket-lich{
+
+    background: #ffffff;
+    border-radius: 36px;
+    padding: 20px;
+
+}
+.sonar-date {
+    color: #f60;
+    font-weight: 700;
+    font-size: 20px;
+    border: 1px solid #bcccc3;
+    padding: 4px 6px;
+    letter-spacing: 3px;
+    margin-left: 5px;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+}
+.lunar-date {
+    color: #0b730b;
+    font-weight: 700;
+    font-size: 20px;
+    border: 1px solid #bcccc3;
+    padding: 4px 6px;
+    letter-spacing: 3px;
+    margin-left: 5px;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+}
+.bg-white-setting{
+    padding: 30px;
+    background: #ffffff;
 }

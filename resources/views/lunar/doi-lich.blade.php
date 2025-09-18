@@ -3,287 +3,390 @@
     <div class="container-setup">
         <h6 class="content-title-detail"><a href="{{ route('home') }}">Trang chủ</a> <i class="bi bi-chevron-right"></i>
             Tiện ích <i class="bi bi-chevron-right"></i> <span style="color: #2254AB">Đổi ngày âm dương </span></h6>
+        <h1 class="content-title-home-lich">ĐỔI NGÀY DƯƠNG SANG ÂM & ÂM SANG DƯƠNG</h1>
+        <div class="row g-3">
+            <div class="col-xl-9 col-sm-12 col-12">
+                <div class="row g-0 justify-content-center pt-lg-3 pt-2">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-12">
+                        <div class="backv-doi-lich ">
+                            <div class="">
+                                <div class="row g-3 --pading">
+                                    <div class="col-lg-8">
+                                        <h6 class="--text-down-convert">Chọn ngày dương hoặc âm bất kỳ:</h6>
+                                        <p>Chọn ngày dương lịch hoặc ngày âm lịch bất kỳ.</p>
+                                        <form action="{{ route('convert.am.to.duong') }}" method="POST">
+                                            @csrf
+                                            <div class="row g-3">
+                                                <div class="col-lg-6">
+                                                    <label class="form-label fw-bold" style="color: #212121CC">Ngày Dương
+                                                        Lịch</label>
+                                                    <div class="date-input-wrapper">
+                                                        <input type="text" value="" name="solar_date"
+                                                            id="solar_date" class="form-control dateuse2r"
+                                                            placeholder="dd/mm/yyyy" inputmode="text" autocomplete="off"
+                                                            data-type="solar">
+                                                        <span class="date-icon-custom">
+                                                            <i class="bi bi-calendar-date-fill"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <label class="form-label fw-bold" style="color: #212121CC">Ngày Âm
+                                                        Lịch</label>
+                                                    <div class="date-input-wrapper">
+                                                        <input type="text" value="" name="lunar_date"
+                                                            id="lunar_date" class="form-control dateuse2r"
+                                                            placeholder="dd/mm/yyyy" inputmode="text" autocomplete="off"
+                                                            data-type="lunar">
+                                                        <span class="date-icon-custom">
+                                                            <i class="bi bi-calendar-date-fill"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12">
+                                                    <div class="d-flex justify-content-center">
+                                                        <button type="submit" class="btn btn-primary btnd-nfay">Chuyển
+                                                            đổi</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="col-lg-4 d-none d-lg-block">
+                                        <img src="{{ asset('icons/datedoilich.svg') }}" alt="ảnh đổi lich"
+                                            class="img-fluid">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-4 g-3">
 
 
-        <div class="row g-0 justify-content-center pt-lg-5 pt-4">
-            <div class="col-xl-10 col-lg-12 col-md-12 col-12">
-                <div class="backv-doi-lich ">
-                    <div class="">
-                        <div class="row g-3 --pading">
-                            <div class="col-lg-8">
-                                <h6 class="title-chon-lich">Chọn ngày dương hoặc âm bất kỳ:</h6>
-                                <p>Chọn ngày dương lịch hoặc ngày âm lịch bất kỳ.</p>
-                                <form action="{{ route('convert.am.to.duong') }}" method="POST">
-                                    @csrf
-                                    <div class="row g-3">
-                                        <div class="col-lg-6">
-                                            <label class="form-label fw-bold" style="color: #212121CC">Ngày Dương
-                                                Lịch</label>
-                                            <div class="date-input-wrapper">
-                                                <input type="text" value="" name="solar_date" id="solar_date"
-                                                    class="form-control dateuse2r" placeholder="dd/mm/yyyy" inputmode="text"
-                                                    autocomplete="off" readonly data-type="solar">
-                                                <span class="date-icon-custom">
-                                                    <i class="bi bi-calendar-date-fill"></i>
-                                                </span>
+                    <div class="col-lg-12 order-2 order-lg-2">
+                        <div class="box-date-detail bg-white-setting">
+                            <h6 class="--text-down-convert">Kết quả chuyển đổi</h6>
+                            <div class="col-lg-12 order-1 order-lg-1 mb-3">
+                                <div class="row g-3">
+                                    <div class="col-6">
+                                        <div class="date-display-card">
+                                            <a href="javascript:void(0)"
+                                                class="nav-arrow nav-home-date nave-left prev-day-btn"
+                                                title="Ngày hôm trước" onclick="changeDay(-1)"><i
+                                                    class="bi bi-chevron-left"></i></a>
+                                            <div class="text-center">
+                                                <div
+                                                    class="card-title title-amduowngbox d-flex align-items-center justify-content-center g-2">
+                                                    <img src="{{ asset('/icons/icon_duong.svg') }}" alt="icon_duong"
+                                                        width="20px" height="20px" class="me-1">
+                                                    <div> Dương lịch</div>
+                                                </div>
+                                                <div class="date-number duong date_number_lich"> {{ $dd }}</div>
+                                                <div class="date-weekday">{{ $weekday }}</div>
+                                                <div class="date-special-event text-dark">Tháng {{ $mm }} năm
+                                                    {{ $yy }}</div>
+                                                <div class="date-special-event">
+                                                    @if (!empty($suKienDuongLich))
+                                                        @foreach ($suKienDuongLich as $suKien)
+                                                            <div class="su-kien-duong">
+                                                                {{ $suKien['ten_su_kien'] ?? $suKien }}
+                                                            </div>
+                                                        @endforeach
+                                                    @endif
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="date-display-card">
+                                            <div class="text-center">
+                                                <div
+                                                    class="card-title title-amduowngbox d-flex align-items-center justify-content-center">
+                                                    <img src="/icons/icon_am.svg" alt="icon_am" width="20px"
+                                                        height="20px" class="me-1">
+                                                    <div>Âm lịch</div>
+                                                </div>
+                                                <div class="date-number am date_number_lich date_number_lich_am">
+                                                    {{ $al[0] }}
+                                                </div>
+                                                <div class="date-weekday">Tháng {{ $al[1] }} ({{ $al[4] }})
+                                                    năm
+                                                    {{ $getThongTinCanChiVaIcon['can_chi_nam'] }}</div>
+                                                <div class="date-special-event text-dark">Ngày
+                                                    {{ $getThongTinCanChiVaIcon['can_chi_ngay'] }}
+                                                    -
+                                                    Tháng {{ $getThongTinCanChiVaIcon['can_chi_thang'] }}</div>
+                                                <div class="date-special-event">
+                                                    @if (!empty($suKienAmLich))
+                                                        @foreach ($suKienAmLich as $suKien)
+                                                            <div class="su-kien-duong">
+                                                                {{ $suKien['ten_su_kien'] ?? $suKien }}
+                                                            </div>
+                                                        @endforeach
+                                                    @endif
+                                                </div>
+                                            </div>
+
+                                            <a href="javascript:void(0)"
+                                                class="nav-arrow nav-home-date nave-right next-day-btn" title="Ngày hôm sau"
+                                                onclick="changeDay(1)"> <i class="bi bi-chevron-right"></i></a>
+                                            @if ($tot_xau_result == 'tot')
+                                                <div class="day-status hoang-dao">
+                                                    <span class="status-dot"></span>
+                                                    <span class="title-status-dot"> Hoàng đạo</span>
+                                                </div>
+                                            @elseif($tot_xau_result == 'xau')
+                                                <div class="day-status hac-dao">
+                                                    <span class="status-dot"></span>
+                                                    <span class="title-status-dot"> Hắc đạo</span>
+                                                </div>
+                                            @else
+                                                <div class="day-status ">
+
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-lg-12 btn-mobie-next-prev">
+                                        <div></div>
+                                        <div class="d-flex gap-2">
+                                            <div class="div">
+                                                <a href="javascript:void(0)"
+                                                    class="nav-arrow prev-day-btn-mobie  nave-left prev-day-btn"
+                                                    title="Ngày hôm trước" onclick="changeDay(-1)"><i
+                                                        class="bi bi-chevron-left"></i></a>
+                                            </div>
+                                            <div class="div">
+                                                <a href="javascript:void(0)"
+                                                    class="nav-arrow  next-day-btn-mobie nave-right next-day-btn"
+                                                    title="Ngày hôm sau" onclick="changeDay(1)"> <i
+                                                        class="bi bi-chevron-right"></i></a>
                                             </div>
                                         </div>
-                                        <div class="col-lg-6">
-                                            <label class="form-label fw-bold" style="color: #212121CC">Ngày Âm Lịch</label>
-                                            <div class="date-input-wrapper">
-                                                <input type="text" value="" name="lunar_date" id="lunar_date"
-                                                    class="form-control dateuse2r" placeholder="dd/mm/yyyy" inputmode="text"
-                                                    autocomplete="off" readonly data-type="lunar">
-                                                <span class="date-icon-custom">
-                                                    <i class="bi bi-calendar-date-fill"></i>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-12">
-                                            <div class="d-flex justify-content-center">
-                                                <button type="submit" class="btn btn-primary btnd-nfay">Chuyển đổi</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="col-lg-4 d-none d-lg-block">
-                                <img src="{{ asset('icons/datedoilich.svg') }}" alt="ảnh đổi lich" class="img-fluid">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row mt-4 g-3">
-            <div class="col-lg-3 order-2 order-lg-1">
-                <h6 class="--text-down-convert">Kết quả chuyển đổi</h6>
-                <div class="info-item">
-                    <img src="{{ asset('icons/icon_tiet_khi.png') }}" alt="icon_tiet_khi" class="icon_tiet_khi">
-                    <div class="font-detail-ngay">
-                        <strong class="title-font-detail-ngay">Tiết khí:</strong>
-                        {!! $tietkhi['icon'] !!} <span class="text-uppercase">{{ $tietkhi['tiet_khi'] }}</span>
-                    </div>
-                </div>
-                <div class="info-item">
-                    <img src="{{ asset('icons/icon_nap_am.png') }}" alt="icon_nap_am" class="icon_nap_am">
-                    <div class="font-detail-ngay">
-                        <strong class="title-font-detail-ngay">Ngũ hành nạp âm:</strong>
-                        {{ $getThongTinNgay['nap_am']['napAm'] }}
-                    </div>
-                </div>
-                <div class="info-item">
-                    <img src="{{ asset('icons/icon_hoang_dao.png') }}" alt="icon_hoang_dao" class="icon_hoang_dao">
-                    <div class="font-detail-ngay">
-                        <strong class="title-font-detail-ngay">Giờ Hoàng đạo:</strong>
-                        {{ $getThongTinNgay['gio_hoang_dao'] }}
-                    </div>
-                </div>
-                <div class="col-lg-12 pt-2 d-flex justify-content-center ">
-                    <a href="{{ route('detai_home', ['nam' => $yy, 'thang' => $mm, 'ngay' => $dd]) }}" class="btn btn-primary w-100 mt-3" > <img src="/icons/hand_2_white.svg" alt="hand_2" class="img-fluid"> Xem chi tiết</a>
-                </div>
-            </div>
-            <div class="col-lg-9 order-1 order-lg-2">
-                <div class="box-date-detail">
-                    <div class="row g-3">
-                        <div class="col-6">
-                            <div class="date-display-card">
-                                <a href="javascript:void(0)" class="nav-arrow nav-home-date nave-left prev-day-btn"
-                                    title="Ngày hôm trước" onclick="changeDay(-1)"><i class="bi bi-chevron-left"></i></a>
-                                <div class="text-center">
-                                    <div class="card-title title-amduowngbox"><img src="/icons/icon_duong.svg"
-                                            alt="icon_duong" width="20px" height="20px"> Dương lịch</div>
-                                    <div class="date-number duong date_number_lich"> {{ $dd }}</div>
-                                    <div class="date-weekday">{{ $weekday }}</div>
-                                    <div class="date-special-event text-dark">Tháng {{ $mm }} năm
-                                        {{ $yy }}</div>
-                                    <div class="date-special-event">
-                                        @if (!empty($suKienDuongLich))
-                                            @foreach ($suKienDuongLich as $suKien)
-                                                <div class="su-kien-duong">{{ $suKien['ten_su_kien'] ?? $suKien }}</div>
-                                            @endforeach
-                                        @endif
                                     </div>
                                 </div>
 
 
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="date-display-card">
-                                <div class="text-center">
-                                    <div class="card-title title-amduowngbox"><img src="/icons/icon_am.svg"
-                                            alt="icon_am" width="20px" height="20px"> Âm lịch</div>
-                                    <div class="date-number am date_number_lich date_number_lich_am">{{ $al[0] }}
-                                    </div>
-                                    <div class="date-weekday">Tháng {{ $al[1] }} ({{ $al[4] }}) năm
-                                        {{ $getThongTinCanChiVaIcon['can_chi_nam'] }}</div>
-                                    <div class="date-special-event text-dark">Ngày
-                                        {{ $getThongTinCanChiVaIcon['can_chi_ngay'] }}
-                                        -
-                                        Tháng {{ $getThongTinCanChiVaIcon['can_chi_thang'] }}</div>
-                                    <div class="date-special-event">
-                                        @if (!empty($suKienAmLich))
-                                            @foreach ($suKienAmLich as $suKien)
-                                                <div class="su-kien-duong">{{ $suKien['ten_su_kien'] ?? $suKien }}</div>
-                                            @endforeach
-                                        @endif
+
+
+                                <div class="mt-4">
+                                    <p>✦ Ngày Dương Lịch: <span
+                                            class="sonar-date">{{ $dd }}/{{ $mm }}/{{ $yy }}</span>
+                                    </p>
+                                    <p>✦ Ngày Âm Lịch: <span
+                                            class="lunar-date ">{{ $al[0] }}/{{ $al[1] }}/{{ $al[2] }}</span>
+                                    </p>
+                                    <p>✦ Ngày trong tuần: {{ $weekday }}</p>
+                                    <p>✦ Ngũ hành nạp âm: {{ $getThongTinNgay['nap_am']['napAm'] }}</p>
+                                    <p>✦ Tiết khí: {{ $tietkhi['tiet_khi'] }}</p>
+                                    <p>✦ Giờ hoàng đạo: {{ $getThongTinNgay['gio_hoang_dao'] }}</p>
+
+
+                                    <div class="col-lg-12 pt-2 d-flex justify-content-center ">
+                                        <a href="{{ route('detai_home', ['nam' => $yy, 'thang' => $mm, 'ngay' => $dd]) }}"
+                                            class="btn btn-primary w-100 mt-3 btn0mobie mt-3"> <img
+                                                src="{{ asset('/icons/hand_2_white.svg') }}" alt="hand_2"
+                                                class="img-fluid">
+                                            Xem chi
+                                            tiết</a>
                                     </div>
                                 </div>
-
-                                <a href="javascript:void(0)" class="nav-arrow nav-home-date nave-right next-day-btn"
-                                    title="Ngày hôm sau" onclick="changeDay(1)"> <i class="bi bi-chevron-right"></i></a>
-                                @if ($tot_xau_result == 'tot')
-                                    <div class="day-status hoang-dao">
-                                        <span class="status-dot"></span>
-                                        <span class="title-status-dot"> Hoàng đạo</span>
-                                    </div>
-                                @elseif($tot_xau_result == 'xau')
-                                    <div class="day-status hac-dao">
-                                        <span class="status-dot"></span>
-                                        <span class="title-status-dot"> Hắc đạo</span>
-                                    </div>
-                                @else
-                                    <div class="day-status ">
-
-                                    </div>
-                                @endif
                             </div>
+
+
                         </div>
 
-
-                        <div class="col-lg-12 btn-mobie-next-prev">
-                            <div></div>
-                            <div class="d-flex gap-2">
-                                <div class="div">
-                                    <a href="javascript:void(0)"
-                                        class="nav-arrow prev-day-btn-mobie  nave-left prev-day-btn"
-                                        title="Ngày hôm trước" onclick="changeDay(-1)"><i
-                                            class="bi bi-chevron-left"></i></a>
-                                </div>
-                                <div class="div">
-                                    <a href="javascript:void(0)"
-                                        class="nav-arrow  next-day-btn-mobie nave-right next-day-btn" title="Ngày hôm sau"
-                                        onclick="changeDay(1)"> <i class="bi bi-chevron-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
                     </div>
-                     <div class="calendar-legend mt-3">
-                            <span><span class="dot dot-hoangdao"></span> Ngày hoàng đạo</span>
-                            <span><span class="dot dot-hacdao"></span> Ngày hắc đạo</span>
-                         
-                        </div>
                 </div>
-                
-            </div>
-        </div>
 
-        <div class="mt-5">
-            <div class="calendar-wrapper">
-                <div class="calendar-header">
-                    {{-- Nút Quay lại tháng trước --}}
-                    <a href="{{ route('lich.thang', ['nam' => $prevYear, 'thang' => $prevMonth]) }}" class="month-nav">
-                        <i class="bi bi-chevron-left"></i>
-                    </a>
-
-                    {{-- Tiêu đề Tháng/Năm --}}
-                    <h5 class="mb-0">Tháng {{ $mm }} năm {{ $yy }}</h5>
-
-                    {{-- Nút Tới tháng sau --}}
-                    <a href="{{ route('lich.thang', ['nam' => $nextYear, 'thang' => $nextMonth]) }}" class="month-nav">
-                        <i class="bi bi-chevron-right"></i>
-                    </a>
-
-                    {{-- ============================================= --}}
-                    {{-- BẮT ĐẦU: THÊM NÚT "HÔM NAY" VÀO ĐÂY --}}
-                    {{-- ============================================= --}}
-                    <a href="{{ route('lich.nam.ngay', ['nam' => date('Y'), 'thang' => date('n'), 'ngay' => date('d')]) }}"
+                <div class="mt-5">
+                    <div class="calendar-wrapper">
+                        <div class="calendar-header-convert calendar-header">
+                            <div class="text-center">
+                                <h5 class="mb-0 pt-2">Tháng {{ $mm }} năm {{ $yy }}</h5>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <select id="month-select" class="form-select me-2 custom-select-style">
+                                    @for ($i = 1; $i <= 12; $i++)
+                                        <option value="{{ $i }}" {{ $i == $mm ? 'selected' : '' }}>Tháng
+                                            {{ $i }}</option>
+                                    @endfor
+                                </select>
+                                <select id="year-select" class="form-select custom-select-style">
+                                    @for ($i = 1900; $i <= 2100; $i++)
+                                        <option value="{{ $i }}" {{ $i == $yy ? 'selected' : '' }}>Năm
+                                            {{ $i }}</option>
+                                    @endfor
+                                </select>
+                            </div>
+                            {{-- <a href="{{ route('lich.nam.ngay', ['nam' => date('Y'), 'thang' => date('n'), 'ngay' => date('d')]) }}"
                         class="btn-today-home-pc btn-today-home">
                         <i class="bi bi-calendar-plus pe-1-pc-home"></i> Hôm nay
-                    </a>
-                    {{-- ============================================= --}}
-                    {{-- KẾT THÚC: NÚT "HÔM NAY" --}}
-                    {{-- ============================================= --}}
+                    </a> --}}
+                        </div>
+                        <div id="calendar-body-container">
+                            <table class="calendar-table">
+                                <thead>
+                                    <tr>
+                                        <th><span class="title-lich-pc">Thứ hai</span> <span class="title-lich-mobie">Th
+                                                2</span>
+                                        </th>
+                                        <th><span class="title-lich-pc">Thứ ba</span> <span class="title-lich-mobie">Th
+                                                3</span>
+                                        </th>
+                                        <th><span class="title-lich-pc">Thứ tư</span> <span class="title-lich-mobie">Th
+                                                4</span>
+                                        </th>
+                                        <th><span class="title-lich-pc">Thứ năm</span> <span class="title-lich-mobie">Th
+                                                5</span>
+                                        </th>
+                                        <th><span class="title-lich-pc">Thứ sáu</span> <span class="title-lich-mobie">Th
+                                                6</span>
+                                        </th>
+                                        <th><span class="title-lich-pc">Thứ bảy</span> <span class="title-lich-mobie">Th
+                                                7</span>
+                                        </th>
+                                        <th><span class="title-lich-pc">Chủ nhật</span> <span
+                                                class="title-lich-mobie">CN</span>
+                                        </th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {!! $table_html !!}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="calendar-legend">
+                            <span><span class="dot dot-hoangdao"></span> Ngày hoàng đạo</span>
+                            <span><span class="dot dot-hacdao"></span> Ngày hắc đạo</span>
+
+                        </div>
+                    </div>
                 </div>
-                <table class="calendar-table">
-                    <thead>
-                        <tr>
-                            <th><span class="title-lich-pc">Thứ hai</span> <span class="title-lich-mobie">Th
-                                    2</span>
-                            </th>
-                            <th><span class="title-lich-pc">Thứ ba</span> <span class="title-lich-mobie">Th
-                                    3</span>
-                            </th>
-                            <th><span class="title-lich-pc">Thứ tư</span> <span class="title-lich-mobie">Th
-                                    4</span>
-                            </th>
-                            <th><span class="title-lich-pc">Thứ năm</span> <span class="title-lich-mobie">Th
-                                    5</span>
-                            </th>
-                            <th><span class="title-lich-pc">Thứ sáu</span> <span class="title-lich-mobie">Th
-                                    6</span>
-                            </th>
-                            <th><span class="title-lich-pc">Thứ bảy</span> <span class="title-lich-mobie">Th
-                                    7</span>
-                            </th>
-                            <th><span class="title-lich-pc">Chủ nhật</span> <span class="title-lich-mobie">CN</span>
-                            </th>
+                <div class="search-am-duong-lich">
+                    <div class="van-lien-hows">
+                        <h2>Tìm hiểu thêm về âm lịch</h2>
+                        <hr>
+                        <div>
+                            <ul>
+                                <li><b>Âm lịch</b> là loại lịch được tính theo chu kỳ tròn khuyết của mặt trăng, tức là
+                                    khoảng
+                                    thời
+                                    gian hai lần liên tiếp trăng tròn hoặc không tròn. Bình quân cứ 29,53 ngày là một lần
+                                    mặt
+                                    trăng
+                                    tròn khuyết tuy nhiên để thuận lợi cho việc tính toán người xưa tính chẵn một đủ có 30
+                                    ngày,
+                                    tháng thiếu có 29 ngày.</li>
+                                <li>
+                                    Từ thời xa xưa, khi con người chưa biết đến những thành tựu của khoa học công nghệ thì
+                                    việc
+                                    trồng trọt, chăn nuôi hoàn toàn phụ thuộc vào việc “trông trời, trông đất, trông
+                                    mây”.<b>
+                                        Nhờ có
+                                        Âm
+                                        lịch</b> mà dân ta đã biết tính toán ngày sản xuất bắt đầu mùa vụ, ngày thủy triều
+                                    lên
+                                    xuống
+                                    hay
+                                    việc tự mình dự đoán thời tiết để làm nông nghiệp..
+                                </li>
+                                <li>
+                                    Ngày nay, âm lịch của Việt Nam thực chất là âm dương lịch, nghĩa là thời gian được tính
+                                    theo
+                                    <b>
+                                        chu
+                                        kỳ của Mặt Trăng</b> nhưng các tháng nhuận lại được điều chỉnh theo quy luật để ăn
+                                    khớp
+                                    với
+                                    năm
+                                    dương lịch. Trong một năm có 12 ngày tiết khí và 12 ngày trung khí được gọi là 24 ngày
+                                    tiết,
+                                    tên
+                                    ngày tiết được đặt tên theo khí hậu như xuân phân, hạ chí, đại hàn…việc sản xuất nông
+                                    nghiệp,
+                                    chăn nuôi, trồng trọt cũng dựa theo các ngày tiết này.
+                                </li>
+                                <li>
 
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {!! $table_html !!}
-                    </tbody>
-                </table>
-
+                                    Ngoài những ngày lễ dương lịch, người dân Việt Nam còn sử dụng cả âm lịch trong các ngày
+                                    <b>lễ
+                                        truyền thống</b> quan trọng như tết Nguyên Đán, ngày giỗ tổ Hùng Vương, tết Đoan
+                                    Ngọ,
+                                    rằm
+                                    Trung Thu,
+                                    tết Ông Táo..cho đến những ngày lễ tâm linh, mang ý nghĩa thiêng liêng như Thượng
+                                    Nguyên,
+                                    Trung
+                                    Nguyên, Hạ Nguyên, Trùng Thập, Trùng Cửu và cả ngày giỗ của ông bà tổ tiên trong gia
+                                    đình.
+                                </li>
+                                <li>
+                                    Có thể thấy rằng âm lịch có <b>vai trò quan trọng</b> đối với đời sống sinh hoạt, sản
+                                    xuất
+                                    của
+                                    người
+                                    dân Việt Nam từ xa xưa cho đến tận ngày nay.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-        </div>
-        <div class="search-am-duong-lich">
-            <div class="van-lien-hows">
-                <h2>Tìm hiểu thêm về âm lịch</h2>
-                <hr>
-                <div>
-                    <ul>
-                        <li><b>Âm lịch</b> là loại lịch được tính theo chu kỳ tròn khuyết của mặt trăng, tức là khoảng thời
-                            gian hai lần liên tiếp trăng tròn hoặc không tròn. Bình quân cứ 29,53 ngày là một lần mặt trăng
-                            tròn khuyết tuy nhiên để thuận lợi cho việc tính toán người xưa tính chẵn một đủ có 30 ngày,
-                            tháng thiếu có 29 ngày.</li>
-                        <li>
-                            Từ thời xa xưa, khi con người chưa biết đến những thành tựu của khoa học công nghệ thì việc
-                            trồng trọt, chăn nuôi hoàn toàn phụ thuộc vào việc “trông trời, trông đất, trông mây”.<b> Nhờ có
-                                Âm
-                                lịch</b> mà dân ta đã biết tính toán ngày sản xuất bắt đầu mùa vụ, ngày thủy triều lên xuống
-                            hay
-                            việc tự mình dự đoán thời tiết để làm nông nghiệp..
-                        </li>
-                        <li>
-                            Ngày nay, âm lịch của Việt Nam thực chất là âm dương lịch, nghĩa là thời gian được tính theo <b>
-                                chu
-                                kỳ của Mặt Trăng</b> nhưng các tháng nhuận lại được điều chỉnh theo quy luật để ăn khớp với
-                            năm
-                            dương lịch. Trong một năm có 12 ngày tiết khí và 12 ngày trung khí được gọi là 24 ngày tiết, tên
-                            ngày tiết được đặt tên theo khí hậu như xuân phân, hạ chí, đại hàn…việc sản xuất nông nghiệp,
-                            chăn nuôi, trồng trọt cũng dựa theo các ngày tiết này.
-                        </li>
-                        <li>
+            <div class="col-xl-3  col-sm-12 col-12">
+                <div class="d-flex flex-column gap-4 pt-2">
 
-                            Ngoài những ngày lễ dương lịch, người dân Việt Nam còn sử dụng cả âm lịch trong các ngày <b>lễ
-                                truyền thống</b> quan trọng như tết Nguyên Đán, ngày giỗ tổ Hùng Vương, tết Đoan Ngọ, rằm
-                            Trung Thu,
-                            tết Ông Táo..cho đến những ngày lễ tâm linh, mang ý nghĩa thiêng liêng như Thượng Nguyên, Trung
-                            Nguyên, Hạ Nguyên, Trùng Thập, Trùng Cửu và cả ngày giỗ của ông bà tổ tiên trong gia đình.</li>
-                        <li>
-                            Có thể thấy rằng âm lịch có <b>vai trò quan trọng</b> đối với đời sống sinh hoạt, sản xuất của
-                            người
-                            dân Việt Nam từ xa xưa cho đến tận ngày nay.
-                        </li>
-                    </ul>
+
+
+                    <!-- ** KHỐI SỰ KIỆN SẮP TỚI ** -->
+                    <div class="events-card">
+                        <h5 class="card-title-right">Sự kiện, ngày lễ sắp tới</h5>
+                        <ul class="list-group list-group-flush events-list">
+                            @foreach ($upcomingEvents as $event)
+                                @php
+                                    // Phân tích cú pháp ngày sự kiện một lần để lấy các phần tử năm, tháng, ngày
+                                    $eventCarbonDate = Carbon\Carbon::parse($event['date']);
+                                    $routeParams = [
+                                        'nam' => $eventCarbonDate->year,
+                                        'thang' => $eventCarbonDate->month,
+                                        'ngay' => $eventCarbonDate->day,
+                                    ];
+                                @endphp
+                                <li class="list-group-item event-item">
+                                    <a href="{{ route('lich.nam.ngay', $routeParams) }}">
+                                        <div class="event-date">Ngày
+                                            {{ Carbon\Carbon::parse($event['date'])->format('d/m') }}</div>
+                                        <div class="event-icon">🗓️</div>
+                                        <div class="event-details">
+                                            <div class="event-name">{{ $event['description'] }}</div>
+                                            <div class="event-countdown">
+                                                @if ($event['days_remaining'] === 0)
+                                                    Hôm nay
+                                                @elseif ($event['days_remaining'] === 1)
+                                                    Còn 1 ngày
+                                                @else
+                                                    Còn {{ $event['days_remaining'] }} ngày
+                                                @endif
+
+                                                <i class="bi bi-chevron-right"></i>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
+
     </div>
 @endsection
 
@@ -357,9 +460,7 @@
             const solarInput = document.getElementById('solar_date');
             const lunarInput = document.getElementById('lunar_date');
 
-            // Debug log
-            console.log('Solar input:', solarInput);
-            console.log('Lunar input:', lunarInput);
+       
 
             // Tạo overlay cho mobile
             function createOverlay() {
@@ -489,9 +590,6 @@
                 // Đưa trực tiếp vào input không qua API
                 solarInput.value = solarDateFromController;
                 lunarInput.value = lunarDateFromController;
-
-                console.log('Set from controller - Solar:', solarDateFromController, 'Lunar:',
-                    lunarDateFromController);
             @else
                 // Không có dữ liệu từ controller - dùng ngày hôm nay
                 const todayFormatted = formatDate(today);
@@ -506,6 +604,94 @@
 
                 console.log('Using today:', todayFormatted);
             @endif
+
+            // Xử lý khi người dùng nhập tay vào input
+            solarInput.addEventListener('blur', async function() {
+                const value = this.value.trim();
+                if (value && value.match(/^\d{1,2}\/\d{1,2}\/\d{4}$/)) {
+                    // Validate ngày tháng
+                    const parts = value.split('/');
+                    const day = parseInt(parts[0], 10);
+                    const month = parseInt(parts[1], 10);
+                    const year = parseInt(parts[2], 10);
+
+                    if (day >= 1 && day <= 31 && month >= 1 && month <= 12 && year >= 1900 && year <= 2100) {
+                        // Format lại với padding
+                        this.value = `${String(day).padStart(2, '0')}/${String(month).padStart(2, '0')}/${year}`;
+
+                        // Convert sang âm lịch
+                        if (!isUpdating) {
+                            isUpdating = true;
+                            const lunarDate = await convertSolarToLunar(this.value);
+                            if (lunarDate && lunarInput) {
+                                lunarInput.value = lunarDate;
+                            }
+                            isUpdating = false;
+                        }
+
+                        // Update daterangepicker
+                        const picker = $(this).data('daterangepicker');
+                        if (picker) {
+                            const date = parseDate(this.value);
+                            if (date) {
+                                picker.setStartDate(date);
+                                picker.setEndDate(date);
+                            }
+                        }
+                    }
+                }
+            });
+
+            lunarInput.addEventListener('blur', async function() {
+                const value = this.value.trim();
+                if (value && value.match(/^\d{1,2}\/\d{1,2}\/\d{4}$/)) {
+                    // Validate ngày tháng
+                    const parts = value.split('/');
+                    const day = parseInt(parts[0], 10);
+                    const month = parseInt(parts[1], 10);
+                    const year = parseInt(parts[2], 10);
+
+                    if (day >= 1 && day <= 30 && month >= 1 && month <= 12 && year >= 1900 && year <= 2100) {
+                        // Format lại với padding
+                        this.value = `${String(day).padStart(2, '0')}/${String(month).padStart(2, '0')}/${year}`;
+
+                        // Convert sang dương lịch
+                        if (!isUpdating) {
+                            isUpdating = true;
+                            const solarDate = await convertLunarToSolar(this.value);
+                            if (solarDate && solarInput) {
+                                solarInput.value = solarDate;
+                            }
+                            isUpdating = false;
+                        }
+
+                        // Update daterangepicker
+                        const picker = $(this).data('daterangepicker');
+                        if (picker) {
+                            const date = parseDate(this.value);
+                            if (date) {
+                                picker.setStartDate(date);
+                                picker.setEndDate(date);
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Xử lý khi người dùng nhấn Enter
+            solarInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    this.blur();
+                }
+            });
+
+            lunarInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    this.blur();
+                }
+            });
 
             // Initialize daterangepicker cho từng input (chỉ single date)
             document.querySelectorAll('.dateuse2r').forEach(function(input) {
@@ -613,6 +799,55 @@
                     });
                 }
             });
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const monthSelect = document.getElementById('month-select');
+            const yearSelect = document.getElementById('year-select');
+            const calendarBodyContainer = document.getElementById('calendar-body-container');
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+            function debounce(func, delay) {
+                let timeout;
+                return function(...args) {
+                    const context = this;
+                    clearTimeout(timeout);
+                    timeout = setTimeout(() => func.apply(context, args), delay);
+                };
+            }
+
+            function updateCalendar() {
+                const month = monthSelect.value;
+                const year = yearSelect.value;
+                const h5Element = document.querySelector('.calendar-header-convert h5');
+                if (h5Element) {
+                    h5Element.textContent = `Tháng ${month} năm ${year}`;
+                }
+                fetch('{{ route('lich.thang.ajax') }}', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': csrfToken
+                        },
+                        body: JSON.stringify({
+                            nam: year,
+                            thang: month
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.table_html) {
+                            calendarBodyContainer.querySelector('tbody').innerHTML = data.table_html;
+                        }
+                    })
+                    .catch(error => console.error('Error fetching calendar data:', error));
+            }
+
+            const debouncedUpdateCalendar = debounce(updateCalendar, 300);
+
+            monthSelect.addEventListener('change', debouncedUpdateCalendar);
+            yearSelect.addEventListener('change', debouncedUpdateCalendar);
         });
     </script>
 @endpush

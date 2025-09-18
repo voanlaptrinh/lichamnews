@@ -1,7 +1,20 @@
 @extends('welcome')
 @section('content')
     <div class="calendar-app-container py-4">
-        <h1 class="content-title-home-lich">LỊCH ÂM - LỊCH VẠN LIÊN 2025</h1>
+        <div class="row">
+            <div class="col-xl-9">
+
+                <div class="d-flex justify-content-between">
+
+                    <h1 class="content-title-home-lich">LỊCH ÂM - LỊCH VẠN LIÊN {{ $yy }}</h1>
+                    <a href="{{ route('lich.nam.ngay', ['nam' => date('Y'), 'thang' => date('n'), 'ngay' => date('d')]) }}"
+                        class="btn-today-home-pc btn-today-home mb-3  justify-content-center align-items-center">
+                        <img src="{{asset('icons/icon_lich_svg.svg')}}" alt="icon-lich-svg" class="img-fluid pe-1-pc-home">
+                        <div>Hôm nay</div>
+                    </a>
+                </div>
+            </div>
+        </div>
         <div class="row g-3">
             <!-- ==== CỘT LỊCH CHÍNH (BÊN TRÁI) ==== -->
             <div class="col-xl-9 col-sm-12 col-12">
@@ -101,8 +114,9 @@
                             <div class="col-lg-12 btn-mobie-next-prev">
                                 <div>
                                     <a href="{{ route('lich.nam.ngay', ['nam' => date('Y'), 'thang' => date('n'), 'ngay' => date('d')]) }}"
-                                        class="btn-today-home-mob">
-                                        <i class="bi bi-calendar-plus pe-1"></i> Hôm nay
+                                        class="btn-today-home-mob d-flex justify-content-center align-items-center">
+                                        <img src="{{asset('icons/icon_lich_svg.svg')}}" alt="icon-lich-svg" class="img-fluid pe-1">
+                                        <div> Hôm nay</div>
                                     </a>
                                 </div>
                                 <div class="d-flex gap-2">
@@ -122,7 +136,7 @@
                         {{-- d-sm-block d-block d-xl-none --}}
                         <div class="info-card ">
                             <div class="coli-row">
-                                <div class="col-sm-6">
+                                <div class="col-xl-7 col-lg-6 col-sm-12 col-12 ">
                                     <div class="info-item">
                                         <img src="{{ asset('icons/icon_tiet_khi.png') }}" alt="icon_tiet_khi"
                                             class="icon_tiet_khi">
@@ -149,13 +163,13 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
+                                <div class="col-xl-5 col-lg-6 col-sm-12 col-12">
                                     <!-- BẮT ĐẦU: KHỐI MỨC THUẬN LỢI (ĐÃ CẬP NHẬT) -->
                                     <div
                                         class="convenience-level g-0 d-flex justify-content-between align-items-center row h-100">
                                         <div class="col-6">
                                             <div class="level-label text-lever-label-mobie">
-                                                Mức thuận lợi<br>hôm nay:
+                                                Điểm chỉ số <br>ngày tốt:
                                             </div>
                                         </div>
 
@@ -188,72 +202,79 @@
                             </div>
 
 
-                            <a href="{{ route('detai_home', ['nam' => $yy, 'thang' => $mm, 'ngay' => $dd]) }}"
-                                class="btn btn-primary w-100 mt-3 btn0mobie"><img
-                                    src="{{ asset('icons/hand_2_white.svg') }}" alt="hand_2" class="img-fluid"> Xem
-                                chi tiết ngày</a>
+                            <div class="d-flex justify-content-center">
+                                <a href="{{ route('detai_home', ['nam' => $yy, 'thang' => $mm, 'ngay' => $dd]) }}"
+                                    class="btn btn-primary w-100 mt-3 btn0mobie"><img
+                                        src="{{ asset('icons/hand_2_white.svg') }}" alt="hand_2" class="img-fluid">
+                                    Xem
+                                    chi tiết ngày</a>
+                            </div>
                         </div>
                         <!-- ** LỊCH THÁNG ** -->
                         <div class="calendar-wrapper">
-                            <div class="calendar-header">
-                                {{-- Nút Quay lại tháng trước --}}
-                                <a href="{{ route('lich.nam.ngay', ['nam' => $prevYear, 'thang' => $prevMonth, 'ngay' => 1]) }}"
-                                    class="month-nav">
-                                    <i class="bi bi-chevron-left"></i>
-                                </a>
 
-                                {{-- Tiêu đề Tháng/Năm --}}
-                                <h5 class="mb-0" id="month-year-picker" style="cursor: pointer; text-decoration: underline;">Tháng
-                                    {{ $mm }} năm {{ $yy }}</h5>
-
-                                {{-- Nút Tới tháng sau --}}
-                                <a href="{{ route('lich.nam.ngay', ['nam' => $nextYear, 'thang' => $nextMonth, 'ngay' => 1]) }}"
-                                    class="month-nav">
-                                    <i class="bi bi-chevron-right"></i>
-                                </a>
-
-                                {{-- ============================================= --}}
-                                {{-- BẮT ĐẦU: THÊM NÚT "HÔM NAY" VÀO ĐÂY --}}
-                                {{-- ============================================= --}}
-                                <a href="{{ route('lich.nam.ngay', ['nam' => date('Y'), 'thang' => date('n'), 'ngay' => date('d')]) }}"
+                            <div class="calendar-header-convert calendar-header">
+                                <div class="text-center">
+                                    <h5 class="mb-0 pt-2">Tháng {{ $mm }} năm {{ $yy }}</h5>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <select id="month-select" class="form-select me-2 custom-select-style">
+                                        @for ($i = 1; $i <= 12; $i++)
+                                            <option value="{{ $i }}" {{ $i == $mm ? 'selected' : '' }}>Tháng
+                                                {{ $i }}</option>
+                                        @endfor
+                                    </select>
+                                    <select id="year-select" class="form-select custom-select-style">
+                                        @for ($i = 1900; $i <= 2100; $i++)
+                                            <option value="{{ $i }}" {{ $i == $yy ? 'selected' : '' }}>Năm
+                                                {{ $i }}</option>
+                                        @endfor
+                                    </select>
+                                </div>
+                                {{--   <a href="{{ route('lich.nam.ngay', ['nam' => date('Y'), 'thang' => date('n'), 'ngay' => date('d')]) }}"
                                     class="btn-today-home-pc btn-today-home">
                                     <i class="bi bi-calendar-plus pe-1-pc-home"></i> Hôm nay
-                                </a>
-                                {{-- ============================================= --}}
-                                {{-- KẾT THÚC: NÚT "HÔM NAY" --}}
-                                {{-- ============================================= --}}
+                                </a> --}}
                             </div>
-                            <table class="calendar-table">
-                                <thead>
-                                    <tr>
-                                        <th><span class="title-lich-pc">Thứ hai</span> <span class="title-lich-mobie">Th
-                                                2</span>
-                                        </th>
-                                        <th><span class="title-lich-pc">Thứ ba</span> <span class="title-lich-mobie">Th
-                                                3</span>
-                                        </th>
-                                        <th><span class="title-lich-pc">Thứ tư</span> <span class="title-lich-mobie">Th
-                                                4</span>
-                                        </th>
-                                        <th><span class="title-lich-pc">Thứ năm</span> <span class="title-lich-mobie">Th
-                                                5</span>
-                                        </th>
-                                        <th><span class="title-lich-pc">Thứ sáu</span> <span class="title-lich-mobie">Th
-                                                6</span>
-                                        </th>
-                                        <th><span class="title-lich-pc">Thứ bảy</span> <span class="title-lich-mobie">Th
-                                                7</span>
-                                        </th>
-                                        <th><span class="title-lich-pc">Chủ nhật</span> <span
-                                                class="title-lich-mobie">CN</span>
-                                        </th>
+                            <div id="calendar-body-container">
+                                <table class="calendar-table">
+                                    <thead>
+                                        <tr>
+                                            <th><span class="title-lich-pc">Thứ hai</span> <span
+                                                    class="title-lich-mobie">Th
+                                                    2</span>
+                                            </th>
+                                            <th><span class="title-lich-pc">Thứ ba</span> <span
+                                                    class="title-lich-mobie">Th
+                                                    3</span>
+                                            </th>
+                                            <th><span class="title-lich-pc">Thứ tư</span> <span
+                                                    class="title-lich-mobie">Th
+                                                    4</span>
+                                            </th>
+                                            <th><span class="title-lich-pc">Thứ năm</span> <span
+                                                    class="title-lich-mobie">Th
+                                                    5</span>
+                                            </th>
+                                            <th><span class="title-lich-pc">Thứ sáu</span> <span
+                                                    class="title-lich-mobie">Th
+                                                    6</span>
+                                            </th>
+                                            <th><span class="title-lich-pc">Thứ bảy</span> <span
+                                                    class="title-lich-mobie">Th
+                                                    7</span>
+                                            </th>
+                                            <th><span class="title-lich-pc">Chủ nhật</span> <span
+                                                    class="title-lich-mobie">CN</span>
+                                            </th>
 
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {!! $table_html !!}
-                                </tbody>
-                            </table>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {!! $table_html !!}
+                                    </tbody>
+                                </table>
+                            </div>
 
                         </div>
                         <div class="calendar-legend">
@@ -316,7 +337,7 @@
                 </section>
                 <section class="popular-utilities pt-0">
                     <div class="container bg-section-tienich">
-                        <h2 class="section-title">Điểm chỉ số trong bảy ngày tới</h2>
+                        <h2 class="section-title">Điểm chỉ số ngày tốt trong 7 ngày sắp tới</h2>
                         <hr>
                         <div class="utilities-grid row g-4 pt-2">
                             <div class="chart-container">
@@ -718,9 +739,61 @@
             const year = start.format('YYYY');
             const month = start.format('M');
             const day = start.format('D');
-            const url = `{{ route('lich.nam.ngay', ['nam' => ':nam', 'thang' => ':thang', 'ngay' => ':ngay']) }}`.replace(':nam', year).replace(':thang', month).replace(':ngay', day);
+            const url = `{{ route('lich.nam.ngay', ['nam' => ':nam', 'thang' => ':thang', 'ngay' => ':ngay']) }}`
+                .replace(':nam', year).replace(':thang', month).replace(':ngay', day);
             window.location.href = url;
         });
     </script>
-    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const monthSelect = document.getElementById('month-select');
+            const yearSelect = document.getElementById('year-select');
+            const calendarBodyContainer = document.getElementById('calendar-body-container');
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+            function debounce(func, delay) {
+                let timeout;
+                return function(...args) {
+                    const context = this;
+                    clearTimeout(timeout);
+                    timeout = setTimeout(() => func.apply(context, args), delay);
+                };
+            }
+
+            function updateCalendar() {
+                const month = monthSelect.value;
+                const year = yearSelect.value;
+
+                // Cập nhật thẻ h5 với tháng và năm mới
+                const h5Element = document.querySelector('.calendar-header-convert h5');
+                if (h5Element) {
+                    h5Element.textContent = `Tháng ${month} năm ${year}`;
+                }
+
+                fetch('{{ route('lich.thang.ajax') }}', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': csrfToken
+                        },
+                        body: JSON.stringify({
+                            nam: year,
+                            thang: month
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.table_html) {
+                            calendarBodyContainer.querySelector('tbody').innerHTML = data.table_html;
+                        }
+                    })
+                    .catch(error => console.error('Error fetching calendar data:', error));
+            }
+
+            const debouncedUpdateCalendar = debounce(updateCalendar, 300);
+
+            monthSelect.addEventListener('change', debouncedUpdateCalendar);
+            yearSelect.addEventListener('change', debouncedUpdateCalendar);
+        });
+    </script>
 @endpush

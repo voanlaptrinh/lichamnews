@@ -8,6 +8,7 @@ use App\Helpers\LichKhongMinhHelper;
 use App\Helpers\LoadConfigHelper;
 use App\Helpers\LunarHelper;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 
 class LichController extends Controller
 {
@@ -94,6 +95,23 @@ class LichController extends Controller
 
 
 
+
+
+    public function getLichThangAjax(Request $request): JsonResponse
+    {
+        $nam = $request->input('nam');
+        $thang = $request->input('thang');
+
+        if (!$nam || $nam < 1900 || $nam > 2100 || !$thang || $thang < 1 || $thang > 12) {
+            return response()->json(['error' => 'Invalid date'], 400);
+        }
+
+        list($table_html, $data_totxau, $data_al) = LunarHelper::printTable($thang, $nam, true, true, true);
+
+        return response()->json([
+            'table_html' => $table_html,
+        ]);
+    }
 
 
 

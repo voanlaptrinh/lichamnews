@@ -31,6 +31,9 @@ use App\Http\Controllers\XemHuongPhongNguController;
 use App\Http\Controllers\XuatHanhController;
 use Illuminate\Support\Facades\Route;
 
+Route::post('/ajax/lich-thang', [LichController::class, 'getLichThangAjax'])->name('lich.thang.ajax');
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes

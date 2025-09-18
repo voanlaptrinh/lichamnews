@@ -2,8 +2,6 @@
 @extends('welcome')
 
 @section('content')
-
-
     <div class="container-setup">
         <h6 class="content-title-date-detail"><a href="{{ route('home') }}">Trang chủ</a> <i class="bi bi-chevron-right"></i>
             Phong thủy & tử vi <i class="bi bi-chevron-right"></i>
@@ -22,7 +20,7 @@
             <button class="tab-button tab-horoscope btn" data-type="weekly">Tuần này</button>
             <button class="tab-button tab-horoscope btn" data-type="monthly">Tháng này</button>
             <button class="tab-button tab-horoscope btn" data-type="yearly">{{ date('Y') }}
-</button>
+            </button>
         </div>
     </div>
 
@@ -199,7 +197,8 @@
 
             // Hàm này rất gọn gàng vì tất cả logic xử lý đã ở trên server
             async function fetchHoroscope(type) {
-                horoscopeContent.innerHTML = '<div style="text-align: center; padding: 40px; color: #666; font-style: italic;">Đang tải dữ liệu...</div>';
+                horoscopeContent.innerHTML =
+                    '<div style="text-align: center; padding: 40px; color: #666; font-style: italic;">Đang tải dữ liệu...</div>';
                 const apiUrl = `{{ url('/api/horoscope-data') }}/${currentSign}/${type}`;
 
                 try {

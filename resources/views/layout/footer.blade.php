@@ -11,8 +11,7 @@
                     phí cho người Việt Nam. Mọi ý kiến đóng góp xin
                     vui lòng liên hệ <a href="">tại đây</a>!
                 </p>
-                <p class="footer-contact-info">SĐT: <a href="tel:0369603631" class="text-white">0369.603.631</a></p>
-                <p class="footer-contact-info">Địa chỉ: Số 9, Ngõ 11 Dịch Vọng Hậu, Cầu Giấy, Hà Nội</p>
+               
             </div>
 
             <!-- Cột 2: Giới thiệu -->
