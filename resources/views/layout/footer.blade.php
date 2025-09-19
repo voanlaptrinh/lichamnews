@@ -16,26 +16,25 @@
 
             <!-- Cột 2: Giới thiệu -->
             <div class="col-lg-2 col-md-4 col-6 footer-col">
-                <h5 class="footer-title">Giới thiệu</h5>
+                <h5 class="footer-title">Tiện ích</h5>
                 <ul class="footer-links">
-                    <li><a href="https://phongthuydaicat.vn">Giới thiệu</a></li>
-                    <li><a href="https://phongthuydaicat.vn#sumenh-section">Sứ mệnh</a></li>
-                    <li><a href="https://phongthuydaicat.vn#camket-section">Cam kết</a></li>
-                    <li><a href="https://phongthuydaicat.vn#gioi-thieu-gia-tri-cot-loi-section">Giá trị cốt lõi</a></li>
-                    <li><a href="https://phongthuydaicat.vn#quytrinh-section">Quy trình</a></li>
+                    <li><a href="">Đổi ngày âm dương</a></li>
+                    <li><a href="">Lá số tử vi</a></li>
+                    <li><a href="">Xem ngày tốt xấu</a></li>
+                    <li><a href="">Thước lỗ ban</a></li>
                 </ul>
             </div>
 
             <!-- Cột 3: Trợ giúp -->
             <div class="col-lg-3 col-md-4 col-6 footer-col">
-                <h5 class="footer-title">Trợ giúp</h5>
+                <h5 class="footer-title">Về chúng tôi</h5>
                 <ul class="footer-links">
 
 
-                    <li><a href="https://phongthuydaicat.vn/chinh-sach-dich-vu">Chính sách dịch vụ</a></li>
-                    <li><a href="https://phongthuydaicat.vn/hoi-dap">Hỏi đáp</a></li>
+                    <li><a href="">Liên hệ</a></li>
+                    <li><a href="">Điều khoản dịch vụ</a></li>
 
-                    <li><a href="https://phongthuydaicat.vn/lien-he">Liên hệ</a></li>
+                    <li><a href="">Chính sách bảo mật</a></li>
                 </ul>
             </div>
 

@@ -10,14 +10,14 @@
                     <div class="col-xl-12 col-lg-12 col-md-12 col-12">
                         <div class="backv-doi-lich ">
                             <div class="">
-                                <div class="row g-3 --pading">
+                                <div class="row --pading">
                                     <div class="col-lg-8">
                                         <h6 class="--text-down-convert">Chọn ngày dương hoặc âm bất kỳ:</h6>
                                         <p>Chọn ngày dương lịch hoặc ngày âm lịch bất kỳ.</p>
                                         <form action="{{ route('convert.am.to.duong') }}" method="POST">
                                             @csrf
-                                            <div class="row g-3">
-                                                <div class="col-lg-6">
+                                            <div class="row position-relative">
+                                                <div class="col-lg-6" id="solar-container">
                                                     <label class="form-label fw-bold" style="color: #212121CC">Ngày Dương
                                                         Lịch</label>
                                                     <div class="date-input-wrapper">
@@ -25,12 +25,12 @@
                                                             id="solar_date" class="form-control dateuse2r"
                                                             placeholder="dd/mm/yyyy" inputmode="text" autocomplete="off"
                                                             data-type="solar">
-                                                        <span class="date-icon-custom">
+                                                        {{-- <span class="date-icon-custom">
                                                             <i class="bi bi-calendar-date-fill"></i>
-                                                        </span>
+                                                        </span> --}}
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-6">
+                                                <div class="col-lg-6" id="lunar-container">
                                                     <label class="form-label fw-bold" style="color: #212121CC">Ngày Âm
                                                         Lịch</label>
                                                     <div class="date-input-wrapper">
@@ -38,11 +38,18 @@
                                                             id="lunar_date" class="form-control dateuse2r"
                                                             placeholder="dd/mm/yyyy" inputmode="text" autocomplete="off"
                                                             data-type="lunar">
-                                                        <span class="date-icon-custom">
+                                                        {{-- <span class="date-icon-custom">
                                                             <i class="bi bi-calendar-date-fill"></i>
-                                                        </span>
+                                                        </span> --}}
                                                     </div>
                                                 </div>
+                                                <!-- Icon chuyển đổi floating ở giữa -->
+                                                <button type="button" id="swapDatesBtn"
+                                                    class="btn btn-primary rounded-circle swap-btn-floating"
+                                                    title="Hoán đổi vị trí">
+                                                    <img src="{{ asset('icons/icon-doi-am-duong.svg') }}" alt=""
+                                                        class="img-fluid">
+                                                </button>
                                                 <div class="col-lg-12">
                                                     <div class="d-flex justify-content-center">
                                                         <button type="submit" class="btn btn-primary btnd-nfay">Chuyển
@@ -131,8 +138,9 @@
                                             </div>
 
                                             <a href="javascript:void(0)"
-                                                class="nav-arrow nav-home-date nave-right next-day-btn" title="Ngày hôm sau"
-                                                onclick="changeDay(1)"> <i class="bi bi-chevron-right"></i></a>
+                                                class="nav-arrow nav-home-date nave-right next-day-btn"
+                                                title="Ngày hôm sau" onclick="changeDay(1)"> <i
+                                                    class="bi bi-chevron-right"></i></a>
                                             @if ($tot_xau_result == 'tot')
                                                 <div class="day-status hoang-dao">
                                                     <span class="status-dot"></span>
@@ -390,7 +398,63 @@
     </div>
 @endsection
 
+@push('styles')
+    <style>
+        .swap-btn-floating {
+            position: absolute;
+            top: 33px;
+            left: 50%;
+            transform: translateX(-50%) !important;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            background-color: #2254AB !important;
+            border: 1px solid white !important;
+            transition: all 0.3s ease-in-out;
+            font-size: 18px;
+        }
 
+        .swap-btn-floating img {
+            transition: transform 0.3s ease-in-out;
+            width: 24px;
+            height: 24px;
+        }
+
+        .swap-btn-floating:hover {
+            transform: translateX(-50%) scale(1.1);
+            box-shadow: 0 6px 20px rgba(34, 84, 171, 0.4);
+            background-color: #1e4a96 !important;
+        }
+
+        .swap-btn-floating:active {
+            transform: translateX(-50%) scale(0.95);
+        }
+
+        /* Loại bỏ transition cho container để input đứng yên */
+
+        /* Đảm bảo có khoảng cách giữa 2 input để icon có chỗ */
+
+
+        @media (max-width: 991px) {
+            .swap-btn-floating {
+                position: relative;
+                top: auto;
+                left: auto;
+                transform: none;
+                margin: 15px auto;
+                display: block;
+                transform: unset !important
+            }
+
+            .row.position-relative {
+                align-items: stretch;
+            }
+        }
+    </style>
+@endpush
 
 @push('scripts')
     <script>
@@ -451,7 +515,22 @@
             }
         }
 
+        // Đảm bảo jQuery đã load
+        if (typeof jQuery === 'undefined') {
+            console.error('jQuery is not loaded!');
+        } else {
+            console.log('jQuery version:', jQuery.fn.jquery);
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded - initializing date converter');
+
+            // Double-check jQuery and daterangepicker
+            if (typeof $ === 'undefined') {
+                console.error('$ (jQuery) is not available!');
+                return;
+            }
+
             const today = new Date();
             const maxDate = new Date(today.getFullYear() + 5, 11, 31);
             let overlay = null;
@@ -460,7 +539,46 @@
             const solarInput = document.getElementById('solar_date');
             const lunarInput = document.getElementById('lunar_date');
 
-       
+            console.log('Solar input:', solarInput);
+            console.log('Lunar input:', lunarInput);
+
+            const swapBtn = document.getElementById('swapDatesBtn');
+            const solarContainer = document.getElementById('solar-container');
+            const lunarContainer = document.getElementById('lunar-container');
+
+            if (swapBtn && solarContainer && lunarContainer) {
+                // Lấy tham chiếu đến thẻ <img> bên trong nút swapBtn
+                const swapIcon = swapBtn.querySelector('img');
+
+                swapBtn.addEventListener('click', function() {
+                    const row = solarContainer.parentNode;
+
+                    const solarIndex = Array.from(row.children).indexOf(solarContainer);
+                    const lunarIndex = Array.from(row.children).indexOf(lunarContainer);
+
+                    // Áp dụng transform rotate cho thẻ <img> nếu có
+                    if (swapIcon) {
+                        swapIcon.style.transform = 'rotate(180deg)';
+                    }
+
+                    setTimeout(() => {
+                        // Hoán đổi vị trí trong DOM
+                        if (solarIndex < lunarIndex) {
+                            row.insertBefore(lunarContainer, solarContainer);
+                        } else {
+                            row.insertBefore(solarContainer, lunarContainer);
+                        }
+
+                        // Reset transform rotate cho thẻ <img> nếu có
+                        if (swapIcon) {
+                            swapIcon.style.transform = 'rotate(0deg)';
+                        }
+                    }, 200); // Thời gian này nên khớp với transition-duration trong CSS
+                });
+            }
+
+
+
 
             // Tạo overlay cho mobile
             function createOverlay() {
@@ -615,9 +733,11 @@
                     const month = parseInt(parts[1], 10);
                     const year = parseInt(parts[2], 10);
 
-                    if (day >= 1 && day <= 31 && month >= 1 && month <= 12 && year >= 1900 && year <= 2100) {
+                    if (day >= 1 && day <= 31 && month >= 1 && month <= 12 && year >= 1900 && year <=
+                        2100) {
                         // Format lại với padding
-                        this.value = `${String(day).padStart(2, '0')}/${String(month).padStart(2, '0')}/${year}`;
+                        this.value =
+                            `${String(day).padStart(2, '0')}/${String(month).padStart(2, '0')}/${year}`;
 
                         // Convert sang âm lịch
                         if (!isUpdating) {
@@ -651,9 +771,11 @@
                     const month = parseInt(parts[1], 10);
                     const year = parseInt(parts[2], 10);
 
-                    if (day >= 1 && day <= 30 && month >= 1 && month <= 12 && year >= 1900 && year <= 2100) {
+                    if (day >= 1 && day <= 30 && month >= 1 && month <= 12 && year >= 1900 && year <=
+                        2100) {
                         // Format lại với padding
-                        this.value = `${String(day).padStart(2, '0')}/${String(month).padStart(2, '0')}/${year}`;
+                        this.value =
+                            `${String(day).padStart(2, '0')}/${String(month).padStart(2, '0')}/${year}`;
 
                         // Convert sang dương lịch
                         if (!isUpdating) {
@@ -694,18 +816,34 @@
             });
 
             // Initialize daterangepicker cho từng input (chỉ single date)
-            document.querySelectorAll('.dateuse2r').forEach(function(input) {
-                // Lấy startDate từ giá trị hiện tại của input hoặc today
-                let startDate = today;
-                if (input.value) {
-                    const inputDate = parseDate(input.value);
-                    if (inputDate) {
-                        startDate = inputDate;
-                    }
-                }
+            console.log('Initializing daterangepicker...');
+            if (typeof $.fn.daterangepicker === 'undefined') {
+                console.error('DateRangePicker plugin not loaded! Please check if the library is included.');
+                return;
+            }
 
-                $(input).daterangepicker({
+            document.querySelectorAll('.dateuse2r').forEach(function(input) {
+                console.log('Setting up daterangepicker for:', input.id);
+
+                // Test click vào input
+                input.addEventListener('click', function() {
+                    console.log('Input clicked:', this.id);
+                });
+
+                try {
+                    // Lấy startDate từ giá trị hiện tại của input hoặc today
+                    let startDate = today;
+                    if (input.value) {
+                        const inputDate = parseDate(input.value);
+                        if (inputDate) {
+                            startDate = inputDate;
+                        }
+                    }
+
+                    $(input).daterangepicker({
                     singleDatePicker: true,
+                    autoApply: true,  // Tự động áp dụng khi chọn ngày, không cần nhấn nút Apply
+                    autoUpdateInput: true,  // Tự động cập nhật input
                     showDropdowns: true,
                     minYear: 1900,
                     maxYear: maxDate.getFullYear(),
@@ -727,11 +865,6 @@
                     },
                     opens: 'center',
                     drops: 'down'
-                }, function(start, end, label) {
-                    setTimeout(function() {
-                        // The ranges div might still be there visually, hide it
-                        $('.daterangepicker .ranges').hide();
-                    }, 10);
                 });
 
                 // Events
@@ -758,6 +891,7 @@
                     }
                 });
 
+                // Xử lý khi chọn ngày - sử dụng event 'apply' cho single date picker với autoApply
                 $(input).on('apply.daterangepicker', async function(ev, picker) {
                     const selectedDate = picker.startDate.format('DD/MM/YYYY');
                     input.value = selectedDate;
@@ -790,13 +924,49 @@
                     isUpdating = false;
                 });
 
-                // Handle icon click
-                const icon = input.parentNode.querySelector('.date-icon-custom');
-                if (icon) {
-                    icon.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        $(input).data('daterangepicker').show();
-                    });
+                // Thêm event khi daterangepicker thay đổi giá trị (cho autoApply)
+                $(input).on('change.daterangepicker', async function(ev, picker) {
+                    if (!picker) return; // Không phải từ picker
+
+                    const selectedDate = picker.startDate.format('DD/MM/YYYY');
+                    input.value = selectedDate;
+
+                    if (overlay) {
+                        overlay.style.display = 'none';
+                    }
+
+                    // Prevent infinite loops
+                    if (isUpdating) return;
+                    isUpdating = true;
+
+                    // Convert and update the other input
+                    const inputType = input.getAttribute('data-type');
+
+                    if (inputType === 'solar') {
+                        const lunarDate = await convertSolarToLunar(selectedDate);
+                        if (lunarDate && lunarInput) {
+                            lunarInput.value = lunarDate;
+                        }
+                    } else if (inputType === 'lunar') {
+                        const solarDate = await convertLunarToSolar(selectedDate);
+                        if (solarDate && solarInput) {
+                            solarInput.value = solarDate;
+                        }
+                    }
+
+                    isUpdating = false;
+                });
+
+                    // Handle icon click
+                    const icon = input.parentNode.querySelector('.date-icon-custom');
+                    if (icon) {
+                        icon.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            $(input).data('daterangepicker').show();
+                        });
+                    }
+                } catch (error) {
+                    console.error('Error initializing daterangepicker for', input.id, ':', error);
                 }
             });
         });

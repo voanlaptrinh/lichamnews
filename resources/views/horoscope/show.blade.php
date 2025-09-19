@@ -106,6 +106,30 @@
     </div>
 @endsection
 
+@push('styles')
+<style>
+    /* CSS cho thanh trượt ngang trên mobile */
+    @media (max-width: 768px) {
+       
+    }
+
+    /* CSS cho desktop - giữ nguyên layout hiện tại */
+    @media (min-width: 769px) {
+        .bth-cunghoangdao .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .bth-cunghoangdao .tab-button {
+            flex: 1;
+            min-width: 120px;
+        }
+    }
+</style>
+@endpush
+
 @push('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', () => {

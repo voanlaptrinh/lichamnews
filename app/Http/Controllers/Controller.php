@@ -14,8 +14,8 @@ class Controller extends BaseController
 
     function __construct()
     {
-        $this->metaTitle = 'Lịch Âm Hôm Nay - Âm Lịch Hôm Nay - Xem Lịch Âm';
-        $this->metaDescription = 'Lịch âm ' . date('Y') . ' ngày âm lịch hôm nay. Lịch vạn niên & xem ngày tốt xấu, ngày hoàng đạo. Ngày lễ âm lịch, dương lịch hôm nay. Chính xác nhất!';
+        $this->metaTitle = 'Lịch Âm - Lịch Vạn Niên | Xem Ngày Tốt Xấu, Tử Vi & Phong thủy';
+        $this->metaDescription = ' Xem lịch âm dương, lịch vạn niên, lịch ngày tốt. Tra cứu ngày hoàng đạo, tiết khí, đổi ngày âm dương, xem tử vi, phong thủy và ngày tốt xấu chính xác.';
 
 
         // Share data với tất cả views

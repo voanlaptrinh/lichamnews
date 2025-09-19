@@ -1,17 +1,26 @@
 @extends('welcome')
 @section('content')
+    @php
+        $today = \Carbon\Carbon::now();
+        $currentDate = \Carbon\Carbon::createFromDate($yy, $mm, $dd);
+        $isToday = $today->isSameDay($currentDate);
+    @endphp
     <div class="calendar-app-container py-4">
         <div class="row">
             <div class="col-xl-9">
 
                 <div class="d-flex justify-content-between">
 
-                    <h1 class="content-title-home-lich">LỊCH ÂM - LỊCH VẠN LIÊN {{ $yy }}</h1>
-                    <a href="{{ route('lich.nam.ngay', ['nam' => date('Y'), 'thang' => date('n'), 'ngay' => date('d')]) }}"
-                        class="btn-today-home-pc btn-today-home mb-3  justify-content-center align-items-center">
-                        <img src="{{asset('icons/icon_lich_svg.svg')}}" alt="icon-lich-svg" class="img-fluid pe-1-pc-home">
-                        <div>Hôm nay</div>
-                    </a>
+                    <h1 class="content-title-home-lich">LỊCH ÂM - LỊCH VẠN NIÊN</h1>
+                    @if (!$isToday)
+                        <a href="{{ route('lich.nam.ngay', ['nam' => date('Y'), 'thang' => date('n'), 'ngay' => date('d')]) }}"
+                            class="btn-today-home-pc btn-today-home mb-3  justify-content-center align-items-center">
+                            <img src="{{ asset('icons/icon_lich_svg.svg') }}" alt="icon-lich-svg"
+                                class="img-fluid pe-1-pc-home">
+                            <div>Hôm nay</div>
+                        </a>
+                    @endif
+
                 </div>
             </div>
         </div>
@@ -113,11 +122,14 @@
 
                             <div class="col-lg-12 btn-mobie-next-prev">
                                 <div>
-                                    <a href="{{ route('lich.nam.ngay', ['nam' => date('Y'), 'thang' => date('n'), 'ngay' => date('d')]) }}"
-                                        class="btn-today-home-mob d-flex justify-content-center align-items-center">
-                                        <img src="{{asset('icons/icon_lich_svg.svg')}}" alt="icon-lich-svg" class="img-fluid pe-1">
-                                        <div> Hôm nay</div>
-                                    </a>
+                                    @if (!$isToday)
+                                        <a href="{{ route('lich.nam.ngay', ['nam' => date('Y'), 'thang' => date('n'), 'ngay' => date('d')]) }}"
+                                            class="btn-today-home-mob d-flex justify-content-center align-items-center">
+                                            <img src="{{ asset('icons/icon_lich_svg.svg') }}" alt="icon-lich-svg"
+                                                class="img-fluid pe-1">
+                                            <div> Hôm nay</div>
+                                        </a>
+                                    @endif
                                 </div>
                                 <div class="d-flex gap-2">
                                     <div class="div">
@@ -541,6 +553,7 @@
             const ctx = document.getElementById('myChart').getContext('2d');
             const labels = @json($labels);
             const dataValues = @json($dataValues);
+
             new Chart(ctx, {
                 type: 'bar',
                 data: {
@@ -561,8 +574,8 @@
                             gradient.addColorStop(0, getComputedStyle(document.documentElement)
                                 .getPropertyValue('--bar-bottom-color') || '#4e79a7');
                             gradient.addColorStop(0.6, getComputedStyle(document
-                                    .documentElement).getPropertyValue('--bar-mid-color') ||
-                                '#59a14f');
+                                    .documentElement)
+                                .getPropertyValue('--bar-mid-color') || '#59a14f');
                             gradient.addColorStop(1, getComputedStyle(document.documentElement)
                                 .getPropertyValue('--bar-top-color') || '#9c755f');
                             return gradient;
@@ -636,7 +649,6 @@
                                     weight: '500'
                                 },
                                 padding: 10,
-
                             },
                             grid: {
                                 color: getComputedStyle(document.documentElement).getPropertyValue(
@@ -649,8 +661,31 @@
                         }
                     }
                 },
-
+                plugins: [{
+                    // Plugin custom để vẽ % trên đầu cột
+                    id: 'valueOnTop',
+                    afterDatasetsDraw(chart) {
+                        const {
+                            ctx
+                        } = chart;
+                        chart.data.datasets.forEach((dataset, i) => {
+                            chart.getDatasetMeta(i).data.forEach((bar, index) => {
+                                const value = dataset.data[index] + '%';
+                                ctx.save();
+                                ctx.font = 'bold 12px sans-serif';
+                                ctx.fillStyle = getComputedStyle(document
+                                    .documentElement).getPropertyValue(
+                                    '--text-color-light') || '#333';
+                                ctx.textAlign = 'center';
+                                ctx.fillText(value, bar.x, bar.y -
+                                6); // 6px phía trên đầu cột
+                                ctx.restore();
+                            });
+                        });
+                    }
+                }]
             });
+
             // Lấy ngày tháng năm hiện tại từ Blade
             const currentYear = {{ $yy }};
             const currentMonth = {{ $mm }}; // Tháng từ PHP (1-12)

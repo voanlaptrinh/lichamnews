@@ -13,11 +13,40 @@
     <link rel="stylesheet" href="{{ asset('/css/styledemo.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/repont.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/daterangepicker.css') }}" />
-
     <!-- ĐẢM BẢO CÓ DÒNG NÀY ĐỂ CSRF TOKEN HOẠT ĐỘNG! -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+
+   <link rel="shortcut icon" type="image/x-icon" href="{{ asset('/meta/icon.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('/meta/favicon-16x16.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('/meta/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="144x144"
+        href="{{ asset('/meta/android-chrome-144x144.png') }}">
+    <link rel="icon" type="image/png" sizes="192x192"
+        href="{{ asset('/meta/android-chrome-192x192.png') }}">
+
+    <link rel="apple-touch-icon" sizes="114x114"
+        href="{{ asset('/meta/apple-touch-icon-114x114.png') }}">
+    <link rel="apple-touch-icon" sizes="120x120"
+        href="{{ asset('/meta/apple-touch-icon-120x120.png') }}">
+    <link rel="apple-touch-icon" sizes="144x144"
+        href="{{ asset('/meta/apple-touch-icon-144x144.png') }}">
+    <link rel="apple-touch-icon" sizes="152x152"
+        href="{{ asset('/meta/apple-touch-icon-152x152.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('/meta/apple-touch-icon.png') }}">
+    <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('/meta/apple-touch-icon-57x57.png') }}">
+    <link rel="apple-touch-icon" sizes="60x60" href="{{ asset('/meta/apple-touch-icon-60x60.png') }}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('/meta/apple-touch-icon-72x72.png') }}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('/meta/apple-touch-icon-76x76.png') }}">
+    <link rel="apple-touch-startup-image" href="{{ asset('/meta/apple-touch-icon-180x180.png') }}" />
+    <meta property="og:image" content="{{ asset('/meta/512x512.png') }}">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{{ $metaTitle ?? 'Xem Lịch Âm' }}">
+    <meta property="og:description" content="{{ $metaDescription ?? '' }}">
+
+
     @stack('styles')
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script src="{{ asset('/js/chart.umd.min.js') }}"></script>
+
 </head>
 
 <body>
@@ -36,14 +65,14 @@
     
     <!-- Đảm bảo file gieo-que.blade.php chứa các modal popup -->
     {{-- @include('gieo-que') --}}
+    <script src="{{ asset('/js/jquery-3.7.1.min.js') }}"></script>
+    <script src="{{ asset('/js/moment.min.js') }}"></script>
+    <script src="{{ asset('/js/daterangepicker.min.js') }}"></script>
 
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <!-- JS của Bootstrap (nếu sử dụng Bootstrap) -->
     <script src="{{ asset('/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('/js/flatpickr.js') }}"></script>
-    <script src="{{ asset('/js/vn.js') }}"></script>
+    {{-- <script src="{{ asset('/js/flatpickr.js') }}"></script>
+    <script src="{{ asset('/js/vn.js') }}"></script> --}}
 
     @stack('scripts')
 

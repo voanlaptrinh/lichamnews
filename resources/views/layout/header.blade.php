@@ -1,9 +1,9 @@
 <header class="site-header fbs__net-navbar">
     <div class="container-setup d-flex align-items-center justify-content-between">
         <div class="site-logo d-flex align-items-center">
-            <a href="#" class="text-white">
-                {{-- <img class="img-logo w-100" src="{{ asset('/users/images/logo-FunHome.svg') }}" alt=""> --}}
-                NGUYỆT LỊCH.COM
+            <a href="{{route('home')}}" class="text-white">
+                <img class="img-fluid me-2" src="{{ asset('/icons/logo_header.png') }}" alt="logo Phong lịch">
+              PHONG LỊCH
             </a>
         </div>
 
@@ -120,7 +120,7 @@
 
         <!-- Icon Hamburger cho Mobile -->
         <div class="mobile-menu-toggle" id="mobile-menu-toggle">
-            <i class="bi bi-grid"></i>
+           <img src="{{asset('icons/menu-mobie-icon.svg')}}" alt="">
         </div>
     </div>
 </header>
@@ -133,7 +133,7 @@
     <div class="mobile-nav-header">
         <a href="#" class="mobile-nav-logo">
             <!-- Thay bằng logo của bạn -->
-            <img src="" alt="Logo" class="img-fluid">
+            <img src="{{ asset('/icons/logo_header.png') }}" alt="Logo Phong Lịch mobie" class="img-fluid">
         </a>
         <button class="mobile-nav-close" id="mobile-nav-close" aria-label="Đóng menu">
             <i class="bi bi-x"></i>

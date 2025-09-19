@@ -220,7 +220,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="fw-bolder fs-5">
+                                    <div class=" fs-5">
                                         Đánh giá chung:
                                     </div>
                                     <p>
