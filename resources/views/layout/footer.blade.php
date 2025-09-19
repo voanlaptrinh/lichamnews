@@ -18,9 +18,9 @@
             <div class="col-lg-2 col-md-4 col-6 footer-col">
                 <h5 class="footer-title">Tiện ích</h5>
                 <ul class="footer-links">
-                    <li><a href="">Đổi ngày âm dương</a></li>
+                    <li><a href="{{route('convert.am.to.duong')}}">Đổi ngày âm dương</a></li>
                     <li><a href="">Lá số tử vi</a></li>
-                    <li><a href="">Xem ngày tốt xấu</a></li>
+                    <li><a href="{{route('convert.am.to.duong')}}">Xem ngày tốt xấu</a></li>
                     <li><a href="">Thước lỗ ban</a></li>
                 </ul>
             </div>
@@ -31,10 +31,9 @@
                 <ul class="footer-links">
 
 
-                    <li><a href="">Liên hệ</a></li>
-                    <li><a href="">Điều khoản dịch vụ</a></li>
-
-                    <li><a href="">Chính sách bảo mật</a></li>
+                    <li><a href="{{route('lien-he-voi-chung-toi')}}">Liên hệ</a></li>
+                    <li><a href="{{route('dieu-khoan')}}">Điều khoản dịch vụ</a></li>
+                    <li><a href="{{route('chinh-sach')}}">Chính sách bảo mật</a></li>
                 </ul>
             </div>
 

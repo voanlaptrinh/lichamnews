@@ -6,6 +6,7 @@ use App\Http\Controllers\CaiTangController;
 use App\Http\Controllers\CompatibilityController;
 use App\Http\Controllers\DongThoController;
 use App\Http\Controllers\DuLichCongTacController;
+use App\Http\Controllers\FooterController;
 use App\Http\Controllers\GiaiHanController;
 use App\Http\Controllers\GiayToController;
 use App\Http\Controllers\HoroscopeController;
@@ -57,6 +58,9 @@ Route::get('/lich/nam/{nam}', [LichController::class, 'nam'])->name('lich.nam');
 Route::get('/lich/nam/{nam}/thang/{thang}', [LichController::class, 'thang'])->name('lich.thang');
 Route::get('/am-lich/nam/{nam}/thang/{thang}/ngay/{ngay}', [LunarController::class, 'ngay'])->name('lich.nam.ngay');
 
+Route::get('lien-he-voi-chung-toi', [FooterController::class, 'lienHe'])->name('lien-he-voi-chung-toi');
+Route::get('dieu-khoan-dich-vu', [FooterController::class, 'dieuKhoan'])->name('dieu-khoan');
+Route::get('chinh-sach-bao-mat', [FooterController::class, 'chinhSach'])->name('chinh-sach');
 
 // Xem tuổi để cưới hỏi
 Route::prefix('xem-tuoi-cuoi-hoi')->group(function () {

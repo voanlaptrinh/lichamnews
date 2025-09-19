@@ -515,15 +515,9 @@
             }
         }
 
-        // Đảm bảo jQuery đã load
-        if (typeof jQuery === 'undefined') {
-            console.error('jQuery is not loaded!');
-        } else {
-            console.log('jQuery version:', jQuery.fn.jquery);
-        }
-
+       
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('DOM loaded - initializing date converter');
+           
 
             // Double-check jQuery and daterangepicker
             if (typeof $ === 'undefined') {
@@ -539,9 +533,7 @@
             const solarInput = document.getElementById('solar_date');
             const lunarInput = document.getElementById('lunar_date');
 
-            console.log('Solar input:', solarInput);
-            console.log('Lunar input:', lunarInput);
-
+          
             const swapBtn = document.getElementById('swapDatesBtn');
             const solarContainer = document.getElementById('solar-container');
             const lunarContainer = document.getElementById('lunar-container');
@@ -720,7 +712,7 @@
                     }
                 });
 
-                console.log('Using today:', todayFormatted);
+             
             @endif
 
             // Xử lý khi người dùng nhập tay vào input
@@ -816,19 +808,16 @@
             });
 
             // Initialize daterangepicker cho từng input (chỉ single date)
-            console.log('Initializing daterangepicker...');
+     
             if (typeof $.fn.daterangepicker === 'undefined') {
                 console.error('DateRangePicker plugin not loaded! Please check if the library is included.');
                 return;
             }
 
             document.querySelectorAll('.dateuse2r').forEach(function(input) {
-                console.log('Setting up daterangepicker for:', input.id);
+              
 
-                // Test click vào input
-                input.addEventListener('click', function() {
-                    console.log('Input clicked:', this.id);
-                });
+             
 
                 try {
                     // Lấy startDate từ giá trị hiện tại của input hoặc today

@@ -154,7 +154,7 @@
                                             class="icon_tiet_khi">
                                         <div class="font-detail-ngay">
                                             <strong class="title-font-detail-ngay">Tiết khí:</strong>
-                                            {!! $tietkhi['icon'] !!} <span
+                                          <span
                                                 class="text-uppercase">{{ $tietkhi['tiet_khi'] }}</span>
                                         </div>
                                     </div>

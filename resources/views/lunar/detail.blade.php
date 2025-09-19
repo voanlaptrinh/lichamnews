@@ -265,7 +265,7 @@
 
                                         if ($nhiThapBatTu['nature'] == 'Xấu') {
                                             $badFactors[] =
-                                                'Sao <strong>' . $nhiThapBatTu['name'] . '</strong> (Nhị thập bát tú)';
+                                                'Sao ' . $nhiThapBatTu['name'] . ' (Nhị thập bát tú)';
                                         }
 
                                         if ($getThongTinTruc['description']['rating'] == 'Xấu') {
