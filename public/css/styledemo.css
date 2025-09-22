@@ -33,7 +33,7 @@ body {
     align-items: center;
     color: #192E52;
     /* padding-bottom: 12px; */
-    font-weight:800;
+    font-weight: 500;
 }
 
 .content-title-home-lich::before {
@@ -119,14 +119,14 @@ body {
 }
 
 .calendar-table td.current {
-    background-color: #2254AB;
-    border: 1px solid #2268D3;
+    background-color: #DCEEFD;
+    border: 0.94px solid #2268D3;
     font-weight: bold;
-    box-shadow: 5px 0px 13.6px 0px rgba(0, 113, 206, 0.25);
+    /* box-shadow: 5px 0px 13.6px 0px rgba(0, 113, 206, 0.25); */
 }
 
 .calendar-table td.current a {
-    color: #FFFFFF;
+    color: #000000;
 }
 
 .calendar-table td.current a:hover {
@@ -476,6 +476,9 @@ a {
     box-shadow: none;
 }
 
+/* .calendar-table td .can_chi_text . :hover * {
+    color: black !important;
+} */
 .header-calendar {
     display: flex;
     justify-content: space-between;
@@ -964,7 +967,7 @@ a {
     color: #ffffff;
     background-image: none;
     transition: color 0.3s ease;
-    font-family: CormorantGaramond-Bold, serif;
+    /* font-family: CormorantGaramond-Bold, serif; */
 }
 
 /* --- KHI HOVER HOẶC ACTIVE: HIỂN THỊ ẢNH NỀN VÀ ĐỔI MÀU CHỮ --- */
@@ -1080,6 +1083,14 @@ a:hover {
     visibility: hidden;
     /* Ẩn hoàn toàn */
     transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+/* Ngăn scroll khi menu mobile mở */
+body.menu-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
 }
 
 /* Trạng thái khi lớp phủ hiện */
@@ -1720,7 +1731,7 @@ a:hover {
 }
 
 .calendar-table td {
-    border: 1px solid #CACACA;
+    border: 0.8px solid #CACACA;
     border-radius: 0.75rem;
     vertical-align: top;
     padding: 0.5rem;
@@ -1918,11 +1929,6 @@ a:hover {
 }
 
 
-
-
-
-
-
 .date_number_lich {
     font-family: 'sf-compact-display-medium';
     color: #214987;
@@ -2006,13 +2012,10 @@ a:hover {
 }
 
 /* --- 3. Style cho icon bên trong (thẻ <i>) --- */
-.btn-mobie-next-prev .prev-day-btn-mobie i {
-    /* Kích thước của icon (nhỏ hơn) */
+/* .btn-mobie-next-prev .prev-day-btn-mobie i {
     font-size: 1.25rem;
-    /* ~20px */
     color: #495057;
-    /* Màu icon */
-}
+} */
 
 /* --- 4. (Tùy chọn) Thêm hiệu ứng khi di chuột hoặc chạm vào --- */
 .btn-mobie-next-prev a:hover {
@@ -4455,4 +4458,12 @@ input.daterangepicker-input:hover {
 .bg-white-setting{
     padding: 30px;
     background: #ffffff;
+}
+.ngay-hom-ngay {
+    text-align: center;
+    border: dashed 1px #2254AB;
+    padding: 10px;
+    color: #2196F3;
+    font-weight: bold;
+    background: #d7f5f3;
 }

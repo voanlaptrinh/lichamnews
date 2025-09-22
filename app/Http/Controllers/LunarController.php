@@ -277,7 +277,7 @@ class LunarController extends Controller
 
             // giả sử trong $info có trường 'score'
             $labels[] = $date->format('d/m');
-            $dataValues[] = $info['score']['percentage'];
+            $dataValues[] = round($info['score']['percentage']);
         }
         // Trả về view với đầy đủ dữ liệu
         return view('lunar.convert', [
@@ -327,279 +327,7 @@ class LunarController extends Controller
     }
 
 
-    public function detail(Request $request, $yy, $mm, $dd)
-    {
-        // 1. Validate the date from URL parameters first
-        // (Cast to int here to ensure checkdate works correctly)
-        if (!checkdate((int)$mm, (int)$dd, (int)$yy)) {
-            abort(404, 'Ngày bạn yêu cầu không tồn tại.');
-        }
 
-        // 2. Store the original URL date components as integers (good practice)
-        $effective_yy = (int)$yy;
-        $effective_mm = (int)$mm;
-        $effective_dd = (int)$dd;
-
-        // 3. Try to get 'cdate' from the request body/query
-        $requestCdateInput = $request->input('cdate');
-
-        // 4. If 'cdate' is provided in the request and is valid, it should override the URL date.
-        if (FunctionHelper::validateDate($requestCdateInput, 'Y-m-d')) {
-            $cdate_info = explode('-', $requestCdateInput);
-
-            // Re-validate the potentially overwritten date string to ensure it's a real date
-            // (e.g., prevent '2023-02-30' from being accepted)
-            if (checkdate((int)$cdate_info[1], (int)$cdate_info[2], (int)$cdate_info[0])) {
-                $effective_yy = (int)$cdate_info[0];
-                $effective_mm = (int)$cdate_info[1];
-                $effective_dd = (int)$cdate_info[2];
-            }
-            // If requestCdateInput was invalid, effective_yy/mm/dd will remain the URL date.
-        }
-        // If no 'cdate' in request or it's not valid, effective_yy/mm/dd will already be the URL date.
-
-        // 5. Update the main $yy, $mm, $dd variables to the final effective date
-        $yy = $effective_yy;
-        $mm = $effective_mm;
-        $dd = $effective_dd;
-
-        // 6. NOW, construct $cdate from these final $yy, $mm, $dd.
-        // This ensures $cdate always holds the string representation of the date being processed.
-        $cdate = sprintf('%04d-%02d-%02d', $yy, $mm, $dd);
-
-        // All subsequent calculations will use these final $yy, $mm, $dd (and $cdate)
-        $birthdate = $request->input('birthdate'); // birthdate is still taken directly from request
-
-
-        // Chuyển từ Dương lịch sang Âm lịch
-        $al = LunarHelper::convertSolar2Lunar((int)$dd, (int)$mm, (int)$yy);
-
-        // Tính Can Chi của ngày
-        $jd = LunarHelper::jdFromDate((int)$dd, (int)$mm, (int)$yy);
-
-        $canChi = LunarHelper::canchiNgayByJD($jd);
-        $chi_ngay = explode(' ', $canChi);
-        $chiNgay = $chi_ngay;
-
-        $chi_ngay = @$chi_ngay[1];
-        $gioHd = LunarHelper::gioHDTrongNgayTXT($chi_ngay); // Tính giờ hoàng đạo trong ngày
-        $thu = LunarHelper::sw_get_weekday($cdate); // Tính thứ trong tháng
-
-        $ngaySuatHanh = LichKhongMinhHelper::numToNgay((int)$al[1], (int)$al[0]); // Tính ngày xuất hành
-        $ngaySuatHanhHTML = LichKhongMinhHelper::ngayToHTML($ngaySuatHanh); // HTML cho ngày xuất hành
-
-        $tietkhi = LunarHelper::tietKhiWithIcon($jd);
-        list($table_html, $data_totxau) = LunarHelper::printTable($mm, $yy, true, true, false, $dd);
-
-        //Lấy sao tốt xấu theo ngọc Hạp thông thư
-        $getSaoTotXauInfo = FunctionHelper::getSaoTotXauInfo($dd, $mm, $yy);
-
-        $hoangDaoStars = [];
-        foreach ($getSaoTotXauInfo['sao_tot'] as $starName => $starDescription) {
-            if (str_contains($starName, 'Hoàng Đạo')) {
-                $hoangDaoStars[$starName] = $starDescription;
-            }
-        }
-
-        $hacDaoStars = [];
-        foreach ($getSaoTotXauInfo['sao_xau'] as $starName => $starDescription) {
-            if (str_contains($starName, 'Hắc Đạo')) {
-                $hacDaoStars[$starName] = $starDescription;
-            }
-        }
-        //end
-
-        //can chi tháng năm
-        $getThongTinCanChiVaIcon = FunctionHelper::getThongTinCanChiVaIcon((int)$dd, (int)$mm, (int)$yy);
-        //end
-
-        //Tổng quan ngày
-        $getThongTinNgay = FunctionHelper::getThongTinNgay((int)$dd, (int)$mm, (int)$yy);
-        //end
-
-        //Nội khí ngày
-        $noiKhiNgay =  KhiVanHelper::getDetailedNoiKhiExplanation((int)$dd, (int)$mm, (int)$yy);
-        //end
-
-        //Nhị thập bát tú
-        $nhiThapBatTu = FunctionHelper::nhiThapBatTu((int)$yy, (int)$mm, (int)$dd);
-        //end nhị thập bát tú
-
-        //THập Nhị Trực 
-        $getThongTinTruc = FunctionHelper::getThongTinTruc($dd, $mm, $yy);
-        //end tHập nhị trực
-
-        //Khổng minh lục diệu
-        $khongMinhLucDieu = LichKhongMinhHelper::getKhongMinhLucDieuDayInfo($dd, $mm, (int)$yy);
-        //end khổng minh lục diệu
-
-        //giải thích ngày theo Bành Tổ Bách Kỵ
-        $banhToCan = DataHelper::$banhToCanTaboos[$chiNgay[0]];
-        $banhToChi = DataHelper::$banhToChiTaboos[$chiNgay[1]];
-        //end
-
-        //Hướng xuất hành và giờ xuất hành lý thuần phong
-        $getThongTinXuatHanhVaLyThuanPhong = FunctionHelper::getThongTinXuatHanhVaLyThuanPhong($dd, $mm, (int)$yy);
-        //------End------//
-
-        //------Giờ hoàng đạo-------//
-        $getDetailedGioHoangDao = GioHoangDaoHelper::getDetailedGioHoangDao((int)$dd, (int)$mm, (int)$yy);
-        //end giờ hoàng đạo
-
-        $amToday = sprintf('%04d-%02d-%02d', $al[2], $al[1], $al[0]);
-
-        $getDaySummaryInfo = FunctionHelper::getDaySummaryInfo((int)$dd, (int)$mm, (int)$yy, $birthdate);
-
-        $suKienDuongLich = [];
-        $suKienAmLich = [];
-        $suKienTrongThangDuong = LunarHelper::getVietnamEvent($mm, $yy);
-        if (isset($suKienTrongThangDuong[$dd])) {
-            $suKienDuongLich[] = $suKienTrongThangDuong[$dd];
-        }
-        $suKienTrongThangAm = LunarHelper::getVietnamLunarEvent2($al[1], $al[2]);
-        if (isset($suKienTrongThangAm[$al[0]])) {
-            $suKienAmLich[] = $suKienTrongThangAm[$al[0]];
-        }
-        $suKienHomNay = array_merge($suKienDuongLich, $suKienAmLich);
-
-        $tot_xau_result = LunarHelper::checkTotXau($canChi, $al[1]);
-
-        $dateToCheck = Carbon::create($yy, $mm, $dd);
-        $getVongKhiNgayThang = KhiVanHelper::getDetailedKhiThangInfo($dateToCheck);
-        $getCucKhiHopXung = FengShuiHelper::getCucKhiHopXung($chiNgay[1]);
-        $checkBadDays = BadDayHelper::checkBadDays($dateToCheck);
-
-
-        $startDate = Carbon::createFromDate((int)$yy, (int)$mm, (int)$dd);
-
-        // mảng dữ liệu cho chart
-        $labels = [];
-        $dataValues = [];
-
-        for ($i = 0; $i < 7; $i++) {
-            $date = $startDate->copy()->addDays($i);
-            $day   = (int)$date->day;
-            $month = (int)$date->month;
-            $year  = (int)$date->year;
-
-            // gọi hàm lấy điểm
-            $info = FunctionHelper::getDaySummaryInfo($day, $month, $year, $birthdate);
-
-            // giả sử trong $info có trường 'score'
-            $labels[] = $date->format('d/m');
-            $dataValues[] = $info['score']['percentage'];
-        }
-
-         $upcomingEvents = [];
-        $currentCarbonDate = Carbon::create($yy, $mm, $dd)->startOfDay();
-        $lookAheadMonths = 3; // Số tháng tiếp theo muốn tìm sự kiện
-
-        for ($i = 0; $i <= $lookAheadMonths; $i++) {
-            $solarDateToCheck = Carbon::create($yy, $mm, $dd)->addMonthsNoOverflow($i);
-            $solarMonthToCheck = $solarDateToCheck->month;
-            $solarYearToCheck = $solarDateToCheck->year;
-
-            // Lấy sự kiện dương lịch
-            $eventsSolar = LunarHelper::getVietnamEvent($solarMonthToCheck, $solarYearToCheck);
-            foreach ($eventsSolar as $eventDay => $eventDescription) {
-                $eventCarbon = Carbon::create($solarYearToCheck, $solarMonthToCheck, $eventDay)->startOfDay();
-                // Chỉ lấy sự kiện từ ngày hiện tại trở đi
-                if ($eventCarbon->greaterThanOrEqualTo($currentCarbonDate)) {
-                    $daysRemaining = $eventCarbon->diffInDays($currentCarbonDate);
-                    $upcomingEvents[] = [
-                        'date' => $eventCarbon->format('Y-m-d'),
-                        'description' => $eventDescription . " (Dương lịch)",
-                        'days_remaining' => $daysRemaining,
-                        'type' => 'solar',
-                    ];
-                }
-            }
-
-            // Chuyển đổi tháng dương lịch hiện tại thành tháng âm lịch tương ứng
-            // (Đây là một cách ước tính đơn giản, có thể không hoàn hảo khi có tháng nhuận hoặc thay đổi đầu năm âm lịch)
-            $tempLunar = LunarHelper::convertSolar2Lunar(1, $solarMonthToCheck, $solarYearToCheck);
-            $lunarMonthToCheck = $tempLunar[1];
-            $lunarYearToCheck = $tempLunar[2];
-            $lunarLeap = $tempLunar[3];
-
-            // Lấy sự kiện âm lịch
-            $eventsLunar = LunarHelper::getVietnamLunarEvent2($lunarMonthToCheck, $lunarYearToCheck);
-            foreach ($eventsLunar as $lunarEventDay => $eventDescription) {
-                // Chuyển đổi ngày âm lịch sang ngày dương lịch để so sánh
-                $solarEquivalent = LunarHelper::convertLunar2Solar($lunarEventDay,  $lunarMonthToCheck, $lunarYearToCheck, $lunarLeap);
-                if ($solarEquivalent) {
-                    $eventCarbon = Carbon::create($solarEquivalent[2], $solarEquivalent[1], $solarEquivalent[0])->startOfDay();
-                    // Chỉ lấy sự kiện từ ngày hiện tại trở đi
-                    if ($eventCarbon->greaterThanOrEqualTo($currentCarbonDate)) {
-                        $daysRemaining = $eventCarbon->diffInDays($currentCarbonDate);
-                        $upcomingEvents[] = [
-                            'date' => $eventCarbon->format('Y-m-d'),
-                            'description' => $eventDescription['ten_su_kien'] . " (Âm lịch)",
-                            'days_remaining' => $daysRemaining,
-                            'type' => 'lunar',
-                        ];
-                    }
-                }
-            }
-        }
-
-        // Lọc bỏ các sự kiện trùng lặp (ví dụ, nếu một sự kiện dương lịch và âm lịch rơi vào cùng một ngày dương lịch và có cùng mô tả)
-        // Và sắp xếp các sự kiện theo ngày tăng dần, sau đó lọc các sự kiện có số ngày còn lại > 0
-        usort($upcomingEvents, function ($a, $b) {
-            return strtotime($a['date']) - strtotime($b['date']);
-        });
-
-        // Lọc các sự kiện có days_remaining = 0 nếu bạn không muốn hiển thị lại sự kiện của chính ngày hôm nay ở mục sắp tới
-        $upcomingEvents = array_filter($upcomingEvents, function ($event) {
-            return $event['days_remaining'] > 0;
-        });
-
-        // Giới hạn số lượng sự kiện sắp tới hiển thị (tùy chọn)
-        $upcomingEvents = array_slice($upcomingEvents, 0, 5);
-        // dd($checkBadDays);
-        return view('lunar.detail', [
-            'cdate' => $cdate,
-            'dd' => $dd,
-            'mm' => $mm,
-            'yy' => $yy,
-            'al' => $al,
-            'canChi' => $canChi,
-            'weekday' => $thu, // Thứ trong tháng
-            'ngaySuatHanh' => $ngaySuatHanh, // Ngày xuất hành
-            'ngaySuatHanhHTML' => $ngaySuatHanhHTML, // HTML cho ngày xuất hành
-            'gioHd' => $gioHd, // Giờ hoàng đạo
-            'tietkhi' => $tietkhi, // Tiết khí
-            'table_html' => $table_html, // HTML cho bảng lịch
-            'data_totxau' => $data_totxau, // Dữ liệu tốt xấu
-            'noiKhiNgay' => $noiKhiNgay,
-            'banhToCan' => $banhToCan, //giải thích ngày theo Bành Tổ Bách Kỵ
-            'banhToChi' => $banhToChi, //giải thích ngày theo Bành Tổ Bách Kỵ
-            'chiNgay' => $chiNgay,
-            'amToday' => $amToday,
-            'tot_xau_result' => $tot_xau_result,
-            'suKienHomNay' => $suKienHomNay, // Tổng hợp (để tương thích với code cũ)
-            'suKienDuongLich' => $suKienDuongLich, // Sự kiện dương lịch riêng
-            'suKienAmLich' => $suKienAmLich, // Sự kiện âm lịch riêng
-            'khongMinhLucDieu' => $khongMinhLucDieu, // lịch khổng minh lục diệu
-            'getDetailedGioHoangDao' => $getDetailedGioHoangDao,
-            'getThongTinXuatHanhVaLyThuanPhong' => $getThongTinXuatHanhVaLyThuanPhong, //Hướng xuất hành và giờ xuất hành lý thuần phong
-            'getThongTinTruc' => $getThongTinTruc,
-            'getThongTinCanChiVaIcon' => $getThongTinCanChiVaIcon, //Lấy thông tin ngày và icon
-            'nhiThapBatTu' => $nhiThapBatTu, //THoong tin nhị thập bát tú
-            'getSaoTotXauInfo' => $getSaoTotXauInfo, //Ngọc hạp thông thư
-            'getThongTinNgay' => $getThongTinNgay, //Tổng quan ngày
-            'getDaySummaryInfo' => $getDaySummaryInfo,
-            'getVongKhiNgayThang' => $getVongKhiNgayThang,
-            'getCucKhiHopXung' => $getCucKhiHopXung,
-            'checkBadDays' => $checkBadDays,
-            'labels' => $labels,
-            'dataValues' => $dataValues,
-            'hoangDaoStars' => $hoangDaoStars,
-            'hacDaoStars' => $hacDaoStars,
-            'upcomingEvents' => $upcomingEvents,
-
-        ]);
-    }
 
     public function convertAmToDuong(Request $request)
     {
@@ -631,7 +359,7 @@ class LunarController extends Controller
                 }
             }
         }
-         if (!$yy || $yy < 1900 || $yy > 2100 || !$mm || $mm < 1 || $mm > 12) {
+        if (!$yy || $yy < 1900 || $yy > 2100 || !$mm || $mm < 1 || $mm > 12) {
             return back()->withErrors(['solar_date' => 'Vui lòng nhập ngày dương lịch hợp lệ.']);
         }
         $al = LunarHelper::convertSolar2Lunar((int)$dd, (int)$mm, (int)$yy);
@@ -777,5 +505,308 @@ class LunarController extends Controller
 
             ]
         );
+    }
+    private static function getUpcomingEvents($yy, $mm, $dd, $lookAheadMonths = 3)
+    {
+        $upcomingEvents = [];
+        $currentCarbonDate = Carbon::create($yy, $mm, $dd)->startOfDay();
+
+        for ($i = 0; $i <= $lookAheadMonths; $i++) {
+            $solarDateToCheck = Carbon::create($yy, $mm, $dd)->addMonthsNoOverflow($i);
+            $solarMonthToCheck = $solarDateToCheck->month;
+            $solarYearToCheck = $solarDateToCheck->year;
+
+            // Lấy sự kiện dương lịch
+            $eventsSolar = LunarHelper::getVietnamEvent($solarMonthToCheck, $solarYearToCheck);
+            foreach ($eventsSolar as $eventDay => $eventDescription) {
+                $eventCarbon = Carbon::create($solarYearToCheck, $solarMonthToCheck, $eventDay)->startOfDay();
+                if ($eventCarbon->greaterThanOrEqualTo($currentCarbonDate)) {
+                    $daysRemaining = $eventCarbon->diffInDays($currentCarbonDate);
+                    $upcomingEvents[] = [
+                        'date' => $eventCarbon->format('Y-m-d'),
+                        'description' => $eventDescription . " (Dương lịch)",
+                        'days_remaining' => $daysRemaining,
+                        'type' => 'solar',
+                    ];
+                }
+            }
+
+            // Lấy sự kiện âm lịch
+            $tempLunar = LunarHelper::convertSolar2Lunar(1, $solarMonthToCheck, $solarYearToCheck);
+            $lunarMonthToCheck = $tempLunar[1];
+            $lunarYearToCheck = $tempLunar[2];
+            $lunarLeap = $tempLunar[3];
+
+            $eventsLunar = LunarHelper::getVietnamLunarEvent2($lunarMonthToCheck, $lunarYearToCheck);
+            foreach ($eventsLunar as $lunarEventDay => $eventDescription) {
+                $solarEquivalent = LunarHelper::convertLunar2Solar($lunarEventDay, $lunarMonthToCheck, $lunarYearToCheck, $lunarLeap);
+                if ($solarEquivalent) {
+                    $eventCarbon = Carbon::create($solarEquivalent[2], $solarEquivalent[1], $solarEquivalent[0])->startOfDay();
+                    if ($eventCarbon->greaterThanOrEqualTo($currentCarbonDate)) {
+                        $daysRemaining = $eventCarbon->diffInDays($currentCarbonDate);
+                        $upcomingEvents[] = [
+                            'date' => $eventCarbon->format('Y-m-d'),
+                            'description' => $eventDescription['ten_su_kien'] . " (Âm lịch)",
+                            'days_remaining' => $daysRemaining,
+                            'type' => 'lunar',
+                        ];
+                    }
+                }
+            }
+        }
+
+        // Sắp xếp và lọc
+        usort($upcomingEvents, function ($a, $b) {
+            return strtotime($a['date']) - strtotime($b['date']);
+        });
+
+        $upcomingEvents = array_filter($upcomingEvents, function ($event) {
+            return $event['days_remaining'] > 0;
+        });
+
+        return array_slice($upcomingEvents, 0, 10);
+    }
+    public static function getDateInfo($dd, $mm, $yy, $birthdate = null)
+    {
+        // Chuẩn hóa input
+        $dd = (int)$dd;
+        $mm = (int)$mm;
+        $yy = (int)$yy;
+
+        // Validate date
+        if (!checkdate($mm, $dd, $yy)) {
+            throw new \InvalidArgumentException('Invalid date provided');
+        }
+
+        $cdate = sprintf('%04d-%02d-%02d', $yy, $mm, $dd);
+
+        // Chuyển từ Dương lịch sang Âm lịch
+        $al = LunarHelper::convertSolar2Lunar($dd, $mm, $yy);
+
+        // Tính Can Chi của ngày
+        $jd = LunarHelper::jdFromDate($dd, $mm, $yy);
+        $canChi = LunarHelper::canchiNgayByJD($jd);
+        $chi_ngay = explode(' ', $canChi);
+        $chiNgay = $chi_ngay;
+        $chi_ngay = @$chi_ngay[1];
+
+        // Các thông tin cơ bản
+        $gioHd = LunarHelper::gioHDTrongNgayTXT($chi_ngay);
+        $thu = LunarHelper::sw_get_weekday($cdate);
+        $tietkhi = LunarHelper::tietKhiWithIcon($jd);
+
+        // Lịch tháng
+        list($table_html, $data_totxau) = LunarHelper::printTable($mm, $yy, true, true, false, $dd);
+
+        // Ngày xuất hành
+        $ngaySuatHanh = LichKhongMinhHelper::numToNgay($al[1], $al[0]);
+        $ngaySuatHanhHTML = LichKhongMinhHelper::ngayToHTML($ngaySuatHanh);
+
+        // Các thông tin chi tiết
+        $getSaoTotXauInfo = FunctionHelper::getSaoTotXauInfo($dd, $mm, $yy);
+
+        // Tách sao hoàng đạo và hắc đạo
+        $hoangDaoStars = [];
+        $hacDaoStars = [];
+        foreach ($getSaoTotXauInfo['sao_tot'] as $starName => $starDescription) {
+            if (str_contains($starName, 'Hoàng Đạo')) {
+                $hoangDaoStars[$starName] = $starDescription;
+            }
+        }
+        foreach ($getSaoTotXauInfo['sao_xau'] as $starName => $starDescription) {
+            if (str_contains($starName, 'Hắc Đạo')) {
+                $hacDaoStars[$starName] = $starDescription;
+            }
+        }
+
+        // Thông tin can chi và icons
+        $getThongTinCanChiVaIcon = FunctionHelper::getThongTinCanChiVaIcon($dd, $mm, $yy);
+
+        // Tổng quan ngày
+        $getThongTinNgay = FunctionHelper::getThongTinNgay($dd, $mm, $yy);
+
+        // Nội khí ngày
+        $noiKhiNgay = KhiVanHelper::getDetailedNoiKhiExplanation($dd, $mm, $yy);
+
+        // Nhị thập bát tú
+        $nhiThapBatTu = FunctionHelper::nhiThapBatTu($yy, $mm, $dd);
+
+        // Thập nhị trực
+        $getThongTinTruc = FunctionHelper::getThongTinTruc($dd, $mm, $yy);
+
+        // Khổng minh lục diệu
+        $khongMinhLucDieu = LichKhongMinhHelper::getKhongMinhLucDieuDayInfo($dd, $mm, $yy);
+
+        // Bành tổ bách kỵ
+        $banhToCan = DataHelper::$banhToCanTaboos[$chiNgay[0]];
+        $banhToChi = DataHelper::$banhToChiTaboos[$chiNgay[1]];
+
+        // Xuất hành và lý thuần phong
+        $getThongTinXuatHanhVaLyThuanPhong = FunctionHelper::getThongTinXuatHanhVaLyThuanPhong($dd, $mm, $yy);
+
+        // Giờ hoàng đạo
+        $getDetailedGioHoangDao = GioHoangDaoHelper::getDetailedGioHoangDao($dd, $mm, $yy);
+
+        // Thông tin điểm số ngày
+        $getDaySummaryInfo = FunctionHelper::getDaySummaryInfo($dd, $mm, $yy, $birthdate);
+
+        // Sự kiện dương lịch và âm lịch
+        $suKienDuongLich = [];
+        $suKienAmLich = [];
+        $suKienTrongThangDuong = LunarHelper::getVietnamEvent($mm, $yy);
+        if (isset($suKienTrongThangDuong[$dd])) {
+            $suKienDuongLich[] = $suKienTrongThangDuong[$dd];
+        }
+        $suKienTrongThangAm = LunarHelper::getVietnamLunarEvent2($al[1], $al[2]);
+        if (isset($suKienTrongThangAm[$al[0]])) {
+            $suKienAmLich[] = $suKienTrongThangAm[$al[0]];
+        }
+        $suKienHomNay = array_merge($suKienDuongLich, $suKienAmLich);
+
+        // Kiểm tra tốt xấu
+        $tot_xau_result = LunarHelper::checkTotXau($canChi, $al[1]);
+
+        // Vòng khí ngày tháng
+        $dateToCheck = Carbon::create($yy, $mm, $dd);
+        $getVongKhiNgayThang = KhiVanHelper::getDetailedKhiThangInfo($dateToCheck);
+        $getCucKhiHopXung = FengShuiHelper::getCucKhiHopXung($chiNgay[1]);
+        $checkBadDays = BadDayHelper::checkBadDays($dateToCheck);
+
+        // Upcoming events
+        $upcomingEvents = self::getUpcomingEvents($yy, $mm, $dd);
+
+        return [
+            // Dữ liệu cơ bản
+            'cdate' => $cdate,
+            'dd' => sprintf('%02d', $dd),
+            'mm' => sprintf('%02d', $mm),
+            'yy' => $yy,
+            'weekday' => $thu,
+            'al' => $al,
+            'jd' => $jd,
+            'canChi' => $canChi,
+            'chiNgay' => $chiNgay,
+            'chi_ngay' => $chi_ngay,
+
+            // Thông tin chi tiết
+            'gioHd' => $gioHd,
+            'tietkhi' => $tietkhi,
+            'table_html' => $table_html,
+            'data_totxau' => $data_totxau,
+            'ngaySuatHanh' => $ngaySuatHanh,
+            'ngaySuatHanhHTML' => $ngaySuatHanhHTML,
+
+            // Sao tốt xấu
+            'getSaoTotXauInfo' => $getSaoTotXauInfo,
+            'hoangDaoStars' => $hoangDaoStars,
+            'hacDaoStars' => $hacDaoStars,
+
+            // Các thông tin phong thủy
+            'getThongTinCanChiVaIcon' => $getThongTinCanChiVaIcon,
+            'getThongTinNgay' => $getThongTinNgay,
+            'noiKhiNgay' => $noiKhiNgay,
+            'nhiThapBatTu' => $nhiThapBatTu,
+            'getThongTinTruc' => $getThongTinTruc,
+            'khongMinhLucDieu' => $khongMinhLucDieu,
+            'banhToCan' => $banhToCan,
+            'banhToChi' => $banhToChi,
+            'getThongTinXuatHanhVaLyThuanPhong' => $getThongTinXuatHanhVaLyThuanPhong,
+            'getDetailedGioHoangDao' => $getDetailedGioHoangDao,
+
+            // Điểm số và đánh giá
+            'getDaySummaryInfo' => $getDaySummaryInfo,
+
+            // Sự kiện
+            'suKienDuongLich' => $suKienDuongLich,
+            'suKienAmLich' => $suKienAmLich,
+            'suKienHomNay' => $suKienHomNay,
+
+            // Kết quả tốt xấu
+            'tot_xau_result' => $tot_xau_result,
+
+            // Thông tin vòng khí
+            'getVongKhiNgayThang' => $getVongKhiNgayThang,
+            'getCucKhiHopXung' => $getCucKhiHopXung,
+            'checkBadDays' => $checkBadDays,
+
+            // Sự kiện sắp tới
+            'upcomingEvents' => $upcomingEvents,
+        ];
+    }
+
+    public function detail(Request $request, $yy, $mm, $dd)
+    {
+        if (!checkdate((int)$mm, (int)$dd, (int)$yy)) {
+            abort(404, 'Ngày bạn yêu cầu không tồn tại.');
+        }
+        $effective_yy = (int)$yy;
+        $effective_mm = (int)$mm;
+        $effective_dd = (int)$dd;
+        $requestCdateInput = $request->input('cdate');
+        if (FunctionHelper::validateDate($requestCdateInput, 'Y-m-d')) {
+            $cdate_info = explode('-', $requestCdateInput);
+
+            if (checkdate((int)$cdate_info[1], (int)$cdate_info[2], (int)$cdate_info[0])) {
+                $effective_yy = (int)$cdate_info[0];
+                $effective_mm = (int)$cdate_info[1];
+                $effective_dd = (int)$cdate_info[2];
+            }
+        }
+        $yy = $effective_yy;
+        $mm = $effective_mm;
+        $dd = $effective_dd;
+        $dateinfodetail = $this->getDateInfo($dd, $mm, $yy);
+        return view('lunar.detail', $dateinfodetail);
+    }
+
+
+
+     public function dateTodaydetail(Request $request, $yy, $mm, $dd)
+    {
+        if (!checkdate((int)$mm, (int)$dd, (int)$yy)) {
+            abort(404, 'Ngày bạn yêu cầu không tồn tại.');
+        }
+        $effective_yy = (int)$yy;
+        $effective_mm = (int)$mm;
+        $effective_dd = (int)$dd;
+        $requestCdateInput = $request->input('cdate');
+        if (FunctionHelper::validateDate($requestCdateInput, 'Y-m-d')) {
+            $cdate_info = explode('-', $requestCdateInput);
+
+            if (checkdate((int)$cdate_info[1], (int)$cdate_info[2], (int)$cdate_info[0])) {
+                $effective_yy = (int)$cdate_info[0];
+                $effective_mm = (int)$cdate_info[1];
+                $effective_dd = (int)$cdate_info[2];
+            }
+        }
+        $yy = $effective_yy;
+        $mm = $effective_mm;
+        $dd = $effective_dd;
+        $dateinfodetail = $this->getDateInfo($dd, $mm, $yy);
+        return view('lunar.detailtoday', $dateinfodetail);
+    }
+     public function dateTomorrowdetail(Request $request, $yy, $mm, $dd)
+    {
+        if (!checkdate((int)$mm, (int)$dd, (int)$yy)) {
+            abort(404, 'Ngày bạn yêu cầu không tồn tại.');
+        }
+        $effective_yy = (int)$yy;
+        $effective_mm = (int)$mm;
+        $effective_dd = (int)$dd;
+        $requestCdateInput = $request->input('cdate');
+        if (FunctionHelper::validateDate($requestCdateInput, 'Y-m-d')) {
+            $cdate_info = explode('-', $requestCdateInput);
+
+            if (checkdate((int)$cdate_info[1], (int)$cdate_info[2], (int)$cdate_info[0])) {
+                $effective_yy = (int)$cdate_info[0];
+                $effective_mm = (int)$cdate_info[1];
+                $effective_dd = (int)$cdate_info[2];
+            }
+        }
+        $yy = $effective_yy;
+        $mm = $effective_mm;
+        $dd = $effective_dd;
+        $dateinfodetail = $this->getDateInfo($dd, $mm, $yy);
+        return view('lunar.detailtomorrow', $dateinfodetail);
     }
 }

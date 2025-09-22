@@ -6,7 +6,7 @@
         $isToday = $today->isSameDay($currentDate);
     @endphp
     <div class="calendar-app-container py-4">
-        <div class="row">
+        <div class="row g-0">
             <div class="col-xl-9">
 
                 <div class="d-flex justify-content-between">
@@ -24,7 +24,7 @@
                 </div>
             </div>
         </div>
-        <div class="row g-3">
+        <div class="row g-3 mt-2">
             <!-- ==== CỘT LỊCH CHÍNH (BÊN TRÁI) ==== -->
             <div class="col-xl-9 col-sm-12 col-12">
                 <div class="boxx-col-lg-8">
@@ -185,7 +185,6 @@
                                             </div>
                                         </div>
 
-
                                         <div class="col-6 d-flex justify-content-center">
                                             <div class="progress-dial mt-2"
                                                 style="--value: {{ round($getDaySummaryInfo['score']['percentage']) }};">
@@ -227,9 +226,9 @@
 
                             <div class="calendar-header-convert calendar-header">
                                 <div class="text-center">
-                                    <h5 class="mb-0 pt-2">Tháng {{ $mm }} năm {{ $yy }}</h5>
+                                    <h5 class="mb-0 pt-2">Lịch vạn niên {{ $yy }} - tháng {{ $mm }}</h5>
                                 </div>
-                                <div class="d-flex align-items-center">
+                                <div class="d-flex align-items-center justify-content-center">
                                     <select id="month-select" class="form-select me-2 custom-select-style">
                                         @for ($i = 1; $i <= 12; $i++)
                                             <option value="{{ $i }}" {{ $i == $mm ? 'selected' : '' }}>Tháng
@@ -420,61 +419,6 @@
             <!-- ==== CỘT THÔNG TIN (BÊN PHẢI) ==== -->
             <div class="col-xl-3  col-sm-12 col-12">
                 <div class="d-flex flex-column gap-4">
-
-                    <!-- ** KHỐI THÔNG TIN CHI TIẾT ** -->
-                    {{-- <div class="info-card d-sm-none d-none d-xl-block">
-                        <div class="info-item">
-                            <img src="{{ asset('icons/icon_tiet_khi.png') }}" alt="icon_tiet_khi" class="icon_tiet_khi">
-                            <div>
-                                <strong class="title-font-detail-ngay">Tiết khí:</strong> {!! $tietkhi['icon'] !!} <span
-                                    class="text-uppercase">{{ $tietkhi['tiet_khi'] }}</span>
-                            </div>
-                        </div>
-                        <div class="info-item">
-                            <img src="{{ asset('icons/icon_nap_am.png') }}" alt="icon_nap_am" class="icon_nap_am">
-                            <div>
-                                <strong class="title-font-detail-ngay">Ngũ hành nạp âm:</strong>
-                                {{ $getThongTinNgay['nap_am']['napAm'] }}
-                            </div>
-                        </div>
-                        <div class="info-item">
-                            <img src="{{ asset('icons/icon_hoang_dao.png') }}" alt="icon_hoang_dao"
-                                class="icon_hoang_dao">
-                            <div>
-                                <strong class="title-font-detail-ngay">Giờ Hoàng đạo:</strong>
-                                {{ $getThongTinNgay['gio_hoang_dao'] }}
-                            </div>
-                        </div>
-                        <!-- BẮT ĐẦU: KHỐI MỨC THUẬN LỢI (ĐÃ CẬP NHẬT) -->
-                        <div class="convenience-level d-flex justify-content-between align-items-centerrow h-100 mb-3">
-                            <div class="col-lg-6 d-flex align-items-center">
-                                <div class="level-label">
-                                    Mức thuận lợi<br>hôm nay:
-                                </div>
-                            </div>
-
-
-                            <div class="col-lg-6">
-                                <div class="progress-dial"
-                                    style="--value: {{ round($getDaySummaryInfo['score']['percentage']) }};">
-                                    <div class="dial-text">
-                                        <span
-                                            class="dial-percent">{{ round($getDaySummaryInfo['score']['percentage']) }}%</span>
-                                        <small
-                                            class="dial-status {{ $ratingColors[$getDaySummaryInfo['score']['rating']] ?? 'text-secondary' }}">
-                                            {{ $getDaySummaryInfo['score']['rating'] }}</small>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                        <!-- KẾT THÚC: KHỐI MỨC THUẬN LỢI -->
-                        <a href="{{ route('detai_home', ['nam' => $yy, 'thang' => $mm, 'ngay' => $dd]) }}"
-                            class="m w-100 text-detail-date-hand-pc pt-3 text-start text-decoration-underline"><img
-                                src="{{ asset('icons/hand_2.svg') }}" alt="hand_2" class="img-fluid">
-                            Xem chi tiết ngày</a>
-                    </div> --}}
-
                     <!-- ** KHỐI SỰ KIỆN SẮP TỚI ** -->
                     <div class="events-card">
                         <h5 class="card-title-right">Sự kiện, ngày lễ sắp tới</h5>
@@ -802,7 +746,7 @@
                 // Cập nhật thẻ h5 với tháng và năm mới
                 const h5Element = document.querySelector('.calendar-header-convert h5');
                 if (h5Element) {
-                    h5Element.textContent = `Tháng ${month} năm ${year}`;
+                    h5Element.textContent = ` Lịch vạn niên ${year} - tháng ${month}`;
                 }
 
                 fetch('{{ route('lich.thang.ajax') }}', {

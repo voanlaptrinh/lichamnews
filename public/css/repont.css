@@ -68,7 +68,7 @@
         justify-content: space-between;
     }
 
-   
+
 
     .title-tong-quan-h2 {
         font-size: 24px;
@@ -97,12 +97,15 @@
     .calendar-header-convert {
         justify-content: space-between;
     }
-    
-        .coli-row {
-        display: flex
-;
+
+    .coli-row {
+        display: flex;
         /* flex-wrap: nowrap; */
         gap: 10px;
+    }
+
+    .ngay-hom-ngay {
+        font-size: 16px;
     }
 }
 
@@ -158,9 +161,11 @@
     .footer-about {
         font-size: 16px;
     }
-.footer-links a{
-    font-size: 16px;
-}
+
+    .footer-links a {
+        font-size: 16px;
+    }
+
     .footer-contact-info {
         font-size: 16px;
     }
@@ -248,8 +253,13 @@
     .calendar-header-convert {
         justify-content: space-between;
     }
-    .footer-title{
+
+    .footer-title {
         font-size: 18px;
+    }
+
+    .ngay-hom-ngay {
+        font-size: 16px;
     }
 }
 
@@ -384,12 +394,18 @@
     .calendar-header-convert {
         justify-content: space-between;
     }
-    .footer-title{
+
+    .footer-title {
         font-size: 18px;
     }
-    .footer-links a{
-    font-size: 16px;
-}
+
+    .footer-links a {
+        font-size: 16px;
+    }
+
+    .ngay-hom-ngay {
+        font-size: 16px;
+    }
 
 }
 
@@ -536,57 +552,67 @@
     .calendar-header-convert {
         justify-content: space-between;
     }
+
     .bth-cunghoangdao {
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none; /* Firefox */
-            -ms-overflow-style: none; /* IE/Edge */
-        }
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        /* Firefox */
+        -ms-overflow-style: none;
+        /* IE/Edge */
+    }
 
-        .bth-cunghoangdao::-webkit-scrollbar {
-            display: none; /* Chrome/Safari */
-        }
+    .bth-cunghoangdao::-webkit-scrollbar {
+        display: none;
+        /* Chrome/Safari */
+    }
 
-        .bth-cunghoangdao .tabs {
-            display: flex;
-            flex-wrap: nowrap;
-            gap: 10px;
-            padding: 0 15px;
-            min-width: max-content;
-        }
+    .bth-cunghoangdao .tabs {
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 10px;
+        padding: 0 15px;
+        min-width: max-content;
+    }
 
-        .bth-cunghoangdao .tab-button {
-            flex-shrink: 0;
-            white-space: nowrap;
-            min-width: auto;
-            padding: 8px 16px;
-            font-size: 14px;
-            border-radius: 20px;
-            transition: all 0.3s ease;
-        }
+    .bth-cunghoangdao .tab-button {
+        flex-shrink: 0;
+        white-space: nowrap;
+        min-width: auto;
+        padding: 8px 16px;
+        font-size: 14px;
+        border-radius: 20px;
+        transition: all 0.3s ease;
+    }
 
-        .bth-cunghoangdao .tab-button.active {
-            background-color: #2254AB;
-            color: white;
-            border-color: #2254AB;
-        }
+    .bth-cunghoangdao .tab-button.active {
+        background-color: #2254AB;
+        color: white;
+        border-color: #2254AB;
+    }
 
-        .bth-cunghoangdao .tab-button:not(.active) {
-            background-color: #f8f9fa;
-            color: #666;
-            border-color: #dee2e6;
-        }
+    .bth-cunghoangdao .tab-button:not(.active) {
+        background-color: #f8f9fa;
+        color: #666;
+        border-color: #dee2e6;
+    }
 
-        .bth-cunghoangdao .tab-button:not(.active):hover {
-            background-color: #e9ecef;
-            color: #2254AB;
-        }
-        .footer-title{
+    .bth-cunghoangdao .tab-button:not(.active):hover {
+        background-color: #e9ecef;
+        color: #2254AB;
+    }
+
+    .footer-title {
         font-size: 18px;
     }
-    .footer-links a{
-    font-size: 16px;
-}
+
+    .footer-links a {
+        font-size: 16px;
+    }
+
+    .ngay-hom-ngay {
+        font-size: 16px;
+    }
 }
 
 @media screen and (min-width: 768px) and (max-width: 991.98px) {
@@ -646,12 +672,15 @@
     .footer-about {
         font-size: 16px;
     }
-    .footer-title{
+
+    .footer-title {
         font-size: 18px;
     }
-.footer-links a{
-    font-size: 16px;
-}
+
+    .footer-links a {
+        font-size: 16px;
+    }
+
     .footer-contact-info {
         font-size: 16px;
     }
@@ -740,51 +769,59 @@
     .calendar-header-convert {
         justify-content: space-between;
     }
+
     .bth-cunghoangdao {
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none; /* Firefox */
-            -ms-overflow-style: none; /* IE/Edge */
-        }
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        /* Firefox */
+        -ms-overflow-style: none;
+        /* IE/Edge */
+    }
 
-        .bth-cunghoangdao::-webkit-scrollbar {
-            display: none; /* Chrome/Safari */
-        }
+    .bth-cunghoangdao::-webkit-scrollbar {
+        display: none;
+        /* Chrome/Safari */
+    }
 
-        .bth-cunghoangdao .tabs {
-            display: flex;
-            flex-wrap: nowrap;
-            gap: 10px;
-            padding: 0 15px;
-            min-width: max-content;
-        }
+    .bth-cunghoangdao .tabs {
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 10px;
+        padding: 0 15px;
+        min-width: max-content;
+    }
 
-        .bth-cunghoangdao .tab-button {
-            flex-shrink: 0;
-            white-space: nowrap;
-            min-width: auto;
-            padding: 8px 16px;
-            font-size: 14px;
-            border-radius: 20px;
-            transition: all 0.3s ease;
-        }
+    .bth-cunghoangdao .tab-button {
+        flex-shrink: 0;
+        white-space: nowrap;
+        min-width: auto;
+        padding: 8px 16px;
+        font-size: 14px;
+        border-radius: 20px;
+        transition: all 0.3s ease;
+    }
 
-        .bth-cunghoangdao .tab-button.active {
-            background-color: #2254AB;
-            color: white;
-            border-color: #2254AB;
-        }
+    .bth-cunghoangdao .tab-button.active {
+        background-color: #2254AB;
+        color: white;
+        border-color: #2254AB;
+    }
 
-        .bth-cunghoangdao .tab-button:not(.active) {
-            background-color: #f8f9fa;
-            color: #666;
-            border-color: #dee2e6;
-        }
+    .bth-cunghoangdao .tab-button:not(.active) {
+        background-color: #f8f9fa;
+        color: #666;
+        border-color: #dee2e6;
+    }
 
-        .bth-cunghoangdao .tab-button:not(.active):hover {
-            background-color: #e9ecef;
-            color: #2254AB;
-        }
+    .bth-cunghoangdao .tab-button:not(.active):hover {
+        background-color: #e9ecef;
+        color: #2254AB;
+    }
+
+    .ngay-hom-ngay {
+        font-size: 15px;
+    }
 }
 
 @media screen and (min-width: 480px) and (max-width: 767.98px) {
@@ -810,7 +847,7 @@
 
     .calendar-table td {
         height: auto;
-      
+
     }
 
     .nhuan-khong {
@@ -858,12 +895,15 @@
     .footer-about {
         font-size: 16px;
     }
-    .footer-title{
+
+    .footer-title {
         font-size: 18px;
     }
-.footer-links a{
-    font-size: 16px;
-}
+
+    .footer-links a {
+        font-size: 16px;
+    }
+
     .footer-contact-info {
         font-size: 14px;
     }
@@ -961,51 +1001,59 @@
         gap: 14px;
         margin-bottom: 0;
     }
+
     .bth-cunghoangdao {
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none; /* Firefox */
-            -ms-overflow-style: none; /* IE/Edge */
-        }
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        /* Firefox */
+        -ms-overflow-style: none;
+        /* IE/Edge */
+    }
 
-        .bth-cunghoangdao::-webkit-scrollbar {
-            display: none; /* Chrome/Safari */
-        }
+    .bth-cunghoangdao::-webkit-scrollbar {
+        display: none;
+        /* Chrome/Safari */
+    }
 
-        .bth-cunghoangdao .tabs {
-            display: flex;
-            flex-wrap: nowrap;
-            gap: 10px;
-            padding: 0 15px;
-            min-width: max-content;
-        }
+    .bth-cunghoangdao .tabs {
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 10px;
+        padding: 0 15px;
+        min-width: max-content;
+    }
 
-        .bth-cunghoangdao .tab-button {
-            flex-shrink: 0;
-            white-space: nowrap;
-            min-width: auto;
-            padding: 8px 16px;
-            font-size: 14px;
-            border-radius: 20px;
-            transition: all 0.3s ease;
-        }
+    .bth-cunghoangdao .tab-button {
+        flex-shrink: 0;
+        white-space: nowrap;
+        min-width: auto;
+        padding: 8px 16px;
+        font-size: 14px;
+        border-radius: 20px;
+        transition: all 0.3s ease;
+    }
 
-        .bth-cunghoangdao .tab-button.active {
-            background-color: #2254AB;
-            color: white;
-            border-color: #2254AB;
-        }
+    .bth-cunghoangdao .tab-button.active {
+        background-color: #2254AB;
+        color: white;
+        border-color: #2254AB;
+    }
 
-        .bth-cunghoangdao .tab-button:not(.active) {
-            background-color: #f8f9fa;
-            color: #666;
-            border-color: #dee2e6;
-        }
+    .bth-cunghoangdao .tab-button:not(.active) {
+        background-color: #f8f9fa;
+        color: #666;
+        border-color: #dee2e6;
+    }
 
-        .bth-cunghoangdao .tab-button:not(.active):hover {
-            background-color: #e9ecef;
-            color: #2254AB;
-        }
+    .bth-cunghoangdao .tab-button:not(.active):hover {
+        background-color: #e9ecef;
+        color: #2254AB;
+    }
+
+    .ngay-hom-ngay {
+        font-size: 14px;
+    }
 }
 
 @media screen and (max-width: 479.98px) {
@@ -1030,6 +1078,7 @@
         padding-bottom: 20px;
         padding-left: 5px;
         padding-right: 5px;
+        border: 0.7px solid #2268D3B2;
     }
 
     .btn-mobie-next-prev {
@@ -1043,7 +1092,7 @@
 
     .calendar-table td {
         height: auto;
-          border: 0.9px solid #ddd;
+        border: 0.9px solid #ddd;
     }
 
     .nhuan-khong {
@@ -1097,18 +1146,21 @@
     }
 
     .utility-title {
-        height: 34px;
+        height: 40px;
     }
 
     .footer-about {
         font-size: 16px;
     }
-    .footer-title{
+
+    .footer-title {
         font-size: 18px;
     }
-.footer-links a{
-    font-size: 16px;
-}
+
+    .footer-links a {
+        font-size: 16px;
+    }
+
     .footer-contact-info {
         font-size: 13px;
     }
@@ -1301,54 +1353,63 @@
     #year-select {
         width: auto;
     }
-    .calendar-table td{
+
+    .calendar-table td {
         border-radius: unset;
     }
+
     .bth-cunghoangdao {
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none; /* Firefox */
-            -ms-overflow-style: none; /* IE/Edge */
-        }
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        /* Firefox */
+        -ms-overflow-style: none;
+        /* IE/Edge */
+    }
 
-        .bth-cunghoangdao::-webkit-scrollbar {
-            display: none; /* Chrome/Safari */
-        }
+    .bth-cunghoangdao::-webkit-scrollbar {
+        display: none;
+        /* Chrome/Safari */
+    }
 
-        .bth-cunghoangdao .tabs {
-            display: flex;
-            flex-wrap: nowrap;
-            gap: 10px;
-            padding: 0 15px;
-            min-width: max-content;
-        }
+    .bth-cunghoangdao .tabs {
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 10px;
+        padding: 0 15px;
+        min-width: max-content;
+    }
 
-        .bth-cunghoangdao .tab-button {
-            flex-shrink: 0;
-            white-space: nowrap;
-            min-width: auto;
-            padding: 8px 16px;
-            font-size: 14px;
-            border-radius: 20px;
-            transition: all 0.3s ease;
-        }
+    .bth-cunghoangdao .tab-button {
+        flex-shrink: 0;
+        white-space: nowrap;
+        min-width: auto;
+        padding: 8px 16px;
+        font-size: 14px;
+        border-radius: 20px;
+        transition: all 0.3s ease;
+    }
 
-        .bth-cunghoangdao .tab-button.active {
-            background-color: #2254AB;
-            color: white;
-            border-color: #2254AB;
-        }
+    .bth-cunghoangdao .tab-button.active {
+        background-color: #2254AB;
+        color: white;
+        border-color: #2254AB;
+    }
 
-        .bth-cunghoangdao .tab-button:not(.active) {
-            background-color: #f8f9fa;
-            color: #666;
-            border-color: #dee2e6;
-        }
+    .bth-cunghoangdao .tab-button:not(.active) {
+        background-color: #f8f9fa;
+        color: #666;
+        border-color: #dee2e6;
+    }
 
-        .bth-cunghoangdao .tab-button:not(.active):hover {
-            background-color: #e9ecef;
-            color: #2254AB;
-        }
+    .bth-cunghoangdao .tab-button:not(.active):hover {
+        background-color: #e9ecef;
+        color: #2254AB;
+    }
+
+    .ngay-hom-ngay {
+        font-size: 12px;
+    }
 }
 
 @media (max-width: 576px) {
@@ -1425,7 +1486,7 @@
     }
 
     /* Cung hoàng đạo */
-     
+
 }
 
 /* iPad and Tablet specific */

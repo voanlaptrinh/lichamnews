@@ -87,13 +87,16 @@ class GoodBadDayHelper
         // Kẹp giá trị trong khoảng [0.0, 100.0]
         $percentage = max(0.0, min(100.0, $percentage));
 
+        // Tạo biến mới để làm tròn percentage
+        $roundedPercentage = round($percentage);
+
         // 10. Xác định đánh giá cuối cùng
         // SỬA 1: Dùng đúng các ngưỡng đánh giá như trong code Dart
         $rating = match (true) {
-            $percentage == 100 => 'Rất tốt',
-            $percentage >= 70 => 'Tốt',
-            $percentage >= 40 => 'Trung bình',
-            $percentage > 0 => 'Xấu',
+            $roundedPercentage == 100 => 'Rất tốt',
+            $roundedPercentage >= 70 => 'Tốt',
+            $roundedPercentage >= 40 => 'Trung bình',
+            $roundedPercentage > 0 => 'Xấu',
             default => 'Rất xấu', // Khi percentage là 0
         };
 

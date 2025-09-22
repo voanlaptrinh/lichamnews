@@ -6,7 +6,7 @@
         </h6>
         <h1 class="content-title-home-lich">Chính sách bảo mật</h1>
         <div class="text-box-tong-quan mt-3">
-            <p>Phonglich.com cam kết tôn trọng và bảo vệ quyền riêng tư của người dùng khi truy cập và sử dụng dịch vụ của
+            <p>phonglich.com cam kết tôn trọng và bảo vệ quyền riêng tư của người dùng khi truy cập và sử dụng dịch vụ của
                 chúng tôi. Chính sách này giải thích cách chúng tôi thu thập, sử dụng và bảo vệ thông tin cá nhân.</p>
             <h5 class="title-tong-quan-h5">
                 <b>1. Thông tin chúng tôi thu thập</b>
@@ -51,7 +51,7 @@
             <ul>
                 <li>Có sự đồng ý rõ ràng từ bạn.</li>
                 <li>Tuân thủ yêu cầu pháp luật, cơ quan nhà nước có thẩm quyền.</li>
-                <li>Bảo vệ quyền lợi hợp pháp của Phonglich.com khi có tranh chấp.</li>
+                <li>Bảo vệ quyền lợi hợp pháp của phonglich.com khi có tranh chấp.</li>
             </ul>
             <h5 class="title-tong-quan-h5">
                 <b>5. Quyền của người dùng</b>
@@ -66,7 +66,7 @@
             <h5 class="title-tong-quan-h5">
                 <b>6. Liên kết bên ngoài</b>
             </h5>
-            <p>Phonglich.com có thể chứa liên kết đến website hoặc dịch vụ của bên thứ ba. Chúng tôi không chịu trách nhiệm
+            <p>phonglich.com có thể chứa liên kết đến website hoặc dịch vụ của bên thứ ba. Chúng tôi không chịu trách nhiệm
                 về nội dung hoặc chính sách bảo mật của các website bên ngoài này. Bạn nên tham khảo chính sách riêng của
                 từng trang web đó.</p>
             <h5 class="title-tong-quan-h5">
@@ -80,7 +80,7 @@
             </h5>
             <p>Nếu bạn có bất kỳ câu hỏi hoặc thắc mắc nào về <b>Chính sách bảo mật</b>, vui lòng liên hệ qua:</p>
             <p>📧 <b>Email</b>: <a href="mailto:phonglich.com@gmail.com">phonglich.com@gmail.com</a></p>
-            <p>Việc bạn tiếp tục sử dụng dịch vụ của Phonglich.com đồng nghĩa với việc bạn đã đọc, hiểu và đồng ý với Chính
+            <p>Việc bạn tiếp tục sử dụng dịch vụ của phonglich.com đồng nghĩa với việc bạn đã đọc, hiểu và đồng ý với Chính
                 sách bảo mật này.</p>
         </div>
 

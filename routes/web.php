@@ -50,6 +50,8 @@ Route::post('/ajax/lich-thang', [LichController::class, 'getLichThangAjax'])->na
 
 Route::get('/', [LunarController::class, 'index'])->name('home');
 Route::get('/chi-tiet/{nam}/thang/{thang}/ngay/{ngay}', [LunarController::class, 'detail'])->name('detai_home');
+Route::get('/am-lich-hom-nay/{nam}/thang/{thang}/ngay/{ngay}', [LunarController::class, 'dateTodaydetail'])->name('dateTodaydetail');
+Route::get('/am-lich-ngay-mai/{nam}/thang/{thang}/ngay/{ngay}', [LunarController::class, 'dateTomorrowdetail'])->name('dateTomorrowdetail');
 Route::post('/doi-lich', [LunarController::class, 'index'])->name('doi-lich');
 
 Route::match(['get', 'post'], '/am-sang-duong', [LunarController::class, 'convertAmToDuong'])->name('convert.am.to.duong');

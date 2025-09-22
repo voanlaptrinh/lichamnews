@@ -218,7 +218,7 @@
                             <div class="text-center">
                                 <h5 class="mb-0 pt-2">Tháng {{ $mm }} năm {{ $yy }}</h5>
                             </div>
-                            <div class="d-flex align-items-center">
+                            <div class="d-flex align-items-center justify-content-center">
                                 <select id="month-select" class="form-select me-2 custom-select-style">
                                     @for ($i = 1; $i <= 12; $i++)
                                         <option value="{{ $i }}" {{ $i == $mm ? 'selected' : '' }}>Tháng

@@ -407,20 +407,20 @@ class LunarHelper
             for ($j = 0; $j < 7; $j++) {
                 if ($cellIndex < $daysFromPrevMonth) {
                     // Hiển thị ngày từ tháng trước
-                    if ($prevMonthData) {
-                        $prevDayIndex = count($prevMonthData) - $daysFromPrevMonth + $cellIndex;
-                        $prevDay = $prevMonthData[$prevDayIndex];
-                        $solarDate = $prevDayIndex + 1;
+                    // if ($prevMonthData) {
+                    //     $prevDayIndex = count($prevMonthData) - $daysFromPrevMonth + $cellIndex;
+                    //     $prevDay = $prevMonthData[$prevDayIndex];
+                    //     $solarDate = $prevDayIndex + 1;
 
-                        if ($rturn_totxau) {
-                            list($html, $totxau) = self::printCell($prevDay, $solarDate, $prevMonth, $prevYear, $show_canchi, $rturn_totxau, $date_array, $selected_date, $events_duong_prev, $events_am_prev, 'other-month');
-                            $res .= $html;
-                        } else {
-                            $res .= self::printCell($prevDay, $solarDate, $prevMonth, $prevYear, $show_canchi, $rturn_totxau, $date_array, $selected_date, $events_duong_prev, $events_am_prev, 'other-month');
-                        }
-                    } else {
+                    //     if ($rturn_totxau) {
+                    //         list($html, $totxau) = self::printCell($prevDay, $solarDate, $prevMonth, $prevYear, $show_canchi, $rturn_totxau, $date_array, $selected_date, $events_duong_prev, $events_am_prev, 'other-month');
+                    //         $res .= $html;
+                    //     } else {
+                    //         $res .= self::printCell($prevDay, $solarDate, $prevMonth, $prevYear, $show_canchi, $rturn_totxau, $date_array, $selected_date, $events_duong_prev, $events_am_prev, 'other-month');
+                    //     }
+                    // } else {
                         $res .= '<td class="skip"></td>';
-                    }
+                    // }
                 } elseif ($cellIndex < $daysFromPrevMonth + $currentMonthDays) {
                     // Hiển thị ngày của tháng hiện tại
                     $currentDayIndex = $cellIndex - $daysFromPrevMonth;
@@ -435,25 +435,8 @@ class LunarHelper
                         $res .= self::printCell($ld1, $solar, $mm, $yy, $show_canchi, $rturn_totxau, $date_array, $selected_date, $events_duong, $events_am);
                     }
                 } else {
-                    // Hiển thị ngày từ tháng sau
-                    if ($nextMonthData) {
-                        $nextDayIndex = $cellIndex - $daysFromPrevMonth - $currentMonthDays;
-                        if ($nextDayIndex < count($nextMonthData)) {
-                            $nextDay = $nextMonthData[$nextDayIndex];
-                            $solarDate = $nextDayIndex + 1;
-
-                            if ($rturn_totxau) {
-                                list($html, $totxau) = self::printCell($nextDay, $solarDate, $nextMonth, $nextYear, $show_canchi, $rturn_totxau, $date_array, $selected_date, $events_duong_next, $events_am_next, 'other-month');
-                                $res .= $html;
-                            } else {
-                                $res .= self::printCell($nextDay, $solarDate, $nextMonth, $nextYear, $show_canchi, $rturn_totxau, $date_array, $selected_date, $events_duong_next, $events_am_next, 'other-month');
-                            }
-                        } else {
-                            $res .= '<td class="skip"></td>';
-                        }
-                    } else {
-                        $res .= '<td class="skip"></td>';
-                    }
+                    // Ẩn ngày từ tháng sau - chỉ hiển thị ô trống
+                    $res .= '<td class="skip"></td>';
                 }
                 $cellIndex++;
             }
@@ -535,7 +518,6 @@ class LunarHelper
             '7-7' => 'Thất Tịch',
             '7-15' => 'Lễ Vu Lan',
             '7-30' => 'Ngày địa tạng',
-            '8-1' => 'Lễ Thánh Mẫu Liễu Hạnh',
             '8-15' => 'Tết Trung Thu',
             '9-1' => 'Mùng 1 tháng Chín',
             '9-9' => 'Tết Trùng Cửu',
@@ -628,7 +610,7 @@ class LunarHelper
 
     // ✅ Hiển thị sự kiện hoặc can chi ngày
     if ($event_text) {
-        $can_chi_html = '<span class="hidden-xs" style="color:#d9534f; font-weight:bold">' . $event_text . '</span>';
+        $can_chi_html = '<span class="hidden-xs" style="color:#8A1E31; font-weight:bold">' . $event_text . '</span>';
     } elseif ($lunarDate['day'] == 15) {
         $can_chi_html = '<span class="hidden-xs" style="color: #BE0000; font-weight: bold;">Ngày Rằm</span>';
     } else {
@@ -1371,7 +1353,6 @@ static function convertSolar2Lunar($dd, $mm, $yy, $timeZone = 7.0)
             '23-3'  => ['ten_su_kien' => 'Lễ Thanh Minh', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày tảo mộ, dọn dẹp mồ mả tổ tiên.'],
 
             // THÁNG TƯ (Tháng 4)
-            '1-4'   => ['ten_su_kien' => 'Lễ Thánh Mẫu', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày lễ Thánh Mẫu Liễu Hạnh.'],
             '8-4'   => ['ten_su_kien' => 'Lễ Phật Đản (Phật Thích Ca)', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày sinh của Đức Phật Thích Ca (theo một số địa phương).'],
             '15-4'  => ['ten_su_kien' => 'Lễ Phật Đản', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Kỷ niệm ngày sinh của Đức Phật Thích Ca Mâu Ni.'],
 
@@ -1391,7 +1372,6 @@ static function convertSolar2Lunar($dd, $mm, $yy, $timeZone = 7.0)
             '30-7'  => ['ten_su_kien' => 'Ngày Địa Tạng', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày cúng Địa Tạng Bồ Tát.'],
 
             // THÁNG TÁM (Tháng 8)
-            '1-8'   => ['ten_su_kien' => 'Lễ Thánh Mẫu Liễu Hạnh', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày sinh của Thánh Mẫu Liễu Hạnh.'],
             '15-8'  => ['ten_su_kien' => 'Tết Trung Thu', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Còn gọi là Tết trông Trăng hay Tết Đoàn viên, dành cho thiếu nhi.'],
 
             // THÁNG CHÍN (Tháng 9)

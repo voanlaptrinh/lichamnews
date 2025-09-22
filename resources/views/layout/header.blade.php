@@ -13,35 +13,26 @@
 
                 <!-- Bắt đầu: HTML cho Dropdown -->
                 <li class="has-dropdown">
-                    <a href="#"> Lịch ngày
+                    <a class="text-white"> Lịch ngày
 
                         <i class="bi bi-chevron-down"></i>
                     </a>
                     <ul class="dropdown-menu">
-                        @php
-                            $todayHref = '/am-lich/nam/' . date('Y') . '/thang/' . date('n') . '/ngay/' . date('j');
-                            $tomorrowHref =
-                                '/am-lich/nam/' .
-                                date('Y', strtotime('+1 day')) .
-                                '/thang/' .
-                                date('n', strtotime('+1 day')) .
-                                '/ngay/' .
-                                date('j', strtotime('+1 day'));
-                        @endphp
-                        <li><a href="{{ $todayHref }}">Lịch âm hôm nay</a></li>
-                        <li><a href="{{ $tomorrowHref }}">Lịch âm ngày mai</a></li>
+                     
+                        <li><a href="{{ route('dateTodaydetail', ['nam' => date('Y'), 'thang' => date('n'), 'ngay' => date('j')]) }}">Lịch âm hôm nay</a></li>
+                        <li><a href="{{ route('dateTomorrowdetail', ['nam' => date('Y', strtotime('+1 day')), 'thang' => date('n', strtotime('+1 day')), 'ngay' => date('j', strtotime('+1 day'))]) }}">Lịch âm ngày mai</a></li>
 
                     </ul>
                 </li>
                 <li><a href="{{ route('convert.am.to.duong') }}">Đổi lịch</a></li>
                 <li class="has-dropdown">
-                    <a href="#"> Lịch tháng & năm
+                    <a class="text-white"> Lịch tháng & năm
 
                         <i class="bi bi-chevron-down"></i>
                     </a>
                     <ul class="dropdown-menu">
                         <li class="has-submenu"> <!-- << Class mới để xác định mục có menu con -->
-                            <a href="#">
+                            <a class="text-white">
                                 Lịch Tháng
                                 <i class="bi bi-chevron-right "></i> <!-- << Icon mũi tên phải -->
                             </a>
@@ -62,7 +53,7 @@
                         </li>
 
                         <li class="has-submenu"> <!-- << Class mới -->
-                            <a href="#">
+                            <a class="text-white">
                                 Lịch Năm
                                 <i class="bi bi-chevron-right "></i> <!-- << Icon mũi tên phải -->
                             </a>
@@ -84,7 +75,7 @@
                     </ul>
                 </li>
                 {{-- <li class="has-dropdown">
-                    <a href="#"> Xem ngày tốt
+                    <a> Xem ngày tốt
 
                         <i class="bi bi-chevron-down"></i>
                     </a>
@@ -94,7 +85,7 @@
                     </ul>
                 </li> --}}
                 <li class="has-dropdown">
-                    <a href="#">Phong thủy & tử vi
+                    <a class="text-white">Phong thủy & tử vi
 
                         <i class="bi bi-chevron-down"></i>
                     </a>
@@ -105,7 +96,7 @@
                     </ul>
                 </li>
                 {{-- <li class="has-dropdown">
-                    <a href="#">
+                    <a>
                         Tiện ích
                         <i class="bi bi-chevron-down"></i>
                     </a>
@@ -131,7 +122,7 @@
 
     <!-- 1. Header của Menu Mobile -->
     <div class="mobile-nav-header">
-        <a href="#" class="mobile-nav-logo">
+        <a class="mobile-nav-logo">
             <!-- Thay bằng logo của bạn -->
             <img src="{{ asset('/icons/logo_header.png') }}" alt="Logo Phong Lịch mobie" class="img-fluid">
         </a>
@@ -146,13 +137,13 @@
 
             <!-- Bắt đầu: HTML cho Dropdown Mobile -->
             <li class="has-dropdown">
-                <a href="#">
+                <a class="text-white">
                     Lịch ngày
                     <i class="bi bi-chevron-down arrow-icon"></i>
                 </a>
                 <ul class="mobile-submenu">
-                    <li><a href="{{ $todayHref }}">Lịch âm hôm nay</a></li>
-                    <li><a href="{{ $tomorrowHref }}">Lịch âm ngày mai</a></li>
+                    <li><a class="text-white" href="{{ route('dateTodaydetail', ['nam' => date('Y'), 'thang' => date('n'), 'ngay' => date('j')]) }}">Lịch âm hôm nay</a></li>
+                    <li><a class="text-white" href="{{ route('dateTomorrowdetail', ['nam' => date('Y', strtotime('+1 day')), 'thang' => date('n', strtotime('+1 day')), 'ngay' => date('j', strtotime('+1 day'))]) }}">Lịch âm ngày mai</a></li>
 
                 </ul>
             </li>
@@ -160,7 +151,7 @@
                 <a href="{{ route('convert.am.to.duong') }}">Đổi lịch</a>
             </li>
             <li class="has-dropdown">
-                <a href="#">
+                <a class="text-white">
                     Lịch tháng & năm
                     <i class="bi bi-chevron-down arrow-icon"></i>
                 </a>
@@ -168,7 +159,7 @@
                 <ul class="mobile-submenu">
                     <!-- Menu con "Lịch Tháng" -->
                     <li class="has-dropdown">
-                        <a href="#">
+                        <a  class="text-white">
                             Lịch Tháng
                             <i class="bi bi-chevron-down arrow-icon"></i>
                         </a>
@@ -185,7 +176,7 @@
                     </li>
                     <!-- Menu con "Lịch Năm" -->
                     <li class="has-dropdown">
-                        <a href="#">
+                        <a class="text-white">
                             Lịch Năm
                             <i class="bi bi-chevron-down arrow-icon"></i>
                         </a>
@@ -206,7 +197,7 @@
                 </ul>
             </li>
             <li class="has-dropdown">
-                <a href="#">
+                <a  class="text-white">
                     Phong thuỷ & tử vi
                     <i class="bi bi-chevron-down arrow-icon"></i>
                 </a>
@@ -218,7 +209,7 @@
             </li>
             {{-- <!-- Bắt đầu: HTML cho Dropdown Mobile -->
             <li class="has-dropdown">
-                <a href="#">
+                <a>
                     HỆ THỐNG
                     <i class="fas fa-chevron-down arrow-icon"></i>
                 </a>
@@ -229,7 +220,7 @@
                 </ul>
             </li>
             <li class="has-dropdown">
-                <a href="#">
+                <a>
                     Tiện ích
                     <i class="fas fa-chevron-down arrow-icon"></i>
                 </a>
@@ -260,6 +251,8 @@
             const toggleMenu = (isOpen) => {
                 mobileNavigation.classList.toggle('is-open', isOpen);
                 if (menuOverlay) menuOverlay.classList.toggle('is-open', isOpen);
+                // Ngăn scroll khi menu mở
+                document.body.classList.toggle('menu-open', isOpen);
             };
             mobileMenuToggle.addEventListener('click', () => toggleMenu(true));
             if (mobileNavClose) mobileNavClose.addEventListener('click', () => toggleMenu(false));

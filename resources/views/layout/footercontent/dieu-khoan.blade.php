@@ -6,7 +6,7 @@
         </h6>
         <h1 class="content-title-home-lich">Điều Khoản Dịch Vụ </h1>
         <div class="text-box-tong-quan mt-3">
-            <p>Cảm ơn bạn đã truy cập và sử dụng <b>Phonglich.com</b> – website cung cấp thông tin về <b>Lịch Âm Dương, Lịch
+            <p>Cảm ơn bạn đã truy cập và sử dụng <b>phonglich.com</b> – website cung cấp thông tin về <b>Lịch Âm Dương, Lịch
                     Vạn Niên,
                     xem ngày tốt xấu, tử vi, phong thủy và các tiện ích văn hóa truyền thống</b>.</p>
             <p>Khi truy cập và sử dụng dịch vụ của chúng tôi, bạn được xem như đã đọc, hiểu và đồng ý tuân thủ các <b>Điều
@@ -15,7 +15,7 @@
             <h5 class="title-tong-quan-h5"><b>1. Phạm vi cung cấp dịch vụ
                 </b>
             </h5>
-            <p>Phonglich.com cung cấp các thông tin và tiện ích sau:</p>
+            <p>phonglich.com cung cấp các thông tin và tiện ích sau:</p>
             <ul>
                 <li>Tra cứu <b>Lịch Âm – Dương</b>, Lịch Vạn Niên trực tuyến.</li>
                 <li>Xem ngày tốt xấu, ngày hoàng đạo – hắc đạo, tiết khí.</li>
@@ -24,7 +24,7 @@
                 <li>Thông tin sự kiện, ngày lễ, ngày kỷ niệm.</li>
                 <li>Các công cụ về tử vi và phong thủy khác</li>
             </ul>
-            <p>Dữ liệu và nội dung trên Phonglich.com nhằm mục đích <b>tham khảo, giải trí và tra cứu văn hóa truyền
+            <p>Dữ liệu và nội dung trên phonglich.com nhằm mục đích <b>tham khảo, giải trí và tra cứu văn hóa truyền
                     thống</b>,
                 không thay thế cho tư vấn chuyên môn (pháp luật, tài chính, y tế…).</p>
             <h5 class="title-tong-quan-h5">
@@ -42,10 +42,10 @@
                     </li>
                 </ul>
                 <li>Người dùng tự chịu trách nhiệm với mọi quyết định cá nhân dựa trên thông tin tham khảo tại
-                    Phonglich.com.</li>
+                    phonglich.com.</li>
             </ul>
             <h5 class="title-tong-quan-h5">
-                <b>3. Quyền và trách nhiệm của Phonglich.com</b>
+                <b>3. Quyền và trách nhiệm của phonglich.com</b>
             </h5>
             <ul>
                 <li>Chúng tôi nỗ lực cung cấp thông tin <b>chính xác, đầy đủ và cập nhật</b>, tuy nhiên không đảm bảo tuyệt
@@ -61,7 +61,7 @@
                 <b>4. Quyền sở hữu trí tuệ</b>
             </h5>
             <ul>
-                <li>Toàn bộ nội dung, giao diện, dữ liệu, hình ảnh, biểu tượng, thiết kế trên Phonglich.com thuộc quyền sở
+                <li>Toàn bộ nội dung, giao diện, dữ liệu, hình ảnh, biểu tượng, thiết kế trên phonglich.com thuộc quyền sở
                     hữu của chúng tôi.</li>
                 <li>Mọi hành vi sao chép, sử dụng lại cho mục đích thương mại hoặc phát tán dưới bất kỳ hình thức nào đều
                     cần có sự đồng ý bằng văn bản.
@@ -71,7 +71,7 @@
                 <b>5. Bảo mật và quyền riêng tư</b>
             </h5>
             <ul>
-                <li>Phonglich.com cam kết tôn trọng và bảo mật thông tin cá nhân của người dùng.</li>
+                <li>phonglich.com cam kết tôn trọng và bảo mật thông tin cá nhân của người dùng.</li>
                 <li>Chúng tôi không thu thập thông tin cá nhân trừ khi người dùng chủ động cung cấp (ví dụ: khi liên hệ qua
                     email).</li>
                 <li>Để biết thêm chi tiết, vui lòng tham khảo <b>Chính sách bảo mật</b> (sẽ được đăng tải riêng).</li>
@@ -82,7 +82,7 @@
             <ul>
                 <li>Nội dung trên website chỉ mang tính <b>tham khảo và giải trí</b>. Người dùng nên cân nhắc kỹ trước khi
                     đưa ra quyết định quan trọng dựa trên thông tin tại đây.</li>
-                <li>Phonglich.com không chịu trách nhiệm cho mọi quyết định cá nhân, tổn thất hay thiệt hại phát sinh từ
+                <li>phonglich.com không chịu trách nhiệm cho mọi quyết định cá nhân, tổn thất hay thiệt hại phát sinh từ
                     việc sử dụng thông tin trên website.</li>
             </ul>
             <h5 class="title-tong-quan-h5">

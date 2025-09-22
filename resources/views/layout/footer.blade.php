@@ -6,9 +6,7 @@
             <div class="col-lg-4 col-md-12 footer-col">
 
                 <p class="footer-about">
-                    Nguyệt Lịch là trang cung cấp thông tin
-                    về lịch âm, lịch vạn niên, chính xác nhất và miễn
-                    phí cho người Việt Nam. Mọi ý kiến đóng góp xin
+                 Phong Lịch – Nền tảng tra cứu Lịch Âm Dương, Lịch Vạn Niên, xem ngày tốt xấu, tử vi và phong thủy chính xác, miễn phí dành cho người Việt. Mọi ý kiến đóng góp xin
                     vui lòng liên hệ <a href="">tại đây</a>!
                 </p>
                
