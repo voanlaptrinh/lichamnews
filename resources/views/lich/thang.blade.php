@@ -4,8 +4,11 @@
         <h6 class="content-title-detail"><a href="{{ route('home') }}">Trang chủ</a> <i class="bi bi-chevron-right"></i>
             Lịch tháng & năm <i class="bi bi-chevron-right"></i> Lịch tháng <i class="bi bi-chevron-right"></i> <span>Lịch âm
                 tháng {{ $mm }}</span></h6>
-                  <h1 class="content-title-home-lich">LỊCH ÂM THÁNG {{ $mm }}</h1>
-        <div class="row g-lg-3 g-2 row-btn-date">
+        <h1 class="content-title-home-lich">Lịch Âm Tháng {{ $mm }}</h1>
+
+    </div>
+    <div class="row">
+        <div class="row g-lg-3 g-2 mt-0 mb-4">
             <!-- Ngày tốt tháng {{ $mm }} (Good day of August) -->
             <div class="col-xl-2 col-lg-4 col-md-6 col-12"> <!--  để cột chỉ chiếm chiều rộng cần thiết -->
                 <button type="button" class="btn custom-pill-btn rounded-pill d-flex align-items-center">
@@ -50,66 +53,86 @@
             </div>
 
         </div>
-    </div>
+        <div class="col-lg-9">
+            <div class="boxx-col-lg-8">
+                <div class="box-content-lg-8">
+                    <div class="calendar-wrapper">
+                        <div class="calendar-header">
 
-    <div class="boxx-col-lg-8">
-        <div class="box-content-lg-8">
-            <div class="calendar-wrapper">
-                <div class="calendar-header">
+                            <a href="{{ route('lich.thang', ['nam' => $mm == 1 ? $yy - 1 : $yy, 'thang' => $mm == 1 ? 12 : $mm - 1]) }}"
+                                class="month-nav">
+                                <i class="bi bi-chevron-left"></i>
+                            </a>
+                            <h5 class="mb-0">Tháng {{ $mm }} năm {{ $yy }}</h5>
 
-                    <a href="{{ route('lich.thang', ['nam' => $mm == 1 ? $yy - 1 : $yy, 'thang' => $mm == 1 ? 12 : $mm - 1]) }}"
-                        class="month-nav">
-                        <i class="bi bi-chevron-left"></i>
-                    </a>
-                    <h5 class="mb-0">Tháng {{ $mm }} năm {{ $yy }}</h5>
+                            <a href="{{ route('lich.thang', ['nam' => $mm == 12 ? $yy + 1 : $yy, 'thang' => $mm == 12 ? 1 : $mm + 1]) }}"
+                                class="month-nav">
+                                <i class="bi bi-chevron-right"></i>
+                            </a>
 
-                    <a href="{{ route('lich.thang', ['nam' => $mm == 12 ? $yy + 1 : $yy, 'thang' => $mm == 12 ? 1 : $mm + 1]) }}"
-                        class="month-nav">
-                        <i class="bi bi-chevron-right"></i>
-                    </a>
-
-                    {{-- <a href="{{ route('lich.nam.ngay', ['nam' => date('Y'), 'thang' => date('n'), 'ngay' => date('d')]) }}"
+                            {{-- <a href="{{ route('lich.nam.ngay', ['nam' => date('Y'), 'thang' => date('n'), 'ngay' => date('d')]) }}"
                         class="btn-today-home-pc btn-today-home">
                         <i class="bi bi-calendar-plus pe-1-pc-home"></i> Hôm nay
                     </a> --}}
 
+                        </div>
+                        <table class="calendar-table">
+                            <thead>
+                                <tr>
+                                    <th><span class="title-lich-pc">Thứ hai</span> <span class="title-lich-mobie">Th
+                                            2</span>
+                                    </th>
+                                    <th><span class="title-lich-pc">Thứ ba</span> <span class="title-lich-mobie">Th
+                                            3</span>
+                                    </th>
+                                    <th><span class="title-lich-pc">Thứ tư</span> <span class="title-lich-mobie">Th
+                                            4</span>
+                                    </th>
+                                    <th><span class="title-lich-pc">Thứ năm</span> <span class="title-lich-mobie">Th
+                                            5</span>
+                                    </th>
+                                    <th><span class="title-lich-pc">Thứ sáu</span> <span class="title-lich-mobie">Th
+                                            6</span>
+                                    </th>
+                                    <th><span class="title-lich-pc">Thứ bảy</span> <span class="title-lich-mobie">Th
+                                            7</span>
+                                    </th>
+                                    <th><span class="title-lich-pc">Chủ nhật</span> <span class="title-lich-mobie">CN</span>
+                                    </th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {!! $table_html !!}
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div class="calendar-legend pt-3 pb-2">
+                        <span><span class="dot dot-hoangdao"></span> Ngày hoàng đạo</span>
+                        <span><span class="dot dot-hacdao"></span> Ngày hắc đạo</span>
+
+                    </div>
                 </div>
-                <table class="calendar-table">
-                    <thead>
-                        <tr>
-                            <th><span class="title-lich-pc">Thứ hai</span> <span class="title-lich-mobie">Th
-                                    2</span>
-                            </th>
-                            <th><span class="title-lich-pc">Thứ ba</span> <span class="title-lich-mobie">Th
-                                    3</span>
-                            </th>
-                            <th><span class="title-lich-pc">Thứ tư</span> <span class="title-lich-mobie">Th
-                                    4</span>
-                            </th>
-                            <th><span class="title-lich-pc">Thứ năm</span> <span class="title-lich-mobie">Th
-                                    5</span>
-                            </th>
-                            <th><span class="title-lich-pc">Thứ sáu</span> <span class="title-lich-mobie">Th
-                                    6</span>
-                            </th>
-                            <th><span class="title-lich-pc">Thứ bảy</span> <span class="title-lich-mobie">Th
-                                    7</span>
-                            </th>
-                            <th><span class="title-lich-pc">Chủ nhật</span> <span class="title-lich-mobie">CN</span>
-                            </th>
-
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {!! $table_html !!}
-                    </tbody>
-                </table>
-
             </div>
-            <div class="calendar-legend pt-3 pb-2">
-                <span><span class="dot dot-hoangdao"></span> Ngày hoàng đạo</span>
-                <span><span class="dot dot-hacdao"></span> Ngày hắc đạo</span>
-               
+
+        </div>
+        <div class="col-lg-3">
+            <div class="box--bg-thang">
+
+                <div class="row g-3">
+                    @for ($i = 1; $i <= 12; $i++)
+                        <div class=" col-12"> <!--  để cột chỉ chiếm chiều rộng cần thiết -->
+                            <a href="{{ route('lich.thang', ['nam' => $yy, 'thang' => $i]) }}" class="">
+                                <div
+                                    class="btn custom-pill-btn-date w-100 text-center {{ $mm == $i ? 'active-date' : '' }}">
+
+                                    Lịch âm tháng {{ $i }} năm {{ $yy }}
+                                </div>
+                            </a>
+                        </div>
+                    @endfor
+                </div>
             </div>
         </div>
     </div>
@@ -199,126 +222,6 @@
                 @endforeach
             </div>
         </div>
-        <div class="mb-4">
-            <div class="ngay-tot-thang">
-                Xem lịch âm các tháng khác
-            </div>
-            <div class="row g-lg-2 g-2 row-btn-date">
-                @for ($i = 1; $i <= 12; $i++)
-                    <div class="col-xl-2 col-lg-4 col-md-6 col-12"> <!--  để cột chỉ chiếm chiều rộng cần thiết -->
-                        <a href="{{ route('lich.thang', ['nam' => $yy, 'thang' => $i]) }}" class="">
-                            <div class="btn custom-pill-btn-date w-100 text-center {{ $mm == $i ? 'active-date' : '' }}">
 
-                                Lịch âm tháng {{ $i }} năm {{ $yy }}
-                            </div>
-                        </a>
-                    </div>
-                @endfor
-            </div>
-        </div>
     </section>
-    {{-- <div class="row">
-        <div class="col-lg-6">
-            <h5>Ngày tốt tháng </h5>
-            <div class="row g-1">
-                @foreach ($data_totxau['tot'] as $data_tot)
-                    <div class="col-lg-12">
-                        <div class="card">
-                            <div class="card-body text-center">
-                                <a
-                                    href="{{ route('lich.nam.ngay', ['nam' => $data_tot['yy'], 'thang' => $data_tot['mm'], 'ngay' => $data_tot['dd']]) }}">
-                                    Ngày {{ $data_tot['dd'] }} Tháng {{ $data_tot['mm'] }} Năm {{ $data_tot['yy'] }}
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-
-        </div>
-        <div class="col-lg-6">
-            <h5>Ngày Xấu tháng </h5>
-            <div class="row g-1">
-                @foreach ($data_totxau['xau'] as $data_xau)
-                    <div class="col-lg-12">
-                        <div class="card">
-                            <div class="card-body text-center">
-                                a<
-                                    href="{{ route('lich.nam.ngay', ['nam' => $data_xau['yy'], 'thang' => $data_xau['mm'], 'ngay' => $data_xau['dd']]) }}">
-                                    Ngày {{ $data_xau['dd'] }} Tháng {{ $data_xau['mm'] }} Năm {{ $data_xau['yy'] }}
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-
-        </div>
-    </div>
-    <div class="row g-3">
-        <h5 class="pt-3 pb-1">Ngày Xấu tháng </h5>
-        @foreach ($le_lichs as $le_lich)
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="card-body text-start">
-                        {{ $le_lich['dd'] }}-{{ $le_lich['mm'] }}: {{ $le_lich['name'] }}
-                    </div>
-                </div>
-            </div>
-        @endforeach
-
-    </div>
-    <div class="row g-3">
-        <h5 class="pt-3 pb-1">Ngày Xấu tháng </h5>
-        @foreach ($su_kiens as $su_kien)
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class.card-body text-start">
-                        {{ $su_kien }}
-                    </div>
-                </div>
-            </div>
-        @endforeach
-
-    </div>
-    <h5 class="pt-3 pb-1">Ngày xuất hành âm lịch</h5>
-    <div class="row g-2">
-        @foreach ($data_al as $ngay)
-            <div class="col-lg-12 mb-2">
-                <div class="card">
-                    <div class="card-body">
-
-                        <p>{{ $ngay['day'] }}/{{ $ngay['month'] }}:
-
-                            @if (!empty($ngay['xuat_hanh_html']))
-                                {!! $ngay['xuat_hanh_html'] !!}
-                            @endif
-                        </p>
-
-                    </div>
-                </div>
-            </div>
-        @endforeach
-
-    </div> --}}
-
-
-    {{-- <div>
-        <h5 class="pt-3 pb-1">Xem lịch âm các tháng khác</h5>
-        <div class="row g-2">
-            @for ($i = 1; $i <= 12; $i++)
-                <div class="col-lg-6">
-                    <a href="{{ route('lich.thang', ['nam' => $yy, 'thang' => $i]) }}" class="">
-                        <div class="card {{ $mm == $i ? 'active' : '' }}">
-                            <div class="card-body text-center">
-                                Lịch âm tháng {{ $i }} năm {{ $yy }}
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            @endfor
-        </div>
-
-    </div>
-    </div> --}}
 @endsection

@@ -49,16 +49,16 @@ Route::post('/ajax/lich-thang', [LichController::class, 'getLichThangAjax'])->na
 
 
 Route::get('/', [LunarController::class, 'index'])->name('home');
-Route::get('/chi-tiet/{nam}/thang/{thang}/ngay/{ngay}', [LunarController::class, 'detail'])->name('detai_home');
-Route::get('/am-lich-hom-nay/{nam}/thang/{thang}/ngay/{ngay}', [LunarController::class, 'dateTodaydetail'])->name('dateTodaydetail');
-Route::get('/am-lich-ngay-mai/{nam}/thang/{thang}/ngay/{ngay}', [LunarController::class, 'dateTomorrowdetail'])->name('dateTomorrowdetail');
+Route::get('/lich-nam-{nam}/thang-{thang}/ngay-{ngay}/chi-tiet', [LunarController::class, 'detail'])->name('detai_home');
+Route::get('/lich-am-hom-nay', [LunarController::class, 'todaySimple'])->name('am-lich-hom-nay');
+Route::get('/lich-am-ngay-mai', [LunarController::class, 'tomorrowSimple'])->name('am-lich-ngay-mai');
 Route::post('/doi-lich', [LunarController::class, 'index'])->name('doi-lich');
 
-Route::match(['get', 'post'], '/am-sang-duong', [LunarController::class, 'convertAmToDuong'])->name('convert.am.to.duong');
+Route::match(['get', 'post'], '/doi-ngay-am-duong', [LunarController::class, 'convertAmToDuong'])->name('convert.am.to.duong');
 
-Route::get('/lich/nam/{nam}', [LichController::class, 'nam'])->name('lich.nam');
-Route::get('/lich/nam/{nam}/thang/{thang}', [LichController::class, 'thang'])->name('lich.thang');
-Route::get('/am-lich/nam/{nam}/thang/{thang}/ngay/{ngay}', [LunarController::class, 'ngay'])->name('lich.nam.ngay');
+Route::get('/lich-nam-{nam}', [LichController::class, 'nam'])->name('lich.nam');
+Route::get('/lich-nam-{nam}/thang-{thang}', [LichController::class, 'thang'])->name('lich.thang');
+Route::get('/lich-nam-{nam}/thang-{thang}/ngay-{ngay}', [LunarController::class, 'ngay'])->name('lich.nam.ngay');
 
 Route::get('lien-he-voi-chung-toi', [FooterController::class, 'lienHe'])->name('lien-he-voi-chung-toi');
 Route::get('dieu-khoan-dich-vu', [FooterController::class, 'dieuKhoan'])->name('dieu-khoan');

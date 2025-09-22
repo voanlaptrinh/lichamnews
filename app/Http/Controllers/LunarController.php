@@ -761,51 +761,30 @@ class LunarController extends Controller
 
 
 
-     public function dateTodaydetail(Request $request, $yy, $mm, $dd)
+    /**
+     * Hiển thị lịch âm hôm nay với URL đơn giản
+     */
+    public function todaySimple(Request $request)
     {
-        if (!checkdate((int)$mm, (int)$dd, (int)$yy)) {
-            abort(404, 'Ngày bạn yêu cầu không tồn tại.');
-        }
-        $effective_yy = (int)$yy;
-        $effective_mm = (int)$mm;
-        $effective_dd = (int)$dd;
-        $requestCdateInput = $request->input('cdate');
-        if (FunctionHelper::validateDate($requestCdateInput, 'Y-m-d')) {
-            $cdate_info = explode('-', $requestCdateInput);
+        $today = now();
+        $dd = $today->day;
+        $mm = $today->month;
+        $yy = $today->year;
 
-            if (checkdate((int)$cdate_info[1], (int)$cdate_info[2], (int)$cdate_info[0])) {
-                $effective_yy = (int)$cdate_info[0];
-                $effective_mm = (int)$cdate_info[1];
-                $effective_dd = (int)$cdate_info[2];
-            }
-        }
-        $yy = $effective_yy;
-        $mm = $effective_mm;
-        $dd = $effective_dd;
         $dateinfodetail = $this->getDateInfo($dd, $mm, $yy);
         return view('lunar.detailtoday', $dateinfodetail);
     }
-     public function dateTomorrowdetail(Request $request, $yy, $mm, $dd)
-    {
-        if (!checkdate((int)$mm, (int)$dd, (int)$yy)) {
-            abort(404, 'Ngày bạn yêu cầu không tồn tại.');
-        }
-        $effective_yy = (int)$yy;
-        $effective_mm = (int)$mm;
-        $effective_dd = (int)$dd;
-        $requestCdateInput = $request->input('cdate');
-        if (FunctionHelper::validateDate($requestCdateInput, 'Y-m-d')) {
-            $cdate_info = explode('-', $requestCdateInput);
 
-            if (checkdate((int)$cdate_info[1], (int)$cdate_info[2], (int)$cdate_info[0])) {
-                $effective_yy = (int)$cdate_info[0];
-                $effective_mm = (int)$cdate_info[1];
-                $effective_dd = (int)$cdate_info[2];
-            }
-        }
-        $yy = $effective_yy;
-        $mm = $effective_mm;
-        $dd = $effective_dd;
+    /**
+     * Hiển thị lịch âm ngày mai với URL đơn giản
+     */
+    public function tomorrowSimple(Request $request)
+    {
+        $tomorrow = now()->addDay();
+        $dd = $tomorrow->day;
+        $mm = $tomorrow->month;
+        $yy = $tomorrow->year;
+
         $dateinfodetail = $this->getDateInfo($dd, $mm, $yy);
         return view('lunar.detailtomorrow', $dateinfodetail);
     }

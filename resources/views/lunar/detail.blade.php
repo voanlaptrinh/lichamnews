@@ -2,7 +2,7 @@
 @section('content')
     <div class="container-setup">
         <h6 class="content-title-detail"><a href="{{ route('home') }}">Trang chủ</a> <i class="bi bi-chevron-right"></i>
-            <span>Chi tiết ngày</span>
+            <span> Lịch ngày {{ $dd }}/{{ $mm }}/{{ $yy }}</span>
         </h6>
         <h1 class="content-title-home-lich">LỊCH ÂM DƯƠNG NGÀY {{ $dd }} THÁNG {{ $mm }} NĂM
             {{ $yy }}

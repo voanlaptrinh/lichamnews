@@ -19,12 +19,12 @@
                     </a>
                     <ul class="dropdown-menu">
                      
-                        <li><a href="{{ route('dateTodaydetail', ['nam' => date('Y'), 'thang' => date('n'), 'ngay' => date('j')]) }}">Lịch âm hôm nay</a></li>
-                        <li><a href="{{ route('dateTomorrowdetail', ['nam' => date('Y', strtotime('+1 day')), 'thang' => date('n', strtotime('+1 day')), 'ngay' => date('j', strtotime('+1 day'))]) }}">Lịch âm ngày mai</a></li>
+                        <li><a href="{{ route('am-lich-hom-nay') }}">Lịch âm hôm nay</a></li>
+                        <li><a href="{{ route('am-lich-ngay-mai') }}">Lịch âm ngày mai</a></li>
 
                     </ul>
                 </li>
-                <li><a href="{{ route('convert.am.to.duong') }}">Đổi lịch</a></li>
+                <li><a href="{{ route('convert.am.to.duong') }}">Đổi ngày</a></li>
                 <li class="has-dropdown">
                     <a class="text-white"> Lịch tháng & năm
 
@@ -142,13 +142,13 @@
                     <i class="bi bi-chevron-down arrow-icon"></i>
                 </a>
                 <ul class="mobile-submenu">
-                    <li><a class="text-white" href="{{ route('dateTodaydetail', ['nam' => date('Y'), 'thang' => date('n'), 'ngay' => date('j')]) }}">Lịch âm hôm nay</a></li>
-                    <li><a class="text-white" href="{{ route('dateTomorrowdetail', ['nam' => date('Y', strtotime('+1 day')), 'thang' => date('n', strtotime('+1 day')), 'ngay' => date('j', strtotime('+1 day'))]) }}">Lịch âm ngày mai</a></li>
+                    <li><a class="text-white" href="{{ route('am-lich-hom-nay') }}">Lịch âm hôm nay</a></li>
+                    <li><a class="text-white" href="{{ route('am-lich-ngay-mai') }}">Lịch âm ngày mai</a></li>
 
                 </ul>
             </li>
             <li>
-                <a href="{{ route('convert.am.to.duong') }}">Đổi lịch</a>
+                <a href="{{ route('convert.am.to.duong') }}">Đổi ngày</a>
             </li>
             <li class="has-dropdown">
                 <a class="text-white">

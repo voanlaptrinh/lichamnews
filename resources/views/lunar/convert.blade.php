@@ -11,9 +11,9 @@
 
                 <div class="d-flex justify-content-between">
 
-                    <h1 class="content-title-home-lich">LỊCH ÂM - LỊCH VẠN NIÊN</h1>
+                    <h1 class="content-title-home-lich">Lịch Âm - Lịch Vạn Niên</h1>
                     @if (!$isToday)
-                        <a href="{{ route('lich.nam.ngay', ['nam' => date('Y'), 'thang' => date('n'), 'ngay' => date('d')]) }}"
+                        <a href="{{ route('home')}}"
                             class="btn-today-home-pc btn-today-home mb-3  justify-content-center align-items-center">
                             <img src="{{ asset('icons/icon_lich_svg.svg') }}" alt="icon-lich-svg"
                                 class="img-fluid pe-1-pc-home">
@@ -24,7 +24,7 @@
                 </div>
             </div>
         </div>
-        <div class="row g-3 mt-2">
+        <div class="row g-3">
             <!-- ==== CỘT LỊCH CHÍNH (BÊN TRÁI) ==== -->
             <div class="col-xl-9 col-sm-12 col-12">
                 <div class="boxx-col-lg-8">
@@ -123,7 +123,7 @@
                             <div class="col-lg-12 btn-mobie-next-prev">
                                 <div>
                                     @if (!$isToday)
-                                        <a href="{{ route('lich.nam.ngay', ['nam' => date('Y'), 'thang' => date('n'), 'ngay' => date('d')]) }}"
+                                        <a href="{{ route('home')}}"
                                             class="btn-today-home-mob d-flex justify-content-center align-items-center">
                                             <img src="{{ asset('icons/icon_lich_svg.svg') }}" alt="icon-lich-svg"
                                                 class="img-fluid pe-1">
@@ -653,7 +653,7 @@
                 const prevMonth = prevDate.getMonth() + 1;
                 const prevDay = prevDate.getDate();
 
-                const newPrevUrl = `/am-lich/nam/${prevYear}/thang/${prevMonth}/ngay/${prevDay}`;
+                const newPrevUrl = `/lich-nam-${prevYear}/thang-${prevMonth}/ngay-${prevDay}`;
 
                 // Lặp qua TẤT CẢ các nút "prev" và gán URL mới
                 prevBtns.forEach(btn => {
@@ -670,7 +670,7 @@
                 const nextMonth = nextDate.getMonth() + 1;
                 const nextDay = nextDate.getDate();
 
-                const newNextUrl = `/am-lich/nam/${nextYear}/thang/${nextMonth}/ngay/${nextDay}`;
+                const newNextUrl = `/lich-nam-${nextYear}/thang-${nextMonth}/ngay-${nextDay}`;
 
                 // Lặp qua TẤT CẢ các nút "next" và gán URL mới
                 nextBtns.forEach(btn => {

@@ -619,7 +619,7 @@ class LunarHelper
     }
 
     $base = rtrim(config('app.url'), '/');
-    $url = $base . "/am-lich/nam/$solarYear/thang/$solarMonth/ngay/$solarDate";
+    $url = $base . "/lich-nam-$solarYear/thang-$solarMonth/ngay-$solarDate";
 
     $html = '<td' . $classCellHTML . '><a href="' . $url . '">
         <div class="box-contnet-date">

@@ -3,7 +3,7 @@
     <div class="container-setup">
         <h6 class="content-title-detail"><a href="{{ route('home') }}">Trang chủ</a> <i class="bi bi-chevron-right"></i>
             Tiện ích <i class="bi bi-chevron-right"></i> <span style="color: #2254AB">Đổi ngày âm dương </span></h6>
-        <h1 class="content-title-home-lich">ĐỔI NGÀY DƯƠNG SANG ÂM & ÂM SANG DƯƠNG</h1>
+        <h1 class="content-title-home-lich">Đổi Ngày Dương Sang Âm & Âm Sang Dương</h1>
         <div class="row g-3">
             <div class="col-xl-9 col-sm-12 col-12">
                 <div class="row g-0 justify-content-center pt-lg-3 pt-2">
@@ -13,7 +13,7 @@
                                 <div class="row --pading">
                                     <div class="col-lg-8">
                                         <h6 class="--text-down-convert">Chọn ngày dương hoặc âm bất kỳ:</h6>
-                                        <p>Chọn ngày dương lịch hoặc ngày âm lịch bất kỳ.</p>
+                                        <p>Chọn ngày âm lịch hoặc dương lịch mà bạn mong muốn rồi ấn vào nút chuyển đổi.</p>
                                         <form action="{{ route('convert.am.to.duong') }}" method="POST">
                                             @csrf
                                             <div class="row position-relative">
