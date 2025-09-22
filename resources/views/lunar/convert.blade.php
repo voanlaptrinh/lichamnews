@@ -9,12 +9,12 @@
         <div class="row g-0">
             <div class="col-xl-9">
 
-                <div class="d-flex justify-content-between">
+                <div class="d-flex justify-content-between mb-3  ">
 
                     <h1 class="content-title-home-lich">Lịch Âm - Lịch Vạn Niên</h1>
                     @if (!$isToday)
                         <a href="{{ route('home')}}"
-                            class="btn-today-home-pc btn-today-home mb-3  justify-content-center align-items-center">
+                            class="btn-today-home-pc btn-today-home justify-content-center align-items-center">
                             <img src="{{ asset('icons/icon_lich_svg.svg') }}" alt="icon-lich-svg"
                                 class="img-fluid pe-1-pc-home">
                             <div>Hôm nay</div>

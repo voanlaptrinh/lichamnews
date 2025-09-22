@@ -1055,7 +1055,7 @@ a {
     font-size: 18px;
     display: block;
     /* padding: 10px; */
-    font-weight: 600;
+    font-weight: 500;
     border-radius: 5px;
     transition: background-color 0.3s;
     /* font-family: OpenSans_Condensed-Bold, serif; */
@@ -1652,7 +1652,7 @@ body.menu-open {
     /* Bo góc */
     padding: 6px 12px;
     /* Khoảng đệm bên trong */
-    font-size: 20px;
+    font-size: 14px;
     font-weight: 600;
     text-decoration: none;
     /* Bỏ gạch chân của thẻ <a> */

@@ -76,7 +76,7 @@
                             <h6 class="--text-down-convert">Kết quả chuyển đổi</h6>
                             <div class="col-lg-12 order-1 order-lg-1 mb-3">
                                 <div class="row g-3">
-                                    <div class="col-6">
+                                    <div class="col-6" id="solar-display-container">
                                         <div class="date-display-card">
                                             <a href="javascript:void(0)"
                                                 class="nav-arrow nav-home-date nave-left prev-day-btn"
@@ -107,7 +107,7 @@
 
                                         </div>
                                     </div>
-                                    <div class="col-6">
+                                    <div class="col-6" id="lunar-display-container">
                                         <div class="date-display-card">
                                             <div class="text-center">
                                                 <div
@@ -483,7 +483,7 @@
                     // Create a form and submit to /am-sang-duong
                     const form = document.createElement('form');
                     form.method = 'POST';
-                    form.action = '/am-sang-duong';
+                    form.action = '{{ route('convert.am.to.duong') }}';
 
                     // Add CSRF token
                     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
@@ -517,7 +517,7 @@
 
        
         document.addEventListener('DOMContentLoaded', function() {
-           
+
 
             // Double-check jQuery and daterangepicker
             if (typeof $ === 'undefined') {
@@ -533,40 +533,60 @@
             const solarInput = document.getElementById('solar_date');
             const lunarInput = document.getElementById('lunar_date');
 
-          
+
             const swapBtn = document.getElementById('swapDatesBtn');
             const solarContainer = document.getElementById('solar-container');
             const lunarContainer = document.getElementById('lunar-container');
+            const solarDisplayContainer = document.getElementById('solar-display-container');
+            const lunarDisplayContainer = document.getElementById('lunar-display-container');
 
-            if (swapBtn && solarContainer && lunarContainer) {
-                // Lấy tham chiếu đến thẻ <img> bên trong nút swapBtn
+            // Function to swap elements
+            const swapElements = (immediate = false) => {
+                const inputRow = solarContainer.parentNode;
+                const displayRow = solarDisplayContainer.parentNode;
                 const swapIcon = swapBtn.querySelector('img');
 
-                swapBtn.addEventListener('click', function() {
-                    const row = solarContainer.parentNode;
-
-                    const solarIndex = Array.from(row.children).indexOf(solarContainer);
-                    const lunarIndex = Array.from(row.children).indexOf(lunarContainer);
-
-                    // Áp dụng transform rotate cho thẻ <img> nếu có
-                    if (swapIcon) {
-                        swapIcon.style.transform = 'rotate(180deg)';
+                const doTheSwap = () => {
+                    // Determine current order and swap
+                    const solarInputFirst = Array.from(inputRow.children).indexOf(solarContainer) < Array.from(inputRow.children).indexOf(lunarContainer);
+                    if (solarInputFirst) {
+                        inputRow.insertBefore(lunarContainer, solarContainer);
+                    } else {
+                        inputRow.insertBefore(solarContainer, lunarContainer);
                     }
 
-                    setTimeout(() => {
-                        // Hoán đổi vị trí trong DOM
-                        if (solarIndex < lunarIndex) {
-                            row.insertBefore(lunarContainer, solarContainer);
-                        } else {
-                            row.insertBefore(solarContainer, lunarContainer);
-                        }
+                    const solarDisplayFirst = Array.from(displayRow.children).indexOf(solarDisplayContainer) < Array.from(displayRow.children).indexOf(lunarDisplayContainer);
+                    if (solarDisplayFirst) {
+                        displayRow.insertBefore(lunarDisplayContainer, solarDisplayContainer);
+                    } else {
+                        displayRow.insertBefore(solarDisplayContainer, lunarDisplayContainer);
+                    }
+                };
 
-                        // Reset transform rotate cho thẻ <img> nếu có
-                        if (swapIcon) {
-                            swapIcon.style.transform = 'rotate(0deg)';
-                        }
-                    }, 200); // Thời gian này nên khớp với transition-duration trong CSS
-                });
+                if (immediate) {
+                    doTheSwap();
+                } else {
+                    if (swapIcon) swapIcon.style.transform = 'rotate(180deg)';
+                    setTimeout(() => {
+                        doTheSwap();
+                        if (swapIcon) swapIcon.style.transform = 'rotate(0deg)';
+                    }, 200);
+                }
+            };
+
+            // On swap button click
+            swapBtn.addEventListener('click', function() {
+                let currentState = localStorage.getItem('converterSwapState') || 'solar-first';
+                let newState = (currentState === 'solar-first') ? 'lunar-first' : 'solar-first';
+                localStorage.setItem('converterSwapState', newState);
+                swapElements();
+            });
+
+            // On page load, check and apply saved state
+            const savedState = localStorage.getItem('converterSwapState');
+            if (savedState === 'lunar-first') {
+                // The default is solar-first, so we need to swap if the saved state is lunar-first
+                swapElements(true); // immediate swap
             }
 
 
@@ -712,7 +732,7 @@
                     }
                 });
 
-             
+
             @endif
 
             // Xử lý khi người dùng nhập tay vào input
@@ -808,16 +828,16 @@
             });
 
             // Initialize daterangepicker cho từng input (chỉ single date)
-     
+
             if (typeof $.fn.daterangepicker === 'undefined') {
                 console.error('DateRangePicker plugin not loaded! Please check if the library is included.');
                 return;
             }
 
             document.querySelectorAll('.dateuse2r').forEach(function(input) {
-              
 
-             
+
+
 
                 try {
                     // Lấy startDate từ giá trị hiện tại của input hoặc today
@@ -872,6 +892,13 @@
                         const overlay = createOverlay();
                         overlay.style.display = 'block';
                     }
+
+                    const inputType = input.getAttribute('data-type');
+                    if (inputType === 'lunar') {
+                        picker.container.addClass('lunar-mode');
+                    } else {
+                        picker.container.removeClass('lunar-mode');
+                    }
                 });
 
                 $(input).on('hide.daterangepicker', function(ev, picker) {
@@ -893,20 +920,20 @@
                     if (isUpdating) return;
                     isUpdating = true;
 
-                    // Convert and update the other input
-                    const inputType = input.getAttribute('data-type');
+                    const isLunarMode = picker.container.hasClass('lunar-mode');
 
-                    if (inputType === 'solar') {
-                        // Converting solar to lunar
-                        const lunarDate = await convertSolarToLunar(selectedDate);
-                        if (lunarDate && lunarInput) {
-                            lunarInput.value = lunarDate;
-                        }
-                    } else if (inputType === 'lunar') {
-                        // Converting lunar to solar
+                    if (isLunarMode) {
+                        // User selected a LUNAR date from the picker
                         const solarDate = await convertLunarToSolar(selectedDate);
                         if (solarDate && solarInput) {
                             solarInput.value = solarDate;
+                        }
+                        // lunarInput.value is already set to selectedDate
+                    } else {
+                        // User selected a SOLAR date from the picker
+                        const lunarDate = await convertSolarToLunar(selectedDate);
+                        if (lunarDate && lunarInput) {
+                            lunarInput.value = lunarDate;
                         }
                     }
 
@@ -928,7 +955,6 @@
                     if (isUpdating) return;
                     isUpdating = true;
 
-                    // Convert and update the other input
                     const inputType = input.getAttribute('data-type');
 
                     if (inputType === 'solar') {
