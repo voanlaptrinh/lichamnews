@@ -13,7 +13,7 @@
 
                     <h1 class="content-title-home-lich">Lịch Âm - Lịch Vạn Niên</h1>
                     @if (!$isToday)
-                        <a href="{{ route('home')}}"
+                        <a href="{{ route('home') }}"
                             class="btn-today-home-pc btn-today-home justify-content-center align-items-center">
                             <img src="{{ asset('icons/icon_lich_svg.svg') }}" alt="icon-lich-svg"
                                 class="img-fluid pe-1-pc-home">
@@ -123,7 +123,7 @@
                             <div class="col-lg-12 btn-mobie-next-prev">
                                 <div>
                                     @if (!$isToday)
-                                        <a href="{{ route('home')}}"
+                                        <a href="{{ route('home') }}"
                                             class="btn-today-home-mob d-flex justify-content-center align-items-center">
                                             <img src="{{ asset('icons/icon_lich_svg.svg') }}" alt="icon-lich-svg"
                                                 class="img-fluid pe-1">
@@ -154,8 +154,7 @@
                                             class="icon_tiet_khi">
                                         <div class="font-detail-ngay">
                                             <strong class="title-font-detail-ngay">Tiết khí:</strong>
-                                          <span
-                                                class="text-uppercase">{{ $tietkhi['tiet_khi'] }}</span>
+                                            <span class="text-uppercase">{{ $tietkhi['tiet_khi'] }}</span>
                                         </div>
                                     </div>
                                     <div class="info-item">
@@ -226,7 +225,8 @@
 
                             <div class="calendar-header-convert calendar-header">
                                 <div class="text-center">
-                                    <h5 class="mb-0 pt-2">Lịch vạn niên {{ $yy }} - tháng {{ $mm }}</h5>
+                                    <h5 class="mb-0 pt-2">Lịch vạn niên {{ $yy }} - tháng {{ $mm }}
+                                    </h5>
                                 </div>
                                 <div class="d-flex align-items-center justify-content-center">
                                     <select id="month-select" class="form-select me-2 custom-select-style">
@@ -362,57 +362,67 @@
                     </div>
                 </section>
                 <div class="van-lien-hows">
-                    <h2>Lịch Vạn Niên Là Gì?</h2>
+
+                    <h2 class="title-tong-quan-h2">Lịch Vạn Niên Là Gì?</h2>
                     <hr>
+                    <p><b>Lịch Vạn Niên</b> là một công cụ tra cứu ngày tháng đặc biệt, kết hợp giữa hai hệ thống lịch phổ
+                        biến:
+                        <b>Dương lịch</b> (lịch quốc tế, được sử dụng rộng rãi trên toàn thế giới) và <b>Âm lịch</b> (hay
+                        còn gọi là Lịch
+                        âm – lịch truyền thống phương Đông, gắn liền với đời sống văn hóa của người Việt Nam).
+                    </p>
+                    <p>Từ hàng nghìn năm trước, Âm lịch đã được ông cha ta sử dụng để xem ngày tốt, lựa chọn ngày lành tháng
+                        tốt cho những công việc trọng đại như cưới hỏi, động thổ, khai trương, xuất hành, ma chay hay thờ
+                        cúng tổ tiên. Lịch không chỉ phản ánh sự vận động của Mặt trăng và Mặt trời mà còn gắn liền với
+                        những yếu tố tâm linh, phong thủy và tử vi trong đời sống hằng ngày.</p>
+                    <p>Theo dòng chảy lịch sử, Lịch vạn niên đã phát triển và trở thành kho tàng tri thức cổ truyền, kết hợp
+                        tinh hoa của Thiên văn học phương Đông, Ngũ hành, Bát tự, Can Chi, Tử vi lý số. Vì thế, khi nhắc đến
+                        Lịch vạn niên, chúng ta không chỉ nghĩ đến việc xem ngày tháng, mà còn nhắc đến một nền văn hóa gắn
+                        bó với đời sống tâm linh và tín ngưỡng của người Việt.</p>
+                    <h3 class="title-tong-quan-h3-log">Tại Sao Nên Sử Dụng Lịch Vạn Niên Của Phong Lịch?</h3>
+                    <h4 class="title-tong-quan-h4-log">1. Tra cứu nhanh chóng và chính xác</h4>
                     <ul>
-                        <li>Lịch Vạn Niên là công cụ tra cứu ngày tháng theo cả hai hệ thống lịch: Dương lịch (lịch phương
-                            Tây) và Âm lịch (lịch truyền thống phương Đông). Từ xa xưa, ông cha ta đã sử dụng lịch âm dương
-                            để xác định ngày lành tháng tốt cho các công việc trọng đại như cưới hỏi, làm nhà, xuất hành,
-                            khai trương, và nhiều hoạt động mang tính tâm linh, phong thủy khác.</li>
-                        <li>
-                            Trải qua hàng nghìn năm hình thành và phát triển, Lịch Vạn Niên không chỉ là cuốn lịch đơn
-                            thuần, mà còn là kho tàng tri thức cổ truyền – nơi hội tụ những tinh hoa của Thiên văn học
-                            phương Đông, Ngũ hành, Bát tự, Can Chi, và Tử vi lý số.</li>
-                        <!-- ... (phần còn lại của nội dung) ... -->
+                        <li>Xem đầy đủ cả Âm lịch và Dương lịch theo từng ngày, tháng, năm.</li>
+                        <li>Cập nhật chi tiết: Lịch ngày tốt, ngày Hoàng đạo – Hắc đạo, Tiết khí, sao chiếu mệnh, giờ xuất
+                            hành tốt.</li>
+                        <li>Giúp bạn dễ dàng trả lời câu hỏi “Hôm nay tốt hay xấu?”, “Ngày mai có giờ tốt không?”</li>
                     </ul>
-                    <h3>
-                        <span>👉 Tại Sao Nên Sử Dụng Lịch Vạn Niên Của Nguyệt Lịch?</span>
-                    </h3>
-                    <ol>
-                        <li>
-                            <strong>Tra cứu nhanh chóng và chính xác:</strong>
-                            <p>Dễ dàng xem ngày âm - dương, ngày hoàng đạo, tiết khí, sao chiếu, và các yếu tố phong thủy.
-                            </p>
-                        </li>
-                        <li>
-                            <strong>Chọn ngày tốt hợp tuổi:</strong>
-                            <p>Lên kế hoạch cho các việc trọng đại như cưới hỏi, khởi công, động thổ, xuất hành... dựa trên
-                                tuổi và can chi của gia chủ.</p>
-                        </li>
-                        <li>
-                            <strong>Tích hợp kiến thức tử vi – phong thủy:</strong>
-                            <p>Lập lá số tử vi, xem vận hạn theo năm, tra cứu hướng tốt, hóa giải Tam Tai – Hoang Ốc – Kim
-                                Lâu.</p>
-                        </li>
-                        <li>
-                            <strong>Giao diện thân thiện – dễ sử dụng:</strong>
-                            <p>Thiết kế đơn giản, hiện đại, phù hợp mọi đối tượng sử dụng: từ người cao tuổi đến thế hệ trẻ.
-                            </p>
-                        </li>
-                    </ol>
-
-                    <h3>
-
-                        <span>👉 Lịch Vạn Niên Trong Thời Đại Số</span>
-                    </h3>
+                    <h4 class="title-tong-quan-h4-log">2. Xem ngày tốt hợp tuổi</h4>
                     <ul>
-                        <li>Trong kỷ nguyên công nghệ, Lịch Vạn Niên không còn chỉ nằm trong những cuốn sách cổ mà đã được
-                            số hóa hoàn toàn, giúp người dùng tra cứu mọi lúc, mọi nơi – trên máy tính, điện thoại và cả các
-                            thiết bị thông minh khác. Việc kết hợp giữa tri thức cổ truyền và công nghệ hiện đại mang lại
-                            trải nghiệm tiện lợi, chính xác và đầy tin cậy.</li>
-                        <li>Dù bạn là người quan tâm đến tử vi, phong thủy, hay chỉ đơn giản muốn biết hôm nay là ngày gì,
-                            tốt hay xấu, Nguyệt Lịch luôn sẵn sàng đồng hành cùng bạn trên mỗi hành trình.</li>
+                        <li>Chọn ngày cưới hỏi, khai trương, động thổ, xuất hành dựa theo tuổi và Can Chi của gia chủ.</li>
+                        <li>Hỗ trợ tránh những ngày phạm Kim Lâu, Hoang Ốc, Tam Tai để công việc được hanh thông.</li>
                     </ul>
+                    <h4 class="title-tong-quan-h4-log">3. Tích hợp kiến thức tử vi – phong thủy</h4>
+                    <ul>
+                        <li>Lập lá số tử vi chi tiết theo ngày, tháng, năm sinh.</li>
+                        <li>Xem vận hạn theo năm, dự đoán cát hung, hướng đi phù hợp.</li>
+                        <li>Hướng dẫn lựa chọn hướng nhà, hướng bàn thờ, hướng xuất hành theo phong thủy bát trạch.</li>
+                    </ul>
+                    <h4 class="title-tong-quan-h4-log">4. Giao diện thân thiện – dễ sử dụng</h4>
+                    <ul>
+                        <li>Thiết kế hiện đại, đơn giản, tối ưu cho cả máy tính và điện thoại.</li>
+                        <li>Thân thiện với mọi đối tượng: từ người cao tuổi muốn tra cứu Lịch âm dương hằng ngày đến giới
+                            trẻ quan tâm đến tử vi, phong thủy.</li>
+                    </ul>
+                    <h3 class="title-tong-quan-h3-log">Lịch Vạn Niên Trong Thời Đại Số</h3>
+                    <p>Nếu trước đây, Lịch vạn niên chủ yếu tồn tại dưới dạng sách in dày hàng trăm trang, thì ngày nay, nhờ
+                        sự phát triển của công nghệ, Lịch vạn niên đã được số hóa hoàn toàn.</p>
+                    <ul>
+                        <li>Người dùng có thể tra cứu Lịch âm, Âm lịch, Dương lịch mọi lúc, mọi nơi trên máy tính, điện
+                            thoại thông minh.</li>
+                        <li>Chỉ với vài thao tác, bạn đã có thể xem chi tiết: ngày tốt xấu, ngày Hoàng đạo, Tiết khí, giờ
+                            hoàng đạo, tuổi xung khắc….</li>
+                        <li>Sự kết hợp giữa tri thức cổ truyền và công nghệ hiện đại giúp việc xem ngày tốt, xem giờ tốt trở
+                            nên tiện lợi, nhanh chóng và chính xác hơn bao giờ hết.</li>
+                    </ul>
+                    <h3 class="title-tong-quan-h3-log">Phong Lịch – Đồng Hành Cùng Người Việt</h3>
+                    <p>Dù bạn là người quan tâm đến tử vi, phong thủy, hay chỉ đơn giản muốn biết hôm nay là ngày gì theo
+                        Lịch âm, ngày mai có giờ tốt để xuất hành hay không, Phong Lịch luôn sẵn sàng đồng hành cùng bạn.
+                    </p>
+                    <p>Với Lịch vạn niên trực tuyến, Phong Lịch không chỉ mang đến trải nghiệm tra cứu thuận tiện mà còn giữ
+                        gìn và lan tỏa những giá trị văn hóa truyền thống của dân tộc.</p>
+                    <p>Phong Lịch – Tra cứu Lịch Âm, Lịch Vạn Niên, Lịch ngày tốt, Xem ngày Hoàng đạo, Tiết khí, Xem ngày
+                        tốt – Xem giờ tốt nhanh chóng, chính xác và miễn phí</p>
                 </div>
             </div>
 
@@ -622,7 +632,7 @@
                                     '--text-color-light') || '#333';
                                 ctx.textAlign = 'center';
                                 ctx.fillText(value, bar.x, bar.y -
-                                6); // 6px phía trên đầu cột
+                                    6); // 6px phía trên đầu cột
                                 ctx.restore();
                             });
                         });

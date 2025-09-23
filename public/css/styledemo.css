@@ -2469,7 +2469,7 @@ body.menu-open {
 
 /* Tiêu đề chính (H2) */
 .van-lien-hows h2 {
-    font-size: 24px;
+    /* font-size: 24px; */
     font-weight: 700;
     color: #192E52;
     /* Màu xanh đen */
@@ -2479,7 +2479,7 @@ body.menu-open {
 
 /* Tiêu đề phụ (H3) */
 .van-lien-hows h3 {
-    font-size: 20px;
+    /* font-size: 20px; */
     font-weight: 700;
     color: #192E52;
     margin-top: 8px;
@@ -2489,19 +2489,16 @@ body.menu-open {
 
 
 /* Danh sách có dấu chấm đầu dòng (ul) */
-.van-lien-hows ul {
+/* .van-lien-hows ul {
     list-style-type: none;
-    /* Bỏ dấu chấm mặc định */
     padding-left: 0;
     margin-bottom: 1rem;
-}
+} */
 
-.van-lien-hows ul li {
+/* .van-lien-hows ul li {
     padding-left: 24px;
-    /* Tạo không gian cho dấu chấm tùy chỉnh */
     position: relative;
-    margin-bottom: 12px;
-}
+} */
 
 /* Tạo dấu chấm tùy chỉnh */
 .van-lien-hows ul li::before {

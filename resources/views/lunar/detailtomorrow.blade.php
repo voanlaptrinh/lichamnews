@@ -1,8 +1,8 @@
 @extends('welcome')
 @section('content')
     <div class="container-setup">
-        <h6 class="content-title-detail"><a href="{{ route('home') }}">Trang chủ</a> <i class="bi bi-chevron-right"></i>
-            <span>Chi tiết ngày</span>
+        <h6 class="content-title-detail"><a href="{{ route('home') }}">Trang chủ</a><i class="bi bi-chevron-right"></i>
+            <span style="color: #2254AB">Lịch âm ngày mai</span>
         </h6>
         <h1 class="content-title-home-lich">Lịch Âm Ngày mai - Lịch Vạn Niên Ngày mai</h1>
         <p class="mb-1">Âm lịch Ngày mai là ngày nào?</p>

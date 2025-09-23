@@ -1,9 +1,8 @@
 @extends('welcome')
 @section('content')
     <div class="container-setup">
-        <h6 class="content-title-detail"><a href="{{ route('home') }}">Trang chủ</a> <i class="bi bi-chevron-right"></i>
-            Lịch tháng & năm <i class="bi bi-chevron-right"></i> Lịch tháng <i class="bi bi-chevron-right"></i> <span>Lịch âm
-                tháng {{ $mm }}</span></h6>
+        <h6 class="content-title-detail"><a href="{{ route('home') }}">Trang chủ</a><i class="bi bi-chevron-right"></i> Lịch năm {{$yy}} <i class="bi bi-chevron-right"></i> <span style="color: #2254AB">
+                Tháng {{ $mm }}</span></h6>
         <h1 class="content-title-home-lich">Lịch Âm Tháng {{ $mm }}</h1>
 
     </div>

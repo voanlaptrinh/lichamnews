@@ -44,7 +44,7 @@
                 const prevMonth = prevDate.getMonth() + 1;
                 const prevDay = prevDate.getDate();
 
-                const newPrevUrl = `/chi-tiet/${prevYear}/thang/${prevMonth}/ngay/${prevDay}`;
+                const newPrevUrl = `/lich-nam-${prevYear}/thang-${prevMonth}/ngay-${prevDay}/chi-tiet`;
 
                 // Lặp qua TẤT CẢ các nút "prev" và gán URL mới
                 prevBtns.forEach(btn => {
@@ -61,7 +61,7 @@
                 const nextMonth = nextDate.getMonth() + 1;
                 const nextDay = nextDate.getDate();
 
-                const newNextUrl = `/chi-tiet/${nextYear}/thang/${nextMonth}/ngay/${nextDay}`;
+                const newNextUrl = `/lich-nam-${nextYear}/thang-${nextMonth}/ngay-${nextDay}/chi-tiet`;
 
                 // Lặp qua TẤT CẢ các nút "next" và gán URL mới
                 nextBtns.forEach(btn => {

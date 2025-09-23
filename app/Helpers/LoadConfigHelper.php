@@ -22,6 +22,48 @@ class LoadConfigHelper
         'hợi' => 'Lợn tượng trưng cho sự giàu có vì loài lợn rừng thường làm hang trong những khu rừng. Người tuổi Hợi rất hào hiệp, galăng, tốt bụng và dũng cảm nhưng thường rất bướng bỉnh, nóng tính nhưng siêng năng và chịu lắng nghe.',
     );
 
+
+
+    static $yheaderscanchi = array(
+        'Bính Dần' => 'Trong quan niệm phương Đông, tuổi Dần tượng trưng cho những người mạnh mẽ, quyết đoán và dũng cảm. Vì thế, năm Bính Dần thường được xem là gắn liền với các giá trị và ý nghĩa phong thủy đặc trưng.',
+        'Đinh Mão' => 'Trong quan niệm phương Đông, tuổi Mão tượng trưng cho những người khéo léo, hiền hòa và tinh tế. Vì thế, năm Đinh Mão thường được xem là gắn liền với các giá trị và ý nghĩa phong thủy đặc trưng.',
+        'Mậu Thìn' => 'Trong quan niệm phương Đông, tuổi Thìn tượng trưng cho những người quyết đoán, mạnh mẽ và có chí tiến thủ. Vì thế, năm Mậu Thìn thường được xem là gắn liền với các giá trị và ý nghĩa phong thủy đặc trưng.',
+        'Kỷ Tỵ' => 'Trong quan niệm phương Đông, tuổi Tỵ tượng trưng cho những người khôn ngoan, bí ẩn và có trực giác nhạy bén. Vì thế, năm Kỷ Tỵ thường được xem là gắn liền với các giá trị và ý nghĩa phong thủy đặc trưng.',
+        'Canh Ngọ' => 'Trong quan niệm phương Đông, tuổi Ngọ tượng trưng cho những người nhiệt huyết, phóng khoáng và yêu tự do. Vì thế, năm Canh Ngọ thường được xem là gắn liền với các giá trị và ý nghĩa phong thủy đặc trưng.',
+        'Tân Mùi' => 'Trong quan niệm phương Đông, tuổi Mùi tượng trưng cho những người hiền lành, nhân hậu và sống giàu tình cảm. Vì thế, năm Tân Mùi thường được xem là gắn liền với các giá trị và ý nghĩa phong thủy đặc trưng.',
+        'Nhâm Thân' => 'Trong quan niệm phương Đông, tuổi Thân tượng trưng cho những người lanh lợi, thông minh và giỏi giao tiếp. Vì thế, năm Nhâm Thân thường được xem là gắn liền với các giá trị và ý nghĩa phong thủy đặc trưng.',
+'Quý Dậu' => 'Trong quan niệm phương Đông, tuổi Dậu tượng trưng cho những người chăm chỉ, kỷ luật và đáng tin cậy. Vì thế, năm Quý Dậu thường được xem là gắn liền với các giá trị và ý nghĩa phong thủy đặc trưng.',
+'Giáp Tuất' => 'Trong quan niệm phương Đông, tuổi Tuất tượng trưng cho những người trung thành, chính trực và giàu tình nghĩa. Vì thế, năm Giáp Tuất thường được xem là gắn liền với các giá trị và ý nghĩa phong thủy đặc trưng.',
+'Ất Hợi' => 'Trong quan niệm phương Đông, tuổi Hợi tượng trưng cho những người hiền lành, chân thành và sống chan hòa. Vì thế, năm Ất Hợi thường được xem là gắn liền với các giá trị và ý nghĩa phong thủy đặc trưng.',
+'Bính Tý' => 'Trong quan niệm phương Đông, tuổi Tý tượng trưng cho những người thông minh, nhanh nhẹn và linh hoạt. Vì thế, năm Bính Tý thường được xem là gắn liền với các giá trị và ý nghĩa phong thủy đặc trưng.',
+'Đinh Sửu' => 'Trong quan niệm phương Đông, tuổi Sửu tượng trưng cho những người cần cù, bền bỉ và đáng tin cậy. Vì thế, năm Đinh Sửu thường được xem là gắn liền với các giá trị và ý nghĩa phong thủy đặc trưng.',
+'Mậu Dần' => 'Trong quan niệm phương Đông, tuổi Dần tượng trưng cho những người mạnh mẽ, quyết đoán và dũng cảm. Vì thế, năm Mậu Dần thường được xem là gắn liền với các giá trị và ý nghĩa phong thủy đặc trưng.',
+'Kỷ Mão' => 'Trong quan niệm phương Đông, tuổi Mão tượng trưng cho những người khéo léo, hiền hòa và tinh tế. Vì thế, năm Kỷ Mão thường được xem là gắn liền với các giá trị và ý nghĩa phong thủy đặc trưng.',
+'Canh Thìn' => 'Trong quan niệm phương Đông, tuổi Thìn tượng trưng cho những người quyết đoán, mạnh mẽ và có chí tiến thủ. Vì thế, năm Canh Thìn thường được xem là gắn liền với các giá trị và ý nghĩa phong thủy đặc trưng.',
+'Tân Tỵ' => 'Trong quan niệm phương Đông, tuổi Tỵ tượng trưng cho những người khôn ngoan, bí ẩn và có trực giác nhạy bén. Vì thế, năm Tân Tỵ thường được xem là gắn liền với các giá trị và ý nghĩa phong thủy đặc trưng',
+'Nhâm Ngọ' => 'Trong quan niệm phương Đông, tuổi Ngọ tượng trưng cho những người nhiệt huyết, phóng khoáng và yêu tự do. Vì thế, năm Nhâm Ngọ thường được xem là gắn liền với các giá trị và ý nghĩa phong thủy đặc trưng.',
+'Quý Mùi' => 'Trong quan niệm phương Đông, tuổi Mùi tượng trưng cho những người hiền lành, nhân hậu và sống giàu tình cảm. Vì thế, năm Quý Mùi thường được xem là gắn liền với các giá trị và ý nghĩa phong thủy đặc trưng.',
+'Giáp Thân' => 'Trong quan niệm phương Đông, tuổi Thân tượng trưng cho những người lanh lợi, thông minh và giỏi giao tiếp. Vì thế, năm Giáp Thân thường được xem là gắn liền với các giá trị và ý nghĩa phong thủy đặc trưng.',
+'Ất Dậu' => 'Trong quan niệm phương Đông, tuổi Dậu tượng trưng cho những người chăm chỉ, kỷ luật và đáng tin cậy. Vì thế, năm Ất Dậu thường được xem là gắn liền với các giá trị và ý nghĩa phong thủy đặc trưng.',
+'Bính Tuất' => 'Trong quan niệm phương Đông, tuổi Tuất tượng trưng cho những người trung thành, chính trực và giàu tình nghĩa. Vì thế, năm Bính Tuất thường được xem là gắn liền với các giá trị và ý nghĩa phong thủy đặc trưng.',
+'Đinh Hợi' => 'Trong quan niệm phương Đông, tuổi Hợi tượng trưng cho những người hiền lành, chân thành và sống chan hòa. Vì thế, năm Đinh Hợi thường được xem là gắn liền với các giá trị và ý nghĩa phong thủy đặc trưng.',
+'Mậu Tý' => ' Trong quan niệm phương Đông, tuổi Tý tượng trưng cho những người thông minh, nhanh nhẹn và linh hoạt. Vì thế, năm Mậu Tý thường được xem là gắn liền với các giá trị và ý nghĩa phong thủy đặc trưng.',
+'Kỷ Sửu' => 'Trong quan niệm phương Đông, tuổi Sửu tượng trưng cho những người cần cù, bền bỉ và đáng tin cậy. Vì thế, năm Kỷ Sửu thường được xem là gắn liền với các giá trị và ý nghĩa phong thủy đặc trưng.',
+'Canh Dần' => 'Trong quan niệm phương Đông, tuổi Dần tượng trưng cho những người mạnh mẽ, quyết đoán và dũng cảm. Vì thế, năm Canh Dần thường được xem là gắn liền với các giá trị và ý nghĩa phong thủy đặc trưng.',
+'Tân Mão' => 'Trong quan niệm phương Đông, tuổi Mão tượng trưng cho những người khéo léo, hiền hòa và tinh tế. Vì thế, năm Tân Mão thường được xem là gắn liền với các giá trị và ý nghĩa phong thủy đặc trưng.',
+'Nhâm Thìn' => 'Trong quan niệm phương Đông, tuổi Thìn tượng trưng cho những người quyết đoán, mạnh mẽ và có chí tiến thủ. Vì thế, năm Nhâm Thìn thường được xem là gắn liền với các giá trị và ý nghĩa phong thủy đặc trưng.',
+'Quý Tỵ' => 'Trong quan niệm phương Đông, tuổi Tỵ tượng trưng cho những người khôn ngoan, bí ẩn và có trực giác nhạy bén. Vì thế, năm Quý Tỵ thường được xem là gắn liền với các giá trị và ý nghĩa phong thủy đặc trưng.',
+'Giáp Ngọ' => 'Trong quan niệm phương Đông, tuổi Ngọ tượng trưng cho những người nhiệt huyết, phóng khoáng và yêu tự do. Vì thế, năm Giáp Ngọ thường được xem là gắn liền với các giá trị và ý nghĩa phong thủy đặc trưng.',
+'Ất Mùi' => 'Trong quan niệm phương Đông, tuổi Mùi tượng trưng cho những người hiền lành, nhân hậu và sống giàu tình cảm. Vì thế, năm Ất Mùi thường được xem là gắn liền với các giá trị và ý nghĩa phong thủy đặc trưng.',
+'Bính Thân' => 'Trong quan niệm phương Đông, tuổi Thân tượng trưng cho những người lanh lợi, thông minh và giỏi giao tiếp. Vì thế, năm Bính Thân thường được xem là gắn liền với các giá trị và ý nghĩa phong thủy đặc trưng.',
+'Đinh Dậu' => 'Trong quan niệm phương Đông, tuổi Dậu tượng trưng cho những người chăm chỉ, kỷ luật và đáng tin cậy. Vì thế, năm Đinh Dậu thường được xem là gắn liền với các giá trị và ý nghĩa phong thủy đặc trưng.',
+'Mậu Tuất' => 'Trong quan niệm phương Đông, tuổi Tuất tượng trưng cho những người trung thành, chính trực và giàu tình nghĩa. Vì thế, năm Mậu Tuất thường được xem là gắn liền với các giá trị và ý nghĩa phong thủy đặc trưng.',
+'Kỷ Hợi' => 'Trong quan niệm phương Đông, tuổi Hợi tượng trưng cho những người hiền lành, chân thành và sống chan hòa. Vì thế, năm Kỷ Hợi thường được xem là gắn liền với các giá trị và ý nghĩa phong thủy đặc trưng.',
+'Canh Tý' => 'Trong quan niệm phương Đông, tuổi Tý tượng trưng cho những người thông minh, nhanh nhẹn và linh hoạt. Vì thế, năm Canh Tý thường được xem là gắn liền với các giá trị và ý nghĩa phong thủy đặc trưng.',
+'Tân Sửu' => 'Trong quan niệm phương Đông, tuổi Sửu tượng trưng cho những người cần cù, bền bỉ và đáng tin cậy. Vì thế, năm Tân Sửu thường được xem là gắn liền với các giá trị và ý nghĩa phong thủy đặc trưng.',
+
+
+    );
     static $mheaders = array(
         1 => 'Tháng đầu tiên của năm, tháng mở đầu của mùa xuân. Loài hoa tượng trưng cho tháng 1 là hoa Cúc Trường Sinh. Ý nghĩa tháng 1 biểu tượng rằng bạn là người mạnh mẽ, có nghị lực vượt qua mọi khó khăn. Thời điểm của tháng 1 là bước giao mùa giữa mùa Đông và mùa Xuân. Tháng 1 là tháng in dấu với thời tiết mưa phùn, mưa xuân ẩm ướt kéo dãi đằng đẵng.',
         2 => 'Tháng của những lễ hội, thế gian vui chơi, sự chuyển mình rõ rệt nhất của mùa xuân. Cây cối đâm chồi nảy lộc, người người vui vẻ chơi xuân. Thời tiết tháng 2 cũng dễ chịu nhất, không có cái nắng gay gắt của hè, cũng không có cái lạnh cắt da cắt thịt của mùa đông, trời bắt đầu có nắng và tiết trời chỉ se se lạnh. Loài hòa tượng trưng cho tháng 2 là hoa trinh nữ. Ý nghĩa của tháng 2 thể hiện con người mẫn cảm, bạn rất nhạy cảm trước những lời nói của người khác. Trong công việc bạn luôn tận tụy hết lòng hết sức.',
@@ -131,7 +173,7 @@ class LoadConfigHelper
         array(
             'dd' => 11,
             'mm' => 7,
-            'name' => 'Ngày dân số thế giới'//
+            'name' => 'Ngày dân số thế giới' //
         ),
         array(
             'dd' => 27,
@@ -286,7 +328,7 @@ class LoadConfigHelper
             'mm' => 7,
             'name' => 'Lễ Vu Lan',
         ),
-         array(
+        array(
             'dd' => 30,
             'mm' => 7,
             'name' => 'Ngày địa tạng',

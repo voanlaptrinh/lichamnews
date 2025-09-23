@@ -1,8 +1,8 @@
 @extends('welcome')
 @section('content')
     <div class="container-setup">
-        <h6 class="content-title-detail"><a href="{{ route('home') }}">Trang chủ</a> <i class="bi bi-chevron-right"></i>
-            Tiện ích <i class="bi bi-chevron-right"></i> <span style="color: #2254AB">Đổi ngày âm dương </span></h6>
+        <h6 class="content-title-detail"><a href="{{ route('home') }}">Trang chủ</a><i class="bi bi-chevron-right"></i> <span
+                style="color: #2254AB">Đổi ngày âm dương </span></h6>
         <h1 class="content-title-home-lich">Đổi Ngày Dương Sang Âm & Âm Sang Dương</h1>
         <div class="row g-3">
             <div class="col-xl-9 col-sm-12 col-12">
@@ -182,7 +182,7 @@
 
 
 
-                                <div class="mt-4">
+                                <div class="mt-lg-4 mt-2">
                                     <p>✦ Ngày Dương Lịch: <span
                                             class="sonar-date">{{ $dd }}/{{ $mm }}/{{ $yy }}</span>
                                     </p>
@@ -279,70 +279,92 @@
                 </div>
                 <div class="search-am-duong-lich">
                     <div class="van-lien-hows">
-                        <h2>Tìm hiểu thêm về âm lịch</h2>
+                        <h2 class="title-tong-quan-h2">Đổi Ngày Dương Sang Âm, Âm Sang Dương Online</h2>
                         <hr>
-                        <div>
+                        <div class="text-box-tong-quan ">
+                            <h4 class="title-tong-quan-h4-log">Đổi Ngày Dương Sang Âm Là Gì?</h4>
+                            <p><b>Đổi ngày Dương sang Âm</b> (hoặc đổi ngày Âm sang Dương) là việc chuyển đổi giữa hai hệ
+                                thống lịch khác nhau:</p>
                             <ul>
-                                <li><b>Âm lịch</b> là loại lịch được tính theo chu kỳ tròn khuyết của mặt trăng, tức là
-                                    khoảng
-                                    thời
-                                    gian hai lần liên tiếp trăng tròn hoặc không tròn. Bình quân cứ 29,53 ngày là một lần
-                                    mặt
-                                    trăng
-                                    tròn khuyết tuy nhiên để thuận lợi cho việc tính toán người xưa tính chẵn một đủ có 30
-                                    ngày,
-                                    tháng thiếu có 29 ngày.</li>
-                                <li>
-                                    Từ thời xa xưa, khi con người chưa biết đến những thành tựu của khoa học công nghệ thì
-                                    việc
-                                    trồng trọt, chăn nuôi hoàn toàn phụ thuộc vào việc “trông trời, trông đất, trông
-                                    mây”.<b>
-                                        Nhờ có
-                                        Âm
-                                        lịch</b> mà dân ta đã biết tính toán ngày sản xuất bắt đầu mùa vụ, ngày thủy triều
-                                    lên
-                                    xuống
-                                    hay
-                                    việc tự mình dự đoán thời tiết để làm nông nghiệp..
-                                </li>
-                                <li>
-                                    Ngày nay, âm lịch của Việt Nam thực chất là âm dương lịch, nghĩa là thời gian được tính
-                                    theo
-                                    <b>
-                                        chu
-                                        kỳ của Mặt Trăng</b> nhưng các tháng nhuận lại được điều chỉnh theo quy luật để ăn
-                                    khớp
-                                    với
-                                    năm
-                                    dương lịch. Trong một năm có 12 ngày tiết khí và 12 ngày trung khí được gọi là 24 ngày
-                                    tiết,
-                                    tên
-                                    ngày tiết được đặt tên theo khí hậu như xuân phân, hạ chí, đại hàn…việc sản xuất nông
-                                    nghiệp,
-                                    chăn nuôi, trồng trọt cũng dựa theo các ngày tiết này.
-                                </li>
-                                <li>
-
-                                    Ngoài những ngày lễ dương lịch, người dân Việt Nam còn sử dụng cả âm lịch trong các ngày
-                                    <b>lễ
-                                        truyền thống</b> quan trọng như tết Nguyên Đán, ngày giỗ tổ Hùng Vương, tết Đoan
-                                    Ngọ,
-                                    rằm
-                                    Trung Thu,
-                                    tết Ông Táo..cho đến những ngày lễ tâm linh, mang ý nghĩa thiêng liêng như Thượng
-                                    Nguyên,
-                                    Trung
-                                    Nguyên, Hạ Nguyên, Trùng Thập, Trùng Cửu và cả ngày giỗ của ông bà tổ tiên trong gia
-                                    đình.
-                                </li>
-                                <li>
-                                    Có thể thấy rằng âm lịch có <b>vai trò quan trọng</b> đối với đời sống sinh hoạt, sản
-                                    xuất
-                                    của
-                                    người
-                                    dân Việt Nam từ xa xưa cho đến tận ngày nay.
+                                <li><b>Dương lịch</b>: hay còn gọi là lịch Gregory, sử dụng phổ biến trong hành chính, công
+                                    việc, học tập và giao tiếp quốc tế.</li>
+                                <li><b>Âm lịch</b> (Lịch âm): dựa vào chu kỳ vận hành của Mặt trăng, gắn liền với các ngày
+                                    mồng Một, ngày Rằm, lễ Tết, cúng giỗ và nhiều phong tục truyền thống.</li>
+                            </ul>
+                            <p>Người Việt Nam hiện nay song song sử dụng cả hai hệ thống này. Vì vậy, việc đổi ngày qua lại
+                                giữa lịch Dương và lịch Âm là rất cần thiết để vừa đảm bảo công việc hằng ngày, vừa giữ gìn
+                                đời sống văn hóa – tâm linh.</p>
+                            <h4 class="title-tong-quan-h4-log">Sự Khác Biệt Giữa Âm Lịch Và Dương Lịch</h4>
+                            <ul>
+                                <li><b>Dương lịch</b> tính theo chu kỳ quay của Trái Đất quanh Mặt Trời, một năm có 365 hoặc
+                                    366 ngày. Đây là loại lịch chính thức trên toàn thế giới.</li>
+                                <li><b>Âm lịch</b> lại dựa theo sự vận động của Mặt Trăng. Một tháng Âm lịch thường có 29
+                                    hoặc 30 ngày. Để cân bằng với Dương lịch, Âm lịch có thêm tháng nhuận.</li>
+                            </ul>
+                            <p>Ở Việt Nam, các sự kiện hành chính, quốc gia dùng Dương lịch; còn các hoạt động truyền thống,
+                                tín ngưỡng như Tết Nguyên Đán, ngày giỗ tổ tiên, lễ hội, cưới hỏi, động thổ, khai trương…
+                                thường dựa theo Âm lịch.</p>
+                            <p>Chính vì thế, công cụ đổi ngày Âm sang Dương và ngược lại ra đời để giúp người dùng thuận
+                                tiện hơn trong việc xác định ngày tháng theo cả hai hệ thống.</p>
+                            <h4 class="title-tong-quan-h4-log">Khi Nào Cần Đổi Ngày Âm Sang Dương Và Ngược Lại?</h4>
+                            <p>Trong đời sống hằng ngày, nhu cầu đổi ngày Âm – Dương rất phổ biến, ví dụ:</p>
+                            <ul>
+                                <li>Ghi nhớ ngày giỗ, lễ Tết: Muốn biết ngày giỗ (theo Âm lịch) rơi vào ngày nào theo Dương
+                                    lịch để sắp xếp công việc.</li>
+                                <li>Chọn ngày lành tháng tốt: Tra cứu Lịch ngày tốt, ngày Hoàng đạo, giờ tốt cho việc cưới
+                                    hỏi, khai trương, động thổ.</li>
+                                <li>Kế hoạch công việc và sự kiện quốc tế: Người Việt thường phải đổi ngày Âm sang Dương để
+                                    tiện sắp xếp lịch trình chính xác.</li>
+                                <li>Xem vận mệnh, tử vi: Nhiều công cụ tử vi, phong thủy cần nhập dữ liệu theo Âm lịch và
+                                    Can Chi, trong khi giấy tờ cá nhân lại theo Dương lịch.</li>
+                            </ul>
+                            <h4 class="title-tong-quan-h4-log">Ý Nghĩa Của Việc Đổi Ngày Trong Văn Hóa Việt Nam</h4>
+                            <p>Đổi ngày Âm – Dương không chỉ mang tính tiện ích mà còn gắn liền với nhiều giá trị văn hóa:
+                            </p>
+                            <ul>
+                                <li>Xem ngày tốt – xấu: Dựa vào Can Chi, Ngũ hành, Tiết khí, người xưa xác định được ngày
+                                    hoàng đạo để thực hiện việc trọng đại.</li>
+                                <li>Xem giờ tốt: Ngoài chọn ngày, việc chọn giờ Hoàng đạo cũng quan trọng, nhất là khi xuất
+                                    hành hoặc khai trương.</li>
+                                <li>Ứng dụng trong phong thủy – tử vi: Đổi ngày giúp xác định tuổi hợp, hướng tốt, cũng như
+                                    lập lá số tử vi chính xác.
                                 </li>
                             </ul>
+                            <p>Có thể nói, đổi ngày Âm sang Dương là nhịp cầu nối giữa truyền thống và hiện đại, giữa văn
+                                hóa phương Đông và hành chính phương Tây.</p>
+                            <h4 class="title-tong-quan-h4-log">Hướng Dẫn Sử Dụng Công Cụ Đổi Ngày Trên Phong Lịch</h4>
+                            <p>Tại <b>phonglich.com</b>, bạn có thể dễ dàng đổi ngày Âm sang Dương hoặc ngược lại chỉ trong
+                                vài giây:</p>
+                            <ul style="list-style-type: decimal ">
+                                <li>Chọn ngày cần đổi (theo Âm lịch hoặc Dương lịch).</li>
+                                <li>Hệ thống tự động trả kết quả gồm:</li>
+                                <ul>
+                                    <li>Ngày Âm/Dương tương ứng.</li>
+                                    <li>Thông tin Can Chi, Tiết khí, ngày Hoàng đạo – Hắc đạo.</li>
+                                    <li>Gợi ý ngày tốt, giờ tốt cho các công việc quan trọng.</li>
+                                </ul>
+                                <li>Người dùng có thể tiếp tục tra cứu các công cụ liên quan như xem tử vi, xem phong thủy,
+                                    chọn ngày hợp tuổi.</li>
+                            </ul>
+                            <p>Ưu điểm của công cụ tại Phong Lịch:</p>
+                            <ul>
+                                <li>Nhanh chóng – chính xác – miễn phí.</li>
+                                <li>Giao diện thân thiện, dễ sử dụng trên cả máy tính và điện thoại.</li>
+                                <li>Tích hợp nhiều tri thức cổ truyền (Âm lịch, Can Chi, Ngũ hành, Tử vi)</li>
+                            </ul>
+                            <h4 class="title-tong-quan-h4-log">Kết Luận</h4>
+                            <p>Trong đời sống hiện đại, việc đổi ngày Âm sang Dương và đổi ngày Dương sang Âm không chỉ giúp
+                                chúng ta thuận tiện trong công việc mà còn giữ gìn bản sắc văn hóa truyền thống.</p>
+
+                            <p>Với công cụ chuyển đổi lịch Âm Dương tại Phong Lịch, bạn có thể dễ dàng:</p>
+                            <ul>
+                                <li>Tra cứu Lịch Âm – Dương hằng ngày.</li>
+                                <li>Biết được ngày Hoàng đạo, giờ tốt, Tiết khí.</li>
+                                <li>Lên kế hoạch chính xác cho những sự kiện quan trọng trong đời.</li>
+                            </ul>
+                            <p>Trải nghiệm ngay công cụ Đổi ngày Âm – Dương trực tuyến tại Phonglich.com – nhanh chóng,
+                                chính xác và miễn phí cho mọi người Việt.</p>
+
                         </div>
                     </div>
                 </div>
@@ -515,7 +537,7 @@
             }
         }
 
-       
+
         document.addEventListener('DOMContentLoaded', function() {
 
 
@@ -548,14 +570,17 @@
 
                 const doTheSwap = () => {
                     // Determine current order and swap
-                    const solarInputFirst = Array.from(inputRow.children).indexOf(solarContainer) < Array.from(inputRow.children).indexOf(lunarContainer);
+                    const solarInputFirst = Array.from(inputRow.children).indexOf(solarContainer) < Array
+                        .from(inputRow.children).indexOf(lunarContainer);
                     if (solarInputFirst) {
                         inputRow.insertBefore(lunarContainer, solarContainer);
                     } else {
                         inputRow.insertBefore(solarContainer, lunarContainer);
                     }
 
-                    const solarDisplayFirst = Array.from(displayRow.children).indexOf(solarDisplayContainer) < Array.from(displayRow.children).indexOf(lunarDisplayContainer);
+                    const solarDisplayFirst = Array.from(displayRow.children).indexOf(
+                        solarDisplayContainer) < Array.from(displayRow.children).indexOf(
+                        lunarDisplayContainer);
                     if (solarDisplayFirst) {
                         displayRow.insertBefore(lunarDisplayContainer, solarDisplayContainer);
                     } else {
@@ -731,8 +756,6 @@
                         lunarInput.value = lunarDate;
                     }
                 });
-
-
             @endif
 
             // Xử lý khi người dùng nhập tay vào input
@@ -850,127 +873,128 @@
                     }
 
                     $(input).daterangepicker({
-                    singleDatePicker: true,
-                    autoApply: true,  // Tự động áp dụng khi chọn ngày, không cần nhấn nút Apply
-                    autoUpdateInput: true,  // Tự động cập nhật input
-                    showDropdowns: true,
-                    minYear: 1900,
-                    maxYear: maxDate.getFullYear(),
-                    maxDate: maxDate,
-                    startDate: startDate,
-                    showCustomRangeLabel: false,
-                    alwaysShowCalendars: true,
-                    locale: {
-                        format: 'DD/MM/YYYY',
-                        applyLabel: 'Chọn',
-                        cancelLabel: 'Hủy',
-                        weekLabel: 'T',
-                        daysOfWeek: ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'],
-                        monthNames: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5',
-                            'Tháng 6',
-                            'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'
-                        ],
-                        firstDay: 1
-                    },
-                    opens: 'center',
-                    drops: 'down'
-                });
+                        singleDatePicker: true,
+                        autoApply: true, // Tự động áp dụng khi chọn ngày, không cần nhấn nút Apply
+                        autoUpdateInput: true, // Tự động cập nhật input
+                        showDropdowns: true,
+                        minYear: 1900,
+                        maxYear: maxDate.getFullYear(),
+                        maxDate: maxDate,
+                        startDate: startDate,
+                        showCustomRangeLabel: false,
+                        alwaysShowCalendars: true,
+                        locale: {
+                            format: 'DD/MM/YYYY',
+                            applyLabel: 'Chọn',
+                            cancelLabel: 'Hủy',
+                            weekLabel: 'T',
+                            daysOfWeek: ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'],
+                            monthNames: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5',
+                                'Tháng 6',
+                                'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11',
+                                'Tháng 12'
+                            ],
+                            firstDay: 1
+                        },
+                        opens: 'center',
+                        drops: 'down'
+                    });
 
-                // Events
-                $(input).on('show.daterangepicker', function(ev, picker) {
-                    setTimeout(function() {
-                        // Ensure ranges div is hidden on show as well
-                        $('.daterangepicker .ranges').hide();
-                        // Also, ensure the calendar takes full width if there's only one
-                        $('.daterangepicker .drp-calendar').css({
-                            'width': '100%',
-                            'border-right': 'none'
-                        });
-                    }, 1);
+                    // Events
+                    $(input).on('show.daterangepicker', function(ev, picker) {
+                        setTimeout(function() {
+                            // Ensure ranges div is hidden on show as well
+                            $('.daterangepicker .ranges').hide();
+                            // Also, ensure the calendar takes full width if there's only one
+                            $('.daterangepicker .drp-calendar').css({
+                                'width': '100%',
+                                'border-right': 'none'
+                            });
+                        }, 1);
 
-                    if (window.innerWidth <= 768) {
-                        const overlay = createOverlay();
-                        overlay.style.display = 'block';
-                    }
-
-                    const inputType = input.getAttribute('data-type');
-                    if (inputType === 'lunar') {
-                        picker.container.addClass('lunar-mode');
-                    } else {
-                        picker.container.removeClass('lunar-mode');
-                    }
-                });
-
-                $(input).on('hide.daterangepicker', function(ev, picker) {
-                    if (overlay) {
-                        overlay.style.display = 'none';
-                    }
-                });
-
-                // Xử lý khi chọn ngày - sử dụng event 'apply' cho single date picker với autoApply
-                $(input).on('apply.daterangepicker', async function(ev, picker) {
-                    const selectedDate = picker.startDate.format('DD/MM/YYYY');
-                    input.value = selectedDate;
-
-                    if (overlay) {
-                        overlay.style.display = 'none';
-                    }
-
-                    // Prevent infinite loops
-                    if (isUpdating) return;
-                    isUpdating = true;
-
-                    const isLunarMode = picker.container.hasClass('lunar-mode');
-
-                    if (isLunarMode) {
-                        // User selected a LUNAR date from the picker
-                        const solarDate = await convertLunarToSolar(selectedDate);
-                        if (solarDate && solarInput) {
-                            solarInput.value = solarDate;
+                        if (window.innerWidth <= 768) {
+                            const overlay = createOverlay();
+                            overlay.style.display = 'block';
                         }
-                        // lunarInput.value is already set to selectedDate
-                    } else {
-                        // User selected a SOLAR date from the picker
-                        const lunarDate = await convertSolarToLunar(selectedDate);
-                        if (lunarDate && lunarInput) {
-                            lunarInput.value = lunarDate;
+
+                        const inputType = input.getAttribute('data-type');
+                        if (inputType === 'lunar') {
+                            picker.container.addClass('lunar-mode');
+                        } else {
+                            picker.container.removeClass('lunar-mode');
                         }
-                    }
+                    });
 
-                    isUpdating = false;
-                });
-
-                // Thêm event khi daterangepicker thay đổi giá trị (cho autoApply)
-                $(input).on('change.daterangepicker', async function(ev, picker) {
-                    if (!picker) return; // Không phải từ picker
-
-                    const selectedDate = picker.startDate.format('DD/MM/YYYY');
-                    input.value = selectedDate;
-
-                    if (overlay) {
-                        overlay.style.display = 'none';
-                    }
-
-                    // Prevent infinite loops
-                    if (isUpdating) return;
-                    isUpdating = true;
-
-                    const inputType = input.getAttribute('data-type');
-
-                    if (inputType === 'solar') {
-                        const lunarDate = await convertSolarToLunar(selectedDate);
-                        if (lunarDate && lunarInput) {
-                            lunarInput.value = lunarDate;
+                    $(input).on('hide.daterangepicker', function(ev, picker) {
+                        if (overlay) {
+                            overlay.style.display = 'none';
                         }
-                    } else if (inputType === 'lunar') {
-                        const solarDate = await convertLunarToSolar(selectedDate);
-                        if (solarDate && solarInput) {
-                            solarInput.value = solarDate;
-                        }
-                    }
+                    });
 
-                    isUpdating = false;
-                });
+                    // Xử lý khi chọn ngày - sử dụng event 'apply' cho single date picker với autoApply
+                    $(input).on('apply.daterangepicker', async function(ev, picker) {
+                        const selectedDate = picker.startDate.format('DD/MM/YYYY');
+                        input.value = selectedDate;
+
+                        if (overlay) {
+                            overlay.style.display = 'none';
+                        }
+
+                        // Prevent infinite loops
+                        if (isUpdating) return;
+                        isUpdating = true;
+
+                        const isLunarMode = picker.container.hasClass('lunar-mode');
+
+                        if (isLunarMode) {
+                            // User selected a LUNAR date from the picker
+                            const solarDate = await convertLunarToSolar(selectedDate);
+                            if (solarDate && solarInput) {
+                                solarInput.value = solarDate;
+                            }
+                            // lunarInput.value is already set to selectedDate
+                        } else {
+                            // User selected a SOLAR date from the picker
+                            const lunarDate = await convertSolarToLunar(selectedDate);
+                            if (lunarDate && lunarInput) {
+                                lunarInput.value = lunarDate;
+                            }
+                        }
+
+                        isUpdating = false;
+                    });
+
+                    // Thêm event khi daterangepicker thay đổi giá trị (cho autoApply)
+                    $(input).on('change.daterangepicker', async function(ev, picker) {
+                        if (!picker) return; // Không phải từ picker
+
+                        const selectedDate = picker.startDate.format('DD/MM/YYYY');
+                        input.value = selectedDate;
+
+                        if (overlay) {
+                            overlay.style.display = 'none';
+                        }
+
+                        // Prevent infinite loops
+                        if (isUpdating) return;
+                        isUpdating = true;
+
+                        const inputType = input.getAttribute('data-type');
+
+                        if (inputType === 'solar') {
+                            const lunarDate = await convertSolarToLunar(selectedDate);
+                            if (lunarDate && lunarInput) {
+                                lunarInput.value = lunarDate;
+                            }
+                        } else if (inputType === 'lunar') {
+                            const solarDate = await convertLunarToSolar(selectedDate);
+                            if (solarDate && solarInput) {
+                                solarInput.value = solarDate;
+                            }
+                        }
+
+                        isUpdating = false;
+                    });
 
                     // Handle icon click
                     const icon = input.parentNode.querySelector('.date-icon-custom');

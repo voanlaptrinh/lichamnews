@@ -2,7 +2,7 @@
 @section('content')
     <div class="container-setup">
         <h6 class="content-title-detail"><a href="{{ route('home') }}">Trang chủ</a> <i class="bi bi-chevron-right"></i>
-            <span>Chi tiết ngày</span>
+            <span style="color: #2254AB">Lịch âm hôm nay</span>
         </h6>
         <h1 class="content-title-home-lich">Lịch Âm Hôm Nay - Lịch Vạn Niên Hôm Nay</h1>
         <p class="mb-1">Âm lịch hôm nay là ngày nào?</p>

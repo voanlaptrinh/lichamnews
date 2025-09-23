@@ -107,6 +107,15 @@
     .ngay-hom-ngay {
         font-size: 16px;
     }
+    .title-tong-quan-h4-log{
+        font-size: 20px;
+    }
+    .title-tong-quan-h3-log{
+        font-size: 22px;
+    }
+    .title-tong-quan-h3-log{
+        font-size: 24px;
+    }
 }
 
 @media screen and (min-width: 1400px) {
@@ -261,6 +270,15 @@
     .ngay-hom-ngay {
         font-size: 16px;
     }
+    .title-tong-quan-h4-log{
+        font-size: 20px;
+    }
+     .title-tong-quan-h3-log{
+        font-size: 22px;
+    }
+     .title-tong-quan-h2-log{
+        font-size: 24px;
+    }
 }
 
 @media screen and (min-width: 1200px) and (max-width: 1399.98px) {
@@ -406,7 +424,15 @@
     .ngay-hom-ngay {
         font-size: 16px;
     }
-
+.title-tong-quan-h4-log{
+        font-size: 20px;
+    }
+     .title-tong-quan-h3-log{
+        font-size: 22px;
+    }
+     .title-tong-quan-h2-log{
+        font-size: 24px;
+    }
 }
 
 @media screen and (min-width: 992px) and (max-width: 1199.98px) {
@@ -612,6 +638,15 @@
 
     .ngay-hom-ngay {
         font-size: 16px;
+    }
+    .title-tong-quan-h4-log{
+        font-size: 20px;
+    }
+     .title-tong-quan-h3-log{
+        font-size: 22px;
+    }
+     .title-tong-quan-h2-log{
+        font-size: 24px;
     }
 }
 
@@ -821,6 +856,15 @@
 
     .ngay-hom-ngay {
         font-size: 15px;
+    }
+    .title-tong-quan-h4-log{
+        font-size: 20px;
+    }
+     .title-tong-quan-h3-log{
+        font-size: 22px;
+    }
+     .title-tong-quan-h2-log{
+        font-size: 24px;
     }
 }
 
@@ -1053,6 +1097,15 @@
 
     .ngay-hom-ngay {
         font-size: 14px;
+    }
+    .title-tong-quan-h4-log{
+        font-size:18px;
+    }
+     .title-tong-quan-h3-log{
+        font-size: 20px;
+    }
+     .title-tong-quan-h2-log{
+        font-size: 22px;
     }
 }
 
@@ -1409,6 +1462,15 @@
 
     .ngay-hom-ngay {
         font-size: 12px;
+    }
+     .title-tong-quan-h4-log{
+        font-size:18px;
+    }
+       .title-tong-quan-h3-log{
+        font-size: 20px;
+    }
+     .title-tong-quan-h2-log{
+        font-size: 22px;
     }
 }
 
