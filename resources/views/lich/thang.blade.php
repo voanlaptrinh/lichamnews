@@ -126,7 +126,7 @@
                                 <div
                                     class="btn custom-pill-btn-date w-100 text-center {{ $mm == $i ? 'active-date' : '' }}">
 
-                                    Lịch âm tháng {{ $i }} năm {{ $yy }}
+                                   <img src="{{asset('/icons/sukienn1.svg')}}" alt="Sự kiện" class="img-fluid me-2"> Lịch âm tháng {{ $i }} năm {{ $yy }}
                                 </div>
                             </a>
                         </div>

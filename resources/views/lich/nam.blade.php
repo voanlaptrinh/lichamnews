@@ -154,7 +154,7 @@
                             <div class="col-12"> <!--  để cột chỉ chiếm chiều rộng cần thiết -->
                                 <a href="{{ route('lich.nam', ['nam' => $year]) }}"
                                     class="btn custom-pill-btn-date {{ $year == $nam ? 'active-date' : '' }} d-flex align-items-center justify-content-center">
-                                    <span>Lịch năm {{ $year }}</span>
+                                    <img src="{{asset('/icons/sukienn1.svg')}}" alt="Sự kiện" class="img-fluid me-2"> <span>Lịch năm {{ $year }}</span>
                                 </a>
                             </div>
                         @endfor
