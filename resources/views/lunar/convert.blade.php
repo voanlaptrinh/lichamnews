@@ -12,14 +12,14 @@
                 <div class="d-flex justify-content-between mb-3  ">
 
                     <h1 class="content-title-home-lich">Lịch Âm - Lịch Vạn Niên</h1>
-                    @if (!$isToday)
-                        <a href="{{ route('home') }}"
-                            class="btn-today-home-pc btn-today-home justify-content-center align-items-center">
-                            <img src="{{ asset('icons/icon_lich_svg.svg') }}" alt="icon-lich-svg"
-                                class="img-fluid pe-1-pc-home">
-                            <div>Hôm nay</div>
-                        </a>
-                    @endif
+                    <div class="d-flex gap-2">
+                        <button
+                            class=" btn-today-home-pc btn-today-home justify-content-center align-items-center quickPickerBtn">
+                            <i class="bi bi-calendar-event pe-2"></i>
+                            <div>Xem nhanh theo ngày</div>
+                        </button>
+
+                    </div>
 
                 </div>
             </div>
@@ -45,13 +45,14 @@
                                         <div class="date-weekday">{{ $weekday }}</div>
                                         <div class="date-special-event text-dark">Tháng {{ $mm }} năm
                                             {{ $yy }}</div>
-                                        <div class="date-special-event">
+
+                                        <div class="date-special-event date-special-event-duong">
                                             @if (!empty($suKienDuongLich))
                                                 @foreach ($suKienDuongLich as $suKien)
-                                                    <div class="su-kien-duong">{{ $suKien['ten_su_kien'] ?? $suKien }}</div>
+                                                    <div class="su-kien-duong"> {{ $suKien['ten_su_kien'] ?? $suKien }}
+                                                    </div>
                                                 @endforeach
                                             @endif
-
                                         </div>
                                     </div>
                                     {{-- Nút Next Day PC (Đã sửa) --}}
@@ -71,8 +72,9 @@
                                         <div class="date-special-event text-dark">Ngày
                                             {{ $getThongTinCanChiVaIcon['can_chi_ngay'] }}
                                             -
-                                            Tháng {{ $getThongTinCanChiVaIcon['can_chi_thang'] }}</div>
-                                        <div class="date-special-event">
+                                            Tháng {{ $getThongTinCanChiVaIcon['can_chi_thang'] }}
+                                        </div>
+                                        <div class="date-special-event date-special-event-duong">
                                             @if (!empty($suKienAmLich))
                                                 @foreach ($suKienAmLich as $suKien)
                                                     <div class="su-kien-duong">{{ $suKien['ten_su_kien'] ?? $suKien }}
@@ -122,14 +124,14 @@
 
                             <div class="col-lg-12 btn-mobie-next-prev">
                                 <div>
-                                    @if (!$isToday)
-                                        <a href="{{ route('home') }}"
-                                            class="btn-today-home-mob d-flex justify-content-center align-items-center">
-                                            <img src="{{ asset('icons/icon_lich_svg.svg') }}" alt="icon-lich-svg"
-                                                class="img-fluid pe-1">
-                                            <div> Hôm nay</div>
-                                        </a>
-                                    @endif
+                                    <button
+                                        class="btn-today-home-mob d-flex justify-content-center align-items-center quickPickerBtn">
+                                        <i class="bi bi-calendar-event pe-2"></i>
+                                        <div>Xem nhanh</div>
+                                    </button>
+
+
+
                                 </div>
                                 <div class="d-flex gap-2">
                                     <div class="div">
@@ -146,84 +148,98 @@
                             </div>
                         </div>
                         {{-- d-sm-block d-block d-xl-none --}}
-                        <div class="info-card ">
-                            <div class="coli-row">
-                                <div class="col-xl-7 col-lg-6 col-sm-12 col-12 ">
-                                    <div class="info-item">
-                                        <img src="{{ asset('icons/icon_tiet_khi.png') }}" alt="icon_tiet_khi"
-                                            class="icon_tiet_khi">
-                                        <div class="font-detail-ngay">
-                                            <strong class="title-font-detail-ngay">Tiết khí:</strong>
-                                            <span class="text-uppercase">{{ $tietkhi['tiet_khi'] }}</span>
-                                        </div>
-                                    </div>
-                                    <div class="info-item">
-                                        <img src="{{ asset('icons/icon_nap_am.png') }}" alt="icon_nap_am"
-                                            class="icon_nap_am">
-                                        <div class="font-detail-ngay">
-                                            <strong class="title-font-detail-ngay">Ngũ hành nạp âm:</strong>
-                                            {{ $getThongTinNgay['nap_am']['napAm'] }}
-                                        </div>
-                                    </div>
-                                    <div class="info-item">
-                                        <img src="{{ asset('icons/icon_hoang_dao.png') }}" alt="icon_hoang_dao"
-                                            class="icon_hoang_dao">
-                                        <div class="font-detail-ngay">
-                                            <strong class="title-font-detail-ngay">Giờ Hoàng đạo:</strong>
-                                            {{ $getThongTinNgay['gio_hoang_dao'] }}
-                                        </div>
+                        <div class="position-relative bix-title-thangnam">
+                            <div class="d-flex justify-content-center">
+                                <div class="position-absolute --posyon-ngay" style="top: -20px;">
+                                    <div class="ngay-hom-ngay">
+                                        Ngày 26-09-2025 (<span id="luna-date">5</span> <span id="luna-month">Tháng
+                                            8</span>
+                                        năm Ất Tỵ)
                                     </div>
                                 </div>
-                                <div class="col-xl-5 col-lg-6 col-sm-12 col-12">
-                                    <!-- BẮT ĐẦU: KHỐI MỨC THUẬN LỢI (ĐÃ CẬP NHẬT) -->
-                                    <div
-                                        class="convenience-level g-0 d-flex justify-content-between align-items-center row h-100">
-                                        <div class="col-6">
-                                            <div class="level-label text-lever-label-mobie">
-                                                Điểm chỉ số <br>ngày tốt:
+                            </div>
+                            <div class="info-card ">
+
+                                <div class="coli-row">
+                                    <div class="col-xl-7 col-lg-6 col-sm-12 col-12 ">
+                                        <div class="info-item">
+                                            <img src="{{ asset('icons/icon_tiet_khi.png') }}" alt="icon_tiet_khi"
+                                                class="icon_tiet_khi">
+                                            <div class="font-detail-ngay">
+                                                <strong class="title-font-detail-ngay">Tiết khí:</strong>
+                                                <span class="">{{ $tietkhi['tiet_khi'] }}</span>
                                             </div>
                                         </div>
-
-                                        <div class="col-6 d-flex justify-content-center">
-                                            <div class="progress-dial mt-2"
-                                                style="--value: {{ round($getDaySummaryInfo['score']['percentage']) }};">
-                                                <div class="dial-text">
-                                                    <span
-                                                        class="dial-percent">{{ round($getDaySummaryInfo['score']['percentage']) }}%</span>
-                                                    @php
-                                                        $ratingColors = [
-                                                            'Tốt' => 'text-success',
-                                                            'Xấu' => 'text-danger',
-                                                            'Trung bình' => 'text-warning-tb',
-                                                        ];
-                                                    @endphp
-
-                                                    <small
-                                                        class="dial-status {{ $ratingColors[$getDaySummaryInfo['score']['rating']] ?? 'text-secondary' }}">
-                                                        {{ $getDaySummaryInfo['score']['rating'] }}
-                                                    </small>
+                                        <div class="info-item">
+                                            <img src="{{ asset('icons/icon_nap_am.png') }}" alt="icon_nap_am"
+                                                class="icon_nap_am">
+                                            <div class="font-detail-ngay">
+                                                <strong class="title-font-detail-ngay">Ngũ hành nạp âm:</strong>
+                                                {{ $getThongTinNgay['nap_am']['napAm'] }}
+                                            </div>
+                                        </div>
+                                        <div class="info-item">
+                                            <img src="{{ asset('icons/icon_hoang_dao.png') }}" alt="icon_hoang_dao"
+                                                class="icon_hoang_dao">
+                                            <div class="font-detail-ngay">
+                                                <strong class="title-font-detail-ngay">Giờ Hoàng đạo:</strong>
+                                                {{ $getThongTinNgay['gio_hoang_dao'] }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-5 col-lg-6 col-sm-12 col-12">
+                                        <!-- BẮT ĐẦU: KHỐI MỨC THUẬN LỢI (ĐÃ CẬP NHẬT) -->
+                                        <div
+                                            class="convenience-level g-0 d-flex justify-content-between align-items-center row h-100">
+                                            <div class="col-6">
+                                                <div class="level-label text-lever-label-mobie">
+                                                    Điểm chỉ số <br>ngày tốt:
                                                 </div>
                                             </div>
-                                        </div>
 
+                                            <div class="col-6 d-flex justify-content-center">
+                                                <div class="progress-dial mt-2"
+                                                    style="--value: {{ round($getDaySummaryInfo['score']['percentage']) }};">
+                                                    <div class="dial-text">
+                                                        <span
+                                                            class="dial-percent">{{ round($getDaySummaryInfo['score']['percentage']) }}%</span>
+                                                        @php
+                                                            $ratingColors = [
+                                                                'Tốt' => 'text-success',
+                                                                'Xấu' => 'text-danger',
+                                                                'Trung bình' => 'text-warning-tb',
+                                                            ];
+                                                        @endphp
+
+                                                        <small
+                                                            class="dial-status {{ $ratingColors[$getDaySummaryInfo['score']['rating']] ?? 'text-secondary' }}">
+                                                            {{ $getDaySummaryInfo['score']['rating'] }}
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <!-- KẾT THÚC: KHỐI MỨC THUẬN LỢI -->
                                     </div>
-                                    <!-- KẾT THÚC: KHỐI MỨC THUẬN LỢI -->
+                                </div>
+
+
+                                <div class="d-flex justify-content-center">
+                                    <a href="{{ route('detai_home', ['nam' => $yy, 'thang' => $mm, 'ngay' => $dd]) }}"
+                                        class="btn btn-primary w-100 mt-3 btn0mobie"><img
+                                            src="{{ asset('icons/hand_2_white.svg') }}" alt="hand_2"
+                                            class="img-fluid">
+                                        Xem
+                                        chi tiết ngày</a>
                                 </div>
                             </div>
-
-
-                            <div class="d-flex justify-content-center">
-                                <a href="{{ route('detai_home', ['nam' => $yy, 'thang' => $mm, 'ngay' => $dd]) }}"
-                                    class="btn btn-primary w-100 mt-3 btn0mobie"><img
-                                        src="{{ asset('icons/hand_2_white.svg') }}" alt="hand_2" class="img-fluid">
-                                    Xem
-                                    chi tiết ngày</a>
-                            </div>
                         </div>
+
                         <!-- ** LỊCH THÁNG ** -->
                         <div class="calendar-wrapper">
 
-                            <div class="calendar-header-convert calendar-header">
+                            <div class="calendar-header-convert calendar-header pe-lg-2">
                                 <div class="text-center">
                                     <h5 class="mb-0 pt-2">Lịch vạn niên {{ $yy }} - tháng {{ $mm }}
                                     </h5>
@@ -242,7 +258,7 @@
                                         @endfor
                                     </select>
                                 </div>
-                                {{--   <a href="{{ route('lich.nam.ngay', ['nam' => date('Y'), 'thang' => date('n'), 'ngay' => date('d')]) }}"
+                                {{--   <a href="{{ route('detai_home', ['nam' => date('Y'), 'thang' => date('n'), 'ngay' => date('d')]) }}"
                                     class="btn-today-home-pc btn-today-home">
                                     <i class="bi bi-calendar-plus pe-1-pc-home"></i> Hôm nay
                                 </a> --}}
@@ -251,31 +267,31 @@
                                 <table class="calendar-table">
                                     <thead>
                                         <tr>
-                                            <th><span class="title-lich-pc">Thứ hai</span> <span
+                                            <th><span class="title-lich-pc">Thứ Hai</span> <span
                                                     class="title-lich-mobie">Th
                                                     2</span>
                                             </th>
-                                            <th><span class="title-lich-pc">Thứ ba</span> <span
+                                            <th><span class="title-lich-pc">Thứ Ba</span> <span
                                                     class="title-lich-mobie">Th
                                                     3</span>
                                             </th>
-                                            <th><span class="title-lich-pc">Thứ tư</span> <span
+                                            <th><span class="title-lich-pc">Thứ Tư</span> <span
                                                     class="title-lich-mobie">Th
                                                     4</span>
                                             </th>
-                                            <th><span class="title-lich-pc">Thứ năm</span> <span
+                                            <th><span class="title-lich-pc">Thứ Năm</span> <span
                                                     class="title-lich-mobie">Th
                                                     5</span>
                                             </th>
-                                            <th><span class="title-lich-pc">Thứ sáu</span> <span
+                                            <th><span class="title-lich-pc">Thứ Sáu</span> <span
                                                     class="title-lich-mobie">Th
                                                     6</span>
                                             </th>
-                                            <th><span class="title-lich-pc">Thứ bảy</span> <span
+                                            <th><span class="title-lich-pc">Thứ Bảy</span> <span
                                                     class="title-lich-mobie">Th
                                                     7</span>
                                             </th>
-                                            <th><span class="title-lich-pc">Chủ nhật</span> <span
+                                            <th><span class="title-lich-pc">Chủ Nhật</span> <span
                                                     class="title-lich-mobie">CN</span>
                                             </th>
 
@@ -295,6 +311,56 @@
                         </div>
                     </div>
                 </div>
+                <section class="popular-utilities d-xl-none pt-0 pb-0 mt-4">
+                    <div class="container bg-section-tienich">
+                        <h2 class="section-title">Sự kiện, ngày lễ sắp tới</h2>
+                        <hr>
+                        <ul class="list-group list-group-flush events-list">
+                            @foreach (array_slice($upcomingEvents, 0, 3) as $event)
+                                @php
+                                    $eventCarbonDate = Carbon\Carbon::parse($event['date']);
+                                    $routeParams = [
+                                        'nam' => $eventCarbonDate->year,
+                                        'thang' => $eventCarbonDate->month,
+                                        'ngay' => $eventCarbonDate->day,
+                                    ];
+
+                                    // Chuyển đổi sang âm lịch
+                                    $lunarDate = App\Helpers\LunarHelper::convertSolar2Lunar(
+                                        $eventCarbonDate->day,
+                                        $eventCarbonDate->month,
+                                        $eventCarbonDate->year,
+                                    );
+                                @endphp
+                                <li class="list-group-item event-item">
+                                    <a href="{{ route('detai_home', $routeParams) }}">
+                                        <div class="event-date">
+                                            {{ Carbon\Carbon::parse($event['date'])->format('d/m') }} <span
+                                                style="font-size: 12px;color: #6c757d;font-style: italic;">({{ $lunarDate[0] }}/{{ $lunarDate[1] }})</span>
+
+                                        </div>
+
+                                        <div class="event-icon">🗓️</div>
+                                        <div class="event-details">
+                                            <div class="event-name">{{ $event['description'] }}</div>
+                                            <div class="event-countdown">
+                                                @if ($event['days_remaining'] === 0)
+                                                    Hôm nay
+                                                @elseif ($event['days_remaining'] === 1)
+                                                    Còn 1 ngày
+                                                @else
+                                                    Còn {{ $event['days_remaining'] }} ngày
+                                                @endif
+
+                                                <i class="bi bi-chevron-right"></i>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </section>
                 <section class="popular-utilities">
                     <div class="container bg-section-tienich">
                         <h2 class="section-title">Tiện ích phổ biến</h2>
@@ -361,6 +427,9 @@
                         </div>
                     </div>
                 </section>
+
+                <!-- ==== KHỐI SỰ KIỆN CHO MOBILE/TABLET - CHỈ HIỆN 3 SỰ KIỆN ==== -->
+
                 <div class="van-lien-hows">
 
                     <h2 class="title-tong-quan-h2">Lịch Vạn Niên Là Gì?</h2>
@@ -426,8 +495,8 @@
                 </div>
             </div>
 
-            <!-- ==== CỘT THÔNG TIN (BÊN PHẢI) ==== -->
-            <div class="col-xl-3  col-sm-12 col-12">
+            <!-- ==== CỘT THÔNG TIN (BÊN PHẢI) - CHỈ HIỆN TRÊN DESKTOP ==== -->
+            <div class="col-xl-3 d-none d-xl-block">
                 <div class="d-flex flex-column gap-4">
                     <!-- ** KHỐI SỰ KIỆN SẮP TỚI ** -->
                     <div class="events-card">
@@ -442,11 +511,20 @@
                                         'thang' => $eventCarbonDate->month,
                                         'ngay' => $eventCarbonDate->day,
                                     ];
+
+                                    // Chuyển đổi sang âm lịch
+                                    $lunarDate = App\Helpers\LunarHelper::convertSolar2Lunar(
+                                        $eventCarbonDate->day,
+                                        $eventCarbonDate->month,
+                                        $eventCarbonDate->year,
+                                    );
                                 @endphp
                                 <li class="list-group-item event-item">
-                                    <a href="{{ route('lich.nam.ngay', $routeParams) }}">
-                                        <div class="event-date">Ngày
-                                            {{ Carbon\Carbon::parse($event['date'])->format('d/m') }}</div>
+                                    <a href="{{ route('detai_home', $routeParams) }}">
+                                        <div class="event-date">
+                                            {{ Carbon\Carbon::parse($event['date'])->format('d/m') }} <span
+                                                style="font-size: 12px;color: #6c757d;font-style: italic;">({{ $lunarDate[0] }}/{{ $lunarDate[1] }})
+                                        </div>
                                         <div class="event-icon">🗓️</div>
                                         <div class="event-details">
                                             <div class="event-name">{{ $event['description'] }}</div>
@@ -472,222 +550,139 @@
         </div>
     </div>
 
+    <!-- ==== POPUP CHỌN NHANH LỊCH ==== -->
+    <div class="quick-picker-overlay" id="quickPickerOverlay">
+        <div class="quick-picker-modal">
+            <button class="close-btn-popup" id="closeQuickPicker"><i class="bi bi-x"></i></button>
+            <div class="quick-picker-header">
+                <h4 class="quick-picker-title">THÁNG <span id="popupMonth">{{ $mm }}</span> - <span
+                        id="popupYear">{{ $yy }}</span></h4>
+                <div class="quick-picker-nav">
+                    <button class="nav-btn" id="prevMonthBtn"><i class="bi bi-chevron-left"></i></button>
+                    <button class="nav-btn" id="nextMonthBtn"><i class="bi bi-chevron-right"></i></button>
+                </div>
+
+            </div>
+
+            <div class="quick-picker-calendar">
+                <div class="weekdays">
+                    <div class="weekday-popup">Th 2</div>
+                    <div class="weekday-popup">Th 3</div>
+                    <div class="weekday-popup">Th 4</div>
+                    <div class="weekday-popup">Th 5</div>
+                    <div class="weekday-popup">Th 6</div>
+                    <div class="weekday-popup">Th 7</div>
+                    <div class="weekday-popup">CN</div>
+                </div>
+                <div class="calendar-days" id="popupCalendarDays">
+                    <!-- Days will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <div class="quick-picker-forms">
+                <div class="form-section-popup">
+                    <div class="form-header-popup">
+                        <i class="bi bi-brightness-high"></i>
+                        <span>Dương Lịch</span>
+                    </div>
+                    <div class="form-row">
+                        <select id="solarDay" class="form-select form-select-config">
+                            @for ($i = 1; $i <= 31; $i++)
+                                <option value="{{ $i }}" {{ $i == $dd ? 'selected' : '' }}>Ngày
+                                    {{ $i }}</option>
+                            @endfor
+                        </select>
+                        <select id="solarMonth" class="form-select form-select-config">
+                            @for ($i = 1; $i <= 12; $i++)
+                                <option value="{{ $i }}" {{ $i == $mm ? 'selected' : '' }}>Tháng
+                                    {{ $i }}</option>
+                            @endfor
+                        </select>
+                        <select id="solarYear" class="form-select form-select-config">
+                            @for ($i = 1900; $i <= 2100; $i++)
+                                <option value="{{ $i }}" {{ $i == $yy ? 'selected' : '' }}>
+                                    {{ $i }}</option>
+                            @endfor
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-section-popup">
+                    <div class="form-header-popup">
+                        <i class="bi bi-moon"></i>
+                        <span>Âm Lịch</span>
+                    </div>
+                    <div class="form-row">
+                        <select id="lunarDay" class="form-select form-select-config">
+                            @for ($i = 1; $i <= 30; $i++)
+                                <option value="{{ $i }}" {{ $i == ($al[0] ?? 1) ? 'selected' : '' }}>Ngày
+                                    {{ $i }}</option>
+                            @endfor
+                        </select>
+                        <select id="lunarMonth" class="form-select form-select-config">
+                            @for ($i = 1; $i <= 12; $i++)
+                                <option value="{{ $i }}" {{ $i == ($al[1] ?? 1) ? 'selected' : '' }}>Tháng
+                                    {{ $i }}</option>
+                            @endfor
+                        </select>
+                        <select id="lunarYear" class="form-select form-select-config">
+                            @for ($i = 1900; $i <= 2100; $i++)
+                                <option value="{{ $i }}" {{ $i == $yy ? 'selected' : '' }}>
+                                    {{ $i }}</option>
+                            @endfor
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quick-picker-footer">
+                <button class="btn-view" id="viewDateBtn">XEM</button>
+            </div>
+        </div>
+    </div>
+
 @endsection
 
+@push('styles')
+    <style>
+        .event-date .solar-date {
+            font-size: 14px;
+            font-weight: bold;
+            color: #007bff;
+            margin-bottom: 2px;
+        }
+
+        .event-date .lunar-date {
+            font-size: 12px;
+            color: #6c757d;
+            font-style: italic;
+        }
+
+        .event-date {
+            text-align: center;
+            line-height: 1.2;
+        }
+    </style>
+@endpush
+
 @push('scripts')
+    <script src="{{ asset('js/homepage-picker.js?v=1.0') }}"></script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            let overlay = null;
-            // Tạo overlay cho mobile
-            function createOverlay() {
-                if (!overlay) {
-                    overlay = document.createElement('div');
-                    overlay.className = 'daterangepicker-overlay';
-                    document.body.appendChild(overlay);
-
-                    overlay.addEventListener('click', function() {
-                        $('#month-year-picker').data('daterangepicker').hide();
-                    });
-                }
-                return overlay;
-            }
-
-            $('#month-year-picker').on('show.daterangepicker', function(ev, picker) {
-                if (window.innerWidth <= 768) {
-                    const overlay = createOverlay();
-                    overlay.style.display = 'block';
-                }
+            // Khởi tạo ứng dụng lịch âm cho trang chủ (không thay đổi URL)
+            const homepageApp = new HomepagePicker({
+                currentYear: {{ $yy }},
+                currentMonth: {{ $mm }},
+                currentDay: {{ $dd }},
+                labels: @json($labels),
+                dataValues: @json($dataValues),
+                ajaxUrl: '{{ route('lunar.getDateDataAjax') }}',
+                calendarAjaxUrl: '{{ route('lich.thang.ajax') }}'
             });
 
-            $('#month-year-picker').on('hide.daterangepicker', function(ev, picker) {
-                if (overlay) {
-                    overlay.style.display = 'none';
-                }
-            });
-            const ctx = document.getElementById('myChart').getContext('2d');
-            const labels = @json($labels);
-            const dataValues = @json($dataValues);
-
-            new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Điểm ngày',
-                        data: dataValues,
-                        backgroundColor: function(context) {
-                            const chart = context.chart;
-                            const {
-                                ctx,
-                                chartArea
-                            } = chart;
-                            if (!chartArea) return;
-
-                            const gradient = ctx.createLinearGradient(0, chartArea.bottom, 0,
-                                chartArea.top);
-                            gradient.addColorStop(0, getComputedStyle(document.documentElement)
-                                .getPropertyValue('--bar-bottom-color') || '#4e79a7');
-                            gradient.addColorStop(0.6, getComputedStyle(document
-                                    .documentElement)
-                                .getPropertyValue('--bar-mid-color') || '#59a14f');
-                            gradient.addColorStop(1, getComputedStyle(document.documentElement)
-                                .getPropertyValue('--bar-top-color') || '#9c755f');
-                            return gradient;
-                        },
-                        borderRadius: {
-                            topLeft: 8,
-                            topRight: 8
-                        },
-                        borderSkipped: false,
-                        hoverBackgroundColor: getComputedStyle(document.documentElement)
-                            .getPropertyValue('--bar-top-color') || '#9c755f',
-                        barPercentage: 0.7,
-                        categoryPercentage: 0.8
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                        tooltip: {
-                            enabled: true,
-                            callbacks: {
-                                label: function(context) {
-                                    return context.raw + '%';
-                                }
-                            },
-                            backgroundColor: 'rgba(0,0,0,0.7)',
-                            titleColor: '#fff',
-                            bodyColor: '#fff',
-                            padding: 8,
-                            displayColors: false
-                        }
-                    },
-                    layout: {
-                        padding: {
-                            top: 10,
-                            bottom: 10
-                        }
-                    },
-                    scales: {
-                        x: {
-                            grid: {
-                                display: false,
-                                drawBorder: false
-                            },
-                            ticks: {
-                                color: getComputedStyle(document.documentElement).getPropertyValue(
-                                    '--text-color-light') || '#333',
-                                font: {
-                                    size: 13,
-                                    weight: '500'
-                                },
-                                padding: 10
-                            }
-                        },
-                        y: {
-                            beginAtZero: true,
-                            max: 100,
-                            ticks: {
-                                stepSize: 20,
-                                callback: function(value) {
-                                    return value + '%';
-                                },
-                                color: getComputedStyle(document.documentElement).getPropertyValue(
-                                    '--text-color-light') || '#333',
-                                font: {
-                                    size: 13,
-                                    weight: '500'
-                                },
-                                padding: 10,
-                            },
-                            grid: {
-                                color: getComputedStyle(document.documentElement).getPropertyValue(
-                                    '--grid-line-color') || '#ddd',
-                                borderDash: [5, 5],
-                                drawBorder: false,
-                                drawOnChartArea: true,
-                                drawTicks: false
-                            }
-                        }
-                    }
-                },
-                plugins: [{
-                    // Plugin custom để vẽ % trên đầu cột
-                    id: 'valueOnTop',
-                    afterDatasetsDraw(chart) {
-                        const {
-                            ctx
-                        } = chart;
-                        chart.data.datasets.forEach((dataset, i) => {
-                            chart.getDatasetMeta(i).data.forEach((bar, index) => {
-                                const value = dataset.data[index] + '%';
-                                ctx.save();
-                                ctx.font = 'bold 12px sans-serif';
-                                ctx.fillStyle = getComputedStyle(document
-                                    .documentElement).getPropertyValue(
-                                    '--text-color-light') || '#333';
-                                ctx.textAlign = 'center';
-                                ctx.fillText(value, bar.x, bar.y -
-                                    6); // 6px phía trên đầu cột
-                                ctx.restore();
-                            });
-                        });
-                    }
-                }]
-            });
-
-            // Lấy ngày tháng năm hiện tại từ Blade
-            const currentYear = {{ $yy }};
-            const currentMonth = {{ $mm }}; // Tháng từ PHP (1-12)
-            const currentDay = {{ $dd }};
-
-            // Tạo đối tượng Date trong JavaScript
-            // Lưu ý: Tháng trong JS là 0-11, nên phải trừ đi 1
-            const currentDate = new Date(currentYear, currentMonth - 1, currentDay);
-
-            // Lấy TẤT CẢ các element nút bấm prev
-            const prevBtns = document.querySelectorAll('.prev-day-btn');
-            // Lấy TẤT CẢ các element nút bấm next
-            const nextBtns = document.querySelectorAll('.next-day-btn');
-
-            // --- Xử lý các nút "Ngày trước" ---
-            if (prevBtns.length > 0) {
-                const prevDate = new Date(currentDate);
-                prevDate.setDate(currentDate.getDate() - 1);
-
-                const prevYear = prevDate.getFullYear();
-                const prevMonth = prevDate.getMonth() + 1;
-                const prevDay = prevDate.getDate();
-
-                const newPrevUrl = `/lich-nam-${prevYear}/thang-${prevMonth}/ngay-${prevDay}`;
-
-                // Lặp qua TẤT CẢ các nút "prev" và gán URL mới
-                prevBtns.forEach(btn => {
-                    btn.href = newPrevUrl;
-                });
-            }
-
-            // --- Xử lý các nút "Ngày sau" ---
-            if (nextBtns.length > 0) {
-                const nextDate = new Date(currentDate);
-                nextDate.setDate(currentDate.getDate() + 1);
-
-                const nextYear = nextDate.getFullYear();
-                const nextMonth = nextDate.getMonth() + 1;
-                const nextDay = nextDate.getDate();
-
-                const newNextUrl = `/lich-nam-${nextYear}/thang-${nextMonth}/ngay-${nextDay}`;
-
-                // Lặp qua TẤT CẢ các nút "next" và gán URL mới
-                nextBtns.forEach(btn => {
-                    btn.href = newNextUrl;
-                });
-            }
+            homepageApp.init();
         });
+
         $('#month-year-picker').daterangepicker({
             singleDatePicker: true,
             showDropdowns: true,
@@ -728,61 +723,9 @@
             const year = start.format('YYYY');
             const month = start.format('M');
             const day = start.format('D');
-            const url = `{{ route('lich.nam.ngay', ['nam' => ':nam', 'thang' => ':thang', 'ngay' => ':ngay']) }}`
+            const url = `{{ route('detai_home', ['nam' => ':nam', 'thang' => ':thang', 'ngay' => ':ngay']) }}`
                 .replace(':nam', year).replace(':thang', month).replace(':ngay', day);
             window.location.href = url;
-        });
-    </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const monthSelect = document.getElementById('month-select');
-            const yearSelect = document.getElementById('year-select');
-            const calendarBodyContainer = document.getElementById('calendar-body-container');
-            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
-            function debounce(func, delay) {
-                let timeout;
-                return function(...args) {
-                    const context = this;
-                    clearTimeout(timeout);
-                    timeout = setTimeout(() => func.apply(context, args), delay);
-                };
-            }
-
-            function updateCalendar() {
-                const month = monthSelect.value;
-                const year = yearSelect.value;
-
-                // Cập nhật thẻ h5 với tháng và năm mới
-                const h5Element = document.querySelector('.calendar-header-convert h5');
-                if (h5Element) {
-                    h5Element.textContent = ` Lịch vạn niên ${year} - tháng ${month}`;
-                }
-
-                fetch('{{ route('lich.thang.ajax') }}', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': csrfToken
-                        },
-                        body: JSON.stringify({
-                            nam: year,
-                            thang: month
-                        })
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.table_html) {
-                            calendarBodyContainer.querySelector('tbody').innerHTML = data.table_html;
-                        }
-                    })
-                    .catch(error => console.error('Error fetching calendar data:', error));
-            }
-
-            const debouncedUpdateCalendar = debounce(updateCalendar, 300);
-
-            monthSelect.addEventListener('change', debouncedUpdateCalendar);
-            yearSelect.addEventListener('change', debouncedUpdateCalendar);
         });
     </script>
 @endpush

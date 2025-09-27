@@ -33,4 +33,52 @@ class LunarConvertController extends Controller
             return response()->json(['error' => 'Lỗi chuyển đổi âm -> dương'], 400);
         }
     }
+
+    public function convertLunarToSolar(Request $request)
+    {
+        try {
+            $lunarDay = $request->input('lunarDay');
+            $lunarMonth = $request->input('lunarMonth');
+            $lunarYear = $request->input('lunarYear');
+
+            // Convert lunar to solar using LunarHelper
+            $solarDate = LunarHelper::convertLunar2Solar($lunarDay, $lunarMonth, $lunarYear, 0); // 0 = không nhuận
+
+            return response()->json([
+                'success' => true,
+                'solarDay' => $solarDate[0],
+                'solarMonth' => $solarDate[1],
+                'solarYear' => $solarDate[2]
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'error' => 'Lỗi chuyển đổi âm lịch sang dương lịch'
+            ], 400);
+        }
+    }
+
+    public function convertSolarToLunar(Request $request)
+    {
+        try {
+            $solarDay = $request->input('solarDay');
+            $solarMonth = $request->input('solarMonth');
+            $solarYear = $request->input('solarYear');
+
+            // Convert solar to lunar using LunarHelper
+            $lunarDate = LunarHelper::convertSolar2Lunar($solarDay, $solarMonth, $solarYear);
+
+            return response()->json([
+                'success' => true,
+                'lunarDay' => $lunarDate[0],
+                'lunarMonth' => $lunarDate[1],
+                'lunarYear' => $lunarDate[2]
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'error' => 'Lỗi chuyển đổi dương lịch sang âm lịch'
+            ], 400);
+        }
+    }
 }

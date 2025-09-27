@@ -182,14 +182,14 @@
 
 
 
-                                <div class="mt-lg-4 mt-2">
+                                <div class="mt-lg-4 mt-2 text-box-tong-quan">
                                     <p>✦ Ngày Dương Lịch: <span
                                             class="sonar-date">{{ $dd }}/{{ $mm }}/{{ $yy }}</span>
                                     </p>
                                     <p>✦ Ngày Âm Lịch: <span
                                             class="lunar-date ">{{ $al[0] }}/{{ $al[1] }}/{{ $al[2] }}</span>
                                     </p>
-                                    <p>✦ Ngày trong tuần: {{ $weekday }}</p>
+                                    <p>✦ Là ngày: {{ $weekday }}</p>
                                     <p>✦ Ngũ hành nạp âm: {{ $getThongTinNgay['nap_am']['napAm'] }}</p>
                                     <p>✦ Tiết khí: {{ $tietkhi['tiet_khi'] }}</p>
                                     <p>✦ Giờ hoàng đạo: {{ $getThongTinNgay['gio_hoang_dao'] }}</p>
@@ -232,7 +232,7 @@
                                     @endfor
                                 </select>
                             </div>
-                            {{-- <a href="{{ route('lich.nam.ngay', ['nam' => date('Y'), 'thang' => date('n'), 'ngay' => date('d')]) }}"
+                            {{-- <a href="{{ route('detai_home', ['nam' => date('Y'), 'thang' => date('n'), 'ngay' => date('d')]) }}"
                         class="btn-today-home-pc btn-today-home">
                         <i class="bi bi-calendar-plus pe-1-pc-home"></i> Hôm nay
                     </a> --}}
@@ -390,7 +390,7 @@
                                     ];
                                 @endphp
                                 <li class="list-group-item event-item">
-                                    <a href="{{ route('lich.nam.ngay', $routeParams) }}">
+                                    <a href="{{ route('detai_home', $routeParams) }}">
                                         <div class="event-date">Ngày
                                             {{ Carbon\Carbon::parse($event['date'])->format('d/m') }}</div>
                                         <div class="event-icon">🗓️</div>
@@ -420,63 +420,6 @@
     </div>
 @endsection
 
-@push('styles')
-    <style>
-        .swap-btn-floating {
-            position: absolute;
-            top: 33px;
-            left: 50%;
-            transform: translateX(-50%) !important;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10;
-            background-color: #2254AB !important;
-            border: 1px solid white !important;
-            transition: all 0.3s ease-in-out;
-            font-size: 18px;
-        }
-
-        .swap-btn-floating img {
-            transition: transform 0.3s ease-in-out;
-            width: 24px;
-            height: 24px;
-        }
-
-        .swap-btn-floating:hover {
-            transform: translateX(-50%) scale(1.1);
-            box-shadow: 0 6px 20px rgba(34, 84, 171, 0.4);
-            background-color: #1e4a96 !important;
-        }
-
-        .swap-btn-floating:active {
-            transform: translateX(-50%) scale(0.95);
-        }
-
-        /* Loại bỏ transition cho container để input đứng yên */
-
-        /* Đảm bảo có khoảng cách giữa 2 input để icon có chỗ */
-
-
-        @media (max-width: 991px) {
-            .swap-btn-floating {
-                position: relative;
-                top: auto;
-                left: auto;
-                transform: none;
-                margin: 15px auto;
-                display: block;
-                transform: unset !important
-            }
-
-            .row.position-relative {
-                align-items: stretch;
-            }
-        }
-    </style>
-@endpush
 
 @push('scripts')
     <script>

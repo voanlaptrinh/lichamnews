@@ -1224,7 +1224,7 @@ static function convertSolar2Lunar($dd, $mm, $yy, $timeZone = 7.0)
             return (int)$monthA - (int)$monthB;
         });
 
-        $html = '<div class="row g-lg-3 g-2 row-btn-date">';
+        $html = '<div class="row">';
         foreach ($allEvents as $date => $title) {
             $html .= "
            <div class='col-12'> <div class='btn custom-pill-btn-date w-100 text-start'>
@@ -1252,7 +1252,7 @@ static function convertSolar2Lunar($dd, $mm, $yy, $timeZone = 7.0)
             return (int)$monthA - (int)$monthB;
         });
 
-        $html = '<div class="row g-lg-3 g-2 row-btn-date">';
+        $html = '<div class="row">';
         foreach ($events as $md => $title) {
             list($mm, $dd) = explode('-', $md);
             $dateDisplay = $dd . '/' . $mm; // in ra dd/mm âm lịch
@@ -1347,16 +1347,19 @@ static function convertSolar2Lunar($dd, $mm, $yy, $timeZone = 7.0)
             '15-2'  => ['ten_su_kien' => 'Rằm tháng Hai', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày cúng tổ tiên và thần linh.'],
 
             // THÁNG BA (Tháng 3)
+            '1-3'   => ['ten_su_kien' => 'Mồng 1 tháng Ba', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Đầu tháng ba âm lịch, ngày cúng tổ tiên.'],
             '3-3'   => ['ten_su_kien' => 'Tết Hàn Thực', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Người Việt thường làm bánh trôi, bánh chay để dâng lên tổ tiên.'],
             '10-3'  => ['ten_su_kien' => 'Giỗ Tổ Hùng Vương', 'loai_su_kien' => 'le_lon', 'mo_ta' => 'Tưởng nhớ công lao dựng nước của các Vua Hùng. Là ngày nghỉ lễ toàn quốc.'],
             '15-3'  => ['ten_su_kien' => 'Rằm tháng Ba', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày cúng Quan Âm Bồ Tát.'],
             '23-3'  => ['ten_su_kien' => 'Lễ Thanh Minh', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày tảo mộ, dọn dẹp mồ mả tổ tiên.'],
 
             // THÁNG TƯ (Tháng 4)
+            '1-4'   => ['ten_su_kien' => 'Mồng 1 tháng Tư', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Đầu tháng tư âm lịch, ngày cúng tổ tiên.'],
             '8-4'   => ['ten_su_kien' => 'Lễ Phật Đản (Phật Thích Ca)', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày sinh của Đức Phật Thích Ca (theo một số địa phương).'],
             '15-4'  => ['ten_su_kien' => 'Lễ Phật Đản', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Kỷ niệm ngày sinh của Đức Phật Thích Ca Mâu Ni.'],
 
             // THÁNG NĂM (Tháng 5)
+            '1-5'   => ['ten_su_kien' => 'Mồng 1 tháng Năm', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Đầu tháng năm âm lịch, ngày cúng tổ tiên.'],
             '5-5'   => ['ten_su_kien' => 'Tết Đoan Ngọ', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Còn gọi là Tết diệt sâu bọ, diễn ra vào giữa năm.'],
             '13-5'  => ['ten_su_kien' => 'Lễ Đức Ông', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày lễ thần Nông, thần của nông nghiệp.'],
             '15-5'  => ['ten_su_kien' => 'Rằm tháng Năm', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày cúng Phật và tổ tiên.'],
@@ -1366,15 +1369,17 @@ static function convertSolar2Lunar($dd, $mm, $yy, $timeZone = 7.0)
             '15-6'  => ['ten_su_kien' => 'Rằm tháng Sáu', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày cúng Quan Âm và tổ tiên.'],
 
             // THÁNG BẢY (Tháng 7)
-            '1-7'   => ['ten_su_kien' => 'Lễ Đại Thệ', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày lễ cúng tế linh thiêng.'],
+            '1-7'   => ['ten_su_kien' => 'Mồng 1 tháng Bảy', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Đầu tháng bảy âm lịch - Tháng cô hồn, ngày cúng tổ tiên.'],
             '7-7'   => ['ten_su_kien' => 'Lễ Thất Tịch', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày Ngưu Lang Chức Nữ gặp nhau, lễ tình yêu của người Việt.'],
             '15-7'  => ['ten_su_kien' => 'Lễ Vu Lan', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày lễ báo hiếu cha mẹ, một trong những ngày lễ chính của Phật giáo.'],
             '30-7'  => ['ten_su_kien' => 'Ngày Địa Tạng', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày cúng Địa Tạng Bồ Tát.'],
 
             // THÁNG TÁM (Tháng 8)
+            '1-8'   => ['ten_su_kien' => 'Mồng 1 tháng Tám', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Đầu tháng tám âm lịch, ngày cúng tổ tiên.'],
             '15-8'  => ['ten_su_kien' => 'Tết Trung Thu', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Còn gọi là Tết trông Trăng hay Tết Đoàn viên, dành cho thiếu nhi.'],
 
             // THÁNG CHÍN (Tháng 9)
+            '1-9'   => ['ten_su_kien' => 'Mồng 1 tháng Chín', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Đầu tháng chín âm lịch, ngày cúng tổ tiên.'],
             '9-9'   => ['ten_su_kien' => 'Tết Trùng Cửu', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày lễ trùng dương, cúng tổ tiên và cầu sức khỏe.'],
             '15-9'  => ['ten_su_kien' => 'Rằm tháng Chín', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày cúng Quan Âm và tổ tiên.'],
 
@@ -1384,9 +1389,11 @@ static function convertSolar2Lunar($dd, $mm, $yy, $timeZone = 7.0)
             '15-10' => ['ten_su_kien' => 'Tết Hạ Nguyên', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày lễ Thủy Quan Đại Đế, cầu xin giải ách.'],
 
             // THÁNG MƯỜI MỘT (Tháng 11)
+            '1-11'  => ['ten_su_kien' => 'Mồng 1 tháng Mười một', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Đầu tháng mười một âm lịch, ngày cúng tổ tiên.'],
             '15-11' => ['ten_su_kien' => 'Rằm tháng Mười một', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày cúng tổ tiên và Phật.'],
 
             // THÁNG CHẠP (Tháng 12)
+            '1-12'  => ['ten_su_kien' => 'Mồng 1 tháng Chạp', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Đầu tháng chạp âm lịch, bắt đầu chuẩn bị Tết.'],
             '8-12'  => ['ten_su_kien' => 'Lễ Phật Thành Đạo', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày Đức Phật thành đạo dưới cây Bồ Đề.'],
             '15-12' => ['ten_su_kien' => 'Rằm tháng Chạp', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Rằm cuối năm, cúng tổ tiên.'],
             '23-12' => ['ten_su_kien' => 'Ông Công, Ông Táo', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày các vị thần Bếp lên chầu trời để báo cáo mọi việc trong năm.'],

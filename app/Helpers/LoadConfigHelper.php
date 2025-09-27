@@ -399,11 +399,8 @@ class LoadConfigHelper
         2 => array(
             '03/02/1930 : Thành lập Đảng cộng sản Việt Nam',
             '08/02/1941 : Lãnh tụ Hồ Chí Minh trở về nước trực tiếp lãnh đạo cách mạng Việt Nam',
-            '27/02/1955 : Ngày Thầy thuốc Việt Nam',
-            '14/02 : Ngày lễ tình yêu',
         ),
         3 => array(
-            '08/03/1910 : Ngày Quốc tế Phụ nữ',
             '11/03/1945 : Khởi nghĩa Ba Tơ',
             '18/03/1979 : Chiến thắng quân Trung Quốc xâm lược trên biên giới phía Bắc',
             '26/03/1931 : Ngày thành lập Đoàn TNCS Hồ Chí Minh',
@@ -413,25 +410,17 @@ class LoadConfigHelper
             '30/4/1975: Giải phóng Miền Nam, thống nhất tổ quốc',
         ),
         5 => array(
-            '01/05/1886: Ngày quốc tế lao động',
             '07/05/1954: Chiến thắng Điện Biên Phủ',
-            '09/05/1945: Chiến thắng chủ nghĩa Phát xít',
-            '13/05 : Ngày của Mẹ',
             '15/05/1941: Thành lập Đội TNTP Hồ Chí Minh',
             '19/05/1890: Ngày sinh Chủ tịch Hồ Chí Minh',
             '19/05/1941: Thành lập mặt trận Việt Minh',
         ),
         6 => array(
-            '01/06: Quốc tế Thiếu Nhi',
             '05/06/1911: Nguyễn Tất Thành rời cảng Nhà Rồng ra đi tìm đường cứu nước',
-            '17/06 : Ngày của Bố',
-            '21/06/1925: Ngày báo chí Việt Nam',
-            '28/06/2011: Ngày gia đình Việt Nam',
         ),
         7 => array(
             '02/07/1976: Nước ta đổi quốc hiệu từ Việt Nam dân chủ cộng hòa thành Cộng hòa XHCN Việt Nam',
             '17/07/1966: Hồ chủ tịch ra lời kêu gọi “Không có gì quý hơn độc lập, tự do”',
-            '27/07: Ngày thương binh, liệt sĩ',
             '28/07: Thành lập công đoàn Việt Nam(1929)/Ngày Việt Nam gia nhập Asean(1995)',
         ),
         8 => array(
@@ -448,20 +437,16 @@ class LoadConfigHelper
             '27/09/1940: Khởi nghĩa Bắc Sơn',
         ),
         10 => array(
-            '01/10/1991: Ngày Quốc tế Người cao tuổi',
             '10/10/1954: Giải phóng Thủ đô',
             '14/10/1930: Ngày hội Nông dân Việt Nam',
             '15/10/1956: Ngày truyền thống Hội thanh niên Việt Nam',
             '20/10/1930: Thành lập Hội liên hiệp phụ nữ Việt Nam',
-
         ),
         11 => array(
-            '20/11: Ngày nhà giáo Việt Nam',
             '23/11/1940: Khởi nghĩa Nam Kỳ',
             '23/11/1946: Thành lập Hội chữ thập đỏ Việt Nam',
         ),
         12 => array(
-            '01/12 : Ngày thế giới phòng chống AIDS',
             '19/12/1946: Toàn quốc kháng chiến',
             '22/12/1944: Thành lập quân đội nhân dân Việt Nam',
         ),

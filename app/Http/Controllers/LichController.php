@@ -15,13 +15,25 @@ class LichController extends Controller
     private function generateNamContent($nam, $can_chi_nam, $titleName)
     {
         try {
-            // Lấy thông tin ngày đầu năm âm lịch (Tết)
-            $ngay_tet = LunarHelper::convertSolar2Lunar(1, 1, $nam);
-            $ngay_tet_formatted = sprintf("%02d/%02d/%d", $ngay_tet[0], $ngay_tet[1], $ngay_tet[2]);
+            // Tính năm âm lịch tương ứng với năm dương lịch
+            $lunar_year = $nam;
 
-            // Lấy thông tin ngày cuối năm âm lịch
-            $ngay_cuoi_nam_am = LunarHelper::convertSolar2Lunar(29, 12, $nam); // Dùng 29 thay vì 30
-            $ngay_cuoi_nam_am_formatted = sprintf("%02d/%02d/%d", $ngay_cuoi_nam_am[0], $ngay_cuoi_nam_am[1], $ngay_cuoi_nam_am[2]);
+            // Lấy thông tin ngày đầu năm âm lịch (Tết) = ngày 1/1 âm lịch chuyển sang dương lịch
+            $ngay_tet_solar = LunarHelper::convertLunar2Solar(1, 1, $lunar_year, 0);
+            $ngay_tet_formatted = sprintf("%02d/%02d/%d", $ngay_tet_solar[0], $ngay_tet_solar[1], $ngay_tet_solar[2]);
+
+            $dateYeartetamtuduong_dau = LunarHelper::convertSolar2Lunar(1, 1, $nam);
+            $dateYeartetamtuduong_dau_format = sprintf("%02d/%02d/%d", $dateYeartetamtuduong_dau[0], $dateYeartetamtuduong_dau[1], $dateYeartetamtuduong_dau[2]);
+    $dateYeartetamtuduong_cuoi = LunarHelper::convertSolar2Lunar(31, 12, $nam);
+            $dateYeartetamtuduong_cuoi_format = sprintf("%02d/%02d/%d", $dateYeartetamtuduong_cuoi[0], $dateYeartetamtuduong_cuoi[1], $dateYeartetamtuduong_cuoi[2]);
+            // dd($dateYeartetamtuduong_dau);
+            // Lấy thông tin ngày cuối năm âm lịch (ngày 29 hoặc 30 tháng 12 âm lịch)
+            // Thử ngày 30 trước, nếu không có thì dùng 29
+            $ngay_cuoi_nam_am_solar = LunarHelper::convertLunar2Solar(30, 12, $lunar_year, 0);
+            if ($ngay_cuoi_nam_am_solar[0] == 0) {
+                $ngay_cuoi_nam_am_solar = LunarHelper::convertLunar2Solar(29, 12, $lunar_year, 0);
+            }
+            $ngay_cuoi_nam_am_formatted = sprintf("%02d/%02d/%d", $ngay_cuoi_nam_am_solar[0], $ngay_cuoi_nam_am_solar[1], $ngay_cuoi_nam_am_solar[2]);
 
             // Lấy tên con giáp và mô tả
             $chi_parts = explode(' ', $can_chi_nam);
@@ -50,11 +62,11 @@ class LichController extends Controller
             $chi_name = "Tý";
             $con_giap = "Chuột";
         }
-
+        // {{-- <h3 class='title-tong-quan-h3-log'>Lịch Vạn Niên Năm {$nam} – {$can_chi_nam}</h3> --}}
         $content = "
         <div class='nam-content-auto text-box-tong-quan '>
-            <h3 class='title-tong-quan-h3-log'>Lịch Vạn Niên Năm {$nam} – {$can_chi_nam}</h3>
-            <p>Lịch vạn niên {$nam} tương ứng với tuổi {$chi_name} (con {$con_giap}) trong hệ thống Âm lịch, mang Can Chi {$can_chi_nam}. Năm {$nam} bắt đầu từ ngày 01/01/{$nam} và kết thúc vào ngày 31/12/{$nam} theo Dương lịch; đồng thời theo Âm lịch, năm {$can_chi_nam} kéo dài từ {$ngay_tet_formatted} đến {$ngay_cuoi_nam_am_formatted}.</p>
+            <h2 class='title-tong-quan-h2-log'>Lịch vạn niên năm {$nam} - {$can_chi_nam}</h2>
+            <p>Lịch vạn niên {$nam} tương ứng với tuổi {$chi_name} (con {$con_giap}) trong hệ thống Âm lịch, mang Can Chi {$can_chi_nam}. Năm dương lịch {$nam} bắt đầu từ ngày 01/01/{$nam} và kết thúc vào ngày 31/12/{$nam} (tức là từ ngày {$dateYeartetamtuduong_dau_format} đến ngày {$dateYeartetamtuduong_cuoi_format} Âm lịch). Theo Âm lịch, năm {$can_chi_nam} kéo dài từ ngày {$ngay_tet_formatted} đến {$ngay_cuoi_nam_am_formatted} (Dương lịch).</p>
             <p>{$titleName}</p>
             <p>Khi tra cứu lịch năm {$nam} tại Phong Lịch, bạn sẽ có đầy đủ thông tin:</p>
             <ul>
@@ -83,16 +95,16 @@ class LichController extends Controller
         $thang_info = [];
         $mo_ta_thang = [
             1 => "Tháng 1 dương lịch trùng với thời điểm cuối năm của âm lịch nên thường có nhiều hoạt động hội họp cuối năm, tất niên, chuẩn bị cho kỳ nghỉ tết Nguyên Đán " . $nam,
-            2 => "Lịch âm dương tháng 2 thường có kỳ nghỉ lễ tết Nguyên Đán và các hoạt động khai xuân, du xuân đầu năm. Hãy tham khảo cùng XEMLICHAM để có kế hoạch cho bản thân và gia đình nhé",
+            2 => "Lịch âm dương tháng 2 thường có kỳ nghỉ lễ tết Nguyên Đán và các hoạt động khai xuân, du xuân đầu năm. Hãy tham khảo cùng Phong Lịch để có kế hoạch cho bản thân và gia đình nhé",
             3 => "Tháng 3 trong Lịch âm " . $nam . " có nhiều lễ hội diễn ra trong cả nước, ngoài ra còn có một số ngày lễ quan trọng như Quốc tế Phụ nữ 8/3. Bạn hãy tham khảo để nắm bắt chính xác các mốc thời gian quan trọng của các sự kiện",
             4 => "Tháng 4 trong Lịch vạn niên " . $nam . " có thời tiết ấm áp, thường là thời điểm lý tưởng để khám phá các địa điểm du lịch trong nước, như các điểm du lịch biển, vùng núi, hoặc các di tích lịch sử. Ngoài ra tháng 4 cũng có nhiều ngày tốt để bạn có thể làm những việc đại sự trong đời. Bạn hãy xem chi tiết để chuẩn bị cho các hoạt động sắp diễn ra",
-            5 => "Lịch tháng 5 năm " . $nam . " cung cấp nhiều thông tin quan trọng về các sự kiện, ngày lễ sắp diễn ra. Hãy cùng XEMLICHAM khám phá và chuẩn bị cho các hoạt động sắp tới.",
+            5 => "Lịch tháng 5 năm " . $nam . " cung cấp nhiều thông tin quan trọng về các sự kiện, ngày lễ sắp diễn ra. Hãy cùng Phong Lịch khám phá và chuẩn bị cho các hoạt động sắp tới.",
             6 => "Tháng 6 năm " . $nam . " thường trùng với kỳ nghỉ hè nên đây là thời gian lý tưởng để đi du lịch, các hoạt động ngoại khóa như dã ngoại, cắm trại hoặc thăm các công viên, khu vực thiên nhiên. Hãy tham khảo lịch âm dương dưới đây để chuẩn bị cho các hoạt động của bạn và gia đình nhé",
             7 => "Tháng 7 thường là thời gian nắng nóng, hãy tận hưởng thời tiết bằng cách đi biển, bơi lội hoặc thực hiện các hoạt động ngoại khóa khác. Ngoài ra, bạn có thể chọn một số ngày tốt trong tháng 7 để thực hiện một số công việc lớn cho bản thân và gia đình trước khi tháng Ngâu đến",
             8 => "Tháng 8 năm " . $nam . " là khoảng thời gian phù hợp để bạn tham gia các hoạt động như du lịch tâm linh, làm từ thiện và các sự kiện công cộng khác. Hãy cùng tham tham khảo để nắm rõ lịch âm dương tháng 8 cho bản thân và gia đình",
             9 => "Tháng 9 thường là thời điểm mùa thu bắt đầu, nên bạn có thể tận hưởng không khí mát mẻ của mùa thu bằng cách đi dạo trong công viên hoặc thực hiện các hoạt động ngoại khóa. Ngoài ra, Tháng 9 cũng là thời điểm tốt để tham gia vào các hoạt động từ thiện và cộng đồng để giúp đỡ những người cần sự giúp đỡ. Xem ngay lịch vạn sự tháng 9 để nắm bắt các sự kiện sắp diễn ra",
             10 => "Tháng 10 thường là thời gian của mùa thu thường là thời điểm diễn ra nhiều sự kiện văn hóa và nghệ thuật như triển lãm nghệ thuật, hội chợ, hay các buổi biểu diễn. Đây cũng là thời điểm lý tưởng để tham gia vào các hoạt động thể thao như chạy bộ, đạp xe, hoặc các lớp thể dục để duy trì sức khỏe. Hãy xem lịch âm dương tháng 10 để sắp xếp các lịch trình cho gia đình và bản thân nhé",
-            11 => "Tháng 11 thường là thời gian mà không khí bắt đầu se lạnh, bạn có thể tận hưởng cảm giác này bằng cách đi dạo trong công viên hoặc thực hiện các hoạt động ngoại khóa khác. Ngoài ra, tháng 11 cũng là thời gian tuyệt vời để tổ chức các buổi gặp mặt gia đình và bạn bè, thưởng thức các bữa ăn ngon và chia sẻ những khoảnh khắc đáng nhớ với nhau. Nếu bạn đang băn khoăn về những sự kiện, ngày lễ sẽ diễn ra trong tháng 11 thì hãy cùng XEMLICHAM tham khảo và lên kế hoạch cho các sự kiện sắp tới",
+            11 => "Tháng 11 thường là thời gian mà không khí bắt đầu se lạnh, bạn có thể tận hưởng cảm giác này bằng cách đi dạo trong công viên hoặc thực hiện các hoạt động ngoại khóa khác. Ngoài ra, tháng 11 cũng là thời gian tuyệt vời để tổ chức các buổi gặp mặt gia đình và bạn bè, thưởng thức các bữa ăn ngon và chia sẻ những khoảnh khắc đáng nhớ với nhau. Nếu bạn đang băn khoăn về những sự kiện, ngày lễ sẽ diễn ra trong tháng 11 thì hãy cùng Phong Lịch tham khảo và lên kế hoạch cho các sự kiện sắp tới",
             12 => "Tháng 12 thường là thời gian chuẩn bị cho kỳ nghỉ cuối năm, bao gồm việc mua sắm quà tặng, lên kế hoạch cho các bữa tiệc và chuyến du lịch. Tháng 12 cũng là thời gian tuyệt vời để dọn dẹp và sắp xếp lại nhà cửa, chuẩn bị cho năm mới sắp tới. Nếu bạn đang có kế hoạch cho những công việc lớn trong tháng 12 thì hãy tham khảo lịch Lịch âm " . $nam . " để chuẩn bị tốt cho những sự kiện sắp tới nhé. "
         ];
 

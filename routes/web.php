@@ -33,6 +33,7 @@ use App\Http\Controllers\XuatHanhController;
 use Illuminate\Support\Facades\Route;
 
 Route::post('/ajax/lich-thang', [LichController::class, 'getLichThangAjax'])->name('lich.thang.ajax');
+Route::post('/ajax/date-data', [LunarController::class, 'getDateDataAjax'])->name('lunar.getDateDataAjax');
 
 
 /*
@@ -49,7 +50,8 @@ Route::post('/ajax/lich-thang', [LichController::class, 'getLichThangAjax'])->na
 
 
 Route::get('/', [LunarController::class, 'index'])->name('home');
-Route::get('/lich-nam-{nam}/thang-{thang}/ngay-{ngay}/chi-tiet', [LunarController::class, 'detail'])->name('detai_home');
+Route::get('/lich-nam-{nam}/thang-{thang}/ngay-{ngay}', [LunarController::class, 'detail'])->name('detai_home');
+Route::post('/lunar/detail/ajax', [LunarController::class, 'detailAjax'])->name('lunar.detail.ajax');
 Route::get('/lich-am-hom-nay', [LunarController::class, 'todaySimple'])->name('am-lich-hom-nay');
 Route::get('/lich-am-ngay-mai', [LunarController::class, 'tomorrowSimple'])->name('am-lich-ngay-mai');
 Route::post('/doi-lich', [LunarController::class, 'index'])->name('doi-lich');
@@ -58,7 +60,7 @@ Route::match(['get', 'post'], '/doi-ngay-am-duong', [LunarController::class, 'co
 
 Route::get('/lich-nam-{nam}', [LichController::class, 'nam'])->name('lich.nam');
 Route::get('/lich-nam-{nam}/thang-{thang}', [LichController::class, 'thang'])->name('lich.thang');
-Route::get('/lich-nam-{nam}/thang-{thang}/ngay-{ngay}', [LunarController::class, 'ngay'])->name('lich.nam.ngay');
+// Route::get('/lich-nam-{nam}/thang-{thang}/ngay-{ngay}', [LunarController::class, 'ngay'])->name('detai_home');
 
 Route::get('lien-he-voi-chung-toi', [FooterController::class, 'lienHe'])->name('lien-he-voi-chung-toi');
 Route::get('dieu-khoan-dich-vu', [FooterController::class, 'dieuKhoan'])->name('dieu-khoan');

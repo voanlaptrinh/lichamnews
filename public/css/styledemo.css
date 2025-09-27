@@ -1,4 +1,3 @@
-
 @font-face {
     font-family: "sf-compact-display-medium";
     src:
@@ -13,6 +12,11 @@
 
 html {
     height: 100%;
+}
+
+html,
+body {
+    overflow-x: hidden;
 }
 
 body {
@@ -993,11 +997,13 @@ a {
     padding: 0;
     list-style: none;
     display: flex;
-  
+
 }
-.main-navigation .main-navigation-list{
-      gap: 80px;
+
+.main-navigation .main-navigation-list {
+    gap: 80px;
 }
+
 .main-navigation a {
     text-decoration: none;
     color: #333;
@@ -1110,11 +1116,11 @@ body.menu-open {
     background-color: #192E52;
 
     /* Bo góc (ước tính từ Figma) */
-    border-radius: 8px;
+    border-radius: 10px;
 
     /* Hiệu ứng Inner Shadow từ Figma */
-    box-shadow: inset -1px -4px 2px 0 rgba(0, 0, 0, 0.24),
-        inset 1px 2px 4px 0 rgba(255, 255, 255, 0.5);
+    /* box-shadow: inset -1px -4px 2px 0 rgba(0, 0, 0, 0.24),
+        inset 1px 2px 4px 0 rgba(255, 255, 255, 0.5); */
 
     /* Thiết lập để căn giữa icon bên trong */
     display: flex;
@@ -1629,8 +1635,8 @@ body.menu-open {
     margin-top: 22px;
 }
 
-.calendar-header-convert{
-      display: flex;
+.calendar-header-convert {
+    display: flex;
     align-items: center;
     margin-bottom: 12px;
     position: relative;
@@ -2187,7 +2193,7 @@ body.menu-open {
 
 .btn-today-home,
 .btn-today-home-mob {
-   /* box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.15);
+    /* box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.15);
 
    
     -webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.15);
@@ -2237,7 +2243,7 @@ body.menu-open {
 }
 
 .event-item {
-    padding-bottom: 16px !important;
+    padding-bottom: 16px ;
     margin-bottom: 16px !important;
     border-bottom: 2px solid;
     /* bắt buộc hiện border */
@@ -2771,6 +2777,7 @@ body.menu-open {
     left: 30px;
     display: flex;
     gap: 19px;
+     z-index: 9;
 }
 
 .ring-item2-right {
@@ -2778,6 +2785,7 @@ body.menu-open {
     padding-top: 300px;
     right: 30px;
     display: flex;
+    z-index: 9;
     gap: 19px;
 }
 
@@ -3230,7 +3238,7 @@ body.menu-open {
     /* Cho phép co giãn 100% của phần tử cha (body) */
     height: auto;
     /* Cho phép chiều cao tự động theo nội dung */
-  
+
     /* Tỷ lệ khung hình của biểu đồ gốc (~760/400) */
     box-sizing: border-box;
     display: flex;
@@ -3380,8 +3388,10 @@ body.menu-open {
 }
 
 .active-date {
-    background: rgba(220, 238, 253, 1);
-    border: 1px solid rgba(34, 104, 211, 1);
+    /* background: rgba(220, 238, 253, 1);
+    border: 1px solid rgba(34, 104, 211, 1); */
+    color: #2254AB;
+    font-weight: 600;
 }
 
 .box-custom_yeloow {
@@ -3428,7 +3438,8 @@ body.menu-open {
 .dateuse2r[readonly] {
     background: white;
 }
-.viewing-day{
+
+.viewing-day {
     background: #FDFAE9;
 }
 
@@ -3971,6 +3982,7 @@ body.menu-open {
     margin-bottom: 30px;
     font-size: 18px;
 }
+
 .custom-pill-btn:focus {
     box-shadow: unset;
     outline: none;
@@ -3978,7 +3990,7 @@ body.menu-open {
 
 /* Calendar other month cells styling */
 .other-month {
-  
+
     color: #999 !important;
     background-color: #fafafa;
 }
@@ -3994,6 +4006,7 @@ body.menu-open {
 .other-month .can-chi {
     color: #ccc !important;
 }
+
 .other-month.tot,
 .other-month.xau {
     background-color: #fafafa !important;
@@ -4285,48 +4298,61 @@ input.daterangepicker-input:hover {
     background: #e3f2fd;
     color: #2196F3;
 }
-.other-month{
+
+.other-month {
     opacity: 0.8 !important;
 }
-.other-month .duong, .other-month .am, .other-month .can_chi_text{
+
+.other-month .duong,
+.other-month .am,
+.other-month .can_chi_text {
     color: #21212133;
 }
-.modal-body-fullDescriptionModal{
+
+.modal-body-fullDescriptionModal {
     position: relative;
     padding: 30px;
 }
+
 .modal-body-fullDescriptionModal img {
     position: absolute;
-   
+
 }
-.fulltop-left{
+
+.fulltop-left {
     top: 10px;
     left: 10px;
 }
-.fulltop-right{
+
+.fulltop-right {
     top: 10px;
     right: 10px;
 }
-.fullbottom-left{
+
+.fullbottom-left {
     bottom: 10px;
     left: 10px;
 }
-.fullbottom-right{
+
+.fullbottom-right {
     bottom: 10px;
     right: 10px;
 }
-.currenfortune-daydu{
+
+.currenfortune-daydu {
     text-align: center;
     color: #BF7F0F;
     font-weight: 900;
 }
-.currenfortune-trieu-tuong{
+
+.currenfortune-trieu-tuong {
     text-align: center;
     color: #192E52;
     font-weight: 700;
     font-size: 24px;
 }
-.currenfortune-tinh-chat{
+
+.currenfortune-tinh-chat {
     text-align: center;
     color: #616161;
     font-weight: 400;
@@ -4334,27 +4360,33 @@ input.daterangepicker-input:hover {
     padding-top: 30px;
     font-size: 22px;
 }
-.currenfortune-luan-giai{
+
+.currenfortune-luan-giai {
     text-align: center;
     color: #616161;
     font-weight: 400;
     font-size: 18px;
     font-size: 22px;
 }
-.modal-lg-box-fullDescription{
+
+.modal-lg-box-fullDescription {
     max-width: 620px;
 }
-.gap-20{
+
+.gap-20 {
     gap: 20px;
 }
-.title-tong-quan-h4{
+
+.title-tong-quan-h4 {
     font-weight: 600;
 }
-.title-tong-quan-h3{
+
+.title-tong-quan-h3 {
     font-weight: 500;
     color: #192E52;
 }
-.title-tong-quan-h2{
+
+.title-tong-quan-h2 {
     font-weight: 700;
     color: #192E52;
 }
@@ -4370,28 +4402,42 @@ input.daterangepicker-input:hover {
 .custom-select-style {
     /* Remove default browser styling */
     appearance: none;
-    -webkit-appearance: none; /* For Safari */
-    -moz-appearance: none; /* For Firefox */
+    -webkit-appearance: none;
+    /* For Safari */
+    -moz-appearance: none;
+    /* For Firefox */
 
     /* Basic styling for the box */
-    background-color: #ffffff; /* White background */
-    border: 0.5px solid #94A3B8; /* Light gray border, similar to Bootstrap's default input border */
-    border-radius: 12px; /* Rounded corners */
-    padding: 8px 12px; /* Top/bottom padding, left/right padding */
-    padding-right: 36px; /* Add extra padding on the right for the custom arrow */
+    background-color: #ffffff;
+    /* White background */
+    border: 0.5px solid #94A3B8;
+    /* Light gray border, similar to Bootstrap's default input border */
+    border-radius: 12px;
+    /* Rounded corners */
+    padding: 8px 12px;
+    /* Top/bottom padding, left/right padding */
+    padding-right: 36px;
+    /* Add extra padding on the right for the custom arrow */
 
     /* Font styling */
-    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; /* A clear sans-serif font */
-    font-size: 1rem; /* Base font size */
-    color: #001F50; /* Dark blue text color from the image */
-    font-weight: 600; /* Semi-bold text */
-    line-height: 1.5; /* Standard line height */
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    /* A clear sans-serif font */
+    font-size: 1rem;
+    /* Base font size */
+    color: #001F50;
+    /* Dark blue text color from the image */
+    font-weight: 600;
+    /* Semi-bold text */
+    line-height: 1.5;
+    /* Standard line height */
 
     /* Custom arrow using SVG as background image */
     background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2.5 4.5L6 8L9.5 4.5' stroke='%23002856' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
-    background-position: right 12px center; /* Position the arrow on the right, vertically centered */
-    background-size: 12px 12px; /* Size of the arrow */
+    background-position: right 12px center;
+    /* Position the arrow on the right, vertically centered */
+    background-size: 12px 12px;
+    /* Size of the arrow */
 
     /* Cursor style */
     cursor: pointer;
@@ -4404,8 +4450,10 @@ input.daterangepicker-input:hover {
 
 /* Style on focus */
 .custom-select-style:focus {
-    border-color: #80bdff; /* A standard blue border on focus, or you can use your custom blue */
-    box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25); /* Standard blue shadow on focus */
+    border-color: #80bdff;
+    /* A standard blue border on focus, or you can use your custom blue */
+    box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
+    /* Standard blue shadow on focus */
     /* If you want the focus style to match the dark blue theme more closely: */
     /* border-color: #002856; */
     /* box-shadow: 0 0 0 0.25rem rgba(0, 40, 86, 0.25); */
@@ -4413,21 +4461,25 @@ input.daterangepicker-input:hover {
 
 /* Optional: Set specific widths if needed to match the image precisely */
 #month-select {
-      bottom: auto !important;
-    width: 140px; /* Adjust as necessary */
+    bottom: auto !important;
+    width: 140px;
+    /* Adjust as necessary */
 }
 
 #year-select {
-      top: auto !important;
-    width: 140px; /* Adjust as necessary */
+    top: auto !important;
+    width: 140px;
+    /* Adjust as necessary */
 }
-.card-ket-lich{
+
+.card-ket-lich {
 
     background: #ffffff;
     border-radius: 36px;
     padding: 20px;
 
 }
+
 .sonar-date {
     color: #214987;
     font-weight: 700;
@@ -4440,6 +4492,7 @@ input.daterangepicker-input:hover {
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
 }
+
 .lunar-date {
     color: #BF7F0F;
     font-weight: 700;
@@ -4452,10 +4505,12 @@ input.daterangepicker-input:hover {
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
 }
-.bg-white-setting{
+
+.bg-white-setting {
     padding: 30px;
     background: #ffffff;
 }
+
 .ngay-hom-ngay {
     text-align: center;
     border: dashed 1px #2254AB;
@@ -4464,9 +4519,443 @@ input.daterangepicker-input:hover {
     font-weight: bold;
     background: #d7f5f3;
 }
-.box--bg-thang{
+
+.box--bg-thang {
     background: #ffffff;
     border: 1px solid #2149874D;
     border-radius: 24px;
     padding: 20px;
 }
+
+.calendar-wrapper-none {
+    border: unset;
+    box-shadow: unset;
+}
+
+/* Custom bullet points with star symbol */
+.bix-il {
+    list-style: none;
+    padding-left: 0;
+}
+
+.bix-il li {
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 8px;
+}
+
+.bix-il li:before {
+    content: "✦";
+    position: absolute;
+    left: 0;
+    color: #2254AB;
+    font-weight: bold;
+}
+
+/* ==== QUICK PICKER POPUP STYLES ==== */
+.btn-quick-picker {
+    background: #4CAF50;
+    border: none;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    border-radius: 8px;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-quick-picker:hover {
+    background: #45a049;
+    transform: translateY(-1px);
+}
+
+.quick-picker-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.quick-picker-overlay.show {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+/* Ngăn scroll body khi modal mở */
+body.modal-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}
+
+.quick-picker-modal {
+    background: white;
+    border-radius: 16px;
+    max-width: 550px;
+    width: 90%;
+    /* max-height: 90vh; */
+    /* overflow-y: auto; */
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+    from {
+        transform: scale(0.9) translateY(-20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+    }
+}
+
+.quick-picker-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    background: #f8f9fa;
+    border-radius: 16px 16px 0 0;
+    position: relative;
+}
+
+.quick-picker-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #2254AB;
+    margin: 0;
+}
+
+.quick-picker-nav {
+    display: flex;
+    gap: 8px;
+}
+
+.nav-btn {
+    background: #2254AB;
+    border: none;
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.nav-btn:hover {
+    background: #1a4082;
+    transform: scale(1.1);
+}
+
+.close-btn-popup {
+    z-index: 99999999999;
+    position: absolute;
+    background: #dc3545;
+    border: none;
+    color: white;
+    width: 32px;
+    height: 32px;
+    right: 0;
+    top: -15px;
+    right: -15px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.close-btn-popup:hover {
+    background: #c82333;
+    transform: scale(1.1);
+}
+
+.quick-picker-calendar {
+    padding: 5px;
+}
+
+.weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    /* margin-bottom: 8px; */
+}
+
+.weekday-popup {
+    text-align: center;
+    font-size: 12px;
+    font-weight: bold;
+    color: #666;
+    padding: 8px 4px;
+}
+
+.calendar-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+}
+
+.calendar-day {
+    aspect-ratio: 1.4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    cursor: pointer;
+    flex-direction: column;
+    /* chuyển thành hàng dọc */
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.calendar-day:not(.empty):hover {
+
+    transform: scale(1.05);
+}
+
+.calendar-day.current-day {
+    background: #2254AB;
+    color: white;
+    font-size: 15px;
+}
+
+.calendar-day.current-day .lunar-date-popup {
+    color: white !important;
+
+}
+
+.calendar-day span {
+    font-weight: 700;
+}
+
+.lunar-date-popup {
+    font-size: 10px;
+}
+
+
+.calendar-day.empty {
+    cursor: default;
+}
+
+.quick-picker-forms {
+    padding: 10px;
+    border-top: 1px solid #eee;
+}
+
+.form-section-popup {
+    margin-bottom: 5px;
+}
+
+.form-header-popup {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 0px;
+    font-weight: bold;
+    color: #2254AB;
+    font-size: 14px;
+}
+
+.form-row {
+    display: flex;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+.form-select-config {
+    font-size: 12px;
+}
+
+.form-select {
+    padding: 8px 12px;
+    border: 2px solid #e3e9ef;
+    border-radius: 8px;
+    font-size: 14px;
+    background: white;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+}
+
+.form-select:focus {
+    outline: none;
+    border-color: #2254AB;
+    box-shadow: 0 0 0 3px rgba(34, 84, 171, 0.1);
+}
+
+.quick-picker-footer {
+    padding: 5px;
+    border-top: 1px solid #eee;
+    background: #f8f9fa;
+    border-radius: 0 0 16px 16px;
+}
+
+.btn-view {
+    width: 100%;
+    background: #2254AB;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-view:hover {
+    background: #0056b3;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .quick-picker-modal {
+        width: 95%;
+        margin: 20px;
+    }
+
+    .quick-picker-header {
+        padding: 16px;
+    }
+
+    .quick-picker-title {
+        font-size: 16px;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+}
+
+.box-contnet-date .sun {
+    color: red;
+}
+
+.lunar-full-moon .am_table {
+    color: red;
+}
+
+#download-app {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    max-width: 250px;
+
+}
+
+
+
+a:not(.not-change-color):hover {
+    /* color: #66bb6a !important; */
+    text-decoration: none;
+}
+
+.max-w-\[32px\] {
+    max-width: 32px;
+}
+
+.leading-\[9px\] {
+    line-height: 9px;
+}
+
+.text-\[9px\] {
+    font-size: 9px;
+}
+
+.whitespace-nowrap {
+    white-space: nowrap
+}
+
+.block {
+    display: block;
+}
+
+.max-w-\[180px\] {
+    background-color: white;
+    outline: none;
+    cursor: pointer;
+    transition: color .3s;
+    border-radius: 10px;
+    height: 54px;
+}
+  .swap-btn-floating {
+            position: absolute;
+            top: 33px;
+            left: 50%;
+            transform: translateX(-50%) !important;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            background-color: #2254AB !important;
+            border: 1px solid white !important;
+            transition: all 0.3s ease-in-out;
+            font-size: 18px;
+        }
+
+        .swap-btn-floating img {
+            transition: transform 0.3s ease-in-out;
+            width: 24px;
+            height: 24px;
+        }
+
+        .swap-btn-floating:hover {
+            transform: translateX(-50%) scale(1.1);
+            box-shadow: 0 6px 20px rgba(34, 84, 171, 0.4);
+            background-color: #1e4a96 !important;
+        }
+
+        .swap-btn-floating:active {
+            transform: translateX(-50%) scale(0.95);
+        }
+
+        /* Loại bỏ transition cho container để input đứng yên */
+
+        /* Đảm bảo có khoảng cách giữa 2 input để icon có chỗ */
+
+
+        @media (max-width: 991px) {
+            .swap-btn-floating {
+                position: relative;
+                top: auto;
+                left: auto;
+                transform: none;
+                margin: 15px auto;
+                display: block;
+                transform: unset !important
+            }
+
+            .row.position-relative {
+                align-items: stretch;
+            }
+        }

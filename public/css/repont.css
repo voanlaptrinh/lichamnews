@@ -107,14 +107,25 @@
     .ngay-hom-ngay {
         font-size: 16px;
     }
-    .title-tong-quan-h4-log{
+
+    .title-tong-quan-h4-log {
+        font-size: 18px;
+    }
+
+    .title-tong-quan-h3-log {
         font-size: 20px;
     }
-    .title-tong-quan-h3-log{
+
+    .title-tong-quan-h2-log {
         font-size: 22px;
     }
-    .title-tong-quan-h3-log{
-        font-size: 24px;
+    .--posyon-ngay{
+        display: none;
+    }
+    .box-chi-so-ngaytot{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
     }
 }
 
@@ -270,14 +281,25 @@
     .ngay-hom-ngay {
         font-size: 16px;
     }
-    .title-tong-quan-h4-log{
+
+    .title-tong-quan-h4-log {
+        font-size: 18px;
+    }
+
+    .title-tong-quan-h3-log {
         font-size: 20px;
     }
-     .title-tong-quan-h3-log{
+
+    .title-tong-quan-h2-log {
         font-size: 22px;
     }
-     .title-tong-quan-h2-log{
-        font-size: 24px;
+    .--posyon-ngay{
+        display: none;
+    }
+    .box-chi-so-ngaytot{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
     }
 }
 
@@ -424,14 +446,25 @@
     .ngay-hom-ngay {
         font-size: 16px;
     }
-.title-tong-quan-h4-log{
+
+    .title-tong-quan-h4-log {
+        font-size: 18px;
+    }
+
+    .title-tong-quan-h3-log {
         font-size: 20px;
     }
-     .title-tong-quan-h3-log{
+
+    .title-tong-quan-h2-log {
         font-size: 22px;
     }
-     .title-tong-quan-h2-log{
-        font-size: 24px;
+     .--posyon-ngay{
+        display: none;
+    }
+    .box-chi-so-ngaytot{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
     }
 }
 
@@ -639,14 +672,25 @@
     .ngay-hom-ngay {
         font-size: 16px;
     }
-    .title-tong-quan-h4-log{
+
+    .title-tong-quan-h4-log {
         font-size: 20px;
     }
-     .title-tong-quan-h3-log{
-        font-size: 22px;
+
+    .title-tong-quan-h3-log {
+        font-size: 21px;
     }
-     .title-tong-quan-h2-log{
-        font-size: 24px;
+
+    .title-tong-quan-h2-log {
+        font-size: 23px;
+    }
+     .--posyon-ngay{
+        display: none;
+    }
+    .box-chi-so-ngaytot{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
     }
 }
 
@@ -857,14 +901,37 @@
     .ngay-hom-ngay {
         font-size: 15px;
     }
-    .title-tong-quan-h4-log{
+
+    .title-tong-quan-h4-log {
         font-size: 20px;
     }
-     .title-tong-quan-h3-log{
-        font-size: 22px;
+
+    .title-tong-quan-h3-log {
+        font-size: 20px;
     }
-     .title-tong-quan-h2-log{
-        font-size: 24px;
+
+    .title-tong-quan-h2-log {
+        font-size: 22.4px;
+    }
+
+    .sonar-date,
+    .lunar-date {
+        font-size: 18px;
+    }
+     .calendar-day {
+        aspect-ratio: 1;
+        border-radius: 5px;
+    }
+    .lunar-date-popup{
+        right: unset !important;
+    }
+     .--posyon-ngay{
+        display: none;
+    }
+    .box-chi-so-ngaytot{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
     }
 }
 
@@ -1098,14 +1165,38 @@
     .ngay-hom-ngay {
         font-size: 14px;
     }
-    .title-tong-quan-h4-log{
-        font-size:18px;
+
+    .title-tong-quan-h4-log {
+        font-size: 18px;
     }
-     .title-tong-quan-h3-log{
-        font-size: 20px;
+
+    .title-tong-quan-h3-log {
+        font-size: 16px;
     }
-     .title-tong-quan-h2-log{
-        font-size: 22px;
+
+    .title-tong-quan-h2-log {
+        font-size: 18px;
+    }
+
+    .sonar-date,
+    .lunar-date {
+        font-size: 18px;
+    }
+     .calendar-day {
+        aspect-ratio: 1;
+        border-radius: 5px;
+    }
+    .lunar-date-popup{
+        right: unset !important;
+    }
+    .bix-title-thangnam{
+        margin-top: 10px;
+    }
+    .box-chi-so-ngaytot{
+        display: flex;
+        justify-content: space-around;
+        flex-direction: column;
+        align-items: center;
     }
 }
 
@@ -1141,6 +1232,7 @@
     .calendar-wrapper {
         padding-left: 0;
         padding-right: 0;
+        border-radius: 10px;
     }
 
     .calendar-table td {
@@ -1162,8 +1254,8 @@
 
     .container-setup {
         width: 100%;
-        padding-left: 10px;
-        padding-right: 10px;
+        padding-left: 8px;
+        padding-right: 8px;
     }
 
     .text-lever-label-mobie {
@@ -1384,7 +1476,7 @@
     }
 
     .text-box-tong-quan {
-        font-size: 13px;
+        font-size: 15px;
     }
 
     .chart-container {
@@ -1463,14 +1555,43 @@
     .ngay-hom-ngay {
         font-size: 12px;
     }
-     .title-tong-quan-h4-log{
-        font-size:18px;
+
+    .title-tong-quan-h4-log {
+        font-size: 18px;
     }
-       .title-tong-quan-h3-log{
-        font-size: 20px;
+
+    .title-tong-quan-h3-log {
+        font-size: 16px;
     }
-     .title-tong-quan-h2-log{
-        font-size: 22px;
+
+    .title-tong-quan-h2-log {
+        font-size: 18px;
+    }
+
+    .sonar-date,
+    .lunar-date {
+        font-size: 14px;
+    }
+
+    .weekday-popup {
+        font-size: 10px;
+    }
+
+    .calendar-day {
+        aspect-ratio: 1;
+        border-radius: 5px;
+    }
+    .lunar-date-popup{
+        right: unset !important;
+    }
+      .bix-title-thangnam{
+        margin-top: 10px;
+    }
+    .box-chi-so-ngaytot{
+        display: flex;
+        justify-content: space-around;
+        flex-direction: column;
+        align-items: center;
     }
 }
 
@@ -1545,6 +1666,10 @@
     .daterangepicker .drp-selected {
         font-size: 13px;
         padding: 6px 10px;
+    }
+
+    .box--bg-thang {
+        padding: 12px;
     }
 
     /* Cung hoàng đạo */

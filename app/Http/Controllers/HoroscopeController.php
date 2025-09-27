@@ -103,7 +103,7 @@ class HoroscopeController extends Controller
             return response()->json(['error' => 'Cung hoặc loại không hợp lệ'], 400);
         }
 
-        $apiUrl = "https://cloudrun-v2.xemlicham.com/horoscopes/{$sign}?type={$type}";
+        $apiUrl = "https://cloudrun-v2.xemlicham.com/horoscopes/{$sign}/{$type}";
 
         try {
             $response = Http::timeout(10)->get($apiUrl);

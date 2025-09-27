@@ -69,7 +69,7 @@
                                 <i class="bi bi-chevron-right"></i>
                             </a>
 
-                            {{-- <a href="{{ route('lich.nam.ngay', ['nam' => date('Y'), 'thang' => date('n'), 'ngay' => date('d')]) }}"
+                            {{-- <a href="{{ route('detai_home', ['nam' => date('Y'), 'thang' => date('n'), 'ngay' => date('d')]) }}"
                         class="btn-today-home-pc btn-today-home">
                         <i class="bi bi-calendar-plus pe-1-pc-home"></i> Hôm nay
                     </a> --}}
@@ -144,7 +144,7 @@
             <div class="row g-lg-3 g-2 row-btn-date">
                 @foreach ($data_totxau['tot'] as $data_tot)
                     <div class="col-xl-2 col-lg-4 col-md-6 col-12"> <!--  để cột chỉ chiếm chiều rộng cần thiết -->
-                        <a href="{{ route('lich.nam.ngay', ['nam' => $data_tot['yy'], 'thang' => $data_tot['mm'], 'ngay' => $data_tot['dd']]) }}"
+                        <a href="{{ route('detai_home', ['nam' => $data_tot['yy'], 'thang' => $data_tot['mm'], 'ngay' => $data_tot['dd']]) }}"
                             class="btn custom-pill-btn-date  d-flex align-items-center justify-content-center">
                             <span> Ngày {{ $data_tot['dd'] }} Tháng {{ $data_tot['mm'] }} Năm
                                 {{ $data_tot['yy'] }}</span>
@@ -160,7 +160,7 @@
             <div class="row g-lg-3 g-2 row-btn-date">
                 @foreach ($data_totxau['xau'] as $data_xau)
                     <div class="col-xl-2 col-lg-4 col-md-6 col-12"> <!--  để cột chỉ chiếm chiều rộng cần thiết -->
-                        <a href="{{ route('lich.nam.ngay', ['nam' => $data_xau['yy'], 'thang' => $data_xau['mm'], 'ngay' => $data_xau['dd']]) }}"
+                        <a href="{{ route('detai_home', ['nam' => $data_xau['yy'], 'thang' => $data_xau['mm'], 'ngay' => $data_xau['dd']]) }}"
                             class="btn custom-pill-btn-date  d-flex align-items-center justify-content-center">
                             <span> Ngày {{ $data_xau['dd'] }} Tháng {{ $data_xau['mm'] }} Năm
                                 {{ $data_xau['yy'] }}</span>

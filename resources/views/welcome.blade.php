@@ -10,12 +10,11 @@
     <link href="{{ asset('/css/bootstrap.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('/css/airbnb.css') }}"> {{-- hoặc dark, material_red --}}
     <link rel="stylesheet" href="{{ asset('/css/bootstrap-icons.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('/css/styledemo.css?v=2.0') }}">
-    <link rel="stylesheet" href="{{ asset('/css/repont.css?v=2.0') }}">
+    <link rel="stylesheet" href="{{ asset('/css/styledemo.css?v=2.8') }}">
+    <link rel="stylesheet" href="{{ asset('/css/repont.css?v=2.8') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/daterangepicker.css') }}" />
     <!-- ĐẢM BẢO CÓ DÒNG NÀY ĐỂ CSRF TOKEN HOẠT ĐỘNG! -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('/meta/icon.png') }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('/meta/favicon-16x16.png') }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('/meta/favicon-32x32.png') }}">
@@ -65,7 +64,7 @@
     
     <!-- Đảm bảo file gieo-que.blade.php chứa các modal popup -->
     {{-- @include('gieo-que') --}}
-    <script src="{{ asset('/js/jquery-3.7.1.min.js') }}"></script>
+    <script src="{{ asset('/js/jquery-3.7.1.min.js?v') }}"></script>
     <script src="{{ asset('/js/moment.min.js') }}"></script>
     <script src="{{ asset('/js/daterangepicker.min.js') }}"></script>
 

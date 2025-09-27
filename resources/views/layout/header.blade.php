@@ -1,9 +1,9 @@
 <header class="site-header fbs__net-navbar">
     <div class="container-setup d-flex align-items-center justify-content-between">
         <div class="site-logo d-flex align-items-center">
-            <a href="{{route('home')}}" class="text-white">
+            <a href="{{ route('home') }}" class="text-white">
                 <img class="img-fluid me-2" src="{{ asset('/icons/logo_header.png') }}" alt="logo Phong lịch">
-              PHONG LỊCH
+                PHONG LỊCH
             </a>
         </div>
 
@@ -12,7 +12,7 @@
             <ul class="main-navigation-list">
 
                 <!-- Bắt đầu: HTML cho Dropdown -->
-                <li class="has-dropdown">
+                {{-- <li class="has-dropdown">
                     <a class="text-white"> Lịch ngày
 
                         <i class="bi bi-chevron-down"></i>
@@ -23,10 +23,9 @@
                         <li><a href="{{ route('am-lich-ngay-mai') }}">Lịch âm ngày mai</a></li>
 
                     </ul>
-                </li>
-                <li><a href="{{ route('convert.am.to.duong') }}">Đổi ngày</a></li>
+                </li> --}}
                 <li class="has-dropdown">
-                    <a class="text-white"> Lịch tháng & năm
+                    <a class="text-white"> Lịch & sự kiện
 
                         <i class="bi bi-chevron-down"></i>
                     </a>
@@ -72,8 +71,74 @@
                                 @endfor
                             </ul>
                         </li>
+                         <li class="has-submenu"> <!-- << Class mới -->
+                            <a class="text-white">
+                               Lịch ngày
+                                <i class="bi bi-chevron-right "></i> <!-- << Icon mũi tên phải -->
+                            </a>
+                            <!-- Menu cấp 2 (submenu) -->
+                            <ul class="submenu">
+                                 <li><a href="{{ route('am-lich-hom-nay') }}">Lịch âm hôm nay</a></li>
+                        <li><a href="{{ route('am-lich-ngay-mai') }}">Lịch âm ngày mai</a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </li>
+
+
+
+
+
+
+
+                <li><a href="{{ route('convert.am.to.duong') }}">Đổi ngày</a></li>
+                {{-- <li class="has-dropdown">
+                    <a class="text-white"> Lịch tháng & năm
+
+                        <i class="bi bi-chevron-down"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="has-submenu"> <!-- << Class mới để xác định mục có menu con -->
+                            <a class="text-white">
+                                Lịch Tháng
+                                <i class="bi bi-chevron-right "></i> <!-- << Icon mũi tên phải -->
+                            </a>
+                            <!-- Menu cấp 2 (submenu) -->
+                            <ul class="submenu">
+                                @php($currentYear = date('Y'))
+                                @for ($month = 1; $month <= 12; $month++)
+                                    <li>
+                                        <a href="{{ route('lich.thang', ['nam' => $currentYear, 'thang' => $month]) }}">Tháng
+                                            {{ $month }}</a>
+                                    </li>
+                                @endfor
+                             
+                             
+                            </ul>
+                        </li>
+
+                        <li class="has-submenu"> 
+                            <a class="text-white">
+                                Lịch Năm
+                                <i class="bi bi-chevron-right "></i> 
+                            </a>
+                            
+                            <ul class="submenu">
+                                @php($currentYearHeader = date('Y'))
+                                @php($startYearHeader = $currentYearHeader - 1)
+                                @php($endYearHeader = $currentYearHeader + 10)
+
+                                @for ($year = $startYearHeader; $year <= $endYearHeader; $year++)
+                                    <li>
+                                        <a href="{{ route('lich.nam', ['nam' => $year]) }}">
+                                            Lịch năm {{ $year }}
+                                        </a>
+                                    </li>
+                                @endfor
+                            </ul>
+                        </li>
+                    </ul>
+                </li> --}}
                 {{-- <li class="has-dropdown">
                     <a> Xem ngày tốt
 
@@ -111,7 +176,12 @@
 
         <!-- Icon Hamburger cho Mobile -->
         <div class="mobile-menu-toggle" id="mobile-menu-toggle">
-           <img src="{{asset('icons/menu-mobie-icon.svg')}}" alt="">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" class="bi bi-list"
+                viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                    d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
+            </svg>
+
         </div>
     </div>
 </header>
@@ -135,22 +205,7 @@
     <nav class="mobile-nav-main">
         <ul>
 
-            <!-- Bắt đầu: HTML cho Dropdown Mobile -->
-            <li class="has-dropdown">
-                <a class="text-white">
-                    Lịch ngày
-                    <i class="bi bi-chevron-down arrow-icon"></i>
-                </a>
-                <ul class="mobile-submenu">
-                    <li><a class="text-white" href="{{ route('am-lich-hom-nay') }}">Lịch âm hôm nay</a></li>
-                    <li><a class="text-white" href="{{ route('am-lich-ngay-mai') }}">Lịch âm ngày mai</a></li>
-
-                </ul>
-            </li>
-            <li>
-                <a href="{{ route('convert.am.to.duong') }}">Đổi ngày</a>
-            </li>
-            <li class="has-dropdown">
+               <li class="has-dropdown">
                 <a class="text-white">
                     Lịch tháng & năm
                     <i class="bi bi-chevron-down arrow-icon"></i>
@@ -159,7 +214,7 @@
                 <ul class="mobile-submenu">
                     <!-- Menu con "Lịch Tháng" -->
                     <li class="has-dropdown">
-                        <a  class="text-white">
+                        <a class="text-white">
                             Lịch Tháng
                             <i class="bi bi-chevron-down arrow-icon"></i>
                         </a>
@@ -194,10 +249,37 @@
                             @endfor
                         </ul>
                     </li>
+                     <li class="has-dropdown">
+                        <a class="text-white">
+                            Lịch ngày
+                            <i class="bi bi-chevron-down arrow-icon"></i>
+                        </a>
+                        <!-- Menu cấp 2 -->
+                        <ul class="mobile-submenu">
+                             <li><a class="text-white" href="{{ route('am-lich-hom-nay') }}">Lịch âm hôm nay</a></li>
+                    <li><a class="text-white" href="{{ route('am-lich-ngay-mai') }}">Lịch âm ngày mai</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </li>
+            <!-- Bắt đầu: HTML cho Dropdown Mobile -->
+            {{-- <li class="has-dropdown">
+                <a class="text-white">
+                    Lịch ngày
+                    <i class="bi bi-chevron-down arrow-icon"></i>
+                </a>
+                <ul class="mobile-submenu">
+                    <li><a class="text-white" href="{{ route('am-lich-hom-nay') }}">Lịch âm hôm nay</a></li>
+                    <li><a class="text-white" href="{{ route('am-lich-ngay-mai') }}">Lịch âm ngày mai</a></li>
+
+                </ul>
+            </li> --}}
+            <li>
+                <a href="{{ route('convert.am.to.duong') }}">Đổi ngày</a>
+            </li>
+         
             <li class="has-dropdown">
-                <a  class="text-white">
+                <a class="text-white">
                     Phong thuỷ & tử vi
                     <i class="bi bi-chevron-down arrow-icon"></i>
                 </a>
