@@ -85,20 +85,183 @@ class LoadConfigHelper
         'Quý Hợi' => 'Trong quan niệm phương Đông, tuổi Hợi tượng trưng cho những người hiền lành, chân thành và sống chan hòa. Vì thế, năm Quý Hợi thường được xem là gắn liền với các giá trị và ý nghĩa phong thủy đặc trưng.',
 
     );
-    static $mheaders = array(
-        1 => 'Tháng đầu tiên của năm, tháng mở đầu của mùa xuân. Loài hoa tượng trưng cho tháng 1 là hoa Cúc Trường Sinh. Ý nghĩa tháng 1 biểu tượng rằng bạn là người mạnh mẽ, có nghị lực vượt qua mọi khó khăn. Thời điểm của tháng 1 là bước giao mùa giữa mùa Đông và mùa Xuân. Tháng 1 là tháng in dấu với thời tiết mưa phùn, mưa xuân ẩm ướt kéo dãi đằng đẵng.',
-        2 => 'Tháng của những lễ hội, thế gian vui chơi, sự chuyển mình rõ rệt nhất của mùa xuân. Cây cối đâm chồi nảy lộc, người người vui vẻ chơi xuân. Thời tiết tháng 2 cũng dễ chịu nhất, không có cái nắng gay gắt của hè, cũng không có cái lạnh cắt da cắt thịt của mùa đông, trời bắt đầu có nắng và tiết trời chỉ se se lạnh. Loài hòa tượng trưng cho tháng 2 là hoa trinh nữ. Ý nghĩa của tháng 2 thể hiện con người mẫn cảm, bạn rất nhạy cảm trước những lời nói của người khác. Trong công việc bạn luôn tận tụy hết lòng hết sức.',
-        3 => 'Tháng kết thúc của mùa xuân, mọi người trở lại hăng say với công việc và cuộc sống hằng ngày. Với những bạn sinh vào tháng 3 thì loài hòa tượng trưng cho ý nghĩa của tháng 3 chính là hoa Bách Hợp. Thể hiến sự tinh tế, cũng như sức hấp dẫn kín đáo bí ẩn. Nhưng tính cách của người sinh vào tháng 3 cũng rất quyết liệt và khá độc đoán, quyết đoán.',
-        4 => 'Mang ý nghĩa giống như loài hoa Mộc Lan. Những người sinh tháng 4 thể hiện bạn là người tham vọng, luôn muốn thể hiện mình là người nổi bật, trong nhiều trường hợp bạn nên thể hiện sự khiêm tốn của mình. Ý nghĩa của tháng 4 là tháng đại diện cho những nguyện vọng lâu dài, những loài hoa tháng 4 thường gợi cảm giác ưu phiền, tựa nỗi buồn ngây thơ.',
-        5 => 'Được tượng trưng bởi loại hoa Lan Chuông một loại hoa cao quý. Hoa Lan Chuông thể hiện rằng bạn rất ngọt ngào và khá cầu toàn, tỉ mỉ. Ý nghĩa tháng 5 là cầu nối bước sang mùa hè, khi đất trời đã bắt đầu ngập tràn những ngày nắng. Đôi khi người sinh tháng 5 là kẻ cố chấp, nóng lòng hay đổi thay, rồi mọi chuyện cũng qua nhanh như những đêm ngắn ngủi của tháng 5.',
-        6 => '"Ai mang cho tháng 6 nỗi buồn Hoa Phượng, để mùa hè đến lòng ai chợt ngẩn ngơ", tháng 6 luôn có những cuộc chia tay lớn và đầy những trang lưu bút được viết lên trên những cuốn sổ ủ đầy cánh hoa. Người sinh tháng 6 trong lòng rất lãng mạn, giàu tình cảm và cả ưu phiền. Loài hoa tượng trưng cho tháng 6 là hoa tuy - lip, nhưng nhiều người cho rằng, tháng 6 là mùa của loài hoa phượng, nở đỏ rực sân trường. Tạo nên ý nghĩa của tháng 6 là mùa của chia tay và nước mắt, một tháng đong đầy với những kỷ niệm khó quên của biết bao người.',
-        7 => 'Loài hoa tượng trưng cho tháng 7 là hoa Phi Yến. Những bạn sinh vào tháng 7 thường là người hay mơ mộng, thích tượng tưởng, có khả năng suy xét vấn đề tốt. Bạn cách sống khá lạ mà nhiều người cho rằng lập dị. Ý nghĩa tháng 7 là điểm giữa của mùa hè, mặt trời lên cao và nắng chói chang trên mặt đất. Tháng 7 nước lên con lũ lớn, tháng 7 mưa rào không ngớt suốt ngày đêm. Bản tính người sinh tháng 7 cũng mạnh mẽ ngang tàn và cố chấp khi không ngăn kịp lúc.',
-        8 => 'Tháng của hoa hồng, chúa của các loài hoa. Vẻ đẹp của hoa hồng được tượng trưng cho tình yêu, cho sự mãnh liệt. Ý nghĩa của tháng 8 là khoảng chớm thu có những ngày nắng dịu mát mẻ rất tuyệt, tháng 8 mang đến miền Bắc hình hài của miền Nam. Tháng 8 cũng là tháng sinh ra những người đặc biệt.',
-        9 => 'Tháng mang ý nghĩa của hoa Cẩm Chướng. Thể hiện rằng bạn là con người bộc trực, hăng hái . Ý nghĩa của tháng 9 là tháng trở mình giữa mùa hạ và mua thu. Vẫn còn những ngày nắng gắt nhưng có chút man mát của mùa thu, của mùi hoa nở rộ. Tháng 9 ngập tràn những khám phá mới, những khởi đầu mới cho người ta nhiều cảm xúc.',
-        10 => 'Ý nghĩa tháng 10 cũng giống như ý nghĩa của loài hoa tượng trưng cho tháng đó, chính là hoa Hải Đường. Những người sinh tháng 10 thường có một tâm hồn tinh tế, nhưng cũng rất dũng cảm và gan dạ. Tính cách của người sinh tháng 10 luôn tươi trẻ và đầy nhiệt huyết. Tháng 10 là tháng để thêu dệt ước mơ, vun đắp dự định và thực hiện những cuộc cải cách lớn, tháng 10 không chỉ lãng mạn mà còn ẩn chứa vô vàn bí ẩn khiến người đối diện thu hút mãi không thể rời mắt.',
-        11 => 'Loài hoa tượng trưng cho ý nghĩa tháng 11 là hoa Lay Ơn. Những bạn sinh vào tháng 11 luôn có một vẻ bề ngoài hấp dấn người khác, bạn luôn bí ẩn và tinh tế, luôn thể hiện mình là người thông mình chịu khó. Tháng 11 cũng bắt đầu với cái rét đầu mùa, cái rét mong manh như tâm hồn luôn đi tìm 1 chỗ dựa. Mùa thu sẽ kết thúc trong tháng 11 với nhiều tiếc nuối ở lại để đón chào tháng 12 lạnh giá.',
-        12 => 'Hoa Thủy tiên là loài hoa tượng trưng cho ý nghĩa tháng 12, cho một tháng cuối năm nhẹ nhành mà thanh thoát. Những người sinh vào tháng 12 thường thân thiện cởi mở, họ thường gặp được nhưng điều may mắn trong cuộc sống. Ý nghĩa của tháng 12 còn là điểm giữa mùa đông, vào 1 ngày cuối tháng 12 lạnh giá và nhợt nhạt. Mọi vận động bị cái lạnh kìm hãm, có thứ chết đi và có thứ vẫn gắng gượng chống chọi.',
-    );
+    public static function generateMonthDescription($thang, $nam, $can_chi_nam)
+    {
+        $description = "";
+        $solarDateForFirstDay = LunarHelper::convertLunar2Solar(1, $thang, $nam, 0);
+        list($dd, $mm, $yy) = $solarDateForFirstDay;
+        list($lunarDay, $lunarMonth, $lunarYear, $lunarLeap, $isFullMonth) = LunarHelper::convertSolar2Lunar($dd, $mm, $yy);
+        $daysInMonth = ($isFullMonth == 'Đủ') ? 30 : 29;
+
+        $startDateSolar = Carbon::createFromDate($yy, $mm, $dd)->format('d/m/Y');
+
+        $solarDateForLastDay = LunarHelper::convertLunar2Solar($daysInMonth, $thang, $nam, 0);
+        list($end_dd, $end_mm, $end_yy) = $solarDateForLastDay;
+        $endDateSolar = Carbon::createFromDate($end_yy, $end_mm, $end_dd)->format('d/m/Y');
+        switch ($thang) {
+            case 1:
+                $description = "
+                <p>Lịch âm tháng 1 năm {$nam} (tức tháng Giêng năm {$can_chi_nam}) bắt đầu từ ngày {$startDateSolar} và kết thúc vào ngày {$endDateSolar} theo Dương lịch. Đây là tháng mở đầu cho một năm mới, đồng thời là thời điểm diễn ra nhiều ngày lễ quan trọng như Tết Nguyên Đán, Rằm tháng Giêng (Tết Nguyên Tiêu) cùng những phong tục văn hóa đặc sắc của người Việt.</p>
+               <p>Khi tra cứu lịch vạn niên tháng 1/{$nam} trên Phong Lịch, bạn sẽ có:</p>
+                <ul>
+                    <li> Bảng đối chiếu ngày Âm lịch – Dương lịch chi tiết.</li>
+                    <li> Thông tin ngày hoàng đạo, hắc đạo, tiết khí trong tháng.</li>
+                    <li>Gợi ý xem ngày tốt, giờ tốt để chọn thời điểm phù hợp cho cưới hỏi, xuất hành, khai trương.</li>
+                    <li>Danh sách các ngày lễ tết quan trọng trong tháng.</li>
+                </ul>
+                <p>Với lịch âm tháng 1 năm {$nam}, bạn dễ dàng nắm bắt các ngày quan trọng, vừa phục vụ sinh hoạt thường ngày, vừa hỗ trợ việc chọn ngày đẹp cho những dự định đầu năm.</p>
+               ";
+                break;
+            case 2:
+                $description = "
+                <p>Lịch âm tháng 2 năm {$nam} bắt đầu từ ngày {$startDateSolar} và kết thúc vào ngày {$endDateSolar} theo Dương lịch. Đây là tháng tiếp nối sau Tết Nguyên Đán, thường gắn liền với nhiều hoạt động lễ hội, cầu may và du xuân của người Việt.</p>
+                <p>Khi tra cứu lịch vạn niên tháng 2/{$nam} trên Phong Lịch, bạn sẽ có:</p>
+                 <ul>
+                    <li> Bảng đối chiếu ngày Âm lịch – Dương lịch chi tiết.</li>
+                    <li> Thông tin ngày hoàng đạo, hắc đạo, tiết khí trong tháng.</li>
+                    <li>Gợi ý xem ngày tốt, giờ tốt để chọn thời điểm phù hợp cho cưới hỏi, xuất hành, khai trương.</li>
+                    <li>Danh sách các ngày lễ tết quan trọng trong tháng.</li>
+                </ul>
+                <p>Với lịch âm tháng 2 năm {$nam}, bạn sẽ dễ dàng theo dõi ngày tháng, lựa chọn thời điểm thuận lợi cho công việc, sự kiện và những dự định đầu năm.</p>
+                ";
+                break;
+            case 3:
+                $description = "
+                <p>Lịch âm tháng 3 năm {$nam} bắt đầu từ ngày {$startDateSolar} và kết thúc vào ngày {$endDateSolar} theo Dương lịch. Tháng 3 âm lịch thường gắn liền với nhiều lễ hội truyền thống và phong tục tưởng nhớ tổ tiên, trong đó có ngày Giỗ Tổ Hùng Vương (mùng 10/3 âm lịch) – một trong những ngày lễ trọng đại của dân tộc Việt Nam.</p>
+                <p>Khi tra cứu lịch vạn niên tháng 3/{$nam} trên Phong Lịch, bạn sẽ có:</p>
+                <ul>
+                    <li>Lịch đối chiếu chi tiết giữa Âm lịch – Dương lịch cho từng ngày.</li>
+                    <li> Thông tin ngày hoàng đạo, hắc đạo, tiết khí trong tháng.</li>
+                    <li>Gợi ý xem ngày tốt, giờ tốt để chọn thời điểm phù hợp cho cưới hỏi, xuất hành, khai trương.</li>
+                    <li>Danh sách các ngày lễ tết quan trọng trong tháng.</li>
+                </ul>
+                <p>Với lịch âm tháng 3 năm {$nam}, bạn dễ dàng nắm bắt ngày tháng và lựa chọn thời điểm thích hợp cho cả sinh hoạt thường nhật lẫn những sự kiện quan trọng.</p>
+                ";
+                break;
+            case 4:
+                $description = "
+                <p>Lịch âm tháng 4 năm {$nam} bắt đầu từ ngày {$startDateSolar} và kết thúc vào ngày {$endDateSolar} theo Dương lịch. Tháng 4 âm lịch thường là thời điểm chuyển giao mùa, gắn liền với nhiều hoạt động sản xuất nông nghiệp, đồng thời cũng có các dịp lễ hội và sinh hoạt văn hóa dân gian của người Việt.</p>
+                <p>Khi tra cứu lịch vạn niên tháng 4/{$nam} trên Phong Lịch, bạn sẽ có:</p>
+                 <ul>
+                    <li>Lịch đối chiếu chi tiết giữa Âm lịch – Dương lịch cho từng ngày.</li>
+                    <li> Thông tin ngày hoàng đạo, hắc đạo, tiết khí trong tháng.</li>
+                    <li>Gợi ý xem ngày tốt, giờ tốt để chọn thời điểm phù hợp cho cưới hỏi, xuất hành, khai trương.</li>
+                    <li>Danh sách các ngày lễ tết quan trọng trong tháng.</li>
+                </ul>
+                <p>Với lịch âm tháng 4 năm {$nam}, bạn dễ dàng theo dõi ngày tháng, đồng thời lựa chọn được thời điểm đẹp, thuận lợi cho cuộc sống và công việc.</p>
+                ";
+                break;
+            case 5:
+                $description = "
+                <p>Lịch âm tháng 5 năm {$nam} bắt đầu từ ngày {$startDateSolar} và kết thúc vào ngày {$endDateSolar} theo Dương lịch. Đây là tháng giữa năm, gắn liền với ngày Tết Đoan Ngọ (mùng 5/5 âm lịch) – dịp lễ truyền thống quan trọng trong văn hóa Việt, mang ý nghĩa trừ tà, diệt sâu bọ và cầu mong sức khỏe, bình an cho gia đình.</p>
+                <p>Khi tra cứu lịch vạn niên tháng 5/{$nam} trên Phong Lịch, bạn sẽ có:</p>
+                  <ul>
+                    <li>Lịch đối chiếu chi tiết giữa Âm lịch – Dương lịch cho từng ngày.</li>
+                    <li> Thông tin ngày hoàng đạo, hắc đạo, tiết khí trong tháng.</li>
+                    <li>Gợi ý xem ngày tốt, giờ tốt để chọn thời điểm phù hợp cho cưới hỏi, xuất hành, khai trương.</li>
+                    <li>Danh sách các ngày lễ tết quan trọng trong tháng.</li>
+                </ul>
+                <p>Với lịch âm tháng 5 năm {$nam}, bạn sẽ dễ dàng nắm bắt ngày tháng quan trọng, đồng thời chọn được thời điểm cát lợi để triển khai những kế hoạch quan trọng trong cuộc sống.</p>
+                ";
+                break;
+            case 6:
+                $description = "
+                <p>Lịch âm tháng 6 năm {$nam} bắt đầu từ ngày {$startDateSolar} và kết thúc vào ngày {$endDateSolar} theo Dương lịch. Đây là giai đoạn giữa năm, thời tiết chuyển mùa, nhiều gia đình tổ chức nghi lễ cầu an, báo hiếu tổ tiên và tham gia các lễ hội mùa hè đặc sắc.</p>
+                <p>Khi tra cứu lịch vạn niên tháng 6/{$nam} trên Phong Lịch, bạn sẽ có:</p>
+                <ul>
+                    <li>Lịch đối chiếu chi tiết giữa Âm lịch – Dương lịch cho từng ngày.</li>
+                    <li> Thông tin ngày hoàng đạo, hắc đạo, tiết khí trong tháng.</li>
+                    <li>Gợi ý xem ngày tốt, giờ tốt để chọn thời điểm phù hợp cho cưới hỏi, xuất hành, khai trương.</li>
+                    <li>Danh sách các ngày lễ tết quan trọng trong tháng.</li>
+                </ul>
+                <p>Với lịch âm tháng 6 năm {$nam}, bạn sẽ dễ dàng tra cứu và lựa chọn thời điểm thuận lợi, giúp mọi kế hoạch trong tháng diễn ra suôn sẻ và may mắn.</p>
+                ";
+                break;
+            case 7:
+                $description = "
+                <p>Lịch âm tháng 7 năm {$nam} bắt đầu từ ngày {$startDateSolar} và kết thúc vào ngày {$endDateSolar} theo Dương lịch. Tháng 7 âm lịch thường gắn liền với ý nghĩa tâm linh sâu sắc, đặc biệt là Rằm tháng 7 – Lễ Vu Lan báo hiếu và lễ Xá tội vong nhân, được xem là dịp để tưởng nhớ tổ tiên, tri ân cha mẹ và cầu bình an cho gia đình.</p>
+                <p>Khi tra cứu lịch vạn niên tháng 7/{$nam} trên Phong Lịch, bạn sẽ có:</p>
+                <ul>
+                    <li>Lịch đối chiếu chi tiết giữa Âm lịch – Dương lịch cho từng ngày.</li>
+                    <li> Thông tin ngày hoàng đạo, hắc đạo, tiết khí trong tháng.</li>
+                    <li>Gợi ý xem ngày tốt, giờ tốt để chọn thời điểm phù hợp cho cưới hỏi, xuất hành, khai trương.</li>
+                    <li>Danh sách các ngày lễ tết quan trọng trong tháng.</li>
+                </ul>
+                <p>Với lịch âm tháng 7 năm {$nam}, bạn dễ dàng nắm bắt ngày tháng quan trọng, đồng thời lựa chọn thời điểm cát lợi để tiến hành những dự định quan trọng cho gia đình và công việc.</p>
+                ";
+                break;
+            case 8:
+                $description = "
+                <p>Lịch âm tháng 8 năm {$nam} bắt đầu từ ngày {$startDateSolar} và kết thúc vào ngày {$endDateSolar} theo Dương lịch. Tháng 8 âm lịch nổi bật với Tết Trung Thu (Rằm tháng 8) – ngày tết đoàn viên, là dịp để gia đình sum họp, trẻ em vui hội trăng rằm và nhiều lễ hội dân gian đặc sắc được tổ chức trên khắp cả nước.</p>
+                <p>Khi tra cứu lịch vạn niên tháng 8/{$nam} trên Phong Lịch, bạn sẽ có:</p>
+                <ul>
+                    <li>Lịch đối chiếu chi tiết giữa Âm lịch – Dương lịch cho từng ngày.</li>
+                    <li> Thông tin ngày hoàng đạo, hắc đạo, tiết khí trong tháng.</li>
+                    <li>Gợi ý xem ngày tốt, giờ tốt để chọn thời điểm phù hợp cho cưới hỏi, xuất hành, khai trương.</li>
+                    <li>Danh sách các ngày lễ tết quan trọng trong tháng.</li>
+                </ul>
+                <p>Với lịch âm tháng 8 năm {$nam}, bạn sẽ dễ dàng tra cứu ngày tháng, đồng thời lựa chọn thời điểm đẹp để tổ chức các hoạt động, sự kiện ý nghĩa cho gia đình và cá nhân.</p>
+                ";
+                break;
+            case 9:
+                $description = "
+                <p>Lịch âm tháng 9 năm {$nam} bắt đầu từ ngày {$startDateSolar} và kết thúc vào ngày {$endDateSolar} theo Dương lịch. Tháng 9 âm lịch thường gắn liền với Tết Trùng Cửu (mùng 9/9 âm lịch) – ngày lễ truyền thống cầu trường thọ, may mắn và bình an cho gia đình.</p>
+                <p>Khi tra cứu lịch vạn niên tháng 9/{$nam} trên Phong Lịch, bạn sẽ có:</p>
+                <ul>
+                    <li>Lịch đối chiếu chi tiết giữa Âm lịch – Dương lịch cho từng ngày.</li>
+                    <li> Thông tin ngày hoàng đạo, hắc đạo, tiết khí trong tháng.</li>
+                    <li>Gợi ý xem ngày tốt, giờ tốt để chọn thời điểm phù hợp cho cưới hỏi, xuất hành, khai trương.</li>
+                    <li>Danh sách các ngày lễ tết quan trọng trong tháng.</li>
+                </ul>
+                <p>Với lịch âm tháng 9 năm {$nam}, bạn có thể dễ dàng theo dõi ngày tháng và chọn được những thời điểm cát lợi để triển khai công việc, kế hoạch và các sự kiện quan trọng trong tháng.</p>
+                ";
+                break;
+            case 10:
+                $description = "
+                <p>Lịch âm tháng 10 năm {$nam} bắt đầu từ ngày {$startDateSolar} và kết thúc vào ngày {$endDateSolar} theo Dương lịch. Tháng 10 âm lịch thường gắn với thời điểm cuối thu, đầu đông, là lúc người dân chuẩn bị mùa màng và tiến hành nhiều nghi lễ truyền thống quan trọng trong năm.</p>
+                <p>Khi tra cứu lịch vạn niên tháng 10/{$nam} trên Phong Lịch, bạn sẽ có:</p>
+                <ul>
+                    <li>Lịch đối chiếu chi tiết giữa Âm lịch – Dương lịch cho từng ngày.</li>
+                    <li> Thông tin ngày hoàng đạo, hắc đạo, tiết khí trong tháng.</li>
+                    <li>Gợi ý xem ngày tốt, giờ tốt để chọn thời điểm phù hợp cho cưới hỏi, xuất hành, khai trương.</li>
+                    <li>Danh sách các ngày lễ tết quan trọng trong tháng.</li>
+                </ul>
+                <p>Với lịch âm tháng 10 năm {$nam}, bạn có thể dễ dàng nắm bắt ngày tháng quan trọng và lựa chọn thời điểm đẹp để tiến hành những việc lớn nhỏ trong đời sống gia đình cũng như công việc.</p>
+                ";
+                break;
+            case 11:
+                $description = "
+                <p>Lịch âm tháng 11 năm {$nam} bắt đầu từ ngày {$startDateSolar} và kết thúc vào ngày {$endDateSolar} theo Dương lịch. Tháng 11 âm lịch là giai đoạn cuối năm, khi các gia đình bận rộn chuẩn bị cho Tết Nguyên Đán, đồng thời tiến hành nhiều nghi lễ quan trọng để tổng kết một năm cũ và cầu mong may mắn cho năm mới.</p>
+                <p>Khi tra cứu lịch vạn niên tháng 11/{$nam} trên Phong Lịch, bạn sẽ có:</p>
+                <ul>
+                    <li>Lịch đối chiếu chi tiết giữa Âm lịch – Dương lịch cho từng ngày.</li>
+                    <li> Thông tin ngày hoàng đạo, hắc đạo, tiết khí trong tháng.</li>
+                    <li>Gợi ý xem ngày tốt, giờ tốt để chọn thời điểm phù hợp cho cưới hỏi, xuất hành, khai trương.</li>
+                    <li>Danh sách các ngày lễ tết quan trọng trong tháng.</li>
+                </ul>
+                <p>Với lịch âm tháng 11 năm {$nam}, bạn dễ dàng theo dõi ngày tháng và chọn được thời điểm thích hợp để chuẩn bị cho một cái Tết trọn vẹn, an lành và may mắn.</p>
+                ";
+                break;
+            case 12:
+                $description = "
+                <p>Lịch âm tháng 12 năm {$nam} bắt đầu từ ngày {$startDateSolar} và kết thúc vào ngày {$endDateSolar} theo Dương lịch. Tháng Chạp là tháng cuối cùng của năm âm lịch, gắn liền với không khí tất bật chuẩn bị đón Tết Nguyên Đán. Đây cũng là thời điểm diễn ra nhiều nghi lễ quan trọng như cúng ông Công ông Táo (23 tháng Chạp), tất niên và chuẩn bị mâm cỗ Tết.</p>
+                <p>Khi tra cứu lịch vạn niên tháng 12/{$nam} trên Phong Lịch, bạn sẽ có:</p>
+                 <ul>
+                    <li>Lịch đối chiếu chi tiết giữa Âm lịch – Dương lịch cho từng ngày.</li>
+                    <li>Thông tin về ngày hoàng đạo, hắc đạo, tiết khí trong tháng.</li>
+                    <li>Gợi ý xem ngày tốt, giờ tốt để chọn thời điểm phù hợp cho cưới hỏi, xuất hành, khai trương.</li>
+                    <li>Danh sách các ngày lễ tết quan trọng trong tháng.</li>
+                </ul>
+                Với lịch âm tháng 12 năm {$nam}, bạn không chỉ dễ dàng quản lý ngày tháng cuối năm mà còn có thể chọn được những ngày đẹp để khép lại một năm cũ và đón chào năm mới trọn vẹn, may mắn.
+                ";
+                
+                break;
+            default:
+                $description = "Mô tả mặc định cho tháng {$thang} năm {$nam}.";
+                break;
+        }
+        return $description;
+    }
 
     static $ledl = array(
         array(
