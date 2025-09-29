@@ -28,6 +28,52 @@ class HoroscopeController extends Controller
         ];
     }
 
+    // Mapping giữa sign keys và URL slugs
+    private function getSignSlugs()
+    {
+        return [
+            'aries' => 'bach-duong',
+            'taurus' => 'kim-nguu',
+            'gemini' => 'song-tu',
+            'cancer' => 'cu-giai',
+            'leo' => 'su-tu',
+            'virgo' => 'xu-nu',
+            'libra' => 'thien-binh',
+            'scorpio' => 'bo-cap',
+            'sagittarius' => 'nhan-ma',
+            'capricorn' => 'ma-ket',
+            'aquarius' => 'bao-binh',
+            'pisces' => 'song-ngu'
+        ];
+    }
+
+    // Mapping giữa type keys và URL slugs
+    private function getTypeSlugs()
+    {
+        return [
+            'yesterday' => 'hom-qua',
+            'today' => 'hom-nay',
+            'tomorrow' => 'ngay-mai',
+            'weekly' => 'tuan-nay',
+            'monthly' => 'thang-nay',
+            'yearly' => 'nam-nay'
+        ];
+    }
+
+    // Chuyển từ slug sang sign key
+    private function getSignFromSlug($slug)
+    {
+        $slugs = $this->getSignSlugs();
+        return array_search($slug, $slugs);
+    }
+
+    // Chuyển từ slug sang type key
+    private function getTypeFromSlug($slug)
+    {
+        $types = $this->getTypeSlugs();
+        return array_search($slug, $types);
+    }
+
     /**
      * Hiển thị trang danh sách 12 cung
      */
@@ -40,13 +86,49 @@ class HoroscopeController extends Controller
     }
 
     /**
-     * Hiển thị trang chi tiết của một cung
+     * Hiển thị trang chi tiết của một cung (method cũ - giữ để tương thích)
      */
     public function show($sign)
     {
+        return $this->showFromSlug($sign, 'today');
+    }
+
+    /**
+     * Hiển thị trang chi tiết của một cung từ slug (mặc định là hôm nay)
+     */
+    public function showFromSlug($signSlug, $defaultType = 'today')
+    {
+        $sign = $this->getSignFromSlug($signSlug);
+        if (!$sign) {
+            abort(404, 'Cung hoàng đạo không tồn tại');
+        }
+
+        return $this->renderZodiacView($sign, $defaultType);
+    }
+
+    /**
+     * Hiển thị trang chi tiết của một cung với type cụ thể
+     */
+    public function showWithType($signSlug, $typeSlug)
+    {
+        $sign = $this->getSignFromSlug($signSlug);
+        $type = $this->getTypeFromSlug($typeSlug);
+
+        if (!$sign || !$type) {
+            abort(404, 'URL không hợp lệ');
+        }
+
+        return $this->renderZodiacView($sign, $type);
+    }
+
+    /**
+     * Helper method để render view cho cung hoàng đạo
+     */
+    private function renderZodiacView($sign, $type = 'today')
+    {
         $zodiacs = $this->getZodiacsData();
         if (!array_key_exists($sign, $zodiacs)) {
-            abort(404); // Nếu sign không hợp lệ, báo lỗi 404
+            abort(404);
         }
 
         // Meta data cho từng cung hoàng đạo
@@ -84,10 +166,17 @@ class HoroscopeController extends Controller
         $metaTitle = $metaTitles[$sign] ?? 'Tử vi 12 cung hoàng đạo';
         $metaDescription = $metaDescriptions[$sign] ?? 'Xem tử vi 12 cung hoàng đạo chi tiết nhất';
 
+        // Thêm thông tin về current type và slug mappings
+        $signSlugs = $this->getSignSlugs();
+        $typeSlugs = $this->getTypeSlugs();
+
         return view('horoscope.show', [
             'zodiac' => $zodiac,
             'metaTitle' => $metaTitle,
-            'metaDescription' => $metaDescription
+            'metaDescription' => $metaDescription,
+            'currentType' => $type,
+            'signSlugs' => $signSlugs,
+            'typeSlugs' => $typeSlugs
         ]);
     }
 

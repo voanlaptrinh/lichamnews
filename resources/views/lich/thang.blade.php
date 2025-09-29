@@ -194,7 +194,7 @@
                         <hr>
 
                         <div class="row g-lg-3 g-2 row-btn-date">
-                            @foreach ($data_totxau['tot'] as $data_tot)
+                            @forelse ($data_totxau['tot'] as $data_tot)
                                 <div class="col-xl-4 col-lg-4 col-md-6 col-12">
                                     <!--  để cột chỉ chiếm chiều rộng cần thiết -->
                                     <a href="{{ route('detai_home', ['nam' => $data_tot['yy'], 'thang' => $data_tot['mm'], 'ngay' => $data_tot['dd']]) }}"
@@ -203,7 +203,13 @@
                                             {{ $data_tot['yy'] }}</span>
                                     </a>
                                 </div>
-                            @endforeach
+                              @empty
+                                <div class="col-12">
+                                    <div class="alert alert-secondary text-center">
+                                        Không có ngày tốt trong tháng
+                                    </div>
+                                </div>
+                            @endforelse
                         </div>
                     </div>
                 </div>
@@ -215,7 +221,7 @@
                         <hr>
 
                         <div class="row g-lg-3 g-2 row-btn-date">
-                            @foreach ($data_totxau['xau'] as $data_xau)
+                            @forelse ($data_totxau['xau'] as $data_xau)
                                 <div class="col-xl-4 col-lg-4 col-md-6 col-12">
                                     <!--  để cột chỉ chiếm chiều rộng cần thiết -->
                                     <a href="{{ route('detai_home', ['nam' => $data_xau['yy'], 'thang' => $data_xau['mm'], 'ngay' => $data_xau['dd']]) }}"
@@ -224,7 +230,13 @@
                                             {{ $data_xau['yy'] }}</span>
                                     </a>
                                 </div>
-                            @endforeach
+                               @empty
+                                <div class="col-12">
+                                    <div class="alert alert-secondary text-center">
+                                        Không có ngày xấu trong tháng
+                                    </div>
+                                </div>
+                            @endforelse
                         </div>
                     </div>
 
@@ -236,7 +248,7 @@
                         </h3>
                         <hr>
                         <div class="row g-lg-3 g-2">
-                            @foreach ($le_lichs as $le_lich)
+                            @forelse ($le_lichs as $le_lich)
                                 <div class=" col-12"> <!--  để cột chỉ chiếm chiều rộng cần thiết -->
                                     <div class="btn custom-pill-btn-date w-100 text-start">
 
@@ -244,7 +256,13 @@
                                         <b>{{ $le_lich['dd'] }}/{{ $le_lich['mm'] }}</b>: {{ $le_lich['name'] }}
                                     </div>
                                 </div>
-                            @endforeach
+                           @empty
+                                <div class="col-12">
+                                    <div class="alert alert-secondary text-center">
+                                        Không có ngày lễ dương nào
+                                    </div>
+                                </div>
+                            @endforelse
                         </div>
                     </div>
                 </div>
@@ -257,16 +275,21 @@
                         <hr>
 
                         <div class="row g-lg-3 g-2">
-                            @foreach ($le_lichs_am as $le_lich)
-                                <div class=" col-12"> <!--  để cột chỉ chiếm chiều rộng cần thiết -->
+                            @forelse ($le_lichs_am as $le_lich)
+                                <div class="col-12">
                                     <div class="btn custom-pill-btn-date w-100 text-start">
-
                                         <img src="{{ asset('icons/sukienn1.svg') }}" alt="Sự kiện"
                                             class="img-fluid me-2">
                                         <b>{{ $le_lich['dd'] }}/{{ $le_lich['mm'] }}</b>: {{ $le_lich['name'] }}
                                     </div>
                                 </div>
-                            @endforeach
+                            @empty
+                                <div class="col-12">
+                                    <div class="alert alert-secondary text-center">
+                                        Không có lễ lịch âm nào
+                                    </div>
+                                </div>
+                            @endforelse
                         </div>
                     </div>
                 </div>
@@ -278,7 +301,7 @@
                         <hr>
 
                         <div class="row g-lg-3 g-2">
-                            @foreach ($su_kiens as $su_kien)
+                            @forelse ($su_kiens as $su_kien)
                                 <div class=" col-12"> <!--  để cột chỉ chiếm chiều rộng cần thiết -->
                                     <div class="btn custom-pill-btn-date w-100 text-start">
 
@@ -286,11 +309,17 @@
                                             class="img-fluid me-2">{{ $su_kien }}
                                     </div>
                                 </div>
-                            @endforeach
+                               @empty
+                                <div class="col-12">
+                                    <div class="alert alert-secondary text-center">
+                                        Không có sự kiện lịch xử
+                                    </div>
+                                </div>
+                            @endforelse
                         </div>
                     </div>
                 </div>
-                <div class="box--bg-thang mt-3">
+                <div class="box--bg-thang mt-3 mb-3">
                     <div class="">
                         <h3 class="title-tong-quan-h3-log">
                             Ngày xuất hành âm lịch
@@ -318,7 +347,7 @@
             </section>
 
         </div>
-        <div class="col-xl-3">
+        <div class="col-xl-3 mb-3">
             <div class="d-flex flex-column gap-4">
                 <!-- ** KHỐI SỰ KIỆN SẮP TỚI ** -->
                 <div class="events-card">
@@ -331,7 +360,8 @@
                                     <div class="event-details">
                                         <div class="event-name {{ $mm == $i ? 'active-date' : '' }}"
                                             style="font-weight: unset"> <img src="{{ asset('/icons/sukienn1.svg') }}"
-                                                alt="Sự kiện" class="img-fluid me-2"> Lịch âm tháng {{ $i }} năm {{ $yy }}
+                                                alt="Sự kiện" class="img-fluid me-2"> Lịch âm tháng {{ $i }}
+                                            năm {{ $yy }}
                                         </div>
 
                                     </div>

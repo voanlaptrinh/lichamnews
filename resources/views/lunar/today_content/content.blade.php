@@ -1,4 +1,4 @@
- <div class="row g-3">
+ <div class="row g-lg-3 g-2">
      <div class="col-xl-9 col-sm-12 col-12">
          <div class="box-date-detail">
              <div class="row g-3">
@@ -14,7 +14,7 @@
                              <div class="date-weekday">{{ $weekday }}</div>
                              <div class="date-special-event text-dark">Tháng {{ $mm }} năm
                                  {{ $yy }}</div>
-                             <div class="date-special-event">
+                             <div class="date-special-event  date-special-event-duong">
                                  @if (!empty($suKienDuongLich))
                                      @foreach ($suKienDuongLich as $suKien)
                                          <div class="su-kien-duong">{{ $suKien['ten_su_kien'] ?? $suKien }}</div>
@@ -40,7 +40,7 @@
                                  {{ $getThongTinCanChiVaIcon['can_chi_ngay'] }}
                                  -
                                  Tháng {{ $getThongTinCanChiVaIcon['can_chi_thang'] }}</div>
-                             <div class="date-special-event">
+                             <div class="date-special-event  date-special-event-am">
                                  @if (!empty($suKienAmLich))
                                      @foreach ($suKienAmLich as $suKien)
                                          <div class="su-kien-duong">{{ $suKien['ten_su_kien'] ?? $suKien }}</div>
@@ -124,7 +124,6 @@
                                  border: 1px solid #ccc;
                                  /* kẻ bảng */
                                  padding: 8px;
-                                 text-align: center;
                              }
                          </style>
                          <div class="ms-lg-3 text-box-tong-quan ">
@@ -626,7 +625,7 @@
      </div>
 
 
-     <div class="col-xl-3  col-sm-12 col-12">
+     <div class="col-xl-3  col-sm-12 col-12 mb-3">
          <div class="d-flex flex-column gap-4">
 
 

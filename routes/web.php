@@ -170,8 +170,10 @@ Route::post('/xem-huong-ban-lam-viec', [XemHuongBanLamViecController::class, 'ch
 
 // Route hiển thị danh sách 12 cung hoàng đạo
 Route::get('/cung-hoang-dao', [HoroscopeController::class, 'index'])->name('horoscope.index');
-// Route hiển thị trang chi tiết của một cung
-Route::get('/cung-hoang-dao/{sign}', [HoroscopeController::class, 'show'])->name('horoscope.show');
+// Route hiển thị trang chi tiết của một cung với type (cung-hoang-dao/bach-duong/hom-nay)
+Route::get('/cung-hoang-dao/{signSlug}/{typeSlug}', [HoroscopeController::class, 'showWithType'])->name('horoscope.show.type');
+// Route hiển thị trang chi tiết của một cung (mặc định là hôm nay)
+Route::get('/cung-hoang-dao/{signSlug}', [HoroscopeController::class, 'showFromSlug'])->name('horoscope.show');
 // Route API nội bộ để JavaScript gọi đến, route này sẽ gọi API bên ngoài
 Route::get('/api/horoscope-data/{sign}/{type}', [HoroscopeController::class, 'fetchData'])->name('horoscope.data');
 
