@@ -127,6 +127,9 @@
         justify-content: space-around;
         align-items: center;
     }
+    .horoscope-content{
+                font-size: 16px;
+    }
 }
 
 @media screen and (min-width: 1400px) {
@@ -301,6 +304,9 @@
         justify-content: space-around;
         align-items: center;
     }
+     .horoscope-content{
+                font-size: 16px;
+    }
 }
 
 @media screen and (min-width: 1200px) and (max-width: 1399.98px) {
@@ -465,6 +471,9 @@
         display: flex;
         justify-content: space-around;
         align-items: center;
+    }
+      .horoscope-content{
+                font-size: 16px;
     }
 }
 
@@ -691,6 +700,9 @@
         display: flex;
         justify-content: space-around;
         align-items: center;
+    }
+      .horoscope-content{
+                font-size: 16px;
     }
 }
 
@@ -932,6 +944,9 @@
         display: flex;
         justify-content: space-around;
         align-items: center;
+    }
+      .horoscope-content{
+                font-size: 16px;
     }
 }
 
@@ -1197,6 +1212,9 @@
         justify-content: space-around;
         flex-direction: column;
         align-items: center;
+    }
+      .horoscope-content{
+                font-size: 15px;
     }
 }
 
@@ -1521,7 +1539,7 @@
         display: flex;
         flex-wrap: nowrap;
         gap: 10px;
-        padding: 0 15px;
+        /* padding: 0 15px; */
         min-width: max-content;
     }
 
@@ -1592,6 +1610,10 @@
         justify-content: space-around;
         flex-direction: column;
         align-items: center;
+    }
+    
+      .horoscope-content{
+                font-size: 15px;
     }
 }
 

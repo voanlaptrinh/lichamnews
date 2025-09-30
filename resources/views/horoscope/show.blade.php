@@ -2,110 +2,96 @@
 @extends('welcome')
 
 @section('content')
-@php
-    $zodiacIcons = [
-        'aries' => '/icons/aries-icons.svg',
-        'taurus' => '/icons/taurus-icons.svg',
-        'gemini' => '/icons/gemini-icons.svg',
-        'cancer' => '/icons/cancer-icons.svg',
-        'leo' => '/icons/leo-icons.svg',
-        'virgo' => '/icons/virgo-icons.svg',
-        'libra' => '/icons/libra-icons.svg',
-        'scorpio' => '/icons/scorpio-icons.svg',
-        'sagittarius' => '/icons/sagittarius-icons.svg',
-        'capricorn' => '/icons/capricorn-icons.svg',
-        'aquarius' => '/icons/aquarius-icons.svg',
-        'pisces' => '/icons/pisces-icons.svg',
-    ];
+    @php
+        $zodiacIcons = [
+            'aries' => '/icons/aries-icons.svg',
+            'taurus' => '/icons/taurus-icons.svg',
+            'gemini' => '/icons/gemini-icons.svg',
+            'cancer' => '/icons/cancer-icons.svg',
+            'leo' => '/icons/leo-icons.svg',
+            'virgo' => '/icons/virgo-icons.svg',
+            'libra' => '/icons/libra-icons.svg',
+            'scorpio' => '/icons/scorpio-icons.svg',
+            'sagittarius' => '/icons/sagittarius-icons.svg',
+            'capricorn' => '/icons/capricorn-icons.svg',
+            'aquarius' => '/icons/aquarius-icons.svg',
+            'pisces' => '/icons/pisces-icons.svg',
+        ];
 
-    $zodiacNames = [
-        'aries' => 'Bạch Dương',
-        'taurus' => 'Kim Ngưu',
-        'gemini' => 'Song Tử',
-        'cancer' => 'Cự Giải',
-        'leo' => 'Sư Tử',
-        'virgo' => 'Xử Nữ',
-        'libra' => 'Thiên Bình',
-        'scorpio' => 'Thần Nông',
-        'sagittarius' => 'Nhân Mã',
-        'capricorn' => 'Ma Kết',
-        'aquarius' => 'Bảo Bình',
-        'pisces' => 'Song Ngư',
-    ];
+        $zodiacNames = [
+            'aries' => 'Bạch Dương',
+            'taurus' => 'Kim Ngưu',
+            'gemini' => 'Song Tử',
+            'cancer' => 'Cự Giải',
+            'leo' => 'Sư Tử',
+            'virgo' => 'Xử Nữ',
+            'libra' => 'Thiên Bình',
+            'scorpio' => 'Thần Nông',
+            'sagittarius' => 'Nhân Mã',
+            'capricorn' => 'Ma Kết',
+            'aquarius' => 'Bảo Bình',
+            'pisces' => 'Song Ngư',
+        ];
 
-    $zodiacDates = [
-        'aries' => '21/3 - 19/4',
-        'taurus' => '20/4 - 20/5',
-        'gemini' => '21/5 - 20/6',
-        'cancer' => '21/6 - 22/7',
-        'leo' => '23/7 - 22/8',
-        'virgo' => '23/8 - 22/9',
-        'libra' => '23/9 - 22/10',
-        'scorpio' => '23/10 - 21/11',
-        'sagittarius' => '22/11 - 21/12',
-        'capricorn' => '22/12 - 19/1',
-        'aquarius' => '20/1 - 18/2',
-        'pisces' => '19/2 - 20/3',
-    ];
-@endphp
+        $zodiacDates = [
+            'aries' => '21/3 - 19/4',
+            'taurus' => '20/4 - 20/5',
+            'gemini' => '21/5 - 20/6',
+            'cancer' => '21/6 - 22/7',
+            'leo' => '23/7 - 22/8',
+            'virgo' => '23/8 - 22/9',
+            'libra' => '23/9 - 22/10',
+            'scorpio' => '23/10 - 21/11',
+            'sagittarius' => '22/11 - 21/12',
+            'capricorn' => '22/12 - 19/1',
+            'aquarius' => '20/1 - 18/2',
+            'pisces' => '19/2 - 20/3',
+        ];
+    @endphp
     <div class="container-setup">
-        <h6 class="content-title-date-detail"><a href="{{ route('home') }}">Trang chủ</a> <i class="bi bi-chevron-right"></i>
-            Phong thủy & tử vi <i class="bi bi-chevron-right"></i>
-            <span>12 cung hoàng đạo</span>
+        <h6 class="content-title-detail"><a href="{{ route('home') }}">Trang chủ</a> <i class="bi bi-chevron-right"></i>
+            <span>12 cung hoàng đạo</span> <i class="bi bi-chevron-right"></i><span id="breadcrumb-zodiac">{{ $zodiacNames[$zodiac['sign']] ?? 'Cung hoàng đạo' }}</span> <i class="bi bi-chevron-right"></i><span id="breadcrumb-time">Hôm nay</span>
         </h6>
-           <h1  class="content-title-home-lich"><span>Cung hoàng đạo</span> - <span id="zodiac-title"> {{ $zodiacNames[$zodiac['sign']] ?? ' Cung hoàng đạo' }}</span></h1>
+        <h1 class="content-title-home-lich"><span>Cung hoàng đạo</span> - <span id="zodiac-title">
+                {{ $zodiacNames[$zodiac['sign']] ?? ' Cung hoàng đạo' }}</span></h1>
     </div>
 
     <!-- Zodiac Header -->
 
 
-    <div class="bth-cunghoangdao mb-3">
-        <div id="tabs" class="tabs">
-            <button class="tab-button tab-horoscope btn" data-type="yesterday">Hôm qua</button>
-            <button class="tab-button tab-horoscope btn active" data-type="today">Hôm nay</button>
-            <button class="tab-button tab-horoscope btn" data-type="tomorrow">Ngày mai</button>
-            <button class="tab-button tab-horoscope btn" data-type="weekly">Tuần này</button>
-            <button class="tab-button tab-horoscope btn" data-type="monthly">Tháng này</button>
-            <button class="tab-button tab-horoscope btn" data-type="yearly">{{ date('Y') }}
-            </button>
-        </div>
-    </div>
 
 
-    <div class="row">
-        <div class="col-xl-3">
-            <div class="zodiac-list">
-                @foreach ($zodiacNames as $sign => $name)
-                    <div class="zodiac-item {{ $sign == $zodiac['sign'] ? 'active' : '' }}" data-sign="{{ $sign }}">
-                        <img src="{{ asset($zodiacIcons[$sign]) }}" alt="{{ $name }}" class="zodiac-item-icon">
-                        <div class="zodiac-item-info">
-                            <div class="zodiac-item-name">{{ $name }}</div>
-                            <div class="zodiac-item-date">{{ $zodiacDates[$sign] }}</div>
+
+    <div class="row mt-3">
+        <div class="col-lg-9">
+            <div class="--duv-cunghoangdao">
+                <div class="bth-cunghoangdao mb-3">
+                    <div id="tabs" class="tabs">
+                        <button class="tab-button tab-horoscope btn" data-type="yesterday">Hôm qua</button>
+                        <button class="tab-button tab-horoscope btn active" data-type="today">Hôm nay</button>
+                        <button class="tab-button tab-horoscope btn" data-type="tomorrow">Ngày mai</button>
+                        <button class="tab-button tab-horoscope btn" data-type="weekly">Tuần này</button>
+                        <button class="tab-button tab-horoscope btn" data-type="monthly">Tháng này</button>
+                        <button class="tab-button tab-horoscope btn" data-type="yearly">{{ date('Y') }}
+                        </button>
+                    </div>
+                </div>
+                <hr>
+                <div class="zodiac-header">
+
+                    <div class="zodiac-current">
+                        <div class="zodiac-icon" id="zodiac-icon">
+                            <img src="{{ asset($zodiacIcons[$zodiac['sign']] ?? '⭐') }}" alt="">
+                        </div>
+                        <div class="zodiac-info">
+                            <h3 id="zodiac-name">{{ $zodiacNames[$zodiac['sign']] ?? 'Cung hoàng đạo' }}</h3>
+                            <p id="zodiac-date">{{ $zodiacDates[$zodiac['sign']] ?? '' }}</p>
                         </div>
                     </div>
-                @endforeach
-            </div>
-        </div>
 
-        <div class="col-lg-9">
-         
-            <div class="zodiac-header">
-                <div class="zodiac-current">
-                    <div class="zodiac-icon" id="zodiac-icon">
-                        <img src="{{ asset($zodiacIcons[$zodiac['sign']] ?? '⭐') }}" alt="">
-                    </div>
-                    <div class="zodiac-info">
-                        <h3 id="zodiac-name">{{ $zodiacNames[$zodiac['sign']] ?? 'Cung hoàng đạo' }}</h3>
-                        <p id="zodiac-date">{{ $zodiacDates[$zodiac['sign']] ?? '' }}</p>
-                    </div>
                 </div>
 
             </div>
-
-
-
-
-
 
             <!-- Main Content Card -->
 
@@ -114,101 +100,27 @@
                 <div style="text-align: center; padding: 40px; color: #666; font-style: italic;">Đang tải dữ liệu...</div>
             </div>
         </div>
+
+        <div class="col-lg-3">
+            <div class="events-card">
+                <h5 class="card-title-right">Cung hoàng đạo khác</h5>
+                <div class="zodiac-list ">
+                    @foreach ($zodiacNames as $sign => $name)
+                        <div class="zodiac-item {{ $sign == $zodiac['sign'] ? 'active' : '' }}"
+                            data-sign="{{ $sign }}">
+                            <img src="{{ asset($zodiacIcons[$sign]) }}" alt="{{ $name }}" class="zodiac-item-icon">
+                            <div class="zodiac-item-info">
+                                <div class="zodiac-item-name">{{ $name }}</div>
+                                <div class="zodiac-item-date">{{ $zodiacDates[$sign] }}</div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
 
-@push('styles')
-    <style>
-        /* CSS cho zodiac list */
-        .zodiac-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .zodiac-item {
-            display: flex;
-            align-items: center;
-            padding: 12px;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            background: white;
-        }
-
-        .zodiac-item:hover {
-            background: #f8f9fa;
-            border-color: #007bff;
-            transform: translateY(-1px);
-        }
-
-        .zodiac-item.active {
-            background: #007bff;
-            border-color: #007bff;
-            color: white;
-        }
-
-        .zodiac-item-icon {
-            width: 32px;
-            height: 32px;
-            margin-right: 12px;
-            flex-shrink: 0;
-        }
-
-        .zodiac-item-info {
-            flex: 1;
-        }
-
-        .zodiac-item-name {
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-        .zodiac-item-date {
-            font-size: 12px;
-            opacity: 0.8;
-            margin-top: 2px;
-        }
-
-        /* CSS cho thanh trượt ngang trên mobile */
-        @media (max-width: 768px) {
-            .zodiac-list {
-                flex-direction: row;
-                overflow-x: auto;
-                gap: 8px;
-                padding: 10px 0;
-            }
-
-            .zodiac-item {
-                min-width: 120px;
-                flex-direction: column;
-                text-align: center;
-                padding: 8px;
-            }
-
-            .zodiac-item-icon {
-                margin-right: 0;
-                margin-bottom: 8px;
-            }
-        }
-
-        /* CSS cho desktop - giữ nguyên layout hiện tại */
-        @media (min-width: 769px) {
-            .bth-cunghoangdao .tabs {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 10px;
-            }
-
-            .bth-cunghoangdao .tab-button {
-                flex: 1;
-                min-width: 120px;
-            }
-        }
-    </style>
-@endpush
 
 @push('scripts')
     <script>
@@ -220,6 +132,8 @@
             const zodiacName = document.getElementById('zodiac-name');
             const zodiacDate = document.getElementById('zodiac-date');
             const zodiacTitle = document.getElementById('zodiac-title');
+            const breadcrumbZodiac = document.getElementById('breadcrumb-zodiac');
+            const breadcrumbTime = document.getElementById('breadcrumb-time');
 
             let currentSign = '{{ $zodiac['sign'] }}';
             let currentType = '{{ $currentType ?? 'today' }}';
@@ -228,69 +142,158 @@
             const signSlugs = @json($signSlugs ?? []);
             const typeSlugs = @json($typeSlugs ?? []);
 
+            // Meta data cho từng type
+            const typeMetaData = {
+                'yesterday': {
+                    suffix: 'Hôm Qua',
+                    descSuffix: 'hôm qua',
+                    breadcrumb: 'Hôm qua'
+                },
+                'today': {
+                    suffix: 'Hôm Nay',
+                    descSuffix: 'hôm nay',
+                    breadcrumb: 'Hôm nay'
+                },
+                'tomorrow': {
+                    suffix: 'Ngày Mai',
+                    descSuffix: 'ngày mai',
+                    breadcrumb: 'Ngày mai'
+                },
+                'weekly': {
+                    suffix: 'Tuần Này',
+                    descSuffix: 'tuần này',
+                    breadcrumb: 'Tuần này'
+                },
+                'monthly': {
+                    suffix: 'Tháng Này',
+                    descSuffix: 'tháng này',
+                    breadcrumb: 'Tháng này'
+                },
+                'yearly': {
+                    suffix: 'Năm ' + new Date().getFullYear(),
+                    descSuffix: 'năm ' + new Date().getFullYear(),
+                    breadcrumb: 'Năm ' + new Date().getFullYear()
+                }
+            };
+
             // Dữ liệu cung hoàng đạo
             const zodiacData = {
                 'aries': {
                     icon: '/icons/aries-icons.svg',
                     name: 'Bạch Dương',
-                    date: '21/3 - 19/4'
+                    date: '21/3 - 19/4',
+                    engName: 'Aries'
                 },
                 'taurus': {
                     icon: '/icons/taurus-icons.svg',
                     name: 'Kim Ngưu',
-                    date: '20/4 - 20/5'
+                    date: '20/4 - 20/5',
+                    engName: 'Taurus'
                 },
                 'gemini': {
                     icon: '/icons/gemini-icons.svg',
                     name: 'Song Tử',
-                    date: '21/5 - 20/6'
+                    date: '21/5 - 20/6',
+                    engName: 'Gemini'
                 },
                 'cancer': {
                     icon: '/icons/cancer-icons.svg',
                     name: 'Cự Giải',
-                    date: '21/6 - 22/7'
+                    date: '21/6 - 22/7',
+                    engName: 'Cancer'
                 },
                 'leo': {
                     icon: '/icons/leo-icons.svg',
                     name: 'Sư Tử',
-                    date: '23/7 - 22/8'
+                    date: '23/7 - 22/8',
+                    engName: 'Leo'
                 },
                 'virgo': {
                     icon: '/icons/virgo-icons.svg',
                     name: 'Xử Nữ',
-                    date: '23/8 - 22/9'
+                    date: '23/8 - 22/9',
+                    engName: 'Virgo'
                 },
                 'libra': {
                     icon: '/icons/libra-icons.svg',
                     name: 'Thiên Bình',
-                    date: '23/9 - 22/10'
+                    date: '23/9 - 22/10',
+                    engName: 'Libra'
                 },
                 'scorpio': {
                     icon: '/icons/scorpio-icons.svg',
                     name: 'Thần Nông',
-                    date: '23/10 - 21/11'
+                    date: '23/10 - 21/11',
+                    engName: 'Scorpio'
                 },
                 'sagittarius': {
                     icon: '/icons/sagittarius-icons.svg',
                     name: 'Nhân Mã',
-                    date: '22/11 - 21/12'
+                    date: '22/11 - 21/12',
+                    engName: 'Sagittarius'
                 },
                 'capricorn': {
                     icon: '/icons/capricorn-icons.svg',
                     name: 'Ma Kết',
-                    date: '22/12 - 19/1'
+                    date: '22/12 - 19/1',
+                    engName: 'Capricorn'
                 },
                 'aquarius': {
                     icon: '/icons/aquarius-icons.svg',
                     name: 'Bảo Bình',
-                    date: '20/1 - 18/2'
+                    date: '20/1 - 18/2',
+                    engName: 'Aquarius'
                 },
                 'pisces': {
                     icon: '/icons/pisces-icons.svg',
                     name: 'Song Ngư',
-                    date: '19/2 - 20/3'
+                    date: '19/2 - 20/3',
+                    engName: 'Pisces'
                 }
             };
+
+            // Hàm cập nhật meta tags
+            function updateMetaTags(sign, type) {
+                const zodiac = zodiacData[sign];
+                const typeMeta = typeMetaData[type];
+
+                if (zodiac && typeMeta) {
+                    // Cập nhật title
+                    const newTitle =
+                        `Cung ${zodiac.name} - ${zodiac.engName} (${zodiac.date}) ${typeMeta.suffix} | Tính cách, Tình yêu, Sự nghiệp`;
+                    document.title = newTitle;
+
+                    // Cập nhật meta description
+                    const newDescription =
+                        `Xem tử vi cung ${zodiac.name} ${typeMeta.descSuffix}: Khám phá tính cách, tình yêu, sự nghiệp và vận mệnh chi tiết. Dự báo chính xác cho người sinh ${zodiac.date}.`;
+
+                    // Tìm và cập nhật meta description tag
+                    let metaDesc = document.querySelector('meta[name="description"]');
+                    if (metaDesc) {
+                        metaDesc.setAttribute('content', newDescription);
+                    } else {
+                        // Tạo meta description nếu chưa có
+                        metaDesc = document.createElement('meta');
+                        metaDesc.setAttribute('name', 'description');
+                        metaDesc.setAttribute('content', newDescription);
+                        document.head.appendChild(metaDesc);
+                    }
+                }
+            }
+
+            // Hàm cập nhật breadcrumbs
+            function updateBreadcrumbs(sign, type) {
+                const zodiac = zodiacData[sign];
+                const typeMeta = typeMetaData[type];
+
+                if (zodiac && breadcrumbZodiac) {
+                    breadcrumbZodiac.textContent = zodiac.name;
+                }
+
+                if (typeMeta && breadcrumbTime) {
+                    breadcrumbTime.textContent = typeMeta.breadcrumb;
+                }
+            }
 
             // Hàm cập nhật thông tin cung hoàng đạo
             function updateZodiacInfo(sign) {
@@ -354,6 +357,12 @@
                 // Cập nhật thông tin hiển thị
                 updateZodiacInfo(newSign);
 
+                // Cập nhật breadcrumbs
+                updateBreadcrumbs(newSign, currentType);
+
+                // Cập nhật meta tags
+                updateMetaTags(newSign, currentType);
+
                 // Tải lại dữ liệu với cung mới
                 const activeTab = tabsContainer.querySelector('.tab-horoscope.active');
                 if (activeTab) {
@@ -365,7 +374,10 @@
                 const typeSlug = typeSlugs[currentType];
                 if (signSlug && typeSlug) {
                     const newUrl = `{{ url('/cung-hoang-dao') }}/${signSlug}/${typeSlug}`;
-                    window.history.pushState({}, '', newUrl);
+                    window.history.pushState({
+                        sign: newSign,
+                        type: currentType
+                    }, '', newUrl);
                 }
             });
 
@@ -380,6 +392,12 @@
                 tabsContainer.querySelector('.active')?.classList.remove('active');
                 selectedTab.classList.add('active');
 
+                // Cập nhật breadcrumbs
+                updateBreadcrumbs(currentSign, type);
+
+                // Cập nhật meta tags
+                updateMetaTags(currentSign, type);
+
                 fetchHoroscope(type);
 
                 // Cập nhật URL khi chuyển tab
@@ -387,9 +405,69 @@
                 const typeSlug = typeSlugs[type];
                 if (signSlug && typeSlug) {
                     const newUrl = `{{ url('/cung-hoang-dao') }}/${signSlug}/${typeSlug}`;
-                    window.history.pushState({}, '', newUrl);
+                    window.history.pushState({
+                        sign: currentSign,
+                        type: type
+                    }, '', newUrl);
                 }
             });
+
+            // Xử lý browser back/forward navigation
+            window.addEventListener('popstate', (event) => {
+                if (event.state && event.state.sign && event.state.type) {
+                    // Cập nhật currentSign và currentType từ state
+                    currentSign = event.state.sign;
+                    currentType = event.state.type;
+
+                    // Cập nhật active zodiac item
+                    zodiacList.querySelectorAll('.zodiac-item').forEach(item => {
+                        item.classList.remove('active');
+                        if (item.dataset.sign === currentSign) {
+                            item.classList.add('active');
+                        }
+                    });
+
+                    // Cập nhật active tab
+                    tabsContainer.querySelectorAll('.tab-horoscope').forEach(tab => {
+                        tab.classList.remove('active');
+                        if (tab.dataset.type === currentType) {
+                            tab.classList.add('active');
+                        }
+                    });
+
+                    // Cập nhật thông tin cung hoàng đạo
+                    updateZodiacInfo(currentSign);
+
+                    // Cập nhật breadcrumbs
+                    updateBreadcrumbs(currentSign, currentType);
+
+                    // Cập nhật meta tags
+                    updateMetaTags(currentSign, currentType);
+
+                    // Tải lại dữ liệu
+                    fetchHoroscope(currentType);
+                }
+            });
+
+            // Cập nhật active tab dựa trên currentType
+            tabsContainer.querySelectorAll('.tab-horoscope').forEach(tab => {
+                tab.classList.remove('active');
+                if (tab.dataset.type === currentType) {
+                    tab.classList.add('active');
+                }
+            });
+
+            // Cập nhật breadcrumbs ban đầu
+            updateBreadcrumbs(currentSign, currentType);
+
+            // Cập nhật meta tags ban đầu
+            updateMetaTags(currentSign, currentType);
+
+            // Đặt initial state cho current page
+            window.history.replaceState({
+                sign: currentSign,
+                type: currentType
+            }, '', window.location.href);
 
             // Tự động tải dữ liệu cho tab đang active khi trang vừa tải xong
             const initialActiveTab = tabsContainer.querySelector('.tab-horoscope.active');

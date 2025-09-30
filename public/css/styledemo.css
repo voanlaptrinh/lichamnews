@@ -2243,7 +2243,7 @@ body.menu-open {
 }
 
 .event-item {
-    padding-bottom: 16px ;
+    padding-bottom: 16px;
     margin-bottom: 16px !important;
     border-bottom: 2px solid;
     /* bắt buộc hiện border */
@@ -2777,7 +2777,7 @@ body.menu-open {
     left: 30px;
     display: flex;
     gap: 19px;
-     z-index: 9;
+    z-index: 9;
 }
 
 .ring-item2-right {
@@ -3877,12 +3877,12 @@ body.menu-open {
 
 .bth-cunghoangdao {
     background: white;
-    padding: 8px;
+    /* padding: 8px; */
     border-radius: 24px;
 }
 
 .tab-horoscope {
-    padding: 8px 40px;
+    /* padding: 8px 40px; */
     background: none;
     border-radius: 16px;
 }
@@ -3894,7 +3894,7 @@ body.menu-open {
     font-weight: 600;
 }
 
-.zodiac-header {
+/* .zodiac-header {
     background: white;
     padding: 24px;
     border-radius: 32px;
@@ -3902,6 +3902,15 @@ body.menu-open {
     border: 1px solid #e5e5e5;
     align-items: center;
 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+} */
+.--duv-cunghoangdao {
+    background: white;
+    padding: 24px;
+    border-radius: 32px;
+    margin-bottom: 20px;
+    border: 1px solid #e5e5e5;
+    align-items: center;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
@@ -4906,56 +4915,145 @@ a:not(.not-change-color):hover {
     border-radius: 10px;
     height: 54px;
 }
-  .swap-btn-floating {
-            position: absolute;
-            top: 33px;
-            left: 50%;
-            transform: translateX(-50%) !important;
-            width: 50px;
-            height: 50px;
+
+.swap-btn-floating {
+    position: absolute;
+    top: 33px;
+    left: 50%;
+    transform: translateX(-50%) !important;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    background-color: #2254AB !important;
+    border: 1px solid white !important;
+    transition: all 0.3s ease-in-out;
+    font-size: 18px;
+}
+
+.swap-btn-floating img {
+    transition: transform 0.3s ease-in-out;
+    width: 24px;
+    height: 24px;
+}
+
+.swap-btn-floating:hover {
+    transform: translateX(-50%) scale(1.1);
+    box-shadow: 0 6px 20px rgba(34, 84, 171, 0.4);
+    background-color: #1e4a96 !important;
+}
+
+.swap-btn-floating:active {
+    transform: translateX(-50%) scale(0.95);
+}
+
+/* Loại bỏ transition cho container để input đứng yên */
+
+/* Đảm bảo có khoảng cách giữa 2 input để icon có chỗ */
+
+
+@media (max-width: 991px) {
+    .swap-btn-floating {
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none;
+        margin: 15px auto;
+        display: block;
+        transform: unset !important
+    }
+
+    .row.position-relative {
+        align-items: stretch;
+    }
+}
+  /* CSS cho zodiac list */
+        .zodiac-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .zodiac-item {
             display: flex;
             align-items: center;
-            justify-content: center;
-            z-index: 10;
-            background-color: #2254AB !important;
-            border: 1px solid white !important;
-            transition: all 0.3s ease-in-out;
-            font-size: 18px;
+            padding: 12px;
+            border: 1px solid #e0e0e0;
+            border-radius: 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
         }
 
-        .swap-btn-floating img {
-            transition: transform 0.3s ease-in-out;
-            width: 24px;
-            height: 24px;
+        .zodiac-item:hover {
+            background: #f8f9fa;
+            border-color: #007bff;
+            transform: translateY(-1px);
         }
 
-        .swap-btn-floating:hover {
-            transform: translateX(-50%) scale(1.1);
-            box-shadow: 0 6px 20px rgba(34, 84, 171, 0.4);
-            background-color: #1e4a96 !important;
+        .zodiac-item.active {
+            background: #007bff;
+            border-color: #007bff;
+            color: white;
         }
 
-        .swap-btn-floating:active {
-            transform: translateX(-50%) scale(0.95);
+        .zodiac-item-icon {
+            width: 32px;
+            height: 32px;
+            margin-right: 12px;
+            flex-shrink: 0;
         }
 
-        /* Loại bỏ transition cho container để input đứng yên */
+        .zodiac-item-info {
+            flex: 1;
+        }
 
-        /* Đảm bảo có khoảng cách giữa 2 input để icon có chỗ */
+        .zodiac-item-name {
+            font-weight: 600;
+            font-size: 14px;
+        }
 
+        .zodiac-item-date {
+            font-size: 12px;
+            opacity: 0.8;
+            margin-top: 2px;
+        }
 
-        @media (max-width: 991px) {
-            .swap-btn-floating {
-                position: relative;
-                top: auto;
-                left: auto;
-                transform: none;
-                margin: 15px auto;
-                display: block;
-                transform: unset !important
+        /* CSS cho thanh trượt ngang trên mobile */
+        @media (max-width: 768px) {
+            .zodiac-list {
+                flex-direction: row;
+                overflow-x: auto;
+                gap: 8px;
+                padding: 10px 0;
             }
 
-            .row.position-relative {
-                align-items: stretch;
+            .zodiac-item {
+                min-width: 120px;
+                flex-direction: column;
+                text-align: center;
+                padding: 8px;
+            }
+
+            .zodiac-item-icon {
+                margin-right: 0;
+                margin-bottom: 8px;
+            }
+        }
+
+        /* CSS cho desktop - giữ nguyên layout hiện tại */
+        @media (min-width: 769px) {
+            .bth-cunghoangdao .tabs {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+
+            .bth-cunghoangdao .tab-button {
+                flex: 1;
+                min-width: 120px;
             }
         }

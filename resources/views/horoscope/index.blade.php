@@ -1,6 +1,7 @@
 @extends('welcome')
 
 @section('content')
+    
     <div class="container-setup">
         <h6 class="content-title-detail"><a href="{{ route('home') }}">Trang chủ</a> <i class="bi bi-chevron-right"></i>
             Phong thủy & tử vi <i class="bi bi-chevron-right"></i>
@@ -10,7 +11,7 @@
         <div class="row g-4 mb-4  mt-2">
             @foreach ($zodiacs as $sign => $details)
                 <div class="col-6 col-md-4 col-lg-2 d-flex justify-content-center">
-                    <a href="{{ route('horoscope.show', ['sign' => $sign]) }}" class="zodiac-card">
+                    <a href="{{ route('horoscope.show.type', ['signSlug' => $signSlugs[$sign], 'typeSlug' => 'hom-nay']) }}" class="zodiac-card">
                         <img src="{{ $details['icon'] }}" alt="{{ $details['name'] }}" class="img-fluid">
 
                     </a>

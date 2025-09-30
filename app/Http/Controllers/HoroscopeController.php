@@ -80,9 +80,10 @@ class HoroscopeController extends Controller
     public function index()
     {
         $zodiacs = $this->getZodiacsData();
+        $signSlugs = $this->getSignSlugs();
         $metaTitle = "Xem 12 Cung Hoàng Đạo - Tử Vi 12 Cung Hoàng Đạo Hôm Nay - Giải mã tính cách, tình yêu, sự nghiệp";
         $metaDescription = "Khám phá bí mật 12 cung hoàng đạo: tính cách, tình yêu, sự nghiệp, ngày sinh và tử vi. Xem chi tiết cung Bạch Dương, Kim Ngưu, Song Tử, Cự Giải... đầy đủ, chính xác.";
-        return view('horoscope.index', ['zodiacs' => $zodiacs, 'metaTitle' => $metaTitle, 'metaDescription' => $metaDescription]);
+        return view('horoscope.index', ['zodiacs' => $zodiacs, 'signSlugs' => $signSlugs, 'metaTitle' => $metaTitle, 'metaDescription' => $metaDescription]);
     }
 
     /**
