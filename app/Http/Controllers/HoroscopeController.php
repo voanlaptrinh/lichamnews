@@ -81,8 +81,8 @@ class HoroscopeController extends Controller
     {
         $zodiacs = $this->getZodiacsData();
         $signSlugs = $this->getSignSlugs();
-        $metaTitle = "Xem 12 Cung Hoàng Đạo - Tử Vi 12 Cung Hoàng Đạo Hôm Nay - Giải mã tính cách, tình yêu, sự nghiệp";
-        $metaDescription = "Khám phá bí mật 12 cung hoàng đạo: tính cách, tình yêu, sự nghiệp, ngày sinh và tử vi. Xem chi tiết cung Bạch Dương, Kim Ngưu, Song Tử, Cự Giải... đầy đủ, chính xác.";
+        $metaTitle = " Tử Vi 12 Cung Hoàng Đạo – Tính Cách, Tử Vi, Tình Yêu & Sự Nghiệp";
+        $metaDescription = "Khám phá 12 cung hoàng đạo theo ngày sinh: tính cách, tử vi, tình yêu, sự nghiệp và điểm mạnh yếu của từng chòm sao. Tra cứu cung hoàng đạo của bạn ngay hôm nay.";
         return view('horoscope.index', ['zodiacs' => $zodiacs, 'signSlugs' => $signSlugs, 'metaTitle' => $metaTitle, 'metaDescription' => $metaDescription]);
     }
 

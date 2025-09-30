@@ -267,6 +267,18 @@ class LunarCalendarApp {
     }
 
     updateUIElements(data) {
+        // === START: CẬP NHẬT META TAGS ===
+        if (data.metaTitle) {
+            document.title = data.metaTitle;
+        }
+        if (data.metaDescription) {
+            const metaDescriptionTag = document.querySelector('meta[name="description"]');
+            if (metaDescriptionTag) {
+                metaDescriptionTag.setAttribute('content', data.metaDescription);
+            }
+        }
+        // === END: CẬP NHẬT META TAGS ===
+
         // Cập nhật title và breadcrumb cho trang detail
         const pageTitle = document.getElementById('page-title');
         const breadcrumbText = document.getElementById('breadcrumb-text');

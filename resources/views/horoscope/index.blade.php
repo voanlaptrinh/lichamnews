@@ -6,7 +6,7 @@
             Phong thủy & tử vi <i class="bi bi-chevron-right"></i>
             <span>12 cung hoàng đạo</span>
         </h6>
-        <h1 class="content-title-home-lich">12 cung hoàng đạo</h1>
+        <h1 class="content-title-home-lich">Tử Vi 12 Cung Hoàng Đạo</h1>
         <div class="row g-3 mb-4 mt-2">
             @foreach ($zodiacs as $sign => $details)
                 <div class="col-lg-3 col-xl-2 col-md-4 col-6">
