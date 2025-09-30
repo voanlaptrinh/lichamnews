@@ -125,61 +125,88 @@ class HoroscopeController extends Controller
     /**
      * Helper method để render view cho cung hoàng đạo
      */
-    private function renderZodiacView($sign, $type = 'today')
-    {
-        $zodiacs = $this->getZodiacsData();
-        if (!array_key_exists($sign, $zodiacs)) {
-            abort(404);
-        }
-
-        // Meta data cho từng cung hoàng đạo
-        $metaTitles = [
-            'aries' => 'Cung Bạch Dương - Aries (21/3 - 19/4) | Tính cách, Tình yêu, Sự nghiệp',
-            'taurus' => 'Cung Kim Ngưu - Taurus (20/4 - 20/5) | Tính cách, Tình yêu, Sự nghiệp',
-            'gemini' => 'Cung Song Tử - Gemini (21/5 - 20/6) | Tính cách, Tình yêu, Sự nghiệp',
-            'cancer' => 'Cung Cự Giải - Cancer (21/6 - 22/7) | Tính cách, Tình yêu, Sự nghiệp',
-            'leo' => 'Cung Sư Tử - Leo (23/7 - 22/8) | Tính cách, Tình yêu, Sự nghiệp',
-            'virgo' => 'Cung Xử Nữ - Virgo (23/8 - 22/9) | Tính cách, Tình yêu, Sự nghiệp',
-            'libra' => 'Cung Thiên Bình - Libra (23/9 - 22/10) | Tính cách, Tình yêu, Sự nghiệp',
-            'scorpio' => 'Cung Bọ Cạp - Scorpio (23/10 - 21/11) | Tính cách, Tình yêu, Sự nghiệp',
-            'sagittarius' => 'Cung Nhân Mã - Sagittarius (22/11 - 21/12) | Tính cách, Tình yêu, Sự nghiệp',
-            'capricorn' => 'Cung Ma Kết - Capricorn (22/12 - 19/1) | Tính cách, Tình yêu, Sự nghiệp',
-            'aquarius' => 'Cung Bảo Bình - Aquarius (20/1 - 18/2) | Tính cách, Tình yêu, Sự nghiệp',
-            'pisces' => 'Cung Song Ngư - Pisces (19/2 - 20/3) | Tính cách, Tình yêu, Sự nghiệp'
-        ];
-
-        $metaDescriptions = [
-            'aries' => 'Cung Bạch Dương (21/3-19/4): Khám phá tính cách mạnh mẽ, nhiệt huyết, tình yêu đam mê và sự nghiệp của người cung Bạch Dương. Tử vi hôm nay, tuần, tháng, năm chi tiết.',
-            'taurus' => 'Cung Kim Ngưu (20/4-20/5): Tìm hiểu tính cách kiên nhẫn, thực tế, tình yêu chung thủy và sự nghiệp vững chắc của người cung Kim Ngưu. Tử vi chi tiết hàng ngày.',
-            'gemini' => 'Cung Song Tử (21/5-20/6): Khám phá tính cách linh hoạt, thông minh, tình yêu đa dạng và sự nghiệp sáng tạo của người cung Song Tử. Xem tử vi hôm nay miễn phí.',
-            'cancer' => 'Cung Cự Giải (21/6-22/7): Tìm hiểu tính cách nhạy cảm, tình cảm sâu sắc, tình yêu chân thành và sự nghiệp của người cung Cự Giải. Tử vi chi tiết và chính xác.',
-            'leo' => 'Cung Sư Tử (23/7-22/8): Khám phá tính cách tự tin, quyền lực, tình yêu nồng cháy và sự nghiệp lãnh đạo của người cung Sư Tử. Dự báo tử vi hàng ngày.',
-            'virgo' => 'Cung Xử Nữ (23/8-22/9): Tìm hiểu tính cách cầu toàn, tỉ mỉ, tình yêu chân thành và sự nghiệp chuyên nghiệp của người cung Xử Nữ. Tử vi chi tiết nhất.',
-            'libra' => 'Cung Thiên Bình (23/9-22/10): Khám phá tính cách công bằng, hài hòa, tình yêu lãng mạn và sự nghiệp nghệ thuật của người cung Thiên Bình. Xem tử vi miễn phí.',
-            'scorpio' => 'Cung Bọ Cạp (23/10-21/11): Tìm hiểu tính cách bí ẩn, mạnh mẽ, tình yêu sâu sắc và sự nghiệp quyết đoán của người cung Bọ Cạp. Tử vi chính xác nhất.',
-            'sagittarius' => 'Cung Nhân Mã (22/11-21/12): Khám phá tính cách phóng khoáng, yêu tự do, tình yêu phiêu lưu và sự nghiệp của người cung Nhân Mã. Dự báo tử vi chi tiết.',
-            'capricorn' => 'Cung Ma Kết (22/12-19/1): Tìm hiểu tính cách tham vọng, kiên định, tình yêu nghiêm túc và sự nghiệp thành công của người cung Ma Kết. Xem tử vi hôm nay.',
-            'aquarius' => 'Cung Bảo Bình (20/1-18/2): Khám phá tính cách độc đáo, sáng tạo, tình yêu tự do và sự nghiệp đổi mới của người cung Bảo Bình. Tử vi chi tiết miễn phí.',
-            'pisces' => 'Cung Song Ngư (19/2-20/3): Tìm hiểu tính cách mơ mộng, nhân ái, tình yêu lãng mạn và sự nghiệp nghệ thuật của người cung Song Ngư. Dự báo tử vi chính xác.'
-        ];
-
-        $zodiac = ['sign' => $sign] + $zodiacs[$sign];
-        $metaTitle = $metaTitles[$sign] ?? 'Tử vi 12 cung hoàng đạo';
-        $metaDescription = $metaDescriptions[$sign] ?? 'Xem tử vi 12 cung hoàng đạo chi tiết nhất';
-
-        // Thêm thông tin về current type và slug mappings
-        $signSlugs = $this->getSignSlugs();
-        $typeSlugs = $this->getTypeSlugs();
-
-        return view('horoscope.show', [
-            'zodiac' => $zodiac,
-            'metaTitle' => $metaTitle,
-            'metaDescription' => $metaDescription,
-            'currentType' => $type,
-            'signSlugs' => $signSlugs,
-            'typeSlugs' => $typeSlugs
-        ]);
+   private function renderZodiacView($sign, $type = 'today')
+{
+    $zodiacs = $this->getZodiacsData();
+    if (!array_key_exists($sign, $zodiacs)) {
+        abort(404);
     }
+
+    // --- BẮT ĐẦU PHẦN CẬP NHẬT ---
+
+    // 1. Mảng chứa tên Tiếng Việt của các cung hoàng đạo
+    $zodiacNames = [
+        'aries'       => 'Bạch Dương',
+        'taurus'      => 'Kim Ngưu',
+        'gemini'      => 'Song Tử',
+        'cancer'      => 'Cự Giải',
+        'leo'         => 'Sư Tử',
+        'virgo'       => 'Xử Nữ',
+        'libra'       => 'Thiên Bình',
+        'scorpio'     => 'Bọ Cạp',
+        'sagittarius' => 'Nhân Mã',
+        'capricorn'   => 'Ma Kết',
+        'aquarius'    => 'Bảo Bình',
+        'pisces'      => 'Song Ngư',
+    ];
+
+    // Lấy tên của cung hoàng đạo hiện tại
+    $currentZodiacName = $zodiacNames[$sign] ?? 'Hoàng Đạo';
+
+    // 2. Mảng chứa các mẫu (template) cho Meta Title
+    // Sử dụng placeholder {zodiacName} để thay thế
+    $metaTitleTemplates = [
+        'today'    => 'Tử Vi Cung {zodiacName} Hôm Nay – Tình Yêu, Sự Nghiệp & Tài Chính',
+        'tomorrow' => 'Tử Vi Cung {zodiacName} Ngày Mai – Tình Yêu, Công Việc & Tài Chính',
+        'weekly'   => 'Tử Vi Cung {zodiacName} Tuần Này – Tình Yêu, Công Việc & Tài Lộc',
+        'monthly'  => 'Tử Vi Cung {zodiacName} Tháng Này – Tình Yêu, Sự Nghiệp & Tài Chính',
+        'yearly'   => 'Tử Vi Cung {zodiacName} Năm Nay – Tình Yêu, Sự Nghiệp & Vận Mệnh',
+        'default'  => 'Cung {zodiacName} - {englishName} | Tính cách, Tình yêu, Sự nghiệp',
+    ];
+
+    // 3. Mảng chứa các mẫu (template) cho Meta Description
+    $metaDescriptionTemplates = [
+        'today'    => 'Xem tử vi cung {zodiacName} hôm nay: tình yêu, sự nghiệp, tài chính và sức khỏe. Dự đoán giúp {zodiacName} định hướng và lựa chọn tốt hơn trong ngày.',
+        'tomorrow' => 'Xem tử vi cung {zodiacName} ngày mai với dự đoán về tình yêu, công việc, tài chính và sức khỏe. Gợi ý giúp {zodiacName} chuẩn bị tốt hơn cho ngày mới.',
+        'weekly'   => 'Xem tử vi cung {zodiacName} tuần này với dự đoán chi tiết về tình yêu, công việc, tài chính và sức khỏe. Giúp {zodiacName} lên kế hoạch tuần hiệu quả.',
+        'monthly'  => 'Xem tử vi cung {zodiacName} tháng này với dự đoán về tình yêu, công việc, tài chính và sức khỏe. Giúp {zodiacName} định hướng và vượt qua thử thách trong tháng.',
+        'yearly'   => 'Xem tử vi cung {zodiacName} năm nay với dự đoán về tình yêu, công việc, tài chính, sức khỏe. Giúp {zodiacName} định hướng kế hoạch và tránh rủi ro trong năm.',
+        'default'  => 'Khám phá toàn bộ về cung {zodiacName} ({dateRange}): tính cách đặc trưng, quan điểm về tình yêu, con đường sự nghiệp và các mối quan hệ.',
+    ];
+
+    // 4. Lấy template dựa trên $type, nếu không có thì dùng 'default'
+    $titleTemplate = $metaTitleTemplates[$type] ?? $metaTitleTemplates['default'];
+    $descriptionTemplate = $metaDescriptionTemplates[$type] ?? $metaDescriptionTemplates['default'];
+
+    // 5. Tạo ra Meta Title và Meta Description cuối cùng
+    // Thay thế các placeholder bằng giá trị thực
+    $metaTitle = str_replace('{zodiacName}', $currentZodiacName, $titleTemplate);
+    $metaDescription = str_replace('{zodiacName}', $currentZodiacName, $descriptionTemplate);
+    
+    // Bổ sung các placeholder khác nếu cần (ví dụ cho template 'default')
+    if ($type === 'default' || !isset($metaTitleTemplates[$type])) {
+        $zodiacDetails = $zodiacs[$sign];
+        $metaTitle = str_replace('{englishName}', $zodiacDetails['english_name'], $metaTitle);
+        $metaDescription = str_replace('{dateRange}', $zodiacDetails['date'], $metaDescription);
+    }
+    
+    // --- KẾT THÚC PHẦN CẬP NHẬT ---
+
+    $zodiac = ['sign' => $sign] + $zodiacs[$sign];
+
+    // Thêm thông tin về current type và slug mappings
+    $signSlugs = $this->getSignSlugs();
+    $typeSlugs = $this->getTypeSlugs();
+
+    return view('horoscope.show', [
+        'zodiac' => $zodiac,
+        'metaTitle' => $metaTitle,
+        'metaDescription' => $metaDescription,
+        'currentType' => $type, // $type đã có sẵn từ tham số hàm
+        'signSlugs' => $signSlugs,
+        'typeSlugs' => $typeSlugs
+    ]);
+}
 
     /**
      * Lấy dữ liệu từ API bên ngoài và trả về dạng JSON

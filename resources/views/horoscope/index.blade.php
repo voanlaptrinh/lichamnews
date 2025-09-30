@@ -13,7 +13,7 @@
                     <a href="{{ route('horoscope.show.type', ['signSlug' => $signSlugs[$sign], 'typeSlug' => 'hom-nay']) }}"
                         class="card p-3 h-100 text-decoration-none text-dark zodiac-card text-center shadow-sm zodiac-card-new">
 
-                        <img src="{{ asset($details['icon']) }}" alt="{{ $details['name'] }}" class="icon">
+                        <img src="{{ asset($details['icon']) }}?v=1.0" alt="{{ $details['name'] }}" class="icon">
                         <h6 class="card-title mb-0 fw-bold name text-uppercase">{{ $details['name'] }}</h6>
                         <div class="date">
                             {{ $details['date'] }}
