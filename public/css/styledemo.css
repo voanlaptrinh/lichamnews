@@ -4969,91 +4969,209 @@ a:not(.not-change-color):hover {
         align-items: stretch;
     }
 }
-  /* CSS cho zodiac list */
-        .zodiac-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
 
-        .zodiac-item {
-            display: flex;
-            align-items: center;
-            padding: 12px;
-            border: 1px solid #e0e0e0;
-            border-radius: 24px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            background: white;
-        }
+/* CSS cho zodiac list */
+.zodiac-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
 
-        .zodiac-item:hover {
-            background: #f8f9fa;
-            border-color: #007bff;
-            transform: translateY(-1px);
-        }
+.zodiac-item {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 24px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: white;
+}
 
-        .zodiac-item.active {
-            background: #007bff;
-            border-color: #007bff;
-            color: white;
-        }
+.zodiac-item:hover {
+    background: #f8f9fa;
+    border-color: #007bff;
+    transform: translateY(-1px);
+}
 
-        .zodiac-item-icon {
-            width: 32px;
-            height: 32px;
-            margin-right: 12px;
-            flex-shrink: 0;
-        }
+.zodiac-item.active {
+    background: #007bff;
+    border-color: #007bff;
+    color: white;
+}
 
-        .zodiac-item-info {
-            flex: 1;
-        }
+.zodiac-item-icon {
+    width: 32px;
+    height: 32px;
+    margin-right: 12px;
+    flex-shrink: 0;
+}
 
-        .zodiac-item-name {
-            font-weight: 600;
-            font-size: 14px;
-        }
+.zodiac-item-info {
+    flex: 1;
+}
 
-        .zodiac-item-date {
-            font-size: 12px;
-            opacity: 0.8;
-            margin-top: 2px;
-        }
+.zodiac-item-name {
+    font-weight: 600;
+    font-size: 14px;
+}
 
-        /* CSS cho thanh trượt ngang trên mobile */
-        @media (max-width: 768px) {
-            .zodiac-list {
-                flex-direction: row;
-                overflow-x: auto;
-                gap: 8px;
-                padding: 10px 0;
-            }
+.zodiac-item-date {
+    font-size: 12px;
+    opacity: 0.8;
+    margin-top: 2px;
+}
 
-            .zodiac-item {
-                min-width: 120px;
-                flex-direction: column;
-                text-align: center;
-                padding: 8px;
-            }
+/* CSS cho thanh trượt ngang trên mobile */
+@media (max-width: 768px) {
+    .zodiac-list {
+        flex-direction: row;
+        overflow-x: auto;
+        gap: 8px;
+        padding: 10px 0;
+    }
 
-            .zodiac-item-icon {
-                margin-right: 0;
-                margin-bottom: 8px;
-            }
-        }
+    .zodiac-item {
+        min-width: 120px;
+        flex-direction: column;
+        text-align: center;
+        padding: 8px;
+    }
 
-        /* CSS cho desktop - giữ nguyên layout hiện tại */
-        @media (min-width: 769px) {
-            .bth-cunghoangdao .tabs {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 10px;
-            }
+    .zodiac-item-icon {
+        margin-right: 0;
+        margin-bottom: 8px;
+    }
+}
 
-            .bth-cunghoangdao .tab-button {
-                flex: 1;
-                min-width: 120px;
-            }
-        }
+/* CSS cho desktop - giữ nguyên layout hiện tại */
+@media (min-width: 769px) {
+    .bth-cunghoangdao .tabs {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .bth-cunghoangdao .tab-button {
+        flex: 1;
+        min-width: 120px;
+    }
+}
+
+.zodiac-card {
+    background-color: #ffffff;
+    border: 2px solid #aedffc;
+    /* Light blue border */
+    border-radius: 16px;
+    /* Rounded corners */
+
+    text-align: center;
+    text-decoration: none;
+    /* Remove underline from the link */
+    color: #333;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.zodiac-card:hover {
+    transform: translateY(-8px);
+    /* Lifts the card on hover */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    /* Deeper shadow on hover */
+}
+
+.zodiac-card .icon {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 24px;
+}
+
+.zodiac-card .name {
+
+    font-weight: 700;
+    color: #1c3d6e;
+    /* Dark navy blue for the title */
+    margin: 0 0 8px 0;
+    padding-bottom: 8px;
+    letter-spacing: 1px;
+}
+
+.zodiac-card .date {
+    font-size: 18px;
+    color: #34495e;
+    /* A slightly softer black */
+
+}
+
+.zodiac-card .read-more {
+    display: inline-flex;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 600;
+    color: #1c3d6e;
+    /* Same color as the title */
+}
+
+.zodiac-card .arrow-circle {
+    width: 28px;
+    height: 28px;
+    border: 1.5px solid #bdc3c7;
+    /* A neutral grey for the circle border */
+    border-radius: 50%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10px;
+    transition: border-color 0.3s ease;
+}
+
+.zodiac-card:hover .arrow-circle {
+    border-color: #1c3d6e;
+    /* Change border color on hover */
+}
+
+.read-more-link {
+    display: inline-flex;
+    /* Giúp căn chỉnh text và icon trên cùng một hàng */
+    align-items: center;
+    /* Căn giữa theo chiều dọc */
+    text-decoration: none;
+    /* Bỏ gạch chân của link */
+    font-size: 16px;
+    /* ~18px */
+    font-weight: 600;
+    color: #1c3d6e;
+    /* Màu xanh navy đậm */
+    transition: opacity 0.2s ease;
+}
+
+.read-more-link:hover {
+    opacity: 0.8;
+    /* Hiệu ứng mờ đi khi hover */
+}
+
+.read-more-link .arrow-circle {
+    width: 28px;
+    height: 28px;
+    border: 1.5px solid #a4b0be;
+    /* Màu xám xanh cho viền */
+    border-radius: 50%;
+    /* Tạo hình tròn */
+    display: inline-flex;
+    justify-content: center;
+    /* Căn giữa icon theo chiều ngang */
+    align-items: center;
+    /* Căn giữa icon theo chiều dọc */
+    margin-left: 10px;
+    /* Khoảng cách giữa text và icon */
+}
+
+.read-more-link .arrow-circle i {
+    font-size: 1rem;
+    /* Kích thước icon */
+    color: #1c3d6e;
+    /* Màu icon trùng với màu chữ */
+}

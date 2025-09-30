@@ -42,7 +42,7 @@
                 
                 <div id="download-app">
                     <a target="_blank" rel="noreferrer" class="max-w-[180px]"
-                        href="">
+                        href="https://apps.apple.com/vn/app/l%E1%BB%8Bch-%C3%A2m-l%E1%BB%8Bch-v%E1%BA%A1n-ni%C3%AAn-2025/id6499255314?l=vi">
                         <div
                             class="d-flex justify-content-center justify-items-center gap-3 shadow-sm py-2 px-3 rounded-lg">
                             <div class="max-w-[32px]"><svg fill="#000000" height="32" width="32" version="1.1"
@@ -68,7 +68,7 @@
                         </div>
                     </a>
                     <a target="_blank" rel="noreferrer" class="max-w-[180px]"
-                        href="">
+                        href="https://play.google.com/store/apps/details?id=com.rvn.licham&hl=vi">
                         <div class="d-flex justify-content-center justify-items-center gap-3 shadow-sm py-2 px-3 rounded-lg">
                             <div class="max-w-[37px] w-[37px]"><svg width="38" height="38"
                                     viewBox="0 0 32.00 32.00" fill="none" xmlns="http://www.w3.org/2000/svg"

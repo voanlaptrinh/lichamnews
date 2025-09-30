@@ -119,16 +119,26 @@
     .title-tong-quan-h2-log {
         font-size: 22px;
     }
-    .--posyon-ngay{
+
+    .--posyon-ngay {
         display: none;
     }
-    .box-chi-so-ngaytot{
+
+    .box-chi-so-ngaytot {
         display: flex;
         justify-content: space-around;
         align-items: center;
     }
-    .horoscope-content{
-                font-size: 16px;
+
+    .horoscope-content {
+        font-size: 16px;
+    }
+
+    .zodiac-card .name {
+        font-size: 20px;
+    }
+    .zodiac-card .date{
+        padding-bottom: 16px;
     }
 }
 
@@ -296,16 +306,26 @@
     .title-tong-quan-h2-log {
         font-size: 22px;
     }
-    .--posyon-ngay{
+
+    .--posyon-ngay {
         display: none;
     }
-    .box-chi-so-ngaytot{
+
+    .box-chi-so-ngaytot {
         display: flex;
         justify-content: space-around;
         align-items: center;
     }
-     .horoscope-content{
-                font-size: 16px;
+
+    .horoscope-content {
+        font-size: 16px;
+    }
+
+    .zodiac-card .name {
+        font-size: 20px;
+    }
+     .zodiac-card .date{
+        padding-bottom: 16px;
     }
 }
 
@@ -464,16 +484,26 @@
     .title-tong-quan-h2-log {
         font-size: 22px;
     }
-     .--posyon-ngay{
+
+    .--posyon-ngay {
         display: none;
     }
-    .box-chi-so-ngaytot{
+
+    .box-chi-so-ngaytot {
         display: flex;
         justify-content: space-around;
         align-items: center;
     }
-      .horoscope-content{
-                font-size: 16px;
+
+    .horoscope-content {
+        font-size: 16px;
+    }
+
+    .zodiac-card .name {
+        font-size: 20px;
+    }
+     .zodiac-card .date{
+        padding-bottom: 16px;
     }
 }
 
@@ -693,16 +723,26 @@
     .title-tong-quan-h2-log {
         font-size: 23px;
     }
-     .--posyon-ngay{
+
+    .--posyon-ngay {
         display: none;
     }
-    .box-chi-so-ngaytot{
+
+    .box-chi-so-ngaytot {
         display: flex;
         justify-content: space-around;
         align-items: center;
     }
-      .horoscope-content{
-                font-size: 16px;
+
+    .horoscope-content {
+        font-size: 16px;
+    }
+
+    .zodiac-card .name {
+        font-size: 18px;
+    }
+     .zodiac-card .date{
+        padding-bottom: 16px;
     }
 }
 
@@ -930,23 +970,35 @@
     .lunar-date {
         font-size: 18px;
     }
-     .calendar-day {
+
+    .calendar-day {
         aspect-ratio: 1;
         border-radius: 5px;
     }
-    .lunar-date-popup{
+
+    .lunar-date-popup {
         right: unset !important;
     }
-     .--posyon-ngay{
+
+    .--posyon-ngay {
         display: none;
     }
-    .box-chi-so-ngaytot{
+
+    .box-chi-so-ngaytot {
         display: flex;
         justify-content: space-around;
         align-items: center;
     }
-      .horoscope-content{
-                font-size: 16px;
+
+    .horoscope-content {
+        font-size: 16px;
+    }
+
+    .zodiac-card .name {
+        font-size: 20px;
+    }
+     .zodiac-card .date{
+        padding-bottom: 16px;
     }
 }
 
@@ -1197,24 +1249,36 @@
     .lunar-date {
         font-size: 18px;
     }
-     .calendar-day {
+
+    .calendar-day {
         aspect-ratio: 1;
         border-radius: 5px;
     }
-    .lunar-date-popup{
+
+    .lunar-date-popup {
         right: unset !important;
     }
-    .bix-title-thangnam{
+
+    .bix-title-thangnam {
         margin-top: 10px;
     }
-    .box-chi-so-ngaytot{
+
+    .box-chi-so-ngaytot {
         display: flex;
         justify-content: space-around;
         flex-direction: column;
         align-items: center;
     }
-      .horoscope-content{
-                font-size: 15px;
+
+    .horoscope-content {
+        font-size: 15px;
+    }
+
+    .zodiac-card .name {
+        font-size: 18px;
+    }
+     .zodiac-card .date{
+        padding-bottom: 12px;
     }
 }
 
@@ -1599,21 +1663,31 @@
         aspect-ratio: 1;
         border-radius: 5px;
     }
-    .lunar-date-popup{
+
+    .lunar-date-popup {
         right: unset !important;
     }
-      .bix-title-thangnam{
+
+    .bix-title-thangnam {
         margin-top: 10px;
     }
-    .box-chi-so-ngaytot{
+
+    .box-chi-so-ngaytot {
         display: flex;
         justify-content: space-around;
         flex-direction: column;
         align-items: center;
     }
-    
-      .horoscope-content{
-                font-size: 15px;
+
+    .horoscope-content {
+        font-size: 15px;
+    }
+
+    .zodiac-card .name {
+        font-size: 16px;
+    }
+      .zodiac-card .date{
+        padding-bottom: 12px;
     }
 }
 

@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http; // Sử dụng HTTP Client của Laravel
-use Illuminate\Support\Facades\Log;   
-use League\CommonMark\CommonMarkConverter;// Dùng để ghi log nếu có lỗi
+use Illuminate\Support\Facades\Log;
+use League\CommonMark\CommonMarkConverter; // Dùng để ghi log nếu có lỗi
 
 class HoroscopeController extends Controller
 {
@@ -13,18 +13,18 @@ class HoroscopeController extends Controller
     private function getZodiacsData()
     {
         return [
-            'aries' => ['name' => 'Bạch Dương', 'icon' => '/icons/aries.svg'],
-            'taurus' => ['name' => 'Kim Ngưu', 'icon' => '/icons/taurus.svg'],
-            'gemini' => ['name' => 'Song Tử', 'icon' => '/icons/gemini.svg'],
-            'cancer' => ['name' => 'Cự Giải', 'icon' => '/icons/cances.svg'],
-            'leo' => ['name' => 'Sư Tử', 'icon' => '/icons/leo.svg'],
-            'virgo' => ['name' => 'Xử Nữ', 'icon' => '/icons/virgo.svg'],
-            'libra' => ['name' => 'Thiên Bình', 'icon' => '/icons/libra.svg'],
-            'scorpio' => ['name' => 'Bọ Cạp', 'icon' => '/icons/scor.svg'],
-            'sagittarius' => ['name' => 'Nhân Mã', 'icon' => '/icons/sagi.svg'],
-            'capricorn' => ['name' => 'Ma Kết', 'icon' => '/icons/capri.svg'],
-            'aquarius' => ['name' => 'Bảo Bình', 'icon' => '/icons/aquarius.svg'],
-            'pisces' => ['name' => 'Song Ngư', 'icon' => '/icons/pisces.svg']
+            'aries' => ['name' => 'Bạch Dương', 'icon' => '/icons/bach_duong_tba.svg', 'date' => '21/3 - 19/4'],
+            'taurus' => ['name' => 'Kim Ngưu', 'icon' => '/icons/kim_nguu_tba.svg', 'date' => '20/4 - 20/5'],
+            'gemini' => ['name' => 'Song Tử', 'icon' => '/icons/song_tu_tba.svg', 'date' => '21/5 - 20/6'],
+            'cancer' => ['name' => 'Cự Giải', 'icon' => '/icons/cu_giai_tba.svg', 'date' => '21/6 - 22/7'],
+            'leo' => ['name' => 'Sư Tử', 'icon' => '/icons/su_tu_tba.svg', 'date' => '23/7 - 22/8'],
+            'virgo' => ['name' => 'Xử Nữ', 'icon' => '/icons/xu_nu_tba.svg', 'date' => '23/8 - 22/9'],
+            'libra' => ['name' => 'Thiên Bình', 'icon' => '/icons/thien_binh_tba.svg', 'date' => '23/9 - 22/10'],
+            'scorpio' => ['name' => 'Bọ Cạp', 'icon' => '/icons/bo_cap_tba.svg', 'date' => '23/10 - 21/11'],
+            'sagittarius' => ['name' => 'Nhân Mã', 'icon' => '/icons/nhan_ma_tba.svg', 'date' => '22/11 - 21/12'],
+            'capricorn' => ['name' => 'Ma Kết', 'icon' => '/icons/ma_ket_tba.svg', 'date' => '22/12 - 19/1'],
+            'aquarius' => ['name' => 'Bảo Bình', 'icon' => '/icons/bao_binh_tba.svg', 'date' => '20/1 - 18/2'],
+            'pisces' => ['name' => 'Song Ngư', 'icon' => '/icons/song_ngu_tba.svg', 'date' => '19/2 - 20/3']
         ];
     }
 
@@ -184,7 +184,7 @@ class HoroscopeController extends Controller
     /**
      * Lấy dữ liệu từ API bên ngoài và trả về dạng JSON
      */
- public function fetchData($sign, $type)
+    public function fetchData($sign, $type)
     {
         $validSigns = array_keys($this->getZodiacsData());
         $validTypes = ['yesterday', 'today', 'tomorrow', 'weekly', 'monthly', 'yearly'];
@@ -205,7 +205,7 @@ class HoroscopeController extends Controller
 
                 // 1. Kiểm tra xem có dữ liệu hợp lệ không, bằng cách truy cập sâu vào cấu trúc
                 if (isset($data['responseObject']) && isset($data['responseObject']['translatedContent'])) {
-                    
+
                     // 2. Lấy chuỗi Markdown trực tiếp
                     $markdownString = $data['responseObject']['translatedContent'];
 

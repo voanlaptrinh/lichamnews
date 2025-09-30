@@ -816,7 +816,7 @@ class LunarController extends Controller
 
         return array_slice($upcomingEvents, 0, 10);
     }
-    public static function getDateInfo($dd, $mm, $yy, $birthdate = null, $titletodate = '')
+    public static function getDateInfo($dd, $mm, $yy, $birthdate = null, $titletodate = '', $metaTitle = '', $metaDescription = '')
     {
         // Chuẩn hóa input
         $dd = (int)$dd;
@@ -926,7 +926,7 @@ class LunarController extends Controller
         $upcomingEvents = self::getUpcomingEvents($yy, $mm, $dd);
 
         return [
-            
+
             // Dữ liệu cơ bản
             'cdate' => $cdate,
             'dd' => sprintf('%02d', $dd),
@@ -983,7 +983,9 @@ class LunarController extends Controller
             // Sự kiện sắp tới
             'upcomingEvents' => $upcomingEvents,
             'titletodate' => $titletodate,
-          
+            'metaTitle' => $metaTitle,
+            'metaDescription' => $metaDescription
+
         ];
     }
 
@@ -1005,10 +1007,13 @@ class LunarController extends Controller
                 $effective_dd = (int)$cdate_info[2];
             }
         }
+
         $yy = $effective_yy;
         $mm = $effective_mm;
         $dd = $effective_dd;
-        $dateinfodetail = $this->getDateInfo($dd, $mm, $yy);
+        $metaTitle = 'Lịch Âm Dương Ngày ' . $dd . ' Tháng ' . $mm . ' Năm ' . $yy . '';
+        $metaDescription= ' Xem lịch âm dương, lịch vạn niên ngày ' . $dd . ' tháng ' . $mm . ' năm ' . $yy . ' chi tiết và chính xác. Tra cứu ngũ hành can chi, tiết khí, giờ hoàng đạo, sao, trực trong ngày';
+        $dateinfodetail = $this->getDateInfo($dd, $mm, $yy, null, '', $metaTitle, $metaDescription);
         return view('lunar.detail', $dateinfodetail);
     }
 
@@ -1028,8 +1033,9 @@ class LunarController extends Controller
                     'message' => 'Ngày không hợp lệ'
                 ], 400);
             }
-
-            $dateinfodetail = $this->getDateInfo($dd, $mm, $yy);
+$metaTitle = 'Lịch Âm Dương Ngày ' . $dd . ' Tháng ' . $mm . ' Năm ' . $yy . '';
+        $metaDescription= ' Xem lịch âm dương, lịch vạn niên ngày ' . $dd . ' tháng ' . $mm . ' năm ' . $yy . ' chi tiết và chính xác. Tra cứu ngũ hành can chi, tiết khí, giờ hoàng đạo, sao, trực trong ngày';
+            $dateinfodetail = $this->getDateInfo($dd, $mm, $yy,null, '', $metaTitle, $metaDescription);
 
             // Render HTML content
             $html = view('lunar.today_content.content', $dateinfodetail)->render();
@@ -1040,7 +1046,6 @@ class LunarController extends Controller
                     'html' => $html
                 ])
             ]);
-
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
@@ -1061,7 +1066,7 @@ class LunarController extends Controller
         $mm = $today->month;
         $yy = $today->year;
         $titletodate = 'hôm nay';
-        $dateinfodetail = $this->getDateInfo($dd, $mm, $yy,null, $titletodate);
+        $dateinfodetail = $this->getDateInfo($dd, $mm, $yy, null, $titletodate);
         return view('lunar.detailtoday', $dateinfodetail);
     }
 
@@ -1074,8 +1079,8 @@ class LunarController extends Controller
         $dd = $tomorrow->day;
         $mm = $tomorrow->month;
         $yy = $tomorrow->year;
-  $titletodate = 'ngày mai';
-        $dateinfodetail = $this->getDateInfo($dd, $mm, $yy,null, $titletodate);
+        $titletodate = 'ngày mai';
+        $dateinfodetail = $this->getDateInfo($dd, $mm, $yy, null, $titletodate, '', '');
         return view('lunar.detailtomorrow', $dateinfodetail);
     }
 }
