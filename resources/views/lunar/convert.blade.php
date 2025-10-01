@@ -151,7 +151,7 @@
                         <div class="position-relative bix-title-thangnam">
                             <div class="d-flex justify-content-center">
                                 <div class="position-absolute --posyon-ngay" style="top: -20px;">
-                                    <div class="ngay-hom-ngay">
+                                    <div class="ngay-hom-ngay --homnay-home">
                                         Ngày 26-09-2025 (<span id="luna-date">5</span> <span id="luna-month">Tháng
                                             8</span>
                                         năm Ất Tỵ)
@@ -666,7 +666,7 @@
 @endpush
 
 @push('scripts')
-    <script src="{{ asset('js/homepage-picker.js?v=1.0') }}"></script>
+    <script src="{{ asset('js/homepage-picker.js?v=1.4') }}"></script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             // Khởi tạo ứng dụng lịch âm cho trang chủ (không thay đổi URL)

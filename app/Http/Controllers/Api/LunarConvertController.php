@@ -81,4 +81,36 @@ class LunarConvertController extends Controller
             ], 400);
         }
     }
+
+    public function getMonthLunarDates(Request $request)
+    {
+        try {
+            $month = $request->input('month');
+            $year = $request->input('year');
+
+            // Get number of days in month
+            $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+
+            // Convert all days in the month
+            $lunarDates = [];
+            for ($day = 1; $day <= $daysInMonth; $day++) {
+                $lunarDate = LunarHelper::convertSolar2Lunar($day, $month, $year);
+                $lunarDates[$day] = [
+                    'lunarDay' => $lunarDate[0],
+                    'lunarMonth' => $lunarDate[1],
+                    'lunarYear' => $lunarDate[2]
+                ];
+            }
+
+            return response()->json([
+                'success' => true,
+                'dates' => $lunarDates
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'error' => 'Lỗi lấy dữ liệu âm lịch cho tháng'
+            ], 400);
+        }
+    }
 }

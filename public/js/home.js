@@ -247,10 +247,10 @@ class LunarCalendarApp {
                 history.pushState({year, month, day}, '', newUrl);
 
                 // Cập nhật các select âm dương tương ứng
-                this.updateSelectValues(year, month, day);
+                await this.updateSelectValues(year, month, day);
 
                 // Cập nhật popup calendar nếu đang mở
-                this.updatePopupIfOpen(year, month, day);
+                await this.updatePopupIfOpen(year, month, day);
 
                 // Cập nhật nội dung các element
                 this.updateUIElements(data.data);
@@ -661,8 +661,8 @@ class LunarCalendarApp {
 
         // Open popup - add event listener to all quick picker buttons
         quickPickerBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                // Lấy ngày hiện tại từ select thay vì từ biến global
+            btn.addEventListener('click', async () => {
+                // Lấy ngày hiện tại từ các nguồn có sẵn
                 const currentDay = parseInt(document.getElementById('solarDay')?.value || this.currentDay);
                 const currentMonth = parseInt(document.getElementById('solarMonth')?.value || this.currentMonth);
                 const currentYear = parseInt(document.getElementById('solarYear')?.value || this.currentYear);
@@ -670,6 +670,18 @@ class LunarCalendarApp {
                 // Cập nhật popup với ngày từ select
                 currentPopupMonth = currentMonth;
                 currentPopupYear = currentYear;
+
+                // Cập nhật select dương lịch trong popup
+                const popupSolarDay = document.getElementById('solarDay');
+                const popupSolarMonth = document.getElementById('solarMonth');
+                const popupSolarYear = document.getElementById('solarYear');
+
+                if (popupSolarDay) popupSolarDay.value = currentDay;
+                if (popupSolarMonth) popupSolarMonth.value = currentMonth;
+                if (popupSolarYear) popupSolarYear.value = currentYear;
+
+                // Convert solar to lunar and update lunar selects trong popup
+                await this.updateLunarSelectsFromSolar(currentDay, currentMonth, currentYear);
 
                 quickPickerOverlay.style.display = 'flex';
                 setTimeout(() => quickPickerOverlay.classList.add('show'), 10);
@@ -691,49 +703,49 @@ class LunarCalendarApp {
         });
 
         // Navigation buttons
-        document.getElementById('prevMonthBtn').addEventListener('click', () => {
+        document.getElementById('prevMonthBtn').addEventListener('click', async () => {
             currentPopupMonth--;
             if (currentPopupMonth < 1) {
                 currentPopupMonth = 12;
                 currentPopupYear--;
             }
             this.updatePopupHeader(currentPopupMonth, currentPopupYear);
-            this.generatePopupCalendar(currentPopupMonth, currentPopupYear);
+            await this.generatePopupCalendar(currentPopupMonth, currentPopupYear);
         });
 
-        document.getElementById('nextMonthBtn').addEventListener('click', () => {
+        document.getElementById('nextMonthBtn').addEventListener('click', async () => {
             currentPopupMonth++;
             if (currentPopupMonth > 12) {
                 currentPopupMonth = 1;
                 currentPopupYear++;
             }
             this.updatePopupHeader(currentPopupMonth, currentPopupYear);
-            this.generatePopupCalendar(currentPopupMonth, currentPopupYear);
+            await this.generatePopupCalendar(currentPopupMonth, currentPopupYear);
         });
 
         // Sync calendar when solar date selects change
-        document.getElementById('solarDay').addEventListener('change', () => {
-            this.syncCalendarWithSolarDate(currentPopupMonth, currentPopupYear);
-            this.convertSolarToLunar();
+        document.getElementById('solarDay').addEventListener('change', async () => {
+            await this.convertSolarToLunar();
+            await this.syncCalendarWithSolarDate();
         });
-        document.getElementById('solarMonth').addEventListener('change', () => {
-            this.syncCalendarWithSolarDate(currentPopupMonth, currentPopupYear);
-            this.convertSolarToLunar();
+        document.getElementById('solarMonth').addEventListener('change', async () => {
+            await this.convertSolarToLunar();
+            await this.syncCalendarWithSolarDate();
         });
-        document.getElementById('solarYear').addEventListener('change', () => {
-            this.syncCalendarWithSolarDate(currentPopupMonth, currentPopupYear);
-            this.convertSolarToLunar();
+        document.getElementById('solarYear').addEventListener('change', async () => {
+            await this.convertSolarToLunar();
+            await this.syncCalendarWithSolarDate();
         });
 
         // Add event listeners for lunar date changes
-        document.getElementById('lunarDay').addEventListener('change', () => {
-            this.convertLunarToSolar();
+        document.getElementById('lunarDay').addEventListener('change', async () => {
+            await this.convertLunarToSolar();
         });
-        document.getElementById('lunarMonth').addEventListener('change', () => {
-            this.convertLunarToSolar();
+        document.getElementById('lunarMonth').addEventListener('change', async () => {
+            await this.convertLunarToSolar();
         });
-        document.getElementById('lunarYear').addEventListener('change', () => {
-            this.convertLunarToSolar();
+        document.getElementById('lunarYear').addEventListener('change', async () => {
+            await this.convertLunarToSolar();
         });
 
         // View button click
@@ -766,7 +778,7 @@ class LunarCalendarApp {
     }
 
     // Cập nhật popup calendar nếu đang mở
-    updatePopupIfOpen(year, month, day) {
+    async updatePopupIfOpen(year, month, day) {
         const quickPickerOverlay = document.getElementById('quickPickerOverlay');
 
         // Kiểm tra nếu popup đang mở
@@ -775,7 +787,7 @@ class LunarCalendarApp {
             this.updatePopupHeader(month, year);
 
             // Tạo lại calendar với ngày mới và highlight ngày hiện tại
-            this.generatePopupCalendar(month, year, day);
+            await this.generatePopupCalendar(month, year, day);
         }
     }
 
@@ -823,7 +835,7 @@ class LunarCalendarApp {
         }
     }
 
-    generatePopupCalendar(month, year, highlightDay = null) {
+    async generatePopupCalendar(month, year, highlightDay = null) {
         const calendarDays = document.getElementById('popupCalendarDays');
         if (!calendarDays) return;
 
@@ -832,7 +844,11 @@ class LunarCalendarApp {
         const daysInMonth = lastDay.getDate();
         const startingDayOfWeek = firstDay.getDay() === 0 ? 6 : firstDay.getDay() - 1; // Thứ 2 = 0
 
+        // Clear calendar first
         calendarDays.innerHTML = '';
+
+        // Fetch lunar dates for entire month from API in background
+        const lunarDatesPromise = this.fetchLunarDatesForMonth(month, year, daysInMonth);
 
         // Add empty cells for previous month
         for (let i = 0; i < startingDayOfWeek; i++) {
@@ -852,24 +868,12 @@ class LunarCalendarApp {
             solarSpan.textContent = day;
             dayElement.appendChild(solarSpan);
 
-            // Convert to lunar date
-            try {
-                const lunarResult = this.convertSolarToLunarSync(day, month, year);
-                if (lunarResult) {
-                    const lunarSpan = document.createElement('div');
-                    lunarSpan.className = 'lunar-date-popup';
-                    lunarSpan.textContent = lunarResult.lunarDay;
-                    // lunarSpan.style.position = 'absolute';
-                    // lunarSpan.style.bottom = '2px';
-                    // lunarSpan.style.right = '2px';
-                    // lunarSpan.style.fontSize = '10px';
-                    // lunarSpan.style.color = '#000000ff';
-                    // lunarSpan.style.lineHeight = '1';
-                    dayElement.appendChild(lunarSpan);
-                }
-            } catch (e) {
-                console.log('Lunar conversion failed for:', day, month, year);
-            }
+            // Add placeholder lunar date (will be updated when API returns)
+            const lunarSpan = document.createElement('div');
+            lunarSpan.className = 'lunar-date-popup';
+            lunarSpan.textContent = '...'; // Temporary placeholder
+            lunarSpan.setAttribute('data-day', day);
+            dayElement.appendChild(lunarSpan);
 
             // Highlight current day - use select values if available
             const selectedDay = highlightDay || parseInt(document.getElementById('solarDay')?.value || this.currentDay);
@@ -904,16 +908,91 @@ class LunarCalendarApp {
 
             calendarDays.appendChild(dayElement);
         }
+
+        // Update lunar dates when API returns
+        lunarDatesPromise.then(lunarDatesMap => {
+            for (let day = 1; day <= daysInMonth; day++) {
+                const lunarSpan = calendarDays.querySelector(`[data-day="${day}"]`);
+                if (lunarSpan && lunarDatesMap[day]) {
+                    lunarSpan.textContent = lunarDatesMap[day].lunarDay;
+                }
+            }
+        });
     }
 
-    syncCalendarWithSolarDate() {
+    async updateLunarSelectsFromSolar(day, month, year) {
+        try {
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+            const response = await fetch('/api/convert-solar-to-lunar', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrfToken,
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    solarDay: day,
+                    solarMonth: month,
+                    solarYear: year
+                })
+            });
+
+            const data = await response.json();
+            if (data.success) {
+                const lunarDaySelect = document.getElementById('lunarDay');
+                const lunarMonthSelect = document.getElementById('lunarMonth');
+                const lunarYearSelect = document.getElementById('lunarYear');
+
+                if (lunarDaySelect) lunarDaySelect.value = data.lunarDay;
+                if (lunarMonthSelect) lunarMonthSelect.value = data.lunarMonth;
+                if (lunarYearSelect) lunarYearSelect.value = data.lunarYear;
+            }
+        } catch (error) {
+            console.log('Error updating lunar selects from solar:', error);
+        }
+    }
+
+    async fetchLunarDatesForMonth(month, year, daysInMonth) {
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+        try {
+            // Fetch lunar dates for entire month in ONE request
+            const response = await fetch('/api/get-month-lunar-dates', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrfToken,
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    month: month,
+                    year: year
+                })
+            });
+
+            const data = await response.json();
+
+            if (data.success && data.dates) {
+                return data.dates;
+            } else {
+                console.error('Lỗi khi lấy dữ liệu âm lịch:', data.error);
+                return {};
+            }
+        } catch (error) {
+            console.error('Lỗi khi lấy dữ liệu âm lịch cho tháng:', error);
+            return {};
+        }
+    }
+
+    async syncCalendarWithSolarDate() {
         const day = parseInt(document.getElementById('solarDay').value);
         const month = parseInt(document.getElementById('solarMonth').value);
         const year = parseInt(document.getElementById('solarYear').value);
 
         // Update popup calendar view
         this.updatePopupHeader(month, year);
-        this.generatePopupCalendar(month, year, day);
+        await this.generatePopupCalendar(month, year, day);
 
         // Highlighting is now handled in generatePopupCalendar
     }
@@ -947,8 +1026,9 @@ class LunarCalendarApp {
                 document.getElementById('solarMonth').value = data.solarMonth;
                 document.getElementById('solarYear').value = data.solarYear;
 
-                // Sync calendar
-                this.syncCalendarWithSolarDate();
+                // Update popup calendar header and regenerate with new solar date
+                this.updatePopupHeader(data.solarMonth, data.solarYear);
+                await this.generatePopupCalendar(data.solarMonth, data.solarYear, data.solarDay);
             }
         } catch (error) {
             console.error('Error converting lunar to solar:', error);
@@ -1063,10 +1143,10 @@ class LunarCalendarApp {
                 // KHÔNG cập nhật URL vì đã được browser xử lý
 
                 // Cập nhật các select âm dương tương ứng
-                this.updateSelectValues(year, month, day);
+                await this.updateSelectValues(year, month, day);
 
                 // Cập nhật popup calendar nếu đang mở
-                this.updatePopupIfOpen(year, month, day);
+                await this.updatePopupIfOpen(year, month, day);
 
                 // Cập nhật nội dung các element
                 this.updateUIElements(data.data);

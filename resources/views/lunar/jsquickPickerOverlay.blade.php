@@ -1,4 +1,4 @@
-<script src="{{ asset('js/home.js?v=1.2') }}"></script>
+<script src="{{ asset('js/home.js?v=1.4') }}"></script>
 <script>
     document.addEventListener("DOMContentLoaded", () => {
         // Khởi tạo ứng dụng lịch âm
