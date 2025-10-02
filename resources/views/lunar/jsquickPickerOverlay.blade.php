@@ -1,4 +1,5 @@
-<script src="{{ asset('js/home.js?v=1.4') }}"></script>
+<script src="{{ asset('js/base-picker.js?v=1.1') }}"></script>
+<script src="{{ asset('js/home.js?v=1.5') }}"></script>
 <script>
     document.addEventListener("DOMContentLoaded", () => {
         // Khởi tạo ứng dụng lịch âm

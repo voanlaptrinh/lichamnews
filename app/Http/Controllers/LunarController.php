@@ -181,11 +181,12 @@ class LunarController extends Controller
         $getDaySummaryInfo = FunctionHelper::getDaySummaryInfo($dd, $mm, $yy, $birthdate);
 
         $upcomingEvents = [];
-        $currentCarbonDate = Carbon::create($yy, $mm, $dd)->startOfDay();
+        // Luôn tính từ ngày hiện tại thay vì từ ngày được chọn
+        $currentCarbonDate = Carbon::today();
         $lookAheadMonths = 3; // Số tháng tiếp theo muốn tìm sự kiện
 
         for ($i = 0; $i <= $lookAheadMonths; $i++) {
-            $solarDateToCheck = Carbon::create($yy, $mm, $dd)->addMonthsNoOverflow($i);
+            $solarDateToCheck = $currentCarbonDate->copy()->addMonthsNoOverflow($i);
             $solarMonthToCheck = $solarDateToCheck->month;
             $solarYearToCheck = $solarDateToCheck->year;
 
@@ -436,11 +437,12 @@ class LunarController extends Controller
         $getDaySummaryInfo = FunctionHelper::getDaySummaryInfo($dd, $mm, $yy, $birthdate);
 
         $upcomingEvents = [];
-        $currentCarbonDate = Carbon::create($yy, $mm, $dd)->startOfDay();
+        // Luôn tính từ ngày hiện tại thay vì từ ngày được chọn
+        $currentCarbonDate = Carbon::today();
         $lookAheadMonths = 3; // Số tháng tiếp theo muốn tìm sự kiện
 
         for ($i = 0; $i <= $lookAheadMonths; $i++) {
-            $solarDateToCheck = Carbon::create($yy, $mm, $dd)->addMonthsNoOverflow($i);
+            $solarDateToCheck = $currentCarbonDate->copy()->addMonthsNoOverflow($i);
             $solarMonthToCheck = $solarDateToCheck->month;
             $solarYearToCheck = $solarDateToCheck->year;
 
@@ -665,11 +667,12 @@ class LunarController extends Controller
         $nextMonth = $nextDate->month;
         $tot_xau_result = LunarHelper::checkTotXau($canChi, $al[1]);
         $upcomingEvents = [];
-        $currentCarbonDate = Carbon::create($yy, $mm, $dd)->startOfDay();
+        // Luôn tính từ ngày hiện tại thay vì từ ngày được chọn
+        $currentCarbonDate = Carbon::today();
         $lookAheadMonths = 3; // Số tháng tiếp theo muốn tìm sự kiện
 
         for ($i = 0; $i <= $lookAheadMonths; $i++) {
-            $solarDateToCheck = Carbon::create($yy, $mm, $dd)->addMonthsNoOverflow($i);
+            $solarDateToCheck = $currentCarbonDate->copy()->addMonthsNoOverflow($i);
             $solarMonthToCheck = $solarDateToCheck->month;
             $solarYearToCheck = $solarDateToCheck->year;
 
@@ -759,10 +762,12 @@ class LunarController extends Controller
     private static function getUpcomingEvents($yy, $mm, $dd, $lookAheadMonths = 3)
     {
         $upcomingEvents = [];
-        $currentCarbonDate = Carbon::create($yy, $mm, $dd)->startOfDay();
+        // Luôn tính từ ngày hiện tại thay vì từ ngày được chọn
+        $currentCarbonDate = Carbon::today();
 
         for ($i = 0; $i <= $lookAheadMonths; $i++) {
-            $solarDateToCheck = Carbon::create($yy, $mm, $dd)->addMonthsNoOverflow($i);
+            // Tìm sự kiện từ ngày hiện tại, không phải từ ngày được chọn
+            $solarDateToCheck = $currentCarbonDate->copy()->addMonthsNoOverflow($i);
             $solarMonthToCheck = $solarDateToCheck->month;
             $solarYearToCheck = $solarDateToCheck->year;
 

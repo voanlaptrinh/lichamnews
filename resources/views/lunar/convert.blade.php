@@ -163,7 +163,7 @@
                                 <div class="coli-row">
                                     <div class="col-xl-7 col-lg-6 col-sm-12 col-12 ">
                                         <div class="info-item">
-                                            <img src="{{ asset('icons/icon_tiet_khi.png') }}" alt="icon_tiet_khi"
+                                            <img src="{{ asset('icons/icon_tiet_khi.svg') }}" alt="icon_tiet_khi"
                                                 class="icon_tiet_khi">
                                             <div class="font-detail-ngay">
                                                 <strong class="title-font-detail-ngay">Tiết khí:</strong>
@@ -171,7 +171,7 @@
                                             </div>
                                         </div>
                                         <div class="info-item">
-                                            <img src="{{ asset('icons/icon_nap_am.png') }}" alt="icon_nap_am"
+                                            <img src="{{ asset('icons/icon_nap_am.svg') }}" alt="icon_nap_am"
                                                 class="icon_nap_am">
                                             <div class="font-detail-ngay">
                                                 <strong class="title-font-detail-ngay">Ngũ hành nạp âm:</strong>
@@ -179,7 +179,7 @@
                                             </div>
                                         </div>
                                         <div class="info-item">
-                                            <img src="{{ asset('icons/icon_hoang_dao.png') }}" alt="icon_hoang_dao"
+                                            <img src="{{ asset('icons/icon_hoang_dao.svg') }}" alt="icon_hoang_dao"
                                                 class="icon_hoang_dao">
                                             <div class="font-detail-ngay">
                                                 <strong class="title-font-detail-ngay">Giờ Hoàng đạo:</strong>
@@ -336,7 +336,7 @@
                                     <a href="{{ route('detai_home', $routeParams) }}">
                                         <div class="event-date">
                                             {{ Carbon\Carbon::parse($event['date'])->format('d/m') }} <span
-                                                style="font-size: 12px;color: #6c757d;font-style: italic;">({{ $lunarDate[0] }}/{{ $lunarDate[1] }})</span>
+                                                style="font-size: 12px;color: #6c757d;font-style: italic;">({{ $lunarDate[0] }}/{{ $lunarDate[1] }} ÂL)</span>
 
                                         </div>
 
@@ -523,7 +523,7 @@
                                     <a href="{{ route('detai_home', $routeParams) }}">
                                         <div class="event-date">
                                             {{ Carbon\Carbon::parse($event['date'])->format('d/m') }} <span
-                                                style="font-size: 12px;color: #6c757d;font-style: italic;">({{ $lunarDate[0] }}/{{ $lunarDate[1] }})
+                                                style="font-size: 12px;color: #6c757d;font-style: italic;">({{ $lunarDate[0] }}/{{ $lunarDate[1] }} ÂL)
                                         </div>
                                         <div class="event-icon">🗓️</div>
                                         <div class="event-details">
@@ -666,7 +666,8 @@
 @endpush
 
 @push('scripts')
-    <script src="{{ asset('js/homepage-picker.js?v=1.4') }}"></script>
+    <script src="{{ asset('js/base-picker.js?v=1.1') }}"></script>
+    <script src="{{ asset('js/homepage-picker.js?v=1.5') }}"></script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             // Khởi tạo ứng dụng lịch âm cho trang chủ (không thay đổi URL)

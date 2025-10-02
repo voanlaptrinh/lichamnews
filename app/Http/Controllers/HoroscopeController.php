@@ -13,18 +13,18 @@ class HoroscopeController extends Controller
     private function getZodiacsData()
     {
         return [
-            'aries' => ['name' => 'Bạch Dương', 'icon' => '/icons/bach_duong_tba.svg', 'date' => '21/3 - 19/4'],
-            'taurus' => ['name' => 'Kim Ngưu', 'icon' => '/icons/kim_nguu_tba.svg', 'date' => '20/4 - 20/5'],
-            'gemini' => ['name' => 'Song Tử', 'icon' => '/icons/song_tu_tba.svg', 'date' => '21/5 - 20/6'],
-            'cancer' => ['name' => 'Cự Giải', 'icon' => '/icons/cu_giai_tba.svg', 'date' => '21/6 - 22/7'],
-            'leo' => ['name' => 'Sư Tử', 'icon' => '/icons/su_tu_tba.svg', 'date' => '23/7 - 22/8'],
-            'virgo' => ['name' => 'Xử Nữ', 'icon' => '/icons/xu_nu_tba.svg', 'date' => '23/8 - 22/9'],
-            'libra' => ['name' => 'Thiên Bình', 'icon' => '/icons/thien_binh_tba.svg', 'date' => '23/9 - 22/10'],
-            'scorpio' => ['name' => 'Bọ Cạp', 'icon' => '/icons/bo_cap_tba.svg', 'date' => '23/10 - 21/11'],
-            'sagittarius' => ['name' => 'Nhân Mã', 'icon' => '/icons/nhan_ma_tba.svg', 'date' => '22/11 - 21/12'],
-            'capricorn' => ['name' => 'Ma Kết', 'icon' => '/icons/ma_ket_tba.svg', 'date' => '22/12 - 19/1'],
-            'aquarius' => ['name' => 'Bảo Bình', 'icon' => '/icons/bao_binh_tba.svg', 'date' => '20/1 - 18/2'],
-            'pisces' => ['name' => 'Song Ngư', 'icon' => '/icons/song_ngu_tba.svg', 'date' => '19/2 - 20/3']
+            'aries' => ['name' => 'Bạch Dương', 'english_name' => 'Aries', 'icon' => '/icons/bach_duong_tba.svg', 'date' => '21/3 - 19/4'],
+            'taurus' => ['name' => 'Kim Ngưu', 'english_name' => 'Taurus', 'icon' => '/icons/kim_nguu_tba.svg', 'date' => '20/4 - 20/5'],
+            'gemini' => ['name' => 'Song Tử', 'english_name' => 'Gemini', 'icon' => '/icons/song_tu_tba.svg', 'date' => '21/5 - 20/6'],
+            'cancer' => ['name' => 'Cự Giải', 'english_name' => 'Cancer', 'icon' => '/icons/cu_giai_tba.svg', 'date' => '21/6 - 22/7'],
+            'leo' => ['name' => 'Sư Tử', 'english_name' => 'Leo', 'icon' => '/icons/su_tu_tba.svg', 'date' => '23/7 - 22/8'],
+            'virgo' => ['name' => 'Xử Nữ', 'english_name' => 'Virgo', 'icon' => '/icons/xu_nu_tba.svg', 'date' => '23/8 - 22/9'],
+            'libra' => ['name' => 'Thiên Bình', 'english_name' => 'Libra', 'icon' => '/icons/thien_binh_tba.svg', 'date' => '23/9 - 22/10'],
+            'scorpio' => ['name' => 'Bọ Cạp', 'english_name' => 'Scorpio', 'icon' => '/icons/bo_cap_tba.svg', 'date' => '23/10 - 21/11'],
+            'sagittarius' => ['name' => 'Nhân Mã', 'english_name' => 'Sagittarius', 'icon' => '/icons/nhan_ma_tba.svg', 'date' => '22/11 - 21/12'],
+            'capricorn' => ['name' => 'Ma Kết', 'english_name' => 'Capricorn', 'icon' => '/icons/ma_ket_tba.svg', 'date' => '22/12 - 19/1'],
+            'aquarius' => ['name' => 'Bảo Bình', 'english_name' => 'Aquarius', 'icon' => '/icons/bao_binh_tba.svg', 'date' => '20/1 - 18/2'],
+            'pisces' => ['name' => 'Song Ngư', 'english_name' => 'Pisces', 'icon' => '/icons/song_ngu_tba.svg', 'date' => '19/2 - 20/3']
         ];
     }
 

@@ -52,8 +52,8 @@
         <h6 class="content-title-detail"><a href="{{ route('home') }}">Trang chủ</a> <i class="bi bi-chevron-right"></i>
             <span>12 cung hoàng đạo</span> <i class="bi bi-chevron-right"></i><span id="breadcrumb-zodiac">{{ $zodiacNames[$zodiac['sign']] ?? 'Cung hoàng đạo' }}</span> <i class="bi bi-chevron-right"></i><span id="breadcrumb-time">Hôm nay</span>
         </h6>
-        <h1 class="content-title-home-lich"><span>Cung hoàng đạo</span> - <span id="zodiac-title">
-                {{ $zodiacNames[$zodiac['sign']] ?? ' Cung hoàng đạo' }}</span></h1>
+        <h1 class="content-title-home-lich" id="main-title"><span>Cung hoàng đạo</span> - <span id="zodiac-title">
+                {{ $zodiacNames[$zodiac['sign']] ?? ' Cung hoàng đạo' }}</span> - <span id="time-period">Hôm nay</span></h1>
     </div>
 
     <!-- Zodiac Header -->
@@ -67,7 +67,6 @@
             <div class="--duv-cunghoangdao">
                 <div class="bth-cunghoangdao mb-3">
                     <div id="tabs" class="tabs">
-                        <button class="tab-button tab-horoscope btn" data-type="yesterday">Hôm qua</button>
                         <button class="tab-button tab-horoscope btn active" data-type="today">Hôm nay</button>
                         <button class="tab-button tab-horoscope btn" data-type="tomorrow">Ngày mai</button>
                         <button class="tab-button tab-horoscope btn" data-type="weekly">Tuần này</button>
@@ -134,6 +133,7 @@
             const zodiacTitle = document.getElementById('zodiac-title');
             const breadcrumbZodiac = document.getElementById('breadcrumb-zodiac');
             const breadcrumbTime = document.getElementById('breadcrumb-time');
+            const timePeriod = document.getElementById('time-period');
 
             let currentSign = '{{ $zodiac['sign'] }}';
             let currentType = '{{ $currentType ?? 'today' }}';
@@ -145,27 +145,27 @@
             // Meta data cho từng type
             const typeMetaData = {
                 'yesterday': {
-                    suffix: 'Hôm Qua',
+                    suffix: 'Hôm qua',
                     descSuffix: 'hôm qua',
                     breadcrumb: 'Hôm qua'
                 },
                 'today': {
-                    suffix: 'Hôm Nay',
+                    suffix: 'Hôm nay',
                     descSuffix: 'hôm nay',
                     breadcrumb: 'Hôm nay'
                 },
                 'tomorrow': {
-                    suffix: 'Ngày Mai',
+                    suffix: 'Ngày mai',
                     descSuffix: 'ngày mai',
                     breadcrumb: 'Ngày mai'
                 },
                 'weekly': {
-                    suffix: 'Tuần Này',
+                    suffix: 'Tuần này',
                     descSuffix: 'tuần này',
                     breadcrumb: 'Tuần này'
                 },
                 'monthly': {
-                    suffix: 'Tháng Này',
+                    suffix: 'Tháng này',
                     descSuffix: 'tháng này',
                     breadcrumb: 'Tháng này'
                 },
@@ -295,6 +295,20 @@
                 }
             }
 
+            // Hàm cập nhật H1 title
+            function updateMainTitle(sign, type) {
+                const zodiac = zodiacData[sign];
+                const typeMeta = typeMetaData[type];
+
+                if (zodiac && zodiacTitle) {
+                    zodiacTitle.textContent = zodiac.name;
+                }
+
+                if (typeMeta && timePeriod) {
+                    timePeriod.textContent = typeMeta.suffix;
+                }
+            }
+
             // Hàm cập nhật thông tin cung hoàng đạo
             function updateZodiacInfo(sign) {
                 const data = zodiacData[sign];
@@ -360,6 +374,9 @@
                 // Cập nhật breadcrumbs
                 updateBreadcrumbs(newSign, currentType);
 
+                // Cập nhật H1 title
+                updateMainTitle(newSign, currentType);
+
                 // Cập nhật meta tags
                 updateMetaTags(newSign, currentType);
 
@@ -394,6 +411,9 @@
 
                 // Cập nhật breadcrumbs
                 updateBreadcrumbs(currentSign, type);
+
+                // Cập nhật H1 title
+                updateMainTitle(currentSign, type);
 
                 // Cập nhật meta tags
                 updateMetaTags(currentSign, type);
@@ -441,6 +461,9 @@
                     // Cập nhật breadcrumbs
                     updateBreadcrumbs(currentSign, currentType);
 
+                    // Cập nhật H1 title
+                    updateMainTitle(currentSign, currentType);
+
                     // Cập nhật meta tags
                     updateMetaTags(currentSign, currentType);
 
@@ -459,6 +482,9 @@
 
             // Cập nhật breadcrumbs ban đầu
             updateBreadcrumbs(currentSign, currentType);
+
+            // Cập nhật H1 title ban đầu
+            updateMainTitle(currentSign, currentType);
 
             // Cập nhật meta tags ban đầu
             updateMetaTags(currentSign, currentType);

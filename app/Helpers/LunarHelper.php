@@ -1111,23 +1111,23 @@ static function convertSolar2Lunar($dd, $mm, $yy, $timeZone = 7.0)
             '5-1' => 'Ngày Quốc tế Lao động',
             '5-7' => 'Ngày chiến thắng Điện Biên Phủ',
             '5-8' => 'Ngày chiến thắng phát xít',
-            '5-19' => 'Ngày sinh chủ tịch Hồ Chí Minh',
+            '5-19' => 'Ngày sinh Chủ tịch Hồ Chí Minh',
 
             // THÁNG 6
             '6-1' => 'Ngày Quốc tế Thiếu Nhi',
             '6-5' => 'Ngày Môi trường Thế giới',
-            '6-21' => 'Ngày báo chí Việt Nam',
-            '6-28' => 'Ngày gia đình Việt Nam',
+            '6-21' => 'Ngày Báo chí Việt Nam',
+            '6-28' => 'Ngày Gia đình Việt Nam',
 
             // THÁNG 7
-            '7-11' => 'Ngày dân số thế giới',
-            '7-27' => 'Ngày Thương binh liệt sĩ',
+            '7-11' => 'Ngày Dân số Thế giới',
+            '7-27' => 'Ngày Thương binh Liệt sĩ',
             '7-28' => 'Ngày thành lập công đoàn Việt Nam',
 
             // THÁNG 8
-            '8-10' => 'Ngày vì nạn nhân chất độc da cam',
+            '8-10' => 'Ngày vì Nạn nhân Chất độc Da cam',
             '8-15' => 'Ngày Độc lập',
-            '8-19' => 'Ngày tổng khởi nghĩa',
+            '8-19' => 'Ngày Tổng Khởi nghĩa',
 
             // THÁNG 9
             '9-2' => 'Ngày Quốc Khánh',
@@ -1143,15 +1143,14 @@ static function convertSolar2Lunar($dd, $mm, $yy, $timeZone = 7.0)
             '10-31' => 'Ngày Halloween',
 
             // THÁNG 11
-            '11-9' => 'Ngày pháp luật Việt Nam',
+            '11-9' => 'Ngày Pháp luật Việt Nam',
             '11-17' => 'Ngày truyền thống Mặt trận Tổ quốc Việt Nam',
             '11-20' => 'Ngày Nhà giáo Việt Nam',
             '11-23' => 'Ngày thành lập Hội chữ thập đỏ Việt Nam',
 
             // THÁNG 12
             '12-1' => 'Ngày thế giới phòng chống AIDS',
-            '12-9' => 'Ngày phòng chống tham nhũng quốc tế',
-            '12-19' => 'Ngày toàn quốc kháng chiến',
+            '12-19' => 'Ngày Toàn quốc kháng chiến',
             '12-22' => 'Ngày thành lập Quân đội Nhân dân Việt Nam',
             '12-24' => 'Đêm Giáng sinh',
             '12-25' => 'Lễ Giáng sinh',

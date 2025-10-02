@@ -2241,6 +2241,14 @@ body.menu-open {
     padding: 0;
     border: 0;
 }
+.events-list-box.list-group-flush {
+    border-radius: 0;
+}
+
+.events-list-box .list-group-item {
+    padding: 0;
+    border: 0;
+}
 
 .event-item {
     padding-bottom: 16px;

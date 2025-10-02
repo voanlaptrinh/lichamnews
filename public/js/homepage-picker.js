@@ -1,17 +1,9 @@
-// JavaScript riêng cho trang chủ
+// JavaScript riêng cho trang chủ - Optimized with BasePicker
 // Khi chọn ngày chỉ cập nhật nội dung, không thay đổi URL
 
-class HomepagePicker {
+class HomepagePicker extends BasePicker {
     constructor(config) {
-        this.currentYear = config.currentYear;
-        this.currentMonth = config.currentMonth;
-        this.currentDay = config.currentDay;
-        this.labels = config.labels;
-        this.dataValues = config.dataValues;
-        this.ajaxUrl = config.ajaxUrl;
-        this.calendarAjaxUrl = config.calendarAjaxUrl;
-        this.currentChart = null;
-        this.overlay = null;
+        super(config);
     }
 
     init() {
@@ -21,6 +13,45 @@ class HomepagePicker {
         this.setupMonthYearSelects();
         this.setupCalendarClickHandler();
         this.setupQuickPicker();
+    }
+
+    // Implementation required by BasePicker
+    setupCalendarDayListeners(calendarDays, month, year) {
+        // Use event delegation - single listener instead of multiple
+        calendarDays.removeEventListener('click', this.calendarDayClickHandler);
+        this.calendarDayClickHandler = async (e) => {
+            const dayElement = e.target.closest('.calendar-day:not(.empty)');
+            if (!dayElement) return;
+
+            const day = parseInt(dayElement.dataset.day);
+            const month = parseInt(dayElement.dataset.month);
+            const year = parseInt(dayElement.dataset.year);
+
+            // Remove selection from all days
+            calendarDays.querySelectorAll('.calendar-day').forEach(el => el.classList.remove('selected'));
+            dayElement.classList.add('selected');
+
+            // Update selects quickly
+            const solarDay = document.getElementById('solarDay');
+            const solarMonth = document.getElementById('solarMonth');
+            const solarYear = document.getElementById('solarYear');
+
+            if (solarDay) solarDay.value = day;
+            if (solarMonth) solarMonth.value = month;
+            if (solarYear) solarYear.value = year;
+
+            // Close popup immediately for better UX
+            const quickPickerOverlay = document.getElementById('quickPickerOverlay');
+            this.closePopup(quickPickerOverlay);
+
+            // Update page content và lunar conversion song song
+            await Promise.all([
+                this.updatePageContent(year, month, day),
+                this.convertSolarToLunar()
+            ]);
+        };
+
+        this.addEventListenerTracked(calendarDays, 'click', this.calendarDayClickHandler);
     }
 
     // Tạo overlay cho mobile
@@ -74,7 +105,7 @@ class HomepagePicker {
             const month = start.format('M');
             const day = start.format('D');
             // Chỉ cập nhật nội dung, không thay đổi URL
-            console.log('Date selected:', year, month, day);
+            // Date selected for homepage - content update only
         });
     }
 
@@ -548,23 +579,22 @@ class HomepagePicker {
             this.removeCalendarHrefs();
 
             calendarBodyContainer.addEventListener('click', (e) => {
-                console.log('Calendar click detected');
+                // Calendar click detected
                 // Tìm link ngày được click
                 const link = e.target.closest('a[data-date-url]');
                 const linkWithHref = e.target.closest('a[href*="/lich-nam-"]');
 
-                console.log('Link with data-date-url:', link);
-                console.log('Link with href:', linkWithHref);
+                // Processing calendar link click
 
                 if (link || linkWithHref) {
                     e.preventDefault();
 
                     if (link) {
-                        console.log('Using AJAX navigation with data-date-url');
+                        // Using AJAX navigation
                         const href = link.getAttribute('data-date-url');
                         this.processCalendarLink(href);
                     } else if (linkWithHref) {
-                        console.log('Found link with href - processing and converting');
+                        // Converting href link to data-url
                         const href = linkWithHref.getAttribute('href');
                         this.processCalendarLink(href);
                         // Chuyển đổi link này để lần sau không bị
@@ -588,7 +618,7 @@ class HomepagePicker {
     processCalendarLink(href) {
         if (!href) return;
 
-        console.log('Processing calendar link:', href);
+        // Processing calendar link navigation
 
         // URL format: /lich-nam-YYYY/thang-MM/ngay-DD
         const regex = /\/lich-nam-(\d{4})\/thang-(\d{1,2})\/ngay-(\d{1,2})/;
@@ -600,7 +630,7 @@ class HomepagePicker {
             const day = parseInt(match[3]);
 
             if (year && month && day) {
-                console.log('Updating page content:', year, month, day);
+                // Updating page content with AJAX
                 // Cập nhật nội dung qua AJAX
                 this.updatePageContent(year, month, day);
             }
@@ -614,7 +644,7 @@ class HomepagePicker {
         if (!calendarBodyContainer) return;
 
         const calendarLinks = calendarBodyContainer.querySelectorAll('a[href*="/lich-nam-"]');
-        console.log('Found calendar table links to process:', calendarLinks.length);
+   
 
         calendarLinks.forEach(link => {
             const href = link.getAttribute('href');
@@ -670,7 +700,7 @@ class HomepagePicker {
                 quickPickerOverlay.style.display = 'flex';
                 setTimeout(() => quickPickerOverlay.classList.add('show'), 10);
                 document.body.classList.add('modal-open');
-                this.generatePopupCalendar(currentPopupMonth, currentPopupYear, currentDay);
+                this.generatePopupCalendarOptimized(currentPopupMonth, currentPopupYear, currentDay);
             });
         });
 
@@ -694,7 +724,7 @@ class HomepagePicker {
                 currentPopupYear--;
             }
             this.updatePopupHeader(currentPopupMonth, currentPopupYear);
-            await this.generatePopupCalendar(currentPopupMonth, currentPopupYear);
+            await this.generatePopupCalendarOptimized(currentPopupMonth, currentPopupYear);
         });
 
         document.getElementById('nextMonthBtn').addEventListener('click', async () => {
@@ -704,7 +734,7 @@ class HomepagePicker {
                 currentPopupYear++;
             }
             this.updatePopupHeader(currentPopupMonth, currentPopupYear);
-            await this.generatePopupCalendar(currentPopupMonth, currentPopupYear);
+            await this.generatePopupCalendarOptimized(currentPopupMonth, currentPopupYear);
         });
 
         // Sync calendar when solar date selects change
@@ -771,7 +801,7 @@ class HomepagePicker {
             this.updatePopupHeader(month, year);
 
             // Tạo lại calendar với ngày mới và highlight ngày hiện tại
-            await this.generatePopupCalendar(month, year, day);
+            await this.generatePopupCalendarOptimized(month, year, day);
         }
     }
 
@@ -815,7 +845,7 @@ class HomepagePicker {
                 if (lunarYearSelect) lunarYearSelect.value = data.lunarYear;
             }
         } catch (error) {
-            console.log('Error converting solar to lunar for selects:', error);
+            // Error converting solar to lunar - handled silently
         }
     }
 
@@ -933,7 +963,7 @@ class HomepagePicker {
                 if (lunarYearSelect) lunarYearSelect.value = data.lunarYear;
             }
         } catch (error) {
-            console.log('Error updating lunar selects from solar:', error);
+            // Error updating lunar selects - handled silently
         }
     }
 
@@ -976,7 +1006,7 @@ class HomepagePicker {
 
         // Update popup calendar view
         this.updatePopupHeader(month, year);
-        await this.generatePopupCalendar(month, year, day);
+        await this.generatePopupCalendarOptimized(month, year, day);
 
         // Highlighting is now handled in generatePopupCalendar
     }

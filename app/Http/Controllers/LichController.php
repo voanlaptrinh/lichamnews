@@ -174,8 +174,8 @@ class LichController extends Controller
         // Dữ liệu lịch âm (giả định bạn đã viết lại hàm tương đương printTable)
         [$table_html, $data_totxau, $data_al] = LunarHelper::printTable($thang, $nam, true, true, true);
 
-        $can_chi_nam = LunarHelper::canchiNam($data_al[0]['year']);
-        $can_chi_thang = LunarHelper::canchiThang($data_al[0]['year'], $data_al[0]['month']);
+        $can_chi_nam = LunarHelper::canchiNam($nam);
+        $can_chi_thang = LunarHelper::canchiThang($nam, $thang);
 
 
         $metaTitle = "Lịch Âm Tháng {$thang} Năm {$nam} – Lịch Vạn Niên {$can_chi_thang}/{$can_chi_nam}";

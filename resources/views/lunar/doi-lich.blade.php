@@ -20,27 +20,79 @@
                                                 <div class="col-lg-6" id="solar-container">
                                                     <label class="form-label fw-bold" style="color: #212121CC">Ngày Dương
                                                         Lịch</label>
-                                                    <div class="date-input-wrapper">
+                                                    <div class="date-input-wrapper position-relative">
                                                         <input type="text" value="" name="solar_date"
-                                                            id="solar_date" class="form-control dateuse2r"
+                                                            id="solar_date" class="form-control date-input"
                                                             placeholder="dd/mm/yyyy" inputmode="text" autocomplete="off"
-                                                            data-type="solar">
-                                                        {{-- <span class="date-icon-custom">
+                                                            data-type="solar" readonly>
+                                                        <span class="date-icon-custom">
                                                             <i class="bi bi-calendar-date-fill"></i>
-                                                        </span> --}}
+                                                        </span>
+                                                        <div id="solar-select-container" class="date-select-container" style="display: none;">
+                                                            <div class="row g-2">
+                                                                <div class="col-4">
+                                                                    <label class="form-label-sm">Ngày</label>
+                                                                    <select id="solar-day" class="form-select form-select-sm">
+                                                                        <!-- Options will be populated by JS -->
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-4">
+                                                                    <label class="form-label-sm">Tháng</label>
+                                                                    <select id="solar-month" class="form-select form-select-sm">
+                                                                        <!-- Options will be populated by JS -->
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-4">
+                                                                    <label class="form-label-sm">Năm</label>
+                                                                    <select id="solar-year" class="form-select form-select-sm">
+                                                                        <!-- Options will be populated by JS -->
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="mt-2 text-end">
+                                                                <button type="button" class="btn btn-sm btn-secondary me-1" onclick="hideDateSelect('solar')">Hủy</button>
+                                                                <button type="button" class="btn btn-sm btn-primary" onclick="applyDateSelect('solar')">Chọn</button>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6" id="lunar-container">
                                                     <label class="form-label fw-bold" style="color: #212121CC">Ngày Âm
                                                         Lịch</label>
-                                                    <div class="date-input-wrapper">
+                                                    <div class="date-input-wrapper position-relative">
                                                         <input type="text" value="" name="lunar_date"
-                                                            id="lunar_date" class="form-control dateuse2r"
+                                                            id="lunar_date" class="form-control date-input"
                                                             placeholder="dd/mm/yyyy" inputmode="text" autocomplete="off"
-                                                            data-type="lunar">
-                                                        {{-- <span class="date-icon-custom">
+                                                            data-type="lunar" readonly>
+                                                        <span class="date-icon-custom">
                                                             <i class="bi bi-calendar-date-fill"></i>
-                                                        </span> --}}
+                                                        </span>
+                                                        <div id="lunar-select-container" class="date-select-container" style="display: none;">
+                                                            <div class="row g-2">
+                                                                <div class="col-4">
+                                                                    <label class="form-label-sm">Ngày</label>
+                                                                    <select id="lunar-day" class="form-select form-select-sm">
+                                                                        <!-- Options will be populated by JS -->
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-4">
+                                                                    <label class="form-label-sm">Tháng</label>
+                                                                    <select id="lunar-month" class="form-select form-select-sm">
+                                                                        <!-- Options will be populated by JS -->
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-4">
+                                                                    <label class="form-label-sm">Năm</label>
+                                                                    <select id="lunar-year" class="form-select form-select-sm">
+                                                                        <!-- Options will be populated by JS -->
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="mt-2 text-end">
+                                                                <button type="button" class="btn btn-sm btn-secondary me-1" onclick="hideDateSelect('lunar')">Hủy</button>
+                                                                <button type="button" class="btn btn-sm btn-primary" onclick="applyDateSelect('lunar')">Chọn</button>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <!-- Icon chuyển đổi floating ở giữa -->
@@ -421,6 +473,55 @@
 @endsection
 
 
+@push('styles')
+<style>
+.date-input-wrapper .date-icon-custom {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #6c757d;
+}
+
+.date-input {
+    cursor: pointer;
+    padding-right: 40px;
+}
+
+.date-select-container {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #dee2e6;
+    border-radius: 0.375rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    z-index: 1050;
+    padding: 15px;
+    margin-top: 5px;
+}
+
+.form-label-sm {
+    font-size: 0.875rem;
+    margin-bottom: 0.25rem;
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .date-select-container {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 90%;
+        max-width: 400px;
+    }
+}
+</style>
+@endpush
+
 @push('scripts')
     <script>
         // Function to change day
@@ -480,24 +581,239 @@
             }
         }
 
+        // Global conversion functions
+        window.convertSolarToLunar = async function(solarDate) {
+            try {
+                const apiDate = convertToApiFormat(solarDate);
+                const response = await fetch('/api/convert-to-am', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
+                            .getAttribute('content')
+                    },
+                    body: JSON.stringify({
+                        date: apiDate
+                    })
+                });
 
-        document.addEventListener('DOMContentLoaded', function() {
+                if (response.ok) {
+                    const data = await response.json();
+                    const lunarDate = data.date;
+                    return convertFromApiFormat(lunarDate);
+                } else {
+                    const errorData = await response.json();
+                    console.error('API Error:', errorData.error || 'Unknown error');
+                }
+            } catch (error) {
+                console.error('Error converting solar to lunar:', error);
+            }
+            return null;
+        };
 
+        window.convertLunarToSolar = async function(lunarDate) {
+            try {
+                const apiDate = convertToApiFormat(lunarDate);
+                const response = await fetch('/api/convert-to-duong', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
+                            .getAttribute('content')
+                    },
+                    body: JSON.stringify({
+                        date: apiDate
+                    })
+                });
 
-            // Double-check jQuery and daterangepicker
-            if (typeof $ === 'undefined') {
-                console.error('$ (jQuery) is not available!');
-                return;
+                if (response.ok) {
+                    const data = await response.json();
+                    const solarDate = data.date;
+                    return convertFromApiFormat(solarDate);
+                } else {
+                    const errorData = await response.json();
+                    console.error('API Error:', errorData.error || 'Unknown error');
+                }
+            } catch (error) {
+                console.error('Error converting lunar to solar:', error);
+            }
+            return null;
+        };
+
+        // Helper functions
+        window.convertToApiFormat = function(dateStr) {
+            const parts = dateStr.split('/');
+            if (parts.length === 3) {
+                const [day, month, year] = parts;
+                return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+            }
+            return dateStr;
+        };
+
+        window.convertFromApiFormat = function(dateStr) {
+            const parts = dateStr.split('-');
+            if (parts.length === 3) {
+                const [year, month, day] = parts;
+                return `${day.padStart(2, '0')}/${month.padStart(2, '0')}/${year}`;
+            }
+            return dateStr;
+        };
+
+        window.formatDate = function(date) {
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = date.getFullYear();
+            return `${day}/${month}/${year}`;
+        };
+
+        // Global functions for date select operations
+        window.showDateSelect = function(type) {
+            const container = document.getElementById(type + '-select-container');
+            const input = document.getElementById(type + '_date');
+
+            // Hide other open selects
+            const allContainers = document.querySelectorAll('.date-select-container');
+            allContainers.forEach(c => {
+                if (c.id !== type + '-select-container') {
+                    c.style.display = 'none';
+                }
+            });
+
+            // Show current select
+            container.style.display = 'block';
+
+            // Populate select options based on current input value or today
+            const currentValue = input.value || formatDate(new Date());
+            populateSelects(type, currentValue);
+        };
+
+        window.hideDateSelect = function(type) {
+            const container = document.getElementById(type + '-select-container');
+            container.style.display = 'none';
+        };
+
+        window.applyDateSelect = function(type) {
+            const day = document.getElementById(type + '-day').value;
+            const month = document.getElementById(type + '-month').value;
+            const year = document.getElementById(type + '-year').value;
+
+            if (day && month && year) {
+                const formattedDate = `${String(day).padStart(2, '0')}/${String(month).padStart(2, '0')}/${year}`;
+                const input = document.getElementById(type + '_date');
+                input.value = formattedDate;
+
+                // Convert to the other calendar type
+                if (type === 'solar') {
+                    convertSolarToLunar(formattedDate).then(lunarDate => {
+                        if (lunarDate) {
+                            document.getElementById('lunar_date').value = lunarDate;
+                        }
+                    });
+                } else {
+                    convertLunarToSolar(formattedDate).then(solarDate => {
+                        if (solarDate) {
+                            document.getElementById('solar_date').value = solarDate;
+                        }
+                    });
+                }
+
+                hideDateSelect(type);
+            }
+        };
+
+        window.populateSelects = function(type, dateValue) {
+            const parts = dateValue.split('/');
+            const currentDay = parseInt(parts[0]) || 1;
+            const currentMonth = parseInt(parts[1]) || 1;
+            const currentYear = parseInt(parts[2]) || new Date().getFullYear();
+
+            // Populate month select first
+            const monthSelect = document.getElementById(type + '-month');
+            monthSelect.innerHTML = '';
+            for (let i = 1; i <= 12; i++) {
+                const option = document.createElement('option');
+                option.value = i;
+                option.textContent = `Tháng ${i}`;
+                if (i === currentMonth) option.selected = true;
+                monthSelect.appendChild(option);
             }
 
+            // Populate year select
+            const yearSelect = document.getElementById(type + '-year');
+            yearSelect.innerHTML = '';
+            const currentYearFull = new Date().getFullYear();
+            for (let i = currentYearFull - 100; i <= currentYearFull + 10; i++) {
+                const option = document.createElement('option');
+                option.value = i;
+                option.textContent = i;
+                if (i === currentYear) option.selected = true;
+                yearSelect.appendChild(option);
+            }
+
+            // Populate day select based on selected month and year
+            updateDayOptions(type, currentMonth, currentYear, currentDay);
+
+            // Add event listeners to update days when month or year changes
+            monthSelect.addEventListener('change', function() {
+                const selectedMonth = parseInt(this.value);
+                const selectedYear = parseInt(yearSelect.value);
+                const selectedDay = parseInt(document.getElementById(type + '-day').value) || 1;
+                updateDayOptions(type, selectedMonth, selectedYear, selectedDay);
+            });
+
+            yearSelect.addEventListener('change', function() {
+                const selectedMonth = parseInt(monthSelect.value);
+                const selectedYear = parseInt(this.value);
+                const selectedDay = parseInt(document.getElementById(type + '-day').value) || 1;
+                updateDayOptions(type, selectedMonth, selectedYear, selectedDay);
+            });
+        };
+
+        // Helper function to get the number of days in a month
+        window.getDaysInMonth = function(month, year, isLunar = false) {
+            if (isLunar) {
+                // Lunar months usually have 29 or 30 days
+                // For simplicity, we'll use 30 as max, but this could be more precise
+                return 30;
+            }
+
+            // Solar calendar days per month
+            return new Date(year, month, 0).getDate();
+        };
+
+        // Helper function to update day options based on selected month and year
+        window.updateDayOptions = function(type, month, year, selectedDay) {
+            const daySelect = document.getElementById(type + '-day');
+            const isLunar = type === 'lunar';
+            const maxDay = getDaysInMonth(month, year, isLunar);
+
+            // Clear existing options
+            daySelect.innerHTML = '';
+
+            // Add day options
+            for (let i = 1; i <= maxDay; i++) {
+                const option = document.createElement('option');
+                option.value = i;
+                option.textContent = i;
+
+                // Select the current day if it's valid, otherwise select the last valid day
+                if (i === selectedDay && selectedDay <= maxDay) {
+                    option.selected = true;
+                } else if (selectedDay > maxDay && i === maxDay) {
+                    option.selected = true;
+                }
+
+                daySelect.appendChild(option);
+            }
+        };
+
+
+        document.addEventListener('DOMContentLoaded', function() {
             const today = new Date();
-            const maxDate = new Date(today.getFullYear() + 5, 11, 31);
-            let overlay = null;
             let isUpdating = false; // Prevent infinite loops
 
             const solarInput = document.getElementById('solar_date');
             const lunarInput = document.getElementById('lunar_date');
-
 
             const swapBtn = document.getElementById('swapDatesBtn');
             const solarContainer = document.getElementById('solar-container');
@@ -558,126 +874,6 @@
             }
 
 
-
-
-            // Tạo overlay cho mobile
-            function createOverlay() {
-                if (!overlay) {
-                    overlay = document.createElement('div');
-                    overlay.className = 'daterangepicker-overlay';
-                    document.body.appendChild(overlay);
-
-                    overlay.addEventListener('click', function() {
-                        document.querySelectorAll('.dateuse2r').forEach(input => {
-                            if ($(input).data('daterangepicker')) {
-                                $(input).data('daterangepicker').hide();
-                            }
-                        });
-                    });
-                }
-                return overlay;
-            }
-
-            // Format date to d/m/Y
-            function formatDate(date) {
-                const day = String(date.getDate()).padStart(2, '0');
-                const month = String(date.getMonth() + 1).padStart(2, '0');
-                const year = date.getFullYear();
-                return `${day}/${month}/${year}`;
-            }
-
-            // Parse date from d/m/Y format
-            function parseDate(dateStr) {
-                const parts = dateStr.split('/');
-                if (parts.length === 3) {
-                    const day = parseInt(parts[0], 10);
-                    const month = parseInt(parts[1], 10) - 1;
-                    const year = parseInt(parts[2], 10);
-                    return new Date(year, month, day);
-                }
-                return null;
-            }
-
-            // Convert date from dd/mm/yyyy to yyyy-mm-dd for API
-            function convertToApiFormat(dateStr) {
-                const parts = dateStr.split('/');
-                if (parts.length === 3) {
-                    const [day, month, year] = parts;
-                    return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
-                }
-                return dateStr;
-            }
-
-            // Convert date from yyyy-mm-dd to dd/mm/yyyy for display
-            function convertFromApiFormat(dateStr) {
-                const parts = dateStr.split('-');
-                if (parts.length === 3) {
-                    const [year, month, day] = parts;
-                    return `${day.padStart(2, '0')}/${month.padStart(2, '0')}/${year}`;
-                }
-                return dateStr;
-            }
-
-            // API call to convert solar to lunar
-            async function convertSolarToLunar(solarDate) {
-                try {
-                    const apiDate = convertToApiFormat(solarDate);
-                    const response = await fetch('/api/convert-to-am', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
-                                .getAttribute('content')
-                        },
-                        body: JSON.stringify({
-                            date: apiDate
-                        })
-                    });
-
-                    if (response.ok) {
-                        const data = await response.json();
-                        const lunarDate = data.date;
-                        return convertFromApiFormat(lunarDate);
-                    } else {
-                        const errorData = await response.json();
-                        console.error('API Error:', errorData.error || 'Unknown error');
-                    }
-                } catch (error) {
-                    console.error('Error converting solar to lunar:', error);
-                }
-                return null;
-            }
-
-            // API call to convert lunar to solar
-            async function convertLunarToSolar(lunarDate) {
-                try {
-                    const apiDate = convertToApiFormat(lunarDate);
-                    const response = await fetch('/api/convert-to-duong', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
-                                .getAttribute('content')
-                        },
-                        body: JSON.stringify({
-                            date: apiDate
-                        })
-                    });
-
-                    if (response.ok) {
-                        const data = await response.json();
-                        const solarDate = data.date;
-                        return convertFromApiFormat(solarDate);
-                    } else {
-                        const errorData = await response.json();
-                        console.error('API Error:', errorData.error || 'Unknown error');
-                    }
-                } catch (error) {
-                    console.error('Error converting lunar to solar:', error);
-                }
-                return null;
-            }
-
             // Set default value for inputs từ controller hoặc ngày hôm nay
             @if (isset($dd) && isset($mm) && isset($yy) && isset($al))
                 // Có dữ liệu từ controller - đưa trực tiếp vào input
@@ -701,256 +897,24 @@
                 });
             @endif
 
-            // Xử lý khi người dùng nhập tay vào input
-            solarInput.addEventListener('blur', async function() {
-                const value = this.value.trim();
-                if (value && value.match(/^\d{1,2}\/\d{1,2}\/\d{4}$/)) {
-                    // Validate ngày tháng
-                    const parts = value.split('/');
-                    const day = parseInt(parts[0], 10);
-                    const month = parseInt(parts[1], 10);
-                    const year = parseInt(parts[2], 10);
+            // Add click handlers for inputs to show select dropdowns
+            solarInput.addEventListener('click', function() {
+                showDateSelect('solar');
+            });
 
-                    if (day >= 1 && day <= 31 && month >= 1 && month <= 12 && year >= 1900 && year <=
-                        2100) {
-                        // Format lại với padding
-                        this.value =
-                            `${String(day).padStart(2, '0')}/${String(month).padStart(2, '0')}/${year}`;
+            lunarInput.addEventListener('click', function() {
+                showDateSelect('lunar');
+            });
 
-                        // Convert sang âm lịch
-                        if (!isUpdating) {
-                            isUpdating = true;
-                            const lunarDate = await convertSolarToLunar(this.value);
-                            if (lunarDate && lunarInput) {
-                                lunarInput.value = lunarDate;
-                            }
-                            isUpdating = false;
-                        }
-
-                        // Update daterangepicker
-                        const picker = $(this).data('daterangepicker');
-                        if (picker) {
-                            const date = parseDate(this.value);
-                            if (date) {
-                                picker.setStartDate(date);
-                                picker.setEndDate(date);
-                            }
-                        }
-                    }
+            // Hide select containers when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!event.target.closest('.date-input-wrapper')) {
+                    document.querySelectorAll('.date-select-container').forEach(container => {
+                        container.style.display = 'none';
+                    });
                 }
             });
 
-            lunarInput.addEventListener('blur', async function() {
-                const value = this.value.trim();
-                if (value && value.match(/^\d{1,2}\/\d{1,2}\/\d{4}$/)) {
-                    // Validate ngày tháng
-                    const parts = value.split('/');
-                    const day = parseInt(parts[0], 10);
-                    const month = parseInt(parts[1], 10);
-                    const year = parseInt(parts[2], 10);
-
-                    if (day >= 1 && day <= 30 && month >= 1 && month <= 12 && year >= 1900 && year <=
-                        2100) {
-                        // Format lại với padding
-                        this.value =
-                            `${String(day).padStart(2, '0')}/${String(month).padStart(2, '0')}/${year}`;
-
-                        // Convert sang dương lịch
-                        if (!isUpdating) {
-                            isUpdating = true;
-                            const solarDate = await convertLunarToSolar(this.value);
-                            if (solarDate && solarInput) {
-                                solarInput.value = solarDate;
-                            }
-                            isUpdating = false;
-                        }
-
-                        // Update daterangepicker
-                        const picker = $(this).data('daterangepicker');
-                        if (picker) {
-                            const date = parseDate(this.value);
-                            if (date) {
-                                picker.setStartDate(date);
-                                picker.setEndDate(date);
-                            }
-                        }
-                    }
-                }
-            });
-
-            // Xử lý khi người dùng nhấn Enter
-            solarInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
-                    this.blur();
-                }
-            });
-
-            lunarInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
-                    this.blur();
-                }
-            });
-
-            // Initialize daterangepicker cho từng input (chỉ single date)
-
-            if (typeof $.fn.daterangepicker === 'undefined') {
-                console.error('DateRangePicker plugin not loaded! Please check if the library is included.');
-                return;
-            }
-
-            document.querySelectorAll('.dateuse2r').forEach(function(input) {
-
-
-
-
-                try {
-                    // Lấy startDate từ giá trị hiện tại của input hoặc today
-                    let startDate = today;
-                    if (input.value) {
-                        const inputDate = parseDate(input.value);
-                        if (inputDate) {
-                            startDate = inputDate;
-                        }
-                    }
-
-                    $(input).daterangepicker({
-                        singleDatePicker: true,
-                        autoApply: true, // Tự động áp dụng khi chọn ngày, không cần nhấn nút Apply
-                        autoUpdateInput: true, // Tự động cập nhật input
-                        showDropdowns: true,
-                        minYear: 1900,
-                        maxYear: maxDate.getFullYear(),
-                        maxDate: maxDate,
-                        startDate: startDate,
-                        showCustomRangeLabel: false,
-                        alwaysShowCalendars: true,
-                        locale: {
-                            format: 'DD/MM/YYYY',
-                            applyLabel: 'Chọn',
-                            cancelLabel: 'Hủy',
-                            weekLabel: 'T',
-                            daysOfWeek: ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'],
-                            monthNames: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5',
-                                'Tháng 6',
-                                'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11',
-                                'Tháng 12'
-                            ],
-                            firstDay: 1
-                        },
-                        opens: 'center',
-                        drops: 'down'
-                    });
-
-                    // Events
-                    $(input).on('show.daterangepicker', function(ev, picker) {
-                        setTimeout(function() {
-                            // Ensure ranges div is hidden on show as well
-                            $('.daterangepicker .ranges').hide();
-                            // Also, ensure the calendar takes full width if there's only one
-                            $('.daterangepicker .drp-calendar').css({
-                                'width': '100%',
-                                'border-right': 'none'
-                            });
-                        }, 1);
-
-                        if (window.innerWidth <= 768) {
-                            const overlay = createOverlay();
-                            overlay.style.display = 'block';
-                        }
-
-                        const inputType = input.getAttribute('data-type');
-                        if (inputType === 'lunar') {
-                            picker.container.addClass('lunar-mode');
-                        } else {
-                            picker.container.removeClass('lunar-mode');
-                        }
-                    });
-
-                    $(input).on('hide.daterangepicker', function(ev, picker) {
-                        if (overlay) {
-                            overlay.style.display = 'none';
-                        }
-                    });
-
-                    // Xử lý khi chọn ngày - sử dụng event 'apply' cho single date picker với autoApply
-                    $(input).on('apply.daterangepicker', async function(ev, picker) {
-                        const selectedDate = picker.startDate.format('DD/MM/YYYY');
-                        input.value = selectedDate;
-
-                        if (overlay) {
-                            overlay.style.display = 'none';
-                        }
-
-                        // Prevent infinite loops
-                        if (isUpdating) return;
-                        isUpdating = true;
-
-                        const isLunarMode = picker.container.hasClass('lunar-mode');
-
-                        if (isLunarMode) {
-                            // User selected a LUNAR date from the picker
-                            const solarDate = await convertLunarToSolar(selectedDate);
-                            if (solarDate && solarInput) {
-                                solarInput.value = solarDate;
-                            }
-                            // lunarInput.value is already set to selectedDate
-                        } else {
-                            // User selected a SOLAR date from the picker
-                            const lunarDate = await convertSolarToLunar(selectedDate);
-                            if (lunarDate && lunarInput) {
-                                lunarInput.value = lunarDate;
-                            }
-                        }
-
-                        isUpdating = false;
-                    });
-
-                    // Thêm event khi daterangepicker thay đổi giá trị (cho autoApply)
-                    $(input).on('change.daterangepicker', async function(ev, picker) {
-                        if (!picker) return; // Không phải từ picker
-
-                        const selectedDate = picker.startDate.format('DD/MM/YYYY');
-                        input.value = selectedDate;
-
-                        if (overlay) {
-                            overlay.style.display = 'none';
-                        }
-
-                        // Prevent infinite loops
-                        if (isUpdating) return;
-                        isUpdating = true;
-
-                        const inputType = input.getAttribute('data-type');
-
-                        if (inputType === 'solar') {
-                            const lunarDate = await convertSolarToLunar(selectedDate);
-                            if (lunarDate && lunarInput) {
-                                lunarInput.value = lunarDate;
-                            }
-                        } else if (inputType === 'lunar') {
-                            const solarDate = await convertLunarToSolar(selectedDate);
-                            if (solarDate && solarInput) {
-                                solarInput.value = solarDate;
-                            }
-                        }
-
-                        isUpdating = false;
-                    });
-
-                    // Handle icon click
-                    const icon = input.parentNode.querySelector('.date-icon-custom');
-                    if (icon) {
-                        icon.addEventListener('click', function(e) {
-                            e.preventDefault();
-                            $(input).data('daterangepicker').show();
-                        });
-                    }
-                } catch (error) {
-                    console.error('Error initializing daterangepicker for', input.id, ':', error);
-                }
-            });
         });
     </script>
     <script>

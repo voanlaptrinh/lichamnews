@@ -21,7 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 // Đặt tên cho các route để JS có thể gọi một cách an toàn
-Route::post('/convert-to-am', [LunarConvertController::class, 'converưToAm'])->name('api.to.am');
+Route::post('/convert-to-am', [LunarConvertController::class, 'convertToAm'])->name('api.to.am');
 Route::post('/convert-to-duong', [LunarConvertController::class, 'convertToDuong'])->name('api.to.duong');
 Route::post('/convert-lunar-to-solar', [LunarConvertController::class, 'convertLunarToSolar'])->name('api.lunar.to.solar');
 Route::post('/convert-solar-to-lunar', [LunarConvertController::class, 'convertSolarToLunar'])->name('api.solar.to.lunar');

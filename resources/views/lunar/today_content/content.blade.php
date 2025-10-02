@@ -141,9 +141,10 @@
                                                  </td>
                                              </tr>
                                              <tr>
-                                                 <td><b> Tiết khí:</b> {{ $tietkhi['tiet_khi'] }}
-                                                 </td>
-                                                 <td> <b>Ngày can chi</b> {{ $getThongTinCanChiVaIcon['can_chi_ngay'] }}
+                                                 <td class="text-capitalize"><b> Tiết khí:</b>
+                                                     {{ $tietkhi['tiet_khi'] }}</td>
+                                                 <td class=""> <b>Ngày can chi:</b>
+                                                     {{ $getThongTinCanChiVaIcon['can_chi_ngay'] }}
                                                      tháng {{ $getThongTinCanChiVaIcon['can_chi_thang'] }}
                                                      năm {{ $getThongTinCanChiVaIcon['can_chi_nam'] }}</td>
                                              </tr>
@@ -160,13 +161,22 @@
                                              </tr>
                                              <tr>
                                                  <td>
-                                                     <div><b>Ngày hắc đạo:</b> @php
-                                                         $hacDaoStarStrings = [];
-                                                         foreach ($hacDaoStars as $starName => $starDescription) {
-                                                             $hacDaoStarStrings[] = $starName;
-                                                         }
-                                                         echo implode(', ', $hacDaoStarStrings);
-                                                     @endphp</div>
+                                                     @if (!empty($hacDaoStars))
+                                                         <div>
+                                                             <b>Ngày hắc đạo:</b>
+                                                             @php
+                                                                 $hacDaoStarStrings = [];
+                                                                 foreach (
+                                                                     $hacDaoStars
+                                                                     as $starName => $starDescription
+                                                                 ) {
+                                                                     $hacDaoStarStrings[] = $starName;
+                                                                 }
+                                                                 echo implode(', ', $hacDaoStarStrings);
+                                                             @endphp
+                                                         </div>
+                                                     @endif
+
                                                      <div>
                                                          <b>Nhị trực bát tú:</b> sao {{ $nhiThapBatTu['name'] }}
                                                          ({{ $nhiThapBatTu['fullName'] }})
@@ -179,7 +189,7 @@
                                                  <td>
                                                      <div class="box-chi-so-ngaytot">
                                                          <div>
-                                                           <b> Chỉ số ngày tốt</b>
+                                                             <b> Chỉ số ngày tốt</b>
                                                          </div>
                                                          <div class="progress-dial mt-2"
                                                              style="--value: {{ round($getDaySummaryInfo['score']['percentage']) }};">
@@ -208,7 +218,7 @@
                                          </tbody>
                                      </table>
                                  </div>
-                              
+
                              </div>
 
                              <div class=" fs-5">
@@ -633,7 +643,7 @@
              <!-- ** KHỐI SỰ KIỆN SẮP TỚI ** -->
              <div class="events-card">
                  <h5 class="card-title-right">Sự kiện, ngày lễ sắp tới</h5>
-                 <ul class="list-group list-group-flush events-list">
+                 <ul class="list-group list-group-flush events-list-box">
                      @foreach ($upcomingEvents as $event)
                          @php
                              // Phân tích cú pháp ngày sự kiện một lần để lấy các phần tử năm, tháng, ngày
@@ -653,7 +663,7 @@
                              <a href="{{ route('detai_home', $routeParams) }}">
                                  <div class="event-date">Ngày
                                      {{ Carbon\Carbon::parse($event['date'])->format('d/m') }} <span
-                                         style="font-size: 12px;color: #6c757d;font-style: italic;">({{ $lunarDate[0] }}/{{ $lunarDate[1] }})
+                                         style="font-size: 12px;color: #6c757d;font-style: italic;">({{ $lunarDate[0] }}/{{ $lunarDate[1] }} ÂL)
                                      </span>
 
                                  </div>

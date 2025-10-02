@@ -1,17 +1,56 @@
-// JavaScript riêng cho trang lịch âm hôm nay và ngày mai
+// JavaScript riêng cho trang lịch âm hôm nay và ngày mai - Optimized with BasePicker
 // Khi chọn ngày sẽ redirect sang trang detai_home
 
-class TodayTomorrowPicker {
+class TodayTomorrowPicker extends BasePicker {
     constructor(config) {
-        this.currentYear = config.currentYear;
-        this.currentMonth = config.currentMonth;
-        this.currentDay = config.currentDay;
-        this.overlay = null;
+        super(config);
     }
 
     init() {
         this.setupQuickPicker();
         this.setupNavigationButtons();
+    }
+
+    // Implementation required by BasePicker
+    setupCalendarDayListeners(calendarDays, month, year) {
+        // Use event delegation - single listener instead of multiple
+        calendarDays.removeEventListener('click', this.calendarDayClickHandler);
+        this.calendarDayClickHandler = async (e) => {
+            const dayElement = e.target.closest('.calendar-day:not(.empty)');
+            if (!dayElement) return;
+
+            const day = parseInt(dayElement.dataset.day);
+            const month = parseInt(dayElement.dataset.month);
+            const year = parseInt(dayElement.dataset.year);
+
+            // Remove selection from all days
+            calendarDays.querySelectorAll('.calendar-day').forEach(el => el.classList.remove('selected'));
+            dayElement.classList.add('selected');
+
+            // Update selects quickly
+            const solarDay = document.getElementById('solarDay');
+            const solarMonth = document.getElementById('solarMonth');
+            const solarYear = document.getElementById('solarYear');
+
+            if (solarDay) solarDay.value = day;
+            if (solarMonth) solarMonth.value = month;
+            if (solarYear) solarYear.value = year;
+
+            // Convert and update lunar date selects
+            await this.convertSolarToLunar();
+
+            // Close popup and redirect to detai_home route
+            const quickPickerOverlay = document.getElementById('quickPickerOverlay');
+            this.closePopup(quickPickerOverlay);
+
+            // Redirect to detai_home route
+            const formattedMonth = month.toString().padStart(2, '0');
+            const formattedDay = day.toString().padStart(2, '0');
+            const detailUrl = `/lich-nam-${year}/thang-${formattedMonth}/ngay-${formattedDay}`;
+            window.location.href = detailUrl;
+        };
+
+        this.addEventListenerTracked(calendarDays, 'click', this.calendarDayClickHandler);
     }
 
     setupQuickPicker() {
@@ -54,7 +93,7 @@ class TodayTomorrowPicker {
                 quickPickerOverlay.style.display = 'flex';
                 setTimeout(() => quickPickerOverlay.classList.add('show'), 10);
                 document.body.classList.add('modal-open');
-                this.generatePopupCalendar(currentPopupMonth, currentPopupYear, currentDay);
+                this.generatePopupCalendarOptimized(currentPopupMonth, currentPopupYear, currentDay);
             });
         });
 
@@ -78,7 +117,7 @@ class TodayTomorrowPicker {
                 currentPopupYear--;
             }
             this.updatePopupHeader(currentPopupMonth, currentPopupYear);
-            await this.generatePopupCalendar(currentPopupMonth, currentPopupYear);
+            await this.generatePopupCalendarOptimized(currentPopupMonth, currentPopupYear);
         });
 
         document.getElementById('nextMonthBtn').addEventListener('click', async () => {
@@ -88,7 +127,7 @@ class TodayTomorrowPicker {
                 currentPopupYear++;
             }
             this.updatePopupHeader(currentPopupMonth, currentPopupYear);
-            await this.generatePopupCalendar(currentPopupMonth, currentPopupYear);
+            await this.generatePopupCalendarOptimized(currentPopupMonth, currentPopupYear);
         });
 
         // Sync calendar when solar date selects change
@@ -265,7 +304,7 @@ class TodayTomorrowPicker {
                 if (lunarYearSelect) lunarYearSelect.value = data.lunarYear;
             }
         } catch (error) {
-            console.log('Error updating lunar selects from solar:', error);
+            // Error updating lunar selects - handled silently
         }
     }
 
@@ -308,7 +347,7 @@ class TodayTomorrowPicker {
 
         // Update popup calendar view
         this.updatePopupHeader(month, year);
-        await this.generatePopupCalendar(month, year, day);
+        await this.generatePopupCalendarOptimized(month, year, day);
 
         // Highlighting is now handled in generatePopupCalendar
     }
