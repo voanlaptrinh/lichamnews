@@ -269,18 +269,25 @@ class LichController extends Controller
             $can_chi_thang_am = LunarHelper::canchiThang($primary_lunar_year, $primary_lunar_month);
             list($start_dd, $start_mm, $start_yy) = LunarHelper::convertLunar2Solar(1, $primary_lunar_month, $primary_lunar_year, $primary_lunar_is_leap);
 
-            list(,,,, $isFullMonth) = LunarHelper::convertSolar2Lunar($start_dd, $start_mm, $start_yy);
-            $num_days_in_lunar_month = ($isFullMonth == 'Đủ') ? 30 : 29;
-
             $lunar_month_calendar_data = [];
             $current_date = \Carbon\Carbon::create($start_yy, $start_mm, $start_dd);
+            $expected_lunar_month = $primary_lunar_month;
+            $max_iterations = 31; // Safety limit
+            $iteration_count = 0;
 
-            for ($i = 0; $i < $num_days_in_lunar_month; $i++) {
+            // Generate calendar by adding days until we reach the next lunar month
+            while ($iteration_count < $max_iterations) {
                 $solar_day = $current_date->day;
                 $solar_month = $current_date->month;
                 $solar_year = $current_date->year;
 
                 list($ld, $lm, $ly, $ll) = LunarHelper::convertSolar2Lunar($solar_day, $solar_month, $solar_year);
+
+                // Stop when we reach the next lunar month
+                if ($lm != $expected_lunar_month && count($lunar_month_calendar_data) > 0) {
+                    break;
+                }
+
                 $jd = LunarHelper::jdFromDate($solar_day, $solar_month, $solar_year);
                 $canchi = LunarHelper::canchiNgayByJD($jd);
 
@@ -297,6 +304,7 @@ class LichController extends Controller
                 ];
 
                 $current_date->addDay();
+                $iteration_count++;
             }
 
             $first_day_of_week = (\Carbon\Carbon::create($start_yy, $start_mm, $start_dd)->dayOfWeek + 6) % 7;

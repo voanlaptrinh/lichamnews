@@ -52,16 +52,11 @@
         <h6 class="content-title-detail"><a href="{{ route('home') }}">Trang chủ</a> <i class="bi bi-chevron-right"></i>
             <span>12 cung hoàng đạo</span> <i class="bi bi-chevron-right"></i><span id="breadcrumb-zodiac">{{ $zodiacNames[$zodiac['sign']] ?? 'Cung hoàng đạo' }}</span> <i class="bi bi-chevron-right"></i><span id="breadcrumb-time">Hôm nay</span>
         </h6>
-        <h1 class="content-title-home-lich" id="main-title"><span>Cung hoàng đạo</span> - <span id="zodiac-title">
+        <h1 class="content-title-home-lich" id="main-title"><span>Tử Vi Cung</span> - <span id="zodiac-title">
                 {{ $zodiacNames[$zodiac['sign']] ?? ' Cung hoàng đạo' }}</span> - <span id="time-period">Hôm nay</span></h1>
     </div>
 
     <!-- Zodiac Header -->
-
-
-
-
-
     <div class="row mt-3">
         <div class="col-lg-9">
             <div class="--duv-cunghoangdao">

@@ -42,8 +42,8 @@
 
 
 @push('scripts')
-    <script src="{{ asset('js/base-picker.js?v=1.1') }}"></script>
-    <script src="{{ asset('js/today-tomorrow-picker.js?v=1.5') }}"></script>
+    <script src="{{ asset('js/base-picker.js?v=1.7') }}"></script>
+    <script src="{{ asset('js/today-tomorrow-picker.js?v=1.7') }}"></script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             // Khởi tạo ứng dụng quick picker cho trang hôm nay

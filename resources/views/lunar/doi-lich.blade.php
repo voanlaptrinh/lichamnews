@@ -132,7 +132,7 @@
                                         <div class="date-display-card">
                                             <a href="javascript:void(0)"
                                                 class="nav-arrow nav-home-date nave-left prev-day-btn"
-                                                title="Ngày hôm trước" onclick="changeDay(-1)"><i
+                                                title="Ngày hôm trước" id="pc-prev-btn"><i
                                                     class="bi bi-chevron-left"></i></a>
                                             <div class="text-center">
                                                 <div
@@ -191,7 +191,7 @@
 
                                             <a href="javascript:void(0)"
                                                 class="nav-arrow nav-home-date nave-right next-day-btn"
-                                                title="Ngày hôm sau" onclick="changeDay(1)"> <i
+                                                title="Ngày hôm sau" id="pc-next-btn"> <i
                                                     class="bi bi-chevron-right"></i></a>
                                             @if ($tot_xau_result == 'tot')
                                                 <div class="day-status hoang-dao">
@@ -218,13 +218,13 @@
                                             <div class="div">
                                                 <a href="javascript:void(0)"
                                                     class="nav-arrow prev-day-btn-mobie  nave-left prev-day-btn"
-                                                    title="Ngày hôm trước" onclick="changeDay(-1)"><i
+                                                    title="Ngày hôm trước" id="mobile-prev-btn"><i
                                                         class="bi bi-chevron-left"></i></a>
                                             </div>
                                             <div class="div">
                                                 <a href="javascript:void(0)"
                                                     class="nav-arrow  next-day-btn-mobie nave-right next-day-btn"
-                                                    title="Ngày hôm sau" onclick="changeDay(1)"> <i
+                                                    title="Ngày hôm sau" id="mobile-next-btn"> <i
                                                         class="bi bi-chevron-right"></i></a>
                                             </div>
                                         </div>
@@ -234,11 +234,11 @@
 
 
 
-                                <div class="mt-lg-4 mt-2 text-box-tong-quan">
-                                    <p>✦ Ngày Dương Lịch: <span
+                                <div class="mt-lg-4 mt-2 text-box-tong-quan box-white-mobi">
+                                    <p>✦ Ngày Dương: <span
                                             class="sonar-date">{{ $dd }}/{{ $mm }}/{{ $yy }}</span>
                                     </p>
-                                    <p>✦ Ngày Âm Lịch: <span
+                                    <p>✦ Ngày Âm: <span
                                             class="lunar-date ">{{ $al[0] }}/{{ $al[1] }}/{{ $al[2] }}</span>
                                     </p>
                                     <p>✦ Là ngày: {{ $weekday }}</p>
@@ -264,7 +264,7 @@
                     </div>
                 </div>
 
-                <div class="mt-5">
+                <div class="mt-3">
                     <div class="calendar-wrapper">
                         <div class="calendar-header-convert calendar-header">
                             <div class="text-center">
@@ -422,7 +422,7 @@
                 </div>
             </div>
 
-            <div class="col-xl-3  col-sm-12 col-12">
+            <div class="col-xl-3  col-sm-12 col-12 mb-3">
                 <div class="d-flex flex-column gap-4 pt-2">
 
 
@@ -469,6 +469,43 @@
             </div>
         </div>
 
+    </div>
+
+    <!-- Mobile Date Popup -->
+    <div id="mobileDatePopup" class="mobile-date-popup">
+        <div class="mobile-popup-content">
+            <div class="mobile-popup-header" id="mobilePopupTitle">
+                Chọn ngày
+            </div>
+            <div class="row g-2" id="mobileSelectContainer">
+                <div class="col-4">
+                    <label class="form-label-sm">Ngày</label>
+                    <select id="mobile-day" class="form-select form-select-sm">
+                        <!-- Options will be populated by JS -->
+                    </select>
+                </div>
+                <div class="col-4">
+                    <label class="form-label-sm">Tháng</label>
+                    <select id="mobile-month" class="form-select form-select-sm">
+                        <!-- Options will be populated by JS -->
+                    </select>
+                </div>
+                <div class="col-4">
+                    <label class="form-label-sm">Năm</label>
+                    <select id="mobile-year" class="form-select form-select-sm">
+                        <!-- Options will be populated by JS -->
+                    </select>
+                </div>
+            </div>
+            <div class="mobile-popup-buttons">
+                <button type="button" class="mobile-popup-btn cancel" id="mobileCancelBtn">
+                    Hủy
+                </button>
+                <button type="button" class="mobile-popup-btn choose" id="mobileChooseBtn">
+                    Chuyển đổi
+                </button>
+            </div>
+        </div>
     </div>
 @endsection
 
@@ -518,6 +555,85 @@
         width: 90%;
         max-width: 400px;
     }
+
+    /* Mobile popup styles */
+    .mobile-date-popup {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 9999;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .mobile-popup-content {
+        background: white;
+        border-radius: 15px;
+        padding: 25px 20px;
+        width: 90%;
+        max-width: 400px;
+        max-height: 80vh;
+        overflow-y: auto;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .mobile-popup-header {
+        text-align: center;
+        margin-bottom: 20px;
+        font-weight: 600;
+        font-size: 18px;
+        color: #2254AB;
+    }
+
+    .mobile-popup-buttons {
+        display: flex;
+        gap: 15px;
+        margin-top: 25px;
+    }
+
+    .mobile-popup-btn {
+        flex: 1;
+        padding: 15px 20px;
+        border: none;
+        border-radius: 10px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .mobile-popup-btn.choose {
+        background: #2254AB;
+        color: white;
+    }
+
+    .mobile-popup-btn.choose:hover {
+        background: #1e4a96;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(34, 84, 171, 0.3);
+    }
+
+    .mobile-popup-btn.cancel {
+        background: #f8f9fa;
+        color: #6c757d;
+        border: 2px solid #dee2e6;
+    }
+
+    .mobile-popup-btn.cancel:hover {
+        background: #e9ecef;
+        border-color: #adb5bd;
+    }
+
+    /* Hide default selects on mobile and show popup instead */
+    @media (max-width: 768px) {
+        .date-select-container {
+            display: none !important;
+        }
+    }
 }
 </style>
 @endpush
@@ -526,58 +642,59 @@
     <script>
         // Function to change day
         function changeDay(days) {
+            console.log('changeDay called with:', days);
             const solarInput = document.getElementById('solar_date');
-            const currentDate = solarInput.value;
+            let currentDate = solarInput.value;
+            console.log('Current solar date:', currentDate);
 
-            if (currentDate) {
-                const parts = currentDate.split('/');
-                if (parts.length === 3) {
-                    const day = parseInt(parts[0], 10);
-                    const month = parseInt(parts[1], 10) - 1;
-                    const year = parseInt(parts[2], 10);
-                    const date = new Date(year, month, day);
+            // If no current date, use today as fallback
+            if (!currentDate) {
+                const today = new Date();
+                const dd = String(today.getDate()).padStart(2, '0');
+                const mm = String(today.getMonth() + 1).padStart(2, '0');
+                const yyyy = today.getFullYear();
+                currentDate = `${dd}/${mm}/${yyyy}`;
+            }
 
-                    // Add/subtract days
-                    date.setDate(date.getDate() + days);
+            const parts = currentDate.split('/');
+            if (parts.length === 3) {
+                const day = parseInt(parts[0], 10);
+                const month = parseInt(parts[1], 10) - 1;
+                const year = parseInt(parts[2], 10);
+                const date = new Date(year, month, day);
 
-                    // Format the new date
-                    const newDay = String(date.getDate()).padStart(2, '0');
-                    const newMonth = String(date.getMonth() + 1).padStart(2, '0');
-                    const newYear = date.getFullYear();
-                    const newDateStr = `${newDay}/${newMonth}/${newYear}`;
+                // Add/subtract days
+                date.setDate(date.getDate() + days);
 
-                    // Create a form and submit to /am-sang-duong
-                    const form = document.createElement('form');
-                    form.method = 'POST';
-                    form.action = '{{ route('convert.am.to.duong') }}';
+                // Format the new date
+                const newDay = String(date.getDate()).padStart(2, '0');
+                const newMonth = String(date.getMonth() + 1).padStart(2, '0');
+                const newYear = date.getFullYear();
+                const newDateStr = `${newDay}/${newMonth}/${newYear}`;
 
-                    // Add CSRF token
-                    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-                    const csrfInput = document.createElement('input');
-                    csrfInput.type = 'hidden';
-                    csrfInput.name = '_token';
-                    csrfInput.value = csrfToken;
-                    form.appendChild(csrfInput);
+                // Create a form and submit to /doi-ngay-am-duong
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = '/doi-ngay-am-duong';
 
-                    // Add solar date input
-                    const solarDateInput = document.createElement('input');
-                    solarDateInput.type = 'hidden';
-                    solarDateInput.name = 'solar_date';
-                    solarDateInput.value = newDateStr;
-                    form.appendChild(solarDateInput);
+                // Add CSRF token
+                const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                const csrfInput = document.createElement('input');
+                csrfInput.type = 'hidden';
+                csrfInput.name = '_token';
+                csrfInput.value = csrfToken;
+                form.appendChild(csrfInput);
 
-                    // Add lunar date input (current value)
-                    const lunarInput = document.getElementById('lunar_date');
-                    const lunarDateInput = document.createElement('input');
-                    lunarDateInput.type = 'hidden';
-                    lunarDateInput.name = 'lunar_date';
-                    lunarDateInput.value = lunarInput.value;
-                    form.appendChild(lunarDateInput);
+                // Add solar date input - chỉ gửi solar_date
+                const solarDateInput = document.createElement('input');
+                solarDateInput.type = 'hidden';
+                solarDateInput.name = 'solar_date';
+                solarDateInput.value = newDateStr;
+                form.appendChild(solarDateInput);
 
-                    // Append to body and submit
-                    document.body.appendChild(form);
-                    form.submit();
-                }
+                // Append to body and submit
+                document.body.appendChild(form);
+                form.submit();
             }
         }
 
@@ -667,9 +784,20 @@
         };
 
         // Global functions for date select operations
-        window.showDateSelect = function(type) {
+        window.showDateSelect = async function(type) {
+            // Check if mobile
+            if (window.innerWidth <= 768) {
+                showMobileDatePopup(type);
+                return;
+            }
+
             const container = document.getElementById(type + '-select-container');
             const input = document.getElementById(type + '_date');
+
+            if (!container || !input) {
+                console.error(`Element ${type}-select-container or ${type}_date not found`);
+                return;
+            }
 
             // Hide other open selects
             const allContainers = document.querySelectorAll('.date-select-container');
@@ -684,12 +812,108 @@
 
             // Populate select options based on current input value or today
             const currentValue = input.value || formatDate(new Date());
-            populateSelects(type, currentValue);
+            await populateSelects(type, currentValue);
         };
 
         window.hideDateSelect = function(type) {
             const container = document.getElementById(type + '-select-container');
             container.style.display = 'none';
+        };
+
+        // Mobile popup functions
+        let currentMobileType = '';
+
+        window.showMobileDatePopup = async function(type) {
+            currentMobileType = type;
+            const popup = document.getElementById('mobileDatePopup');
+            const title = document.getElementById('mobilePopupTitle');
+            const input = document.getElementById(type + '_date');
+
+            // Set title
+            title.textContent = type === 'solar' ? 'Chọn ngày dương lịch' : 'Chọn ngày âm lịch';
+
+            // Get current date value - use a proper default
+            let currentValue = input.value;
+            if (!currentValue) {
+                // If no value, use 01/01/2024 as default
+                currentValue = '01/01/2024';
+            }
+
+            // Populate mobile selects
+            await populateMobileSelects(type, currentValue);
+
+            // Show popup
+            popup.style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // Prevent background scroll
+        };
+
+        window.hideMobileDatePopup = function() {
+            const popup = document.getElementById('mobileDatePopup');
+            popup.style.display = 'none';
+            document.body.style.overflow = 'auto';
+            currentMobileType = '';
+        };
+
+        window.populateMobileSelects = async function(type, dateValue) {
+            const parts = dateValue.split('/');
+            const currentDay = parseInt(parts[0]) || 1;
+            const currentMonth = parseInt(parts[1]) || 1;
+            const currentYear = parseInt(parts[2]) || new Date().getFullYear();
+
+            // Populate mobile month select
+            const monthSelect = document.getElementById('mobile-month');
+            monthSelect.innerHTML = '';
+            for (let i = 1; i <= 12; i++) {
+                const option = document.createElement('option');
+                option.value = i;
+                option.textContent = `Tháng ${i}`;
+                if (i === currentMonth) option.selected = true;
+                monthSelect.appendChild(option);
+            }
+
+            // Populate mobile year select
+            const yearSelect = document.getElementById('mobile-year');
+            yearSelect.innerHTML = '';
+            const currentYearFull = new Date().getFullYear();
+            for (let i = currentYearFull - 100; i <= currentYearFull + 10; i++) {
+                const option = document.createElement('option');
+                option.value = i;
+                option.textContent = i;
+                if (i === currentYear) option.selected = true;
+                yearSelect.appendChild(option);
+            }
+
+            // Populate mobile day select - simplified version
+            await populateMobileDays(type, currentMonth, currentYear, currentDay);
+        };
+
+        // Simplified function to populate mobile days
+        window.populateMobileDays = async function(type, month, year, selectedDay) {
+            const daySelect = document.getElementById('mobile-day');
+            daySelect.innerHTML = '<option>Đang tải...</option>';
+
+            let maxDay;
+            if (type === 'lunar') {
+                // For lunar calendar, use simple fallback for now
+                maxDay = 30; // Most lunar months have 29-30 days
+            } else {
+                // For solar calendar
+                maxDay = new Date(year, month, 0).getDate();
+            }
+
+            // Clear and populate days
+            daySelect.innerHTML = '';
+            for (let i = 1; i <= maxDay; i++) {
+                const option = document.createElement('option');
+                option.value = i;
+                option.textContent = i;
+                if (i === selectedDay) option.selected = true;
+                daySelect.appendChild(option);
+            }
+        };
+
+        window.updateMobileDayOptions = async function(type, month, year, selectedDay) {
+            await populateMobileDays(type, month, year, selectedDay);
         };
 
         window.applyDateSelect = function(type) {
@@ -721,7 +945,7 @@
             }
         };
 
-        window.populateSelects = function(type, dateValue) {
+        window.populateSelects = async function(type, dateValue) {
             const parts = dateValue.split('/');
             const currentDay = parseInt(parts[0]) || 1;
             const currentMonth = parseInt(parts[1]) || 1;
@@ -729,6 +953,10 @@
 
             // Populate month select first
             const monthSelect = document.getElementById(type + '-month');
+            if (!monthSelect) {
+                console.error(`Element ${type}-month not found`);
+                return;
+            }
             monthSelect.innerHTML = '';
             for (let i = 1; i <= 12; i++) {
                 const option = document.createElement('option');
@@ -740,6 +968,10 @@
 
             // Populate year select
             const yearSelect = document.getElementById(type + '-year');
+            if (!yearSelect) {
+                console.error(`Element ${type}-year not found`);
+                return;
+            }
             yearSelect.innerHTML = '';
             const currentYearFull = new Date().getFullYear();
             for (let i = currentYearFull - 100; i <= currentYearFull + 10; i++) {
@@ -751,30 +983,53 @@
             }
 
             // Populate day select based on selected month and year
-            updateDayOptions(type, currentMonth, currentYear, currentDay);
+            await updateDayOptions(type, currentMonth, currentYear, currentDay);
 
             // Add event listeners to update days when month or year changes
-            monthSelect.addEventListener('change', function() {
+            monthSelect.addEventListener('change', async function() {
                 const selectedMonth = parseInt(this.value);
                 const selectedYear = parseInt(yearSelect.value);
                 const selectedDay = parseInt(document.getElementById(type + '-day').value) || 1;
-                updateDayOptions(type, selectedMonth, selectedYear, selectedDay);
+                await updateDayOptions(type, selectedMonth, selectedYear, selectedDay);
             });
 
-            yearSelect.addEventListener('change', function() {
+            yearSelect.addEventListener('change', async function() {
                 const selectedMonth = parseInt(monthSelect.value);
                 const selectedYear = parseInt(this.value);
                 const selectedDay = parseInt(document.getElementById(type + '-day').value) || 1;
-                updateDayOptions(type, selectedMonth, selectedYear, selectedDay);
+                await updateDayOptions(type, selectedMonth, selectedYear, selectedDay);
             });
         };
 
         // Helper function to get the number of days in a month
-        window.getDaysInMonth = function(month, year, isLunar = false) {
+        window.getDaysInMonth = async function(month, year, isLunar = false) {
             if (isLunar) {
-                // Lunar months usually have 29 or 30 days
-                // For simplicity, we'll use 30 as max, but this could be more precise
-                return 30;
+                // Use API to get accurate lunar month days calculation
+                try {
+                    const response = await fetch('/api/get-lunar-month-days', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        },
+                        body: JSON.stringify({
+                            month: parseInt(month),
+                            year: parseInt(year)
+                        })
+                    });
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        return data.days || 29;
+                    } else {
+                        console.error(`API error: ${response.status}`);
+                    }
+                } catch (error) {
+                    console.error('Error getting lunar month days:', error);
+                }
+
+                // Fallback to 29 if API fails
+                return 29;
             }
 
             // Solar calendar days per month
@@ -782,10 +1037,18 @@
         };
 
         // Helper function to update day options based on selected month and year
-        window.updateDayOptions = function(type, month, year, selectedDay) {
+        window.updateDayOptions = async function(type, month, year, selectedDay) {
             const daySelect = document.getElementById(type + '-day');
+            if (!daySelect) {
+                console.error(`Element ${type}-day not found`);
+                return;
+            }
             const isLunar = type === 'lunar';
-            const maxDay = getDaysInMonth(month, year, isLunar);
+
+            // Show loading state
+            daySelect.innerHTML = '<option>Đang tải...</option>';
+
+            const maxDay = await getDaysInMonth(month, year, isLunar);
 
             // Clear existing options
             daySelect.innerHTML = '';
@@ -821,14 +1084,13 @@
             const solarDisplayContainer = document.getElementById('solar-display-container');
             const lunarDisplayContainer = document.getElementById('lunar-display-container');
 
-            // Function to swap elements
-            const swapElements = (immediate = false) => {
+            // Function to swap content inside result boxes
+            const swapContentOnly = (immediate = false) => {
                 const inputRow = solarContainer.parentNode;
-                const displayRow = solarDisplayContainer.parentNode;
                 const swapIcon = swapBtn.querySelector('img');
 
                 const doTheSwap = () => {
-                    // Determine current order and swap
+                    // Swap input positions (keep existing logic for inputs)
                     const solarInputFirst = Array.from(inputRow.children).indexOf(solarContainer) < Array
                         .from(inputRow.children).indexOf(lunarContainer);
                     if (solarInputFirst) {
@@ -837,13 +1099,24 @@
                         inputRow.insertBefore(solarContainer, lunarContainer);
                     }
 
-                    const solarDisplayFirst = Array.from(displayRow.children).indexOf(
-                        solarDisplayContainer) < Array.from(displayRow.children).indexOf(
-                        lunarDisplayContainer);
-                    if (solarDisplayFirst) {
-                        displayRow.insertBefore(lunarDisplayContainer, solarDisplayContainer);
-                    } else {
-                        displayRow.insertBefore(solarDisplayContainer, lunarDisplayContainer);
+                    // Swap CONTENT inside display boxes, but keep navigation buttons in place
+                    const solarBox = solarDisplayContainer.querySelector('.date-display-card');
+                    const lunarBox = lunarDisplayContainer.querySelector('.date-display-card');
+
+                    if (solarBox && lunarBox) {
+                        // Get the center content only (exclude navigation buttons and status)
+                        const solarCenter = solarBox.querySelector('.text-center');
+                        const lunarCenter = lunarBox.querySelector('.text-center');
+
+                        if (solarCenter && lunarCenter) {
+                            // Get current center content
+                            const solarCenterContent = solarCenter.innerHTML;
+                            const lunarCenterContent = lunarCenter.innerHTML;
+
+                            // Swap only the center content
+                            solarCenter.innerHTML = lunarCenterContent;
+                            lunarCenter.innerHTML = solarCenterContent;
+                        }
                     }
                 };
 
@@ -863,47 +1136,43 @@
                 let currentState = localStorage.getItem('converterSwapState') || 'solar-first';
                 let newState = (currentState === 'solar-first') ? 'lunar-first' : 'solar-first';
                 localStorage.setItem('converterSwapState', newState);
-                swapElements();
+                swapContentOnly();
             });
 
             // On page load, check and apply saved state
             const savedState = localStorage.getItem('converterSwapState');
             if (savedState === 'lunar-first') {
                 // The default is solar-first, so we need to swap if the saved state is lunar-first
-                swapElements(true); // immediate swap
+                swapContentOnly(true); // immediate swap
             }
 
 
-            // Set default value for inputs từ controller hoặc ngày hôm nay
-            @if (isset($dd) && isset($mm) && isset($yy) && isset($al))
-                // Có dữ liệu từ controller - đưa trực tiếp vào input
+            // Set default value cho inputs
+            @if (request()->isMethod('post') && (request()->has('solar_date') || request()->has('lunar_date')))
+                // Có request từ form submit - hiển thị ngày được chọn
                 const solarDateFromController = '{{ $dd }}/{{ $mm }}/{{ $yy }}';
                 const lunarDateFromController =
                     '{{ sprintf('%02d', $al[0]) }}/{{ sprintf('%02d', $al[1]) }}/{{ $al[2] }}';
 
-                // Đưa trực tiếp vào input không qua API
                 solarInput.value = solarDateFromController;
                 lunarInput.value = lunarDateFromController;
             @else
-                // Không có dữ liệu từ controller - dùng ngày hôm nay
-                const todayFormatted = formatDate(today);
-                solarInput.value = todayFormatted;
+                // GET request hoặc tải trang lần đầu - hiển thị ngày hôm nay từ controller
+                const solarDateFromController = '{{ sprintf('%02d', $dd) }}/{{ sprintf('%02d', $mm) }}/{{ $yy }}';
+                const lunarDateFromController =
+                    '{{ sprintf('%02d', $al[0]) }}/{{ sprintf('%02d', $al[1]) }}/{{ $al[2] }}';
 
-                // Convert today to lunar via API
-                convertSolarToLunar(todayFormatted).then(lunarDate => {
-                    if (lunarDate) {
-                        lunarInput.value = lunarDate;
-                    }
-                });
+                solarInput.value = solarDateFromController;
+                lunarInput.value = lunarDateFromController;
             @endif
 
             // Add click handlers for inputs to show select dropdowns
-            solarInput.addEventListener('click', function() {
-                showDateSelect('solar');
+            solarInput.addEventListener('click', async function() {
+                await showDateSelect('solar');
             });
 
-            lunarInput.addEventListener('click', function() {
-                showDateSelect('lunar');
+            lunarInput.addEventListener('click', async function() {
+                await showDateSelect('lunar');
             });
 
             // Hide select containers when clicking outside
@@ -914,6 +1183,139 @@
                     });
                 }
             });
+
+            // Mobile popup event listeners
+            const mobileCancelBtn = document.getElementById('mobileCancelBtn');
+            const mobileChooseBtn = document.getElementById('mobileChooseBtn');
+
+            if (mobileCancelBtn) {
+                mobileCancelBtn.addEventListener('click', function() {
+                    hideMobileDatePopup();
+                });
+            }
+
+            if (mobileChooseBtn) {
+                mobileChooseBtn.addEventListener('click', function() {
+                    const day = document.getElementById('mobile-day').value;
+                    const month = document.getElementById('mobile-month').value;
+                    const year = document.getElementById('mobile-year').value;
+
+                    if (day && month && year) {
+                        const formattedDate = `${String(day).padStart(2, '0')}/${String(month).padStart(2, '0')}/${year}`;
+
+                        // Clear both inputs first
+                        document.getElementById('solar_date').value = '';
+                        document.getElementById('lunar_date').value = '';
+
+                        // Set the correct input based on calendar type
+                        const input = document.getElementById(currentMobileType + '_date');
+                        input.value = formattedDate;
+
+                        // Hide popup
+                        hideMobileDatePopup();
+
+                        // Submit form - let server handle conversion based on which input has value
+                        const form = document.querySelector('form');
+                        if (form) {
+                            form.submit();
+                        }
+                    }
+                });
+            }
+
+            // Close popup when clicking outside
+            const mobilePopup = document.getElementById('mobileDatePopup');
+            if (mobilePopup) {
+                mobilePopup.addEventListener('click', function(e) {
+                    if (e.target === mobilePopup) {
+                        hideMobileDatePopup();
+                    }
+                });
+            }
+
+            // Add event listeners for mobile selects
+            const mobileMonthSelect = document.getElementById('mobile-month');
+            const mobileYearSelect = document.getElementById('mobile-year');
+
+            if (mobileMonthSelect) {
+                mobileMonthSelect.addEventListener('change', async function() {
+                    const selectedMonth = parseInt(this.value);
+                    const selectedYear = parseInt(mobileYearSelect.value);
+                    const selectedDay = parseInt(document.getElementById('mobile-day').value) || 1;
+                    await updateMobileDayOptions(currentMobileType, selectedMonth, selectedYear, selectedDay);
+                });
+            }
+
+            if (mobileYearSelect) {
+                mobileYearSelect.addEventListener('change', async function() {
+                    const selectedMonth = parseInt(mobileMonthSelect.value);
+                    const selectedYear = parseInt(this.value);
+                    const selectedDay = parseInt(document.getElementById('mobile-day').value) || 1;
+                    await updateMobileDayOptions(currentMobileType, selectedMonth, selectedYear, selectedDay);
+                });
+            }
+
+            // Add event listeners for PC navigation buttons
+            const pcPrevBtn = document.getElementById('pc-prev-btn');
+            const pcNextBtn = document.getElementById('pc-next-btn');
+
+            if (pcPrevBtn) {
+                console.log('Adding event listeners to PC prev button');
+                pcPrevBtn.addEventListener('click', function(e) {
+                    console.log('PC prev button clicked');
+                    e.preventDefault();
+                    changeDay(-1);
+                });
+            } else {
+                console.log('PC prev button not found');
+            }
+
+            if (pcNextBtn) {
+                console.log('Adding event listeners to PC next button');
+                pcNextBtn.addEventListener('click', function(e) {
+                    console.log('PC next button clicked');
+                    e.preventDefault();
+                    changeDay(1);
+                });
+            } else {
+                console.log('PC next button not found');
+            }
+
+            // Add event listeners for mobile navigation buttons
+            const mobilePrevBtn = document.getElementById('mobile-prev-btn');
+            const mobileNextBtn = document.getElementById('mobile-next-btn');
+
+            if (mobilePrevBtn) {
+                console.log('Adding event listeners to mobile prev button');
+                mobilePrevBtn.addEventListener('click', function(e) {
+                    console.log('Mobile prev button clicked');
+                    e.preventDefault();
+                    changeDay(-1);
+                });
+                mobilePrevBtn.addEventListener('touchstart', function(e) {
+                    console.log('Mobile prev button touched');
+                    e.preventDefault();
+                    changeDay(-1);
+                });
+            } else {
+                console.log('Mobile prev button not found');
+            }
+
+            if (mobileNextBtn) {
+                console.log('Adding event listeners to mobile next button');
+                mobileNextBtn.addEventListener('click', function(e) {
+                    console.log('Mobile next button clicked');
+                    e.preventDefault();
+                    changeDay(1);
+                });
+                mobileNextBtn.addEventListener('touchstart', function(e) {
+                    console.log('Mobile next button touched');
+                    e.preventDefault();
+                    changeDay(1);
+                });
+            } else {
+                console.log('Mobile next button not found');
+            }
 
         });
     </script>

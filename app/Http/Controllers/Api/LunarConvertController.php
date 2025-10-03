@@ -113,4 +113,60 @@ class LunarConvertController extends Controller
             ], 400);
         }
     }
+
+    public function getLunarMonthDays(Request $request)
+    {
+        try {
+            $month = $request->input('month');
+            $year = $request->input('year');
+
+            // Validate input
+            if (!$month || !$year || $month < 1 || $month > 12) {
+                return response()->json([
+                    'success' => false,
+                    'error' => 'Tháng hoặc năm không hợp lệ'
+                ], 400);
+            }
+
+            // Calculate the actual number of days in the lunar month using helper function
+            $days = $this->calculateLunarMonthDays($month, $year);
+
+            return response()->json([
+                'success' => true,
+                'days' => $days,
+                'month' => $month,
+                'year' => $year
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'error' => 'Lỗi lấy số ngày trong tháng âm lịch'
+            ], 400);
+        }
+    }
+
+    /**
+     * Calculate actual number of days in a lunar month using helper functions
+     */
+    private function calculateLunarMonthDays($month, $year)
+    {
+        try {
+            // Convert lunar month start (day 1) to solar date
+            $solarStart = LunarHelper::convertLunar2Solar(1, $month, $year, 0);
+
+            // Try day 30 first, if it doesn't exist, the month has 29 days
+            $solarDay30 = LunarHelper::convertLunar2Solar(30, $month, $year, 0);
+
+            // If day 30 conversion returns valid result (day != 0), month has 30 days
+            if ($solarDay30[0] != 0) {
+                return 30;
+            } else {
+                return 29;
+            }
+        } catch (\Exception $e) {
+            // Fallback to safe default
+            return 29;
+        }
+    }
 }

@@ -41,7 +41,7 @@
                                 @for ($month = 1; $month <= 12; $month++)
                                     <li>
                                         <a href="{{ route('lich.thang', ['nam' => $currentYear, 'thang' => $month]) }}">Tháng
-                                            {{ $month }}</a>
+                                            {{ $month }} năm {{date('Y')}}</a>
                                     </li>
                                 @endfor
                                 {{-- <li><a href="/lich-thang/2024/1">Tháng 1, 2024</a></li>
@@ -224,7 +224,7 @@
                             @for ($month = 1; $month <= 12; $month++)
                                 <li>
                                     <a href="{{ route('lich.thang', ['nam' => $currentYear, 'thang' => $month]) }}">Tháng
-                                        {{ $month }}</a>
+                                        {{ $month }} năm {{date('Y')}}</a>
                                 </li>
                             @endfor
                         </ul>

@@ -18,9 +18,9 @@
                 <h5 class="footer-title">Tiện ích</h5>
                 <ul class="footer-links">
                     <li><a href="{{ route('convert.am.to.duong') }}">Đổi ngày âm dương</a></li>
-                    <li><a href="">Lá số tử vi</a></li>
-                    <li><a href="{{ route('convert.am.to.duong') }}">Xem ngày tốt xấu</a></li>
-                    <li><a href="">Thước lỗ ban</a></li>
+                    {{-- <li><a href="">Lá số tử vi</a></li> --}}
+                    <li><a href="{{ route('horoscope.index') }}">Cung hoàng đạo</a></li>
+                    {{-- <li><a href="">Thước lỗ ban</a></li> --}}
                 </ul>
             </div>
 
@@ -41,7 +41,7 @@
                 <h5 class="footer-title">Tải ứng dụng</h5>
                 
                 <div id="download-app">
-                    <a target="_blank" rel="noreferrer" class="max-w-[180px]"
+                    <a target="_blank" rel="nofollow" class="max-w-[180px]"
                         href="https://apps.apple.com/vn/app/l%E1%BB%8Bch-%C3%A2m-l%E1%BB%8Bch-v%E1%BA%A1n-ni%C3%AAn-2025/id6499255314?l=vi">
                         <div
                             class="d-flex justify-content-center justify-items-center gap-3 shadow-sm py-2 px-3 rounded-lg">
@@ -67,7 +67,7 @@
                                     on the</span><span class="font-semibold whitespace-nowrap">App Store</span></div>
                         </div>
                     </a>
-                    <a target="_blank" rel="noreferrer" class="max-w-[180px]"
+                    <a target="_blank" rel="nofollow" class="max-w-[180px]"
                         href="https://play.google.com/store/apps/details?id=com.rvn.licham&hl=vi">
                         <div class="d-flex justify-content-center justify-items-center gap-3 shadow-sm py-2 px-3 rounded-lg">
                             <div class="max-w-[37px] w-[37px]"><svg width="38" height="38"

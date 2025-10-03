@@ -4,7 +4,7 @@
         <h6 class="content-title-detail"><a href="{{ route('home') }}">Trang chủ</a><i class="bi bi-chevron-right"></i> Lịch
             năm {{ $yy }} <i class="bi bi-chevron-right"></i> <span style="color: #2254AB">
                 Tháng {{ $mm }}</span></h6>
-        <h1 class="content-title-home-lich">Lịch Âm Tháng {{ $mm }}</h1>
+        <h1 class="content-title-home-lich">Lịch Âm Tháng {{ $mm }} năm {{date('Y')}}</h1>
 
     </div>
     <div class="row mt-2 g-3">
@@ -54,32 +54,32 @@
             <div class="box--bg-thang mt-3">
                 <div class="">
                     <h3 class="title-tong-quan-h3-log">
-                        Lịch âm tháng {{ $mm }}
+                        Âm lịch tháng {{ $mm }}
                     </h3>
                     <hr>
                     <div>
                         <div class="calendar-header mt-0">
-                            <h5 class="mb-0">Tháng {{ $mm }} năm {{ $yy }}</h5>
+                            <h5 class="mb-0">Tháng {{ $mm }} năm {{$can_chi_nam}}</h5>
                         </div>
                         <div class="calendar-wrapper calendar-wrapper-none">
                             <table class="calendar-table">
                                 <thead>
                                     <tr>
-                                        <th><span class="title-lich-pc">Thứ hai</span> <span class="title-lich-mobie">Th
+                                        <th><span class="title-lich-pc">Thứ Hai</span> <span class="title-lich-mobie">Th
                                                 2</span></th>
-                                        <th><span class="title-lich-pc">Thứ ba</span> <span class="title-lich-mobie">Th
+                                        <th><span class="title-lich-pc">Thứ Ba</span> <span class="title-lich-mobie">Th
                                                 3</span>
                                         </th>
-                                        <th><span class="title-lich-pc">Thứ tư</span> <span class="title-lich-mobie">Th
+                                        <th><span class="title-lich-pc">Thứ Tư</span> <span class="title-lich-mobie">Th
                                                 4</span>
                                         </th>
-                                        <th><span class="title-lich-pc">Thứ năm</span> <span class="title-lich-mobie">Th
+                                        <th><span class="title-lich-pc">Thứ Năm</span> <span class="title-lich-mobie">Th
                                                 5</span></th>
-                                        <th><span class="title-lich-pc">Thứ sáu</span> <span class="title-lich-mobie">Th
+                                        <th><span class="title-lich-pc">Thứ Sáu</span> <span class="title-lich-mobie">Th
                                                 6</span></th>
-                                        <th><span class="title-lich-pc">Thứ bảy</span> <span class="title-lich-mobie">Th
+                                        <th><span class="title-lich-pc">Thứ Bảy</span> <span class="title-lich-mobie">Th
                                                 7</span></th>
-                                        <th><span class="title-lich-pc">Chủ nhật</span> <span
+                                        <th><span class="title-lich-pc">Chủ Bhật</span> <span
                                                 class="title-lich-mobie">CN</span></th>
                                     </tr>
                                 </thead>
@@ -125,7 +125,7 @@
             <div class="box--bg-thang mt-3">
                 <div class="">
                     <h3 class="title-tong-quan-h3-log">
-                        Lịch dương tháng {{ $mm }}
+                       Dương lịch tháng {{ $mm }}
                     </h3>
                     <hr>
                     <div class="calendar-wrapper calendar-wrapper-none">
@@ -351,7 +351,7 @@
             <div class="d-flex flex-column gap-4">
                 <!-- ** KHỐI SỰ KIỆN SẮP TỚI ** -->
                 <div class="events-card">
-                    <h5 class="card-title-right">Lịch âm khác</h5>
+                    <h5 class="card-title-right">Lịch Âm các tháng năm {{$yy}}</h5>
                     <ul class="list-group list-group-flush events-list">
                         @for ($i = 1; $i <= 12; $i++)
                             <li class="list-group-item event-item pb-0">

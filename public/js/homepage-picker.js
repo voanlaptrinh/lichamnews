@@ -244,8 +244,12 @@ class HomepagePicker extends BasePicker {
     async updatePageContent(year, month, day) {
         const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-        // Hiển thị loading state
-        document.body.style.cursor = 'wait';
+        // Hiển thị loading state với hiệu ứng mờ như trang chi tiết
+        const loadingElements = document.querySelectorAll('.date-number, .date-weekday, .date-special-event, .ngay-hom-ngay, .calendar-table, .chart-container');
+        loadingElements.forEach(el => {
+            el.style.opacity = '0.6';
+            el.style.transition = 'opacity 0.3s ease';
+        });
 
         try {
             const response = await fetch(this.ajaxUrl, {
@@ -289,7 +293,11 @@ class HomepagePicker extends BasePicker {
             console.error('Error:', error);
             alert('Có lỗi xảy ra khi tải dữ liệu. Vui lòng thử lại.');
         } finally {
-            document.body.style.cursor = 'default';
+            // Khôi phục opacity
+            const loadingElements = document.querySelectorAll('.date-number, .date-weekday, .date-special-event, .ngay-hom-ngay, .calendar-table, .chart-container');
+            loadingElements.forEach(el => {
+                el.style.opacity = '1';
+            });
         }
     }
 
@@ -460,6 +468,22 @@ class HomepagePicker extends BasePicker {
                     containerAm.appendChild(div);
                 });
             }
+        }
+
+        // Cập nhật title trong --homnay-home
+        const homnayHomeElement = document.querySelector('.--homnay-home');
+        if (homnayHomeElement) {
+            const formattedMonth = data.mm.toString().padStart(2, '0');
+            const formattedDay = data.dd.toString().padStart(2, '0');
+            const lunarDate = document.getElementById('luna-date');
+            const lunarMonth = document.getElementById('luna-month');
+
+            if (lunarDate) lunarDate.textContent = data.al[0];
+            if (lunarMonth) lunarMonth.textContent = `Tháng ${data.al[1]}`;
+
+            homnayHomeElement.innerHTML = `
+               Âm lịch Ngày <span id="luna-date">${data.al[0]}</span> <span id="luna-month">Tháng ${data.al[1]}</span>}
+            `;
         }
     }
 

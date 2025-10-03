@@ -133,12 +133,17 @@
     .horoscope-content {
         font-size: 16px;
     }
-
+ .horoscope-content h3 {
+        font-size: 20px;
+    }
     .zodiac-card .name {
         font-size: 20px;
     }
     .zodiac-card .date{
         padding-bottom: 16px;
+    }
+    .progress-dial{
+        --size: 100px;
     }
 }
 
@@ -327,6 +332,12 @@
      .zodiac-card .date{
         padding-bottom: 16px;
     }
+    .progress-dial{
+        --size: 100px;
+    }
+    .horoscope-content h3 {
+        font-size: 20px;
+    }
 }
 
 @media screen and (min-width: 1200px) and (max-width: 1399.98px) {
@@ -504,6 +515,12 @@
     }
      .zodiac-card .date{
         padding-bottom: 16px;
+    }
+    .progress-dial{
+        --size: 100px;
+    }
+     .horoscope-content h3 {
+        font-size: 20px;
     }
 }
 
@@ -743,6 +760,12 @@
     }
      .zodiac-card .date{
         padding-bottom: 16px;
+    }
+    .progress-dial{
+        --size: 100px;
+    }
+     .horoscope-content h3 {
+        font-size: 20px;
     }
 }
 
@@ -1000,6 +1023,12 @@
      .zodiac-card .date{
         padding-bottom: 16px;
     }
+    .progress-dial{
+        --size: 100px;
+    }
+     .horoscope-content h3 {
+        font-size: 20px;
+    }
 }
 
 @media screen and (min-width: 480px) and (max-width: 767.98px) {
@@ -1230,7 +1259,7 @@
     }
 
     .ngay-hom-ngay {
-        font-size: 14px;
+        font-size: 16px;
     }
 
     .title-tong-quan-h4-log {
@@ -1279,6 +1308,12 @@
     }
      .zodiac-card .date{
         padding-bottom: 12px;
+    }
+    .progress-dial{
+        --size: 100px;
+    }
+     .horoscope-content h3 {
+        font-size: 18px;
     }
 }
 
@@ -1341,7 +1376,7 @@
     }
 
     .text-lever-label-mobie {
-        font-size: 16px;
+        font-size: 14px;
     }
 
     .btn-today-home-pc {
@@ -1635,7 +1670,7 @@
     }
 
     .ngay-hom-ngay {
-        font-size: 12px;
+        font-size: 20px;
     }
 
     .title-tong-quan-h4-log {
@@ -1652,7 +1687,7 @@
 
     .sonar-date,
     .lunar-date {
-        font-size: 14px;
+        font-size: 12px;
     }
 
     .weekday-popup {
@@ -1682,12 +1717,44 @@
     .horoscope-content {
         font-size: 15px;
     }
-
+ .horoscope-content h3 {
+        font-size: 18px;
+    }
     .zodiac-card .name {
-        font-size: 16px;
+        font-size: 14px;
+        height: 36px;
     }
       .zodiac-card .date{
         padding-bottom: 12px;
+        font-size: 12px;
+    }
+    .info-card{
+        padding: 20px;
+    }
+    .box-white-mobi{
+        background: white;
+        border-radius: 10px;
+        padding: 10px;
+    }
+     .box-white-mobi p{
+       margin-bottom: 5px;
+    }
+    .progress-dial{
+        --size: 80px;
+    }
+    .dial-percent {
+        font-size: 12px;
+        
+    }
+    .dial-status{
+        font-size: 10px;
+    }
+    .box-caro-cung-mb{
+        padding: 0;
+        background: none;
+    }
+    .read-more-link{
+        font-size: 12px;
     }
 }
 

@@ -126,7 +126,7 @@
                                  padding: 8px;
                              }
                          </style>
-                         <div class="ms-lg-3 text-box-tong-quan ">
+                         <div class=" text-box-tong-quan ">
                              <div class="row g-3 mb-3">
                                  <div class="col-lg-12 vncal-detail">
                                      <table class="custom-table">
@@ -143,27 +143,42 @@
                                              <tr>
                                                  <td class="text-capitalize"><b> Tiết khí:</b>
                                                      {{ $tietkhi['tiet_khi'] }}</td>
-                                                 <td class=""> <b>Ngày can chi:</b>
-                                                     {{ $getThongTinCanChiVaIcon['can_chi_ngay'] }}
-                                                     tháng {{ $getThongTinCanChiVaIcon['can_chi_thang'] }}
+                                                 <td class=""> <b>Ngày Can Chi:</b>
+                                                    ngày {{ $getThongTinCanChiVaIcon['can_chi_ngay'] }},
+                                                     tháng {{ $getThongTinCanChiVaIcon['can_chi_thang'] }},
                                                      năm {{ $getThongTinCanChiVaIcon['can_chi_nam'] }}</td>
                                              </tr>
                                              <tr>
-                                                 <td> <b>Nạp âm:</b> {{ $getThongTinNgay['nap_am']['napAm'] }} (Hành
+                                                 <td> <b>Nạp Âm:</b> {{ $getThongTinNgay['nap_am']['napAm'] }} (Hành
                                                      {{ $getThongTinNgay['nap_am']['napAmHanh'] }})
                                                  </td>
-                                                 <td> <b>Tuổi xung:</b> {{ $getThongTinNgay['tuoi_xung'] }}</td>
+                                                 <td> <b>Tuổi Xung:</b> {{ $getThongTinNgay['tuoi_xung'] }}</td>
                                              </tr>
                                              <tr>
-                                                 <td> <b>Giờ hoàng đạo:</b> {{ $getThongTinNgay['gio_hoang_dao'] }}
+                                                 <td> <b>Giờ Hoàng Đạo:</b> {{ $getThongTinNgay['gio_hoang_dao'] }}
                                                  </td>
-                                                 <td> <b>Giờ hắc đạo:</b> {{ $getThongTinNgay['gio_hac_dao'] }}</td>
+                                                 <td> <b>Giờ Hắc Đạo:</b> {{ $getThongTinNgay['gio_hac_dao'] }}</td>
                                              </tr>
                                              <tr>
                                                  <td>
-                                                     @if (!empty($hacDaoStars))
+                                                    @if ($tot_xau_result == 'tot')
                                                          <div>
-                                                             <b>Ngày hắc đạo:</b>
+                                                             <b>Ngày Hoàng Đạo:</b>
+                                                             @php
+                                                                 $hoangDaoStarStrings = [];
+                                                                 foreach (
+                                                                     $hoangDaoStars
+                                                                     as $starName => $starDescription
+                                                                 ) {
+                                                                     $hoangDaoStarStrings[] = $starName;
+                                                                 }
+                                                                 echo implode(', ', $hoangDaoStarStrings);
+                                                             @endphp
+                                                         </div>
+                                                     @endif
+                                                     @if ($tot_xau_result == 'xau')
+                                                         <div>
+                                                             <b>Ngày Hắc Đạo:</b>
                                                              @php
                                                                  $hacDaoStarStrings = [];
                                                                  foreach (
@@ -178,7 +193,7 @@
                                                      @endif
 
                                                      <div>
-                                                         <b>Nhị trực bát tú:</b> sao {{ $nhiThapBatTu['name'] }}
+                                                         <b>Nhị Thập Bát Tú:</b> sao {{ $nhiThapBatTu['name'] }}
                                                          ({{ $nhiThapBatTu['fullName'] }})
                                                      </div>
                                                      <div> <b>Thập Nhị Trực:</b> Trực {{ $getThongTinTruc['title'] }}

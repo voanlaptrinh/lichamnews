@@ -7,33 +7,36 @@
             <span>12 cung hoàng đạo</span>
         </h6>
         <h1 class="content-title-home-lich">Tử Vi 12 Cung Hoàng Đạo</h1>
-        <div>
-            <p>Khám phá tử vi 12 cung Hoàng đạo với những dự đoán chi tiết về tình yêu, công việc, tài lộc và sức khỏe. Hãy
-                chọn cung Hoàng đạo của bạn để xem chi tiết ngay hôm nay!</p>
-        </div>
-        <div class="row g-3 mb-4 mt-2">
-            @foreach ($zodiacs as $sign => $details)
-                <div class="col-lg-3 col-xl-2 col-md-4 col-6">
-                    <a href="{{ route('horoscope.show.type', ['signSlug' => $signSlugs[$sign], 'typeSlug' => 'hom-nay']) }}"
-                        class="card p-3 h-100 text-decoration-none text-dark zodiac-card text-center shadow-sm zodiac-card-new">
+        <div class="box-cart-index-cung box-caro-cung-mb">
+            <div>
+                <p>Khám phá tử vi 12 cung Hoàng đạo với những dự đoán chi tiết về tình yêu, công việc, tài lộc và sức khỏe.
+                    Hãy
+                    chọn cung Hoàng đạo của bạn để xem chi tiết ngay hôm nay!</p>
+            </div>
+            <div class="row g-3 mb-4 mt-2">
+                @foreach ($zodiacs as $sign => $details)
+                    <div class="col-lg-3 col-xl-2 col-md-4 col-6">
+                        <a href="{{ route('horoscope.show.type', ['signSlug' => $signSlugs[$sign], 'typeSlug' => 'hom-nay']) }}"
+                            class="card p-3 h-100 text-decoration-none text-dark zodiac-card text-center shadow-sm zodiac-card-new">
 
-                        <img src="{{ asset($details['icon']) }}?v=1.0" alt="{{ $details['name'] }}" class="icon">
-                        <h6 class="card-title mb-0 fw-bold name text-uppercase">{{ $details['name'] }}</h6>
-                        <div class="date">
-                            {{ $details['date'] }}
-                        </div>
-                        <div class="read-more-link">
-                            Xem thêm
-                            <span class="arrow-circle">
-                                <i class="bi bi-chevron-right"></i>
-                            </span>
-                        </div>
+                            <img src="{{ asset($details['icon']) }}?v=1.0" alt="{{ $details['name'] }}" class="icon">
+                            <h6 class="card-title mb-0 fw-bold name text-uppercase">{{ $details['name'] }}</h6>
+                            <div class="date">
+                                {{ $details['date'] }}
+                            </div>
+                            <div class="read-more-link">
+                                Xem thêm
+                                <span class="arrow-circle">
+                                    <i class="bi bi-chevron-right"></i>
+                                </span>
+                            </div>
 
-                    </a>
-                </div>
-            @endforeach
+                        </a>
+                    </div>
+                @endforeach
+            </div>
         </div>
-        <div class="text-box-tong-quan">
+        <div class="text-box-tong-quan box-cart-index-cung">
             <h3 class="title-tong-quan-h3">Ý nghĩa và giá trị của 12 cung Hoàng đạo trong cuộc sống hiện đại</h3>
             <div>
                 12 cung Hoàng đạo hay còn gọi là 12 chòm sao, vốn xuất phát từ chiêm tinh học phương Tây, nhưng ngày nay đã
@@ -92,13 +95,16 @@
                 </ul>
             </div>
             <div class="mt-3 mb-3">
-                <h4 class="title-tong-quan-h4" style="font-weight: unset">Tại sao nên theo dõi tử vi 12 cung Hoàng đạo tại Phong Lịch?
-</h4>
+                <h4 class="title-tong-quan-h4" style="font-weight: unset">Tại sao nên theo dõi tử vi 12 cung Hoàng đạo tại
+                    Phong Lịch?
+                </h4>
                 <div>
-                   Phong Lịch mang đến nội dung tử vi được cập nhật hàng ngày, hàng tuần, hàng tháng và cả năm cho 12 cung Hoàng đạo. Các thông tin được trình bày rõ ràng, dễ hiểu, vừa mang tính tham khảo, vừa có giá trị định hướng cho bạn trong cuộc sống.
+                    Phong Lịch mang đến nội dung tử vi được cập nhật hàng ngày, hàng tuần, hàng tháng và cả năm cho 12 cung
+                    Hoàng đạo. Các thông tin được trình bày rõ ràng, dễ hiểu, vừa mang tính tham khảo, vừa có giá trị định
+                    hướng cho bạn trong cuộc sống.
 
                 </div>
-              
+
             </div>
         </div>
     </div>

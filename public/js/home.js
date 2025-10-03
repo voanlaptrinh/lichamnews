@@ -414,6 +414,8 @@ class LunarCalendarApp extends BasePicker {
             detailContent.innerHTML = data.html;
             // Setup lại navigation buttons sau khi cập nhật HTML
             this.setupNavigationButtons();
+            // Setup lại quick picker buttons sau khi cập nhật HTML
+            this.setupQuickPicker();
             // Loại bỏ href khỏi các link trong content mới
             this.removeCalendarHrefs();
 
@@ -882,8 +884,14 @@ class LunarCalendarApp extends BasePicker {
         let currentPopupYear = this.currentYear;
         let currentPopupMonth = this.currentMonth;
 
-        // Open popup - add event listener to all quick picker buttons
+        // Remove existing event listeners first to prevent duplicates
         quickPickerBtns.forEach(btn => {
+            const newBtn = btn.cloneNode(true);
+            btn.parentNode.replaceChild(newBtn, btn);
+        });
+
+        // Open popup - add event listener to all quick picker buttons
+        document.querySelectorAll('.quickPickerBtn').forEach(btn => {
             btn.addEventListener('click', async () => {
                 // Lấy ngày hiện tại từ các nguồn có sẵn
                 const currentDay = parseInt(document.getElementById('solarDay')?.value || this.currentDay);

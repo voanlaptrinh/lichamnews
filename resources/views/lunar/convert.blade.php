@@ -149,17 +149,15 @@
                         </div>
                         {{-- d-sm-block d-block d-xl-none --}}
                         <div class="position-relative bix-title-thangnam">
-                            <div class="d-flex justify-content-center">
-                                <div class="position-absolute --posyon-ngay" style="top: -20px;">
-                                    <div class="ngay-hom-ngay --homnay-home">
-                                        Ngày 26-09-2025 (<span id="luna-date">5</span> <span id="luna-month">Tháng
-                                            8</span>
-                                        năm Ất Tỵ)
+
+                            <div class="info-card ">
+                                <div class="d-flex justify-content-center">
+                                    <div class=" --posyon-ngay">
+                                        <div class="ngay-hom-ngay --homnay-home">
+                                           Âm lịch Ngày <span id="luna-date">{{ $al[0] }}</span> <span id="luna-month">Tháng {{ $al[1] }}</span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="info-card ">
-
                                 <div class="coli-row">
                                     <div class="col-xl-7 col-lg-6 col-sm-12 col-12 ">
                                         <div class="info-item">
@@ -336,7 +334,8 @@
                                     <a href="{{ route('detai_home', $routeParams) }}">
                                         <div class="event-date">
                                             {{ Carbon\Carbon::parse($event['date'])->format('d/m') }} <span
-                                                style="font-size: 12px;color: #6c757d;font-style: italic;">({{ $lunarDate[0] }}/{{ $lunarDate[1] }} ÂL)</span>
+                                                style="font-size: 12px;color: #6c757d;font-style: italic;">({{ $lunarDate[0] }}/{{ $lunarDate[1] }}
+                                                ÂL)</span>
 
                                         </div>
 
@@ -434,31 +433,40 @@
 
                     <h2 class="title-tong-quan-h2">Lịch Vạn Niên Là Gì?</h2>
                     <hr>
-                    <p><b>Lịch Vạn Niên</b> là một công cụ tra cứu ngày tháng đặc biệt, kết hợp giữa hai hệ thống lịch phổ
+                    <p><b>Lịch Vạn Niên</b> là một công cụ tra cứu ngày tháng đặc biệt, kết hợp giữa hai hệ thống lịch
+                        phổ
                         biến:
-                        <b>Dương lịch</b> (lịch quốc tế, được sử dụng rộng rãi trên toàn thế giới) và <b>Âm lịch</b> (hay
+                        <b>Dương lịch</b> (lịch quốc tế, được sử dụng rộng rãi trên toàn thế giới) và <b>Âm lịch</b>
+                        (hay
                         còn gọi là Lịch
                         âm – lịch truyền thống phương Đông, gắn liền với đời sống văn hóa của người Việt Nam).
                     </p>
-                    <p>Từ hàng nghìn năm trước, Âm lịch đã được ông cha ta sử dụng để xem ngày tốt, lựa chọn ngày lành tháng
-                        tốt cho những công việc trọng đại như cưới hỏi, động thổ, khai trương, xuất hành, ma chay hay thờ
+                    <p>Từ hàng nghìn năm trước, Âm lịch đã được ông cha ta sử dụng để xem ngày tốt, lựa chọn ngày lành
+                        tháng
+                        tốt cho những công việc trọng đại như cưới hỏi, động thổ, khai trương, xuất hành, ma chay hay
+                        thờ
                         cúng tổ tiên. Lịch không chỉ phản ánh sự vận động của Mặt trăng và Mặt trời mà còn gắn liền với
                         những yếu tố tâm linh, phong thủy và tử vi trong đời sống hằng ngày.</p>
-                    <p>Theo dòng chảy lịch sử, Lịch vạn niên đã phát triển và trở thành kho tàng tri thức cổ truyền, kết hợp
-                        tinh hoa của Thiên văn học phương Đông, Ngũ hành, Bát tự, Can Chi, Tử vi lý số. Vì thế, khi nhắc đến
-                        Lịch vạn niên, chúng ta không chỉ nghĩ đến việc xem ngày tháng, mà còn nhắc đến một nền văn hóa gắn
+                    <p>Theo dòng chảy lịch sử, Lịch vạn niên đã phát triển và trở thành kho tàng tri thức cổ truyền, kết
+                        hợp
+                        tinh hoa của Thiên văn học phương Đông, Ngũ hành, Bát tự, Can Chi, Tử vi lý số. Vì thế, khi nhắc
+                        đến
+                        Lịch vạn niên, chúng ta không chỉ nghĩ đến việc xem ngày tháng, mà còn nhắc đến một nền văn hóa
+                        gắn
                         bó với đời sống tâm linh và tín ngưỡng của người Việt.</p>
                     <h3 class="title-tong-quan-h3-log">Tại Sao Nên Sử Dụng Lịch Vạn Niên Của Phong Lịch?</h3>
                     <h4 class="title-tong-quan-h4-log">1. Tra cứu nhanh chóng và chính xác</h4>
                     <ul>
                         <li>Xem đầy đủ cả Âm lịch và Dương lịch theo từng ngày, tháng, năm.</li>
-                        <li>Cập nhật chi tiết: Lịch ngày tốt, ngày Hoàng đạo – Hắc đạo, Tiết khí, sao chiếu mệnh, giờ xuất
+                        <li>Cập nhật chi tiết: Lịch ngày tốt, ngày Hoàng đạo – Hắc đạo, Tiết khí, sao chiếu mệnh, giờ
+                            xuất
                             hành tốt.</li>
                         <li>Giúp bạn dễ dàng trả lời câu hỏi “Hôm nay tốt hay xấu?”, “Ngày mai có giờ tốt không?”</li>
                     </ul>
                     <h4 class="title-tong-quan-h4-log">2. Xem ngày tốt hợp tuổi</h4>
                     <ul>
-                        <li>Chọn ngày cưới hỏi, khai trương, động thổ, xuất hành dựa theo tuổi và Can Chi của gia chủ.</li>
+                        <li>Chọn ngày cưới hỏi, khai trương, động thổ, xuất hành dựa theo tuổi và Can Chi của gia chủ.
+                        </li>
                         <li>Hỗ trợ tránh những ngày phạm Kim Lâu, Hoang Ốc, Tam Tai để công việc được hanh thông.</li>
                     </ul>
                     <h4 class="title-tong-quan-h4-log">3. Tích hợp kiến thức tử vi – phong thủy</h4>
@@ -470,27 +478,35 @@
                     <h4 class="title-tong-quan-h4-log">4. Giao diện thân thiện – dễ sử dụng</h4>
                     <ul>
                         <li>Thiết kế hiện đại, đơn giản, tối ưu cho cả máy tính và điện thoại.</li>
-                        <li>Thân thiện với mọi đối tượng: từ người cao tuổi muốn tra cứu Lịch âm dương hằng ngày đến giới
+                        <li>Thân thiện với mọi đối tượng: từ người cao tuổi muốn tra cứu Lịch âm dương hằng ngày đến
+                            giới
                             trẻ quan tâm đến tử vi, phong thủy.</li>
                     </ul>
                     <h3 class="title-tong-quan-h3-log">Lịch Vạn Niên Trong Thời Đại Số</h3>
-                    <p>Nếu trước đây, Lịch vạn niên chủ yếu tồn tại dưới dạng sách in dày hàng trăm trang, thì ngày nay, nhờ
+                    <p>Nếu trước đây, Lịch vạn niên chủ yếu tồn tại dưới dạng sách in dày hàng trăm trang, thì ngày nay,
+                        nhờ
                         sự phát triển của công nghệ, Lịch vạn niên đã được số hóa hoàn toàn.</p>
                     <ul>
                         <li>Người dùng có thể tra cứu Lịch âm, Âm lịch, Dương lịch mọi lúc, mọi nơi trên máy tính, điện
                             thoại thông minh.</li>
-                        <li>Chỉ với vài thao tác, bạn đã có thể xem chi tiết: ngày tốt xấu, ngày Hoàng đạo, Tiết khí, giờ
+                        <li>Chỉ với vài thao tác, bạn đã có thể xem chi tiết: ngày tốt xấu, ngày Hoàng đạo, Tiết khí,
+                            giờ
                             hoàng đạo, tuổi xung khắc….</li>
-                        <li>Sự kết hợp giữa tri thức cổ truyền và công nghệ hiện đại giúp việc xem ngày tốt, xem giờ tốt trở
+                        <li>Sự kết hợp giữa tri thức cổ truyền và công nghệ hiện đại giúp việc xem ngày tốt, xem giờ tốt
+                            trở
                             nên tiện lợi, nhanh chóng và chính xác hơn bao giờ hết.</li>
                     </ul>
                     <h3 class="title-tong-quan-h3-log">Phong Lịch – Đồng Hành Cùng Người Việt</h3>
-                    <p>Dù bạn là người quan tâm đến tử vi, phong thủy, hay chỉ đơn giản muốn biết hôm nay là ngày gì theo
-                        Lịch âm, ngày mai có giờ tốt để xuất hành hay không, Phong Lịch luôn sẵn sàng đồng hành cùng bạn.
+                    <p>Dù bạn là người quan tâm đến tử vi, phong thủy, hay chỉ đơn giản muốn biết hôm nay là ngày gì
+                        theo
+                        Lịch âm, ngày mai có giờ tốt để xuất hành hay không, Phong Lịch luôn sẵn sàng đồng hành cùng
+                        bạn.
                     </p>
-                    <p>Với Lịch vạn niên trực tuyến, Phong Lịch không chỉ mang đến trải nghiệm tra cứu thuận tiện mà còn giữ
+                    <p>Với Lịch vạn niên trực tuyến, Phong Lịch không chỉ mang đến trải nghiệm tra cứu thuận tiện mà còn
+                        giữ
                         gìn và lan tỏa những giá trị văn hóa truyền thống của dân tộc.</p>
-                    <p>Phong Lịch – Tra cứu Lịch Âm, Lịch Vạn Niên, Lịch ngày tốt, Xem ngày Hoàng đạo, Tiết khí, Xem ngày
+                    <p>Phong Lịch – Tra cứu Lịch Âm, Lịch Vạn Niên, Lịch ngày tốt, Xem ngày Hoàng đạo, Tiết khí, Xem
+                        ngày
                         tốt – Xem giờ tốt nhanh chóng, chính xác và miễn phí</p>
                 </div>
             </div>
@@ -523,7 +539,8 @@
                                     <a href="{{ route('detai_home', $routeParams) }}">
                                         <div class="event-date">
                                             {{ Carbon\Carbon::parse($event['date'])->format('d/m') }} <span
-                                                style="font-size: 12px;color: #6c757d;font-style: italic;">({{ $lunarDate[0] }}/{{ $lunarDate[1] }} ÂL)
+                                                style="font-size: 12px;color: #6c757d;font-style: italic;">({{ $lunarDate[0] }}/{{ $lunarDate[1] }}
+                                                ÂL)
                                         </div>
                                         <div class="event-icon">🗓️</div>
                                         <div class="event-details">
@@ -666,8 +683,8 @@
 @endpush
 
 @push('scripts')
-    <script src="{{ asset('js/base-picker.js?v=1.1') }}"></script>
-    <script src="{{ asset('js/homepage-picker.js?v=1.5') }}"></script>
+    <script src="{{ asset('js/base-picker.js?v=1.8') }}"></script>
+    <script src="{{ asset('js/homepage-picker.js?v=1.8') }}"></script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             // Khởi tạo ứng dụng lịch âm cho trang chủ (không thay đổi URL)

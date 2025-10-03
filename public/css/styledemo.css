@@ -9,7 +9,11 @@
     src:
         url("../fonts/BeVietnamPro-Regular.ttf")format("woff2");
 }
-
+@font-face {
+    font-family: "LoraBold";
+    src:
+        url("../fonts/Lora-SemiBold.ttf")format("woff2");
+}
 html {
     height: 100%;
 }
@@ -58,7 +62,9 @@ body {
     /* Khoảng cách giữa thanh và chữ */
     margin-right: 12px;
 }
-
+.site-logo {
+   font-family: LoraBold, sans-serif;
+}
 /* Tùy chỉnh giao diện cho input[type="date"] */
 .custom-date-input {
     background-color: #f8f9fa;
@@ -906,6 +912,7 @@ a {
 
 /* --- Logo --- */
 .site-logo a {
+    font-size: 20px;
     display: flex;
     align-items: center;
     text-decoration: none;
@@ -962,7 +969,7 @@ a {
     font-weight: 500;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     /* min-width: 215px; */
     height: 50px;
     background-size: contain;
@@ -1333,7 +1340,7 @@ body.menu-open {
     height: auto;
     max-width: 200px;
     padding: 10px 20px;
-    justify-content: center;
+    /* justify-content: start; */
     /* Căn text về bên trái */
     font-size: 16px;
     box-sizing: border-box;
@@ -1385,6 +1392,7 @@ body.menu-open {
 /* 1. Thiết lập cho item cha của menu cấp 2 (Không đổi) */
 .main-navigation .dropdown-menu .has-submenu {
     position: relative;
+    width: 200px;
 }
 
 /* --- BẮT ĐẦU THAY ĐỔI --- */
@@ -1449,7 +1457,7 @@ body.menu-open {
     color: #333;
     white-space: nowrap;
     text-decoration: none;
-    text-align: center;
+    text-align: left;
     /* Đảm bảo text trong menu cấp 2 căn trái */
 }
 
@@ -2068,7 +2076,7 @@ body.menu-open {
 
 /* --- 2. Vòng tròn chính (progress-dial) --- */
 .progress-dial {
-    --size: 97px;
+    --size: 80px;
     /* Kích thước của đồng hồ */
     --track-width: 10px;
     /* Độ dày của vạch */
@@ -2078,7 +2086,6 @@ body.menu-open {
     /* Kích thước của tay cầm (màu xanh lá) */
     width: var(--size);
     height: var(--size);
-
     position: relative;
     display: flex;
     align-items: center;
@@ -2224,7 +2231,8 @@ body.menu-open {
 
 /* Tiêu đề "Sự kiện, ngày lễ sắp tới" */
 .card-title-right {
-    font-size: 24px;
+    /* text-align: center; */
+    font-size: 20px;
     font-weight: 700;
     color: #192E52;
     /* Màu xanh đậm */
@@ -3466,6 +3474,7 @@ body.menu-open {
     border-radius: 16px;
     font-size: 15px;
     font-weight: 500;
+    background-color: white;
     /* background: linear-gradient(135deg, #ffffff 0%, #2254AB 100%); */
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
@@ -4502,7 +4511,7 @@ input.daterangepicker-input:hover {
     font-weight: 700;
     font-size: 20px;
     border: 1px solid #bcccc3;
-    padding: 4px 6px;
+    padding: 2px;
     letter-spacing: 3px;
     margin-left: 5px;
     border-radius: 4px;
@@ -4964,13 +4973,14 @@ a:not(.not-change-color):hover {
 
 @media (max-width: 991px) {
     .swap-btn-floating {
-        position: relative;
-        top: auto;
+        position: absolute;
+        top: 50%;
+        right: 15px;
         left: auto;
-        transform: none;
-        margin: 15px auto;
-        display: block;
-        transform: unset !important
+        transform: translateY(-80%) !important;
+        margin: 0;
+        display: flex;
+        z-index: 10;
     }
 
     .row.position-relative {
@@ -5186,10 +5196,20 @@ a:not(.not-change-color):hover {
 .--homnay-home {
     position: relative;
     background: white !important;
-    border: 1px solid rgba(33, 73, 135, 0.3);
+    border: unset;
    border-radius: 10px;
-   color: #000;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  color: #001F50;
+    font-weight: 700;
+    
 }
 
 
+#mobileDatePopup{
+    display: none;
+}
+.box-cart-index-cung{
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    margin-bottom: 25px;
+}

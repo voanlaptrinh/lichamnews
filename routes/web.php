@@ -195,3 +195,4 @@ Route::get('/xem-tuoi', [CompatibilityController::class, 'showForm'])->name('com
 
 // Route để xử lý và trả kết quả (POST)
 Route::post('/xem-tuoi', [CompatibilityController::class, 'calculate'])->name('compatibility.calculate');
+Route::get('/sitemap.xml', [App\Http\Controllers\SitemapController::class, 'view']);

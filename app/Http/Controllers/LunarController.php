@@ -588,14 +588,31 @@ class LunarController extends Controller
 
 
         $solar_date = $request->input('solar_date');
+        $lunar_date = $request->input('lunar_date');
 
         // Mặc định sử dụng ngày hôm nay
         $dd = (int)date('d');
         $mm = (int)date('m');
         $yy = (int)date('Y');
 
-        if ($solar_date) {
-            // Tách ngày tháng năm từ format dd/mm/yyyy
+        if ($lunar_date) {
+            // Xử lý ngày âm lịch - chuyển đổi sang dương lịch
+            $parts = explode('/', $lunar_date);
+            if (count($parts) === 3) {
+                $lunar_dd = (int)$parts[0];
+                $lunar_mm = (int)$parts[1];
+                $lunar_yy = (int)$parts[2];
+
+                // Convert lunar to solar
+                $solar_result = LunarHelper::convertLunar2Solar($lunar_dd, $lunar_mm, $lunar_yy, 0);
+                if ($solar_result && count($solar_result) >= 3) {
+                    $dd = $solar_result[0];
+                    $mm = $solar_result[1];
+                    $yy = $solar_result[2];
+                }
+            }
+        } elseif ($solar_date) {
+            // Xử lý ngày dương lịch
             $parts = explode('/', $solar_date);
             if (count($parts) === 3) {
                 $dd = (int)$parts[0];
