@@ -621,10 +621,10 @@ class HomepagePicker extends BasePicker {
                         // Converting href link to data-url
                         const href = linkWithHref.getAttribute('href');
                         this.processCalendarLink(href);
-                        // Chuyển đổi link này để lần sau không bị
+                        // Đánh dấu đã xử lý nhưng giữ href cho SEO
                         linkWithHref.setAttribute('data-date-url', href);
-                        linkWithHref.removeAttribute('href');
-                        linkWithHref.style.cursor = 'pointer';
+                        // linkWithHref.removeAttribute('href'); // Commented out for SEO
+                        // linkWithHref.style.cursor = 'pointer'; // Not needed since href exists
                     }
                 }
             });
@@ -673,13 +673,11 @@ class HomepagePicker extends BasePicker {
         calendarLinks.forEach(link => {
             const href = link.getAttribute('href');
             if (href && href.includes('/lich-nam-')) {
-                // Chuyển href thành data attribute
+                // Giữ href cho SEO, chỉ thêm data attribute để đánh dấu đã xử lý
                 link.setAttribute('data-date-url', href);
-                // Loại bỏ href để không hiện URL khi hover
-                link.removeAttribute('href');
-                // Thêm cursor pointer để vẫn hiển thị như link
-                link.style.cursor = 'pointer';
-              
+                // Không xóa href để SEO có thể crawl được
+                // link.removeAttribute('href'); // Commented out for SEO
+                // link.style.cursor = 'pointer'; // Not needed since href exists
             }
         });
     }
