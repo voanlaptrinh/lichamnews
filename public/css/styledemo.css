@@ -1019,13 +1019,18 @@ a {
     gap: 80px;
 }
 
-.main-navigation a {
+.main-navigation a,
+.main-navigation span {
     text-decoration: none;
     color: #333;
     font-weight: bold;
     padding: 5px 0;
     position: relative;
     transition: color 0.3s;
+}
+
+.main-navigation span {
+    cursor: pointer;
 }
 
 /* 2. Menu trượt ra từ bên phải */
@@ -1204,6 +1209,7 @@ body.menu-open {
     color: #8c1c13;
     /* Màu đỏ sẫm */
     font-weight: 700;
+    cursor: default;
 }
 
 /* Nút đóng [X] */
@@ -1240,7 +1246,8 @@ body.menu-open {
     /* Để bo góc có tác dụng */
 }
 
-.mobile-nav-main ul li a {
+.mobile-nav-main ul li a,
+.mobile-nav-main ul li span {
     display: block;
     padding: 15px 20px;
     color: #fff;
@@ -1251,7 +1258,8 @@ body.menu-open {
     /* font-family: OpenSans_Condensed-Bold, serif; */
 }
 
-.mobile-nav-main ul li:last-child a {
+.mobile-nav-main ul li:last-child a,
+.mobile-nav-main ul li:last-child span {
     border-bottom: none;
     /* Bỏ đường kẻ của link cuối cùng */
 }
@@ -1261,8 +1269,13 @@ body.menu-open {
     /* Màu đỏ đậm hơn khi hover hoặc active */
 }
 
-.mobile-nav-main ul li a:hover {
+.mobile-nav-main ul li a:hover,
+.mobile-nav-main ul li span:hover {
     background-color: #001b64;
+}
+
+.mobile-nav-main ul li span {
+    cursor: pointer;
 }
 
 /* --- 3. Footer của menu (các nút chức năng) --- */
@@ -1302,7 +1315,8 @@ body.menu-open {
 /* ---------------------------------------------------- */
 
 /* --- Dropdown Menu (Desktop) --- */
-.main-navigation .has-dropdown>a i.bi-chevron-down {
+.main-navigation .has-dropdown>a i.bi-chevron-down,
+.main-navigation .has-dropdown>span i.bi-chevron-down {
     font-size: 14px;
     /* Điều chỉnh kích thước icon */
     margin-left: 6px;
@@ -1310,9 +1324,11 @@ body.menu-open {
     vertical-align: middle;
     /* Căn icon cho đẹp hơn */
     transition: transform 0.3s ease;
+    display: inline-block;
 }
 
-.main-navigation .has-dropdown:hover>a i.bi-chevron-down {
+.main-navigation .has-dropdown:hover>a i.bi-chevron-down,
+.main-navigation .has-dropdown:hover>span i.bi-chevron-down {
     transform: rotate(180deg);
 }
 
@@ -1343,6 +1359,10 @@ body.menu-open {
     transform: translateY(0);
 }
 
+.main-navigation .has-dropdown>span {
+    cursor: pointer;
+}
+
 .main-navigation .dropdown-menu li a {
     /* min-width: 100%; */
     height: auto;
@@ -1363,18 +1383,21 @@ body.menu-open {
 }
 
 /* --- Dropdown Menu (Mobile) --- */
-.mobile-nav-main .has-dropdown>a {
+.mobile-nav-main .has-dropdown>a,
+.mobile-nav-main .has-dropdown>span {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.mobile-nav-main .has-dropdown>a .arrow-icon {
+.mobile-nav-main .has-dropdown>a .arrow-icon,
+.mobile-nav-main .has-dropdown>span .arrow-icon {
     transition: transform 0.3s ease;
 }
 
 /* Xoay mũi tên khi menu con mở */
-.mobile-nav-main .has-dropdown.submenu-open>a .arrow-icon {
+.mobile-nav-main .has-dropdown.submenu-open>a .arrow-icon,
+.mobile-nav-main .has-dropdown.submenu-open>span .arrow-icon {
     transform: rotate(180deg);
 }
 
@@ -1405,8 +1428,9 @@ body.menu-open {
 
 /* --- BẮT ĐẦU THAY ĐỔI --- */
 
-/* 2. Style cho thẻ <a> chứa text và icon */
-.main-navigation .has-submenu>a {
+/* 2. Style cho thẻ <a> và <span> chứa text và icon */
+.main-navigation .has-submenu>a,
+.main-navigation .has-submenu>span {
     position: relative;
     /* BẮT BUỘC: Để làm gốc định vị cho icon */
     text-align: center;
@@ -1417,8 +1441,16 @@ body.menu-open {
     padding-right: 35px !important;
 }
 
+.main-navigation .has-submenu>span {
+    display: block;
+    padding: 10px 20px;
+    color: #fff;
+    cursor: pointer;
+}
+
 /* 3. Style cho icon mũi tên */
-.main-navigation .has-submenu>a>i {
+.main-navigation .has-submenu>a>i,
+.main-navigation .has-submenu>span>i {
     position: absolute;
     /* Tách icon ra khỏi dòng chảy của text */
     right: 15px;
@@ -1430,7 +1462,10 @@ body.menu-open {
 
     /* (Tùy chọn) Đảm bảo icon không quá to hoặc nhỏ */
     font-size: 0.8em;
+    transition: transform 0.3s ease;
 }
+
+/* Không xoay icon ở menu cấp 2 (submenu) */
 
 /* --- KẾT THÚC THAY ĐỔI --- */
 

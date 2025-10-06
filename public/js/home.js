@@ -81,32 +81,32 @@ class LunarCalendarApp extends BasePicker {
             }
         });
 
-        $('#month-year-picker').daterangepicker({
-            singleDatePicker: true,
-            showDropdowns: true,
-            locale: {
-                format: 'MM-YYYY',
-                "applyLabel": "Chọn",
-                "cancelLabel": "Hủy",
-                "fromLabel": "Từ",
-                "toLabel": "Đến",
-                "customRangeLabel": "Tùy chỉnh",
-                "weekLabel": "W",
-                "daysOfWeek": ["CN", "T2", "T3", "T4", "T5", "T6", "T7"],
-                "monthNames": [
-                    "Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6",
-                    "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"
-                ],
-                "firstDay": 1
-            }
-        }, function(start, end, label) {
-            const year = start.format('YYYY');
-            const month = start.format('M');
-            const day = start.format('D');
-            // Redirect to specific date page if needed
-            // This would need to be configured based on your routes
-            // Date selected - updating content via AJAX
-        });
+        // $('#month-year-picker').daterangepicker({
+        //     singleDatePicker: true,
+        //     showDropdowns: true,
+        //     locale: {
+        //         format: 'MM-YYYY',
+        //         "applyLabel": "Chọn",
+        //         "cancelLabel": "Hủy",
+        //         "fromLabel": "Từ",
+        //         "toLabel": "Đến",
+        //         "customRangeLabel": "Tùy chỉnh",
+        //         "weekLabel": "W",
+        //         "daysOfWeek": ["CN", "T2", "T3", "T4", "T5", "T6", "T7"],
+        //         "monthNames": [
+        //             "Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6",
+        //             "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"
+        //         ],
+        //         "firstDay": 1
+        //     }
+        // }, function(start, end, label) {
+        //     const year = start.format('YYYY');
+        //     const month = start.format('M');
+        //     const day = start.format('D');
+        //     // Redirect to specific date page if needed
+        //     // This would need to be configured based on your routes
+        //     // Date selected - updating content via AJAX
+        // });
     }
 
     setupChart() {

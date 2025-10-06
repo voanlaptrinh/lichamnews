@@ -7,12 +7,12 @@
     <title>{{ $metaTitle ?? 'Xem Lịch Âm' }}</title>
     <meta name="description" content="{{ $metaDescription ?? '' }}">
     <!-- Các link CSS nếu cần, ví dụ: Bootstrap hoặc custom CSS -->
-    <link href="{{ asset('/css/bootstrap.min.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('/css/airbnb.css') }}"> {{-- hoặc dark, material_red --}}
-    <link rel="stylesheet" href="{{ asset('/css/bootstrap-icons.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('/css/styledemo.css?v=4.4') }}">
-    <link rel="stylesheet" href="{{ asset('/css/repont.css?v=4.4') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('/css/daterangepicker.css') }}" />
+    <link href="{{ asset('/css/bootstrap.min.css?v=4.91') }}" rel="stylesheet">
+    {{-- <link rel="stylesheet" href="{{ asset('/css/airbnb.css') }}"> hoặc dark, material_red --}}
+    <link rel="stylesheet" href="{{ asset('/css/bootstrap-icons.min.css?v=4.91') }}">
+    <link rel="stylesheet" href="{{ asset('/css/styledemo.css?v=4.91') }}">
+    <link rel="stylesheet" href="{{ asset('/css/repont.css?v=4.91') }}">
+    {{-- <link rel="stylesheet" type="text/css" href="{{ asset('/css/daterangepicker.css') }}" /> --}}
     <!-- ĐẢM BẢO CÓ DÒNG NÀY ĐỂ CSRF TOKEN HOẠT ĐỘNG! -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('/meta/icon.png') }}">
@@ -44,8 +44,9 @@
 
 
     @stack('styles')
-    <script src="{{ asset('/js/chart.umd.min.js') }}"></script>
-
+    @if (request()->routeIs('home'))
+    <script src="{{ asset('/js/chart.umd.min.js') }}" defer></script>
+    @endif
 </head>
 
 <body>
@@ -64,9 +65,9 @@
     
     <!-- Đảm bảo file gieo-que.blade.php chứa các modal popup -->
     {{-- @include('gieo-que') --}}
-    <script src="{{ asset('/js/jquery-3.7.1.min.js?v') }}"></script>
+    <script src="{{ asset('/js/jquery-3.7.1.min.js') }}"></script>
     <script src="{{ asset('/js/moment.min.js') }}"></script>
-    <script src="{{ asset('/js/daterangepicker.min.js') }}"></script>
+    {{-- <script src="{{ asset('/js/daterangepicker.min.js') }}"></script> --}}
 
     <!-- JS của Bootstrap (nếu sử dụng Bootstrap) -->
     <script src="{{ asset('/js/bootstrap.bundle.min.js') }}"></script>
@@ -75,51 +76,7 @@
 
     @stack('scripts')
 
-    {{-- <script>
-        // --- Helper functions for cookie management ---
-        function getTodayDateString() {
-            const today = new Date();
-            return today.getFullYear() + '-' +
-                String(today.getMonth() + 1).padStart(2, '0') + '-' +
-                String(today.getDate()).padStart(2, '0');
-        }
-
-        // Function to set fortune cookie with fortune index
-        // Cookie expires at the end of the current day
-        function setFortuneCookie(fortuneIndex) {
-            const today = getTodayDateString();
-            const endOfDay = new Date();
-            endOfDay.setHours(23, 59, 59, 999); // Set to end of day
-            const cookieValue = JSON.stringify({
-                date: today,
-                fortuneIndex: fortuneIndex
-            });
-            document.cookie =
-                `lastFortuneDraw=${encodeURIComponent(cookieValue)}; expires=${endOfDay.toUTCString()}; path=/`;
-        }
-
-        // Function to get fortune cookie
-        function getFortuneCookie() {
-            const nameEQ = "lastFortuneDraw=";
-            const ca = document.cookie.split(';');
-            for (let i = 0; i < ca.length; i++) {
-                let c = ca[i];
-                while (c.charAt(0) === ' ') c = c.substring(1, c.length);
-                if (c.indexOf(nameEQ) === 0) {
-                    try {
-                        return JSON.parse(decodeURIComponent(c.substring(nameEQ.length, c.length)));
-                    } catch (e) {
-                        console.error("Error parsing fortune cookie:", e);
-                        // Clear invalid cookie
-                        document.cookie = "lastFortuneDraw=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-                        return null;
-                    }
-                }
-            }
-            return null;
-        }
-    </script> --}}
-
+  
 
 </body>
 

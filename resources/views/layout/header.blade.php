@@ -25,16 +25,16 @@
                     </ul>
                 </li> --}}
                 <li class="has-dropdown">
-                    <a class="text-white"> Lịch & sự kiện
+                    <span class="text-white"> Lịch & sự kiện
 
                         <i class="bi bi-chevron-down"></i>
-                    </a>
+                    </span>
                     <ul class="dropdown-menu">
                         <li class="has-submenu"> <!-- << Class mới để xác định mục có menu con -->
-                            <a class="text-white">
+                            <span class="text-white">
                                 Lịch Tháng
                                 <i class="bi bi-chevron-right "></i> <!-- << Icon mũi tên phải -->
-                            </a>
+                            </span>
                             <!-- Menu cấp 2 (submenu) -->
                             <ul class="submenu">
                                 @php($currentYear = date('Y'))
@@ -52,10 +52,10 @@
                         </li>
 
                         <li class="has-submenu"> <!-- << Class mới -->
-                            <a class="text-white">
+                            <span class="text-white">
                                 Lịch Năm
                                 <i class="bi bi-chevron-right "></i> <!-- << Icon mũi tên phải -->
-                            </a>
+                            </span>
                             <!-- Menu cấp 2 (submenu) -->
                             <ul class="submenu">
                                 @php($currentYearHeader = date('Y'))
@@ -72,10 +72,10 @@
                             </ul>
                         </li>
                          <li class="has-submenu"> <!-- << Class mới -->
-                            <a class="text-white">
+                            <span class="text-white">
                                Lịch ngày
                                 <i class="bi bi-chevron-right "></i> <!-- << Icon mũi tên phải -->
-                            </a>
+                            </span>
                             <!-- Menu cấp 2 (submenu) -->
                             <ul class="submenu">
                                  <li><a href="{{ route('am-lich-hom-nay') }}">Lịch âm hôm nay</a></li>
@@ -150,10 +150,10 @@
                     </ul>
                 </li> --}}
                 <li class="has-dropdown">
-                    <a class="text-white">Phong thủy & tử vi
+                    <span class="text-white">Phong thủy & tử vi
 
                         <i class="bi bi-chevron-down"></i>
-                    </a>
+                    </span>
                     <ul class="dropdown-menu">
                         <li><a href="{{ route('horoscope.index') }}">Cung hoàng đạo</a></li>
 
@@ -192,10 +192,10 @@
 
     <!-- 1. Header của Menu Mobile -->
     <div class="mobile-nav-header">
-        <a class="mobile-nav-logo">
+        <span class="mobile-nav-logo">
             <!-- Thay bằng logo của bạn -->
             <img src="{{ asset('/icons/logo_header.svg') }}" alt="Logo Phong Lịch mobie" class="img-fluid">
-        </a>
+        </span>
         <button class="mobile-nav-close" id="mobile-nav-close" aria-label="Đóng menu">
             <i class="bi bi-x"></i>
         </button>
@@ -206,18 +206,18 @@
         <ul>
 
                <li class="has-dropdown">
-                <a class="text-white">
+                <span class="text-white">
                    Lịch & sự kiện
                     <i class="bi bi-chevron-down arrow-icon"></i>
-                </a>
+                </span>
                 <!-- Menu cấp 1 -->
                 <ul class="mobile-submenu">
                     <!-- Menu con "Lịch Tháng" -->
                     <li class="has-dropdown">
-                        <a class="text-white">
+                        <span class="text-white">
                             Lịch Tháng
                             <i class="bi bi-chevron-down arrow-icon"></i>
-                        </a>
+                        </span>
                         <!-- Menu cấp 2 -->
                         <ul class="mobile-submenu">
                             @php($currentYear = date('Y'))
@@ -231,10 +231,10 @@
                     </li>
                     <!-- Menu con "Lịch Năm" -->
                     <li class="has-dropdown">
-                        <a class="text-white">
+                        <span class="text-white" >
                             Lịch Năm
                             <i class="bi bi-chevron-down arrow-icon"></i>
-                        </a>
+                        </span>
                         <!-- Menu cấp 2 -->
                         <ul class="mobile-submenu">
                             @php($currentYearHeader = date('Y'))
@@ -250,10 +250,10 @@
                         </ul>
                     </li>
                      <li class="has-dropdown">
-                        <a class="text-white">
+                        <span class="text-white">
                             Lịch ngày
                             <i class="bi bi-chevron-down arrow-icon"></i>
-                        </a>
+                        </span>
                         <!-- Menu cấp 2 -->
                         <ul class="mobile-submenu">
                              <li><a class="text-white" href="{{ route('am-lich-hom-nay') }}">Lịch âm hôm nay</a></li>
@@ -279,10 +279,10 @@
             </li>
          
             <li class="has-dropdown">
-                <a class="text-white">
+                <span class="text-white">
                     Phong thuỷ & tử vi
                     <i class="bi bi-chevron-down arrow-icon"></i>
-                </a>
+                </span>
                 <ul class="mobile-submenu">
                     <li><a href="{{ route('horoscope.index') }}">Cung hoàng đạo</a></li>
                     {{-- <li><a href="{{ $tomorrowHref }}">Lịch âm ngày mai</a></li> --}}
@@ -345,7 +345,7 @@
         // --- BẮT ĐẦU: JS ĐÃ SỬA LỖI CHO DROPDOWN ĐA CẤP --- //
         // ---------------------------------------------------------------- //
 
-        const mobileDropdownToggles = document.querySelectorAll('.mobile-nav-main .has-dropdown > a');
+        const mobileDropdownToggles = document.querySelectorAll('.mobile-nav-main .has-dropdown > a, .mobile-nav-main .has-dropdown > span');
 
         mobileDropdownToggles.forEach(toggle => {
             toggle.addEventListener('click', function(event) {

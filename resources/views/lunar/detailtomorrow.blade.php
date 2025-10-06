@@ -47,8 +47,8 @@
 
 
 @push('scripts')
-    <script src="{{ asset('js/base-picker.js?v=1.7') }}"></script>
-    <script src="{{ asset('js/today-tomorrow-picker.js?v=1.7') }}"></script>
+    <script src="{{ asset('js/base-picker.js?v=1.91') }}"></script>
+    <script src="{{ asset('js/today-tomorrow-picker.js?v=1.91') }}"></script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             // Khởi tạo ứng dụng quick picker cho trang ngày mai
