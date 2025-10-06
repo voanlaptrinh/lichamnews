@@ -52,8 +52,7 @@
         <h6 class="content-title-detail"><a href="{{ route('home') }}">Trang chủ</a> <i class="bi bi-chevron-right"></i>
             <span>12 cung hoàng đạo</span> <i class="bi bi-chevron-right"></i><span id="breadcrumb-zodiac">{{ $zodiacNames[$zodiac['sign']] ?? 'Cung hoàng đạo' }}</span> <i class="bi bi-chevron-right"></i><span id="breadcrumb-time">Hôm nay</span>
         </h6>
-        <h1 class="content-title-home-lich" id="main-title"><span>Tử Vi Cung</span> - <span id="zodiac-title">
-                {{ $zodiacNames[$zodiac['sign']] ?? ' Cung hoàng đạo' }}</span> - <span id="time-period">Hôm nay</span></h1>
+        <h1 class="content-title-home-lich" id="main-title">Tử Vi Cung&nbsp;<span id="zodiac-title">{{ $zodiacNames[$zodiac['sign']] ?? 'Cung hoàng đạo' }}</span>&nbsp;<span id="time-period">Hôm nay</span></h1>
     </div>
 
     <!-- Zodiac Header -->
@@ -294,13 +293,10 @@
             function updateMainTitle(sign, type) {
                 const zodiac = zodiacData[sign];
                 const typeMeta = typeMetaData[type];
+                const mainTitle = document.getElementById('main-title');
 
-                if (zodiac && zodiacTitle) {
-                    zodiacTitle.textContent = zodiac.name;
-                }
-
-                if (typeMeta && timePeriod) {
-                    timePeriod.textContent = typeMeta.suffix;
+                if (zodiac && typeMeta && mainTitle) {
+                    mainTitle.innerHTML = `Tử Vi Cung&nbsp;<span id="zodiac-title">${zodiac.name}</span>&nbsp;<span id="time-period">${typeMeta.suffix}</span>`;
                 }
             }
 
@@ -314,7 +310,7 @@
                     }
                     zodiacName.textContent = data.name;
                     zodiacDate.textContent = data.date;
-                    zodiacTitle.textContent = data.name;
+                    // zodiacTitle will be updated by updateMainTitle function
                 }
             }
 

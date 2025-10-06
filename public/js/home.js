@@ -609,7 +609,7 @@ class LunarCalendarApp extends BasePicker {
                 li.innerHTML = `
                     <a href="/lich-nam-${eventDate.getFullYear()}/thang-${formattedMonth}/ngay-${formattedDay}">
                         <div class="event-date">Ngày ${eventDate.getDate().toString().padStart(2, '0')}/${formattedMonth}
-                            <span style="font-size: 12px;color: #6c757d;font-style: italic;">(${lunarInfo.lunarDay}/${lunarInfo.lunarMonth} ÂL)</span>
+                            <span style="font-size: 12px;color: #46494E;font-style: italic;">(${lunarInfo.lunarDay}/${lunarInfo.lunarMonth} ÂL)</span>
                         </div>
                         <div class="event-icon">🗓️</div>
                         <div class="event-details">

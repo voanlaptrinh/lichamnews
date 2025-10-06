@@ -1,19 +1,27 @@
 @font-face {
     font-family: "sf-compact-display-medium";
-    src:
-        url("../fonts/fonnts.com-SF_UI_Text_Bold.ttf")format("woff2");
+    src: url("../fonts/fonnts.com-SF_UI_Text_Bold.ttf")  format("truetype");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
 }
 
 @font-face {
     font-family: "InstrumentSans";
-    src:
-        url("../fonts/BeVietnamPro-Regular.ttf")format("woff2");
+    src: url("../fonts/BeVietnamPro-Regular.ttf")  format("truetype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
 }
+
 @font-face {
     font-family: "LoraBold";
-    src:
-        url("../fonts/Lora-SemiBold.ttf")format("woff2");
+    src: url("../fonts/Lora-SemiBold.ttf")  format("truetype");
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
 }
+
 html {
     height: 100%;
 }
@@ -1441,7 +1449,10 @@ body.menu-open {
     border-radius: 4px;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
 }
-
+.main-navigation .has-submenu .submenu li {
+   display: flex;
+   justify-content: center;
+}
 /* 5. Hiển thị menu cấp 2 khi hover (Không đổi) */
 .main-navigation .has-submenu:hover>.submenu {
     display: block;
@@ -1564,7 +1575,7 @@ body.menu-open {
 
 .date-display-card .card-title {
     font-size: 1rem;
-    color: #6c757d;
+    color: #46494E;
     font-weight: 500;
     margin-bottom: 0.5rem;
 }
@@ -1716,7 +1727,7 @@ body.menu-open {
     color: #192E52;
 }
 
-.calendar-header h5 {
+.calendar-header .lich-van--nien {
     color: #001F50;
     font-weight: 700;
     padding-left: 16px;
@@ -1724,7 +1735,7 @@ body.menu-open {
 }
 
 .calendar-header .month-nav {
-    color: #6c757d;
+    color: #46494E;
     font-size: 1.25rem;
     font-weight: bold;
     text-decoration: none;
@@ -1772,12 +1783,12 @@ body.menu-open {
 
 .calendar-table .lunar-day {
     font-size: 0.8rem;
-    color: #6c757d;
+    color: #46494E;
 }
 
 .calendar-table .day-note {
     font-size: 0.8rem;
-    color: #6c757d;
+    color: #46494E;
     margin-top: 0.25rem;
 }
 
@@ -1913,7 +1924,7 @@ body.menu-open {
 .progress-text small {
     display: block;
     font-size: 0.8rem;
-    color: #6c757d;
+    color: #46494E;
     font-weight: 500;
 }
 
@@ -3056,7 +3067,7 @@ body.menu-open {
 
 /* Icon chevron-down */
 .left-sidebar .nav-pills .nav-link .fa-chevron-down {
-    color: #6c757d;
+    color: #46494E;
     /* Màu xám cho icon mặc định */
     font-size: 0.8rem;
     /* Kích thước nhỏ hơn */
@@ -3543,7 +3554,7 @@ body.menu-open {
 
 /* Placeholder styling */
 .date-input-wrapper .form-control::placeholder {
-    color: #6c757d;
+    color: #46494E;
     font-weight: 400;
     font-style: italic;
 }
@@ -3749,12 +3760,12 @@ body.menu-open {
 
 .daterangepicker .cancelBtn {
     background: transparent;
-    border-color: #6c757d;
-    color: #6c757d;
+    border-color: #46494E;
+    color: #46494E;
 }
 
 .daterangepicker .cancelBtn:hover {
-    background: #6c757d;
+    background: #46494E;
     color: white;
 }
 
@@ -4881,11 +4892,11 @@ body.modal-open {
 }
 
 .box-contnet-date .sun {
-    color: red;
+    color: #990000;
 }
 
 .lunar-full-moon .am_table {
-    color: red;
+    color: #990000;
 }
 
 #download-app {

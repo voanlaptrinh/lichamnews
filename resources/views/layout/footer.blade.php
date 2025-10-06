@@ -15,7 +15,7 @@
 
             <!-- Cột 2: Giới thiệu -->
             <div class="col-lg-2 col-md-4 col-6 footer-col">
-                <h5 class="footer-title">Tiện ích</h5>
+                <div class="footer-title">Tiện ích</div>
                 <ul class="footer-links">
                     <li><a href="{{ route('convert.am.to.duong') }}">Đổi ngày âm dương</a></li>
                     {{-- <li><a href="">Lá số tử vi</a></li> --}}
@@ -26,7 +26,7 @@
 
             <!-- Cột 3: Trợ giúp -->
             <div class="col-lg-3 col-md-4 col-6 footer-col">
-                <h5 class="footer-title">Về chúng tôi</h5>
+                <div class="footer-title">Về chúng tôi</div>
                 <ul class="footer-links">
 
 
@@ -38,7 +38,7 @@
 
             <!-- Cột 4: Kết nối -->
             <div class="col-lg-3 col-md-4 col-12 footer-col">
-                <h5 class="footer-title">Tải ứng dụng</h5>
+                <div class="footer-title">Tải ứng dụng</div>
                 
                 <div id="download-app">
                     <a target="_blank" rel="nofollow" class="max-w-[180px]"

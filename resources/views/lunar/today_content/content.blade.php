@@ -678,7 +678,7 @@
                              <a href="{{ route('detai_home', $routeParams) }}">
                                  <div class="event-date">Ngày
                                      {{ Carbon\Carbon::parse($event['date'])->format('d/m') }} <span
-                                         style="font-size: 12px;color: #6c757d;font-style: italic;">({{ $lunarDate[0] }}/{{ $lunarDate[1] }} ÂL)
+                                         style="font-size: 12px;color: #46494E;font-style: italic;">({{ $lunarDate[0] }}/{{ $lunarDate[1] }} ÂL)
                                      </span>
 
                                  </div>

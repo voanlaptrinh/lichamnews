@@ -239,19 +239,24 @@
 
                             <div class="calendar-header-convert calendar-header pe-lg-2">
                                 <div class="text-center">
-                                    <h5 class="mb-0 pt-2">Lịch vạn niên {{ $yy }} - tháng {{ $mm }}
-                                    </h5>
+                                    <div class="mb-0 pt-2 lich-van--nien">Lịch vạn niên {{ $yy }} - tháng {{ $mm }}
+                                    </div>
                                 </div>
+                          
                                 <div class="d-flex align-items-center justify-content-center">
                                     <select id="month-select" class="form-select me-2 custom-select-style">
                                         @for ($i = 1; $i <= 12; $i++)
-                                            <option value="{{ $i }}" {{ $i == $mm ? 'selected' : '' }}>Tháng
+                                            <option value="{{ $i }}" {{ $i == $mm ? 'selected' : '' }}>
+                                                
+                                                <i class="bi bi-calendar-week"></i>
+                                                
+                                                Tháng
                                                 {{ $i }}</option>
                                         @endfor
                                     </select>
                                     <select id="year-select" class="form-select custom-select-style">
                                         @for ($i = 1900; $i <= 2100; $i++)
-                                            <option value="{{ $i }}" {{ $i == $yy ? 'selected' : '' }}>Năm
+                                            <option value="{{ $i }}" {{ $i == $yy ? 'selected' : '' }}><i class="bi bi-calendar-week"></i> Năm
                                                 {{ $i }}</option>
                                         @endfor
                                     </select>
@@ -334,7 +339,7 @@
                                     <a href="{{ route('detai_home', $routeParams) }}">
                                         <div class="event-date">
                                             {{ Carbon\Carbon::parse($event['date'])->format('d/m') }} <span
-                                                style="font-size: 12px;color: #6c757d;font-style: italic;">({{ $lunarDate[0] }}/{{ $lunarDate[1] }}
+                                                style="font-size: 12px;color: #46494E;font-style: italic;">({{ $lunarDate[0] }}/{{ $lunarDate[1] }}
                                                 ÂL)</span>
 
                                         </div>
@@ -368,7 +373,7 @@
 
                             <!-- Tiện ích 1 -->
                             <a href="#" class="utility-item col-6 col-md-6 col-lg-3 mb-4 ">
-                                <h4 class="utility-title">Đổi ngày Âm - Dương</h4>
+                                <div class="utility-title">Đổi ngày Âm - Dương</div>
                                 <div class="icon-wrapper">
                                     <img src="{{ asset('icons/doi_ngay_am_duong.svg') }}" alt="Đổi ngày Âm - Dương"
                                         class="img-fluid">
@@ -379,7 +384,7 @@
 
                             <!-- Tiện ích 2 -->
                             <a href="#" class="utility-item col-6 col-md-6 col-lg-3 mb-4">
-                                <h4 class="utility-title">Xem ngày Tốt</h4>
+                                <div class="utility-title">Xem ngày Tốt</div>
                                 <div class="icon-wrapper">
                                     <img src="{{ asset('icons/xem_ngay_tot.svg') }}" alt="Xem ngày Tốt"
                                         class="img-fluid">
@@ -390,7 +395,7 @@
 
                             <!-- Tiện ích 3 -->
                             <a href="#" class="utility-item col-6 col-md-6 col-lg-3 mb-4">
-                                <h4 class="utility-title">Xem hướng hợp mệnh</h4>
+                                <div class="utility-title">Xem hướng hợp mệnh</div>
                                 <div class="icon-wrapper">
                                     <img src="{{ asset('icons/huong_dep.svg') }}" alt="Xem hướng hợp mệnh"
                                         class="img-fluid">
@@ -400,7 +405,7 @@
 
                             <!-- Tiện ích 4 -->
                             <a href="#" class="utility-item col-6 col-md-6 col-lg-3 mb-4">
-                                <h4 class="utility-title">Lá số tử vi</h4>
+                                <div class="utility-title">Lá số tử vi</div>
                                 <div class="icon-wrapper">
                                     <img src="{{ asset('icons/la_so_tu_vi.svg') }}" alt="Lá số tử vi" class="img-fluid">
                                 </div>
@@ -539,7 +544,7 @@
                                     <a href="{{ route('detai_home', $routeParams) }}">
                                         <div class="event-date">
                                             {{ Carbon\Carbon::parse($event['date'])->format('d/m') }} <span
-                                                style="font-size: 12px;color: #6c757d;font-style: italic;">({{ $lunarDate[0] }}/{{ $lunarDate[1] }}
+                                                style="font-size: 12px;color: #46494E;font-style: italic;">({{ $lunarDate[0] }}/{{ $lunarDate[1] }}
                                                 ÂL)
                                         </div>
                                         <div class="event-icon">🗓️</div>
@@ -671,7 +676,7 @@
 
         .event-date .lunar-date {
             font-size: 12px;
-            color: #6c757d;
+            color: #46494E;
             font-style: italic;
         }
 

@@ -526,7 +526,6 @@ class LunarHelper
             '10-1' => 'Mùng 1 tháng Mười',
             '10-10' => 'Tết Thường Tân',
             '10-15' => 'Tết Hạ Nguyên',
-            '10-20' => 'Ngày Phụ nữ Việt Nam',
             '11-1' => 'Mùng 1 tháng Mười một',
             '11-15' => 'Rằm tháng Mười một',
             '11-23' => 'Ngày Thầy thuốc Việt Nam',
@@ -601,7 +600,7 @@ class LunarHelper
 
     // Phần ngày âm
     if ($lunarDate['day'] == 1) {
-        $am_html = '<span style="color: red">' . $lunarDate['day'] . '/' . $lunarDate['month'] . ($lunarDate['leap'] ? ' <span class="nhuan-khong">(nhuận)</span>' : '') . '</span>';
+        $am_html = '<span style="color: #990000">' . $lunarDate['day'] . '/' . $lunarDate['month'] . ($lunarDate['leap'] ? ' <span class="nhuan-khong">(nhuận)</span>' : '') . '</span>';
     } elseif ($solarDate == 1) {
         $am_html = $lunarDate['day'] . '/' . $lunarDate['month'] . ($lunarDate['leap'] ? ' <span class="nhuan-khong">(nhuận)</span>' : '');
     } else {

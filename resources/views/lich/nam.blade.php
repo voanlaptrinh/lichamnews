@@ -210,7 +210,7 @@
                 <div class="d-flex flex-column gap-4">
                     <!-- ** KHỐI SỰ KIỆN SẮP TỚI ** -->
                     <div class="events-card">
-                        <h5 class="card-title-right">Sự kiện, ngày lễ sắp tới</h5>
+                        <h5 class="card-title-right">Lịch Vạn Niên Các Năm Khác</h5>
                         <ul class="list-group list-group-flush events-list">
                               @php($currentYearHeader = date('Y'))
                         @php($startYearHeader = $currentYearHeader - 1)

@@ -10,8 +10,8 @@
     <link href="{{ asset('/css/bootstrap.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('/css/airbnb.css') }}"> {{-- hoặc dark, material_red --}}
     <link rel="stylesheet" href="{{ asset('/css/bootstrap-icons.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('/css/styledemo.css?v=3.9') }}">
-    <link rel="stylesheet" href="{{ asset('/css/repont.css?v=3.9') }}">
+    <link rel="stylesheet" href="{{ asset('/css/styledemo.css?v=4.4') }}">
+    <link rel="stylesheet" href="{{ asset('/css/repont.css?v=4.4') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/daterangepicker.css') }}" />
     <!-- ĐẢM BẢO CÓ DÒNG NÀY ĐỂ CSRF TOKEN HOẠT ĐỘNG! -->
     <meta name="csrf-token" content="{{ csrf_token() }}">

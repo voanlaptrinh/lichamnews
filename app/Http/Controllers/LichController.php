@@ -283,25 +283,28 @@ class LichController extends Controller
 
                 list($ld, $lm, $ly, $ll) = LunarHelper::convertSolar2Lunar($solar_day, $solar_month, $solar_year);
 
-                // Stop when we reach the next lunar month
-                if ($lm != $expected_lunar_month && count($lunar_month_calendar_data) > 0) {
+                // Stop when we reach a different lunar month, year, or leap status
+                if (($lm != $expected_lunar_month || $ly != $primary_lunar_year || $ll != $primary_lunar_is_leap) && count($lunar_month_calendar_data) > 0) {
                     break;
                 }
 
-                $jd = LunarHelper::jdFromDate($solar_day, $solar_month, $solar_year);
-                $canchi = LunarHelper::canchiNgayByJD($jd);
+                // Only add days that belong to the expected lunar month, year, and leap status
+                if ($lm == $expected_lunar_month && $ly == $primary_lunar_year && $ll == $primary_lunar_is_leap) {
+                    $jd = LunarHelper::jdFromDate($solar_day, $solar_month, $solar_year);
+                    $canchi = LunarHelper::canchiNgayByJD($jd);
 
-                $lunar_month_calendar_data[] = [
-                    'day' => $ld,
-                    'month' => $lm,
-                    'year' => $ly,
-                    'leap' => $ll,
-                    'jd' => $jd,
-                    'canchi' => $canchi,
-                    'solar_day' => $solar_day,
-                    'solar_month' => $solar_month,
-                    'solar_year' => $solar_year,
-                ];
+                    $lunar_month_calendar_data[] = [
+                        'day' => $ld,
+                        'month' => $lm,
+                        'year' => $ly,
+                        'leap' => $ll,
+                        'jd' => $jd,
+                        'canchi' => $canchi,
+                        'solar_day' => $solar_day,
+                        'solar_month' => $solar_month,
+                        'solar_year' => $solar_year,
+                    ];
+                }
 
                 $current_date->addDay();
                 $iteration_count++;

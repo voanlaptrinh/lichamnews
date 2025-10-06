@@ -518,7 +518,7 @@
     top: 50%;
     transform: translateY(-50%);
     pointer-events: none;
-    color: #6c757d;
+    color: #46494E;
 }
 
 .date-input {
@@ -619,7 +619,7 @@
 
     .mobile-popup-btn.cancel {
         background: #f8f9fa;
-        color: #6c757d;
+        color: #46494E;
         border: 2px solid #dee2e6;
     }
 
