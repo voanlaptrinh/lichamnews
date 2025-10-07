@@ -521,7 +521,7 @@
                 <div class="d-flex flex-column gap-4">
                     <!-- ** KHỐI SỰ KIỆN SẮP TỚI ** -->
                     <div class="events-card">
-                        <h5 class="card-title-right">Sự kiện, ngày lễ sắp tới</h5>
+                        <div class="card-title-right">Sự kiện, ngày lễ sắp tới</div>
                         <ul class="list-group list-group-flush events-list">
                             @foreach ($upcomingEvents as $event)
                                 @php

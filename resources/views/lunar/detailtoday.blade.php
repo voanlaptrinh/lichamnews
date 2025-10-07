@@ -2,8 +2,8 @@
 @section('content')
     <div class="container-setup">
         <div class="col-xl-9 col-sm-12 col-12">
-            <h6 class="content-title-detail"><a href="{{ route('home') }}">Trang chủ</a> <i class="bi bi-chevron-right"></i>
-                <span style="color: #2254AB">Lịch âm hôm nay</span>
+            <h6 class="content-title-detail"><a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a> <i class="bi bi-chevron-right"></i>
+                <span >Lịch âm hôm nay</span>
             </h6>
             
                <div class="d-flex justify-content-between">

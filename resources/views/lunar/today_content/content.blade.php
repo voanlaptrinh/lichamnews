@@ -144,7 +144,7 @@
                                                  <td class="text-capitalize"><b> Tiết khí:</b>
                                                      {{ $tietkhi['tiet_khi'] }}</td>
                                                  <td class=""> <b>Ngày Can Chi:</b>
-                                                    ngày {{ $getThongTinCanChiVaIcon['can_chi_ngay'] }},
+                                                     ngày {{ $getThongTinCanChiVaIcon['can_chi_ngay'] }},
                                                      tháng {{ $getThongTinCanChiVaIcon['can_chi_thang'] }},
                                                      năm {{ $getThongTinCanChiVaIcon['can_chi_nam'] }}</td>
                                              </tr>
@@ -161,7 +161,7 @@
                                              </tr>
                                              <tr>
                                                  <td>
-                                                    @if ($tot_xau_result == 'tot')
+                                                     @if ($tot_xau_result == 'tot')
                                                          <div>
                                                              <b>Ngày Hoàng Đạo:</b>
                                                              @php
@@ -306,9 +306,9 @@
 
 
                              <div class="content-section ">
-                                 <h5 class=" mb-2">
+                                 <div class="fs-5 mb-2">
                                      Việc nên làm
-                                 </h5>
+                                 </div>
                                  <ul class="mb-0">
 
 
@@ -327,9 +327,9 @@
                              </div>
                              <!-- Không nên -->
                              <div class="content-section mb-3">
-                                 <h5 class=" mb-2 mt-2">
+                                 <div class="fs-5 mb-2 mt-2">
                                      Việc không nên làm
-                                 </h5>
+                                 </div>
                                  <ul class=" ">
                                      @if (!empty($nhiThapBatTu['guidance']['bad']))
                                          <li>{{ $nhiThapBatTu['guidance']['bad'] }} (theo Nhị Thập Bát Tú -
@@ -366,12 +366,12 @@
 
 
                              <div class="ms-3">
-                                 <h4 class="title-tong-quan-h4">1. Can chi và ngũ hành</h4>
+                                 <h3 class="title-tong-quan-h4">1. Can chi và ngũ hành</h4>
                                  <div class="item-container">
 
                                      <div class="text-content">
-                                         <h5 class="title-tong-quan-h5 fw-semibold">Quan hệ Can chi ngày (nội khí):
-                                         </h5>
+                                         <div class="title-tong-quan-h5 fw-semibold">Quan hệ Can chi ngày (nội khí):
+                                         </div>
                                          <p>
                                              {!! $noiKhiNgay !!}
                                          </p>
@@ -380,8 +380,8 @@
                                  <div class="item-container pt-2">
 
                                      <div class="text-content">
-                                         <h5 class="title-tong-quan-h5 fw-semibold">Vận khí ngày & tháng (khí
-                                             tháng):</h5>
+                                         <div class="title-tong-quan-h5 fw-semibold">Vận khí ngày & tháng (khí
+                                             tháng):</div>
                                          <ul class="mb-1">
                                              {!! $getVongKhiNgayThang['analysis'] !!}
                                          </ul>
@@ -391,7 +391,7 @@
                                  <div class="item-container pt-2">
 
                                      <div class="text-content">
-                                         <h5 class="title-tong-quan-h5">Cục khí - hợp xung:</h5>
+                                         <div class="title-tong-quan-h5">Cục khí - hợp xung:</div>
                                          <ul class="mb-2">
                                              <li> {!! $getCucKhiHopXung['hop'] !!}.</li>
                                              <li> {!! $getCucKhiHopXung['ky'] !!}.</li>
@@ -476,9 +476,9 @@
                                      <div class="item-container">
 
                                          <div class="text-content">
-                                             <h5 class="title-tong-quan-h5">Sao
+                                             <div class="title-tong-quan-h5">Sao
                                                  Tốt:
-                                             </h5>
+                                             </div>
                                              <ul class="mb-2">
                                                  @if (!empty($getSaoTotXauInfo['sao_tot']))
                                                      @foreach ($getSaoTotXauInfo['sao_tot'] as $tenSao => $yNghia)
@@ -495,7 +495,7 @@
                                      <div class="item-container">
 
                                          <div class="text-content">
-                                             <h5 class="title-tong-quan-h5">Sao Xấu:</h5>
+                                             <div class="title-tong-quan-h5">Sao Xấu:</div>
                                              <ul class="mb-2">
                                                  @if (!empty($getSaoTotXauInfo['sao_xau']))
                                                      @foreach ($getSaoTotXauInfo['sao_xau'] as $tenSao => $yNghia)
@@ -601,7 +601,7 @@
                                      <h4 class="fw-bolder title-tong-quan-h4">10. Giờ xuất hành theo Lý Thuần Phong
                                      </h4>
                                      <div>
-                                         <h5 class="title-tong-quan-h5">Giờ tốt:</h5>
+                                         <div class="title-tong-quan-h5">Giờ tốt:</div>
                                          <ul>
                                              @foreach ($getThongTinXuatHanhVaLyThuanPhong['ly_thuan_phong']['good'] as $name => $items)
                                                  @foreach ($items as $item)
@@ -619,7 +619,7 @@
                                          </ul>
                                      </div>
                                      <div>
-                                         <h5 class="title-tong-quan-h5">Giờ Xấu:</h5>
+                                         <div class="title-tong-quan-h5">Giờ Xấu:</div>
                                          <ul>
                                              @foreach ($getThongTinXuatHanhVaLyThuanPhong['ly_thuan_phong']['bad'] as $name => $items)
                                                  @foreach ($items as $item)
@@ -678,7 +678,8 @@
                              <a href="{{ route('detai_home', $routeParams) }}">
                                  <div class="event-date">Ngày
                                      {{ Carbon\Carbon::parse($event['date'])->format('d/m') }} <span
-                                         style="font-size: 12px;color: #46494E;font-style: italic;">({{ $lunarDate[0] }}/{{ $lunarDate[1] }} ÂL)
+                                         style="font-size: 12px;color: #46494E;font-style: italic;">({{ $lunarDate[0] }}/{{ $lunarDate[1] }}
+                                         ÂL)
                                      </span>
 
                                  </div>
