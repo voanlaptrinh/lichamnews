@@ -414,4 +414,29 @@
         }
 
     });
+
+    window.addEventListener('popstate', function(event) {
+        const mobileNavigation = document.getElementById('mobile-navigation');
+        if (mobileNavigation && mobileNavigation.classList.contains('is-open')) {
+            mobileNavigation.classList.remove('is-open');
+            const menuOverlay = document.getElementById('menu-overlay');
+            if (menuOverlay) {
+                menuOverlay.classList.remove('is-open');
+            }
+            document.body.classList.remove('menu-open');
+        }
+    });
+
+    window.addEventListener('pageshow', function(event) {
+        // On pageshow, close the menu if it's open. This handles cases where the page is loaded from cache.
+        const mobileNavigation = document.getElementById('mobile-navigation');
+        if (mobileNavigation && mobileNavigation.classList.contains('is-open')) {
+            mobileNavigation.classList.remove('is-open');
+            const menuOverlay = document.getElementById('menu-overlay');
+            if (menuOverlay) {
+                menuOverlay.classList.remove('is-open');
+            }
+            document.body.classList.remove('menu-open');
+        }
+    });
 </script>

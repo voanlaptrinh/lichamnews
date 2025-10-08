@@ -151,12 +151,14 @@
                         <div class="position-relative bix-title-thangnam">
 
                             <div class="info-card ">
-                                <div class="d-flex justify-content-center">
+                                <div class="d-flex justify-content-center justify-content-md-start pb-2">
                                     <div class=" --posyon-ngay">
                                         <div class="ngay-hom-ngay --homnay-home">
-                                           Âm lịch Ngày <span id="luna-date">{{ $al[0] }}</span> <span id="luna-month">Tháng {{ $al[1] }}</span>
+                                            Âm lịch Ngày <span id="luna-date">{{ $al[0] }}</span> <span
+                                                id="luna-month">Tháng {{ $al[1] }}</span>
                                         </div>
                                     </div>
+
                                 </div>
                                 <div class="coli-row">
                                     <div class="col-xl-7 col-lg-6 col-sm-12 col-12 ">
@@ -239,24 +241,27 @@
 
                             <div class="calendar-header-convert calendar-header pe-lg-2">
                                 <div class="text-center">
-                                    <div class="mb-0 pt-2 lich-van--nien">Lịch vạn niên {{ $yy }} - tháng {{ $mm }}
+                                    <div class="mb-0 pt-2 lich-van--nien">Lịch vạn niên {{ $yy }} - tháng
+                                        {{ $mm }}
                                     </div>
                                 </div>
-                          
+
                                 <div class="d-flex align-items-center justify-content-center">
                                     <select id="month-select" class="form-select me-2 custom-select-style">
                                         @for ($i = 1; $i <= 12; $i++)
                                             <option value="{{ $i }}" {{ $i == $mm ? 'selected' : '' }}>
-                                                
+
                                                 <i class="bi bi-calendar-week"></i>
-                                                
+
                                                 Tháng
-                                                {{ $i }}</option>
+                                                {{ $i }}
+                                            </option>
                                         @endfor
                                     </select>
                                     <select id="year-select" class="form-select custom-select-style">
                                         @for ($i = 1900; $i <= 2100; $i++)
-                                            <option value="{{ $i }}" {{ $i == $yy ? 'selected' : '' }}><i class="bi bi-calendar-week"></i> Năm
+                                            <option value="{{ $i }}" {{ $i == $yy ? 'selected' : '' }}><i
+                                                    class="bi bi-calendar-week"></i> Năm
                                                 {{ $i }}</option>
                                         @endfor
                                     </select>
@@ -318,51 +323,53 @@
                     <div class="container bg-section-tienich">
                         <h2 class="section-title">Sự kiện, ngày lễ sắp tới</h2>
                         <hr>
-                        <ul class="list-group list-group-flush events-list">
-                            @foreach (array_slice($upcomingEvents, 0, 3) as $event)
-                                @php
-                                    $eventCarbonDate = Carbon\Carbon::parse($event['date']);
-                                    $routeParams = [
-                                        'nam' => $eventCarbonDate->year,
-                                        'thang' => $eventCarbonDate->month,
-                                        'ngay' => $eventCarbonDate->day,
-                                    ];
+                        @foreach (array_slice($upcomingEvents, 0, 3) as $event)
+                            @php
+                                $eventCarbonDate = Carbon\Carbon::parse($event['date']);
+                                $routeParams = [
+                                    'nam' => $eventCarbonDate->year,
+                                    'thang' => $eventCarbonDate->month,
+                                    'ngay' => $eventCarbonDate->day,
+                                ];
 
-                                    // Chuyển đổi sang âm lịch
-                                    $lunarDate = App\Helpers\LunarHelper::convertSolar2Lunar(
-                                        $eventCarbonDate->day,
-                                        $eventCarbonDate->month,
-                                        $eventCarbonDate->year,
-                                    );
-                                @endphp
-                                <li class="list-group-item event-item">
-                                    <a href="{{ route('detai_home', $routeParams) }}">
-                                        <div class="event-date">
-                                            {{ Carbon\Carbon::parse($event['date'])->format('d/m') }} <span
-                                                style="font-size: 12px;color: #46494E;font-style: italic;">({{ $lunarDate[0] }}/{{ $lunarDate[1] }}
-                                                ÂL)</span>
+                                // Chuyển đổi sang âm lịch
+                                $lunarDate = App\Helpers\LunarHelper::convertSolar2Lunar(
+                                    $eventCarbonDate->day,
+                                    $eventCarbonDate->month,
+                                    $eventCarbonDate->year,
+                                );
+                            @endphp
+                            <a class="hv-memorial-widget-root mt-3" href="{{ route('detai_home', $routeParams) }}">
+                                <div class="hv-memorial-date-panel">
+                                    <div class="hv-memorial-month-text">Tháng
+                                        {{ Carbon\Carbon::parse($event['date'])->format('n') }}</div>
+                                    <div class="hv-memorial-day-digit">
+                                        {{ Carbon\Carbon::parse($event['date'])->format('d') }}</div>
+                                    <div class="hv-memorial-lunar-calendar-info">
+                                        {{ $lunarDate[0] }}/{{ $lunarDate[1] }} ÂL</div>
+                                </div>
+                                <div class="hv-memorial-event-summary">
+                                    <h3 class="hv-memorial-event-title">{{ $event['description'] }}</h3>
+                                    <div class="hv-memorial-countdown-display">
+                                        @if ($event['days_remaining'] === 0)
+                                            Hôm nay
+                                        @elseif ($event['days_remaining'] === 1)
+                                            Còn 1 ngày
+                                        @else
+                                            Còn {{ $event['days_remaining'] }} ngày
+                                        @endif
+                                        <!-- Sử dụng SVG cho mũi tên để có độ chính xác cao nhất về hình dáng -->
+                                        <svg class="hv-memorial-countdown-arrow" viewBox="0 0 24 24" width="16"
+                                            height="16" fill="currentColor">
+                                            <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z" />
+                                        </svg>
+                                    </div>
+                                </div>
 
-                                        </div>
+                            </a>
+                        @endforeach
 
-                                        <div class="event-icon">🗓️</div>
-                                        <div class="event-details">
-                                            <div class="event-name">{{ $event['description'] }}</div>
-                                            <div class="event-countdown">
-                                                @if ($event['days_remaining'] === 0)
-                                                    Hôm nay
-                                                @elseif ($event['days_remaining'] === 1)
-                                                    Còn 1 ngày
-                                                @else
-                                                    Còn {{ $event['days_remaining'] }} ngày
-                                                @endif
 
-                                                <i class="bi bi-chevron-right"></i>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                            @endforeach
-                        </ul>
                     </div>
                 </section>
                 <section class="popular-utilities">
@@ -515,14 +522,18 @@
                         tốt – Xem giờ tốt nhanh chóng, chính xác và miễn phí</p>
                 </div>
             </div>
+            <style>
 
+
+
+            </style>
             <!-- ==== CỘT THÔNG TIN (BÊN PHẢI) - CHỈ HIỆN TRÊN DESKTOP ==== -->
             <div class="col-xl-3 d-none d-xl-block">
                 <div class="d-flex flex-column gap-4">
                     <!-- ** KHỐI SỰ KIỆN SẮP TỚI ** -->
                     <div class="events-card">
                         <div class="card-title-right">Sự kiện, ngày lễ sắp tới</div>
-                        <ul class="list-group list-group-flush events-list">
+                        <div class="boxx--sukiensaptoi">
                             @foreach ($upcomingEvents as $event)
                                 @php
                                     // Phân tích cú pháp ngày sự kiện một lần để lấy các phần tử năm, tháng, ngày
@@ -540,32 +551,37 @@
                                         $eventCarbonDate->year,
                                     );
                                 @endphp
-                                <li class="list-group-item event-item">
-                                    <a href="{{ route('detai_home', $routeParams) }}">
-                                        <div class="event-date">
-                                            {{ Carbon\Carbon::parse($event['date'])->format('d/m') }} <span
-                                                style="font-size: 12px;color: #46494E;font-style: italic;">({{ $lunarDate[0] }}/{{ $lunarDate[1] }}
-                                                ÂL)
+                                <a class="hv-memorial-widget-root mt-3" href="{{ route('detai_home', $routeParams) }}">
+                                    <div class="hv-memorial-date-panel">
+                                        <div class="hv-memorial-month-text">Tháng
+                                            {{ Carbon\Carbon::parse($event['date'])->format('n') }}</div>
+                                        <div class="hv-memorial-day-digit">
+                                            {{ Carbon\Carbon::parse($event['date'])->format('d') }}</div>
+                                        <div class="hv-memorial-lunar-calendar-info">
+                                            {{ $lunarDate[0] }}/{{ $lunarDate[1] }} ÂL</div>
+                                    </div>
+                                    <div class="hv-memorial-event-summary">
+                                        <h3 class="hv-memorial-event-title">{{ $event['description'] }}</h3>
+                                        <div class="hv-memorial-countdown-display">
+                                            @if ($event['days_remaining'] === 0)
+                                                Hôm nay
+                                            @elseif ($event['days_remaining'] === 1)
+                                                Còn 1 ngày
+                                            @else
+                                                Còn {{ $event['days_remaining'] }} ngày
+                                            @endif
+                                            <!-- Sử dụng SVG cho mũi tên để có độ chính xác cao nhất về hình dáng -->
+                                            <svg class="hv-memorial-countdown-arrow" viewBox="0 0 24 24" width="16"
+                                                height="16" fill="currentColor">
+                                                <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z" />
+                                            </svg>
                                         </div>
-                                        <div class="event-icon">🗓️</div>
-                                        <div class="event-details">
-                                            <div class="event-name">{{ $event['description'] }}</div>
-                                            <div class="event-countdown">
-                                                @if ($event['days_remaining'] === 0)
-                                                    Hôm nay
-                                                @elseif ($event['days_remaining'] === 1)
-                                                    Còn 1 ngày
-                                                @else
-                                                    Còn {{ $event['days_remaining'] }} ngày
-                                                @endif
+                                    </div>
 
-                                                <i class="bi bi-chevron-right"></i>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
+                                </a>
                             @endforeach
-                        </ul>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -688,8 +704,8 @@
 @endpush
 
 @push('scripts')
-    <script src="{{ asset('js/base-picker.js?v=1.91') }}"></script>
-    <script src="{{ asset('js/homepage-picker.js?v=1.91') }}"></script>
+    <script src="{{ asset('js/base-picker.js?v=1.92') }}"></script>
+    <script src="{{ asset('js/homepage-picker.js?v=1.92') }}"></script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             // Khởi tạo ứng dụng lịch âm cho trang chủ (không thay đổi URL)

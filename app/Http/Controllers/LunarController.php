@@ -583,8 +583,8 @@ class LunarController extends Controller
 
     public function convertAmToDuong(Request $request)
     {
-        $metaTitle = 'Đổi lịch âm dương ' . date('Y') . ' | Chuyển đổi ngày âm sang dương, dương sang âm';
-        $metaDescription = "Công cụ đổi lịch âm dương " . date('Y') . " chính xác nhất. Chuyển đổi nhanh ngày âm sang dương, dương sang âm. Xem lịch vạn niên, ngày tốt xấu, ngày hoàng đạo hôm nay.";
+        $metaTitle = 'Đổi Ngày Dương Sang Âm, Âm Sang Dương Online Chính Xác';
+        $metaDescription = "Công cụ đổi ngày Âm sang Dương và Dương sang Âm chính xác. Tiện lợi cho việc tra cứu ngày âm dương khi cần tính toán ngày giỗ chạp, ngày sinh, hay tổ chức sự kiện.";
 
 
         $solar_date = $request->input('solar_date');
@@ -1088,8 +1088,8 @@ class LunarController extends Controller
         $mm = $today->month;
         $yy = $today->year;
         $titletodate = 'hôm nay';
-        $metaTitle = 'Lịch Âm Hôm Nay - Âm Lịch Hôm Nay - Xem Lịch Âm';
-        $metaDescription = 'Lịch âm ' . $yy . ' ngày âm lịch hôm nay. Lịch vạn niên &amp; xem ngày tốt xấu, ngày hoàng đạo. Ngày lễ âm lịch, dương lịch hôm nay. Chính xác nhất!';
+        $metaTitle = 'Lịch Âm Hôm Nay - Xem Âm Lịch, Lịch Vạn Niên Hôm Nay Chính Xác Nhất';
+        $metaDescription = 'Xem lịch âm hôm nay nhanh và chính xác nhất. Tra cứu âm lịch hôm nay, lịch vạn niên hôm nay, biết ngay hôm nay là ngày âm nào, ngày tốt xấu, tiết khí, hoàng đạo.';
         $dateinfodetail = $this->getDateInfo($dd, $mm, $yy, null, $titletodate, $metaTitle, $metaDescription);
         return view('lunar.detailtoday', $dateinfodetail);
     }
@@ -1104,8 +1104,8 @@ class LunarController extends Controller
         $mm = $tomorrow->month;
         $yy = $tomorrow->year;
         $titletodate = 'ngày mai';
-         $metaTitle = 'Lịch Âm Ngày mai - Âm Lịch Ngày mai - Xem Lịch Âm';
-        $metaDescription = 'Lịch âm ' . $yy . ' ngày âm lịch ngày mai. Lịch vạn niên &amp; xem ngày tốt xấu, ngày hoàng đạo. Ngày lễ âm lịch, dương lịch ngày mai. Chính xác nhất!';
+         $metaTitle = 'Lịch Âm Ngày Mai - Xem Âm Lịch, Lịch Vạn Niên Ngày Mai Chính Xác Nhất';
+        $metaDescription = 'Tra cứu lịch âm ngày mai nhanh và chính xác. Xem âm lịch ngày mai là ngày bao nhiêu, lịch vạn niên ngày mai, cùng tiết khí, và các thông tin tốt – xấu trong ngày.';
         $dateinfodetail = $this->getDateInfo($dd, $mm, $yy, null, $titletodate, $metaTitle, $metaDescription);
         return view('lunar.detailtomorrow', $dateinfodetail);
     }

@@ -79,11 +79,12 @@
                                                 6</span></th>
                                         <th><span class="title-lich-pc">Thứ Bảy</span> <span class="title-lich-mobie">Th
                                                 7</span></th>
-                                        <th><span class="title-lich-pc">Chủ Bhật</span> <span
+                                        <th><span class="title-lich-pc">Chủ Nhật</span> <span
                                                 class="title-lich-mobie">CN</span></th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                  
                                     @foreach ($lunar_calendar_weeks as $week)
                                         <tr>
                                             @foreach ($week as $day)

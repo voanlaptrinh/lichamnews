@@ -120,9 +120,7 @@
         font-size: 22px;
     }
 
-    .--posyon-ngay {
-        display: none;
-    }
+   
 
     .box-chi-so-ngaytot {
         display: flex;
@@ -312,9 +310,7 @@
         font-size: 22px;
     }
 
-    .--posyon-ngay {
-        display: none;
-    }
+    
 
     .box-chi-so-ngaytot {
         display: flex;
@@ -496,9 +492,7 @@
         font-size: 22px;
     }
 
-    .--posyon-ngay {
-        display: none;
-    }
+   
 
     .box-chi-so-ngaytot {
         display: flex;
@@ -741,9 +735,7 @@
         font-size: 23px;
     }
 
-    .--posyon-ngay {
-        display: none;
-    }
+  
 
     .box-chi-so-ngaytot {
         display: flex;
@@ -1003,9 +995,7 @@
         right: unset !important;
     }
 
-    .--posyon-ngay {
-        display: none;
-    }
+   
 
     .box-chi-so-ngaytot {
         display: flex;
@@ -1670,7 +1660,7 @@
     }
 
     .ngay-hom-ngay {
-        font-size: 20px;
+        font-size: 16px;
     }
 
     .title-tong-quan-h4-log {

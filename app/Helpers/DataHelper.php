@@ -1109,7 +1109,7 @@ class DataHelper
             "relation" => "Can khắc Chi",
             "rating" => "Cát trung bình (chế nhật)",
             "explanation" =>
-            "Ngày <b?>Giáp Tuất</b> là ngày Can (thuộc hành Mộc) khắc Chi (thuộc hành Thổ), tạo nên nội khí đối kháng. Đây là dạng ngày 'chế nhật', mang tính kiềm chế, dễ phát sinh căng thẳng hoặc bất đồng. Không hẳn là đại hung, nhưng nếu dùng cho việc lớn thì cần có thêm yếu tố hóa giải hoặc trợ lực từ cát tinh khác."
+            "Ngày <b>Giáp Tuất</b> là ngày Can (thuộc hành Mộc) khắc Chi (thuộc hành Thổ), tạo nên nội khí đối kháng. Đây là dạng ngày 'chế nhật', mang tính kiềm chế, dễ phát sinh căng thẳng hoặc bất đồng. Không hẳn là đại hung, nhưng nếu dùng cho việc lớn thì cần có thêm yếu tố hóa giải hoặc trợ lực từ cát tinh khác."
         ],
         "Ất Hợi" => [
             "relation" => "Chi sinh Can",

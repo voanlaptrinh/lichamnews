@@ -365,167 +365,167 @@
                          <div class="ms-lg-3 text-box-tong-quan">
 
 
-                             <div class="ms-3">
+                             <div class="ms-2">
                                  <h3 class="title-tong-quan-h4">1. Can chi và ngũ hành</h4>
-                                 <div class="item-container">
-
-                                     <div class="text-content">
-                                         <div class="title-tong-quan-h5 fw-semibold">Quan hệ Can chi ngày (nội khí):
-                                         </div>
-                                         <p>
-                                             {!! $noiKhiNgay !!}
-                                         </p>
-                                     </div>
-                                 </div>
-                                 <div class="item-container pt-2">
-
-                                     <div class="text-content">
-                                         <div class="title-tong-quan-h5 fw-semibold">Vận khí ngày & tháng (khí
-                                             tháng):</div>
-                                         <ul class="mb-1">
-                                             {!! $getVongKhiNgayThang['analysis'] !!}
-                                         </ul>
-                                         <p>{!! $getVongKhiNgayThang['conclusion'] !!}</p>
-                                     </div>
-                                 </div>
-                                 <div class="item-container pt-2">
-
-                                     <div class="text-content">
-                                         <div class="title-tong-quan-h5">Cục khí - hợp xung:</div>
-                                         <ul class="mb-2">
-                                             <li> {!! $getCucKhiHopXung['hop'] !!}.</li>
-                                             <li> {!! $getCucKhiHopXung['ky'] !!}.</li>
-                                         </ul>
-                                     </div>
-                                 </div>
-                                 <h4 class="title-tong-quan-h4">
-                                     2. Nhị thập bát tú
-                                 </h4>
-                                 <div class="me-sm-2">
-                                     <div>Ngày
-                                         {{ $al[0] }}-{{ $al[1] }}-{{ $al[2] }}
-                                         Âm lịch có xuất
-                                         hiện sao:
-                                         <b>{{ $nhiThapBatTu['name'] }}
-                                             ({{ $nhiThapBatTu['fullName'] }})</b>
-                                         <div class="mt-2"> <i class="bi bi-arrow-right-short"></i> Đây
-                                             là sao
-                                             <b>{{ $nhiThapBatTu['nature'] }} </b>-
-                                             {{ $nhiThapBatTu['description'] }}
-                                         </div>
-                                     </div>
-
-                                     <div class="mt-2 mb-2">
-                                         <div>
-                                             @if ($nhiThapBatTu['guidance']['good'])
-                                                 <span class="fw-bolder">
-                                                     Việc nên làm:
-                                                 </span>
-                                                 {{ $nhiThapBatTu['guidance']['good'] }}.
-                                             @endif
-                                         </div>
-
-                                         <div>
-                                             @if ($nhiThapBatTu['guidance']['bad'])
-                                                 <span class="fw-bolder"> Việc không nên
-                                                     làm: </span>
-                                                 {{ $nhiThapBatTu['guidance']['bad'] }}.
-                                             @endif
-                                         </div>
-
-                                     </div>
-                                 </div>
-                                 <h4 class="title-tong-quan-h4">3. Thập Nhị Trực (12 Trực)</h4>
-                                 <div class="me-sm-2 mb-2">
-                                     <div>
-                                         Trực ngày: Trực
-                                         <b>{{ $getThongTinTruc['title'] }}</b>
-                                         <div class="mt-2">
-                                             <i class="bi bi-arrow-right-short"></i> Đây
-                                             là trực
-                                             <b>
-                                                 {{ $getThongTinTruc['description']['rating'] }}</b>
-                                             -
-                                             {{ $getThongTinTruc['description']['description'] }}
-                                         </div>
-
-                                     </div>
-                                     <div class="mt-2">
-                                         <div>
-                                             @if ($getThongTinTruc['description']['good'])
-                                                 <span class="fw-bolder">
-                                                     Việc nên làm:
-                                                 </span>
-                                                 {{ $getThongTinTruc['description']['good'] }}
-                                             @endif
-                                         </div>
-
-                                         <div>
-                                             @if ($getThongTinTruc['description']['bad'])
-                                                 <span class="fw-bolder"> Việc không nên
-                                                     làm: </span>
-                                                 {{ $getThongTinTruc['description']['bad'] }}
-                                             @endif
-                                         </div>
-
-                                     </div>
-                                 </div>
-                                 <h4 class="title-tong-quan-h4">4. Các sao tốt - xấu theo
-                                     Ngọc Hạp Thông Thư</h4>
-                                 <div class="me-sm-2">
                                      <div class="item-container">
 
                                          <div class="text-content">
-                                             <div class="title-tong-quan-h5">Sao
-                                                 Tốt:
+                                             <div class="title-tong-quan-h5 fw-semibold">Quan hệ Can chi ngày (nội khí):
                                              </div>
-                                             <ul class="mb-2">
-                                                 @if (!empty($getSaoTotXauInfo['sao_tot']))
-                                                     @foreach ($getSaoTotXauInfo['sao_tot'] as $tenSao => $yNghia)
-                                                         <li><strong>{{ $tenSao }}:</strong>
-                                                             {{ $yNghia }}</li>
-                                                     @endforeach
-                                                 @else
-                                                     Không có sao tốt trong ngày này
-                                                 @endif
-
-                                             </ul>
+                                             <p>
+                                                 {!! $noiKhiNgay !!}
+                                             </p>
                                          </div>
                                      </div>
-                                     <div class="item-container">
+                                     <div class="item-container pt-2">
 
                                          <div class="text-content">
-                                             <div class="title-tong-quan-h5">Sao Xấu:</div>
-                                             <ul class="mb-2">
-                                                 @if (!empty($getSaoTotXauInfo['sao_xau']))
-                                                     @foreach ($getSaoTotXauInfo['sao_xau'] as $tenSao => $yNghia)
-                                                         <li><strong>{{ $tenSao }}:</strong>
-                                                             {{ $yNghia }}</li>
-                                                     @endforeach
-                                                 @else
-                                                     Không có sao xấu trong ngày này
-                                                 @endif
+                                             <div class="title-tong-quan-h5 fw-semibold">Vận khí ngày & tháng (khí
+                                                 tháng):</div>
+                                             <ul class="mb-1">
+                                                 {!! $getVongKhiNgayThang['analysis'] !!}
+                                             </ul>
+                                             <p>{!! $getVongKhiNgayThang['conclusion'] !!}</p>
+                                         </div>
+                                     </div>
+                                     <div class="item-container pt-2">
 
+                                         <div class="text-content">
+                                             <div class="title-tong-quan-h5">Cục khí - hợp xung:</div>
+                                             <ul class="mb-2">
+                                                 <li> {!! $getCucKhiHopXung['hop'] !!}.</li>
+                                                 <li> {!! $getCucKhiHopXung['ky'] !!}.</li>
                                              </ul>
                                          </div>
                                      </div>
-                                     <p>{{ $getSaoTotXauInfo['ket_luan'] }}</p>
-                                 </div>
-                                 <h4 class="title-tong-quan-h4"> 5. Ngày theo Khổng Minh Lục Diệu</h4>
-                                 <div class="mb-2">
-                                     <div class="">
-                                         <div>Ngày này là ngày
-                                             <b>{{ $khongMinhLucDieu['name'] }}</b>
-                                             ({{ $khongMinhLucDieu['rating'] }})
+                                     <h4 class="title-tong-quan-h4">
+                                         2. Nhị thập bát tú
+                                     </h4>
+                                     <div class="me-sm-2">
+                                         <div>Ngày
+                                             {{ $al[0] }}-{{ $al[1] }}-{{ $al[2] }}
+                                             Âm lịch có xuất
+                                             hiện sao:
+                                             <b>{{ $nhiThapBatTu['name'] }}
+                                                 ({{ $nhiThapBatTu['fullName'] }})</b>
+                                             <div class="mt-2"> <i class="bi bi-arrow-right-short"></i> Đây
+                                                 là sao
+                                                 <b>{{ $nhiThapBatTu['nature'] }} </b>-
+                                                 {{ $nhiThapBatTu['description'] }}
+                                             </div>
                                          </div>
-                                         <div class="mt-2"><i class="bi bi-arrow-right-short"></i>
-                                             {{ $khongMinhLucDieu['description'] }}
-                                         </div>
-                                         <div class="pt-2 text-center fst-italic">
-                                             "{!! $khongMinhLucDieu['poem'] !!}"
+
+                                         <div class="mt-2 mb-2">
+                                             <div>
+                                                 @if ($nhiThapBatTu['guidance']['good'])
+                                                     <span class="fw-bolder">
+                                                         Việc nên làm:
+                                                     </span>
+                                                     {{ $nhiThapBatTu['guidance']['good'] }}.
+                                                 @endif
+                                             </div>
+
+                                             <div>
+                                                 @if ($nhiThapBatTu['guidance']['bad'])
+                                                     <span class="fw-bolder"> Việc không nên
+                                                         làm: </span>
+                                                     {{ $nhiThapBatTu['guidance']['bad'] }}.
+                                                 @endif
+                                             </div>
+
                                          </div>
                                      </div>
-                                 </div>
+                                     <h4 class="title-tong-quan-h4">3. Thập Nhị Trực (12 Trực)</h4>
+                                     <div class="me-sm-2 mb-2">
+                                         <div>
+                                             Trực ngày: Trực
+                                             <b>{{ $getThongTinTruc['title'] }}</b>
+                                             <div class="mt-2">
+                                                 <i class="bi bi-arrow-right-short"></i> Đây
+                                                 là trực
+                                                 <b>
+                                                     {{ $getThongTinTruc['description']['rating'] }}</b>
+                                                 -
+                                                 {{ $getThongTinTruc['description']['description'] }}
+                                             </div>
+
+                                         </div>
+                                         <div class="mt-2">
+                                             <div>
+                                                 @if ($getThongTinTruc['description']['good'])
+                                                     <span class="fw-bolder">
+                                                         Việc nên làm:
+                                                     </span>
+                                                     {{ $getThongTinTruc['description']['good'] }}
+                                                 @endif
+                                             </div>
+
+                                             <div>
+                                                 @if ($getThongTinTruc['description']['bad'])
+                                                     <span class="fw-bolder"> Việc không nên
+                                                         làm: </span>
+                                                     {{ $getThongTinTruc['description']['bad'] }}
+                                                 @endif
+                                             </div>
+
+                                         </div>
+                                     </div>
+                                     <h4 class="title-tong-quan-h4">4. Các sao tốt - xấu theo
+                                         Ngọc Hạp Thông Thư</h4>
+                                     <div class="me-sm-2">
+                                         <div class="item-container">
+
+                                             <div class="text-content">
+                                                 <div class="title-tong-quan-h5">Sao
+                                                     Tốt:
+                                                 </div>
+                                                 <ul class="mb-2">
+                                                     @if (!empty($getSaoTotXauInfo['sao_tot']))
+                                                         @foreach ($getSaoTotXauInfo['sao_tot'] as $tenSao => $yNghia)
+                                                             <li><strong>{{ $tenSao }}:</strong>
+                                                                 {{ $yNghia }}</li>
+                                                         @endforeach
+                                                     @else
+                                                         Không có sao tốt trong ngày này
+                                                     @endif
+
+                                                 </ul>
+                                             </div>
+                                         </div>
+                                         <div class="item-container">
+
+                                             <div class="text-content">
+                                                 <div class="title-tong-quan-h5">Sao Xấu:</div>
+                                                 <ul class="mb-2">
+                                                     @if (!empty($getSaoTotXauInfo['sao_xau']))
+                                                         @foreach ($getSaoTotXauInfo['sao_xau'] as $tenSao => $yNghia)
+                                                             <li><strong>{{ $tenSao }}:</strong>
+                                                                 {{ $yNghia }}</li>
+                                                         @endforeach
+                                                     @else
+                                                         Không có sao xấu trong ngày này
+                                                     @endif
+
+                                                 </ul>
+                                             </div>
+                                         </div>
+                                         <p>{{ $getSaoTotXauInfo['ket_luan'] }}</p>
+                                     </div>
+                                     <h4 class="title-tong-quan-h4"> 5. Ngày theo Khổng Minh Lục Diệu</h4>
+                                     <div class="mb-2">
+                                         <div class="">
+                                             <div>Ngày này là ngày
+                                                 <b>{{ $khongMinhLucDieu['name'] }}</b>
+                                                 ({{ $khongMinhLucDieu['rating'] }})
+                                             </div>
+                                             <div class="mt-2"><i class="bi bi-arrow-right-short"></i>
+                                                 {{ $khongMinhLucDieu['description'] }}
+                                             </div>
+                                             <div class="pt-2 text-center fst-italic">
+                                                 "{!! $khongMinhLucDieu['poem'] !!}"
+                                             </div>
+                                         </div>
+                                     </div>
                              </div>
 
                              <div class="ms-2 mb-2">
@@ -658,7 +658,8 @@
              <!-- ** KHỐI SỰ KIỆN SẮP TỚI ** -->
              <div class="events-card">
                  <h5 class="card-title-right">Sự kiện, ngày lễ sắp tới</h5>
-                 <ul class="list-group list-group-flush events-list-box">
+
+                 <div class="boxx--sukiensaptoi">
                      @foreach ($upcomingEvents as $event)
                          @php
                              // Phân tích cú pháp ngày sự kiện một lần để lấy các phần tử năm, tháng, ngày
@@ -668,41 +669,48 @@
                                  'thang' => $eventCarbonDate->month,
                                  'ngay' => $eventCarbonDate->day,
                              ];
+
+                             // Chuyển đổi sang âm lịch
                              $lunarDate = App\Helpers\LunarHelper::convertSolar2Lunar(
                                  $eventCarbonDate->day,
                                  $eventCarbonDate->month,
                                  $eventCarbonDate->year,
                              );
                          @endphp
-                         <li class="list-group-item event-item">
-                             <a href="{{ route('detai_home', $routeParams) }}">
-                                 <div class="event-date">Ngày
-                                     {{ Carbon\Carbon::parse($event['date'])->format('d/m') }} <span
-                                         style="font-size: 12px;color: #46494E;font-style: italic;">({{ $lunarDate[0] }}/{{ $lunarDate[1] }}
-                                         ÂL)
-                                     </span>
-
+                         <a class="hv-memorial-widget-root mt-3" href="{{ route('detai_home', $routeParams) }}">
+                             <div class="hv-memorial-date-panel">
+                                 <div class="hv-memorial-month-text">Tháng
+                                     {{ Carbon\Carbon::parse($event['date'])->format('n') }}</div>
+                                 <div class="hv-memorial-day-digit">
+                                     {{ Carbon\Carbon::parse($event['date'])->format('d') }}</div>
+                                 <div class="hv-memorial-lunar-calendar-info">
+                                     {{ $lunarDate[0] }}/{{ $lunarDate[1] }} ÂL</div>
+                             </div>
+                             <div class="hv-memorial-event-summary">
+                                 <h3 class="hv-memorial-event-title">{{ $event['description'] }}</h3>
+                                 <div class="hv-memorial-countdown-display">
+                                     @if ($event['days_remaining'] === 0)
+                                         Hôm nay
+                                     @elseif ($event['days_remaining'] === 1)
+                                         Còn 1 ngày
+                                     @else
+                                         Còn {{ $event['days_remaining'] }} ngày
+                                     @endif
+                                     <!-- Sử dụng SVG cho mũi tên để có độ chính xác cao nhất về hình dáng -->
+                                     <svg class="hv-memorial-countdown-arrow" viewBox="0 0 24 24" width="16"
+                                         height="16" fill="currentColor">
+                                         <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z" />
+                                     </svg>
                                  </div>
-                                 <div class="event-icon">🗓️</div>
-                                 <div class="event-details">
-                                     <div class="event-name">{{ $event['description'] }}</div>
-                                     <div class="event-countdown">
-                                         @if ($event['days_remaining'] === 0)
-                                             Hôm nay
-                                         @elseif ($event['days_remaining'] === 1)
-                                             Còn 1 ngày
-                                         @else
-                                             Còn {{ $event['days_remaining'] }} ngày
-                                         @endif
+                             </div>
 
-                                         <i class="bi bi-chevron-right"></i>
-                                     </div>
-                                 </div>
-                             </a>
-                         </li>
+                         </a>
                      @endforeach
-                 </ul>
+
+
+
+                 </div>
              </div>
          </div>
      </div>
- </div>
+

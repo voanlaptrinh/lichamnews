@@ -482,7 +482,7 @@ class HomepagePicker extends BasePicker {
             if (lunarMonth) lunarMonth.textContent = `Tháng ${data.al[1]}`;
 
             homnayHomeElement.innerHTML = `
-               Âm lịch Ngày <span id="luna-date">${data.al[0]}</span> <span id="luna-month">Tháng ${data.al[1]}</span>}
+               Âm lịch Ngày <span id="luna-date">${data.al[0]}</span> <span id="luna-month">Tháng ${data.al[1]}</span>
             `;
         }
     }

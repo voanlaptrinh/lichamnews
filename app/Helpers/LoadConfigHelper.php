@@ -324,11 +324,11 @@ class LoadConfigHelper
             'mm' => 5,
             'name' => 'Ngày chiến thắng Điện Biên Phủ'
         ),
-        array(
-            'dd' => 8,
-            'mm' => 5,
-            'name' => 'Ngày chiến thắng phát xít'
-        ),
+        // array(
+        //     'dd' => 8,
+        //     'mm' => 5,
+        //     'name' => 'Ngày chiến thắng phát xít'
+        // ),
         array(
             'dd' => 19,
             'mm' => 5,
@@ -337,17 +337,17 @@ class LoadConfigHelper
         array(
             'dd' => 1,
             'mm' => 6,
-            'name' => 'Ngày Quốc tế Thiếu Nhi'
+            'name' => 'Ngày Quốc tế Thiếu nhi'
         ),
         array(
             'dd' => 17,
             'mm' => 6,
-            'name' => 'Ngày của cha'
+            'name' => 'Ngày của Cha'
         ),
         array(
             'dd' => 21,
             'mm' => 6,
-            'name' => 'Ngày báo chí Việt Nam'
+            'name' => 'Ngày báo chí cách mạng Việt Nam'
         ),
         array(
             'dd' => 28,
@@ -367,7 +367,7 @@ class LoadConfigHelper
         array(
             'dd' => 28,
             'mm' => 7,
-            'name' => 'Ngày thành lập công đoàn Việt Nam'
+            'name' => 'Ngày thành lập Cwông đoàn Việt Nam'
         ),
         array(
             'dd' => 15,
@@ -377,7 +377,7 @@ class LoadConfigHelper
         array(
             'dd' => 19,
             'mm' => 8,
-            'name' => 'Ngày tổng khởi nghĩa'
+            'name' => 'Ngày Tổng khởi nghĩa'
         ),
         array(
             'dd' => 2,
@@ -552,9 +552,9 @@ class LoadConfigHelper
 
     static $sukien = array(
         1 => array(
-            '06/01/1946 : Tổng tuyển cử bầu Quốc hội đầu tiên của nước Việt Nam dân chủ cộng hòa',
+            '06/01/1946 : Tổng tuyển cử bầu Quốc hội đầu tiên của nước Việt Nam Dân chủ Cộng hòa',
             '07/01/1979 : Chiến thắng biên giới Tây Nam chống quân xâm lược',
-            '09/01/1950 : Ngày truyền thống học sinh, sinh viên Việt nam.',
+            '09/01/1950 : Ngày Truyền thống Học sinh, Sinh viên Việt nam.',
             '13/01/1941 : Khởi nghĩa Đô Lương',
             '11/01/2007 : Việt Nam gia nhập WTO',
             '27/01/1973 : Ký hiệp định Paris',
@@ -570,19 +570,19 @@ class LoadConfigHelper
         ),
         4 => array(
             '25/4/1976: Ngày tổng tuyển cử bầu quốc hội chung của cả nước',
-            '30/4/1975: Giải phóng Miền Nam, thống nhất tổ quốc',
+            '30/4/1975: Giải phóng Miền Nam, thống nhất đất ngước',
         ),
         5 => array(
-            '07/05/1954: Chiến thắng Điện Biên Phủ',
+            '07/05/1954: Ngày Chiến thắng Điện Biên Phủ',
             '15/05/1941: Thành lập Đội TNTP Hồ Chí Minh',
             '19/05/1890: Ngày sinh Chủ tịch Hồ Chí Minh',
-            '19/05/1941: Thành lập mặt trận Việt Minh',
+            '19/05/1941: Thành lập Mặt trận Việt Minh',
         ),
         6 => array(
             '05/06/1911: Nguyễn Tất Thành rời cảng Nhà Rồng ra đi tìm đường cứu nước',
         ),
         7 => array(
-            '02/07/1976: Nước ta đổi quốc hiệu từ Việt Nam dân chủ cộng hòa thành Cộng hòa XHCN Việt Nam',
+            '02/07/1976: Nước ta đổi quốc hiệu từ Việt Nam Dân chủ cộng hòa thành Cộng hòa XHCN Việt Nam',
             '17/07/1966: Hồ chủ tịch ra lời kêu gọi “Không có gì quý hơn độc lập, tự do”',
             '28/07: Thành lập công đoàn Việt Nam(1929)/Ngày Việt Nam gia nhập Asean(1995)',
         ),

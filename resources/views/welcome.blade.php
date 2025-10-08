@@ -9,9 +9,9 @@
     <!-- Các link CSS nếu cần, ví dụ: Bootstrap hoặc custom CSS -->
     <link href="{{ asset('/css/bootstrap.min.css?v=4.91') }}" rel="stylesheet">
     {{-- <link rel="stylesheet" href="{{ asset('/css/airbnb.css') }}"> hoặc dark, material_red --}}
-    <link rel="stylesheet" href="{{ asset('/css/bootstrap-icons.min.css?v=4.91') }}">
-    <link rel="stylesheet" href="{{ asset('/css/styledemo.css?v=4.91') }}">
-    <link rel="stylesheet" href="{{ asset('/css/repont.css?v=4.91') }}">
+    <link rel="stylesheet" href="{{ asset('/css/bootstrap-icons.min.css?v=4.92') }}">
+    <link rel="stylesheet" href="{{ asset('/css/style-date.css?v=4.92') }}">
+    <link rel="stylesheet" href="{{ asset('/css/repont.css?v=4.92') }}">
     {{-- <link rel="stylesheet" type="text/css" href="{{ asset('/css/daterangepicker.css') }}" /> --}}
     <!-- ĐẢM BẢO CÓ DÒNG NÀY ĐỂ CSRF TOKEN HOẠT ĐỘNG! -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -41,7 +41,7 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="{{ $metaTitle ?? 'Xem Lịch Âm' }}">
     <meta property="og:description" content="{{ $metaDescription ?? '' }}">
-
+<meta name="google-site-verification" content="7vbSgMqtIVgd4WDBamHC2YavkSAVwGpQO8U2pFpVA6U" />
 
     @stack('styles')
     @if (request()->routeIs('home'))
@@ -75,7 +75,14 @@
     <script src="{{ asset('/js/vn.js') }}"></script> --}}
 
     @stack('scripts')
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KVKGWDRXSC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'G-KVKGWDRXSC');
+</script>
   
 
 </body>

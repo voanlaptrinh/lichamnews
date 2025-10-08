@@ -988,7 +988,23 @@ a {
     transition: color 0.3s ease;
     /* font-family: CormorantGaramond-Bold, serif; */
 }
-
+.main-navigation li span {
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    /* min-width: 215px; */
+    height: 50px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #ffffff;
+    background-image: none;
+    transition: color 0.3s ease;
+    /* font-family: CormorantGaramond-Bold, serif; */
+}
 /* --- KHI HOVER HOẶC ACTIVE: HIỂN THỊ ẢNH NỀN VÀ ĐỔI MÀU CHỮ --- */
 
 .site-header {
@@ -1056,6 +1072,7 @@ a {
 /* Trạng thái khi menu mở */
 .mobile-navigation.is-open {
     transform: translateX(0);
+    z-index: 9999999;
 }
 
 /* Nút đóng menu mobile */
@@ -2014,7 +2031,7 @@ body.menu-open {
 }
 
 .info-card {
-    padding: 32px;
+    padding: 25px;
     border-radius: 24px;
     /* The spec doesn't show a radius, but it's common. Adjust as needed. */
     background: #ffffff;
@@ -4587,7 +4604,7 @@ input.daterangepicker-input:hover {
     text-align: center;
     border: dashed 1px #2254AB;
     padding: 10px;
-    color: #2196F3;
+    color: #0C508D;
     font-weight: bold;
     background: #d7f5f3;
 }
@@ -5258,4 +5275,96 @@ a:not(.not-change-color):hover {
     padding: 25px;
     border-radius: 15px;
     margin-bottom: 25px;
+}
+
+
+
+.hv-memorial-widget-root {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+   transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+.hv-memorial-widget-root:hover {
+  transform: translateY(-3px); /* ĐÃ ĐỔI: Nhấc box lên 6px (cao hơn) */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); /* Đổ bóng rõ hơn */
+}
+.hv-memorial-date-panel {
+padding: 4px 9px;
+  background-color: #fdf8ee;
+  border: 1px solid #d1b48e;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.hv-memorial-month-text {
+  color: #B50A0A;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.hv-memorial-day-digit {
+  color: #222222;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1;
+  margin-top: 4px;
+  margin-bottom: 2px;
+}
+
+.hv-memorial-lunar-calendar-info {
+  color: #4F4F4F;
+  font-size: 10px;
+  line-height: 1.2;
+}
+
+.hv-memorial-event-summary {
+  margin-left: 10px;
+  flex-grow: 1;
+}
+
+.hv-memorial-event-title {
+  color: #192E52;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 6px 0;
+   line-height: 1.3; /* Rất quan trọng để duy trì chiều cao dòng */
+
+  /* CÁC THUỘC TÍNH MỚI ĐỂ GIỚI HẠN 2 DÒNG */
+  overflow: hidden; /* Ẩn nội dung tràn ra ngoài */
+  display: -webkit-box; /* Bật chế độ box model của WebKit */
+  -webkit-line-clamp: 2; /* Giới hạn số dòng tối đa là 2 */
+  -webkit-box-orient: vertical; /* Hướng của box model là theo chiều dọc */
+  text-overflow: ellipsis; /* Đảm bảo dấu ba chấm xuất hiện */
+}
+
+.hv-memorial-countdown-display {
+  color: #212121;
+  font-size: 0.9em;
+  display: flex;
+  align-items: center;
+  line-height: 1.2;
+}
+
+.hv-memorial-countdown-arrow {
+  margin-left: 6px;
+  color: #999999;
+  width: 14px;
+  height: 14px;
+  transform: translateY(1px);
+    transform: translateY(1px); /* Điều chỉnh nhỏ để căn chỉnh theo chiều dọc */
+  transition: all 0.2s ease-in-out; /* Thêm transition cho mũi tên */
+}
+.hv-memorial-countdown-display:hover .hv-memorial-countdown-arrow {
+  color: #1c4187; /* Thay đổi màu mũi tên thành màu xanh đậm */
+  transform: translateY(1px) translateX(3px); /* Di chuyển mũi tên sang phải 3px */
 }

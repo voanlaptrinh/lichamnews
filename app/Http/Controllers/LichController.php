@@ -84,13 +84,13 @@ class LichController extends Controller
         if (!$nam || $nam < 1800 || $nam > 2300) {
             abort(404);
         }
-       
+
         $can_chi_nam = KhiVanHelper::canchiNam($nam);
         $metaKeywords = "lịch âm $nam, lich am $nam, lich van nien $nam, âm lịch $nam, am lich $nam, lich am " . mb_strtolower($can_chi_nam);
         $ogImg = url("/image/nam/$nam");
         $titleName = LoadConfigHelper::$yheaderscanchi[$can_chi_nam];
- $metaTitle = " Lịch Âm năm {$nam} – Lịch Vạn Niên {$nam} | Xem Âm Lịch năm { $can_chi_nam}";
-        $metaDescription = "Xem Lịch Vạn Niên, lịch Âm năm {$nam} - năm { $can_chi_nam}. Tra cứu ngày âm – dương, ngày hoàng đạo, ngày tốt xấu, lễ tết và các sự kiện trong năm [năm…].";
+        $metaTitle = " Lịch Âm năm $nam – Lịch Vạn Niên $nam | Xem Âm Lịch năm $can_chi_nam";
+        $metaDescription = "Xem Lịch Vạn Niên, lịch Âm năm $nam - năm $can_chi_nam. Tra cứu ngày âm – dương, ngày hoàng đạo, ngày tốt xấu, lễ tết và các sự kiện trong năm $nam.";
         // Thông tin từng tháng dương lịch và tương ứng âm lịch
         $thang_info = [];
         $mo_ta_thang = [
@@ -170,7 +170,7 @@ class LichController extends Controller
             abort(404);
         }
 
-       
+
         // Dữ liệu lịch âm (giả định bạn đã viết lại hàm tương đương printTable)
         [$table_html, $data_totxau, $data_al] = LunarHelper::printTable($thang, $nam, true, true, true);
 
@@ -178,8 +178,8 @@ class LichController extends Controller
         $can_chi_thang = LunarHelper::canchiThang($nam, $thang);
 
 
-        $metaTitle = "Lịch Âm Tháng {$thang} Năm {$nam} – Lịch Vạn Niên {$can_chi_thang}/{$can_chi_nam}";
-        $metaDescription = "Tra cứu lịch âm tháng {$thang} năm {$nam} chính xác. Xem ngày âm – dương, ngày hoàng đạo, ngày tốt xấu và các dịp lễ tết quan trọng trong tháng {$thang}/{$nam}.";
+        $metaTitle = "Lịch Âm Tháng $thang Năm $nam – Lịch Vạn Niên $thang/$nam";
+        $metaDescription = "Tra cứu lịch âm tháng $thang năm $nam chính xác. Xem ngày âm – dương, ngày hoàng đạo, ngày tốt xấu và các dịp lễ tết quan trọng trong tháng $thang/$nam.";
         $le_lichs = array_filter(LoadConfigHelper::$ledl, function ($le) use ($thang) {
             return $le['mm'] == $thang;
         });
