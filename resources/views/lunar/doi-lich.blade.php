@@ -28,30 +28,36 @@
                                                         <span class="date-icon-custom">
                                                             <i class="bi bi-calendar-date-fill"></i>
                                                         </span>
-                                                        <div id="solar-select-container" class="date-select-container" style="display: none;">
+                                                        <div id="solar-select-container" class="date-select-container"
+                                                            style="display: none;">
                                                             <div class="row g-2">
                                                                 <div class="col-4">
                                                                     <label class="form-label-sm">Ngày</label>
-                                                                    <select id="solar-day" class="form-select form-select-sm">
+                                                                    <select id="solar-day"
+                                                                        class="form-select form-select-sm">
                                                                         <!-- Options will be populated by JS -->
                                                                     </select>
                                                                 </div>
                                                                 <div class="col-4">
                                                                     <label class="form-label-sm">Tháng</label>
-                                                                    <select id="solar-month" class="form-select form-select-sm">
+                                                                    <select id="solar-month"
+                                                                        class="form-select form-select-sm">
                                                                         <!-- Options will be populated by JS -->
                                                                     </select>
                                                                 </div>
                                                                 <div class="col-4">
                                                                     <label class="form-label-sm">Năm</label>
-                                                                    <select id="solar-year" class="form-select form-select-sm">
+                                                                    <select id="solar-year"
+                                                                        class="form-select form-select-sm">
                                                                         <!-- Options will be populated by JS -->
                                                                     </select>
                                                                 </div>
                                                             </div>
                                                             <div class="mt-2 text-end">
-                                                                <button type="button" class="btn btn-sm btn-secondary me-1" onclick="hideDateSelect('solar')">Hủy</button>
-                                                                <button type="button" class="btn btn-sm btn-primary" onclick="applyDateSelect('solar')">Chọn</button>
+                                                                <button type="button" class="btn btn-sm btn-secondary me-1"
+                                                                    onclick="hideDateSelect('solar')">Hủy</button>
+                                                                <button type="button" class="btn btn-sm btn-primary"
+                                                                    onclick="applyDateSelect('solar')">Chọn</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -67,30 +73,36 @@
                                                         <span class="date-icon-custom">
                                                             <i class="bi bi-calendar-date-fill"></i>
                                                         </span>
-                                                        <div id="lunar-select-container" class="date-select-container" style="display: none;">
+                                                        <div id="lunar-select-container" class="date-select-container"
+                                                            style="display: none;">
                                                             <div class="row g-2">
                                                                 <div class="col-4">
                                                                     <label class="form-label-sm">Ngày</label>
-                                                                    <select id="lunar-day" class="form-select form-select-sm">
+                                                                    <select id="lunar-day"
+                                                                        class="form-select form-select-sm">
                                                                         <!-- Options will be populated by JS -->
                                                                     </select>
                                                                 </div>
                                                                 <div class="col-4">
                                                                     <label class="form-label-sm">Tháng</label>
-                                                                    <select id="lunar-month" class="form-select form-select-sm">
+                                                                    <select id="lunar-month"
+                                                                        class="form-select form-select-sm">
                                                                         <!-- Options will be populated by JS -->
                                                                     </select>
                                                                 </div>
                                                                 <div class="col-4">
                                                                     <label class="form-label-sm">Năm</label>
-                                                                    <select id="lunar-year" class="form-select form-select-sm">
+                                                                    <select id="lunar-year"
+                                                                        class="form-select form-select-sm">
                                                                         <!-- Options will be populated by JS -->
                                                                     </select>
                                                                 </div>
                                                             </div>
                                                             <div class="mt-2 text-end">
-                                                                <button type="button" class="btn btn-sm btn-secondary me-1" onclick="hideDateSelect('lunar')">Hủy</button>
-                                                                <button type="button" class="btn btn-sm btn-primary" onclick="applyDateSelect('lunar')">Chọn</button>
+                                                                <button type="button" class="btn btn-sm btn-secondary me-1"
+                                                                    onclick="hideDateSelect('lunar')">Hủy</button>
+                                                                <button type="button" class="btn btn-sm btn-primary"
+                                                                    onclick="applyDateSelect('lunar')">Chọn</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -430,7 +442,10 @@
                     <!-- ** KHỐI SỰ KIỆN SẮP TỚI ** -->
                     <div class="events-card">
                         <h5 class="card-title-right">Sự kiện, ngày lễ sắp tới</h5>
-                        <ul class="list-group list-group-flush events-list">
+
+
+
+                        <div class="boxx--sukiensaptoi">
                             @foreach ($upcomingEvents as $event)
                                 @php
                                     // Phân tích cú pháp ngày sự kiện một lần để lấy các phần tử năm, tháng, ngày
@@ -440,30 +455,53 @@
                                         'thang' => $eventCarbonDate->month,
                                         'ngay' => $eventCarbonDate->day,
                                     ];
-                                @endphp
-                                <li class="list-group-item event-item">
-                                    <a href="{{ route('detai_home', $routeParams) }}">
-                                        <div class="event-date">Ngày
-                                            {{ Carbon\Carbon::parse($event['date'])->format('d/m') }}</div>
-                                        <div class="event-icon">🗓️</div>
-                                        <div class="event-details">
-                                            <div class="event-name">{{ $event['description'] }}</div>
-                                            <div class="event-countdown">
-                                                @if ($event['days_remaining'] === 0)
-                                                    Hôm nay
-                                                @elseif ($event['days_remaining'] === 1)
-                                                    Còn 1 ngày
-                                                @else
-                                                    Còn {{ $event['days_remaining'] }} ngày
-                                                @endif
 
-                                                <i class="bi bi-chevron-right"></i>
-                                            </div>
+                                    // Chuyển đổi sang âm lịch
+                                    $lunarDate = App\Helpers\LunarHelper::convertSolar2Lunar(
+                                        $eventCarbonDate->day,
+                                        $eventCarbonDate->month,
+                                        $eventCarbonDate->year,
+                                    );
+                                @endphp
+                                <a class="hv-memorial-widget-root mt-3" href="{{ route('detai_home', $routeParams) }}">
+                                    <div class="hv-memorial-date-panel">
+                                        <div class="hv-memorial-month-text">Tháng
+                                            {{ Carbon\Carbon::parse($event['date'])->format('n') }}</div>
+                                        <div class="hv-memorial-day-digit">
+                                            {{ Carbon\Carbon::parse($event['date'])->format('d') }}</div>
+                                        <div class="hv-memorial-lunar-calendar-info">
+                                            {{ $lunarDate[0] }}/{{ $lunarDate[1] }} ÂL</div>
+                                    </div>
+                                    <div class="hv-memorial-event-summary">
+                                        <h3 class="hv-memorial-event-title">{{ $event['description'] }}</h3>
+                                        <div class="hv-memorial-countdown-display">
+                                            @if ($event['days_remaining'] === 0)
+                                                Hôm nay
+                                            @elseif ($event['days_remaining'] === 1)
+                                                Còn 1 ngày
+                                            @else
+                                                Còn {{ $event['days_remaining'] }} ngày
+                                            @endif
+                                            <!-- Sử dụng SVG cho mũi tên để có độ chính xác cao nhất về hình dáng -->
+                                            <svg class="hv-memorial-countdown-arrow" viewBox="0 0 24 24" width="16"
+                                                height="16" fill="currentColor">
+                                                <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z" />
+                                            </svg>
                                         </div>
-                                    </a>
-                                </li>
+                                    </div>
+
+                                </a>
                             @endforeach
-                        </ul>
+
+
+
+                        </div>
+
+
+
+
+
+
                     </div>
                 </div>
             </div>
@@ -511,131 +549,131 @@
 
 
 @push('styles')
-<style>
-.date-input-wrapper .date-icon-custom {
-    position: absolute;
-    right: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    pointer-events: none;
-    color: #46494E;
-}
-
-.date-input {
-    cursor: pointer;
-    padding-right: 40px;
-}
-
-.date-select-container {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background: white;
-    border: 1px solid #dee2e6;
-    border-radius: 0.375rem;
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-    z-index: 1050;
-    padding: 15px;
-    margin-top: 5px;
-}
-
-.form-label-sm {
-    font-size: 0.875rem;
-    margin-bottom: 0.25rem;
-    font-weight: 500;
-}
-
-@media (max-width: 768px) {
-    .date-select-container {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 90%;
-        max-width: 400px;
-    }
-
-    /* Mobile popup styles */
-    .mobile-date-popup {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        z-index: 9999;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .mobile-popup-content {
-        background: white;
-        border-radius: 15px;
-        padding: 25px 20px;
-        width: 90%;
-        max-width: 400px;
-        max-height: 80vh;
-        overflow-y: auto;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    }
-
-    .mobile-popup-header {
-        text-align: center;
-        margin-bottom: 20px;
-        font-weight: 600;
-        font-size: 18px;
-        color: #2254AB;
-    }
-
-    .mobile-popup-buttons {
-        display: flex;
-        gap: 15px;
-        margin-top: 25px;
-    }
-
-    .mobile-popup-btn {
-        flex: 1;
-        padding: 15px 20px;
-        border: none;
-        border-radius: 10px;
-        font-size: 16px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
-
-    .mobile-popup-btn.choose {
-        background: #2254AB;
-        color: white;
-    }
-
-    .mobile-popup-btn.choose:hover {
-        background: #1e4a96;
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(34, 84, 171, 0.3);
-    }
-
-    .mobile-popup-btn.cancel {
-        background: #f8f9fa;
-        color: #46494E;
-        border: 2px solid #dee2e6;
-    }
-
-    .mobile-popup-btn.cancel:hover {
-        background: #e9ecef;
-        border-color: #adb5bd;
-    }
-
-    /* Hide default selects on mobile and show popup instead */
-    @media (max-width: 768px) {
-        .date-select-container {
-            display: none !important;
+    <style>
+        .date-input-wrapper .date-icon-custom {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+            color: #46494E;
         }
-    }
-}
-</style>
+
+        .date-input {
+            cursor: pointer;
+            padding-right: 40px;
+        }
+
+        .date-select-container {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 0.375rem;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+            z-index: 1050;
+            padding: 15px;
+            margin-top: 5px;
+        }
+
+        .form-label-sm {
+            font-size: 0.875rem;
+            margin-bottom: 0.25rem;
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .date-select-container {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 90%;
+                max-width: 400px;
+            }
+
+            /* Mobile popup styles */
+            .mobile-date-popup {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 9999;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .mobile-popup-content {
+                background: white;
+                border-radius: 15px;
+                padding: 25px 20px;
+                width: 90%;
+                max-width: 400px;
+                max-height: 80vh;
+                overflow-y: auto;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            }
+
+            .mobile-popup-header {
+                text-align: center;
+                margin-bottom: 20px;
+                font-weight: 600;
+                font-size: 18px;
+                color: #2254AB;
+            }
+
+            .mobile-popup-buttons {
+                display: flex;
+                gap: 15px;
+                margin-top: 25px;
+            }
+
+            .mobile-popup-btn {
+                flex: 1;
+                padding: 15px 20px;
+                border: none;
+                border-radius: 10px;
+                font-size: 16px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+
+            .mobile-popup-btn.choose {
+                background: #2254AB;
+                color: white;
+            }
+
+            .mobile-popup-btn.choose:hover {
+                background: #1e4a96;
+                transform: translateY(-2px);
+                box-shadow: 0 5px 15px rgba(34, 84, 171, 0.3);
+            }
+
+            .mobile-popup-btn.cancel {
+                background: #f8f9fa;
+                color: #46494E;
+                border: 2px solid #dee2e6;
+            }
+
+            .mobile-popup-btn.cancel:hover {
+                background: #e9ecef;
+                border-color: #adb5bd;
+            }
+
+            /* Hide default selects on mobile and show popup instead */
+            @media (max-width: 768px) {
+                .date-select-container {
+                    display: none !important;
+                }
+            }
+        }
+    </style>
 @endpush
 
 @push('scripts')
@@ -1010,7 +1048,8 @@
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                                'content')
                         },
                         body: JSON.stringify({
                             month: parseInt(month),
@@ -1158,7 +1197,8 @@
                 lunarInput.value = lunarDateFromController;
             @else
                 // GET request hoặc tải trang lần đầu - hiển thị ngày hôm nay từ controller
-                const solarDateFromController = '{{ sprintf('%02d', $dd) }}/{{ sprintf('%02d', $mm) }}/{{ $yy }}';
+                const solarDateFromController =
+                    '{{ sprintf('%02d', $dd) }}/{{ sprintf('%02d', $mm) }}/{{ $yy }}';
                 const lunarDateFromController =
                     '{{ sprintf('%02d', $al[0]) }}/{{ sprintf('%02d', $al[1]) }}/{{ $al[2] }}';
 
@@ -1201,7 +1241,8 @@
                     const year = document.getElementById('mobile-year').value;
 
                     if (day && month && year) {
-                        const formattedDate = `${String(day).padStart(2, '0')}/${String(month).padStart(2, '0')}/${year}`;
+                        const formattedDate =
+                            `${String(day).padStart(2, '0')}/${String(month).padStart(2, '0')}/${year}`;
 
                         // Clear both inputs first
                         document.getElementById('solar_date').value = '';
@@ -1242,7 +1283,8 @@
                     const selectedMonth = parseInt(this.value);
                     const selectedYear = parseInt(mobileYearSelect.value);
                     const selectedDay = parseInt(document.getElementById('mobile-day').value) || 1;
-                    await updateMobileDayOptions(currentMobileType, selectedMonth, selectedYear, selectedDay);
+                    await updateMobileDayOptions(currentMobileType, selectedMonth, selectedYear,
+                        selectedDay);
                 });
             }
 
@@ -1251,7 +1293,8 @@
                     const selectedMonth = parseInt(mobileMonthSelect.value);
                     const selectedYear = parseInt(this.value);
                     const selectedDay = parseInt(document.getElementById('mobile-day').value) || 1;
-                    await updateMobileDayOptions(currentMobileType, selectedMonth, selectedYear, selectedDay);
+                    await updateMobileDayOptions(currentMobileType, selectedMonth, selectedYear,
+                        selectedDay);
                 });
             }
 

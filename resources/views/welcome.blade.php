@@ -8,7 +8,6 @@
     <meta name="description" content="{{ $metaDescription ?? '' }}">
     <!-- Các link CSS nếu cần, ví dụ: Bootstrap hoặc custom CSS -->
     <link href="{{ asset('/css/bootstrap.min.css?v=4.91') }}" rel="stylesheet">
-    {{-- <link rel="stylesheet" href="{{ asset('/css/airbnb.css') }}"> hoặc dark, material_red --}}
     <link rel="stylesheet" href="{{ asset('/css/bootstrap-icons.min.css?v=4.92') }}">
     <link rel="stylesheet" href="{{ asset('/css/style-date.css?v=4.92') }}">
     <link rel="stylesheet" href="{{ asset('/css/repont.css?v=4.92') }}">

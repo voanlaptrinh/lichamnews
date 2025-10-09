@@ -247,24 +247,32 @@
                                 </div>
 
                                 <div class="d-flex align-items-center justify-content-center">
-                                    <select id="month-select" class="form-select me-2 custom-select-style">
-                                        @for ($i = 1; $i <= 12; $i++)
-                                            <option value="{{ $i }}" {{ $i == $mm ? 'selected' : '' }}>
-
-                                                <i class="bi bi-calendar-week"></i>
-
-                                                Tháng
-                                                {{ $i }}
-                                            </option>
-                                        @endfor
-                                    </select>
-                                    <select id="year-select" class="form-select custom-select-style">
-                                        @for ($i = 1900; $i <= 2100; $i++)
-                                            <option value="{{ $i }}" {{ $i == $yy ? 'selected' : '' }}><i
-                                                    class="bi bi-calendar-week"></i> Năm
-                                                {{ $i }}</option>
-                                        @endfor
-                                    </select>
+                                    <div class="me-2 select-with-icon">
+                                   
+                                        <div class="select-wrapper">
+                                            <i class="bi bi-calendar-month select-icon"></i>
+                                            <select id="month-select" class="form-select custom-select-style select-with-icon-input"  aria-label="Chọn tháng">
+                                                @for ($i = 1; $i <= 12; $i++)
+                                                    <option value="{{ $i }}" {{ $i == $mm ? 'selected' : '' }}>
+                                                        Tháng {{ $i }}
+                                                    </option>
+                                                @endfor
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="select-with-icon">
+                                        
+                                        <div class="select-wrapper">
+                                            <i class="bi bi-calendar-range select-icon"></i>
+                                            <select id="year-select" class="form-select custom-select-style select-with-icon-input" aria-label="Chọn năm">
+                                                @for ($i = 1900; $i <= 2100; $i++)
+                                                    <option value="{{ $i }}" {{ $i == $yy ? 'selected' : '' }}>
+                                                        Năm {{ $i }}
+                                                    </option>
+                                                @endfor
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
                                 {{--   <a href="{{ route('detai_home', ['nam' => date('Y'), 'thang' => date('n'), 'ngay' => date('d')]) }}"
                                     class="btn-today-home-pc btn-today-home">
@@ -700,12 +708,36 @@
             text-align: center;
             line-height: 1.2;
         }
+
+        .select-wrapper {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .select-icon {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1;
+            color: #6c757d;
+            pointer-events: none;
+            font-size: 14px;
+        }
+
+        .select-with-icon-input {
+            padding-left: 35px !important;
+            position: relative;
+            z-index: 2;
+            background: transparent;
+        }
     </style>
 @endpush
 
 @push('scripts')
-    <script src="{{ asset('js/base-picker.js?v=1.92') }}"></script>
-    <script src="{{ asset('js/homepage-picker.js?v=1.92') }}"></script>
+    <script src="{{ asset('js/base-picker.js?v=1.93') }}"></script>
+    <script src="{{ asset('js/homepage-picker.js?v=1.93') }}"></script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             // Khởi tạo ứng dụng lịch âm cho trang chủ (không thay đổi URL)
