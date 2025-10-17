@@ -1,8 +1,9 @@
 @extends('welcome')
 @section('content')
     <div class="container-setup">
-        <h6 class="content-title-detail"><a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a><i class="bi bi-chevron-right"></i> <span
-                >Đổi ngày âm dương </span></h6>
+        <h6 class="content-title-detail"><a href="{{ route('home') }}"
+                style="color: #2254AB; text-decoration: underline;">Trang chủ</a><i class="bi bi-chevron-right"></i> <span>Đổi
+                ngày âm dương </span></h6>
         <h1 class="content-title-home-lich">Đổi Ngày Dương Sang Âm & Âm Sang Dương</h1>
         <div class="row g-3">
             <div class="col-xl-9 col-sm-12 col-12">
@@ -12,7 +13,7 @@
                             <div class="">
                                 <div class="row --pading">
                                     <div class="col-lg-8">
-                                        <h6 class="--text-down-convert">Chọn ngày dương hoặc âm bất kỳ:</h6>
+                                        <div class="--text-down-convert">Chọn ngày dương hoặc âm bất kỳ:</div>
                                         <p>Chọn ngày âm lịch hoặc dương lịch mà bạn mong muốn rồi ấn vào nút chuyển đổi.</p>
                                         <form action="{{ route('convert.am.to.duong') }}" method="POST">
                                             @csrf
@@ -115,8 +116,8 @@
                                                         class="img-fluid">
                                                 </button>
                                                 <div class="col-lg-12">
-                                                    <div class="d-flex justify-content-center">
-                                                        <button type="submit" class="btn btn-primary btnd-nfay">Chuyển
+                                                    <div class="d-flex justify-content-center" >
+                                                        <button type="submit" style="background: #115097" class="btn btn-primary btnd-nfay">Chuyển
                                                             đổi</button>
                                                     </div>
                                                 </div>
@@ -137,15 +138,14 @@
 
                     <div class="col-lg-12 order-2 order-lg-2">
                         <div class="box-date-detail bg-white-setting">
-                            <h6 class="--text-down-convert">Kết quả chuyển đổi</h6>
+                            <div class="--text-down-convert">Kết quả chuyển đổi</div>
                             <div class="col-lg-12 order-1 order-lg-1 mb-3">
                                 <div class="row g-3">
                                     <div class="col-6" id="solar-display-container">
                                         <div class="date-display-card">
-                                            <a href="javascript:void(0)"
-                                                class="nav-arrow nav-home-date nave-left prev-day-btn"
+                                            <button type="button" class="nav-arrow nav-home-date nave-left prev-day-btn"
                                                 title="Ngày hôm trước" id="pc-prev-btn"><i
-                                                    class="bi bi-chevron-left"></i></a>
+                                                    class="bi bi-chevron-left"></i></button>
                                             <div class="text-center">
                                                 <div
                                                     class="card-title title-amduowngbox d-flex align-items-center justify-content-center g-2">
@@ -201,10 +201,9 @@
                                                 </div>
                                             </div>
 
-                                            <a href="javascript:void(0)"
-                                                class="nav-arrow nav-home-date nave-right next-day-btn"
+                                            <button type="button" class="nav-arrow nav-home-date nave-right next-day-btn"
                                                 title="Ngày hôm sau" id="pc-next-btn"> <i
-                                                    class="bi bi-chevron-right"></i></a>
+                                                    class="bi bi-chevron-right"></i></button>
                                             @if ($tot_xau_result == 'tot')
                                                 <div class="day-status hoang-dao">
                                                     <span class="status-dot"></span>
@@ -228,16 +227,16 @@
                                         <div></div>
                                         <div class="d-flex gap-2">
                                             <div class="div">
-                                                <a href="javascript:void(0)"
+                                                <button type="button"
                                                     class="nav-arrow prev-day-btn-mobie  nave-left prev-day-btn"
                                                     title="Ngày hôm trước" id="mobile-prev-btn"><i
-                                                        class="bi bi-chevron-left"></i></a>
+                                                        class="bi bi-chevron-left"></i></button>
                                             </div>
                                             <div class="div">
-                                                <a href="javascript:void(0)"
+                                                <button type="button" 
                                                     class="nav-arrow  next-day-btn-mobie nave-right next-day-btn"
                                                     title="Ngày hôm sau" id="mobile-next-btn"> <i
-                                                        class="bi bi-chevron-right"></i></a>
+                                                        class="bi bi-chevron-right"></i></button>
                                             </div>
                                         </div>
                                     </div>
@@ -251,7 +250,7 @@
                                             class="sonar-date">{{ $dd }}/{{ $mm }}/{{ $yy }}</span>
                                     </p>
                                     <p>✦ Ngày Âm: <span
-                                            class="lunar-date ">{{ $al[0] }}/{{ $al[1] }}/{{ $al[2] }}</span>
+                                            class="lunar-date " style="color: #744F0C !important">{{ $al[0] }}/{{ $al[1] }}/{{ $al[2] }}</span>
                                     </p>
                                     <p>✦ Là ngày: {{ $weekday }}</p>
                                     <p>✦ Ngũ hành nạp âm: {{ $getThongTinNgay['nap_am']['napAm'] }}</p>
@@ -262,7 +261,7 @@
                                     <div class="col-lg-12 pt-2 d-flex justify-content-center ">
                                         <a href="{{ route('detai_home', ['nam' => $yy, 'thang' => $mm, 'ngay' => $dd]) }}"
                                             class="btn btn-primary w-100 mt-3 btn0mobie mt-3"> <img
-                                                src="{{ asset('/icons/hand_2_white.svg') }}" alt="hand_2"
+                                                src="{{ asset('/icons/hand_2_white.svg') }}" alt="hand_2" width="28" height="29"
                                                 class="img-fluid">
                                             Xem chi
                                             tiết</a>
@@ -278,12 +277,13 @@
 
                 <div class="mt-3">
                     <div class="calendar-wrapper">
-                        <div class="calendar-header-convert calendar-header" >
+                        <div class="calendar-header-convert calendar-header">
                             <div class="text-center">
-                                <h5 class="mb-0 pt-2">Tháng {{ $mm }} năm {{ $yy }}</h5>
+                                <div class="mb-0 pt-2 title-tong-quan-h5">Tháng {{ $mm }} năm {{ $yy }}</div>
                             </div>
                             <div class="d-flex align-items-center justify-content-center">
-                                <select id="month-select" class="form-select me-2 custom-select-style"  aria-label="Chọn tháng"> 
+                                <select id="month-select" class="form-select me-2 custom-select-style"
+                                    aria-label="Chọn tháng">
                                     @for ($i = 1; $i <= 12; $i++)
                                         <option value="{{ $i }}" {{ $i == $mm ? 'selected' : '' }}>Tháng
                                             {{ $i }}</option>
@@ -343,7 +343,7 @@
                         <h2 class="title-tong-quan-h2">Đổi Ngày Dương Sang Âm, Âm Sang Dương Online</h2>
                         <hr>
                         <div class="text-box-tong-quan ">
-                            <h4 class="title-tong-quan-h4-log">Đổi Ngày Dương Sang Âm Là Gì?</h4>
+                            <div class="title-tong-quan-h4-log">Đổi Ngày Dương Sang Âm Là Gì?</div>
                             <p><b>Đổi ngày Dương sang Âm</b> (hoặc đổi ngày Âm sang Dương) là việc chuyển đổi giữa hai hệ
                                 thống lịch khác nhau:</p>
                             <ul>
@@ -355,7 +355,7 @@
                             <p>Người Việt Nam hiện nay song song sử dụng cả hai hệ thống này. Vì vậy, việc đổi ngày qua lại
                                 giữa lịch Dương và lịch Âm là rất cần thiết để vừa đảm bảo công việc hằng ngày, vừa giữ gìn
                                 đời sống văn hóa – tâm linh.</p>
-                            <h4 class="title-tong-quan-h4-log">Sự Khác Biệt Giữa Âm Lịch Và Dương Lịch</h4>
+                            <div class="title-tong-quan-h4-log">Sự Khác Biệt Giữa Âm Lịch Và Dương Lịch</div>
                             <ul>
                                 <li><b>Dương lịch</b> tính theo chu kỳ quay của Trái Đất quanh Mặt Trời, một năm có 365 hoặc
                                     366 ngày. Đây là loại lịch chính thức trên toàn thế giới.</li>
@@ -367,7 +367,7 @@
                                 thường dựa theo Âm lịch.</p>
                             <p>Chính vì thế, công cụ đổi ngày Âm sang Dương và ngược lại ra đời để giúp người dùng thuận
                                 tiện hơn trong việc xác định ngày tháng theo cả hai hệ thống.</p>
-                            <h4 class="title-tong-quan-h4-log">Khi Nào Cần Đổi Ngày Âm Sang Dương Và Ngược Lại?</h4>
+                            <div class="title-tong-quan-h4-log">Khi Nào Cần Đổi Ngày Âm Sang Dương Và Ngược Lại?</div>
                             <p>Trong đời sống hằng ngày, nhu cầu đổi ngày Âm – Dương rất phổ biến, ví dụ:</p>
                             <ul>
                                 <li>Ghi nhớ ngày giỗ, lễ Tết: Muốn biết ngày giỗ (theo Âm lịch) rơi vào ngày nào theo Dương
@@ -379,7 +379,7 @@
                                 <li>Xem vận mệnh, tử vi: Nhiều công cụ tử vi, phong thủy cần nhập dữ liệu theo Âm lịch và
                                     Can Chi, trong khi giấy tờ cá nhân lại theo Dương lịch.</li>
                             </ul>
-                            <h4 class="title-tong-quan-h4-log">Ý Nghĩa Của Việc Đổi Ngày Trong Văn Hóa Việt Nam</h4>
+                            <div class="title-tong-quan-h4-log">Ý Nghĩa Của Việc Đổi Ngày Trong Văn Hóa Việt Nam</div>
                             <p>Đổi ngày Âm – Dương không chỉ mang tính tiện ích mà còn gắn liền với nhiều giá trị văn hóa:
                             </p>
                             <ul>
@@ -393,27 +393,30 @@
                             </ul>
                             <p>Có thể nói, đổi ngày Âm sang Dương là nhịp cầu nối giữa truyền thống và hiện đại, giữa văn
                                 hóa phương Đông và hành chính phương Tây.</p>
-                            <h4 class="title-tong-quan-h4-log">Hướng Dẫn Sử Dụng Công Cụ Đổi Ngày Trên Phong Lịch</h4>
+                            <div class="title-tong-quan-h4-log">Hướng Dẫn Sử Dụng Công Cụ Đổi Ngày Trên Phong Lịch</div>
                             <p>Tại <b>phonglich.com</b>, bạn có thể dễ dàng đổi ngày Âm sang Dương hoặc ngược lại chỉ trong
                                 vài giây:</p>
-                            <ul style="list-style-type: decimal ">
+                            <ul style="list-style-type: decimal">
                                 <li>Chọn ngày cần đổi (theo Âm lịch hoặc Dương lịch).</li>
-                                <li>Hệ thống tự động trả kết quả gồm:</li>
-                                <ul>
-                                    <li>Ngày Âm/Dương tương ứng.</li>
-                                    <li>Thông tin Can Chi, Tiết khí, ngày Hoàng đạo – Hắc đạo.</li>
-                                    <li>Gợi ý ngày tốt, giờ tốt cho các công việc quan trọng.</li>
-                                </ul>
+                                <li>
+                                    Hệ thống tự động trả kết quả gồm:
+                                    <ul style="list-style-type: disc;">
+                                        <li>Ngày Âm/Dương tương ứng.</li>
+                                        <li>Thông tin Can Chi, Tiết khí, ngày Hoàng đạo – Hắc đạo.</li>
+                                        <li>Gợi ý ngày tốt, giờ tốt cho các công việc quan trọng.</li>
+                                    </ul>
+                                </li>
                                 <li>Người dùng có thể tiếp tục tra cứu các công cụ liên quan như xem tử vi, xem phong thủy,
                                     chọn ngày hợp tuổi.</li>
                             </ul>
+
                             <p>Ưu điểm của công cụ tại Phong Lịch:</p>
                             <ul>
                                 <li>Nhanh chóng – chính xác – miễn phí.</li>
                                 <li>Giao diện thân thiện, dễ sử dụng trên cả máy tính và điện thoại.</li>
                                 <li>Tích hợp nhiều tri thức cổ truyền (Âm lịch, Can Chi, Ngũ hành, Tử vi)</li>
                             </ul>
-                            <h4 class="title-tong-quan-h4-log">Kết Luận</h4>
+                            <div class="title-tong-quan-h4-log">Kết Luận</div>
                             <p>Trong đời sống hiện đại, việc đổi ngày Âm sang Dương và đổi ngày Dương sang Âm không chỉ giúp
                                 chúng ta thuận tiện trong công việc mà còn giữ gìn bản sắc văn hóa truyền thống.</p>
 
@@ -438,7 +441,7 @@
 
                     <!-- ** KHỐI SỰ KIỆN SẮP TỚI ** -->
                     <div class="events-card">
-                        <h5 class="card-title-right">Sự kiện, ngày lễ sắp tới</h5>
+                        <div class="card-title-right">Sự kiện, ngày lễ sắp tới</div>
 
 
 
@@ -1300,7 +1303,7 @@
             const pcNextBtn = document.getElementById('pc-next-btn');
 
             if (pcPrevBtn) {
-                console.log('Adding event listeners to PC prev button');
+
                 pcPrevBtn.addEventListener('click', function(e) {
                     console.log('PC prev button clicked');
                     e.preventDefault();
@@ -1311,7 +1314,7 @@
             }
 
             if (pcNextBtn) {
-                console.log('Adding event listeners to PC next button');
+
                 pcNextBtn.addEventListener('click', function(e) {
                     console.log('PC next button clicked');
                     e.preventDefault();
@@ -1406,7 +1409,7 @@
 
             monthSelect.addEventListener('change', debouncedUpdateCalendar);
             yearSelect.addEventListener('change', debouncedUpdateCalendar);
-             const select = document.getElementById('year-select');
+            const select = document.getElementById('year-select');
             const start = 1900;
             const end = 2100;
             const current = {{ $yy }};

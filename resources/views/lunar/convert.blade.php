@@ -39,8 +39,8 @@
                                         title="Ngày hôm trước"><i class="bi bi-chevron-left"></i></a>
                                     <div class="text-center">
                                         <div class="card-title title-amduowngbox"><img
-                                                src="{{ asset('icons/icon_duong.svg') }}" alt="icon_duong" width="20px"
-                                                height="20px"> Dương lịch</div>
+                                                src="{{ asset('icons/icon_duong.svg') }}" alt="icon_duong" width="20"
+                                                height="20" loading="eager"> Dương lịch</div>
                                         <div class="date-number duong date_number_lich"> {{ $dd }}</div>
                                         <div class="date-weekday">{{ $weekday }}</div>
                                         <div class="date-special-event text-dark">Tháng {{ $mm }} năm
@@ -63,9 +63,9 @@
                                 <div class="date-display-card">
                                     <div class="text-center">
                                         <div class="card-title title-amduowngbox"><img
-                                                src="{{ asset('icons/icon_am.svg') }}" alt="icon_am" width="20px"
-                                                height="20px"> Âm lịch</div>
-                                        <div class="date-number am date_number_lich date_number_lich_am">{{ $al[0] }}
+                                                src="{{ asset('icons/icon_am.svg') }}" alt="icon_am" width="20"
+                                                height="20" loading="eager"> Âm lịch</div>
+                                        <div class="date-number am date_number_lich date_number_lich_am" style="visibility: visible !important; opacity: 1 !important; display: block !important; transform: none !important; animation: none !important; transition: none !important;">{{ $al[0] }}
                                         </div>
                                         <div class="date-weekday">Tháng {{ $al[1] }} ({{ $al[4] }}) năm
                                             {{ $getThongTinCanChiVaIcon['can_chi_nam'] }}</div>
@@ -108,21 +108,21 @@
                             <div class="ring-item1-left item-rings">
                                 <div class="item-ring1">
                                     <img src="{{ asset('icons/cairing.png') }}" alt="cairing" width="13"
-                                        height="55">
+                                        height="55" loading="lazy" decoding="async">
                                 </div>
                                 <div class="item-ring2">
                                     <img src="{{ asset('icons/cairing.png') }}" alt="cairing" width="13"
-                                        height="55">
+                                        height="55" loading="lazy" decoding="async">
                                 </div>
                             </div>
                             <div class="ring-item2-right item-rings">
                                 <div class="item-ring3">
                                     <img src="{{ asset('icons/cairing.png') }}" alt="cairing" width="13"
-                                        height="55">
+                                        height="55" loading="lazy" decoding="async">
                                 </div>
                                 <div class="item-ring4">
                                     <img src="{{ asset('icons/cairing.png') }}" alt="cairing" width="13"
-                                        height="55">
+                                        height="55" loading="lazy" decoding="async">
                                 </div>
                             </div>
 
@@ -168,7 +168,7 @@
                                     <div class="col-xl-7 col-lg-6 col-sm-12 col-12 ">
                                         <div class="info-item">
                                             <img src="{{ asset('icons/icon_tiet_khi.svg') }}" alt="icon_tiet_khi"
-                                                class="icon_tiet_khi" width="24" height="24" loading="lazy">
+                                                class="icon_tiet_khi" width="24" height="24" loading="eager">
                                             <div class="font-detail-ngay">
                                                 <strong class="title-font-detail-ngay">Tiết khí:</strong>
                                                 <span class="">{{ $tietkhi['tiet_khi'] }}</span>
@@ -176,7 +176,7 @@
                                         </div>
                                         <div class="info-item">
                                             <img src="{{ asset('icons/icon_nap_am.svg') }}" alt="icon_nap_am"
-                                                class="icon_nap_am" width="24" height="24" loading="lazy">
+                                                class="icon_nap_am" width="24" height="24" loading="eager">
                                             <div class="font-detail-ngay">
                                                 <strong class="title-font-detail-ngay">Ngũ hành nạp âm:</strong>
                                                 {{ $getThongTinNgay['nap_am']['napAm'] }}
@@ -184,13 +184,16 @@
                                         </div>
                                         <div class="info-item">
                                             <img src="{{ asset('icons/icon_hoang_dao.svg') }}" alt="icon_hoang_dao"
-                                                class="icon_hoang_dao" width="24" height="24" fetchpriority="low"
-                                                decoding="async">
+                                                class="icon_hoang_dao" width="24" height="24" loading="eager">
 
-                                            <div class="font-detail-ngay">
+                                            <div class="font-detail-ngay" style="visibility: visible !important; opacity: 1 !important; will-change: auto; transform: translateZ(0);">
                                                 <strong class="title-font-detail-ngay">Giờ Hoàng đạo:</strong>
-                                                {{ $getThongTinNgay['gio_hoang_dao'] ?? 'Đang tính...' }}
+                                                <span id="gio-hoang-dao-content" style="display: inline-block; visibility: visible !important; opacity: 1 !important;">{{ $getThongTinNgay['gio_hoang_dao'] ?? 'Đang tính...' }}</span>
                                             </div>
+                                            <script>
+                                                // Force immediate paint for LCP element
+                                                document.getElementById('gio-hoang-dao-content').style.visibility = 'visible';
+                                            </script>
 
                                         </div>
                                     </div>
@@ -230,7 +233,7 @@
                                     <a href="{{ route('detai_home', ['nam' => $yy, 'thang' => $mm, 'ngay' => $dd]) }}"
                                         class="btn btn-primary w-100 mt-3 btn0mobie"><img
                                             src="{{ asset('icons/hand_2_white.svg') }}" alt="hand_2" width="28"
-                                            height="28" class="img-fluid">
+                                            height="28" class="img-fluid" loading="lazy">
                                         Xem
                                         chi tiết ngày</a>
                                 </div>
@@ -393,8 +396,8 @@
                             <a href="#" class="utility-item col-6 col-md-6 col-lg-3 mb-4 ">
                                 <div class="utility-title">Đổi ngày Âm - Dương</div>
                                 <div class="icon-wrapper">
-                                    <img src="{{ asset('icons/doi_ngay_am_duong.svg') }}" alt="Đổi ngày Âm - Dương"
-                                        width="77" height="76" class="img-fluid">
+                                    <img src="{{ asset('icons/doi_ngay_am_duong.webp?v=2.0') }}" alt="Đổi ngày Âm - Dương"
+                                        width="77" height="76" class="img-fluid" loading="lazy">
                                 </div>
 
                                 <p class="utility-description">Chuyển đổi nhanh giữa dương lịch và âm lịch.</p>
@@ -404,8 +407,8 @@
                             <a href="#" class="utility-item col-6 col-md-6 col-lg-3 mb-4">
                                 <div class="utility-title">Xem ngày Tốt</div>
                                 <div class="icon-wrapper">
-                                    <img src="{{ asset('icons/xem_ngay_tot.svg') }}" alt="Xem ngày Tốt" width="77"
-                                        height="76" class="img-fluid">
+                                    <img src="{{ asset('icons/xem_ngay_tot.webp?v=2.0') }}" alt="Xem ngày Tốt" width="77"
+                                        height="76" class="img-fluid" loading="lazy">
                                 </div>
 
                                 <p class="utility-description">Tra cứu ngày hoàng đạo để cưới hỏi, khai trương...</p>
@@ -415,8 +418,8 @@
                             <a href="#" class="utility-item col-6 col-md-6 col-lg-3 mb-4">
                                 <div class="utility-title">Xem hướng hợp mệnh</div>
                                 <div class="icon-wrapper">
-                                    <img src="{{ asset('icons/huong_dep.svg') }}" alt="Xem hướng hợp mệnh"
-                                        width="77" height="76" class="img-fluid">
+                                    <img src="{{ asset('icons/huong_dep.webp?v=2.0') }}" alt="Xem hướng hợp mệnh"
+                                        width="77" height="76" class="img-fluid" loading="lazy">
                                 </div>
                                 <p class="utility-description">Tìm hướng hợp tuổi để làm nhà, đặt bàn thờ...</p>
                             </a>
@@ -425,8 +428,8 @@
                             <a href="#" class="utility-item col-6 col-md-6 col-lg-3 mb-4">
                                 <div class="utility-title">Lá số tử vi</div>
                                 <div class="icon-wrapper">
-                                    <img src="{{ asset('icons/la_so_tu_vi.svg') }}" alt="Lá số tử vi" class="img-fluid"
-                                        width="77" height="76">
+                                    <img src="{{ asset('icons/la_so_tu_vi.webp?v=2.0') }}" alt="Lá số tử vi" class="img-fluid"
+                                        width="77" height="76" loading="lazy">
                                 </div>
 
                                 <p class="utility-description">Lập lá số chi tiết theo giờ/ngày sinh.</p>
@@ -740,8 +743,8 @@
 @endpush
 
 @push('scripts')
-    <script src="{{ asset('js/base-picker.js?v=1.94') }}"></script>
-    <script src="{{ asset('js/homepage-picker.js?v=1.94') }}"></script>
+    <script src="{{ asset('js/base-picker.js?v=2.0') }}"></script>
+    <script src="{{ asset('js/homepage-picker.js?v=2.0') }}"></script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             // Khởi tạo ứng dụng lịch âm cho trang chủ (không thay đổi URL)

@@ -1,8 +1,8 @@
 @extends('welcome')
 @section('content')
     <div class="container-setup">
-        <h6 class="content-title-detail"><a href="{{ route('home') }}">Trang chủ</a><i class="bi bi-chevron-right"></i> Lịch
-            năm {{ $yy }} <i class="bi bi-chevron-right"></i> <span style="color: #2254AB">
+        <h6 class="content-title-detail"><a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a><i class="bi bi-chevron-right"></i> Lịch
+            năm {{ $yy }} <i class="bi bi-chevron-right"></i> <span >
                 Tháng {{ $mm }}</span></h6>
         <h1 class="content-title-home-lich">Lịch Âm Tháng {{ $mm }} năm {{date('Y')}}</h1>
 
@@ -53,13 +53,13 @@
             </div>
             <div class="box--bg-thang mt-3">
                 <div class="">
-                    <h3 class="title-tong-quan-h3-log">
+                    <div class="title-tong-quan-h3-log">
                         Âm lịch tháng {{ $mm }}
-                    </h3>
+                    </div>
                     <hr>
                     <div>
                         <div class="calendar-header mt-0">
-                            <h5 class="mb-0">Tháng {{ $mm }} năm {{$can_chi_nam}}</h5>
+                            <div class="mb-0 title-tong-quan-h4-log" >Tháng {{ $mm }} năm {{$can_chi_nam}}</div>
                         </div>
                         <div class="calendar-wrapper calendar-wrapper-none">
                             <table class="calendar-table">
@@ -125,21 +125,21 @@
             </div>
             <div class="box--bg-thang mt-3">
                 <div class="">
-                    <h3 class="title-tong-quan-h3-log">
+                    <div class="title-tong-quan-h3-log">
                        Dương lịch tháng {{ $mm }}
-                    </h3>
+                    </div>
                     <hr>
                     <div class="calendar-wrapper calendar-wrapper-none">
                         <div class="calendar-header mt-0">
 
                             <a href="{{ route('lich.thang', ['nam' => $mm == 1 ? $yy - 1 : $yy, 'thang' => $mm == 1 ? 12 : $mm - 1]) }}"
-                                class="month-nav">
+                                class="month-nav" title="Tháng trước">
                                 <i class="bi bi-chevron-left"></i>
                             </a>
-                            <h5 class="mb-0">Tháng {{ $mm }} năm {{ $yy }}</h5>
+                            <div class="mb-0 title-tong-quan-h4-log">Tháng {{ $mm }} năm {{ $yy }}</div>
 
                             <a href="{{ route('lich.thang', ['nam' => $mm == 12 ? $yy + 1 : $yy, 'thang' => $mm == 12 ? 1 : $mm + 1]) }}"
-                                class="month-nav">
+                                class="month-nav" title="Tháng sau">
                                 <i class="bi bi-chevron-right"></i>
                             </a>
 
@@ -189,9 +189,9 @@
             <section class="">
                 <div class="box--bg-thang mt-3">
                     <div class="">
-                        <h3 class="title-tong-quan-h3-log">
+                        <div class="title-tong-quan-h3-log">
                             Ngày tốt tháng {{ $mm }} ( Hoàng Đạo )
-                        </h3>
+                        </div>
                         <hr>
 
                         <div class="row g-lg-3 g-2 row-btn-date">
@@ -216,9 +216,9 @@
                 </div>
                 <div class="box--bg-thang mt-3">
                     <div class="">
-                        <h3 class="title-tong-quan-h3-log">
+                        <div class="title-tong-quan-h3-log">
                             Ngày xấu tháng {{ $mm }} ( Hắc Đạo )
-                        </h3>
+                        </div>
                         <hr>
 
                         <div class="row g-lg-3 g-2 row-btn-date">
@@ -244,16 +244,16 @@
                 </div>
                 <div class="box--bg-thang mt-3">
                     <div class="">
-                        <h3 class="title-tong-quan-h3-log">
+                        <div class="title-tong-quan-h3-log">
                             Ngày lễ dương lịch tháng {{ $mm }}
-                        </h3>
+                        </div>
                         <hr>
                         <div class="row g-lg-3 g-2">
                             @forelse ($le_lichs as $le_lich)
                                 <div class=" col-12"> <!--  để cột chỉ chiếm chiều rộng cần thiết -->
                                     <div class="btn custom-pill-btn-date w-100 text-start">
 
-                                        <img src="{{ asset('icons/sukienn1.svg') }}" alt="Sự kiện" class="img-fluid me-2">
+                                        <img src="{{ asset('icons/sukienn1.svg') }}" alt="Sự kiện" class="img-fluid me-2" width="28" height="29">
                                         <b>{{ $le_lich['dd'] }}/{{ $le_lich['mm'] }}</b>: {{ $le_lich['name'] }}
                                     </div>
                                 </div>
@@ -270,16 +270,16 @@
 
                 <div class="box--bg-thang mt-3">
                     <div class="">
-                        <h3 class="title-tong-quan-h3-log">
+                        <div class="title-tong-quan-h3-log">
                             Ngày lễ âm lịch tháng {{ $primary_lunar_month }}
-                        </h3>
+                        </div>
                         <hr>
 
                         <div class="row g-lg-3 g-2">
                             @forelse ($le_lichs_am as $le_lich)
                                 <div class="col-12">
                                     <div class="btn custom-pill-btn-date w-100 text-start">
-                                        <img src="{{ asset('icons/sukienn1.svg') }}" alt="Sự kiện"
+                                        <img src="{{ asset('icons/sukienn1.svg') }}" alt="Sự kiện" width="28" height="29"
                                             class="img-fluid me-2">
                                         <b>{{ $le_lich['dd'] }}/{{ $le_lich['mm'] }}</b>: {{ $le_lich['name'] }}
                                     </div>
@@ -296,9 +296,9 @@
                 </div>
                 <div class="box--bg-thang mt-3">
                     <div class="">
-                        <h3 class="title-tong-quan-h3-log">
+                        <div class="title-tong-quan-h3-log">
                             Sự kiện lịch sử tháng {{ $mm }}
-                        </h3>
+                        </div>
                         <hr>
 
                         <div class="row g-lg-3 g-2">
@@ -306,7 +306,7 @@
                                 <div class=" col-12"> <!--  để cột chỉ chiếm chiều rộng cần thiết -->
                                     <div class="btn custom-pill-btn-date w-100 text-start">
 
-                                        <img src="{{ asset('icons/sukienn1.svg') }}" alt="Sự kiện"
+                                        <img src="{{ asset('icons/sukienn1.svg') }}" alt="Sự kiện" width="28" height="29"
                                             class="img-fluid me-2">{{ $su_kien }}
                                     </div>
                                 </div>
@@ -322,9 +322,9 @@
                 </div>
                 <div class="box--bg-thang mt-3 mb-3">
                     <div class="">
-                        <h3 class="title-tong-quan-h3-log">
+                        <div class="title-tong-quan-h3-log">
                             Ngày xuất hành âm lịch
-                        </h3>
+                        </đ>
                         <hr>
 
                         <div class="row g-lg-2 g-2 ">
@@ -332,7 +332,7 @@
                                 <div class=" col-12"> <!--  để cột chỉ chiếm chiều rộng cần thiết -->
                                     <div class="btn custom-pill-btn-date w-100 text-start">
 
-                                        <img src="{{ asset('icons/sukienn1.svg') }}" alt="Sự kiện"
+                                        <img src="{{ asset('icons/sukienn1.svg') }}" alt="Sự kiện" width="28" height="29"
                                             class="img-fluid me-2">{{ $ngay['day'] }}/{{ $ngay['month'] }}:
 
                                         @if (!empty($ngay['xuat_hanh_html']))
@@ -352,7 +352,7 @@
             <div class="d-flex flex-column gap-4">
                 <!-- ** KHỐI SỰ KIỆN SẮP TỚI ** -->
                 <div class="events-card">
-                    <h5 class="card-title-right">Lịch Âm các tháng năm {{$yy}}</h5>
+                    <div class="card-title-right title-tong-quan-h5-log">Lịch Âm các tháng năm {{$yy}}</div>
                     <ul class="list-group list-group-flush events-list">
                         @for ($i = 1; $i <= 12; $i++)
                             <li class="list-group-item event-item pb-0">
@@ -360,7 +360,7 @@
 
                                     <div class="event-details">
                                         <div class="event-name {{ $mm == $i ? 'active-date' : '' }}"
-                                            style="font-weight: unset"> <img src="{{ asset('/icons/sukienn1.svg') }}"
+                                            style="font-weight: unset"> <img src="{{ asset('/icons/sukienn1.svg') }}" width="28" height="29"
                                                 alt="Sự kiện" class="img-fluid me-2"> Lịch âm tháng {{ $i }}
                                             năm {{ $yy }}
                                         </div>

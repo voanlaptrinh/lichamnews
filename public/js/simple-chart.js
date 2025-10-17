@@ -1,0 +1,19 @@
+class SimpleBarChart{constructor(canvasId,options={}){this.canvas=document.getElementById(canvasId);if(!this.canvas)return;this.ctx=this.canvas.getContext('2d');this.data=options.data||[];this.labels=options.labels||[];this.options=options;this.canvas.width=this.canvas.offsetWidth;this.canvas.height=300;this.padding=40;this.barWidth=0;this.spacing=0;this.draw()}
+draw(){const width=this.canvas.width-(this.padding*2);const height=this.canvas.height-(this.padding*2);const maxValue=100;this.ctx.clearRect(0,0,this.canvas.width,this.canvas.height);const barCount=this.data.length;const totalSpacing=width*0.3;this.spacing=totalSpacing/(barCount+1);this.barWidth=(width-totalSpacing)/barCount;this.drawGrid(height,maxValue);this.data.forEach((value,index)=>{this.drawBar(index,value,height,maxValue)});this.drawLabels()}
+drawGrid(height,maxValue){this.ctx.strokeStyle='#e0e0e0';this.ctx.lineWidth=1;this.ctx.font='12px Arial';this.ctx.fillStyle='#666';for(let i=0;i<=5;i++){const y=this.padding+(height-(height*i/5));const value=(maxValue*i/5);this.ctx.beginPath();this.ctx.setLineDash([5,5]);this.ctx.moveTo(this.padding,y);this.ctx.lineTo(this.canvas.width-this.padding,y);this.ctx.stroke();this.ctx.setLineDash([]);this.ctx.textAlign='right';this.ctx.fillText(value+'%',this.padding-10,y+4)}}
+drawBar(index,value,height,maxValue){const x=this.padding+this.spacing+(index*(this.barWidth+this.spacing));const barHeight=(value/maxValue)*height;const y=this.padding+height-barHeight;const gradient=this.ctx.createLinearGradient(0,y,0,y+barHeight);gradient.addColorStop(0,'#2B7EE5');gradient.addColorStop(1,'#2254AB');this.ctx.fillStyle=gradient;this.roundRect(x,y,this.barWidth,barHeight,8);this.ctx.fill();this.ctx.fillStyle='#333';this.ctx.font='bold 12px Arial';this.ctx.textAlign='center';this.ctx.fillText(value+'%',x+this.barWidth/2,y-10);if(!this.bars)this.bars=[];this.bars[index]={x,y,width:this.barWidth,height:barHeight,value}}
+drawLabels(){this.ctx.fillStyle='#333';this.ctx.font='13px Arial';this.ctx.textAlign='center';this.labels.forEach((label,index)=>{const x=this.padding+this.spacing+(index*(this.barWidth+this.spacing))+(this.barWidth/2);const y=this.canvas.height-this.padding+25;this.ctx.fillText(label,x,y)})}
+roundRect(x,y,width,height,radius){if(height<radius*2)radius=height/2;if(width<radius*2)radius=width/2;this.ctx.beginPath();this.ctx.moveTo(x+radius,y);this.ctx.lineTo(x+width-radius,y);this.ctx.quadraticCurveTo(x+width,y,x+width,y+radius);this.ctx.lineTo(x+width,y+height);this.ctx.lineTo(x,y+height);this.ctx.lineTo(x,y+radius);this.ctx.quadraticCurveTo(x,y,x+radius,y);this.ctx.closePath()}
+updateData(data,labels){this.data=data;this.labels=labels||this.labels;this.draw()}
+enableTooltip(){const tooltip=document.createElement('div');tooltip.style.cssText=`
+            position: absolute;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            display: none;
+            pointer-events: none;
+            z-index: 1000;
+        `;document.body.appendChild(tooltip);this.canvas.addEventListener('mousemove',(e)=>{const rect=this.canvas.getBoundingClientRect();const x=e.clientX-rect.left;const y=e.clientY-rect.top;let hovered=!1;this.bars?.forEach((bar,index)=>{if(x>=bar.x&&x<=bar.x+bar.width&&y>=bar.y&&y<=bar.y+bar.height){tooltip.style.display='block';tooltip.style.left=e.clientX+10+'px';tooltip.style.top=e.clientY-30+'px';tooltip.textContent=`${this.labels[index]}: ${bar.value}%`;hovered=!0}});if(!hovered){tooltip.style.display='none'}});this.canvas.addEventListener('mouseleave',()=>{tooltip.style.display='none'})}}
+window.SimpleBarChart=SimpleBarChart

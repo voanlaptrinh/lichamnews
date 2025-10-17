@@ -1,7 +1,7 @@
 @extends('welcome')
 @section('content')
     <div class="container-setup">
-        <h6 class="content-title-detail"><a href="{{ route('home') }}">Trang chủ</a><i class="bi bi-chevron-right"></i>
+        <h6 class="content-title-detail"><a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a><i class="bi bi-chevron-right"></i>
             <span style="color: #2254AB">Lịch năm {{ $nam }} </span>
         </h6>
         @php
@@ -110,7 +110,7 @@
                         <div class="">
                             <div class="calendar-wrapper calendar-wrapper-none">
                                 <div class="text-center">
-                                    <h5 class="mb-0 pt-2">Tháng {{ $i }} năm {{ $nam }}</h5>
+                                    <div class="mb-0 pt-2 title-tong-quan-h4-log">Tháng {{ $i }} năm {{ $nam }}</div>
 
 
                                 </div>
@@ -210,7 +210,7 @@
                 <div class="d-flex flex-column gap-4">
                     <!-- ** KHỐI SỰ KIỆN SẮP TỚI ** -->
                     <div class="events-card">
-                        <h5 class="card-title-right">Lịch Vạn Niên Các Năm Khác</h5>
+                        <div class="card-title-right title-tong-quan-h4-log">Lịch Vạn Niên Các Năm Khác</div>
                         <ul class="list-group list-group-flush events-list">
                               @php($currentYearHeader = date('Y'))
                         @php($startYearHeader = $currentYearHeader - 1)
@@ -220,7 +220,9 @@
                                 <a href="{{ route('lich.nam', ['nam' => $year]) }}">
                                   
                                     <div class="event-details">
-                                        <div class="event-name {{ $year == $nam ? 'active-date' : '' }}" style="font-weight: unset"> <img src="{{ asset('/icons/sukienn1.svg') }}" alt="Sự kiện" class="img-fluid me-2"> Lịch vạn niên {{ $year }} </div>
+                                        <div class="event-name {{ $year == $nam ? 'active-date' : '' }}" style="font-weight: unset"> 
+                                            <img src="{{ asset('/icons/sukienn1.svg') }}" alt="Sự kiện" class="img-fluid me-2" width="28" height="29"> 
+                                            Lịch vạn niên {{ $year }} </div>
                                         
                                     </div>
                                 </a>

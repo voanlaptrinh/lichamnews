@@ -1228,7 +1228,7 @@ static function convertSolar2Lunar($dd, $mm, $yy, $timeZone = 7.0)
         foreach ($allEvents as $date => $title) {
             $html .= "
            <div class='col-12'> <div class='btn custom-pill-btn-date w-100 text-start'>
-            <img src='/icons/sukienn1.svg' alt='Sự kiện'
+            <img src='/icons/sukienn1.svg' alt='Sự kiện' width='28' height='29'
                                 class='img-fluid me-2'> $date: $title
             </div> </div>
             ";
@@ -1258,7 +1258,7 @@ static function convertSolar2Lunar($dd, $mm, $yy, $timeZone = 7.0)
             $dateDisplay = $dd . '/' . $mm; // in ra dd/mm âm lịch
             $html .= "
              <div class='col-12'> <div class='btn custom-pill-btn-date w-100 text-start'>
-            <img src='/icons/sukienn1.svg' alt='Sự kiện'
+            <img src='/icons/sukienn1.svg' alt='Sự kiện'  width='28' height='29'
                                 class='img-fluid me-2'> $dateDisplay (Âm lịch): $title
             </div> </div>";
         }
