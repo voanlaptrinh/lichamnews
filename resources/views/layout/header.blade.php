@@ -2,7 +2,7 @@
     <div class="container-setup d-flex align-items-center justify-content-between">
         <div class="site-logo d-flex align-items-center">
             <a href="{{ route('home') }}" class="text-white">
-                <img class="img-fluid me-2" src="{{ asset('/icons/logo_header.svg') }}" alt="logo Phong lịch">
+                <img class="img-fluid me-2" src="{{ asset('/icons/logo_header.svg') }}" alt="logo Phong lịch" width="40" height="40">
                 PHONG LỊCH
             </a>
         </div>
@@ -194,7 +194,7 @@
     <div class="mobile-nav-header">
         <span class="mobile-nav-logo">
             <!-- Thay bằng logo của bạn -->
-            <img src="{{ asset('/icons/logo_header.svg') }}" alt="Logo Phong Lịch mobie" class="img-fluid">
+            <img src="{{ asset('/icons/logo_header.svg') }}" alt="Logo Phong Lịch mobie" class="img-fluid" width="40" height="40">
         </span>
         <button class="mobile-nav-close" id="mobile-nav-close" aria-label="Đóng menu">
             <i class="bi bi-x"></i>

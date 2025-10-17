@@ -44,9 +44,7 @@ class TodayTomorrowPicker extends BasePicker {
             this.closePopup(quickPickerOverlay);
 
             // Redirect to detai_home route
-            const formattedMonth = month.toString().padStart(2, '0');
-            const formattedDay = day.toString().padStart(2, '0');
-            const detailUrl = `/lich-nam-${year}/thang-${formattedMonth}/ngay-${formattedDay}`;
+            const detailUrl = `/lich-nam-${year}/thang-${month}/ngay-${day}`;
             window.location.href = detailUrl;
         };
 
@@ -165,9 +163,7 @@ class TodayTomorrowPicker extends BasePicker {
             this.closePopup(quickPickerOverlay);
 
             // Redirect to detai_home route
-            const formattedMonth = solarMonth.toString().padStart(2, '0');
-            const formattedDay = solarDay.toString().padStart(2, '0');
-            const detailUrl = `/lich-nam-${solarYear}/thang-${formattedMonth}/ngay-${formattedDay}`;
+            const detailUrl = `/lich-nam-${solarYear}/thang-${solarMonth}/ngay-${solarDay}`;
             window.location.href = detailUrl;
         });
     }
@@ -175,7 +171,7 @@ class TodayTomorrowPicker extends BasePicker {
     updatePopupHeader(month, year) {
         const monthSpan = document.getElementById('popupMonth');
         const yearSpan = document.getElementById('popupYear');
-        if (monthSpan) monthSpan.textContent = month.toString().padStart(2, '0');
+        if (monthSpan) monthSpan.textContent = month;
         if (yearSpan) yearSpan.textContent = year;
     }
 
@@ -255,9 +251,7 @@ class TodayTomorrowPicker extends BasePicker {
                 this.closePopup(quickPickerOverlay);
 
                 // Redirect to detai_home route
-                const formattedMonth = month.toString().padStart(2, '0');
-                const formattedDay = day.toString().padStart(2, '0');
-                const detailUrl = `/lich-nam-${year}/thang-${formattedMonth}/ngay-${formattedDay}`;
+                const detailUrl = `/lich-nam-${year}/thang-${month}/ngay-${day}`;
                 window.location.href = detailUrl;
             });
 
@@ -463,9 +457,7 @@ class TodayTomorrowPicker extends BasePicker {
                 const prevDay = prevDate.getDate();
 
                 // Redirect đến route detai_home
-                const formattedMonth = prevMonth.toString().padStart(2, '0');
-                const formattedDay = prevDay.toString().padStart(2, '0');
-                const detailUrl = `/lich-nam-${prevYear}/thang-${formattedMonth}/ngay-${formattedDay}`;
+                const detailUrl = `/lich-nam-${prevYear}/thang-${prevMonth}/ngay-${prevDay}`;
                 window.location.href = detailUrl;
             });
         });
@@ -484,9 +476,7 @@ class TodayTomorrowPicker extends BasePicker {
                 const nextDay = nextDate.getDate();
 
                 // Redirect đến route detai_home
-                const formattedMonth = nextMonth.toString().padStart(2, '0');
-                const formattedDay = nextDay.toString().padStart(2, '0');
-                const detailUrl = `/lich-nam-${nextYear}/thang-${formattedMonth}/ngay-${formattedDay}`;
+                const detailUrl = `/lich-nam-${nextYear}/thang-${nextMonth}/ngay-${nextDay}`;
                 window.location.href = detailUrl;
             });
         });

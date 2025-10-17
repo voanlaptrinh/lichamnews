@@ -32,7 +32,7 @@ class GenerateSitemap extends Command
         // Cung hoàng đạo
         $sitemap .= $this->addUrl($baseUrl . '/cung-hoang-dao', $today, 'weekly', '0.7');
 
-        $signs = ['bach-duong', 'kim-nguu', 'song-tu', 'cu-giai', 'su-tu', 'xu-nu',
+        $signs = ['bach-duong', 'kim-nguu', 'song-tu', 'cu-giai', 'su_tu', 'xu-nu',
                  'thien-binh', 'bo-cap', 'nhan-ma', 'ma-ket', 'bao-binh', 'song-ngu'];
 
         foreach ($signs as $sign) {

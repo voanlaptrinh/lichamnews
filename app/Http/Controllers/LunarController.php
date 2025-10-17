@@ -289,8 +289,8 @@ class LunarController extends Controller
         // Trả về view với đầy đủ dữ liệu
         return view('lunar.convert', [
             'cdate' => $cdate, // Ngày đang xem, định dạng Y-m-d
-            'dd' => sprintf('%02d', $dd), // Thêm số 0 ở đầu nếu cần
-            'mm' => sprintf('%02d', $mm),
+            'dd' => (int)$dd, // Không thêm số 0 ở đầu
+            'mm' => (int)$mm,
 
             // Các biến mới cho việc điều hướng
             'prevYear' => $prevYear,
@@ -546,8 +546,8 @@ class LunarController extends Controller
             'success' => true,
             'data' => [
                 'cdate' => $cdate,
-                'dd' => sprintf('%02d', $dd),
-                'mm' => sprintf('%02d', $mm),
+                'dd' => (int)$dd,
+                'mm' => (int)$mm,
                 'yy' => $yy,
                 'weekday' => $thu,
                 'al' => $al,
@@ -755,8 +755,8 @@ class LunarController extends Controller
             [
                 'metaTitle' => $metaTitle,
                 'metaDescription' => $metaDescription,
-                'dd' => sprintf('%02d', $dd),
-                'mm' => sprintf('%02d', $mm),
+                'dd' => (int)$dd,
+                'mm' => (int)$mm,
                 'yy' => $yy,
                 'weekday' => $thu,
                 'al' => $al,
@@ -951,8 +951,8 @@ class LunarController extends Controller
 
             // Dữ liệu cơ bản
             'cdate' => $cdate,
-            'dd' => sprintf('%02d', $dd),
-            'mm' => sprintf('%02d', $mm),
+            'dd' => (int)$dd,
+            'mm' => (int)$mm,
             'yy' => $yy,
             'weekday' => $thu,
             'al' => $al,

@@ -1,0 +1,57 @@
+﻿# ============================================================
+# llms.txt - Chính sách và khai báo sử dụng AI của PhongLich.com
+# ============================================================
+# Cập nhật: 2025-10-10
+# Website: https://phonglich.com
+# Mục đích:
+#   - Minh bạch về việc sử dụng mô hình ngôn ngữ lớn (LLM) trên website.
+#   - Cho phép các hệ thống AI được thu thập dữ liệu công khai phục vụ học máy và tra cứu thông tin.
+#   - Bảo đảm quyền riêng tư của người dùng và tính chính xác của nội dung.
+# ============================================================
+
+# --- 1. Chính sách thu thập dữ liệu AI ---
+User-Agent: ChatGPT-User
+Allow: /
+
+User-Agent: ChatGPT-Collector
+Allow: /
+
+User-Agent: ClaudeBot
+Allow: /
+
+User-Agent: Gemini-Bot
+Allow: /
+
+User-Agent: PerplexityBot
+Allow: /
+
+User-Agent: Any-Large-Language-Model
+Allow: /
+
+# Các bot AI được phép thu thập nội dung công khai của PhongLich.com
+# nhằm cải thiện khả năng tìm kiếm và cung cấp thông tin hữu ích về lịch âm, phong thủy, tử vi.
+# Không cho phép thu thập dữ liệu cá nhân, biểu mẫu, hoặc nội dung quản trị.
+
+# --- 2. Mô hình AI được sử dụng trên PhongLich.com ---
+LLM: GPT-4o (OpenAI)
+- Mục đích: Tạo nội dung mô tả lịch âm dương, lịch vạn niên, tử vi, và phong thủy.
+- Đặc điểm: Hoạt động qua API, có kiểm duyệt nội dung, không lưu trữ thông tin người dùng.
+
+LLM: VN-Local-1 (Private Model)
+- Mục đích: Xử lý ngôn ngữ tiếng Việt, chuẩn hóa nội dung phong thủy & lịch truyền thống.
+- Đặc điểm: Chạy nội bộ, không kết nối bên thứ ba, tuân thủ chính sách bảo mật nội dung.
+
+LLM: Mistral-Instruct (Mistral AI)
+- Mục đích: Tối ưu câu chữ, chuẩn hóa văn phong tiếng Việt, biên tập tự động trước khi đăng.
+- Đặc điểm: Sử dụng hạn chế, không lưu dữ liệu truy cập.
+
+# --- 3. Cam kết bảo mật và sử dụng AI ---
+- PhongLich.com KHÔNG thu thập hoặc lưu trữ thông tin cá nhân của người dùng cho mục đích huấn luyện AI.
+- Mọi nội dung sinh ra bởi AI đều được biên tập, kiểm duyệt trước khi công bố.
+- Các mô hình AI chỉ được sử dụng cho việc gợi ý, tạo nội dung mô tả và tra cứu thông tin lịch, không thay thế chuyên gia phong thủy.
+- PhongLich.com cam kết minh bạch và tôn trọng quyền riêng tư của người dùng.
+
+# --- 4. Liên hệ ---
+Mọi câu hỏi hoặc yêu cầu về việc sử dụng dữ liệu AI xin liên hệ:
+Email: phonglich.com@gmail.com
+Website: https://phonglich.com/lien-he-voi-chung-toi

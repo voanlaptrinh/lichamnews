@@ -97,7 +97,7 @@
          </div>
 
 
-         <div class="mt-lg-5 mt-3 mb-5">
+         <div class="mt-lg-3 mt-3 mb-5">
 
              <div class="tong-quan-date mb-4">
 
@@ -111,127 +111,116 @@
                          </h2>
                          <hr>
                          <style>
-                             .vncal-detail .custom-table {
-                                 width: 100%;
-                                 border-collapse: collapse;
-                                 /* gộp viền lại */
-                                 table-layout: fixed;
-                                 /* chia đều cột */
+                             .vncal-detail .custom-grid {
+                                 display: grid;
+                                 grid-template-columns: 1fr 1fr;
+                                 border: 1px solid #ccc;
                              }
 
-                             .vncal-detail .custom-table td {
-                                 width: 50%;
-                                 border: 1px solid #ccc;
-                                 /* kẻ bảng */
+                             .vncal-detail .grid-item {
                                  padding: 8px;
+                                 border-bottom: 1px solid #ccc;
+
+                             }
+                             .vncal-detail .grid-item:nth-child(odd) {
+                                 border-right: 1px solid #ccc;
+                             }
+                             .vncal-detail .grid-item:nth-last-child(-n+2) {
+                                 border-bottom: none;
                              }
                          </style>
                          <div class=" text-box-tong-quan ">
                              <div class="row g-3 mb-3">
                                  <div class="col-lg-12 vncal-detail">
-                                     <table class="custom-table">
-                                         <tbody>
-                                             <tr>
-                                                 <td> <b>Ngày Dương Lịch:</b>
-                                                     {{ $dd }}/{{ $mm }}/{{ $yy }}
-                                                     ({{ $weekday }})
-                                                 </td>
-                                                 <td> <b>Ngày Âm Lịch:</b>
-                                                     {{ $al[0] }}/{{ $al[1] }}/{{ $al[2] }}
-                                                 </td>
-                                             </tr>
-                                             <tr>
-                                                 <td class="text-capitalize"><b> Tiết khí:</b>
-                                                     {{ $tietkhi['tiet_khi'] }}</td>
-                                                 <td class=""> <b>Ngày Can Chi:</b>
-                                                     ngày {{ $getThongTinCanChiVaIcon['can_chi_ngay'] }},
-                                                     tháng {{ $getThongTinCanChiVaIcon['can_chi_thang'] }},
-                                                     năm {{ $getThongTinCanChiVaIcon['can_chi_nam'] }}</td>
-                                             </tr>
-                                             <tr>
-                                                 <td> <b>Nạp Âm:</b> {{ $getThongTinNgay['nap_am']['napAm'] }} (Hành
-                                                     {{ $getThongTinNgay['nap_am']['napAmHanh'] }})
-                                                 </td>
-                                                 <td> <b>Tuổi Xung:</b> {{ $getThongTinNgay['tuoi_xung'] }}</td>
-                                             </tr>
-                                             <tr>
-                                                 <td> <b>Giờ Hoàng Đạo:</b> {{ $getThongTinNgay['gio_hoang_dao'] }}
-                                                 </td>
-                                                 <td> <b>Giờ Hắc Đạo:</b> {{ $getThongTinNgay['gio_hac_dao'] }}</td>
-                                             </tr>
-                                             <tr>
-                                                 <td>
-                                                     @if ($tot_xau_result == 'tot')
-                                                         <div>
-                                                             <b>Ngày Hoàng Đạo:</b>
-                                                             @php
-                                                                 $hoangDaoStarStrings = [];
-                                                                 foreach (
-                                                                     $hoangDaoStars
-                                                                     as $starName => $starDescription
-                                                                 ) {
-                                                                     $hoangDaoStarStrings[] = $starName;
-                                                                 }
-                                                                 echo implode(', ', $hoangDaoStarStrings);
-                                                             @endphp
-                                                         </div>
-                                                     @endif
-                                                     @if ($tot_xau_result == 'xau')
-                                                         <div>
-                                                             <b>Ngày Hắc Đạo:</b>
-                                                             @php
-                                                                 $hacDaoStarStrings = [];
-                                                                 foreach (
-                                                                     $hacDaoStars
-                                                                     as $starName => $starDescription
-                                                                 ) {
-                                                                     $hacDaoStarStrings[] = $starName;
-                                                                 }
-                                                                 echo implode(', ', $hacDaoStarStrings);
-                                                             @endphp
-                                                         </div>
-                                                     @endif
+                                     <div class="custom-grid">
+                                         <div class="grid-item"> <b>Ngày Dương Lịch:</b>
+                                             {{ $dd }}/{{ $mm }}/{{ $yy }}
+                                             ({{ $weekday }})
+                                         </div>
+                                         <div class="grid-item"> <b>Ngày Âm Lịch:</b>
+                                             {{ $al[0] }}/{{ $al[1] }}/{{ $al[2] }}
+                                         </div>
+                                         <div class="grid-item text-capitalize"><b> Tiết khí:</b>
+                                             {{ $tietkhi['tiet_khi'] }}</div>
+                                         <div class="grid-item"> <b>Ngày Can Chi:</b>
+                                             ngày {{ $getThongTinCanChiVaIcon['can_chi_ngay'] }},
+                                             tháng {{ $getThongTinCanChiVaIcon['can_chi_thang'] }},
+                                             năm {{ $getThongTinCanChiVaIcon['can_chi_nam'] }}</div>
+                                         <div class="grid-item"> <b>Nạp Âm:</b> {{ $getThongTinNgay['nap_am']['napAm'] }} (Hành
+                                             {{ $getThongTinNgay['nap_am']['napAmHanh'] }})
+                                         </div>
+                                         <div class="grid-item"> <b>Tuổi Xung:</b> {{ $getThongTinNgay['tuoi_xung'] }}</div>
+                                         <div class="grid-item"> <b>Giờ Hoàng Đạo:</b> {{ $getThongTinNgay['gio_hoang_dao'] }}
+                                         </div>
+                                         <div class="grid-item"> <b>Giờ Hắc Đạo:</b> {{ $getThongTinNgay['gio_hac_dao'] }}</div>
+                                         <div class="grid-item">
+                                             @if ($tot_xau_result == 'tot')
+                                                 <div>
+                                                     <b>Ngày Hoàng Đạo:</b>
+                                                     @php
+                                                         $hoangDaoStarStrings = [];
+                                                         foreach (
+                                                             $hoangDaoStars
+                                                             as $starName => $starDescription
+                                                         ) {
+                                                             $hoangDaoStarStrings[] = $starName;
+                                                         }
+                                                         echo implode(', ', $hoangDaoStarStrings);
+                                                     @endphp
+                                                 </div>
+                                             @endif
+                                             @if ($tot_xau_result == 'xau')
+                                                 <div>
+                                                     <b>Ngày Hắc Đạo:</b>
+                                                     @php
+                                                         $hacDaoStarStrings = [];
+                                                         foreach (
+                                                             $hacDaoStars
+                                                             as $starName => $starDescription
+                                                         ) {
+                                                             $hacDaoStarStrings[] = $starName;
+                                                         }
+                                                         echo implode(', ', $hacDaoStarStrings);
+                                                     @endphp
+                                                 </div>
+                                             @endif
 
-                                                     <div>
-                                                         <b>Nhị Thập Bát Tú:</b> sao {{ $nhiThapBatTu['name'] }}
-                                                         ({{ $nhiThapBatTu['fullName'] }})
+                                             <div>
+                                                 <b>Nhị Thập Bát Tú:</b> sao {{ $nhiThapBatTu['name'] }}
+                                                 ({{ $nhiThapBatTu['fullName'] }})
+                                             </div>
+                                             <div> <b>Thập Nhị Trực:</b> Trực {{ $getThongTinTruc['title'] }}
+                                             </div>
+
+
+                                         </div>
+                                         <div class="grid-item">
+                                             <div class="box-chi-so-ngaytot">
+                                                 <b> Chỉ số ngày tốt</b>
+                                                 <div class="progress-dial mt-2"
+                                                     style="--value: {{ round($getDaySummaryInfo['score']['percentage']) }};">
+                                                     <div class="dial-text">
+                                                         <span
+                                                             class="dial-percent">{{ round($getDaySummaryInfo['score']['percentage']) }}%</span>
+                                                         @php
+                                                             $ratingColors = [
+                                                                 'Tốt' => 'text-success',
+                                                                 'Xấu' => 'text-danger',
+                                                                 'Trung bình' => 'text-warning-tb',
+                                                             ];
+                                                         @endphp
+
+                                                         <small
+                                                             class="dial-status pt-2 {{ $ratingColors[$getDaySummaryInfo['score']['rating']] ?? '' }}">
+                                                             {{ $getDaySummaryInfo['score']['rating'] }}
+                                                         </small>
                                                      </div>
-                                                     <div> <b>Thập Nhị Trực:</b> Trực {{ $getThongTinTruc['title'] }}
-                                                     </div>
+                                                 </div>
+                                             </div>
 
 
-                                                 </td>
-                                                 <td>
-                                                     <div class="box-chi-so-ngaytot">
-                                                         <div>
-                                                             <b> Chỉ số ngày tốt</b>
-                                                         </div>
-                                                         <div class="progress-dial mt-2"
-                                                             style="--value: {{ round($getDaySummaryInfo['score']['percentage']) }};">
-                                                             <div class="dial-text">
-                                                                 <span
-                                                                     class="dial-percent">{{ round($getDaySummaryInfo['score']['percentage']) }}%</span>
-                                                                 @php
-                                                                     $ratingColors = [
-                                                                         'Tốt' => 'text-success',
-                                                                         'Xấu' => 'text-danger',
-                                                                         'Trung bình' => 'text-warning-tb',
-                                                                     ];
-                                                                 @endphp
-
-                                                                 <small
-                                                                     class="dial-status pt-2 {{ $ratingColors[$getDaySummaryInfo['score']['rating']] ?? '' }}">
-                                                                     {{ $getDaySummaryInfo['score']['rating'] }}
-                                                                 </small>
-                                                             </div>
-                                                         </div>
-                                                     </div>
-
-
-                                                 </td>
-                                             </tr>
-                                         </tbody>
-                                     </table>
+                                         </div>
+                                     </div>
                                  </div>
 
                              </div>

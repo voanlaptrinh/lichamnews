@@ -19,6 +19,7 @@ use App\Http\Controllers\MuaXeController;
 use App\Http\Controllers\NhanCongViecMoiController;
 use App\Http\Controllers\NhapTrachController;
 use App\Http\Controllers\PhongSinhController;
+use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\ThiCuPhongVanController;
 use App\Http\Controllers\ThuocLoBanController;
 use App\Http\Controllers\TranTrachController;
@@ -35,7 +36,28 @@ use Spatie\ResponseCache\Middlewares\CacheResponse;
 
 Route::post('/ajax/lich-thang', [LichController::class, 'getLichThangAjax'])->name('lich.thang.ajax');
 Route::post('/ajax/date-data', [LunarController::class, 'getDateDataAjax'])->name('lunar.getDateDataAjax');
+Route::get('/llms.txt', function () {
+    $path = public_path('llms.txt');
+    if (!file_exists($path)) {
+        abort(404);
+    }
 
+    $contents = file_get_contents($path);
+
+    // N?u c� BOM ? d?u, lo?i b?
+    if (substr($contents, 0, 3) === "\xEF\xBB\xBF") {
+        $contents = substr($contents, 3);
+    }
+
+    // �p ch?c UTF-8 (an to�n): chuy?n n?u detect kh�ng ph?i UTF-8
+    if (!mb_check_encoding($contents, 'UTF-8')) {
+        $contents = mb_convert_encoding($contents, 'UTF-8', 'auto');
+    }
+
+    return response($contents, 200)
+        ->header('Content-Type', 'text/plain; charset=utf-8')
+        ->header('X-Content-Type-Options', 'nosniff');
+});
 
 /*
 |--------------------------------------------------------------------------
@@ -47,7 +69,7 @@ Route::post('/ajax/date-data', [LunarController::class, 'getDateDataAjax'])->nam
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::middleware(CacheResponse::class)->group(function () {
+
 
     Route::get('/', [LunarController::class, 'index'])->name('home');
     Route::get('/lich-nam-{nam}/thang-{thang}/ngay-{ngay}', [LunarController::class, 'detail'])->name('detai_home');
@@ -170,10 +192,10 @@ Route::middleware(CacheResponse::class)->group(function () {
 
     // Route hiển thị danh sách 12 cung hoàng đạo
     Route::get('/cung-hoang-dao', [HoroscopeController::class, 'index'])->name('horoscope.index');
-    // Route hiển thị trang chi tiết của một cung với type (cung-hoang-dao/bach-duong/hom-nay)
-    Route::get('/cung-hoang-dao/{signSlug}/{typeSlug}', [HoroscopeController::class, 'showWithType'])->name('horoscope.show.type');
     // Route hiển thị trang chi tiết của một cung (mặc định là hôm nay)
     Route::get('/cung-hoang-dao/{signSlug}', [HoroscopeController::class, 'showFromSlug'])->name('horoscope.show');
+    // Route hiển thị trang chi tiết của một cung với type (cung-hoang-dao/bach-duong/hom-nay)
+    Route::get('/cung-hoang-dao/{signSlug}/{typeSlug}', [HoroscopeController::class, 'showWithType'])->name('horoscope.show.type');
     // Route API nội bộ để JavaScript gọi đến, route này sẽ gọi API bên ngoài
     Route::get('/api/horoscope-data/{sign}/{type}', [HoroscopeController::class, 'fetchData'])->name('horoscope.data');
 
@@ -195,5 +217,14 @@ Route::middleware(CacheResponse::class)->group(function () {
 
     // Route để xử lý và trả kết quả (POST)
     Route::post('/xem-tuoi', [CompatibilityController::class, 'calculate'])->name('compatibility.calculate');
-    Route::get('/sitemap.xml', [App\Http\Controllers\SitemapController::class, 'view']);
-});
+
+    // Sitemap routes
+    Route::get('/sitemap.xml', [App\Http\Controllers\SitemapController::class, 'index'])->name('sitemap.index');
+    Route::get('/sitemap-static.xml', [App\Http\Controllers\SitemapController::class, 'staticPages'])->name('sitemap.static');
+    Route::get('/sitemap-tools.xml', [App\Http\Controllers\SitemapController::class, 'tools'])->name('sitemap.tools');
+    // Route::get('/sitemap-posts.xml', [App\Http\Controllers\SitemapController::class, 'posts'])->name('sitemap.posts');
+    Route::get('/sitemap-years.xml', [App\Http\Controllers\SitemapController::class, 'years'])->name('sitemap.years');
+    Route::get('/sitemap-months.xml', [App\Http\Controllers\SitemapController::class, 'months'])->name('sitemap.months');
+Route::get('/sitemap-days.xml', [SitemapController::class, 'daysIndex'])->name('sitemap.days.index');
+Route::get('/sitemap-days-{year}.xml', [SitemapController::class, 'daysByYear'])->name('sitemap.days.byYear');
+

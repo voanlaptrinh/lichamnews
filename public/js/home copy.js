@@ -356,9 +356,7 @@ class LunarCalendarApp extends BasePicker {
                 this.currentDay = day;
 
                 // Cập nhật URL mà không reload trang
-                const formattedMonth = month.toString().padStart(2, '0');
-                const formattedDay = day.toString().padStart(2, '0');
-                const newUrl = `/lich-nam-${year}/thang-${formattedMonth}/ngay-${formattedDay}`;
+                const newUrl = `/lich-nam-${year}/thang-${month}/ngay-${day}`;
                 history.pushState({year, month, day}, '', newUrl);
 
                 // Cập nhật UI nhanh trước
@@ -532,9 +530,7 @@ class LunarCalendarApp extends BasePicker {
         const detailLink = document.querySelector('.btn0mobie');
         if (detailLink) {
             // Format: lich-nam-YYYY/thang-MM/ngay-DD
-            const formattedMonth = data.mm.toString().padStart(2, '0');
-            const formattedDay = data.dd.toString().padStart(2, '0');
-            const newDetailUrl = `/lich-nam-${data.yy}/thang-${formattedMonth}/ngay-${formattedDay}`;
+            const newDetailUrl = `/lich-nam-${data.yy}/thang-${data.mm}/ngay-${data.dd}`;
             detailLink.href = newDetailUrl;
         }
 
@@ -593,8 +589,8 @@ class LunarCalendarApp extends BasePicker {
 
                 // Tạo route params cho link
                 const eventDate = new Date(event.date);
-                const formattedMonth = (eventDate.getMonth() + 1).toString().padStart(2, '0');
-                const formattedDay = eventDate.getDate().toString().padStart(2, '0');
+                const formattedMonth = (eventDate.getMonth() + 1);
+                const formattedDay = eventDate.getDate();
 
                 const li = document.createElement('li');
                 li.className = 'list-group-item event-item';
@@ -608,7 +604,7 @@ class LunarCalendarApp extends BasePicker {
 
                 li.innerHTML = `
                     <a href="/lich-nam-${eventDate.getFullYear()}/thang-${formattedMonth}/ngay-${formattedDay}">
-                        <div class="event-date">Ngày ${eventDate.getDate().toString().padStart(2, '0')}/${formattedMonth}
+                        <div class="event-date">Ngày ${eventDate.getDate()}/${formattedMonth}
                             <span style="font-size: 12px;color: #46494E;font-style: italic;">(${lunarInfo.lunarDay}/${lunarInfo.lunarMonth} ÂL)</span>
                         </div>
                         <div class="event-icon">🗓️</div>
@@ -994,7 +990,7 @@ class LunarCalendarApp extends BasePicker {
     updatePopupHeader(month, year) {
         const monthSpan = document.getElementById('popupMonth');
         const yearSpan = document.getElementById('popupYear');
-        if (monthSpan) monthSpan.textContent = month.toString().padStart(2, '0');
+        if (monthSpan) monthSpan.textContent = month;
         if (yearSpan) yearSpan.textContent = year;
     }
 

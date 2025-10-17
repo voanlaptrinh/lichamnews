@@ -107,18 +107,22 @@
                             </div>
                             <div class="ring-item1-left item-rings">
                                 <div class="item-ring1">
-                                    <img src="{{ asset('icons/cairing.png') }}" alt="cairing">
+                                    <img src="{{ asset('icons/cairing.png') }}" alt="cairing" width="13"
+                                        height="55">
                                 </div>
                                 <div class="item-ring2">
-                                    <img src="{{ asset('icons/cairing.png') }}" alt="cairing">
+                                    <img src="{{ asset('icons/cairing.png') }}" alt="cairing" width="13"
+                                        height="55">
                                 </div>
                             </div>
                             <div class="ring-item2-right item-rings">
                                 <div class="item-ring3">
-                                    <img src="{{ asset('icons/cairing.png') }}" alt="cairing">
+                                    <img src="{{ asset('icons/cairing.png') }}" alt="cairing" width="13"
+                                        height="55">
                                 </div>
                                 <div class="item-ring4">
-                                    <img src="{{ asset('icons/cairing.png') }}" alt="cairing">
+                                    <img src="{{ asset('icons/cairing.png') }}" alt="cairing" width="13"
+                                        height="55">
                                 </div>
                             </div>
 
@@ -164,7 +168,7 @@
                                     <div class="col-xl-7 col-lg-6 col-sm-12 col-12 ">
                                         <div class="info-item">
                                             <img src="{{ asset('icons/icon_tiet_khi.svg') }}" alt="icon_tiet_khi"
-                                                class="icon_tiet_khi">
+                                                class="icon_tiet_khi" width="24" height="24" loading="lazy">
                                             <div class="font-detail-ngay">
                                                 <strong class="title-font-detail-ngay">Tiết khí:</strong>
                                                 <span class="">{{ $tietkhi['tiet_khi'] }}</span>
@@ -172,7 +176,7 @@
                                         </div>
                                         <div class="info-item">
                                             <img src="{{ asset('icons/icon_nap_am.svg') }}" alt="icon_nap_am"
-                                                class="icon_nap_am">
+                                                class="icon_nap_am" width="24" height="24" loading="lazy">
                                             <div class="font-detail-ngay">
                                                 <strong class="title-font-detail-ngay">Ngũ hành nạp âm:</strong>
                                                 {{ $getThongTinNgay['nap_am']['napAm'] }}
@@ -180,45 +184,42 @@
                                         </div>
                                         <div class="info-item">
                                             <img src="{{ asset('icons/icon_hoang_dao.svg') }}" alt="icon_hoang_dao"
-                                                class="icon_hoang_dao">
+                                                class="icon_hoang_dao" width="24" height="24" fetchpriority="low"
+                                                decoding="async">
+
                                             <div class="font-detail-ngay">
                                                 <strong class="title-font-detail-ngay">Giờ Hoàng đạo:</strong>
-                                                {{ $getThongTinNgay['gio_hoang_dao'] }}
+                                                {{ $getThongTinNgay['gio_hoang_dao'] ?? 'Đang tính...' }}
                                             </div>
+
                                         </div>
                                     </div>
                                     <div class="col-xl-5 col-lg-6 col-sm-12 col-12">
                                         <!-- BẮT ĐẦU: KHỐI MỨC THUẬN LỢI (ĐÃ CẬP NHẬT) -->
                                         <div
-                                            class="convenience-level g-0 d-flex justify-content-between align-items-center row h-100">
-                                            <div class="col-6">
-                                                <div class="level-label text-lever-label-mobie">
-                                                    Điểm chỉ số <br>ngày tốt:
+                                            class="convenience-level g-0 d-flex justify-content-between align-items-center h-100">
+                                            <div class="level-label text-lever-label-mobie">
+                                                Điểm chỉ số <br>ngày tốt:
+                                            </div>
+                                            <div class="progress-dial mt-2"
+                                                style="--value: {{ round($getDaySummaryInfo['score']['percentage']) }};">
+                                                <div class="dial-text">
+                                                    <span
+                                                        class="dial-percent">{{ round($getDaySummaryInfo['score']['percentage']) }}%</span>
+                                                    @php
+                                                        $ratingColors = [
+                                                            'Tốt' => 'text-success',
+                                                            'Xấu' => 'text-danger',
+                                                            'Trung bình' => 'text-warning-tb',
+                                                        ];
+                                                    @endphp
+
+                                                    <small
+                                                        class="dial-status {{ $ratingColors[$getDaySummaryInfo['score']['rating']] ?? 'text-secondary' }}">
+                                                        {{ $getDaySummaryInfo['score']['rating'] }}
+                                                    </small>
                                                 </div>
                                             </div>
-
-                                            <div class="col-6 d-flex justify-content-center">
-                                                <div class="progress-dial mt-2"
-                                                    style="--value: {{ round($getDaySummaryInfo['score']['percentage']) }};">
-                                                    <div class="dial-text">
-                                                        <span
-                                                            class="dial-percent">{{ round($getDaySummaryInfo['score']['percentage']) }}%</span>
-                                                        @php
-                                                            $ratingColors = [
-                                                                'Tốt' => 'text-success',
-                                                                'Xấu' => 'text-danger',
-                                                                'Trung bình' => 'text-warning-tb',
-                                                            ];
-                                                        @endphp
-
-                                                        <small
-                                                            class="dial-status {{ $ratingColors[$getDaySummaryInfo['score']['rating']] ?? 'text-secondary' }}">
-                                                            {{ $getDaySummaryInfo['score']['rating'] }}
-                                                        </small>
-                                                    </div>
-                                                </div>
-                                            </div>
-
                                         </div>
                                         <!-- KẾT THÚC: KHỐI MỨC THUẬN LỢI -->
                                     </div>
@@ -228,8 +229,8 @@
                                 <div class="d-flex justify-content-center">
                                     <a href="{{ route('detai_home', ['nam' => $yy, 'thang' => $mm, 'ngay' => $dd]) }}"
                                         class="btn btn-primary w-100 mt-3 btn0mobie"><img
-                                            src="{{ asset('icons/hand_2_white.svg') }}" alt="hand_2"
-                                            class="img-fluid">
+                                            src="{{ asset('icons/hand_2_white.svg') }}" alt="hand_2" width="28"
+                                            height="28" class="img-fluid">
                                         Xem
                                         chi tiết ngày</a>
                                 </div>
@@ -248,12 +249,14 @@
 
                                 <div class="d-flex align-items-center justify-content-center">
                                     <div class="me-2 select-with-icon">
-                                   
+
                                         <div class="select-wrapper">
-                                            <i class="bi bi-calendar-month select-icon"></i>
-                                            <select id="month-select" class="form-select custom-select-style select-with-icon-input"  aria-label="Chọn tháng">
+
+                                            <select id="month-select" class="form-select custom-select-style "
+                                                aria-label="Chọn tháng">
                                                 @for ($i = 1; $i <= 12; $i++)
-                                                    <option value="{{ $i }}" {{ $i == $mm ? 'selected' : '' }}>
+                                                    <option value="{{ $i }}"
+                                                        {{ $i == $mm ? 'selected' : '' }}>
                                                         Tháng {{ $i }}
                                                     </option>
                                                 @endfor
@@ -261,16 +264,16 @@
                                         </div>
                                     </div>
                                     <div class="select-with-icon">
-                                        
+
                                         <div class="select-wrapper">
-                                            <i class="bi bi-calendar-range select-icon"></i>
-                                            <select id="year-select" class="form-select custom-select-style select-with-icon-input" aria-label="Chọn năm">
-                                                @for ($i = 1900; $i <= 2100; $i++)
-                                                    <option value="{{ $i }}" {{ $i == $yy ? 'selected' : '' }}>
-                                                        Năm {{ $i }}
-                                                    </option>
-                                                @endfor
+
+                                            <select id="year-select" class="form-select custom-select-style"
+                                                aria-label="Chọn năm">
+                                                <option value="{{ $yy }}">Năm {{ $yy }}</option>
                                             </select>
+
+
+
                                         </div>
                                     </div>
                                 </div>
@@ -391,7 +394,7 @@
                                 <div class="utility-title">Đổi ngày Âm - Dương</div>
                                 <div class="icon-wrapper">
                                     <img src="{{ asset('icons/doi_ngay_am_duong.svg') }}" alt="Đổi ngày Âm - Dương"
-                                        class="img-fluid">
+                                        width="77" height="76" class="img-fluid">
                                 </div>
 
                                 <p class="utility-description">Chuyển đổi nhanh giữa dương lịch và âm lịch.</p>
@@ -401,8 +404,8 @@
                             <a href="#" class="utility-item col-6 col-md-6 col-lg-3 mb-4">
                                 <div class="utility-title">Xem ngày Tốt</div>
                                 <div class="icon-wrapper">
-                                    <img src="{{ asset('icons/xem_ngay_tot.svg') }}" alt="Xem ngày Tốt"
-                                        class="img-fluid">
+                                    <img src="{{ asset('icons/xem_ngay_tot.svg') }}" alt="Xem ngày Tốt" width="77"
+                                        height="76" class="img-fluid">
                                 </div>
 
                                 <p class="utility-description">Tra cứu ngày hoàng đạo để cưới hỏi, khai trương...</p>
@@ -413,7 +416,7 @@
                                 <div class="utility-title">Xem hướng hợp mệnh</div>
                                 <div class="icon-wrapper">
                                     <img src="{{ asset('icons/huong_dep.svg') }}" alt="Xem hướng hợp mệnh"
-                                        class="img-fluid">
+                                        width="77" height="76" class="img-fluid">
                                 </div>
                                 <p class="utility-description">Tìm hướng hợp tuổi để làm nhà, đặt bàn thờ...</p>
                             </a>
@@ -422,7 +425,8 @@
                             <a href="#" class="utility-item col-6 col-md-6 col-lg-3 mb-4">
                                 <div class="utility-title">Lá số tử vi</div>
                                 <div class="icon-wrapper">
-                                    <img src="{{ asset('icons/la_so_tu_vi.svg') }}" alt="Lá số tử vi" class="img-fluid">
+                                    <img src="{{ asset('icons/la_so_tu_vi.svg') }}" alt="Lá số tử vi" class="img-fluid"
+                                        width="77" height="76">
                                 </div>
 
                                 <p class="utility-description">Lập lá số chi tiết theo giờ/ngày sinh.</p>
@@ -736,8 +740,8 @@
 @endpush
 
 @push('scripts')
-    <script src="{{ asset('js/base-picker.js?v=1.93') }}"></script>
-    <script src="{{ asset('js/homepage-picker.js?v=1.93') }}"></script>
+    <script src="{{ asset('js/base-picker.js?v=1.94') }}"></script>
+    <script src="{{ asset('js/homepage-picker.js?v=1.94') }}"></script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             // Khởi tạo ứng dụng lịch âm cho trang chủ (không thay đổi URL)
@@ -752,51 +756,23 @@
             });
 
             homepageApp.init();
-        });
+            const select = document.getElementById('year-select');
+            const start = 1900;
+            const end = 2100;
+            const current = {{ $yy }};
+            let loaded = false;
 
-        // $('#month-year-picker').daterangepicker({
-        //     singleDatePicker: true,
-        //     showDropdowns: true,
-        //     locale: {
-        //         format: 'MM-YYYY',
-        //         "applyLabel": "Chọn",
-        //         "cancelLabel": "Hủy",
-        //         "fromLabel": "Từ",
-        //         "toLabel": "Đến",
-        //         "customRangeLabel": "Tùy chỉnh",
-        //         "weekLabel": "W",
-        //         "daysOfWeek": [
-        //             "CN",
-        //             "T2",
-        //             "T3",
-        //             "T4",
-        //             "T5",
-        //             "T6",
-        //             "T7"
-        //         ],
-        //         "monthNames": [
-        //             "Tháng 1",
-        //             "Tháng 2",
-        //             "Tháng 3",
-        //             "Tháng 4",
-        //             "Tháng 5",
-        //             "Tháng 6",
-        //             "Tháng 7",
-        //             "Tháng 8",
-        //             "Tháng 9",
-        //             "Tháng 10",
-        //             "Tháng 11",
-        //             "Tháng 12"
-        //         ],
-        //         "firstDay": 1
-        //     }
-        // }, function(start, end, label) {
-        //     const year = start.format('YYYY');
-        //     const month = start.format('M');
-        //     const day = start.format('D');
-        //     const url = `{{ route('detai_home', ['nam' => ':nam', 'thang' => ':thang', 'ngay' => ':ngay']) }}`
-        //         .replace(':nam', year).replace(':thang', month).replace(':ngay', day);
-        //     window.location.href = url;
-        // });
+            select.addEventListener('focus', () => {
+                if (loaded) return; // chỉ load 1 lần
+                loaded = true;
+                for (let i = start; i <= end; i++) {
+                    if (i === current) continue;
+                    const opt = document.createElement('option');
+                    opt.value = i;
+                    opt.textContent = `Năm ${i}`;
+                    select.appendChild(opt);
+                }
+            });
+        });
     </script>
 @endpush

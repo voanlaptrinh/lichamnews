@@ -1,8 +1,8 @@
 @extends('welcome')
 @section('content')
     <div class="container-setup">
-        <h6 class="content-title-detail"><a href="{{ route('home') }}">Trang chủ</a><i class="bi bi-chevron-right"></i> <span
-                style="color: #2254AB">Đổi ngày âm dương </span></h6>
+        <h6 class="content-title-detail"><a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a><i class="bi bi-chevron-right"></i> <span
+                >Đổi ngày âm dương </span></h6>
         <h1 class="content-title-home-lich">Đổi Ngày Dương Sang Âm & Âm Sang Dương</h1>
         <div class="row g-3">
             <div class="col-xl-9 col-sm-12 col-12">
@@ -278,22 +278,19 @@
 
                 <div class="mt-3">
                     <div class="calendar-wrapper">
-                        <div class="calendar-header-convert calendar-header">
+                        <div class="calendar-header-convert calendar-header" >
                             <div class="text-center">
                                 <h5 class="mb-0 pt-2">Tháng {{ $mm }} năm {{ $yy }}</h5>
                             </div>
                             <div class="d-flex align-items-center justify-content-center">
-                                <select id="month-select" class="form-select me-2 custom-select-style">
+                                <select id="month-select" class="form-select me-2 custom-select-style"  aria-label="Chọn tháng"> 
                                     @for ($i = 1; $i <= 12; $i++)
                                         <option value="{{ $i }}" {{ $i == $mm ? 'selected' : '' }}>Tháng
                                             {{ $i }}</option>
                                     @endfor
                                 </select>
-                                <select id="year-select" class="form-select custom-select-style">
-                                    @for ($i = 1900; $i <= 2100; $i++)
-                                        <option value="{{ $i }}" {{ $i == $yy ? 'selected' : '' }}>Năm
-                                            {{ $i }}</option>
-                                    @endfor
+                                <select id="year-select" class="form-select custom-select-style" aria-label="Chọn năm">
+                                    <option value="{{ $yy }}">Năm {{ $yy }}</option>
                                 </select>
                             </div>
                             {{-- <a href="{{ route('detai_home', ['nam' => date('Y'), 'thang' => date('n'), 'ngay' => date('d')]) }}"
@@ -1409,6 +1406,23 @@
 
             monthSelect.addEventListener('change', debouncedUpdateCalendar);
             yearSelect.addEventListener('change', debouncedUpdateCalendar);
+             const select = document.getElementById('year-select');
+            const start = 1900;
+            const end = 2100;
+            const current = {{ $yy }};
+            let loaded = false;
+
+            select.addEventListener('focus', () => {
+                if (loaded) return; // chỉ load 1 lần
+                loaded = true;
+                for (let i = start; i <= end; i++) {
+                    if (i === current) continue;
+                    const opt = document.createElement('option');
+                    opt.value = i;
+                    opt.textContent = `Năm ${i}`;
+                    select.appendChild(opt);
+                }
+            });
         });
     </script>
 @endpush

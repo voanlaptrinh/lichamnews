@@ -430,10 +430,8 @@ class HomepagePicker extends BasePicker {
         // Cập nhật link "Xem chi tiết ngày" - giữ format detai_home
         const detailLink = document.querySelector('.btn0mobie');
         if (detailLink) {
-            // Format: lich-nam-YYYY/thang-MM/ngay-DD
-            const formattedMonth = data.mm.toString().padStart(2, '0');
-            const formattedDay = data.dd.toString().padStart(2, '0');
-            const newDetailUrl = `/lich-nam-${data.yy}/thang-${formattedMonth}/ngay-${formattedDay}`;
+            // Format: lich-nam-YYYY/thang-M/ngay-D (không có số 0 đằng trước)
+            const newDetailUrl = `/lich-nam-${data.yy}/thang-${data.mm}/ngay-${data.dd}`;
             detailLink.href = newDetailUrl;
         }
 
@@ -473,8 +471,6 @@ class HomepagePicker extends BasePicker {
         // Cập nhật title trong --homnay-home
         const homnayHomeElement = document.querySelector('.--homnay-home');
         if (homnayHomeElement) {
-            const formattedMonth = data.mm.toString().padStart(2, '0');
-            const formattedDay = data.dd.toString().padStart(2, '0');
             const lunarDate = document.getElementById('luna-date');
             const lunarMonth = document.getElementById('luna-month');
 
@@ -801,7 +797,7 @@ class HomepagePicker extends BasePicker {
     updatePopupHeader(month, year) {
         const monthSpan = document.getElementById('popupMonth');
         const yearSpan = document.getElementById('popupYear');
-        if (monthSpan) monthSpan.textContent = month.toString().padStart(2, '0');
+        if (monthSpan) monthSpan.textContent = month;
         if (yearSpan) yearSpan.textContent = year;
     }
 
