@@ -7,9 +7,10 @@ setupDateRangePicker(){const monthYearPicker=document.getElementById('month-year
 setupChart(){const container=document.getElementById('html-chart-container');if(!container)return;this.renderHtmlChart(container,this.dataValues,this.labels)}
 renderHtmlChart(container,data,labels){if(!container||!data||!labels)return;const maxValue=100;const yAxisLabels=[100,80,60,40,20,0];let chartHtml='<div class="chart-grid">';chartHtml+='<div class="y-axis">';yAxisLabels.forEach(label=>{chartHtml+=`<div>${label}%</div>`});chartHtml+='</div>';chartHtml+='<div class="chart-bars">';data.forEach((value,index)=>{const heightPercent=(value/maxValue)*100;chartHtml+=`
                 <div class="bar-column">
-                    <div class="bar-value" style="bottom: ${heightPercent}%">${value}%</div>
                     <div class="bar-container">
-                        <div class="bar" data-value="${value}" style="height: ${heightPercent}%; --bar-height: ${heightPercent}%"></div>
+                        <div class="bar" data-value="${value}" style="height: ${heightPercent}%; --bar-height: ${heightPercent}%">
+                            <div class="bar-value-top">${value}%</div>
+                        </div>
                     </div>
                     <div class="bar-label">${labels[index]}</div>
                 </div>`});chartHtml+='</div></div>';container.innerHTML=chartHtml}

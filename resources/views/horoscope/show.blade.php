@@ -26,7 +26,7 @@
             'leo' => 'Sư Tử',
             'virgo' => 'Xử Nữ',
             'libra' => 'Thiên Bình',
-            'scorpio' => 'Thần Nông',
+            'scorpio' => 'Bọ Cạp',
             'sagittarius' => 'Nhân Mã',
             'capricorn' => 'Ma Kết',
             'aquarius' => 'Bảo Bình',
@@ -40,7 +40,7 @@
             'leo' => 'su_tu',
             'virgo' => 'xu-nu',
             'libra' => 'thien-binh',
-            'scorpio' => 'than-nong',
+            'scorpio' => 'bo-cap',
             'sagittarius' => 'nhan-ma',
             'capricorn' => 'ma-ket',
             'aquarius' => 'bao-binh',
@@ -70,7 +70,8 @@
                 id="breadcrumb-zodiac">{{ $zodiacNames[$zodiac['sign']] ?? 'Cung hoàng đạo' }}</a> <i
                 class="bi bi-chevron-right"></i><span id="breadcrumb-time">Hôm nay</span>
         </h6>
-        <h1 class="content-title-home-lich" id="main-title">Tử Vi Cung {{ $zodiacNames[$zodiac['sign']] ?? 'Cung hoàng đạo' }} Hôm nay</h1>
+        <h1 class="content-title-home-lich" id="main-title">Tử Vi Cung
+            {{ $zodiacNames[$zodiac['sign']] ?? 'Cung hoàng đạo' }} Hôm nay</h1>
     </div>
 
     <!-- Zodiac Header -->
@@ -103,7 +104,7 @@
                     </div>
 
                     <div class="zodiac-selector-form">
-                        <select id="zodiac-select" class="form-select custom-select-style" style="min-width: 200px;">
+                        <select id="zodiac-select" class="form-select custom-select-style" aria-label="Chọn cung hoàng đạo">
                             @foreach ($zodiacNames as $sign => $name)
                                 <option value="{{ $sign }}" {{ $sign == $zodiac['sign'] ? 'selected' : '' }}>
                                     {{ $name }}</option>
@@ -119,11 +120,12 @@
             <div id="horoscope-content" class="horoscope-content">
                 <div style="text-align: center; padding: 40px; color: #666; font-style: italic;">Đang tải dữ liệu...</div>
             </div>
+
         </div>
 
         @include('horoscope.box-right')
-        {{-- Removed the right sidebar (col-lg-3) --}}
     </div>
+   
 @endsection
 
 
@@ -226,7 +228,7 @@
                 },
                 'scorpio': {
                     icon: '{{ asset('/icons/scorpio-icons.svg') }}',
-                    name: 'Thần Nông',
+                    name: 'Bọ Cạp',
                     date: '23/10 - 21/11',
                     engName: 'Scorpio'
                 },
@@ -282,7 +284,8 @@
                 const zodiac = zodiacData[sign];
                 const typeMeta = typeMetaData[type];
                 if (zodiac && typeMeta && document.getElementById('main-title')) {
-                    document.getElementById('main-title').textContent = `Tử Vi Cung ${zodiac.name} ${typeMeta.suffix}`;
+                    document.getElementById('main-title').textContent =
+                        `Tử Vi Cung ${zodiac.name} ${typeMeta.suffix}`;
                 }
             }
 
@@ -407,3 +410,5 @@
         });
     </script>
 @endpush
+
+

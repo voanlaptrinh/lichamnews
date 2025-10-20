@@ -3,14 +3,14 @@
 @section('content')
     <div class="container-setup">
         <h6 class="content-title-detail"><a href="{{ route('home') }}"
-                style="color: #2254AB; text-decoration: underline;">Trang chủ</a><i class="bi bi-chevron-right"></i><span>Cung
-                Hoàng Đạo</span><i class="bi bi-chevron-right"></i><span>Nhân Mã</span>
+                style="color: #2254AB; text-decoration: underline;">Trang chủ</a><i class="bi bi-chevron-right"></i><a href="{{ route('horoscope.index') }}">Cung
+                Hoàng Đạo</a><i class="bi bi-chevron-right"></i><span>Nhân Mã</span>
         </h6>
         <h1 class="content-title-home-lich">Giới thiệu cung Nhân Mã</h1>
         <div class="row mt-3">
             <div class="col-lg-9">
                 <div class="tong-quan-date mt-2 mb-3">
-                    <div class="card-body  p-lg-4 p-3 position-relative">
+                    <div class="card-body  p-lg-4 p-3 position-relative" style="border-radius: 24px">
                         <div class="text-box-tong-quan">
                             <h4 class="title-tong-quan-h4">Cung Nhân Mã là gì?</h4>
                             <p class="mb-0">Cung Nhân Mã (Sagittarius) là cung hoàng đạo thứ chín, đại diện cho tinh thần
@@ -163,6 +163,7 @@
                     </div>
 
                 </div>
+                  @include('horoscope.list-cung')
             </div>
                 @include('horoscope.box-right')
 

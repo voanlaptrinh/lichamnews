@@ -143,8 +143,8 @@ class HoroscopeController extends Controller
             'bo-cap' => [
                 'name' => 'Bọ Cạp',
                 'date' => '23/10 - 21/11',
-                'meta_title' => 'Giới Thiệu Cung Thần Nông – Tính cách Đặc Trưng, Tình yêu & Sự nghiệp',
-                'meta_description' => 'Giới thiệu cung Thần Nông – biểu tượng của đam mê, trực giác và chiều sâu cảm xúc. Tìm hiểu tính cách, tình yêu và công việc hợp với Thần Nông.',
+                'meta_title' => 'Giới Thiệu Cung Bọ Cạp – Tính cách Đặc Trưng, Tình yêu & Sự nghiệp',
+                'meta_description' => 'Giới thiệu cung Bọ Cạp – biểu tượng của đam mê, trực giác và chiều sâu cảm xúc. Tìm hiểu tính cách, tình yêu và công việc hợp với Bọ Cạp.',
             ],
             'nhan-ma' => [
                 'name' => 'Nhân Mã',

@@ -1,8 +1,8 @@
 @extends('welcome')
 @section('content')
     <div class="container-setup">
-        <h6 class="content-title-date-detail"><a href="{{ route('home') }}">Trang chủ</a> <i class="bi bi-chevron-right"></i>
-            Về chúng tôi<i class="bi bi-chevron-right"></i> <span>Điều khoản</span>
+        <h6 class="content-title-date-detail"><a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a> <i class="bi bi-chevron-right"></i>
+            Về chúng tôi<i class="bi bi-chevron-right"></i> <span class="text-dark">Điều khoản</span>
         </h6>
         <h1 class="content-title-home-lich">Điều Khoản Dịch Vụ </h1>
         <div class="text-box-tong-quan mt-3">

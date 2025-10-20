@@ -71,15 +71,16 @@
     justify-content: flex-end;
 }
 
-/* Value label above bar */
-.bar-value {
+/* Value label on top of bar */
+.bar-value-top {
     font-size: 13px;
     font-weight: bold;
     color: #333;
-    margin-bottom: 5px;
     position: absolute;
-    top: 0;
-    transform: translateY(-10px);
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
     z-index: 2;
 }
 
@@ -187,8 +188,9 @@
         max-width: 50px;
     }
 
-    .bar-value {
+    .bar-value-top {
         font-size: 11px;
+        top: -18px;
     }
 
     .bar-label {
@@ -213,9 +215,10 @@
         border-radius: 6px 6px 0 0;
     }
 
-    .bar-value {
+    .bar-value-top {
         font-size: 10px;
         font-weight: 600;
+        top: -15px;
     }
 
     .bar-label {
@@ -256,7 +259,7 @@
         color: #aaa;
     }
 
-    .bar-value,
+    .bar-value-top,
     .bar-label {
         color: #ddd;
     }

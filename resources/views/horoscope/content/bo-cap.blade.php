@@ -3,17 +3,18 @@
 @section('content')
     <div class="container-setup">
         <h6 class="content-title-detail"><a href="{{ route('home') }}"
-                style="color: #2254AB; text-decoration: underline;">Trang chủ</a><i class="bi bi-chevron-right"></i><span>Cung
-                Hoàng Đạo</span><i class="bi bi-chevron-right"></i><span>Thần Nông</span>
+                style="color: #2254AB; text-decoration: underline;">Trang chủ</a><i class="bi bi-chevron-right"></i><a
+                href="{{ route('horoscope.index') }}">Cung
+                Hoàng Đạo</a><i class="bi bi-chevron-right"></i><span>Bọ Cạp</span>
         </h6>
-        <h1 class="content-title-home-lich">Giới thiệu Cung Thần Nông</h1>
+        <h1 class="content-title-home-lich">Giới thiệu Cung Bọ Cạp</h1>
         <div class="row mt-3">
             <div class="col-lg-9">
                 <div class="tong-quan-date mt-2 mb-3">
-                    <div class="card-body  p-lg-4 p-3 position-relative">
+                    <div class="card-body  p-lg-4 p-3 position-relative" style="border-radius: 24px">
                         <div class="text-box-tong-quan">
-                            <h4 class="title-tong-quan-h4">Cung Thần Nông là gì?</h4>
-                            <p class="mb-0">Cung Thần Nông (Scorpio) – hay còn gọi là Cung Bọ Cạp hoặc Thiên Yết – là cung
+                            <h4 class="title-tong-quan-h4">Cung Bọ Cạp là gì?</h4>
+                            <p class="mb-0">Cung Bọ Cạp (Scorpio) – hay còn gọi là Cung Thần Nông hoặc Thiên Yết – là cung
                                 hoàng
                                 đạo thứ tám, đại diện cho năng lượng mạnh mẽ, chiều sâu tâm hồn và khả năng tái sinh phi
                                 thường.
@@ -26,11 +27,11 @@
 
                             </p>
                             <p class="mb-0">
-                                Trong chiêm tinh học phương Tây, Thần Nông thuộc nhóm Nước (Water) – nhóm cảm xúc, sâu sắc
+                                Trong chiêm tinh học phương Tây, Bọ Cạp thuộc nhóm Nước (Water) – nhóm cảm xúc, sâu sắc
                                 và nhạy
                                 bén, cùng với Cự Giải và Song Ngư.
                                 <br>
-                                Hành tinh chủ quản của Thần Nông là Sao Diêm Vương (Pluto) – hành tinh của sự biến đổi,
+                                Hành tinh chủ quản của Bọ Cạp là Sao Diêm Vương (Pluto) – hành tinh của sự biến đổi,
                                 quyền lực và
                                 tái sinh, kết hợp với Sao Hỏa (Mars) – biểu tượng của năng lượng và đam mê. Vì thế, người
                                 cung Thần
@@ -53,8 +54,8 @@
                                 đời đều
                                 được đưa lên trời, trở thành hai chòm sao – tượng trưng cho sức mạnh và sự bất tử.</p>
 
-                            <h4 class="title-tong-quan-h4 pt-2">Tính cách đặc trưng của Thần Nông</h4>
-                            <p class="mb-0">Người thuộc cung Thần Nông là những người mạnh mẽ, sâu sắc và đầy nội lực.
+                            <h4 class="title-tong-quan-h4 pt-2">Tính cách đặc trưng của Bọ Cạp</h4>
+                            <p class="mb-0">Người thuộc cung Bọ Cạp là những người mạnh mẽ, sâu sắc và đầy nội lực.
                                 Họ có cảm xúc mãnh liệt, bản năng nhạy bén và thường che giấu cảm xúc thật sau vẻ ngoài lạnh
                                 lùng,
                                 khó đoán.
@@ -75,18 +76,18 @@
                                 <li>Bí ẩn, khó mở lòng và dễ bị hiểu lầm.</li>
                                 <li>Tính cách cực đoan: hoặc yêu hết mình, hoặc lạnh lùng tuyệt đối.</li>
                             </ul>
-                            <p class="mb-0">Thần Nông là người sống bằng cảm xúc nhưng lý trí mạnh mẽ, họ không bao giờ
+                            <p class="mb-0">Bọ Cạp là người sống bằng cảm xúc nhưng lý trí mạnh mẽ, họ không bao giờ
                                 làm điều
                                 gì nửa vời – tình cảm, công việc hay niềm tin đều được dốc hết lòng.
 
                             </p>
                             <h4 class="title-tong-quan-h4 pt-2">Sự nghiệp và nghề nghiệp phù hợp</h4>
-                            <p class="mb-1">Thần Nông có khả năng quan sát sâu sắc, trực giác mạnh và sức tập trung cao
+                            <p class="mb-1">Bọ Cạp có khả năng quan sát sâu sắc, trực giác mạnh và sức tập trung cao
                                 độ, vì
                                 vậy họ phù hợp với những nghề đòi hỏi tính chiến lược, nghiên cứu hoặc phân tích tâm lý con
                                 người
                             </p>
-                            <h5 class="title-tong-quan-h5 pt-2 mb-0">Nghề nghiệp lý tưởng cho Thần Nông:</h5>
+                            <h5 class="title-tong-quan-h5 pt-2 mb-0">Nghề nghiệp lý tưởng cho Bọ Cạp:</h5>
                             <ul class="mb-1">
                                 <li>Nhà nghiên cứu, bác sĩ tâm lý, nhà phân tích dữ liệu
                                 </li>
@@ -95,13 +96,13 @@
                                 <li>Bác sĩ phẫu thuật, chuyên viên tài chính, cố vấn quản trị</li>
                                 <li>Nghề liên quan đến tâm linh, chữa lành hoặc nghệ thuật sáng tạo</li>
                             </ul>
-                            <p class="mb-0">Thần Nông không thích làm việc hời hợt. Họ cần những dự án có chiều sâu, nơi
+                            <p class="mb-0">Bọ Cạp không thích làm việc hời hợt. Họ cần những dự án có chiều sâu, nơi
                                 họ có thể
                                 “đi đến tận cùng vấn đề” và chứng minh năng lực thực sự.
 
                             </p>
                             <h4 class="title-tong-quan-h4 pt-2">Tình yêu và các mối quan hệ</h4>
-                            <p class="mb-0">Trong tình yêu, Thần Nông là người yêu mãnh liệt, sâu sắc và trung thành tuyệt
+                            <p class="mb-0">Trong tình yêu, Bọ Cạp là người yêu mãnh liệt, sâu sắc và trung thành tuyệt
                                 đối.
                                 Họ yêu hết mình, nhưng cũng đòi hỏi sự chân thành tuyệt đối từ đối phương.
                                 Nếu bị phản bội, họ có thể đau đớn đến cùng cực và rất khó quên.
@@ -130,8 +131,8 @@
                                 </li>
                                 <li>Sư Tử: cả hai đều thích kiểm soát, dễ đối đầu.</li>
                             </ul>
-                            <h4 class="title-tong-quan-h4 pt-2">Thần Nông trong cuộc sống</h4>
-                            <p class="mb-1">Thần Nông là người bí ẩn, sâu sắc và luôn ẩn chứa nhiều suy tư.
+                            <h4 class="title-tong-quan-h4 pt-2">Bọ Cạp trong cuộc sống</h4>
+                            <p class="mb-1">Bọ Cạp là người bí ẩn, sâu sắc và luôn ẩn chứa nhiều suy tư.
                                 <br>
                                 Họ sống khép kín, không chia sẻ nhiều, nhưng luôn quan sát và hiểu rõ thế giới xung quanh.
                                 <br>
@@ -141,18 +142,18 @@
                             </p>
                             <p class="mb-0">Trong cuộc sống, họ cần học cách buông bỏ quá khứ và tha thứ cho bản thân, bởi
                                 đôi khi
-                                chính sự cực đoan khiến họ tự làm khổ mình. Thần Nông mạnh mẽ, nhưng cũng cần học cách để
+                                chính sự cực đoan khiến họ tự làm khổ mình. Bọ Cạp mạnh mẽ, nhưng cũng cần học cách để
                                 trái tim
                                 được bình yên.
                             </p>
                             <h4 class="title-tong-quan-h4 pt-2">Tổng kết</h4>
-                            <p class="mb-0">Cung Thần Nông (Scorpio) là biểu tượng của năng lượng, chiều sâu và sức mạnh
+                            <p class="mb-0">Cung Bọ Cạp (Scorpio) là biểu tượng của năng lượng, chiều sâu và sức mạnh
                                 cảm xúc.
                                 Người thuộc cung này có khả năng tái sinh mạnh mẽ – dù trải qua khó khăn đến đâu, họ vẫn
                                 đứng dậy
                                 mạnh mẽ hơn bao giờ hết.
                             </p>
-                            <p class="mb-0">Nếu bạn là Thần Nông – hãy tự hào vì bạn là cung hoàng đạo của sự kiên định,
+                            <p class="mb-0">Nếu bạn là Bọ Cạp – hãy tự hào vì bạn là cung hoàng đạo của sự kiên định,
                                 trung
                                 thành và cảm xúc mãnh liệt, mang trong mình khả năng chạm đến những tầng sâu nhất của tâm
                                 hồn con
@@ -162,8 +163,9 @@
                     </div>
 
                 </div>
+                  @include('horoscope.list-cung')
             </div>
-              @include('horoscope.box-right')
+            @include('horoscope.box-right')
         </div>
 
     </div>

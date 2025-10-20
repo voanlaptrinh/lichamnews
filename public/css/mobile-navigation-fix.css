@@ -1,0 +1,82 @@
+/* Mobile Navigation Slide Animation Fix */
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+.mobile-navigation,
+#mobile-navigation {
+    position: fixed !important;
+    top: 0 !important;
+    right: 0 !important;
+    width: 280px !important;
+    height: 100% !important;
+    background: #002178 !important;
+    z-index: 1001 !important;
+    box-shadow: -2px 0 5px rgb(0 0 0 / .2) !important;
+    transform: translateX(100%) !important;
+    opacity: 0 !important;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    padding: 6px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    box-sizing: border-box !important;
+    will-change: transform, opacity !important;
+}
+
+.mobile-navigation.is-open,
+#mobile-navigation.is-open {
+    transform: translateX(0) !important;
+    opacity: 1 !important;
+    z-index: 9999999 !important;
+    animation: slideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards !important;
+}
+
+/* Smooth animation for closing */
+.mobile-navigation:not(.is-open),
+#mobile-navigation:not(.is-open) {
+    animation: slideOut 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards !important;
+}
+
+/* Alternative using transform for better performance */
+/*
+.mobile-navigation {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 280px;
+    height: 100%;
+    background: #002178;
+    z-index: 1001;
+    box-shadow: -2px 0 5px rgb(0 0 0 / .2);
+    transform: translateX(100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 6px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+.mobile-navigation.is-open {
+    transform: translateX(0);
+    z-index: 9999999;
+}
+*/

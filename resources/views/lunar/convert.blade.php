@@ -695,7 +695,7 @@
 @endsection
 
 @push('styles')
-    <link rel="stylesheet" href="{{ asset('css/html-chart.css?v=1.0') }}">
+    <link rel="stylesheet" href="{{ asset('css/html-chart.css?v=3.1') }}">
     <style>
         .event-date .solar-date {
             font-size: 14px;
@@ -742,8 +742,8 @@
 @endpush
 
 @push('scripts')
-    <script src="{{ asset('js/base-picker.js?v=3.0') }}"></script>
-    <script src="{{ asset('js/homepage-picker.js?v=3.0') }}"></script>
+    <script src="{{ asset('js/base-picker.js?v=3.1') }}"></script>
+    <script src="{{ asset('js/homepage-picker.js?v=3.1') }}"></script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             // Khởi tạo ứng dụng lịch âm cho trang chủ (không thay đổi URL)

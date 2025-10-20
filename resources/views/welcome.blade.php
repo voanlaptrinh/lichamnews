@@ -89,18 +89,18 @@
     </style>
 
     <!-- Preload CSS resources -->
-    <link rel="preload" href="{{ asset('/css/bootstrap.min.css?v=5.72') }}" as="style">
-    <link rel="preload" href="{{ asset('/css/style-date.css?v=5.72') }}" as="style">
+    <link rel="preload" href="{{ asset('/css/bootstrap.min.css?v=5.73') }}" as="style">
+    <link rel="preload" href="{{ asset('/css/style-date.css?v=5.73') }}" as="style">
 
     <!-- Load critical CSS -->
-    <link href="{{ asset('/css/bootstrap.min.css?v=5.72') }}" rel="stylesheet">
-    <link href="{{ asset('/css/style-date.css?v=5.72') }}" rel="stylesheet">
+    <link href="{{ asset('/css/bootstrap.min.css?v=5.73') }}" rel="stylesheet">
+    <link href="{{ asset('/css/style-date.css?v=5.73') }}" rel="stylesheet">
 
     <!-- Defer non-critical CSS -->
-    <link rel="preload" href="{{ asset('/css/bootstrap-icons.min.css?v=5.72') }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="{{ asset('/css/bootstrap-icons.min.css?v=5.72') }}"></noscript>
-    <link rel="preload" href="{{ asset('/css/repont.css?v=5.72') }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="{{ asset('/css/repont.css?v=5.72') }}"></noscript>
+    <link rel="preload" href="{{ asset('/css/bootstrap-icons.min.css?v=5.73') }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="{{ asset('/css/bootstrap-icons.min.css?v=5.73') }}"></noscript>
+    <link rel="preload" href="{{ asset('/css/repont.css?v=5.73') }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="{{ asset('/css/repont.css?v=5.73') }}"></noscript>
 
     {{-- <link rel="stylesheet" type="text/css" href="{{ asset('/css/daterangepicker.css') }}" /> --}}
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -117,7 +117,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('/meta/apple-touch-icon.png') }}">
     <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('/meta/apple-touch-icon-57x57.png') }}">
     <link rel="apple-touch-icon" sizes="60x60" href="{{ asset('/meta/apple-touch-icon-60x60.png') }}">
-    <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('/meta/apple-touch-icon-72x72.png') }}">
+    <link rel="apple-touch-icon" sizes="73x73" href="{{ asset('/meta/apple-touch-icon-73x73.png') }}">
     <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('/meta/apple-touch-icon-76x76.png') }}">
     <link rel="apple-touch-startup-image" href="{{ asset('/meta/apple-touch-icon-180x180.png') }}" />
     <meta property="og:image" content="{{ asset('/meta/512x512.png') }}">
@@ -186,7 +186,7 @@
     {{-- @include('gieo-que') --}}
     @if (request()->routeIs('home'))
         {{-- Sử dụng Simple Chart thay vì Chart.js 201KB --}}
-        <script src="{{ asset('/js/simple-chart.js?v=5.72') }}" defer></script>
+        <script src="{{ asset('/js/simple-chart.js?v=5.73') }}" defer></script>
     @endif
     {{-- <script src="{{ asset('/js/jquery-3.7.1.min.js?v=5.67') }}" defer></script> --}}
     <script src="{{ asset('/js/bootstrap.bundle.min.js?v=5.7') }}" defer></script>

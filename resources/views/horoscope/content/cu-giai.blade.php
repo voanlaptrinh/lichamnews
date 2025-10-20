@@ -3,14 +3,14 @@
 @section('content')
     <div class="container-setup">
         <h6 class="content-title-detail"><a href="{{ route('home') }}"
-                style="color: #2254AB; text-decoration: underline;">Trang chủ</a><i class="bi bi-chevron-right"></i><span>Cung
-                Hoàng Đạo</span><i class="bi bi-chevron-right"></i><span>Cự Giải</span>
+                style="color: #2254AB; text-decoration: underline;">Trang chủ</a><i class="bi bi-chevron-right"></i><a href="{{ route('horoscope.index') }}">Cung
+                Hoàng Đạo</a><i class="bi bi-chevron-right"></i><span>Cự Giải</span>
         </h6>
         <h1 class="content-title-home-lich">Giới Thiệu Cung Cự Giải</h1>
         <div class="row mt-3">
             <div class="col-lg-9">
                 <div class="tong-quan-date mt-2 mb-3">
-                    <div class="card-body  p-lg-4 p-3 position-relative">
+                    <div class="card-body  p-lg-4 p-3 position-relative" style="border-radius: 24px">
                         <div class="text-box-tong-quan">
                             <h4 class="title-tong-quan-h4">Cung Cự Giải là gì?</h4>
                             <p class="mb-0">Cung Cự Giải (Cancer) là cung hoàng đạo thứ tư, đại diện cho cảm xúc, trực
@@ -122,7 +122,7 @@
                             </ul>
                             <h5 class="title-tong-quan-h5 pt-2 mb-0">Hợp với các cung:</h5>
                             <ul class="mb-0">
-                                <li>Thiên Yết (Bọ Cạp/Thần Nông): cùng nhóm Nước, đồng điệu cảm xúc mạnh mẽ.
+                                <li>Thiên Yết (Bọ Cạp/Bọ Cạp): cùng nhóm Nước, đồng điệu cảm xúc mạnh mẽ.
 
                                 </li>
                                 <li>Song Ngư: cùng mơ mộng, dễ thấu hiểu và chia sẻ.
@@ -160,6 +160,7 @@
                     </div>
 
                 </div>
+                  @include('horoscope.list-cung')
             </div>
               @include('horoscope.box-right')
         </div>
