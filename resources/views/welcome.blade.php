@@ -29,7 +29,7 @@
 
 
         /* ULTRA Critical LCP Elements */
-      
+
         .title-tong-quan-h2,
         .font-detail-ngay,
         #gio-hoang-dao-content {
@@ -45,13 +45,19 @@
             z-index: auto !important;
             background: transparent !important;
             border: none !important;
-            margin: 0 !important;
-            padding: 0 !important;
             animation: none !important;
             transition: none !important;
             -webkit-font-smoothing: auto !important;
-            text-rendering: auto !important;
+            text-rendering: optimizeSpeed !important;
             font-display: block !important;
+            transform: translateZ(0) !important;
+            backface-visibility: hidden !important;
+        }
+
+        /* Force h2 to render immediately without changing font-size */
+        h2.title-tong-quan-h2 {
+            contain-intrinsic-size: auto !important;
+            content-visibility: visible !important;
         }
 
         /* Force immediate paint */

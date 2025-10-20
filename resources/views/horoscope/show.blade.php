@@ -118,6 +118,7 @@
 
             <!-- Main Content Card -->
             <div id="horoscope-content" class="horoscope-content">
+              
                 <div style="text-align: center; padding: 40px; color: #666; font-style: italic;">Đang tải dữ liệu...</div>
             </div>
 
@@ -150,36 +151,70 @@
             const signSlugs = @json($signSlugs ?? []);
             const typeSlugs = @json($typeSlugs ?? []);
 
+            // Get current date info
+            const today = new Date();
+            const tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+
+            // Get weekday names in Vietnamese
+            const weekdays = ['Chủ Nhật', 'Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7'];
+            const todayWeekday = weekdays[today.getDay()];
+            const tomorrowWeekday = weekdays[tomorrow.getDay()];
+
+            // Format dates
+            const todayFormatted = `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`;
+            const tomorrowFormatted = `${tomorrow.getDate()}/${tomorrow.getMonth() + 1}/${tomorrow.getFullYear()}`;
+
+            // Calculate week range (Monday to Sunday)
+            const startOfWeek = new Date(today);
+            const dayOfWeek = today.getDay();
+            const diff = today.getDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1); // adjust when day is Sunday
+            startOfWeek.setDate(diff);
+            const endOfWeek = new Date(startOfWeek);
+            endOfWeek.setDate(startOfWeek.getDate() + 6);
+            const weekRange = `${startOfWeek.getDate()}/${startOfWeek.getMonth() + 1} - ${endOfWeek.getDate()}/${endOfWeek.getMonth() + 1}`;
+
+            // Get month name
+            const monthNames = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
+            const currentMonth = monthNames[today.getMonth()];
+            const currentYear = today.getFullYear();
+
             const typeMetaData = {
                 'yesterday': {
                     suffix: 'Hôm qua',
                     descSuffix: 'hôm qua',
-                    breadcrumb: 'Hôm qua'
+                    breadcrumb: 'Hôm qua',
+                    getTitle: (zodiacName) => `Hôm qua của ${zodiacName}`
                 },
                 'today': {
                     suffix: 'Hôm nay',
                     descSuffix: 'hôm nay',
-                    breadcrumb: 'Hôm nay'
+                    breadcrumb: 'Hôm nay',
+                    getTitle: (zodiacName) => `${todayWeekday} của ${zodiacName} (Ngày ${todayFormatted})`
                 },
                 'tomorrow': {
                     suffix: 'Ngày mai',
                     descSuffix: 'ngày mai',
-                    breadcrumb: 'Ngày mai'
+                    breadcrumb: 'Ngày mai',
+                    getTitle: (zodiacName) => `${tomorrowWeekday} của ${zodiacName} (Ngày ${tomorrowFormatted})`
                 },
                 'weekly': {
                     suffix: 'Tuần này',
                     descSuffix: 'tuần này',
-                    breadcrumb: 'Tuần này'
+                    breadcrumb: 'Tuần này',
+                    getTitle: (zodiacName) => `Tuần này của ${zodiacName} (${weekRange})`
                 },
                 'monthly': {
                     suffix: 'Tháng này',
                     descSuffix: 'tháng này',
-                    breadcrumb: 'Tháng này'
+                    breadcrumb: 'Tháng này',
+                    getTitle: (zodiacName) => `Tháng ${currentMonth} của ${zodiacName}`
                 },
                 'yearly': {
-                    suffix: 'Năm ' + new Date().getFullYear(),
-                    descSuffix: 'năm ' + new Date().getFullYear(),
-                    breadcrumb: 'Năm ' + new Date().getFullYear()
+                    suffix: 'Năm ' + currentYear,
+                    descSuffix: 'năm ' + currentYear,
+                    breadcrumb: 'Năm ' + currentYear,
+                    getTitle: (zodiacName) => `Năm ${currentYear} của ${zodiacName}`
                 }
             };
 
@@ -284,9 +319,21 @@
                 const zodiac = zodiacData[sign];
                 const typeMeta = typeMetaData[type];
                 if (zodiac && typeMeta && document.getElementById('main-title')) {
+                    // Keep the original h1 title format
                     document.getElementById('main-title').textContent =
                         `Tử Vi Cung ${zodiac.name} ${typeMeta.suffix}`;
                 }
+            }
+
+            function addContentTitle(sign, type) {
+                const zodiac = zodiacData[sign];
+                const typeMeta = typeMetaData[type];
+                if (zodiac && typeMeta && typeMeta.getTitle) {
+                    // Add h2 title at the beginning of content
+                    const h2Title = `<h2 class="title-tong-quan-h2-log pb-2">${typeMeta.getTitle(zodiac.name)}</h2>`;
+                    return h2Title;
+                }
+                return '';
             }
 
             function updateZodiacInfo(sign) {
@@ -308,7 +355,9 @@
                     const data = await response.json();
                     if (!response.ok) throw new Error(data.error || `Lỗi máy chủ: ${response.status}`);
                     if (data.html) {
-                        horoscopeContent.innerHTML = data.html;
+                        // Add h2 title before the content
+                        const h2Title = addContentTitle(currentSign, type);
+                        horoscopeContent.innerHTML = h2Title + data.html;
                     } else {
                         throw new Error('Định dạng dữ liệu trả về không hợp lệ.');
                     }

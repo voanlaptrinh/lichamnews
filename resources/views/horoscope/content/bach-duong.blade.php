@@ -3,7 +3,7 @@
 @section('content')
     <div class="container-setup">
         <h6 class="content-title-detail"><a href="{{ route('home') }}"
-                style="color: #2254AB; text-decoration: underline;">Trang chủ</a><i class="bi bi-chevron-right"></i><a href="{{ route('horoscope.index') }}">Cung
+                style="color: #2254AB; text-decoration: underline;">Trang chủ</a><i class="bi bi-chevron-right"></i><a href="{{ route('horoscope.index') }}"  style="color: #2254AB; text-decoration: underline;">Cung
                 Hoàng Đạo</a><i class="bi bi-chevron-right"></i><span>Bạch Dương</span>
         </h6>
         <h1 class="content-title-home-lich">Giới thiệu cung Bạch Dương</h1>

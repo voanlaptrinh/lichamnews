@@ -14,51 +14,11 @@
         <div class="row mt-2 g-3">
             <div class="col-lg-9">
                 <div class="box--bg-thang">
-
-
                     <div class="text-box-tong-quan">
                         {!! $nam_content_auto !!}
                     </div>
                 </div>
-                {{-- Hiển thị thông tin chi tiết tại đây --}}
-                {{-- <div class="row g-2 pt-2 pb-2">
-                    <!-- Ngày tốt tháng 1 (Good day of August) -->
-                    <div class="col-xl-3 col-lg-4 col-md-6 col-12"> <!--  để cột chỉ chiếm chiều rộng cần thiết -->
-                        <button type="button" class="btn custom-pill-btn rounded-pill d-flex align-items-center">
-                            <img src="{{ asset('/icons/dac-diem2.svg') }}" alt="Ngày lễ dương lịch" class="img-fluid me-2"
-                                width="20px">
-                            <span>Ngày lễ dương lịch {{ $nam }}</span>
-                        </button>
-                    </div>
-                    <!-- Ngày xấu tháng 1 (Bad day of August) - Cloud with red X -->
-                    <div class="col-xl-3 col-lg-4 col-md-6 col-12">
-                        <button type="button" class="btn custom-pill-btn rounded-pill d-flex align-items-center">
-                            <img src="{{ asset('/icons/dac-diem3.svg') }}" alt="Ngày lễ âm lịch" class="img-fluid me-2"
-                                width="20px">
-                            <span>Ngày lễ âm lịch {{ $nam }}</span>
-                        </button>
-                    </div>
-                    <!-- Ngày lễ dương lịch (Solar calendar holiday / Public holiday) -->
-                    <div class="col-xl-3 col-lg-4 col-md-6 col-12">
-                        <button type="button" class="btn custom-pill-btn rounded-pill d-flex align-items-center">
-                            <img src="{{ asset('/icons/dac-diem2.svg') }}" alt="Sự kiện lịch sử" class="img-fluid me-2"
-                                width="20px">
-                            <span>Sự kiện lịch sử {{ $nam }}</span>
-                        </button>
-                    </div>
-                    <!-- Sự kiện lịch sử (Historical event) -->
-                    <div class="col-xl-3 col-lg-4 col-md-6 col-12">
-                        <button type="button" class="btn custom-pill-btn rounded-pill d-flex align-items-center">
-                            <img src="{{ asset('/icons/dac-diem1.svg') }}" alt="Lịch âm năm khác" class="img-fluid me-2"
-                                width="20px">
-                            <span>Sự kiện lịch sử</span>
-                        </button>
-                    </div>
-
-
-                </div> --}}
-
-
+              
                 <div class="box--bg-thang mt-3">
                     <h2 class="title-tong-quan-h2-log">Lịch âm dương đầy đủ, chính xác, chi tiết của 12 tháng trong năm
                         {{ $nam }}</h2>
