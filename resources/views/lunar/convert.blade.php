@@ -1,11 +1,92 @@
 @extends('welcome')
+
+@push('critical-css')
+<style>
+    /* Ultra-critical LCP optimization - no font-size changes */
+    .date-number.duong,
+    .date-number.am {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        transform: none !important;
+        will-change: auto !important;
+        animation: none !important;
+        transition: none !important;
+        position: static !important;
+        z-index: auto !important;
+        filter: none !important;
+        backdrop-filter: none !important;
+        mask: none !important;
+        clip-path: none !important;
+        contain: none !important;
+        content-visibility: visible !important;
+        -webkit-transform: none !important;
+        -webkit-font-smoothing: auto !important;
+        text-rendering: optimizeSpeed !important;
+    }
+
+    /* Optimize parent containers */
+    .date-display-card {
+        background: white !important;
+        contain: none !important;
+        content-visibility: visible !important;
+        will-change: auto !important;
+        transform: translateZ(0) !important;
+    }
+
+    .col-6 {
+        position: static !important;
+        transform: none !important;
+        will-change: auto !important;
+    }
+
+    /* Remove all animations on critical path */
+    .row, .col-6, .text-center {
+        animation: none !important;
+        transition: none !important;
+    }
+
+    /* Force browser to prioritize these elements */
+    #lcp-duong, #lcp-am {
+        contain-intrinsic-size: auto !important;
+        font-display: block !important;
+    }
+
+    /* Preload system fonts */
+    @font-face {
+        font-family: 'Arial';
+        font-display: block;
+        src: local('Arial');
+    }
+</style>
+@endpush
+
 @section('content')
     @php
         $today = \Carbon\Carbon::now();
         $currentDate = \Carbon\Carbon::createFromDate($yy, $mm, $dd);
         $isToday = $today->isSameDay($currentDate);
     @endphp
+
     <div class="calendar-app-container py-4">
+        <script>
+            // Ultra-fast LCP optimization
+            (function() {
+                'use strict';
+                var lcpDuong = document.getElementById('lcp-duong');
+                var lcpAm = document.getElementById('lcp-am');
+                if(lcpDuong) {
+                    lcpDuong.style.visibility = 'visible';
+                    lcpDuong.style.opacity = '1';
+                    void lcpDuong.offsetHeight;
+                }
+                if(lcpAm) {
+                    lcpAm.style.visibility = 'visible';
+                    lcpAm.style.opacity = '1';
+                    void lcpAm.offsetHeight;
+                }
+            })();
+        </script>
         <div class="row g-0">
             <div class="col-xl-9">
 
@@ -41,7 +122,7 @@
                                         <div class="card-title title-amduowngbox"><img
                                                 src="{{ asset('icons/icon_duong.svg') }}" alt="icon_duong" width="20"
                                                 height="20" loading="eager"> Dương lịch</div>
-                                        <div class="date-number duong date_number_lich"> {{ $dd }}</div>
+                                        <div class="date-number duong date_number_lich" id="lcp-duong" style="visibility: visible !important; opacity: 1 !important;">{{ $dd }}</div>
                                         <div class="date-weekday">{{ $weekday }}</div>
                                         <div class="date-special-event text-dark">Tháng {{ $mm }} năm
                                             {{ $yy }}</div>
@@ -65,8 +146,7 @@
                                         <div class="card-title title-amduowngbox"><img
                                                 src="{{ asset('icons/icon_am.svg') }}" alt="icon_am" width="20"
                                                 height="20" loading="eager"> Âm lịch</div>
-                                        <div class="date-number am date_number_lich date_number_lich_am">{{ $al[0] }}
-                                        </div>
+                                        <div class="date-number am date_number_lich date_number_lich_am" id="lcp-am" style="visibility: visible !important; opacity: 1 !important;">{{ $al[0] }}</div>
                                         <div class="date-weekday">Tháng {{ $al[1] }} ({{ $al[4] }}) năm
                                             {{ $getThongTinCanChiVaIcon['can_chi_nam'] }}</div>
                                         <div class="date-special-event text-dark">Ngày
@@ -105,26 +185,7 @@
 
                                 </div>
                             </div>
-                            <div class="ring-item1-left item-rings">
-                                <div class="item-ring1">
-                                    <img src="{{ asset('icons/cairing.png') }}" alt="cairing" width="13"
-                                        height="55" loading="lazy" decoding="async">
-                                </div>
-                                <div class="item-ring2">
-                                    <img src="{{ asset('icons/cairing.png') }}" alt="cairing" width="13"
-                                        height="55" loading="lazy" decoding="async">
-                                </div>
-                            </div>
-                            <div class="ring-item2-right item-rings">
-                                <div class="item-ring3">
-                                    <img src="{{ asset('icons/cairing.png') }}" alt="cairing" width="13"
-                                        height="55" loading="lazy" decoding="async">
-                                </div>
-                                <div class="item-ring4">
-                                    <img src="{{ asset('icons/cairing.png') }}" alt="cairing" width="13"
-                                        height="55" loading="lazy" decoding="async">
-                                </div>
-                            </div>
+                          
 
                             <div class="col-lg-12 btn-mobie-next-prev">
                                 <div>
@@ -151,6 +212,26 @@
                                 </div>
                             </div>
                         </div>
+                          <div class="ring-item1-left item-rings">
+                                <div class="item-ring1">
+                                    <img src="{{ asset('icons/cairing.png') }}" alt="cairing" width="13"
+                                        height="55" loading="lazy" decoding="async">
+                                </div>
+                                <div class="item-ring2">
+                                    <img src="{{ asset('icons/cairing.png') }}" alt="cairing" width="13"
+                                        height="55" loading="lazy" decoding="async">
+                                </div>
+                            </div>
+                            <div class="ring-item2-right item-rings">
+                                <div class="item-ring3">
+                                    <img src="{{ asset('icons/cairing.png') }}" alt="cairing" width="13"
+                                        height="55" loading="lazy" decoding="async">
+                                </div>
+                                <div class="item-ring4">
+                                    <img src="{{ asset('icons/cairing.png') }}" alt="cairing" width="13"
+                                        height="55" loading="lazy" decoding="async">
+                                </div>
+                            </div>
                         {{-- d-sm-block d-block d-xl-none --}}
                         <div class="position-relative bix-title-thangnam">
 

@@ -89,18 +89,18 @@
     </style>
 
     <!-- Preload CSS resources -->
-    <link rel="preload" href="{{ asset('/css/bootstrap.min.css?v=5.73') }}" as="style">
-    <link rel="preload" href="{{ asset('/css/style-date.css?v=5.73') }}" as="style">
+    <link rel="preload" href="{{ asset('/css/bootstrap.min.css?v=5.75') }}" as="style">
+    <link rel="preload" href="{{ asset('/css/style-date.css?v=5.75') }}" as="style">
 
     <!-- Load critical CSS -->
-    <link href="{{ asset('/css/bootstrap.min.css?v=5.73') }}" rel="stylesheet">
-    <link href="{{ asset('/css/style-date.css?v=5.73') }}" rel="stylesheet">
+    <link href="{{ asset('/css/bootstrap.min.css?v=5.75') }}" rel="stylesheet">
+    <link href="{{ asset('/css/style-date.css?v=5.75') }}" rel="stylesheet">
 
     <!-- Defer non-critical CSS -->
-    <link rel="preload" href="{{ asset('/css/bootstrap-icons.min.css?v=5.73') }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="{{ asset('/css/bootstrap-icons.min.css?v=5.73') }}"></noscript>
-    <link rel="preload" href="{{ asset('/css/repont.css?v=5.73') }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="{{ asset('/css/repont.css?v=5.73') }}"></noscript>
+    <link rel="preload" href="{{ asset('/css/bootstrap-icons.min.css?v=5.75') }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="{{ asset('/css/bootstrap-icons.min.css?v=5.75') }}"></noscript>
+    <link rel="preload" href="{{ asset('/css/repont.css?v=5.75') }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="{{ asset('/css/repont.css?v=5.75') }}"></noscript>
 
     {{-- <link rel="stylesheet" type="text/css" href="{{ asset('/css/daterangepicker.css') }}" /> --}}
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -126,9 +126,10 @@
     <meta property="og:description" content="{{ $metaDescription ?? '' }}">
     <meta name="google-site-verification" content="7vbSgMqtIVgd4WDBamHC2YavkSAVwGpQO8U2pFpVA6U" />
 
+    @stack('critical-css')
     @stack('styles')
-  
-    
+
+
 </head>
 
 <body>
@@ -186,7 +187,7 @@
     {{-- @include('gieo-que') --}}
     @if (request()->routeIs('home'))
         {{-- Sử dụng Simple Chart thay vì Chart.js 201KB --}}
-        <script src="{{ asset('/js/simple-chart.js?v=5.73') }}" defer></script>
+        <script src="{{ asset('/js/simple-chart.js?v=5.75') }}" defer></script>
     @endif
     {{-- <script src="{{ asset('/js/jquery-3.7.1.min.js?v=5.67') }}" defer></script> --}}
     <script src="{{ asset('/js/bootstrap.bundle.min.js?v=5.7') }}" defer></script>

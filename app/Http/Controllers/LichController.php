@@ -296,13 +296,16 @@ class LichController extends Controller
         }
 
         // Kiểm tra tháng nhuận (nếu có)
-        list($solar_d_leap, $solar_m_leap, $solar_y_leap) = LunarHelper::convertLunar2Solar(1, $thang, $lunar_year_to_check, 1);
-        if ($solar_d_leap > 0) { // Tháng nhuận tồn tại
-            $all_lunar_months[] = [
-                'month' => $thang,
-                'is_leap' => 1,
-                'year' => $lunar_year_to_check
-            ];
+        // Tháng 1 thường không có tháng nhuận trong lịch Việt Nam
+        if ($thang != 1) {
+            list($solar_d_leap, $solar_m_leap, $solar_y_leap) = LunarHelper::convertLunar2Solar(1, $thang, $lunar_year_to_check, 1);
+            if ($solar_d_leap > 0) { // Tháng nhuận tồn tại
+                $all_lunar_months[] = [
+                    'month' => $thang,
+                    'is_leap' => 1,
+                    'year' => $lunar_year_to_check
+                ];
+            }
         }
 
         // Nếu không tìm thấy trong năm hiện tại, thử năm tiếp theo (cho tháng 11-12)
@@ -320,13 +323,16 @@ class LichController extends Controller
             }
 
             // Tháng nhuận
-            list($solar_d_leap, $solar_m_leap, $solar_y_leap) = LunarHelper::convertLunar2Solar(1, $thang, $lunar_year_to_check, 1);
-            if ($solar_d_leap > 0) {
-                $all_lunar_months[] = [
-                    'month' => $thang,
-                    'is_leap' => 1,
-                    'year' => $lunar_year_to_check
-                ];
+            // Tháng 1 thường không có tháng nhuận trong lịch Việt Nam
+            if ($thang != 1) {
+                list($solar_d_leap, $solar_m_leap, $solar_y_leap) = LunarHelper::convertLunar2Solar(1, $thang, $lunar_year_to_check, 1);
+                if ($solar_d_leap > 0) {
+                    $all_lunar_months[] = [
+                        'month' => $thang,
+                        'is_leap' => 1,
+                        'year' => $lunar_year_to_check
+                    ];
+                }
             }
         }
 

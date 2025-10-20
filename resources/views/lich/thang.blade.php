@@ -18,10 +18,11 @@
             {{-- Hiển thị tất cả các tháng âm có trong tháng dương này --}}
             @if(!empty($lunar_calendars))
                 @foreach($lunar_calendars as $lunar_calendar)
+               
                     <div class="box--bg-thang mt-3">
                         <div class="">
                             <div class="title-tong-quan-h3-log">
-                                Âm lịch tháng {{ $lunar_calendar['month'] }}{{ $lunar_calendar['is_leap'] ? ' nhuận' : '' }}
+                                Âm lịch tháng {{ $lunar_calendar['month'] }}{{ ($lunar_calendar['is_leap'] == 1) ? ' nhuận' : '' }}
                             </div>
                             <hr>
                             <div>

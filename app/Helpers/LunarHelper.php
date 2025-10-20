@@ -506,7 +506,6 @@ class LunarHelper
             '3-10' => 'Giỗ tổ Hùng Vương',
             '3-15' => 'Rằm tháng Ba',
             '4-1' => 'Mùng 1 tháng Tư',
-            '4-8' => 'Lễ Phật Đản',
             '4-15' => 'Rằm tháng Tư',
             '5-1' => 'Mùng 1 tháng Năm',
             '5-5' => 'Tết Đoan Ngọ',
