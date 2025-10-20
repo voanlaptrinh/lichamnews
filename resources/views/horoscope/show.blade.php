@@ -32,7 +32,20 @@
             'aquarius' => 'Bảo Bình',
             'pisces' => 'Song Ngư',
         ];
-
+        $zodiacNames_acc = [
+            'aries' => 'bach-duong',
+            'taurus' => 'kim-nguu',
+            'gemini' => 'song-tu',
+            'cancer' => 'cu-giai',
+            'leo' => 'su_tu',
+            'virgo' => 'xu-nu',
+            'libra' => 'thien-binh',
+            'scorpio' => 'than-nong',
+            'sagittarius' => 'nhan-ma',
+            'capricorn' => 'ma-ket',
+            'aquarius' => 'bao-binh',
+            'pisces' => 'song-ngu',
+        ];
         $zodiacDates = [
             'aries' => '21/3 - 19/4',
             'taurus' => '20/4 - 20/5',
@@ -51,13 +64,13 @@
     <div class="container-setup">
         <h6 class="content-title-detail"><a href="{{ route('home') }}"
                 style="color: #2254AB; text-decoration: underline;">Trang chủ</a> <i class="bi bi-chevron-right"></i>
-            <span>12 cung hoàng đạo</span> <i class="bi bi-chevron-right"></i><span
-                id="breadcrumb-zodiac">{{ $zodiacNames[$zodiac['sign']] ?? 'Cung hoàng đạo' }}</span> <i
+            <a style="color: #2254AB; text-decoration: underline;" href="{{ route('horoscope.index') }}">Cung hoàng đạo</a> <i
+                class="bi bi-chevron-right"></i><a style="color: #2254AB; text-decoration: underline;"
+                href="{{ route('horoscope.show', ['signSlug' => $zodiacNames_acc[$zodiac['sign']]]) }}"
+                id="breadcrumb-zodiac">{{ $zodiacNames[$zodiac['sign']] ?? 'Cung hoàng đạo' }}</a> <i
                 class="bi bi-chevron-right"></i><span id="breadcrumb-time">Hôm nay</span>
         </h6>
-        <h1 class="content-title-home-lich" id="main-title">Tử Vi Cung&nbsp;<span
-                id="zodiac-title">{{ $zodiacNames[$zodiac['sign']] ?? 'Cung hoàng đạo' }}</span>&nbsp;<span
-                id="time-period">Hôm nay</span></h1>
+        <h1 class="content-title-home-lich" id="main-title">Tử Vi Cung {{ $zodiacNames[$zodiac['sign']] ?? 'Cung hoàng đạo' }} Hôm nay</h1>
     </div>
 
     <!-- Zodiac Header -->
@@ -269,8 +282,7 @@
                 const zodiac = zodiacData[sign];
                 const typeMeta = typeMetaData[type];
                 if (zodiac && typeMeta && document.getElementById('main-title')) {
-                    document.getElementById('main-title').innerHTML =
-                        `Tử Vi Cung&nbsp;<span id="zodiac-title">${zodiac.name}</span>&nbsp;<span id="time-period">${typeMeta.suffix}</span>`;
+                    document.getElementById('main-title').textContent = `Tử Vi Cung ${zodiac.name} ${typeMeta.suffix}`;
                 }
             }
 

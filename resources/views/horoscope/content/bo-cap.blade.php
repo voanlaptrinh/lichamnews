@@ -3,8 +3,8 @@
 @section('content')
     <div class="container-setup">
         <h6 class="content-title-detail"><a href="{{ route('home') }}"
-                style="color: #2254AB; text-decoration: underline;">Trang chủ</a> <i class="bi bi-chevron-right"></i>
-            <span>Giới thiệu Cung Thần Nông</span>
+                style="color: #2254AB; text-decoration: underline;">Trang chủ</a><i class="bi bi-chevron-right"></i><span>Cung
+                Hoàng Đạo</span><i class="bi bi-chevron-right"></i><span>Thần Nông</span>
         </h6>
         <h1 class="content-title-home-lich">Giới thiệu Cung Thần Nông</h1>
         <div class="row mt-3">

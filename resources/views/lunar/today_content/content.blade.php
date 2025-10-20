@@ -105,7 +105,7 @@
                  <div class="card-body  p-lg-4 p-3 position-relative">
                      <!-- Nút "Tổng quan" ở góc trên bên phải -->
                      <div class="mb-3">
-                         <h2 class="title-tong-quan-h2" style="visibility: visible !important; opacity: 1 !important; display: block !important; transform: none !important; animation: none !important; transition: none !important;">
+                         <h2 class="title-tong-quan-h2">
                              Âm lịch {{ $titletodate ?? '' }} ngày {{ $al[0] }} tháng {{ $al[1] }} năm
                              {{ $getThongTinCanChiVaIcon['can_chi_nam'] }}
                          </h2>

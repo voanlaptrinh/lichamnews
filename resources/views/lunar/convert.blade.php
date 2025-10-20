@@ -65,7 +65,7 @@
                                         <div class="card-title title-amduowngbox"><img
                                                 src="{{ asset('icons/icon_am.svg') }}" alt="icon_am" width="20"
                                                 height="20" loading="eager"> Âm lịch</div>
-                                        <div class="date-number am date_number_lich date_number_lich_am" style="visibility: visible !important; opacity: 1 !important; display: block !important; transform: none !important; animation: none !important; transition: none !important;">{{ $al[0] }}
+                                        <div class="date-number am date_number_lich date_number_lich_am">{{ $al[0] }}
                                         </div>
                                         <div class="date-weekday">Tháng {{ $al[1] }} ({{ $al[4] }}) năm
                                             {{ $getThongTinCanChiVaIcon['can_chi_nam'] }}</div>
@@ -444,12 +444,10 @@
                         <hr>
                         <div class="utilities-grid row g-4 pt-2">
                             <div class="chart-container">
-
-                                <div class="chart-canvas-wrapper">
-                                    <canvas id="myChart"></canvas>
+                                <div id="html-chart-container" class="html-chart-wrapper">
+                                    <!-- Chart will be rendered here with HTML/CSS -->
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </section>
@@ -697,6 +695,7 @@
 @endsection
 
 @push('styles')
+    <link rel="stylesheet" href="{{ asset('css/html-chart.css?v=1.0') }}">
     <style>
         .event-date .solar-date {
             font-size: 14px;
@@ -743,8 +742,8 @@
 @endpush
 
 @push('scripts')
-    <script src="{{ asset('js/base-picker.js?v=2.0') }}"></script>
-    <script src="{{ asset('js/homepage-picker.js?v=2.0') }}"></script>
+    <script src="{{ asset('js/base-picker.js?v=3.0') }}"></script>
+    <script src="{{ asset('js/homepage-picker.js?v=3.0') }}"></script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             // Khởi tạo ứng dụng lịch âm cho trang chủ (không thay đổi URL)

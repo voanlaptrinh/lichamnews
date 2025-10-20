@@ -262,79 +262,174 @@ class LichController extends Controller
             }
         }
 
-        $lunar_calendar_weeks = [];
-        $can_chi_thang_am = '';
+        // Kiểm tra tháng dương hiện tại có chứa tháng âm nhuận không
+        $contains_leap_month = false;
+        $leap_month_in_solar = 0;
 
-        if ($primary_lunar_year) {
-            $can_chi_thang_am = LunarHelper::canchiThang($primary_lunar_year, $primary_lunar_month);
-            list($start_dd, $start_mm, $start_yy) = LunarHelper::convertLunar2Solar(1, $primary_lunar_month, $primary_lunar_year, $primary_lunar_is_leap);
+        // Luôn tạo tháng âm có số bằng với tháng dương
+        // Bất kể tháng âm đó có tồn tại trong năm hay không
+        $all_lunar_months = [];
 
-            $lunar_month_calendar_data = [];
-            $current_date = \Carbon\Carbon::create($start_yy, $start_mm, $start_dd);
-            $expected_lunar_month = $primary_lunar_month;
-            $max_iterations = 31; // Safety limit
-            $iteration_count = 0;
+        // Xác định năm âm dựa trên tháng dương
+        // Thông thường, các tháng 1-2 dương có thể thuộc năm âm trước
+        // Các tháng 10-12 dương thì tháng âm thường thuộc năm hiện tại
+        $lunar_year_to_check = $nam;
 
-            // Generate calendar by adding days until we reach the next lunar month
-            while ($iteration_count < $max_iterations) {
-                $solar_day = $current_date->day;
-                $solar_month = $current_date->month;
-                $solar_year = $current_date->year;
+        // Nếu là tháng 1 hoặc 2 dương, có thể cần kiểm tra năm âm trước
+        if ($thang <= 2) {
+            // Kiểm tra xem tháng âm này thuộc năm nào
+            $test_date = LunarHelper::convertSolar2Lunar(15, $thang, $nam);
+            if ($test_date[1] >= 11) { // Nếu là tháng 11-12 âm
+                $lunar_year_to_check = $nam - 1;
+            }
+        }
 
-                list($ld, $lm, $ly, $ll) = LunarHelper::convertSolar2Lunar($solar_day, $solar_month, $solar_year);
+        // Kiểm tra xem tháng âm này có tồn tại không (bao gồm cả tháng thường và nhuận)
+        // Tháng thường
+        list($solar_d, $solar_m, $solar_y) = LunarHelper::convertLunar2Solar(1, $thang, $lunar_year_to_check, 0);
+        if ($solar_d > 0) { // Tháng thường tồn tại
+            $all_lunar_months[] = [
+                'month' => $thang,
+                'is_leap' => 0,
+                'year' => $lunar_year_to_check
+            ];
+        }
 
-                // Stop when we reach a different lunar month, year, or leap status
-                if (($lm != $expected_lunar_month || $ly != $primary_lunar_year || $ll != $primary_lunar_is_leap) && count($lunar_month_calendar_data) > 0) {
-                    break;
-                }
+        // Kiểm tra tháng nhuận (nếu có)
+        list($solar_d_leap, $solar_m_leap, $solar_y_leap) = LunarHelper::convertLunar2Solar(1, $thang, $lunar_year_to_check, 1);
+        if ($solar_d_leap > 0) { // Tháng nhuận tồn tại
+            $all_lunar_months[] = [
+                'month' => $thang,
+                'is_leap' => 1,
+                'year' => $lunar_year_to_check
+            ];
+        }
 
-                // Only add days that belong to the expected lunar month, year, and leap status
-                if ($lm == $expected_lunar_month && $ly == $primary_lunar_year && $ll == $primary_lunar_is_leap) {
-                    $jd = LunarHelper::jdFromDate($solar_day, $solar_month, $solar_year);
-                    $canchi = LunarHelper::canchiNgayByJD($jd);
+        // Nếu không tìm thấy trong năm hiện tại, thử năm tiếp theo (cho tháng 11-12)
+        if (empty($all_lunar_months) && $thang >= 10) {
+            $lunar_year_to_check = $nam + 1;
 
-                    $lunar_month_calendar_data[] = [
-                        'day' => $ld,
-                        'month' => $lm,
-                        'year' => $ly,
-                        'leap' => $ll,
-                        'jd' => $jd,
-                        'canchi' => $canchi,
-                        'solar_day' => $solar_day,
-                        'solar_month' => $solar_month,
-                        'solar_year' => $solar_year,
-                    ];
-                }
-
-                $current_date->addDay();
-                $iteration_count++;
+            // Tháng thường
+            list($solar_d, $solar_m, $solar_y) = LunarHelper::convertLunar2Solar(1, $thang, $lunar_year_to_check, 0);
+            if ($solar_d > 0) {
+                $all_lunar_months[] = [
+                    'month' => $thang,
+                    'is_leap' => 0,
+                    'year' => $lunar_year_to_check
+                ];
             }
 
-            $first_day_of_week = (\Carbon\Carbon::create($start_yy, $start_mm, $start_dd)->dayOfWeek + 6) % 7;
+            // Tháng nhuận
+            list($solar_d_leap, $solar_m_leap, $solar_y_leap) = LunarHelper::convertLunar2Solar(1, $thang, $lunar_year_to_check, 1);
+            if ($solar_d_leap > 0) {
+                $all_lunar_months[] = [
+                    'month' => $thang,
+                    'is_leap' => 1,
+                    'year' => $lunar_year_to_check
+                ];
+            }
+        }
 
-            $weeks = [];
-            $current_week = [];
+        // Sắp xếp theo leap status (tháng thường trước, tháng nhuận sau)
+        if (!empty($all_lunar_months)) {
+            usort($all_lunar_months, function($a, $b) {
+                return $a['is_leap'] - $b['is_leap'];
+            });
+        }
 
-            for ($i = 0; $i < $first_day_of_week; $i++) {
-                $current_week[] = null;
+        // Tạo bảng lịch cho từng tháng âm
+        $lunar_calendars = [];
+
+        foreach ($all_lunar_months as $lunar_month) {
+            $month_num = $lunar_month['month'];
+            $is_leap = $lunar_month['is_leap'];
+            $lunar_year = $lunar_month['year'];
+
+            // Lấy can chi của tháng
+            $can_chi = LunarHelper::canchiThang($lunar_year, $month_num);
+            if ($is_leap) {
+                $can_chi .= ' (nhuận)';
             }
 
-            foreach ($lunar_month_calendar_data as $day) {
-                $current_week[] = $day;
-                if (count($current_week) == 7) {
-                    $weeks[] = $current_week;
-                    $current_week = [];
+            // Chuyển đổi ngày 1 của tháng âm sang dương
+            list($start_dd, $start_mm, $start_yy) = LunarHelper::convertLunar2Solar(1, $month_num, $lunar_year, $is_leap);
+
+            if ($start_dd > 0) { // Nếu tháng âm tồn tại
+                $lunar_month_calendar_data = [];
+                $current_date = \Carbon\Carbon::create($start_yy, $start_mm, $start_dd);
+                $max_iterations = 31; // Safety limit
+                $iteration_count = 0;
+
+                // Generate calendar by adding days until we reach the next lunar month
+                while ($iteration_count < $max_iterations) {
+                    $solar_day = $current_date->day;
+                    $solar_month = $current_date->month;
+                    $solar_year = $current_date->year;
+
+                    list($ld, $lm, $ly, $ll) = LunarHelper::convertSolar2Lunar($solar_day, $solar_month, $solar_year);
+
+                    // Stop when we reach a different lunar month, year, or leap status
+                    if (($lm != $month_num || $ly != $lunar_year || $ll != $is_leap) && count($lunar_month_calendar_data) > 0) {
+                        break;
+                    }
+
+                    // Only add days that belong to the expected lunar month, year, and leap status
+                    if ($lm == $month_num && $ly == $lunar_year && $ll == $is_leap) {
+                        $jd = LunarHelper::jdFromDate($solar_day, $solar_month, $solar_year);
+                        $canchi_day = LunarHelper::canchiNgayByJD($jd);
+
+                        $lunar_month_calendar_data[] = [
+                            'day' => $ld,
+                            'month' => $lm,
+                            'year' => $ly,
+                            'leap' => $ll,
+                            'jd' => $jd,
+                            'canchi' => $canchi_day,
+                            'solar_day' => $solar_day,
+                            'solar_month' => $solar_month,
+                            'solar_year' => $solar_year,
+                        ];
+                    }
+
+                    $current_date->addDay();
+                    $iteration_count++;
                 }
-            }
 
-            if (count($current_week) > 0) {
-                while (count($current_week) < 7) {
+                $first_day_of_week = (\Carbon\Carbon::create($start_yy, $start_mm, $start_dd)->dayOfWeek + 6) % 7;
+
+                $weeks = [];
+                $current_week = [];
+
+                for ($i = 0; $i < $first_day_of_week; $i++) {
                     $current_week[] = null;
                 }
-                $weeks[] = $current_week;
+
+                foreach ($lunar_month_calendar_data as $day) {
+                    $current_week[] = $day;
+                    if (count($current_week) == 7) {
+                        $weeks[] = $current_week;
+                        $current_week = [];
+                    }
+                }
+
+                if (count($current_week) > 0) {
+                    while (count($current_week) < 7) {
+                        $current_week[] = null;
+                    }
+                    $weeks[] = $current_week;
+                }
+
+                // Lưu thông tin lịch âm này
+                $lunar_calendars[] = [
+                    'month' => $month_num,
+                    'is_leap' => $is_leap,
+                    'can_chi' => $can_chi,
+                    'weeks' => $weeks
+                ];
             }
-            $lunar_calendar_weeks = $weeks;
         }
+
+
 
         return view('lich.thang', [
             'metaTitle' => $metaTitle,
@@ -348,12 +443,10 @@ class LichController extends Controller
             'data_al' => $data_al,
             'desrtipton_thang' => $desrtipton_thang,
             'le_lichs' => $le_lichs, //Ngày lễ dương lịch
-            'su_kiens' => $su_kiens, //Sự kiện tháng 
-            'lunar_calendar_weeks' => $lunar_calendar_weeks,
+            'su_kiens' => $su_kiens, //Sự kiện tháng
+            'lunar_calendars' => $lunar_calendars, // Mảng chứa tất cả các lịch âm trong tháng dương này
             'primary_lunar_month' => $primary_lunar_month,
-            'can_chi_thang_am' => $can_chi_thang_am,
             'le_lichs_am' => $le_lichs_am,
-
         ]);
     }
 
