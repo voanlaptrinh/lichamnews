@@ -14,11 +14,22 @@
     <!-- Critical CSS inline để giảm render delay LCP -->
     <style>
         /* Reset and base */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
         /* Body với font mặc định */
-        html { height: 100%; }
-        html, body { overflow-x: hidden; }
+        html {
+            height: 100%;
+        }
+
+        html,
+        body {
+            overflow-x: hidden;
+        }
+
         body {
             font-family: Arial, Helvetica, sans-serif;
             background: #EDF0F3;
@@ -91,22 +102,27 @@
             transition-duration: 0s !important;
             transition-delay: 0s !important;
         }
-        
     </style>
 
     <!-- Preload CSS resources -->
-    <link rel="preload" href="{{ asset('/css/bootstrap.min.css?v=5.75') }}" as="style">
-    <link rel="preload" href="{{ asset('/css/style-date.css?v=5.75') }}" as="style">
+    <link rel="preload" href="{{ asset('/css/bootstrap.min.css?v=5.84') }}" as="style">
+    <link rel="preload" href="{{ asset('/css/style-date.css?v=5.84') }}" as="style">
 
     <!-- Load critical CSS -->
-    <link href="{{ asset('/css/bootstrap.min.css?v=5.75') }}" rel="stylesheet">
-    <link href="{{ asset('/css/style-date.css?v=5.75') }}" rel="stylesheet">
+    <link href="{{ asset('/css/bootstrap.min.css?v=5.84') }}" rel="stylesheet">
+    <link href="{{ asset('/css/style-date.css?v=5.84') }}" rel="stylesheet">
 
     <!-- Defer non-critical CSS -->
-    <link rel="preload" href="{{ asset('/css/bootstrap-icons.min.css?v=5.75') }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="{{ asset('/css/bootstrap-icons.min.css?v=5.75') }}"></noscript>
-    <link rel="preload" href="{{ asset('/css/repont.css?v=5.75') }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="{{ asset('/css/repont.css?v=5.75') }}"></noscript>
+    <link rel="preload" href="{{ asset('/css/bootstrap-icons.min.css?v=5.84') }}" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="{{ asset('/css/bootstrap-icons.min.css?v=5.84') }}">
+    </noscript>
+    <link rel="preload" href="{{ asset('/css/repont.css?v=5.84') }}" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="{{ asset('/css/repont.css?v=5.84') }}">
+    </noscript>
 
     {{-- <link rel="stylesheet" type="text/css" href="{{ asset('/css/daterangepicker.css') }}" /> --}}
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -124,7 +140,7 @@
     <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('/meta/apple-touch-icon-57x57.png') }}">
     <link rel="apple-touch-icon" sizes="60x60" href="{{ asset('/meta/apple-touch-icon-60x60.png') }}">
     <link rel="apple-touch-icon" sizes="73x73" href="{{ asset('/meta/apple-touch-icon-73x73.png') }}">
-    <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('/meta/apple-touch-icon-76x76.png') }}">
+    <link rel="apple-touch-icon" sizes="8x8" href="{{ asset('/meta/apple-touch-icon-8x8.png') }}">
     <link rel="apple-touch-startup-image" href="{{ asset('/meta/apple-touch-icon-180x180.png') }}" />
     <meta property="og:image" content="{{ asset('/meta/512x512.png') }}">
     <meta property="og:type" content="website">
@@ -178,11 +194,12 @@
     </script>
     <div class="main-content-wrapper">
         @include('layout.header')
+        <main id="main-content">
+            <div class="container-setup">
 
-        <div class=" container-setup">
-
-            @yield('content')
-        </div>
+                @yield('content')
+            </div>
+        </main>
     </div>
 
     @include('layout.footer')
@@ -193,7 +210,7 @@
     {{-- @include('gieo-que') --}}
     @if (request()->routeIs('home'))
         {{-- Sử dụng Simple Chart thay vì Chart.js 201KB --}}
-        <script src="{{ asset('/js/simple-chart.js?v=5.75') }}" defer></script>
+        <script src="{{ asset('/js/simple-chart.js?v=5.84') }}" defer></script>
     @endif
     {{-- <script src="{{ asset('/js/jquery-3.7.1.min.js?v=5.67') }}" defer></script> --}}
     <script src="{{ asset('/js/bootstrap.bundle.min.js?v=5.7') }}" defer></script>
@@ -207,21 +224,24 @@
                 // Target date number LCP element
                 var dateNumber = document.querySelector('.date-number.am');
                 if (dateNumber) {
-                    dateNumber.style.cssText = 'visibility: visible !important; opacity: 1 !important; display: block !important; transform: none !important;';
+                    dateNumber.style.cssText =
+                        'visibility: visible !important; opacity: 1 !important; display: block !important; transform: none !important;';
                     void dateNumber.offsetHeight;
                 }
 
                 // Target H2 LCP element
                 var h2 = document.querySelector('.title-tong-quan-h2');
                 if (h2) {
-                    h2.style.cssText = 'visibility: visible !important; opacity: 1 !important; display: block !important; transform: none !important;';
+                    h2.style.cssText =
+                        'visibility: visible !important; opacity: 1 !important; display: block !important; transform: none !important;';
                     void h2.offsetHeight;
                 }
 
                 // Also handle span LCP
                 var span = document.getElementById('gio-hoang-dao-content');
                 if (span) {
-                    span.style.cssText = 'visibility: visible !important; opacity: 1 !important; display: inline !important;';
+                    span.style.cssText =
+                        'visibility: visible !important; opacity: 1 !important; display: inline !important;';
                     void span.offsetHeight;
                 }
             };
@@ -232,7 +252,8 @@
                 // Also try during parsing
                 var checkAndOptimize = function() {
                     optimizeLCP();
-                    if (!document.querySelector('.date-number.am') && !document.querySelector('.title-tong-quan-h2')) {
+                    if (!document.querySelector('.date-number.am') && !document.querySelector(
+                        '.title-tong-quan-h2')) {
                         requestAnimationFrame(checkAndOptimize);
                     }
                 };

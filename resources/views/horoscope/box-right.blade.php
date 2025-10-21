@@ -1,6 +1,6 @@
 <div class="col-lg-3 mb-3">
     <div class="events-card">
-        <h5 class="card-title-right">Giới thiệu cung hoàng đạo</h5>
+        <div class="card-title-right fs-5">Giới thiệu cung hoàng đạo</div>
         <div class="zodiac-list row g-2">
             @php
                 $zodiacs = [

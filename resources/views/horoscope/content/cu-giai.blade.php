@@ -12,7 +12,7 @@
                 <div class="tong-quan-date mt-2 mb-3">
                     <div class="card-body  p-lg-4 p-3 position-relative" style="border-radius: 24px">
                         <div class="text-box-tong-quan">
-                            <h4 class="title-tong-quan-h4">Cung Cự Giải là gì?</h4>
+                            <div class="title-tong-quan-h4">Cung Cự Giải là gì?</div>
                             <p class="mb-0">Cung Cự Giải (Cancer) là cung hoàng đạo thứ tư, đại diện cho cảm xúc, trực
                                 giác và sự
                                 che chở.
@@ -34,7 +34,7 @@
                                 bản năng
                                 làm mẹ, khiến Cự Giải luôn là người giàu lòng trắc ẩn, dịu dàng và đầy yêu thương.
                             </p>
-                            <h4 class="title-tong-quan-h4 pt-2">Biểu tượng và chòm sao gắn liền</h4>
+                            <div class="title-tong-quan-h4 pt-2">Biểu tượng và chòm sao gắn liền</div>
                             <ul class="mb-0">
                                 <li>Biểu tượng: Con Cua – biểu trưng cho sự bảo vệ và lòng trung thành.
 
@@ -54,13 +54,13 @@
                                 hi sinh.
                             </p>
 
-                            <h4 class="title-tong-quan-h4 pt-2">Tính cách đặc trưng của Cự Giải</h4>
+                            <div class="title-tong-quan-h4 pt-2">Tính cách đặc trưng của Cự Giải</div>
                             <p class="mb-0">Cự Giải là người sống nội tâm, tình cảm và luôn đặt trái tim lên hàng đầu. Họ
                                 yêu
                                 thương, biết quan tâm và sẵn sàng hi sinh để bảo vệ những người mình yêu quý.
                                 <br> Bề ngoài có thể trầm lặng, nhưng bên trong là một tâm hồn phong phú và nhạy cảm.
                             </p>
-                            <h5 class="title-tong-quan-h5 pt-2 mb-0">Ưu điểm:</h5>
+                            <div class="title-tong-quan-h5 pt-2 mb-0">Ưu điểm:</div>
                             <ul class="mb-0">
                                 <li>Rất tình cảm, nhân hậu, luôn biết lắng nghe và thấu hiểu.
                                 </li>
@@ -68,7 +68,7 @@
                                 <li>Trung thành, gắn bó, đáng tin cậy trong mọi mối quan hệ.</li>
                                 <li>Sống có trách nhiệm, coi trọng gia đình và các giá trị truyền thống.</li>
                             </ul>
-                            <h5 class="title-tong-quan-h5 pt-2 mb-0">Nhược điểm:</h5>
+                            <div class="title-tong-quan-h5 pt-2 mb-0">Nhược điểm:</div>
                             <ul class="mb-1">
                                 <li>Hay suy nghĩ, dễ tổn thương và hay lo xa.</li>
                                 <li>Có xu hướng “ẩn mình” khi buồn hoặc bị tổn thương.
@@ -80,13 +80,13 @@
                                 người bạn tuyệt vời, người yêu chân thành và thành viên gia đình mẫu mực.
 
                             </p>
-                            <h4 class="title-tong-quan-h4 pt-2">Sự nghiệp và nghề nghiệp phù hợp</h4>
+                            <div class="title-tong-quan-h4 pt-2">Sự nghiệp và nghề nghiệp phù hợp</div>
                             <p class="mb-1">Người thuộc cung Cự Giải có trực giác tốt, khả năng quan sát tinh tế và tính
                                 cách chu đáo. <br>
                                 Họ thích những công việc mang tính ổn định, có ý nghĩa hoặc giúp đỡ người khác.
 
                             </p>
-                            <h5 class="title-tong-quan-h5 pt-2 mb-0">Nghề nghiệp lý tưởng cho Cự Giải:</h5>
+                            <div class="title-tong-quan-h5 pt-2 mb-0">Nghề nghiệp lý tưởng cho Cự Giải:</div>
                             <ul class="mb-1">
                                 <li>Bác sĩ, y tá, tư vấn tâm lý, giáo viên
                                 </li>
@@ -101,14 +101,14 @@
 
 
                             </p>
-                            <h4 class="title-tong-quan-h4 pt-2">Tình yêu và các mối quan hệ</h4>
+                            <div class="title-tong-quan-h4 pt-2">Tình yêu và các mối quan hệ</div>
                             <p class="mb-0">Trong tình yêu, Cự Giải là người chân thành, sâu sắc và cực kỳ chung thủy.
                                 <br>
                                 Họ luôn muốn xây dựng một mối quan hệ lâu dài, ổn định và tràn đầy yêu thương. <br>
                                 Một khi đã yêu, họ dành trọn tâm trí để chăm sóc, bảo vệ và vun vén cho đối phương.
 
                             </p>
-                            <h5 class="title-tong-quan-h5 pt-2 mb-0">Đặc điểm tình cảm:</h5>
+                            <div class="title-tong-quan-h5 pt-2 mb-0">Đặc điểm tình cảm:</div>
                             <ul class="mb-0">
                                 <li>Rất quan tâm và luôn đặt cảm xúc người yêu lên trước bản thân.
 
@@ -120,7 +120,7 @@
                                 </li>
 
                             </ul>
-                            <h5 class="title-tong-quan-h5 pt-2 mb-0">Hợp với các cung:</h5>
+                            <div class="title-tong-quan-h5 pt-2 mb-0">Hợp với các cung:</div>
                             <ul class="mb-0">
                                 <li>Thiên Yết (Bọ Cạp/Bọ Cạp): cùng nhóm Nước, đồng điệu cảm xúc mạnh mẽ.
 
@@ -129,14 +129,14 @@
                                 </li>
                                 <li>Kim Ngưu: vững vàng, tạo cảm giác an toàn cho Cự Giải.</li>
                             </ul>
-                            <h5 class="title-tong-quan-h5 pt-2 mb-0">Không hợp lắm với:</h5>
+                            <div class="title-tong-quan-h5 pt-2 mb-0">Không hợp lắm với:</div>
                             <ul class="mb-0">
                                 <li>Bạch Dương: quá mạnh mẽ, dễ khiến Cự Giải tổn thương.
                                 </li>
                                 <li>Nhân Mã: thích tự do, khó đem lại cảm giác ổn định mà Cự Giải cần.
                                 </li>
                             </ul>
-                            <h4 class="title-tong-quan-h4 pt-2">Cự Giải trong cuộc sống</h4>
+                            <div class="title-tong-quan-h4 pt-2">Cự Giải trong cuộc sống</div>
                             <p class="mb-1">
                                 Cự Giải sống thiên về tình cảm, yêu thích sự yên bình và luôn hướng về gia đình. <br>
                                 Họ có xu hướng lưu giữ kỷ niệm, yêu thích những điều nhỏ bé, giản dị nhưng ý nghĩa. <br>
@@ -147,7 +147,7 @@
                             <p class="mb-0">Tuy nhiên, họ cần học cách mở lòng và kiểm soát cảm xúc, tránh để quá khứ hoặc
                                 nỗi sợ tổn thương ảnh hưởng đến hiện tại.
                             </p>
-                            <h4 class="title-tong-quan-h4 pt-2">Tổng kết</h4>
+                            <div class="title-tong-quan-h4 pt-2">Tổng kết</div>
                             <p class="mb-0">Cung Cự Giải (Cancer) là biểu tượng của tình yêu thương, cảm xúc và gia đình.
                                 Họ là những người sống sâu sắc, biết quan tâm và luôn hướng tới việc xây dựng mối quan hệ
                                 bền vững, đầy ấm áp.

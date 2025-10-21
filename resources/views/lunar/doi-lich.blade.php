@@ -635,7 +635,7 @@
 
             .mobile-popup-btn {
                 flex: 1;
-                padding: 15px 20px;
+                padding: 15px 10px;
                 border: none;
                 border-radius: 10px;
                 font-size: 16px;
@@ -673,11 +673,22 @@
                 }
             }
         }
+
     </style>
 @endpush
 
 @push('scripts')
     <script>
+        // Utility function for debouncing
+        function debounce(func, delay) {
+            let timeout;
+            return function(...args) {
+                const context = this;
+                clearTimeout(timeout);
+                timeout = setTimeout(() => func.apply(context, args), delay);
+            };
+        }
+
         // Function to change day
         function changeDay(days) {
             console.log('changeDay called with:', days);
@@ -882,6 +893,7 @@
 
             // Show popup
             popup.style.display = 'flex';
+              document.body.classList.add('menu-open');
             document.body.style.overflow = 'hidden'; // Prevent background scroll
         };
 
@@ -1114,14 +1126,18 @@
             const today = new Date();
             let isUpdating = false; // Prevent infinite loops
 
-            const solarInput = document.getElementById('solar_date');
-            const lunarInput = document.getElementById('lunar_date');
+            // Cache DOM elements to avoid repeated queries
+            const domCache = {
+                solarInput: document.getElementById('solar_date'),
+                lunarInput: document.getElementById('lunar_date'),
+                swapBtn: document.getElementById('swapDatesBtn'),
+                solarContainer: document.getElementById('solar-container'),
+                lunarContainer: document.getElementById('lunar-container'),
+                solarDisplayContainer: document.getElementById('solar-display-container'),
+                lunarDisplayContainer: document.getElementById('lunar-display-container')
+            };
 
-            const swapBtn = document.getElementById('swapDatesBtn');
-            const solarContainer = document.getElementById('solar-container');
-            const lunarContainer = document.getElementById('lunar-container');
-            const solarDisplayContainer = document.getElementById('solar-display-container');
-            const lunarDisplayContainer = document.getElementById('lunar-display-container');
+            const {solarInput, lunarInput, swapBtn, solarContainer, lunarContainer, solarDisplayContainer, lunarDisplayContainer} = domCache;
 
             // Function to swap content inside result boxes
             const swapContentOnly = (immediate = false) => {
@@ -1129,34 +1145,40 @@
                 const swapIcon = swapBtn.querySelector('img');
 
                 const doTheSwap = () => {
-                    // Swap input positions (keep existing logic for inputs)
-                    const solarInputFirst = Array.from(inputRow.children).indexOf(solarContainer) < Array
-                        .from(inputRow.children).indexOf(lunarContainer);
-                    if (solarInputFirst) {
-                        inputRow.insertBefore(lunarContainer, solarContainer);
-                    } else {
-                        inputRow.insertBefore(solarContainer, lunarContainer);
-                    }
+                    // Use DocumentFragment to minimize reflows during DOM manipulations
+                    const fragment = document.createDocumentFragment();
 
-                    // Swap CONTENT inside display boxes, but keep navigation buttons in place
-                    const solarBox = solarDisplayContainer.querySelector('.date-display-card');
-                    const lunarBox = lunarDisplayContainer.querySelector('.date-display-card');
-
-                    if (solarBox && lunarBox) {
-                        // Get the center content only (exclude navigation buttons and status)
-                        const solarCenter = solarBox.querySelector('.text-center');
-                        const lunarCenter = lunarBox.querySelector('.text-center');
-
-                        if (solarCenter && lunarCenter) {
-                            // Get current center content
-                            const solarCenterContent = solarCenter.innerHTML;
-                            const lunarCenterContent = lunarCenter.innerHTML;
-
-                            // Swap only the center content
-                            solarCenter.innerHTML = lunarCenterContent;
-                            lunarCenter.innerHTML = solarCenterContent;
+                    // Batch DOM operations to prevent forced reflows
+                    requestAnimationFrame(() => {
+                        // Swap input positions (keep existing logic for inputs)
+                        const solarInputFirst = Array.from(inputRow.children).indexOf(solarContainer) < Array
+                            .from(inputRow.children).indexOf(lunarContainer);
+                        if (solarInputFirst) {
+                            inputRow.insertBefore(lunarContainer, solarContainer);
+                        } else {
+                            inputRow.insertBefore(solarContainer, lunarContainer);
                         }
-                    }
+
+                        // Cache display box queries
+                        const solarBox = solarDisplayContainer.querySelector('.date-display-card');
+                        const lunarBox = lunarDisplayContainer.querySelector('.date-display-card');
+
+                        if (solarBox && lunarBox) {
+                            // Get the center content only (exclude navigation buttons and status)
+                            const solarCenter = solarBox.querySelector('.text-center');
+                            const lunarCenter = lunarBox.querySelector('.text-center');
+
+                            if (solarCenter && lunarCenter) {
+                                // Get current center content
+                                const solarCenterContent = solarCenter.innerHTML;
+                                const lunarCenterContent = lunarCenter.innerHTML;
+
+                                // Swap only the center content
+                                solarCenter.innerHTML = lunarCenterContent;
+                                lunarCenter.innerHTML = solarCenterContent;
+                            }
+                        }
+                    });
                 };
 
                 if (immediate) {
@@ -1298,66 +1320,44 @@
                 });
             }
 
-            // Add event listeners for PC navigation buttons
+            // Add event listeners for PC navigation buttons - use cached elements
             const pcPrevBtn = document.getElementById('pc-prev-btn');
             const pcNextBtn = document.getElementById('pc-next-btn');
 
             if (pcPrevBtn) {
-
                 pcPrevBtn.addEventListener('click', function(e) {
-                    console.log('PC prev button clicked');
                     e.preventDefault();
                     changeDay(-1);
                 });
-            } else {
-                console.log('PC prev button not found');
             }
 
             if (pcNextBtn) {
-
                 pcNextBtn.addEventListener('click', function(e) {
-                    console.log('PC next button clicked');
                     e.preventDefault();
                     changeDay(1);
                 });
-            } else {
-                console.log('PC next button not found');
             }
 
-            // Add event listeners for mobile navigation buttons
+            // Add event listeners for mobile navigation buttons - use cached elements
             const mobilePrevBtn = document.getElementById('mobile-prev-btn');
             const mobileNextBtn = document.getElementById('mobile-next-btn');
 
             if (mobilePrevBtn) {
-                console.log('Adding event listeners to mobile prev button');
+                // Use passive event listeners and debouncing for mobile
+                const debouncedPrev = debounce(() => changeDay(-1), 100);
                 mobilePrevBtn.addEventListener('click', function(e) {
-                    console.log('Mobile prev button clicked');
                     e.preventDefault();
-                    changeDay(-1);
-                });
-                mobilePrevBtn.addEventListener('touchstart', function(e) {
-                    console.log('Mobile prev button touched');
-                    e.preventDefault();
-                    changeDay(-1);
-                });
-            } else {
-                console.log('Mobile prev button not found');
+                    debouncedPrev();
+                }, {passive: false});
             }
 
             if (mobileNextBtn) {
-                console.log('Adding event listeners to mobile next button');
+                // Use passive event listeners and debouncing for mobile
+                const debouncedNext = debounce(() => changeDay(1), 100);
                 mobileNextBtn.addEventListener('click', function(e) {
-                    console.log('Mobile next button clicked');
                     e.preventDefault();
-                    changeDay(1);
-                });
-                mobileNextBtn.addEventListener('touchstart', function(e) {
-                    console.log('Mobile next button touched');
-                    e.preventDefault();
-                    changeDay(1);
-                });
-            } else {
-                console.log('Mobile next button not found');
+                    debouncedNext();
+                }, {passive: false});
             }
 
         });
@@ -1381,10 +1381,15 @@
             function updateCalendar() {
                 const month = monthSelect.value;
                 const year = yearSelect.value;
-                const h5Element = document.querySelector('.calendar-header-convert h5');
-                if (h5Element) {
-                    h5Element.textContent = `Tháng ${month} năm ${year}`;
-                }
+
+                // Batch DOM updates using requestAnimationFrame to prevent forced reflows
+                requestAnimationFrame(() => {
+                    const h5Element = document.querySelector('.calendar-header-convert .title-tong-quan-h5');
+                    if (h5Element) {
+                        h5Element.textContent = `Tháng ${month} năm ${year}`;
+                    }
+                });
+
                 fetch('{{ route('lich.thang.ajax') }}', {
                         method: 'POST',
                         headers: {
@@ -1399,7 +1404,13 @@
                     .then(response => response.json())
                     .then(data => {
                         if (data.table_html) {
-                            calendarBodyContainer.querySelector('tbody').innerHTML = data.table_html;
+                            // Use requestAnimationFrame for DOM updates to prevent forced reflows
+                            requestAnimationFrame(() => {
+                                const tbody = calendarBodyContainer.querySelector('tbody');
+                                if (tbody) {
+                                    tbody.innerHTML = data.table_html;
+                                }
+                            });
                         }
                     })
                     .catch(error => console.error('Error fetching calendar data:', error));
@@ -1418,13 +1429,21 @@
             select.addEventListener('focus', () => {
                 if (loaded) return; // chỉ load 1 lần
                 loaded = true;
+
+                // Use DocumentFragment to batch DOM operations and prevent reflows
+                const fragment = document.createDocumentFragment();
                 for (let i = start; i <= end; i++) {
                     if (i === current) continue;
                     const opt = document.createElement('option');
                     opt.value = i;
                     opt.textContent = `Năm ${i}`;
-                    select.appendChild(opt);
+                    fragment.appendChild(opt);
                 }
+
+                // Single DOM operation to append all options
+                requestAnimationFrame(() => {
+                    select.appendChild(fragment);
+                });
             });
         });
     </script>

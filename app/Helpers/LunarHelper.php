@@ -498,7 +498,6 @@ class LunarHelper
             '1-10' => 'Vía Thần Tài',
             '1-15' => 'Rằm tháng Giêng',
             '2-1' => 'Mùng 1 tháng Hai',
-            '2-2' => 'Vía Thổ Địa',
             '2-15' => 'Rằm tháng Hai',
             '2-19' => 'Vía Quan Âm',
             '3-1' => 'Mùng 1 tháng Ba',
@@ -1342,7 +1341,6 @@ static function convertSolar2Lunar($dd, $mm, $yy, $timeZone = 7.0)
             '15-1'  => ['ten_su_kien' => 'Tết Nguyên tiêu (Rằm tháng Giêng)', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Đêm rằm đầu tiên của năm mới, còn được gọi là Lễ Thượng Nguyên.'],
 
             // THÁNG HAI (Tháng 2)
-            '1-2'   => ['ten_su_kien' => 'Lễ đất', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày thổ địa và thành hoàng.'],
             '15-2'  => ['ten_su_kien' => 'Rằm tháng Hai', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày cúng tổ tiên và thần linh.'],
 
             // THÁNG BA (Tháng 3)

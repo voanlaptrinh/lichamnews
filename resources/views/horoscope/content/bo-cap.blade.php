@@ -13,7 +13,7 @@
                 <div class="tong-quan-date mt-2 mb-3">
                     <div class="card-body  p-lg-4 p-3 position-relative" style="border-radius: 24px">
                         <div class="text-box-tong-quan">
-                            <h4 class="title-tong-quan-h4">Cung Bọ Cạp là gì?</h4>
+                            <div class="title-tong-quan-h4">Cung Bọ Cạp là gì?</div>
                             <p class="mb-0">Cung Bọ Cạp (Scorpio) – hay còn gọi là Cung Thần Nông hoặc Thiên Yết – là cung
                                 hoàng
                                 đạo thứ tám, đại diện cho năng lượng mạnh mẽ, chiều sâu tâm hồn và khả năng tái sinh phi
@@ -37,7 +37,7 @@
                                 cung Thần
                                 Nông luôn có sức hút mạnh mẽ và nội tâm mãnh liệt.
                             </p>
-                            <h4 class="title-tong-quan-h4 pt-2">Biểu tượng và chòm sao gắn liền</h4>
+                            <div class="title-tong-quan-h4 pt-2">Biểu tượng và chòm sao gắn liền</div>
                             <ul class="mb-0">
                                 <li>Biểu tượng: Con Bọ Cạp – đại diện cho sự mạnh mẽ, sâu sắc và khả năng vượt qua nỗi đau.
                                 </li>
@@ -54,21 +54,21 @@
                                 đời đều
                                 được đưa lên trời, trở thành hai chòm sao – tượng trưng cho sức mạnh và sự bất tử.</p>
 
-                            <h4 class="title-tong-quan-h4 pt-2">Tính cách đặc trưng của Bọ Cạp</h4>
+                            <div class="title-tong-quan-h4 pt-2">Tính cách đặc trưng của Bọ Cạp</div>
                             <p class="mb-0">Người thuộc cung Bọ Cạp là những người mạnh mẽ, sâu sắc và đầy nội lực.
                                 Họ có cảm xúc mãnh liệt, bản năng nhạy bén và thường che giấu cảm xúc thật sau vẻ ngoài lạnh
                                 lùng,
                                 khó đoán.
                                 <br>Một khi đã đặt mục tiêu, họ sẽ theo đuổi đến cùng – không gì có thể cản bước.
                             </p>
-                            <h5 class="title-tong-quan-h5 pt-2 mb-0">Ưu điểm:</h5>
+                            <div class="title-tong-quan-h5 pt-2 mb-0">Ưu điểm:</div>
                             <ul class="mb-0">
                                 <li>Quyết đoán, kiên cường và trung thành.</li>
                                 <li>Có trực giác nhạy bén, hiểu rõ người khác.</li>
                                 <li>Giỏi giữ bí mật, sống sâu sắc và có trách nhiệm.</li>
                                 <li>Có sức hút mạnh mẽ, tinh tế và thông minh.</li>
                             </ul>
-                            <h5 class="title-tong-quan-h5 pt-2 mb-0">Nhược điểm:</h5>
+                            <div class="title-tong-quan-h5 pt-2 mb-0">Nhược điểm:</div>
                             <ul class="mb-1">
                                 <li>Dễ ghen tuông, hay kiểm soát trong tình yêu.</li>
                                 <li>Có xu hướng thù dai hoặc khó tha thứ.
@@ -81,7 +81,7 @@
                                 gì nửa vời – tình cảm, công việc hay niềm tin đều được dốc hết lòng.
 
                             </p>
-                            <h4 class="title-tong-quan-h4 pt-2">Sự nghiệp và nghề nghiệp phù hợp</h4>
+                            <div class="title-tong-quan-h4 pt-2">Sự nghiệp và nghề nghiệp phù hợp</div>
                             <p class="mb-1">Bọ Cạp có khả năng quan sát sâu sắc, trực giác mạnh và sức tập trung cao
                                 độ, vì
                                 vậy họ phù hợp với những nghề đòi hỏi tính chiến lược, nghiên cứu hoặc phân tích tâm lý con
@@ -101,7 +101,7 @@
                                 “đi đến tận cùng vấn đề” và chứng minh năng lực thực sự.
 
                             </p>
-                            <h4 class="title-tong-quan-h4 pt-2">Tình yêu và các mối quan hệ</h4>
+                            <div class="title-tong-quan-h4 pt-2">Tình yêu và các mối quan hệ</div>
                             <p class="mb-0">Trong tình yêu, Bọ Cạp là người yêu mãnh liệt, sâu sắc và trung thành tuyệt
                                 đối.
                                 Họ yêu hết mình, nhưng cũng đòi hỏi sự chân thành tuyệt đối từ đối phương.
@@ -118,7 +118,7 @@
                                 </li>
 
                             </ul>
-                            <h5 class="title-tong-quan-h5 pt-2 mb-0">Hợp với các cung:</h5>
+                            <div class="title-tong-quan-h5 pt-2 mb-0">Hợp với các cung:</div>
                             <ul class="mb-0">
                                 <li>Cự Giải: cùng nhóm Nước, đồng điệu cảm xúc sâu sắc.
                                 </li>
@@ -131,7 +131,7 @@
                                 </li>
                                 <li>Sư Tử: cả hai đều thích kiểm soát, dễ đối đầu.</li>
                             </ul>
-                            <h4 class="title-tong-quan-h4 pt-2">Bọ Cạp trong cuộc sống</h4>
+                            <div class="title-tong-quan-h4 pt-2">Bọ Cạp trong cuộc sống</div>
                             <p class="mb-1">Bọ Cạp là người bí ẩn, sâu sắc và luôn ẩn chứa nhiều suy tư.
                                 <br>
                                 Họ sống khép kín, không chia sẻ nhiều, nhưng luôn quan sát và hiểu rõ thế giới xung quanh.
@@ -146,7 +146,7 @@
                                 trái tim
                                 được bình yên.
                             </p>
-                            <h4 class="title-tong-quan-h4 pt-2">Tổng kết</h4>
+                            <div class="title-tong-quan-h4 pt-2">Tổng kết</div>
                             <p class="mb-0">Cung Bọ Cạp (Scorpio) là biểu tượng của năng lượng, chiều sâu và sức mạnh
                                 cảm xúc.
                                 Người thuộc cung này có khả năng tái sinh mạnh mẽ – dù trải qua khó khăn đến đâu, họ vẫn

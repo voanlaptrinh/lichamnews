@@ -14,7 +14,7 @@
                 <div class="tong-quan-date mt-2 mb-3">
                     <div class="card-body  p-lg-4 p-3 position-relative" style="border-radius: 24px">
                         <div class="text-box-tong-quan">
-                            <h4 class="title-tong-quan-h4">Bảo Bình Giải là gì?</h4>
+                            <div class="title-tong-quan-h4">Bảo Bình Giải là gì?</đ>
                             <p class="mb-0">Cung Bảo Bình (Aquarius) là cung hoàng đạo thứ 11 trong chiêm tinh học phương
                                 Tây,
                                 dành cho những người sinh từ 20/1 đến 18/2. <br>
@@ -34,7 +34,7 @@
                                 giúp Bảo Bình trở thành những người tiên phong, sáng tạo và luôn đi trước thời đại.
 
                             </p>
-                            <h4 class="title-tong-quan-h4 pt-2">Biểu tượng và chòm sao gắn liền</h4>
+                            <div class="title-tong-quan-h4 pt-2">Biểu tượng và chòm sao gắn liền</div>
                             <ul class="mb-0">
                                 <li>Biểu tượng: Người mang nước
                                 </li>
@@ -55,14 +55,14 @@
 
                             </p>
 
-                            <h4 class="title-tong-quan-h4 pt-2">Tính cách đặc trưng của Bảo Bình</h4>
+                            <div class="title-tong-quan-h4 pt-2">Tính cách đặc trưng của Bảo Bình</div>
                             <p class="mb-0">Người thuộc cung Bảo Bình được xem là biểu tượng của trí tuệ và sáng tạo độc
                                 đáo. <br>
                                 Họ luôn muốn làm khác đi, nghĩ khác đi và sống theo cách riêng của mình. <br>
                                 Dù đôi khi bị cho là “lập dị”, nhưng Bảo Bình thực chất là người tiên phong, có tầm nhìn xa
                                 và luôn
                                 hướng tới cái mới.
-                            <h5 class="title-tong-quan-h5 pt-2 mb-0">Ưu điểm:</h5>
+                            <div class="title-tong-quan-h5 pt-2 mb-0">Ưu điểm:</div>
                             <ul class="mb-0">
                                 <li>Sáng tạo, độc lập và có tư duy logic mạnh mẽ.
 
@@ -71,7 +71,7 @@
                                 <li>Giỏi giao tiếp, có khả năng truyền cảm hứng cho người khác.</li>
                                 <li>Tư duy hiện đại, không ngừng đổi mới.</li>
                             </ul>
-                            <h5 class="title-tong-quan-h5 pt-2 mb-0">Nhược điểm:</h5>
+                            <div class="title-tong-quan-h5 pt-2 mb-0">Nhược điểm:</div>
                             <ul class="mb-1">
                                 <li>Dễ trở nên xa cách, khó nắm bắt cảm xúc.</li>
                                 <li>Có xu hướng “nổi loạn” nếu bị ràng buộc.
@@ -83,7 +83,7 @@
                                 – luôn
                                 đi trước thời đại, nhưng cũng dễ cô đơn vì không ai hiểu được họ.
                             </p>
-                            <h4 class="title-tong-quan-h4 pt-2">Sự nghiệp và nghề nghiệp phù hợp</h4>
+                            <div class="title-tong-quan-h4 pt-2">Sự nghiệp và nghề nghiệp phù hợp</div>
                             <p class="mb-1">Bảo Bình luôn muốn được sáng tạo và tự do trong công việc, vì vậy họ không
                                 thích môi
                                 trường gò bó hoặc lặp lại.
@@ -92,7 +92,7 @@
                                 xã hội.
 
                             </p>
-                            <h5 class="title-tong-quan-h5 pt-2 mb-0">Nghề nghiệp phù hợp với Bảo Bình:</h5>
+                            <div class="title-tong-quan-h5 pt-2 mb-0">Nghề nghiệp phù hợp với Bảo Bình:</div>
                             <ul class="mb-1">
                                 <li>Nhà phát minh, kỹ sư công nghệ, chuyên viên AI
 
@@ -108,7 +108,7 @@
                                 cho thế giới.
 
                             </p>
-                            <h4 class="title-tong-quan-h4 pt-2">Tình yêu và các mối quan hệ</h4>
+                            <div class="title-tong-quan-h4 pt-2">Tình yêu và các mối quan hệ</div>
                             <p class="mb-0">Trong tình yêu, Bảo Bình là người tự do, khó đoán và luôn cần không gian
                                 riêng. <br>
                                 Họ không thích sự ràng buộc, nhưng khi đã yêu thật lòng thì rất trung thành, chân thành và
@@ -116,7 +116,7 @@
                                 sinh.
 
                             </p>
-                            <h5 class="title-tong-quan-h5 pt-2 mb-0">Đặc điểm tình cảm:</h5>
+                            <div class="title-tong-quan-h5 pt-2 mb-0">Đặc điểm tình cảm:</div>
                             <ul class="mb-0">
                                 <li>Không thích bị kiểm soát hoặc gò bó.
 
@@ -129,7 +129,7 @@
                                 </li>
 
                             </ul>
-                            <h5 class="title-tong-quan-h5 pt-2 mb-0">Hợp với các cung:</h5>
+                            <div class="title-tong-quan-h5 pt-2 mb-0">Hợp với các cung:</div>
                             <ul class="mb-0">
                                 <li>Song Tử: đồng điệu về tư duy, dễ hiểu nhau.
                                 </li>
@@ -139,7 +139,7 @@
                                 <li>Nhân Mã: cùng yêu tự do và khám phá thế giới.
                                 </li>
                             </ul>
-                            <h5 class="title-tong-quan-h5 pt-2 mb-0">Không hợp lắm với:</h5>
+                            <div class="title-tong-quan-h5 pt-2 mb-0">Không hợp lắm với:</d>
                             <ul class="mb-0">
                                 <li>Cự Giải: quá nhạy cảm, dễ khiến Bảo Bình ngột ngạt.
 
@@ -148,7 +148,7 @@
 
                                 </li>
                             </ul>
-                            <h4 class="title-tong-quan-h4 pt-2">Bảo Bình trong cuộc sống</h4>
+                            <div class="title-tong-quan-h4 pt-2">Bảo Bình trong cuộc sống</div>
                             <p class="mb-1">
                                 Bảo Bình sống hướng ngoại, thích khám phá và có nhiều ý tưởng độc đáo. <br>
                                 Họ là kiểu người dám nghĩ, dám làm, luôn muốn thử nghiệm điều mới và không ngại phá vỡ quy
@@ -163,7 +163,7 @@
                                 họ quá
                                 lý trí mà quên mất rằng tình cảm cũng là điều nuôi dưỡng tâm hồn.
                             </p>
-                            <h4 class="title-tong-quan-h4 pt-2">Tổng kết</h4>
+                            <div class="title-tong-quan-h4 pt-2">Tổng kết</div>
                             <p class="mb-0">Cung Bảo Bình (Aquarius) là biểu tượng của sự tự do, sáng tạo và nhân đạo.
                                 <br>
                                 Họ là những người tiên phong – luôn hướng tới tương lai, dám thay đổi và mang trong mình

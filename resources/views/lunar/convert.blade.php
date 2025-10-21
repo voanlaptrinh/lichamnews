@@ -776,7 +776,8 @@
 @endsection
 
 @push('styles')
-    <link rel="stylesheet" href="{{ asset('css/html-chart.css?v=3.1') }}">
+    <link rel="preload" href="{{ asset('css/html-chart.css?v=3.1') }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="{{ asset('css/html-chart.css?v=3.1') }}"></noscript>
     <style>
         .event-date .solar-date {
             font-size: 14px;
@@ -823,39 +824,58 @@
 @endpush
 
 @push('scripts')
-    <script src="{{ asset('js/base-picker.js?v=3.1') }}"></script>
-    <script src="{{ asset('js/homepage-picker.js?v=3.1') }}"></script>
+    <script defer src="{{ asset('js/base-picker.js?v=3.4') }}"></script>
+    <script defer src="{{ asset('js/homepage-picker.js?v=3.4') }}"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            // Khởi tạo ứng dụng lịch âm cho trang chủ (không thay đổi URL)
-            const homepageApp = new HomepagePicker({
-                currentYear: {{ $yy }},
-                currentMonth: {{ $mm }},
-                currentDay: {{ $dd }},
-                labels: @json($labels),
-                dataValues: @json($dataValues),
-                ajaxUrl: '{{ route('lunar.getDateDataAjax') }}',
-                calendarAjaxUrl: '{{ route('lich.thang.ajax') }}'
-            });
+        window.addEventListener("DOMContentLoaded", () => {
+            // Wait for deferred scripts
+            if (typeof HomepagePicker !== 'undefined') {
+                const homepageApp = new HomepagePicker({
+                    currentYear: {{ $yy }},
+                    currentMonth: {{ $mm }},
+                    currentDay: {{ $dd }},
+                    labels: @json($labels),
+                    dataValues: @json($dataValues),
+                    ajaxUrl: '{{ route('lunar.getDateDataAjax') }}',
+                    calendarAjaxUrl: '{{ route('lich.thang.ajax') }}'
+                });
+                homepageApp.init();
 
-            homepageApp.init();
-            const select = document.getElementById('year-select');
-            const start = 1900;
-            const end = 2100;
-            const current = {{ $yy }};
-            let loaded = false;
+                const select = document.getElementById('year-select');
+                const start = 1900;
+                const end = 2100;
+                const current = {{ $yy }};
+                let loaded = false;
 
-            select.addEventListener('focus', () => {
-                if (loaded) return; // chỉ load 1 lần
-                loaded = true;
-                for (let i = start; i <= end; i++) {
-                    if (i === current) continue;
-                    const opt = document.createElement('option');
-                    opt.value = i;
-                    opt.textContent = `Năm ${i}`;
-                    select.appendChild(opt);
-                }
-            });
+                select.addEventListener('focus', () => {
+                    if (loaded) return;
+                    loaded = true;
+                    const fragment = document.createDocumentFragment();
+                    for (let i = start; i <= end; i++) {
+                        if (i === current) continue;
+                        const opt = document.createElement('option');
+                        opt.value = i;
+                        opt.textContent = `Năm ${i}`;
+                        fragment.appendChild(opt);
+                    }
+                    select.appendChild(fragment);
+                });
+            } else {
+                setTimeout(() => {
+                    if (typeof HomepagePicker !== 'undefined') {
+                        const homepageApp = new HomepagePicker({
+                            currentYear: {{ $yy }},
+                            currentMonth: {{ $mm }},
+                            currentDay: {{ $dd }},
+                            labels: @json($labels),
+                            dataValues: @json($dataValues),
+                            ajaxUrl: '{{ route('lunar.getDateDataAjax') }}',
+                            calendarAjaxUrl: '{{ route('lich.thang.ajax') }}'
+                        });
+                        homepageApp.init();
+                    }
+                }, 100);
+            }
         });
     </script>
 @endpush

@@ -98,7 +98,7 @@
                             <img src="{{ asset($zodiacIcons[$zodiac['sign']] ?? '⭐') }}" alt="">
                         </div>
                         <div class="zodiac-info">
-                            <h3 id="zodiac-name">{{ $zodiacNames[$zodiac['sign']] ?? 'Cung hoàng đạo' }}</h3>
+                            <div id="zodiac-name">{{ $zodiacNames[$zodiac['sign']] ?? 'Cung hoàng đạo' }}</div>
                             <p id="zodiac-date">{{ $zodiacDates[$zodiac['sign']] ?? '' }}</p>
                         </div>
                     </div>

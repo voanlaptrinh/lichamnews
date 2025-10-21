@@ -35,7 +35,7 @@ async updateLunarDatesOptimized(calendarDays,month,year,daysInMonth){const cache
 try{const lunarDatesMap=await this.fetchLunarDatesForMonth(month,year,daysInMonth);this.setCache(cacheKey,lunarDatesMap);this.applyLunarDatesToCalendar(calendarDays,lunarDatesMap)}catch(error){this.showToast('Lỗi tải dữ liệu âm lịch','error')}}
 applyLunarDatesToCalendar(calendarDays,lunarDatesMap){const lunarSpans=calendarDays.querySelectorAll('.lunar-date-popup[data-day]');lunarSpans.forEach(span=>{const day=parseInt(span.dataset.day);if(lunarDatesMap[day]){span.textContent=lunarDatesMap[day].lunarDay}})}
 updatePopupHeader(month,year){const monthSpan=document.getElementById('popupMonth');const yearSpan=document.getElementById('popupYear');if(monthSpan)monthSpan.textContent=month.toString().padStart(2,'0');if(yearSpan)yearSpan.textContent=year}
-closePopup(overlay){overlay.classList.remove('show');document.body.classList.remove('modal-open');setTimeout(()=>{overlay.style.display='none'},300)}
+closePopup(overlay){overlay.classList.remove('show');document.body.classList.remove('modal-open');document.body.classList.remove('has-scrollbar');setTimeout(()=>{overlay.style.display='none'},300)}
 async fetchWithCache(url,options,cacheKey){const cachedData=this.getCache(cacheKey);if(cachedData){return cachedData}
 try{const response=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json','X-CSRF-TOKEN':this.getCsrfToken(),'Accept':'application/json'},...options});const data=await response.json();if(data.success){this.setCache(cacheKey,data)}
 return data}catch(error){throw error}}

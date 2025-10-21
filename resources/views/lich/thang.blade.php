@@ -11,7 +11,7 @@
     </div>
     <div class="row mt-2 g-3">
 
-        <div class="col-lg-9">
+        <div class="col-12 col-lg-9">
             <div class="box--bg-thang">
                 {!! $desrtipton_thang !!}
             </div>
@@ -323,7 +323,7 @@
             </section>
 
         </div>
-         <div class="col-xl-3 mb-3">
+         <div class="col-12 col-lg-3 mb-3">
             <div class="d-flex flex-column gap-4">
                 <!-- ** KHá»I Sá»° KIá»†N Sáº®P Tá»šI ** -->
                 <div class="events-card">

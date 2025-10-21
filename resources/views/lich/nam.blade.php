@@ -12,7 +12,7 @@
 
 
         <div class="row mt-2 g-3">
-            <div class="col-lg-9">
+            <div class="col-12 col-lg-9">
                 <div class="box--bg-thang">
                     <div class="text-box-tong-quan">
                         {!! $nam_content_auto !!}
@@ -166,7 +166,7 @@
 
 
 
-            <div class="col-xl-3">
+            <div class="col-12 col-lg-3">
                 <div class="d-flex flex-column gap-4">
                     <!-- ** KHỐI SỰ KIỆN SẮP TỚI ** -->
                     <div class="events-card">

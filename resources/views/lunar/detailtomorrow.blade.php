@@ -47,18 +47,30 @@
 
 
 @push('scripts')
-    <script src="{{ asset('js/base-picker.js?v=2.0') }}"></script>
-    <script src="{{ asset('js/today-tomorrow-picker.js?v=2.0') }}"></script>
+    <script defer src="{{ asset('js/base-picker.js?v=3.4') }}"></script>
+    <script defer src="{{ asset('js/today-tomorrow-picker.js?v=3.4') }}"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            // Khởi tạo ứng dụng quick picker cho trang ngày mai
-            const todayTomorrowPicker = new TodayTomorrowPicker({
-                currentYear: {{ $yy }},
-                currentMonth: {{ $mm }},
-                currentDay: {{ $dd }}
-            });
-
-            todayTomorrowPicker.init();
+        window.addEventListener("DOMContentLoaded", () => {
+            // Wait for deferred scripts
+            if (typeof TodayTomorrowPicker !== 'undefined') {
+                const todayTomorrowPicker = new TodayTomorrowPicker({
+                    currentYear: {{ $yy }},
+                    currentMonth: {{ $mm }},
+                    currentDay: {{ $dd }}
+                });
+                todayTomorrowPicker.init();
+            } else {
+                setTimeout(() => {
+                    if (typeof TodayTomorrowPicker !== 'undefined') {
+                        const todayTomorrowPicker = new TodayTomorrowPicker({
+                            currentYear: {{ $yy }},
+                            currentMonth: {{ $mm }},
+                            currentDay: {{ $dd }}
+                        });
+                        todayTomorrowPicker.init();
+                    }
+                }, 100);
+            }
         });
     </script>
 @endpush
