@@ -102,7 +102,7 @@
              <div class="tong-quan-date mb-4">
 
 
-                 <div class="card-body  p-lg-4 p-3 position-relative">
+                 <div class="card-body box--bg-thang p-lg-4 p-3 position-relative">
                      <!-- Nút "Tổng quan" ở góc trên bên phải -->
                      <div class="mb-3">
                          <h2 class="title-tong-quan-h2">
@@ -122,9 +122,11 @@
                                  border-bottom: 1px solid #ccc;
 
                              }
+
                              .vncal-detail .grid-item:nth-child(odd) {
                                  border-right: 1px solid #ccc;
                              }
+
                              .vncal-detail .grid-item:nth-last-child(-n+2) {
                                  border-bottom: none;
                              }
@@ -146,23 +148,24 @@
                                              ngày {{ $getThongTinCanChiVaIcon['can_chi_ngay'] }},
                                              tháng {{ $getThongTinCanChiVaIcon['can_chi_thang'] }},
                                              năm {{ $getThongTinCanChiVaIcon['can_chi_nam'] }}</div>
-                                         <div class="grid-item"> <b>Nạp Âm:</b> {{ $getThongTinNgay['nap_am']['napAm'] }} (Hành
+                                         <div class="grid-item"> <b>Nạp Âm:</b>
+                                             {{ $getThongTinNgay['nap_am']['napAm'] }} (Hành
                                              {{ $getThongTinNgay['nap_am']['napAmHanh'] }})
                                          </div>
-                                         <div class="grid-item"> <b>Tuổi Xung:</b> {{ $getThongTinNgay['tuoi_xung'] }}</div>
-                                         <div class="grid-item"> <b>Giờ Hoàng Đạo:</b> {{ $getThongTinNgay['gio_hoang_dao'] }}
+                                         <div class="grid-item"> <b>Tuổi Xung:</b> {{ $getThongTinNgay['tuoi_xung'] }}
                                          </div>
-                                         <div class="grid-item"> <b>Giờ Hắc Đạo:</b> {{ $getThongTinNgay['gio_hac_dao'] }}</div>
+                                         <div class="grid-item"> <b>Giờ Hoàng Đạo:</b>
+                                             {{ $getThongTinNgay['gio_hoang_dao'] }}
+                                         </div>
+                                         <div class="grid-item"> <b>Giờ Hắc Đạo:</b>
+                                             {{ $getThongTinNgay['gio_hac_dao'] }}</div>
                                          <div class="grid-item">
                                              @if ($tot_xau_result == 'tot')
                                                  <div>
                                                      <b>Ngày Hoàng Đạo:</b>
                                                      @php
                                                          $hoangDaoStarStrings = [];
-                                                         foreach (
-                                                             $hoangDaoStars
-                                                             as $starName => $starDescription
-                                                         ) {
+                                                         foreach ($hoangDaoStars as $starName => $starDescription) {
                                                              $hoangDaoStarStrings[] = $starName;
                                                          }
                                                          echo implode(', ', $hoangDaoStarStrings);
@@ -174,10 +177,7 @@
                                                      <b>Ngày Hắc Đạo:</b>
                                                      @php
                                                          $hacDaoStarStrings = [];
-                                                         foreach (
-                                                             $hacDaoStars
-                                                             as $starName => $starDescription
-                                                         ) {
+                                                         foreach ($hacDaoStars as $starName => $starDescription) {
                                                              $hacDaoStarStrings[] = $starName;
                                                          }
                                                          echo implode(', ', $hacDaoStarStrings);
@@ -347,7 +347,7 @@
 
              </div>
              <div class="tong-quan-date mt-4">
-                 <div class="card-body  p-lg-4 p-3 position-relative">
+                 <div class="card-body box--bg-thang  p-lg-4 p-3 position-relative">
                      <div class="mb-3">
                          <h2 class="title-tong-quan-h2">Luận Giải Các Yếu Tố Trong Ngày</h2>
                          <hr>
@@ -359,7 +359,8 @@
                                      <div class="item-container">
 
                                          <div class="text-content">
-                                             <div class="title-tong-quan-h5 fw-semibold">Quan hệ Can chi ngày (nội khí):
+                                             <div class="title-tong-quan-h5 fw-semibold">Quan hệ Can chi ngày (nội
+                                                 khí):
                                              </div>
                                              <p>
                                                  {!! $noiKhiNgay !!}
@@ -702,4 +703,3 @@
              </div>
          </div>
      </div>
-

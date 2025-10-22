@@ -105,23 +105,23 @@
     </style>
 
     <!-- Preload CSS resources -->
-    <link rel="preload" href="{{ asset('/css/bootstrap.min.css?v=5.84') }}" as="style">
-    <link rel="preload" href="{{ asset('/css/style-date.css?v=5.84') }}" as="style">
+    <link rel="preload" href="{{ asset('/css/bootstrap.min.css?v=5.85') }}" as="style">
+    <link rel="preload" href="{{ asset('/css/style-date.css?v=5.85') }}" as="style">
 
     <!-- Load critical CSS -->
-    <link href="{{ asset('/css/bootstrap.min.css?v=5.84') }}" rel="stylesheet">
-    <link href="{{ asset('/css/style-date.css?v=5.84') }}" rel="stylesheet">
+    <link href="{{ asset('/css/bootstrap.min.css?v=5.85') }}" rel="stylesheet">
+    <link href="{{ asset('/css/style-date.css?v=5.85') }}" rel="stylesheet">
 
     <!-- Defer non-critical CSS -->
-    <link rel="preload" href="{{ asset('/css/bootstrap-icons.min.css?v=5.84') }}" as="style"
+    <link rel="preload" href="{{ asset('/css/bootstrap-icons.min.css?v=5.85') }}" as="style"
         onload="this.onload=null;this.rel='stylesheet'">
     <noscript>
-        <link rel="stylesheet" href="{{ asset('/css/bootstrap-icons.min.css?v=5.84') }}">
+        <link rel="stylesheet" href="{{ asset('/css/bootstrap-icons.min.css?v=5.85') }}">
     </noscript>
-    <link rel="preload" href="{{ asset('/css/repont.css?v=5.84') }}" as="style"
+    <link rel="preload" href="{{ asset('/css/repont.css?v=5.85') }}" as="style"
         onload="this.onload=null;this.rel='stylesheet'">
     <noscript>
-        <link rel="stylesheet" href="{{ asset('/css/repont.css?v=5.84') }}">
+        <link rel="stylesheet" href="{{ asset('/css/repont.css?v=5.85') }}">
     </noscript>
 
     {{-- <link rel="stylesheet" type="text/css" href="{{ asset('/css/daterangepicker.css') }}" /> --}}
@@ -210,7 +210,7 @@
     {{-- @include('gieo-que') --}}
     @if (request()->routeIs('home'))
         {{-- Sử dụng Simple Chart thay vì Chart.js 201KB --}}
-        <script src="{{ asset('/js/simple-chart.js?v=5.84') }}" defer></script>
+        <script src="{{ asset('/js/simple-chart.js?v=5.85') }}" defer></script>
     @endif
     {{-- <script src="{{ asset('/js/jquery-3.7.1.min.js?v=5.67') }}" defer></script> --}}
     <script src="{{ asset('/js/bootstrap.bundle.min.js?v=5.7') }}" defer></script>
@@ -253,13 +253,26 @@
                 var checkAndOptimize = function() {
                     optimizeLCP();
                     if (!document.querySelector('.date-number.am') && !document.querySelector(
-                        '.title-tong-quan-h2')) {
+                            '.title-tong-quan-h2')) {
                         requestAnimationFrame(checkAndOptimize);
                     }
                 };
                 requestAnimationFrame(checkAndOptimize);
             } else {
                 optimizeLCP();
+            }
+            
+            try {
+                const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                if (tz) {
+                    const current = document.cookie.split('; ').find(row => row.startsWith('user_tz='));
+                    if (!current || current.split('=')[1] !== encodeURIComponent(tz)) {
+                        document.cookie = 'user_tz=' + encodeURIComponent(tz) + '; path=/; max-age=' + (60 * 60 * 24 *
+                            365);
+                    }
+                }
+            } catch (e) {
+                console.warn('Không thể xác định múi giờ:', e);
             }
         })();
     </script>
