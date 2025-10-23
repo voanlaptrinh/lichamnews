@@ -1,5 +1,5 @@
-<script defer src="{{ asset('js/base-picker.js?v=3.4') }}"></script>
-<script defer src="{{ asset('js/home.js?v=3.4') }}"></script>
+<script defer src="{{ asset('js/base-picker.js?v=3.5') }}"></script>
+<script defer src="{{ asset('js/home.js?v=3.5') }}"></script>
 <script>
     // Inline critical initialization
     window.addEventListener('DOMContentLoaded', () => {

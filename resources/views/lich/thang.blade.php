@@ -169,7 +169,7 @@
 
                         <div class="row g-lg-3 g-2 row-btn-date">
                             @forelse ($data_totxau['tot'] as $data_tot)
-                                <div class="col-xl-4 col-lg-4 col-md-6 col-12">
+                                <div class="col-xl-3 col-lg-4 col-md-6 col-12">
                                     <!--  để cột chỉ chiếm chiều rộng cần thiết -->
                                     <a href="{{ route('detai_home', ['nam' => $data_tot['yy'], 'thang' => $data_tot['mm'], 'ngay' => $data_tot['dd']]) }}"
                                         class="btn custom-pill-btn-date  d-flex align-items-center justify-content-center">
@@ -196,7 +196,7 @@
 
                         <div class="row g-lg-3 g-2 row-btn-date">
                             @forelse ($data_totxau['xau'] as $data_xau)
-                                <div class="col-xl-4 col-lg-4 col-md-6 col-12">
+                                <div class="col-xl-3 col-lg-4 col-md-6 col-12">
                                     <!--  để cột chỉ chiếm chiều rộng cần thiết -->
                                     <a href="{{ route('detai_home', ['nam' => $data_xau['yy'], 'thang' => $data_xau['mm'], 'ngay' => $data_xau['dd']]) }}"
                                         class="btn custom-pill-btn-date  d-flex align-items-center justify-content-center">
