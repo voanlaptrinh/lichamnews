@@ -174,10 +174,13 @@
                         <div class="title-tong-quan-h3-log">
                             Ngày Hoàng Đạo / Hắc Đạo
                         </div>
-                        <select id="lichTypeSelect" class="form-select" style="width: auto;">
-                            <option value="duong">Dương lịch</option>
-                            <option value="am">Âm lịch</option>
-                        </select>
+                        <div class="position-relative ms-2">
+                            <select id="lichTypeSelect" class="form-select pe-4" style="width: auto; appearance: none; -webkit-appearance: none; -moz-appearance: none; padding-right: 35px;">
+                                <option value="duong">Dương lịch</option>
+                                <option value="am">Âm lịch</option>
+                            </select>
+                            <i class="bi bi-chevron-down position-absolute" style="right: 10px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #6c757d;"></i>
+                        </div>
                     </div>
                 </div>
 
