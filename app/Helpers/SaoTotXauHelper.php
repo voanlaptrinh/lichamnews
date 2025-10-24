@@ -12,7 +12,7 @@ class SaoTotXauHelper
     {
         try {
             if (empty($ngocHapCatTinh) && empty($ngocHapHungSat)) {
-                return "Không có thông tin sao tốt/xấu đặc biệt theo Ngọc Hạp cho ngày này.";
+                return "Không có thông tin sao tốt / xấu đặc biệt theo Ngọc Hạp cho ngày này.";
             }
 
             $catScoreRaw = 0.0;

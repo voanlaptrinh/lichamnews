@@ -1,8 +1,9 @@
 @extends('welcome')
 @section('content')
     <div class="container-setup">
-        <h6 class="content-title-detail"><a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a><i class="bi bi-chevron-right"></i>
-            <span >Lịch năm {{ $nam }} </span>
+        <h6 class="content-title-detail"><a href="{{ route('home') }}"
+                style="color: #2254AB; text-decoration: underline;">Trang chủ</a><i class="bi bi-chevron-right"></i>
+            <span>Lịch năm {{ $nam }} </span>
         </h6>
         @php
             use App\Helpers\LunarHelper;
@@ -18,7 +19,7 @@
                         {!! $nam_content_auto !!}
                     </div>
                 </div>
-              
+
                 <div class="box--bg-thang mt-3">
                     <h2 class="title-tong-quan-h2-log">Lịch âm dương đầy đủ, chính xác, chi tiết của 12 tháng trong năm
                         {{ $nam }}</h2>
@@ -70,7 +71,8 @@
                         <div class="">
                             <div class="calendar-wrapper calendar-wrapper-none">
                                 <div class="text-center">
-                                    <div class="mb-0 pt-2 title-tong-quan-h4-log">Tháng {{ $i }} năm {{ $nam }}</div>
+                                    <div class="mb-0 pt-2 title-tong-quan-h4-log">Tháng {{ $i }} năm
+                                        {{ $nam }}</div>
 
 
                                 </div>
@@ -172,45 +174,52 @@
                     <div class="events-card">
                         <div class="card-title-right title-tong-quan-h4-log">Lịch Vạn Niên Các Năm Khác</div>
                         <ul class="list-group list-group-flush events-list">
-                              @php($currentYearHeader = date('Y'))
-                        @php($startYearHeader = $currentYearHeader - 1)
-                        @php($endYearHeader = $currentYearHeader + 10)
-                        @for ($year = $startYearHeader; $year <= $endYearHeader; $year++)
+                            @php($currentYearHeader = date('Y'))
+                            @php($startYearHeader = $currentYearHeader - 1)
+                            @php($endYearHeader = $currentYearHeader + 10)
+                            @for ($year = $startYearHeader; $year <= $endYearHeader; $year++)
+                                <li class="list-group-item event-item pb-0">
+                                    <a href="{{ route('lich.nam', ['nam' => $year]) }}">
+
+                                        <div class="event-details">
+                                            <div class="event-name {{ $year == $nam ? 'active-date' : '' }}"
+                                                style="font-weight: unset">
+                                                <img src="{{ asset('/icons/sukienn1.svg') }}" alt="Sự kiện"
+                                                    class="img-fluid me-2" width="28" height="29">
+                                                Lịch vạn niên {{ $year }}
+                                            </div>
+
+                                        </div>
+                                    </a>
+                                </li>
+                            @endfor
+                        </ul>
+                    </div>
+
+                    <div class="events-card">
+                    <div class="card-title-right title-tong-quan-h5-log">Lịch âm các tháng năm {{ $nam }}</div>
+                    <ul class="list-group list-group-flush events-list">
+                        @for ($i = 1; $i <= 12; $i++)
                             <li class="list-group-item event-item pb-0">
-                                <a href="{{ route('lich.nam', ['nam' => $year]) }}">
-                                  
+                                <a href="{{ route('lich.thang', ['nam' => $nam, 'thang' => $i]) }}">
+
                                     <div class="event-details">
-                                        <div class="event-name {{ $year == $nam ? 'active-date' : '' }}" style="font-weight: unset"> 
-                                            <img src="{{ asset('/icons/sukienn1.svg') }}" alt="Sự kiện" class="img-fluid me-2" width="28" height="29"> 
-                                            Lịch vạn niên {{ $year }} </div>
-                                        
+                                        <div class="event-name"
+                                            style="font-weight: unset"> <img src="{{ asset('/icons/sukienn1.svg') }}"
+                                                width="28" height="29" alt="Sự kiện" class="img-fluid me-2">
+                                            Lịch âm tháng {{ $i }}
+                                            năm {{ $nam }}
+                                        </div>
+
                                     </div>
                                 </a>
                             </li>
-                             @endfor
-                        </ul>
-                    </div>
+                        @endfor
+                    </ul>
+                </div>
                 </div>
             </div>
-            {{-- <div class="col-lg-3">
-                <div class="box--bg-thang mb-3">
-                    <h4 class="title-tong-quan-h4-log text-center">Lịch Vạn Niên Các Năm</h4>
-                    <div class="row g-2">
-                        @php($currentYearHeader = date('Y'))
-                        @php($startYearHeader = $currentYearHeader - 1)
-                        @php($endYearHeader = $currentYearHeader + 10)
-                        @for ($year = $startYearHeader; $year <= $endYearHeader; $year++)
-                            <div class="col-12"> <!--  để cột chỉ chiếm chiều rộng cần thiết -->
-                                <a href="{{ route('lich.nam', ['nam' => $year]) }}"
-                                    class="btn custom-pill-btn-date {{ $year == $nam ? 'active-date' : '' }} d-flex align-items-center justify-content-center">
-                                    <img src="{{ asset('/icons/sukienn1.svg') }}" alt="Sự kiện" class="img-fluid me-2">
-                                    <span>Lịch năm {{ $year }}</span>
-                                </a>
-                            </div>
-                        @endfor
-                    </div>
-                </div>
-            </div> --}}
+           
         </div>
 
     </div>

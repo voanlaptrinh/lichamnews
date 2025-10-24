@@ -1,0 +1,54 @@
+/* Fix dropdown/select luôn mở xuống dưới */
+
+
+/* Form select native dropdowns */
+.form-select,
+.form-control[type="select"],
+select {
+    /* Giữ nguyên style cho ô select */
+    position: relative !important;
+}
+
+/* Cố định chiều cao dropdown options là 200px */
+/* Lưu ý: Native select dropdown không thể style trực tiếp trong nhiều browser */
+/* Giải pháp: Sử dụng size attribute khi click */
+select:focus {
+    /* Không thay đổi height của select box */
+    outline: 2px solid #2254AB !important;
+}
+
+/* Style cho select với size attribute (giả lập dropdown) */
+select[size] {
+    height: 100px !important;
+    max-height: 100px !important;
+    overflow-y: auto !important;
+    position: absolute !important;
+    z-index: 9999 !important;
+    background: white !important;
+    border: 1px solid #ced4da !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Đảm bảo select option có style đẹp */
+select option {
+    padding: 8px 12px !important;
+    min-height: 35px !important;
+    line-height: 1.5 !important;
+}
+
+select option:hover {
+    background-color: #f0f0f0 !important;
+}
+
+select option:checked {
+    background-color: #2254AB !important;
+    color: white !important;
+}
+
+/* Popper.js overrides */
+[data-popper-placement^="top"] {
+    /* Force placement to bottom */
+    transform: translate3d(0, 0, 0) !important;
+    top: 100% !important;
+    bottom: auto !important;
+}
