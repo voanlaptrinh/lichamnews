@@ -12,11 +12,26 @@ class SitemapController extends Controller
     public function index()
     {
         $sitemaps = [
-            URL::to('/sitemap-static.xml'),
-            URL::to('/sitemap-tools.xml'),
-            // URL::to('/sitemap-posts.xml'),
-            URL::to('/sitemap-years.xml'),
-            URL::to('/sitemap-months.xml'),
+            [
+                'loc' => URL::to('/sitemap-static.xml'),
+                'lastmod' => now()->toAtomString(),
+                'changefreq' => 'monthly'
+            ],
+            [
+                'loc' => URL::to('/sitemap-tools.xml'),
+                'lastmod' => now()->toAtomString(),
+                'changefreq' => 'weekly'
+            ],
+            [
+                'loc' => URL::to('/sitemap-years.xml'),
+                'lastmod' => now()->toAtomString(),
+                'changefreq' => 'weekly'
+            ],
+            [
+                'loc' => URL::to('/sitemap-months.xml'),
+                'lastmod' => now()->toAtomString(),
+                'changefreq' => 'weekly'
+            ],
         ];
 
         // Add day sitemaps (1900 → 2100)
@@ -24,86 +39,79 @@ class SitemapController extends Controller
         $endYear = 2100;
 
         for ($year = $startYear; $year <= $endYear; $year++) {
-            $sitemaps[] = URL::to("/sitemap-days-{$year}.xml");
-            // hoặc nếu có route đặt tên rõ:
-            // $sitemaps[] = route('sitemap.days', ['year' => $year]);
+            $sitemaps[] = [
+                'loc' => URL::to("/sitemap-days-{$year}.xml"),
+                'lastmod' => now()->toAtomString(),
+                'changefreq' => 'weekly'
+            ];
         }
 
         return response()
-            ->view('sitemap.index', ['sitemaps' => $sitemaps])
+            ->view('sitemap.index', compact('sitemaps'))
             ->header('Content-Type', 'text/xml');
     }
+
 
 
     public function staticPages()
     {
         $urls = [
-            ['loc' => route('home'), 'priority' => '1.0'],
-            ['loc' => route('am-lich-hom-nay'), 'priority' => '0.8'],
-            ['loc' => route('am-lich-ngay-mai'), 'priority' => '0.8'],
-            ['loc' => route('convert.am.to.duong'), 'priority' => '0.8'],
-            ['loc' => route('lien-he-voi-chung-toi'), 'priority' => '0.6'],
-            ['loc' => route('dieu-khoan'), 'priority' => '0.5'],
-            ['loc' => route('chinh-sach'), 'priority' => '0.5'],
+            ['loc' => route('home'), 'priority' => '1.0', 'changefreq' => 'daily'],
+            ['loc' => route('am-lich-hom-nay'), 'priority' => '0.8', 'changefreq' => 'daily'],
+            ['loc' => route('am-lich-ngay-mai'), 'priority' => '0.8', 'changefreq' => 'daily'],
+            ['loc' => route('convert.am.to.duong'), 'priority' => '0.8', 'changefreq' => 'weekly'],
+            ['loc' => route('lien-he-voi-chung-toi'), 'priority' => '0.6', 'changefreq' => 'weekly'],
+            ['loc' => route('dieu-khoan'), 'priority' => '0.5', 'changefreq' => 'weekly'],
+            ['loc' => route('chinh-sach'), 'priority' => '0.5', 'changefreq' => 'weekly'],
         ];
 
-        // Horoscope pages
-
+        foreach ($urls as &$url) {
+            $url['lastmod'] = now()->toAtomString();
+        }
 
         return response()
             ->view('sitemap.urlset', compact('urls'))
             ->header('Content-Type', 'text/xml');
     }
 
+
     public function tools()
     {
         $toolRoutes = [
             'horoscope.index',
-            // 'astrology.form',
-            // 'buy-house.form',
-            // 'breaking.form',
-            // 'nhap-trach.form',
-            // 'xuat-hanh.form',
-            // 'khai-truong.form',
-            // 'ky-hop-dong.form',
-            // 'cai-tang.form',
-            // 'ban-tho.form',
-            // 'lap-ban-tho.form',
-            // 'giai-han.form',
-            // 'tran-trach.form',
-            // 'phong-sinh.form',
-            // 'mua-xe.form',
-            // 'du-lich.form',
-            // 'thi-cu.form',
-            // 'cong-viec-moi.form',
-            // 'giay-to.form',
-            // 'huong-ban-tho.form',
-            // 'huong-nha.form',
-            // 'huong-bep.form',
-            // 'huong-phong-ngu.form',
-            // 'huong-ban-lam-viec.form',
+            // ... các route khác nếu bật
         ];
 
         $urls = [];
 
         foreach ($toolRoutes as $routeName) {
-            if (route($routeName, [], false)) { // kiểm tra route tồn tại
+            if (route($routeName, [], false)) {
                 $urls[] = [
                     'loc' => route($routeName),
                     'priority' => '0.7',
+                    'changefreq' => 'weekly',
+                    'lastmod' => now()->toAtomString(),
                 ];
             }
         }
+
         $signSlugs = ['bach-duong', 'kim-nguu', 'song-tu', 'cu-giai', 'su_tu', 'xu-nu', 'thien-binh', 'bo-cap', 'nhan-ma', 'ma-ket', 'bao-binh', 'song-ngu'];
         $typeSlugs = ['hom-qua', 'hom-nay', 'ngay-mai', 'tuan-nay', 'thang-nay', 'nam-nay'];
 
         foreach ($signSlugs as $signSlug) {
-            $urls[] = ['loc' => route('horoscope.show', ['signSlug' => $signSlug]), 'priority' => '0.7'];
+            $urls[] = [
+                'loc' => route('horoscope.show', ['signSlug' => $signSlug]),
+                'priority' => '0.7',
+                'changefreq' => 'daily',
+                'lastmod' => now()->toAtomString(),
+            ];
 
             foreach ($typeSlugs as $typeSlug) {
                 $urls[] = [
                     'loc' => route('horoscope.show.type', compact('signSlug', 'typeSlug')),
                     'priority' => '0.6',
+                    'changefreq' => 'daily',
+                    'lastmod' => now()->toAtomString(),
                 ];
             }
         }
@@ -123,6 +131,8 @@ class SitemapController extends Controller
             $urls[] = [
                 'loc' => route('lich.nam', ['nam' => $year]),
                 'priority' => '0.7',
+                'changefreq' => 'weekly',
+                'lastmod' => now()->toAtomString(),
             ];
         }
 
@@ -144,6 +154,8 @@ class SitemapController extends Controller
                 $urls[] = [
                     'loc' => route('lich.thang', ['nam' => $year, 'thang' => $month]),
                     'priority' => '0.6',
+                    'changefreq' => 'weekly',
+                    'lastmod' => now()->toAtomString(),
                 ];
             }
         }
@@ -154,6 +166,7 @@ class SitemapController extends Controller
     }
 
 
+
     /**
      * Sitemap index cho ngày — chứa link tới từng sitemap theo năm
      */
@@ -161,7 +174,11 @@ class SitemapController extends Controller
     {
         $sitemaps = [];
         for ($year = 1900; $year <= 2100; $year++) {
-            $sitemaps[] = URL::to("/sitemap-days-{$year}.xml");
+            $sitemaps[] = [
+                'loc' => URL::to("/sitemap-days-{$year}.xml"),
+                'lastmod' => now()->toAtomString(),
+                'changefreq' => 'weekly',
+            ];
         }
 
         return response()
@@ -187,7 +204,8 @@ class SitemapController extends Controller
                     'ngay'  => $date->day,
                 ]),
                 'priority' => '0.5',
-                'lastmod' => $date->toDateString(),
+                'changefreq' => 'never',
+                'lastmod' => $date->toAtomString(),
             ];
         }
 

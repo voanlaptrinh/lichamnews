@@ -262,86 +262,98 @@ class LichController extends Controller
             }
         }
 
-        // Kiểm tra tháng dương hiện tại có chứa tháng âm nhuận không
-        $contains_leap_month = false;
-        $leap_month_in_solar = 0;
-
-        // Luôn tạo tháng âm có số bằng với tháng dương
-        // Bất kể tháng âm đó có tồn tại trong năm hay không
+        // Tìm tháng âm CÙNG SỐ với tháng dương gần nhất
         $all_lunar_months = [];
 
-        // Xác định năm âm dựa trên tháng dương
-        // Thông thường, các tháng 1-2 dương có thể thuộc năm âm trước
-        // Các tháng 10-12 dương thì tháng âm thường thuộc năm hiện tại
-        $lunar_year_to_check = $nam;
+        // Luôn kiểm tra năm hiện tại trước, sau đó là năm trước và năm sau
+        $lunar_years_to_check = [$nam, $nam - 1, $nam + 1];
 
-        // Nếu là tháng 1 hoặc 2 dương, có thể cần kiểm tra năm âm trước
-        if ($thang <= 2) {
-            // Kiểm tra xem tháng âm này thuộc năm nào
-            $test_date = LunarHelper::convertSolar2Lunar(15, $thang, $nam);
-            if ($test_date[1] >= 11) { // Nếu là tháng 11-12 âm
-                $lunar_year_to_check = $nam - 1;
-            }
-        }
+        // Kiểm tra tháng âm cùng số (thường và nhuận) trong các năm
+        foreach ($lunar_years_to_check as $lunar_year) {
+            // Kiểm tra tháng thường
+            list($solar_d, $solar_m, $solar_y) = LunarHelper::convertLunar2Solar(1, $thang, $lunar_year, 0);
 
-        // Kiểm tra xem tháng âm này có tồn tại không (bao gồm cả tháng thường và nhuận)
-        // Tháng thường
-        list($solar_d, $solar_m, $solar_y) = LunarHelper::convertLunar2Solar(1, $thang, $lunar_year_to_check, 0);
-        if ($solar_d > 0) { // Tháng thường tồn tại
-            $all_lunar_months[] = [
-                'month' => $thang,
-                'is_leap' => 0,
-                'year' => $lunar_year_to_check
-            ];
-        }
-
-        // Kiểm tra tháng nhuận (nếu có)
-        // Tháng 1 thường không có tháng nhuận trong lịch Việt Nam
-        if ($thang != 1) {
-            list($solar_d_leap, $solar_m_leap, $solar_y_leap) = LunarHelper::convertLunar2Solar(1, $thang, $lunar_year_to_check, 1);
-            if ($solar_d_leap > 0) { // Tháng nhuận tồn tại
-                $all_lunar_months[] = [
-                    'month' => $thang,
-                    'is_leap' => 1,
-                    'year' => $lunar_year_to_check
-                ];
-            }
-        }
-
-        // Nếu không tìm thấy trong năm hiện tại, thử năm tiếp theo (cho tháng 11-12)
-        if (empty($all_lunar_months) && $thang >= 10) {
-            $lunar_year_to_check = $nam + 1;
-
-            // Tháng thường
-            list($solar_d, $solar_m, $solar_y) = LunarHelper::convertLunar2Solar(1, $thang, $lunar_year_to_check, 0);
+            // Nếu tháng âm tồn tại
             if ($solar_d > 0) {
+                // Tính khoảng cách với tháng dương hiện tại
+                $start_date = mktime(0, 0, 0, $solar_m, $solar_d, $solar_y);
+                $current_month_start = mktime(0, 0, 0, $thang, 1, $nam);
+                $distance = abs($start_date - $current_month_start);
+
                 $all_lunar_months[] = [
                     'month' => $thang,
                     'is_leap' => 0,
-                    'year' => $lunar_year_to_check
+                    'year' => $lunar_year,
+                    'distance' => $distance,
+                    'solar_start' => "$solar_d/$solar_m/$solar_y"
                 ];
             }
 
-            // Tháng nhuận
-            // Tháng 1 thường không có tháng nhuận trong lịch Việt Nam
+            // Kiểm tra tháng nhuận (nếu không phải tháng 1)
             if ($thang != 1) {
-                list($solar_d_leap, $solar_m_leap, $solar_y_leap) = LunarHelper::convertLunar2Solar(1, $thang, $lunar_year_to_check, 1);
-                if ($solar_d_leap > 0) {
+                list($solar_d_leap, $solar_m_leap, $solar_y_leap) = LunarHelper::convertLunar2Solar(1, $thang, $lunar_year, 1);
+
+                // QUAN TRỌNG: Kiểm tra xem tháng nhuận có thực sự tồn tại không
+                // Hàm convertLunar2Solar có bug trả về ngày sai cho tháng nhuận không tồn tại
+                // Cần kiểm tra thêm: nếu ngày trả về giống tháng thường thì không phải tháng nhuận
+                list($solar_d_normal, $solar_m_normal, $solar_y_normal) = LunarHelper::convertLunar2Solar(1, $thang, $lunar_year, 0);
+
+                $is_valid_leap = false;
+                if ($solar_d_leap > 0 && $solar_d_normal > 0) {
+                    // Nếu tháng nhuận trả về ngày khác tháng thường, mới là tháng nhuận thực sự
+                    if (!($solar_d_leap == $solar_d_normal && $solar_m_leap == $solar_m_normal && $solar_y_leap == $solar_y_normal)) {
+                        $is_valid_leap = true;
+                    }
+                }
+
+                if ($is_valid_leap) {
+                    // Tính khoảng cách với tháng dương hiện tại
+                    $start_date = mktime(0, 0, 0, $solar_m_leap, $solar_d_leap, $solar_y_leap);
+                    $current_month_start = mktime(0, 0, 0, $thang, 1, $nam);
+                    $distance = abs($start_date - $current_month_start);
+
                     $all_lunar_months[] = [
                         'month' => $thang,
                         'is_leap' => 1,
-                        'year' => $lunar_year_to_check
+                        'year' => $lunar_year,
+                        'distance' => $distance,
+                        'solar_start' => "$solar_d_leap/$solar_m_leap/$solar_y_leap"
                     ];
                 }
             }
         }
 
-        // Sắp xếp theo leap status (tháng thường trước, tháng nhuận sau)
+        // Sắp xếp theo khoảng cách (gần nhất trước)
+        usort($all_lunar_months, function($a, $b) {
+            return $a['distance'] - $b['distance'];
+        });
+
+        // Chỉ lấy tháng âm gần nhất (thường và/hoặc nhuận của cùng năm)
+        $final_lunar_months = [];
         if (!empty($all_lunar_months)) {
-            usort($all_lunar_months, function($a, $b) {
-                return $a['is_leap'] - $b['is_leap'];
-            });
+            $closest = $all_lunar_months[0];
+            $final_lunar_months[] = $closest;
+
+            // Nếu có tháng nhuận cùng năm với tháng gần nhất, thêm vào
+            foreach ($all_lunar_months as $month) {
+                if ($month['year'] == $closest['year'] &&
+                    $month['is_leap'] != $closest['is_leap']) {
+                    $final_lunar_months[] = $month;
+                    break;
+                }
+            }
         }
+
+        // Sắp xếp lại: thường trước, nhuận sau
+        usort($final_lunar_months, function($a, $b) {
+            if ($a['year'] != $b['year']) {
+                return $a['year'] - $b['year'];
+            }
+            return $a['is_leap'] - $b['is_leap'];
+        });
+
+        $all_lunar_months = $final_lunar_months;
+
 
         // Tạo bảng lịch cho từng tháng âm
         $lunar_calendars = [];

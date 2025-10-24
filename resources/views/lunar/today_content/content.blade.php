@@ -677,7 +677,7 @@
                                      {{ $lunarDate[0] }}/{{ $lunarDate[1] }} ÂL</div>
                              </div>
                              <div class="hv-memorial-event-summary">
-                                 <h3 class="hv-memorial-event-title">{{ $event['description'] }}</h3>
+                                 <div class="hv-memorial-event-title">{{ $event['description'] }}</div>
                                  <div class="hv-memorial-countdown-display">
                                      @if ($event['days_remaining'] === 0)
                                          Hôm nay

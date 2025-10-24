@@ -958,20 +958,30 @@ static function convertSolar2Lunar($dd, $mm, $yy, $timeZone = 7.0)
     // Tính toán 'diff' của tháng kế tiếp
     $nextDiff = $diff + 1;
 
-    // Nếu tháng hiện tại là tháng trước tháng nhuận, tháng sau sẽ là tháng nhuận
-    if ($isLeap && $diff + 1 == $leapMonthOffset) {
-        // diff của tháng nhuận sẽ bằng diff của tháng chính trước nó
-        // nên chúng ta không cần thay đổi nextDiff
-    } 
-    // Nếu tháng hiện tại là tháng nhuận, tháng sau sẽ là tháng chính
-    // và diff của nó sẽ bằng diff của tháng nhuận
-    else if ($isLeap && $diff == $leapMonthOffset) {
-        // Không thay đổi nextDiff, vì tháng chính sau tháng nhuận sẽ có diff = diff tháng nhuận.
-        // Logic ban đầu đã đúng cho trường hợp này.
+    // Điều chỉnh nextDiff cho các trường hợp tháng nhuận
+    if ($isLeap) {
+        // Nếu tháng hiện tại đang TRƯỚC tháng nhuận (diff < leapMonthOffset)
+        // và tháng kế tiếp là tháng nhuận: không cần tăng nextDiff
+        if ($diff + 1 == $leapMonthOffset && $lunarLeap == 0) {
+            // Tháng hiện tại là tháng chính trước tháng nhuận
+            // Tháng kế tiếp sẽ là tháng nhuận (có cùng số tháng với tháng hiện tại)
+            // Do đó nextDiff vẫn giữ nguyên = diff + 1
+        }
+        // Nếu tháng hiện tại LÀ tháng nhuận
+        else if ($diff == $leapMonthOffset && $lunarLeap == 1) {
+            // Tháng kế tiếp là tháng chính sau tháng nhuận
+            // Cần tăng nextDiff thêm 1 để bỏ qua tháng nhuận
+            $nextDiff = $diff + 1;
+        }
+        // Nếu tháng hiện tại đã qua tháng nhuận
+        else if ($diff >= $leapMonthOffset) {
+            // Cần điều chỉnh nextDiff
+            $nextDiff = $diff + 1;
+        }
     }
 
     // Tính toán ngày Sóc của tháng sau dựa trên `nextDiff` đã điều chỉnh
-    $nextMonth_k_estimate = floor($a11 + ($nextDiff - 11) * 29.530588853 - 2415021.076998695);
+    $nextMonth_k_estimate = floor(($a11 - 2415021.076998695) / 29.530588853 + 0.5) + $nextDiff;
     $nextMonthStart = self::getNewMoonDay($nextMonth_k_estimate, $timeZone);
 
     // Đôi khi ước lượng bị lệch 1 chu kỳ, cần kiểm tra và điều chỉnh

@@ -444,7 +444,7 @@
                                         {{ $lunarDate[0] }}/{{ $lunarDate[1] }} ÂL</div>
                                 </div>
                                 <div class="hv-memorial-event-summary">
-                                    <h3 class="hv-memorial-event-title">{{ $event['description'] }}</h3>
+                                    <div class="hv-memorial-event-title">{{ $event['description'] }}</div>
                                     <div class="hv-memorial-countdown-display">
                                         @if ($event['days_remaining'] === 0)
                                             Hôm nay
@@ -655,7 +655,7 @@
                                             {{ $lunarDate[0] }}/{{ $lunarDate[1] }} ÂL</div>
                                     </div>
                                     <div class="hv-memorial-event-summary">
-                                        <h3 class="hv-memorial-event-title">{{ $event['description'] }}</h3>
+                                        <div class="hv-memorial-event-title">{{ $event['description'] }}</div>
                                         <div class="hv-memorial-countdown-display">
                                             @if ($event['days_remaining'] === 0)
                                                 Hôm nay
@@ -776,8 +776,8 @@
 @endsection
 
 @push('styles')
-    <link rel="preload" href="{{ asset('css/html-chart.css?v=3.1') }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="{{ asset('css/html-chart.css?v=3.1') }}"></noscript>
+    <link rel="preload" href="{{ asset('css/html-chart.css?v=3.2') }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="{{ asset('css/html-chart.css?v=3.2') }}"></noscript>
     <style>
         .event-date .solar-date {
             font-size: 14px;
