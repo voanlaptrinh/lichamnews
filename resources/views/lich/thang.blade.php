@@ -22,7 +22,7 @@
                         <div class="">
                             <div class="title-tong-quan-h3-log">
                                 Âm lịch tháng
-                                {{ $lunar_calendar['month'] }}{{ $lunar_calendar['is_leap'] == 1 ? ' nhuận' : '' }}
+                                {{ $lunar_calendar['month'] }}{{ $lunar_calendar['is_leap'] == 1 ? ' (nhuận)' : '' }}
                             </div>
                             <hr>
                             <div>
@@ -168,61 +168,169 @@
                 </div>
             </div>
             <section class="">
+                {{-- Select box chọn loại lịch --}}
                 <div class="box--bg-thang mt-3">
-                    <div class="">
+                    <div class="d-flex justify-content-between align-items-center">
                         <div class="title-tong-quan-h3-log">
-                            Ngày Hoàng Đạo tháng {{ $mm }}
+                            Ngày Hoàng Đạo / Hắc Đạo
                         </div>
-                        <hr>
+                        <select id="lichTypeSelect" class="form-select" style="width: auto;">
+                            <option value="duong">Dương lịch</option>
+                            <option value="am">Âm lịch</option>
+                        </select>
+                    </div>
+                </div>
 
-                        <div class="row g-lg-3 g-2 row-btn-date">
-                            @forelse ($data_totxau['tot'] as $data_tot)
-                                <div class="col-xl-3 col-lg-4 col-md-6 col-12">
-                                    <!--  để cột chỉ chiếm chiều rộng cần thiết -->
-                                    <a href="{{ route('detai_home', ['nam' => $data_tot['yy'], 'thang' => $data_tot['mm'], 'ngay' => $data_tot['dd']]) }}"
-                                        class="btn custom-pill-btn-date">
-                                        <span> Ngày {{ $data_tot['dd'] }} Tháng {{ $data_tot['mm'] }} Năm
-                                            {{ $data_tot['yy'] }}</span>
-                                    </a>
-                                </div>
-                            @empty
-                                <div class="col-12">
-                                    <div class="alert alert-secondary text-center">
-                                        Không có ngày tốt trong tháng
+                {{-- Box Hoàng Đạo/Hắc Đạo Dương lịch --}}
+                <div id="duongLichBox" class="lich-box">
+                    <div class="box--bg-thang mt-3">
+                        <div class="">
+                            <div class="title-tong-quan-h3-log">
+                                Ngày Hoàng Đạo Dương lịch tháng {{ $mm }}
+                            </div>
+                            <hr>
+
+                            <div class="row g-lg-3 g-2 row-btn-date">
+                                @forelse ($data_totxau['tot'] as $data_tot)
+                                    <div class="col-xl-3 col-lg-4 col-md-6 col-12">
+                                        <!--  để cột chỉ chiếm chiều rộng cần thiết -->
+                                        <a href="{{ route('detai_home', ['nam' => $data_tot['yy'], 'thang' => $data_tot['mm'], 'ngay' => $data_tot['dd']]) }}"
+                                            class="btn custom-pill-btn-date">
+                                            <span> Ngày {{ $data_tot['dd'] }} Tháng {{ $data_tot['mm'] }} Năm
+                                                {{ $data_tot['yy'] }}</span>
+                                        </a>
                                     </div>
-                                </div>
-                            @endforelse
+                                @empty
+                                    <div class="col-12">
+                                        <div class="alert alert-secondary text-center">
+                                            Không có ngày tốt trong tháng
+                                        </div>
+                                    </div>
+                                @endforelse
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box--bg-thang mt-3">
+                        <div class="">
+                            <div class="title-tong-quan-h3-log">
+                                Ngày Hắc Đạo Dương lịch tháng {{ $mm }}
+                            </div>
+                            <hr>
+
+                            <div class="row g-lg-3 g-2 row-btn-date">
+                                @forelse ($data_totxau['xau'] as $data_xau)
+                                    <div class="col-xl-3 col-lg-4 col-md-6 col-12">
+                                        <!--  để cột chỉ chiếm chiều rộng cần thiết -->
+                                        <a href="{{ route('detai_home', ['nam' => $data_xau['yy'], 'thang' => $data_xau['mm'], 'ngay' => $data_xau['dd']]) }}"
+                                            class="btn custom-pill-btn-date">
+                                            <span> Ngày {{ $data_xau['dd'] }} Tháng {{ $data_xau['mm'] }} Năm
+                                                {{ $data_xau['yy'] }}</span>
+                                        </a>
+                                    </div>
+                                @empty
+                                    <div class="col-12">
+                                        <div class="alert alert-secondary text-center">
+                                            Không có ngày xấu trong tháng
+                                        </div>
+                                    </div>
+                                @endforelse
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="box--bg-thang mt-3">
-                    <div class="">
-                        <div class="title-tong-quan-h3-log">
-                            Ngày Hắc Đạo tháng {{ $mm }}
-                        </div>
-                        <hr>
 
-                        <div class="row g-lg-3 g-2 row-btn-date">
-                            @forelse ($data_totxau['xau'] as $data_xau)
-                                <div class="col-xl-3 col-lg-4 col-md-6 col-12">
-                                    <!--  để cột chỉ chiếm chiều rộng cần thiết -->
-                                    <a href="{{ route('detai_home', ['nam' => $data_xau['yy'], 'thang' => $data_xau['mm'], 'ngay' => $data_xau['dd']]) }}"
-                                        class="btn custom-pill-btn-date">
-                                        <span> Ngày {{ $data_xau['dd'] }} Tháng {{ $data_xau['mm'] }} Năm
-                                            {{ $data_xau['yy'] }}</span>
-                                    </a>
-                                </div>
-                            @empty
-                                <div class="col-12">
-                                    <div class="alert alert-secondary text-center">
-                                        Không có ngày xấu trong tháng
-                                    </div>
-                                </div>
-                            @endforelse
-                        </div>
-                    </div>
+                {{-- Box ngày Hoàng Đạo/Hắc Đạo Âm lịch --}}
+                <div id="amLichBox" class="lich-box" style="display: none;">
+                    @if (!empty($lunar_calendars))
+                        @foreach ($lunar_calendars as $lunar_calendar)
+                            @php
+                            $lunar_month_num = $lunar_calendar['month'];
+                            $lunar_is_leap = $lunar_calendar['is_leap'];
+                            $lunar_year = $lunar_calendar['year'] ?? date('Y');
 
+                            // Lấy can chi năm âm lịch
+                            $can_chi_nam = \App\Helpers\LunarHelper::canchiNam($lunar_year);
+
+                            // Tính ngày Hoàng Đạo/Hắc Đạo cho tháng âm này
+                            $hoangdao_am_list = [];
+                            $hacdao_am_list = [];
+
+                            foreach ($lunar_calendar['weeks'] as $week) {
+                                foreach ($week as $day) {
+                                    if ($day) {
+                                        // Kiểm tra Hoàng Đạo/Hắc Đạo dựa trên can chi và tháng âm
+                                        $canchi = $day['canchi'] ?? '';
+                                        $lunar_month = $day['month'] ?? $lunar_month_num;
+
+                                        // Sử dụng hàm checkTotXau để xác định chính xác Hoàng Đạo/Hắc Đạo
+                                        $tot_xau = \App\Helpers\LunarHelper::checkTotXau($canchi, $lunar_month);
+
+                                        // Thêm can chi năm vào thông tin ngày
+                                        $day['can_chi_nam'] = $can_chi_nam;
+
+                                        if ($tot_xau == 'tot') {
+                                            $hoangdao_am_list[] = $day;
+                                        } elseif ($tot_xau == 'xau') {
+                                            $hacdao_am_list[] = $day;
+                                        }
+                                    }
+                                }
+                            }
+                        @endphp
+
+                        <div class="box--bg-thang mt-3">
+                            <div class="">
+                                <div class="title-tong-quan-h3-log">
+                                    Ngày Hoàng Đạo Âm lịch tháng {{ $lunar_month_num }}{{ $lunar_is_leap ? ' (nhuận)' : '' }}
+                                </div>
+                                <hr>
+                                <div class="row g-lg-3 g-2 row-btn-date">
+                                    @forelse ($hoangdao_am_list as $day)
+                                        <div class="col-xl-3 col-lg-4 col-md-6 col-12">
+                                            <a href="{{ route('detai_home', ['nam' => $day['solar_year'], 'thang' => $day['solar_month'], 'ngay' => $day['solar_day']]) }}"
+                                                class="btn custom-pill-btn-date">
+                                                <span>Ngày {{ $day['day'] }} tháng {{ $lunar_month_num }} {{ $lunar_is_leap ? '(nhuận)' : '' }} năm {{ $day['can_chi_nam'] }}</span>
+                                            </a>
+                                        </div>
+                                    @empty
+                                        <div class="col-12">
+                                            <div class="alert alert-secondary text-center">
+                                                Không có ngày Hoàng Đạo trong tháng âm này
+                                            </div>
+                                        </div>
+                                    @endforelse
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="box--bg-thang mt-3">
+                            <div class="">
+                                <div class="title-tong-quan-h3-log">
+                                    Ngày Hắc Đạo Âm lịch tháng {{ $lunar_month_num }}{{ $lunar_is_leap ? ' (nhuận)' : '' }}
+                                </div>
+                                <hr>
+                                <div class="row g-lg-3 g-2 row-btn-date">
+                                    @forelse ($hacdao_am_list as $day)
+                                        <div class="col-xl-3 col-lg-4 col-md-6 col-12">
+                                            <a href="{{ route('detai_home', ['nam' => $day['solar_year'], 'thang' => $day['solar_month'], 'ngay' => $day['solar_day']]) }}"
+                                                class="btn custom-pill-btn-date">
+                                                <span>Ngày {{ $day['day'] }} tháng {{ $lunar_month_num }} {{ $lunar_is_leap ? '(nhuận) ' : '' }} năm {{ $day['can_chi_nam'] }}</span>
+                                            </a>
+                                        </div>
+                                    @empty
+                                        <div class="col-12">
+                                            <div class="alert alert-secondary text-center">
+                                                Không có ngày Hắc Đạo trong tháng âm này
+                                            </div>
+                                        </div>
+                                    @endforelse
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                    @endif
                 </div>
+
                 <div class="box--bg-thang mt-3">
                     <div class="">
                         <div class="title-tong-quan-h3-log">
@@ -386,3 +494,25 @@
 
     </div>
 @endsection
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const lichTypeSelect = document.getElementById('lichTypeSelect');
+        const duongLichBox = document.getElementById('duongLichBox');
+        const amLichBox = document.getElementById('amLichBox');
+
+        if (lichTypeSelect && duongLichBox && amLichBox) {
+            lichTypeSelect.addEventListener('change', function() {
+                if (this.value === 'duong') {
+                    duongLichBox.style.display = 'block';
+                    amLichBox.style.display = 'none';
+                } else {
+                    duongLichBox.style.display = 'none';
+                    amLichBox.style.display = 'block';
+                }
+            });
+        }
+    });
+</script>
+@endpush
