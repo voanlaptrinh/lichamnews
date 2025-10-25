@@ -147,6 +147,9 @@ class LichController extends Controller
         // Generate content tự động cho năm
         $nam_content_auto = $this->generateNamContent($nam, $can_chi_nam, $titleName);
 
+        // Generate lunar months for the year (same logic as in thang method)
+        $lunar_months = $this->generateLunarMonthsForYear($nam);
+
         return view('lich.nam', compact(
             'nam',
             'can_chi_nam',
@@ -159,18 +162,30 @@ class LichController extends Controller
             'titleName',
             'thang_info',
             'sukien_lichsu',
-            'nam_content_auto'
+            'nam_content_auto',
+            'lunar_months'
         ));
     }
 
-    public function thang($nam, $thang)
+    public function thang($nam, $thang, $is_lunar = false)
     {
 
         if (!$nam || $nam < 1800 || $nam > 2300 || !$thang || $thang > 12) {
             abort(404);
         }
 
+        // NEW DEFAULT: Show lunar month by default
+        // If user wants solar month, they need to use a different route or parameter
 
+        // Check if this is a request for solar/dương calendar
+        $request_solar_view = request()->get('solar') == '1' || request()->get('duong') == '1';
+
+        if (!$request_solar_view) {
+            // Default: show lunar month as main and solar month below
+            return $this->showLunarMonth($nam, $thang, false);
+        }
+
+        // User explicitly wants solar month - show solar month
         // Dữ liệu lịch âm (giả định bạn đã viết lại hàm tương đương printTable)
         [$table_html, $data_totxau, $data_al] = LunarHelper::printTable($thang, $nam, true, true, true);
 
@@ -209,6 +224,87 @@ class LichController extends Controller
 
         $le_lichs_am = array_filter(LoadConfigHelper::$leal, function ($le) use ($primary_lunar_month) {
             return $le['mm'] == $primary_lunar_month;
+        });
+
+        // Generate all lunar months for the year including leap month
+        // We'll show lunar months based on the SOLAR year being viewed
+        $lunar_months_data = [];
+
+        // Try both the current year and next year to get all lunar months that appear in this solar year
+        $years_to_check = [$nam - 1, $nam];
+
+        foreach ($years_to_check as $check_year) {
+            $lunar_year = $check_year;
+
+            // Check if this lunar year has a leap month
+            $leap_month_number = 0;
+            list($solar_d_11_prev, $solar_m_11_prev, $solar_y_11_prev) = LunarHelper::convertLunar2Solar(1, 11, $lunar_year - 1, 0);
+            list($solar_d_11, $solar_m_11, $solar_y_11) = LunarHelper::convertLunar2Solar(1, 11, $lunar_year, 0);
+
+            if ($solar_d_11_prev > 0 && $solar_d_11 > 0) {
+                $days_between = (mktime(0, 0, 0, $solar_m_11, $solar_d_11, $solar_y_11) -
+                                mktime(0, 0, 0, $solar_m_11_prev, $solar_d_11_prev, $solar_y_11_prev)) / 86400;
+
+                if ($days_between > 365) {
+                    // Find which month is leap
+                    for ($test_month = 1; $test_month <= 12; $test_month++) {
+                        list($leap_d, $leap_m, $leap_y) = LunarHelper::convertLunar2Solar(1, $test_month, $lunar_year, 1);
+                        if ($leap_d > 0) {
+                            list($regular_d, $regular_m, $regular_y) = LunarHelper::convertLunar2Solar(1, $test_month, $lunar_year, 0);
+                            if ($regular_d > 0 && !($leap_d == $regular_d && $leap_m == $regular_m && $leap_y == $regular_y)) {
+                                $leap_month_number = $test_month;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+
+            // Add all lunar months from this lunar year that fall in the solar year
+            for ($lunar_month = 1; $lunar_month <= 12; $lunar_month++) {
+                list($solar_d, $solar_m, $solar_y) = LunarHelper::convertLunar2Solar(1, $lunar_month, $lunar_year, 0);
+
+                // Only add if this lunar month starts in the solar year we're viewing
+                if ($solar_y == $nam && $solar_d > 0) {
+                    $lunar_months_data[] = [
+                        'lunar_month' => $lunar_month,
+                        'lunar_year' => $lunar_year,
+                        'is_leap' => false,
+                        'solar_date' => sprintf("%02d/%02d/%d", $solar_d, $solar_m, $solar_y),
+                        'solar_month' => $solar_m,
+                        'solar_year' => $solar_y,
+                        'solar_day' => $solar_d,
+                        'can_chi' => LunarHelper::canchiThang($lunar_year, $lunar_month),
+                        'display_name' => "Tháng $lunar_month"
+                    ];
+                }
+
+                // Add leap month if it exists and falls in this solar year
+                if ($leap_month_number == $lunar_month) {
+                    list($leap_d, $leap_m, $leap_y) = LunarHelper::convertLunar2Solar(1, $lunar_month, $lunar_year, 1);
+
+                    if ($leap_y == $nam && $leap_d > 0) {
+                        $lunar_months_data[] = [
+                            'lunar_month' => $lunar_month,
+                            'lunar_year' => $lunar_year,
+                            'is_leap' => true,
+                            'solar_date' => sprintf("%02d/%02d/%d", $leap_d, $leap_m, $leap_y),
+                            'solar_month' => $leap_m,
+                            'solar_year' => $leap_y,
+                            'solar_day' => $leap_d,
+                            'can_chi' => LunarHelper::canchiThang($lunar_year, $lunar_month),
+                            'display_name' => "Tháng $lunar_month nhuận"
+                        ];
+                    }
+                }
+            }
+        }
+
+        // Sort by solar date
+        usort($lunar_months_data, function($a, $b) {
+            $date_a = mktime(0, 0, 0, $a['solar_month'], $a['solar_day'], $a['solar_year']);
+            $date_b = mktime(0, 0, 0, $b['solar_month'], $b['solar_day'], $b['solar_year']);
+            return $date_a - $date_b;
         });
 
         // Sau khi lấy $data_al từ LunarHelper
@@ -465,15 +561,297 @@ class LichController extends Controller
             'lunar_calendars' => $lunar_calendars, // Mảng chứa tất cả các lịch âm trong tháng dương này
             'primary_lunar_month' => $primary_lunar_month,
             'le_lichs_am' => $le_lichs_am,
+            'lunar_months_data' => $lunar_months_data, // All lunar months in the year
         ]);
     }
 
+    private function showLunarMonth($nam, $thang, $is_leap)
+    {
+        $lunar_year = $nam;
+        $lunar_month = $thang;
 
+        // Check if this lunar month exists
+        list($solar_d, $solar_m, $solar_y) = LunarHelper::convertLunar2Solar(1, $lunar_month, $lunar_year, $is_leap ? 1 : 0);
 
+        if ($solar_d <= 0) {
+            // Lunar month doesn't exist
+            abort(404);
+        }
 
+        // Generate calendar data for the lunar month
+        $lunar_calendar_data = $this->generateLunarMonthCalendar($lunar_month, $lunar_year, $is_leap);
 
+        // Get metadata
+        $can_chi_nam = LunarHelper::canchiNam($lunar_year);
+        $can_chi_thang = LunarHelper::canchiThang($lunar_year, $lunar_month);
 
+        $metaTitle = "Lịch Âm Tháng $lunar_month" . ($is_leap ? " Nhuận" : "") . " Năm $lunar_year – Lịch Vạn Niên";
+        $metaDescription = "Tra cứu lịch âm tháng $lunar_month" . ($is_leap ? " nhuận" : "") . " năm $lunar_year. Xem ngày âm – dương, ngày hoàng đạo, ngày tốt xấu.";
 
+        // For display, always show the same solar month number as lunar month
+        $display_solar_month = $lunar_month;
+        $display_solar_year = $nam;
+
+        // Get solar month data for display
+        [$table_html, $data_totxau, $data_al] = LunarHelper::printTable($display_solar_month, $display_solar_year, true, true, true);
+
+        // Get events and holidays
+        $le_lichs = array_filter(LoadConfigHelper::$ledl, function ($le) use ($display_solar_month) {
+            return $le['mm'] == $display_solar_month;
+        });
+
+        $le_lichs_am = array_filter(LoadConfigHelper::$leal, function ($le) use ($lunar_month) {
+            return $le['mm'] == $lunar_month;
+        });
+
+        $su_kiens = LoadConfigHelper::$sukien[$display_solar_month] ?? [];
+        // Use lunar month and year for the description to get correct date range
+        // Pass the leap month flag to get correct dates
+        $desrtipton_thang = LoadConfigHelper::generateMonthDescription($lunar_month, $lunar_year, $can_chi_nam, $is_leap);
+
+        // Generate lunar months data for sidebar
+        $lunar_months_data = $this->generateLunarMonthsForYear($lunar_year);
+
+        // Prepare data for ngay xuat hanh
+        foreach ($data_al as &$ngay) {
+            $thang_am = $ngay['month'];
+            $groupMonth = HuongXuatHanhHelper::getMonthGroup((int)$thang_am);
+            $ten_ngay = HuongXuatHanhHelper::calculateXuatHanhDay($groupMonth, $ngay['day']);
+            $mo_ta_ngay = LichKhongMinhHelper::ngayToHTML($ten_ngay);
+            $ngay['xuat_hanh_ten'] = $ten_ngay;
+            $ngay['xuat_hanh_html'] = $mo_ta_ngay;
+        }
+
+        // Create the main lunar calendar display
+        $lunar_calendars = [
+            [
+                'month' => $lunar_month,
+                'is_leap' => $is_leap,
+                'can_chi' => $can_chi_thang . ($is_leap ? ' (nhuận)' : ''),
+                'weeks' => $lunar_calendar_data['weeks'],
+                'year' => $lunar_year
+            ]
+        ];
+
+        return view('lich.thang', [
+            'metaTitle' => $metaTitle,
+            'metaDescription' => $metaDescription,
+            'yy' => $display_solar_year,
+            'mm' => $display_solar_month,
+            'can_chi_nam' => $can_chi_nam,
+            'can_chi_thang' => $can_chi_thang,
+            'table_html' => $table_html,
+            'data_totxau' => $data_totxau,
+            'data_al' => $data_al,
+            'desrtipton_thang' => $desrtipton_thang,
+            'le_lichs' => $le_lichs,
+            'su_kiens' => $su_kiens,
+            'lunar_calendars' => $lunar_calendars,
+            'primary_lunar_month' => $lunar_month,
+            'le_lichs_am' => $le_lichs_am,
+            'lunar_months_data' => $lunar_months_data,
+            'is_leap_month_view' => $is_leap,
+            'lunar_month_num' => $lunar_month,
+            'lunar_year' => $lunar_year,
+            'is_lunar_view' => true
+        ]);
+    }
+
+    public function thangAm($nam, $thang)
+    {
+        if (!$nam || $nam < 1800 || $nam > 2300 || !$thang || $thang > 12) {
+            abort(404);
+        }
+
+        // Show lunar month as main calendar
+        return $this->showLunarMonth($nam, $thang, false);
+    }
+
+    public function thangNhuan($nam, $thang)
+    {
+        if (!$nam || $nam < 1800 || $nam > 2300 || !$thang || $thang > 12) {
+            abort(404);
+        }
+
+        // First check if this lunar year has a leap month at all
+        $lunar_year = $nam;
+        $has_leap_month = false;
+        $leap_month_number = 0;
+
+        // Check the 11th month distance to determine if there's any leap month
+        list($solar_d_11_prev, $solar_m_11_prev, $solar_y_11_prev) = LunarHelper::convertLunar2Solar(1, 11, $lunar_year - 1, 0);
+        list($solar_d_11, $solar_m_11, $solar_y_11) = LunarHelper::convertLunar2Solar(1, 11, $lunar_year, 0);
+
+        if ($solar_d_11_prev > 0 && $solar_d_11 > 0) {
+            $days_between = (mktime(0, 0, 0, $solar_m_11, $solar_d_11, $solar_y_11) -
+                            mktime(0, 0, 0, $solar_m_11_prev, $solar_d_11_prev, $solar_y_11_prev)) / 86400;
+
+            if ($days_between > 365) {
+                // This year has a leap month, now check which month
+                for ($test_month = 1; $test_month <= 12; $test_month++) {
+                    list($leap_d, $leap_m, $leap_y) = LunarHelper::convertLunar2Solar(1, $test_month, $lunar_year, 1);
+
+                    if ($leap_d > 0) {
+                        list($regular_d, $regular_m, $regular_y) = LunarHelper::convertLunar2Solar(1, $test_month, $lunar_year, 0);
+
+                        if ($regular_d > 0 && !($leap_d == $regular_d && $leap_m == $regular_m && $leap_y == $regular_y)) {
+                            $leap_month_number = $test_month;
+                            $has_leap_month = true;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        // If this year doesn't have a leap month at all, or the requested month is not the leap month
+        if (!$has_leap_month || $leap_month_number != $thang) {
+            // Redirect to regular month with lunar parameter
+            return redirect()->route('lich.thang', ['nam' => $nam, 'thang' => $thang, 'lunar' => 1]);
+        }
+
+        // This leap month exists, show it
+        return $this->showLunarMonth($nam, $thang, true);
+    }
+
+    private function generateLunarMonthCalendar($month_num, $lunar_year, $is_leap)
+    {
+        list($start_dd, $start_mm, $start_yy) = LunarHelper::convertLunar2Solar(1, $month_num, $lunar_year, $is_leap);
+
+        if ($start_dd <= 0) {
+            return ['weeks' => []];
+        }
+
+        $lunar_month_calendar_data = [];
+        $current_date = \Carbon\Carbon::create($start_yy, $start_mm, $start_dd);
+        $max_iterations = 31;
+        $iteration_count = 0;
+
+        while ($iteration_count < $max_iterations) {
+            $solar_day = $current_date->day;
+            $solar_month = $current_date->month;
+            $solar_year = $current_date->year;
+
+            list($ld, $lm, $ly, $ll) = LunarHelper::convertSolar2Lunar($solar_day, $solar_month, $solar_year);
+
+            if (($lm != $month_num || $ly != $lunar_year || $ll != $is_leap) && count($lunar_month_calendar_data) > 0) {
+                break;
+            }
+
+            if ($lm == $month_num && $ly == $lunar_year && $ll == $is_leap) {
+                $jd = LunarHelper::jdFromDate($solar_day, $solar_month, $solar_year);
+                $canchi_day = LunarHelper::canchiNgayByJD($jd);
+
+                $lunar_month_calendar_data[] = [
+                    'day' => $ld,
+                    'month' => $lm,
+                    'year' => $ly,
+                    'leap' => $ll,
+                    'jd' => $jd,
+                    'canchi' => $canchi_day,
+                    'solar_day' => $solar_day,
+                    'solar_month' => $solar_month,
+                    'solar_year' => $solar_year,
+                ];
+            }
+
+            $current_date->addDay();
+            $iteration_count++;
+        }
+
+        $first_day_of_week = (\Carbon\Carbon::create($start_yy, $start_mm, $start_dd)->dayOfWeek + 6) % 7;
+
+        $weeks = [];
+        $current_week = [];
+
+        for ($i = 0; $i < $first_day_of_week; $i++) {
+            $current_week[] = null;
+        }
+
+        foreach ($lunar_month_calendar_data as $day) {
+            $current_week[] = $day;
+            if (count($current_week) == 7) {
+                $weeks[] = $current_week;
+                $current_week = [];
+            }
+        }
+
+        if (count($current_week) > 0) {
+            while (count($current_week) < 7) {
+                $current_week[] = null;
+            }
+            $weeks[] = $current_week;
+        }
+
+        return ['weeks' => $weeks];
+    }
+
+    private function generateLunarMonthsForYear($lunar_year)
+    {
+        $lunar_months_data = [];
+
+        // Check for leap month
+        $leap_month_number = 0;
+        list($solar_d_11_prev, $solar_m_11_prev, $solar_y_11_prev) = LunarHelper::convertLunar2Solar(1, 11, $lunar_year - 1, 0);
+        list($solar_d_11, $solar_m_11, $solar_y_11) = LunarHelper::convertLunar2Solar(1, 11, $lunar_year, 0);
+
+        if ($solar_d_11_prev > 0 && $solar_d_11 > 0) {
+            $days_between = (mktime(0, 0, 0, $solar_m_11, $solar_d_11, $solar_y_11) -
+                            mktime(0, 0, 0, $solar_m_11_prev, $solar_d_11_prev, $solar_y_11_prev)) / 86400;
+
+            if ($days_between > 365) {
+                for ($test_month = 1; $test_month <= 12; $test_month++) {
+                    list($leap_d, $leap_m, $leap_y) = LunarHelper::convertLunar2Solar(1, $test_month, $lunar_year, 1);
+                    if ($leap_d > 0) {
+                        list($regular_d, $regular_m, $regular_y) = LunarHelper::convertLunar2Solar(1, $test_month, $lunar_year, 0);
+                        if ($regular_d > 0 && !($leap_d == $regular_d && $leap_m == $regular_m && $leap_y == $regular_y)) {
+                            $leap_month_number = $test_month;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        // Build months array
+        for ($lunar_month = 1; $lunar_month <= 12; $lunar_month++) {
+            list($solar_d, $solar_m, $solar_y) = LunarHelper::convertLunar2Solar(1, $lunar_month, $lunar_year, 0);
+
+            if ($solar_d > 0) {
+                $lunar_months_data[] = [
+                    'lunar_month' => $lunar_month,
+                    'lunar_year' => $lunar_year,
+                    'is_leap' => false,
+                    'solar_date' => sprintf("%02d/%02d/%d", $solar_d, $solar_m, $solar_y),
+                    'solar_month' => $solar_m,
+                    'solar_year' => $solar_y,
+                    'solar_day' => $solar_d,
+                    'can_chi' => LunarHelper::canchiThang($lunar_year, $lunar_month),
+                    'display_name' => "Tháng $lunar_month"
+                ];
+            }
+
+            if ($leap_month_number == $lunar_month) {
+                list($leap_d, $leap_m, $leap_y) = LunarHelper::convertLunar2Solar(1, $lunar_month, $lunar_year, 1);
+
+                if ($leap_d > 0) {
+                    $lunar_months_data[] = [
+                        'lunar_month' => $lunar_month,
+                        'lunar_year' => $lunar_year,
+                        'is_leap' => true,
+                        'solar_date' => sprintf("%02d/%02d/%d", $leap_d, $leap_m, $leap_y),
+                        'solar_month' => $leap_m,
+                        'solar_year' => $leap_y,
+                        'solar_day' => $leap_d,
+                        'can_chi' => LunarHelper::canchiThang($lunar_year, $lunar_month),
+                        'display_name' => "Tháng $lunar_month nhuận"
+                    ];
+                }
+            }
+        }
+
+        return $lunar_months_data;
+    }
 
     public function getLichThangAjax(Request $request): JsonResponse
     {

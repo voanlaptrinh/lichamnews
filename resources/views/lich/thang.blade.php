@@ -6,7 +6,11 @@
                 style="color: #2254AB; text-decoration: underline;" href="{{ route('lich.nam', ['nam' => $yy]) }}">Lịch
                 năm {{ $yy }}</a> <i class="bi bi-chevron-right"></i> <span>
                 Tháng {{ $mm }}</span></h6>
-        <h1 class="content-title-home-lich">Lịch Âm Tháng {{ $mm }} năm {{ date('Y') }}</h1>
+        @if(isset($is_leap_month_view) && $is_leap_month_view)
+            <h1 class="content-title-home-lich">Lịch Âm Tháng {{ $lunar_month_num }} Nhuận Năm {{ $lunar_year }}</h1>
+        @else
+            <h1 class="content-title-home-lich">Lịch Âm Tháng {{ $mm }} năm {{ $yy }}</h1>
+        @endif
 
     </div>
     <div class="row mt-2 g-3">
@@ -103,23 +107,30 @@
             @endif
 
 
+            {{-- Kiểm tra xem có phải đang xem tháng nhuận không --}}
+            @if(isset($is_leap_month_view) && $is_leap_month_view)
+                {{-- Nếu là tháng nhuận, hiển thị dương lịch sau --}}
+            @endif
+
             <div class="box--bg-thang mt-3">
                 <div class="">
                     <div class="title-tong-quan-h3-log">
-                        Dương lịch tháng {{ $mm }}
+                       
+                            Dương lịch tháng {{ $mm }}
+                        
                     </div>
                     <hr>
                     <div class="calendar-wrapper calendar-wrapper-none">
                         <div class="calendar-header mt-0">
 
-                            <a href="{{ route('lich.thang', ['nam' => $mm == 1 ? $yy - 1 : $yy, 'thang' => $mm == 1 ? 12 : $mm - 1]) }}"
+                            <a href="{{ route('lich.thang', ['nam' => $mm == 1 ? $yy - 1 : $yy, 'thang' => $mm == 1 ? 12 : $mm - 1, 'solar' => 1]) }}"
                                 class="month-nav" title="Tháng trước">
                                 <i class="bi bi-chevron-left"></i>
                             </a>
                             <div class="mb-0 title-tong-quan-h4-log">Tháng {{ $mm }} năm {{ $yy }}
                             </div>
 
-                            <a href="{{ route('lich.thang', ['nam' => $mm == 12 ? $yy + 1 : $yy, 'thang' => $mm == 12 ? 1 : $mm + 1]) }}"
+                            <a href="{{ route('lich.thang', ['nam' => $mm == 12 ? $yy + 1 : $yy, 'thang' => $mm == 12 ? 1 : $mm + 1, 'solar' => 1]) }}"
                                 class="month-nav" title="Tháng sau">
                                 <i class="bi bi-chevron-right"></i>
                             </a>
@@ -162,34 +173,26 @@
                     <div class="calendar-legend pt-3 pb-2">
                         <span><span class="dot dot-hoangdao"></span> Ngày hoàng đạo</span>
                         <span><span class="dot dot-hacdao"></span> Ngày hắc đạo</span>
-
                     </div>
 
                 </div>
             </div>
             <section class="">
-                {{-- Select box chọn loại lịch --}}
-                <div class="box--bg-thang mt-3">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="title-tong-quan-h3-log">
-                            Ngày Hoàng Đạo / Hắc Đạo
-                        </div>
-                        <div class="position-relative ms-2">
-                            <select id="lichTypeSelect" class="form-select pe-4" style="width: auto; appearance: none; -webkit-appearance: none; -moz-appearance: none; padding-right: 35px;">
-                                <option value="duong">Dương lịch</option>
-                                <option value="am">Âm lịch</option>
-                            </select>
-                            <i class="bi bi-chevron-down position-absolute" style="right: 10px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #6c757d;"></i>
-                        </div>
-                    </div>
-                </div>
-
                 {{-- Box Hoàng Đạo/Hắc Đạo Dương lịch --}}
                 <div id="duongLichBox" class="lich-box">
-                    <div class="box--bg-thang mt-3">
+                    <div class="box--bg-thang mt-3 hoangdao-duong-box">
                         <div class="">
-                            <div class="title-tong-quan-h3-log">
-                                Ngày Hoàng Đạo Dương lịch tháng {{ $mm }}
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="title-tong-quan-h3-log">
+                                    Ngày Hoàng Đạo Dương lịch tháng {{ $mm }}
+                                </div>
+                                <div class="position-relative ms-2">
+                                    <select id="hoangDaoSelect" class="form-select pe-4" onchange="toggleBox(this, 'hoangdao')" style="width: auto; appearance: none; -webkit-appearance: none; -moz-appearance: none; padding-right: 35px;">
+                                        <option value="duong" selected>Dương lịch</option>
+                                        <option value="am">Âm lịch</option>
+                                    </select>
+                                    <i class="bi bi-chevron-down position-absolute" style="right: 10px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #6c757d;"></i>
+                                </div>
                             </div>
                             <hr>
 
@@ -213,10 +216,20 @@
                             </div>
                         </div>
                     </div>
-                    <div class="box--bg-thang mt-3">
+                    <div class="box--bg-thang mt-3 hacdao-duong-box">
                         <div class="">
-                            <div class="title-tong-quan-h3-log">
-                                Ngày Hắc Đạo Dương lịch tháng {{ $mm }}
+                          
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="title-tong-quan-h3-log">
+                                    Ngày Hắc Đạo Dương lịch tháng {{ $mm }}
+                                </div>
+                                <div class="position-relative ms-2">
+                                    <select id="hacDaoSelect" class="form-select pe-4"  onchange="toggleBox(this, 'hacdao')" style="width: auto; appearance: none; -webkit-appearance: none; -moz-appearance: none; padding-right: 35px;">
+                                        <option value="duong" selected>Dương lịch</option>
+                                        <option value="am">Âm lịch</option>
+                                    </select>
+                                    <i class="bi bi-chevron-down position-absolute" style="right: 10px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #6c757d;"></i>
+                                </div>
                             </div>
                             <hr>
 
@@ -281,10 +294,19 @@
                             }
                         @endphp
 
-                        <div class="box--bg-thang mt-3">
+                        <div class="box--bg-thang mt-3 hoangdao-am-box" data-month-index="{{ $loop->index }}">
                             <div class="">
-                                <div class="title-tong-quan-h3-log">
-                                    Ngày Hoàng Đạo Âm lịch tháng {{ $lunar_month_num }}{{ $lunar_is_leap ? ' (nhuận)' : '' }}
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="title-tong-quan-h3-log">
+                                        Ngày Hoàng Đạo Âm lịch tháng {{ $lunar_month_num }}{{ $lunar_is_leap ? ' (nhuận)' : '' }}
+                                    </div>
+                                    <div class="position-relative ms-2">
+                                        <select id="hoangDaoAmSelect" class="form-select pe-4" onchange="toggleBox(this, 'hoangdao', {{ $loop->index }})" style="width: auto; appearance: none; -webkit-appearance: none; -moz-appearance: none; padding-right: 35px;">
+                                            <option value="duong">Dương lịch</option>
+                                            <option value="am" selected>Âm lịch</option>
+                                        </select>
+                                        <i class="bi bi-chevron-down position-absolute" style="right: 10px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #6c757d;"></i>
+                                    </div>
                                 </div>
                                 <hr>
                                 <div class="row g-lg-3 g-2 row-btn-date">
@@ -308,8 +330,17 @@
 
                         <div class="box--bg-thang mt-3">
                             <div class="">
-                                <div class="title-tong-quan-h3-log">
-                                    Ngày Hắc Đạo Âm lịch tháng {{ $lunar_month_num }}{{ $lunar_is_leap ? ' (nhuận)' : '' }}
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="title-tong-quan-h3-log">
+                                        Ngày Hắc Đạo Âm lịch tháng {{ $lunar_month_num }}{{ $lunar_is_leap ? ' (nhuận)' : '' }}
+                                    </div>
+                                    <div class="position-relative ms-2">
+                                        <select id="hacDaoAmSelect" class="form-select pe-4" onchange="toggleBox(this, 'hacdao', {{ $loop->index }})" style="width: auto; appearance: none; -webkit-appearance: none; -moz-appearance: none; padding-right: 35px;">
+                                            <option value="duong">Dương lịch</option>
+                                            <option value="am" selected>Âm lịch</option>
+                                        </select>
+                                        <i class="bi bi-chevron-down position-absolute" style="right: 10px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #6c757d;"></i>
+                                    </div>
                                 </div>
                                 <hr>
                                 <div class="row g-lg-3 g-2 row-btn-date">
@@ -448,22 +479,71 @@
                 <div class="events-card">
                     <div class="card-title-right title-tong-quan-h5-log">Lịch âm các tháng năm {{ $yy }}</div>
                     <ul class="list-group list-group-flush events-list">
-                        @for ($i = 1; $i <= 12; $i++)
-                            <li class="list-group-item event-item pb-0">
-                                <a href="{{ route('lich.thang', ['nam' => $yy, 'thang' => $i]) }}">
+                        @if(isset($lunar_months_data) && !empty($lunar_months_data))
+                            @foreach ($lunar_months_data as $lunar_month_info)
+                                <li class="list-group-item event-item pb-0">
+                                    @if($lunar_month_info['is_leap'])
+                                        <a href="{{ route('lich.thang.nhuan', ['nam' => $lunar_month_info['lunar_year'], 'thang' => $lunar_month_info['lunar_month']]) }}">
+                                    @else
+                                        <a href="{{ route('lich.thang', ['nam' => $lunar_month_info['lunar_year'], 'thang' => $lunar_month_info['lunar_month']]) }}">
+                                    @endif
+                                        <div class="event-details">
+                                            @php
+                                                // Check if current page is viewing this lunar month
+                                                $is_active = false;
 
-                                    <div class="event-details">
-                                        <div class="event-name {{ $mm == $i ? 'active-date' : '' }}"
-                                            style="font-weight: unset"> <img src="{{ asset('/icons/sukienn1.svg') }}"
-                                                width="28" height="29" alt="Sự kiện" class="img-fluid me-2">
-                                            Lịch âm tháng {{ $i }}
-                                            năm {{ $yy }}
+                                                // Check if we're in lunar view mode
+                                                // Now default route shows lunar, so check if NOT explicitly solar
+                                                $is_viewing_solar = request()->get('solar') == '1' || request()->get('duong') == '1';
+                                                $is_viewing_lunar = !$is_viewing_solar || isset($is_lunar_view) || request()->routeIs('lich.thang.am') || request()->routeIs('lich.thang.nhuan');
+
+                                                if ($is_viewing_lunar) {
+                                                    // We're viewing a lunar month
+                                                    $current_lunar_month = request()->route('thang'); // Get month from route
+
+                                                    if ($lunar_month_info['lunar_month'] == $current_lunar_month
+                                                        && $lunar_month_info['lunar_year'] == $yy
+                                                        && $lunar_month_info['is_leap'] == (isset($is_leap_month_view) ? $is_leap_month_view : false)) {
+                                                        $is_active = true;
+                                                    }
+                                                } else {
+                                                    // Viewing solar month - check if this lunar month corresponds to current solar month
+                                                    if ($mm == $lunar_month_info['solar_month'] && $yy == $lunar_month_info['solar_year']) {
+                                                        $is_active = true;
+                                                    }
+                                                }
+                                            @endphp
+                                            <div class="event-name {{ $is_active ? 'active-date' : '' }}"
+                                                style="font-weight: unset">
+                                                <img src="{{ asset('/icons/sukienn1.svg') }}"
+                                                    width="28" height="29" alt="Sự kiện" class="img-fluid me-2">
+
+                                              Lịch âm {{ $lunar_month_info['display_name'] }} năm {{ $yy }}
+                                               
+                                            </div>
+
                                         </div>
+                                    </a>
+                                </li>
+                            @endforeach
+                        @else
+                            @for ($i = 1; $i <= 12; $i++)
+                                <li class="list-group-item event-item pb-0">
+                                    <a href="{{ route('lich.thang', ['nam' => $yy, 'thang' => $i]) }}">
 
-                                    </div>
-                                </a>
-                            </li>
-                        @endfor
+                                        <div class="event-details">
+                                            <div class="event-name {{ $mm == $i ? 'active-date' : '' }}"
+                                                style="font-weight: unset"> <img src="{{ asset('/icons/sukienn1.svg') }}"
+                                                    width="28" height="29" alt="Sự kiện" class="img-fluid me-2">
+                                                Lịch âm tháng {{ $i }}
+                                                năm {{ $yy }}
+                                            </div>
+
+                                        </div>
+                                    </a>
+                                </li>
+                            @endfor
+                        @endif
                     </ul>
                 </div>
 
@@ -500,22 +580,66 @@
 
 @push('scripts')
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const lichTypeSelect = document.getElementById('lichTypeSelect');
-        const duongLichBox = document.getElementById('duongLichBox');
-        const amLichBox = document.getElementById('amLichBox');
+document.addEventListener('DOMContentLoaded', function() {
+    // Mặc định: hiển thị các box Dương lịch, ẩn các box Âm lịch
+    document.querySelectorAll('#duongLichBox .box--bg-thang').forEach(b => b.style.display = 'block');
+    document.querySelectorAll('#amLichBox .box--bg-thang').forEach(b => b.style.display = 'none');
 
-        if (lichTypeSelect && duongLichBox && amLichBox) {
-            lichTypeSelect.addEventListener('change', function() {
-                if (this.value === 'duong') {
-                    duongLichBox.style.display = 'block';
-                    amLichBox.style.display = 'none';
-                } else {
-                    duongLichBox.style.display = 'none';
-                    amLichBox.style.display = 'block';
-                }
-            });
+    // Đảm bảo cả 2 container đều hiển thị
+    const duongLichBox = document.getElementById('duongLichBox');
+    const amLichBox = document.getElementById('amLichBox');
+    if (duongLichBox) duongLichBox.style.display = 'block';
+    if (amLichBox) amLichBox.style.display = 'block';
+});
+
+/**
+ * Hàm toggle hiển thị riêng cho từng box (Hoàng Đạo hoặc Hắc Đạo)
+ * @param {HTMLElement} selectEl - thẻ select được chọn
+ * @param {'hoangdao' | 'hacdao'} type - loại box (phân biệt Hoàng Đạo hoặc Hắc Đạo)
+ * @param {number} index - thứ tự box (dùng khi có nhiều tháng âm)
+ */
+function toggleBox(selectEl, type, index = 0) {
+    const value = selectEl.value; // 'duong' hoặc 'am'
+
+    // Lấy tất cả các box
+    const duongBoxes = document.querySelectorAll('#duongLichBox .box--bg-thang');
+    const amBoxes = document.querySelectorAll('#amLichBox .box--bg-thang');
+
+    // Xác định box index cho Dương lịch (0: hoàng đạo, 1: hắc đạo)
+    const duongBoxIndex = type === 'hoangdao' ? 0 : 1;
+
+    // Xác định box index cho Âm lịch (có thể có nhiều tháng âm)
+    // Mỗi tháng âm có 2 box: hoàng đạo và hắc đạo
+    const amBoxIndex = index * 2 + (type === 'hoangdao' ? 0 : 1);
+
+    const duongBox = duongBoxes[duongBoxIndex];
+    const amBox = amBoxes[amBoxIndex];
+
+    // Toggle hiển thị
+    if (value === 'duong') {
+        if (duongBox) duongBox.style.display = 'block';
+        if (amBox) amBox.style.display = 'none';
+    } else {
+        if (duongBox) duongBox.style.display = 'none';
+        if (amBox) amBox.style.display = 'block';
+    }
+
+    // Đồng bộ các select khác cùng loại
+    syncSelects(type, value);
+}
+
+/**
+ * Đồng bộ các select cùng loại, xử lý ID bị trùng lặp
+ */
+function syncSelects(type, value) {
+    // Sử dụng querySelectorAll để lấy tất cả các select có onchange chứa type tương ứng
+    const selects = document.querySelectorAll(`select[onchange*="'${type}'"]`);
+    selects.forEach(s => {
+        if (s.value !== value) {
+            s.value = value;
         }
     });
+}
 </script>
+
 @endpush

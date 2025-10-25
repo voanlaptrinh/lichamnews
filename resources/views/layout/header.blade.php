@@ -32,22 +32,34 @@
                     <ul class="dropdown-menu">
                         <li class="has-submenu"> <!-- << Class mới để xác định mục có menu con -->
                             <span class="text-white">
-                                Lịch Tháng
+                                Lịch Tháng Âm
                                 <i class="bi bi-chevron-right "></i> <!-- << Icon mũi tên phải -->
                             </span>
                             <!-- Menu cấp 2 (submenu) -->
                             <ul class="submenu">
-                                @php($currentYear = date('Y'))
-                                @for ($month = 1; $month <= 12; $month++)
-                                    <li>
-                                        <a href="{{ route('lich.thang', ['nam' => $currentYear, 'thang' => $month]) }}">Tháng
-                                            {{ $month }} năm {{date('Y')}}</a>
-                                    </li>
-                                @endfor
-                                {{-- <li><a href="/lich-thang/2024/1">Tháng 1, 2024</a></li>
-                                <li><a href="/lich-thang/2024/2">Tháng 2, 2024</a></li>
-                                <li><a href="/lich-thang/2024/3">Tháng 3, 2024</a></li> --}}
-                                <!-- Thêm các tháng khác nếu muốn -->
+                                @if(isset($header_lunar_months))
+                                    @foreach($header_lunar_months as $lunar_month_info)
+                                        <li>
+                                            @if($lunar_month_info['is_leap'])
+                                                <a href="{{ route('lich.thang.nhuan', ['nam' => $lunar_month_info['lunar_year'], 'thang' => $lunar_month_info['lunar_month']]) }}">
+                                                    Tháng {{ $lunar_month_info['lunar_month'] }} nhuận năm {{ $lunar_month_info['lunar_year'] }}
+                                                </a>
+                                            @else
+                                                <a href="{{ route('lich.thang', ['nam' => $lunar_month_info['lunar_year'], 'thang' => $lunar_month_info['lunar_month']]) }}">
+                                                    Tháng {{ $lunar_month_info['lunar_month'] }} âm năm {{ $lunar_month_info['lunar_year'] }}
+                                                </a>
+                                            @endif
+                                        </li>
+                                    @endforeach
+                                @else
+                                    @php($currentYear = date('Y'))
+                                    @for ($month = 1; $month <= 12; $month++)
+                                        <li>
+                                            <a href="{{ route('lich.thang', ['nam' => $currentYear, 'thang' => $month]) }}">Tháng
+                                                {{ $month }} năm {{date('Y')}}</a>
+                                        </li>
+                                    @endfor
+                                @endif
                             </ul>
                         </li>
 
@@ -215,18 +227,34 @@
                     <!-- Menu con "Lịch Tháng" -->
                     <li class="has-dropdown">
                         <span class="text-white">
-                            Lịch Tháng
+                            Lịch Tháng Âm
                             <i class="bi bi-chevron-down arrow-icon"></i>
                         </span>
                         <!-- Menu cấp 2 -->
                         <ul class="mobile-submenu">
-                            @php($currentYear = date('Y'))
-                            @for ($month = 1; $month <= 12; $month++)
-                                <li>
-                                    <a href="{{ route('lich.thang', ['nam' => $currentYear, 'thang' => $month]) }}">Tháng
-                                        {{ $month }} năm {{date('Y')}}</a>
-                                </li>
-                            @endfor
+                            @if(isset($header_lunar_months))
+                                @foreach($header_lunar_months as $lunar_month_info)
+                                    <li>
+                                        @if($lunar_month_info['is_leap'])
+                                            <a href="{{ route('lich.thang.nhuan', ['nam' => $lunar_month_info['lunar_year'], 'thang' => $lunar_month_info['lunar_month']]) }}">
+                                                Tháng {{ $lunar_month_info['lunar_month'] }} nhuận năm {{ $lunar_month_info['lunar_year'] }}
+                                            </a>
+                                        @else
+                                            <a href="{{ route('lich.thang', ['nam' => $lunar_month_info['lunar_year'], 'thang' => $lunar_month_info['lunar_month']]) }}">
+                                                Tháng {{ $lunar_month_info['lunar_month'] }} âm năm {{ $lunar_month_info['lunar_year'] }}
+                                            </a>
+                                        @endif
+                                    </li>
+                                @endforeach
+                            @else
+                                @php($currentYear = date('Y'))
+                                @for ($month = 1; $month <= 12; $month++)
+                                    <li>
+                                        <a href="{{ route('lich.thang', ['nam' => $currentYear, 'thang' => $month]) }}">Tháng
+                                            {{ $month }} năm {{date('Y')}}</a>
+                                    </li>
+                                @endfor
+                            @endif
                         </ul>
                     </li>
                     <!-- Menu con "Lịch Năm" -->

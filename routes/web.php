@@ -81,6 +81,8 @@ Route::get('/llms.txt', function () {
     Route::match(['get', 'post'], '/doi-ngay-am-duong', [LunarController::class, 'convertAmToDuong'])->name('convert.am.to.duong');
 
     Route::get('/lich-nam-{nam}', [LichController::class, 'nam'])->name('lich.nam');
+    Route::get('/lich-nam-{nam}/thang-{thang}-nhuan', [LichController::class, 'thangNhuan'])->name('lich.thang.nhuan');
+    Route::get('/lich-nam-{nam}/thang-{thang}-am', [LichController::class, 'thangAm'])->name('lich.thang.am');
     Route::get('/lich-nam-{nam}/thang-{thang}', [LichController::class, 'thang'])->name('lich.thang');
     // Route::get('/lich-nam-{nam}/thang-{thang}/ngay-{ngay}', [LunarController::class, 'ngay'])->name('detai_home');
 

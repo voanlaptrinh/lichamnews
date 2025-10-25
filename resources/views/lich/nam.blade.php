@@ -199,22 +199,45 @@
                     <div class="events-card">
                     <div class="card-title-right title-tong-quan-h5-log">Lịch âm các tháng năm {{ $nam }}</div>
                     <ul class="list-group list-group-flush events-list">
-                        @for ($i = 1; $i <= 12; $i++)
-                            <li class="list-group-item event-item pb-0">
-                                <a href="{{ route('lich.thang', ['nam' => $nam, 'thang' => $i]) }}">
+                        @if(isset($lunar_months))
+                            @foreach($lunar_months as $lunar_month_info)
+                                <li class="list-group-item event-item pb-0">
+                                    @if($lunar_month_info['is_leap'])
+                                        <a href="{{ route('lich.thang.nhuan', ['nam' => $lunar_month_info['lunar_year'], 'thang' => $lunar_month_info['lunar_month']]) }}">
+                                    @else
+                                        <a href="{{ route('lich.thang', ['nam' => $lunar_month_info['lunar_year'], 'thang' => $lunar_month_info['lunar_month']]) }}">
+                                    @endif
 
-                                    <div class="event-details">
-                                        <div class="event-name"
-                                            style="font-weight: unset"> <img src="{{ asset('/icons/sukienn1.svg') }}"
-                                                width="28" height="29" alt="Sự kiện" class="img-fluid me-2">
-                                            Lịch âm tháng {{ $i }}
-                                            năm {{ $nam }}
+                                        <div class="event-details">
+                                            <div class="event-name"
+                                                style="font-weight: unset"> <img src="{{ asset('/icons/sukienn1.svg') }}"
+                                                    width="28" height="29" alt="Sự kiện" class="img-fluid me-2">
+                                                Lịch âm tháng {{ $lunar_month_info['lunar_month'] }}{{ $lunar_month_info['is_leap'] ? ' nhuận' : '' }}
+                                                năm {{ $lunar_month_info['lunar_year'] }}
+                                            </div>
+
                                         </div>
+                                    </a>
+                                </li>
+                            @endforeach
+                        @else
+                            @for ($i = 1; $i <= 12; $i++)
+                                <li class="list-group-item event-item pb-0">
+                                    <a href="{{ route('lich.thang', ['nam' => $nam, 'thang' => $i]) }}">
 
-                                    </div>
-                                </a>
-                            </li>
-                        @endfor
+                                        <div class="event-details">
+                                            <div class="event-name"
+                                                style="font-weight: unset"> <img src="{{ asset('/icons/sukienn1.svg') }}"
+                                                    width="28" height="29" alt="Sự kiện" class="img-fluid me-2">
+                                                Lịch âm tháng {{ $i }}
+                                                năm {{ $nam }}
+                                            </div>
+
+                                        </div>
+                                    </a>
+                                </li>
+                            @endfor
+                        @endif
                     </ul>
                 </div>
                 </div>
