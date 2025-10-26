@@ -32,7 +32,7 @@
                     <ul class="dropdown-menu">
                         <li class="has-submenu"> <!-- << Class mới để xác định mục có menu con -->
                             <span class="text-white">
-                                Lịch Tháng Âm
+                                Lịch Tháng
                                 <i class="bi bi-chevron-right "></i> <!-- << Icon mũi tên phải -->
                             </span>
                             <!-- Menu cấp 2 (submenu) -->
@@ -46,7 +46,7 @@
                                                 </a>
                                             @else
                                                 <a href="{{ route('lich.thang', ['nam' => $lunar_month_info['lunar_year'], 'thang' => $lunar_month_info['lunar_month']]) }}">
-                                                    Tháng {{ $lunar_month_info['lunar_month'] }} âm năm {{ $lunar_month_info['lunar_year'] }}
+                                                    Tháng {{ $lunar_month_info['lunar_month'] }} năm {{ $lunar_month_info['lunar_year'] }}
                                                 </a>
                                             @endif
                                         </li>
@@ -227,7 +227,7 @@
                     <!-- Menu con "Lịch Tháng" -->
                     <li class="has-dropdown">
                         <span class="text-white">
-                            Lịch Tháng Âm
+                            Lịch Tháng
                             <i class="bi bi-chevron-down arrow-icon"></i>
                         </span>
                         <!-- Menu cấp 2 -->
@@ -241,7 +241,7 @@
                                             </a>
                                         @else
                                             <a href="{{ route('lich.thang', ['nam' => $lunar_month_info['lunar_year'], 'thang' => $lunar_month_info['lunar_month']]) }}">
-                                                Tháng {{ $lunar_month_info['lunar_month'] }} âm năm {{ $lunar_month_info['lunar_year'] }}
+                                                Tháng {{ $lunar_month_info['lunar_month'] }} năm {{ $lunar_month_info['lunar_year'] }}
                                             </a>
                                         @endif
                                     </li>

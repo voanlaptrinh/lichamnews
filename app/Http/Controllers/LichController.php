@@ -670,7 +670,7 @@ class LichController extends Controller
     public function thangNhuan($nam, $thang)
     {
         if (!$nam || $nam < 1800 || $nam > 2300 || !$thang || $thang > 12) {
-            abort(404);
+            abort(404); 
         }
 
         // First check if this lunar year has a leap month at all

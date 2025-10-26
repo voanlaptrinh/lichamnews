@@ -85,18 +85,23 @@ class LoadConfigHelper
         'Quý Hợi' => 'Trong quan niệm phương Đông, tuổi Hợi tượng trưng cho những người hiền lành, chân thành và sống chan hòa. Vì thế, năm Quý Hợi thường được xem là gắn liền với các giá trị và ý nghĩa phong thủy đặc trưng.',
 
     );
-    public static function generateMonthDescription($thang, $nam, $can_chi_nam)
+    public static function generateMonthDescription($thang, $nam, $can_chi_nam, $is_leap = false)
     {
         $description = "";
-        $solarDateForFirstDay = LunarHelper::convertLunar2Solar(1, $thang, $nam, 0);
+        // Sử dụng $is_leap để lấy đúng ngày dương của tháng (bao gồm cả tháng nhuận)
+        $leap_flag = $is_leap ? 1 : 0;
+
+        $solarDateForFirstDay = LunarHelper::convertLunar2Solar(1, $thang, $nam, $leap_flag);
         list($dd, $mm, $yy) = $solarDateForFirstDay;
         list($lunarDay, $lunarMonth, $lunarYear, $lunarLeap, $isFullMonth) = LunarHelper::convertSolar2Lunar($dd, $mm, $yy);
         $daysInMonth = ($isFullMonth == 'Đủ') ? 30 : 29;
 
         $startDateSolar = Carbon::createFromDate($yy, $mm, $dd)->format('d/m/Y');
 
-        $solarDateForLastDay = LunarHelper::convertLunar2Solar($daysInMonth, $thang, $nam, 0);
+        $solarDateForLastDay = LunarHelper::convertLunar2Solar($daysInMonth, $thang, $nam, $leap_flag);
+
         list($end_dd, $end_mm, $end_yy) = $solarDateForLastDay;
+        //  $startDateSolar = Carbon::createFromDate($end_yy, $end_mm, $end_dd)->format('d/m/Y');
         $endDateSolar = Carbon::createFromDate($end_yy, $end_mm, $end_dd)->format('d/m/Y');
         switch ($thang) {
             case 1:

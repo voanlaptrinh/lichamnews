@@ -14,7 +14,7 @@
                 <div class="tong-quan-date mt-2 mb-3">
                     <div class="card-body  p-lg-4 p-3 position-relative" style="border-radius: 24px">
                         <div class="text-box-tong-quan">
-                            <div class="title-tong-quan-h4">Bảo Bình Giải là gì?</đ>
+                            <div class="title-tong-quan-h4">Bảo Bình Giải là gì?</div>
                             <p class="mb-0">Cung Bảo Bình (Aquarius) là cung hoàng đạo thứ 11 trong chiêm tinh học phương
                                 Tây,
                                 dành cho những người sinh từ 20/1 đến 18/2. <br>
@@ -139,7 +139,7 @@
                                 <li>Nhân Mã: cùng yêu tự do và khám phá thế giới.
                                 </li>
                             </ul>
-                            <div class="title-tong-quan-h5 pt-2 mb-0">Không hợp lắm với:</d>
+                            <div class="title-tong-quan-h5 pt-2 mb-0">Không hợp lắm với:</div>
                             <ul class="mb-0">
                                 <li>Cự Giải: quá nhạy cảm, dễ khiến Bảo Bình ngột ngạt.
 
