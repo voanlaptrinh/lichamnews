@@ -22,6 +22,7 @@ use App\Http\Controllers\PhongSinhController;
 use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\ThiCuPhongVanController;
 use App\Http\Controllers\ThuocLoBanController;
+use App\Http\Controllers\TotXauController;
 use App\Http\Controllers\TranTrachController;
 use App\Http\Controllers\VanKhanController;
 use App\Http\Controllers\WeddingController;
@@ -77,18 +78,20 @@ Route::get('/llms.txt', function () {
     Route::get('/lich-am-hom-nay', [LunarController::class, 'todaySimple'])->name('am-lich-hom-nay');
     Route::get('/lich-am-ngay-mai', [LunarController::class, 'tomorrowSimple'])->name('am-lich-ngay-mai');
     Route::post('/doi-lich', [LunarController::class, 'index'])->name('doi-lich');
-
     Route::match(['get', 'post'], '/doi-ngay-am-duong', [LunarController::class, 'convertAmToDuong'])->name('convert.am.to.duong');
-
     Route::get('/lich-nam-{nam}', [LichController::class, 'nam'])->name('lich.nam');
     Route::get('/lich-nam-{nam}/thang-{thang}-nhuan', [LichController::class, 'thangNhuan'])->name('lich.thang.nhuan');
     Route::get('/lich-nam-{nam}/thang-{thang}-am', [LichController::class, 'thangAm'])->name('lich.thang.am');
     Route::get('/lich-nam-{nam}/thang-{thang}', [LichController::class, 'thang'])->name('lich.thang');
-    // Route::get('/lich-nam-{nam}/thang-{thang}/ngay-{ngay}', [LunarController::class, 'ngay'])->name('detai_home');
-
     Route::get('lien-he-voi-chung-toi', [FooterController::class, 'lienHe'])->name('lien-he-voi-chung-toi');
     Route::get('dieu-khoan-dich-vu', [FooterController::class, 'dieuKhoan'])->name('dieu-khoan');
     Route::get('chinh-sach-bao-mat', [FooterController::class, 'chinhSach'])->name('chinh-sach');
+
+    //xem ngày tốt xấu
+  Route::prefix('xem-ngay-tot-xau')->group(function () {
+    Route::get('/',  [TotXauController::class, 'showForm'])->name('totxau.form');
+     Route::post('/', [WeddingController::class, 'check'])->name('totxau.check');
+  });
 
     // Xem tuổi để cưới hỏi
     Route::prefix('xem-tuoi-cuoi-hoi')->group(function () {

@@ -143,7 +143,7 @@
                                              {{ $al[0] }}/{{ $al[1] }}/{{ $al[2] }}
                                          </div>
                                          <div class="grid-item text-capitalize"><b> Tiết khí:</b>
-                                             {{ $tietkhi['tiet_khi'] }}</div>
+                                             <span style="text-transform:capitalize;">{{ $tietkhi['tiet_khi'] }}</span></div>
                                          <div class="grid-item"> <b>Ngày Can Chi:</b>
                                              ngày {{ $getThongTinCanChiVaIcon['can_chi_ngay'] }},
                                              tháng {{ $getThongTinCanChiVaIcon['can_chi_thang'] }},
@@ -446,7 +446,7 @@
                                                      <span class="fw-bolder">
                                                          Việc nên làm:
                                                      </span>
-                                                     {{ $getThongTinTruc['description']['good'] }}
+                                                     {{ $getThongTinTruc['description']['good'] }}.
                                                  @endif
                                              </div>
 
@@ -454,7 +454,7 @@
                                                  @if ($getThongTinTruc['description']['bad'])
                                                      <span class="fw-bolder"> Việc không nên
                                                          làm: </span>
-                                                     {{ $getThongTinTruc['description']['bad'] }}
+                                                     {{ $getThongTinTruc['description']['bad'] }}.
                                                  @endif
                                              </div>
 

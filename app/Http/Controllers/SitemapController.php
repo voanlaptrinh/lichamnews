@@ -150,6 +150,7 @@ class SitemapController extends Controller
         $urls = [];
 
         for ($year = 1900; $year <= 2100; $year++) {
+            // Thêm 12 tháng dương lịch
             for ($month = 1; $month <= 12; $month++) {
                 $urls[] = [
                     'loc' => route('lich.thang', ['nam' => $year, 'thang' => $month]),
@@ -157,6 +158,24 @@ class SitemapController extends Controller
                     'changefreq' => 'weekly',
                     'lastmod' => now()->toAtomString(),
                 ];
+            }
+
+            // Kiểm tra và thêm tháng nhuận nếu có
+            $yearInfo = \App\Helpers\LunarHelper::getYearInfo($year);
+            if (!empty($yearInfo)) {
+                // Tìm tháng nhuận trong năm
+                foreach ($yearInfo as $monthInfo) {
+                    if (isset($monthInfo['leap']) && $monthInfo['leap'] == 1) {
+                        $leapMonth = $monthInfo['month'];
+                        $urls[] = [
+                            'loc' => route('lich.thang.nhuan', ['nam' => $year, 'thang' => $leapMonth]),
+                            'priority' => '0.6',
+                            'changefreq' => 'weekly',
+                            'lastmod' => now()->toAtomString(),
+                        ];
+                        break; // Mỗi năm chỉ có tối đa 1 tháng nhuận
+                    }
+                }
             }
         }
 
