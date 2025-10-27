@@ -42,8 +42,8 @@
 
 
 @push('scripts')
-    <script defer src="{{ asset('js/base-picker.js?v=3.5') }}"></script>
-    <script defer src="{{ asset('js/today-tomorrow-picker.js?v=3.5') }}"></script>
+    <script defer src="{{ asset('js/base-picker.js?v=3.6') }}"></script>
+    <script defer src="{{ asset('js/today-tomorrow-picker.js?v=3.6') }}"></script>
     <script>
         window.addEventListener("DOMContentLoaded", () => {
             // Wait for deferred scripts

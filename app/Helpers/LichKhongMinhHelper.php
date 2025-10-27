@@ -47,7 +47,7 @@ class LichKhongMinhHelper
 
     static function ngayToHTML($ngay){
         $data_ngay = array(
-            'Hảo Thương' => 'Ngày <b>Hảo Thương</b>: xuất hành thuận lợi, gặp qúy nhân phù trợ, làm mọi việc vừa lòng, như ý muốn, áo phẩm vinh quy.',
+            'Hảo Thương' => 'Ngày <b>Hảo Thương</b>: xuất hành thuận lợi, gặp quý nhân phù trợ, làm mọi việc vừa lòng, như ý muốn, áo phẩm vinh quy.',
             'Đạo Tặc' => 'Ngày <b>Đạo Tặc</b>: rất xấu, xuất hành bị hại, mất của',
             'Thuần Dương' => 'Ngày <b>Thuần Dương</b>: xuất hành tốt, lúc về cũng tốt, nhiều thuận lợi, được người tốt giúp đỡ, cầu tài được như ý muốn, tranh luận thường thắng lợi',
             'Đường Phong' => 'Ngày <b>Đường Phong</b>: rất tốt, xuất hành thuận lợi, cầu tài được như ý muốn, gặp quý nhân phù trợ',
@@ -55,7 +55,7 @@ class LichKhongMinhHelper
             'Kim Dương' => 'Ngày <b>Kim Dương</b>: xuất hành tốt, có quý nhân phù trợ, tài lộc thông suốt, thưa kiện có nhiều lý phải',
             'Thiên Đạo' => 'Ngày <b>Thiên Đạo</b>: xuất hành cầu tài nên tránh, dù được cũng rất tốn kém, thất lý mà thua',
             'Thiên Thương' => 'Ngày <b>Thiên Thương</b>: xuất hành để gặp cấp trên thì tuyệt vời, cầu tài thì được tài, mọi việc đều thuận lợi',
-            'Thiên Hầu' => 'Ngày <b>Thiên Hầu</b>: xuất hành dầu ít hay nhiều cũng cãi cọ, phải tránh xẩy ra tai nạn chảy máu, máu sẽ khó cầm',
+            'Thiên Hầu' => 'Ngày <b>Thiên Hầu</b>: xuất hành dầu ít hay nhiều cũng cãi cọ, phải tránh xảy ra tai nạn chảy máu, máu sẽ khó cầm',
             'Thiên Dương' => 'Ngày <b>Thiên Dương</b>: xuất hành tốt, cầu tài được tài, hỏi vợ được vợ mọi việc đều như ý muốn',
             'Thiên Môn' => 'Ngày <b>Thiên Môn</b>: xuất hành làm mọi việc đều vừa ý, cầu được ước thấy mọi việc đều thành đạt',
             'Thiên Đường' => 'Ngày <b>Thiên Đường</b>: xuất hành tốt, quý nhân phù trợ, buôn bán may mắn, mọi việc đều như ý',
@@ -68,7 +68,7 @@ class LichKhongMinhHelper
             'Chu Tước' => 'Ngày <b>Chu Tước</b>: xuất hành, cầu tài đều xấu, hay mất của, kiện cáo thua vì đuối lý',
             'Thanh Long Túc' => 'Ngày <b>Thanh Long Túc</b>: đi xa không nên, xuất hành xấu, tài lộc không có, kiện cáo cũng đuối lý',
             'Thanh Long Kiếp' => 'Ngày <b>Thanh Long Kiếp</b>: xuất hành 4 phương, 8 hướng đều tốt, trăm sự được như ý',
-            'Thanh Long Đầu' => 'Ngày <b>Thanh Long Đầu</b>: xuất hành nên đi vào sáng sớm, cầu tài thắng lợi. mọi việc như ý',
+            'Thanh Long Đầu' => 'Ngày <b>Thanh Long Đầu</b>: xuất hành nên đi vào sáng sớm, cầu tài thắng lợi, mọi việc như ý',
         );
         return @$data_ngay[$ngay];
     }

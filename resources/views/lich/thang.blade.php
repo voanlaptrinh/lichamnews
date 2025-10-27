@@ -28,13 +28,14 @@
                                 Âm lịch tháng
                                 {{ $lunar_calendar['month'] }}{{ $lunar_calendar['is_leap'] == 1 ? ' (nhuận)' : '' }}
                             </div>
-                            <hr>
+                            <hr class="mb-1">
                             <div>
-                                <div class="calendar-header mt-0">
+                             
+                                <div class="calendar-wrapper calendar-wrapper-none">
+                                       <div class="calendar-header mt-0">
                                     <div class="mb-0 title-tong-quan-h4-log">Tháng {{ $lunar_calendar['month'] }} Năm
                                         {{ $lunar_calendar['can_chi'] }}</div>
                                 </div>
-                                <div class="calendar-wrapper calendar-wrapper-none">
                                     <table class="calendar-table">
                                         <thead>
                                             <tr>
@@ -119,7 +120,7 @@
                         Dương lịch tháng {{ $mm }}
 
                     </div>
-                    <hr>
+                    <hr class="mb-1">
                     <div class="calendar-wrapper calendar-wrapper-none">
                         <div class="calendar-header mt-0">
 
@@ -199,9 +200,9 @@
                                         style="right: 10px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #6c757d;"></i>
                                 </div>
                             </div>
-                            <hr>
+                            <hr class="mb-0">
 
-                            <div class="row g-lg-3 g-2 row-btn-date">
+                            <div class="row g-lg-3 g-1 row-btn-date">
                                 @forelse ($data_totxau['tot'] as $data_tot)
                                     <div class="col-xl-3 col-lg-4 col-md-6 col-12">
                                         <!--  để cột chỉ chiếm chiều rộng cần thiết -->
@@ -275,8 +276,8 @@
                                                 style="right: 10px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #6c757d;"></i>
                                         </div>
                                     </div>
-                                    <hr>
-                                    <div class="row g-lg-3 g-2 row-btn-date">
+                                    <hr class="mb-0">
+                                    <div class="row g-lg-3 g-1 row-btn-date">
                                         @forelse ($hoangdao_am_list as $day)
                                             <div class="col-xl-3 col-lg-4 col-md-6 col-12">
                                                 <a href="{{ route('detai_home', ['nam' => $day['solar_year'], 'thang' => $day['solar_month'], 'ngay' => $day['solar_day']]) }}"
@@ -317,9 +318,9 @@
                                         style="right: 10px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #6c757d;"></i>
                                 </div>
                             </div>
-                            <hr>
+                            <hr class="mb-0">
 
-                            <div class="row g-lg-3 g-2 row-btn-date">
+                            <div class="row g-lg-3 g-1 row-btn-date">
                                 @forelse ($data_totxau['xau'] as $data_xau)
                                     <div class="col-xl-3 col-lg-4 col-md-6 col-12">
                                         <!--  để cột chỉ chiếm chiều rộng cần thiết -->
@@ -395,8 +396,8 @@
                                                 style="right: 10px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #6c757d;"></i>
                                         </div>
                                     </div>
-                                    <hr>
-                                    <div class="row g-lg-3 g-2 row-btn-date">
+                                    <hr class="mb-0">
+                                    <div class="row g-lg-3 g-1 row-btn-date">
                                         @forelse ($hacdao_am_list as $day)
                                             <div class="col-xl-3 col-lg-4 col-md-6 col-12">
                                                 <a href="{{ route('detai_home', ['nam' => $day['solar_year'], 'thang' => $day['solar_month'], 'ngay' => $day['solar_day']]) }}"

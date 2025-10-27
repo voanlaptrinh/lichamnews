@@ -104,12 +104,16 @@
                     </div>
 
                     <div class="zodiac-selector-form">
-                        <select id="zodiac-select" class="form-select custom-select-style" aria-label="Chọn cung hoàng đạo">
-                            @foreach ($zodiacNames as $sign => $name)
-                                <option value="{{ $sign }}" {{ $sign == $zodiac['sign'] ? 'selected' : '' }}>
-                                    {{ $name }}</option>
-                            @endforeach
-                        </select>
+                        <div class="zodiac-select-wrapper position-relative ms-2">
+                           
+                            <select id="zodiac-select" class="form-select custom-select-style" aria-label="Chọn cung hoàng đạo" >
+                                @foreach ($zodiacNames as $sign => $name)
+                                    <option value="{{ $sign }}" {{ $sign == $zodiac['sign'] ? 'selected' : '' }}>
+                                        {{ $name }}</option>
+                                @endforeach
+                            </select>
+                            <i class="bi bi-chevron-down position-absolute" style="right: 12px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #6c757d; z-index: 10;"></i>
+                        </div>
                     </div>
 
                 </div>
