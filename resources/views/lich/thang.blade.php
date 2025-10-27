@@ -1,5 +1,12 @@
 @extends('welcome')
 @section('content')
+    @push('styles')
+        <style>
+            .not-hover:hover {
+cursor: default;
+            }
+        </style>
+    @endpush
     <div class="container-setup">
         <h6 class="content-title-detail"><a href="{{ route('home') }}"
                 style="color: #2254AB; text-decoration: underline;">Trang chủ</a><i class="bi bi-chevron-right"></i> <a
@@ -430,8 +437,8 @@
                         <hr>
                         <div class="row g-lg-3 g-2">
                             @forelse ($le_lichs as $le_lich)
-                                <div class=" col-12"> <!--  để cột chỉ chiếm chiều rộng cần thiết -->
-                                    <div class="btn custom-pill-btn-date w-100 text-start">
+                                <div class="col-12 mt-1"> <!--  để cột chỉ chiếm chiều rộng cần thiết -->
+                                    <div class="btn not-hover w-100 text-start">
 
                                         <img src="{{ asset('icons/sukienn1.svg') }}" alt="Sự kiện"
                                             class="img-fluid me-2" width="28" height="29">
@@ -439,7 +446,7 @@
                                     </div>
                                 </div>
                             @empty
-                                <div class="col-12">
+                                <div class="col-12 mt-1">
                                     <div class="alert alert-secondary text-center">
                                         Không có ngày lễ dương nào
                                     </div>
@@ -458,15 +465,15 @@
 
                         <div class="row g-lg-3 g-2">
                             @forelse ($le_lichs_am as $le_lich)
-                                <div class="col-12">
-                                    <div class="btn custom-pill-btn-date w-100 text-start">
+                                <div class="col-12 mt-1">
+                                    <div class="btn  not-hover w-100 text-start">
                                         <img src="{{ asset('icons/sukienn1.svg') }}" alt="Sự kiện" width="28"
                                             height="29" class="img-fluid me-2">
                                         <b>{{ $le_lich['dd'] }}/{{ $le_lich['mm'] }}</b>: {{ $le_lich['name'] }}
                                     </div>
                                 </div>
                             @empty
-                                <div class="col-12">
+                                <div class="col-12 mt-1">
                                     <div class="alert alert-secondary text-center">
                                         Không có lễ lịch âm nào
                                     </div>
@@ -485,7 +492,7 @@
                         <div class="row g-lg-3 g-2">
                             @forelse ($su_kiens as $su_kien)
                                 <div class=" col-12"> <!--  để cột chỉ chiếm chiều rộng cần thiết -->
-                                    <div class="btn custom-pill-btn-date w-100 text-start">
+                                    <div class="btn  not-hover w-100 text-start">
 
                                         <img src="{{ asset('icons/sukienn1.svg') }}" alt="Sự kiện" width="28"
                                             height="29" class="img-fluid me-2">{{ $su_kien }}
@@ -511,7 +518,7 @@
                             <div class="row g-lg-2 g-2 ">
                                 @foreach ($data_al as $ngay)
                                     <div class=" col-12"> <!--  để cột chỉ chiếm chiều rộng cần thiết -->
-                                        <div class="btn custom-pill-btn-date w-100 text-start">
+                                        <div class="btn  not-hover w-100 text-start">
 
                                             <img src="{{ asset('icons/sukienn1.svg') }}" alt="Sự kiện" width="28"
                                                 height="29"
@@ -649,89 +656,87 @@ if ($is_viewing_lunar) {
 @endsection
 
 @push('scripts')
-<script>
-    /**
-     * Hàm xử lý hiển thị box âm dương lịch
-     * @param {HTMLElement} element - Select element được thay đổi
-     * @param {string} type - Loại box: 'hoangdao' hoặc 'hacdao'
-     * @param {number} index - Index của box âm lịch (optional)
-     */
-    function toggleBox(element, type, index) {
-        const value = element.value; // 'duong' hoặc 'am'
+    <script>
+        /**
+         * Hàm xử lý hiển thị box âm dương lịch
+         * @param {HTMLElement} element - Select element được thay đổi
+         * @param {string} type - Loại box: 'hoangdao' hoặc 'hacdao'
+         * @param {number} index - Index của box âm lịch (optional)
+         */
+        function toggleBox(element, type, index) {
+            const value = element.value; // 'duong' hoặc 'am'
 
-        if (type === 'hoangdao') {
-            // Xử lý Hoàng Đạo
-            const duongBox = document.querySelector('.hoangdao-duong-box');
-            const amBoxes = document.querySelectorAll('.hoangdao-am-box');
+            if (type === 'hoangdao') {
+                // Xử lý Hoàng Đạo
+                const duongBox = document.querySelector('.hoangdao-duong-box');
+                const amBoxes = document.querySelectorAll('.hoangdao-am-box');
 
-            if (value === 'duong') {
-                // Hiện box dương lịch, ẩn tất cả box âm lịch
-                if (duongBox) duongBox.style.display = 'block';
-                amBoxes.forEach(box => box.style.display = 'none');
+                if (value === 'duong') {
+                    // Hiện box dương lịch, ẩn tất cả box âm lịch
+                    if (duongBox) duongBox.style.display = 'block';
+                    amBoxes.forEach(box => box.style.display = 'none');
 
-                // Đồng bộ tất cả select box Hoàng Đạo về 'duong'
-                const allHoangDaoSelects = document.querySelectorAll('[id^="hoangDao"]');
-                allHoangDaoSelects.forEach(select => {
-                    select.value = 'duong';
-                });
-            } else {
-                // Ẩn box dương lịch, hiện tất cả box âm lịch
-                if (duongBox) duongBox.style.display = 'none';
-                amBoxes.forEach(box => box.style.display = 'block');
+                    // Đồng bộ tất cả select box Hoàng Đạo về 'duong'
+                    const allHoangDaoSelects = document.querySelectorAll('[id^="hoangDao"]');
+                    allHoangDaoSelects.forEach(select => {
+                        select.value = 'duong';
+                    });
+                } else {
+                    // Ẩn box dương lịch, hiện tất cả box âm lịch
+                    if (duongBox) duongBox.style.display = 'none';
+                    amBoxes.forEach(box => box.style.display = 'block');
 
-                // Đồng bộ tất cả select box Hoàng Đạo về 'am'
-                const allHoangDaoSelects = document.querySelectorAll('[id^="hoangDao"]');
-                allHoangDaoSelects.forEach(select => {
-                    select.value = 'am';
-                });
-            }
-        } else if (type === 'hacdao') {
-            // Xử lý Hắc Đạo
-            const duongBox = document.querySelector('.hacdao-duong-box');
-            const amBoxes = document.querySelectorAll('.hacdao-am-box');
+                    // Đồng bộ tất cả select box Hoàng Đạo về 'am'
+                    const allHoangDaoSelects = document.querySelectorAll('[id^="hoangDao"]');
+                    allHoangDaoSelects.forEach(select => {
+                        select.value = 'am';
+                    });
+                }
+            } else if (type === 'hacdao') {
+                // Xử lý Hắc Đạo
+                const duongBox = document.querySelector('.hacdao-duong-box');
+                const amBoxes = document.querySelectorAll('.hacdao-am-box');
 
-            if (value === 'duong') {
-                // Hiện box dương lịch, ẩn tất cả box âm lịch
-                if (duongBox) duongBox.style.display = 'block';
-                amBoxes.forEach(box => box.style.display = 'none');
+                if (value === 'duong') {
+                    // Hiện box dương lịch, ẩn tất cả box âm lịch
+                    if (duongBox) duongBox.style.display = 'block';
+                    amBoxes.forEach(box => box.style.display = 'none');
 
-                // Đồng bộ tất cả select box Hắc Đạo về 'duong'
-                const allHacDaoSelects = document.querySelectorAll('[id^="hacDao"]');
-                allHacDaoSelects.forEach(select => {
-                    select.value = 'duong';
-                });
-            } else {
-                // Ẩn box dương lịch, hiện tất cả box âm lịch
-                if (duongBox) duongBox.style.display = 'none';
-                amBoxes.forEach(box => box.style.display = 'block');
+                    // Đồng bộ tất cả select box Hắc Đạo về 'duong'
+                    const allHacDaoSelects = document.querySelectorAll('[id^="hacDao"]');
+                    allHacDaoSelects.forEach(select => {
+                        select.value = 'duong';
+                    });
+                } else {
+                    // Ẩn box dương lịch, hiện tất cả box âm lịch
+                    if (duongBox) duongBox.style.display = 'none';
+                    amBoxes.forEach(box => box.style.display = 'block');
 
-                // Đồng bộ tất cả select box Hắc Đạo về 'am'
-                const allHacDaoSelects = document.querySelectorAll('[id^="hacDao"]');
-                allHacDaoSelects.forEach(select => {
-                    select.value = 'am';
-                });
+                    // Đồng bộ tất cả select box Hắc Đạo về 'am'
+                    const allHacDaoSelects = document.querySelectorAll('[id^="hacDao"]');
+                    allHacDaoSelects.forEach(select => {
+                        select.value = 'am';
+                    });
+                }
             }
         }
-    }
 
-    // Khởi tạo trạng thái ban đầu khi trang load
-    document.addEventListener('DOMContentLoaded', function() {
-        // Mặc định hiện Dương lịch, ẩn Âm lịch cho cả Hoàng Đạo và Hắc Đạo
-        const hoangdaoAmBoxes = document.querySelectorAll('.hoangdao-am-box');
-        const hacdaoAmBoxes = document.querySelectorAll('.hacdao-am-box');
+        // Khởi tạo trạng thái ban đầu khi trang load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mặc định hiện Dương lịch, ẩn Âm lịch cho cả Hoàng Đạo và Hắc Đạo
+            const hoangdaoAmBoxes = document.querySelectorAll('.hoangdao-am-box');
+            const hacdaoAmBoxes = document.querySelectorAll('.hacdao-am-box');
 
-        // Ẩn tất cả box âm lịch ban đầu
-        hoangdaoAmBoxes.forEach(box => box.style.display = 'none');
-        hacdaoAmBoxes.forEach(box => box.style.display = 'none');
+            // Ẩn tất cả box âm lịch ban đầu
+            hoangdaoAmBoxes.forEach(box => box.style.display = 'none');
+            hacdaoAmBoxes.forEach(box => box.style.display = 'none');
 
-        // Hiện box dương lịch
-        const hoangdaoDuongBox = document.querySelector('.hoangdao-duong-box');
-        const hacdaoDuongBox = document.querySelector('.hacdao-duong-box');
+            // Hiện box dương lịch
+            const hoangdaoDuongBox = document.querySelector('.hoangdao-duong-box');
+            const hacdaoDuongBox = document.querySelector('.hacdao-duong-box');
 
-        if (hoangdaoDuongBox) hoangdaoDuongBox.style.display = 'block';
-        if (hacdaoDuongBox) hacdaoDuongBox.style.display = 'block';
-    });
-</script>
+            if (hoangdaoDuongBox) hoangdaoDuongBox.style.display = 'block';
+            if (hacdaoDuongBox) hacdaoDuongBox.style.display = 'block';
+        });
+    </script>
 @endpush
-
-

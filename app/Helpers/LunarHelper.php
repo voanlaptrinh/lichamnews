@@ -1155,10 +1155,10 @@ static function convertSolar2Lunar($dd, $mm, $yy, $timeZone = 7.0)
             '11-9' => 'Ngày Pháp luật Việt Nam',
             '11-17' => 'Ngày truyền thống Mặt trận Tổ quốc Việt Nam',
             '11-20' => 'Ngày Nhà giáo Việt Nam',
-            '11-23' => 'Ngày thành lập Hội chữ thập đỏ Việt Nam',
+            '11-23' => 'Ngày thành lập Hội Chữ thập đỏ Việt Nam',
 
             // THÁNG 12
-            '12-1' => 'Ngày thế giới phòng chống AIDS',
+            '12-1' => 'Ngày Thế giới phòng chống AIDS',
             '12-19' => 'Ngày Toàn quốc kháng chiến',
             '12-22' => 'Ngày thành lập Quân đội Nhân dân Việt Nam',
             '12-24' => 'Đêm Giáng sinh',

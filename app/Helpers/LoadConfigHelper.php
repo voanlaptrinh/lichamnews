@@ -362,17 +362,17 @@ class LoadConfigHelper
         array(
             'dd' => 11,
             'mm' => 7,
-            'name' => 'Ngày dân số thế giới' //
+            'name' => 'Ngày Dân số thế giới' //
         ),
         array(
             'dd' => 27,
             'mm' => 7,
-            'name' => 'Ngày Thương binh liệt sĩ'
+            'name' => 'Ngày Thương binh Liệt sĩ'
         ),
         array(
             'dd' => 28,
             'mm' => 7,
-            'name' => 'Ngày thành lập Cwông đoàn Việt Nam'
+            'name' => 'Ngày thành lập Công đoàn Việt Nam'
         ),
         array(
             'dd' => 15,
@@ -387,7 +387,7 @@ class LoadConfigHelper
         array(
             'dd' => 2,
             'mm' => 9,
-            'name' => 'Ngày Quốc Khánh'
+            'name' => 'Ngày Quốc khánh'
         ),
         array(
             'dd' => 10,
@@ -397,7 +397,7 @@ class LoadConfigHelper
         array(
             'dd' => 15,
             'mm' => 9,
-            'name' => 'Ngày trẻ em Việt Nam'
+            'name' => 'Ngày Trẻ em Việt Nam'
         ),
         array(
             'dd' => 1,
@@ -437,12 +437,12 @@ class LoadConfigHelper
         array(
             'dd' => 23,
             'mm' => 11,
-            'name' => 'Ngày thành lập Hội chữ thập đỏ Việt Nam'
+            'name' => 'Ngày thành lập Hội Chữ thập đỏ Việt Nam'
         ),
         array(
             'dd' => 1,
             'mm' => 12,
-            'name' => 'Ngày thế giới phòng chống AIDS'
+            'name' => 'Ngày Thế giới phòng chống AIDS'
         ),
         array(
             'dd' => 19,
@@ -575,7 +575,7 @@ class LoadConfigHelper
         ),
         4 => array(
             '25/4/1976: Ngày tổng tuyển cử bầu quốc hội chung của cả nước',
-            '30/4/1975: Giải phóng Miền Nam, thống nhất đất ngước',
+            '30/4/1975: Giải phóng Miền Nam, thống nhất đất nước',
         ),
         5 => array(
             '07/05/1954: Ngày Chiến thắng Điện Biên Phủ',
@@ -612,11 +612,11 @@ class LoadConfigHelper
         ),
         11 => array(
             '23/11/1940: Khởi nghĩa Nam Kỳ',
-            '23/11/1946: Thành lập Hội chữ thập đỏ Việt Nam',
+            '23/11/1946: Thành lập Hội Chữ thập đỏ Việt Nam',
         ),
         12 => array(
             '19/12/1946: Toàn quốc kháng chiến',
-            '22/12/1944: Thành lập quân đội nhân dân Việt Nam',
+            '22/12/1944: Thành lập Quân đội nhân dân Việt Nam',
         ),
     );
 }
