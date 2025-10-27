@@ -1,0 +1,486 @@
+/**
+ * Custom Calendar Module
+ * Có thể tái sử dụng cho nhiều view khác nhau
+ */
+
+class CustomCalendar {
+    constructor(options = {}) {
+        this.options = {
+            inputId: options.inputId || 'ngayXem',
+            calendarId: options.calendarId || 'customCalendar',
+            defaultToToday: options.defaultToToday !== false,
+            ...options
+        };
+
+        this.currentDate = new Date();
+        this.selectedDate = null;
+
+        this.init();
+    }
+
+    init() {
+        this.input = document.getElementById(this.options.inputId);
+        this.calendar = document.getElementById(this.options.calendarId);
+
+        if (!this.input || !this.calendar) {
+            console.warn('Custom calendar elements not found');
+            return;
+        }
+
+        this.monthYear = this.calendar.querySelector('[id*="monthYear"]');
+        this.calendarDays = this.calendar.querySelector('[id*="calendarDays"]');
+        this.prevBtn = this.calendar.querySelector('[id*="prevMonth"]');
+        this.nextBtn = this.calendar.querySelector('[id*="nextMonth"]');
+        this.clearBtn = this.calendar.querySelector('[id*="clearDate"]');
+        this.todayBtn = this.calendar.querySelector('[id*="todayDate"]');
+
+        this.monthNames = [
+            'Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4',
+            'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8',
+            'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'
+        ];
+
+        this.setupEventListeners();
+
+        // Set default date
+        if (this.options.defaultToToday) {
+            const today = new Date();
+            this.selectedDate = today;
+            this.input.value = this.formatDateDisplay(today);
+        }
+
+        this.generateCalendar(this.currentDate);
+    }
+
+    setupEventListeners() {
+        // Toggle calendar
+        this.input.addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.calendar.style.display = this.calendar.style.display === 'none' ? 'block' : 'none';
+            if (this.calendar.style.display === 'block') {
+                this.generateCalendar(this.currentDate);
+            }
+        });
+
+        // Navigation
+        if (this.prevBtn) {
+            this.prevBtn.addEventListener('click', () => {
+                this.currentDate.setMonth(this.currentDate.getMonth() - 1);
+                this.generateCalendar(this.currentDate);
+            });
+        }
+
+        if (this.nextBtn) {
+            this.nextBtn.addEventListener('click', () => {
+                this.currentDate.setMonth(this.currentDate.getMonth() + 1);
+                this.generateCalendar(this.currentDate);
+            });
+        }
+
+        // Actions
+        if (this.clearBtn) {
+            this.clearBtn.addEventListener('click', () => {
+                this.selectedDate = null;
+                this.input.value = '';
+                this.calendar.style.display = 'none';
+                this.generateCalendar(this.currentDate);
+            });
+        }
+
+        if (this.todayBtn) {
+            this.todayBtn.addEventListener('click', () => {
+                const today = new Date();
+                this.selectedDate = today;
+                this.currentDate = new Date(today);
+                this.input.value = this.formatDateDisplay(today);
+                this.calendar.style.display = 'none';
+                this.generateCalendar(this.currentDate);
+            });
+        }
+
+        // Hide on outside click
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.input-group') && !e.target.closest('.custom-calendar')) {
+                this.calendar.style.display = 'none';
+            }
+        });
+    }
+
+    generateCalendar(date) {
+        const year = date.getFullYear();
+        const month = date.getMonth();
+
+        this.monthYear.textContent = `${this.monthNames[month]} ${year}`;
+
+        const firstDay = new Date(year, month, 1);
+        const lastDay = new Date(year, month + 1, 0);
+        const firstDayWeek = firstDay.getDay();
+
+        this.calendarDays.innerHTML = '';
+
+        // Previous month days
+        for (let i = firstDayWeek - 1; i >= 0; i--) {
+            const day = new Date(year, month, -i);
+            const dayEl = this.createDayElement(day, true);
+            this.calendarDays.appendChild(dayEl);
+        }
+
+        // Current month days
+        for (let day = 1; day <= lastDay.getDate(); day++) {
+            const dayDate = new Date(year, month, day);
+            const dayEl = this.createDayElement(dayDate, false);
+            this.calendarDays.appendChild(dayEl);
+        }
+
+        // Next month days
+        const remainingCells = 42 - this.calendarDays.children.length;
+        for (let day = 1; day <= remainingCells; day++) {
+            const dayDate = new Date(year, month + 1, day);
+            const dayEl = this.createDayElement(dayDate, true);
+            this.calendarDays.appendChild(dayEl);
+        }
+    }
+
+    createDayElement(date, isOtherMonth) {
+        const dayEl = document.createElement('div');
+        dayEl.className = 'calendar-day';
+        dayEl.textContent = date.getDate();
+
+        if (isOtherMonth) {
+            dayEl.classList.add('other-month');
+        }
+
+        // Check if today
+        const today = new Date();
+        if (date.toDateString() === today.toDateString()) {
+            dayEl.classList.add('today');
+        }
+
+        // Check if selected
+        if (this.selectedDate && date.toDateString() === this.selectedDate.toDateString()) {
+            dayEl.classList.add('selected');
+        }
+
+        dayEl.addEventListener('click', () => {
+            if (!isOtherMonth) {
+                this.selectedDate = new Date(date);
+                this.input.value = this.formatDateDisplay(this.selectedDate);
+                this.calendar.style.display = 'none';
+                this.generateCalendar(this.currentDate);
+            }
+        });
+
+        return dayEl;
+    }
+
+    formatDateDisplay(date) {
+        return date.toLocaleDateString('vi-VN');
+    }
+
+    formatDateValue(date) {
+        return date.toISOString().split('T')[0];
+    }
+
+    parseVietnameseDate(dateStr) {
+        if (!dateStr) return null;
+        const parts = dateStr.split('/');
+        if (parts.length === 3) {
+            const day = parseInt(parts[0], 10);
+            const month = parseInt(parts[1], 10) - 1;
+            let year = parseInt(parts[2], 10);
+
+            if (year < 100) {
+                year += 2000;
+            }
+
+            return new Date(year, month, day);
+        }
+        return null;
+    }
+
+    getValue() {
+        return this.input.value;
+    }
+
+    setValue(dateStr) {
+        const date = this.parseVietnameseDate(dateStr);
+        if (date) {
+            this.selectedDate = date;
+            this.input.value = this.formatDateDisplay(date);
+            this.generateCalendar(date);
+        }
+    }
+
+    getDateObject() {
+        return this.selectedDate;
+    }
+}
+
+// Global Calendar for multiple inputs
+class GlobalCalendar {
+    constructor(calendarId = 'globalCalendar') {
+        this.calendarId = calendarId;
+        this.currentDate = new Date();
+        this.currentInput = null;
+
+        this.init();
+    }
+
+    init() {
+        this.calendar = document.getElementById(this.calendarId);
+
+        if (!this.calendar) {
+            console.warn('Global calendar not found');
+            return;
+        }
+
+        this.monthYear = this.calendar.querySelector('[id*="monthYear"]');
+        this.calendarDays = this.calendar.querySelector('[id*="calendarDays"]');
+        this.prevBtn = this.calendar.querySelector('[id*="prevMonth"]');
+        this.nextBtn = this.calendar.querySelector('[id*="nextMonth"]');
+        this.clearBtn = this.calendar.querySelector('[id*="clearDate"]');
+        this.todayBtn = this.calendar.querySelector('[id*="todayDate"]');
+
+        this.monthNames = [
+            'Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4',
+            'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8',
+            'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'
+        ];
+
+        this.setupEventListeners();
+    }
+
+    setupEventListeners() {
+        // Navigation
+        if (this.prevBtn) {
+            this.prevBtn.addEventListener('click', () => {
+                this.currentDate.setMonth(this.currentDate.getMonth() - 1);
+                this.generateCalendar(this.currentDate);
+            });
+        }
+
+        if (this.nextBtn) {
+            this.nextBtn.addEventListener('click', () => {
+                this.currentDate.setMonth(this.currentDate.getMonth() + 1);
+                this.generateCalendar(this.currentDate);
+            });
+        }
+
+        // Actions
+        if (this.clearBtn) {
+            this.clearBtn.addEventListener('click', () => {
+                if (this.currentInput) {
+                    this.currentInput.value = '';
+                    this.calendar.style.display = 'none';
+                }
+            });
+        }
+
+        if (this.todayBtn) {
+            this.todayBtn.addEventListener('click', () => {
+                if (this.currentInput) {
+                    const today = new Date();
+                    this.currentDate = new Date(today);
+                    this.currentInput.value = this.formatDateDisplay(today);
+                    this.calendar.style.display = 'none';
+                }
+            });
+        }
+
+        // Hide on outside click
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.date-input') &&
+                !e.target.closest('.global-calendar') &&
+                !this.currentInput?.contains(e.target)) {
+                this.calendar.style.display = 'none';
+            }
+        });
+    }
+
+    attachToInput(input) {
+        input.addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.currentInput = input;
+            this.positionCalendar(input);
+            this.calendar.style.display = 'block';
+            this.generateCalendar(this.currentDate);
+        });
+    }
+
+    positionCalendar(inputElement) {
+        const rect = inputElement.getBoundingClientRect();
+        const calendarHeight = 350;
+        const windowHeight = window.innerHeight;
+
+        let top = rect.bottom + window.scrollY + 5;
+        if (top + calendarHeight > windowHeight + window.scrollY) {
+            top = rect.top + window.scrollY - calendarHeight - 5;
+        }
+
+        this.calendar.style.left = rect.left + window.scrollX + 'px';
+        this.calendar.style.top = top + 'px';
+    }
+
+    generateCalendar(date) {
+        const year = date.getFullYear();
+        const month = date.getMonth();
+
+        this.monthYear.textContent = `${this.monthNames[month]} ${year}`;
+
+        const firstDay = new Date(year, month, 1);
+        const lastDay = new Date(year, month + 1, 0);
+        const firstDayWeek = firstDay.getDay();
+
+        this.calendarDays.innerHTML = '';
+
+        // Previous month days
+        for (let i = firstDayWeek - 1; i >= 0; i--) {
+            const day = new Date(year, month, -i);
+            const dayEl = this.createDayElement(day, true);
+            this.calendarDays.appendChild(dayEl);
+        }
+
+        // Current month days
+        for (let day = 1; day <= lastDay.getDate(); day++) {
+            const dayDate = new Date(year, month, day);
+            const dayEl = this.createDayElement(dayDate, false);
+            this.calendarDays.appendChild(dayEl);
+        }
+
+        // Next month days
+        const remainingCells = 42 - this.calendarDays.children.length;
+        for (let day = 1; day <= remainingCells; day++) {
+            const dayDate = new Date(year, month + 1, day);
+            const dayEl = this.createDayElement(dayDate, true);
+            this.calendarDays.appendChild(dayEl);
+        }
+    }
+
+    createDayElement(date, isOtherMonth) {
+        const dayEl = document.createElement('div');
+        dayEl.className = 'calendar-day';
+        dayEl.textContent = date.getDate();
+
+        if (isOtherMonth) {
+            dayEl.classList.add('other-month');
+        }
+
+        // Check if today
+        const today = new Date();
+        if (date.toDateString() === today.toDateString()) {
+            dayEl.classList.add('today');
+        }
+
+        // Check if selected
+        if (this.currentInput) {
+            const inputValue = this.currentInput.value;
+            if (inputValue) {
+                const inputDate = this.parseVietnameseDate(inputValue);
+                if (inputDate && date.toDateString() === inputDate.toDateString()) {
+                    dayEl.classList.add('selected');
+                }
+            }
+        }
+
+        dayEl.addEventListener('click', () => {
+            if (!isOtherMonth && this.currentInput) {
+                const formattedDate = this.formatDateDisplay(date);
+                this.currentInput.value = formattedDate;
+                this.calendar.style.display = 'none';
+                this.generateCalendar(this.currentDate);
+            }
+        });
+
+        return dayEl;
+    }
+
+    formatDateDisplay(date) {
+        return date.toLocaleDateString('vi-VN');
+    }
+
+    parseVietnameseDate(dateStr) {
+        if (!dateStr) return null;
+        const parts = dateStr.split('/');
+        if (parts.length === 3) {
+            const day = parseInt(parts[0], 10);
+            const month = parseInt(parts[1], 10) - 1;
+            let year = parseInt(parts[2], 10);
+
+            if (year < 100) {
+                year += 2000;
+            }
+
+            return new Date(year, month, day);
+        }
+        return null;
+    }
+}
+
+// Date utilities
+const DateUtils = {
+    parseVietnameseDate(dateStr) {
+        if (!dateStr) return null;
+        const parts = dateStr.split('/');
+        if (parts.length === 3) {
+            const day = parseInt(parts[0], 10);
+            const month = parseInt(parts[1], 10) - 1;
+            let year = parseInt(parts[2], 10);
+
+            if (year < 100) {
+                year += 2000;
+            }
+
+            return new Date(year, month, day);
+        }
+        return null;
+    },
+
+    formatDateDisplay(date) {
+        if (!date) return '';
+        return date.toLocaleDateString('vi-VN');
+    },
+
+    formatDateValue(date) {
+        if (!date) return '';
+        return date.toISOString().split('T')[0];
+    },
+
+    validateDateRange(rangeValue) {
+        if (!rangeValue || rangeValue.indexOf(' - ') === -1) {
+            return true;
+        }
+
+        const parts = rangeValue.split(' - ');
+        if (parts.length !== 2) return true;
+
+        const fromDate = this.parseVietnameseDate(parts[0]);
+        const toDate = this.parseVietnameseDate(parts[1]);
+
+        if (fromDate && toDate && fromDate > toDate) {
+            alert('Ngày bắt đầu không thể lớn hơn ngày kết thúc');
+            return false;
+        }
+        return true;
+    },
+
+    parseDateRange(rangeValue) {
+        if (!rangeValue || rangeValue.indexOf(' - ') === -1) {
+            return { start: null, end: null };
+        }
+
+        const parts = rangeValue.split(' - ');
+        if (parts.length !== 2) {
+            return { start: null, end: null };
+        }
+
+        return {
+            start: this.parseVietnameseDate(parts[0]),
+            end: this.parseVietnameseDate(parts[1])
+        };
+    }
+};
+
+// Export for use
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = { CustomCalendar, GlobalCalendar, DateUtils };
+}

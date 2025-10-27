@@ -1,0 +1,767 @@
+/* Vanilla Date Range Picker CSS - No Dependencies */
+/* Responsive cho tất cả các thiết bị */
+
+/* Khóa scroll body khi popup mở */
+body.daterangepicker-open {
+    overflow: hidden !important;
+    position: fixed !important;
+    width: 100% !important;
+    height: 100% !important;
+    touch-action: none !important;
+    -webkit-overflow-scrolling: auto !important;
+}
+
+html.daterangepicker-open {
+    overflow: hidden !important;
+}
+
+.daterangepicker-container {
+    width: 100%;
+    position: fixed;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    padding: 20px;
+    z-index: 9999;
+    display: none;
+    /* min-width: 650px; */
+    /* max-width: 90vw; */
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.3s ease;
+    pointer-events: auto;
+    touch-action: auto;
+}
+
+.daterangepicker-container * {
+    pointer-events: auto;
+}
+
+.daterangepicker-container.show {
+    display: grid;
+    flex-direction: column;
+    gap: 0;
+}
+
+.daterangepicker-content {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    flex: 1;
+}
+
+.daterangepicker-shortcuts {
+    border-right: 1px solid #e0e0e0;
+    padding-right: 15px;
+    min-width: 150px;
+    flex-shrink: 0;
+}
+
+.daterangepicker-shortcuts ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.daterangepicker-shortcuts li {
+    padding: 10px 14px;
+    cursor: pointer;
+    border-radius: 6px;
+    margin-bottom: 6px;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.daterangepicker-shortcuts li:hover {
+    background-color: #f0f0f0;
+}
+
+.daterangepicker-shortcuts li.active {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.daterangepicker-calendars {
+    display: flex;
+    gap: 20px;
+}
+
+.daterangepicker-calendar {
+    min-width: 250px;
+}
+
+.daterangepicker-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 5px 0;
+}
+
+.daterangepicker-header button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 5px 10px;
+    color: #333;
+}
+
+.daterangepicker-header button:hover {
+    background-color: #f0f0f0;
+    border-radius: 4px;
+}
+
+.daterangepicker-header button:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.daterangepicker-month-year {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.daterangepicker-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.daterangepicker-table th {
+    padding: 8px 4px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+    color: #666;
+}
+
+.daterangepicker-table td {
+    padding: 0;
+    text-align: center;
+}
+
+.daterangepicker-day {
+    width: 36px;
+    height: 36px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #333;
+    transition: all 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+}
+
+.daterangepicker-day:hover:not(.disabled):not(.other-month) {
+    background-color: #f0f0f0;
+}
+
+.daterangepicker-day.other-month {
+    color: #ccc;
+}
+
+.daterangepicker-day.disabled {
+    color: #ddd;
+    cursor: not-allowed;
+}
+
+.daterangepicker-day.today {
+    font-weight: 700;
+    color: #007bff;
+}
+
+.daterangepicker-day.selected {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.daterangepicker-day.in-range {
+    background-color: #e3f2fd;
+    color: #333;
+}
+
+.daterangepicker-day.hover-range {
+    background-color: #e3f2fd;
+    color: #333;
+    opacity: 0.7;
+}
+
+.daterangepicker-day.start-date {
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 4px 0 0 4px;
+}
+
+.daterangepicker-day.end-date {
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 0 4px 4px 0;
+}
+
+.daterangepicker-day.start-date.end-date {
+    border-radius: 4px;
+}
+
+.daterangepicker-footer {
+    display: flex;
+    /* flex-direction: column; */
+    gap: 10px;
+    margin-top: 0;
+    padding-top: 15px;
+    border-top: 1px solid #e0e0e0;
+    width: 100%;
+    flex-shrink: 0;
+}
+
+.daterangepicker-btn {
+    padding: 12px 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    background-color: #fff;
+    width: 100%;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.daterangepicker-btn:hover {
+    background-color: #f0f0f0;
+}
+
+.daterangepicker-btn.primary {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+    order: 2;
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
+}
+
+.daterangepicker-btn.primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+    box-shadow: 0 4px 12px rgba(0, 86, 179, 0.4);
+}
+
+.daterangepicker-btn:not(.primary) {
+    order: 1;
+    background-color: #f8f9fa;
+    color: #6c757d;
+    border-color: #dee2e6;
+}
+
+.daterangepicker-btn:not(.primary):hover {
+    background-color: #e9ecef;
+    color: #495057;
+}
+
+.daterangepicker-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9998;
+    display: none;
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    touch-action: none;
+    -webkit-overflow-scrolling: auto;
+    overscroll-behavior: contain;
+}
+
+.daterangepicker-overlay.show {
+    display: block;
+    pointer-events: auto;
+}
+
+.daterangepicker-overlay.show * {
+    pointer-events: none;
+}
+
+/* ========================================
+   RESPONSIVE BREAKPOINTS - 7 Kích Thước
+   ======================================== */
+
+/* 4K & Ultra Wide Screens - 2560px+ */
+@media screen and (min-width:2560px) {
+    .daterangepicker-container {
+        min-width: 750px;
+        padding: 25px;
+    }
+
+    .daterangepicker-calendar {
+        min-width: 300px;
+    }
+
+    .daterangepicker-day {
+        width: 42px;
+        height: 42px;
+        font-size: 16px;
+    }
+}
+
+/* Large Desktop - 1400px+ */
+@media screen and (min-width:1400px) {
+    .daterangepicker-container {
+        max-width: 800px;
+    }
+
+    .daterangepicker-calendar {
+        min-width: 270px;
+    }
+}
+
+/* Desktop - 1200px to 1399.98px */
+@media screen and (min-width:1200px) and (max-width:1399.98px) {
+    .daterangepicker-container {
+        min-width: 450px;
+        max-width: 800px;
+    }
+}
+
+/* Laptop / Small Desktop - 992px to 1199.98px */
+@media screen and (min-width:992px) and (max-width:1199.98px) {
+    .daterangepicker-container {
+        min-width: 600px;
+        max-width: 800px;
+    }
+
+    .daterangepicker-shortcuts {
+        min-width: 140px;
+    }
+
+    .daterangepicker-calendar {
+        min-width: 230px;
+    }
+}
+
+/* Tablet - 768px to 991.98px */
+@media screen and (min-width:768px) and (max-width:991.98px) {
+    .daterangepicker-container {
+        min-width: 700px;
+        max-width: 90vw;
+        padding: 18px;
+    }
+
+    .daterangepicker-content {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    /* ẨN shortcuts trên tablet */
+    .daterangepicker-shortcuts {
+        display: none !important;
+    }
+
+    /* Chỉ hiển thị 1 tháng trên tablet */
+    .daterangepicker-calendar[data-position="right"] {
+        /* display: none; */
+    }
+
+    .daterangepicker-calendar {
+        width: 100%;
+    }
+
+    .daterangepicker-day {
+        width: 40px;
+        height: 40px;
+        font-size: 14px;
+    }
+
+    .daterangepicker-footer {
+        margin-top: 15px;
+    }
+
+    .daterangepicker-btn {
+        min-height: 44px;
+    }
+}
+
+/* Large Phone - 480px to 767.98px */
+@media screen and (min-width:480px) and (max-width:767.98px) {
+    .daterangepicker-container {
+        position: fixed !important;
+        flex-direction: column;
+        /* min-width: 300px; */
+        /* max-width: 95vw; */
+        /* width: 340px; */
+        padding: 15px;
+        /* max-height: 90vh; */
+        overflow: hidden;
+    }
+
+    .daterangepicker-content {
+        /* flex-direction: column; */
+        /* gap: 0; */
+        flex: 1;
+        overflow-y: auto;
+    }
+
+    /* ẨN shortcuts */
+    .daterangepicker-shortcuts {
+        display: none !important;
+    }
+
+    .daterangepicker-calendars {
+        flex-direction: column;
+        gap: 0;
+        overflow: hidden;
+    }
+
+    /* Chỉ hiển thị 1 tháng */
+    .daterangepicker-calendar[data-position="right"] {
+        /* display: none; */
+    }
+
+    .daterangepicker-calendar {
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .daterangepicker-table {
+        width: 100%;
+        table-layout: fixed;
+    }
+
+    .daterangepicker-day {
+        width: 42px;
+        height: 42px;
+        font-size: 15px;
+    }
+
+    .daterangepicker-header button {
+        padding: 8px 12px;
+        font-size: 20px;
+    }
+
+    .daterangepicker-month-year {
+        font-size: 16px;
+        font-weight: 700;
+    }
+
+    .daterangepicker-footer {
+        gap: 10px;
+        margin-top: 15px;
+        padding-top: 15px;
+    }
+
+    .daterangepicker-btn {
+        padding: 14px 16px;
+        font-size: 15px;
+        min-height: 50px;
+    }
+}
+
+/* Small Phone - 479.98px and below */
+@media screen and (max-width:479.98px) {
+    .daterangepicker-container {
+        position: fixed !important;
+        flex-direction: column;
+        min-width: 280px;
+        /* max-width: 98vw; */
+        /* width: 300px; */
+        padding: 12px;
+        max-height: 92vh;
+        overflow: hidden;
+    }
+
+    .daterangepicker-content {
+        flex-direction: column;
+        gap: 0;
+        flex: 1;
+        overflow-y: auto;
+    }
+
+    /* ẨN shortcuts */
+    .daterangepicker-shortcuts {
+        display: none !important;
+    }
+
+    .daterangepicker-calendars {
+        flex-direction: column;
+        gap: 0;
+        overflow: hidden;
+    }
+
+    /* Chỉ hiển thị 1 tháng */
+    .daterangepicker-calendar[data-position="right"] {
+        /* display: none; */
+    }
+
+    .daterangepicker-calendar {
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .daterangepicker-table {
+        width: 100%;
+        table-layout: fixed;
+    }
+
+    .daterangepicker-day {
+        width: 38px;
+        height: 38px;
+        font-size: 13px;
+    }
+
+    .daterangepicker-table th {
+        font-size: 11px;
+        padding: 6px 2px;
+    }
+
+    .daterangepicker-header button {
+        padding: 6px 10px;
+        font-size: 18px;
+    }
+
+    .daterangepicker-month-year {
+        font-size: 14px;
+    }
+
+    .daterangepicker-footer {
+        gap: 8px;
+        margin-top: 12px;
+        padding-top: 12px;
+    }
+
+    .daterangepicker-btn {
+        padding: 12px 14px;
+        font-size: 14px;
+        min-height: 46px;
+    }
+}
+
+/* Special Cases - Landscape & Touch Devices */
+@media (max-height: 500px) and (orientation: landscape) {
+    .daterangepicker-container {
+        max-height: 95vh !important;
+        width: auto !important;
+        min-width: 320px !important;
+        padding: 10px !important;
+    }
+
+    .daterangepicker-shortcuts {
+        display: none !important;
+    }
+
+    .daterangepicker-calendar[data-position="right"] {
+        display: none !important;
+    }
+
+    .daterangepicker-content {
+        overflow-y: auto !important;
+    }
+}
+
+@media (hover: none) and (pointer: coarse) {
+    .daterangepicker-day {
+        min-width: 40px;
+        min-height: 40px;
+    }
+
+    .daterangepicker-shortcuts li {
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .daterangepicker-btn {
+        min-height: 44px;
+    }
+}
+
+/* Global Calendar Popup */
+.global-calendar {
+    position: fixed;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    z-index: 9999;
+    padding: 20px;
+    animation: slideDown 0.3s ease-out;
+    border: 1px solid #e9ecef;
+    min-width: 280px;
+}
+
+/* Custom Calendar Popup */
+.custom-calendar {
+    position: absolute;
+    left: 0;
+    right: 0;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    padding: 20px;
+    margin-top: 8px;
+    animation: slideDown 0.3s ease-out;
+    border: 1px solid #e9ecef;
+}
+
+.custom-calendar::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 20px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid white;
+    filter: drop-shadow(0 -2px 2px rgba(0, 0, 0, 0.1));
+}
+
+.calendar-header-date {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.month-year {
+    font-weight: 600;
+    font-size: 16px;
+    color: #333;
+}
+
+.btn-nav {
+    background: none;
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 16px;
+    color: #666;
+    transition: all 0.2s ease;
+}
+
+.btn-nav:hover {
+    background: #f8f9fa;
+    color: #4A90E2;
+}
+
+.calendar-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+.weekday {
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+    color: #666;
+    padding: 8px 4px;
+}
+
+.calendar-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+}
+
+.calendar-day {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    margin: 0 auto;
+}
+
+.calendar-day:hover {
+    background: #e3f2fd;
+    color: #1976d2;
+}
+
+.calendar-day.selected {
+    background: #4A90E2;
+    color: white;
+}
+
+.calendar-day.today {
+    background: #fff3e0;
+    color: #f57c00;
+    font-weight: 600;
+}
+
+.calendar-day.other-month {
+    color: #ccc;
+}
+
+.calendar-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.btn-calendar {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-clear {
+    background: #f8f9fa;
+    color: #666;
+}
+
+.btn-clear:hover {
+    background: #e9ecef;
+}
+
+.btn-today {
+    background: #4A90E2;
+    color: white;
+}
+
+.btn-today:hover {
+    background: #357ABD;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .custom-calendar {
+        margin: 10px;
+        padding: 15px;
+    }
+}
