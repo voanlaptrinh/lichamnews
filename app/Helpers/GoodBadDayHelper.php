@@ -40,6 +40,7 @@ class GoodBadDayHelper
             $dayCanChi = LunarHelper::canchiNgayByJD($jd);
 
             $birthCanChi = LunarHelper::canchiNam($birthDate);
+         
             $dayChi = explode(' ', $dayCanChi)[1];
             $birthChi = explode(' ', $birthCanChi)[1];
             $thaiTueResult = ThaiTueHelper::evaluateThaiTueByPurpose($dayChi, $birthChi, $effectivePurpose);
@@ -51,7 +52,6 @@ class GoodBadDayHelper
         $vanKhiNormalized = (float) $vanKhiResult['normalizedScore'];
         $vanKhiWeightedScore = $vanKhiNormalized * self::getWeight($effectivePurpose, 'VanKhi', $isPersonalized);
         $allIssues = array_merge($allIssues, $vanKhiResult['issues'] ?? []);
-       
         
         // 4. Cát Hung
         $catHungResult = CatHungHelper::evaluateCatHung($date, $effectivePurpose);
@@ -79,6 +79,8 @@ class GoodBadDayHelper
         // 8. Chuẩn hóa điểm cuối cùng về [-2, 2]
         // CẢI TIẾN 3: Rút gọn công thức cho dễ đọc, kết quả không đổi
         $normalizedScore = ($totalWeights == 0) ? 0.0 : ($totalWeightedScore / $totalWeights);
+
+        
         // Kẹp giá trị trong khoảng [-2.0, 2.0]
         $normalizedScore = max(-2.0, min(2.0, $normalizedScore));
       
@@ -112,6 +114,7 @@ class GoodBadDayHelper
         }
         // --- Trả về kết quả cuối cùng ---
         return [
+            'checkTabooDays' => $tabooResult ?? '',
             'score' => $normalizedScore,
             'percentage' => round($percentage, 2), // Làm tròn phần trăm cho đẹp
             'rating' => $rating,
@@ -202,14 +205,15 @@ class GoodBadDayHelper
 
     public static function getTabooDays(Carbon $date): array
     {
+
         return [
             "Tam Nương" => self::isTamNuong($date),
             "Nguyệt Kỵ" => self::isNguyetKy($date),
             "Nguyệt Tận" => self::isNguyetTan($date),
-            "Dương Công Kỵ Nhật" => self::isDuongCongKyNhat($date),
+            "Dương Công Kỵ Nhật" => self::isDuongCongKyNhat(date: $date),
             "Sát Chủ Âm" => self::isSatChuAm($date),
             "Sát Chủ Dương" => self::isSatChuDuong($date),
-            "Kim Thần Thất Sát" => self::isKimThanThatSat($date),
+            "Kim Thần Thất Sát" => self::isKimThanThatSat(date: $date),
             "Trùng Phục" => self::isTrungPhuc($date),
             "Thụ Tử" => self::isThuTu($date),
         ];
@@ -218,6 +222,7 @@ class GoodBadDayHelper
     public static function getApplicableTabooDays(Carbon $date): array
     {
         $tabooDays = self::getTabooDays($date);
+       
         $descriptions = DataHelper::$tabooDayDescriptions ?? [];
 
         $result = [];
@@ -249,7 +254,7 @@ class GoodBadDayHelper
         $month = (int)$date->format('m');
         $year = (int)$date->format('Y');
         $lunar = lunarHelper::convertSolar2Lunar($day, $month, $year);
-        return in_array($lunar[0], DataHelper::$nguyetKyDays);
+        return in_array((int)$lunar[0], DataHelper::$nguyetKyDays);
     }
 
     public static function isNguyetTan(\DateTime $date): bool

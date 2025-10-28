@@ -92,7 +92,6 @@ class KhiVanHelper
         $canCanScore = $isPersonalized ? (float)($canCanResult['score'] ?? 0.0) : 0.0;
         $chiChiScore = $isPersonalized ? (float)($chiChiResult['score'] ?? 0.0) : 0.0;
         $napAmScore = $isPersonalized ? (float)($napAmResult['score'] ?? 0.0) : 0.0;
-
         // --- BƯỚC 2: CHUYỂN ĐỔI TỪNG ĐIỂM SANG PHẦN TRĂM (0-100) ---
         $noiKhiPercent = DataHelper::$noiKhiScoreToPercentage[number_format($noiKhiScore, 1)] ?? self::defaultScoreToPercentage($noiKhiScore);
         $khiThangPercent = DataHelper::$khiThangScoreToPercentage[number_format($khiThangScore, 1)] ?? self::defaultScoreToPercentage($khiThangScore, -3.0, 3.0);
@@ -365,114 +364,53 @@ class KhiVanHelper
     }
 
     public static function calculateCanCan(Carbon $date, $birthDate = null): array
-    {
-        $carbonDate = Carbon::instance($date);
-        $day = $carbonDate->day;
-        $month = $carbonDate->month;
-        $year = $carbonDate->year;
+{
+    $carbonDate = Carbon::instance($date);
+    $day = $carbonDate->day;
+    $month = $carbonDate->month;
+    $year = $carbonDate->year;
 
-        $al = LunarHelper::convertSolar2Lunar((int)$day, (int)$month, (int)$year);
-        $jdNgayAm = LunarHelper::jdFromLunarDate((int)$al[0], (int)$al[1], (int)$al[2], (int)$al[3]);
-        $canChiDay = LunarHelper::canchiNgayByJD($jdNgayAm);
-        $dayCan = explode(' ', $canChiDay)[0] ?? null;
+    // 1️⃣ Tính Can Chi của ngày
+    $jday = LunarHelper::jdFromDate((int)$day, (int)$month, (int)$year);
+    $canChiDay = LunarHelper::canchiNgayByJD($jday);
+    $dayCan = explode(' ', $canChiDay)[0] ?? null;
 
-
-
-        if ($birthDate === null) {
-            $birthCan = ''; // Mặc định nếu không có ngày sinh
-        } else {
-            $birthCan = LunarHelper::canchiNam($birthDate);
-        }
-        if ($dayCan === $birthCan) {
-            return [
-                'score' => -0.5,
-                'description' => 'Trùng Can',
-                'type' => 'Hơi xấu',
-            ];
-        }
-
-        $canHopPairs = [
-            'Giáp,Kỷ' => 'Thổ',
-            'Ất,Canh' => 'Kim',
-            'Bính,Tân' => 'Thủy',
-            'Đinh,Nhâm' => 'Mộc',
-            'Mậu,Quý' => 'Hỏa',
-        ];
-
-        foreach ($canHopPairs as $pair => $element) {
-            [$can1, $can2] = explode(',', $pair);
-            if (
-                ($dayCan === $can1 && $birthCan === $can2) ||
-                ($dayCan === $can2 && $birthCan === $can1)
-            ) {
-                return [
-                    'score' => 2.0,
-                    'description' => "Hợp hóa $element",
-                    'type' => 'Tốt',
-                ];
-            }
-        }
-
-        $canXungPairs = [
-            'Giáp,Canh',
-            'Canh,Giáp',
-            'Ất,Tân',
-            'Tân,Ất',
-            'Bính,Nhâm',
-            'Nhâm,Bính',
-            'Đinh,Quý',
-            'Quý,Đinh',
-        ];
-
-        if (in_array("$dayCan,$birthCan", $canXungPairs)) {
-            return [
-                'score' => -2.0,
-                'description' => 'Can xung',
-                'type' => 'Xấu',
-            ];
-        }
-
-        $dayCanHanh = DataHelper::$canToHanh[$dayCan] ?? 'Kim';
-        $birthCanHanh = DataHelper::$canToHanh[$birthCan] ?? ' ';
-
-        if (NguHanhRelationHelper::isSinh($birthCanHanh, $dayCanHanh)) {
-            return [
-                'score' => 1.0,
-                'description' => 'Can tuổi sinh Can ngày',
-                'type' => 'Tốt',
-            ];
-        }
-
-        if (NguHanhRelationHelper::isSinh($dayCanHanh, $birthCanHanh)) {
-            return [
-                'score' => 0.5,
-                'description' => 'Can ngày sinh Can tuổi',
-                'type' => 'Khá',
-            ];
-        }
-
-        if (NguHanhRelationHelper::isKhac($birthCanHanh, $dayCanHanh)) {
-            return [
-                'score' => -1.0,
-                'description' => 'Can tuổi khắc Can ngày',
-                'type' => 'Xấu',
-            ];
-        }
-
-        if (NguHanhRelationHelper::isKhac($dayCanHanh, $birthCanHanh)) {
-            return [
-                'score' => -1.0,
-                'description' => 'Can ngày khắc Can tuổi',
-                'type' => 'Xấu',
-            ];
-        }
-
+    // 2️⃣ Nếu không có ngày sinh -> mặc định trung tính
+    if ($birthDate === null) {
         return [
             'score' => 0.0,
-            'description' => 'Can bình thường',
-            'type' => 'Bình',
+            'description' => 'Không có ngày sinh, quan hệ trung tính',
+            'type' => 'Bình Hòa',
         ];
     }
+
+    // 3️⃣ Lấy Can của năm sinh
+    $birthCanChi = LunarHelper::canchiNam($birthDate);
+    $birthCan = explode(' ', $birthCanChi)[0] ?? null;
+
+    // 4️⃣ Kiểm tra quan hệ Can-Can trong DataHelper
+    $relationships = DataHelper::$canCanNewRelationships;
+
+    if (
+        isset($relationships[$birthCan]) &&
+        isset($relationships[$dayCan][$birthCan])
+    ) {
+        $info = $relationships[$dayCan][$birthCan];
+        return [
+            'score' => $info['baseScore'] ?? 0,
+            'description' => $info['explanation'] ?? '',
+            'type' => $info['relation'] ?? '',
+        ];
+    }
+
+    // 5️⃣ Trường hợp không tìm thấy trong bảng quan hệ
+    return [
+        'score' => 0.0,
+        'description' => "Không xác định quan hệ giữa $birthCan và $dayCan",
+        'type' => 'Không rõ',
+    ];
+}
+
 
 
 
@@ -483,11 +421,12 @@ class KhiVanHelper
         $month = $carbonDate->month;
         $year = $carbonDate->year;
 
-        $al = LunarHelper::convertSolar2Lunar((int)$day, (int)$month, (int)$year);
-        $jdNgayAm = LunarHelper::jdFromLunarDate((int)$al[0], (int)$al[1], (int)$al[2], (int)$al[3]);
-        $dayCanChi = LunarHelper::canchiNgayByJD($jdNgayAm);
+        $al = LunarHelper::convertSolar2Lunar((int)$day,  (int)$month, (int)$year);
+        // $jdNgayAm = LunarHelper::jdFromLunarDate((int)$al[0], (int)$al[1], (int)$al[2], (int)$al[3]);
+        // $dayCanChi = LunarHelper::canchiNgayByJD($jdNgayAm);
         // $dayCanChi = LunarHelper::canchiNgay($date->year, $date->month, $date->day);
-
+  $jday = LunarHelper::jdFromDate((int)$day,  (int)$month, (int)$year);
+        $dayCanChi = LunarHelper::canchiNgayByJD($jday);
 
         $dayChi = explode(' ', $dayCanChi)[1];
 
@@ -563,8 +502,9 @@ class KhiVanHelper
         $birthNapAmData = DataHelper::$napAmTable[$birthCanChi] ?? ['napAm' => 'Không xác định', 'hanh' => 'Kim'];
         $dayNapAmName = $dayNapAmData['napAm'];
         $birthNapAmName = $birthNapAmData['napAm'];
-        $dayHanh = $dayNapAmData['hanh'];
-        $birthHanh = $birthNapAmData['hanh'];
+        $dayHanh = $dayNapAmData['hanh']; //thoor
+        $birthHanh = $birthNapAmData['hanh']; //hoar
+
         if ($birthDate === null) {
             $birthHanh = ''; // Mặc định nếu không có ngày sinh
         }
@@ -578,7 +518,7 @@ class KhiVanHelper
             $description = "Đồng hành Nạp Âm ($dayNapAmName)";
             $type = 'Tốt';
             $relationKey = 'DONG_HANH';
-        } elseif (NguHanhRelationHelper::isSinh($dayHanh, $birthHanh)) {
+        } elseif (NguHanhRelationHelper::isSinh($birthHanh, $dayHanh)) {
             $score = 1.0;
             $description = 'Nạp Âm ngày sinh Nạp Âm tuổi';
             $type = 'Tốt';

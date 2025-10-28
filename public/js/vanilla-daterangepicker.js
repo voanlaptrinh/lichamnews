@@ -130,7 +130,7 @@ class VanillaDateRangePicker {
 
         const prevBtn = document.createElement('button');
         prevBtn.type = 'button';
-        prevBtn.innerHTML = '‹';
+        prevBtn.innerHTML = '<i class="bi bi-chevron-left"></i>';
         prevBtn.className = 'prev-btn';
         prevBtn.addEventListener('click', (e) => {
             e.preventDefault();
@@ -144,7 +144,7 @@ class VanillaDateRangePicker {
 
         const nextBtn = document.createElement('button');
         nextBtn.type = 'button';
-        nextBtn.innerHTML = '›';
+        nextBtn.innerHTML = '<i class="bi bi-chevron-right"></i>';
         nextBtn.className = 'next-btn';
         nextBtn.addEventListener('click', (e) => {
             e.preventDefault();
@@ -650,6 +650,9 @@ class VanillaDateRangePicker {
 
         if (this.options.format === 'dd/mm/yy') {
             year = String(year).slice(-2);
+        } else if (this.options.format === 'dd/mm/yyyy') {
+            // Keep full year
+            year = String(year);
         }
 
         return `${day}/${month}/${year}`;
@@ -689,7 +692,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     dateRangeInputs.forEach(input => {
         new VanillaDateRangePicker(input, {
-            format: 'dd/mm/yy',
+            format: 'dd/mm/yyyy',
             shortcuts: true,
             autoApply: false
         });

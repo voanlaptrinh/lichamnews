@@ -90,7 +90,7 @@ Route::get('/llms.txt', function () {
     //xem ngày tốt xấu
   Route::prefix('xem-ngay-tot-xau')->group(function () {
     Route::get('/',  [TotXauController::class, 'showForm'])->name('totxau.form');
-     Route::post('/', [WeddingController::class, 'check'])->name('totxau.check');
+     Route::post('/check-days', [TotXauController::class, 'checkDays'])->name('totxau.checkDays');
   });
 
     // Xem tuổi để cưới hỏi

@@ -1,8 +1,6 @@
 @extends('welcome')
 @section('content')
-@push('styles')
-      <link rel="stylesheet" href="{{ asset('/css/tools.css') }}">
-@endpush
+
     <div class="container-setup">
         <h6 class="content-title-detail"><a href="{{ route('home') }}"
                 style="color: #2254AB; text-decoration: underline;">Trang chủ</a><i class="bi bi-chevron-right"></i> <a
@@ -155,31 +153,121 @@
                     return;
                 }
 
-                // Convert Vietnamese dates to ISO format for backend
+                // Convert Vietnamese dates to proper format for backend
                 const ngayXemDate = DateUtils.parseVietnameseDate(ngayXemValue);
-                const dateRange = DateUtils.parseDateRange(khoangNgay.value);
+
+                // Format birthdate as d/m/Y for backend
+                let formattedBirthdate = '';
+                if (ngayXemDate) {
+                    const day = String(ngayXemDate.getDate()).padStart(2, '0');
+                    const month = String(ngayXemDate.getMonth() + 1).padStart(2, '0');
+                    const year = ngayXemDate.getFullYear();
+                    formattedBirthdate = `${day}/${month}/${year}`;
+                }
+
+                // Parse date range to get start and end dates
+                // Date range format: "28/10/25 - 30/10/25"
+                const dateRangeParts = khoangNgay.value.split(' - ');
+                let startDate = '';
+                let endDate = '';
+
+                if (dateRangeParts.length === 2) {
+                    // Parse start date (format: dd/mm/yy)
+                    const startParts = dateRangeParts[0].trim().split('/');
+                    if (startParts.length === 3) {
+                        const day = startParts[0].padStart(2, '0');
+                        const month = startParts[1].padStart(2, '0');
+                        let year = startParts[2];
+                        // Convert 2-digit year to 4-digit
+                        if (year.length === 2) {
+                            year = '20' + year;
+                        }
+                        startDate = `${day}/${month}/${year}`;
+                    }
+
+                    // Parse end date (format: dd/mm/yy)
+                    const endParts = dateRangeParts[1].trim().split('/');
+                    if (endParts.length === 3) {
+                        const day = endParts[0].padStart(2, '0');
+                        const month = endParts[1].padStart(2, '0');
+                        let year = endParts[2];
+                        // Convert 2-digit year to 4-digit
+                        if (year.length === 2) {
+                            year = '20' + year;
+                        }
+                        endDate = `${day}/${month}/${year}`;
+                    }
+                } else if (dateRangeParts.length === 1) {
+                    // Single date, use it for both start and end
+                    const dateParts = dateRangeParts[0].trim().split('/');
+                    if (dateParts.length === 3) {
+                        const day = dateParts[0].padStart(2, '0');
+                        const month = dateParts[1].padStart(2, '0');
+                        let year = dateParts[2];
+                        // Convert 2-digit year to 4-digit
+                        if (year.length === 2) {
+                            year = '20' + year;
+                        }
+                        startDate = endDate = `${day}/${month}/${year}`;
+                    }
+                }
 
                 // Process form data
                 const formData = {
-                    ngayXem: ngayXemDate ? DateUtils.formatDateValue(ngayXemDate) : '',
-                    tuNgay: dateRange.start ? DateUtils.formatDateValue(dateRange.start) : '',
-                    denNgay: dateRange.end ? DateUtils.formatDateValue(dateRange.end) : '',
-                    khoangNgay: khoangNgay.value,
-                    // Display values
-                    ngayXemDisplay: ngayXemValue,
-                    khoangNgayDisplay: khoangNgay.value
+                    birthdate: formattedBirthdate,
+                    date_range: khoangNgay.value,
+                    start_date: startDate,
+                    end_date: endDate,
+                    _token: '{{ csrf_token() }}'
                 };
 
-                console.log('Form data:', formData);
-                alert('Đã nhận thông tin:\nNgày xem: ' + ngayXemValue + '\nKhoảng ngày: ' + khoangNgay.value);
+                // Show loading state
+                const submitBtn = form.querySelector('button[type="submit"]');
+                const originalBtnText = submitBtn.innerHTML;
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Đang xử lý...';
 
-                // TODO: Submit to backend
-                // fetch('/api/tot-xau', {
-                //     method: 'POST',
-                //     headers: { 'Content-Type': 'application/json' },
-                //     body: JSON.stringify(formData)
-                // });
+                // Submit to backend using AJAX
+                fetch('{{ route("totxau.checkDays") }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Reset button state
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalBtnText;
+
+                    if (data.success) {
+                        // Update UI with results
+                        const resultContainer = document.querySelector('.col-lg-8');
+                        resultContainer.innerHTML = data.html;
+                    } else if (data.errors) {
+                        // Show validation errors
+                        let errorMessage = 'Vui lòng kiểm tra lại:\n';
+                        for (const field in data.errors) {
+                            errorMessage += '- ' + data.errors[field][0] + '\n';
+                        }
+                        alert(errorMessage);
+                    } else {
+                        alert('Có lỗi xảy ra. Vui lòng thử lại.');
+                    }
+                })
+                .catch(error => {
+                    // Reset button state
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalBtnText;
+
+                    console.error('Error:', error);
+                    alert('Có lỗi xảy ra khi kết nối. Vui lòng thử lại.');
             });
+            });
+
         });
     </script>
 @endsection

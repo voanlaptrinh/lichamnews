@@ -51,7 +51,7 @@ class FunctionHelper
         ];
     }
 
-    public static function getDaySummaryInfo(int $dd, int $mm, int $yy, $birthdate): array
+    public static function getDaySummaryInfo(int $dd, int $mm, int $yy, $birthdate, $purpose = ''): array
     {
         $isPersonalized = !empty($birthdate);
     

@@ -158,7 +158,7 @@ html.daterangepicker-open {
 }
 
 .daterangepicker-day:hover:not(.disabled):not(.other-month) {
-    background-color: #f0f0f0;
+    background-color: #fd7878;
 }
 
 .daterangepicker-day.other-month {
@@ -393,7 +393,7 @@ html.daterangepicker-open {
         flex-direction: column;
         /* min-width: 300px; */
         /* max-width: 95vw; */
-        /* width: 340px; */
+        width: 440px;
         padding: 15px;
         /* max-height: 90vh; */
         overflow: hidden;
@@ -508,8 +508,8 @@ html.daterangepicker-open {
     }
 
     .daterangepicker-day {
-        width: 38px;
-        height: 38px;
+        width: 100%;
+        height: 100%;
         font-size: 13px;
     }
 
@@ -764,4 +764,242 @@ html.daterangepicker-open {
         margin: 10px;
         padding: 15px;
     }
+}
+.font-tools {
+    background: linear-gradient(180deg, #2254AB, #409BF1);
+    border-radius: 32px;
+}
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    min-height: 400px;
+}
+
+.table {
+    width: 100% !important;
+    margin-bottom: 1rem;
+    background-color: white;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.table thead th {
+    background-color: #f8f9fa;
+    /* border-bottom: 2px solid #dee2e6; */
+    font-weight: 600;
+    border: 1px solid white;
+    color: #495057;
+    padding: 15px 12px;
+    white-space: nowrap;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: #e8ebee;
+}
+
+.table tbody tr {
+    border-bottom: 1px solid #f0f0f0;
+    transition: all 0.2s ease;
+}
+
+.table tbody tr:hover {
+    background-color: #f8f9fa;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.table tbody td {
+    padding: 12px;
+    border: 1px solid white;
+    vertical-align: middle;
+    background: #EDF0F3;
+    /* border-bottom: 1px solid #f0f0f0; */
+}
+
+/* Badge Styles */
+.badge {
+    font-size: 14px;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 20px;
+    min-width: 60px;
+    text-align: center;
+    display: inline-block;
+}
+
+
+
+/* Responsive for Mobile */
+@media (max-width: 768px) {
+    .table {
+        font-size: 13px;
+    }
+
+    .table thead th {
+        padding: 10px 8px;
+        font-size: 12px;
+    }
+
+    .table tbody td {
+        padding: 8px;
+    }
+
+    .badge {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+
+ 
+   
+
+    /* Stack date info vertically on mobile */
+    .table tbody td:first-child {
+        min-width: 120px;
+    }
+
+    .table tbody td:first-child strong {
+        font-size: 12px;
+    }
+
+    .table tbody td:first-child .text-muted {
+        font-size: 10px;
+    }
+
+    /* Make select smaller on mobile */
+    .sort-select {
+        font-size: 12px !important;
+        padding: 4px 8px !important;
+    }
+
+    /* Adjust card padding on mobile */
+ 
+
+  
+}
+
+/* Tablet responsive */
+@media (min-width: 768px) and (max-width: 992px) {
+    .table {
+        font-size: 14px;
+    }
+
+    .table thead th {
+        padding: 12px 10px;
+    }
+
+    .table tbody td {
+        padding: 10px;
+    }
+}
+
+/* Desktop styles */
+@media (min-width: 992px) {
+    .table-responsive {
+        overflow: visible;
+    }
+
+    .table {
+        font-size: 15px;
+    }
+
+    .table thead th {
+        padding: 5px;
+    }
+
+    .table tbody td {
+        padding: 14px;
+    }
+}
+
+/* Year tabs styles */
+.year-tabs {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+  
+}
+
+.year-tabs .nav-pills {
+    display: inline-flex;
+    flex-wrap: nowrap;
+    min-width: 100%;
+    background: white;
+    padding: 8px;
+    border-radius: 24px;
+}
+
+.year-tabs .nav-link {
+    background-color: #f0f0f0;
+    color: #666;
+    font-weight: 500;
+    transition: all 0.3s;
+    white-space: nowrap;
+}
+
+.year-tabs .nav-link.active {
+    background-color: #6c757d;
+    color: white;
+    box-shadow: 0 2px 8px rgba(108, 117, 125, 0.3);
+}
+
+.year-tabs .nav-link:hover:not(.active) {
+    background-color: #e0e0e0;
+    transform: translateY(-2px);
+}
+
+/* Scrollbar styles */
+.table-responsive::-webkit-scrollbar {
+    height: 8px;
+}
+
+.table-responsive::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.box-detial-year{
+    background: white;
+    border-radius: 32px;
+}
+/* Info grid responsive */
+.info-grid {
+    /* display: grid; */
+    /* gap: 10px; */
+}
+
+@media (min-width: 768px) {
+    .info-grid {
+        /* grid-template-columns: 1fr 1fr; */
+        /* gap: 15px; */
+    }
+}
+
+/* Sort select custom style */
+.sort-select {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: white;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.sort-select:hover {
+    border-color: #999;
+}
+
+.sort-select:focus {
+    outline: none;
+    border-color: #6c757d;
+    box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.25);
+}
+.box1-con-year{
+    padding: 24px;
 }
