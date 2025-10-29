@@ -14,6 +14,7 @@ class CustomCalendar {
 
         this.currentDate = new Date();
         this.selectedDate = null;
+        this.pickerVisible = false;
 
         this.init();
     }
@@ -27,12 +28,21 @@ class CustomCalendar {
             return;
         }
 
+        // Main calendar elements
         this.monthYear = this.calendar.querySelector('[id*="monthYear"]');
         this.calendarDays = this.calendar.querySelector('[id*="calendarDays"]');
+        this.weekdays = this.calendar.querySelector('.calendar-weekdays');
         this.prevBtn = this.calendar.querySelector('[id*="prevMonth"]');
         this.nextBtn = this.calendar.querySelector('[id*="nextMonth"]');
         this.clearBtn = this.calendar.querySelector('[id*="clearDate"]');
         this.todayBtn = this.calendar.querySelector('[id*="todayDate"]');
+
+        // Picker elements
+        this.picker = this.calendar.querySelector('#monthYearPicker');
+        this.pickerYear = this.calendar.querySelector('#pickerYear');
+        this.pickerPrevYear = this.calendar.querySelector('#pickerPrevYear');
+        this.pickerNextYear = this.calendar.querySelector('#pickerNextYear');
+        this.monthGrid = this.calendar.querySelector('#monthGrid');
 
         this.monthNames = [
             'Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4',
@@ -42,7 +52,6 @@ class CustomCalendar {
 
         this.setupEventListeners();
 
-        // Set default date
         if (this.options.defaultToToday) {
             const today = new Date();
             this.selectedDate = today;
@@ -53,7 +62,6 @@ class CustomCalendar {
     }
 
     setupEventListeners() {
-        // Toggle calendar
         this.input.addEventListener('click', (e) => {
             e.stopPropagation();
             this.calendar.style.display = this.calendar.style.display === 'none' ? 'block' : 'none';
@@ -62,7 +70,8 @@ class CustomCalendar {
             }
         });
 
-        // Navigation
+        this.monthYear.addEventListener('click', () => this.togglePicker());
+
         if (this.prevBtn) {
             this.prevBtn.addEventListener('click', () => {
                 this.currentDate.setMonth(this.currentDate.getMonth() - 1);
@@ -77,7 +86,6 @@ class CustomCalendar {
             });
         }
 
-        // Actions
         if (this.clearBtn) {
             this.clearBtn.addEventListener('click', () => {
                 this.selectedDate = null;
@@ -98,12 +106,64 @@ class CustomCalendar {
             });
         }
 
-        // Hide on outside click
+        // Picker navigation
+        this.pickerPrevYear.addEventListener('click', () => {
+            this.currentDate.setFullYear(this.currentDate.getFullYear() - 1);
+            this.generateMonthPicker(this.currentDate.getFullYear());
+        });
+
+        this.pickerNextYear.addEventListener('click', () => {
+            this.currentDate.setFullYear(this.currentDate.getFullYear() + 1);
+            this.generateMonthPicker(this.currentDate.getFullYear());
+        });
+
         document.addEventListener('click', (e) => {
             if (!e.target.closest('.input-group') && !e.target.closest('.custom-calendar')) {
                 this.calendar.style.display = 'none';
             }
         });
+    }
+
+    togglePicker() {
+        this.pickerVisible = !this.pickerVisible;
+        if (this.pickerVisible) {
+            this.calendarDays.style.display = 'none';
+            this.weekdays.style.display = 'none';
+            this.picker.style.display = 'block';
+            this.generateMonthPicker(this.currentDate.getFullYear());
+        } else {
+            this.calendarDays.style.display = 'grid';
+            this.weekdays.style.display = 'grid';
+            this.picker.style.display = 'none';
+            this.generateCalendar(this.currentDate);
+        }
+    }
+
+    generateMonthPicker(year) {
+        this.pickerYear.textContent = year;
+        this.monthGrid.innerHTML = '';
+        const today = new Date();
+        const currentYear = today.getFullYear();
+        const currentMonth = today.getMonth();
+
+        this.pickerNextYear.disabled = year >= currentYear;
+
+        for (let i = 0; i < 12; i++) {
+            const monthEl = document.createElement('div');
+            monthEl.className = 'month-item';
+            monthEl.textContent = this.monthNames[i];
+            monthEl.dataset.month = i;
+
+            if (year > currentYear || (year === currentYear && i > currentMonth)) {
+                monthEl.classList.add('disabled');
+            } else {
+                monthEl.addEventListener('click', () => {
+                    this.currentDate.setFullYear(year, i, 1);
+                    this.togglePicker();
+                });
+            }
+            this.monthGrid.appendChild(monthEl);
+        }
     }
 
     generateCalendar(date) {
@@ -118,26 +178,28 @@ class CustomCalendar {
 
         this.calendarDays.innerHTML = '';
 
-        // Previous month days
         for (let i = firstDayWeek - 1; i >= 0; i--) {
             const day = new Date(year, month, -i);
-            const dayEl = this.createDayElement(day, true);
-            this.calendarDays.appendChild(dayEl);
+            this.calendarDays.appendChild(this.createDayElement(day, true));
         }
 
-        // Current month days
         for (let day = 1; day <= lastDay.getDate(); day++) {
             const dayDate = new Date(year, month, day);
-            const dayEl = this.createDayElement(dayDate, false);
-            this.calendarDays.appendChild(dayEl);
+            this.calendarDays.appendChild(this.createDayElement(dayDate, false));
         }
 
-        // Next month days
         const remainingCells = 42 - this.calendarDays.children.length;
         for (let day = 1; day <= remainingCells; day++) {
             const dayDate = new Date(year, month + 1, day);
-            const dayEl = this.createDayElement(dayDate, true);
-            this.calendarDays.appendChild(dayEl);
+            this.calendarDays.appendChild(this.createDayElement(dayDate, true));
+        }
+
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        if (this.nextBtn) {
+            const nextMonthDate = new Date(date);
+            nextMonthDate.setMonth(date.getMonth() + 1, 1);
+            this.nextBtn.disabled = nextMonthDate > today;
         }
     }
 
@@ -146,28 +208,23 @@ class CustomCalendar {
         dayEl.className = 'calendar-day';
         dayEl.textContent = date.getDate();
 
-        if (isOtherMonth) {
-            dayEl.classList.add('other-month');
-        }
-
-        // Check if today
         const today = new Date();
-        if (date.toDateString() === today.toDateString()) {
-            dayEl.classList.add('today');
-        }
+        today.setHours(0, 0, 0, 0);
 
-        // Check if selected
+        if (isOtherMonth) dayEl.classList.add('other-month');
+        if (date > today) dayEl.classList.add('disabled');
+        if (date.toDateString() === today.toDateString()) dayEl.classList.add('today');
         if (this.selectedDate && date.toDateString() === this.selectedDate.toDateString()) {
             dayEl.classList.add('selected');
         }
 
         dayEl.addEventListener('click', () => {
-            if (!isOtherMonth) {
-                this.selectedDate = new Date(date);
-                this.input.value = this.formatDateDisplay(this.selectedDate);
-                this.calendar.style.display = 'none';
-                this.generateCalendar(this.currentDate);
-            }
+            if (date > today || isOtherMonth) return;
+
+            this.selectedDate = new Date(date);
+            this.input.value = this.formatDateDisplay(this.selectedDate);
+            this.calendar.style.display = 'none';
+            this.generateCalendar(this.currentDate);
         });
 
         return dayEl;
@@ -188,20 +245,13 @@ class CustomCalendar {
             const day = parseInt(parts[0], 10);
             const month = parseInt(parts[1], 10) - 1;
             let year = parseInt(parts[2], 10);
-
-            if (year < 100) {
-                year += 2000;
-            }
-
+            if (year < 100) year += 2000;
             return new Date(year, month, day);
         }
         return null;
     }
 
-    getValue() {
-        return this.input.value;
-    }
-
+    getValue() { return this.input.value; }
     setValue(dateStr) {
         const date = this.parseVietnameseDate(dateStr);
         if (date) {
@@ -210,10 +260,7 @@ class CustomCalendar {
             this.generateCalendar(date);
         }
     }
-
-    getDateObject() {
-        return this.selectedDate;
-    }
+    getDateObject() { return this.selectedDate; }
 }
 
 // Global Calendar for multiple inputs

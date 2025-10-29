@@ -152,7 +152,6 @@
     @stack('styles')
 
     {{-- Vanilla Date Range Picker CSS - Available for all views --}}
-    <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=10.0') }}">
 
 </head>
 
@@ -219,7 +218,7 @@
     @stack('scripts')
 
     {{-- Vanilla Date Range Picker JS - Auto-initialize for all .wedding_date_range inputs --}}
-    <script src="{{ asset('/js/vanilla-daterangepicker.js?v=6.0') }}" defer></script>
+   
 
     <!-- IMMEDIATE LCP optimization -->
     <script>

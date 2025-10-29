@@ -534,7 +534,7 @@ html.daterangepicker-open {
     }
 
     .daterangepicker-btn {
-        padding: 12px 14px;
+        padding: 0px;
         font-size: 14px;
         min-height: 46px;
     }
@@ -576,7 +576,7 @@ html.daterangepicker-open {
     }
 
     .daterangepicker-btn {
-        min-height: 44px;
+        min-height: 30px;
     }
 }
 
@@ -761,8 +761,8 @@ html.daterangepicker-open {
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .custom-calendar {
-        margin: 10px;
-        padding: 15px;
+        /* margin: 10px; */
+        padding: 10px;
     }
 }
 .font-tools {
@@ -1003,3 +1003,43 @@ html.daterangepicker-open {
 .box1-con-year{
     padding: 24px;
 }
+  .calendar-picker {
+        padding: 10px;
+    }
+    .picker-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+    .picker-year {
+        font-weight: bold;
+        font-size: 16px;
+    }
+    .month-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+    }
+    .month-item {
+        padding: 10px;
+        text-align: center;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .month-item:hover {
+        background-color: #f0f0f0;
+    }
+    .month-item.disabled {
+        color: #ccc;
+        cursor: not-allowed;
+        background-color: #f9f9f9;
+    }
+    .calendar-day.disabled {
+        color: #ccc;
+        cursor: not-allowed;
+        background-color: #f9f9f9;
+    }
+    .month-year{
+         text-decoration: underline;
+    }

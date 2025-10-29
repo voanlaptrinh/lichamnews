@@ -1,0 +1,128 @@
+{
+    "input": {
+        "birthdate": "28\/10\/1995",
+        "target_date": "30\/10\/2025"
+    },
+    "calculation_details": {
+        "date": "2025-10-30T03:55:54.000000Z",
+        "formatted_date": "30-10-2025",
+        "score": {
+            "checkTabooDays": {
+                "issues": []
+            },
+            "score": 0.7220000000000001,
+            "percentage": 68.05,
+            "rating": "Trung bình",
+            "issues": [],
+            "vanKhi": {
+                "score": 0.16000000000000014,
+                "weightedScore": 0.7200000000000006,
+                "details": {
+                    "noiKhi": {
+                        "score": 1,
+                        "percentage": 75,
+                        "description": "Nội khí: Chi sinh Can (Nhâm Thân)"
+                    },
+                    "khiThang": {
+                        "score": 1,
+                        "percentage": 65,
+                        "description": "<li>Can ngày Nhâm (Thủy), Can tháng Bính (Hỏa) → Can ngày khắc Can tháng: Ngày chống khí tháng – khí nghịch.<\/li><li>Chi ngày Thân (Kim), Chi tháng Tuất (Thổ) → Chi tháng sinh Chi ngày: Khí tháng nâng đỡ ngày – rất vượng khí.<\/li>",
+                        "conclusion": "Tổng khí ngày – tháng: <b>Khá<\/b> (Có hỗ trợ nhẹ từ khí tháng)"
+                    },
+                    "canCan": {
+                        "score": 2,
+                        "percentage": 100,
+                        "description": "Ngày rất tốt với tuổi – Được ngày hỗ trợ, sinh vượng khí"
+                    },
+                    "chiChi": {
+                        "score": 0,
+                        "percentage": 50,
+                        "description": "Chi ngày là Thân, Chi tuổi là Hợi → Trung bình (không xung, không hợp) (Trung bình). Ngày không xung cũng không hợp, khí vận trung tính, có thể làm việc bình thường, cần xem thêm các yếu tố khác."
+                    },
+                    "napAm": {
+                        "score": -1,
+                        "percentage": 25,
+                        "description": "Nạp Âm tuổi khắc Nạp Âm ngày"
+                    },
+                    "totalVanKhiPercentage": 54,
+                    "isPersonalizedCalculation": true
+                }
+            },
+            "catHung": {
+                "score": 1.25,
+                "weightedScore": 3.75,
+                "details": {
+                    "catScoreRaw": 9.5,
+                    "hungScoreRaw": -2,
+                    "totalScoreRaw": 7.5,
+                    "percentage": 81.25,
+                    "x_min_used": -17.5,
+                    "x_max_used": 12,
+                    "catStarsCount": 7,
+                    "hungStarsCount": 1,
+                    "catStars": [
+                        {
+                            "name": "Nguyệt Không",
+                            "description": "Cát tinh nhẹ, giải khí xấu nếu đi cùng sao tốt.",
+                            "icon": "✨"
+                        },
+                        {
+                            "name": "Dịch Mã",
+                            "description": "Tinh khí mạnh, thúc đẩy vận động – mở rộng.",
+                            "icon": "✨"
+                        },
+                        {
+                            "name": "Kim Quỹ Hoàng Đạo",
+                            "description": "Tốt cho việc cầu tài lộc, khai trương.",
+                            "icon": "✨"
+                        },
+                        {
+                            "name": "Phúc Hậu",
+                            "description": "Cát tinh âm đức mạnh – bổ trợ tổng thể tốt.",
+                            "icon": "✨"
+                        },
+                        {
+                            "name": "Sinh Khí",
+                            "description": "Đại cát – tăng toàn diện tài – khí – phúc.",
+                            "icon": "✨"
+                        },
+                        {
+                            "name": "Thiên Tài",
+                            "description": "Cát tinh mạnh về lộc, mang khí tích cực.",
+                            "icon": "✨"
+                        },
+                        {
+                            "name": "Thiên Xá",
+                            "description": "Khó xác định – tùy việc mà tốt \/ xấu.",
+                            "icon": "✨"
+                        }
+                    ],
+                    "hungStars": [
+                        {
+                            "name": "Thiên Tặc",
+                            "description": "Hung tinh rất mạnh – mất phúc lộc, vận âm quấy phá.",
+                            "icon": "⚠️"
+                        }
+                    ]
+                }
+            },
+            "tu": {
+                "score": 0.5,
+                "weightedScore": 0.75,
+                "details": {
+                    "name": "Khuê"
+                }
+            },
+            "truc": {
+                "score": 2,
+                "weightedScore": 2,
+                "details": {
+                    "name": "Khai"
+                }
+            }
+        },
+        "percentage_rounded": 68,
+        "description": "TRUNG CÁT",
+        "intro_paragraph": "Ngày 30-10-2025 là một ngày Tốt với bạn. Thích hợp để triển khai các công việc quan trọng như ký kết, đi xa, làm lễ, khai trương, động thổ… Tuy nhiên, để đạt kết quả tốt nhất, bạn vẫn nên xem lại các yếu tố như ngày kỵ, tuổi xung, sao đại hung, hoặc vận khí ngày\/tháng so với tuổi của bạn."
+    }
+}

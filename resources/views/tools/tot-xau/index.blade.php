@@ -1,5 +1,9 @@
 @extends('welcome')
 @section('content')
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=10.0') }}">
+@endpush
+
 
     <div class="container-setup">
         <h6 class="content-title-detail"><a href="{{ route('home') }}"
@@ -25,7 +29,7 @@
                                         style="border-radius: 10px; border: none; padding: 12px 45px 12px 15px; background-color: rgba(255,255,255,0.95); cursor: pointer;">
                                     <span class="input-group-text bg-transparent border-0"
                                         style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); z-index: 5;">
-                                        <i class="bi bi-calendar3 text-muted"></i>
+                                        <i class="bi-calendar-date-fill text-muted"></i>
                                     </span>
                                 </div>
                                 <!-- Custom Calendar Popup -->
@@ -51,17 +55,26 @@
                                         <button type="button" class="btn-calendar btn-clear" id="clearDate">Xóa</button>
                                         <button type="button" class="btn-calendar btn-today" id="todayDate">Hôm nay</button>
                                     </div>
+                                    <!-- Month/Year Picker -->
+                                    <div class="calendar-picker" id="monthYearPicker" style="display: none;">
+                                        <div class="picker-header">
+                                            <button type="button" class="btn-nav" id="pickerPrevYear"><i class="bi bi-chevron-left"></i></button>
+                                            <span class="picker-year" id="pickerYear"></span>
+                                            <button type="button" class="btn-nav" id="pickerNextYear"><i class="bi bi-chevron-right"></i></button>
+                                        </div>
+                                        <div class="month-grid" id="monthGrid"></div>
+                                    </div>
                                 </div>
                             </div>
                             <hr style="color: #FFFFFF66">
                             <div class="text-white fw-bold mb-3 title-tong-quan-h2-log">Khoảng thời gian cần xem</div>
                             <div class="mb-4">
                                 <div class="input-group">
-                                    <input type="text" class="form-control wedding_date_range" id="khoangNgay" placeholder="Chọn khoảng ngày (bôi đen để chọn)"
+                                    <input type="text" class="form-control wedding_date_range" id="khoangNgay" placeholder="Chọn khoảng ngày" autocomplete="off"
                                         style="border-radius: 10px; border: none; padding: 12px 45px 12px 15px; background-color: rgba(255,255,255,0.95); cursor: pointer;">
                                     <span class="input-group-text bg-transparent border-0"
                                         style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); z-index: 5; pointer-events: none;">
-                                        <i class="bi bi-calendar3 text-muted"></i>
+                                        <i class="bi-calendar-date-fill text-muted"></i>
                                     </span>
                                 </div>
                                 <small class="text-white-50 d-block mt-2" style="font-size: 12px;">
@@ -81,7 +94,7 @@
             <div class="col-lg-8 col-md-12 col-sm-12">
                 <div class="d-flex flex-column align-items-center justify-content-center h-100 text-center">
                     <div class="mb-4">
-                      <img src="{{ asset('/icons/defaild.png') }}" alt="defakd" class="img-fuild">
+                      <img src="{{ asset('/icons/defaild.png?v=1.0') }}" alt="defakd" class="img-fuild">
                     </div>
                     <p class="text-muted" style="font-size: 16px;">
                         Hiện chưa có thông tin, bạn vui lòng nhập thông tin để xem kết quả.
@@ -116,7 +129,10 @@
         </div>
     </div>
 
-    {{-- Custom Calendar Module - Reusable --}}
+   
+@endsection
+@push('scripts')
+     <script src="{{ asset('/js/vanilla-daterangepicker.js?v=6.0') }}" defer></script>
     <script src="{{ asset('/js/custom-calendar.js?v=1.0') }}"></script>
 
     <script>
@@ -135,6 +151,8 @@
             // ========== FORM HANDLING ==========
             const form = document.getElementById('totXauForm');
             const khoangNgay = document.getElementById('khoangNgay');
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn.innerHTML;
 
             // Handle form submission
             form.addEventListener('submit', function(e) {
@@ -212,18 +230,20 @@
                     }
                 }
 
+                const sortSelect = document.querySelector('[name="sort"]');
+                const sortValue = sortSelect ? sortSelect.value : 'desc';
+
                 // Process form data
                 const formData = {
                     birthdate: formattedBirthdate,
                     date_range: khoangNgay.value,
                     start_date: startDate,
                     end_date: endDate,
+                    sort: sortValue, // Add sort value
                     _token: '{{ csrf_token() }}'
                 };
 
                 // Show loading state
-                const submitBtn = form.querySelector('button[type="submit"]');
-                const originalBtnText = submitBtn.innerHTML;
                 submitBtn.disabled = true;
                 submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Đang xử lý...';
 
@@ -265,9 +285,16 @@
 
                     console.error('Error:', error);
                     alert('Có lỗi xảy ra khi kết nối. Vui lòng thử lại.');
-            });
-            });
-
+                        });
+            
+                        // Handle sorting change using event delegation
+                        const resultContainer = document.querySelector('.col-lg-8');
+                        resultContainer.addEventListener('change', function(event) {
+                            if (event.target.matches('[name="sort"]')) {
+                                form.requestSubmit();
+                            }
+                        });
+                    });
         });
     </script>
-@endsection
+@endpush

@@ -4288,6 +4288,8 @@ class DataHelper
         'Hỏa',
         'Thổ'
     ];
+
+    
     public static $SINH_RELATIONS = [
         'Mộc' => 'Hỏa',
         'Hỏa' => 'Thổ',

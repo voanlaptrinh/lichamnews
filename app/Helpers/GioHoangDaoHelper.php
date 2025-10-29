@@ -274,10 +274,17 @@ class GioHoangDaoHelper
     }
 
     // Kiểm tra Lục Hợp
-    public static function isLucHop(string $chi1, string $chi2): bool
-    {
-        return self::isValidChi($chi1) && self::isValidChi($chi2) && DataHelper::$LUC_HOP[$chi1] === $chi2;
-    }
+   public static function isLucHop(string $chi1, string $chi2): bool
+{
+    $chi1 = mb_strtolower($chi1);
+    $chi2 = mb_strtolower($chi2);
+
+    return self::isValidChi($chi1)
+        && self::isValidChi($chi2)
+        && isset(DataHelper::$LUC_HOP[$chi1])
+        && DataHelper::$LUC_HOP[$chi1] === $chi2;
+}
+
 
     // Kiểm tra Tam Hợp
     public static function isTamHop(string $chi1, string $chi2): bool

@@ -34,7 +34,7 @@ class BuyHouseController extends Controller
         $originalInputs = $input;
 
         $dateRange = $request->input('date_range');
-        $dates = $dateRange ? explode(' đến ', $dateRange) : [null, null];
+        $dates = $dateRange ? explode(' - ', $dateRange) : [null, null];
         if (count($dates) === 1) $dates[1] = $dates[0];
 
         $request->merge([
@@ -211,7 +211,7 @@ Thời điểm cát lợi, vận khí hanh thông – rất thích hợp để a
         $commonDayInfo = BadDayHelper::getdetailtable($dateToCheck);
        
         // 4. Lấy thông tin chi tiết cho Chú Rể
-        $groomData = BadDayHelper::getDetailedAnalysisForPerson($dateToCheck, $groomDob, 'Ngày mua nhà');
+        $groomData = BadDayHelper::getDetailedAnalysisForPerson($dateToCheck, $groomDob, 'Ngày mua nhà', 'MUA_NHA');
 
 
         // 6. Trả về view với toàn bộ dữ liệu

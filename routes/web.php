@@ -72,6 +72,8 @@ Route::get('/llms.txt', function () {
 */
 
 
+
+
     Route::get('/', [LunarController::class, 'index'])->name('home');
     Route::get('/lich-nam-{nam}/thang-{thang}/ngay-{ngay}', [LunarController::class, 'detail'])->name('detai_home');
     Route::post('/lunar/detail/ajax', [LunarController::class, 'detailAjax'])->name('lunar.detail.ajax');
@@ -91,6 +93,7 @@ Route::get('/llms.txt', function () {
   Route::prefix('xem-ngay-tot-xau')->group(function () {
     Route::get('/',  [TotXauController::class, 'showForm'])->name('totxau.form');
      Route::post('/check-days', [TotXauController::class, 'checkDays'])->name('totxau.checkDays');
+     Route::get('/chi-tiet/{date}', [TotXauController::class, 'showDayDetails'])->name('totxau.dayDetails');
   });
 
     // Xem tuổi để cưới hỏi

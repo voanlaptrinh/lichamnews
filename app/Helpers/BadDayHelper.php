@@ -223,7 +223,7 @@ class BadDayHelper
         ];
     }
 
-    public static function getDetailedAnalysisForPerson(Carbon $dateToCheck, Carbon $personDob, string $personTitle): array
+    public static function getDetailedAnalysisForPerson(Carbon $dateToCheck, Carbon $personDob, string $personTitle, $purpose = ''): array
     {
         $personInfo = self::getPersonBasicInfo($personDob);
         $getThongTinCanChiVaIcon = FunctionHelper::getThongTinCanChiVaIcon($dateToCheck->day, $dateToCheck->month, $dateToCheck->year);
@@ -232,7 +232,7 @@ class BadDayHelper
         return [
             'personTitle' => $personTitle,
             'personInfo' => $personInfo,
-            'score' => GoodBadDayHelper::calculateDayScore($dateToCheck, $personDob->year, 'CUOI_HOI'),
+            'score' => GoodBadDayHelper::calculateDayScore($dateToCheck, $personDob->year, $purpose),
             'noiKhiNgay' => KhiVanHelper::getDetailedNoiKhiExplanation($dateToCheck->day, $dateToCheck->month, $dateToCheck->year),
             'getThongTinCanChiVaIcon' => $getThongTinCanChiVaIcon,
             'getVongKhiNgayThang' => KhiVanHelper::getDetailedKhiThangInfo($dateToCheck),

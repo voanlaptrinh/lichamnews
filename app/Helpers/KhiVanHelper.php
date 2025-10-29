@@ -150,7 +150,7 @@ class KhiVanHelper
             if ($napAmRelationKey && in_array($napAmRelationKey, $badNapAmRelationsForRules)) {
                 $ruleLevel = self::getRule('NAP_AM', $napAmRelationKey, $purpose);
                 if (in_array($ruleLevel, ['exclude', 'warn'])) {
-                    $purposeDisplayName = self::getNapAmWarningName($napAmRelationKey);
+                    $reasonText = self::getNapAmWarningName($napAmRelationKey);
                     if ($purpose !== 'NGAY_KHAC_TUOI') {
                         $purposeDisplayName = self::getPurposeDisplayName($purpose);
                         $reasonText .= ($ruleLevel === 'exclude') ? " Kỵ thực hiện $purposeDisplayName." : " Thận trọng khi $purposeDisplayName.";
@@ -487,73 +487,158 @@ class KhiVanHelper
             'birthChi' => $birthChi,
         ];
     }
-
-
-    public static function calculateNapAm(Carbon $date, ?String $birthDate): array
+ public static function calculateNapAm(Carbon $date, ?String $birthDate): array
     {
-        $dayCanChi = LunarHelper::canchiNgayByJD(
-            LunarHelper::jdFromLunarDate(...LunarHelper::convertSolar2Lunar($date->day, $date->month, $date->year))
-        );
-        $birthCanChi = LunarHelper::canchiNam($birthDate);
-        $dayNapAmData = DataHelper::$napAmTable[$dayCanChi] ?? [
-            'napAm' => 'Không xác định',
-            'hanh' => 'Kim'
-        ];
-        $birthNapAmData = DataHelper::$napAmTable[$birthCanChi] ?? ['napAm' => 'Không xác định', 'hanh' => 'Kim'];
-        $dayNapAmName = $dayNapAmData['napAm'];
-        $birthNapAmName = $birthNapAmData['napAm'];
-        $dayHanh = $dayNapAmData['hanh']; //thoor
-        $birthHanh = $birthNapAmData['hanh']; //hoar
+    
+        try {
+           
+            $day = $date->day;
+            $month = $date->month;
+            $year = $date->year;
 
-        if ($birthDate === null) {
-            $birthHanh = ''; // Mặc định nếu không có ngày sinh
+            $jday = LunarHelper::jdFromDate((int)$day, (int)$month, (int)$year);
+            $dayCanChi = LunarHelper::canchiNgayByJD($jday);
+
+
+            $birthCanChi = LunarHelper::canchiNam($birthDate);
+
+            // 2️⃣ Lấy dữ liệu Nạp Âm từ TimeConstant
+            $dayNapAmData = DataHelper::$napAmTable[$dayCanChi] ?? ['napAm' => 'Không xác định', 'hanh' => 'Không rõ'];
+            $birthNapAmData = DataHelper::$napAmTable[$birthCanChi] ?? ['napAm' => 'Không xác định', 'hanh' => 'Không rõ'];
+
+            $dayNapAmName = $dayNapAmData['napAm'];
+            $birthNapAmName = $birthNapAmData['napAm'];
+            $dayHanh = $dayNapAmData['hanh'];
+            $birthHanh = $birthNapAmData['hanh'];
+
+            // 3️⃣ Xác định quan hệ giữa hai hành
+            if (in_array($dayHanh, ['N/A', 'Không rõ']) || in_array($birthHanh, ['N/A', 'Không rõ'])) {
+                $relationKey = 'Trung bình (không xung, không hợp)';
+            } elseif ($dayHanh === $birthHanh) {
+                $relationKey = 'Đồng hành';
+            } elseif (NguHanhRelationHelper::isSinh($dayHanh, $birthHanh)) {
+                $relationKey = 'Ngày sinh Tuổi';
+            } elseif (NguHanhRelationHelper::isSinh($birthHanh, $dayHanh)) {
+                $relationKey = 'Tuổi sinh Ngày';
+            } elseif (NguHanhRelationHelper::isKhac($dayHanh, $birthHanh)) {
+                $relationKey = 'Ngày khắc Tuổi';
+            } elseif (NguHanhRelationHelper::isKhac($birthHanh, $dayHanh)) {
+                $relationKey = 'Tuổi khắc Ngày';
+            } else {
+                $relationKey = 'Trung bình (không xung, không hợp)';
+            }
+
+            // 4️⃣ Lấy thông tin mô tả, điểm từ cấu hình
+            $info = DataHelper::$napAmAgeInfo[$relationKey] ?? null;
+
+            if (!$info) {
+                $errorMsg = "VanKhiService: LỖI - Không tìm thấy dữ liệu Nạp Âm cho key '$relationKey' trong TimeConstant.";
+                return [
+                    'score' => 0.0,
+                    'description' => "Ngày $dayCanChi nạp âm là $dayNapAmName (hành $dayHanh), tuổi $birthCanChi nạp âm là $birthNapAmName (hành $birthHanh) → Quan hệ không xác định (Lỗi dữ liệu).",
+                    'type' => 'Lỗi cấu hình',
+                    'relationKey' => 'LỖI_DỮ_LIỆU_NAP_AM',
+                    'dayNapAm' => $dayNapAmName,
+                    'birthNapAm' => $birthNapAmName,
+                ];
+            }
+
+            $rating = $info['rating'];
+            $explanation = $info['explanation'];
+            $score = (float) $info['score'];
+
+        
+            // 5️⃣ Ghép mô tả kết quả
+            $finalDescription = "Ngày $dayCanChi nạp âm là $dayNapAmName (hành $dayHanh), tuổi $birthCanChi nạp âm là $birthNapAmName (hành $birthHanh) → $relationKey ($rating). $explanation";
+
+           
+
+            return [
+                'score' => $score,
+                'description' => $finalDescription,
+                'type' => $rating,
+                'relationKey' => $relationKey,
+                'dayNapAm' => $dayNapAmName,
+                'birthNapAm' => $birthNapAmName,
+            ];
+        } catch (\Throwable $e) {
+            $errorMsg = "Lỗi nghiêm trọng khi tính NapAm Age";
+
+           
+            return [
+                'score' => 0.0,
+                'description' => 'Lỗi nghiêm trọng trong quá trình tính toán Nạp Âm.',
+                'type' => 'Lỗi hệ thống',
+                'relationKey' => 'ERROR_NAP_AM',
+            ];
         }
-        $score = 0.0;
-        $description = '';
-        $type = 'Bình';
-        $relationKey = 'NONE';
-
-        if ($dayHanh === $birthHanh) {
-            $score = 2.0;
-            $description = "Đồng hành Nạp Âm ($dayNapAmName)";
-            $type = 'Tốt';
-            $relationKey = 'DONG_HANH';
-        } elseif (NguHanhRelationHelper::isSinh($birthHanh, $dayHanh)) {
-            $score = 1.0;
-            $description = 'Nạp Âm ngày sinh Nạp Âm tuổi';
-            $type = 'Tốt';
-            $relationKey = 'NGAY_SINH_TUOI';
-        } elseif (NguHanhRelationHelper::isSinh($birthHanh, $dayHanh)) {
-            $score = 2.0;
-            $description = 'Nạp Âm tuổi sinh Nạp Âm ngày';
-            $type = 'Tốt';
-            $relationKey = 'TUOI_SINH_NGAY';
-        } elseif (NguHanhRelationHelper::isKhac($dayHanh, $birthHanh)) {
-            $score = -2.0;
-            $description = 'Nạp Âm ngày khắc Nạp Âm tuổi';
-            $type = 'Rất xấu';
-            $relationKey = 'NGAY_KHAC_TUOI';
-        } elseif (NguHanhRelationHelper::isKhac($birthHanh, $dayHanh)) {
-            $score = -1.0;
-            $description = 'Nạp Âm tuổi khắc Nạp Âm ngày';
-            $type = 'Xấu';
-            $relationKey = 'TUOI_KHAC_NGAY';
-        } else {
-            $score = 0.0;
-            $description = 'Nạp Âm bình thường';
-            $type = 'Bình';
-            $relationKey = 'NONE';
-        }
-
-        return [
-            'score' => $score,
-            'description' => $description,
-            'type' => $type,
-            'relationKey' => $relationKey,
-            'dayNapAm' => $dayNapAmName,
-            'birthNapAm' => $birthNapAmName,
-        ];
     }
+
+    // public static function calculateNapAm(Carbon $date, ?String $birthDate): array
+    // {
+    //     $dayCanChi = LunarHelper::canchiNgayByJD(
+    //         LunarHelper::jdFromLunarDate(...LunarHelper::convertSolar2Lunar($date->day, $date->month, $date->year))
+    //     );
+    //     $birthCanChi = LunarHelper::canchiNam($birthDate);
+    //     $dayNapAmData = DataHelper::$napAmTable[$dayCanChi] ?? [
+    //         'napAm' => 'Không xác định',
+    //         'hanh' => 'Kim'
+    //     ];
+    //     $birthNapAmData = DataHelper::$napAmTable[$birthCanChi] ?? ['napAm' => 'Không xác định', 'hanh' => 'Kim'];
+    //     $dayNapAmName = $dayNapAmData['napAm'];
+    //     $birthNapAmName = $birthNapAmData['napAm'];
+    //     $dayHanh = $dayNapAmData['hanh']; //thoor
+    //     $birthHanh = $birthNapAmData['hanh']; //hoar
+
+    //     if ($birthDate === null) {
+    //         $birthHanh = ''; // Mặc định nếu không có ngày sinh
+    //     }
+    //     $score = 0.0;
+    //     $description = '';
+    //     $type = 'Bình';
+    //     $relationKey = 'NONE';
+
+    //     if ($dayHanh === $birthHanh) {
+    //         $score = 2.0;
+    //         $description = "Đồng hành Nạp Âm ($dayNapAmName)";
+    //         $type = 'Tốt';
+    //         $relationKey = 'DONG_HANH';
+    //     } elseif (NguHanhRelationHelper::isSinh($birthHanh, $dayHanh)) {
+    //         $score = 1.0;
+    //         $description = 'Nạp Âm ngày sinh Nạp Âm tuổi';
+    //         $type = 'Tốt';
+    //         $relationKey = 'NGAY_SINH_TUOI';
+    //     } elseif (NguHanhRelationHelper::isSinh($birthHanh, $dayHanh)) {
+    //         $score = 2.0;
+    //         $description = 'Nạp Âm tuổi sinh Nạp Âm ngày';
+    //         $type = 'Tốt';
+    //         $relationKey = 'TUOI_SINH_NGAY';
+    //     } elseif (NguHanhRelationHelper::isKhac($dayHanh, $birthHanh)) {
+    //         $score = -2.0;
+    //         $description = 'Nạp Âm ngày khắc Nạp Âm tuổi';
+    //         $type = 'Rất xấu';
+    //         $relationKey = 'NGAY_KHAC_TUOI';
+    //     } elseif (NguHanhRelationHelper::isKhac($birthHanh, $dayHanh)) {
+    //         $score = -1.0;
+    //         $description = 'Nạp Âm tuổi khắc Nạp Âm ngày';
+    //         $type = 'Xấu';
+    //         $relationKey = 'TUOI_KHAC_NGAY';
+    //     } else {
+    //         $score = 0.0;
+    //         $description = 'Nạp Âm bình thường';
+    //         $type = 'Bình';
+    //         $relationKey = 'NONE';
+    //     }
+
+    //     return [
+    //         'score' => $score,
+    //         'description' => $description,
+    //         'type' => $type,
+    //         'relationKey' => $relationKey,
+    //         'dayNapAm' => $dayNapAmName,
+    //         'birthNapAm' => $birthNapAmName,
+    //     ];
+    // }
 
     public static function getRule(string $relationType, string $relationKey, string $purpose): string
     {
