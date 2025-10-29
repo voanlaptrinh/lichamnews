@@ -37,29 +37,7 @@
                             </span>
                             <!-- Menu cấp 2 (submenu) -->
                             <ul class="submenu">
-                                @if(isset($header_lunar_months))
-                                    @foreach($header_lunar_months as $lunar_month_info)
-                                        <li>
-                                            @if($lunar_month_info['is_leap'])
-                                                <a href="{{ route('lich.thang.nhuan', ['nam' => $lunar_month_info['lunar_year'], 'thang' => $lunar_month_info['lunar_month']]) }}">
-                                                    Tháng {{ $lunar_month_info['lunar_month'] }} nhuận năm {{ $lunar_month_info['lunar_year'] }}
-                                                </a>
-                                            @else
-                                                <a href="{{ route('lich.thang', ['nam' => $lunar_month_info['lunar_year'], 'thang' => $lunar_month_info['lunar_month']]) }}">
-                                                    Tháng {{ $lunar_month_info['lunar_month'] }} năm {{ $lunar_month_info['lunar_year'] }}
-                                                </a>
-                                            @endif
-                                        </li>
-                                    @endforeach
-                                @else
-                                    @php($currentYear = date('Y'))
-                                    @for ($month = 1; $month <= 12; $month++)
-                                        <li>
-                                            <a href="{{ route('lich.thang', ['nam' => $currentYear, 'thang' => $month]) }}">Tháng
-                                                {{ $month }} năm {{date('Y')}}</a>
-                                        </li>
-                                    @endfor
-                                @endif
+                              @include('layout.month_list', ['header_lunar_months' => $header_lunar_months ?? []])
                             </ul>
                         </li>
 
@@ -232,29 +210,7 @@
                         </span>
                         <!-- Menu cấp 2 -->
                         <ul class="mobile-submenu">
-                            @if(isset($header_lunar_months))
-                                @foreach($header_lunar_months as $lunar_month_info)
-                                    <li>
-                                        @if($lunar_month_info['is_leap'])
-                                            <a href="{{ route('lich.thang.nhuan', ['nam' => $lunar_month_info['lunar_year'], 'thang' => $lunar_month_info['lunar_month']]) }}">
-                                                Tháng {{ $lunar_month_info['lunar_month'] }} nhuận năm {{ $lunar_month_info['lunar_year'] }}
-                                            </a>
-                                        @else
-                                            <a href="{{ route('lich.thang', ['nam' => $lunar_month_info['lunar_year'], 'thang' => $lunar_month_info['lunar_month']]) }}">
-                                                Tháng {{ $lunar_month_info['lunar_month'] }} năm {{ $lunar_month_info['lunar_year'] }}
-                                            </a>
-                                        @endif
-                                    </li>
-                                @endforeach
-                            @else
-                                @php($currentYear = date('Y'))
-                                @for ($month = 1; $month <= 12; $month++)
-                                    <li>
-                                        <a href="{{ route('lich.thang', ['nam' => $currentYear, 'thang' => $month]) }}">Tháng
-                                            {{ $month }} năm {{date('Y')}}</a>
-                                    </li>
-                                @endfor
-                            @endif
+                             @include('layout.month_list', ['header_lunar_months' => $header_lunar_months ?? []])
                         </ul>
                     </li>
                     <!-- Menu con "Lịch Năm" -->

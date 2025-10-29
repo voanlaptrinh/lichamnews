@@ -61,7 +61,7 @@ class FunctionHelper
         $date = Carbon::instance($date);
 
         // Tính điểm
-        $scoresDate = GoodBadDayHelper::calculateDayScore($date, $birthdate, '');
+        $scoresDate = GoodBadDayHelper::calculateDayScore($date, $birthdate, $purpose);
         $desScoresDate = GoodBadDayHelper::mapRatingToLevelDescription($scoresDate['rating']);
         $formattedDate = $date->format('j-n-Y'); // Ví dụ: 17-6-2025
         $percentageRounded = round($scoresDate['percentage']);

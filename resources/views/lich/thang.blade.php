@@ -37,11 +37,13 @@ cursor: default;
                             </div>
                             <hr class="mb-1">
                             <div>
-                             
+                             @php
+                                 $can_chi_nam_news = \App\Helpers\LunarHelper::canchiNam($lunar_year);
+                             @endphp
                                 <div class="calendar-wrapper calendar-wrapper-none">
                                        <div class="calendar-header mt-0">
                                     <div class="mb-0 title-tong-quan-h4-log">Tháng {{ $lunar_calendar['month'] }} Năm
-                                        {{ $lunar_calendar['can_chi'] }}</div>
+                                        {{ $can_chi_nam_news }}</div>
                                 </div>
                                     <table class="calendar-table">
                                         <thead>
