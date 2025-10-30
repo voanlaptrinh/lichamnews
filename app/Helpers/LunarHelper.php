@@ -499,7 +499,7 @@ class LunarHelper
             '1-15' => 'Rằm tháng Giêng',
             '2-1' => 'Mùng 1 tháng Hai',
             '2-15' => 'Rằm tháng Hai',
-            '2-19' => 'Vía Quan Âm',
+          
             '3-1' => 'Mùng 1 tháng Ba',
             '3-3' => 'Tết Hàn Thực',
             '3-10' => 'Giỗ tổ Hùng Vương',
@@ -511,7 +511,7 @@ class LunarHelper
             '5-15' => 'Rằm tháng Năm',
             '6-1' => 'Mùng 1 tháng Sáu',
             '6-15' => 'Rằm tháng Sáu',
-            '6-19' => 'Vía Quan Âm thành đạo',
+          
             '7-1' => 'Mùng 1 tháng Bảy',
             '7-7' => 'Thất Tịch',
             '7-15' => 'Lễ Vu Lan',
@@ -520,7 +520,7 @@ class LunarHelper
             '9-1' => 'Mùng 1 tháng Chín',
             '9-9' => 'Tết Trùng Cửu',
             '9-15' => 'Rằm tháng Chín',
-            '9-19' => 'Vía Quan Âm xuất gia',
+           
             '10-1' => 'Mùng 1 tháng Mười',
             '10-10' => 'Tết Thường Tân',
             '10-15' => 'Tết Hạ Nguyên',
