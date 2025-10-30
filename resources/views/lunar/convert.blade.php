@@ -2,6 +2,9 @@
 
 @push('critical-css')
 <style>
+    body{
+        background: white
+    }
     /* Ultra-critical LCP optimization - no font-size changes */
     .date-number.duong,
     .date-number.am {
@@ -112,9 +115,9 @@
                     <div class="d-flex flex-column gap-20 box-content-lg-8">
 
                         <!-- ** KHỐI NGÀY DƯƠNG LỊCH VÀ ÂM LỊCH ** -->
-                        <div class="row g-3">
+                        <div class="row g-0">
                             <div class="col-6">
-                                <div class="date-display-card">
+                                <div class="date-display-card date-display-card-right-none">
                                     {{-- Nút Prev Day PC --}}
                                     <a href="#" class="nav-arrow nav-home-date nave-left prev-day-btn"
                                         title="Ngày hôm trước"><i class="bi bi-chevron-left"></i></a>
@@ -141,7 +144,7 @@
                                 </div>
                             </div>
                             <div class="col-6">
-                                <div class="date-display-card">
+                                <div class="date-display-card  date-display-card-left-none">
                                     <div class="text-center">
                                         <div class="card-title title-amduowngbox"><img
                                                 src="{{ asset('icons/icon_am.svg') }}" alt="icon_am" width="20"
@@ -187,7 +190,7 @@
                             </div>
                           
 
-                            <div class="col-lg-12 btn-mobie-next-prev">
+                            <div class="col-lg-12 mt-2 btn-mobie-next-prev">
                                 <div>
                                     <button
                                         class="btn-today-home-mob d-flex justify-content-center align-items-center quickPickerBtn">
@@ -245,7 +248,7 @@
                                     </div>
 
                                 </div>
-                                <div class="coli-row">
+                                <div class="row g-xl-0 g-2" >
                                     <div class="col-xl-7 col-lg-6 col-sm-12 col-12 ">
                                         <div class="info-item">
                                             <img src="{{ asset('icons/icon_tiet_khi.svg') }}" alt="icon_tiet_khi"
@@ -408,9 +411,8 @@
 
                         </div>
                         <div class="calendar-legend">
-                            <span><span class="dot dot-hoangdao"></span> Ngày hoàng đạo</span>
-                            <span><span class="dot dot-hacdao"></span> Ngày hắc đạo</span>
-
+                              <span class="box-title--hoangdao"><span class="dot dot-hoangdao"></span> Ngày hoàng đạo</span>
+                        <span class="box-title--hacdao"><span class="dot dot-hacdao"></span> Ngày hắc đạo</span>
                         </div>
                     </div>
                 </div>
@@ -627,7 +629,7 @@
                     <!-- ** KHỐI SỰ KIỆN SẮP TỚI ** -->
                     <div class="events-card">
                         <div class="card-title-right">Sự kiện, ngày lễ sắp tới</div>
-                        <div class="boxx--sukiensaptoi">
+                        <div class="boxx--sukiensaptoi row" style="gap: 12px">
                             @foreach ($upcomingEvents as $event)
                                 @php
                                     // Phân tích cú pháp ngày sự kiện một lần để lấy các phần tử năm, tháng, ngày
@@ -645,7 +647,7 @@
                                         $eventCarbonDate->year,
                                     );
                                 @endphp
-                                <a class="hv-memorial-widget-root mt-3" href="{{ route('detai_home', $routeParams) }}">
+                                <a class="hv-memorial-widget-root" href="{{ route('detai_home', $routeParams) }}">
                                     <div class="hv-memorial-date-panel">
                                         <div class="hv-memorial-month-text">Tháng
                                             {{ Carbon\Carbon::parse($event['date'])->format('n') }}</div>
@@ -824,8 +826,8 @@
 @endpush
 
 @push('scripts')
-    <script defer src="{{ asset('js/base-picker.js?v=3.6') }}"></script>
-    <script defer src="{{ asset('js/homepage-picker.js?v=3.6') }}"></script>
+    <script defer src="{{ asset('js/base-picker.js?v=3.8') }}"></script>
+    <script defer src="{{ asset('js/homepage-picker.js?v=3.8') }}"></script>
     <script>
         window.addEventListener("DOMContentLoaded", () => {
             // Wait for deferred scripts

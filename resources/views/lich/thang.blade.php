@@ -87,7 +87,7 @@ cursor: default;
                                                                 <a
                                                                     href="{{ route('detai_home', ['nam' => $day['solar_year'], 'thang' => $day['solar_month'], 'ngay' => $day['solar_day']]) }}">
                                                                     <div class="box-contnet-date">
-                                                                        <div class="duong">{{ $day['day'] }}</div>
+                                                                        <div class="duong-lich">{{ $day['day'] }}</div>
                                                                     </div>
                                                                     <div class="am am_table">
                                                                         {{ $day['solar_day'] }}/{{ $day['solar_month'] }}
@@ -181,8 +181,8 @@ cursor: default;
 
                     </div>
                     <div class="calendar-legend pt-3 pb-2">
-                        <span><span class="dot dot-hoangdao"></span> Ngày hoàng đạo</span>
-                        <span><span class="dot dot-hacdao"></span> Ngày hắc đạo</span>
+                        <span class="box-title--hoangdao"><span class="dot dot-hoangdao"></span> Ngày hoàng đạo</span>
+                        <span class="box-title--hacdao"><span class="dot dot-hacdao"></span> Ngày hắc đạo</span>
                     </div>
 
                 </div>

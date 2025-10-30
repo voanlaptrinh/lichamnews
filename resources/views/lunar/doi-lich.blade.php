@@ -140,9 +140,9 @@
                         <div class="box-date-detail bg-white-setting">
                             <div class="--text-down-convert">Kết quả chuyển đổi</div>
                             <div class="col-lg-12 order-1 order-lg-1 mb-3">
-                                <div class="row g-3">
+                                <div class="row g-0">
                                     <div class="col-6" id="solar-display-container">
-                                        <div class="date-display-card">
+                                        <div class="date-display-card date-display-card-right-none">
                                             <button type="button" class="nav-arrow nav-home-date nave-left prev-day-btn"
                                                 title="Ngày hôm trước" id="pc-prev-btn"><i
                                                     class="bi bi-chevron-left"></i></button>
@@ -172,7 +172,7 @@
                                         </div>
                                     </div>
                                     <div class="col-6" id="lunar-display-container">
-                                        <div class="date-display-card">
+                                        <div class="date-display-card date-display-card-left-none">
                                             <div class="text-center">
                                                 <div
                                                     class="card-title title-amduowngbox d-flex align-items-center justify-content-center">
@@ -223,7 +223,7 @@
                                     </div>
 
 
-                                    <div class="col-lg-12 btn-mobie-next-prev">
+                                    <div class="col-lg-12 mt-2 btn-mobie-next-prev">
                                         <div></div>
                                         <div class="d-flex gap-2">
                                             <div class="div">
@@ -332,9 +332,8 @@
                             </table>
                         </div>
                         <div class="calendar-legend">
-                            <span><span class="dot dot-hoangdao"></span> Ngày hoàng đạo</span>
-                            <span><span class="dot dot-hacdao"></span> Ngày hắc đạo</span>
-
+                           <span class="box-title--hoangdao"><span class="dot dot-hoangdao"></span> Ngày hoàng đạo</span>
+                        <span class="box-title--hacdao"><span class="dot dot-hacdao"></span> Ngày hắc đạo</span>
                         </div>
                     </div>
                 </div>

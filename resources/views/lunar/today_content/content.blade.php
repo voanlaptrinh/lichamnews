@@ -1,9 +1,9 @@
  <div class="row g-lg-3 g-2">
      <div class="col-xl-9 col-sm-12 col-12">
          <div class="box-date-detail">
-             <div class="row g-3">
+             <div class="row g-0">
                  <div class="col-6">
-                     <div class="date-display-card">
+                     <div class="date-display-card date-display-card-right-none">
                          {{-- Nút Prev Day PC --}}
                          <a href="#" class="nav-arrow nav-home-date nave-left prev-day-btn" title="Ngày hôm trước"><i
                                  class="bi bi-chevron-left"></i></a>
@@ -28,7 +28,7 @@
                      </div>
                  </div>
                  <div class="col-6">
-                     <div class="date-display-card">
+                     <div class="date-display-card  date-display-card-left-none">
                          <div class="text-center">
                              <div class="card-title title-amduowngbox"><img src="{{ asset('icons/icon_am.svg') }}"
                                      alt="icon_am" width="20px" height="20px"> Âm lịch</div>
@@ -72,7 +72,7 @@
                  </div>
 
 
-                 <div class="col-lg-12 btn-mobie-next-prev">
+                 <div class="col-lg-12 mt-2 btn-mobie-next-prev">
                      <div>
                          <button
                              class="btn-today-home-mob d-flex justify-content-center align-items-center quickPickerBtn">

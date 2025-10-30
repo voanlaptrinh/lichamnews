@@ -620,7 +620,7 @@ class LunarHelper
 
     $html = '<td' . $classCellHTML . '><a href="' . $url . '">
         <div class="box-contnet-date">
-            <div class="duong' . ($dow == 0 ? ' sun' : ($dow == 6 ? ' sat' : '')) . '">' . $solarDate . '</div>
+            <div class="duong-lich' . ($dow == 0 ? ' sun' : ($dow == 6 ? ' sat' : '')) . '">' . $solarDate . '</div>
             <div class="dao' . ($tot_xau ? ' ' . $tot_xau : '') . '">' . ($tot_xau ? '●' : '&nbsp;') . '</div>
         </div>
         <div class="am am_table">' . $am_html . '</div>
