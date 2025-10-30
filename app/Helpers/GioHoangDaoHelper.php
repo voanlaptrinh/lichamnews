@@ -289,9 +289,13 @@ class GioHoangDaoHelper
     // Kiểm tra Tam Hợp
     public static function isTamHop(string $chi1, string $chi2): bool
     {
-        return self::isValidChi($chi1) && self::isValidChi($chi2)
-            && isset(DataHelper::$TAM_HOP_GROUPS[$chi1])
-            && in_array($chi2, DataHelper::$TAM_HOP_GROUPS[$chi1], true);
+        // TAM_HOP_GROUPS dùng chữ thường
+        $chi1Lower = mb_strtolower($chi1);
+        $chi2Lower = mb_strtolower($chi2);
+
+        return self::isValidChi($chi1Lower) && self::isValidChi($chi2Lower)
+            && isset(DataHelper::$TAM_HOP_GROUPS[$chi1Lower])
+            && in_array($chi2Lower, DataHelper::$TAM_HOP_GROUPS[$chi1Lower], true);
     }
 
     // Hàm phụ kiểm tra giá trị hợp lệ
@@ -303,47 +307,74 @@ class GioHoangDaoHelper
     // Kiểm tra Lục Xung
     public static function isLucXung(string $chi1, string $chi2): bool
     {
-        return self::isValidChi($chi1) && self::isValidChi($chi2)
-            && DataHelper::$LUC_XUNG[$chi1] === $chi2;
+        // Chuyển về chữ thường để kiểm tra valid, nhưng dùng chữ hoa cho LUC_XUNG
+        $chi1Lower = mb_strtolower($chi1);
+        $chi2Lower = mb_strtolower($chi2);
+        $chi1Upper = mb_convert_case($chi1, MB_CASE_TITLE, 'UTF-8');
+        $chi2Upper = mb_convert_case($chi2, MB_CASE_TITLE, 'UTF-8');
+
+        return self::isValidChi($chi1Lower) && self::isValidChi($chi2Lower)
+            && isset(DataHelper::$LUC_XUNG[$chi1Upper])
+            && DataHelper::$LUC_XUNG[$chi1Upper] === $chi2Upper;
     }
 
     // Kiểm tra Tương Hại
     public static function isTuongHai(string $chi1, string $chi2): bool
     {
-        return self::isValidChi($chi1) && self::isValidChi($chi2)
-            && DataHelper::$TUONG_HAI[$chi1] === $chi2;
+        // Chuyển về chữ thường để kiểm tra valid, nhưng dùng chữ hoa cho TUONG_HAI
+        $chi1Lower = mb_strtolower($chi1);
+        $chi2Lower = mb_strtolower($chi2);
+        $chi1Upper = mb_convert_case($chi1, MB_CASE_TITLE, 'UTF-8');
+        $chi2Upper = mb_convert_case($chi2, MB_CASE_TITLE, 'UTF-8');
+
+        return self::isValidChi($chi1Lower) && self::isValidChi($chi2Lower)
+            && isset(DataHelper::$TUONG_HAI[$chi1Upper])
+            && DataHelper::$TUONG_HAI[$chi1Upper] === $chi2Upper;
     }
     // Kiểm tra Tương Phá
     public static function isTuongPha(string $chi1, string $chi2): bool
     {
-        return self::isValidChi($chi1) && self::isValidChi($chi2)
-            && DataHelper::$TUONG_PHA[$chi1] === $chi2;
+        // Chuyển về chữ thường để kiểm tra valid, nhưng dùng chữ hoa cho TUONG_PHA
+        $chi1Lower = mb_strtolower($chi1);
+        $chi2Lower = mb_strtolower($chi2);
+        $chi1Upper = mb_convert_case($chi1, MB_CASE_TITLE, 'UTF-8');
+        $chi2Upper = mb_convert_case($chi2, MB_CASE_TITLE, 'UTF-8');
+
+        return self::isValidChi($chi1Lower) && self::isValidChi($chi2Lower)
+            && isset(DataHelper::$TUONG_PHA[$chi1Upper])
+            && DataHelper::$TUONG_PHA[$chi1Upper] === $chi2Upper;
     }
 
     // Kiểm tra Tương Hình
     public static function isTuongHinh(string $chi1, string $chi2): bool
     {
-        if (!self::isValidChi($chi1) || !self::isValidChi($chi2) || $chi1 === $chi2) {
+        // Chuyển về chữ thường để kiểm tra valid
+        $chi1Lower = mb_strtolower($chi1);
+        $chi2Lower = mb_strtolower($chi2);
+
+        if (!self::isValidChi($chi1Lower) || !self::isValidChi($chi2Lower) || $chi1Lower === $chi2Lower) {
             return false;
         }
 
+        // Các array HINH_VO_LE_PAIR, HINH_Y_THE_TRIPLE, HINH_VO_AN_TRIPLE cần kiểm tra dùng chữ hoa hay thường
+        // Tạm thời giữ nguyên logic và sẽ dùng chữ thường
         // Hình vô lễ
-        if (isset(DataHelper::$HINH_VO_LE_PAIR[$chi1]) && DataHelper::$HINH_VO_LE_PAIR[$chi1] === $chi2) {
+        if (isset(DataHelper::$HINH_VO_LE_PAIR[$chi1Lower]) && DataHelper::$HINH_VO_LE_PAIR[$chi1Lower] === $chi2Lower) {
             return true;
         }
 
         // Hình ỷ thế
         if (
-            in_array($chi1, DataHelper::$HINH_Y_THE_TRIPLE, true) &&
-            in_array($chi2, DataHelper::$HINH_Y_THE_TRIPLE, true)
+            in_array($chi1Lower, DataHelper::$HINH_Y_THE_TRIPLE, true) &&
+            in_array($chi2Lower, DataHelper::$HINH_Y_THE_TRIPLE, true)
         ) {
             return true;
         }
 
         // Hình vô ân
         if (
-            in_array($chi1, DataHelper::$HINH_VO_AN_TRIPLE, true) &&
-            in_array($chi2, DataHelper::$HINH_VO_AN_TRIPLE, true)
+            in_array($chi1Lower, DataHelper::$HINH_VO_AN_TRIPLE, true) &&
+            in_array($chi2Lower, DataHelper::$HINH_VO_AN_TRIPLE, true)
         ) {
             return true;
         }
@@ -354,7 +385,8 @@ class GioHoangDaoHelper
     // (Optional) Tự hình: chi tự hình chính nó
     public static function isTuHinh(string $chi): bool
     {
-        return in_array($chi, ['tý', 'dậu', 'mão', 'ngọ'], true); // ví dụ các chi có khả năng tự hình
+        $chiLower = mb_strtolower($chi);
+        return in_array($chiLower, ['tý', 'dậu', 'mão', 'ngọ'], true); // ví dụ các chi có khả năng tự hình
     }
     // Kiểm tra Tương Sinh: hanh1 sinh hanh2?
     public static function isSinh(string $hanh1, string $hanh2): bool

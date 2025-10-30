@@ -92,6 +92,9 @@ class KhiVanHelper
         $canCanScore = $isPersonalized ? (float)($canCanResult['score'] ?? 0.0) : 0.0;
         $chiChiScore = $isPersonalized ? (float)($chiChiResult['score'] ?? 0.0) : 0.0;
         $napAmScore = $isPersonalized ? (float)($napAmResult['score'] ?? 0.0) : 0.0;
+
+
+
         // --- BƯỚC 2: CHUYỂN ĐỔI TỪNG ĐIỂM SANG PHẦN TRĂM (0-100) ---
         $noiKhiPercent = DataHelper::$noiKhiScoreToPercentage[number_format($noiKhiScore, 1)] ?? self::defaultScoreToPercentage($noiKhiScore);
         $khiThangPercent = DataHelper::$khiThangScoreToPercentage[number_format($khiThangScore, 1)] ?? self::defaultScoreToPercentage($khiThangScore, -3.0, 3.0);
@@ -99,6 +102,9 @@ class KhiVanHelper
         $canCanPercent = $isPersonalized ? (DataHelper::$canCanAgeScoreToPercentage[number_format($canCanScore, 1)] ?? self::defaultScoreToPercentage($canCanScore, -2.0, 2.0)) : 0.0;
         $chiChiPercent = $isPersonalized ? (DataHelper::$chiChiAgeScoreToPercentage[number_format($chiChiScore, 1)] ?? self::defaultScoreToPercentage($chiChiScore)) : 0.0;
         $napAmPercent = $isPersonalized ? (DataHelper::$napAmAgeScoreToPercentage[number_format($napAmScore, 1)] ?? self::defaultScoreToPercentage($napAmScore)) : 0.0;
+
+
+
 
         // --- BƯỚC 3: TÍNH TỔNG PHẦN TRĂM CÓ TRỌNG SỐ ---
         $componentWeights = $isPersonalized ? DataHelper::$vanKhiComponentWeightsFractionPersonalized : DataHelper::$vanKhiComponentWeightsFractionGeneral;
@@ -428,13 +434,21 @@ class KhiVanHelper
   $jday = LunarHelper::jdFromDate((int)$day,  (int)$month, (int)$year);
         $dayCanChi = LunarHelper::canchiNgayByJD($jday);
 
-        $dayChi = explode(' ', $dayCanChi)[1];
+        // Chuyển về chữ thường để khớp với DataHelper
+        $dayChi = mb_strtolower(explode(' ', $dayCanChi)[1]);
 
         if ($birthDate === null) {
             $birthChi = ''; // Mặc định nếu không có ngày sinh
         } else {
-            $birthCanChi = LunarHelper::canchiNam($birthDate);
-            $birthChi = explode(' ', $birthCanChi)[1];
+            // Lấy Chi của NGÀY SINH (không phải năm sinh)
+            $birthDay = Carbon::parse($birthDate)->day;
+            $birthMonth = Carbon::parse($birthDate)->month;
+            $birthYear = Carbon::parse($birthDate)->year;
+
+            $birthJday = LunarHelper::jdFromDate((int)$birthDay, (int)$birthMonth, (int)$birthYear);
+            $birthDayCanChi = LunarHelper::canchiNgayByJD($birthJday);
+            // Chuyển về chữ thường để khớp với DataHelper
+            $birthChi = mb_strtolower(explode(' ', $birthDayCanChi)[1]);
         }
 
         $relationKey = '';
