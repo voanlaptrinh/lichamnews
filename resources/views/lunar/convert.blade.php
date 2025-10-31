@@ -476,7 +476,7 @@
                         <div class="utilities-grid pt-2 row">
 
                             <!-- Tiện ích 1 -->
-                            <a href="{{ route('totxau.form') }}" class="utility-item col-6 col-md-6 col-lg-3 mb-4 ">
+                            <a href="{{ route('convert.am.to.duong') }}" class="utility-item col-6 col-md-6 col-lg-3 mb-4 ">
                                 <div class="utility-title">Đổi ngày Âm - Dương</div>
                                 <div class="icon-wrapper">
                                     <img src="{{ asset('icons/doi_ngay_am_duong.webp?v=2.0') }}" alt="Đổi ngày Âm - Dương"

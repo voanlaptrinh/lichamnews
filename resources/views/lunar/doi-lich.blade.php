@@ -7,7 +7,7 @@
         <h1 class="content-title-home-lich">Đổi Ngày Dương Sang Âm & Âm Sang Dương</h1>
         <div class="row g-3">
             <div class="col-xl-9 col-sm-12 col-12">
-                <div class="row g-0 justify-content-center pt-lg-3 pt-2">
+                <div class="row g-0 justify-content-center pt-2">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-12">
                         <div class="backv-doi-lich ">
                             <div class="">

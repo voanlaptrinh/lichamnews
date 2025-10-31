@@ -170,9 +170,6 @@ class TotXauController extends Controller
         ])->validate();
 
         $dateToCheck = Carbon::parse($validated['date']);
-        $birthdate = Carbon::parse($validated['birthdate']);
-
-        $dateToCheck = Carbon::parse($validated['date']);
         $groomDob = Carbon::parse($validated['birthdate']);
 
         // 3. Lấy thông tin chung của ngày (tính 1 lần, vì nó không đổi)
@@ -180,7 +177,7 @@ class TotXauController extends Controller
         $commonDayInfo = BadDayHelper::getdetailtable($dateToCheck);
 
         // 4. Lấy thông tin chi tiết cho Chú Rể
-        $groomData = BadDayHelper::getDetailedAnalysisForPerson($dateToCheck, $groomDob, 'Xem Ngày Tốt Xấu', 'MUA_NHA');
+        $groomData = BadDayHelper::getDetailedAnalysisForPerson($dateToCheck, $groomDob, 'Xem Ngày Tốt Xấu', 'TOT_XAU_CHUNG');
         return view('tools.tot-xau.details', [
             //   'personInfo' => $personInfo,
             'commonDayInfo' => $commonDayInfo,
