@@ -4289,7 +4289,7 @@ class DataHelper
         'Thổ'
     ];
 
-    
+
     public static $SINH_RELATIONS = [
         'Mộc' => 'Hỏa',
         'Hỏa' => 'Thổ',
@@ -5388,6 +5388,9 @@ class DataHelper
             'Dương Công Kỵ Nhật' => 'exclude',
             'Sát Chủ Dương' => 'exclude',
             'Kim Thần Thất Sát' => 'warn',
+            'Thụ Tử' => 'warn',
+            'Trùng Phục' => 'warn',
+
         ],
         'DONG_THO' => [
             'Tam Nương' => 'exclude',
@@ -5396,6 +5399,8 @@ class DataHelper
             'Dương Công Kỵ Nhật' => 'exclude',
             'Sát Chủ Dương' => 'exclude',
             'Kim Thần Thất Sát' => 'exclude',
+            'Thụ Tử' => 'warn',
+            'Trùng Phục' => 'warn'
         ],
         'NHAP_TRACH' => [
             'Tam Nương' => 'warn',
@@ -5404,6 +5409,7 @@ class DataHelper
             'Dương Công Kỵ Nhật' => 'exclude',
             'Sát Chủ Dương' => 'exclude',
             'Kim Thần Thất Sát' => 'warn',
+            'Thụ Tử' => 'warn'
         ],
         'KHAI_TRUONG' => [
             'Tam Nương' => 'exclude',
@@ -5412,6 +5418,8 @@ class DataHelper
             'Dương Công Kỵ Nhật' => 'exclude',
             'Sát Chủ Dương' => 'exclude',
             'Kim Thần Thất Sát' => 'warn',
+            'Thụ Tử' => 'warn',
+            'Trùng Phục' => 'warn'
         ],
         'XUAT_HANH' => [
             'Tam Nương' => 'warn',
@@ -5448,6 +5456,8 @@ class DataHelper
             'Dương Công Kỵ Nhật' => 'exclude',
             'Sát Chủ Âm' => 'exclude',
             'Kim Thần Thất Sát' => 'warn',
+            'Thụ Tử' => 'warn',
+            'Trùng Phục' => 'warn'
         ],
         'CHUYEN_BAN_THO' => [
             'Tam Nương' => 'warn',
@@ -5502,6 +5512,13 @@ class DataHelper
         'DANG_KY_GIAY_TO' => [
             'Nguyệt Kỵ' => 'warn',
         ],
+        'DOI_BAN_THO' => [
+            'Tam Nương' => 'warn',
+            'Nguyệt Kỵ' => 'warn',
+            'Dương Công Kỵ Nhật' => 'exclude',
+            'Sát Chủ Dương' => 'exclude',
+            'Kim Thần Thất Sát' => 'warn'
+        ],
         'TOT_XAU_CHUNG' => [
             'Tam Nương' => 'warn',
             'Nguyệt Kỵ' => 'warn',
@@ -5510,6 +5527,8 @@ class DataHelper
             'Sát Chủ Âm' => 'warn',
             'Sát Chủ Dương' => 'warn',
             'Kim Thần Thất Sát' => 'warn',
+            'Thụ Tử' => 'warn',
+            'Trùng Phục' => 'warn'
         ],
     ];
     public static array $tabooDayDescriptions = [

@@ -492,43 +492,43 @@ class LunarHelper
     {
         // Các sự kiện cố định theo ngày âm
         return [
-            '1-1' => 'Tết Nguyên Đán',
-            '1-2' => 'Mùng 2 Tết',
-            '1-3' => 'Mùng 3 Tết',
+            '1-1' => '🌸 Tết Nguyên Đán',
+            '1-2' => 'Mồng 2 Tết',
+            '1-3' => 'Mồng 3 Tết',
             '1-10' => 'Vía Thần Tài',
-            '1-15' => 'Rằm tháng Giêng',
-            '2-1' => 'Mùng 1 tháng Hai',
+            '1-15' => '🌕 Rằm tháng Giêng',
+            '2-1' => 'Mồng 1 tháng Hai',
             '2-15' => 'Rằm tháng Hai',
           
-            '3-1' => 'Mùng 1 tháng Ba',
+            '3-1' => '🌸 Mồng 1 tháng Ba',
             '3-3' => 'Tết Hàn Thực',
             '3-10' => 'Giỗ tổ Hùng Vương',
-            '3-15' => 'Rằm tháng Ba',
-            '4-1' => 'Mùng 1 tháng Tư',
-            '4-15' => 'Rằm tháng Tư',
-            '5-1' => 'Mùng 1 tháng Năm',
+            '3-15' => '🌕 Rằm tháng Ba',
+            '4-1' => '🌸 Mồng 1 tháng Tư',
+            '4-15' => '🌕 Rằm tháng Tư',
+            '5-1' => '🌸 Mồng 1 tháng Năm',
             '5-5' => 'Tết Đoan Ngọ',
-            '5-15' => 'Rằm tháng Năm',
-            '6-1' => 'Mùng 1 tháng Sáu',
-            '6-15' => 'Rằm tháng Sáu',
+            '5-15' => '🌕 Rằm tháng Năm',
+            '6-1' => '🌸 Mồng 1 tháng Sáu',
+            '6-15' => '🌕 Rằm tháng Sáu',
           
-            '7-1' => 'Mùng 1 tháng Bảy',
+            '7-1' => '🌸 Mồng 1 tháng Bảy',
             '7-7' => 'Thất Tịch',
-            '7-15' => 'Lễ Vu Lan',
+            '7-15' => '🌕 Lễ Vu Lan',
             '7-30' => 'Ngày địa tạng',
-            '8-15' => 'Tết Trung Thu',
-            '9-1' => 'Mùng 1 tháng Chín',
+            '8-15' => '🌕 Tết Trung Thu',
+            '9-1' => '🌸 Mồng 1 tháng Chín',
             '9-9' => 'Tết Trùng Cửu',
-            '9-15' => 'Rằm tháng Chín',
+            '9-15' => '🌕 Rằm tháng Chín',
            
-            '10-1' => 'Mùng 1 tháng Mười',
+            '10-1' => '🌸 Mồng 1 tháng Mười',
             '10-10' => 'Tết Thường Tân',
-            '10-15' => 'Tết Hạ Nguyên',
-            '11-1' => 'Mùng 1 tháng Mười một',
-            '11-15' => 'Rằm tháng Mười một',
+            '10-15' => '🌕 Tết Hạ Nguyên',
+            '11-1' => '🌸 Mồng 1 tháng Mười một',
+            '11-15' => '🌕 Rằm tháng Mười một',
             '11-23' => 'Ngày Thầy thuốc Việt Nam',
-            '12-1' => 'Mùng 1 tháng Chạp',
-            '12-15' => 'Rằm tháng Chạp',
+            '12-1' => '🌸 Mồng 1 tháng Chạp',
+            '12-15' => '🌕 Rằm tháng Chạp',
             '12-23' => 'Ông Công Ông Táo',
             '12-29' => 'Tất niên (29 tháng Chạp)',
             '12-30' => 'Tất niên (30 tháng Chạp)',
@@ -609,7 +609,7 @@ class LunarHelper
     if ($event_text) {
         $can_chi_html = '<span class="hidden-xs" style="color:#8A1E31; font-weight:bold">' . $event_text . '</span>';
     } elseif ($lunarDate['day'] == 15) {
-        $can_chi_html = '<span class="hidden-xs" style="color: #BE0000; font-weight: bold;">Ngày Rằm</span>';
+        $can_chi_html = '<span class="hidden-xs" style="color: #BE0000; font-weight: bold;">🌕 Ngày Rằm</span>';
     } else {
         // Luôn hiển thị can chi ngày khi không có sự kiện
         $can_chi_html = '<span class="hidden-xs">' . $canChi . '</span>';
@@ -1149,7 +1149,7 @@ static function convertSolar2Lunar($dd, $mm, $yy, $timeZone = 7.0)
             '10-13' => 'Ngày Doanh nhân Việt Nam',
             '10-15' => 'Ngày truyền thống Hội LHTN Việt Nam',
             '10-20' => 'Ngày Phụ nữ Việt Nam',
-            '10-31' => 'Ngày Halloween',
+            '10-31' => '🎃 Ngày Halloween',
 
             // THÁNG 11
             '11-9' => 'Ngày Pháp luật Việt Nam',
@@ -1342,67 +1342,68 @@ static function convertSolar2Lunar($dd, $mm, $yy, $timeZone = 7.0)
             // key là "ngày-tháng" âm lịch
 
             // THÁNG GIÊNG (Tháng 1)
-            '1-1'   => ['ten_su_kien' => 'Mùng 1 Tết Nguyên Đán', 'loai_su_kien' => 'le_lon', 'mo_ta' => 'Ngày đầu tiên của năm mới âm lịch, ngày lễ quan trọng nhất của Việt Nam.'],
-            '2-1'   => ['ten_su_kien' => 'Mùng 2 Tết Nguyên Đán', 'loai_su_kien' => 'le_lon', 'mo_ta' => 'Ngày thứ hai của Tết, thường dành để thăm hỏi bạn bè, họ hàng.'],
-            '3-1'   => ['ten_su_kien' => 'Mùng 3 Tết Nguyên Đán', 'loai_su_kien' => 'le_lon', 'mo_ta' => 'Ngày cuối cùng trong kỳ nghỉ Tết chính thức, hóa vàng và tiễn tổ tiên.'],
-            '4-1'   => ['ten_su_kien' => 'Mùng 4 Tết - Ngày Mở Hàng', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày mở lại hoạt động kinh doanh sau kỳ nghỉ Tết.'],
+            '1-1'   => ['ten_su_kien' => '🌸 Mồng 1 Tết Nguyên Đán', 'loai_su_kien' => 'le_lon', 'mo_ta' => 'Ngày đầu tiên của năm mới âm lịch, ngày lễ quan trọng nhất của Việt Nam.'],
+            '2-1'   => ['ten_su_kien' => 'Mồng 2 Tết Nguyên Đán', 'loai_su_kien' => 'le_lon', 'mo_ta' => 'Ngày thứ hai của Tết, thường dành để thăm hỏi bạn bè, họ hàng.'],
+            '3-1'   => ['ten_su_kien' => 'Mồng 3 Tết Nguyên Đán', 'loai_su_kien' => 'le_lon', 'mo_ta' => 'Ngày cuối cùng trong kỳ nghỉ Tết chính thức, hóa vàng và tiễn tổ tiên.'],
+            '4-1'   => ['ten_su_kien' => 'Mồng 4 Tết - Ngày Mở Hàng', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày mở lại hoạt động kinh doanh sau kỳ nghỉ Tết.'],
             // '7-1'   => ['ten_su_kien' => 'Ngày Nhân Thắng', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày của con người, theo quan niệm cổ truyền.'],
             '9-1'   => ['ten_su_kien' => 'Ngày Ngọc Hoàng', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày cúng Ngọc Hoàng Thượng Đế.'],
-            '15-1'  => ['ten_su_kien' => 'Tết Nguyên tiêu (Rằm tháng Giêng)', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Đêm rằm đầu tiên của năm mới, còn được gọi là Lễ Thượng Nguyên.'],
+            '15-1'  => ['ten_su_kien' => '🌕 Tết Nguyên tiêu (Rằm tháng Giêng)', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Đêm rằm đầu tiên của năm mới, còn được gọi là Lễ Thượng Nguyên.'],
 
             // THÁNG HAI (Tháng 2)
-            '15-2'  => ['ten_su_kien' => 'Rằm tháng Hai', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày cúng tổ tiên và thần linh.'],
+                '1-2'   => ['ten_su_kien' => '🌸 Mồng 2 tháng Hai', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Đầu tháng Hai âm lịch.'],
+            '15-2'  => ['ten_su_kien' => '🌕 Rằm tháng Hai', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày cúng tổ tiên và thần linh.'],
 
             // THÁNG BA (Tháng 3)
-            '1-3'   => ['ten_su_kien' => 'Mồng 1 tháng Ba', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Đầu tháng ba âm lịch, ngày cúng tổ tiên.'],
+            '1-3'   => ['ten_su_kien' => '🌸 Mồng 1 tháng Ba', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Đầu tháng ba âm lịch, ngày cúng tổ tiên.'],
             '3-3'   => ['ten_su_kien' => 'Tết Hàn thực', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Người Việt thường làm bánh trôi, bánh chay để dâng lên tổ tiên.'],
             '10-3'  => ['ten_su_kien' => 'Giỗ Tổ Hùng Vương', 'loai_su_kien' => 'le_lon', 'mo_ta' => 'Tưởng nhớ công lao dựng nước của các Vua Hùng. Là ngày nghỉ lễ toàn quốc.'],
-            '15-3'  => ['ten_su_kien' => 'Rằm tháng Ba', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày cúng Quan Âm Bồ Tát.'],
+            '15-3'  => ['ten_su_kien' => '🌕 Rằm tháng Ba', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày cúng Quan Âm Bồ Tát.'],
             '23-3'  => ['ten_su_kien' => 'Lễ Thanh minh', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày tảo mộ, dọn dẹp mồ mả tổ tiên.'],
 
             // THÁNG TƯ (Tháng 4)
-            '1-4'   => ['ten_su_kien' => 'Mồng 1 tháng Tư', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Đầu tháng tư âm lịch, ngày cúng tổ tiên.'],
+            '1-4'   => ['ten_su_kien' => '🌸 Mồng 1 tháng Tư', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Đầu tháng tư âm lịch, ngày cúng tổ tiên.'],
             // '8-4'   => ['ten_su_kien' => 'Lễ Phật Đản (Phật Thích Ca)', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày sinh của Đức Phật Thích Ca (theo một số địa phương).'],
-            '15-4'  => ['ten_su_kien' => 'Lễ Phật Đản', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Kỷ niệm ngày sinh của Đức Phật Thích Ca Mâu Ni.'],
+            '15-4'  => ['ten_su_kien' => '🌕 Lễ Phật Đản', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Kỷ niệm ngày sinh của Đức Phật Thích Ca Mâu Ni.'],
 
             // THÁNG NĂM (Tháng 5)
-            '1-5'   => ['ten_su_kien' => 'Mồng 1 tháng Năm', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Đầu tháng năm âm lịch, ngày cúng tổ tiên.'],
+            '1-5'   => ['ten_su_kien' => '🌸 Mồng 1 tháng Năm', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Đầu tháng năm âm lịch, ngày cúng tổ tiên.'],
             '5-5'   => ['ten_su_kien' => 'Tết Đoan ngọ', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Còn gọi là Tết diệt sâu bọ, diễn ra vào giữa năm.'],
             '13-5'  => ['ten_su_kien' => 'Lễ Đức Ông', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày lễ thần Nông, thần của nông nghiệp.'],
-            '15-5'  => ['ten_su_kien' => 'Rằm tháng Năm', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày cúng Phật và tổ tiên.'],
+            '15-5'  => ['ten_su_kien' => '🌕 Rằm tháng Năm', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày cúng Phật và tổ tiên.'],
 
             // THÁNG SÁU (Tháng 6)
-            '1-6'   => ['ten_su_kien' => 'Lễ Đức Thánh Trần', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày giỗ Đức Thánh Trần Hưng Đạo.'],
-            '15-6'  => ['ten_su_kien' => 'Rằm tháng Sáu', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày cúng Quan Âm và tổ tiên.'],
+            '1-6'   => ['ten_su_kien' => '🌸 Lễ Đức Thánh Trần', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày giỗ Đức Thánh Trần Hưng Đạo.'],
+            '15-6'  => ['ten_su_kien' => '🌕 Rằm tháng Sáu', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày cúng Quan Âm và tổ tiên.'],
 
             // THÁNG BẢY (Tháng 7)
-            '1-7'   => ['ten_su_kien' => 'Mồng 1 tháng Bảy', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Đầu tháng bảy âm lịch - Tháng cô hồn, ngày cúng tổ tiên.'],
+            '1-7'   => ['ten_su_kien' => '🌸 Mồng 1 tháng Bảy', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Đầu tháng bảy âm lịch - Tháng cô hồn, ngày cúng tổ tiên.'],
             '7-7'   => ['ten_su_kien' => 'Lễ Thất Tịch', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày Ngưu Lang Chức Nữ gặp nhau, lễ tình yêu của người Việt.'],
-            '15-7'  => ['ten_su_kien' => 'Lễ Vu Lan', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày lễ báo hiếu cha mẹ, một trong những ngày lễ chính của Phật giáo.'],
+            '15-7'  => ['ten_su_kien' => '🌕 Lễ Vu Lan', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày lễ báo hiếu cha mẹ, một trong những ngày lễ chính của Phật giáo.'],
             '30-7'  => ['ten_su_kien' => 'Ngày Địa Tạng', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày cúng Địa Tạng Bồ Tát.'],
 
             // THÁNG TÁM (Tháng 8)
-            '1-8'   => ['ten_su_kien' => 'Mồng 1 tháng Tám', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Đầu tháng tám âm lịch, ngày cúng tổ tiên.'],
-            '15-8'  => ['ten_su_kien' => 'Tết Trung thu', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Còn gọi là Tết trông Trăng hay Tết Đoàn viên, dành cho thiếu nhi.'],
+            '1-8'   => ['ten_su_kien' => '🌸 Mồng 1 tháng Tám', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Đầu tháng tám âm lịch, ngày cúng tổ tiên.'],
+            '15-8'  => ['ten_su_kien' => '🌕 Tết Trung thu', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Còn gọi là Tết trông Trăng hay Tết Đoàn viên, dành cho thiếu nhi.'],
 
             // THÁNG CHÍN (Tháng 9)
-            '1-9'   => ['ten_su_kien' => 'Mồng 1 tháng Chín', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Đầu tháng chín âm lịch, ngày cúng tổ tiên.'],
+            '1-9'   => ['ten_su_kien' => '🌸 Mồng 1 tháng Chín', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Đầu tháng chín âm lịch, ngày cúng tổ tiên.'],
             '9-9'   => ['ten_su_kien' => 'Tết Trùng Cửu', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày lễ trùng dương, cúng tổ tiên và cầu sức khỏe.'],
-            '15-9'  => ['ten_su_kien' => 'Rằm tháng Chín', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày cúng Quan Âm và tổ tiên.'],
+            '15-9'  => ['ten_su_kien' => '🌕 Rằm tháng Chín', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày cúng Quan Âm và tổ tiên.'],
 
             // THÁNG MƯỜI (Tháng 10)
-            '1-10'  => ['ten_su_kien' => 'Lễ Cửu Trùng Thiên', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày lễ thần linh cao cả.'],
+            '1-10'  => ['ten_su_kien' => '🌸 Lễ Cửu Trùng Thiên', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày lễ thần linh cao cả.'],
             '10-10' => ['ten_su_kien' => 'Tết Thường Tân', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày cúng tế cuối thu.'],
-            '15-10' => ['ten_su_kien' => 'Tết Hạ Nguyên', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày lễ Thủy Quan Đại Đế, cầu xin giải ách.'],
+            '15-10' => ['ten_su_kien' => '🌕 Tết Hạ Nguyên', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày lễ Thủy Quan Đại Đế, cầu xin giải ách.'],
 
             // THÁNG MƯỜI MỘT (Tháng 11)
-            '1-11'  => ['ten_su_kien' => 'Mồng 1 tháng Mười một', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Đầu tháng mười một âm lịch, ngày cúng tổ tiên.'],
-            '15-11' => ['ten_su_kien' => 'Rằm tháng Mười một', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày cúng tổ tiên và Phật.'],
+            '1-11'  => ['ten_su_kien' => '🌸 Mồng 1 tháng Mười một', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Đầu tháng mười một âm lịch, ngày cúng tổ tiên.'],
+            '15-11' => ['ten_su_kien' => '🌕 Rằm tháng Mười một', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày cúng tổ tiên và Phật.'],
 
             // THÁNG CHẠP (Tháng 12)
-            '1-12'  => ['ten_su_kien' => 'Mồng 1 tháng Chạp', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Đầu tháng chạp âm lịch, bắt đầu chuẩn bị Tết.'],
+            '1-12'  => ['ten_su_kien' => '🌸 Mồng 1 tháng Chạp', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Đầu tháng chạp âm lịch, bắt đầu chuẩn bị Tết.'],
             '8-12'  => ['ten_su_kien' => 'Lễ Phật Thành đạo', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày Đức Phật thành đạo dưới cây Bồ Đề.'],
-            '15-12' => ['ten_su_kien' => 'Rằm tháng Chạp', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Rằm cuối năm, cúng tổ tiên.'],
+            '15-12' => ['ten_su_kien' => '🌕 Rằm tháng Chạp', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Rằm cuối năm, cúng tổ tiên.'],
             '23-12' => ['ten_su_kien' => 'Ông Công, Ông Táo', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày các vị thần Bếp lên chầu trời để báo cáo mọi việc trong năm.'],
             '30-12' => ['ten_su_kien' => 'Giao thừa', 'loai_su_kien' => 'le_lon', 'mo_ta' => 'Đêm giao thừa, đón năm mới âm lịch.'],
         ];

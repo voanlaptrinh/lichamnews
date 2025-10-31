@@ -152,6 +152,7 @@ class GoodBadDayHelper
     public static function checkTabooDays(Carbon $date, string $purpose): array
     {
         // Lấy danh sách các ngày kỵ áp dụng cho ngày $date
+     
         $tabooDays = self::getApplicableTabooDays($date);
         $issues = [];
 
@@ -199,7 +200,7 @@ class GoodBadDayHelper
                 ];
             }
         }
-
+     
         return ['issues' => $issues];
     }
 
@@ -211,7 +212,7 @@ class GoodBadDayHelper
             "Nguyệt Kỵ" => self::isNguyetKy($date),
             "Nguyệt Tận" => self::isNguyetTan($date),
             "Dương Công Kỵ Nhật" => self::isDuongCongKyNhat(date: $date),
-            "Sát Chủ Âm" => self::isSatChuAm($date),
+            "Sát Chủ Âm" => self::isSatChuAm(date: $date),
             "Sát Chủ Dương" => self::isSatChuDuong($date),
             "Kim Thần Thất Sát" => self::isKimThanThatSat(date: $date),
             "Trùng Phục" => self::isTrungPhuc($date),
@@ -222,7 +223,7 @@ class GoodBadDayHelper
     public static function getApplicableTabooDays(Carbon $date): array
     {
         $tabooDays = self::getTabooDays($date);
-       
+
         $descriptions = DataHelper::$tabooDayDescriptions ?? [];
 
         $result = [];
@@ -294,10 +295,17 @@ class GoodBadDayHelper
         $day = (int)$date->format('d');
         $month = (int)$date->format('m');
         $year = (int)$date->format('Y');
-        $lunar = lunarHelper::convertSolar2Lunar($day, $month, $year);
-        $chi = lunarHelper::canchiNgay($year, $month, $day);
-        $chi_ngay = explode(' ', $chi);
-        $chi_ngay  = $chi_ngay[1];
+$lunar = lunarHelper::convertSolar2Lunar($day, $month, $year);
+  $jd = LunarHelper::jdFromDate((int)$day, (int)$month, (int)$year);
+
+        $canChi = LunarHelper::canchiNgayByJD($jd);
+
+        $parts = explode(' ', $canChi);
+        
+        // $lunar = lunarHelper::convertSolar2Lunar($day, $month, $year);
+        // $chi = lunarHelper::canchiNgay($year, $month, $day);
+        // $chi_ngay = explode(' ', $chi);
+        $chi_ngay  = $parts[1];
         return $chi_ngay === DataHelper::$satChuDuong[$lunar[1]] ?? '';
     }
 
@@ -323,12 +331,22 @@ class GoodBadDayHelper
         $day = (int)$date->format('d');
         $month = (int)$date->format('m');
         $year = (int)$date->format('Y');
-        $lunar = lunarHelper::convertSolar2Lunar($day, $month, $year);
-        $can = lunarHelper::canchiNgay($year, $month, $day);
+        // $lunar = lunarHelper::convertSolar2Lunar($day, $month, $year);
+        // $can = lunarHelper::canchiNgay($year, $month, $day);
+
+        // $can_ngay = explode(' ', $can);
+$lunar = lunarHelper::convertSolar2Lunar($day,  $month, $year);
+  $jd = LunarHelper::jdFromDate((int)$day, (int)$month, (int)$year);
+
+        $can = LunarHelper::canchiNgayByJD($jd);
 
         $can_ngay = explode(' ', $can);
-        $can_ngay  = $can_ngay[0];
-        return $can === DataHelper::$trungPhuc[$lunar[1]] ?? '';
+
+
+
+
+        $can_ngay = $can_ngay[0];
+        return $can_ngay === DataHelper::$trungPhuc[$lunar[1]] ?? '';
     }
 
     public static function isThuTu(\DateTime $date): bool
@@ -336,9 +354,17 @@ class GoodBadDayHelper
         $day = (int)$date->format('d');
         $month = (int)$date->format('m');
         $year = (int)$date->format('Y');
-        $lunar = lunarHelper::convertSolar2Lunar($day, $month, $year);
-        $chi = lunarHelper::canchiNgay($year, $month, $day);
-        $chi_ngay = explode(' ', $chi);
+        // $lunar = lunarHelper::convertSolar2Lunar($day, $month, $year);
+        // $chi = lunarHelper::canchiNgay($year, $month, $day);
+        // $chi_ngay = explode(' ', $chi);
+
+$lunar = lunarHelper::convertSolar2Lunar($day, $month, $year);
+  $jd = LunarHelper::jdFromDate((int)$day, (int)$month, (int)$year);
+
+        $canChi = LunarHelper::canchiNgayByJD($jd);
+
+        $chi_ngay = explode(' ', $canChi);
+
         $chi_ngay  = $chi_ngay[1];
         return $chi_ngay === DataHelper::$thuTu[$lunar[1]] ?? '';
     }

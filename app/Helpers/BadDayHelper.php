@@ -228,7 +228,7 @@ class BadDayHelper
         $personInfo = self::getPersonBasicInfo($personDob);
         $getThongTinCanChiVaIcon = FunctionHelper::getThongTinCanChiVaIcon($dateToCheck->day, $dateToCheck->month, $dateToCheck->year);
         $chiNgay = explode(' ', $getThongTinCanChiVaIcon['can_chi_ngay'])[1] ?? '';
-
+     
         return [
             'personTitle' => $personTitle,
             'personInfo' => $personInfo,
@@ -243,15 +243,24 @@ class BadDayHelper
 
 
 
-    public static function getdetailtable(Carbon $dateToCheck){
-          $lunarParts = LunarHelper::convertSolar2Lunar($dateToCheck->day, $dateToCheck->month, $dateToCheck->year);
+    public static function getdetailtable(Carbon $dateToCheck)
+    {
+        $lunarParts = LunarHelper::convertSolar2Lunar($dateToCheck->day, $dateToCheck->month, $dateToCheck->year);
         $dayCanChi = LunarHelper::canchiNgayByJD(LunarHelper::jdFromDate($dateToCheck->day, $dateToCheck->month, $dateToCheck->year));
         $jd = \App\Helpers\LunarHelper::jdFromDate($dateToCheck->day, $dateToCheck->month, $dateToCheck->year);
         $canChiNgay = \App\Helpers\LunarHelper::canchiNgayByJD($jd);
         list($dayCan, $dayChi) = explode(' ', $canChiNgay);
         $hopxungNgay = FengShuiHelper::getCucKhiHopXung($dayChi);
+
+        // Lấy thứ trong tuần
+        $dayOfWeek = $dateToCheck->locale('vi')->dayName;
+
         return [
             'dateToCheck' => $dateToCheck,
+            'day' => $dateToCheck->day,
+            'month' => $dateToCheck->month,
+            'year' => $dateToCheck->year,
+            'dayOfWeek' => $dayOfWeek,
             'lunarDateStr' => sprintf('Ngày %s (%02d/%02d)', $dayCanChi, $lunarParts[0], $lunarParts[1]),
             'badDays' => BadDayHelper::checkBadDays($dateToCheck),
             'getThongTinNgay' => FunctionHelper::getThongTinNgay($dateToCheck->day, $dateToCheck->month, $dateToCheck->year),
