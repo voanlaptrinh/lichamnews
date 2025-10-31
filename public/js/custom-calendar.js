@@ -9,12 +9,14 @@ class CustomCalendar {
             inputId: options.inputId || 'ngayXem',
             calendarId: options.calendarId || 'customCalendar',
             defaultToToday: options.defaultToToday !== false,
+            usePopup: options.usePopup !== false, // Default to popup style
             ...options
         };
 
         this.currentDate = new Date();
         this.selectedDate = null;
         this.pickerVisible = false;
+        this.overlay = null;
 
         this.init();
     }
@@ -26,6 +28,11 @@ class CustomCalendar {
         if (!this.input || !this.calendar) {
             console.warn('Custom calendar elements not found');
             return;
+        }
+
+        // Create overlay if using popup mode
+        if (this.options.usePopup) {
+            this.createOverlay();
         }
 
         // Main calendar elements
@@ -56,17 +63,123 @@ class CustomCalendar {
             const today = new Date();
             this.selectedDate = today;
             this.input.value = this.formatDateDisplay(today);
+
+            // Store date in dataset for form submission
+            const day = String(today.getDate()).padStart(2, '0');
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const year = today.getFullYear();
+            this.input.dataset.date = `${day}/${month}/${year}`;
+            this.input.dataset.solarDay = today.getDate();
+            this.input.dataset.solarMonth = today.getMonth() + 1;
+            this.input.dataset.solarYear = year;
         }
 
         this.generateCalendar(this.currentDate);
     }
 
+    createOverlay() {
+        // Create overlay
+        this.overlay = document.createElement('div');
+        this.overlay.className = 'calendar-overlay';
+        this.overlay.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 9998;
+            display: none;
+            backdrop-filter: blur(2px);
+            -webkit-backdrop-filter: blur(2px);
+        `;
+        document.body.appendChild(this.overlay);
+
+        // Move calendar to overlay
+        this.overlay.appendChild(this.calendar);
+
+        // Style calendar as popup
+        this.calendar.classList.add('calendar-popup');
+        this.calendar.style.cssText = `
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            padding: 20px;
+            display: none;
+            width: 380px;
+            max-width: 95vw;
+            animation: slideUp 0.3s ease;
+        `;
+
+        // Add CSS animation
+        if (!document.getElementById('calendar-popup-styles')) {
+            const style = document.createElement('style');
+            style.id = 'calendar-popup-styles';
+            style.textContent = `
+                @keyframes slideUp {
+                    from {
+                        opacity: 0;
+                        transform: translate(-50%, -45%);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translate(-50%, -50%);
+                    }
+                }
+                .calendar-overlay.show {
+                    animation: fadeIn 0.2s ease;
+                }
+                @keyframes fadeIn {
+                    from { opacity: 0; }
+                    to { opacity: 1; }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+
+        // Close overlay on click
+        this.overlay.addEventListener('click', (e) => {
+            if (e.target === this.overlay) {
+                this.hideCalendar();
+            }
+        });
+    }
+
+    showCalendar() {
+        if (this.options.usePopup && this.overlay) {
+            this.overlay.style.display = 'block';
+            this.calendar.style.display = 'block';
+            this.overlay.classList.add('show');
+        } else {
+            this.calendar.style.display = 'block';
+        }
+        this.generateCalendar(this.currentDate);
+    }
+
+    hideCalendar() {
+        if (this.options.usePopup && this.overlay) {
+            this.overlay.classList.remove('show');
+            setTimeout(() => {
+                this.overlay.style.display = 'none';
+                this.calendar.style.display = 'none';
+            }, 200);
+        } else {
+            this.calendar.style.display = 'none';
+        }
+    }
+
     setupEventListeners() {
         this.input.addEventListener('click', (e) => {
             e.stopPropagation();
-            this.calendar.style.display = this.calendar.style.display === 'none' ? 'block' : 'none';
-            if (this.calendar.style.display === 'block') {
-                this.generateCalendar(this.currentDate);
+            if (this.calendar.style.display === 'none' || !this.calendar.style.display) {
+                this.showCalendar();
+            } else {
+                this.hideCalendar();
             }
         });
 
@@ -90,7 +203,18 @@ class CustomCalendar {
             this.clearBtn.addEventListener('click', () => {
                 this.selectedDate = null;
                 this.input.value = '';
-                this.calendar.style.display = 'none';
+
+                // Clear all date data
+                delete this.input.dataset.date;
+                delete this.input.dataset.solarDay;
+                delete this.input.dataset.solarMonth;
+                delete this.input.dataset.solarYear;
+                delete this.input.dataset.lunarDay;
+                delete this.input.dataset.lunarMonth;
+                delete this.input.dataset.lunarYear;
+                delete this.input.dataset.lunarLeap;
+
+                this.hideCalendar();
                 this.generateCalendar(this.currentDate);
             });
         }
@@ -101,7 +225,23 @@ class CustomCalendar {
                 this.selectedDate = today;
                 this.currentDate = new Date(today);
                 this.input.value = this.formatDateDisplay(today);
-                this.calendar.style.display = 'none';
+
+                // Store date in dataset for form submission
+                const day = String(today.getDate()).padStart(2, '0');
+                const month = String(today.getMonth() + 1).padStart(2, '0');
+                const year = today.getFullYear();
+                this.input.dataset.date = `${day}/${month}/${year}`;
+                this.input.dataset.solarDay = today.getDate();
+                this.input.dataset.solarMonth = today.getMonth() + 1;
+                this.input.dataset.solarYear = year;
+
+                // Clear lunar data if exists
+                delete this.input.dataset.lunarDay;
+                delete this.input.dataset.lunarMonth;
+                delete this.input.dataset.lunarYear;
+                delete this.input.dataset.lunarLeap;
+
+                this.hideCalendar();
                 this.generateCalendar(this.currentDate);
             });
         }
@@ -117,11 +257,14 @@ class CustomCalendar {
             this.generateMonthPicker(this.currentDate.getFullYear());
         });
 
-        document.addEventListener('click', (e) => {
-            if (!e.target.closest('.input-group') && !e.target.closest('.custom-calendar')) {
-                this.calendar.style.display = 'none';
-            }
-        });
+        // Only add document click listener for non-popup mode
+        if (!this.options.usePopup) {
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.input-group') && !e.target.closest('.custom-calendar')) {
+                    this.hideCalendar();
+                }
+            });
+        }
     }
 
     togglePicker() {
@@ -223,7 +366,23 @@ class CustomCalendar {
 
             this.selectedDate = new Date(date);
             this.input.value = this.formatDateDisplay(this.selectedDate);
-            this.calendar.style.display = 'none';
+
+            // Store date in dataset for form submission
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = date.getFullYear();
+            this.input.dataset.date = `${day}/${month}/${year}`;
+            this.input.dataset.solarDay = date.getDate();
+            this.input.dataset.solarMonth = date.getMonth() + 1;
+            this.input.dataset.solarYear = year;
+
+            // Clear lunar data if exists
+            delete this.input.dataset.lunarDay;
+            delete this.input.dataset.lunarMonth;
+            delete this.input.dataset.lunarYear;
+            delete this.input.dataset.lunarLeap;
+
+            this.hideCalendar();
             this.generateCalendar(this.currentDate);
         });
 

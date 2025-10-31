@@ -21,11 +21,13 @@ class VanillaDateRangePicker {
         this.hoverDate = null;
         this.currentLeftMonth = new Date();
         this.currentRightMonth = new Date(new Date().setMonth(new Date().getMonth() + 1));
+        this.currentSingleMonth = new Date(); // For mobile single calendar
 
         this.isSelecting = false;
         this.container = null;
         this.overlay = null;
         this.scrollPosition = 0;
+        this.isMobile = true; // Always use mobile-style interface
 
         this.monthNames = [
             'Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4',
@@ -53,6 +55,9 @@ class VanillaDateRangePicker {
         this.container = document.createElement('div');
         this.container.className = 'daterangepicker-container';
 
+        // Always add mobile-view class for unified interface
+        this.container.classList.add('mobile-view');
+
         // Tạo content wrapper (chứa shortcuts + calendars)
         const content = document.createElement('div');
         content.className = 'daterangepicker-content';
@@ -67,11 +72,9 @@ class VanillaDateRangePicker {
         const calendars = document.createElement('div');
         calendars.className = 'daterangepicker-calendars';
 
-        const leftCalendar = this.createCalendar('left');
-        const rightCalendar = this.createCalendar('right');
-
-        calendars.appendChild(leftCalendar);
-        calendars.appendChild(rightCalendar);
+        // Sử dụng giao diện thống nhất cho cả mobile và desktop
+        const unifiedCalendar = this.createMobileCalendar();
+        calendars.appendChild(unifiedCalendar);
         content.appendChild(calendars);
 
         // Thêm content vào container
@@ -108,6 +111,75 @@ class VanillaDateRangePicker {
 
         shortcuts.appendChild(ul);
         return shortcuts;
+    }
+
+    createMobileCalendar() {
+        const calendar = document.createElement('div');
+        calendar.className = 'daterangepicker-calendar mobile-calendar';
+        calendar.setAttribute('data-position', 'mobile');
+
+        // Header với navigation
+        const header = document.createElement('div');
+        header.className = 'daterangepicker-header mobile-header';
+
+        // Navigation controls
+        const nav = document.createElement('div');
+        nav.className = 'mobile-nav-controls';
+        nav.innerHTML = `
+            <button class="nav-btn prev-month-mobile" type="button" title="Tháng trước">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+                </svg>
+            </button>
+            <div class="month-year-display" style="cursor: pointer;" title="Click để chọn nhanh tháng/năm">
+                <span class="daterangepicker-month-year">${this.monthNames[this.currentSingleMonth.getMonth()]} ${this.currentSingleMonth.getFullYear()}</span>
+            </div>
+            <button class="nav-btn next-month-mobile" type="button" title="Tháng sau">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+                </svg>
+            </button>
+        `;
+        header.appendChild(nav);
+        calendar.appendChild(header);
+
+        // Table
+        const table = document.createElement('table');
+        const thead = document.createElement('thead');
+        const headRow = document.createElement('tr');
+
+        this.dayNames.forEach(day => {
+            const th = document.createElement('th');
+            th.textContent = day;
+            headRow.appendChild(th);
+        });
+
+        thead.appendChild(headRow);
+        table.appendChild(thead);
+
+        const tbody = document.createElement('tbody');
+        table.appendChild(tbody);
+
+        calendar.appendChild(table);
+
+        // Selected dates display for mobile
+        const selectedInfo = document.createElement('div');
+        selectedInfo.className = 'mobile-selected-info';
+        selectedInfo.innerHTML = `
+            <div class="selected-dates-display">
+                <div class="selected-date-item">
+                    <label>Từ ngày:</label>
+                    <span class="start-date-value">--/--/----</span>
+                </div>
+                <div class="selected-date-item">
+                    <label>Đến ngày:</label>
+                    <span class="end-date-value">--/--/----</span>
+                </div>
+            </div>
+        `;
+        calendar.appendChild(selectedInfo);
+
+        return calendar;
     }
 
     createCalendar(position) {
@@ -230,11 +302,44 @@ class VanillaDateRangePicker {
 
         // Ngăn click trong container đóng picker
         this.container.addEventListener('click', (e) => e.stopPropagation());
+
+        // Navigation cho calendar thống nhất
+        setTimeout(() => {
+            const prevBtn = this.container.querySelector('.prev-month-mobile');
+            const nextBtn = this.container.querySelector('.next-month-mobile');
+            const monthYearDisplay = this.container.querySelector('.month-year-display');
+
+            if (prevBtn) {
+                prevBtn.addEventListener('click', () => {
+                    this.currentSingleMonth.setMonth(this.currentSingleMonth.getMonth() - 1);
+                    this.renderCalendars();
+                });
+            }
+
+            if (nextBtn) {
+                nextBtn.addEventListener('click', () => {
+                    this.currentSingleMonth.setMonth(this.currentSingleMonth.getMonth() + 1);
+                    this.renderCalendars();
+                });
+            }
+
+            // Click vào month-year để mở quick selector
+            if (monthYearDisplay) {
+                monthYearDisplay.addEventListener('click', () => {
+                    this.showMonthYearSelector();
+                });
+            }
+        }, 100);
     }
 
     show() {
         // Parse giá trị hiện tại trong input nếu có
         this.parseInputValue();
+
+        // Set current month for unified view
+        if (this.startDate) {
+            this.currentSingleMonth = new Date(this.startDate.getFullYear(), this.startDate.getMonth(), 1);
+        }
 
         // Render calendars
         this.renderCalendars();
@@ -347,8 +452,21 @@ class VanillaDateRangePicker {
     }
 
     renderCalendars() {
-        this.renderCalendar('left', this.currentLeftMonth);
-        this.renderCalendar('right', this.currentRightMonth);
+        // Always use single calendar view
+        this.renderCalendar('mobile', this.currentSingleMonth);
+        this.updateMobileSelectedDisplay();
+    }
+
+    updateMobileSelectedDisplay() {
+        const startDisplay = this.container.querySelector('.start-date-value');
+        const endDisplay = this.container.querySelector('.end-date-value');
+
+        if (startDisplay) {
+            startDisplay.textContent = this.startDate ? this.formatDate(this.startDate) : '--/--/----';
+        }
+        if (endDisplay) {
+            endDisplay.textContent = this.endDate ? this.formatDate(this.endDate) : '--/--/----';
+        }
     }
 
     renderCalendar(position, date) {
@@ -674,6 +792,127 @@ class VanillaDateRangePicker {
         if (this.options.minDate && date < this.options.minDate) return true;
         if (this.options.maxDate && date > this.options.maxDate) return true;
         return false;
+    }
+
+    showMonthYearSelector() {
+        // Tạo overlay mờ
+        const selectorOverlay = document.createElement('div');
+        selectorOverlay.className = 'month-year-selector-overlay';
+
+        // Tạo modal chọn tháng năm
+        const selector = document.createElement('div');
+        selector.className = 'month-year-selector';
+
+        const currentYear = this.currentSingleMonth.getFullYear();
+        const currentMonth = this.currentSingleMonth.getMonth();
+
+        // Header
+        const header = document.createElement('div');
+        header.className = 'selector-header';
+        header.innerHTML = '<h3>Chọn Tháng và Năm</h3>';
+
+        // Year selector
+        const yearSection = document.createElement('div');
+        yearSection.className = 'year-section';
+        yearSection.innerHTML = `
+            <div class="year-controls">
+                <button type="button" class="year-prev"><i class="bi bi-chevron-left"></i></button>
+                <input type="number" class="year-input" value="${currentYear}" min="1900" max="2100">
+                <button type="button" class="year-next"><i class="bi bi-chevron-right"></i></button>
+            </div>
+        `;
+
+        // Month grid
+        const monthGrid = document.createElement('div');
+        monthGrid.className = 'month-grid';
+
+        this.monthNames.forEach((month, index) => {
+            const monthBtn = document.createElement('button');
+            monthBtn.type = 'button';
+            monthBtn.className = 'month-btn';
+            if (index === currentMonth) {
+                monthBtn.classList.add('active');
+            }
+            monthBtn.textContent = month.replace('Tháng ', '');
+            monthBtn.dataset.month = index;
+            monthGrid.appendChild(monthBtn);
+        });
+
+        // Footer buttons
+        const footer = document.createElement('div');
+        footer.className = 'selector-footer';
+        footer.innerHTML = `
+            <button type="button" class="btn-cancel-selector">Hủy</button>
+            <button type="button" class="btn-today-selector">Hôm nay</button>
+            <button type="button" class="btn-apply-selector">Chọn</button>
+        `;
+
+        selector.appendChild(header);
+        selector.appendChild(yearSection);
+        selector.appendChild(monthGrid);
+        selector.appendChild(footer);
+
+        // Add selector to overlay, then overlay to container
+        selectorOverlay.appendChild(selector);
+        this.container.appendChild(selectorOverlay);
+
+        // Click overlay to close
+        selectorOverlay.addEventListener('click', (e) => {
+            if (e.target === selectorOverlay) {
+                selectorOverlay.remove();
+            }
+        });
+
+        // Event handlers
+        let selectedMonth = currentMonth;
+        let selectedYear = currentYear;
+
+        const yearInput = selector.querySelector('.year-input');
+        const yearPrev = selector.querySelector('.year-prev');
+        const yearNext = selector.querySelector('.year-next');
+
+        yearPrev.addEventListener('click', () => {
+            selectedYear--;
+            yearInput.value = selectedYear;
+        });
+
+        yearNext.addEventListener('click', () => {
+            selectedYear++;
+            yearInput.value = selectedYear;
+        });
+
+        yearInput.addEventListener('change', (e) => {
+            selectedYear = parseInt(e.target.value);
+        });
+
+        // Month selection
+        monthGrid.addEventListener('click', (e) => {
+            if (e.target.classList.contains('month-btn')) {
+                selector.querySelectorAll('.month-btn').forEach(btn => btn.classList.remove('active'));
+                e.target.classList.add('active');
+                selectedMonth = parseInt(e.target.dataset.month);
+            }
+        });
+
+        // Today button
+        selector.querySelector('.btn-today-selector').addEventListener('click', () => {
+            const today = new Date();
+            this.currentSingleMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+            this.renderCalendars();
+            selectorOverlay.remove();
+        });
+
+        // Cancel button
+        selector.querySelector('.btn-cancel-selector').addEventListener('click', () => {
+            selectorOverlay.remove();
+        });
+
+        // Apply button
+        selector.querySelector('.btn-apply-selector').addEventListener('click', () => {
+            this.currentSingleMonth = new Date(selectedYear, selectedMonth, 1);
+            this.renderCalendars();
+            selectorOverlay.remove();
+        });
     }
 
     destroy() {

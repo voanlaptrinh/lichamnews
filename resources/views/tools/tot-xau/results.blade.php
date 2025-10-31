@@ -32,7 +32,8 @@
                     <div class="card-body box1-con-year">
                         <div
                             class="text-primary mb-3 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
-                            <img src="{{ asset('icons/dac-diem1.svg') }}" alt="thông tin người xem"> Thông Tin Người Xem
+                            <img src="{{ asset('icons/dac-diem1.svg') }}" alt="thông tin người xem" width="28"
+                                height="28" class="me-1"> Thông Tin Người Xem
                         </div>
                         @if (isset($birthdateInfo))
                             <div class="info-grid">
@@ -65,12 +66,16 @@
                         <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
                             <div
                                 class="text-primary mb-3 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
-                                <img src="{{ asset('icons/dac-diem3.svg') }}" alt="thông tin người xem"> Danh Sách Điểm
+                                <img src="{{ asset('icons/k_nen_1.svg') }}" alt="thông tin người xem" width="28"
+                                    height="28" class="me-1"> Danh Sách Điểm
                                 Theo Ngày
                             </div>
-                            <select name="sort" class="form-select form-select-sm sort-select" style="width: auto;" form="totXauForm">
-                                <option value="desc" {{ ($sortOrder ?? 'desc') === 'desc' ? 'selected' : '' }}>Điểm giảm dần ↓</option>
-                                <option value="asc" {{ ($sortOrder ?? 'desc') === 'asc' ? 'selected' : '' }}>Điểm tăng dần ↑</option>
+                            <select name="sort" class=" form-select-sm sort-select" style="width: auto;"
+                                form="totXauForm">
+                                <option value="desc" {{ ($sortOrder ?? 'desc') === 'desc' ? 'selected' : '' }}>Điểm
+                                    giảm dần</option>
+                                <option value="asc" {{ ($sortOrder ?? 'desc') === 'asc' ? 'selected' : '' }}>Điểm
+                                    tăng dần</option>
                             </select>
                         </div>
 
@@ -100,21 +105,27 @@
                                                 </td>
                                                 <td>
                                                     @php
-                                                        $violations = isset($day['day_score']['pham']) ? $day['day_score']['pham'] : [];
+                                                        $violations = $day['day_score']['pham'] ?? [];
+                                                        if (is_string($violations)) {
+                                                            $violations = json_decode($violations, true) ?: [];
+                                                        }
+                                                        $validViolations = array_filter($violations);
                                                     @endphp
-                                                    @if (count($violations) > 0)
-                                                        <div class="text-danger">
-                                                            <img src="{{ asset('icons/ping.svg?v=1.0') }}" alt="ping"
-                                                                width="24" height="24">
-                                                            <span>{{ count($violations) }} yếu tố</span>
+
+                                                    @if (count($validViolations) > 0)
+                                                        <div class="text-dark fw-semibold">
+                                                            <img src="{{ asset('icons/ping.svg?v=1.0') }}"
+                                                                alt="ping" width="24" height="24">
+                                                            <span>{{ count($validViolations) }} yếu tố</span>
                                                         </div>
                                                     @else
                                                         <span class="text-success">
                                                             <i class="bi bi-check-circle-fill"></i> Không phạm
                                                         </span>
                                                     @endif
+
                                                 </td>
-                                                <td>
+                                                <td class="text-center">
                                                     @php
                                                         $score = $day['day_score']['percentage'] ?? 0;
                                                         $bgColor = '#D1FAE5'; // Green
@@ -135,17 +146,30 @@
                                                             $text_box = '#10B981';
                                                         }
                                                     @endphp
-                                                    <span class="badge px-3 py-2"
-                                                        style="background-color: {{ $bgColor }};border:1px solid {{ $border }}; color: {{ $text_box }}; font-size: 18px; border-radius: 15px;width:100px;font-weight:600">
-                                                        {{ $score }}%
-                                                    </span>
+                                                    <div class=" d-flex justify-content-center align-items-center">
+                                                        <span
+                                                            class="badge px-3 py-2 d-flex justify-content-center align-items-center"
+                                                            style="background-color: {{ $bgColor }};border:1px solid {{ $border }}; color: {{ $text_box }}; font-size: 18px; border-radius: 8px;width:108px;height:28px;font-weight:600">
+                                                            {{ round($score) }}%
+                                                        </span>
+                                                    </div>
                                                 </td>
                                                 <td>
-                                                    <a href="{{ route('totxau.dayDetails', ['date' => $day['date']->format('Y-m-d'), 'birthdate' => $formattedBirthdate]) }}" 
-                                                       class="btn btn-sm btn-outline-primary" 
-                                                       target="_blank">
-                                                        Xem
+                                                   <div class="d-flex justify-content-center align-items-center">
+                                                     <a href="{{ route('totxau.dayDetails', ['date' => $day['date']->format('Y-m-d'), 'birthdate' => $formattedBirthdate]) }}"
+                                                        class="btn btn-sm-settup" target="_blank">
+                                                        Xem <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                            height="16" fill="currentColor" class="bi bi-eye"
+                                                            viewBox="0 0 16 16">
+                                                            <path
+                                                                d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z">
+                                                            </path>
+                                                            <path
+                                                                d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0">
+                                                            </path>
+                                                        </svg>
                                                     </a>
+                                                   </div>
                                                 </td>
                                             </tr>
                                         @endforeach
