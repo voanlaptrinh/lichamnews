@@ -240,6 +240,7 @@
                         </div>
                     </div>
                 </div>
+                @include('tools.siderbardetail')
             </div>
         </div>
     </div>

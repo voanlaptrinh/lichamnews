@@ -2,6 +2,10 @@
 @section('content')
     @push('styles')
         <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=10.0') }}">
+
+        <style>
+           
+        </style>
     @endpush
 
 
@@ -33,23 +37,9 @@
                                             đây để xem ngày tốt xấu</p>
 
                                         <form id="totXauForm">
-                                            <!-- Radio buttons để chọn loại lịch -->
                                             <div class="mb-3">
-                                                <div class="btn-group w-100" role="group" aria-label="Chọn loại lịch">
-                                                    <input type="radio" class="btn-check" name="calendarType" id="solarCalendar" value="solar" checked>
-                                                    <label class="btn btn-outline-primary" for="solarCalendar">
-                                                        <i class="bi bi-sun"></i> Dương lịch
-                                                    </label>
-
-                                                    <input type="radio" class="btn-check" name="calendarType" id="lunarCalendar" value="lunar">
-                                                    <label class="btn btn-outline-primary" for="lunarCalendar">
-                                                        <i class="bi bi-moon"></i> Âm lịch
-                                                    </label>
-                                                </div>
-                                            </div>
-
-                                            <div class="mb-3">
-                                                <div class="input-group">
+                                                <!-- Input với icon calendar -->
+                                                <div class="input-group mb-2">
                                                     <input type="text" class="form-control --border-box-form"
                                                         id="ngayXem" placeholder="Chọn ngày" readonly
                                                         style="border-radius: 10px; border: none; padding: 12px 45px 12px 15px; background-color: rgba(255,255,255,0.95); cursor: pointer;">
@@ -57,6 +47,26 @@
                                                         style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); z-index: 5;">
                                                         <i class="bi-calendar-date-fill text-muted"></i>
                                                     </span>
+                                                </div>
+
+                                                <!-- Radio buttons dạng tròn bên dưới input -->
+                                                <div class="d-flex gap-4 ps-2" style="margin-top: 15px;">
+                                                    <div class="form-check d-flex align-items-center">
+                                                        <input type="radio" class="form-check-input" name="calendarType" id="solarCalendar" value="solar" checked
+                                                               style="width: 24px; height: 24px; cursor: pointer;">
+                                                        <label class="form-check-label ms-2" for="solarCalendar"
+                                                               style="cursor: pointer; font-size: 15px; color: #333;">
+                                                            Dương lịch
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check d-flex align-items-center">
+                                                        <input type="radio" class="form-check-input" name="calendarType" id="lunarCalendar" value="lunar"
+                                                               style="width: 24px; height: 24px; cursor: pointer;">
+                                                        <label class="form-check-label ms-2" for="lunarCalendar"
+                                                               style="cursor: pointer; font-size: 15px; color: #333;">
+                                                            Âm lịch
+                                                        </label>
+                                                    </div>
                                                 </div>
                                                 <!-- Custom Calendar Popup -->
                                                 <div class="custom-calendar" id="customCalendar" style="display: none;">
@@ -202,38 +212,7 @@
                     </div>
                 </div>
 
-                <div class="col-xl-3  col-sm-12 col-12 mb-3">
-                    <div class="d-flex flex-column gap-4">
-                        <!-- ** KHá»I Sá»° KIá»†N Sáº®P Tá»šI ** -->
-
-
-                        <div class="events-card">
-                            <div class="card-title-right title-tong-quan-h5-log">Tiện ích xem ngày</div>
-                            <ul class="list-group list-group-flush events-list">
-                                <li class="list-group-item pb-0">
-                                    <a href="https://phonglich.com/lich-nam-2024">
-
-                                        <div class="event-details --padding-event-tot">
-                                            <div class="event-name" style="font-weight: unset">
-                                                Xem ngày tốt xấu
-                                            </div>
-
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="list-group-item  pb-0">
-                                    <a href="https://phonglich.com/lich-nam-2024">
-                                        <div class="event-details  --padding-event-tot">
-                                            <div class="event-name" style="font-weight: unset">
-                                                Xem ngày kết hôn
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+               @include('tools.siderbarindex')
             </div>
         </div>
     </div>
@@ -264,23 +243,121 @@
     </div>
 @endsection
 @push('scripts')
+    {{-- Date Range Picker JS (vanilla JS version) --}}
     <script src="{{ asset('/js/vanilla-daterangepicker.js?v=6.0') }}" defer></script>
+
+    {{-- Legacy custom calendar (for compatibility) --}}
     <script src="{{ asset('/js/custom-calendar.js?v=1.0') }}"></script>
+
+    {{-- New Date Picker Module --}}
+    <script src="{{ asset('/js/date-picker-module.js?v=1.6') }}"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // ========== INITIALIZE CALENDARS ==========
-            // Custom calendar cho Ngày Xem
-            // Comment out the default calendar initialization
-            // We'll handle it manually based on calendar type selection
-            // const ngayXemCalendar = new CustomCalendar({
-            //     inputId: 'ngayXem',
-            //     calendarId: 'customCalendar',
-            //     defaultToToday: true
-            // });
+            // ========== INITIALIZE USING NEW MODULE ==========
 
-            // Global calendar (nếu cần cho inputs khác)
+            // Global calendar (for compatibility with existing code)
             const globalCal = new GlobalCalendar('globalCalendar');
+
+            // Calendar type switcher - using new module
+            let calendarSwitcher = null;
+
+            // ========== INITIALIZE CALENDAR SWITCHER ==========
+            // This will handle switching between Solar and Lunar calendars
+            calendarSwitcher = new DatePicker.CalendarSwitcher({
+                solarRadioId: 'solarCalendar',
+                lunarRadioId: 'lunarCalendar',
+                inputId: 'ngayXem',
+                onChange: function(data, displayValue) {
+                    console.log('Date selected:', displayValue);
+                }
+            });
+
+            // ========== DATE RANGE PICKER ==========
+            // Initialize vanilla daterangepicker for Khoảng Ngày
+            const khoangNgayInput = document.getElementById('khoangNgay');
+            let dateRangePickerInstance = null;
+            let dateRangeInitAttempts = 0;
+            const maxDateRangeAttempts = 10;
+
+            // Simple custom date range implementation
+            function initDateRangePicker() {
+                // Stop after max attempts to prevent infinite loop
+                if (dateRangeInitAttempts >= maxDateRangeAttempts) {
+                    console.warn('VanillaDateRangePicker could not be loaded after ' + maxDateRangeAttempts + ' attempts');
+                    // Allow manual input as fallback
+                    if (khoangNgayInput) {
+                        khoangNgayInput.removeAttribute('readonly');
+                        khoangNgayInput.placeholder = 'DD/MM/YY - DD/MM/YY';
+                    }
+                    return;
+                }
+
+                dateRangeInitAttempts++;
+
+                // Check if vanilla-daterangepicker.js is loaded
+                if (typeof window.VanillaDateRangePicker !== 'undefined') {
+                    try {
+                        // Destroy existing instance if any
+                        if (dateRangePickerInstance) {
+                            try {
+                                dateRangePickerInstance.destroy();
+                            } catch(e) {}
+                        }
+
+                        dateRangePickerInstance = new window.VanillaDateRangePicker(khoangNgayInput, {
+                            autoApply: true, // Auto apply when selecting dates
+                            showDropdowns: true,
+                            linkedCalendars: false,
+                            singleDatePicker: false,
+                            locale: {
+                                format: 'DD/MM/YY',
+                                separator: ' - ',
+                                daysOfWeek: ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'],
+                                monthNames: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6',
+                                            'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
+                                firstDay: 1
+                            }
+                        });
+
+                        // Remove any blur validation that might have been added
+                        const newInput = khoangNgayInput.cloneNode(true);
+                        khoangNgayInput.parentNode.replaceChild(newInput, khoangNgayInput);
+
+                        // Re-initialize with the new input element
+                        dateRangePickerInstance = new window.VanillaDateRangePicker(newInput, {
+                            autoApply: true,
+                            showDropdowns: true,
+                            linkedCalendars: false,
+                            singleDatePicker: false,
+                            locale: {
+                                format: 'DD/MM/YY',
+                                separator: ' - ',
+                                daysOfWeek: ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'],
+                                monthNames: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6',
+                                            'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
+                                firstDay: 1
+                            }
+                        });
+
+                        console.log('Date range picker initialized successfully');
+                    } catch (error) {
+                        console.error('Error initializing date range picker:', error);
+                        // Stop retrying on error
+                        dateRangeInitAttempts = maxDateRangeAttempts;
+                    }
+                } else {
+                    // Only log first few attempts to avoid spam
+                    if (dateRangeInitAttempts <= 3) {
+                        console.log('VanillaDateRangePicker not loaded yet, attempt ' + dateRangeInitAttempts);
+                    }
+                    // Try again after a delay
+                    setTimeout(initDateRangePicker, 500);
+                }
+            }
+
+            // Initialize after a short delay to ensure library is loaded
+            setTimeout(initDateRangePicker, 100);
 
             // ========== FORM HANDLING ==========
             const form = document.getElementById('totXauForm');
@@ -443,449 +520,7 @@
                 });
             });
 
-            // Handle calendar type switching
-            const solarRadio = document.getElementById('solarCalendar');
-            const lunarRadio = document.getElementById('lunarCalendar');
-            const solarCalendarElem = document.getElementById('customCalendar');
-            const lunarCalendarElem = document.getElementById('lunarCustomCalendar');
-            let ngayXemInput = document.getElementById('ngayXem');
-
-            let solarCalendarInstance = null;
-
-            // Function to switch calendar type
-            function switchCalendarType() {
-                // Get fresh reference to input
-                let currentInput = document.getElementById('ngayXem');
-
-                if (solarRadio.checked) {
-                    // Clear the input value when switching
-                    currentInput.value = '';
-                    currentInput.placeholder = 'Chọn ngày Dương lịch';
-                    currentInput.dataset.calendarType = 'solar';
-
-                    // Clear any previous click listeners by replacing the input
-                    const newInput = currentInput.cloneNode(true);
-                    currentInput.parentNode.replaceChild(newInput, currentInput);
-                    ngayXemInput = newInput;
-
-                    // Hide lunar calendar if visible
-                    lunarCalendarElem.style.display = 'none';
-
-                    // Initialize solar calendar
-                    solarCalendarInstance = new CustomCalendar({
-                        inputId: 'ngayXem',
-                        calendarId: 'customCalendar',
-                        defaultToToday: false
-                    });
-                } else if (lunarRadio.checked) {
-                    // Clear the input value when switching
-                    currentInput.value = '';
-                    currentInput.placeholder = 'Chọn ngày Âm lịch';
-                    currentInput.dataset.calendarType = 'lunar';
-
-                    // Hide solar calendar if visible
-                    solarCalendarElem.style.display = 'none';
-
-                    // Clear any previous click listeners by replacing the input
-                    const newInput = currentInput.cloneNode(true);
-                    currentInput.parentNode.replaceChild(newInput, currentInput);
-                    ngayXemInput = newInput;
-                    solarCalendarInstance = null;
-
-                    // Add lunar calendar click listener
-                    ngayXemInput.addEventListener('click', showLunarCalendar);
-
-                    // Initialize lunar calendar if not already done
-                    if (!window.lunarCalendarInitialized) {
-                        initializeLunarCalendar();
-                        window.lunarCalendarInitialized = true;
-                    }
-                }
-            }
-
-            // Create overlay for lunar calendar
-            let lunarOverlay = null;
-
-            function createLunarOverlay() {
-                if (!lunarOverlay) {
-                    lunarOverlay = document.createElement('div');
-                    lunarOverlay.className = 'lunar-calendar-overlay';
-                    lunarOverlay.style.cssText = `
-                        position: fixed;
-                        top: 0;
-                        left: 0;
-                        right: 0;
-                        bottom: 0;
-                        background: rgba(0, 0, 0, 0.5);
-                        z-index: 9998;
-                        display: none;
-                        backdrop-filter: blur(2px);
-                        -webkit-backdrop-filter: blur(2px);
-                    `;
-                    document.body.appendChild(lunarOverlay);
-
-                    // Add click handler to close calendar when clicking overlay
-                    lunarOverlay.addEventListener('click', function() {
-                        hideLunarCalendar();
-                    });
-                }
-            }
-
-            // Function to show lunar calendar
-            function showLunarCalendar(e) {
-                e.stopPropagation();
-                e.preventDefault();
-
-                // Hide solar calendar if open
-                solarCalendarElem.style.display = 'none';
-
-                // Create overlay if not exists
-                createLunarOverlay();
-
-                // Show overlay
-                lunarOverlay.style.display = 'block';
-
-                // Show lunar calendar centered
-                lunarCalendarElem.style.display = 'block';
-                lunarCalendarElem.style.position = 'fixed';
-                lunarCalendarElem.style.top = '50%';
-                lunarCalendarElem.style.left = '50%';
-                lunarCalendarElem.style.transform = 'translate(-50%, -50%)';
-                lunarCalendarElem.style.zIndex = '9999';
-                lunarCalendarElem.style.backgroundColor = 'white';
-                lunarCalendarElem.style.borderRadius = '12px';
-                lunarCalendarElem.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.3)';
-                lunarCalendarElem.style.maxWidth = '400px';
-                lunarCalendarElem.style.width = '90%';
-
-                // Initialize lunar calendar if not already done
-                if (!window.lunarCalendarInitialized) {
-                    initializeLunarCalendar();
-                    window.lunarCalendarInitialized = true;
-                }
-            }
-
-            // Function to hide lunar calendar
-            function hideLunarCalendar() {
-                lunarCalendarElem.style.display = 'none';
-                if (lunarOverlay) {
-                    lunarOverlay.style.display = 'none';
-                }
-            }
-
-            // Add event listeners to radio buttons
-            solarRadio.addEventListener('change', switchCalendarType);
-            lunarRadio.addEventListener('change', switchCalendarType);
-
-            // Initialize lunar calendar
-            function initializeLunarCalendar() {
-                const lunarMonthYear = document.getElementById('lunarMonthYear');
-                const lunarCalendarDays = document.getElementById('lunarCalendarDays');
-                const lunarPrevMonth = document.getElementById('lunarPrevMonth');
-                const lunarNextMonth = document.getElementById('lunarNextMonth');
-                const lunarClearDate = document.getElementById('lunarClearDate');
-                const lunarTodayDate = document.getElementById('lunarTodayDate');
-                const leapMonthSelector = document.getElementById('leapMonthSelector');
-
-                let currentLunarMonth = 1;
-                let currentLunarYear = 2025;
-                let isLeapMonth = false;
-                let hasLeapMonth = false;
-                let leapMonthNumber = 0;
-
-                // Get today's date and convert to lunar
-                const today = new Date();
-
-                // Convert today's solar date to lunar date to set initial month/year
-                fetch('/api/convert-solar-to-lunar', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                    },
-                    body: JSON.stringify({
-                        solarDay: today.getDate(),
-                        solarMonth: today.getMonth() + 1,
-                        solarYear: today.getFullYear()
-                    })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        currentLunarMonth = data.lunarMonth;
-                        currentLunarYear = data.lunarYear;
-                        generateLunarCalendar(currentLunarMonth, currentLunarYear);
-                    } else {
-                        // Default to current year's first month
-                        generateLunarCalendar(1, today.getFullYear());
-                    }
-                })
-                .catch(error => {
-                    console.error('Error converting date:', error);
-                    // Default to current year's first month
-                    generateLunarCalendar(1, today.getFullYear());
-                });
-
-
-                // Function to generate lunar calendar days
-                async function generateLunarCalendar(month, year, forceLeap = false) {
-                    // Set fixed height to prevent layout shift
-                    const currentHeight = lunarCalendarDays.offsetHeight;
-                    if (currentHeight > 0) {
-                        lunarCalendarDays.style.height = currentHeight + 'px';
-                    }
-
-                    // Show loading with same height
-                    lunarCalendarDays.innerHTML = '<div class="text-center p-3">Đang tải...</div>';
-
-                    // Use the actual leap month state
-                    const actualIsLeap = forceLeap || isLeapMonth;
-
-                    try {
-                        // Debug logging
-                        console.log('Fetching lunar calendar for:', { month, year, isLeap: actualIsLeap });
-
-                        // Use the new comprehensive API
-                        const response = await fetch('/api/get-lunar-month-calendar', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '',
-                                'Accept': 'application/json'
-                            },
-                            body: JSON.stringify({
-                                month: month,
-                                year: year,
-                                isLeap: actualIsLeap ? 1 : 0
-                            })
-                        });
-
-                        console.log('Response status:', response.status);
-
-                        if (!response.ok) {
-                            throw new Error(`HTTP error! status: ${response.status}`);
-                        }
-
-                        const data = await response.json();
-
-                        if (data.success) {
-                            // Update leap month info from API response
-                            if (data.hasLeapMonth && data.leapMonthNumber === month) {
-                                leapMonthSelector.style.display = 'block';
-                                hasLeapMonth = true;
-                                leapMonthNumber = data.leapMonthNumber;
-
-                                // Add event listeners for radio buttons
-                                const monthTypeRadios = document.querySelectorAll('input[name="monthType"]');
-                                monthTypeRadios.forEach(radio => {
-                                    radio.onchange = function() {
-                                        isLeapMonth = (this.value === 'leap');
-                                        generateLunarCalendar(month, year, isLeapMonth);
-                                    };
-                                });
-                            } else {
-                                leapMonthSelector.style.display = 'none';
-                                hasLeapMonth = false;
-                                if (month !== leapMonthNumber) {
-                                    isLeapMonth = false;
-                                }
-                            }
-
-                            // Update header
-                            const leapText = actualIsLeap ? ' (nhuận)' : '';
-                            lunarMonthYear.textContent = `Tháng ${month}${leapText} Âm lịch ${year}`;
-
-                            // Clear calendar
-                            lunarCalendarDays.innerHTML = '';
-
-                            // Add empty cells for days before month starts
-                            for (let i = 0; i < data.firstDayOfWeek; i++) {
-                                const emptyDiv = document.createElement('div');
-                                emptyDiv.className = 'calendar-day empty';
-                                lunarCalendarDays.appendChild(emptyDiv);
-                            }
-
-                            // Generate day cells with solar date info
-                            data.days.forEach(dayInfo => {
-                                const dayDiv = document.createElement('div');
-                                dayDiv.className = 'calendar-day';
-
-                                // Create inner HTML with lunar day and small solar date
-                                dayDiv.innerHTML = `
-                                    <div style="font-size: 18px; font-weight: bold;">${dayInfo.lunarDay}</div>
-                                    <div style="font-size: 10px; color: #666;">${dayInfo.solarDay}/${dayInfo.solarMonth}</div>
-                                `;
-
-                                dayDiv.onclick = function() {
-                                    selectLunarDate(dayInfo.lunarDay, month, year, actualIsLeap);
-                                };
-
-                                // Highlight weekend days (convert string to number)
-                                const dayOfWeekNum = parseInt(dayInfo.dayOfWeek);
-                                if (dayOfWeekNum === 0 || dayOfWeekNum === 6) {
-                                    dayDiv.style.color = '#dc3545';
-                                }
-
-                                lunarCalendarDays.appendChild(dayDiv);
-                            });
-
-                            // Reset height to auto after content is loaded
-                            lunarCalendarDays.style.height = 'auto';
-                        } else {
-                            console.error('API returned error:', data.error);
-                            // Show error message
-                            lunarCalendarDays.innerHTML = `<div class="text-center p-3 text-danger">Lỗi: ${data.error || 'Không thể tải lịch'}</div>`;
-                        }
-                    } catch (error) {
-                        console.error('Error fetching lunar month calendar:', error);
-                        // Show error message
-                        lunarCalendarDays.innerHTML = '<div class="text-center p-3 text-danger">Lỗi kết nối. Vui lòng thử lại.</div>';
-                    } finally {
-                        // Always reset height
-                        setTimeout(() => {
-                            lunarCalendarDays.style.height = 'auto';
-                        }, 100);
-                    }
-                }
-
-                // Function to select a lunar date and convert to solar
-                async function selectLunarDate(day, month, year, isLeap = false) {
-                    const input = document.getElementById('ngayXem');
-
-                    try {
-                        // Convert lunar to solar date
-                        const response = await fetch('/api/convert-lunar-to-solar', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                            },
-                            body: JSON.stringify({
-                                lunarDay: day,
-                                lunarMonth: month,
-                                lunarYear: year,
-                                isLeap: isLeap ? 1 : 0
-                            })
-                        });
-
-                        const data = await response.json();
-                        if (data.success) {
-                            // Format the date for display and storage
-                            const leapText = isLeap ? ' nhuận' : '';
-                            const solarDate = `${String(data.solarDay).padStart(2, '0')}/${String(data.solarMonth).padStart(2, '0')}/${data.solarYear}`;
-                            const lunarDisplay = `${day}/${month}${leapText}/${year} ÂL`;
-
-                            // Display lunar date with solar equivalent
-                            input.value = `${solarDate} (${lunarDisplay})`;
-
-                            // Store both lunar and solar date information
-                            input.dataset.date = solarDate;
-                            input.dataset.lunarDay = day;
-                            input.dataset.lunarMonth = month;
-                            input.dataset.lunarYear = year;
-                            input.dataset.lunarLeap = isLeap ? '1' : '0';
-                            input.dataset.solarDay = data.solarDay;
-                            input.dataset.solarMonth = data.solarMonth;
-                            input.dataset.solarYear = data.solarYear;
-                        }
-                    } catch (error) {
-                        console.error('Error converting lunar to solar:', error);
-                        // Fallback: just display lunar date
-                        const leapText = isLeap ? ' nhuận' : '';
-                        input.value = `${day}/${month}${leapText}/${year} (Âm lịch)`;
-                        input.dataset.lunarDay = day;
-                        input.dataset.lunarMonth = month;
-                        input.dataset.lunarYear = year;
-                        input.dataset.lunarLeap = isLeap ? '1' : '0';
-                    }
-
-                    hideLunarCalendar();
-                }
-
-                // Event listeners for lunar calendar
-                lunarPrevMonth.addEventListener('click', function() {
-                    // Reset leap month state when changing months
-                    isLeapMonth = false;
-                    const normalRadio = document.querySelector('input[name="monthType"][value="normal"]');
-                    if (normalRadio) normalRadio.checked = true;
-
-                    currentLunarMonth--;
-                    if (currentLunarMonth < 1) {
-                        currentLunarMonth = 12;
-                        currentLunarYear--;
-                        leapMonthNumber = 0; // Reset leap month check for new year
-                    }
-                    generateLunarCalendar(currentLunarMonth, currentLunarYear);
-                });
-
-                lunarNextMonth.addEventListener('click', function() {
-                    // Reset leap month state when changing months
-                    isLeapMonth = false;
-                    const normalRadio = document.querySelector('input[name="monthType"][value="normal"]');
-                    if (normalRadio) normalRadio.checked = true;
-
-                    currentLunarMonth++;
-                    if (currentLunarMonth > 12) {
-                        currentLunarMonth = 1;
-                        currentLunarYear++;
-                        leapMonthNumber = 0; // Reset leap month check for new year
-                    }
-                    generateLunarCalendar(currentLunarMonth, currentLunarYear);
-                });
-
-                lunarClearDate.addEventListener('click', function() {
-                    const input = document.getElementById('ngayXem');
-                    input.value = '';
-                    delete input.dataset.lunarDay;
-                    delete input.dataset.lunarMonth;
-                    delete input.dataset.lunarYear;
-                    hideLunarCalendar();
-                });
-
-                lunarTodayDate.addEventListener('click', async function() {
-                    // Convert today's solar date to lunar
-                    const today = new Date();
-                    try {
-                        const response = await fetch('/api/convert-solar-to-lunar', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                            },
-                            body: JSON.stringify({
-                                solarDay: today.getDate(),
-                                solarMonth: today.getMonth() + 1,
-                                solarYear: today.getFullYear()
-                            })
-                        });
-
-                        const data = await response.json();
-                        if (data.success) {
-                            selectLunarDate(data.lunarDay, data.lunarMonth, data.lunarYear);
-                        }
-                    } catch (error) {
-                        console.error('Error converting today to lunar:', error);
-                    }
-                });
-
-                // Generate initial calendar
-                generateLunarCalendar(currentLunarMonth, currentLunarYear);
-            }
-
-            // Note: Lunar calendar will be closed by clicking on overlay, no need for document click handler
-
-            // Initialize calendar type on page load
-            // Solar radio is checked by default, so initialize solar calendar
-            if (solarRadio.checked) {
-                ngayXemInput.placeholder = 'Chọn ngày Dương lịch';
-                ngayXemInput.dataset.calendarType = 'solar';
-
-                solarCalendarInstance = new CustomCalendar({
-                    inputId: 'ngayXem',
-                    calendarId: 'customCalendar',
-                    defaultToToday: true
-                });
-            }
+            // Note: All calendar switching and initialization is now handled by the DatePicker.CalendarSwitcher module
         });
     </script>
 @endpush

@@ -1392,7 +1392,7 @@ static function convertSolar2Lunar($dd, $mm, $yy, $timeZone = 7.0)
             '15-9'  => ['ten_su_kien' => '🌕 Rằm tháng Chín', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày cúng Quan Âm và tổ tiên.'],
 
             // THÁNG MƯỜI (Tháng 10)
-            '1-10'  => ['ten_su_kien' => '🌸 Lễ Cửu Trùng Thiên', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày lễ thần linh cao cả.'],
+            '1-10'  => ['ten_su_kien' => '🌸 Mồng 1 tháng Mười', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày lễ thần linh cao cả.'],
             '10-10' => ['ten_su_kien' => 'Tết Thường Tân', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày cúng tế cuối thu.'],
             '15-10' => ['ten_su_kien' => '🌕 Tết Hạ Nguyên', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày lễ Thủy Quan Đại Đế, cầu xin giải ách.'],
 

@@ -314,7 +314,7 @@ html.daterangepicker-open {
 
     .box--house-tot {
         display: flex;
-         gap: 3px;
+        gap: 3px;
     }
 }
 
@@ -344,10 +344,12 @@ html.daterangepicker-open {
         min-width: 450px;
         max-width: 800px;
     }
- .box--house-tot {
+
+    .box--house-tot {
         display: flex;
         gap: 3px;
     }
+
     .form--submit-totxau {
         padding: 24px 40px;
     }
@@ -359,10 +361,12 @@ html.daterangepicker-open {
         min-width: 600px;
         max-width: 800px;
     }
- .box--house-tot {
+
+    .box--house-tot {
         display: flex;
         gap: 3px;
     }
+
     .daterangepicker-shortcuts {
         min-width: 140px;
     }
@@ -397,7 +401,8 @@ html.daterangepicker-open {
     .daterangepicker-shortcuts {
         display: none !important;
     }
- .box--house-tot {
+
+    .box--house-tot {
         display: grid;
         gap: 3px;
     }
@@ -1469,12 +1474,14 @@ html.daterangepicker-open {
     background: rgba(220, 238, 253, 1);
     color: rgba(34, 104, 211, 1);
 }
-.accordion-button{
-        padding: 10px;
+
+.accordion-button {
+    padding: 10px;
 
 }
-.accordion-button:not(.collapsed){
-border-radius: 12px 12px 0 0 !important;
+
+.accordion-button:not(.collapsed) {
+    border-radius: 12px 12px 0 0 !important;
 }
 
 /* Universal Date Picker Styles */
@@ -1608,4 +1615,65 @@ border-radius: 12px 12px 0 0 !important;
     font-size: 16px;
     font-weight: 600;
     color: #333;
+}
+
+/* Custom radio button styles */
+.form-check-input[type="radio"] {
+    border: 2px solid rgba(34, 84, 171, 1);
+    background-color: #fff;
+    transition: all 0.2s ease;
+    position: relative;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.form-check-input[type="radio"]:checked {
+    background-color: #fff;
+    border-color: rgba(34, 84, 171, 1);
+    background-image: none;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.form-check-input[type="radio"]:checked::before {
+    content: '';
+    display: block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: rgba(34, 84, 171, 1);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.form-check-input[type="radio"]:hover:not(:checked) {
+    border-color: #9ca3af;
+}
+
+.form-check-input[type="radio"]:focus {
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    outline: none;
+}
+
+.form-check-label {
+    user-select: none;
+    font-weight: 500;
+}
+
+/* Calendar input styling */
+#ngayXem {
+    font-size: 16px;
+    font-weight: 500;
+    color: #374151;
+}
+
+#ngayXem::placeholder {
+    color: #9ca3af;
+    font-weight: 400;
+}
+.active-tools .event-name{
+    color: rgba(43, 126, 229, 1) !important;
+    font-weight: 500;
 }

@@ -14,6 +14,7 @@ use App\Http\Controllers\KhaiTruongController;
 use App\Http\Controllers\KyHopDongController;
 use App\Http\Controllers\LapBanThoController;
 use App\Http\Controllers\LichController;
+use App\Http\Controllers\ListController;
 use App\Http\Controllers\LunarController;
 use App\Http\Controllers\MuaXeController;
 use App\Http\Controllers\NhanCongViecMoiController;
@@ -88,6 +89,14 @@ Route::get('/llms.txt', function () {
     Route::get('lien-he-voi-chung-toi', [FooterController::class, 'lienHe'])->name('lien-he-voi-chung-toi');
     Route::get('dieu-khoan-dich-vu', [FooterController::class, 'dieuKhoan'])->name('dieu-khoan');
     Route::get('chinh-sach-bao-mat', [FooterController::class, 'chinhSach'])->name('chinh-sach');
+
+
+//list xem ngày tốt
+ Route::prefix('tools')->group(function () {
+    Route::get('/xem-ngay-tot',  [ListController::class, 'XemNgayTots'])->name('totxau.list');
+ });
+
+
 
     //xem ngày tốt xấu
   Route::prefix('xem-ngay-tot-xau')->group(function () {
