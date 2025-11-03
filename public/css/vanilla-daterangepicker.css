@@ -1677,3 +1677,7 @@ html.daterangepicker-open {
     color: rgba(43, 126, 229, 1) !important;
     font-weight: 500;
 }
+.accordion-button:focus{
+    border-color: unset;
+    box-shadow: none
+}

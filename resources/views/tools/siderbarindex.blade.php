@@ -17,6 +17,17 @@
                          </div>
                      </a>
                  </li>
+                 <li class="list-group-item pb-0">
+                     <a href="{{ route('buy-house.form') }}" class="{{ request()->routeIs('buy-house.form') ? 'active-tools' : '' }}">
+
+                         <div class="event-details --padding-event-tot">
+                             <div class="event-name" style="font-weight: unset">
+                                 Xem ngày mua nhà
+                             </div>
+
+                         </div>
+                     </a>
+                 </li>
                  <li class="list-group-item  pb-0">
                      <a href="https://phonglich.com/lich-nam-2024">
                          <div class="event-details  --padding-event-tot">

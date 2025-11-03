@@ -21,7 +21,7 @@ class BuyHouseController extends Controller
     public function showForm()
     {
         // Không cần truyền dateRanges nữa
-        return view('build-house.form');
+        return view('tools.mua-nha.form');
     }
 
     /**
@@ -61,6 +61,9 @@ class BuyHouseController extends Controller
         ]);
 
         if ($validator->fails()) {
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json(['success' => false, 'errors' => $validator->errors()], 422);
+            }
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
@@ -126,8 +129,35 @@ class BuyHouseController extends Controller
             ];
         }
 
-        // 4. Trả kết quả về cho view
-        return view('build-house.form', [
+        // Sắp xếp kết quả theo điểm số
+        $sortOrder = $request->input('sort', 'desc');
+        foreach ($resultsByYear as &$yearData) {
+            if (isset($yearData['days']) && is_array($yearData['days'])) {
+                usort($yearData['days'], function ($a, $b) use ($sortOrder) {
+                    $scoreA = $a['day_score']['percentage'] ?? 0;
+                    $scoreB = $b['day_score']['percentage'] ?? 0;
+                    return $sortOrder === 'asc' ? $scoreA <=> $scoreB : $scoreB <=> $scoreA;
+                });
+            }
+        }
+        unset($yearData);
+
+        // 4. Trả kết quả về cho view hoặc AJAX
+        if ($request->ajax() || $request->wantsJson()) {
+            $html = view('tools.mua-nha.results', [
+                'inputs' => $originalInputs,
+                'birthdateInfo' => $birthdateInfo,
+                'resultsByYear' => $resultsByYear,
+                'sortOrder' => $sortOrder,
+            ])->render();
+
+            return response()->json([
+                'success' => true,
+                'html' => $html,
+            ]);
+        }
+
+        return view('tools.mua-nha.form', [
             'inputs' => $originalInputs,
             'birthdateInfo' => $birthdateInfo,
             'resultsByYear' => $resultsByYear,
@@ -188,19 +218,19 @@ Thời điểm cát lợi, vận khí hanh thông – rất thích hợp để a
 
 
 
-     public function showDayDetails(Request $request)
+     public function showDayDetails(Request $request, $date)
     {
         // 1. Validate dữ liệu - đã loại bỏ 'person_type'
-        $validator = Validator::make($request->all(), [
+         $validated = Validator::make(['date' => $date, 'birthdate' => $request->input('birthdate')], [
             'date' => 'required|date_format:Y-m-d',
             'birthdate' => 'required|date_format:Y-m-d',
-        ]);
+        ])->validate();
 
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors('Dữ liệu không hợp lệ để xem chi tiết.');
-        }
+        // if ($validator->fails()) {
+        //     return redirect()->back()->withErrors('Dữ liệu không hợp lệ để xem chi tiết.');
+        // }
 
-        $validated = $validator->validated();
+        // $validated = $validator->validated();
 
         // 2. Chuẩn bị các đối tượng ngày tháng
         $dateToCheck = Carbon::parse($validated['date']);
@@ -215,7 +245,7 @@ Thời điểm cát lợi, vận khí hanh thông – rất thích hợp để a
 
 
         // 6. Trả về view với toàn bộ dữ liệu
-        return view('build-house.day_details', compact(
+        return view('tools.mua-nha.day_details', compact(
             'commonDayInfo',
             'groomData'
         ));

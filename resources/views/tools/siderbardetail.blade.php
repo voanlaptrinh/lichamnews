@@ -7,7 +7,7 @@
              <div class="card-title-right title-tong-quan-h5-log">Tiện ích Khác</div>
              <ul class="list-group list-group-flush events-list">
                  <li class="list-group-item pb-0">
-                     <a href="" class="">
+                     <a href="{{ route('convert.am.to.duong') }}" class="">
 
                          <div class="event-details --padding-event-tot">
                              <div class="event-name" style="font-weight: unset">
@@ -18,7 +18,7 @@
                      </a>
                  </li>
                     <li class="list-group-item pb-0">
-                     <a href="" class="">
+                     <a href="{{ route('totxau.list') }}" class="">
 
                          <div class="event-details --padding-event-tot">
                              <div class="event-name" style="font-weight: unset">
@@ -28,30 +28,9 @@
                          </div>
                      </a>
                  </li>
+                 
                  <li class="list-group-item pb-0">
-                     <a href="" class="">
-
-                         <div class="event-details --padding-event-tot">
-                             <div class="event-name" style="font-weight: unset">
-                                 Lịch tháng
-                             </div>
-
-                         </div>
-                     </a>
-                 </li>
-                 <li class="list-group-item pb-0">
-                     <a href="" class="">
-
-                         <div class="event-details --padding-event-tot">
-                             <div class="event-name" style="font-weight: unset">
-                                 Lịch năm
-                             </div>
-
-                         </div>
-                     </a>
-                 </li>
-                 <li class="list-group-item pb-0">
-                     <a href="" class="">
+                     <a href="{{ route('horoscope.index') }}" class="">
 
                          <div class="event-details --padding-event-tot">
                              <div class="event-name" style="font-weight: unset">

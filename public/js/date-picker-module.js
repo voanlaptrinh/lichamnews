@@ -60,8 +60,11 @@
                     z-index: 9998;
                     display: none;
                     backdrop-filter: blur(2px);
+                    pointer-events: auto;
                 `;
                 document.body.appendChild(this.overlay);
+                // Ensure overlay is hidden initially
+                this.overlay.style.display = 'none';
 
                 this.overlay.addEventListener('click', () => {
                     this.hideCalendar();
@@ -111,6 +114,7 @@
                 // Add inline styles for month items
                 const styleSheet = document.createElement('style');
                 styleSheet.innerHTML = `
+                  
                     .month-item {
                         padding: 10px;
                         text-align: center;
@@ -167,6 +171,8 @@
 
                 // Append to body for popup style
                 document.body.appendChild(calendarEl);
+                // Ensure calendar is hidden initially
+                calendarEl.style.display = 'none';
             }
             this.calendar = calendarEl;
         }
@@ -290,6 +296,9 @@
 
         showCalendar() {
             if (this.options.usePopup && this.overlay) {
+                // Add modal-open class to prevent body scroll
+                document.body.classList.add('modal-open');
+
                 // Show as centered popup
                 this.overlay.style.display = 'block';
                 this.calendar.style.display = 'block';
@@ -315,6 +324,8 @@
             if (this.overlay) {
                 this.overlay.style.display = 'none';
             }
+            // Remove modal-open class to restore body scroll
+            document.body.classList.remove('modal-open');
             this.pickerVisible = false;
         }
 
@@ -532,6 +543,8 @@
                     </div>
                 `;
                 document.body.appendChild(calendarEl);
+                // Ensure calendar is hidden initially
+                calendarEl.style.display = 'none';
             }
             this.calendar = calendarEl;
         }
@@ -550,8 +563,11 @@
                     z-index: 9998;
                     display: none;
                     backdrop-filter: blur(2px);
+                    pointer-events: auto;
                 `;
                 document.body.appendChild(this.overlay);
+                // Ensure overlay is hidden initially
+                this.overlay.style.display = 'none';
 
                 this.overlay.addEventListener('click', () => {
                     this.hideCalendar();
@@ -670,6 +686,9 @@
         }
 
         showCalendar() {
+            // Add modal-open class to prevent body scroll
+            document.body.classList.add('modal-open');
+
             this.overlay.style.display = 'block';
             this.calendar.style.display = 'block';
             this.calendar.style.position = 'fixed';
@@ -689,6 +708,8 @@
         hideCalendar() {
             this.calendar.style.display = 'none';
             this.overlay.style.display = 'none';
+            // Remove modal-open class to restore body scroll
+            document.body.classList.remove('modal-open');
         }
 
         changeMonth(direction) {
@@ -779,6 +800,15 @@
             const actualIsLeap = forceLeap || this.isLeapMonth;
 
             try {
+                // Debug log
+                console.log('Sending lunar calendar request:', {
+                    month: month,
+                    year: year,
+                    currentLunarYear: this.currentLunarYear,
+                    targetYear: this.targetYear,
+                    isLeap: actualIsLeap
+                });
+
                 const response = await fetch(this.options.monthApiUrl, {
                     method: 'POST',
                     headers: {
@@ -1056,7 +1086,7 @@
                 calendarId: `${this.options.inputId}_solar_calendar`,
                 onChange: this.options.onChange,
                 usePopup: true,
-                defaultToToday: true
+                defaultToToday: false  // Changed to false to avoid auto-selecting
             });
 
             this.lunarCalendar = new LunarCalendarPicker({
@@ -1064,6 +1094,14 @@
                 calendarId: `${this.options.inputId}_lunar_calendar`,
                 onChange: this.options.onChange
             });
+
+            // Ensure both calendars are hidden initially
+            if (this.solarCalendar.calendar) {
+                this.solarCalendar.calendar.style.display = 'none';
+            }
+            if (this.lunarCalendar.calendar) {
+                this.lunarCalendar.calendar.style.display = 'none';
+            }
 
             // Setup radio button listeners
             solarRadio.addEventListener('change', () => {
@@ -1088,6 +1126,11 @@
             this.currentType = 'solar';
             const input = document.getElementById(this.options.inputId);
 
+            // Hide lunar calendar if it's showing
+            if (this.lunarCalendar && this.lunarCalendar.calendar) {
+                this.lunarCalendar.hideCalendar();
+            }
+
             // Clear input and update placeholder
             input.value = '';
             input.placeholder = 'Chọn ngày Dương lịch';
@@ -1097,19 +1140,34 @@
             const newInput = input.cloneNode(true);
             input.parentNode.replaceChild(newInput, input);
 
-            // Reinitialize solar calendar with new input and popup style
-            this.solarCalendar = new SolarCalendarPicker({
-                inputId: this.options.inputId,
-                calendarId: `${this.options.inputId}_solar_calendar`,
-                onChange: this.options.onChange,
-                usePopup: true,
-                defaultToToday: false
-            });
+            // Only create new solar calendar if it doesn't exist
+            if (!this.solarCalendar) {
+                this.solarCalendar = new SolarCalendarPicker({
+                    inputId: this.options.inputId,
+                    calendarId: `${this.options.inputId}_solar_calendar`,
+                    onChange: this.options.onChange,
+                    usePopup: true,
+                    defaultToToday: false
+                });
+            } else {
+                // Re-attach event listeners to the new input element
+                this.solarCalendar.input = document.getElementById(this.options.inputId);
+                this.solarCalendar.input.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    this.solarCalendar.showCalendar();
+                });
+            }
         }
 
         switchToLunar() {
             this.currentType = 'lunar';
             const input = document.getElementById(this.options.inputId);
+
+            // Hide solar calendar if it's showing
+            if (this.solarCalendar && this.solarCalendar.calendar) {
+                this.solarCalendar.hideCalendar();
+            }
 
             // Clear input and update placeholder
             input.value = '';
@@ -1120,12 +1178,22 @@
             const newInput = input.cloneNode(true);
             input.parentNode.replaceChild(newInput, input);
 
-            // Reinitialize lunar calendar with new input
-            this.lunarCalendar = new LunarCalendarPicker({
-                inputId: this.options.inputId,
-                calendarId: `${this.options.inputId}_lunar_calendar`,
-                onChange: this.options.onChange
-            });
+            // Only create new lunar calendar if it doesn't exist
+            if (!this.lunarCalendar) {
+                this.lunarCalendar = new LunarCalendarPicker({
+                    inputId: this.options.inputId,
+                    calendarId: `${this.options.inputId}_lunar_calendar`,
+                    onChange: this.options.onChange
+                });
+            } else {
+                // Re-attach event listeners to the new input element
+                this.lunarCalendar.input = document.getElementById(this.options.inputId);
+                this.lunarCalendar.input.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    this.lunarCalendar.showCalendar();
+                });
+            }
         }
 
         getCurrentType() {
@@ -1138,10 +1206,17 @@
         }
 
         destroy() {
+            // Hide and destroy both calendars
             if (this.solarCalendar) {
+                if (this.solarCalendar.calendar) {
+                    this.solarCalendar.hideCalendar();
+                }
                 this.solarCalendar.destroy();
             }
             if (this.lunarCalendar) {
+                if (this.lunarCalendar.calendar) {
+                    this.lunarCalendar.hideCalendar();
+                }
                 this.lunarCalendar.destroy();
             }
         }
