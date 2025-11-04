@@ -36,40 +36,67 @@
                                             @csrf
 
                                             <div class="row">
-                                                <div class=" mb-3">
-
-                                                    <div class="input-group mb-2">
-                                                        <input type="text"
-                                                            class="form-control dateuser @error('birthdate') is-invalid @enderror"
-                                                            id="birthdate" name="birthdate" placeholder="Chọn ngày" readonly
-                                                            value="{{ old('birthdate', $inputs['birthdate'] ?? '') }}"
-                                                            style="border-radius: 10px; border: none; padding: 12px 45px 12px 15px; background-color: rgba(255,255,255,0.95); cursor: pointer;">
-                                                        <span class="input-group-text bg-transparent border-0"
-                                                            style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); z-index: 5;">
-                                                            <i class="bi-calendar-date-fill text-muted"></i>
-                                                        </span>
+                                                <div class="mb-3">
+                                                    <!-- Date Selects -->
+                                                    <div class="row g-2 mb-2">
+                                                        <div class="col-6 col-sm-4 col-lg-4 col-xl-4">
+                                                            <div class="position-relative">
+                                                                <select class="form-select pe-5 --border-box-form" id="ngaySelect" name="day" style="padding: 12px 45px 12px 15px">
+                                                                    <option value="">Ngày</option>
+                                                                </select>
+                                                                <i class="bi bi-chevron-down position-absolute" style="right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #6c757d;"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6 col-sm-4 col-lg-4 col-xl-4">
+                                                            <div class="position-relative">
+                                                                <select class="form-select pe-5 --border-box-form" id="thangSelect" name="month" style="padding: 12px 45px 12px 15px">
+                                                                    <option value="">Tháng</option>
+                                                                </select>
+                                                                <i class="bi bi-chevron-down position-absolute" style="right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #6c757d;"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12 col-sm-4 col-lg-4 col-xl-4">
+                                                            <div class="position-relative">
+                                                                <select class="form-select pe-5 --border-box-form" id="namSelect" name="year" style="padding: 12px 45px 12px 15px">
+                                                                    <option value="">Năm</option>
+                                                                </select>
+                                                                <i class="bi bi-chevron-down position-absolute" style="right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #6c757d;"></i>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <!-- Radio buttons dạng tròn bên dưới input -->
+
+                                                    <!-- Radio buttons dạng tròn bên dưới selects -->
                                                     <div class="d-flex gap-4 ps-2">
                                                         <div class="form-check d-flex align-items-center">
-                                                            <input type="radio" class="form-check-input"
-                                                                name="calendarType" id="solarCalendar" value="solar"
-                                                                checked style="width: 24px; height: 24px; cursor: pointer;">
+                                                            <input type="radio" class="form-check-input" name="calendar_type" id="solarCalendar" value="solar" checked
+                                                                   style="width: 24px; height: 24px; cursor: pointer;">
                                                             <label class="form-check-label ms-2" for="solarCalendar"
-                                                                style="cursor: pointer; font-size: 15px; color: #333;">
+                                                                   style="cursor: pointer; font-size: 15px; color: #333;">
                                                                 Dương lịch
                                                             </label>
                                                         </div>
                                                         <div class="form-check d-flex align-items-center">
-                                                            <input type="radio" class="form-check-input"
-                                                                name="calendarType" id="lunarCalendar" value="lunar"
-                                                                style="width: 24px; height: 24px; cursor: pointer;">
+                                                            <input type="radio" class="form-check-input" name="calendar_type" id="lunarCalendar" value="lunar"
+                                                                   style="width: 24px; height: 24px; cursor: pointer;">
                                                             <label class="form-check-label ms-2" for="lunarCalendar"
-                                                                style="cursor: pointer; font-size: 15px; color: #333;">
+                                                                   style="cursor: pointer; font-size: 15px; color: #333;">
                                                                 Âm lịch
                                                             </label>
                                                         </div>
                                                     </div>
+
+                                                  
+                                                    <!-- Leap Month Option (hidden) -->
+                                                    <div class="form-check mt-2" id="leapMonthContainer" style="display: none;">
+                                                        <input class="form-check-input" type="checkbox" id="leapMonth" name="leap_month">
+                                                        <label class="form-check-label" for="leapMonth">
+                                                            Tháng nhuận
+                                                        </label>
+                                                    </div>
+
+                                                    <!-- Hidden input to store formatted date -->
+                                                    <input type="hidden" id="ngayXem" name="birthdate" value="">
+
                                                     @error('birthdate')
                                                         <div class="invalid-feedback">{{ $message }}</div>
                                                     @enderror
@@ -81,8 +108,8 @@
                                                         thời gian mua</div>
                                                     <div class="input-group">
                                                         <input type="text"
-                                                            class="form-control wedding_date_range @error('date_range') is-invalid @enderror"
-                                                            id="date_range" name="date_range" placeholder="Chọn khoảng ngày"
+                                                            class="form-control wedding_date_range --border-box-form @error('date_range') is-invalid @enderror"
+                                                            id="date_range" name="date_range" placeholder="DD/MM/YY - DD/MM/YY"
                                                             autocomplete="off"
                                                             value="{{ old('date_range', $inputs['date_range'] ?? '') }}"
                                                             style="border-radius: 10px; border: none; padding: 12px 45px 12px 15px; background-color: rgba(255,255,255,0.95); cursor: pointer;">
@@ -137,34 +164,33 @@
 @endsection
 
 @push('scripts')
+  <script src="{{ asset('js/lunar-solar-date-select.js') }}"></script>
     {{-- Date Range Picker JS (vanilla JS version) --}}
     <script src="{{ asset('/js/vanilla-daterangepicker.js?v=6.0') }}" defer></script>
 
-    {{-- Legacy custom calendar (for compatibility) --}}
-    <script src="{{ asset('/js/custom-calendar.js?v=1.0') }}"></script>
-
-    {{-- New Date Picker Module --}}
-    <script src="{{ asset('/js/date-picker-module.js?v=1.6') }}"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // ========== INITIALIZE USING NEW MODULE ==========
-
-            // Global calendar (for compatibility with existing code)
-            const globalCal = new GlobalCalendar('globalCalendar');
-
-            // Calendar type switcher - using new module
-            let calendarSwitcher = null;
-
-            // ========== INITIALIZE CALENDAR SWITCHER ==========
-            // This will handle switching between Solar and Lunar calendars
-            calendarSwitcher = new DatePicker.CalendarSwitcher({
+            // Initialize the lunar-solar date selector
+            const dateSelector = new LunarSolarDateSelect({
+                daySelectId: 'ngaySelect',
+                monthSelectId: 'thangSelect',
+                yearSelectId: 'namSelect',
+                hiddenInputId: 'ngayXem',
                 solarRadioId: 'solarCalendar',
                 lunarRadioId: 'lunarCalendar',
-                inputId: 'birthdate',
-                onChange: function(data, displayValue) {
-                    console.log('Date selected:', displayValue);
-                }
+                leapCheckboxId: 'leapMonth',
+                leapContainerId: 'leapMonthContainer',
+                defaultDay: 1,
+                defaultMonth: 1,
+                defaultYear: 1945,
+                yearRangeStart: 1900,
+                yearRangeEnd: new Date().getFullYear(),
+                lunarApiUrl: '/api/lunar-solar-convert',
+                lunarMonthDaysUrl: '/api/get-lunar-month-days',
+           
+                csrfToken: '{{ csrf_token() }}',
+               
             });
 
             // ========== DATE RANGE PICKER ==========
@@ -239,11 +265,11 @@
                 e.preventDefault();
 
                 // Get birthdate value
-                const birthdateInput = document.getElementById('birthdate');
-                const birthdateValue = birthdateInput.value;
+                const ngayXemInput = document.getElementById('ngayXem');
+                const ngayXemValue = ngayXemInput.value;
 
-                if (!birthdateValue) {
-                    alert('Vui lòng chọn ngày sinh');
+                if (!ngayXemValue) {
+                    alert('Vui lòng chọn đầy đủ ngày, tháng, năm');
                     return;
                 }
 
@@ -255,42 +281,27 @@
                     return;
                 }
 
-                // Get the solar date (either directly or from converted lunar date)
+                // Get the date based on calendar type
                 let formattedBirthdate = '';
+                const calendarType = ngayXemInput.dataset.calendarType || 'solar';
+                let isLeapMonth = false;
 
-                if (birthdateInput.dataset.solarDay) {
-                    // If lunar date was selected and converted to solar
-                    const day = String(birthdateInput.dataset.solarDay).padStart(2, '0');
-                    const month = String(birthdateInput.dataset.solarMonth).padStart(2, '0');
-                    const year = birthdateInput.dataset.solarYear;
-                    formattedBirthdate = `${day}/${month}/${year}`;
-                } else if (birthdateInput.dataset.date) {
-                    // If solar date was stored in dataset
-                    formattedBirthdate = birthdateInput.dataset.date;
-                } else {
-                    // Fallback: parse from value
-                    if (typeof DateUtils !== 'undefined' && DateUtils.parseVietnameseDate) {
-                        const birthdateDate = DateUtils.parseVietnameseDate(birthdateValue);
-                        if (birthdateDate) {
-                            const day = String(birthdateDate.getDate()).padStart(2, '0');
-                            const month = String(birthdateDate.getMonth() + 1).padStart(2, '0');
-                            const year = birthdateDate.getFullYear();
-                            formattedBirthdate = `${day}/${month}/${year}`;
-                        } else {
-                            formattedBirthdate = birthdateValue;
-                        }
+                if (calendarType === 'lunar') {
+                    // If lunar date, use the converted solar date
+                    const solarDay = ngayXemInput.dataset.solarDay;
+                    const solarMonth = ngayXemInput.dataset.solarMonth;
+                    const solarYear = ngayXemInput.dataset.solarYear;
+                    isLeapMonth = ngayXemInput.dataset.lunarLeap === '1';
+
+                    if (solarDay && solarMonth && solarYear) {
+                        formattedBirthdate = `${String(solarDay).padStart(2, '0')}/${String(solarMonth).padStart(2, '0')}/${solarYear}`;
                     } else {
-                        // Simple fallback if DateUtils not available
-                        const match = birthdateValue.match(/(\d{1,2})\/(\d{1,2})\/(\d{4})/);
-                        if (match) {
-                            const day = match[1].padStart(2, '0');
-                            const month = match[2].padStart(2, '0');
-                            const year = match[3];
-                            formattedBirthdate = `${day}/${month}/${year}`;
-                        } else {
-                            formattedBirthdate = birthdateValue;
-                        }
+                        // Fallback to parsing lunar date from value
+                        formattedBirthdate = ngayXemValue.replace(' (ÂL)', '').replace(' (ÂL-Nhuận)', '');
                     }
+                } else {
+                    // Solar date can be used directly
+                    formattedBirthdate = ngayXemValue;
                 }
 
                 // Parse date range
@@ -331,6 +342,8 @@
                 // Prepare form data
                 const formData = {
                     birthdate: formattedBirthdate,
+                    calendar_type: calendarType,
+                    leap_month: isLeapMonth,
                     date_range: dateRangeValue,
                     start_date: startDate,
                     end_date: endDate,

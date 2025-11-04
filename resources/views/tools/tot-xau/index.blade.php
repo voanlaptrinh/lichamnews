@@ -38,21 +38,38 @@
 
                                         <form id="totXauForm">
                                             <div class="mb-3">
-                                                <!-- Input với icon calendar -->
-                                                <div class="input-group mb-2">
-                                                    <input type="text" class="form-control --border-box-form"
-                                                        id="ngayXem" placeholder="Chọn ngày" readonly
-                                                        style="border-radius: 10px; border: none; padding: 12px 45px 12px 15px; background-color: rgba(255,255,255,0.95); cursor: pointer;">
-                                                    <span class="input-group-text bg-transparent border-0"
-                                                        style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); z-index: 5;">
-                                                        <i class="bi-calendar-date-fill text-muted"></i>
-                                                    </span>
+                                                <!-- Date Selects -->
+                                                <div class="row g-2 mb-2">
+                                                    <div class="col-6 col-sm-4 col-lg-4 col-xl-4">
+                                                        <div class="position-relative">
+                                                            <select class="form-select pe-5 --border-box-form" id="ngaySelect" name="day" style="padding: 12px 45px 12px 15px">
+                                                                <option value="">Ngày</option>
+                                                            </select>
+                                                            <i class="bi bi-chevron-down position-absolute" style="right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #6c757d;"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-sm-4 col-lg-4 col-xl-4">
+                                                        <div class="position-relative">
+                                                            <select class="form-select pe-5 --border-box-form" id="thangSelect" name="month" style="padding: 12px 45px 12px 15px">
+                                                                <option value="">Tháng</option>
+                                                            </select>
+                                                            <i class="bi bi-chevron-down position-absolute" style="right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #6c757d;"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 col-sm-4 col-lg-4 col-xl-4">
+                                                        <div class="position-relative">
+                                                            <select class="form-select pe-5 --border-box-form" id="namSelect" name="year" style="padding: 12px 45px 12px 15px">
+                                                                <option value="">Năm</option>
+                                                            </select>
+                                                            <i class="bi bi-chevron-down position-absolute" style="right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #6c757d;"></i>
+                                                        </div>
+                                                    </div>
                                                 </div>
 
-                                                <!-- Radio buttons dạng tròn bên dưới input -->
-                                                <div class="d-flex gap-4 ps-2" style="margin-top: 15px;">
+                                                <!-- Radio buttons dạng tròn bên dưới selects -->
+                                                <div class="d-flex gap-4 ps-2">
                                                     <div class="form-check d-flex align-items-center">
-                                                        <input type="radio" class="form-check-input" name="calendarType" id="solarCalendar" value="solar" checked
+                                                        <input type="radio" class="form-check-input" name="calendar_type" id="solarCalendar" value="solar" checked
                                                                style="width: 24px; height: 24px; cursor: pointer;">
                                                         <label class="form-check-label ms-2" for="solarCalendar"
                                                                style="cursor: pointer; font-size: 15px; color: #333;">
@@ -60,7 +77,7 @@
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center">
-                                                        <input type="radio" class="form-check-input" name="calendarType" id="lunarCalendar" value="lunar"
+                                                        <input type="radio" class="form-check-input" name="calendar_type" id="lunarCalendar" value="lunar"
                                                                style="width: 24px; height: 24px; cursor: pointer;">
                                                         <label class="form-check-label ms-2" for="lunarCalendar"
                                                                style="cursor: pointer; font-size: 15px; color: #333;">
@@ -68,99 +85,17 @@
                                                         </label>
                                                     </div>
                                                 </div>
-                                                <!-- Custom Calendar Popup -->
-                                                <div class="custom-calendar" id="customCalendar" style="display: none;">
-                                                    <div class="calendar-header-date">
-                                                        <button type="button" class="btn-nav" id="prevMonth"><i
-                                                                class="bi bi-chevron-left"></i></button>
-                                                        <span class="month-year" id="monthYear">October 2025</span>
-                                                        <button type="button" class="btn-nav" id="nextMonth"><i
-                                                                class="bi bi-chevron-right"></i></button>
-                                                    </div>
-                                                    <div class="calendar-weekdays">
-                                                        <div class="weekday">CN</div>
-                                                        <div class="weekday">T2</div>
-                                                        <div class="weekday">T3</div>
-                                                        <div class="weekday">T4</div>
-                                                        <div class="weekday">T5</div>
-                                                        <div class="weekday">T6</div>
-                                                        <div class="weekday">T7</div>
-                                                    </div>
-                                                    <div class="calendar-days" id="calendarDays">
-                                                        <!-- Days will be generated by JavaScript -->
-                                                    </div>
-                                                    <div class="calendar-footer">
-                                                        <button type="button" class="btn-calendar btn-clear"
-                                                            id="clearDate">Xóa</button>
-                                                        <button type="button" class="btn-calendar btn-today"
-                                                            id="todayDate">Hôm
-                                                            nay</button>
-                                                    </div>
-                                                    <!-- Month/Year Picker -->
-                                                    <div class="calendar-picker" id="monthYearPicker"
-                                                        style="display: none;">
-                                                        <div class="picker-header">
-                                                            <button type="button" class="btn-nav" id="pickerPrevYear"><i
-                                                                    class="bi bi-chevron-left"></i></button>
-                                                            <span class="picker-year" id="pickerYear"></span>
-                                                            <button type="button" class="btn-nav" id="pickerNextYear"><i
-                                                                    class="bi bi-chevron-right"></i></button>
-                                                        </div>
-                                                        <div class="month-grid" id="monthGrid"></div>
-                                                    </div>
+
+                                                <!-- Leap Month Option (hidden) -->
+                                                <div class="form-check mt-2" id="leapMonthContainer" style="display: none;">
+                                                    <input class="form-check-input" type="checkbox" id="leapMonth" name="leap_month">
+                                                    <label class="form-check-label" for="leapMonth">
+                                                        Tháng nhuận
+                                                    </label>
                                                 </div>
 
-                                                <!-- Lunar Calendar Popup -->
-                                                <div class="custom-calendar" id="lunarCustomCalendar" style="display: none;">
-                                                    <div class="calendar-header-date">
-                                                        <button type="button" class="btn-nav" id="lunarPrevMonth"><i
-                                                                class="bi bi-chevron-left"></i></button>
-                                                        <span class="month-year" id="lunarMonthYear">Tháng 1 Âm lịch 2025</span>
-                                                        <button type="button" class="btn-nav" id="lunarNextMonth"><i
-                                                                class="bi bi-chevron-right"></i></button>
-                                                    </div>
-                                                    <!-- Leap month selector -->
-                                                    <div id="leapMonthSelector" style="display: none; padding: 10px; text-align: center;">
-                                                        <label style="margin-right: 10px;">
-                                                            <input type="radio" name="monthType" value="normal" checked>
-                                                            <span>Tháng thường</span>
-                                                        </label>
-                                                        <label>
-                                                            <input type="radio" name="monthType" value="leap">
-                                                            <span>Tháng nhuận</span>
-                                                        </label>
-                                                    </div>
-                                                    <div class="calendar-weekdays">
-                                                        <div class="weekday">CN</div>
-                                                        <div class="weekday">T2</div>
-                                                        <div class="weekday">T3</div>
-                                                        <div class="weekday">T4</div>
-                                                        <div class="weekday">T5</div>
-                                                        <div class="weekday">T6</div>
-                                                        <div class="weekday">T7</div>
-                                                    </div>
-                                                    <div class="calendar-days" id="lunarCalendarDays" style="min-height: 240px;">
-                                                        <!-- Lunar days will be generated by JavaScript -->
-                                                    </div>
-                                                    <div class="calendar-footer">
-                                                        <button type="button" class="btn-calendar btn-clear"
-                                                            id="lunarClearDate">Xóa</button>
-                                                        <button type="button" class="btn-calendar btn-today"
-                                                            id="lunarTodayDate">Hôm nay</button>
-                                                    </div>
-                                                    <!-- Lunar Month/Year Picker -->
-                                                    <div class="calendar-picker" id="lunarMonthYearPicker"
-                                                        style="display: none;">
-                                                        <div class="picker-header">
-                                                            <button type="button" class="btn-nav" id="lunarPickerPrevYear"><i
-                                                                    class="bi bi-chevron-left"></i></button>
-                                                            <span class="picker-year" id="lunarPickerYear"></span>
-                                                            <button type="button" class="btn-nav" id="lunarPickerNextYear"><i
-                                                                    class="bi bi-chevron-right"></i></button>
-                                                        </div>
-                                                        <div class="month-grid" id="lunarMonthGrid"></div>
-                                                    </div>
-                                                </div>
+                                                <!-- Hidden input to store formatted date -->
+                                                <input type="hidden" id="ngayXem" name="birthdate" value="">
                                             </div>
 
                                             <div class="fw-bold title-tong-quan-h2-log">Khoảng thời gian cần xem
@@ -169,7 +104,7 @@
                                                 <div class="input-group">
                                                     <input type="text"
                                                         class="form-control wedding_date_range --border-box-form"
-                                                        id="khoangNgay" placeholder="Chọn khoảng ngày" autocomplete="off"
+                                                        id="khoangNgay" placeholder="DD/MM/YY - DD/MM/YY" autocomplete="off"
                                                         style="border-radius: 10px; border: none; padding: 12px 45px 12px 15px; background-color: rgba(255,255,255,0.95); cursor: pointer;">
                                                     <span class="input-group-text bg-transparent border-0"
                                                         style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); z-index: 5; pointer-events: none;">
@@ -243,35 +178,37 @@
     </div>
 @endsection
 @push('scripts')
+    {{-- Load the lunar-solar date select module --}}
+    <script src="{{ asset('js/lunar-solar-date-select.js') }}"></script>
     {{-- Date Range Picker JS (vanilla JS version) --}}
     <script src="{{ asset('/js/vanilla-daterangepicker.js?v=6.0') }}" defer></script>
 
-    {{-- Legacy custom calendar (for compatibility) --}}
-    <script src="{{ asset('/js/custom-calendar.js?v=1.0') }}"></script>
-
-    {{-- New Date Picker Module --}}
-    <script src="{{ asset('/js/date-picker-module.js?v=1.6') }}"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // ========== INITIALIZE USING NEW MODULE ==========
-
-            // Global calendar (for compatibility with existing code)
-            const globalCal = new GlobalCalendar('globalCalendar');
-
-            // Calendar type switcher - using new module
-            let calendarSwitcher = null;
-
-            // ========== INITIALIZE CALENDAR SWITCHER ==========
-            // This will handle switching between Solar and Lunar calendars
-            calendarSwitcher = new DatePicker.CalendarSwitcher({
+            // Initialize the lunar-solar date selector
+            const dateSelector = new LunarSolarDateSelect({
+                daySelectId: 'ngaySelect',
+                monthSelectId: 'thangSelect',
+                yearSelectId: 'namSelect',
+                hiddenInputId: 'ngayXem',
                 solarRadioId: 'solarCalendar',
                 lunarRadioId: 'lunarCalendar',
-                inputId: 'ngayXem',
-                onChange: function(data, displayValue) {
-                    console.log('Date selected:', displayValue);
-                }
+                leapCheckboxId: 'leapMonth',
+                leapContainerId: 'leapMonthContainer',
+                defaultDay: 1,
+                defaultMonth: 1,
+                defaultYear: 1945,
+                yearRangeStart: 1900,
+                yearRangeEnd: new Date().getFullYear(),
+                lunarApiUrl: '/api/lunar-solar-convert',
+                lunarMonthDaysUrl: '/api/get-lunar-month-days',
+                monthInfoContainerId: 'monthInfoContainer',
+                csrfToken: '{{ csrf_token() }}',
+               
             });
+
+            // ========== DATE SELECTOR POPUP FOR NGAYXEM ==========
 
             // ========== DATE RANGE PICKER ==========
             // Initialize vanilla daterangepicker for Khoảng Ngày
@@ -374,36 +311,37 @@
 
                 // Validate Ngày Xem
                 if (!ngayXemValue) {
-                    alert('Vui lòng chọn ngày xem');
+                    alert('Vui lòng chọn đầy đủ ngày, tháng, năm');
                     return;
                 }
 
                 // Validate Date Range
-                if (!DateUtils.validateDateRange(khoangNgay.value)) {
+                if (!khoangNgay.value) {
+                    alert('Vui lòng chọn khoảng ngày cần xem');
                     return;
                 }
 
-                // Get the solar date (either directly or from converted lunar date)
+                // Get the date based on calendar type
                 let formattedBirthdate = '';
+                const calendarType = ngayXemInput.dataset.calendarType || 'solar';
+                let isLeapMonth = false;
 
-                if (ngayXemInput.dataset.solarDay) {
-                    // If lunar date was selected and converted to solar
-                    const day = String(ngayXemInput.dataset.solarDay).padStart(2, '0');
-                    const month = String(ngayXemInput.dataset.solarMonth).padStart(2, '0');
-                    const year = ngayXemInput.dataset.solarYear;
-                    formattedBirthdate = `${day}/${month}/${year}`;
-                } else if (ngayXemInput.dataset.date) {
-                    // If solar date was stored in dataset
-                    formattedBirthdate = ngayXemInput.dataset.date;
-                } else {
-                    // Fallback: parse from value
-                    const ngayXemDate = DateUtils.parseVietnameseDate(ngayXemValue);
-                    if (ngayXemDate) {
-                        const day = String(ngayXemDate.getDate()).padStart(2, '0');
-                        const month = String(ngayXemDate.getMonth() + 1).padStart(2, '0');
-                        const year = ngayXemDate.getFullYear();
-                        formattedBirthdate = `${day}/${month}/${year}`;
+                if (calendarType === 'lunar') {
+                    // If lunar date, use the converted solar date
+                    const solarDay = ngayXemInput.dataset.solarDay;
+                    const solarMonth = ngayXemInput.dataset.solarMonth;
+                    const solarYear = ngayXemInput.dataset.solarYear;
+                    isLeapMonth = ngayXemInput.dataset.lunarLeap === '1';
+
+                    if (solarDay && solarMonth && solarYear) {
+                        formattedBirthdate = `${String(solarDay).padStart(2, '0')}/${String(solarMonth).padStart(2, '0')}/${solarYear}`;
+                    } else {
+                        // Fallback to parsing lunar date from value
+                        formattedBirthdate = ngayXemValue.replace(' (ÂL)', '').replace(' (ÂL-Nhuận)', '');
                     }
+                } else {
+                    // Solar date can be used directly
+                    formattedBirthdate = ngayXemValue;
                 }
 
                 // Parse date range to get start and end dates
@@ -459,6 +397,8 @@
                 // Process form data
                 const formData = {
                     birthdate: formattedBirthdate,
+                    calendar_type: calendarType, // Add calendar type
+                    leap_month: isLeapMonth, // Add leap month info
                     date_range: khoangNgay.value,
                     start_date: startDate,
                     end_date: endDate,

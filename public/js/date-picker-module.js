@@ -32,7 +32,6 @@
         init() {
             this.input = document.getElementById(this.options.inputId);
             if (!this.input) {
-                console.error(`Input element with id "${this.options.inputId}" not found`);
                 return;
             }
 

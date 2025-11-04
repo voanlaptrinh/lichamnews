@@ -1221,7 +1221,7 @@ html.daterangepicker-open {
 
     /* Stack date info vertically on mobile */
     .table tbody td:first-child {
-        min-width: 120px;
+        /* min-width: 120px; */
     }
 
     .table tbody td:first-child strong {
