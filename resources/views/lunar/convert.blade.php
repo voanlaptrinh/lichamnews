@@ -848,19 +848,35 @@
             const current = {{ $yy }};
             let loaded = false;
 
-            select.addEventListener('focus', () => {
+            select.addEventListener('focus', (e) => {
                 if (loaded) return;
                 loaded = true;
+
+                // Lưu vị trí scroll hiện tại
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+
+                // Xóa tất cả options hiện tại
+                select.innerHTML = '';
+
                 const fragment = document.createDocumentFragment();
                 // 🔁 Lặp ngược: từ năm mới nhất → năm cũ nhất
                 for (let i = end; i >= start; i--) {
-                    if (i === current) continue;
                     const opt = document.createElement('option');
                     opt.value = i;
                     opt.textContent = `Năm ${i}`;
+                    if (i === current) {
+                        opt.selected = true;
+                    }
                     fragment.appendChild(opt);
                 }
                 select.appendChild(fragment);
+
+                // Khôi phục vị trí scroll
+                window.scrollTo(scrollLeft, scrollTop);
+
+                // Ngăn browser tự động scroll đến element
+                e.preventDefault();
             });
         } else {
             setTimeout(() => {
