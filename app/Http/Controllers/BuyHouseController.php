@@ -239,15 +239,15 @@ Thời điểm cát lợi, vận khí hanh thông – rất thích hợp để a
         // 3. Lấy thông tin chung của ngày (tính 1 lần, vì nó không đổi)
 
         $commonDayInfo = BadDayHelper::getdetailtable($dateToCheck);
-       
+         $tabooResult = GoodBadDayHelper::checkTabooDays($dateToCheck, 'MUA_NHA_DAT');
         // 4. Lấy thông tin chi tiết cho Chú Rể
         $groomData = BadDayHelper::getDetailedAnalysisForPerson($dateToCheck, $groomDob, 'Ngày mua nhà', 'MUA_NHA');
-
 
         // 6. Trả về view với toàn bộ dữ liệu
         return view('tools.mua-nha.day_details', compact(
             'commonDayInfo',
-            'groomData'
+            'groomData',
+            'tabooResult'
         ));
     }
 

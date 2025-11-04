@@ -321,6 +321,7 @@ class GioHoangDaoHelper
     // Kiểm tra Tương Hại
     public static function isTuongHai(string $chi1, string $chi2): bool
     {
+       
         // Chuyển về chữ thường để kiểm tra valid, nhưng dùng chữ hoa cho TUONG_HAI
         $chi1Lower = mb_strtolower($chi1);
         $chi2Lower = mb_strtolower($chi2);

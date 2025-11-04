@@ -40,7 +40,7 @@ class GoodBadDayHelper
             $dayCanChi = LunarHelper::canchiNgayByJD($jd);
 
             $birthCanChi = LunarHelper::canchiNam($birthDate);
-         
+
             $dayChi = explode(' ', $dayCanChi)[1];
             $birthChi = explode(' ', $birthCanChi)[1];
             $thaiTueResult = ThaiTueHelper::evaluateThaiTueByPurpose($dayChi, $birthChi, $effectivePurpose);
@@ -52,7 +52,7 @@ class GoodBadDayHelper
         $vanKhiNormalized = (float) $vanKhiResult['normalizedScore'];
         $vanKhiWeightedScore = $vanKhiNormalized * self::getWeight($effectivePurpose, 'VanKhi', $isPersonalized);
         $allIssues = array_merge($allIssues, $vanKhiResult['issues'] ?? []);
-        
+
         // 4. Cát Hung
         $catHungResult = CatHungHelper::evaluateCatHung($date, $effectivePurpose);
         $catHungScoreValue = (float) $catHungResult['score'];
@@ -69,7 +69,7 @@ class GoodBadDayHelper
         // 6. 12 Trực
         $trucName = NhiTrucHelper::getTruc((int)$carbonDate->day, (int)$carbonDate->month, (int)$carbonDate->year);
         $trucScoreValue = NhiTrucHelper::getTrucRating($trucName, $effectivePurpose);
-        $trucWeightedScore = $trucScoreValue * self::getWeight( $effectivePurpose, '12Truc', $isPersonalized);
+        $trucWeightedScore = $trucScoreValue * self::getWeight($effectivePurpose, '12Truc', $isPersonalized);
         $trucIssues = NhiTrucHelper::checkTrucIssues($trucName, $effectivePurpose);
         $allIssues = array_merge($allIssues, $trucIssues);
         // 7. Tổng hợp điểm có trọng số
@@ -80,10 +80,10 @@ class GoodBadDayHelper
         // CẢI TIẾN 3: Rút gọn công thức cho dễ đọc, kết quả không đổi
         $normalizedScore = ($totalWeights == 0) ? 0.0 : ($totalWeightedScore / $totalWeights);
 
-        
+
         // Kẹp giá trị trong khoảng [-2.0, 2.0]
         $normalizedScore = max(-2.0, min(2.0, $normalizedScore));
-      
+
         // 9. Chuyển đổi sang tỷ lệ phần trăm (0% - 100%)
         $percentage = (($normalizedScore + 2.0) / 4.0) * 100.0;
         // Kẹp giá trị trong khoảng [0.0, 100.0]
@@ -152,7 +152,7 @@ class GoodBadDayHelper
     public static function checkTabooDays(Carbon $date, string $purpose): array
     {
         // Lấy danh sách các ngày kỵ áp dụng cho ngày $date
-     
+
         $tabooDays = self::getApplicableTabooDays($date);
         $issues = [];
 
@@ -200,7 +200,7 @@ class GoodBadDayHelper
                 ];
             }
         }
-     
+
         return ['issues' => $issues];
     }
 
@@ -211,10 +211,10 @@ class GoodBadDayHelper
             "Tam Nương" => self::isTamNuong($date),
             "Nguyệt Kỵ" => self::isNguyetKy($date),
             "Nguyệt Tận" => self::isNguyetTan($date),
-            "Dương Công Kỵ Nhật" => self::isDuongCongKyNhat(date: $date),
-            "Sát Chủ Âm" => self::isSatChuAm(date: $date),
+            "Dương Công Kỵ Nhật" => self::isDuongCongKyNhat($date),
+            "Sát Chủ Âm" => self::isSatChuAm($date),
             "Sát Chủ Dương" => self::isSatChuDuong($date),
-            "Kim Thần Thất Sát" => self::isKimThanThatSat(date: $date),
+            "Kim Thần Thất Sát" => self::isKimThanThatSat($date),
             "Trùng Phục" => self::isTrungPhuc($date),
             "Thụ Tử" => self::isThuTu($date),
         ];
@@ -283,10 +283,11 @@ class GoodBadDayHelper
         $day = (int)$date->format('d');
         $month = (int)$date->format('m');
         $year = (int)$date->format('Y');
-        $lunar = lunarHelper::convertSolar2Lunar($day, $month, $year);
-        $chi = lunarHelper::canchiNgay($year, $month, $day);
-        $chi_ngay = explode(' ', $chi);
-        $chi_ngay  = $chi_ngay[1];
+          $lunar = lunarHelper::convertSolar2Lunar($day,  $month, $year);
+        $jd = LunarHelper::jdFromDate((int)$day, (int)$month, (int)$year);
+        $canchi = LunarHelper::canchiNgayByJD($jd);
+        $chi_ngay = explode(' ', $canchi);
+        $chi_ngay = $chi_ngay[1];
         return $chi_ngay === DataHelper::$satChuAm[$lunar[1]] ?? '';
     }
 
@@ -295,17 +296,11 @@ class GoodBadDayHelper
         $day = (int)$date->format('d');
         $month = (int)$date->format('m');
         $year = (int)$date->format('Y');
-$lunar = lunarHelper::convertSolar2Lunar($day, $month, $year);
-  $jd = LunarHelper::jdFromDate((int)$day, (int)$month, (int)$year);
-
-        $canChi = LunarHelper::canchiNgayByJD($jd);
-
-        $parts = explode(' ', $canChi);
-        
-        // $lunar = lunarHelper::convertSolar2Lunar($day, $month, $year);
-        // $chi = lunarHelper::canchiNgay($year, $month, $day);
-        // $chi_ngay = explode(' ', $chi);
-        $chi_ngay  = $parts[1];
+        $lunar = lunarHelper::convertSolar2Lunar($day,  $month, $year);
+        $jd = LunarHelper::jdFromDate((int)$day, (int)$month, (int)$year);
+        $canchi = LunarHelper::canchiNgayByJD($jd);
+        $chi_ngay = explode(' ', $canchi);
+        $chi_ngay = $chi_ngay[1];
         return $chi_ngay === DataHelper::$satChuDuong[$lunar[1]] ?? '';
     }
 
@@ -315,14 +310,14 @@ $lunar = lunarHelper::convertSolar2Lunar($day, $month, $year);
         $month = (int)$date->format('m');
         $year = (int)$date->format('Y');
         $can = lunarHelper::canchiNam($year);
-
-        $can_ngay = explode(' ', $can);
-        $can_ngay  = $can_ngay[1];
-        $chi = lunarHelper::canchiNgay($year, $month, $day);
-
-        $chi_ngay = explode(' ', $chi);
+           $canNam = explode(' ', $can);
+           $canNam = $canNam[0]; //Ất
+  $jd = LunarHelper::jdFromDate((int)$day, (int)$month, (int)$year);
+       $canchi = LunarHelper::canchiNgayByJD($jd);
+        $chi_ngay = explode(' ', $canchi);
         $chi_ngay  = $chi_ngay[1];
-        $forbiddenChis = DataHelper::$kimThanThatSat[$can_ngay] ?? [];
+
+        $forbiddenChis = DataHelper::$kimThanThatSat[$canNam] ?? [];
         return in_array($chi_ngay, $forbiddenChis);
     }
 
@@ -335,8 +330,8 @@ $lunar = lunarHelper::convertSolar2Lunar($day, $month, $year);
         // $can = lunarHelper::canchiNgay($year, $month, $day);
 
         // $can_ngay = explode(' ', $can);
-$lunar = lunarHelper::convertSolar2Lunar($day,  $month, $year);
-  $jd = LunarHelper::jdFromDate((int)$day, (int)$month, (int)$year);
+        $lunar = lunarHelper::convertSolar2Lunar($day,  $month, $year);
+        $jd = LunarHelper::jdFromDate((int)$day, (int)$month, (int)$year);
 
         $can = LunarHelper::canchiNgayByJD($jd);
 
@@ -358,8 +353,8 @@ $lunar = lunarHelper::convertSolar2Lunar($day,  $month, $year);
         // $chi = lunarHelper::canchiNgay($year, $month, $day);
         // $chi_ngay = explode(' ', $chi);
 
-$lunar = lunarHelper::convertSolar2Lunar($day, $month, $year);
-  $jd = LunarHelper::jdFromDate((int)$day, (int)$month, (int)$year);
+        $lunar = lunarHelper::convertSolar2Lunar($day, $month, $year);
+        $jd = LunarHelper::jdFromDate((int)$day, (int)$month, (int)$year);
 
         $canChi = LunarHelper::canchiNgayByJD($jd);
 
@@ -506,7 +501,7 @@ $lunar = lunarHelper::convertSolar2Lunar($day, $month, $year);
 
         return trim($introText);
     }
-     /**
+    /**
      * Danh sách Giờ Hoàng Đạo (giờ tốt) dựa trên Địa Chi của ngày.
      * Khung giờ 24h.
      */

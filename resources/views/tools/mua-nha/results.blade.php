@@ -136,6 +136,13 @@
                                                     @php
                                                         $badFactors = [];
 
+                                                        // Đếm số phạm từ checkTabooDays
+                                                        $checkTabooDaysCount = 0;
+                                                        if (isset($day['day_score']['checkTabooDays']['issues']) &&
+                                                            is_array($day['day_score']['checkTabooDays']['issues'])) {
+                                                            $checkTabooDaysCount = count($day['day_score']['checkTabooDays']['issues']);
+                                                        }
+
                                                         if (
                                                             isset($day['day_score']['issues']) &&
                                                             !empty($day['day_score']['issues'])
@@ -153,11 +160,11 @@
                                                         }
                                                         $badFactors = array_unique($badFactors);
                                                     @endphp
-                                                    @if (count($badFactors) > 0)
+                                                    @if (count($badFactors) > 0 || $checkTabooDaysCount > 0)
                                                         <div class="text-dark fw-semibold">
                                                             <img src="{{ asset('icons/ping.svg?v=1.0') }}"
                                                                 alt="ping" width="24" height="24">
-                                                            <span>{{ count($badFactors) }} yếu tố</span>
+                                                            <span>{{ $checkTabooDaysCount }} phạm</span>
                                                         </div>
                                                     @else
                                                         <span class="text-success">

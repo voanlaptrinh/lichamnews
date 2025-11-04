@@ -94,7 +94,6 @@ class KhiVanHelper
         $napAmScore = $isPersonalized ? (float)($napAmResult['score'] ?? 0.0) : 0.0;
 
 
-
         // --- BƯỚC 2: CHUYỂN ĐỔI TỪNG ĐIỂM SANG PHẦN TRĂM (0-100) ---
         $noiKhiPercent = DataHelper::$noiKhiScoreToPercentage[number_format($noiKhiScore, 1)] ?? self::defaultScoreToPercentage($noiKhiScore);
         $khiThangPercent = DataHelper::$khiThangScoreToPercentage[number_format($khiThangScore, 1)] ?? self::defaultScoreToPercentage($khiThangScore, -3.0, 3.0);
@@ -370,52 +369,52 @@ class KhiVanHelper
     }
 
     public static function calculateCanCan(Carbon $date, $birthDate = null): array
-{
-    $carbonDate = Carbon::instance($date);
-    $day = $carbonDate->day;
-    $month = $carbonDate->month;
-    $year = $carbonDate->year;
+    {
+        $carbonDate = Carbon::instance($date);
+        $day = $carbonDate->day;
+        $month = $carbonDate->month;
+        $year = $carbonDate->year;
 
-    // 1️⃣ Tính Can Chi của ngày
-    $jday = LunarHelper::jdFromDate((int)$day, (int)$month, (int)$year);
-    $canChiDay = LunarHelper::canchiNgayByJD($jday);
-    $dayCan = explode(' ', $canChiDay)[0] ?? null;
+        // 1️⃣ Tính Can Chi của ngày
+        $jday = LunarHelper::jdFromDate((int)$day, (int)$month, (int)$year);
+        $canChiDay = LunarHelper::canchiNgayByJD($jday);
+        $dayCan = explode(' ', $canChiDay)[0] ?? null;
 
-    // 2️⃣ Nếu không có ngày sinh -> mặc định trung tính
-    if ($birthDate === null) {
+        // 2️⃣ Nếu không có ngày sinh -> mặc định trung tính
+        if ($birthDate === null) {
+            return [
+                'score' => 0.0,
+                'description' => 'Không có ngày sinh, quan hệ trung tính',
+                'type' => 'Bình Hòa',
+            ];
+        }
+
+        // 3️⃣ Lấy Can của năm sinh
+        $birthCanChi = LunarHelper::canchiNam($birthDate);
+        $birthCan = explode(' ', $birthCanChi)[0] ?? null;
+
+        // 4️⃣ Kiểm tra quan hệ Can-Can trong DataHelper
+        $relationships = DataHelper::$canCanNewRelationships;
+
+        if (
+            isset($relationships[$birthCan]) &&
+            isset($relationships[$dayCan][$birthCan])
+        ) {
+            $info = $relationships[$dayCan][$birthCan];
+            return [
+                'score' => $info['baseScore'] ?? 0,
+                'description' => $info['explanation'] ?? '',
+                'type' => $info['relation'] ?? '',
+            ];
+        }
+
+        // 5️⃣ Trường hợp không tìm thấy trong bảng quan hệ
         return [
             'score' => 0.0,
-            'description' => 'Không có ngày sinh, quan hệ trung tính',
-            'type' => 'Bình Hòa',
+            'description' => "Không xác định quan hệ giữa $birthCan và $dayCan",
+            'type' => 'Không rõ',
         ];
     }
-
-    // 3️⃣ Lấy Can của năm sinh
-    $birthCanChi = LunarHelper::canchiNam($birthDate);
-    $birthCan = explode(' ', $birthCanChi)[0] ?? null;
-
-    // 4️⃣ Kiểm tra quan hệ Can-Can trong DataHelper
-    $relationships = DataHelper::$canCanNewRelationships;
-
-    if (
-        isset($relationships[$birthCan]) &&
-        isset($relationships[$dayCan][$birthCan])
-    ) {
-        $info = $relationships[$dayCan][$birthCan];
-        return [
-            'score' => $info['baseScore'] ?? 0,
-            'description' => $info['explanation'] ?? '',
-            'type' => $info['relation'] ?? '',
-        ];
-    }
-
-    // 5️⃣ Trường hợp không tìm thấy trong bảng quan hệ
-    return [
-        'score' => 0.0,
-        'description' => "Không xác định quan hệ giữa $birthCan và $dayCan",
-        'type' => 'Không rõ',
-    ];
-}
 
 
 
@@ -427,12 +426,12 @@ class KhiVanHelper
         $month = $carbonDate->month;
         $year = $carbonDate->year;
 
-        $al = LunarHelper::convertSolar2Lunar((int)$day,  (int)$month, (int)$year);
+        $al = LunarHelper::convertSolar2Lunar((int)$day, (int)$month, (int)$year);
         // $jdNgayAm = LunarHelper::jdFromLunarDate((int)$al[0], (int)$al[1], (int)$al[2], (int)$al[3]);
         // $dayCanChi = LunarHelper::canchiNgayByJD($jdNgayAm);
         // $dayCanChi = LunarHelper::canchiNgay($date->year, $date->month, $date->day);
-  $jday = LunarHelper::jdFromDate((int)$day,  (int)$month, (int)$year);
-        $dayCanChi = LunarHelper::canchiNgayByJD($jday);
+        $jd = LunarHelper::jdFromDate((int)$carbonDate->day, (int)$carbonDate->month, (int)$carbonDate->year);
+        $dayCanChi = LunarHelper::canchiNgayByJD($jd);
 
         // Chuyển về chữ thường để khớp với DataHelper
         $dayChi = mb_strtolower(explode(' ', $dayCanChi)[1]);
@@ -440,19 +439,13 @@ class KhiVanHelper
         if ($birthDate === null) {
             $birthChi = ''; // Mặc định nếu không có ngày sinh
         } else {
-            // Lấy Chi của NGÀY SINH (không phải năm sinh)
-            $birthDay = Carbon::parse($birthDate)->day;
-            $birthMonth = Carbon::parse($birthDate)->month;
-            $birthYear = Carbon::parse($birthDate)->year;
-
-            $birthJday = LunarHelper::jdFromDate((int)$birthDay, (int)$birthMonth, (int)$birthYear);
-            $birthDayCanChi = LunarHelper::canchiNgayByJD($birthJday);
+           $birthCanChi = LunarHelper::canchiNam($birthDate);
             // Chuyển về chữ thường để khớp với DataHelper
-            $birthChi = mb_strtolower(explode(' ', $birthDayCanChi)[1]);
+            $birthChi = mb_strtolower(explode(' ', $birthCanChi)[1]);
         }
 
         $relationKey = '';
-
+     
         if ($dayChi === $birthChi) {
             $relationKey = GioHoangDaoHelper::isTuHinh($dayChi)
                 ? 'Tự hình'
@@ -501,11 +494,11 @@ class KhiVanHelper
             'birthChi' => $birthChi,
         ];
     }
- public static function calculateNapAm(Carbon $date, ?String $birthDate): array
+    public static function calculateNapAm(Carbon $date, ?String $birthDate): array
     {
-    
+
         try {
-           
+
             $day = $date->day;
             $month = $date->month;
             $year = $date->year;
@@ -561,11 +554,11 @@ class KhiVanHelper
             $explanation = $info['explanation'];
             $score = (float) $info['score'];
 
-        
+
             // 5️⃣ Ghép mô tả kết quả
             $finalDescription = "Ngày $dayCanChi nạp âm là $dayNapAmName (hành $dayHanh), tuổi $birthCanChi nạp âm là $birthNapAmName (hành $birthHanh) → $relationKey ($rating). $explanation";
 
-           
+
 
             return [
                 'score' => $score,
@@ -578,7 +571,7 @@ class KhiVanHelper
         } catch (\Throwable $e) {
             $errorMsg = "Lỗi nghiêm trọng khi tính NapAm Age";
 
-           
+
             return [
                 'score' => 0.0,
                 'description' => 'Lỗi nghiêm trọng trong quá trình tính toán Nạp Âm.',
