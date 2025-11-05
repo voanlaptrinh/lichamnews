@@ -63,9 +63,9 @@
                 <!-- Danh sách điểm theo ngày -->
                 <div class="card border-0 mb-3 w-100 box-detial-year">
                     <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
+                       <div class="betwen-ds mb-3 flex-wrap">
                             <div
-                                class="text-primary mb-3 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
+                                class="text-primary mb-0 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
                                 <img src="{{ asset('icons/k_nen_1.svg') }}" alt="thông tin người xem" width="28"
                                     height="28" class="me-1"> Danh Sách Điểm
                                 Theo Ngày
@@ -80,28 +80,45 @@
                         </div>
 
                         @if (isset($yearData['days']) && count($yearData['days']) > 0)
-                            <div class="table-responsive w-100">
-                                <table class="table table-hover align-middle w-100" id="table-{{ $year }}">
+                            <div class="table-responsive w-100" id="bang-chi-tiet"> 
+                                <table class="table table-hover align-middle w-100" id="table-{{ $year }}" style="table-layout: fixed; width: 100%;">
                                     <thead class="text-center" style="background-color: #e8ebee;">
                                         <tr>
-                                            <th style="min-width: 200px;border-radius: 8px 0 0 8px">Ngày</th>
-                                            <th style="min-width: 150px;">Phạm</th>
-                                            <th style="min-width: 120px;" class="score-header">Điểm ngày</th>
-                                            <th style="min-width: 120px;border-radius: 0 8px 8px 0">Chi tiết</th>
+                                            <th style="border-radius: 8px 0 0 8px">Ngày</th>
+                                            <th style="">Phạm</th>
+                                            <th style=" border-radius: 0 8px 8px 0" class="score-header">Điểm</th>
                                         </tr>
                                     </thead>
                                     <tbody class="text-center">
                                         @foreach ($yearData['days'] as $day)
                                             <tr>
                                                 <td>
-                                                    <div style="color: #0F172A;font-size: 18px">
-                                                        <strong>{{ $day['weekday_name'] ?? '' }},
-                                                            {{ $day['date']->format('d/m/Y') }}</strong>
-                                                    </div>
-                                                    <div class="text-muted small"
-                                                        style="color: #2254AB;font-size: 18px">
-                                                        {{ $day['full_lunar_date_str'] ?? '' }}
-                                                    </div>
+                                                    <a
+                                                        href="{{ route('totxau.dayDetails', ['date' => $day['date']->format('Y-m-d'), 'birthdate' => $formattedBirthdate]) }}">
+                                                        <div class="box-dtl-pc">
+                                                            <div style="color: #0F172A;font-size: 18px">
+                                                                <strong>{{ $day['weekday_name'] ?? '' }},
+                                                                    {{ $day['date']->format('d/m/Y') }}</strong>
+                                                            </div>
+                                                            <div class="text-muted small"
+                                                                style="color: #2254AB;font-size: 18px">
+                                                                {{ $day['full_lunar_date_str'] ?? '' }} <i
+                                                                    class="bi bi-chevron-right"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="box-dtl-mb">
+                                                            <div class="hv-memorial-date-panel">
+                                                                <div class="hv-memorial-month-text">Tháng
+                                                                    {{ $day['date']->format('m') }}</div>
+                                                                <div class="hv-memorial-day-digit">
+                                                                    {{ $day['date']->format('d') }}</div>
+                                                                <div class="hv-memorial-lunar-calendar-info">
+                                                                    {{ $day['al_name'][0] ?? '' }}/{{ $day['al_name'][1] ?? '' }}
+                                                                    ÂL <i class="bi bi-chevron-right"></i></div>
+                                                            </div>
+
+                                                        </div>
+                                                    </a>
                                                 </td>
                                                 <td>
                                                     @php
@@ -113,7 +130,7 @@
                                                             if (is_array($v)) {
                                                                 return !empty(array_filter($v));
                                                             }
-                                                            return !empty($v); 
+                                                            return !empty($v);
                                                         });
 
                                                         $countViolations = count($validViolations);
@@ -122,7 +139,7 @@
                                                         <div class="text-dark fw-semibold">
                                                             <img src="{{ asset('icons/ping.svg?v=1.0') }}"
                                                                 alt="ping" width="24" height="24">
-                                                            <span>{{ $countViolations }} yếu tố</span>
+                                                            <span>{{ $countViolations }} phạm</span>
                                                         </div>
                                                     @else
                                                         <span class="text-success">
@@ -135,48 +152,37 @@
                                                     @php
                                                         $score = $day['day_score']['percentage'] ?? 0;
                                                         $bgColor = '#D1FAE5'; // Green
-                                                        if ($score < 30) {
+                                                       if ($score < 30) {
                                                             $bgColor = '#FEE2E2'; // Red
                                                             $border = '#DC2626';
                                                             $text_box = '#DC2626';
                                                         } elseif ($score < 50) {
-                                                            $bgColor = '#FEF3C7'; // Yellow
-                                                            $border = '#F59E0B';
-                                                            $text_box = '#F59E0B';
-                                                        } elseif ($score < 70) {
-                                                            $bgColor = '#FFE3D5'; // Orange
+                                                            $bgColor = '#FFE3D5'; // Yellow
                                                             $border = '#FC6803';
                                                             $text_box = '#FC6803';
+                                                        } elseif ($score < 70) {
+                                                            $bgColor = '#FEF3C7'; // Orange
+                                                            $border = '#F59E0B';
+                                                            $text_box = '#F59E0B';
                                                         } else {
                                                             $border = '#10B981';
                                                             $text_box = '#10B981';
                                                         }
                                                     @endphp
                                                     <div class=" d-flex justify-content-center align-items-center">
-                                                        <span
-                                                            class="badge px-3 py-2 d-flex justify-content-center align-items-center"
-                                                            style="background-color: {{ $bgColor }};border:1px solid {{ $border }}; color: {{ $text_box }}; font-size: 18px; border-radius: 8px;width:108px;height:28px;font-weight:600">
-                                                            {{ round($score) }}%
-                                                        </span>
+                                                        <div class="battery">
+                                                            <div class="battery-body"
+                                                                style="border:1px solid {{ $border }}">
+                                                                <div class="battery-fill"
+                                                                    style="width: {{ round($score) }}%; background-color: {{ $bgColor }}; ">
+                                                                </div>
+                                                                <div class="battery-label"> {{ round($score) }}%</div>
+                                                            </div>
+
+                                                        </div>
                                                     </div>
                                                 </td>
-                                                <td>
-                                                    <div class="d-flex justify-content-center align-items-center">
-                                                        <a href="{{ route('totxau.dayDetails', ['date' => $day['date']->format('Y-m-d'), 'birthdate' => $formattedBirthdate]) }}"
-                                                            class="btn btn-sm-settup" target="_blank">
-                                                            Xem <svg xmlns="http://www.w3.org/2000/svg" width="16"
-                                                                height="16" fill="currentColor" class="bi bi-eye"
-                                                                viewBox="0 0 16 16">
-                                                                <path
-                                                                    d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z">
-                                                                </path>
-                                                                <path
-                                                                    d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0">
-                                                                </path>
-                                                            </svg>
-                                                        </a>
-                                                    </div>
-                                                </td>
+
                                             </tr>
                                         @endforeach
                                     </tbody>

@@ -131,6 +131,7 @@ class TotXauController extends Controller
                 'date' => $date->copy(),
                 'weekday_name' => $date->isoFormat('dddd'),
                 'full_lunar_date_str' => $fullLunarDateStr,
+                 'al_name' => $lunarParts,
                 'good_hours' => $goodHours,
                 'day_score' => [
                     'percentage' => $dayScoreDetails['score']['percentage'] ?? 0,

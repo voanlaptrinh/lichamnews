@@ -41,26 +41,35 @@
                                                     <div class="row g-2 mb-2">
                                                         <div class="col-6 col-sm-4 col-lg-4 col-xl-4">
                                                             <div class="position-relative">
-                                                                <select class="form-select pe-5 --border-box-form" id="ngaySelect" name="day" style="padding: 12px 45px 12px 15px">
+                                                                <select class="form-select pe-5 --border-box-form"
+                                                                    id="ngaySelect" name="day"
+                                                                    style="padding: 12px 45px 12px 15px">
                                                                     <option value="">Ngày</option>
                                                                 </select>
-                                                                <i class="bi bi-chevron-down position-absolute" style="right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #6c757d;"></i>
+                                                                <i class="bi bi-chevron-down position-absolute"
+                                                                    style="right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #6c757d;"></i>
                                                             </div>
                                                         </div>
                                                         <div class="col-6 col-sm-4 col-lg-4 col-xl-4">
                                                             <div class="position-relative">
-                                                                <select class="form-select pe-5 --border-box-form" id="thangSelect" name="month" style="padding: 12px 45px 12px 15px">
+                                                                <select class="form-select pe-5 --border-box-form"
+                                                                    id="thangSelect" name="month"
+                                                                    style="padding: 12px 45px 12px 15px">
                                                                     <option value="">Tháng</option>
                                                                 </select>
-                                                                <i class="bi bi-chevron-down position-absolute" style="right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #6c757d;"></i>
+                                                                <i class="bi bi-chevron-down position-absolute"
+                                                                    style="right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #6c757d;"></i>
                                                             </div>
                                                         </div>
                                                         <div class="col-12 col-sm-4 col-lg-4 col-xl-4">
                                                             <div class="position-relative">
-                                                                <select class="form-select pe-5 --border-box-form" id="namSelect" name="year" style="padding: 12px 45px 12px 15px">
+                                                                <select class="form-select pe-5 --border-box-form"
+                                                                    id="namSelect" name="year"
+                                                                    style="padding: 12px 45px 12px 15px">
                                                                     <option value="">Năm</option>
                                                                 </select>
-                                                                <i class="bi bi-chevron-down position-absolute" style="right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #6c757d;"></i>
+                                                                <i class="bi bi-chevron-down position-absolute"
+                                                                    style="right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #6c757d;"></i>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -68,27 +77,31 @@
                                                     <!-- Radio buttons dạng tròn bên dưới selects -->
                                                     <div class="d-flex gap-4 ps-2">
                                                         <div class="form-check d-flex align-items-center">
-                                                            <input type="radio" class="form-check-input" name="calendar_type" id="solarCalendar" value="solar" checked
-                                                                   style="width: 24px; height: 24px; cursor: pointer;">
+                                                            <input type="radio" class="form-check-input"
+                                                                name="calendar_type" id="solarCalendar" value="solar"
+                                                                checked style="width: 24px; height: 24px; cursor: pointer;">
                                                             <label class="form-check-label ms-2" for="solarCalendar"
-                                                                   style="cursor: pointer; font-size: 15px; color: #333;">
+                                                                style="cursor: pointer; font-size: 15px; color: #333;">
                                                                 Dương lịch
                                                             </label>
                                                         </div>
                                                         <div class="form-check d-flex align-items-center">
-                                                            <input type="radio" class="form-check-input" name="calendar_type" id="lunarCalendar" value="lunar"
-                                                                   style="width: 24px; height: 24px; cursor: pointer;">
+                                                            <input type="radio" class="form-check-input"
+                                                                name="calendar_type" id="lunarCalendar" value="lunar"
+                                                                style="width: 24px; height: 24px; cursor: pointer;">
                                                             <label class="form-check-label ms-2" for="lunarCalendar"
-                                                                   style="cursor: pointer; font-size: 15px; color: #333;">
+                                                                style="cursor: pointer; font-size: 15px; color: #333;">
                                                                 Âm lịch
                                                             </label>
                                                         </div>
                                                     </div>
 
-                                                  
+
                                                     <!-- Leap Month Option (hidden) -->
-                                                    <div class="form-check mt-2" id="leapMonthContainer" style="display: none;">
-                                                        <input class="form-check-input" type="checkbox" id="leapMonth" name="leap_month">
+                                                    <div class="form-check mt-2" id="leapMonthContainer"
+                                                        style="display: none;">
+                                                        <input class="form-check-input" type="checkbox" id="leapMonth"
+                                                            name="leap_month">
                                                         <label class="form-check-label" for="leapMonth">
                                                             Tháng nhuận
                                                         </label>
@@ -109,8 +122,8 @@
                                                     <div class="input-group">
                                                         <input type="text"
                                                             class="form-control wedding_date_range --border-box-form @error('date_range') is-invalid @enderror"
-                                                            id="date_range" name="date_range" placeholder="DD/MM/YY - DD/MM/YY"
-                                                            autocomplete="off"
+                                                            id="date_range" name="date_range"  readonly
+                                                            placeholder="DD/MM/YY - DD/MM/YY" autocomplete="off"
                                                             value="{{ old('date_range', $inputs['date_range'] ?? '') }}"
                                                             style="border-radius: 10px; border: none; padding: 12px 45px 12px 15px; background-color: rgba(255,255,255,0.95); cursor: pointer;">
                                                         <span class="input-group-text bg-transparent border-0"
@@ -139,7 +152,8 @@
                             </div>
                             <div class="col-lg-4 d-none d-lg-block d-flex">
                                 <div class="d-flex align-items-end h-100 w-100">
-                                    <img src="{{ asset('/icons/datedoilich.svg') }}" alt="ảnh đổi lich" class="img-fluid">
+                                    <img src="{{ asset('/icons/datedoilich.svg') }}" alt="ảnh đổi lich"
+                                        class="img-fluid">
                                 </div>
                             </div>
                         </div>
@@ -164,9 +178,9 @@
 @endsection
 
 @push('scripts')
-  <script src="{{ asset('js/lunar-solar-date-select.js') }}"></script>
+    <script src="{{ asset('js/lunar-solar-date-select.js') }}"></script>
     {{-- Date Range Picker JS (vanilla JS version) --}}
-    <script src="{{ asset('/js/vanilla-daterangepicker.js?v=6.0') }}" defer></script>
+    <script src="{{ asset('/js/vanilla-daterangepicker.js?v=6.1') }}" defer></script>
 
 
     <script>
@@ -188,9 +202,9 @@
                 yearRangeEnd: new Date().getFullYear(),
                 lunarApiUrl: '/api/lunar-solar-convert',
                 lunarMonthDaysUrl: '/api/get-lunar-month-days',
-           
+
                 csrfToken: '{{ csrf_token() }}',
-               
+
             });
 
             // ========== DATE RANGE PICKER ==========
@@ -294,7 +308,8 @@
                     isLeapMonth = ngayXemInput.dataset.lunarLeap === '1';
 
                     if (solarDay && solarMonth && solarYear) {
-                        formattedBirthdate = `${String(solarDay).padStart(2, '0')}/${String(solarMonth).padStart(2, '0')}/${solarYear}`;
+                        formattedBirthdate =
+                            `${String(solarDay).padStart(2, '0')}/${String(solarMonth).padStart(2, '0')}/${solarYear}`;
                     } else {
                         // Fallback to parsing lunar date from value
                         formattedBirthdate = ngayXemValue.replace(' (ÂL)', '').replace(' (ÂL-Nhuận)', '');
@@ -418,13 +433,23 @@
                     });
             });
 
-            // Handle sorting change using event delegation on resultsContainer
             resultsContainer.addEventListener('change', function(event) {
                 if (event.target.matches('[name="sort"]')) {
-                    // Re-submit form with new sort order
                     form.requestSubmit();
+
+                    // scroll sau 1 chút để đảm bảo DOM update
+                    setTimeout(() => {
+                        const target = document.getElementById("bang-chi-tiet");
+                        if (target) {
+                            target.scrollIntoView({
+                                behavior: "smooth",
+                                block: "start"
+                            });
+                        }
+                    }, 300);
                 }
             });
+
         });
     </script>
 @endpush

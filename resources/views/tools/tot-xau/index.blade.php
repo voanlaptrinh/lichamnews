@@ -102,7 +102,7 @@
                                             </div>
                                             <div class="mb-4">
                                                 <div class="input-group">
-                                                    <input type="text"
+                                                    <input type="text"  readonly
                                                         class="form-control wedding_date_range --border-box-form"
                                                         id="khoangNgay" placeholder="DD/MM/YY - DD/MM/YY" autocomplete="off"
                                                         style="border-radius: 10px; border: none; padding: 12px 45px 12px 15px; background-color: rgba(255,255,255,0.95); cursor: pointer;">
@@ -181,7 +181,7 @@
     {{-- Load the lunar-solar date select module --}}
     <script src="{{ asset('js/lunar-solar-date-select.js') }}"></script>
     {{-- Date Range Picker JS (vanilla JS version) --}}
-    <script src="{{ asset('/js/vanilla-daterangepicker.js?v=6.0') }}" defer></script>
+    <script src="{{ asset('/js/vanilla-daterangepicker.js?v=6.1') }}" defer></script>
 
 
     <script>

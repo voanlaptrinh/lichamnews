@@ -316,6 +316,22 @@ html.daterangepicker-open {
         display: flex;
         gap: 3px;
     }
+    .box-dtl-pc{
+        display: block;
+    }
+    .box-dtl-mb{
+        display: none;
+    }
+     .diem-so{
+        font-size: 18px;
+    }
+    .battery-body{
+        width: 108px;
+    }
+    .betwen-ds{
+        display: flex;
+        justify-content: space-between;
+    }
 }
 
 /* Large Desktop - 1400px+ */
@@ -336,6 +352,22 @@ html.daterangepicker-open {
     .form--submit-totxau {
         padding: 24px 40px;
     }
+     .box-dtl-pc{
+        display: block;
+    }
+    .box-dtl-mb{
+        display: none;
+    }
+     .diem-so{
+        font-size: 18px;
+    }
+    .battery-body{
+        width: 108px;
+    }
+    .betwen-ds{
+        display: flex;
+        justify-content: space-between;
+    }
 }
 
 /* Desktop - 1200px to 1399.98px */
@@ -353,12 +385,28 @@ html.daterangepicker-open {
     .form--submit-totxau {
         padding: 24px 40px;
     }
+     .box-dtl-pc{
+        display: block;
+    }
+    .box-dtl-mb{
+        display: none;
+    }
+     .diem-so{
+        font-size: 18px;
+    }
+    .battery-body{
+        width: 108px;
+    }
+    .betwen-ds{
+        display: flex;
+        justify-content: space-between;
+    }
 }
 
 /* Laptop / Small Desktop - 992px to 1199.98px */
 @media screen and (min-width:992px) and (max-width:1199.98px) {
     .daterangepicker-container {
-        min-width: 600px;
+        min-width: 500px;
         max-width: 800px;
     }
 
@@ -378,12 +426,28 @@ html.daterangepicker-open {
     .form--submit-totxau {
         padding: 24px 40px;
     }
+     .box-dtl-pc{
+        display: block;
+    }
+    .box-dtl-mb{
+        display: none;
+    }
+     .diem-so{
+        font-size: 14px;
+    }
+    .battery-body{
+        width: 108px;
+    }
+    .betwen-ds{
+        display: flex;
+        justify-content: space-between;
+    }
 }
 
 /* Tablet - 768px to 991.98px */
 @media screen and (min-width:768px) and (max-width:991.98px) {
     .daterangepicker-container {
-        min-width: 700px;
+        min-width: 100px;
         max-width: 90vw;
         padding: 18px;
     }
@@ -424,6 +488,22 @@ html.daterangepicker-open {
 
     .daterangepicker-btn {
         min-height: 44px;
+    }
+     .box-dtl-pc{
+        display: block;
+    }
+    .box-dtl-mb{
+        display: none;
+    }
+     .diem-so{
+        font-size: 14px;
+    }
+    .battery-body{
+        width: 108px;
+    }
+    .betwen-ds{
+        display: flex;
+        justify-content: space-between;
     }
 }
 
@@ -508,17 +588,49 @@ html.daterangepicker-open {
         font-size: 15px;
         min-height: 50px;
     }
+     .box-dtl-pc{
+        display: none;
+    }
+    .box-dtl-mb{
+        display: block;
+    }
+     .diem-so{
+        font-size: 12px;
+    }
+    .battery-body{
+        width: 108px;
+    }
+      .betwen-ds{
+        display: flex;
+        justify-content: space-between;
+    }
 }
 
 @media (max-width:480px) {
     .form--submit-totxau {
         padding: 14px 20px;
     }
+     .box-dtl-pc{
+        display: none;
+    }
+    .box-dtl-mb{
+        display: block;
+    }
+    .diem-so{
+        font-size: 12px;
+    }
+    .battery-body{
+        width: 73px;
+    }
+      .betwen-ds{
+        display: flex;
+        justify-content: center;
+    }
 }
 
 /* Unified styles for date range picker (both PC and mobile) */
 .daterangepicker-container.mobile-view {
-    width: 450px !important;
+    width: 400px !important;
     max-width: 95vw !important;
     max-height: 90vh !important;
     overflow: hidden !important;
@@ -527,13 +639,13 @@ html.daterangepicker-open {
 /* Responsive adjustments */
 @media screen and (min-width: 768px) {
     .daterangepicker-container.mobile-view {
-        width: 500px !important;
+        width: 390px !important;
     }
 }
 
 @media screen and (min-width: 1024px) {
     .daterangepicker-container.mobile-view {
-        width: 550px !important;
+        width: 500px !important;
     }
 }
 
@@ -1183,18 +1295,6 @@ html.daterangepicker-open {
     /* border-bottom: 1px solid #f0f0f0; */
 }
 
-/* Badge Styles */
-.badge {
-    font-size: 14px;
-    font-weight: 500;
-    padding: 8px 16px;
-    border-radius: 20px;
-    min-width: 60px;
-    text-align: center;
-    display: inline-block;
-}
-
-
 
 /* Responsive for Mobile */
 @media (max-width: 768px) {
@@ -1235,7 +1335,7 @@ html.daterangepicker-open {
     /* Make select smaller on mobile */
     .sort-select {
         font-size: 12px !important;
-        padding: 4px 8px !important;
+        padding: 10px 8px !important;
     }
 
     /* Adjust card padding on mobile */
@@ -1680,4 +1780,47 @@ html.daterangepicker-open {
 .accordion-button:focus{
     border-color: unset;
     box-shadow: none
+}
+
+
+.battery {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: Arial, sans-serif;
+}
+
+/* thân pin */
+.battery-body {
+  height: 28px;
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+  background: #fff;
+}
+
+/* phần màu fill */
+.battery-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  background-color: #10B981; /* xanh mặc định */
+  transition: width 0.5s ease;
+}
+
+/* số % ở giữa thân pin */
+.battery-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: 600;
+  color: #000; /* chữ đen */
+  z-index: 2; /* nằm trên fill */
+  pointer-events: none; /* không bị ảnh hưởng khi hover/click */
+}
+
+th{
+    text-align: center !important;
 }

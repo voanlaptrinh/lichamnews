@@ -11,6 +11,7 @@
             <div class="col-lg-9">
                 <div class="box-cart-index-cung box-caro-cung-mb">
                     <div>
+                        <h2 class="title-tong-quan-h2-log">Danh sách 12 cung Hoàng Đạo và ngày sinh tương ứng</h2>
                         <p>Khám phá tử vi 12 cung Hoàng đạo với những dự đoán chi tiết về tình yêu, công việc, tài lộc và
                             sức khỏe.
                             Hãy
@@ -41,7 +42,7 @@
                     </div>
                 </div>
                 <div class="text-box-tong-quan box-cart-index-cung">
-                    <div class="title-tong-quan-h3">Ý nghĩa và giá trị của 12 cung Hoàng đạo trong cuộc sống hiện đại</div>
+                    <h2 class="title-tong-quan-h3">Ý nghĩa và giá trị của 12 cung Hoàng đạo trong cuộc sống hiện đại</h2>
                     <div>
                         12 cung Hoàng đạo hay còn gọi là 12 chòm sao, vốn xuất phát từ chiêm tinh học phương Tây, nhưng ngày
                         nay đã
@@ -55,8 +56,8 @@
 
                     </div>
                     <div class="mt-3">
-                        <div class="title-tong-quan-h4" style="font-weight: unset">12 cung Hoàng đạo và tính cách đặc trưng
-                        </div>
+                        <h3 class="title-tong-quan-h4" style="font-weight: unset">12 cung Hoàng đạo và tính cách đặc trưng
+                        </h3>
                         <ul>
                             <li><b>Bạch Dương:</b> Mạnh mẽ, quyết đoán, thích tiên phong.</li>
                             <li><b>Kim Ngưu:</b> Ổn định, kiên định và thực tế.</li>
@@ -73,8 +74,8 @@
                         </ul>
                     </div>
                     <div class="mt-3">
-                        <div class="title-tong-quan-h4" style="font-weight: unset">Xem tử vi 12 cung Hoàng đạo để làm gì?
-                        </div>
+                        <h3 class="title-tong-quan-h4" style="font-weight: unset">Xem tử vi 12 cung Hoàng đạo để làm gì?
+                        </h3>
                         <div>
                             Không chỉ đơn thuần là sự tò mò, tử vi 12 cung Hoàng đạo mang lại cho bạn nhiều góc nhìn hữu
                             ích:
@@ -93,8 +94,8 @@
                         </ul>
                     </div>
                     <div class="mt-3">
-                        <div class="title-tong-quan-h4" style="font-weight: unset">Ứng dụng của cung Hoàng đạo trong đời sống
-                        </div>
+                        <h3 class="title-tong-quan-h4" style="font-weight: unset">Ứng dụng của cung Hoàng đạo trong đời sống
+                        </h3>
                         <div>
                             Trong xã hội hiện đại, nhiều người trẻ sử dụng tử vi 12 cung Hoàng đạo như một công cụ tham khảo
                             để:
@@ -111,10 +112,10 @@
                         </ul>
                     </div>
                     <div class="mt-3 mb-3">
-                        <div class="title-tong-quan-h4" style="font-weight: unset">Tại sao nên theo dõi tử vi 12 cung Hoàng
+                        <h3 class="title-tong-quan-h4" style="font-weight: unset">Tại sao nên theo dõi tử vi 12 cung Hoàng
                             đạo tại
                             Phong Lịch?
-                        </div>
+                        </h3>
                         <div>
                             Phong Lịch mang đến nội dung tử vi được cập nhật hàng ngày, hàng tuần, hàng tháng và cả năm cho
                             12 cung
