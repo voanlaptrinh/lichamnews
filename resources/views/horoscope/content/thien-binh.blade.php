@@ -12,7 +12,7 @@
                 <div class="tong-quan-date mt-2 mb-3">
                     <div class="card-body  p-lg-4 p-3 position-relative" style="border-radius: 24px">
                         <div class="text-box-tong-quan">
-                            <div class="title-tong-quan-h4">Cung Thiên Bình là gì?</div>
+                            <h2 class="title-tong-quan-h4">Cung Thiên Bình là gì?</h2>
                             <p class="mb-0">Cung Thiên Bình (Libra) là cung hoàng đạo thứ 7, đại diện cho sự cân bằng,
                                 công bằng
                                 và mối quan hệ hài hòa.
@@ -33,7 +33,7 @@
                                 trong cuộc sống.
 
                             </p>
-                            <div class="title-tong-quan-h4 pt-2">Biểu tượng và chòm sao gắn liền</div>
+                            <h3 class="title-tong-quan-h4 pt-2">Biểu tượng và chòm sao gắn liền</h3>
                             <ul class="mb-0">
                                 <li>Biểu tượng: Cán Cân – đại diện cho công lý, sự công bằng và cân bằng nội tâm.</li>
                                 <li>Nguyên tố: Khí </li>
@@ -49,20 +49,20 @@
                                 lý trí và
                                 luôn tìm kiếm sự công bằng trong mọi việc.</p>
 
-                            <div class="title-tong-quan-h4 pt-2">Tính cách đặc trưng của Thiên Bình</div>
+                            <h2 class="title-tong-quan-h4 pt-2">Tính cách đặc trưng của Thiên Bình</h2>
                             <p class="mb-0">Người thuộc cung Thiên Bình là những người tinh tế, duyên dáng và có khả năng
                                 ngoại
                                 giao bẩm sinh.
                                 <br> Họ yêu hòa bình, ghét xung đột và luôn cố gắng dung hòa mọi mối quan hệ xung quanh.
                             </p>
-                            <div class="title-tong-quan-h5 pt-2 mb-0">Ưu điểm:</div>
+                            <h3 class="title-tong-quan-h5 pt-2 mb-0">Ưu điểm:</h3>
                             <ul class="mb-0">
                                 <li>Duyên dáng, thân thiện, dễ tạo thiện cảm.</li>
                                 <li>Sống công bằng, biết lắng nghe và thấu hiểu người khác.</li>
                                 <li>Có gu thẩm mỹ cao, yêu nghệ thuật và cái đẹp.</li>
                                 <li>Giỏi giao tiếp, biết cách cân bằng trong mối quan hệ.</li>
                             </ul>
-                            <div class="title-tong-quan-h5 pt-2 mb-0">Nhược điểm:</div>
+                            <h3 class="title-tong-quan-h5 pt-2 mb-0">Nhược điểm:</h3>
                             <ul class="mb-1">
                                 <li>Do dự, khó đưa ra quyết định khi có nhiều lựa chọn.</li>
                                 <li>Dễ bị ảnh hưởng bởi ý kiến người khác.</li>
@@ -73,7 +73,7 @@
                                 lẫn cảm
                                 xúc. Họ là những “người kiến tạo hòa bình” trong mọi tập thể.
                             </p>
-                            <div class="title-tong-quan-h4 pt-2">Sự nghiệp và nghề nghiệp phù hợp</div>
+                            <h2 class="title-tong-quan-h4 pt-2">Sự nghiệp và nghề nghiệp phù hợp</h2>
                             <p class="mb-1">Với khả năng giao tiếp khéo léo, tư duy logic và gu thẩm mỹ tinh tế, Thiên
                                 Bình thích
                                 hợp với các công việc đòi hỏi sự sáng tạo, thương lượng hoặc đối nhân xử thế khéo léo.
@@ -91,13 +91,13 @@
                                 sáng tạo. Họ ghét sự áp đặt và cần có không gian tự do để phát huy năng lực của mình.
 
                             </p>
-                            <div class="title-tong-quan-h4 pt-2">Tình yêu và các mối quan hệ</div>
+                            <h2 class="title-tong-quan-h4 pt-2">Tình yêu và các mối quan hệ</h2>
                             <p class="mb-0">Thiên Bình là cung hoàng đạo của tình yêu và mối quan hệ. <br>
                                 Họ lãng mạn, tinh tế và luôn muốn mọi thứ trở nên hài hòa, êm đẹp.<br>
                                 Trong tình yêu, họ thích được quan tâm nhẹ nhàng và cùng nhau chia sẻ mọi điều trong cuộc
                                 sống.
                             </p>
-                            <div class="title-tong-quan-h5 pt-2 mb-0">Đặc điểm tình cảm:</div>
+                            <h3 class="title-tong-quan-h5 pt-2 mb-0">Đặc điểm tình cảm:</h3>
                             <ul class="mb-0">
                                 <li>Lãng mạn, khéo léo, biết cách duy trì cảm xúc.</li>
                                 <li>Không thích mâu thuẫn, luôn tìm cách làm hòa.</li>
@@ -105,18 +105,18 @@
                                 <li>Khi yêu thật lòng, Thiên Bình rất chung thủy và tận tâm.</li>
 
                             </ul>
-                            <div class="title-tong-quan-h5 pt-2 mb-0">Hợp với các cung:</div>
+                            <h3 class="title-tong-quan-h5 pt-2 mb-0">Hợp với các cung:</h3>
                             <ul class="mb-0">
                                 <li>Song Tử: cùng nhóm Khí, dễ hiểu nhau và nói chuyện ăn ý.</li>
                                 <li>Bảo Bình: cùng chí hướng, cùng yêu tự do và sáng tạo.</li>
                                 <li>Sư Tử: năng lượng mạnh mẽ của Sư Tử bổ sung cho sự mềm mại của Thiên Bình.</li>
                             </ul>
-                            <div class="title-tong-quan-h5 pt-2 mb-0">Không hợp lắm với:</div>
+                            <h3 class="title-tong-quan-h5 pt-2 mb-0">Không hợp lắm với:</h3>
                             <ul class="mb-0">
                                 <li>Ma Kết: quá nguyên tắc, dễ khiến Thiên Bình cảm thấy gò bó.</li>
                                 <li>Cự Giải: khác biệt trong cách biểu đạt cảm xúc.</li>
                             </ul>
-                            <div class="title-tong-quan-h4 pt-2">Thiên Bình trong cuộc sống</div>
+                            <h2 class="title-tong-quan-h4 pt-2">Thiên Bình trong cuộc sống</h2>
                             <p class="mb-1">Thiên Bình là người yêu cái đẹp, ghét xung đột và luôn tìm kiếm sự cân bằng.
                                 Họ là những người bạn đáng tin cậy, người đồng nghiệp thân thiện và là người yêu đầy tinh
                                 tế.
@@ -128,7 +128,7 @@
                             <p class="mb-0">Tuy nhiên, họ cũng cần học cách quyết đoán hơn. Việc do dự quá lâu hoặc sợ mất
                                 lòng
                                 đôi bên đôi khi khiến Thiên Bình đánh mất cơ hội quý giá.</p>
-                            <div class="title-tong-quan-h4 pt-2">Tổng kết</div>
+                            <h2 class="title-tong-quan-h4 pt-2">Tổng kết</h2>
                             <p class="mb-0">Cung Thiên Bình (Libra) là biểu tượng của công bằng, tình yêu và vẻ đẹp hài
                                 hòa.
                                 Người thuộc cung này sống tinh tế, thông minh và luôn cố gắng tạo nên hòa khí trong mọi mối

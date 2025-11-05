@@ -12,7 +12,7 @@
                 <div class="tong-quan-date mt-2 mb-3">
                     <div class="card-body  p-lg-4 p-3 position-relative" style="border-radius: 24px">
                         <div class="text-box-tong-quan">
-                            <div class="title-tong-quan-h4">Cung Ma Kết là gì?</div>
+                            <h2 class="title-tong-quan-h4">Cung Ma Kết là gì?</h2>
                             <p class="mb-0">Cung Ma Kết (Capricorn) là cung hoàng đạo thứ 10, tượng trưng cho sự kiên
                                 định, tham
                                 vọng và khả năng lãnh đạo bẩm sinh. <br>
@@ -31,7 +31,7 @@
                                 sống.g lượng và đam mê. Vì thế, người cung Thần
                                 Nông luôn có sức hút mạnh mẽ và nội tâm mãnh liệt.
                             </p>
-                            <div class="title-tong-quan-h4 pt-2">Biểu tượng và chòm sao gắn liền</div>
+                            <h2 class="title-tong-quan-h4 pt-2">Biểu tượng và chòm sao gắn liền</h2>
                             <ul class="mb-0">
                                 <li>Biểu tượng: Con Dê Núi – đại diện cho sự kiên cường, nỗ lực và bền bỉ.
 
@@ -50,7 +50,7 @@
                                 đến đỉnh
                                 vinh quang bằng sự khôn ngoan và kiên định.</p>
 
-                            <div class="title-tong-quan-h4 pt-2">Tính cách đặc trưng của Ma Kết</div>
+                            <h2 class="title-tong-quan-h4 pt-2">Tính cách đặc trưng của Ma Kết</h2>
                             <p class="mb-0">Người thuộc cung Ma Kết thường điềm tĩnh, chín chắn và có định hướng rõ ràng
                                 trong
                                 cuộc sống. <br>
@@ -59,14 +59,14 @@
                                 quan hệ xã hội.
 
                             </p>
-                            <div class="title-tong-quan-h5 pt-2 mb-0">Ưu điểm:</div>
+                            <h3 class="title-tong-quan-h5 pt-2 mb-0">Ưu điểm:</h3>
                             <ul class="mb-0">
                                 <li>Kiên nhẫn, có trách nhiệm, đáng tin cậy.</li>
                                 <li>Tư duy logic, có khả năng tổ chức và lãnh đạo tốt.</li>
                                 <li>Thực tế, biết đặt mục tiêu và nỗ lực không ngừng.</li>
                                 <li>Rất trung thành và tận tâm với gia đình, bạn bè.</li>
                             </ul>
-                            <div class="title-tong-quan-h5 pt-2 mb-0">Nhược điểm:</div>
+                            <h3 class="title-tong-quan-h5 pt-2 mb-0">Nhược điểm:</h3>
                             <ul class="mb-1">
                                 <li>Đôi khi quá nghiêm khắc, thiếu linh hoạt.</li>
                                 <li>Dễ bị ám ảnh bởi công việc và thành công.
@@ -78,7 +78,7 @@
                                 tập
                                 trung vào hiện thực và kết quả.
                             </p>
-                            <div class="title-tong-quan-h4 pt-2">Sự nghiệp và nghề nghiệp phù hợp</div>
+                            <h2 class="title-tong-quan-h4 pt-2">Sự nghiệp và nghề nghiệp phù hợp</h2>
                             <p class="mb-1">Ma Kết là cung hoàng đạo của sự nghiệp và danh vọng. Họ có khả năng làm việc
                                 bền bỉ,
                                 kiên trì và luôn hướng đến vị trí cao nhất trong lĩnh vực của mình. <br>
@@ -87,7 +87,7 @@
                                 lược hoặc tài chính.
 
                             </p>
-                            <div class="title-tong-quan-h5 pt-2 mb-0">Nghề nghiệp lý tưởng cho Ma Kết:</div>
+                            <h3 class="title-tong-quan-h5 pt-2 mb-0">Nghề nghiệp lý tưởng cho Ma Kết:</h3>
                             <ul class="mb-1">
                                 <li>Doanh nhân, giám đốc điều hành, quản lý dự án
                                 </li>
@@ -99,14 +99,14 @@
                             <p class="mb-0">Ma Kết không ngại khó khăn và có thể làm việc trong môi trường áp lực cao.
                                 Họ là kiểu người “làm ít, nói ít, nhưng kết quả luôn nhiều”.
                             </p>
-                            <div class="title-tong-quan-h4 pt-2">Tình yêu và các mối quan hệ</div>
+                            <h2 class="title-tong-quan-h4 pt-2">Tình yêu và các mối quan hệ</h2>
                             <p class="mb-0">Trong tình yêu, Ma Kết là người chân thành, trung thủy và coi trọng sự bền
                                 vững.
                                 Họ không thích các mối quan hệ hời hợt, thay vào đó muốn xây dựng một tình yêu lâu dài,
                                 nghiêm túc
                                 và an toàn.
                             </p>
-                            <div class="title-tong-quan-h5 pt-2 mb-0">Đặc điểm tình cảm:</div>
+                            <h3 class="title-tong-quan-h5 pt-2 mb-0">Đặc điểm tình cảm:</h3>
                             <ul class="mb-0">
                                 <li>Ban đầu có vẻ lạnh lùng, nhưng khi yêu thì vô cùng sâu sắc.
                                 </li>
@@ -117,7 +117,7 @@
                                 </li>
 
                             </ul>
-                            <div class="title-tong-quan-h5 pt-2 mb-0">Hợp với các cung:</div>
+                            <h3 class="title-tong-quan-h5 pt-2 mb-0">Hợp với các cung:</h3>
                             <ul class="mb-0">
                                 <li>Kim Ngưu: cùng nguyên tố Đất, bền vững và hiểu nhau.
 
@@ -125,14 +125,14 @@
                                 <li>Xử Nữ: đồng điệu trong tư duy, chung lý tưởng sống.</li>
                                 <li>Bọ Cạp: sâu sắc, mạnh mẽ, bổ sung cảm xúc cho Ma Kết.</li>
                             </ul>
-                            <div class="title-tong-quan-h5 pt-2 mb-0">Không hợp lắm với:</div>
+                            <h3 class="title-tong-quan-h5 pt-2 mb-0">Không hợp lắm với:</h3>
                             <ul class="mb-0">
                                 <li>Bạch Dương: quá bốc đồng, dễ xung đột.
                                 </li>
                                 <li>Nhân Mã: thiếu ổn định, không hợp với tính nghiêm túc của Ma Kết.
                                 </li>
                             </ul>
-                            <div class="title-tong-quan-h4 pt-2">Ma Kết trong cuộc sống</div>
+                            <h2 class="title-tong-quan-h4 pt-2">Ma Kết trong cuộc sống</h2>
                             <p class="mb-1">Ma Kết là người trách nhiệm, trung thực và đáng tin cậy. <br>
                                 Họ sống nguyên tắc, ít nói nhưng làm nhiều, và thường là “trụ cột” trong công việc hoặc gia
                                 đình.<br>
@@ -146,7 +146,7 @@
                                 sự.
 
                             </p>
-                            <div class="title-tong-quan-h4 pt-2">Tổng kết</div>
+                            <h2 class="title-tong-quan-h4 pt-2">Tổng kết</h2>
                             <p class="mb-0">Cung Ma Kết (Capricorn) là biểu tượng của sự kiên trì, trách nhiệm và khát
                                 vọng vươn
                                 tới đỉnh cao.<br>

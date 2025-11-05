@@ -12,7 +12,7 @@
                 <div class="tong-quan-date mt-2 mb-3">
                     <div class="card-body  p-lg-4 p-3 position-relative" style="border-radius: 24px">
                         <div class="text-box-tong-quan">
-                            <div class="title-tong-quan-h4">Cung Bạch Dương là gì?</div>
+                            <h2 class="title-tong-quan-h4">Cung Bạch Dương là gì?</h2>
                             <p class="mb-0">Cung Bạch Dương (Aries) là cung hoàng đạo đầu tiên trong 12 cung, đại diện cho
                                 sự khởi
                                 đầu, năng
@@ -29,7 +29,7 @@
                                 khát vọng
                                 chinh phục.
                             </p>
-                            <div class="title-tong-quan-h4 pt-2">Biểu tượng và chòm sao gắn liền</div>
+                            <h2 class="title-tong-quan-h4 pt-2">Biểu tượng và chòm sao gắn liền</h2>
                             <ul class="mb-0">
                                 <li>Biểu tượng: ♈ Con Cừu Đực – tượng trưng cho sức mạnh, dám đương đầu.</li>
                                 <li>Nguyên tố: Lửa </li>
@@ -46,19 +46,19 @@
                                 vàng
                                 (Golden Ram) – biểu tượng của sự hi sinh, lòng dũng cảm và sức mạnh bảo vệ.</p>
 
-                            <div class="title-tong-quan-h4 pt-2">Tính cách đặc trưng của Bạch Dương</div>
+                            <h2 class="title-tong-quan-h4 pt-2">Tính cách đặc trưng của Bạch Dương</h2>
                             <p class="mb-0">Những người thuộc cung Bạch Dương là những nhà tiên phong bẩm sinh. Họ mang
                                 trong mình
                                 ngọn lửa của sự đam mê, tinh thần lãnh đạo và lòng nhiệt huyết.
                             </p>
-                            <div class="title-tong-quan-h5 pt-2 mb-0">Ưu điểm:</div>
+                            <h3 class="title-tong-quan-h5 pt-2 mb-0">Ưu điểm:</h3>
                             <ul class="mb-0">
                                 <li>Năng động, hoạt bát, đầy năng lượng.</li>
                                 <li>Thẳng thắn, trung thực và luôn nói điều mình nghĩ.</li>
                                 <li>Quyết đoán, dám nghĩ dám làm, thích thử thách và mạo hiểm.</li>
                                 <li>Có khả năng truyền cảm hứng và dẫn dắt người khác.</li>
                             </ul>
-                            <duv class="title-tong-quan-h5 pt-2 mb-0">Nhược điểm:</duv>
+                            <h3 class="title-tong-quan-h5 pt-2 mb-0">Nhược điểm:</h3>
                             <ul class="mb-1">
                                 <li>Hơi nóng vội, dễ nổi giận.</li>
                                 <li>Thiếu kiên nhẫn, dễ bỏ dở giữa chừng.</li>
@@ -68,12 +68,12 @@
                                 bị ràng
                                 buộc và luôn
                                 muốn khẳng định bản thân bằng hành động thực tế.</p>
-                            <div class="title-tong-quan-h4 pt-2">Sự nghiệp và nghề nghiệp phù hợp</div>
+                            <h2 class="title-tong-quan-h4 pt-2">Sự nghiệp và nghề nghiệp phù hợp</h2>
                             <p class="mb-1">Với bản tính năng động và ham thử thách, Bạch Dương rất hợp với những công
                                 việc yêu
                                 cầu tốc độ, tinh
                                 thần cạnh tranh hoặc vị trí lãnh đạo.</p>
-                            <p class="fw-bolder mb-0">Nghề nghiệp lý tưởng cho Bạch Dương:</p>
+                            <h3 class="fw-bolder mb-0">Nghề nghiệp lý tưởng cho Bạch Dương:</h3>
                             <ul class="mb-1">
                                 <li>Doanh nhân, nhà sáng lập khởi nghiệp</li>
                                 <li>Quản lý, giám đốc dự án</li>
@@ -86,14 +86,14 @@
                                 quá mức – vì họ
                                 thích hành động hơn là suy nghĩ quá lâu.
                             </p>
-                            <div class="title-tong-quan-h4 pt-2">Tình yêu và các mối quan hệ</div>
+                            <h2 class="title-tong-quan-h4 pt-2">Tình yêu và các mối quan hệ</h2>
                             <p class="mb-0">Trong tình yêu, Bạch Dương là người nồng nhiệt, chân thành và có phần bốc
                                 đồng. Họ yêu
                                 hết mình, dốc
                                 hết trái tim cho người mình thương. <br>
                                 Tuy nhiên, vì chịu ảnh hưởng của Sao Hỏa, họ cũng dễ ghen và đôi khi hơi áp đảo đối phương.
                             </p>
-                            <div class="title-tong-quan-h5 pt-2 mb-0">Đặc điểm tình cảm:</div>
+                            <h3 class="title-tong-quan-h5 pt-2 mb-0">Đặc điểm tình cảm:</h3>
                             <ul class="mb-0">
                                 <li>Chủ động trong tình yêu, thích chinh phục.</li>
                                 <li>Luôn tạo cảm giác mới mẻ, lãng mạn và cuốn hút.</li>
@@ -101,18 +101,18 @@
                                 <li>Khi yêu thật lòng, họ trung thành tuyệt đối.</li>
 
                             </ul>
-                            <div class="title-tong-quan-h5 pt-2 mb-0">Hợp với các cung:</div>
+                            <h3 class="title-tong-quan-h5 pt-2 mb-0">Hợp với các cung:</h3>
                             <ul class="mb-0">
                                 <li>Sư Tử: cùng nguyên tố Lửa, đam mê và ăn ý mạnh mẽ.</li>
                                 <li>Nhân Mã: cùng khát vọng tự do, phiêu lưu.</li>
                                 <li>Song Tử: linh hoạt, năng động, dễ đồng điệu.</li>
                             </ul>
-                            <div class="title-tong-quan-h5 pt-2 mb-0">Không hợp lắm với:</div>
-                            <ul class="mb-0">
+                            <h3 class="title-tong-quan-h5 pt-2 mb-0">Không hợp lắm với:</h3>
+                         <ul class="mb-0">
                                 <li>Cự Giải: vì quá nhạy cảm, Bạch Dương dễ khiến họ tổn thương.</li>
                                 <li>Ma Kết: khác biệt trong cách sống và nhịp điệu cuộc đời.</li>
                             </ul>
-                            <div class="title-tong-quan-h4 pt-2">Bạch Dương trong cuộc sống</div>
+                            <h2 class="title-tong-quan-h4 pt-2">Bạch Dương trong cuộc sống</h2>
                             <p class="mb-0">Bạch Dương là người thích hành động, ghét sự trì hoãn. Họ sống hướng ngoại,
                                 thích cạnh
                                 tranh và luôn muốn trở thành người dẫn đầu. <br>
@@ -122,7 +122,7 @@
                                 được
                                 thành công bền vững.
                             </p>
-                            <div class="title-tong-quan-h4 pt-2">Tổng kết</div>
+                            <h2 class="title-tong-quan-h4 pt-2">Tổng kết</h2>
                             <p class="mb-0">Cung Bạch Dương (Aries) là biểu tượng của sự khởi đầu, lòng dũng cảm và khát
                                 khao
                                 chinh phục.<br>

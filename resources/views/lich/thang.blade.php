@@ -3,7 +3,7 @@
     @push('styles')
         <style>
             .not-hover:hover {
-cursor: default;
+                cursor: default;
             }
         </style>
     @endpush
@@ -31,20 +31,20 @@ cursor: default;
                 @foreach ($lunar_calendars as $lunar_calendar)
                     <div class="box--bg-thang mt-3">
                         <div class="">
-                            <div class="title-tong-quan-h3-log">
+                            <h2 class="title-tong-quan-h3-log">
                                 Âm lịch tháng
                                 {{ $lunar_calendar['month'] }}{{ $lunar_calendar['is_leap'] == 1 ? ' (nhuận)' : '' }}
-                            </div>
+                            </h2>
                             <hr class="mb-1">
                             <div>
-                             @php
-                                 $can_chi_nam_news = \App\Helpers\LunarHelper::canchiNam($lunar_year);
-                             @endphp
+                                @php
+                                    $can_chi_nam_news = \App\Helpers\LunarHelper::canchiNam($lunar_year);
+                                @endphp
                                 <div class="calendar-wrapper calendar-wrapper-none">
-                                       <div class="calendar-header mt-0">
-                                    <div class="mb-0 title-tong-quan-h4-log">Tháng {{ $lunar_calendar['month'] }} Năm
-                                        {{ $can_chi_nam_news }}</div>
-                                </div>
+                                    <div class="calendar-header mt-0">
+                                        <div class="mb-0 title-tong-quan-h4-log">Tháng {{ $lunar_calendar['month'] }} Năm
+                                            {{ $can_chi_nam_news }}</div>
+                                    </div>
                                     <table class="calendar-table">
                                         <thead>
                                             <tr>
@@ -124,11 +124,11 @@ cursor: default;
 
             <div class="box--bg-thang mt-3">
                 <div class="">
-                    <div class="title-tong-quan-h3-log">
+                    <h2 class="title-tong-quan-h3-log">
 
                         Dương lịch tháng {{ $mm }}
 
-                    </div>
+                    </h2>
                     <hr class="mb-1">
                     <div class="calendar-wrapper calendar-wrapper-none">
                         <div class="calendar-header mt-0">
@@ -188,16 +188,19 @@ cursor: default;
                 </div>
             </div>
             <section class="">
+
                 {{-- Box Hoàng Đạo/Hắc Đạo Dương lịch --}}
                 <div class="lich-box">
 
-
+                    <h2 class="title-tong-quan-h2-log  pt-3">
+                        Tra cứu ngày Hoàng Đạo, Hắc Đạo tháng {{ $mm }}
+                    </h2>
                     <div class="box--bg-thang mt-3 hoangdao-duong-box">
                         <div class="">
                             <div class="d-flex justify-content-between align-items-center">
-                                <div class="title-tong-quan-h3-log">
+                                <h3 class="title-tong-quan-h3-log">
                                     Ngày Hoàng Đạo Dương lịch tháng {{ $mm }}
-                                </div>
+                                </h3>
                                 <div class="position-relative ms-2">
                                     <select id="hoangDaoSelect" class="form-select pe-4"
                                         onchange="toggleBox(this, 'hoangdao')"
@@ -270,10 +273,10 @@ cursor: default;
                             <div class="box--bg-thang mt-3 hoangdao-am-box">
                                 <div class="">
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <div class="title-tong-quan-h3-log">
+                                        <h3 class="title-tong-quan-h3-log">
                                             Ngày Hoàng Đạo Âm lịch tháng
                                             {{ $lunar_month_num }}{{ $lunar_is_leap ? ' (nhuận)' : '' }}
-                                        </div>
+                                        </h3>
                                         <div class="position-relative ms-2">
                                             <select id="hoangDaoAmSelect" class="form-select pe-4"
                                                 onchange="toggleBox(this, 'hoangdao', {{ $loop->index }})"
@@ -313,9 +316,9 @@ cursor: default;
                         <div class="">
 
                             <div class="d-flex justify-content-between align-items-center">
-                                <div class="title-tong-quan-h3-log">
+                                <h3 class="title-tong-quan-h3-log">
                                     Ngày Hắc Đạo Dương lịch tháng {{ $mm }}
-                                </div>
+                                </h3>
                                 <div class="position-relative ms-2">
                                     <select id="hacDaoSelect" class="form-select pe-4"
                                         onchange="toggleBox(this, 'hacdao')"
@@ -390,10 +393,10 @@ cursor: default;
                             <div class="box--bg-thang mt-3 hacdao-am-box">
                                 <div class="">
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <div class="title-tong-quan-h3-log">
+                                        <h3 class="title-tong-quan-h3-log">
                                             Ngày Hắc Đạo Âm lịch tháng
                                             {{ $lunar_month_num }}{{ $lunar_is_leap ? ' (nhuận)' : '' }}
-                                        </div>
+                                        </h3>
                                         <div class="position-relative ms-2">
                                             <select id="hacDaoAmSelect" class="form-select pe-4"
                                                 onchange="toggleBox(this, 'hacdao', {{ $loop->index }})"
@@ -428,15 +431,20 @@ cursor: default;
                             </div>
                         @endforeach
                     @endif
+
+
+
                 </div>
 
-
+                <h2 class="title-tong-quan-h2-log  pt-3">
+                    Ngày lễ và sự kiện tháng {{ $mm }}
+                </h2> 
 
                 <div class="box--bg-thang mt-3">
                     <div class="">
-                        <div class="title-tong-quan-h3-log">
+                        <h3 class="title-tong-quan-h3-log">
                             Ngày lễ dương lịch tháng {{ $mm }}
-                        </div>
+                        </h3>
                         <hr>
                         <div class="row g-lg-3 g-2">
                             @forelse ($le_lichs as $le_lich)
@@ -461,9 +469,9 @@ cursor: default;
 
                 <div class="box--bg-thang mt-3">
                     <div class="">
-                        <div class="title-tong-quan-h3-log">
+                        <h3 class="title-tong-quan-h3-log">
                             Ngày lễ âm lịch tháng {{ $primary_lunar_month }}
-                        </div>
+                        </h3>
                         <hr>
 
                         <div class="row g-lg-3 g-2">
@@ -487,9 +495,9 @@ cursor: default;
                 </div>
                 <div class="box--bg-thang mt-3">
                     <div class="">
-                        <div class="title-tong-quan-h3-log">
+                        <h3 class="title-tong-quan-h3-log">
                             Sự kiện lịch sử tháng {{ $mm }}
-                        </div>
+                        </h3>
                         <hr>
 
                         <div class="row g-lg-3 g-2">
@@ -511,31 +519,35 @@ cursor: default;
                         </div>
                     </div>
                 </div>
+
+
+
+
                 <div class="box--bg-thang mt-3 mb-3">
                     <div class="">
-                        <div class="title-tong-quan-h3-log">
+                        <h2 class="title-tong-quan-h3-log">
                             Ngày xuất hành âm lịch
-                            </đ>
-                            <hr>
+                        </h2>
+                        <hr>
 
-                            <div class="row g-lg-2 g-2 ">
-                                @foreach ($data_al as $ngay)
-                                    <div class=" col-12"> <!--  để cột chỉ chiếm chiều rộng cần thiết -->
-                                        <div class="btn  not-hover w-100 text-start">
+                        <div class="row g-lg-2 g-2 ">
+                            @foreach ($data_al as $ngay)
+                                <div class=" col-12"> <!--  để cột chỉ chiếm chiều rộng cần thiết -->
+                                    <div class="btn  not-hover w-100 text-start">
 
-                                            <img src="{{ asset('icons/sukienn1.svg') }}" alt="Sự kiện" width="28"
-                                                height="29"
-                                                class="img-fluid me-2">{{ $ngay['day'] }}/{{ $ngay['month'] }}:
+                                        <img src="{{ asset('icons/sukienn1.svg') }}" alt="Sự kiện" width="28"
+                                            height="29"
+                                            class="img-fluid me-2">{{ $ngay['day'] }}/{{ $ngay['month'] }}:
 
-                                            @if (!empty($ngay['xuat_hanh_html']))
-                                                {!! $ngay['xuat_hanh_html'] !!}
-                                            @endif
-                                        </div>
+                                        @if (!empty($ngay['xuat_hanh_html']))
+                                            {!! $ngay['xuat_hanh_html'] !!}
+                                        @endif
                                     </div>
-                                @endforeach
-                            </div>
+                                </div>
+                            @endforeach
                         </div>
                     </div>
+                </div>
 
             </section>
 
@@ -544,7 +556,7 @@ cursor: default;
             <div class="d-flex flex-column gap-4">
                 <!-- ** KHá»I Sá»° KIá»†N Sáº®P Tá»šI ** -->
                 <div class="events-card">
-                    <div class="card-title-right title-tong-quan-h5-log">Lịch âm các tháng năm {{ $yy }}</div>
+                    <h2 class="card-title-right title-tong-quan-h5-log">Lịch âm các tháng năm {{ $yy }}</h2>
                     <ul class="list-group list-group-flush events-list">
                         @if (isset($lunar_months_data) && !empty($lunar_months_data))
                             @foreach ($lunar_months_data as $lunar_month_info)

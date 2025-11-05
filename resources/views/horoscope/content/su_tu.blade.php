@@ -13,7 +13,7 @@
                 <div class="tong-quan-date mt-2 mb-3">
                     <div class="card-body  p-lg-4 p-3 position-relative" style="border-radius: 24px">
                         <div class="text-box-tong-quan">
-                            <div class="title-tong-quan-h4">Giới thiệu cung Sư Tử là gì?</div>
+                            <h2 class="title-tong-quan-h4">Giới thiệu cung Sư Tử là gì?</h2>
                             <p class="mb-0">Cung Sư Tử (Leo) là cung hoàng đạo thứ 5, đại diện cho sức mạnh, lòng tự tin
                                 và khát
                                 khao thể hiện bản thân<br>
@@ -31,7 +31,7 @@
                                 “tôi” tỏa
                                 sáng, khiến họ luôn muốn trở thành trung tâm của mọi sự chú ý.
                             </p>
-                            <div class="title-tong-quan-h4 pt-2">Biểu tượng và chòm sao gắn liền</div>
+                            <h2 class="title-tong-quan-h4 pt-2">Biểu tượng và chòm sao gắn liền</h2>
                             <ul class="mb-0">
                                 <li>Biểu tượng: Con Sư Tử – tượng trưng cho sự dũng cảm, quyền lực và lòng trung thành.
                                 </li>
@@ -48,7 +48,7 @@
                                 trong 12 kỳ
                                 công của mình. Nó tượng trưng cho sức mạnh và lòng dũng cảm không khuất phục.</p>
 
-                            <div class="title-tong-quan-h4 pt-2">Tính cách đặc trưng của Sư Tử</div>
+                            <h2 class="title-tong-quan-h4 pt-2">Tính cách đặc trưng của Sư Tử</h2>
                             <p class="mb-0">Người thuộc cung Sư Tử là những người tự tin, mạnh mẽ và luôn toát ra khí chất
                                 của
                                 người lãnh đạo.
@@ -58,14 +58,14 @@
                                 chính mình.
 
                             </p>
-                            <div class="title-tong-quan-h5 pt-2 mb-0">Ưu điểm:</div>
+                            <h3 class="title-tong-quan-h5 pt-2 mb-0">Ưu điểm:</h3>
                             <ul class="mb-0">
                                 <li>Lạc quan, nhiệt huyết và luôn tỏa sáng.</li>
                                 <li>Có khả năng lãnh đạo, tổ chức và tạo động lực cho người khác.</li>
                                 <li>Hào phóng, rộng lượng, thích giúp đỡ người xung quanh.</li>
                                 <li>Sáng tạo, dám nghĩ dám làm, không ngại thử thách.</li>
                             </ul>
-                            <div class="title-tong-quan-h5 pt-2 mb-0">Nhược điểm:</div>
+                            <h3 class="title-tong-quan-h5 pt-2 mb-0">Nhược điểm:</h3>
                             <ul class="mb-1">
                                 <li>Tự tin quá mức, dễ thành kiêu ngạo.</li>
                                 <li>Thích được chú ý, đôi khi hơi “drama”.</li>
@@ -76,7 +76,7 @@
                                 nhưng ẩn
                                 sâu bên trong là trái tim ấm áp, trung thực và đầy bao dung.
                             </p>
-                            <div class="title-tong-quan-h4 pt-2">Sự nghiệp và nghề nghiệp phù hợp</div>
+                            <h2 class="title-tong-quan-h4 pt-2">Sự nghiệp và nghề nghiệp phù hợp</h2>
                             <p class="mb-1">Với tính cách mạnh mẽ, sáng tạo và có tố chất lãnh đạo, Sư Tử thích hợp với
                                 những công
                                 việc đòi hỏi sự tự tin, khả năng chỉ huy hoặc tầm ảnh hưởng lớn.
@@ -99,7 +99,7 @@
                                 Tuy nhiên, họ cũng rất cần được ngưỡng mộ, trân trọng và thừa nhận.
 
                             </p>
-                            <div class="title-tong-quan-h5 pt-2 mb-0">Đặc điểm tình cảm:</div>
+                            <h3 class="title-tong-quan-h5 pt-2 mb-0">Đặc điểm tình cảm:</h3>
                             <ul class="mb-0">
                                 <li>Lãng mạn, nồng nhiệt và giàu cảm xúc.</li>
                                 <li>Thích thể hiện tình yêu bằng hành động lớn..</li>
@@ -107,21 +107,21 @@
                                 <li>Khi yêu thật lòng, họ sẵn sàng hi sinh mọi thứ cho người mình yêu.</li>
 
                             </ul>
-                            <div class="title-tong-quan-h5 pt-2 mb-0">Hợp với các cung:</div>
+                            <h3 class="title-tong-quan-h5 pt-2 mb-0">Hợp với các cung:</h3>
                             <ul class="mb-0">
                                 <li>Bạch Dương: cùng năng lượng, cùng đam mê, tạo thành cặp đôi rực rỡ.
                                 </li>
                                 <li>Nhân Mã: hiểu nhau, cùng hướng ngoại và ham phiêu lưu.</li>
                                 <li>Thiên Bình: cân bằng được tính mạnh mẽ và cái tôi của Sư Tử.</li>
                             </ul>
-                            <div class="title-tong-quan-h5 pt-2 mb-0">Không hợp lắm với:</div>
+                            <h3 class="title-tong-quan-h5 pt-2 mb-0">Không hợp lắm với:</h3>
                             <ul class="mb-0">
                                 <li>Kim Ngưu: quá điềm tĩnh, dễ khiến Sư Tử cảm thấy bị gò bó.
                                 </li>
                                 <li>Bọ Cạp: mâu thuẫn quyền lực, dễ xảy ra xung đột cảm xúc.
                                 </li>
                             </ul>
-                            <div class="title-tong-quan-h4 pt-2">Sư Tử trong cuộc sống</div>
+                            <h2 class="title-tong-quan-h4 pt-2">Sư Tử trong cuộc sống</h2>
                             <p class="mb-1">Sư Tử thích được làm trung tâm và lan tỏa năng lượng tích cực đến mọi người.
                                 <br>
                                 Họ tự tin, hoạt bát và luôn sẵn sàng giúp đỡ người khác, đặc biệt là những ai yếu thế
@@ -133,7 +133,7 @@
                             <p class="mb-0">Trong cuộc sống, họ cần học cách lắng nghe và kiểm soát cái tôi, bởi đôi khi
                                 sự tự tin
                                 quá mức có thể khiến họ đánh mất sự thấu hiểu người khác.</p>
-                            <div class="title-tong-quan-h4 pt-2">Tổng kết</div>
+                            <h2 class="title-tong-quan-h4 pt-2">Tổng kết</h2>
                             <p class="mb-1">Cung Sư Tử (Leo) là biểu tượng của ánh sáng, lòng dũng cảm và tinh thần lãnh
                                 đạo.
                                 Người thuộc cung này luôn muốn mang đến niềm vui, sức mạnh và cảm hứng cho những người xung

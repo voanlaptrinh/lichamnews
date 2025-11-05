@@ -12,7 +12,7 @@
                 <div class="tong-quan-date mt-2 mb-3">
                     <div class="card-body  p-lg-4 p-3 position-relative" style="border-radius: 24px">
                         <div class="text-box-tong-quan">
-                            <div class="title-tong-quan-h4">Cung Nhân Mã là gì?</div>
+                            <h2 class="title-tong-quan-h4">Cung Nhân Mã là gì?</h2>
                             <p class="mb-0">Cung Nhân Mã (Sagittarius) là cung hoàng đạo thứ chín, đại diện cho tinh thần
                                 tự do,
                                 tri thức, khám phá và khát vọng chinh phục thế giới.
@@ -34,7 +34,7 @@
                                 sống.
 
                             </p>
-                            <div class="title-tong-quan-h4 pt-2">Biểu tượng và chòm sao gắn liền</div>
+                            <h2 class="title-tong-quan-h4 pt-2">Biểu tượng và chòm sao gắn liền</h2>
                             <ul class="mb-0">
                                 <li>Biểu tượng: Cung Thủ – tượng trưng cho khát vọng vươn xa và tinh thần mạo hiểm.
                                 </li>
@@ -53,7 +53,7 @@
                                 cho
                                 người khác.</p>
 
-                            <div class="title-tong-quan-h4 pt-2">Tính cách đặc trưng của Nhân Mã</div>
+                            <h2 class="title-tong-quan-h4 pt-2">Tính cách đặc trưng của Nhân Mã</h2>
                             <p class="mb-0">Người thuộc cung Nhân Mã là những người yêu tự do, lạc quan và tràn đầy năng
                                 lượng
                                 tích cực. <br>
@@ -62,14 +62,14 @@
                                 mọi điều.
 
                             </p>
-                            <div class="title-tong-quan-h5 pt-2 mb-0">Ưu điểm:</div>
+                            <h3 class="title-tong-quan-h5 pt-2 mb-0">Ưu điểm:</h3>
                             <ul class="mb-0">
                                 <li>Tự tin, trung thực và lạc quan.</li>
                                 <li>Có tầm nhìn xa, yêu tri thức và khám phá.</li>
                                 <li>Hòa đồng, hài hước, dễ gây thiện cảm.</li>
                                 <li>Dám nghĩ, dám làm, không sợ thử thách.</li>
                             </ul>
-                            <div class="title-tong-quan-h5 pt-2 mb-0">Nhược điểm:</div>
+                            <h3 class="title-tong-quan-h5 pt-2 mb-0">Nhược điểm:</h3>
                             <ul class="mb-1">
                                 <li>Thẳng thắn quá mức, đôi khi làm người khác tổn thương.</li>
                                 <li>Dễ chán nản, khó kiên trì với những việc lặp lại.
@@ -82,13 +82,13 @@
                                 mới, cả về thể chất lẫn tinh thần. Họ là nguồn năng lượng tích cực trong mọi nhóm bạn.
 
                             </p>
-                            <div class="title-tong-quan-h4 pt-2">Sự nghiệp và nghề nghiệp phù hợp</div>
+                            <h2 class="title-tong-quan-h4 pt-2">Sự nghiệp và nghề nghiệp phù hợp</h2>
                             <p class="mb-1">Với tinh thần phiêu lưu, yêu tự do và khả năng tư duy rộng mở, Nhân Mã phù hợp
                                 với
                                 những công việc liên quan đến tri thức, du lịch, sáng tạo và giao tiếp quốc tế.
 
                             </p>
-                            <div class="title-tong-quan-h5 pt-2 mb-0">Nghề nghiệp lý tưởng cho Nhân Mã:</div>
+                            <h3 class="title-tong-quan-h5 pt-2 mb-0">Nghề nghiệp lý tưởng cho Nhân Mã:</h3>
                             <ul class="mb-1">
                                 <li>Hướng dẫn viên du lịch, phóng viên, nhà báo
                                 </li>
@@ -102,14 +102,14 @@
                                 sáng tạo và không gian phát triển cá nhân, nơi họ có thể được “bay cao và vươn xa”.
 
                             </p>
-                            <div class="title-tong-quan-h4 pt-2">Tình yêu và các mối quan hệ</div>
+                            <h2 class="title-tong-quan-h4 pt-2">Tình yêu và các mối quan hệ</h2>
                             <p class="mb-0">Trong tình yêu, Nhân Mã là người chân thành, nhiệt huyết và đầy đam mê, nhưng
                                 cũng yêu
                                 tự do và ghét sự ràng buộc.
                                 Họ cần một người bạn đời có thể cùng họ khám phá thế giới và chia sẻ lý tưởng sống.
 
                             </p>
-                            <div class="title-tong-quan-h5 pt-2 mb-0">Đặc điểm tình cảm:</div>
+                            <h3 class="title-tong-quan-h5 pt-2 mb-0">Đặc điểm tình cảm:</h3>
                             <ul class="mb-0">
                                 <li>Khi yêu thật lòng, Nhân Mã rất chân thành và chung thủy.
 
@@ -121,7 +121,7 @@
                                 </li>
 
                             </ul>
-                            <div class="title-tong-quan-h5 pt-2 mb-0">Hợp với các cung:</div>
+                            <h3 class="title-tong-quan-h5 pt-2 mb-0">Hợp với các cung:</h3>
                             <ul class="mb-0">
                                 <li>Bạch Dương: cùng năng lượng, cùng khát vọng phiêu lưu.
 
@@ -129,13 +129,13 @@
                                 <li>Sư Tử: hòa hợp, cùng đam mê và tỏa sáng rực rỡ.</li>
                                 <li>Thiên Bình: lãng mạn, tinh tế, giúp cân bằng cảm xúc cho Nhân Mã.</li>
                             </ul>
-                            <div class="title-tong-quan-h5 pt-2 mb-0">Không hợp lắm với:</div>
+                            <h3 class="title-tong-quan-h5 pt-2 mb-0">Không hợp lắm với:</h3>
                             <ul class="mb-0">
                                 <li>Xử Nữ: quá tỉ mỉ, khiến Nhân Mã cảm thấy bị bó buộc.
                                 </li>
                                 <li>Cự Giải: thiên về cảm xúc, dễ bị tổn thương trước sự thẳng thắn của Nhân Mã.</li>
                             </ul>
-                            <div class="title-tong-quan-h4 pt-2">Nhân Mã trong cuộc sống</div>
+                            <h2 class="title-tong-quan-h4 pt-2">Nhân Mã trong cuộc sống</h2>
                             <p class="mb-1">Nhân Mã là người vui vẻ, cởi mở và luôn lan tỏa năng lượng tích cực. <br>
                                 Họ yêu tự do, yêu cuộc sống và luôn tin rằng mọi khó khăn đều có cách vượt qua.<br>
                                 Bên cạnh sự hài hước, Nhân Mã còn rất sâu sắc và thích khám phá những điều có ý nghĩa trong
@@ -148,7 +148,7 @@
                                 hội quý
                                 giá.
                             </p>
-                            <div class="title-tong-quan-h4 pt-2">Tổng kết</div>
+                            <h2 class="title-tong-quan-h4 pt-2">Tổng kết</h2>
                             <p class="mb-0">Cung Nhân Mã (Sagittarius) là biểu tượng của tự do, tri thức và khát vọng
                                 chinh
                                 phục.<br>

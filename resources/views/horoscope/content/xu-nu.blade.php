@@ -14,7 +14,7 @@
                 <div class="tong-quan-date mt-2 mb-3">
                     <div class="card-body  p-lg-4 p-3 position-relative" style="border-radius: 24px">
                         <div class="text-box-tong-quan">
-                            <div class="title-tong-quan-h4">Cung Xử Nữ là gì?</div>
+                            <h2 class="title-tong-quan-h4">Cung Xử Nữ là gì?</h2>
                             <p class="mb-0">Cung Xử Nữ (Virgo) là cung hoàng đạo thứ sáu, tượng trưng cho sự thông minh,
                                 cầu toàn
                                 và tinh thần tận tâm trong mọi việc. <br>
@@ -31,7 +31,7 @@
                                 giúp họ có
                                 khả năng phân tích, quan sát và suy luận cực kỳ logic.
                             </p>
-                            <div class="title-tong-quan-h4 pt-2">Biểu tượng và chòm sao gắn liền</div>
+                            <h2 class="title-tong-quan-h4 pt-2">Biểu tượng và chòm sao gắn liền</h2>
                             <ul class="mb-0">
                                 <li>Biểu tượng: Trinh Nữ – biểu trưng cho sự thuần khiết, tận tâm và chi tiết.</li>
                                 <li>Nguyên tố: Đất</li>
@@ -47,7 +47,7 @@
                                 Trinh Nữ
                                 cầm bó lúa thể hiện sự chăm chỉ, cần mẫn và tấm lòng biết vun đắp.</p>
 
-                            <div class="title-tong-quan-h4 pt-2">Tính cách đặc trưng của Xử Nữ</div>
+                            <h2 class="title-tong-quan-h4 pt-2">Tính cách đặc trưng của Xử Nữ</h2>
                             <p class="mb-0">Người thuộc cung Xử Nữ là những cá nhân sống nguyên tắc, cầu toàn và có tư duy
                                 logic
                                 sắc bén.
@@ -55,14 +55,14 @@
                                 Họ luôn muốn mọi việc được thực hiện hoàn hảo nhất và ít khi hài lòng với sự qua loa, hời
                                 hợt.
                             </p>
-                            <div class="title-tong-quan-h5 pt-2 mb-0">Ưu điểm:</div>
+                            <h3 class="title-tong-quan-h5 pt-2 mb-0">Ưu điểm:</h3>
                             <ul class="mb-0">
                                 <li>Tỉ mỉ, chăm chỉ, đáng tin cậy và có trách nhiệm.</li>
                                 <li>Có khả năng phân tích, đánh giá và giải quyết vấn đề tốt.</li>
                                 <li>Giỏi quản lý thời gian, biết sắp xếp công việc hợp lý.</li>
                                 <li>Khiêm tốn, chân thành và luôn sẵn sàng giúp đỡ người khác.</li>
                             </ul>
-                            <div class="title-tong-quan-h5 pt-2 mb-0">Nhược điểm:</div>
+                            <h3 class="title-tong-quan-h5 pt-2 mb-0">Nhược điểm:</h3>
                             <ul class="mb-1">
                                 <li>Cầu toàn quá mức, đôi khi tự tạo áp lực cho chính mình.</li>
                                 <li>Khó hài lòng, hay soi xét lỗi của bản thân và người khác.</li>
@@ -74,14 +74,14 @@
                                 thiện trong mọi lĩnh vực – nhưng họ cũng cần học cách tha thứ cho bản thân và chấp nhận
                                 “không gì là
                                 tuyệt đối”.</p>
-                            <div class="title-tong-quan-h4 pt-2">Sự nghiệp và nghề nghiệp phù hợp</div>
+                            <h2 class="title-tong-quan-h4 pt-2">Sự nghiệp và nghề nghiệp phù hợp</h2>
                             <p class="mb-0">Với tính cách tỉ mỉ, chăm chỉ và tư duy logic, Xử Nữ là kiểu người làm việc
                                 hiệu quả,
                                 đáng tin và luôn đạt kết quả tốt nhất.</p>
                             <p class="mb-1">Họ phù hợp với những ngành nghề yêu cầu sự chính xác, cẩn thận hoặc có tính hệ
                                 thống
                                 cao.</p>
-                            <div class="title-tong-quan-h5 pt-2 mb-0">Nghề nghiệp lý tưởng cho Xử Nữ:</div>
+                            <h3 class="title-tong-quan-h5 pt-2 mb-0">Nghề nghiệp lý tưởng cho Xử Nữ:</h3>
                             <ul class="mb-1">
                                 <li>Bác sĩ, dược sĩ, chuyên viên y tế, điều dưỡng</li>
                                 <li>Kế toán, kiểm toán, tài chính</li>
@@ -94,13 +94,13 @@
                                 có kỷ luật và rõ ràng. Khi được giao trách nhiệm, họ luôn hoàn thành một cách hoàn hảo nhất
                                 có thể.
                             </p>
-                            <div class="title-tong-quan-h4 pt-2">Tình yêu và các mối quan hệ</div>
+                            <h2 class="title-tong-quan-h4 pt-2">Tình yêu và các mối quan hệ</h2>
                             <p class="mb-0">Trong tình yêu, Xử Nữ là người chân thành, chu đáo và luôn thể hiện tình cảm
                                 bằng hành
                                 động thay vì lời nói. <br>
                                 Họ không dễ yêu, nhưng một khi đã tin tưởng, họ yêu sâu sắc và rất trung thành.
                             </p>
-                            <div class="title-tong-quan-h5 pt-2 mb-0">Đặc điểm tình cảm:</div>
+                            <h3 class="title-tong-quan-h5 pt-2 mb-0">Đặc điểm tình cảm:</h3>
                             <ul class="mb-0">
                                 <li>Ban đầu có vẻ lạnh lùng, nhưng khi yêu lại rất tận tâm.</li>
                                 <li>Luôn quan tâm đến từng chi tiết nhỏ của người yêu.</li>
@@ -108,18 +108,18 @@
                                 <li>Đôi khi hơi kiểm soát hoặc quá “lý trí” khiến tình yêu thiếu lãng mạn.</li>
 
                             </ul>
-                            <div class="title-tong-quan-h5 pt-2 mb-0">Hợp với các cung:</div>
+                            <h3 class="title-tong-quan-h5 pt-2 mb-0">Hợp với các cung:</h3>
                             <ul class="mb-0">
                                 <li>Kim Ngưu: cùng nguyên tố Đất, bền vững và hiểu nhau.</li>
                                 <li>Ma Kết: chung chí hướng, cùng lý tưởng sống.</li>
                                 <li>Cự Giải: nhẹ nhàng, tinh tế, bổ sung cho Xử Nữ sự cảm xúc.</li>
                             </ul>
-                            <div class="title-tong-quan-h5 pt-2 mb-0">Không hợp lắm với:</div>
+                            <h3 class="title-tong-quan-h5 pt-2 mb-0">Không hợp lắm với:</h3>
                             <ul class="mb-0">
                                 <li>Song Tử: quá linh hoạt, dễ khiến Xử Nữ mệt mỏi vì thiếu ổn định.</li>
                                 <li>Nhân Mã: khác biệt trong cách sống, dễ xung đột.</li>
                             </ul>
-                            <div class="title-tong-quan-h4 pt-2">Xử Nữ trong cuộc sống</div>
+                            <h2 class="title-tong-quan-h4 pt-2">Xử Nữ trong cuộc sống</h2>
                             <p class="mb-1">Xử Nữ là người cẩn trọng, thực tế và đáng tin cậy. Họ thích sự sạch sẽ, ngăn
                                 nắp và
                                 luôn muốn mọi thứ trong trật tự hoàn hảo. <br>
@@ -132,7 +132,7 @@
                                 gì cũng cần hoàn hảo tuyệt đối – đôi khi, sự giản đơn và cảm xúc tự nhiên lại là điều làm
                                 cuộc sống
                                 đẹp hơn.</p>
-                            <div class="title-tong-quan-h4 pt-2">Tổng kết</div>
+                            <h2 class="title-tong-quan-h4 pt-2">Tổng kết</h2>
                             <p class="mb-0">Cung Xử Nữ (Virgo) là biểu tượng của sự hoàn hảo, trí tuệ và tinh thần phục vụ
                                 chân
                                 thành.

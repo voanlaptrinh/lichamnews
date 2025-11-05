@@ -12,7 +12,7 @@
                 <div class="tong-quan-date mt-2 mb-3">
                     <div class="card-body  p-lg-4 p-3 position-relative" style="border-radius: 24px">
                         <div class="text-box-tong-quan">
-                            <div class="title-tong-quan-h4">Cung Kim Ngưu là gì?</div>
+                            <h2 class="title-tong-quan-h4">Cung Kim Ngưu là gì?</h2>
                             <p class="mb-0">Cung Kim Ngưu (Taurus) là cung hoàng đạo thứ hai trong vòng tròn hoàng đạo,
                                 tượng
                                 trưng cho sự bền bỉ, ổn định và yêu thích những giá trị vật chất lẫn tinh thần. <br>
@@ -32,7 +32,7 @@
                                 Vì thế, người cung này thường có gu thẩm mỹ cao và yêu thích những điều tinh tế trong cuộc
                                 sống.
                             </p>
-                            <div class="title-tong-quan-h4 pt-2">Biểu tượng và chòm sao gắn liền</div>
+                            <h2 class="title-tong-quan-h4 pt-2">Biểu tượng và chòm sao gắn liền</h2>
                             <ul class="mb-0">
                                 <li>Biểu tượng: Con Bò Đực – kiên định, mạnh mẽ và đáng tin cậy.
                                 </li>
@@ -47,13 +47,13 @@
                                 nhất,
                                 với cụm sao Pleiades (Thất Nữ) mang ý nghĩa về sự thịnh vượng và vẻ đẹp tự nhiên.</p>
 
-                            <div class="title-tong-quan-h4 pt-2">Tính cách đặc trưng của Kim Ngưu</div>
+                            <h2 class="title-tong-quan-h4 pt-2">Tính cách đặc trưng của Kim Ngưu</h2>
                             <p class="mb-0">Người cung Kim Ngưu nổi tiếng là những người thực tế, kiên nhẫn và đáng tin
                                 cậy nhất
                                 trong 12 cung hoàng đạo. <br>
                                 Họ không thích thay đổi đột ngột mà luôn hướng đến sự ổn định và an toàn trong cuộc sống.
                             </p>
-                            <div class="title-tong-quan-h5 pt-2 mb-0">Ưu điểm:</div>
+                            <h3 class="title-tong-quan-h5 pt-2 mb-0">Ưu điểm:</h3>
                             <ul class="mb-0">
                                 <li>Kiên định, trung thành, bền bỉ và có trách nhiệm.
                                 </li>
@@ -61,7 +61,7 @@
                                 <li>Yêu cái đẹp, có gu thẩm mỹ tinh tế.</li>
                                 <li>Bình tĩnh, điềm đạm, tạo cảm giác an toàn cho người khác.</li>
                             </ul>
-                            <div class="title-tong-quan-h5 pt-2 mb-0">Nhược điểm:</div>
+                            <h3 class="title-tong-quan-h5 pt-2 mb-0">Nhược điểm:</h3>
                             <ul class="mb-1">
                                 <li>Cứng đầu, đôi khi bảo thủ và khó thay đổi quan điểm.
                                 </li>
@@ -74,14 +74,14 @@
                                 sự xáo
                                 trộn. Tuy nhiên, đằng sau vẻ ngoài trầm lặng là một trái tim ấm áp và tình cảm sâu sắc.
                             </p>
-                            <div class="title-tong-quan-h4 pt-2">Sự nghiệp và nghề nghiệp phù hợp</div>
+                            <h2 class="title-tong-quan-h4 pt-2">Sự nghiệp và nghề nghiệp phù hợp</h2>
                             <p class="mb-1">Với bản chất kiên định, cẩn trọng và thực tế, Kim Ngưu thích hợp với các công
                                 việc
                                 liên quan đến tài chính, nghệ thuật, quản lý hoặc sáng tạo.
                                 <br> Họ có khả năng duy trì sự ổn định và phát triển lâu dài trong bất kỳ lĩnh vực nào.
 
                             </p>
-                            <div class="title-tong-quan-h5 pt-2 mb-0">Nghề nghiệp lý tưởng cho Kim Ngưu:</div>
+                            <h3 class="title-tong-quan-h5 pt-2 mb-0">Nghề nghiệp lý tưởng cho Kim Ngưu:</h3>
                             <ul class="mb-1">
                                 <li>Ngân hàng, kế toán, đầu tư tài chính
                                 </li>
@@ -98,7 +98,7 @@
                                 mục tiêu, họ làm việc chăm chỉ và rất có năng lực để đạt được thành công.
 
                             </p>
-                            <div class="title-tong-quan-h4 pt-2">Tình yêu và các mối quan hệ</div>
+                            <h2 class="title-tong-quan-h4 pt-2">Tình yêu và các mối quan hệ</h2>
                             <p class="mb-0">Trong tình yêu, Kim Ngưu là người chân thành, sâu sắc và cực kỳ chung thủy. Họ
                                 yêu
                                 bằng cả trái tim, luôn muốn mang đến sự an toàn và chăm sóc cho đối phương.
@@ -106,7 +106,7 @@
                                 dài.
 
                             </p>
-                            <div class="title-tong-quan-h5 pt-2 mb-0">Đặc điểm tình cảm:</div>
+                            <h3 class="title-tong-quan-h5 pt-2 mb-0">Đặc điểm tình cảm:</h3>
                             <ul class="mb-0">
                                 <li>Thích sự lãng mạn nhẹ nhàng, ổn định và lâu dài.
 
@@ -119,7 +119,7 @@
                                 </li>
 
                             </ul>
-                            <div class="title-tong-quan-h5 pt-2 mb-0">Hợp với các cung:</div>
+                            <h3 class="title-tong-quan-h5 pt-2 mb-0">Hợp với các cung:</h3>
                             <ul class="mb-0">
                                 <li>Xử Nữ: cùng nguyên tố Đất, hiểu nhau và bền vững.
 
@@ -128,14 +128,14 @@
                                 </li>
                                 <li>Cự Giải: tình cảm, biết quan tâm và khiến Kim Ngưu cảm thấy an toàn.</li>
                             </ul>
-                            <h5 class="title-tong-quan-h5 pt-2 mb-0">Không hợp lắm với:</h5>
+                            <h3 class="title-tong-quan-h5 pt-2 mb-0">Không hợp lắm với:</h3>
                             <ul class="mb-0">
                                 <li>Bảo Bình – khác biệt trong tư duy và nhịp sống.
 
                                 </li>
                                 <li>Sư Tử – dễ mâu thuẫn vì cái tôi lớn và tính chiếm hữu.</li>
                             </ul>
-                            <div class="title-tong-quan-h4 pt-2">Kim Ngưu trong cuộc sống</div>
+                            <h2 class="title-tong-quan-h4 pt-2">Kim Ngưu trong cuộc sống</h2>
                             <p class="mb-1">Kim Ngưu yêu thích những điều giản dị nhưng chất lượng, như một bữa ăn ngon,
                                 bản nhạc
                                 nhẹ hay không gian sống ấm cúng. <br>
@@ -148,7 +148,7 @@
 
                             </p>
 
-                            <div class="title-tong-quan-h4 pt-2">Tổng kết</div>
+                            <h2 class="title-tong-quan-h4 pt-2">Tổng kết</h2>
                             <p class="mb-0">Cung Kim Ngưu (Taurus) là biểu tượng của sự kiên nhẫn, bền bỉ và yêu thích cái
                                 đẹp.
                                 Người thuộc cung này mang lại cảm giác an toàn, ổn định và đáng tin – dù trong công việc hay

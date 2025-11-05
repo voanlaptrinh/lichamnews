@@ -14,7 +14,7 @@
                 <div class="tong-quan-date mt-2 mb-3">
                     <div class="card-body  p-lg-4 p-3 position-relative" style="border-radius: 24px">
                         <div class="text-box-tong-quan">
-                            <div class="title-tong-quan-h4">Cung Song Tử là gì?</div>
+                            <h2 class="title-tong-quan-h4">Cung Song Tử là gì?</h2>
                             <p class="mb-0">Cung Song Tử (Gemini) là cung hoàng đạo thứ ba, tượng trưng cho trí tuệ, sự
                                 linh hoạt
                                 và khả năng giao tiếp tuyệt vời.<br>
@@ -35,7 +35,7 @@
                                 tiếp, mang đến cho họ đầu óc nhanh nhạy và khả năng thích ứng phi thường.
 
                             </p>
-                            <div class="title-tong-quan-h4 pt-2">Biểu tượng và chòm sao gắn liền</div>
+                            <h2 class="title-tong-quan-h4 pt-2">Biểu tượng và chòm sao gắn liền</h2>
                             <ul class="mb-0">
                                 <li>Biểu tượng: Cặp Song Sinh – biểu trưng cho sự song hành và linh hoạt.
                                 </li>
@@ -50,7 +50,7 @@
                                 Castor và
                                 Pollux, tượng trưng cho tình bạn, lòng trung thành và sự gắn bó vĩnh cửu.</p>
 
-                            <div class="title-tong-quan-h4 pt-2">Tính cách đặc trưng của Song Tử</div>
+                            <h2 class="title-tong-quan-h4 pt-2">Tính cách đặc trưng của Song Tử</h2>
                             <p class="mb-0">Người thuộc cung Song Tử là những cá nhân thông minh, nhanh nhạy, hiếu kỳ và
                                 cực kỳ
                                 hoạt ngôn.
@@ -59,14 +59,14 @@
                                 xung quanh.
 
                             </p>
-                            <div class="title-tong-quan-h5 pt-2 mb-0">Ưu điểm:</div>
+                            <h3 class="title-tong-quan-h5 pt-2 mb-0">Ưu điểm:</h3>
                             <ul class="mb-0">
                                 <li>Linh hoạt, sáng tạo và dễ thích nghi.</li>
                                 <li>Trí tuệ sắc bén, giao tiếp thông minh, biết lắng nghe và thuyết phục.</li>
                                 <li>Tò mò, ham học hỏi, dễ dàng tiếp thu kiến thức mới.</li>
                                 <li>Hài hước, vui vẻ, luôn mang đến năng lượng tích cực cho mọi người.</li>
                             </ul>
-                            <div class="title-tong-quan-h5 pt-2 mb-0">Nhược điểm:</div>
+                            <h3 class="title-tong-quan-h5 pt-2 mb-0">Nhược điểm:</h3>
                             <ul class="mb-1">
                                 <li>Dễ thay đổi, thiếu kiên định.</li>
                                 <li>Hay chán nản khi gặp việc lặp lại hoặc thiếu thử thách.</li>
@@ -77,14 +77,14 @@
                                 hoạt
                                 bát, vừa có chiều sâu – khiến họ trở nên thú vị và khó đoán nhất trong 12 cung hoàng đạo.
                             </p>
-                            <div class="title-tong-quan-h4 pt-2">Sự nghiệp và nghề nghiệp phù hợp</div>
+                            <h2 class="title-tong-quan-h4 pt-2">Sự nghiệp và nghề nghiệp phù hợp</h2>
                             <p class="mb-1">Với khả năng giao tiếp tuyệt vời và đầu óc nhanh nhạy, Song Tử có thể thành
                                 công
                                 trong các lĩnh vực liên quan đến truyền thông, học thuật, kinh doanh hoặc nghệ thuật. <br>
                                 Họ làm việc hiệu quả nhất trong môi trường năng động, có nhiều cơ hội trao đổi và sáng tạo.
 
                             </p>
-                            <p class="fw-bolder mb-0">Nghề nghiệp lý tưởng cho Song Tử:
+                            <p class="fw-bolder mb-0 pt-2">Nghề nghiệp lý tưởng cho Song Tử:
                             </p>
                             <ul class="mb-1">
                                 <li>Nhà báo, biên tập viên, MC, diễn giả
@@ -99,7 +99,7 @@
                                 quả tốt. Tuy nhiên, họ cần học cách tập trung vào một mục tiêu cụ thể để đạt thành công bền
                                 vững.
                             </p>
-                            <div class="title-tong-quan-h4 pt-2">Tình yêu và các mối quan hệ</div>
+                            <h2 class="title-tong-quan-h4 pt-2">Tình yêu và các mối quan hệ</h2>
                             <p class="mb-0">Trong tình yêu, Song Tử là người duyên dáng, lãng mạn và biết cách tạo niềm
                                 vui. <br>
                                 Họ thích những mối quan hệ mang lại cảm xúc mới mẻ, thú vị và không gò bó.<br>
@@ -109,7 +109,7 @@
 
 
                             </p>
-                            <div class="title-tong-quan-h5 pt-2 mb-0">Đặc điểm tình cảm:</div>
+                            <h3 class="title-tong-quan-h5 pt-2 mb-0">Đặc điểm tình cảm:</h3>
                             <ul class="mb-0">
                                 <li>Duyên dáng, thông minh, biết cách khiến người khác yêu thích.
                                 </li>
@@ -118,7 +118,7 @@
                                 <li>Cần một người bạn đời có thể cùng họ trò chuyện, chia sẻ và đồng hành trong tư duy.</li>
 
                             </ul>
-                            <div class="title-tong-quan-h5 pt-2 mb-0">Hợp với các cung:</div>
+                            <h3 class="title-tong-quan-h5 pt-2 mb-0">Hợp với các cung:</h3>
                             <ul class="mb-0">
                                 <li>Thiên Bình: cùng nguyên tố Khí, hiểu nhau sâu sắc.
                                 </li>
@@ -127,14 +127,14 @@
                                 <li>Bạch Dương: năng lượng mạnh mẽ, hợp trong hành động.
                                 </li>
                             </ul>
-                            <div class="title-tong-quan-h5 pt-2 mb-0">Không hợp lắm với:</div>
+                            <h3 class="title-tong-quan-h5 pt-2 mb-0">Không hợp lắm với:</h3>
                             <ul class="mb-0">
                                 <li>Xử Nữ: Song Tử thấy Xử Nữ quá tỉ mỉ, còn Xử Nữ lại thấy Song Tử thiếu nghiêm túc
                                 </li>
                                 <li>Song Ngư: quá cảm xúc và nhạy cảm, dễ khiến Song Tử mệt mỏi.
                                 </li>
                             </ul>
-                            <div class="title-tong-quan-h4 pt-2">Song Tử trong cuộc sống</div>
+                            <h2 class="title-tong-quan-h4 pt-2">Song Tử trong cuộc sống</h2>
                             <p class="mb-1">Song Tử là “tắc kè hoa” của cuộc sống – họ có thể thích nghi với mọi môi
                                 trường và con
                                 người. <br>
@@ -145,7 +145,7 @@
 
                             </p>
 
-                            <div class="title-tong-quan-h4 pt-2">Tổng kết</div>
+                            <h2 class="title-tong-quan-h4 pt-2">Tổng kết</h2>
                             <p class="mb-1">Cung Song Tử (Gemini) là biểu tượng của trí tuệ, sáng tạo và sự linh hoạt
                                 không giới
                                 hạn.

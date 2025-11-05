@@ -1033,7 +1033,7 @@ class LunarController extends Controller
         $yy = $effective_yy;
         $mm = $effective_mm;
         $dd = $effective_dd;
-        $metaTitle = 'Lịch Âm Dương Ngày ' . $dd . ' Tháng ' . $mm . ' Năm ' . $yy . '';
+        $metaTitle = 'Lịch Âm Dương Ngày ' . $dd . ' Tháng ' . $mm . ' Năm ' . $yy . ' | Phong Lịch';
         $metaDescription = ' Xem lịch âm dương, lịch vạn niên ngày ' . $dd . ' tháng ' . $mm . ' năm ' . $yy . ' chi tiết và chính xác. Tra cứu ngũ hành can chi, tiết khí, giờ hoàng đạo, sao, trực trong ngày';
         $dateinfodetail = $this->getDateInfo($dd, $mm, $yy, null, '', $metaTitle, $metaDescription);
         return view('lunar.detail', $dateinfodetail);
@@ -1055,7 +1055,7 @@ class LunarController extends Controller
                     'message' => 'Ngày không hợp lệ'
                 ], 400);
             }
-            $metaTitle = 'Lịch Âm Dương Ngày ' . $dd . ' Tháng ' . $mm . ' Năm ' . $yy . '';
+            $metaTitle = 'Lịch Âm Dương Ngày ' . $dd . ' Tháng ' . $mm . ' Năm ' . $yy . ' | Phong Lịch';
             $metaDescription = ' Xem lịch âm dương, lịch vạn niên ngày ' . $dd . ' tháng ' . $mm . ' năm ' . $yy . ' chi tiết và chính xác. Tra cứu ngũ hành can chi, tiết khí, giờ hoàng đạo, sao, trực trong ngày';
             $dateinfodetail = $this->getDateInfo($dd, $mm, $yy, null, '', $metaTitle, $metaDescription);
 
