@@ -24,7 +24,7 @@ class WeddingController extends Controller
     public function showForm()
     {
         // Truyền ngày hôm nay vào view để làm giá trị mặc định cho ngày cưới
-        return view('wedding.check_form');
+        return view('tools.wedding.check_form');
     }
 
     /**
@@ -37,7 +37,7 @@ class WeddingController extends Controller
         $originalInputs = $input;
 
         $dateRange = $request->input('wedding_date_range');
-        $dates = $dateRange ? explode(' đến ', $dateRange) : [null, null];
+        $dates = $dateRange ? explode(' - ', $dateRange) : [null, null];
         if (count($dates) === 1) {
             $dates[1] = $dates[0];
         }
@@ -71,6 +71,12 @@ class WeddingController extends Controller
         ]);
 
         if ($validator->fails()) {
+            if ($request->wantsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'errors' => $validator->errors()
+                ], 422);
+            }
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
@@ -143,8 +149,24 @@ class WeddingController extends Controller
             ];
         }
 
-        // 4. Trả về view với cấu trúc dữ liệu mới
-        return view('wedding.check_form', [
+        // 4. Trả về kết quả
+        if ($request->wantsJson()) {
+            // AJAX request - trả về JSON với HTML rendered
+            $html = view('tools.wedding.results', [
+                'inputs' => $originalInputs,
+                'groomInfo' => $groomInfo,
+                'brideInfo' => $brideInfo,
+                'resultsByYear' => $resultsByYear,
+            ])->render();
+
+            return response()->json([
+                'success' => true,
+                'html' => $html
+            ]);
+        }
+
+        // Normal request - trả về view với dữ liệu mới
+        return view('tools.wedding.check_form', [
             'inputs' => $originalInputs,
             'groomInfo' => $groomInfo,
             'brideInfo' => $brideInfo,
@@ -337,7 +359,7 @@ class WeddingController extends Controller
         $brideData = BadDayHelper::getDetailedAnalysisForPerson($dateToCheck, $brideDob, 'Cô Dâu');
 
         // 6. Trả về view với toàn bộ dữ liệu
-        return view('wedding.day_details', compact(
+        return view('tools.wedding.day_details', compact(
             'commonDayInfo',
             'groomData',
             'brideData'

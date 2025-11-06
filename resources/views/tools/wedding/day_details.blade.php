@@ -266,13 +266,13 @@
         {{-- TAB CỦA CHÚ RỂ --}}
         <div class="tab-pane fade show active" id="groom-tab-pane" role="tabpanel" aria-labelledby="groom-tab" tabindex="0">
             {{-- Gọi partial view và truyền dữ liệu của chú rể --}}
-            @include('wedding.person_analysis_accordion', ['personData' => $groomData, 'commonData' => $commonDayInfo])
+            @include('tools.wedding.person_analysis_accordion', ['personData' => $groomData, 'commonData' => $commonDayInfo])
         </div>
 
         {{-- TAB CỦA CÔ DÂU --}}
         <div class="tab-pane fade" id="bride-tab-pane" role="tabpanel" aria-labelledby="bride-tab" tabindex="0">
              {{-- Gọi partial view và truyền dữ liệu của cô dâu --}}
-             @include('wedding.person_analysis_accordion', ['personData' => $brideData, 'commonData' => $commonDayInfo])
+             @include('tools.wedding.person_analysis_accordion', ['personData' => $brideData, 'commonData' => $commonDayInfo])
         </div>
     </div>
 

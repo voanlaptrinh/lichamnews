@@ -1,5 +1,6 @@
 @extends('welcome')
 @section('content')
+
     <div class="container-setup">
         <h6 class="content-title-detail"><a href="{{ route('home') }}"
                 style="color: #2254AB; text-decoration: underline;">Trang chủ</a><i class="bi bi-chevron-right"></i> <span>Đổi
@@ -17,6 +18,7 @@
                                         <p>Chọn ngày âm lịch hoặc dương lịch mà bạn mong muốn rồi ấn vào nút chuyển đổi.</p>
                                         <form action="{{ route('convert.am.to.duong') }}" method="POST">
                                             @csrf
+                                            <input type="hidden" name="is_leap" value="0" id="form-is-leap">
                                             <div class="row position-relative">
                                                 <div class="col-lg-6" id="solar-container">
                                                     <label class="form-label fw-bold" style="color: #212121CC">Ngày Dương
@@ -97,6 +99,16 @@
                                                                         class="form-select form-select-sm">
                                                                         <!-- Options will be populated by JS -->
                                                                     </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row g-2" id="lunar-leap-container" style="display: none !important;">
+                                                                <div class="col-12">
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="checkbox" id="lunar-leap-check">
+                                                                        <label class="form-check-label" for="lunar-leap-check">
+                                                                            <small>Tháng nhuận</small>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                             <div class="mt-2 text-end">
@@ -183,7 +195,9 @@
                                                 <div class="date-number am date_number_lich date_number_lich_am">
                                                     {{ $al[0] }}
                                                 </div>
-                                                <div class="date-weekday">Tháng {{ $al[1] }} ({{ $al[4] }})
+                                                <div class="date-weekday">Tháng {{ $al[1] }}
+                                                  
+                                                    ({{ $al[4] }})
                                                     năm
                                                     {{ $getThongTinCanChiVaIcon['can_chi_nam'] }}</div>
                                                 <div class="date-special-event text-dark">Ngày
@@ -250,7 +264,11 @@
                                             class="sonar-date">{{ $dd }}/{{ $mm }}/{{ $yy }}</span>
                                     </p>
                                     <p>✦ Ngày Âm: <span
-                                            class="lunar-date " style="color: #744F0C !important">{{ $al[0] }}/{{ $al[1] }}/{{ $al[2] }}</span>
+                                            class="lunar-date " style="color: #744F0C !important">{{ $al[0] }}/{{ $al[1] }}/{{ $al[2] }}
+                                            @if($is_leap_month_selected)
+                                                <span style="color: #d83131;"> (nhuận)</span>
+                                            @endif
+                                        </span>
                                     </p>
                                     <p>✦ Là ngày: {{ $weekday }}</p>
                                     <p>✦ Ngũ hành nạp âm: {{ $getThongTinNgay['nap_am']['napAm'] }}</p>
@@ -534,6 +552,16 @@
                     </select>
                 </div>
             </div>
+            <div class="row g-2 mt-2" id="mobile-lunar-leap-container" style="display: none !important;">
+                <div class="col-12">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="mobile-lunar-leap-check">
+                        <label class="form-check-label" for="mobile-lunar-leap-check">
+                            Tháng nhuận
+                        </label>
+                    </div>
+                </div>
+            </div>
             <div class="mobile-popup-buttons">
                 <button type="button" class="mobile-popup-btn cancel" id="mobileCancelBtn">
                     Hủy
@@ -549,6 +577,9 @@
 
 @push('styles')
     <style>
+         .form-select-sm{
+        padding-right: 0 !important;
+    }
         .date-input-wrapper .date-icon-custom {
             position: absolute;
             right: 15px;
@@ -749,8 +780,21 @@
         // Global conversion functions
         window.convertSolarToLunar = async function(solarDate) {
             try {
-                const apiDate = convertToApiFormat(solarDate);
-                const response = await fetch('/api/convert-to-am', {
+                // Parse the date format (dd/mm/yyyy)
+                const parts = solarDate.split('/');
+
+                if (parts.length !== 3) {
+                    console.error('Invalid date format:', solarDate);
+                    return null;
+                }
+
+                const day = parseInt(parts[0]);
+                const month = parseInt(parts[1]);
+                const year = parseInt(parts[2]);
+
+                console.log('Converting solar to lunar:', {day, month, year});
+
+                const response = await fetch('/api/convert-solar-to-lunar', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -758,14 +802,27 @@
                             .getAttribute('content')
                     },
                     body: JSON.stringify({
-                        date: apiDate
+                        solarDay: day,
+                        solarMonth: month,
+                        solarYear: year
                     })
                 });
 
                 if (response.ok) {
                     const data = await response.json();
-                    const lunarDate = data.date;
-                    return convertFromApiFormat(lunarDate);
+                    console.log('Solar to lunar API response:', data);
+
+                    if (data.success) {
+                        let result = `${String(data.lunarDay).padStart(2, '0')}/${String(data.lunarMonth).padStart(2, '0')}/${data.lunarYear}`;
+
+                        // Check if this is a leap month (if API provides this info)
+                        if (data.isLeap) {
+                            const parts = result.split('/');
+                            result = `${parts[0]}/${parts[1]}(nhuận)/${parts[2]}`;
+                        }
+
+                        return result;
+                    }
                 } else {
                     const errorData = await response.json();
                     console.error('API Error:', errorData.error || 'Unknown error');
@@ -776,10 +833,24 @@
             return null;
         };
 
-        window.convertLunarToSolar = async function(lunarDate) {
+        window.convertLunarToSolar = async function(lunarDate, isLeap = false) {
             try {
-                const apiDate = convertToApiFormat(lunarDate);
-                const response = await fetch('/api/convert-to-duong', {
+                // Parse the date format (dd/mm/yyyy or dd/mm(nhuận)/yyyy)
+                const cleanDate = lunarDate.replace('(nhuận)', '');
+                const parts = cleanDate.split('/');
+
+                if (parts.length !== 3) {
+                    console.error('Invalid date format:', lunarDate);
+                    return null;
+                }
+
+                const day = parseInt(parts[0]);
+                const month = parseInt(parts[1]);
+                const year = parseInt(parts[2]);
+
+                console.log('Converting lunar to solar:', {day, month, year, isLeap});
+
+                const response = await fetch('/api/convert-lunar-to-solar', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -787,14 +858,20 @@
                             .getAttribute('content')
                     },
                     body: JSON.stringify({
-                        date: apiDate
+                        lunarDay: day,
+                        lunarMonth: month,
+                        lunarYear: year,
+                        isLeap: isLeap ? 1 : 0
                     })
                 });
 
                 if (response.ok) {
                     const data = await response.json();
-                    const solarDate = data.date;
-                    return convertFromApiFormat(solarDate);
+                    console.log('Lunar to solar API response:', data);
+
+                    if (data.success) {
+                        return `${String(data.solarDay).padStart(2, '0')}/${String(data.solarMonth).padStart(2, '0')}/${data.solarYear}`;
+                    }
                 } else {
                     const errorData = await response.json();
                     console.error('API Error:', errorData.error || 'Unknown error');
@@ -840,9 +917,9 @@
             }
 
             const container = document.getElementById(type + '-select-container');
-            const input = document.getElementById(type + '_date');
+            const dateField = document.getElementById(type + '_date');
 
-            if (!container || !input) {
+            if (!container || !dateField) {
                 console.error(`Element ${type}-select-container or ${type}_date not found`);
                 return;
             }
@@ -859,7 +936,7 @@
             container.style.display = 'block';
 
             // Populate select options based on current input value or today
-            const currentValue = input.value || formatDate(new Date());
+            const currentValue = dateField.value || formatDate(new Date());
             await populateSelects(type, currentValue);
         };
 
@@ -875,13 +952,13 @@
             currentMobileType = type;
             const popup = document.getElementById('mobileDatePopup');
             const title = document.getElementById('mobilePopupTitle');
-            const input = document.getElementById(type + '_date');
+            const mobileInput = document.getElementById(type + '_date');
 
             // Set title
             title.textContent = type === 'solar' ? 'Chọn ngày dương lịch' : 'Chọn ngày âm lịch';
 
             // Get current date value - use a proper default
-            let currentValue = input.value;
+            let currentValue = mobileInput.value;
             if (!currentValue) {
                 // If no value, use 01/01/2024 as default
                 currentValue = '01/01/2024';
@@ -904,37 +981,104 @@
         };
 
         window.populateMobileSelects = async function(type, dateValue) {
-            const parts = dateValue.split('/');
+            // Check if this is a leap month first
+            const isCurrentlyLeap = dateValue.includes('(nhuận)');
+
+            // Clean the date value for parsing
+            const cleanDateValue = dateValue.replace('(nhuận)', '');
+            const parts = cleanDateValue.split('/');
             const currentDay = parseInt(parts[0]) || 1;
             const currentMonth = parseInt(parts[1]) || 1;
             const currentYear = parseInt(parts[2]) || new Date().getFullYear();
 
             // Populate mobile month select
             const monthSelect = document.getElementById('mobile-month');
-            monthSelect.innerHTML = '';
-            for (let i = 1; i <= 12; i++) {
-                const option = document.createElement('option');
-                option.value = i;
-                option.textContent = `Tháng ${i}`;
-                if (i === currentMonth) option.selected = true;
-                monthSelect.appendChild(option);
+
+            // Hiển thị loading ngay khi bắt đầu populate
+            monthSelect.innerHTML = '<option>Đang tải...</option>';
+
+            // For lunar calendar, add leap months if they exist in the year
+            if (type === 'lunar') {
+                const leapMonths = await getLeapMonthsInYear(currentYear);
+
+                // Clear loading và rebuild
+                monthSelect.innerHTML = '';
+
+                for (let i = 1; i <= 12; i++) {
+                    // Add regular month
+                    const option = document.createElement('option');
+                    option.value = i;
+                    option.dataset.isLeap = '0';
+                    option.textContent = `${i}`;
+                    if (i === currentMonth && !isCurrentlyLeap) option.selected = true;
+                    monthSelect.appendChild(option);
+
+                    // Add leap month if it exists
+                    if (leapMonths.includes(i)) {
+                        const leapOption = document.createElement('option');
+                        leapOption.value = i;
+                        leapOption.dataset.isLeap = '1';
+                        leapOption.textContent = `${i} nhuận`;
+                        leapOption.style.color = '#d83131';
+                        if (i === currentMonth && isCurrentlyLeap) leapOption.selected = true;
+                        monthSelect.appendChild(leapOption);
+                    }
+                }
+            } else {
+                // For solar calendar, just add regular months
+                // Clear loading và rebuild
+                monthSelect.innerHTML = '';
+
+                for (let i = 1; i <= 12; i++) {
+                    const option = document.createElement('option');
+                    option.value = i;
+                    option.textContent = `${i}`;
+                    if (i === currentMonth) option.selected = true;
+                    monthSelect.appendChild(option);
+                }
             }
 
-            // Populate mobile year select
+            // Populate mobile year select - chỉ hiển thị năm hiện tại ban đầu
             const yearSelect = document.getElementById('mobile-year');
             yearSelect.innerHTML = '';
-            const currentYearFull = new Date().getFullYear();
-            for (let i = currentYearFull - 100; i <= currentYearFull + 10; i++) {
-                const option = document.createElement('option');
-                option.value = i;
-                option.textContent = i;
-                if (i === currentYear) option.selected = true;
-                yearSelect.appendChild(option);
-            }
+
+            // Chỉ thêm năm hiện tại ban đầu
+            const option = document.createElement('option');
+            option.value = currentYear;
+            option.textContent = currentYear;
+            option.selected = true;
+            yearSelect.appendChild(option);
+
+            // Thêm event listener để tải thêm năm khi click
+            let mobileYearsLoaded = false;
+            yearSelect.addEventListener('focus', function() {
+                if (mobileYearsLoaded) return;
+                mobileYearsLoaded = true;
+
+                // Hiển thị đang tải
+                this.innerHTML = '<option>Đang tải...</option>';
+
+                // Tải đầy đủ sau một chút delay để user thấy loading
+                setTimeout(() => {
+                    this.innerHTML = '';
+                    const currentYearFull = new Date().getFullYear();
+                    for (let i = currentYearFull - 100; i <= currentYearFull + 10; i++) {
+                        const opt = document.createElement('option');
+                        opt.value = i;
+                        opt.textContent = i;
+                        if (i === currentYear) opt.selected = true;
+                        this.appendChild(opt);
+                    }
+                }, 100);
+            });
+
+            // Checkbox is always hidden - no need for leap month checkbox logic
 
             // Populate mobile day select - simplified version
             await populateMobileDays(type, currentMonth, currentYear, currentDay);
         };
+
+        // Mobile checkbox is always hidden - this function is no longer needed
 
         // Simplified function to populate mobile days
         window.populateMobileDays = async function(type, month, year, selectedDay) {
@@ -943,8 +1087,26 @@
 
             let maxDay;
             if (type === 'lunar') {
-                // For lunar calendar, use simple fallback for now
-                maxDay = 30; // Most lunar months have 29-30 days
+                // Check if leap month is selected
+                let isLeap = false;
+
+                // First check if current month select option has leap data
+                const mobileMonthSelect = document.getElementById('mobile-month');
+                if (mobileMonthSelect && mobileMonthSelect.selectedIndex >= 0) {
+                    const selectedOption = mobileMonthSelect.options[mobileMonthSelect.selectedIndex];
+                    if (selectedOption && selectedOption.dataset.isLeap === '1') {
+                        isLeap = true;
+                    }
+                }
+
+                // Fallback to checkbox
+                if (!isLeap) {
+                    const mobileLeapCheckbox = document.getElementById('mobile-lunar-leap-check');
+                    isLeap = mobileLeapCheckbox && mobileLeapCheckbox.checked;
+                }
+
+                // Use API to get accurate lunar month days
+                maxDay = await getDaysInMonth(month, year, true, isLeap);
             } else {
                 // For solar calendar
                 maxDay = new Date(year, month, 0).getDate();
@@ -965,37 +1127,97 @@
             await populateMobileDays(type, month, year, selectedDay);
         };
 
-        window.applyDateSelect = function(type) {
+        // Function cập nhật input và auto-convert sang lịch khác
+        window.applyDateSelect = async function(type) {
             const day = document.getElementById(type + '-day').value;
-            const month = document.getElementById(type + '-month').value;
+            const monthSelect = document.getElementById(type + '-month');
+            const month = monthSelect.value;
             const year = document.getElementById(type + '-year').value;
 
             if (day && month && year) {
-                const formattedDate = `${String(day).padStart(2, '0')}/${String(month).padStart(2, '0')}/${year}`;
-                const input = document.getElementById(type + '_date');
-                input.value = formattedDate;
-
-                // Convert to the other calendar type
-                if (type === 'solar') {
-                    convertSolarToLunar(formattedDate).then(lunarDate => {
-                        if (lunarDate) {
-                            document.getElementById('lunar_date').value = lunarDate;
-                        }
-                    });
-                } else {
-                    convertLunarToSolar(formattedDate).then(solarDate => {
-                        if (solarDate) {
-                            document.getElementById('solar_date').value = solarDate;
-                        }
-                    });
+                // Check for leap month if this is lunar calendar
+                let isLeap = false;
+                if (type === 'lunar') {
+                    // Check if selected month option has leap data
+                    const selectedOption = monthSelect.options[monthSelect.selectedIndex];
+                    if (selectedOption && selectedOption.dataset.isLeap === '1') {
+                        isLeap = true;
+                    } else {
+                        // Fallback to checkbox
+                        const leapCheckbox = document.getElementById('lunar-leap-check');
+                        isLeap = leapCheckbox && leapCheckbox.checked;
+                    }
                 }
 
+                const formattedDate = `${String(day).padStart(2, '0')}/${String(month).padStart(2, '0')}/${year}`;
+                const dateInput = document.getElementById(type + '_date');
+
+                // Add leap indication to the display
+                if (type === 'lunar' && isLeap) {
+                    // Format: dd/mm(nhuận)/yyyy
+                    const parts = formattedDate.split('/');
+                    dateInput.value = `${parts[0]}/${parts[1]}(nhuận)/${parts[2]}`;
+                } else {
+                    dateInput.value = formattedDate;
+                }
+
+                // Set leap flag in hidden form field
+                const formLeapInput = document.getElementById('form-is-leap');
+                if (formLeapInput) {
+                    formLeapInput.value = isLeap ? '1' : '0';
+                }
+
+                // Hide the select container
                 hideDateSelect(type);
+
+                // Auto-convert to opposite calendar
+                try {
+                    let convertedDate = null;
+
+                    if (type === 'lunar') {
+                        // Convert lunar to solar
+                        console.log('Converting lunar to solar:', {day, month, year, isLeap});
+                        convertedDate = await convertLunarToSolar(formattedDate, isLeap);
+
+                        if (convertedDate) {
+                            const solarInput = document.getElementById('solar_date');
+                            if (solarInput) {
+                                solarInput.value = convertedDate;
+                                console.log('Auto-updated solar date:', convertedDate);
+                            }
+                        }
+                    } else {
+                        // Convert solar to lunar
+                        console.log('Converting solar to lunar:', {day, month, year});
+                        convertedDate = await convertSolarToLunar(formattedDate);
+
+                        if (convertedDate) {
+                            const lunarInput = document.getElementById('lunar_date');
+                            if (lunarInput) {
+                                lunarInput.value = convertedDate;
+                                console.log('Auto-updated lunar date:', convertedDate);
+                            }
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error during auto-conversion:', error);
+                }
+
+                console.log('Updated input with data:', {
+                    type: type,
+                    date: formattedDate,
+                    isLeap: isLeap
+                });
             }
         };
 
         window.populateSelects = async function(type, dateValue) {
-            const parts = dateValue.split('/');
+            // Check if this is a leap month first
+            const isCurrentlyLeap = dateValue.includes('(nhuận)');
+
+            // Clean the date value for parsing
+            const cleanDateValue = dateValue.replace('(nhuận)', '');
+            const parts = cleanDateValue.split('/');
             const currentDay = parseInt(parts[0]) || 1;
             const currentMonth = parseInt(parts[1]) || 1;
             const currentYear = parseInt(parts[2]) || new Date().getFullYear();
@@ -1006,39 +1228,117 @@
                 console.error(`Element ${type}-month not found`);
                 return;
             }
-            monthSelect.innerHTML = '';
-            for (let i = 1; i <= 12; i++) {
-                const option = document.createElement('option');
-                option.value = i;
-                option.textContent = `Tháng ${i}`;
-                if (i === currentMonth) option.selected = true;
-                monthSelect.appendChild(option);
+
+            // Hiển thị loading ngay khi bắt đầu populate
+            monthSelect.innerHTML = '<option>Đang tải...</option>';
+
+            // For lunar calendar, add leap months if they exist in the year
+            if (type === 'lunar') {
+                const leapMonths = await getLeapMonthsInYear(currentYear);
+
+                // Clear loading và rebuild
+                monthSelect.innerHTML = '';
+
+                for (let i = 1; i <= 12; i++) {
+                    // Add regular month
+                    const option = document.createElement('option');
+                    option.value = i;
+                    option.dataset.isLeap = '0';
+                    option.textContent = `${i}`;
+                    if (i === currentMonth && !isCurrentlyLeap) option.selected = true;
+                    monthSelect.appendChild(option);
+
+                    // Add leap month if it exists
+                    if (leapMonths.includes(i)) {
+                        const leapOption = document.createElement('option');
+                        leapOption.value = i;
+                        leapOption.dataset.isLeap = '1';
+                        leapOption.textContent = `${i} nhuận`;
+                        leapOption.style.color = '#d83131';
+                        if (i === currentMonth && isCurrentlyLeap) leapOption.selected = true;
+                        monthSelect.appendChild(leapOption);
+                    }
+                }
+            } else {
+                // For solar calendar, just add regular months
+                // Clear loading và rebuild
+                monthSelect.innerHTML = '';
+
+                for (let i = 1; i <= 12; i++) {
+                    const option = document.createElement('option');
+                    option.value = i;
+                    option.textContent = `${i}`;
+                    if (i === currentMonth) option.selected = true;
+                    monthSelect.appendChild(option);
+                }
             }
 
-            // Populate year select
+            // Populate year select - chỉ hiển thị năm hiện tại ban đầu
             const yearSelect = document.getElementById(type + '-year');
             if (!yearSelect) {
                 console.error(`Element ${type}-year not found`);
                 return;
             }
-            yearSelect.innerHTML = '';
-            const currentYearFull = new Date().getFullYear();
-            for (let i = currentYearFull - 100; i <= currentYearFull + 10; i++) {
-                const option = document.createElement('option');
-                option.value = i;
-                option.textContent = i;
-                if (i === currentYear) option.selected = true;
-                yearSelect.appendChild(option);
-            }
+            // Không cần loading cho year vì chỉ 1 option
+         
+
+            // Chỉ thêm năm hiện tại ban đầu
+            const option = document.createElement('option');
+            option.value = currentYear;
+            option.textContent = currentYear;
+            option.selected = true;
+            yearSelect.appendChild(option);
+
+            // Thêm event listener để tải thêm năm khi click
+            let yearsLoaded = false;
+            yearSelect.addEventListener('focus', function() {
+                if (yearsLoaded) return;
+                yearsLoaded = true;
+
+                // Hiển thị đang tải
+                this.innerHTML = '<option>Đang tải...</option>';
+
+                // Tải đầy đủ sau một chút delay để user thấy loading
+                setTimeout(() => {
+                    this.innerHTML = '';
+                    const currentYearFull = new Date().getFullYear();
+                    for (let i = currentYearFull - 100; i <= currentYearFull + 10; i++) {
+                        const opt = document.createElement('option');
+                        opt.value = i;
+                        opt.textContent = i;
+                        if (i === currentYear) opt.selected = true;
+                        this.appendChild(opt);
+                    }
+                }, 100);
+            });
+
+            // Checkbox is always hidden - no need for leap month checkbox logic
 
             // Populate day select based on selected month and year
             await updateDayOptions(type, currentMonth, currentYear, currentDay);
 
             // Add event listeners to update days when month or year changes
             monthSelect.addEventListener('change', async function() {
+                const selectedOption = this.options[this.selectedIndex];
                 const selectedMonth = parseInt(this.value);
                 const selectedYear = parseInt(yearSelect.value);
                 const selectedDay = parseInt(document.getElementById(type + '-day').value) || 1;
+
+                // For lunar calendar, handle leap month selection
+                if (type === 'lunar') {
+                    const isLeap = selectedOption.dataset.isLeap === '1';
+
+                    // Update leap checkbox to match selection
+                    const leapCheckbox = document.getElementById('lunar-leap-check');
+                    const leapContainer = document.getElementById('lunar-leap-container');
+
+                    if (leapCheckbox) {
+                        leapCheckbox.checked = isLeap;
+                    }
+
+                    // Checkbox is always hidden - no need to show/hide
+                }
+
                 await updateDayOptions(type, selectedMonth, selectedYear, selectedDay);
             });
 
@@ -1046,13 +1346,118 @@
                 const selectedMonth = parseInt(monthSelect.value);
                 const selectedYear = parseInt(this.value);
                 const selectedDay = parseInt(document.getElementById(type + '-day').value) || 1;
+
+                // For lunar calendar, rebuild month select with new year's leap months
+                if (type === 'lunar') {
+                    // Hiển thị loading
+                    monthSelect.innerHTML = '<option>Đang tải...</option>';
+
+                    const leapMonths = await getLeapMonthsInYear(selectedYear);
+
+                    // Clear and rebuild month select
+                    monthSelect.innerHTML = '';
+                    for (let i = 1; i <= 12; i++) {
+                        // Add regular month
+                        const option = document.createElement('option');
+                        option.value = i;
+                        option.dataset.isLeap = '0';
+                        option.textContent = `Tháng ${i}`;
+                        if (i === selectedMonth) option.selected = true;
+                        monthSelect.appendChild(option);
+
+                        // Add leap month if it exists
+                        if (leapMonths.includes(i)) {
+                            const leapOption = document.createElement('option');
+                            leapOption.value = i;
+                            leapOption.dataset.isLeap = '1';
+                            leapOption.textContent = `Tháng ${i} nhuận`;
+                            leapOption.style.color = '#d83131';
+                            monthSelect.appendChild(leapOption);
+                        }
+                    }
+
+                    await checkAndShowLeapMonthOption(selectedMonth, selectedYear);
+                }
+
                 await updateDayOptions(type, selectedMonth, selectedYear, selectedDay);
             });
         };
 
+        // Cache for leap months by year
+        window.leapMonthsCache = {};
+
+        // Function to get leap months for a given year - New optimized version
+        window.getLeapMonthsInYear = async function(year) {
+            // Check cache first
+            if (window.leapMonthsCache[year]) {
+                console.log(`Using cached leap months for ${year}:`, window.leapMonthsCache[year]);
+                return window.leapMonthsCache[year];
+            }
+
+            try {
+                console.log(`Fetching leap months for year ${year} using new API`);
+
+                // Use new optimized API that gets all months in one call
+                const response = await fetch('/api/get-year-leap-months', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify({
+                        year: year
+                    })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log(`API response for year ${year}:`, data);
+
+                    if (data.success) {
+                        // Cache both leap months array and full data for potential future use
+                        window.leapMonthsCache[year] = data.leapMonths;
+
+                        // Also cache the full month data for getDaysInMonth optimization
+                        if (!window.yearMonthDataCache) window.yearMonthDataCache = {};
+                        window.yearMonthDataCache[year] = data.allMonthsData;
+
+                        return data.leapMonths;
+                    }
+                } else {
+                    console.error(`API error: ${response.status}`);
+                }
+            } catch (error) {
+                console.error('Error getting leap months:', error);
+            }
+
+            // Fallback: return empty array if API fails
+            console.log(`No leap months found for ${year} (or API failed)`);
+            window.leapMonthsCache[year] = [];
+            return [];
+        };
+
+        // Checkbox is always hidden - this function is no longer needed
+
         // Helper function to get the number of days in a month
-        window.getDaysInMonth = async function(month, year, isLunar = false) {
+        window.getDaysInMonth = async function(month, year, isLunar = false, isLeap = false) {
+            
+
             if (isLunar) {
+                // Check if we have cached data from getYearLeapMonths API
+                if (window.yearMonthDataCache && window.yearMonthDataCache[year] && window.yearMonthDataCache[year][month]) {
+                    const cachedData = window.yearMonthDataCache[year][month];
+                   
+
+                    if (isLeap) {
+                        const days = cachedData.leapDays > 0 ? cachedData.leapDays : cachedData.regularDays;
+                      
+                        return days;
+                    } else {
+                      
+                        return cachedData.regularDays;
+                    }
+                }
+
                 // Use API to get accurate lunar month days calculation
                 try {
                     const response = await fetch('/api/get-lunar-month-days', {
@@ -1064,7 +1469,8 @@
                         },
                         body: JSON.stringify({
                             month: parseInt(month),
-                            year: parseInt(year)
+                            year: parseInt(year),
+                            isLeap: isLeap ? 1 : 0
                         })
                     });
 
@@ -1095,10 +1501,29 @@
             }
             const isLunar = type === 'lunar';
 
+            // Check if leap month is selected
+            let isLeap = false;
+            if (isLunar) {
+                // First check if current month select option has leap data
+                const monthSelect = document.getElementById(type + '-month');
+                if (monthSelect && monthSelect.selectedIndex >= 0) {
+                    const selectedOption = monthSelect.options[monthSelect.selectedIndex];
+                    if (selectedOption && selectedOption.dataset.isLeap === '1') {
+                        isLeap = true;
+                    }
+                }
+
+                // Fallback to checkbox
+                if (!isLeap) {
+                    const leapCheckbox = document.getElementById('lunar-leap-check');
+                    isLeap = leapCheckbox && leapCheckbox.checked;
+                }
+            }
+
             // Show loading state
             daySelect.innerHTML = '<option>Đang tải...</option>';
 
-            const maxDay = await getDaysInMonth(month, year, isLunar);
+            const maxDay = await getDaysInMonth(month, year, isLunar, isLeap);
 
             // Clear existing options
             daySelect.innerHTML = '';
@@ -1212,7 +1637,7 @@
                 // Có request từ form submit - hiển thị ngày được chọn
                 const solarDateFromController = '{{ $dd }}/{{ $mm }}/{{ $yy }}';
                 const lunarDateFromController =
-                    '{{ sprintf('%02d', $al[0]) }}/{{ sprintf('%02d', $al[1]) }}/{{ $al[2] }}';
+                    '{{ sprintf('%02d', $al[0]) }}/{{ sprintf('%02d', $al[1]) }}@if($is_leap_month_selected)(nhuận)@endif/{{ $al[2] }}';
 
                 solarInput.value = solarDateFromController;
                 lunarInput.value = lunarDateFromController;
@@ -1221,7 +1646,7 @@
                 const solarDateFromController =
                     '{{ sprintf('%02d', $dd) }}/{{ sprintf('%02d', $mm) }}/{{ $yy }}';
                 const lunarDateFromController =
-                    '{{ sprintf('%02d', $al[0]) }}/{{ sprintf('%02d', $al[1]) }}/{{ $al[2] }}';
+                    '{{ sprintf('%02d', $al[0]) }}/{{ sprintf('%02d', $al[1]) }}@if($is_leap_month_selected)(nhuận)@endif/{{ $al[2] }}';
 
                 solarInput.value = solarDateFromController;
                 lunarInput.value = lunarDateFromController;
@@ -1256,31 +1681,89 @@
             }
 
             if (mobileChooseBtn) {
-                mobileChooseBtn.addEventListener('click', function() {
+                mobileChooseBtn.addEventListener('click', async function() {
                     const day = document.getElementById('mobile-day').value;
-                    const month = document.getElementById('mobile-month').value;
+                    const monthSelect = document.getElementById('mobile-month');
+                    const month = monthSelect.value;
                     const year = document.getElementById('mobile-year').value;
 
                     if (day && month && year) {
+                        // Check for leap month if this is lunar calendar
+                        let isLeap = false;
+                        if (currentMobileType === 'lunar') {
+                            // Check if selected month option has leap data
+                            const selectedOption = monthSelect.options[monthSelect.selectedIndex];
+                            if (selectedOption && selectedOption.dataset.isLeap === '1') {
+                                isLeap = true;
+                            } else {
+                                // Fallback to checkbox
+                                const mobileLeapCheckbox = document.getElementById('mobile-lunar-leap-check');
+                                isLeap = mobileLeapCheckbox && mobileLeapCheckbox.checked;
+                            }
+                        }
+
                         const formattedDate =
                             `${String(day).padStart(2, '0')}/${String(month).padStart(2, '0')}/${year}`;
-
-                        // Clear both inputs first
-                        document.getElementById('solar_date').value = '';
-                        document.getElementById('lunar_date').value = '';
-
-                        // Set the correct input based on calendar type
-                        const input = document.getElementById(currentMobileType + '_date');
-                        input.value = formattedDate;
 
                         // Hide popup
                         hideMobileDatePopup();
 
-                        // Submit form - let server handle conversion based on which input has value
-                        const form = document.querySelector('form');
-                        if (form) {
-                            form.submit();
+                        // Set value in input field
+                        const targetInput = document.getElementById(currentMobileType + '_date');
+                        if (targetInput) {
+                            if (currentMobileType === 'lunar' && isLeap) {
+                                // Format: dd/mm(nhuận)/yyyy
+                                const parts = formattedDate.split('/');
+                                targetInput.value = `${parts[0]}/${parts[1]}(nhuận)/${parts[2]}`;
+                            } else {
+                                targetInput.value = formattedDate;
+                            }
                         }
+
+                        // Set leap flag in hidden form field
+                        const formLeapInput = document.getElementById('form-is-leap');
+                        if (formLeapInput) {
+                            formLeapInput.value = isLeap ? '1' : '0';
+                        }
+
+                        // Auto-convert to opposite calendar
+                        try {
+                            let convertedDate = null;
+
+                            if (currentMobileType === 'lunar') {
+                                // Convert lunar to solar
+                                console.log('Mobile converting lunar to solar:', {day, month, year, isLeap});
+                                convertedDate = await convertLunarToSolar(formattedDate, isLeap);
+
+                                if (convertedDate) {
+                                    const solarInput = document.getElementById('solar_date');
+                                    if (solarInput) {
+                                        solarInput.value = convertedDate;
+                                        console.log('Mobile auto-updated solar date:', convertedDate);
+                                    }
+                                }
+                            } else {
+                                // Convert solar to lunar
+                                console.log('Mobile converting solar to lunar:', {day, month, year});
+                                convertedDate = await convertSolarToLunar(formattedDate);
+
+                                if (convertedDate) {
+                                    const lunarInput = document.getElementById('lunar_date');
+                                    if (lunarInput) {
+                                        lunarInput.value = convertedDate;
+                                        console.log('Mobile auto-updated lunar date:', convertedDate);
+                                    }
+                                }
+                            }
+                        } catch (error) {
+                            console.error('Mobile error during auto-conversion:', error);
+                        }
+
+                        console.log('Mobile updated input with data:', {
+                            type: currentMobileType,
+                            date: formattedDate,
+                            isLeap: isLeap
+                        });
                     }
                 });
             }
@@ -1301,9 +1784,26 @@
 
             if (mobileMonthSelect) {
                 mobileMonthSelect.addEventListener('change', async function() {
+                    const selectedOption = this.options[this.selectedIndex];
                     const selectedMonth = parseInt(this.value);
                     const selectedYear = parseInt(mobileYearSelect.value);
                     const selectedDay = parseInt(document.getElementById('mobile-day').value) || 1;
+
+                    // For lunar calendar, handle leap month selection
+                    if (currentMobileType === 'lunar') {
+                        const isLeap = selectedOption.dataset.isLeap === '1';
+
+                        // Update mobile leap checkbox to match selection
+                        const mobileLeapCheckbox = document.getElementById('mobile-lunar-leap-check');
+                        const mobileLeapContainer = document.getElementById('mobile-lunar-leap-container');
+
+                        if (mobileLeapCheckbox) {
+                            mobileLeapCheckbox.checked = isLeap;
+                        }
+
+                        // Checkbox is always hidden - no need to show/hide
+                    }
+
                     await updateMobileDayOptions(currentMobileType, selectedMonth, selectedYear,
                         selectedDay);
                 });
@@ -1314,8 +1814,79 @@
                     const selectedMonth = parseInt(mobileMonthSelect.value);
                     const selectedYear = parseInt(this.value);
                     const selectedDay = parseInt(document.getElementById('mobile-day').value) || 1;
+
+                    // For lunar calendar, rebuild month select with new year's leap months
+                    if (currentMobileType === 'lunar') {
+                        // Hiển thị loading
+                        mobileMonthSelect.innerHTML = '<option>Đang tải...</option>';
+
+                        const leapMonths = await getLeapMonthsInYear(selectedYear);
+
+                        // Clear and rebuild month select
+                        mobileMonthSelect.innerHTML = '';
+                        for (let i = 1; i <= 12; i++) {
+                            // Add regular month
+                            const option = document.createElement('option');
+                            option.value = i;
+                            option.dataset.isLeap = '0';
+                            option.textContent = `Tháng ${i}`;
+                            if (i === selectedMonth) option.selected = true;
+                            mobileMonthSelect.appendChild(option);
+
+                            // Add leap month if it exists
+                            if (leapMonths.includes(i)) {
+                                const leapOption = document.createElement('option');
+                                leapOption.value = i;
+                                leapOption.dataset.isLeap = '1';
+                                leapOption.textContent = `Tháng ${i} nhuận`;
+                                leapOption.style.color = '#d83131';
+                                mobileMonthSelect.appendChild(leapOption);
+                            }
+                        }
+
+                        await checkAndShowMobileLeapMonthOption(selectedMonth, selectedYear);
+                    }
+
                     await updateMobileDayOptions(currentMobileType, selectedMonth, selectedYear,
                         selectedDay);
+                });
+            }
+
+            // Add event listener for leap month checkbox to update days
+            const lunarLeapCheckbox = document.getElementById('lunar-leap-check');
+            const mobileLeapCheckbox = document.getElementById('mobile-lunar-leap-check');
+
+            if (lunarLeapCheckbox) {
+                lunarLeapCheckbox.addEventListener('change', async function() {
+                    const monthSelect = document.getElementById('lunar-month');
+                    const yearSelect = document.getElementById('lunar-year');
+                    const daySelect = document.getElementById('lunar-day');
+
+                    if (monthSelect && yearSelect && daySelect) {
+                        const selectedMonth = parseInt(monthSelect.value);
+                        const selectedYear = parseInt(yearSelect.value);
+                        const selectedDay = parseInt(daySelect.value) || 1;
+
+                        await updateDayOptions('lunar', selectedMonth, selectedYear, selectedDay);
+                    }
+                });
+            }
+
+            if (mobileLeapCheckbox) {
+                mobileLeapCheckbox.addEventListener('change', async function() {
+                    if (currentMobileType === 'lunar') {
+                        const monthSelect = document.getElementById('mobile-month');
+                        const yearSelect = document.getElementById('mobile-year');
+                        const daySelect = document.getElementById('mobile-day');
+
+                        if (monthSelect && yearSelect && daySelect) {
+                            const selectedMonth = parseInt(monthSelect.value);
+                            const selectedYear = parseInt(yearSelect.value);
+                            const selectedDay = parseInt(daySelect.value) || 1;
+
+                            await updateMobileDayOptions('lunar', selectedMonth, selectedYear, selectedDay);
+                        }
+                    }
                 });
             }
 
