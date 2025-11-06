@@ -589,6 +589,7 @@ class LunarController extends Controller
 
         $solar_date = $request->input('solar_date');
         $lunar_date = $request->input('lunar_date');
+        $is_leap = $request->input('is_leap', 0); // Check if it's leap month
 
         // Mặc định sử dụng ngày hôm nay
         $dd = (int)date('d');
@@ -603,8 +604,8 @@ class LunarController extends Controller
                 $lunar_mm = (int)$parts[1];
                 $lunar_yy = (int)$parts[2];
 
-                // Convert lunar to solar
-                $solar_result = LunarHelper::convertLunar2Solar($lunar_dd, $lunar_mm, $lunar_yy, 0);
+                // Convert lunar to solar with leap month consideration
+                $solar_result = LunarHelper::convertLunar2Solar($lunar_dd, $lunar_mm, $lunar_yy, (int)$is_leap);
                 if ($solar_result && count($solar_result) >= 3) {
                     $dd = $solar_result[0];
                     $mm = $solar_result[1];
@@ -750,6 +751,12 @@ class LunarController extends Controller
 
         // Giới hạn số lượng sự kiện sắp tới hiển thị (tùy chọn)
         $upcomingEvents = array_slice($upcomingEvents, 0, 10);
+        // Check if this is a leap month conversion
+        $is_leap_month_selected = false;
+        if ($lunar_date && (int)$is_leap) {
+            $is_leap_month_selected = true;
+        }
+
         return view(
             'lunar.doi-lich',
             [
@@ -772,7 +779,8 @@ class LunarController extends Controller
                 'nextMonth' => $nextMonth,
                 'tot_xau_result' => $tot_xau_result,
                 'upcomingEvents' => $upcomingEvents,
-
+                'is_leap_month_selected' => $is_leap_month_selected,
+                'is_leap' => (int)$is_leap,
             ]
         );
     }

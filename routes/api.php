@@ -28,4 +28,5 @@ Route::post('/convert-solar-to-lunar', [LunarConvertController::class, 'convertS
 Route::post('/get-month-lunar-dates', [LunarConvertController::class, 'getMonthLunarDates'])->name('api.month.lunar.dates');
 Route::post('/get-lunar-month-days', [LunarConvertController::class, 'getLunarMonthDays'])->name('api.lunar.month.days');
 Route::post('/get-lunar-month-calendar', [LunarConvertController::class, 'getLunarMonthCalendar'])->name('api.lunar.month.calendar');
+Route::post('/get-year-leap-months', [LunarConvertController::class, 'getYearLeapMonths'])->name('api.year.leap.months');
 Route::post('/lunar-solar-convert', [LunarConvertController::class, 'convert'])->name('api.lunar-convert');

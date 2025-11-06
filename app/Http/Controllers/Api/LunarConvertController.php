@@ -372,6 +372,76 @@ class LunarConvertController extends Controller
     }
 
     /**
+     * Get all leap months info for a year in one API call
+     * Returns: array of leap month numbers with their days count
+     */
+    public function getYearLeapMonths(Request $request)
+    {
+        try {
+            $year = $request->input('year');
+
+            // Validate input
+            if (!$year || $year < 1900 || $year > 2100) {
+                return response()->json([
+                    'success' => false,
+                    'error' => 'Năm không hợp lệ'
+                ], 400);
+            }
+
+            $leapMonths = [];
+            $allMonthsData = [];
+
+            // Check each month to see if it has a leap version
+            for ($month = 1; $month <= 12; $month++) {
+                try {
+                    // Get regular month days
+                    $regularDays = $this->calculateLunarMonthDays($month, $year, 0);
+
+                    // Get leap month days
+                    $leapDays = $this->calculateLunarMonthDays($month, $year, 1);
+
+                    $allMonthsData[$month] = [
+                        'month' => $month,
+                        'regularDays' => $regularDays,
+                        'hasLeapMonth' => $leapDays > 0,
+                        'leapDays' => $leapDays
+                    ];
+
+                    // If leap month exists and has valid days
+                    if ($leapDays > 0) {
+                        $leapMonths[] = $month;
+                    }
+
+                } catch (\Exception $e) {
+                    // Log error but continue with other months
+                    error_log("Error checking month {$month}/{$year}: " . $e->getMessage());
+
+                    $allMonthsData[$month] = [
+                        'month' => $month,
+                        'regularDays' => 29, // fallback
+                        'hasLeapMonth' => false,
+                        'leapDays' => 0
+                    ];
+                }
+            }
+
+            return response()->json([
+                'success' => true,
+                'year' => (int)$year,
+                'leapMonths' => $leapMonths,
+                'allMonthsData' => $allMonthsData,
+                'totalLeapMonths' => count($leapMonths)
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'error' => 'Lỗi lấy thông tin tháng nhuận: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
      * Universal convert method for JS module
      */
     public function convert(Request $request)
