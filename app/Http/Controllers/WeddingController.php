@@ -124,7 +124,6 @@ class WeddingController extends Controller
             $year = $date->year;
 
             $groomScoreDetails = GoodBadDayHelper::calculateDayScore($date, $groomDob->year, $purpose);
-
             // Tính điểm cho cô dâu vào ngày này
             $brideScoreDetails = GoodBadDayHelper::calculateDayScore($date, $brideDob->year, $purpose);
             $jd = LunarHelper::jdFromDate($date->day, $date->month, $date->year);
@@ -141,6 +140,7 @@ class WeddingController extends Controller
                 'date' => $date->copy(), // Dùng copy() để đảm bảo đối tượng date không bị thay đổi
                 'weekday_name' => $date->isoFormat('dddd'),
                 // Dữ liệu mới để hiển thị
+                'al_name' => $lunarParts,
                 'full_lunar_date_str' => $fullLunarDateStr, // Ví dụ: "Ngày 05/02 Ất Tỵ"
                 'good_hours' => $goodHours, // Ví dụ: ['9h - 11h (Tỵ)', '13h - 15h (Sửu)']
                 'lunar_date_str' => sprintf('%02d/%02d/%d', ...LunarHelper::convertSolar2Lunar($date->day, $date->month, $date->year)),
