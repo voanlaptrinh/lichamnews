@@ -38,7 +38,7 @@
     }
 
     .col-6 {
-        position: static !important;
+      
         transform: none !important;
         will-change: auto !important;
     }
@@ -255,7 +255,7 @@
                                                 class="icon_tiet_khi" width="24" height="24" loading="eager">
                                             <div class="font-detail-ngay">
                                                 <strong class="title-font-detail-ngay">Tiết khí:</strong>
-                                                <span class="">{{ $tietkhi['tiet_khi'] }}</span>
+                                                <span class="" style="text-transform:capitalize;">{{ $tietkhi['tiet_khi'] }}</span>
                                             </div>
                                         </div>
                                         <div class="info-item">
@@ -356,7 +356,16 @@
 
                                             <select id="year-select" class="form-select custom-select-style"
                                                 aria-label="Chọn năm">
-                                                <option value="{{ $yy }}">Năm {{ $yy }}</option>
+                                                @php
+                                                    $currentYear = $yy;
+                                                    $startYear = max(1900, $currentYear - 10);
+                                                    $endYear = min(2100, $currentYear + 10);
+                                                @endphp
+                                                @for ($i = $endYear; $i >= $startYear; $i--)
+                                                    <option value="{{ $i }}" {{ $i == $currentYear ? 'selected' : '' }}>
+                                                        Năm {{ $i }}
+                                                    </option>
+                                                @endfor
                                             </select>
 
 
@@ -778,8 +787,8 @@
 @endsection
 
 @push('styles')
-    <link rel="preload" href="{{ asset('css/html-chart.css?v=3.2') }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="{{ asset('css/html-chart.css?v=3.2') }}"></noscript>
+    <link rel="preload" href="{{ asset('css/html-chart.css?v=3.3') }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="{{ asset('css/html-chart.css?v=3.3') }}"></noscript>
     <style>
         .event-date .solar-date {
             font-size: 14px;
@@ -826,8 +835,8 @@
 @endpush
 
 @push('scripts')
-    <script defer src="{{ asset('js/base-picker.js?v=3.8') }}"></script>
-    <script defer src="{{ asset('js/homepage-picker.js?v=3.8') }}"></script>
+    <script defer src="{{ asset('js/base-picker.js?v=3.9') }}"></script>
+    <script defer src="{{ asset('js/homepage-picker.js?v=3.9') }}"></script>
    <script>
     window.addEventListener("DOMContentLoaded", () => {
         if (typeof HomepagePicker !== 'undefined') {

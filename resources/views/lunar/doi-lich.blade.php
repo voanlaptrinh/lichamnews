@@ -296,9 +296,11 @@
                 <div class="mt-3">
                     <div class="calendar-wrapper">
                         <div class="calendar-header-convert calendar-header">
-                            <div class="text-center">
-                                <div class="mb-0 pt-2 title-tong-quan-h5">Tháng {{ $mm }} năm {{ $yy }}</div>
-                            </div>
+                             <div class="text-center">
+                                    <div class="mb-0 pt-2 lich-van--nien">Lịch vạn niên {{ $yy }} - tháng
+                                        {{ $mm }}
+                                    </div>
+                                </div>
                             <div class="d-flex align-items-center justify-content-center">
                                 <select id="month-select" class="form-select me-2 custom-select-style"
                                     aria-label="Chọn tháng">
@@ -308,15 +310,21 @@
                                     @endfor
                                 </select>
                                 <select id="year-select" class="form-select custom-select-style" aria-label="Chọn năm">
-                                    <option value="{{ $yy }}">Năm {{ $yy }}</option>
+                                    @php
+                                        $currentYear = $yy;
+                                        $startYear = max(1900, $currentYear - 10);
+                                        $endYear = min(2100, $currentYear + 10);
+                                    @endphp
+                                    @for ($i = $endYear; $i >= $startYear; $i--)
+                                        <option value="{{ $i }}" {{ $i == $currentYear ? 'selected' : '' }}>
+                                            Năm {{ $i }}
+                                        </option>
+                                    @endfor
                                 </select>
                             </div>
-                            {{-- <a href="{{ route('detai_home', ['nam' => date('Y'), 'thang' => date('n'), 'ngay' => date('d')]) }}"
-                        class="btn-today-home-pc btn-today-home">
-                        <i class="bi bi-calendar-plus pe-1-pc-home"></i> Hôm nay
-                    </a> --}}
+                          
                         </div>
-                        <div id="calendar-body-container">
+                        <div id="calendar-body-container" class="mb-3">
                             <table class="calendar-table">
                                 <thead>
                                     <tr>
@@ -1962,14 +1970,12 @@
             function updateCalendar() {
                 const month = monthSelect.value;
                 const year = yearSelect.value;
+                const calendarTable = document.querySelector('.calendar-wrapper .calendar-table');
 
-                // Batch DOM updates using requestAnimationFrame to prevent forced reflows
-                requestAnimationFrame(() => {
-                    const h5Element = document.querySelector('.calendar-header-convert .title-tong-quan-h5');
-                    if (h5Element) {
-                        h5Element.textContent = `Tháng ${month} năm ${year}`;
-                    }
-                });
+                // Disable calendar table during loading
+                if (calendarTable) calendarTable.style.pointerEvents = 'none';
+
+                // No need to update title here as it's handled in event listeners
 
                 fetch('{{ route('lich.thang.ajax') }}', {
                         method: 'POST',
@@ -1994,37 +2000,68 @@
                             });
                         }
                     })
-                    .catch(error => {});
+                    .catch(error => {})
+                    .finally(() => {
+                        // Re-enable calendar table after loading complete
+                        if (calendarTable) calendarTable.style.pointerEvents = 'auto';
+                    });
             }
 
             const debouncedUpdateCalendar = debounce(updateCalendar, 300);
 
-            monthSelect.addEventListener('change', debouncedUpdateCalendar);
-            yearSelect.addEventListener('change', debouncedUpdateCalendar);
+            // Function to update title only
+            function updateTitle(month, year) {
+                const titleElement = document.querySelector('.calendar-header-convert .lich-van--nien');
+                if (titleElement) {
+                    titleElement.textContent = `Lịch vạn niên ${year} - tháng ${month}`;
+                }
+            }
+
+            // Combined event handlers for month/year changes
+            monthSelect.addEventListener('change', () => {
+                updateTitle(monthSelect.value, yearSelect.value);
+                debouncedUpdateCalendar();
+            });
+            yearSelect.addEventListener('change', () => {
+                updateTitle(monthSelect.value, yearSelect.value);
+                debouncedUpdateCalendar();
+            });
             const select = document.getElementById('year-select');
             const start = 1900;
             const end = 2100;
             const current = {{ $yy }};
-            let loaded = false;
+            let fullyLoaded = false;
 
             select.addEventListener('focus', () => {
-                if (loaded) return; // chỉ load 1 lần
-                loaded = true;
+                if (fullyLoaded) return; // chỉ load đầy đủ 1 lần
+                fullyLoaded = true;
 
-                // Use DocumentFragment to batch DOM operations and prevent reflows
+                // Lưu vị trí scroll hiện tại
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+
+                // Xóa tất cả options hiện tại
+                select.innerHTML = '';
+
+                // Use DocumentFragment để tối ưu performance
                 const fragment = document.createDocumentFragment();
-                for (let i = start; i <= end; i++) {
-                    if (i === current) continue;
+
+                // Lặp từ năm mới nhất → năm cũ nhất
+                for (let i = end; i >= start; i--) {
                     const opt = document.createElement('option');
                     opt.value = i;
                     opt.textContent = `Năm ${i}`;
+                    if (i === current) {
+                        opt.selected = true;
+                    }
                     fragment.appendChild(opt);
                 }
 
-                // Single DOM operation to append all options
-                requestAnimationFrame(() => {
-                    select.appendChild(fragment);
-                });
+                // Append tất cả options cùng lúc
+                select.appendChild(fragment);
+
+                // Khôi phục vị trí scroll
+                window.scrollTo(scrollLeft, scrollTop);
             });
         });
     </script>

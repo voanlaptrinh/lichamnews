@@ -42,7 +42,7 @@
 
 
 @push('scripts')
-    <script defer src="{{ asset('js/base-picker.js?v=3.8') }}"></script>
+    <script defer src="{{ asset('js/base-picker.js?v=3.9') }}"></script>
     <script defer src="{{ asset('js/today-tomorrow-picker.js?v=3.8') }}"></script>
     <script>
         window.addEventListener("DOMContentLoaded", () => {

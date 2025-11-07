@@ -143,7 +143,8 @@
                                              {{ $al[0] }}/{{ $al[1] }}/{{ $al[2] }}
                                          </div>
                                          <div class="grid-item text-capitalize"><b> Tiết khí:</b>
-                                             <span style="text-transform:capitalize;">{{ $tietkhi['tiet_khi'] }}</span></div>
+                                             <span style="text-transform:capitalize;">{{ $tietkhi['tiet_khi'] }}</span>
+                                         </div>
                                          <div class="grid-item"> <b>Ngày Can Chi:</b>
                                              ngày {{ $getThongTinCanChiVaIcon['can_chi_ngay'] }},
                                              tháng {{ $getThongTinCanChiVaIcon['can_chi_thang'] }},
@@ -696,8 +697,6 @@
 
                          </a>
                      @endforeach
-
-
 
                  </div>
              </div>
