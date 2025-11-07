@@ -27,25 +27,6 @@ class TotXauController extends Controller
         $input = $request->all();
         $originalInputs = $input;
 
-        // Handle calendar type (lunar or solar)
-        // $calendarType = $request->input('calendar_type', 'solar');
-
-        // // Convert lunar to solar if needed
-        // if ($calendarType === 'lunar' && !empty($input['birthdate'])) {
-        //     $birthdateParts = explode('/', $input['birthdate']);
-        //     if (count($birthdateParts) === 3) {
-        //         $lunarDay = (int)$birthdateParts[0];
-        //         $lunarMonth = (int)$birthdateParts[1];
-        //         $lunarYear = (int)$birthdateParts[2];
-
-        //         // Convert lunar to solar
-        //         $solarDate = LunarHelper::convertLunar2Solar($lunarDay, $lunarMonth, $lunarYear, false);
-        //         if ($solarDate) {
-        //             $input['birthdate'] = sprintf('%02d/%02d/%04d', $solarDate['day'], $solarDate['month'], $solarDate['year']);
-        //         }
-        //     }
-        // }
-
         $dateRange = $request->input('date_range');
         $dates = $dateRange ? explode(' - ', $dateRange) : [null, null];
         if (count($dates) === 1) $dates[1] = $dates[0];
@@ -221,7 +202,10 @@ class TotXauController extends Controller
             $menhData = DataHelper::$napAmTable[$canChiNam];
             if (is_array($menhData) && isset($menhData['napAm'])) {
                 $menh = $menhData['napAm'];
-            }
+                $hanh = $menhData['hanh'];
+            };
+
+           
         }
 
         return [
@@ -229,6 +213,7 @@ class TotXauController extends Controller
             'lunar_date' => sprintf('%02d/%02d/%04d', $lunarDate[0], $lunarDate[1], $lunarDate[2]),
             'can_chi' => $canChiNam,
             'menh' => $menh,
+            'hanh' => $hanh,
         ];
     }
 
