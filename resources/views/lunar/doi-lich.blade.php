@@ -1632,7 +1632,12 @@
                 lunarInput.value = lunarDateFromController;
             @endif
 
-            // Add click handlers for inputs to show select dropdowns
+            // Function to check if device is mobile
+            function isMobile() {
+                return window.innerWidth <= 768;
+            }
+
+            // Add click handlers for inputs - click-only behavior for both mobile and desktop
             solarInput.addEventListener('click', async function(e) {
                 e.preventDefault();
                 await showDateSelect('solar');
@@ -1643,16 +1648,7 @@
                 await showDateSelect('lunar');
             });
 
-            // Add touch handlers for mobile
-            solarInput.addEventListener('touchstart', async function(e) {
-                e.preventDefault();
-                await showDateSelect('solar');
-            });
-
-            lunarInput.addEventListener('touchstart', async function(e) {
-                e.preventDefault();
-                await showDateSelect('lunar');
-            });
+            // Remove touchstart handlers as they're redundant with click
 
             // Hide select containers when clicking outside
             document.addEventListener('click', function(event) {
@@ -1771,11 +1767,6 @@
                                             lunarInput.value = convertedDate;
                                             lunarInput.setAttribute('value', convertedDate);
 
-                                            // Visual feedback
-                                            lunarInput.style.backgroundColor = '#FFE4B5';
-                                            setTimeout(() => {
-                                                lunarInput.style.backgroundColor = '';
-                                            }, 1000);
                                         }
                                     }
                                 }

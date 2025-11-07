@@ -316,19 +316,24 @@ html.daterangepicker-open {
         display: flex;
         gap: 3px;
     }
-    .box-dtl-pc{
+
+    .box-dtl-pc {
         display: block;
     }
-    .box-dtl-mb{
+
+    .box-dtl-mb {
         display: none;
     }
-     .diem-so{
+
+    .diem-so {
         font-size: 18px;
     }
-    .battery-body{
+
+    .battery-body {
         width: 108px;
     }
-    .betwen-ds{
+
+    .betwen-ds {
         display: flex;
         justify-content: space-between;
     }
@@ -352,19 +357,24 @@ html.daterangepicker-open {
     .form--submit-totxau {
         padding: 24px 40px;
     }
-     .box-dtl-pc{
+
+    .box-dtl-pc {
         display: block;
     }
-    .box-dtl-mb{
+
+    .box-dtl-mb {
         display: none;
     }
-     .diem-so{
+
+    .diem-so {
         font-size: 18px;
     }
-    .battery-body{
+
+    .battery-body {
         width: 108px;
     }
-    .betwen-ds{
+
+    .betwen-ds {
         display: flex;
         justify-content: space-between;
     }
@@ -385,19 +395,24 @@ html.daterangepicker-open {
     .form--submit-totxau {
         padding: 24px 40px;
     }
-     .box-dtl-pc{
+
+    .box-dtl-pc {
         display: block;
     }
-    .box-dtl-mb{
+
+    .box-dtl-mb {
         display: none;
     }
-     .diem-so{
+
+    .diem-so {
         font-size: 18px;
     }
-    .battery-body{
+
+    .battery-body {
         width: 108px;
     }
-    .betwen-ds{
+
+    .betwen-ds {
         display: flex;
         justify-content: space-between;
     }
@@ -426,19 +441,24 @@ html.daterangepicker-open {
     .form--submit-totxau {
         padding: 24px 40px;
     }
-     .box-dtl-pc{
+
+    .box-dtl-pc {
         display: block;
     }
-    .box-dtl-mb{
+
+    .box-dtl-mb {
         display: none;
     }
-     .diem-so{
+
+    .diem-so {
         font-size: 14px;
     }
-    .battery-body{
+
+    .battery-body {
         width: 108px;
     }
-    .betwen-ds{
+
+    .betwen-ds {
         display: flex;
         justify-content: space-between;
     }
@@ -489,19 +509,24 @@ html.daterangepicker-open {
     .daterangepicker-btn {
         min-height: 44px;
     }
-     .box-dtl-pc{
+
+    .box-dtl-pc {
         display: block;
     }
-    .box-dtl-mb{
+
+    .box-dtl-mb {
         display: none;
     }
-     .diem-so{
+
+    .diem-so {
         font-size: 14px;
     }
-    .battery-body{
+
+    .battery-body {
         width: 108px;
     }
-    .betwen-ds{
+
+    .betwen-ds {
         display: flex;
         justify-content: space-between;
     }
@@ -588,19 +613,24 @@ html.daterangepicker-open {
         font-size: 15px;
         min-height: 50px;
     }
-     .box-dtl-pc{
+
+    .box-dtl-pc {
         display: none;
     }
-    .box-dtl-mb{
+
+    .box-dtl-mb {
         display: block;
     }
-     .diem-so{
+
+    .diem-so {
         font-size: 12px;
     }
-    .battery-body{
+
+    .battery-body {
         width: 108px;
     }
-      .betwen-ds{
+
+    .betwen-ds {
         display: flex;
         justify-content: space-between;
     }
@@ -610,19 +640,24 @@ html.daterangepicker-open {
     .form--submit-totxau {
         padding: 14px 20px;
     }
-     .box-dtl-pc{
+
+    .box-dtl-pc {
         display: none;
     }
-    .box-dtl-mb{
+
+    .box-dtl-mb {
         display: block;
     }
-    .diem-so{
+
+    .diem-so {
         font-size: 12px;
     }
-    .battery-body{
+
+    .battery-body {
         width: 73px;
     }
-      .betwen-ds{
+
+    .betwen-ds {
         display: flex;
         justify-content: center;
     }
@@ -1773,54 +1808,199 @@ html.daterangepicker-open {
     color: #9ca3af;
     font-weight: 400;
 }
-.active-tools .event-name{
+
+.active-tools .event-name {
     color: rgba(43, 126, 229, 1) !important;
     font-weight: 500;
 }
-.accordion-button:focus{
+
+.accordion-button:focus {
     border-color: unset;
     box-shadow: none
 }
 
 
 .battery {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-family: Arial, sans-serif;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: Arial, sans-serif;
 }
 
 /* thân pin */
 .battery-body {
-  height: 28px;
-  border-radius: 8px;
-  position: relative;
-  overflow: hidden;
-  background: #fff;
+    height: 28px;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+    background: #fff;
 }
 
 /* phần màu fill */
 .battery-fill {
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 100%;
-  background-color: #10B981; /* xanh mặc định */
-  transition: width 0.5s ease;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    background-color: #10B981;
+    /* xanh mặc định */
+    transition: width 0.5s ease;
 }
 
 /* số % ở giữa thân pin */
 .battery-label {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-weight: 600;
-  color: #000; /* chữ đen */
-  z-index: 2; /* nằm trên fill */
-  pointer-events: none; /* không bị ảnh hưởng khi hover/click */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 600;
+    color: #000;
+    /* chữ đen */
+    z-index: 2;
+    /* nằm trên fill */
+    pointer-events: none;
+    /* không bị ảnh hưởng khi hover/click */
 }
 
-th{
+th {
     text-align: center !important;
+}
+
+
+.mobile-date-range-popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+}
+
+.mobile-popup-content-range {
+    background: white;
+    border-radius: 20px;
+    padding: 25px 20px;
+    width: 90%;
+    max-width: 400px;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+}
+
+.mobile-popup-header-range {
+    text-align: center;
+    margin-bottom: 25px;
+    font-weight: 600;
+    font-size: 18px;
+    color: #2254AB;
+}
+
+.quick-options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.quick-option-btn {
+    background: #f8f9fa;
+    border: 2px solid #e9ecef;
+    border-radius: 12px;
+    padding: 0;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-height: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.quick-option-btn:hover {
+    background: #e9ecef;
+    border-color: #2254AB;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(34, 84, 171, 0.2);
+}
+
+.quick-option-btn.selected {
+    background: #2254AB;
+    border-color: #2254AB;
+    color: white;
+}
+
+.option-title {
+    font-weight: 600;
+    font-size: 14px;
+    /* margin-bottom: 4px; */
+}
+
+.option-desc {
+    font-size: 11px;
+    color: #666;
+    line-height: 1.2;
+}
+
+.quick-option-btn.selected .option-desc {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.popup-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.btn-settings {
+    height: 40px;
+    flex: 1;
+    background: #2254AB;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 0;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* gap: 8px; */
+}
+
+.btn-settings:hover {
+    background: #1e4a96;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(34, 84, 171, 0.3);
+}
+
+.btn-cancel-range {
+    flex: 1;
+    background: #f8f9fa;
+    color: #46494E;
+    border: 2px solid #dee2e6;
+    border-radius: 10px;
+    padding: 0;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-cancel-range:hover {
+    background: #e9ecef;
+    border-color: #adb5bd;
+}
+
+/* Hide popup on desktop */
+@media (min-width: 769px) {
+    .mobile-date-range-popup {
+        display: none !important;
+    }
 }
