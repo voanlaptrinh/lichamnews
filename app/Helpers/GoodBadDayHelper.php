@@ -112,6 +112,10 @@ class GoodBadDayHelper
                 $uniqueIssues[] = $issue;
             }
         }
+
+        // Tính toán các yếu tố hỗ trợ
+        $supportFactors = self::calculateSupportFactors($date, $birthDate);
+
         // --- Trả về kết quả cuối cùng ---
         return [
             'checkTabooDays' => $tabooResult ?? '',
@@ -139,6 +143,12 @@ class GoodBadDayHelper
                 'weightedScore' => $trucWeightedScore,
                 'details' => ['name' => $trucName],
             ],
+            // Thêm các yếu tố hỗ trợ
+            'hoangdao' => $supportFactors['hoangdao'],
+            'tructot' => $supportFactors['tructot'],
+            'hopttuoi' => $supportFactors['hopttuoi'],
+            'good_stars' => $supportFactors['good_stars'],
+            'positive_factors' => $supportFactors['positive_factors'],
         ];
     }
 
@@ -529,5 +539,247 @@ class GoodBadDayHelper
     public static function getGoodHoursByDayChi(string $dayChi): array
     {
         return self::$HOANG_DAO_HOURS[$dayChi] ?? [];
+    }
+
+    /**
+     * Tính toán các yếu tố hỗ trợ cho ngày.
+     *
+     * @param Carbon $date Ngày cần kiểm tra
+     * @param mixed $birthDate Năm sinh (nếu có)
+     * @return array
+     */
+    public static function calculateSupportFactors(Carbon $date, $birthDate): array
+    {
+        $day = $date->day;
+        $month = $date->month;
+        $year = $date->year;
+
+        // Lấy thông tin Can Chi của ngày
+        $jd = LunarHelper::jdFromDate($day, $month, $year);
+        $dayCanChi = LunarHelper::canchiNgayByJD($jd);
+        $parts = explode(' ', $dayCanChi);
+        $dayCan = $parts[0];
+        $dayChi = $parts[1];
+
+        // Lấy thông tin âm lịch
+        $lunar = LunarHelper::convertSolar2Lunar($day, $month, $year);
+        $lunarDay = $lunar[0];
+
+        // 1. Kiểm tra ngày hoàng đạo
+        $hoangdao = self::isHoangDao($date);
+
+        // 2. Kiểm tra trực tốt
+        $tructot = self::isTrucTot($date);
+
+        // 3. Kiểm tra hợp tuổi (nếu có năm sinh)
+        $hopttuoi = false;
+        if ($birthDate) {
+            $hopttuoi = self::isHopTuoi($date, $birthDate);
+        }
+
+        // 4. Kiểm tra sao tốt
+        $good_stars = self::getGoodStars($date);
+
+        // 5. Tính toán các yếu tố tích cực khác
+        $positive_factors = [];
+
+        // Giờ hoàng đạo
+        $goodHours = self::$HOANG_DAO_HOURS[$dayChi] ?? [];
+        if (!empty($goodHours)) {
+            $positive_factors[] = ['name' => 'Có giờ hoàng đạo', 'detail' => implode(', ', $goodHours)];
+        }
+
+        // Ngày lành thánh
+        if (in_array($lunarDay, [1, 8, 14, 15, 18, 23, 24, 28, 29, 30])) {
+            $positive_factors[] = ['name' => 'Ngày lành thánh', 'detail' => "Ngày $lunarDay âm lịch"];
+        }
+
+        return [
+            'hoangdao' => $hoangdao,
+            'tructot' => $tructot,
+            'hopttuoi' => $hopttuoi,
+            'good_stars' => $good_stars,
+            'positive_factors' => $positive_factors,
+        ];
+    }
+
+    /**
+     * Kiểm tra xem ngày có phải ngày hoàng đạo không.
+     */
+    private static function isHoangDao(Carbon $date): bool
+    {
+        $truc = NhiTrucHelper::getTruc($date->day, $date->month, $date->year);
+
+        // Các trực hoàng đạo: Trừ, Nguy, Thành, Khai
+        $hoangdaoTruc = ['Trừ', 'Nguy', 'Thành', 'Khai'];
+
+        return in_array($truc, $hoangdaoTruc);
+    }
+
+    /**
+     * Kiểm tra xem ngày có phải trực tốt không.
+     */
+    private static function isTrucTot(Carbon $date): bool
+    {
+        $truc = NhiTrucHelper::getTruc($date->day, $date->month, $date->year);
+
+        // Các trực tốt (khác với hoàng đạo): Định, Chấp, Kiến, Mãn
+        $trucTot = ['Định', 'Chấp', 'Kiến', 'Mãn'];
+
+        return in_array($truc, $trucTot);
+    }
+
+    /**
+     * Kiểm tra xem ngày có hợp tuổi không và xác định loại hợp.
+     */
+    private static function isHopTuoi(Carbon $date, $birthYear): bool
+    {
+        if (!$birthYear) return false;
+
+        try {
+            $jd = LunarHelper::jdFromDate($date->day, $date->month, $date->year);
+            $dayCanChi = LunarHelper::canchiNgayByJD($jd);
+            $birthCanChi = KhiVanHelper::canchiNam($birthYear);
+
+            $parts = explode(' ', $dayCanChi);
+            $dayChi = $parts[1] ?? '';
+
+            $birthChiParts = explode(' ', $birthCanChi);
+            $birthChi = $birthChiParts[1] ?? '';
+
+            // Kiểm tra Lục hợp (6 hợp)
+            $lucHop = [
+                'Tý' => 'Sửu', 'Sửu' => 'Tý',
+                'Dần' => 'Hợi', 'Hợi' => 'Dần',
+                'Mão' => 'Tuất', 'Tuất' => 'Mão',
+                'Thìn' => 'Dậu', 'Dậu' => 'Thìn',
+                'Tỵ' => 'Thân', 'Thân' => 'Tỵ',
+                'Ngọ' => 'Mùi', 'Mùi' => 'Ngọ'
+            ];
+
+            // Kiểm tra Tam hợp (3 hợp)
+            $tamHop = [
+                'Thủy' => ['Tý', 'Thìn', 'Thân'],
+                'Mộc' => ['Dần', 'Ngọ', 'Tuất'],
+                'Kim' => ['Tỵ', 'Dậu', 'Sửu'],
+                'Hỏa' => ['Mão', 'Mùi', 'Hợi']
+            ];
+
+            // Kiểm tra lục hợp trước
+            if (isset($lucHop[$birthChi]) && $lucHop[$birthChi] == $dayChi) {
+                return true;
+            }
+
+            // Kiểm tra tam hợp
+            foreach ($tamHop as $nhom) {
+                if (in_array($birthChi, $nhom) && in_array($dayChi, $nhom)) {
+                    return true;
+                }
+            }
+
+            return false;
+        } catch (\Exception $e) {
+            return false;
+        }
+    }
+
+    /**
+     * Lấy danh sách sao tốt trong ngày.
+     */
+    private static function getGoodStars(Carbon $date): array
+    {
+        // Logic lấy sao tốt dựa trên ngày âm lịch
+        $lunar = LunarHelper::convertSolar2Lunar($date->day, $date->month, $date->year);
+        $lunarDay = $lunar[0];
+
+        $goodStars = [];
+
+        // Một số sao tốt theo ngày âm lịch
+        if (in_array($lunarDay, [1, 8, 15])) {
+            $goodStars[] = 'Thiên Ân';
+        }
+
+        if (in_array($lunarDay, [2, 6, 10, 18, 26])) {
+            $goodStars[] = 'Thiên Đức';
+        }
+
+        if (in_array($lunarDay, [3, 7, 13, 18, 24, 30])) {
+            $goodStars[] = 'Nguyệt Đức';
+        }
+
+        if ($lunarDay % 3 == 1) {
+            $goodStars[] = 'Thiên Quý';
+        }
+
+        return $goodStars;
+    }
+
+    /**
+     * Lấy thông tin chi tiết về tam hợp/lục hợp.
+     */
+    public static function getHopTuoiDetail(Carbon $date, $birthYear): ?string
+    {
+        if (!$birthYear) return null;
+
+        try {
+            $jd = LunarHelper::jdFromDate($date->day, $date->month, $date->year);
+            $dayCanChi = LunarHelper::canchiNgayByJD($jd);
+            $birthCanChi = KhiVanHelper::canchiNam($birthYear);
+
+            $parts = explode(' ', $dayCanChi);
+            $dayChi = $parts[1] ?? '';
+
+            $birthChiParts = explode(' ', $birthCanChi);
+            $birthChi = $birthChiParts[1] ?? '';
+
+            // Kiểm tra Lục hợp trước
+            $lucHop = [
+                'Tý' => 'Sửu', 'Sửu' => 'Tý',
+                'Dần' => 'Hợi', 'Hợi' => 'Dần',
+                'Mão' => 'Tuất', 'Tuất' => 'Mão',
+                'Thìn' => 'Dậu', 'Dậu' => 'Thìn',
+                'Tỵ' => 'Thân', 'Thân' => 'Tỵ',
+                'Ngọ' => 'Mùi', 'Mùi' => 'Ngọ'
+            ];
+
+            if (isset($lucHop[$birthChi]) && $lucHop[$birthChi] == $dayChi) {
+                return 'Lục hợp';
+            }
+
+            // Kiểm tra Tam hợp
+            $tamHop = [
+                'Thủy' => ['Tý', 'Thìn', 'Thân'],
+                'Mộc' => ['Dần', 'Ngọ', 'Tuất'],
+                'Kim' => ['Tỵ', 'Dậu', 'Sửu'],
+                'Hỏa' => ['Mão', 'Mùi', 'Hợi']
+            ];
+
+            foreach ($tamHop as $nhom) {
+                if (in_array($birthChi, $nhom) && in_array($dayChi, $nhom)) {
+                    return 'Tam hợp';
+                }
+            }
+
+            return null;
+        } catch (\Exception $e) {
+            return null;
+        }
+    }
+
+    /**
+     * Lấy tên sao từ trực hoàng đạo.
+     */
+    public static function getHoangDaoStar(Carbon $date): ?string
+    {
+        $truc = NhiTrucHelper::getTruc($date->day, $date->month, $date->year);
+
+        $trucToStar = [
+            'Trừ' => 'Thanh Long',
+            'Nguy' => 'Minh Đường',
+            'Thành' => 'Kim Quỹ',
+            'Khai' => 'Thiên Đức'
+        ];
+
+        return $trucToStar[$truc] ?? null;
     }
 }

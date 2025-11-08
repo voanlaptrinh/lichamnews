@@ -149,7 +149,7 @@ html.daterangepicker-open {
     border: none;
     background: none;
     cursor: pointer;
-    border-radius: 6px;
+    /* border-radius: 6px; */
     font-size: 14px;
     color: #333;
     transition: all 0.2s ease;
@@ -342,7 +342,7 @@ html.daterangepicker-open {
 /* Large Desktop - 1400px+ */
 @media screen and (min-width:1400px) {
     .daterangepicker-container {
-        max-width: 800px;
+        max-width: 500px;
     }
 
     .box--house-tot {
@@ -383,8 +383,8 @@ html.daterangepicker-open {
 /* Desktop - 1200px to 1399.98px */
 @media screen and (min-width:1200px) and (max-width:1399.98px) {
     .daterangepicker-container {
-        min-width: 450px;
-        max-width: 800px;
+        /* min-width: 450px; */
+        max-width: 500px;
     }
 
     .box--house-tot {
@@ -421,8 +421,8 @@ html.daterangepicker-open {
 /* Laptop / Small Desktop - 992px to 1199.98px */
 @media screen and (min-width:992px) and (max-width:1199.98px) {
     .daterangepicker-container {
-        min-width: 500px;
-        max-width: 800px;
+        /* min-width: 500px; */
+        max-width: 550px;
     }
 
     .box--house-tot {
@@ -468,7 +468,7 @@ html.daterangepicker-open {
 @media screen and (min-width:768px) and (max-width:991.98px) {
     .daterangepicker-container {
         min-width: 100px;
-        max-width: 90vw;
+        max-width: 700px;
         padding: 18px;
     }
 
@@ -483,14 +483,27 @@ html.daterangepicker-open {
 
     /* ẨN shortcuts trên tablet */
     .daterangepicker-shortcuts {
-        display: none !important;
+        display: flex !important;
+        justify-content: center;
+    }
+  .daterangepicker-shortcuts{
+      border-bottom: 1px solid;
+      border-right: unset;
+  }
+    .daterangepicker-shortcuts ul{
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      align-items: center;
     }
 
     .box--house-tot {
         display: grid;
         gap: 3px;
     }
-
+.daterangepicker-shortcuts li{
+    border: 1px solid;
+}
 
     .daterangepicker-calendar {
         width: 100%;
@@ -539,7 +552,7 @@ html.daterangepicker-open {
         flex-direction: column;
         /* min-width: 300px; */
         /* max-width: 95vw; */
-        width: 440px;
+        width: 400px;
         padding: 15px;
         /* max-height: 90vh; */
         overflow: hidden;
@@ -1981,6 +1994,7 @@ th {
 }
 
 .btn-cancel-range {
+    padding: 10px !important;
     flex: 1;
     background: #f8f9fa;
     color: #46494E;
@@ -1998,9 +2012,249 @@ th {
     border-color: #adb5bd;
 }
 
-/* Hide popup on desktop */
-@media (min-width: 769px) {
+/* Hide mobile popup overlay from tablet up (768px+) */
+@media (min-width: 768px) {
+    .mobile-date-range-overlay,
+    .mobile-quick-options-overlay,
     .mobile-date-range-popup {
         display: none !important;
+    }
+}
+
+/* Mobile Date Range Popup Styles */
+.mobile-date-range-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 10000;
+    display: flex;
+    /* align-items: center; */
+    /* justify-content: center; */
+    opacity: 0;
+    visibility: hidden;
+    /* transition: all 0.3s ease; */
+}
+
+.mobile-date-range-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.mobile-date-range-popup {
+    /* background: white; */
+    width: 100%;
+    /* max-width: 420px; */
+    border-radius: 20px 20px 0 0;
+    padding: 25px 20px 35px;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.mobile-date-range-popup.show {
+    display: flex;
+    transform: translateY(0);
+}
+
+.mobile-popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.mobile-popup-header h3 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+    color: #333;
+}
+
+.mobile-close-btn {
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: #666;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s;
+}
+
+.mobile-close-btn:hover {
+    background: #f8f9fa;
+    color: #333;
+}
+
+.mobile-options-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.mobile-option-btn {
+    background: white;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    padding: 18px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    text-align: left;
+    width: 100%;
+}
+
+.mobile-option-btn:hover {
+    background: #f8f9fa;
+    border-color: #007bff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15);
+}
+
+.option-icon {
+    font-size: 24px;
+    min-width: 30px;
+}
+
+.option-label {
+    flex: 1;
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+}
+
+.option-arrow {
+    font-size: 18px;
+    color: #999;
+}
+
+/* Quick Options Popup */
+.mobile-quick-options-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 10000;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.mobile-quick-options-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.mobile-quick-options-popup {
+    background: white;
+    width: 100%;
+    max-width: 420px;
+    border-radius: 20px 20px 0 0;
+    padding: 25px 20px 35px;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.mobile-quick-options-popup.show {
+    transform: translateY(0);
+}
+
+.mobile-quick-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.mobile-quick-btn {
+    background: white;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    padding: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    text-align: left;
+    width: 100%;
+}
+
+.mobile-quick-btn:hover {
+    background: #f0f8ff;
+    border-color: #007bff;
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(0, 123, 255, 0.15);
+}
+
+.quick-icon {
+    font-size: 20px;
+    min-width: 25px;
+}
+
+.quick-label {
+    flex: 1;
+    font-size: 15px;
+    font-weight: 600;
+    color: #333;
+}
+
+/* Single date mode styling */
+.daterangepicker-container.mode-single .mobile-selected-info {
+    display: none;
+}
+
+.daterangepicker-container.mode-single .selected-dates-display {
+    justify-content: center;
+}
+
+.daterangepicker-container.mode-single .selected-date-item:last-child {
+    display: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    .mobile-date-range-popup,
+    .mobile-quick-options-popup {
+        padding: 20px 15px 30px;
+        border-radius: 15px 15px 0 0;
+    }
+
+    .mobile-popup-header h3 {
+        font-size: 18px;
+    }
+
+    .mobile-option-btn,
+    .mobile-quick-btn {
+        padding: 16px;
+    }
+
+    .option-label,
+    .quick-label {
+        font-size: 15px;
+    }
+
+    .option-icon {
+        font-size: 22px;
+    }
+
+    .quick-icon {
+        font-size: 18px;
     }
 }

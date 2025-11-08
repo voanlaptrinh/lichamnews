@@ -95,7 +95,7 @@
                                                 </div>
 
                                                 <!-- Hidden input to store formatted date -->
-                                                <input type="hidden" id="ngayXem" name="birthdate" value="">
+                                                <input type="hidden" id="ngayXem" name="birthdate" value="{{ old('birthdate', $inputs['birthdate'] ?? '') }}">
                                             </div>
 
                                             <div class="fw-bold title-tong-quan-h2-log">Khoảng thời gian cần xem
@@ -104,7 +104,8 @@
                                                 <div class="input-group">
                                                     <input type="text"  readonly
                                                         class="form-control wedding_date_range --border-box-form"
-                                                        id="khoangNgay" placeholder="DD/MM/YY - DD/MM/YY" autocomplete="off"
+                                                        id="khoangNgay" name="date_range" placeholder="DD/MM/YY - DD/MM/YY" autocomplete="off"
+                                                        value="{{ old('date_range', $inputs['date_range'] ?? '') }}"
                                                         style="border-radius: 10px; border: none; padding: 12px 45px 12px 15px; background-color: rgba(255,255,255,0.95); cursor: pointer;">
                                                     <span class="input-group-text bg-transparent border-0"
                                                         style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); z-index: 5; pointer-events: none;">

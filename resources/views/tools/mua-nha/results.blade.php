@@ -69,10 +69,9 @@
                         </div>
                         <div class="info-grid">
                             <p class="mb-2">
-                                Kiểm tra xem năm {{ $year }} {{ $yearData['canchi'] }} gia chủ tuổi
-                                {{ $birthdateInfo['can_chi_nam'] }}
-                                ({{ $yearData['year_analysis']['lunar_age'] }} tuổi) có phạm phải Kim Lâu,
-                                Hoang Ốc, Tam Tai không?
+                                Kiểm tra ngày tốt xấu và các yếu tố hỗ trợ cho việc mua nhà năm {{ $year }} {{ $yearData['canchi'] }}
+                                của gia chủ tuổi {{ $birthdateInfo['can_chi_nam'] }}
+                                ({{ $yearData['year_analysis']['lunar_age'] }} tuổi).
                             </p>
                             <ul>
                                 <li>
@@ -115,7 +114,7 @@
                                     <thead class="text-center" style="background-color: #e8ebee;">
                                         <tr>
                                             <th style="border-radius: 8px 0 0 8px">Ngày</th>
-                                            <th style="">Phạm</th>
+                                            <th style="">Yếu tố hỗ trợ</th>
                                             <th style="border-radius: 0 8px 8px 0" class="score-header">Điểm</th>
                                             {{-- <th style="min-width: 120px;border-radius: 0 8px 8px 0">Chi tiết</th> --}}
                                         </tr>
@@ -155,45 +154,53 @@
                                                 </td>
                                                 <td>
                                                     @php
-                                                        $badFactors = [];
+                                                        $supportFactors = [];
 
-                                                        // Đếm số phạm từ checkTabooDays
-                                                        $checkTabooDaysCount = 0;
-                                                        if (
-                                                            isset($day['day_score']['checkTabooDays']['issues']) &&
-                                                            is_array($day['day_score']['checkTabooDays']['issues'])
-                                                        ) {
-                                                            $checkTabooDaysCount = count(
-                                                                $day['day_score']['checkTabooDays']['issues'],
-                                                            );
-                                                        }
-
-                                                        if (
-                                                            isset($day['day_score']['issues']) &&
-                                                            !empty($day['day_score']['issues'])
-                                                        ) {
-                                                            foreach ($day['day_score']['issues'] as $issue) {
-                                                                $reason = $issue['reason'];
-
-                                                                if (str_starts_with($reason, 'Sao xấu:')) {
-                                                                    continue;
-                                                                }
-                                                                $parts = explode(':', $reason, 2);
-                                                                $factorName = trim($parts[0]);
-                                                                $badFactors[] = $factorName;
+                                                        // Kiểm tra ngày hoàng đạo - sử dụng helper
+                                                        if (isset($day['day_score']['hoangdao']) && $day['day_score']['hoangdao'] === true) {
+                                                            $starName = \App\Helpers\GoodBadDayHelper::getHoangDaoStar($day['date']);
+                                                            if ($starName) {
+                                                                $supportFactors[] = "Ngày hoàng đạo: Sao {$starName}";
                                                             }
                                                         }
-                                                        $badFactors = array_unique($badFactors);
+
+                                                        // Kiểm tra trực tốt
+                                                        if (isset($day['day_score']['tructot']) && $day['day_score']['tructot'] === true) {
+                                                            $trucName = $day['day_score']['truc']['details']['name'] ?? 'Không xác định';
+                                                            $supportFactors[] = "Trực tốt: Trực {$trucName}";
+                                                        }
+
+                                                        // Kiểm tra hợp tuổi - sử dụng helper
+                                                        if (isset($day['day_score']['hopttuoi']) && $day['day_score']['hopttuoi'] === true) {
+                                                            $hopType = \App\Helpers\GoodBadDayHelper::getHopTuoiDetail($day['date'], $birthdateInfo['dob']->year);
+                                                            if ($hopType) {
+                                                                $supportFactors[] = "Ngày hợp tuổi: {$hopType}";
+                                                            }
+                                                        }
+
+                                                        // Kiểm tra sao tốt - gộp thành 1 dòng
+                                                        if (isset($day['day_score']['good_stars']) && !empty($day['day_score']['good_stars'])) {
+                                                            $starNames = implode(', ', $day['day_score']['good_stars']);
+                                                            $supportFactors[] = "Sao tốt: {$starNames}";
+                                                        }
+
+                                                        // Chỉ lấy tối đa 4 yếu tố
+                                                        $supportFactors = array_slice(array_unique($supportFactors), 0, 4);
+                                                        $supportCount = count($supportFactors);
                                                     @endphp
-                                                    @if ($checkTabooDaysCount > 0)
-                                                        <div class="text-dark fw-semibold">
-                                                            <img src="{{ asset('icons/ping.svg?v=1.0') }}"
-                                                                alt="ping" width="24" height="24">
-                                                            <span>{{ $checkTabooDaysCount }} phạm</span>
-                                                        </div>
+                                                    @if ($supportCount > 0)
+                                                        <ul class="list-unstyled mb-0">
+                                                            @foreach ($supportFactors as $factor)
+                                                                <li class="d-flex align-items-center mb-1">
+                                                                  
+                                                                    
+                                                                    <span class="small">{{ $factor }}</span>
+                                                                </li>
+                                                            @endforeach
+                                                        </ul>
                                                     @else
-                                                        <span class="text-success">
-                                                            <i class="bi bi-check-circle-fill"></i> Không phạm
+                                                        <span class="text-warning small">
+                                                            <i class="bi bi-exclamation-triangle-fill"></i> Không có yếu tố hỗ trợ
                                                         </span>
                                                     @endif
 

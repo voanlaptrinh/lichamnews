@@ -200,9 +200,69 @@
         }
 
         setDefaultValues() {
+            // Check if hidden input has existing value to preserve
+            const existingValue = this.hiddenInput.value;
+            if (existingValue && existingValue.trim() !== '') {
+                console.log('📅 Preserving existing date value:', existingValue);
+                this.parseAndSetExistingValue(existingValue);
+                return;
+            }
+
+            // Only set defaults if no existing value
+            console.log('📅 Setting default values (no existing value found)');
             this.daySelect.value = this.options.defaultDay;
             this.monthSelect.value = this.options.defaultMonth;
             this.yearSelect.value = this.options.defaultYear;
+        }
+
+        parseAndSetExistingValue(value) {
+            // Parse existing value and set selects accordingly
+            try {
+                // Remove lunar indicators
+                const cleanValue = value.replace(' (ÂL)', '').replace(' (ÂL-Nhuận)', '');
+
+                // Check if it's lunar
+                const isLunar = value.includes('(ÂL)');
+                const isLeapMonth = value.includes('(ÂL-Nhuận)');
+
+                // Parse date parts (format: DD/MM/YYYY)
+                const parts = cleanValue.split('/');
+                if (parts.length === 3) {
+                    const day = parseInt(parts[0]);
+                    const month = parseInt(parts[1]);
+                    const year = parseInt(parts[2]);
+
+                    // Set calendar type
+                    if (isLunar && this.lunarRadio) {
+                        this.lunarRadio.checked = true;
+                        this.isLunar = true;
+                        if (this.solarRadio) this.solarRadio.checked = false;
+                    } else if (this.solarRadio) {
+                        this.solarRadio.checked = true;
+                        this.isLunar = false;
+                        if (this.lunarRadio) this.lunarRadio.checked = false;
+                    }
+
+                    // Set leap month if applicable
+                    if (isLeapMonth && this.leapCheckbox) {
+                        this.leapCheckbox.checked = true;
+                        this.isLeapMonth = true;
+                    }
+
+                    // Set select values
+                    this.yearSelect.value = year;
+                    this.monthSelect.value = month;
+                    this.daySelect.value = day;
+
+                    console.log('📅 Parsed and set existing value:', { day, month, year, isLunar, isLeapMonth });
+                }
+            } catch (error) {
+                console.error('Error parsing existing date value:', error);
+                // Fallback to defaults
+                this.daySelect.value = this.options.defaultDay;
+                this.monthSelect.value = this.options.defaultMonth;
+                this.yearSelect.value = this.options.defaultYear;
+            }
         }
 
         setupEventListeners() {

@@ -28,6 +28,7 @@ class VanillaDateRangePicker {
         this.overlay = null;
         this.scrollPosition = 0;
         this.isMobile = true; // Always use mobile-style interface
+        this.datePickerMode = 'range'; // 'single' or 'range'
 
         this.monthNames = [
             'Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4',
@@ -54,9 +55,6 @@ class VanillaDateRangePicker {
         // Tạo container chính
         this.container = document.createElement('div');
         this.container.className = 'daterangepicker-container';
-
-        // Always add mobile-view class for unified interface
-        this.container.classList.add('mobile-view');
 
         // Tạo content wrapper (chứa shortcuts + calendars)
         const content = document.createElement('div');
@@ -333,6 +331,24 @@ class VanillaDateRangePicker {
     }
 
     show() {
+        console.log('📱 Show() called');
+        console.log('🔍 Window width:', window.innerWidth);
+
+        // Clean up any existing popups first
+        this.cleanupMobilePopups();
+
+        // Chỉ hiển thị mobile popup cho mobile phone thực sự (<768px + mobile UA)
+        // Tablet/PC/Laptop (>=768px) → luôn dùng desktop picker
+        const isMobilePhone = this.isMobileDevice();
+
+        if (isMobilePhone) {
+            console.log('📱 Mobile phone detected, showing mobile popup');
+            this.showMobileDateRangePopup();
+            return;
+        } else {
+            console.log('💻 Tablet/Desktop detected, showing desktop picker');
+        }
+
         // Parse giá trị hiện tại trong input nếu có
         this.parseInputValue();
 
@@ -369,15 +385,24 @@ class VanillaDateRangePicker {
             document.body.style.paddingRight = scrollbarWidth + 'px';
         }
 
-        // Hiển thị
+        // Hiển thị desktop picker
+        console.log('💻 Adding show classes to desktop picker');
         this.overlay.classList.add('show');
         this.container.classList.add('show');
+        console.log('✅ Desktop picker show classes added - overlay:', this.overlay.classList.contains('show'), 'container:', this.container.classList.contains('show'));
     }
 
     hide() {
+        // Clean up mobile popups first
+        this.cleanupMobilePopups();
+
         this.overlay.classList.remove('show');
         this.container.classList.remove('show');
         this.resetSelection();
+
+        // Reset mode classes
+        this.container.classList.remove('mode-single', 'mode-range');
+        this.datePickerMode = 'range';
 
         // Mở khóa scroll body khi đóng popup
         document.documentElement.classList.remove('daterangepicker-open');
@@ -608,6 +633,20 @@ class VanillaDateRangePicker {
             return;
         }
 
+        // Single date mode
+        if (this.datePickerMode === 'single') {
+            this.startDate = new Date(date);
+            this.startDate.setHours(0, 0, 0, 0);
+            this.endDate = new Date(this.startDate); // Same as start date for single mode
+            this.isSelecting = false;
+            console.log('✅ Chọn ngày đơn:', this.formatDate(this.startDate));
+
+            // Auto apply for single date
+            setTimeout(() => this.apply(), 100);
+            return;
+        }
+
+        // Range mode (default)
         // Nếu chưa có startDate hoặc đã có cả start và end, reset và bắt đầu lại
         if (!this.startDate || (this.startDate && this.endDate)) {
             this.startDate = new Date(date);
@@ -743,7 +782,14 @@ class VanillaDateRangePicker {
 
         const startStr = this.formatDate(this.startDate);
         const endStr = this.formatDate(this.endDate);
-        this.input.value = `${startStr} - ${endStr}`;
+
+        // Single date mode - chỉ hiển thị một ngày (chỉ khi explicitly set single mode)
+        if (this.datePickerMode === 'single') {
+            this.input.value = startStr;
+        } else {
+            // Range mode - luôn hiển thị format range, kể cả khi cùng ngày
+            this.input.value = `${startStr} - ${endStr}`;
+        }
 
         // Trigger change event
         const event = new Event('change', { bubbles: true });
@@ -913,6 +959,374 @@ class VanillaDateRangePicker {
             this.renderCalendars();
             selectorOverlay.remove();
         });
+    }
+
+    isMobileDevice() {
+        // Kiểm tra user agent cho mobile devices (chỉ phone, loại trừ tablet)
+        const isMobilePhone = /Android.*Mobile|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+        // Kiểm tra window width - chỉ mobile phone thực sự (<768px)
+        const isMobileWidth = window.innerWidth < 768;
+
+        // Kiểm tra touch support
+        const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+        console.log('🔍 Mobile Detection:');
+        console.log('- Mobile Phone UA:', isMobilePhone);
+        console.log('- Window Width < 768:', isMobileWidth);
+        console.log('- Touch Support:', hasTouch);
+        console.log('- Navigator UA:', navigator.userAgent);
+
+        // Chỉ return true nếu là mobile phone THỰC SỰ (UA mobile + width nhỏ)
+        // iPad và tablet sẽ bị loại trừ
+        const isMobile = isMobilePhone && isMobileWidth;
+        console.log('🎯 Final Decision - Is Mobile Phone:', isMobile);
+
+        return isMobile;
+    }
+
+    showMobileDateRangePopup() {
+        console.log('📱 Showing mobile date range popup');
+
+        // Double check - chỉ cho phép mobile phone thực sự
+        if (window.innerWidth >= 768) {
+            console.log('🚫 Blocked mobile popup on tablet/desktop - Width:', window.innerWidth);
+            return;
+        }
+
+        // Cleanup any existing mobile overlays first
+        this.cleanupMobilePopups();
+
+        // Tạo overlay cho mobile popup
+        const mobileOverlay = document.createElement('div');
+        mobileOverlay.className = 'mobile-date-range-overlay';
+
+        // Tạo mobile popup container
+        const mobilePopup = document.createElement('div');
+        mobilePopup.className = 'mobile-date-range-popup';
+
+        // Content wrapper
+        const content = document.createElement('div');
+        content.className = 'mobile-popup-content-range';
+
+        // Header
+        const header = document.createElement('div');
+        header.className = 'mobile-popup-header-range';
+        header.innerHTML = 'Chọn thời gian';
+
+        // Quick options grid
+        const quickGrid = document.createElement('div');
+        quickGrid.className = 'quick-options-grid';
+
+        const quickOptions = [
+            { label: 'Hôm nay', days: 0 },
+            { label: 'Ngày mai', days: 1, single: true },
+            { label: '7 ngày tới', days: 6 },
+            { label: '14 ngày tới', days: 13 },
+            { label: '30 ngày tới', days: 29 },
+            { label: 'Tháng này', type: 'thisMonth' },
+            { label: 'Tháng sau', type: 'nextMonth' },
+            { label: 'Tuỳ chọn', custom: true }
+        ];
+
+        quickOptions.forEach(option => {
+            const optionBtn = document.createElement('button');
+            optionBtn.type = 'button';
+            if (option.custom) {
+                optionBtn.className = 'quick-option-btn custom-option-btn';
+                optionBtn.dataset.custom = 'true';
+            } else {
+                optionBtn.className = 'quick-option-btn';
+                if (option.days !== undefined) {
+                    optionBtn.dataset.days = option.days;
+                }
+                if (option.type) {
+                    optionBtn.dataset.range = option.type;
+                }
+                if (option.single) {
+                    optionBtn.dataset.single = 'true';
+                }
+            }
+
+            const title = document.createElement('div');
+            title.className = 'option-title';
+            title.textContent = option.label;
+            optionBtn.appendChild(title);
+
+            quickGrid.appendChild(optionBtn);
+        });
+
+        // Actions
+        const actions = document.createElement('div');
+        actions.className = 'popup-actions';
+
+        const cancelBtn = document.createElement('button');
+        cancelBtn.type = 'button';
+        cancelBtn.className = 'btn-cancel-range';
+        cancelBtn.textContent = 'Hủy';
+
+        actions.appendChild(cancelBtn);
+
+        // Assemble content
+        content.appendChild(header);
+        content.appendChild(quickGrid);
+        content.appendChild(actions);
+
+        mobilePopup.appendChild(content);
+        mobileOverlay.appendChild(mobilePopup);
+        document.body.appendChild(mobileOverlay);
+
+        console.log('📱 Mobile popup with quick options added to DOM');
+
+        // Khóa scroll
+        this.lockBodyScroll();
+
+        // Show animation using CSS classes
+        setTimeout(() => {
+            mobileOverlay.classList.add('show');
+            mobilePopup.classList.add('show');
+            console.log('✅ Mobile popup show classes added');
+        }, 10);
+
+        // Event listeners
+        cancelBtn.addEventListener('click', () => {
+            console.log('❌ Cancel button clicked');
+            this.closeMobilePopup(mobileOverlay);
+        });
+
+        // Click overlay to close
+        mobileOverlay.addEventListener('click', (e) => {
+            if (e.target === mobileOverlay) {
+                this.closeMobilePopup(mobileOverlay);
+            }
+        });
+
+        // Quick option selections
+        quickGrid.addEventListener('click', (e) => {
+            const optionBtn = e.target.closest('.quick-option-btn');
+            if (!optionBtn) return;
+
+            if (optionBtn.dataset.custom === 'true') {
+                // Tùy chọn - hiển thị popup chọn khoảng ngày
+                console.log('🎛️ Custom option selected - showing date range picker');
+                this.closeMobilePopup(mobileOverlay);
+
+                setTimeout(() => {
+                    this.showDatePicker('range');
+                }, 300);
+            } else {
+                // Quick options khác - apply trực tiếp
+                const option = {
+                    days: optionBtn.dataset.days ? parseInt(optionBtn.dataset.days) : undefined,
+                    type: optionBtn.dataset.range,
+                    single: optionBtn.dataset.single === 'true',
+                    label: optionBtn.querySelector('.option-title').textContent
+                };
+
+                console.log('⚡ Quick option applied:', option.label);
+                this.applyShortcut(option);
+                this.closeMobilePopup(mobileOverlay);
+
+                setTimeout(() => {
+                    this.apply();
+                }, 100);
+            }
+        });
+    }
+
+    closeMobilePopup(overlay) {
+        console.log('🔄 Closing mobile popup');
+
+        const popup = overlay.querySelector('.mobile-date-range-popup');
+
+        // Remove show classes for animation
+        overlay.classList.remove('show');
+        if (popup) {
+            popup.classList.remove('show');
+        }
+
+        this.unlockBodyScroll();
+
+        setTimeout(() => {
+            overlay.remove();
+            console.log('🗑️ Mobile popup removed');
+        }, 300);
+    }
+
+    handleMobileOptionSelection(option) {
+        switch(option) {
+            case 'single-date':
+                this.showDatePicker('single');
+                break;
+            case 'date-range':
+                this.showDatePicker('range');
+                break;
+            case 'quick-options':
+                this.showQuickOptionsPopup();
+                break;
+        }
+    }
+
+    showDatePicker(mode = 'range') {
+        this.datePickerMode = mode;
+
+        // Parse giá trị hiện tại trong input nếu có
+        this.parseInputValue();
+
+        // Set current month for unified view
+        if (this.startDate) {
+            this.currentSingleMonth = new Date(this.startDate.getFullYear(), this.startDate.getMonth(), 1);
+        }
+
+        // Render calendars
+        this.renderCalendars();
+
+        // Position container
+        this.positionContainer();
+
+        // Khóa scroll body khi popup hiện
+        const scrollbarWidth = this.getScrollbarWidth();
+
+        // Thêm class cho html và body
+        document.documentElement.classList.add('daterangepicker-open');
+        document.body.classList.add('daterangepicker-open');
+
+        // Set position fixed và top để giữ vị trí scroll
+        document.body.style.position = 'fixed';
+        document.body.style.top = `-${this.scrollPosition}px`;
+        document.body.style.left = '0';
+        document.body.style.right = '0';
+        document.body.style.overflow = 'hidden';
+
+        // Thêm padding để tránh layout shift khi scrollbar biến mất
+        if (scrollbarWidth > 0) {
+            document.body.style.paddingRight = scrollbarWidth + 'px';
+        }
+
+        // Hiển thị
+        this.overlay.classList.add('show');
+        this.container.classList.add('show');
+
+        // Add mode class to container
+        this.container.classList.add(`mode-${mode}`);
+    }
+
+    showQuickOptionsPopup() {
+        // Cleanup any existing popups first
+        this.cleanupMobilePopups();
+
+        // Tạo overlay cho quick options
+        const quickOverlay = document.createElement('div');
+        quickOverlay.className = 'mobile-quick-options-overlay';
+
+        // Tạo popup container
+        const quickPopup = document.createElement('div');
+        quickPopup.className = 'mobile-quick-options-popup';
+
+        // Header
+        const header = document.createElement('div');
+        header.className = 'mobile-popup-header';
+        header.innerHTML = `
+            <h3>Tuỳ chọn nhanh</h3>
+            <button type="button" class="mobile-close-btn">&times;</button>
+        `;
+
+        // Quick options list
+        const quickList = document.createElement('div');
+        quickList.className = 'mobile-quick-list';
+
+        const quickOptions = [
+            { label: 'Hôm nay', days: 0, icon: '📅' },
+            { label: 'Ngày mai', days: 1, single: true, icon: '➡️' },
+            { label: '7 ngày tới', days: 6, icon: '📅' },
+            { label: '30 ngày tới', days: 29, icon: '📅' },
+            { label: 'Tháng này', type: 'thisMonth', icon: '📆' },
+            { label: 'Tháng sau', type: 'nextMonth', icon: '📆' }
+        ];
+
+        quickOptions.forEach(option => {
+            const optionBtn = document.createElement('button');
+            optionBtn.type = 'button';
+            optionBtn.className = 'mobile-quick-btn';
+            optionBtn.innerHTML = `
+                <span class="quick-icon">${option.icon}</span>
+                <span class="quick-label">${option.label}</span>
+            `;
+
+            optionBtn.addEventListener('click', () => {
+                this.applyShortcut(option);
+                this.closeMobilePopup(quickOverlay);
+
+                setTimeout(() => {
+                    this.apply();
+                }, 100);
+            });
+
+            quickList.appendChild(optionBtn);
+        });
+
+        quickPopup.appendChild(header);
+        quickPopup.appendChild(quickList);
+        quickOverlay.appendChild(quickPopup);
+        document.body.appendChild(quickOverlay);
+
+        // Show animation
+        setTimeout(() => {
+            quickOverlay.classList.add('show');
+            quickPopup.classList.add('show');
+        }, 10);
+
+        // Event listeners
+        const closeBtn = header.querySelector('.mobile-close-btn');
+        closeBtn.addEventListener('click', () => {
+            this.closeMobilePopup(quickOverlay);
+        });
+
+        // Click overlay to close
+        quickOverlay.addEventListener('click', (e) => {
+            if (e.target === quickOverlay) {
+                this.closeMobilePopup(quickOverlay);
+            }
+        });
+    }
+
+    lockBodyScroll() {
+        this.scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+        const scrollbarWidth = this.getScrollbarWidth();
+
+        document.documentElement.classList.add('daterangepicker-open');
+        document.body.classList.add('daterangepicker-open');
+        document.body.style.position = 'fixed';
+        document.body.style.top = `-${this.scrollPosition}px`;
+        document.body.style.left = '0';
+        document.body.style.right = '0';
+        document.body.style.overflow = 'hidden';
+
+        if (scrollbarWidth > 0) {
+            document.body.style.paddingRight = scrollbarWidth + 'px';
+        }
+    }
+
+    unlockBodyScroll() {
+        document.documentElement.classList.remove('daterangepicker-open');
+        document.body.classList.remove('daterangepicker-open');
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.left = '';
+        document.body.style.right = '';
+        document.body.style.overflow = '';
+        document.body.style.paddingRight = '';
+
+        window.scrollTo(0, this.scrollPosition);
+    }
+
+    cleanupMobilePopups() {
+        // Remove any existing mobile overlays
+        const existingMobileOverlays = document.querySelectorAll('.mobile-date-range-overlay, .mobile-quick-options-overlay');
+        existingMobileOverlays.forEach(overlay => {
+            overlay.remove();
+        });
+        console.log('🧹 Cleaned up existing mobile popups:', existingMobileOverlays.length);
     }
 
     destroy() {
