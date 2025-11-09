@@ -1329,11 +1329,6 @@ html.daterangepicker-open {
     transition: all 0.2s ease;
 }
 
-.table tbody tr:hover {
-    background-color: #f8f9fa;
-    transform: translateY(-1px);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-}
 
 .table tbody td {
     padding: 12px;
@@ -2257,4 +2252,13 @@ th {
     .quick-icon {
         font-size: 18px;
     }
+}
+.table-detail  tbody td{
+    border: 1px solid #000000 !important;
+    background: white !important;
+    border-color: #EDF0F3;
+    vertical-align: top;
+}
+.table-detail{
+    border-collapse:collapse;
 }

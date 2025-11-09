@@ -27,13 +27,48 @@
                                 <img src="{{ asset('icons/dac-diem1.svg') }}" alt="thông tin người xem" width="28"
                                     height="28" class="me-1"> <span>Thông Tin Ngày</span>
                             </div>
+                            {{-- @dd($groomData) --}}
                             <div>
-                                <span class="" style="font-weight: 600"><span
-                                        style="text-transform: capitalize !important;">{{ $commonDayInfo['dayOfWeek'] }}</span>,
-                                    {{ $commonDayInfo['dateToCheck']->format('d/m/Y') }}</span> <span
-                                    style="color: rgba(34, 84, 171, 1); font-weight: 600;">{{ $commonDayInfo['lunarDateStr'] }}
-                                    (AL)</span>
+                                <table class="table table-detail" style="table-layout: fixed;">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <span style="font-weight: 600">Ngày Dương lịch:</span>
+                                                {{ $commonDayInfo['dateToCheck']->format('d/m/Y') }}
+                                                ({{ $commonDayInfo['dayOfWeek'] }})
+                                            </td>
+                                            <td>
+                                                <span style="font-weight: 600">Ngày Âm lịch:</span>
+                                                {{ $commonDayInfo['al'][0] }}/{{ $commonDayInfo['al'][1] }}/{{ $commonDayInfo['al'][2] }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span style="font-weight: 600">Nạp Âm:</span>
+                                                {{ $commonDayInfo['getThongTinNgay']['nap_am']['napAm'] ?? '' }} (Hành
+                                                {{ $commonDayInfo['getThongTinNgay']['nap_am']['napAmHanh'] ?? '' }})
+                                            </td>
+                                            <td>
+                                                <span style="font-weight: 600">Ngày can chi:</span> Ngày
+                                                {{ $commonDayInfo['can_chi_ngay'] }}, tháng
+                                                {{ $commonDayInfo['can_chi_thang'] }}, năm
+                                                {{ $commonDayInfo['can_chi_nam'] }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span style="font-weight: 600">Giờ hoàng đạo:</span>
+                                                {{ $commonDayInfo['getThongTinNgay']['gio_hoang_dao'] ?? '' }}
+                                            </td>
+                                            <td>
+                                                <span style="font-weight: 600">Giờ hắc đạo:</span>
+                                                {{ $commonDayInfo['getThongTinNgay']['gio_hac_dao'] ?? '' }}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
+
                             @if (isset($tabooResult['issues']) && !empty($tabooResult['issues']))
                                 <div class="mt-2">
                                     @foreach ($tabooResult['issues'] as $badDay)
@@ -47,22 +82,81 @@
                                 </div>
                             @endif
 
-                            <div class="mt-2 box--house-tot">
-                                <div class="d-flex  align-items-center" style="gap: 12px">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                        fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16">
-                                        <path
-                                            d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z" />
-                                        <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0" />
-                                    </svg>
-                                    <span style="font-weight: 600"> Giờ tốt:</span>
-                                </div>
-                                <span>{{ $commonDayInfo['getThongTinNgay']['gio_hoang_dao'] }}</span>
-                            </div>
+
                         </div>
 
                     </div>
+                    <div class="card border-0 mb-3 w-100 box-detial-year">
+                        <div class="card-body box1-con-year">
+                            <div
+                                class="text-primary mb-3 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
+                                <img src="{{ asset('icons/dac-diem1.svg') }}" alt="thông tin người xem" width="28"
+                                    height="28" class="me-1"> <span>Đánh giá cho điểm các yếu tố ngày cho tuổi
+                                    {{ $groomData['personInfo']['can_chi_nam'] }}
+                                    ({{ $groomData['personInfo']['dob']->format('d-m-Y') }}) mua nhà:
+                                    {{ round($groomData['score']['percentage']) }}/100
+                                    ({{ round($groomData['score']['percentage']) }}%)</span>
+                            </div>
+                            @dd($groomData)
+                            <div>
+                                <table class="table table-detail" style="table-layout: fixed;">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                Yếu tố đánh giá
+                                            </td>
+                                            <td>
+                                                Điểm đánh giá
+                                            </td>
+                                            <td>
+                                                Trọng số
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Can chi - vận khí ngày so với tuổi</td>
+                                            <td>{{ $groomData['score']['vanKhi']['details']['totalVanKhiPercentage'] }}/100
+                                            </td>
+                                            <td>{{ $groomData['score']['vanKhi']['score'] }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Nhị Thập Bát Tú</td>
+                                            <td>{{ $groomData['score']['vanKhi']['details']['totalVanKhiPercentage'] }}/100
+                                            </td>
+                                            <td>{{ $groomData['score']['vanKhi']['score'] }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Thập Nhị Trực</td>
+                                            <td>{{ $groomData['score']['vanKhi']['details']['totalVanKhiPercentage'] }}/100
+                                            </td>
+                                            <td>{{ $groomData['score']['vanKhi']['score'] }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Sao Cát Hung - Ngọc Hạp Thông Thư</td>
+                                            <td>{{ $groomData['score']['vanKhi']['details']['totalVanKhiPercentage'] }}/100
+                                            </td>
+                                            <td>{{ $groomData['score']['vanKhi']['score'] }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
 
+                            @if (isset($tabooResult['issues']) && !empty($tabooResult['issues']))
+                                <div class="mt-2">
+                                    @foreach ($tabooResult['issues'] as $badDay)
+                                        <div class="text-dark fw-semibold">
+                                            <img src="{{ asset('icons/ping.svg?v=1.0') }}" alt="ping" width="24"
+                                                height="24">
+                                            <span style="font-weight: 600">Phạm:</span>
+                                            {{ $badDay['details']['tabooName'] ?? '' }}
+                                        </div>
+                                    @endforeach
+                                </div>
+                            @endif
+
+
+                        </div>
+
+                    </div>
 
                     <div class="card border-0 mb-3 w-100 box-detial-year">
                         <div class="card-body box1-con-year">

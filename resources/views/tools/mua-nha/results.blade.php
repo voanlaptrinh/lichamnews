@@ -152,7 +152,7 @@
                                                         </div>
                                                     </a>
                                                 </td>
-                                                <td>
+                                                <td style="text-align: start">
                                                     @php
                                                         $supportFactors = [];
 

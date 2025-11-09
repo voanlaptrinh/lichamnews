@@ -228,7 +228,7 @@ class BadDayHelper
         $personInfo = self::getPersonBasicInfo($personDob);
         $getThongTinCanChiVaIcon = FunctionHelper::getThongTinCanChiVaIcon($dateToCheck->day, $dateToCheck->month, $dateToCheck->year);
         $chiNgay = explode(' ', $getThongTinCanChiVaIcon['can_chi_ngay'])[1] ?? '';
-     
+
         return [
             'personTitle' => $personTitle,
             'personInfo' => $personInfo,
@@ -251,11 +251,15 @@ class BadDayHelper
         $canChiNgay = \App\Helpers\LunarHelper::canchiNgayByJD($jd);
         list($dayCan, $dayChi) = explode(' ', $canChiNgay);
         $hopxungNgay = FengShuiHelper::getCucKhiHopXung($dayChi);
-
+        $canChiThang = KhiVanHelper::canchiThang($dateToCheck->year, $dateToCheck->month);
+        $canChiNam = KhiVanHelper::canchiNam($dateToCheck->year);
         // Lấy thứ trong tuần
         $dayOfWeek = $dateToCheck->locale('vi')->dayName;
 
         return [
+            'can_chi_ngay' => $canChiNgay,
+            'can_chi_thang' => $canChiThang,
+            'can_chi_nam' => $canChiNam,
             'dateToCheck' => $dateToCheck,
             'day' => $dateToCheck->day,
             'month' => $dateToCheck->month,

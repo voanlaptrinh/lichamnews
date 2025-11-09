@@ -136,7 +136,7 @@ class GoodBadDayHelper
             'tu' => [
                 'score' => $tuScoreValue,
                 'weightedScore' => $tuWeightedScore,
-                'details' => ['name' => $starName],
+                'details' => ['name' => $starName,'tuIssues'=> $tuIssues],
             ],
             'truc' => [
                 'score' => $trucScoreValue,
