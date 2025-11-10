@@ -112,6 +112,8 @@
 
         async populateMonthSelect() {
             const year = parseInt(this.yearSelect.value) || this.options.defaultYear;
+            const currentMonth = this.monthSelect.value; // Lưu tháng hiện tại
+            const currentIsLeap = this.isLeapMonth; // Lưu trạng thái tháng nhuận hiện tại
 
             // Show loading state when lunar calendar and need to check for leap months
             if (this.isLunar) {
@@ -128,6 +130,13 @@
                     option.value = i;
                     option.textContent = `Tháng ${i}`;
                     this.monthSelect.appendChild(option);
+                }
+
+                // Khôi phục tháng đã chọn trước đó (nếu có)
+                if (currentMonth && currentMonth !== '') {
+                    this.monthSelect.value = currentMonth;
+                } else {
+                    this.monthSelect.value = this.options.defaultMonth;
                 }
             } else {
                 // Lunar calendar - check for leap month
@@ -181,9 +190,33 @@
                         this.monthSelect.appendChild(leapOption);
                     }
                 }
-            }
 
-            this.monthSelect.value = this.options.defaultMonth;
+                // Khôi phục tháng đã chọn trước đó (bao gồm cả tháng nhuận)
+                if (currentMonth && currentMonth !== '') {
+                    // Tìm option phù hợp với tháng và trạng thái nhuận
+                    let optionFound = false;
+                    for (let i = 0; i < this.monthSelect.options.length; i++) {
+                        const option = this.monthSelect.options[i];
+                        if (option.value == currentMonth) {
+                            if ((currentIsLeap && option.dataset.isLeap === '1') ||
+                                (!currentIsLeap && option.dataset.isLeap !== '1')) {
+                                this.monthSelect.selectedIndex = i;
+                                optionFound = true;
+                                break;
+                            }
+                        }
+                    }
+
+                    // Nếu không tìm thấy option phù hợp (ví dụ: năm mới không có tháng nhuận),
+                    // chọn tháng thường cùng số
+                    if (!optionFound) {
+                        this.monthSelect.value = currentMonth;
+                        this.isLeapMonth = false; // Reset về tháng thường
+                    }
+                } else {
+                    this.monthSelect.value = this.options.defaultMonth;
+                }
+            }
         }
 
         populateYearSelect() {
