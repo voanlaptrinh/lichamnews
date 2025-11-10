@@ -123,14 +123,15 @@
                                         @foreach ($yearData['days'] as $day)
                                             <tr>
                                                 <td>
-                                                    <a
+                                                    <a   target="_blank"
+    rel="noopener noreferrer"
                                                         href="{{ route('buy-house.details', [
                                                             'date' => $day['date']->format('Y-m-d'),
                                                             'birthdate' => $birthdateInfo['dob']->format('Y-m-d'),
                                                         ]) }}">
                                                         <div class="box-dtl-pc">
                                                             <div style="color: #0F172A;font-size: 18px">
-                                                                <strong>{{ $day['weekday_name'] ?? '' }},
+                                                                <strong style="text-transform:capitalize;">{{ $day['weekday_name'] ?? '' }},
                                                                     {{ $day['date']->format('d/m/Y') }}</strong>
                                                             </div>
                                                             <div class="text-muted small"
@@ -192,8 +193,6 @@
                                                         <ul class="list-unstyled mb-0">
                                                             @foreach ($supportFactors as $factor)
                                                                 <li class="d-flex align-items-center mb-1">
-                                                                  
-                                                                    
                                                                     <span class="small">{{ $factor }}</span>
                                                                 </li>
                                                             @endforeach

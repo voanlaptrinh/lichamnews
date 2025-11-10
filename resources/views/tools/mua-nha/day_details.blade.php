@@ -339,13 +339,20 @@
                                                 class="accordion-collapse collapse"
                                                 data-bs-parent="#accordion-{{ Str::slug($groomData['personTitle']) }}">
                                                 <div class="accordion-body">
-                                                    @php $getThongTinTruc = $commonDayInfo['getThongTinTruc']; @endphp
-                                                    <p><b>Trực ngày: </b>Trực <b>{{ $getThongTinTruc['title'] }}</b> - Là
+                                                   @php $getThongTinTruc = $commonDayInfo['getThongTinTruc']; @endphp
+                                                    <p class="mb-1"><b>Trực ngày: </b>Trực <b>{{ $getThongTinTruc['title'] }}</b> - Là
                                                         trực
                                                         {{ $getThongTinTruc['description']['rating'] }}.</p>
-                                                    <p>{{ $getThongTinTruc['description']['description'] }}</p>
-                                                    <p><b>Nên làm:</b> {{ $getThongTinTruc['description']['good'] }}</p>
-                                                    <p><b>Kiêng kỵ:</b> {{ $getThongTinTruc['description']['bad'] }}</p>
+                                                    <p class="mb-1">{{ $getThongTinTruc['description']['description'] }}</p>
+                                                  <div class="ps-3">
+                                                      @if (!empty($getThongTinTruc['description']['good']))
+                                                        <p class="mb-0"><b>Nên làm:</b>
+                                                            {{ $getThongTinTruc['description']['good'] }}</p>
+                                                    @endif
+                                                    @if (!empty($getThongTinTruc['description']['bad']))
+                                                        <p><b>Kiêng kỵ:</b> {{ $getThongTinTruc['description']['bad'] }}
+                                                        </p>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>

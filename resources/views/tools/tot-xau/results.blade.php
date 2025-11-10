@@ -93,11 +93,12 @@
                                         @foreach ($yearData['days'] as $day)
                                             <tr>
                                                 <td>
-                                                    <a
+                                                    <a   target="_blank"
+    rel="noopener noreferrer"
                                                         href="{{ route('totxau.dayDetails', ['date' => $day['date']->format('Y-m-d'), 'birthdate' => $formattedBirthdate]) }}">
                                                         <div class="box-dtl-pc">
                                                             <div style="color: #0F172A;font-size: 18px">
-                                                                <strong>{{ $day['weekday_name'] ?? '' }},
+                                                                <strong style="text-transform:capitalize;">{{ $day['weekday_name'] ?? '' }},
                                                                     {{ $day['date']->format('d/m/Y') }}</strong>
                                                             </div>
                                                             <div class="text-muted small"
@@ -134,9 +135,11 @@
 
                                                         // Kiểm tra trực tốt
                                                         if (isset($day['day_score']['score']['tructot']) && $day['day_score']['score']['tructot'] === true) {
-                                                            $trucName = $day['day_score']['truc']['details']['name'] ?? 'Không xác định';
+                                                            $trucName = $day['day_score']['score']['truc']['details']['name'] ?? 'Không xác định';
                                                             $supportFactors[] = "Trực tốt: Trực {$trucName}";
                                                         }
+
+                                               
 
                                                         // Kiểm tra hợp tuổi - sử dụng helper
                                                         if (isset($day['day_score']['score']['hopttuoi']) && $day['day_score']['score']['hopttuoi'] === true) {

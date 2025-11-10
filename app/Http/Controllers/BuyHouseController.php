@@ -70,6 +70,8 @@ class BuyHouseController extends Controller
         $validated = $validator->validated();
 
         $birthdate = Carbon::parse($validated['birthdate']);
+
+ 
         $startDate = Carbon::createFromFormat('d/m/Y', $validated['start_date'])->startOfDay();
         $endDate = Carbon::createFromFormat('d/m/Y', $validated['end_date'])->endOfDay();
         $period = CarbonPeriod::create($startDate, $endDate);
@@ -169,11 +171,14 @@ class BuyHouseController extends Controller
      */
     private function calculateYearAnalysis(Carbon $dob, int $yearToCheck): array
     {
-        $birthYear = $dob->year;
+      $lunarDob = LunarHelper::convertSolar2Lunar($dob->day, $dob->month, $dob->year);
+        $birthYear = $lunarDob[2];
+
         $lunarAge = AstrologyHelper::getLunarAge($birthYear, $yearToCheck);
 
         $kimLau = AstrologyHelper::checkKimLau($lunarAge);
         $hoangOc = AstrologyHelper::checkHoangOc($lunarAge);
+        
         $tamTai = AstrologyHelper::checkTamTai($birthYear, $yearToCheck);
 
         $badFactors = [];

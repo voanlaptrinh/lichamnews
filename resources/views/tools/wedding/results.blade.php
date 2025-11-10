@@ -123,8 +123,10 @@
                             </div>
                             <select name="sort" class=" form-select-sm sort-select" style="width: auto;"
                                 form="weddingForm">
-                                <option value="desc" {{ ($sortOrder ?? 'desc') === 'desc' ? 'selected' : '' }}>Tổng điểm giảm dần</option>
-                                <option value="asc" {{ ($sortOrder ?? 'desc') === 'asc' ? 'selected' : '' }}>Tổng điểm tăng dần</option>
+                                <option value="desc" {{ ($sortOrder ?? 'desc') === 'desc' ? 'selected' : '' }}>Tổng
+                                    điểm giảm dần</option>
+                                <option value="asc" {{ ($sortOrder ?? 'desc') === 'asc' ? 'selected' : '' }}>Tổng
+                                    điểm tăng dần</option>
                             </select>
                         </div>
 
@@ -143,14 +145,16 @@
                                         @foreach ($yearData['days'] as $day)
                                             <tr>
                                                 <td>
-                                                    <a href="{{ route('wedding.day.details', [
-                                                    'date' => $day['date']->format('Y-m-d'),
-                                                    'groom_dob' => $groomInfo['dob']->format('Y-m-d'),
-                                                    'bride_dob' => $brideInfo['dob']->format('Y-m-d'),
-                                                ]) }}">
+                                                    <a target="_blank" rel="noopener noreferrer"
+                                                        href="{{ route('wedding.day.details', [
+                                                            'date' => $day['date']->format('Y-m-d'),
+                                                            'groom_dob' => $groomInfo['dob']->format('Y-m-d'),
+                                                            'bride_dob' => $brideInfo['dob']->format('Y-m-d'),
+                                                        ]) }}">
                                                         <div class="box-dtl-pc">
                                                             <div style="color: #0F172A;font-size: 18px">
-                                                                <strong>{{ $day['weekday_name'] ?? '' }},
+                                                                <strong
+                                                                    style="text-transform:capitalize;">{{ $day['weekday_name'] ?? '' }},
                                                                     {{ $day['date']->format('d/m/Y') }}</strong>
                                                             </div>
                                                             <div class="text-muted small"
@@ -300,24 +304,56 @@
 
                                                         // Xác định màu cho chú rể
                                                         if ($groomScore < 30) {
-                                                            $groomColor = ['bg' => '#FEE2E2', 'border' => '#DC2626', 'text' => '#DC2626'];
+                                                            $groomColor = [
+                                                                'bg' => '#FEE2E2',
+                                                                'border' => '#DC2626',
+                                                                'text' => '#DC2626',
+                                                            ];
                                                         } elseif ($groomScore < 50) {
-                                                            $groomColor = ['bg' => '#FFE3D5', 'border' => '#FC6803', 'text' => '#FC6803'];
+                                                            $groomColor = [
+                                                                'bg' => '#FFE3D5',
+                                                                'border' => '#FC6803',
+                                                                'text' => '#FC6803',
+                                                            ];
                                                         } elseif ($groomScore < 70) {
-                                                            $groomColor = ['bg' => '#FEF3C7', 'border' => '#F59E0B', 'text' => '#F59E0B'];
+                                                            $groomColor = [
+                                                                'bg' => '#FEF3C7',
+                                                                'border' => '#F59E0B',
+                                                                'text' => '#F59E0B',
+                                                            ];
                                                         } else {
-                                                            $groomColor = ['bg' => '#D1FAE5', 'border' => '#10B981', 'text' => '#10B981'];
+                                                            $groomColor = [
+                                                                'bg' => '#D1FAE5',
+                                                                'border' => '#10B981',
+                                                                'text' => '#10B981',
+                                                            ];
                                                         }
 
                                                         // Xác định màu cho cô dâu
                                                         if ($brideScore < 30) {
-                                                            $brideColor = ['bg' => '#FEE2E2', 'border' => '#DC2626', 'text' => '#DC2626'];
+                                                            $brideColor = [
+                                                                'bg' => '#FEE2E2',
+                                                                'border' => '#DC2626',
+                                                                'text' => '#DC2626',
+                                                            ];
                                                         } elseif ($brideScore < 50) {
-                                                            $brideColor = ['bg' => '#FFE3D5', 'border' => '#FC6803', 'text' => '#FC6803'];
+                                                            $brideColor = [
+                                                                'bg' => '#FFE3D5',
+                                                                'border' => '#FC6803',
+                                                                'text' => '#FC6803',
+                                                            ];
                                                         } elseif ($brideScore < 70) {
-                                                            $brideColor = ['bg' => '#FEF3C7', 'border' => '#F59E0B', 'text' => '#F59E0B'];
+                                                            $brideColor = [
+                                                                'bg' => '#FEF3C7',
+                                                                'border' => '#F59E0B',
+                                                                'text' => '#F59E0B',
+                                                            ];
                                                         } else {
-                                                            $brideColor = ['bg' => '#D1FAE5', 'border' => '#10B981', 'text' => '#10B981'];
+                                                            $brideColor = [
+                                                                'bg' => '#D1FAE5',
+                                                                'border' => '#10B981',
+                                                                'text' => '#10B981',
+                                                            ];
                                                         }
                                                     @endphp
 

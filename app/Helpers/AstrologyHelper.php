@@ -217,7 +217,6 @@ class AstrologyHelper
 
             return [
                 'is_bad' => true,
-                // Sử dụng $tamTaiYearWord thay cho $tamTaiYearNumber trong chuỗi message
                 'message' => "Phạm Tam Tai năm {$checkYearZodiac}. Đây là năm Tam Tai {$tamTaiYearWord}.",
                 'details' => $tamTaiMeanings[$tamTaiYearNumber],
             ];
