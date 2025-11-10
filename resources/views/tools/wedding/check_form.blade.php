@@ -2,7 +2,7 @@
 
 @section('content')
     @push('styles')
-        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=10.0') }}">
+        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=10.5') }}">
     @endpush
 
 
@@ -36,16 +36,7 @@
 
                                         <form action="{{ route('astrology.check') }}" method="POST">
                                             @csrf
-                                            {{-- @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <strong>Có lỗi xảy ra! Vui lòng kiểm tra lại:</strong>
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif --}}
+                                         
                                             <div class="row">
                                                 {{-- Ngày sinh Chú rể --}}
                                                 <div class="col-md-12 mb-3">
@@ -264,7 +255,7 @@
                         </div>
                     </div>
                 </div>
-                @include('tools.siderbarindex')
+             @include('tools.siderbarindex')
             </div>
         </div>
     </div>
@@ -279,7 +270,7 @@
 @push('scripts')
     <script src="{{ asset('js/lunar-solar-date-select.js') }}"></script>
     {{-- Date Range Picker JS (vanilla JS version) --}}
-    <script src="{{ asset('/js/vanilla-daterangepicker.js?v=6.1') }}" defer></script>
+    <script src="{{ asset('/js/vanilla-daterangepicker.js?v=6.5') }}" defer></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -556,6 +547,53 @@
                             const tabs = resultsContainer.querySelectorAll('[data-bs-toggle="tab"]');
                             tabs.forEach(tab => {
                                 new bootstrap.Tab(tab);
+                            });
+
+                            // Add event listener for sort select change
+                            const sortSelects = resultsContainer.querySelectorAll('[name="sort"]');
+                            sortSelects.forEach(select => {
+                                select.addEventListener('change', function() {
+                                    // Create form data with current values and new sort order
+                                    const newFormData = {
+                                        groom_dob: formattedGroomDob,
+                                        bride_dob: formattedBrideDob,
+                                        wedding_date_range: dateRangeValue,
+                                        sort: this.value,
+                                        _token: csrfToken
+                                    };
+
+                                    // Submit with new sort order
+                                    fetch('{{ route("astrology.check") }}', {
+                                            method: 'POST',
+                                            headers: {
+                                                'Content-Type': 'application/json',
+                                                'X-CSRF-TOKEN': csrfToken,
+                                                'Accept': 'application/json'
+                                            },
+                                            body: JSON.stringify(newFormData)
+                                        })
+                                        .then(response => response.json())
+                                        .then(data => {
+                                            if (data.success) {
+                                                resultsContainer.innerHTML = data.html;
+
+                                                // Re-initialize tabs
+                                                const newTabs = resultsContainer.querySelectorAll('[data-bs-toggle="tab"]');
+                                                newTabs.forEach(tab => {
+                                                    new bootstrap.Tab(tab);
+                                                });
+
+                                                // Re-add sort event listeners recursively
+                                                const newSortSelects = resultsContainer.querySelectorAll('[name="sort"]');
+                                                newSortSelects.forEach(newSelect => {
+                                                    newSelect.addEventListener('change', arguments.callee);
+                                                });
+                                            }
+                                        })
+                                        .catch(error => {
+                                            console.error('Sort error:', error);
+                                        });
+                                });
                             });
                         } else if (data.errors) {
                             let errorMessage = 'Vui lòng kiểm tra lại:\n';

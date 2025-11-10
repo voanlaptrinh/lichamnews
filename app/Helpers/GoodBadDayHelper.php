@@ -61,6 +61,7 @@ class GoodBadDayHelper
 
         // 5. 28 Tú
         $starName = NhiThapBatTuHelper::getNhiThapBatTu($date)['name'];
+        $starNametitle = NhiThapBatTuHelper::getNhiThapBatTu($date);
         $tuScoreValue = NhiThapBatTuHelper::getStarRating($starName, $effectivePurpose);
         $tuWeightedScore = $tuScoreValue * self::getWeight($effectivePurpose, '28Tu', $isPersonalized);
         $tuIssues = NhiThapBatTuHelper::checkStarIssues($starName, $effectivePurpose);
@@ -72,6 +73,10 @@ class GoodBadDayHelper
         $trucWeightedScore = $trucScoreValue * self::getWeight($effectivePurpose, '12Truc', $isPersonalized);
         $trucIssues = NhiTrucHelper::checkTrucIssues($trucName, $effectivePurpose);
         $allIssues = array_merge($allIssues, $trucIssues);
+
+      
+
+
         // 7. Tổng hợp điểm có trọng số
         $totalWeights = self::getTotalWeight($effectivePurpose, $isPersonalized);
         $totalWeightedScore = $vanKhiWeightedScore + $catHungWeightedScore + $tuWeightedScore + $trucWeightedScore;
@@ -116,6 +121,27 @@ class GoodBadDayHelper
         // Tính toán các yếu tố hỗ trợ
         $supportFactors = self::calculateSupportFactors($date, $birthDate);
 
+        // Lấy thông tin tuổi kỵ
+        $jd = LunarHelper::jdFromDate($date->day, $date->month, $date->year);
+        $dayCanChi = LunarHelper::canchiNgayByJD($jd);
+        $dayChiParts = explode(' ', $dayCanChi);
+        $dayChi = $dayChiParts[1] ?? '';
+        $cucKhiInfo = FengShuiHelper::getCucKhiHopXung($dayChi);
+
+        // 10. Tính phần trăm cho từng thành phần
+        // Chuyển đổi điểm từ [-2, 2] sang [0, 100]%
+        $vanKhiPercentage = (($vanKhiNormalized + 2.0) / 4.0) * 100.0;
+        $vanKhiPercentage = max(0.0, min(100.0, $vanKhiPercentage));
+
+        $catHungPercentage = (($catHungScoreValue + 2.0) / 4.0) * 100.0;
+        $catHungPercentage = max(0.0, min(100.0, $catHungPercentage));
+
+        $tuPercentage = (($tuScoreValue + 2.0) / 4.0) * 100.0;
+        $tuPercentage = max(0.0, min(100.0, $tuPercentage));
+
+        $trucPercentage = (($trucScoreValue + 2.0) / 4.0) * 100.0;
+        $trucPercentage = max(0.0, min(100.0, $trucPercentage));
+
         // --- Trả về kết quả cuối cùng ---
         return [
             'checkTabooDays' => $tabooResult ?? '',
@@ -126,29 +152,39 @@ class GoodBadDayHelper
             'vanKhi' => [
                 'score' => $vanKhiNormalized,
                 'weightedScore' => $vanKhiWeightedScore,
+                'percentage' => round($vanKhiPercentage, 2),
                 'details' => $vanKhiResult['details'] ?? [],
             ],
             'catHung' => [
                 'score' => $catHungScoreValue,
                 'weightedScore' => $catHungWeightedScore,
+                'percentage' => round($catHungPercentage, 2),
                 'details' => $catHungResult['details'] ?? [],
             ],
             'tu' => [
                 'score' => $tuScoreValue,
                 'weightedScore' => $tuWeightedScore,
-                'details' => ['name' => $starName,'tuIssues'=> $tuIssues],
+                'percentage' => round($tuPercentage, 2),
+                'details' => [
+                    'name' => $starName,
+                    'data' => $starNametitle,
+                    'tuIssues' => $tuIssues
+                ],
             ],
             'truc' => [
                 'score' => $trucScoreValue,
                 'weightedScore' => $trucWeightedScore,
+                'percentage' => round($trucPercentage, 2),
                 'details' => ['name' => $trucName],
             ],
             // Thêm các yếu tố hỗ trợ
             'hoangdao' => $supportFactors['hoangdao'],
             'tructot' => $supportFactors['tructot'],
             'hopttuoi' => $supportFactors['hopttuoi'],
+            'hopTuoiReason' => $supportFactors['hopTuoiReason'] ?? '',
             'good_stars' => $supportFactors['good_stars'],
             'positive_factors' => $supportFactors['positive_factors'],
+         
         ];
     }
 
@@ -293,7 +329,7 @@ class GoodBadDayHelper
         $day = (int)$date->format('d');
         $month = (int)$date->format('m');
         $year = (int)$date->format('Y');
-          $lunar = lunarHelper::convertSolar2Lunar($day,  $month, $year);
+        $lunar = lunarHelper::convertSolar2Lunar($day,  $month, $year);
         $jd = LunarHelper::jdFromDate((int)$day, (int)$month, (int)$year);
         $canchi = LunarHelper::canchiNgayByJD($jd);
         $chi_ngay = explode(' ', $canchi);
@@ -320,10 +356,10 @@ class GoodBadDayHelper
         $month = (int)$date->format('m');
         $year = (int)$date->format('Y');
         $can = lunarHelper::canchiNam($year);
-           $canNam = explode(' ', $can);
-           $canNam = $canNam[0]; //Ất
-  $jd = LunarHelper::jdFromDate((int)$day, (int)$month, (int)$year);
-       $canchi = LunarHelper::canchiNgayByJD($jd);
+        $canNam = explode(' ', $can);
+        $canNam = $canNam[0]; //Ất
+        $jd = LunarHelper::jdFromDate((int)$day, (int)$month, (int)$year);
+        $canchi = LunarHelper::canchiNgayByJD($jd);
         $chi_ngay = explode(' ', $canchi);
         $chi_ngay  = $chi_ngay[1];
 
@@ -573,8 +609,36 @@ class GoodBadDayHelper
 
         // 3. Kiểm tra hợp tuổi (nếu có năm sinh)
         $hopttuoi = false;
+        $hopTuoiReason = '';
         if ($birthDate) {
             $hopttuoi = self::isHopTuoi($date, $birthDate);
+
+            $birthCanChi = KhiVanHelper::canchiNam($birthDate);
+            $birthChiParts = explode(' ', $birthCanChi);
+            $birthChi = $birthChiParts[1] ?? '';
+            if ($hopttuoi) {
+                $hopTuoiReason = self::getHopTuoiDetail($date, $birthDate) ?? '';
+            } else {
+                // Kiểm tra tất cả các mối quan hệ xấu với debug
+                $isLucXung = GioHoangDaoHelper::isLucXung($dayChi, $birthChi);
+                $isTuongHai = GioHoangDaoHelper::isTuongHai($dayChi, $birthChi);
+                $isTuongPha = GioHoangDaoHelper::isTuongPha($dayChi, $birthChi);
+                $isTuHinh = ($birthChi === $dayChi);
+
+             
+
+                if ($isLucXung) {
+                    $hopTuoiReason = "Lục xung";
+                } elseif ($isTuongHai) {
+                    $hopTuoiReason = "Tương hại";
+                } elseif ($isTuongPha) {
+                    $hopTuoiReason = "Tương phá";
+                } elseif ($isTuHinh) {
+                    $hopTuoiReason = "Tự hình";
+                } else {
+                    $hopTuoiReason = "Ngày bình thường";
+                }
+            }
         }
 
         // 4. Kiểm tra sao tốt
@@ -598,6 +662,7 @@ class GoodBadDayHelper
             'hoangdao' => $hoangdao,
             'tructot' => $tructot,
             'hopttuoi' => $hopttuoi,
+            'hopTuoiReason' => $hopTuoiReason,
             'good_stars' => $good_stars,
             'positive_factors' => $positive_factors,
         ];
@@ -640,7 +705,6 @@ class GoodBadDayHelper
             $jd = LunarHelper::jdFromDate($date->day, $date->month, $date->year);
             $dayCanChi = LunarHelper::canchiNgayByJD($jd);
             $birthCanChi = KhiVanHelper::canchiNam($birthYear);
-
             $parts = explode(' ', $dayCanChi);
             $dayChi = $parts[1] ?? '';
 
@@ -649,12 +713,18 @@ class GoodBadDayHelper
 
             // Kiểm tra Lục hợp (6 hợp)
             $lucHop = [
-                'Tý' => 'Sửu', 'Sửu' => 'Tý',
-                'Dần' => 'Hợi', 'Hợi' => 'Dần',
-                'Mão' => 'Tuất', 'Tuất' => 'Mão',
-                'Thìn' => 'Dậu', 'Dậu' => 'Thìn',
-                'Tỵ' => 'Thân', 'Thân' => 'Tỵ',
-                'Ngọ' => 'Mùi', 'Mùi' => 'Ngọ'
+                'Tý' => 'Sửu',
+                'Sửu' => 'Tý',
+                'Dần' => 'Hợi',
+                'Hợi' => 'Dần',
+                'Mão' => 'Tuất',
+                'Tuất' => 'Mão',
+                'Thìn' => 'Dậu',
+                'Dậu' => 'Thìn',
+                'Tỵ' => 'Thân',
+                'Thân' => 'Tỵ',
+                'Ngọ' => 'Mùi',
+                'Mùi' => 'Ngọ'
             ];
 
             // Kiểm tra Tam hợp (3 hợp)
@@ -734,12 +804,18 @@ class GoodBadDayHelper
 
             // Kiểm tra Lục hợp trước
             $lucHop = [
-                'Tý' => 'Sửu', 'Sửu' => 'Tý',
-                'Dần' => 'Hợi', 'Hợi' => 'Dần',
-                'Mão' => 'Tuất', 'Tuất' => 'Mão',
-                'Thìn' => 'Dậu', 'Dậu' => 'Thìn',
-                'Tỵ' => 'Thân', 'Thân' => 'Tỵ',
-                'Ngọ' => 'Mùi', 'Mùi' => 'Ngọ'
+                'Tý' => 'Sửu',
+                'Sửu' => 'Tý',
+                'Dần' => 'Hợi',
+                'Hợi' => 'Dần',
+                'Mão' => 'Tuất',
+                'Tuất' => 'Mão',
+                'Thìn' => 'Dậu',
+                'Dậu' => 'Thìn',
+                'Tỵ' => 'Thân',
+                'Thân' => 'Tỵ',
+                'Ngọ' => 'Mùi',
+                'Mùi' => 'Ngọ'
             ];
 
             if (isset($lucHop[$birthChi]) && $lucHop[$birthChi] == $dayChi) {
@@ -782,4 +858,6 @@ class GoodBadDayHelper
 
         return $trucToStar[$truc] ?? null;
     }
+
+  
 }

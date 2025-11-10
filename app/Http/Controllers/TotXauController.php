@@ -97,16 +97,16 @@ class TotXauController extends Controller
             $lunarParts = LunarHelper::convertSolar2Lunar($date->day, $date->month, $date->year);
             $fullLunarDateStr = sprintf('%02d/%02d %s', $lunarParts[0], $lunarParts[1], $dayCanChi);
 
-            $details = [];
-            if (isset($dayScoreDetails['score']['issues']) && is_array($dayScoreDetails['score']['issues'])) {
-                foreach ($dayScoreDetails['score']['issues'] as $issue) {
-                    if (isset($issue['reason'])) {
-                        $details[] = $issue['reason'];
-                    } elseif (isset($issue['message'])) {
-                        $details[] = $issue['message'];
-                    }
-                }
-            }
+            // $details = [];
+            // if (isset($dayScoreDetails['score']['issues']) && is_array($dayScoreDetails['score']['issues'])) {
+            //     foreach ($dayScoreDetails['score']['issues'] as $issue) {
+            //         if (isset($issue['reason'])) {
+            //             $details[] = $issue['reason'];
+            //         } elseif (isset($issue['message'])) {
+            //             $details[] = $issue['message'];
+            //         }
+            //     }
+            // }
 
             $resultsByYear[$year]['days'][] = [
                 'date' => $date->copy(),
@@ -114,14 +114,7 @@ class TotXauController extends Controller
                 'full_lunar_date_str' => $fullLunarDateStr,
                  'al_name' => $lunarParts,
                 'good_hours' => $goodHours,
-                'day_score' => [
-                    'percentage' => $dayScoreDetails['score']['percentage'] ?? 0,
-                    'rating' => $dayScoreDetails['score']['rating'] ?? '',
-                    'pham' => is_array($dayScoreDetails['score']['checkTabooDays'] ?? null)
-                        ? $dayScoreDetails['score']['checkTabooDays']
-                        : [],
-                    'details' => $details,
-                ],
+               'day_score' => $dayScoreDetails, // Toàn bộ object điểm số và chi tiết
             ];
         }
 
@@ -129,8 +122,9 @@ class TotXauController extends Controller
         foreach ($resultsByYear as &$yearData) {
             if (isset($yearData['days']) && is_array($yearData['days'])) {
                 usort($yearData['days'], function ($a, $b) use ($sortOrder) {
-                    $scoreA = $a['day_score']['percentage'] ?? 0;
-                    $scoreB = $b['day_score']['percentage'] ?? 0;
+                    // Cấu trúc có thể là day_score.score.percentage hoặc day_score.percentage
+                    $scoreA = $a['day_score']['score']['percentage'] ?? $a['day_score']['percentage'] ?? 0;
+                    $scoreB = $b['day_score']['score']['percentage'] ?? $b['day_score']['percentage'] ?? 0;
                     return $sortOrder === 'asc' ? $scoreA <=> $scoreB : $scoreB <=> $scoreA;
                 });
             }
@@ -176,14 +170,14 @@ class TotXauController extends Controller
         // 3. Lấy thông tin chung của ngày (tính 1 lần, vì nó không đổi)
 
         $commonDayInfo = BadDayHelper::getdetailtable($dateToCheck);
+        $tabooResult = GoodBadDayHelper::checkTabooDays($dateToCheck, 'TOT_XAU_CHUNG');
 
         // 4. Lấy thông tin chi tiết cho Chú Rể
         $groomData = BadDayHelper::getDetailedAnalysisForPerson($dateToCheck, $groomDob, 'Xem Ngày Tốt Xấu', 'TOT_XAU_CHUNG');
         return view('tools.tot-xau.details', [
-            //   'personInfo' => $personInfo,
             'commonDayInfo' => $commonDayInfo,
-            'groomData' => $groomData
-            // 'analyzeNgayVoiTuoi' => FengShuiHelper::analyzeNgayVoiTuoi($getThongTinCanChiVaIcon['can_chi_ngay'], $personInfo['can_chi_nam']),
+            'groomData' => $groomData,
+            'tabooResult' => $tabooResult,
         ]);
     }
 
@@ -196,7 +190,7 @@ class TotXauController extends Controller
         );
 
         $canChiNam = KhiVanHelper::canchiNam($birthdate->year);
-
+        
         $menh = '';
         if (isset(DataHelper::$napAmTable[$canChiNam])) {
             $menhData = DataHelper::$napAmTable[$canChiNam];
@@ -209,6 +203,7 @@ class TotXauController extends Controller
         }
 
         return [
+            'dob' => $birthdate, // Thêm đối tượng Carbon gốc
             'solar_date' => $birthdate->format('d/m/Y'),
             'lunar_date' => sprintf('%02d/%02d/%04d', $lunarDate[0], $lunarDate[1], $lunarDate[2]),
             'can_chi' => $canChiNam,

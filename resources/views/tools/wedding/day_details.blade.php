@@ -1,286 +1,461 @@
-{{-- resources/views/wedding/day_details.blade.php --}}
 @extends('welcome')
 
 @section('content')
-    {{-- <div class="container mt-4 mb-5">
-        <div class="card shadow-sm">
-            <div class="card-header bg-primary text-white">
-                <h1 class="h3 mb-0">Phân Tích Chi Tiết Điểm Ngày Cưới</h1>
-            </div>
-            <div class="card-body">
-            
-                <div class="row mb-4">
-                    <div class="col-md-6">
-                        <h5>Đối tượng: <span class="text-primary">{{ $personTitle }}
-                                ({{ $personInfo['can_chi_nam'] }})</span></h5>
-                        <p class="mb-1"><strong>Ngày sinh:</strong> {{ $personInfo['dob']->format('d/m/Y') }}</p>
-                        <p class="mb-1"><strong>Mệnh:</strong> {{ $personInfo['menh']['hanh'] }}
-                            ({{ $personInfo['menh']['napAm'] }})</p>
-                    </div>
-                    <div class="col-md-6">
-                        <h5>Ngày xem: <span class="text-danger">{{ $dateToCheck->format('d/m/Y') }}</span></h5>
-                        <p class="mb-1"><strong>Âm lịch:</strong> {{ $lunarDateStr }}</p>
-                        <p class="mb-1"><strong>Điểm tổng kết:</strong> <span
-                                class="fw-bold fs-4">{{ $score['percentage'] }}%</span></p>
-                    </div>
 
-                </div>
-             
-                <h5 style="color: red">Phạm</h5>
-                @if (isset($badDays) && !empty($badDays))
-                    <div class="alert alert-warning mb-2">
-                        <ul class="mb-0">
-                            @foreach ($badDays as $badDay)
-                                <li>{{ $badDay }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @else
-                    <div class="alert alert-info mb-2">
-                        <strong>Không có ngày xấu nào được xác định cho ngày này.</strong>
-                    </div>
-                @endif
-                <div class="alert alert-info mb-2">Giờ hoàng đạo: {{ $getThongTinNgay['gio_hoang_dao'] }}</div>
-               
-                <h4 class="mb-3">Phân tích các yếu tố:</h4>
-                <div class="accordion accordion-flush" id="accordionFlushExample">
-                    <div class="accordion-item">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                                Can chi vận khí
-                            </button>
-                        </h2>
-                        <div id="flush-collapseOne" class="accordion-collapse collapse"
-                            data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body">
-                                <div class="">
-                                    <h6><b>* Quan hệ Can chi ngày (nội khí)</b></h6>
-                                    <div>
-                                        {{ $noiKhiNgay }}
-                                    </div>
-                                </div>
-                                <div class="">
-                                    <h6><b>* Vận khí ngày & tháng (khí tháng):</b></h6>
-                                    <div>
-                                        <p> Ngày {{ $getThongTinCanChiVaIcon['can_chi_ngay'] }} Tháng
-                                            {{ $getThongTinCanChiVaIcon['can_chi_thang'] }}</p>
+    @push('styles')
+        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=10.5') }}">
+    @endpush
 
-                                        <p> {!! $getVongKhiNgayThang['analysis'] !!}</p>
-                                        <p> {!! $getVongKhiNgayThang['conclusion'] !!}</p>
+    <div class="container-setup">
+        <h6 class="content-title-detail"><a href="{{ route('home') }}"
+                style="color: #2254AB; text-decoration: underline;">Trang chủ</a><i class="bi bi-chevron-right"></i> <a
+                style="color: #2254AB; text-decoration: underline;" href="">Tiện ích</a> <i
+                class="bi bi-chevron-right"></i> <span>
+                Xem ngày cưới</span> <i class="bi bi-chevron-right"></i> <span>
+                Chi tiết</span></h6>
 
-                                    </div>
-                                </div>
-                                <div class="">
-                                    <h6><b>* Cục khí - hợp xung:</b></h6>
-                                    <div>
+        <h1 class="content-title-home-lich">Chi tiết xem ngày cưới</h1>
+        <div>
+            <div class="row g-lg-3 g-2 pt-lg-3 pt-2">
+                <div class="col-xl-9 col-sm-12 col-12 ">
 
+                    <div class="card border-0 mb-3 w-100 box-detial-year">
+                        <div class="card-body box1-con-year">
+                            <div
+                                class="text-primary mb-3 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
+                                <img src="{{ asset('icons/dac-diem1.svg') }}" alt="thông tin người xem" width="28"
+                                    height="28" class="me-1"> <span>Thông Tin Ngày</span>
+                            </div>
 
-                                        <ul>
-                                            <li>{{ $getCucKhiHopXung['hop'] ?? 'Không rõ' }}</li>
-                                            <li>{{ $getCucKhiHopXung['ky'] ?? 'Không rõ' }}</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="">
-                                    <h6><b>* So sánh ngày với mệnh tuổi của bạn (năm_sinh) (trường hợp xem cá nhân hóa):</b>
-                                    </h6>
-                                    <div>
-                                        <ul>
-                                            <li>Thiên can ngày - thiên can tuổi: Can ngày là
-                                                {{ $analyzeNgayVoiTuoi['details']['can']['canNgay'] }}, Can tuổi là
-                                                {{ $analyzeNgayVoiTuoi['details']['can']['canTuoi'] }} ->
-                                                {{ $analyzeNgayVoiTuoi['details']['can']['relation'] }}
-                                                ({{ $analyzeNgayVoiTuoi['details']['can']['rating'] }}).
-                                                {{ $analyzeNgayVoiTuoi['details']['can']['explanation'] }}
-                                            </li>
-                                            <li>
-                                                Địa chi ngày - địa chi tuổi: Chi ngày là
-                                                {{ $analyzeNgayVoiTuoi['details']['chi']['chiNgay'] }}, Chi tuổi là
-                                                {{ $analyzeNgayVoiTuoi['details']['chi']['chiTuoi'] }} ->
-                                                {{ $analyzeNgayVoiTuoi['details']['chi']['relationKey'] }}
-                                                ({{ $analyzeNgayVoiTuoi['details']['chi']['rating'] }}).
-                                                {{ $analyzeNgayVoiTuoi['details']['chi']['explanation'] }}
-                                            </li>
-                                            <li>
-                                                Nạp âm ngày - nạp âm tuổi:
-                                                Ngày {{ $analyzeNgayVoiTuoi['details']['nap_am']['canchiNgay'] }} nạp âm là
-                                                {{ $analyzeNgayVoiTuoi['details']['nap_am']['napAmNgay']['napAm'] }}
-                                                ({{ $analyzeNgayVoiTuoi['details']['nap_am']['napAmNgay']['hanh'] }}), tuổi
-                                                {{ $analyzeNgayVoiTuoi['details']['nap_am']['canchiTuoi'] }} nạp âm là
-                                                {{ $analyzeNgayVoiTuoi['details']['nap_am']['napAmTuoi']['napAm'] }}
-                                                ({{ $analyzeNgayVoiTuoi['details']['nap_am']['napAmTuoi']['hanh'] }}) -> {{ $analyzeNgayVoiTuoi['details']['nap_am']['relationKey'] }}
-                                                ({{ $analyzeNgayVoiTuoi['details']['nap_am']['rating'] }}).
-                                                {{ $analyzeNgayVoiTuoi['details']['nap_am']['explanation'] }}
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
+                            <div>
+                                <table class="table table-detail" style="table-layout: fixed;">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <span style="font-weight: 600">Ngày Dương lịch:</span>
+                                                {{ $commonDayInfo['dateToCheck']->format('d/m/Y') }}
+                                                ({{ $commonDayInfo['dayOfWeek'] }})
+                                            </td>
+                                            <td>
+                                                <span style="font-weight: 600">Ngày Âm lịch:</span>
+                                                {{ $commonDayInfo['al'][0] }}/{{ $commonDayInfo['al'][1] }}/{{ $commonDayInfo['al'][2] }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span style="font-weight: 600">Nạp Âm:</span>
+                                                {{ $commonDayInfo['getThongTinNgay']['nap_am']['napAm'] ?? '' }} (Hành
+                                                {{ $commonDayInfo['getThongTinNgay']['nap_am']['napAmHanh'] ?? '' }})
+                                            </td>
+                                            <td>
+                                                <span style="font-weight: 600">Ngày can chi:</span> Ngày
+                                                {{ $commonDayInfo['can_chi_ngay'] }}, tháng
+                                                {{ $commonDayInfo['can_chi_thang'] }}, năm
+                                                {{ $commonDayInfo['can_chi_nam'] }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span style="font-weight: 600">Giờ hoàng đạo:</span>
+                                                {{ $commonDayInfo['getThongTinNgay']['gio_hoang_dao'] ?? '' }}
+                                            </td>
+                                            <td>
+                                                <span style="font-weight: 600">Giờ hắc đạo:</span>
+                                                {{ $commonDayInfo['getThongTinNgay']['gio_hac_dao'] ?? '' }}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
-                    <div class="accordion-item">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                                Nhị thập bát tú
-                            </button>
-                        </h2>
-                        <div id="flush-collapseTwo" class="accordion-collapse collapse"
-                            data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body">
-                                <p>Ngày {{ $al[0] }}-{{ $al[1] }}-{{ $al[2] }} Âm lịch có xuất
-                                    hiện sao: <b>{{ $nhiThapBatTu['name'] }}({{ $nhiThapBatTu['fullName'] }})</b></p>
-                                <p>Đây là sao <b>{{ $nhiThapBatTu['nature'] }} </b>-
-                                    {{ $nhiThapBatTu['description'] }}</p>
-                                <li>
-                                    Việc nên làm : {{ $nhiThapBatTu['guidance']['good'] }}
-                                    @if (!empty($nhiThapBatTu['guidance']['bad']))
-                                        Việc không nên làm : {{ $nhiThapBatTu['guidance']['bad'] }}
-                                    @endif
-                                </li>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="accordion-item">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#flush-collapseThree" aria-expanded="false"
-                                aria-controls="flush-collapseThree">
-                                Thập Nhị Trực
-                            </button>
-                        </h2>
-                        <div id="flush-collapseThree" class="accordion-collapse collapse"
-                            data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body">
-                                <p><b>Trực ngày: </b>Trực <b>{{ $getThongTinTruc['title'] }}</b></p>
-                                <p>- Đây là trực {{ $getThongTinTruc['description']['rating'] }} -
-                                    {{ $getThongTinTruc['description']['description'] }}</p>
-                                <ul>
-                                    <li>Việc nên làm: {{ $getThongTinTruc['description']['good'] }}</li>
-                                    <li>Việc không nên làm: {{ $getThongTinTruc['description']['bad'] }}</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="accordion-item">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#flush-collapseforSaoCatHung" aria-expanded="false"
-                                aria-controls="flush-collapseforSaoCatHung">
-                                Sao cát hung theo Ngọc Hạp Thông Thư
-                            </button>
-                        </h2>
-                        <div id="flush-collapseforSaoCatHung" class="accordion-collapse collapse"
-                            data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body">
-                                <div>
-                                    <h6>- Sao tốt</h6>
-                                    @if (!empty($getSaoTotXauInfo['sao_tot']))
-                                        @foreach ($getSaoTotXauInfo['sao_tot'] as $tenSao => $yNghia)
-                                            <li><strong>{{ $tenSao }}:</strong> {{ $yNghia }}</li>
-                                        @endforeach
-                                    @else
-                                        Không có sao tốt trong ngày này
-                                    @endif
 
-                                    </ul>
-                                    <h6>- Sao xấu</h6>
-                                    <ul>
-                                        @if (!empty($getSaoTotXauInfo['sao_xau']))
-                                            @foreach ($getSaoTotXauInfo['sao_xau'] as $tenSao => $yNghia)
-                                                <li><strong>{{ $tenSao }}:</strong> {{ $yNghia }}</li>
-                                            @endforeach
-                                        @else
-                                            Không có sao xấu trong ngày này
-                                        @endif
 
-                                    </ul>
-                                    <p>{{ $getSaoTotXauInfo['ket_luan'] }}</p>
+                    <ul class="nav nav-tabs nav-fill mb-3 h5" id="personTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="groom-tab" data-bs-toggle="tab"
+                                data-bs-target="#groom-tab-pane" type="button" role="tab"
+                                aria-controls="groom-tab-pane" aria-selected="true">
+                                <i class="fas fa-male me-2"></i> Luận Giải cho Chú Rể
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="bride-tab" data-bs-toggle="tab" data-bs-target="#bride-tab-pane"
+                                type="button" role="tab" aria-controls="bride-tab-pane" aria-selected="false">
+                                <i class="fas fa-female me-2"></i> Luận Giải cho Cô Dâu
+                            </button>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content" id="personTabContent">
+                        {{-- TAB CỦA CHÚ RỂ --}}
+                        <div class="tab-pane fade show active" id="groom-tab-pane" role="tabpanel"
+                            aria-labelledby="groom-tab" tabindex="0">
+
+                            <div class="card border-0 mb-3 w-100 box-detial-year">
+                                <div class="card-body box1-con-year">
+                                    <div
+                                        class="text-primary mb-3 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
+                                        <img src="{{ asset('icons/dac-diem1.svg') }}" alt="thông tin người xem"
+                                            width="28" height="28" class="me-1"> <span>Thông Tin Chú Rể</span>
+                                    </div>
+
+                                    <div>
+                                        <table class="table table-detail" style="table-layout: fixed;">
+                                            <tbody>
+                                                <tr>
+                                                    <td style="font-weight: 600">
+                                                        Các yếu tố tốt hỗ trợ cho ngày
+                                                    </td>
+                                                    <td style="font-weight: 600">
+                                                        Các yếu tố xấu/ cản trở cần xem xét
+                                                    </td>
+                                                </tr>
+                                                @if ($groomData['score']['hopttuoi'] || !empty($groomData['score']['bad_days']))
+                                                    <tr>
+                                                        <td>
+                                                            @if ($groomData['score']['hopttuoi'])
+                                                                ✓ Ngày hợp tuổi: {{ $groomData['score']['hopTuoiReason'] }}
+                                                            @endif
+                                                        </td>
+                                                        <td>
+                                                            {{ collect($groomData['score']['bad_days'] ?? [])->map(fn($day) => 'Phạm ' . ($day ?? ''))->implode(', ') }}
+                                                        </td>
+                                                    </tr>
+                                                @endif
+
+                                                @if (!$groomData['score']['hopttuoi'])
+                                                    <tr>
+                                                        <td></td>
+                                                        <td>
+                                                            ❌ Ngày kỵ tuổi:
+                                                            {{ $groomData['score']['hopTuoiReason'] ?? 'Không hợp tuổi' }}
+                                                        </td>
+                                                    </tr>
+                                                @endif
+
+                                                <tr>
+                                                    <td>
+                                                        @if ($groomData['score']['tu']['details']['data']['nature'] == 'Tốt')
+                                                            ✓ Nhị thập bát tú: Sao
+                                                            {{ $groomData['score']['tu']['details']['data']['name'] }}
+                                                            (Tốt)
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if ($groomData['score']['tu']['details']['data']['nature'] == 'Xấu')
+                                                            ❌ Nhị thập bát tú: Sao
+                                                            {{ $groomData['score']['tu']['details']['data']['name'] }}
+                                                            (Xấu)
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        @if ($groomData['score']['tructot'])
+                                                            ✓ Thập Nhị Trực
+                                                            {{ $groomData['score']['truc']['details']['name'] }}
+                                                            (Tốt)
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if (!$groomData['score']['tructot'])
+                                                            ❌ Thập Nhị Trực
+                                                            {{ $groomData['score']['truc']['details']['name'] }}
+                                                            (Xấu)
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        @if (!empty($groomData['score']['catHung']['details']['catStars']))
+                                                            <strong>✓ Sao tốt theo Ngọc Hạp Thông Thư:</strong>
+                                                            @foreach ($groomData['score']['catHung']['details']['catStars'] as $index => $sao)
+                                                                <span
+                                                                    class=" bg-success me-1">{{ $sao['name'] }}</span>{{ $loop->last ? '' : ',' }}
+                                                            @endforeach
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if (!empty($groomData['score']['catHung']['details']['hungStars']))
+                                                            <strong>❌ Sao xấu theo Ngọc Hạp Thông Thư:</strong>
+                                                            @foreach ($groomData['score']['catHung']['details']['hungStars'] as $sao)
+                                                                <span
+                                                                    class=" bg-danger me-1">{{ $sao['name'] }}</span>{{ $loop->last ? '' : ',' }}
+                                                            @endforeach
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card border-0 mb-3 w-100 box-detial-year">
+                                <div class="card-body box1-con-year">
+                                    <div
+                                        class="text-primary mb-3 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
+                                        <img src="{{ asset('icons/dac-diem1.svg') }}" alt="thông tin người xem"
+                                            width="28" height="28" class="me-1"> <span>Đánh giá điểm các yếu tố
+                                            ngày cho tuổi
+                                            {{ $groomData['personInfo']['can_chi_nam'] }}
+                                            ({{ $groomData['personInfo']['dob']->format('d-m-Y') }}) chú rể:
+                                            {{ round($groomData['score']['percentage']) }}/100
+                                            ({{ round($groomData['score']['percentage']) }}%)</span>
+                                    </div>
+                                    <div>
+                                        <table class="table table-detail" style="table-layout: fixed;">
+                                            <tbody>
+                                                <tr style="font-weight: 600">
+                                                    <td>Yếu tố đánh giá</td>
+
+                                                    <td>Điểm đánh giá</td>
+                                                    <td>Trọng số</td>
+                                                </tr>
+                                                @php
+                                                    $weights =
+                                                        \App\Helpers\DataHelper::$PURPOSE_WEIGHTS_PERSONALIZED[
+                                                            'CUOI_HOI'
+                                                        ];
+                                                    $totalWeight = array_sum($weights);
+                                                @endphp
+
+                                                <tr>
+                                                    <td>Nhị thập bát tú</td>
+                                                    <td>{{ round($groomData['score']['tu']['percentage'] ?? 0) }}%</td>
+                                                    <td>
+                                                        {{ round((($weights['28Tu'] ?? 0) / $totalWeight) * 100) }}%</td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>Thập Nhị Trực</td>
+                                                    <td>{{ round($groomData['score']['truc']['percentage'] ?? 0) }}%</td>
+                                                    <td>
+                                                        {{ round((($weights['12Truc'] ?? 0) / $totalWeight) * 100) }}%</td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>Cát Hung (Sao tốt xấu)</td>
+                                                    <td>{{ round($groomData['score']['catHung']['percentage'] ?? 0) }}%
+                                                    </td>
+                                                    <td>
+                                                        {{ round((($weights['CatHung'] ?? 0) / $totalWeight) * 100) }}%
+                                                    </td>
+
+                                                </tr>
+
+                                                <tr>
+                                                    <td>Văn Khí (Can Chi vận khí)</td>
+                                                    <td>{{ round($groomData['score']['vanKhi']['percentage'] ?? 0) }}%</td>
+                                                    <td>
+                                                        {{ round((($weights['VanKhi'] ?? 0) / $totalWeight) * 100) }}%
+                                                    </td>
+
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card border-0 mb-3 w-100 box-detial-year">
+                                <div class="card-body box1-con-year">
+                                    @include('tools.wedding.person_analysis_accordion', [
+                                        'personData' => $groomData,
+                                        'commonData' => $commonDayInfo,
+                                    ])
+
                                 </div>
                             </div>
                         </div>
+
+                        {{-- TAB CỦA CÔ DÂU --}}
+                        <div class="tab-pane fade" id="bride-tab-pane" role="tabpanel" aria-labelledby="bride-tab" tabindex="0">
+
+                            <div class="card border-0 mb-3 w-100 box-detial-year">
+                                <div class="card-body box1-con-year">
+                                    <div
+                                        class="text-primary mb-3 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
+                                        <img src="{{ asset('icons/dac-diem1.svg') }}" alt="thông tin người xem"
+                                            width="28" height="28" class="me-1"> <span>Thông Tin Cô Dâu</span>
+                                    </div>
+
+                                    <div>
+                                        <table class="table table-detail" style="table-layout: fixed;">
+                                            <tbody>
+                                                <tr>
+                                                    <td style="font-weight: 600">
+                                                        Các yếu tố tốt hỗ trợ cho ngày
+                                                    </td>
+                                                    <td style="font-weight: 600">
+                                                        Các yếu tố xấu/ cản trở cần xem xét
+                                                    </td>
+                                                </tr>
+                                                @if ($brideData['score']['hopttuoi'] || !empty($brideData['score']['bad_days']))
+                                                    <tr>
+                                                        <td>
+                                                            @if ($brideData['score']['hopttuoi'])
+                                                                ✓ Ngày hợp tuổi: {{ $brideData['score']['hopTuoiReason'] }}
+                                                            @endif
+                                                        </td>
+                                                        <td>
+                                                            {{ collect($brideData['score']['bad_days'] ?? [])->map(fn($day) => 'Phạm ' . ($day ?? ''))->implode(', ') }}
+                                                        </td>
+                                                    </tr>
+                                                @endif
+
+                                                @if (!$brideData['score']['hopttuoi'])
+                                                    <tr>
+                                                        <td></td>
+                                                        <td>
+                                                            ❌ Ngày kỵ tuổi:
+                                                            {{ $brideData['score']['hopTuoiReason'] ?? 'Không hợp tuổi' }}
+                                                        </td>
+                                                    </tr>
+                                                @endif
+
+                                                <tr>
+                                                    <td>
+                                                        @if ($brideData['score']['tu']['details']['data']['nature'] == 'Tốt')
+                                                            ✓ Nhị thập bát tú: Sao
+                                                            {{ $brideData['score']['tu']['details']['data']['name'] }}
+                                                            (Tốt)
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if ($brideData['score']['tu']['details']['data']['nature'] == 'Xấu')
+                                                            ❌ Nhị thập bát tú: Sao
+                                                            {{ $brideData['score']['tu']['details']['data']['name'] }}
+                                                            (Xấu)
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        @if ($brideData['score']['tructot'])
+                                                            ✓ Thập Nhị Trực
+                                                            {{ $brideData['score']['truc']['details']['name'] }}
+                                                            (Tốt)
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if (!$brideData['score']['tructot'])
+                                                            ❌ Thập Nhị Trực
+                                                            {{ $brideData['score']['truc']['details']['name'] }}
+                                                            (Xấu)
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        @if (!empty($brideData['score']['catHung']['details']['catStars']))
+                                                            <strong>✓ Sao tốt theo Ngọc Hạp Thông Thư:</strong>
+                                                            @foreach ($brideData['score']['catHung']['details']['catStars'] as $index => $sao)
+                                                                <span
+                                                                    class=" bg-success me-1">{{ $sao['name'] }}</span>{{ $loop->last ? '' : ',' }}
+                                                            @endforeach
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if (!empty($brideData['score']['catHung']['details']['hungStars']))
+                                                            <strong>❌ Sao xấu theo Ngọc Hạp Thông Thư:</strong>
+                                                            @foreach ($brideData['score']['catHung']['details']['hungStars'] as $sao)
+                                                                <span
+                                                                    class=" bg-danger me-1">{{ $sao['name'] }}</span>{{ $loop->last ? '' : ',' }}
+                                                            @endforeach
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card border-0 mb-3 w-100 box-detial-year">
+                                <div class="card-body box1-con-year">
+                                    <div
+                                        class="text-primary mb-3 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
+                                        <img src="{{ asset('icons/dac-diem1.svg') }}" alt="thông tin người xem"
+                                            width="28" height="28" class="me-1"> <span>Đánh giá điểm các yếu tố
+                                            ngày cho tuổi
+                                            {{ $brideData['personInfo']['can_chi_nam'] }}
+                                            ({{ $brideData['personInfo']['dob']->format('d-m-Y') }}) cô dâu:
+                                            {{ round($brideData['score']['percentage']) }}/100
+                                            ({{ round($brideData['score']['percentage']) }}%)</span>
+                                    </div>
+                                    <div>
+                                        <table class="table table-detail" style="table-layout: fixed;">
+                                            <tbody>
+                                                <tr style="font-weight: 600">
+                                                    <td>Yếu tố đánh giá</td>
+
+                                                    <td>Điểm đánh giá</td>
+                                                    <td>Trọng số</td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>Nhị thập bát tú</td>
+                                                    <td>{{ round($brideData['score']['tu']['percentage'] ?? 0) }}%</td>
+                                                    <td>
+                                                        {{ round((($weights['28Tu'] ?? 0) / $totalWeight) * 100) }}%</td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>Thập Nhị Trực</td>
+                                                    <td>{{ round($brideData['score']['truc']['percentage'] ?? 0) }}%</td>
+                                                    <td>
+                                                        {{ round((($weights['12Truc'] ?? 0) / $totalWeight) * 100) }}%</td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>Cát Hung (Sao tốt xấu)</td>
+                                                    <td>{{ round($brideData['score']['catHung']['percentage'] ?? 0) }}%
+                                                    </td>
+                                                    <td>
+                                                        {{ round((($weights['CatHung'] ?? 0) / $totalWeight) * 100) }}%
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>Văn Khí (Can Chi vận khí)</td>
+                                                    <td>{{ round($brideData['score']['vanKhi']['percentage'] ?? 0) }}%</td>
+                                                    <td>
+                                                        {{ round((($weights['VanKhi'] ?? 0) / $totalWeight) * 100) }}%
+                                                    </td>
+
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card border-0 mb-3 w-100 box-detial-year">
+                                <div class="card-body box1-con-year">
+                                    @include('tools.wedding.person_analysis_accordion', [
+                                        'personData' => $groomData,
+                                        'commonData' => $commonDayInfo,
+                                    ])
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card border-0 mb-3 w-100 box-detial-year">
+                            <div class="card-body box1-con-year">
+                                <div class="text-primary mb-2  text-dark d-flex align-items-center fw-bolder">
+                                    Chú ý: Đây là các thông tin xem mang tính chất tham khảo, không thay thế cho các tư vấn
+                                    chuyên môn. Người dùng tự chịu trách nhiệm với mọi quyết định cá nhân dựa trên thông tin
+                                    tham khảo tại Phong Lịch.
+                                </div>
+
+                            </div>
+                        </div>
                     </div>
+
+
                 </div>
-
-
-
-
-
-
-
-                <div class="mt-4">
-                    <a href="javascript:history.back()" class="btn btn-secondary">
-                        <i class="fas fa-arrow-left"></i> Quay lại trang kết quả
-                    </a>
-                </div>
+                @include('tools.siderbardetail')
             </div>
-        </div>
-    </div> --}}
-    <div class="container mt-4 mb-5">
-    {{-- PHẦN THÔNG TIN CHUNG CỦA NGÀY --}}
-    <div class="card shadow-sm mb-4">
-        <div class="card-header bg-primary text-white">
-            <h1 class="h3 mb-0 text-center">Phân Tích Chi Tiết Ngày Cưới</h1>
-        </div>
-        <div class="card-body">
-            <div class="row text-center mb-3">
-                <div class="col-md-6">
-                    <h5>Ngày xem: <span class="text-danger">{{ $commonDayInfo['dateToCheck']->format('d/m/Y') }}</span></h5>
-                    <p class="mb-1"><strong>Âm lịch:</strong> {{ $commonDayInfo['lunarDateStr'] }}</p>
-                </div>
-                <div class="col-md-6">
-                     {{-- <h5>Ngày: <span class="text-info">{{ $commonDayInfo['getThongTinNgay']['ngay_hoang_dao_info'] }}</span></h5> --}}
-                     <p class="mb-1"><strong>Giờ hoàng đạo:</strong> {{ $commonDayInfo['getThongTinNgay']['gio_hoang_dao'] }}</p>
-                </div>
-            </div>
-            
-            @if (isset($commonDayInfo['badDays']) && !empty($commonDayInfo['badDays']))
-            <div class="alert alert-warning">
-                <h5 class="alert-heading"><i class="fas fa-exclamation-triangle"></i> Các ngày xấu phạm phải:</h5>
-                <ul class="mb-0 ps-4">
-                    @foreach ($commonDayInfo['badDays'] as $badDay)
-                        <li>{{ $badDay }}</li>
-                    @endforeach
-                </ul>
-            </div>
-            @endif
         </div>
     </div>
-
-    {{-- GIAO DIỆN TAB --}}
-    <ul class="nav nav-tabs nav-fill mb-3 h5" id="personTab" role="tablist">
-        <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="groom-tab" data-bs-toggle="tab" data-bs-target="#groom-tab-pane" type="button" role="tab" aria-controls="groom-tab-pane" aria-selected="true">
-                <i class="fas fa-male me-2"></i> Luận Giải cho Chú Rể
-            </button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="bride-tab" data-bs-toggle="tab" data-bs-target="#bride-tab-pane" type="button" role="tab" aria-controls="bride-tab-pane" aria-selected="false">
-                 <i class="fas fa-female me-2"></i> Luận Giải cho Cô Dâu
-            </button>
-        </li>
-    </ul>
-
-    <div class="tab-content" id="personTabContent">
-        {{-- TAB CỦA CHÚ RỂ --}}
-        <div class="tab-pane fade show active" id="groom-tab-pane" role="tabpanel" aria-labelledby="groom-tab" tabindex="0">
-            {{-- Gọi partial view và truyền dữ liệu của chú rể --}}
-            @include('tools.wedding.person_analysis_accordion', ['personData' => $groomData, 'commonData' => $commonDayInfo])
-        </div>
-
-        {{-- TAB CỦA CÔ DÂU --}}
-        <div class="tab-pane fade" id="bride-tab-pane" role="tabpanel" aria-labelledby="bride-tab" tabindex="0">
-             {{-- Gọi partial view và truyền dữ liệu của cô dâu --}}
-             @include('tools.wedding.person_analysis_accordion', ['personData' => $brideData, 'commonData' => $commonDayInfo])
-        </div>
-    </div>
-
-    <div class="mt-4 text-center">
-        <a href="javascript:history.back()" class="btn btn-secondary">
-            <i class="fas fa-arrow-left"></i> Quay lại trang kết quả
-        </a>
-    </div>
-
-</div>
 @endsection

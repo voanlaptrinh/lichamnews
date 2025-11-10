@@ -152,7 +152,7 @@
     @stack('styles')
 
     {{-- Vanilla Date Range Picker CSS - Available for all views --}}
-    {{-- <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=10.0') }}"> --}}
+    {{-- <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=10.5') }}"> --}}
 
 </head>
 

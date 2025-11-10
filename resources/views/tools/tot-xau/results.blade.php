@@ -121,36 +121,62 @@
                                                     </a>
                                                 </td>
                                                 <td>
-                                                    @php
-                                                        $violations = $day['day_score']['pham']['issues'] ?? [];
-                                                        if (is_string($violations)) {
-                                                            $violations = json_decode($violations, true) ?: [];
-                                                        }
-                                                        $validViolations = array_filter($violations, function ($v) {
-                                                            if (is_array($v)) {
-                                                                return !empty(array_filter($v));
-                                                            }
-                                                            return !empty($v);
-                                                        });
+                                                   @php
+                                                        $supportFactors = [];
 
-                                                        $countViolations = count($validViolations);
+                                                        // Kiểm tra ngày hoàng đạo - sử dụng helper
+                                                        if (isset($day['day_score']['score']['hoangdao']) && $day['day_score']['score']['hoangdao'] === true) {
+                                                            $starName = \App\Helpers\GoodBadDayHelper::getHoangDaoStar($day['date']);
+                                                            if ($starName) {
+                                                                $supportFactors[] = "Ngày hoàng đạo: Sao {$starName}";
+                                                            }
+                                                        }
+
+                                                        // Kiểm tra trực tốt
+                                                        if (isset($day['day_score']['score']['tructot']) && $day['day_score']['score']['tructot'] === true) {
+                                                            $trucName = $day['day_score']['truc']['details']['name'] ?? 'Không xác định';
+                                                            $supportFactors[] = "Trực tốt: Trực {$trucName}";
+                                                        }
+
+                                                        // Kiểm tra hợp tuổi - sử dụng helper
+                                                        if (isset($day['day_score']['score']['hopttuoi']) && $day['day_score']['score']['hopttuoi'] === true) {
+                                                            $hopType = \App\Helpers\GoodBadDayHelper::getHopTuoiDetail($day['date'], $birthdateInfo['dob']->year);
+                                                            if ($hopType) {
+                                                                $supportFactors[] = "Ngày hợp tuổi: {$hopType}";
+                                                            }
+                                                        }
+
+                                                        // Kiểm tra sao tốt - gộp thành 1 dòng
+                                                        $goodStars = $day['day_score']['score']['good_stars'] ?? [];
+                                                        if (!empty($goodStars) && is_array($goodStars)) {
+                                                            $starNames = implode(', ', $goodStars);
+                                                            $supportFactors[] = "Sao tốt: {$starNames}";
+                                                        }
+
+                                                        // Chỉ lấy tối đa 4 yếu tố
+                                                        $supportFactors = array_slice(array_unique($supportFactors), 0, 4);
+                                                        $supportCount = count($supportFactors);
                                                     @endphp
-                                                    @if (count($validViolations) > 0)
-                                                        <div class="text-dark fw-semibold">
-                                                            <img src="{{ asset('icons/ping.svg?v=1.0') }}"
-                                                                alt="ping" width="24" height="24">
-                                                            <span>{{ $countViolations }} phạm</span>
-                                                        </div>
+                                                        @if ($supportCount > 0)
+                                                        <ul class="list-unstyled mb-0">
+                                                            @foreach ($supportFactors as $factor)
+                                                                <li class="d-flex align-items-center mb-1">
+                                                                  
+                                                                    
+                                                                    <span class="small">{{ $factor }}</span>
+                                                                </li>
+                                                            @endforeach
+                                                        </ul>
                                                     @else
-                                                        <span class="text-success">
-                                                            <i class="bi bi-check-circle-fill"></i> Không phạm
+                                                        <span class="text-warning small">
+                                                            <i class="bi bi-exclamation-triangle-fill"></i> Không có yếu tố hỗ trợ
                                                         </span>
                                                     @endif
 
                                                 </td>
                                                 <td class="text-center">
                                                     @php
-                                                        $score = $day['day_score']['percentage'] ?? 0;
+                                                        $score = $day['day_score']['score']['percentage'] ?? $day['day_score']['percentage'] ?? 0;
                                                         $bgColor = '#D1FAE5'; // Green
                                                        if ($score < 30) {
                                                             $bgColor = '#FEE2E2'; // Red

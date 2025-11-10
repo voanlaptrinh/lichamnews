@@ -149,7 +149,37 @@ class WeddingController extends Controller
             ];
         }
 
-        // 4. Trả về kết quả
+        // 4. Sắp xếp theo yêu cầu
+        $sortOrder = $request->input('sort', 'desc');
+        foreach ($resultsByYear as &$yearData) {
+            if (isset($yearData['days']) && is_array($yearData['days'])) {
+                usort($yearData['days'], function ($a, $b) use ($sortOrder) {
+                    $groomScoreA = $a['groom_score']['percentage'] ?? 0;
+                    $brideScoreA = $a['bride_score']['percentage'] ?? 0;
+                    $totalScoreA = $groomScoreA + $brideScoreA;
+
+                    $groomScoreB = $b['groom_score']['percentage'] ?? 0;
+                    $brideScoreB = $b['bride_score']['percentage'] ?? 0;
+                    $totalScoreB = $groomScoreB + $brideScoreB;
+
+                    // Sắp xếp theo tổng điểm trước
+                    if ($totalScoreA !== $totalScoreB) {
+                        return $sortOrder === 'asc' ? $totalScoreA <=> $totalScoreB : $totalScoreB <=> $totalScoreA;
+                    }
+
+                    // Nếu tổng điểm bằng nhau, sắp xếp theo điểm cô dâu
+                    if ($brideScoreA !== $brideScoreB) {
+                        return $sortOrder === 'asc' ? $brideScoreA <=> $brideScoreB : $brideScoreB <=> $brideScoreA;
+                    }
+
+                    // Nếu điểm cô dâu cũng bằng nhau, sắp xếp theo điểm chú rể
+                    return $sortOrder === 'asc' ? $groomScoreA <=> $groomScoreB : $groomScoreB <=> $groomScoreA;
+                });
+            }
+        }
+        unset($yearData);
+
+        // 5. Trả về kết quả
         if ($request->wantsJson()) {
             // AJAX request - trả về JSON với HTML rendered
             $html = view('tools.wedding.results', [
@@ -157,6 +187,7 @@ class WeddingController extends Controller
                 'groomInfo' => $groomInfo,
                 'brideInfo' => $brideInfo,
                 'resultsByYear' => $resultsByYear,
+                'sortOrder' => $sortOrder,
             ])->render();
 
             return response()->json([
@@ -171,6 +202,7 @@ class WeddingController extends Controller
             'groomInfo' => $groomInfo,
             'brideInfo' => $brideInfo,
             'resultsByYear' => $resultsByYear,
+            'sortOrder' => $sortOrder,
         ]);
     }
 
@@ -353,10 +385,10 @@ class WeddingController extends Controller
        
 
         // 4. Lấy thông tin chi tiết cho Chú Rể
-        $groomData = BadDayHelper::getDetailedAnalysisForPerson($dateToCheck, $groomDob, 'Chú Rể');
+        $groomData = BadDayHelper::getDetailedAnalysisForPerson($dateToCheck, $groomDob, 'Chú Rể', 'CUOI_HOI');
 
         // 5. Lấy thông tin chi tiết cho Cô Dâu
-        $brideData = BadDayHelper::getDetailedAnalysisForPerson($dateToCheck, $brideDob, 'Cô Dâu');
+        $brideData = BadDayHelper::getDetailedAnalysisForPerson($dateToCheck, $brideDob, 'Cô Dâu','CUOI_HOI');
 
         // 6. Trả về view với toàn bộ dữ liệu
         return view('tools.wedding.day_details', compact(

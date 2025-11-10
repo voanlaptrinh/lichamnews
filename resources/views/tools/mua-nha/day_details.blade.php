@@ -1,9 +1,8 @@
 @extends('welcome')
 
 @section('content')
-
     @push('styles')
-        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=10.0') }}">
+        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=10.5') }}">
     @endpush
 
 
@@ -27,7 +26,7 @@
                                 <img src="{{ asset('icons/dac-diem1.svg') }}" alt="thông tin người xem" width="28"
                                     height="28" class="me-1"> <span>Thông Tin Ngày</span>
                             </div>
-                            {{-- @dd($groomData) --}}
+
                             <div>
                                 <table class="table table-detail" style="table-layout: fixed;">
                                     <tbody>
@@ -69,23 +68,106 @@
                                 </table>
                             </div>
 
-                            @if (isset($tabooResult['issues']) && !empty($tabooResult['issues']))
-                                <div class="mt-2">
-                                    @foreach ($tabooResult['issues'] as $badDay)
-                                        <div class="text-dark fw-semibold">
-                                            <img src="{{ asset('icons/ping.svg?v=1.0') }}" alt="ping" width="24"
-                                                height="24">
-                                            <span style="font-weight: 600">Phạm:</span>
-                                            {{ $badDay['details']['tabooName'] ?? '' }}
-                                        </div>
-                                    @endforeach
-                                </div>
-                            @endif
+                        </div>
+                        {{-- @dd($groomData) --}}
+                    </div>
+                    <div class="card border-0 mb-3 w-100 box-detial-year">
+                        <div class="card-body box1-con-year">
+
+                            <div>
+                                <table class="table table-detail" style="table-layout: fixed;">
+                                    <tbody>
+                                        <tr>
+                                            <td style="font-weight: 600">
+                                                Các yếu tố tốt hỗ trợ cho ngày
+                                            </td>
+                                            <td style="font-weight: 600">
+                                                Các yếu tố xấu/ cản trở cần xem xét
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                @if ($groomData['score']['hopttuoi'])
+                                                    ✓ Ngày hợp tuổi: {{ $groomData['score']['hopTuoiReason'] }}
+                                                @endif
+
+                                            </td>
+                                            <td>
+                                                {{ collect($tabooResult['issues'] ?? [])->map(fn($day) => 'Phạm Ngày ' . ($day['details']['tabooName'] ?? ''))->implode(', ') }}
+                                            </td>
+
+                                        </tr>
+                                        @if (!$groomData['score']['hopttuoi'])
+                                            <tr>
+                                                <td></td>
+                                                <td>
+                                                    ❌ Ngày kỵ tuổi:
+                                                    {{ $groomData['score']['hopTuoiReason'] ?? 'Không hợp tuổi' }}
+                                                </td>
+                                            </tr>
+                                        @endif
+
+                                        <tr>
+                                            <td>
+                                                @if ($groomData['score']['tu']['details']['data']['nature'] == 'Tốt')
+                                                    Nhị thập bát tú: Sao
+                                                    {{ $groomData['score']['tu']['details']['data']['name'] }} (Tốt)
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if ($groomData['score']['tu']['details']['data']['nature'] == 'Xấu')
+                                                    Nhị thập bát tú: Sao
+                                                    {{ $groomData['score']['tu']['details']['data']['name'] }} (Xấu)
+                                                @endif
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                @if ($groomData['score']['tructot'])
+                                                    Thập Nhị Trực {{ $groomData['score']['truc']['details']['name'] }}
+                                                    (Tốt)
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if (!$groomData['score']['tructot'])
+                                                    Thập Nhị Trực {{ $groomData['score']['truc']['details']['name'] }}
+                                                    (Xấu)
+                                                @endif
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                @if (!empty($groomData['score']['catHung']['details']['catStars']))
+                                                    <strong>Sao tốt theo Ngọc Hạp Thông Thư:</strong>
+                                                    @foreach ($groomData['score']['catHung']['details']['catStars'] as $index => $sao)
+                                                        <span
+                                                            class=" bg-success me-1">{{ $sao['name'] }}</span>{{ $loop->last ? '' : ',' }}
+                                                    @endforeach
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if (!empty($groomData['score']['catHung']['details']['hungStars']))
+                                                    <strong>Sao xấu theo Ngọc Hạp Thông Thư:</strong>
+                                                    @foreach ($groomData['score']['catHung']['details']['hungStars'] as $sao)
+                                                        <span
+                                                            class=" bg-danger me-1">{{ $sao['name'] }}</span>{{ $loop->last ? '' : ',' }}
+                                                    @endforeach
+                                                @endif
+                                            </td>
+                                        </tr>
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+
 
 
                         </div>
 
                     </div>
+
                     <div class="card border-0 mb-3 w-100 box-detial-year">
                         <div class="card-body box1-con-year">
                             <div
@@ -97,7 +179,6 @@
                                     {{ round($groomData['score']['percentage']) }}/100
                                     ({{ round($groomData['score']['percentage']) }}%)</span>
                             </div>
-                            @dd($groomData)
                             <div>
                                 <table class="table table-detail" style="table-layout: fixed;">
                                     <tbody>
@@ -112,52 +193,40 @@
                                                 Trọng số
                                             </td>
                                         </tr>
+                                        @php
+                                            $weights =
+                                                \App\Helpers\DataHelper::$PURPOSE_WEIGHTS_PERSONALIZED['MUA_NHA_DAT'];
+                                            $totalWeight = array_sum($weights);
+                                        @endphp
                                         <tr>
                                             <td>Can chi - vận khí ngày so với tuổi</td>
-                                            <td>{{ $groomData['score']['vanKhi']['details']['totalVanKhiPercentage'] }}/100
+                                            <td>{{ round($groomData['score']['vanKhi']['percentage']) }}/100
                                             </td>
-                                            <td>{{ $groomData['score']['vanKhi']['score'] }}</td>
+                                            <td>{{ round(($weights['VanKhi'] / $totalWeight) * 100, 1) }}%</td>
                                         </tr>
                                         <tr>
                                             <td>Nhị Thập Bát Tú</td>
-                                            <td>{{ $groomData['score']['vanKhi']['details']['totalVanKhiPercentage'] }}/100
+                                            <td>{{ round($groomData['score']['tu']['percentage']) }}/100
                                             </td>
-                                            <td>{{ $groomData['score']['vanKhi']['score'] }}</td>
+                                            <td>{{ round(($weights['28Tu'] / $totalWeight) * 100, 1) }}%</td>
                                         </tr>
                                         <tr>
                                             <td>Thập Nhị Trực</td>
-                                            <td>{{ $groomData['score']['vanKhi']['details']['totalVanKhiPercentage'] }}/100
+                                            <td>{{ round($groomData['score']['truc']['percentage']) }}/100
                                             </td>
-                                            <td>{{ $groomData['score']['vanKhi']['score'] }}</td>
+                                            <td>{{ round(($weights['12Truc'] / $totalWeight) * 100, 1) }}%</td>
                                         </tr>
                                         <tr>
                                             <td>Sao Cát Hung - Ngọc Hạp Thông Thư</td>
-                                            <td>{{ $groomData['score']['vanKhi']['details']['totalVanKhiPercentage'] }}/100
+                                            <td>{{ round($groomData['score']['catHung']['percentage']) }}/100
                                             </td>
-                                            <td>{{ $groomData['score']['vanKhi']['score'] }}</td>
+                                            <td>{{ round(($weights['CatHung'] / $totalWeight) * 100, 1) }}%</td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
-
-                            @if (isset($tabooResult['issues']) && !empty($tabooResult['issues']))
-                                <div class="mt-2">
-                                    @foreach ($tabooResult['issues'] as $badDay)
-                                        <div class="text-dark fw-semibold">
-                                            <img src="{{ asset('icons/ping.svg?v=1.0') }}" alt="ping" width="24"
-                                                height="24">
-                                            <span style="font-weight: 600">Phạm:</span>
-                                            {{ $badDay['details']['tabooName'] ?? '' }}
-                                        </div>
-                                    @endforeach
-                                </div>
-                            @endif
-
-
                         </div>
-
                     </div>
-
                     <div class="card border-0 mb-3 w-100 box-detial-year">
                         <div class="card-body box1-con-year">
                             <div
@@ -248,7 +317,9 @@
                                                         Là
                                                         sao <b>{{ $nhiThapBatTu['nature'] }}</b>.</p>
                                                     <p>{{ $nhiThapBatTu['description'] }}</p>
-                                                    <p><b>Nên làm:</b> {{ $nhiThapBatTu['guidance']['good'] }}</p>
+                                                    @if (!empty($nhiThapBatTu['guidance']['good']))
+                                                        <p><b>Nên làm:</b> {{ $nhiThapBatTu['guidance']['good'] }}</p>
+                                                    @endif
                                                     @if (!empty($nhiThapBatTu['guidance']['bad']))
                                                         <p><b>Kiêng kỵ:</b> {{ $nhiThapBatTu['guidance']['bad'] }}</p>
                                                     @endif
@@ -320,10 +391,19 @@
                             </div>
                         </div>
                     </div>
+                    <div class="card border-0 mb-3 w-100 box-detial-year">
+                        <div class="card-body box1-con-year">
+                            <div class="text-primary mb-2  text-dark d-flex align-items-center fw-bolder">
+                                Chú ý: Đây là các thông tin xem mang tính chất tham khảo, không thay thế cho các tư vấn
+                                chuyên môn. Người dùng tự chịu trách nhiệm với mọi quyết định cá nhân dựa trên thông tin
+                                tham khảo tại Phong Lịch.
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
                 @include('tools.siderbardetail')
             </div>
         </div>
     </div>
-
 @endsection
