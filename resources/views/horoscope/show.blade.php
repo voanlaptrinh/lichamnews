@@ -4,18 +4,18 @@
     @php
         // This data is now used for the select dropdown
         $zodiacIcons = [
-            'aries' => '/icons/aries-icons.svg',
-            'taurus' => '/icons/taurus-icons.svg',
-            'gemini' => '/icons/gemini-icons.svg',
-            'cancer' => '/icons/cancer-icons.svg',
-            'leo' => '/icons/leo-icons.svg',
-            'virgo' => '/icons/virgo-icons.svg',
-            'libra' => '/icons/libra-icons.svg',
-            'scorpio' => '/icons/scorpio-icons.svg',
-            'sagittarius' => '/icons/sagittarius-icons.svg',
-            'capricorn' => '/icons/capricorn-icons.svg',
-            'aquarius' => '/icons/aquarius-icons.svg',
-            'pisces' => '/icons/pisces-icons.svg',
+            'aries' => '/icons/bach_duong_tba.svg',
+            'taurus' => '/icons/kim_nguu_tba.svg',
+            'gemini' => '/icons/song_tu_tba.svg',
+            'cancer' => '/icons/cu_giai_tba.svg',
+            'leo' => '/icons/su_tu_tba.svg',
+            'virgo' => '/icons/xu_nu_tba.svg',
+            'libra' => '/icons/thien_binh_tba.svg',
+            'scorpio' => '/icons/bo_cap_tba.svg',
+            'sagittarius' => '/icons/nhan_ma_tba.svg',
+            'capricorn' => '/icons/ma_ket_tba.svg',
+            'aquarius' => '/icons/bao_binh_tba.svg',
+            'pisces' => '/icons/song_ngu_tba.svg',
         ];
 
         $zodiacNames = [
@@ -95,7 +95,7 @@
 
                     <div class="zodiac-current" style="display: flex; align-items: center;">
                         <div class="zodiac-icon" id="zodiac-icon">
-                            <img src="{{ asset($zodiacIcons[$zodiac['sign']] ?? '⭐') }}" alt="">
+                            <img src="{{ asset($zodiacIcons[$zodiac['sign']] ?? '⭐') }}" alt="{{ $zodiacNames[$zodiac['sign']] ?? 'Cung hoàng đạo' }}" class="img-fluid">
                         </div>
                         <div class="zodiac-info">
                             <div id="zodiac-name">{{ $zodiacNames[$zodiac['sign']] ?? 'Cung hoàng đạo' }}</div>
@@ -224,73 +224,73 @@
 
             const zodiacData = {
                 'aries': {
-                    icon: '{{ asset('/icons/aries-icons.svg') }}',
+                    icon: '{{ asset('/icons/bach_duong_tba.svg') }}',
                     name: 'Bạch Dương',
                     date: '21/3 - 19/4',
                     engName: 'Aries'
                 },
                 'taurus': {
-                    icon: '{{ asset('/icons/taurus-icons.svg') }}',
+                    icon: '{{ asset('/icons/kim_nguu_tba.svg') }}',
                     name: 'Kim Ngưu',
                     date: '20/4 - 20/5',
                     engName: 'Taurus'
                 },
                 'gemini': {
-                    icon: '{{ asset('/icons/gemini-icons.svg') }}',
+                    icon: '{{ asset('/icons/song_tu_tba.svg') }}',
                     name: 'Song Tử',
                     date: '21/5 - 20/6',
                     engName: 'Gemini'
                 },
                 'cancer': {
-                    icon: '{{ asset('/icons/cancer-icons.svg') }}',
+                    icon: '{{ asset('/icons/cu_giai_tba.svg') }}',
                     name: 'Cự Giải',
                     date: '21/6 - 22/7',
                     engName: 'Cancer'
                 },
                 'leo': {
-                    icon: '{{ asset('/icons/leo-icons.svg') }}',
+                    icon: '{{ asset('/icons/su_tu_tba.svg') }}',
                     name: 'Sư Tử',
                     date: '23/7 - 22/8',
                     engName: 'Leo'
                 },
                 'virgo': {
-                    icon: '{{ asset('/icons/virgo-icons.svg') }}',
+                    icon: '{{ asset('/icons/xu_nu_tba.svg') }}',
                     name: 'Xử Nữ',
                     date: '23/8 - 22/9',
                     engName: 'Virgo'
                 },
                 'libra': {
-                    icon: '{{ asset('/icons/libra-icons.svg') }}',
+                    icon: '{{ asset('/icons/thien_binh_tba.svg') }}',
                     name: 'Thiên Bình',
                     date: '23/9 - 22/10',
                     engName: 'Libra'
                 },
                 'scorpio': {
-                    icon: '{{ asset('/icons/scorpio-icons.svg') }}',
+                    icon: '{{ asset('/icons/bo_cap_tba.svg') }}',
                     name: 'Bọ Cạp',
                     date: '23/10 - 21/11',
                     engName: 'Scorpio'
                 },
                 'sagittarius': {
-                    icon: '{{ asset('/icons/sagittarius-icons.svg') }}',
+                    icon: '{{ asset('/icons/nhan_ma_tba.svg') }}',
                     name: 'Nhân Mã',
                     date: '22/11 - 21/12',
                     engName: 'Sagittarius'
                 },
                 'capricorn': {
-                    icon: '{{ asset('/icons/capricorn-icons.svg') }}',
+                    icon: '{{ asset('/icons/ma_ket_tba.svg') }}',
                     name: 'Ma Kết',
                     date: '22/12 - 19/1',
                     engName: 'Capricorn'
                 },
                 'aquarius': {
-                    icon: '{{ asset('/icons/aquarius-icons.svg') }}',
+                    icon: '{{ asset('/icons/bao_binh_tba.svg') }}',
                     name: 'Bảo Bình',
                     date: '20/1 - 18/2',
                     engName: 'Aquarius'
                 },
                 'pisces': {
-                    icon: '{{ asset('/icons/pisces-icons.svg') }}',
+                    icon: '{{ asset('/icons/song_ngu_tba.svg') }}',
                     name: 'Song Ngư',
                     date: '19/2 - 20/3',
                     engName: 'Pisces'
@@ -393,7 +393,7 @@
                 const typeSlug = typeSlugs[currentType];
                 if (signSlug && typeSlug) {
                     const newUrl = `{{ url('/cung-hoang-dao') }}/${signSlug}/${typeSlug}`;
-                    window.history.pushState({
+                    window.history.replaceState({
                         sign: newSign,
                         type: currentType
                     }, '', newUrl);
@@ -417,7 +417,7 @@
                 const typeSlug = typeSlugs[type];
                 if (signSlug && typeSlug) {
                     const newUrl = `{{ url('/cung-hoang-dao') }}/${signSlug}/${typeSlug}`;
-                    window.history.pushState({
+                    window.history.replaceState({
                         sign: currentSign,
                         type: type
                     }, '', newUrl);
@@ -425,7 +425,9 @@
             });
 
             window.addEventListener('popstate', (event) => {
-                if (event.state && event.state.sign && event.state.type) {
+                // Chỉ xử lý nếu có state hợp lệ và đang ở trong cùng một trang horoscope
+                if (event.state && event.state.sign && event.state.type &&
+                    window.location.pathname.includes('/cung-hoang-dao/')) {
                     currentSign = event.state.sign;
                     currentType = event.state.type;
 
@@ -441,6 +443,10 @@
                     updateMainTitle(currentSign, currentType);
                     updateMetaTags(currentSign, currentType);
                     fetchHoroscope(currentType);
+                } else {
+                    // Nếu không có state hoặc không trong trang horoscope,
+                    // chuyển hướng về trang cung hoàng đạo chính
+                    window.location.href = '{{ url("/cung-hoang-dao") }}';
                 }
             });
 
