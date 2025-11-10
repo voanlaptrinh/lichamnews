@@ -15,7 +15,7 @@
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#collapse-canchi-{{ Str::slug($personData['personTitle']) }}">
-                                Phân tích Can Chi - Vận Khí (Tương tác với tuổi)
+                               Xem can chi- khí vận & tuổi hợp/xung trong ngày
                             </button>
                         </h2>
                         <div id="collapse-canchi-{{ Str::slug($personData['personTitle']) }}"

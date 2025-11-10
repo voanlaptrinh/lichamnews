@@ -93,7 +93,7 @@
 
         populateDaySelect(maxDays) {
             const currentValue = this.daySelect.value;
-            this.daySelect.innerHTML = '<option value="">Ngày</option>';
+            this.daySelect.innerHTML = '<option value="" disabled>Ngày</option>';
 
             for (let i = 1; i <= maxDays; i++) {
                 const option = document.createElement('option');
@@ -120,10 +120,11 @@
                 this.monthSelect.innerHTML = '<option value="">Đang tải...</option>';
                 this.monthSelect.disabled = true;
             } else {
-                this.monthSelect.innerHTML = '<option value="">Tháng</option>';
+                this.monthSelect.innerHTML = '<option value="" disabled>Tháng</option>';
             }
 
             if (!this.isLunar) {
+                this.monthSelect.innerHTML = '<option value="" disabled>Tháng</option>';
                 // Solar calendar - simple 12 months
                 for (let i = 1; i <= 12; i++) {
                     const option = document.createElement('option');
@@ -169,7 +170,7 @@
                 }
 
                 // Reset dropdown and re-enable
-                this.monthSelect.innerHTML = '<option value="">Tháng</option>';
+                this.monthSelect.innerHTML = '<option value="" disabled>Tháng</option>';
                 this.monthSelect.disabled = false;
 
                 // Add all months including leap month if exists
@@ -220,7 +221,7 @@
         }
 
         populateYearSelect() {
-            this.yearSelect.innerHTML = '<option value="">Năm</option>';
+            this.yearSelect.innerHTML = '<option value="" disabled>Năm</option>';
 
             for (let year = this.options.yearRangeEnd; year >= this.options.yearRangeStart; year--) {
                 const option = document.createElement('option');
