@@ -69,20 +69,29 @@
                         </div>
                         <div class="info-grid">
                             <p class="mb-2">
-                                Kiểm tra ngày tốt xấu và các yếu tố hỗ trợ cho việc mua nhà năm {{ $year }} {{ $yearData['canchi'] }}
+                                Kiểm tra ngày tốt xấu và các yếu tố hỗ trợ cho việc mua nhà năm {{ $year }}
+                                {{ $yearData['canchi'] }}
                                 của gia chủ tuổi {{ $birthdateInfo['can_chi_nam'] }}
                                 ({{ $yearData['year_analysis']['lunar_age'] }} tuổi).
                             </p>
                             <ul>
-                                <li>
-                                    {{ $yearData['year_analysis']['details']['kimLau']['message'] }}
-                                </li>
-                                <li>
-                                    {{ $yearData['year_analysis']['details']['hoangOc']['message'] }}
-                                </li>
-                                <li>
-                                    {{ $yearData['year_analysis']['details']['tamTai']['message'] }}
-                                </li>
+                                @if ($yearData['year_analysis']['details']['kimLau']['is_bad'])
+                                    <li>
+                                        Phạm Kim Lâu
+
+                                    </li>
+                                @endif
+                                @if ($yearData['year_analysis']['details']['hoangOc']['is_bad'])
+                                    <li>
+                                        Phạm Hoang Ốc
+
+                                    </li>
+                                @endif
+                                @if ($yearData['year_analysis']['details']['tamTai']['is_bad'])
+                                    <li>
+                                        Phạm Tam Tai
+                                    </li>
+                                @endif
                             </ul>
                             <p>{!! $yearData['year_analysis']['description'] !!}</p>
                         </div>
@@ -123,15 +132,15 @@
                                         @foreach ($yearData['days'] as $day)
                                             <tr>
                                                 <td>
-                                                    <a   target="_blank"
-    rel="noopener noreferrer"
+                                                    <a target="_blank" rel="noopener noreferrer"
                                                         href="{{ route('buy-house.details', [
                                                             'date' => $day['date']->format('Y-m-d'),
                                                             'birthdate' => $birthdateInfo['dob']->format('Y-m-d'),
                                                         ]) }}">
                                                         <div class="box-dtl-pc">
                                                             <div style="color: #0F172A;font-size: 18px">
-                                                                <strong style="text-transform:capitalize;">{{ $day['weekday_name'] ?? '' }},
+                                                                <strong
+                                                                    style="text-transform:capitalize;">{{ $day['weekday_name'] ?? '' }},
                                                                     {{ $day['date']->format('d/m/Y') }}</strong>
                                                             </div>
                                                             <div class="text-muted small"
@@ -158,35 +167,58 @@
                                                         $supportFactors = [];
 
                                                         // Kiểm tra ngày hoàng đạo - sử dụng helper
-                                                        if (isset($day['day_score']['hoangdao']) && $day['day_score']['hoangdao'] === true) {
-                                                            $starName = \App\Helpers\GoodBadDayHelper::getHoangDaoStar($day['date']);
+                                                        if (
+                                                            isset($day['day_score']['hoangdao']) &&
+                                                            $day['day_score']['hoangdao'] === true
+                                                        ) {
+                                                            $starName = \App\Helpers\GoodBadDayHelper::getHoangDaoStar(
+                                                                $day['date'],
+                                                            );
                                                             if ($starName) {
                                                                 $supportFactors[] = "Ngày hoàng đạo: Sao {$starName}";
                                                             }
                                                         }
 
                                                         // Kiểm tra trực tốt
-                                                        if (isset($day['day_score']['tructot']) && $day['day_score']['tructot'] === true) {
-                                                            $trucName = $day['day_score']['truc']['details']['name'] ?? 'Không xác định';
+                                                        if (
+                                                            isset($day['day_score']['tructot']) &&
+                                                            $day['day_score']['tructot'] === true
+                                                        ) {
+                                                            $trucName =
+                                                                $day['day_score']['truc']['details']['name'] ??
+                                                                'Không xác định';
                                                             $supportFactors[] = "Trực tốt: Trực {$trucName}";
                                                         }
 
                                                         // Kiểm tra hợp tuổi - sử dụng helper
-                                                        if (isset($day['day_score']['hopttuoi']) && $day['day_score']['hopttuoi'] === true) {
-                                                            $hopType = \App\Helpers\GoodBadDayHelper::getHopTuoiDetail($day['date'], $birthdateInfo['dob']->year);
+                                                        if (
+                                                            isset($day['day_score']['hopttuoi']) &&
+                                                            $day['day_score']['hopttuoi'] === true
+                                                        ) {
+                                                            $hopType = \App\Helpers\GoodBadDayHelper::getHopTuoiDetail(
+                                                                $day['date'],
+                                                                $birthdateInfo['dob']->year,
+                                                            );
                                                             if ($hopType) {
                                                                 $supportFactors[] = "Ngày hợp tuổi: {$hopType}";
                                                             }
                                                         }
 
                                                         // Kiểm tra sao tốt - gộp thành 1 dòng
-                                                        if (isset($day['day_score']['good_stars']) && !empty($day['day_score']['good_stars'])) {
+                                                        if (
+                                                            isset($day['day_score']['good_stars']) &&
+                                                            !empty($day['day_score']['good_stars'])
+                                                        ) {
                                                             $starNames = implode(', ', $day['day_score']['good_stars']);
                                                             $supportFactors[] = "Sao tốt: {$starNames}";
                                                         }
 
                                                         // Chỉ lấy tối đa 4 yếu tố
-                                                        $supportFactors = array_slice(array_unique($supportFactors), 0, 4);
+                                                        $supportFactors = array_slice(
+                                                            array_unique($supportFactors),
+                                                            0,
+                                                            4,
+                                                        );
                                                         $supportCount = count($supportFactors);
                                                     @endphp
                                                     @if ($supportCount > 0)
@@ -199,7 +231,8 @@
                                                         </ul>
                                                     @else
                                                         <span class="text-warning small">
-                                                            <i class="bi bi-exclamation-triangle-fill"></i> Không có yếu tố hỗ trợ
+                                                            <i class="bi bi-exclamation-triangle-fill"></i> Không có yếu
+                                                            tố hỗ trợ
                                                         </span>
                                                     @endif
 

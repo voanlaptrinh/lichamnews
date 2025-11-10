@@ -85,7 +85,7 @@
                                     <thead class="text-center" style="background-color: #e8ebee;">
                                         <tr>
                                             <th style="border-radius: 8px 0 0 8px">Ngày</th>
-                                            <th style="">Phạm</th>
+                                            <th style="">Yếu tố hỗ trợ</th>
                                             <th style=" border-radius: 0 8px 8px 0" class="score-header">Điểm</th>
                                         </tr>
                                     </thead>
@@ -121,7 +121,7 @@
                                                         </div>
                                                     </a>
                                                 </td>
-                                                <td>
+                                                <td style="text-align: start">
                                                    @php
                                                         $supportFactors = [];
 
