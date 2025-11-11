@@ -2,9 +2,9 @@
 @section('content')
 
     <div class="container-setup">
-        <h6 class="content-title-detail"><a href="{{ route('home') }}"
+        <div class="content-title-detail"><a href="{{ route('home') }}"
                 style="color: #2254AB; text-decoration: underline;">Trang chủ</a><i class="bi bi-chevron-right"></i> <span>Đổi
-                ngày âm dương </span></h6>
+                ngày âm dương </span></div>
         <h1 class="content-title-home-lich">Đổi Ngày Dương Sang Âm & Âm Sang Dương</h1>
         <div class="row g-3">
             <div class="col-xl-9 col-sm-12 col-12">
