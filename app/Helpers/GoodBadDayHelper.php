@@ -310,7 +310,8 @@ class GoodBadDayHelper
         $month = (int)$date->format('m');
         $year = (int)$date->format('Y');
         $lunar = lunarHelper::convertSolar2Lunar($day, $month, $year);
-        $daysInMonth = self::getDaysInLunarMonth($lunar[2], $lunar[1], $lunar[4]);
+        // $lunar = [$lunarDay, $lunarMonth, $lunarYear, $lunarLeap, $isFullMonth]
+        $daysInMonth = self::getDaysInLunarMonth($lunar[2], $lunar[1], $lunar[3]);
         return $lunar[0] == $daysInMonth;
     }
 
@@ -415,7 +416,6 @@ class GoodBadDayHelper
 
     public static function getDaysInLunarMonth(int $year, int $month, bool $isLeap): int
     {
-
         $cacheKey = "$year-$month-" . ($isLeap ? '1' : '0');
 
         if (array_key_exists($cacheKey, self::$lunarMonthDaysCache)) {
@@ -423,24 +423,8 @@ class GoodBadDayHelper
         }
 
         try {
-            // Bước 1: Chuyển âm lịch -> dương lịch
-
-
-            $solarStart = LunarHelper::convertLunar2Solar(1, $month, $year, $isLeap);
-            if (!$solarStart) {
-                throw new \Exception('Invalid lunar date');
-            }
-
-            // Bước 2: Tính Julian Day
-            $jdStart = self::julianDayFromDate($solarStart['day'], $solarStart['month'], $solarStart['year']);
-            $julius1900 = 2415021.076998695;
-            $newMoonCycle = 29.530588853;
-
-            $k = floor(($jdStart - $julius1900) / $newMoonCycle);
-            $newMoonStart = LunarHelper::getNewMoonDay($k);
-            $newMoonNext = LunarHelper::getNewMoonDay($k + 1);
-
-            $days = $newMoonNext - $newMoonStart;
+            // Use the same logic as API controller for consistency
+            $days = self::calculateLunarMonthDays($month, $year, $isLeap ? 1 : 0);
 
             // Caching
             if (count(self::$lunarMonthDaysCache) >= self::$MAX_CACHE_SIZE) {
@@ -453,6 +437,121 @@ class GoodBadDayHelper
         } catch (\Throwable $e) {
             Log::error("Lỗi tính ngày trong tháng âm lịch: " . $e->getMessage());
             return 29; // Giá trị mặc định an toàn
+        }
+    }
+
+    /**
+     * Calculate actual number of days in a lunar month using the same logic as API
+     */
+    private static function calculateLunarMonthDays($month, $year, $isLeap = 0)
+    {
+        try {
+            // First check if the month/year/leap combination is valid
+            $solarStart = @LunarHelper::convertLunar2Solar(1, $month, $year, $isLeap);
+
+            if (!$solarStart || !isset($solarStart[0]) || $solarStart[0] == 0) {
+                // Invalid month (probably doesn't have leap version if isLeap=1)
+                return 0;
+            }
+
+            // Check if leap month actually exists by comparing with normal month
+            if ($isLeap == 1) {
+                $normalStart = @LunarHelper::convertLunar2Solar(1, $month, $year, 0);
+                // If both return same date, there's no actual leap month
+                if ($normalStart && $normalStart[0] == $solarStart[0] &&
+                    $normalStart[1] == $solarStart[1] &&
+                    $normalStart[2] == $solarStart[2]) {
+                    return 0; // No leap month exists
+                }
+            }
+
+            // Calculate days between start of this month and start of next month
+            $currentMonthStart = LunarHelper::convertLunar2Solar(1, $month, $year, $isLeap);
+
+            // Determine what the next lunar month is
+            $nextMonth = $month;
+            $nextYear = $year;
+            $nextIsLeap = 0;
+
+            if ($isLeap == 0) {
+                // Current is normal month, check if leap version exists
+                $leapTest = @LunarHelper::convertLunar2Solar(15, $month, $year, 1);
+                $normalTest = @LunarHelper::convertLunar2Solar(15, $month, $year, 0);
+
+                if ($leapTest && $normalTest &&
+                    !($leapTest[0] == $normalTest[0] &&
+                      $leapTest[1] == $normalTest[1] &&
+                      $leapTest[2] == $normalTest[2])) {
+                    // Leap month exists for this month number
+                    $nextIsLeap = 1;
+                } else {
+                    // No leap month, go to next month number
+                    $nextMonth++;
+                    if ($nextMonth > 12) {
+                        $nextMonth = 1;
+                        $nextYear++;
+                    }
+                }
+            } else {
+                // Current is leap month, next is always the next regular month
+                $nextMonth++;
+                if ($nextMonth > 12) {
+                    $nextMonth = 1;
+                    $nextYear++;
+                }
+            }
+
+            // Get the first day of next month
+            $nextMonthStart = @LunarHelper::convertLunar2Solar(1, $nextMonth, $nextYear, $nextIsLeap);
+
+            if ($currentMonthStart && $nextMonthStart &&
+                isset($currentMonthStart[0]) && isset($nextMonthStart[0])) {
+
+                // Calculate the difference in days
+                $currentDate = new \DateTime();
+                $currentDate->setDate($currentMonthStart[2], $currentMonthStart[1], $currentMonthStart[0]);
+
+                $nextDate = new \DateTime();
+                $nextDate->setDate($nextMonthStart[2], $nextMonthStart[1], $nextMonthStart[0]);
+
+                $interval = $currentDate->diff($nextDate);
+                $days = $interval->days;
+
+                // Lunar months are always 29 or 30 days
+                if ($days == 29 || $days == 30) {
+                    return $days;
+                }
+            }
+
+            // Fallback method: Check if day 30 converts to valid date
+            $day30 = @LunarHelper::convertLunar2Solar(30, $month, $year, $isLeap);
+
+            if ($day30 && isset($day30[0]) && $day30[0] > 0) {
+                // Check if day 30 is really in this month by comparing with day 29
+                $day29 = @LunarHelper::convertLunar2Solar(29, $month, $year, $isLeap);
+
+                if ($day29 && isset($day29[0])) {
+                    $date29 = new \DateTime();
+                    $date29->setDate($day29[2], $day29[1], $day29[0]);
+
+                    $date30 = new \DateTime();
+                    $date30->setDate($day30[2], $day30[1], $day30[0]);
+
+                    $diff = $date29->diff($date30)->days;
+
+                    // If day 30 is exactly 1 day after day 29, month has 30 days
+                    if ($diff == 1) {
+                        return 30;
+                    }
+                }
+            }
+
+            // Default to 29 days (most common for lunar months)
+            return 29;
+
+        } catch (\Exception $e) {
+            // If conversion fails completely, return 0 to indicate invalid
+            return 0;
         }
     }
     protected static function julianDayFromDate(int $day, int $month, int $year): float
