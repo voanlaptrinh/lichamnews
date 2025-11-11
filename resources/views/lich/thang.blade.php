@@ -133,14 +133,14 @@
                     <div class="calendar-wrapper calendar-wrapper-none">
                         <div class="calendar-header mt-0">
 
-                            <a href="{{ route('lich.thang', ['nam' => $mm == 1 ? $yy - 1 : $yy, 'thang' => $mm == 1 ? 12 : $mm - 1, 'solar' => 1]) }}"
+                            <a href="{{ route('lich.thang', ['nam' => $mm == 1 ? $yy - 1 : $yy, 'thang' => $mm == 1 ? 12 : $mm - 1,]) }}"
                                 class="month-nav" title="Tháng trước">
                                 <i class="bi bi-chevron-left"></i>
                             </a>
                             <div class="mb-0 title-tong-quan-h4-log">Tháng {{ $mm }} năm {{ $yy }}
                             </div>
 
-                            <a href="{{ route('lich.thang', ['nam' => $mm == 12 ? $yy + 1 : $yy, 'thang' => $mm == 12 ? 1 : $mm + 1, 'solar' => 1]) }}"
+                            <a href="{{ route('lich.thang', ['nam' => $mm == 12 ? $yy + 1 : $yy, 'thang' => $mm == 12 ? 1 : $mm + 1]) }}"
                                 class="month-nav" title="Tháng sau">
                                 <i class="bi bi-chevron-right"></i>
                             </a>

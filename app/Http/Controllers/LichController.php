@@ -714,7 +714,7 @@ class LichController extends Controller
         // If this year doesn't have a leap month at all, or the requested month is not the leap month
         if (!$has_leap_month || $leap_month_number != $thang) {
             // Redirect to regular month with lunar parameter
-            return redirect()->route('lich.thang', ['nam' => $nam, 'thang' => $thang, 'lunar' => 1]);
+            return redirect()->route('lich.thang', ['nam' => $nam, 'thang' => $thang]);
         }
 
         // This leap month exists, show it
