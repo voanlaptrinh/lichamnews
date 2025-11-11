@@ -16,6 +16,14 @@
                 Chi tiết</span></h6>
 
         <h1 class="content-title-home-lich">Chi tiết xem ngày mua nhà</h1>
+
+        <!-- Nút quay lại -->
+        <div class="mb-3">
+            <a href="#" class="btn btn-outline-primary btn-sm" id="backToListBtn" onclick="goBackToForm()">
+                <i class="bi bi-arrow-left me-1"></i> Quay lại danh sách ngày
+            </a>
+        </div>
+
         <div>
             <div class="row g-lg-3 g-2 pt-lg-3 pt-2">
                 <div class="col-xl-9 col-sm-12 col-12 ">
@@ -426,3 +434,41 @@
     </div>
 
 @endsection
+
+@push('scripts')
+<script>
+function goBackToForm() {
+    // Get current URL parameters to extract birthdate and date range info
+    const urlParams = new URLSearchParams(window.location.search);
+    const birthdate = urlParams.get('birthdate');
+    const dateRange = urlParams.get('date_range');
+
+    // Build the target URL with hash parameters
+    let targetUrl = '{{ route("buy-house.form") }}';
+    const hashParams = [];
+
+    // Add birthdate to hash if available
+    if (birthdate) {
+        // Convert Y-m-d format to d/m/Y format for the form
+        const dateParts = birthdate.split('-');
+        if (dateParts.length === 3) {
+            const formattedDate = `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
+            hashParams.push(`birthdate=${encodeURIComponent(formattedDate)}`);
+        }
+    }
+
+    // Add date range to hash if available
+    if (dateRange) {
+        hashParams.push(`khoang=${encodeURIComponent(dateRange)}`);
+    }
+
+    // Build final URL with hash
+    if (hashParams.length > 0) {
+        targetUrl += `#${hashParams.join('&')}`;
+    }
+
+    // Redirect to the form page
+    window.location.href = targetUrl;
+}
+</script>
+@endpush

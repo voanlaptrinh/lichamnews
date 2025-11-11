@@ -199,7 +199,7 @@
                 leapContainerId: 'leapMonthContainer',
                 defaultDay: 1,
                 defaultMonth: 1,
-                defaultYear: 1945,
+                defaultYear: 2000,
                 yearRangeStart: 1900,
                 yearRangeEnd: new Date().getFullYear(),
                 lunarApiUrl: '/api/lunar-solar-convert',
@@ -296,6 +296,128 @@
 
             // Initialize after a short delay to ensure library is loaded
             setTimeout(initDateRangePicker, 100);
+
+            // ========== HASH PARAMETER HANDLING ==========
+
+            // Function to parse hash parameters
+            function parseHashParams() {
+                const hash = window.location.hash.substring(1);
+                const params = {};
+                if (hash) {
+                    const pairs = hash.split('&');
+                    for (const pair of pairs) {
+                        const [key, value] = pair.split('=');
+                        if (key && value) {
+                            params[decodeURIComponent(key)] = decodeURIComponent(value);
+                        }
+                    }
+                }
+                return params;
+            }
+
+            // Function to set hash parameters
+            function setHashParams(params) {
+                const hashParts = [];
+                for (const [key, value] of Object.entries(params)) {
+                    if (value) {
+                        hashParts.push(`${encodeURIComponent(key)}=${encodeURIComponent(value)}`);
+                    }
+                }
+                window.location.hash = hashParts.join('&');
+            }
+
+            // Function to restore form from hash parameters
+            function restoreFromHash() {
+                const params = parseHashParams();
+
+                if (params.birthdate || params.khoang) {
+                    let formRestored = false;
+                    let birthdateSet = false;
+                    let dateRangeSet = false;
+
+                    if (params.birthdate) {
+                        // Set birthdate
+                        const ngayXemInput = document.getElementById('ngayXem');
+                        ngayXemInput.value = params.birthdate;
+
+                        // Parse birthdate to set individual fields
+                        const dateParts = params.birthdate.split('/');
+                        if (dateParts.length === 3) {
+                            const day = parseInt(dateParts[0]);
+                            const month = parseInt(dateParts[1]);
+                            const year = parseInt(dateParts[2]);
+
+                            // Set the selects with multiple retries to ensure they're populated
+                            function trySetSelects(attempts = 0) {
+                                const maxAttempts = 10;
+                                const daySelect = document.getElementById('ngaySelect');
+                                const monthSelect = document.getElementById('thangSelect');
+                                const yearSelect = document.getElementById('namSelect');
+
+                                if (attempts >= maxAttempts) return;
+
+                                if (daySelect.options.length > 1 && monthSelect.options.length > 1 && yearSelect.options.length > 1) {
+                                    daySelect.value = day;
+                                    monthSelect.value = month;
+                                    yearSelect.value = year;
+
+                                    // Trigger change events to update the form
+                                    daySelect.dispatchEvent(new Event('change'));
+                                    monthSelect.dispatchEvent(new Event('change'));
+                                    yearSelect.dispatchEvent(new Event('change'));
+
+                                    birthdateSet = true;
+                                    checkAndSubmitForm();
+                                } else {
+                                    setTimeout(() => trySetSelects(attempts + 1), 200);
+                                }
+                            }
+
+                            trySetSelects();
+                        }
+                    } else {
+                        birthdateSet = true;
+                    }
+
+                    if (params.khoang) {
+                        // Set date range with retry
+                        function trySetDateRange(attempts = 0) {
+                            const maxAttempts = 5;
+                            if (attempts >= maxAttempts) return;
+
+                            const khoangInput = document.getElementById('khoangNgay');
+                            if (khoangInput) {
+                                khoangInput.value = params.khoang;
+                                dateRangeSet = true;
+                                checkAndSubmitForm();
+                            } else {
+                                setTimeout(() => trySetDateRange(attempts + 1), 200);
+                            }
+                        }
+
+                        trySetDateRange();
+                    } else {
+                        dateRangeSet = true;
+                    }
+
+                    // Function to check if all fields are set and submit form
+                    function checkAndSubmitForm() {
+                        if (birthdateSet && dateRangeSet && !formRestored) {
+                            formRestored = true;
+                            // Auto submit form after a short delay to ensure everything is set
+                            setTimeout(() => {
+                                const form = document.getElementById('totXauForm');
+                                if (form) {
+                                    form.requestSubmit();
+                                }
+                            }, 500);
+                        }
+                    }
+                }
+            }
+
+            // Restore form from hash on page load
+            setTimeout(restoreFromHash, 1000);
 
             // ========== FORM HANDLING ==========
             const form = document.getElementById('totXauForm');
@@ -406,6 +528,13 @@
                     sort: sortValue, // Add sort value
                     _token: '{{ csrf_token() }}'
                 };
+
+                // Set hash parameters for URL state
+                const hashParams = {
+                    birthdate: formattedBirthdate,
+                    khoang: khoangNgay.value
+                };
+                setHashParams(hashParams);
 
                 // Show loading state
                 submitBtn.disabled = true;

@@ -132,10 +132,11 @@
                                         @foreach ($yearData['days'] as $day)
                                             <tr>
                                                 <td>
-                                                    <a target="_blank" rel="noopener noreferrer"
+                                                    <a 
                                                         href="{{ route('buy-house.details', [
                                                             'date' => $day['date']->format('Y-m-d'),
                                                             'birthdate' => $birthdateInfo['dob']->format('Y-m-d'),
+                                                            'date_range' => $inputs['date_range'] ?? '',
                                                         ]) }}">
                                                         <div class="box-dtl-pc">
                                                             <div style="color: #0F172A;font-size: 18px">

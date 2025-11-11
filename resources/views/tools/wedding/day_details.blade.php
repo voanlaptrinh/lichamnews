@@ -15,6 +15,14 @@
                 Chi tiết</span></h6>
 
         <h1 class="content-title-home-lich">Chi tiết xem ngày cưới</h1>
+
+        <!-- Nút quay lại -->
+        <div class="mb-3">
+            <a href="#" class="btn btn-outline-primary btn-sm" id="backToListBtn" onclick="goBackToForm()">
+                <i class="bi bi-arrow-left me-1"></i> Quay lại danh sách ngày
+            </a>
+        </div>
+
         <div>
             <div class="row g-lg-3 g-2 pt-lg-3 pt-2">
                 <div class="col-xl-9 col-sm-12 col-12 ">
@@ -459,3 +467,52 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+<script>
+function goBackToForm() {
+    // Get current URL parameters to extract groom, bride and date range info
+    const urlParams = new URLSearchParams(window.location.search);
+    const groomDob = urlParams.get('groom_dob');
+    const brideDob = urlParams.get('bride_dob');
+    const dateRange = urlParams.get('date_range');
+
+    // Build the target URL with hash parameters
+    let targetUrl = '{{ route("astrology.form") }}';
+    const hashParams = [];
+
+    // Add groom to hash if available
+    if (groomDob) {
+        // Convert Y-m-d format to d/m/Y format for the form
+        const dateParts = groomDob.split('-');
+        if (dateParts.length === 3) {
+            const formattedDate = `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
+            hashParams.push(`groom=${encodeURIComponent(formattedDate)}`);
+        }
+    }
+
+    // Add bride to hash if available
+    if (brideDob) {
+        // Convert Y-m-d format to d/m/Y format for the form
+        const dateParts = brideDob.split('-');
+        if (dateParts.length === 3) {
+            const formattedDate = `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
+            hashParams.push(`bride=${encodeURIComponent(formattedDate)}`);
+        }
+    }
+
+    // Add date range to hash if available
+    if (dateRange) {
+        hashParams.push(`khoang=${encodeURIComponent(dateRange)}`);
+    }
+
+    // Build final URL with hash
+    if (hashParams.length > 0) {
+        targetUrl += `#${hashParams.join('&')}`;
+    }
+
+    // Redirect to the form page
+    window.location.href = targetUrl;
+}
+</script>
+@endpush

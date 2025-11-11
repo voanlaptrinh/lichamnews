@@ -145,7 +145,7 @@
                                         @foreach ($yearData['days'] as $day)
                                             <tr>
                                                 <td>
-                                                    <a target="_blank" rel="noopener noreferrer"
+                                                    <a 
                                                         href="{{ route('wedding.day.details', [
                                                             'date' => $day['date']->format('Y-m-d'),
                                                             'groom_dob' => $groomInfo['dob']->format('Y-m-d'),

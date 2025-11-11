@@ -44,8 +44,8 @@
                                 </p>
                                 <p class="mb-2">
                                     <strong>Tuổi:</strong>
-                                    {{ $birthdateInfo['can_chi'] ?? '' }}, mệnh: 
-                                     {{ $birthdateInfo['hanh'] ?? '' }} ({{ $birthdateInfo['menh'] ?? '' }})
+                                    {{ $birthdateInfo['can_chi'] ?? '' }}, mệnh:
+                                    {{ $birthdateInfo['hanh'] ?? '' }} ({{ $birthdateInfo['menh'] ?? '' }})
                                 </p>
                                 <p class="mb-2">
                                     <strong>Tuổi âm:</strong>
@@ -63,7 +63,7 @@
                 <!-- Danh sách điểm theo ngày -->
                 <div class="card border-0 mb-3 w-100 box-detial-year">
                     <div class="card-body">
-                       <div class="betwen-ds mb-3 flex-wrap">
+                        <div class="betwen-ds mb-3 flex-wrap">
                             <div
                                 class="text-primary mb-0 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
                                 <img src="{{ asset('icons/k_nen_1.svg') }}" alt="thông tin người xem" width="28"
@@ -80,8 +80,9 @@
                         </div>
 
                         @if (isset($yearData['days']) && count($yearData['days']) > 0)
-                            <div class="table-responsive w-100" id="bang-chi-tiet"> 
-                                <table class="table table-hover align-middle w-100" id="table-{{ $year }}" style="table-layout: fixed; width: 100%;">
+                            <div class="table-responsive w-100" id="bang-chi-tiet">
+                                <table class="table table-hover align-middle w-100" id="table-{{ $year }}"
+                                    style="table-layout: fixed; width: 100%;">
                                     <thead class="text-center" style="background-color: #e8ebee;">
                                         <tr>
                                             <th style="border-radius: 8px 0 0 8px">Ngày</th>
@@ -92,13 +93,13 @@
                                     <tbody class="text-center">
                                         @foreach ($yearData['days'] as $day)
                                             <tr>
-                                                <td>
-                                                    <a   target="_blank"
-    rel="noopener noreferrer"
-                                                        href="{{ route('totxau.dayDetails', ['date' => $day['date']->format('Y-m-d'), 'birthdate' => $formattedBirthdate]) }}">
+                                                <td style="text-align: start">
+                                                    <a
+                                                        href="{{ route('totxau.dayDetails', ['date' => $day['date']->format('Y-m-d'), 'birthdate' => $formattedBirthdate, 'date_range' => $inputs['date_range'] ?? '']) }}">
                                                         <div class="box-dtl-pc">
                                                             <div style="color: #0F172A;font-size: 18px">
-                                                                <strong style="text-transform:capitalize;">{{ $day['weekday_name'] ?? '' }},
+                                                                <strong
+                                                                    style="text-transform:capitalize;">{{ $day['weekday_name'] ?? '' }},
                                                                     {{ $day['date']->format('d/m/Y') }}</strong>
                                                             </div>
                                                             <div class="text-muted small"
@@ -122,28 +123,42 @@
                                                     </a>
                                                 </td>
                                                 <td style="text-align: start">
-                                                   @php
+                                                    @php
                                                         $supportFactors = [];
 
                                                         // Kiểm tra ngày hoàng đạo - sử dụng helper
-                                                        if (isset($day['day_score']['score']['hoangdao']) && $day['day_score']['score']['hoangdao'] === true) {
-                                                            $starName = \App\Helpers\GoodBadDayHelper::getHoangDaoStar($day['date']);
+                                                        if (
+                                                            isset($day['day_score']['score']['hoangdao']) &&
+                                                            $day['day_score']['score']['hoangdao'] === true
+                                                        ) {
+                                                            $starName = \App\Helpers\GoodBadDayHelper::getHoangDaoStar(
+                                                                $day['date'],
+                                                            );
                                                             if ($starName) {
                                                                 $supportFactors[] = "Ngày hoàng đạo: Sao {$starName}";
                                                             }
                                                         }
 
                                                         // Kiểm tra trực tốt
-                                                        if (isset($day['day_score']['score']['tructot']) && $day['day_score']['score']['tructot'] === true) {
-                                                            $trucName = $day['day_score']['score']['truc']['details']['name'] ?? 'Không xác định';
+                                                        if (
+                                                            isset($day['day_score']['score']['tructot']) &&
+                                                            $day['day_score']['score']['tructot'] === true
+                                                        ) {
+                                                            $trucName =
+                                                                $day['day_score']['score']['truc']['details']['name'] ??
+                                                                'Không xác định';
                                                             $supportFactors[] = "Trực tốt: Trực {$trucName}";
                                                         }
 
-                                               
-
                                                         // Kiểm tra hợp tuổi - sử dụng helper
-                                                        if (isset($day['day_score']['score']['hopttuoi']) && $day['day_score']['score']['hopttuoi'] === true) {
-                                                            $hopType = \App\Helpers\GoodBadDayHelper::getHopTuoiDetail($day['date'], $birthdateInfo['dob']->year);
+                                                        if (
+                                                            isset($day['day_score']['score']['hopttuoi']) &&
+                                                            $day['day_score']['score']['hopttuoi'] === true
+                                                        ) {
+                                                            $hopType = \App\Helpers\GoodBadDayHelper::getHopTuoiDetail(
+                                                                $day['date'],
+                                                                $birthdateInfo['dob']->year,
+                                                            );
                                                             if ($hopType) {
                                                                 $supportFactors[] = "Ngày hợp tuổi: {$hopType}";
                                                             }
@@ -157,31 +172,38 @@
                                                         }
 
                                                         // Chỉ lấy tối đa 4 yếu tố
-                                                        $supportFactors = array_slice(array_unique($supportFactors), 0, 4);
+                                                        $supportFactors = array_slice(
+                                                            array_unique($supportFactors),
+                                                            0,
+                                                            4,
+                                                        );
                                                         $supportCount = count($supportFactors);
                                                     @endphp
-                                                        @if ($supportCount > 0)
+                                                    @if ($supportCount > 0)
                                                         <ul class="list-unstyled mb-0">
                                                             @foreach ($supportFactors as $factor)
                                                                 <li class="d-flex align-items-center mb-1">
-                                                                  
-                                                                    
+
+
                                                                     <span class="small">{{ $factor }}</span>
                                                                 </li>
                                                             @endforeach
                                                         </ul>
                                                     @else
                                                         <span class="text-warning small">
-                                                            <i class="bi bi-exclamation-triangle-fill"></i> Không có yếu tố hỗ trợ
+                                                            <i class="bi bi-exclamation-triangle-fill"></i> Không có yếu
+                                                            tố hỗ trợ
                                                         </span>
                                                     @endif
 
                                                 </td>
                                                 <td class="text-center">
                                                     @php
-                                                        $score = $day['day_score']['score']['percentage'] ?? $day['day_score']['percentage'] ?? 0;
+                                                        $score =
+                                                            $day['day_score']['score']['percentage'] ??
+                                                            ($day['day_score']['percentage'] ?? 0);
                                                         $bgColor = '#D1FAE5'; // Green
-                                                       if ($score < 30) {
+                                                        if ($score < 30) {
                                                             $bgColor = '#FEE2E2'; // Red
                                                             $border = '#DC2626';
                                                             $text_box = '#DC2626';

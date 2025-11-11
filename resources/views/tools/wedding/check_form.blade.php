@@ -395,6 +395,138 @@
             // Initialize after a short delay to ensure library is loaded
             setTimeout(initDateRangePicker, 100);
 
+            // ========== HASH PARAMETER HANDLING ==========
+
+            // Function to parse hash parameters
+            function parseHashParams() {
+                const hash = window.location.hash.substring(1);
+                const params = {};
+                if (hash) {
+                    const pairs = hash.split('&');
+                    for (const pair of pairs) {
+                        const [key, value] = pair.split('=');
+                        if (key && value) {
+                            params[decodeURIComponent(key)] = decodeURIComponent(value);
+                        }
+                    }
+                }
+                return params;
+            }
+
+            // Function to set hash parameters
+            function setHashParams(params) {
+                const hashParts = [];
+                for (const [key, value] of Object.entries(params)) {
+                    if (value) {
+                        hashParts.push(`${encodeURIComponent(key)}=${encodeURIComponent(value)}`);
+                    }
+                }
+                window.location.hash = hashParts.join('&');
+            }
+
+            // Function to restore form from hash parameters
+            function restoreFromHash() {
+                const params = parseHashParams();
+
+                if (params.groom || params.bride || params.khoang) {
+                    let formRestored = false;
+                    let groomSet = false;
+                    let brideSet = false;
+                    let dateRangeSet = false;
+
+                    if (params.groom) {
+                        // Set groom birthdate
+                        const groomInput = document.getElementById('groomDobHidden');
+                        groomInput.value = params.groom;
+
+                        // Parse and set groom date selects
+                        const dateParts = params.groom.split('/');
+                        if (dateParts.length === 3) {
+                            const day = parseInt(dateParts[0]);
+                            const month = parseInt(dateParts[1]);
+                            const year = parseInt(dateParts[2]);
+
+                            setTimeout(() => {
+                                document.getElementById('groomDay').value = day;
+                                document.getElementById('groomMonth').value = month;
+                                document.getElementById('groomYear').value = year;
+
+                                // Trigger change events
+                                document.getElementById('groomDay').dispatchEvent(new Event('change'));
+                                document.getElementById('groomMonth').dispatchEvent(new Event('change'));
+                                document.getElementById('groomYear').dispatchEvent(new Event('change'));
+
+                                groomSet = true;
+                                checkAndSubmitForm();
+                            }, 500);
+                        }
+                    } else {
+                        groomSet = true;
+                    }
+
+                    if (params.bride) {
+                        // Set bride birthdate
+                        const brideInput = document.getElementById('brideDobHidden');
+                        brideInput.value = params.bride;
+
+                        // Parse and set bride date selects
+                        const dateParts = params.bride.split('/');
+                        if (dateParts.length === 3) {
+                            const day = parseInt(dateParts[0]);
+                            const month = parseInt(dateParts[1]);
+                            const year = parseInt(dateParts[2]);
+
+                            setTimeout(() => {
+                                document.getElementById('brideDay').value = day;
+                                document.getElementById('brideMonth').value = month;
+                                document.getElementById('brideYear').value = year;
+
+                                // Trigger change events
+                                document.getElementById('brideDay').dispatchEvent(new Event('change'));
+                                document.getElementById('brideMonth').dispatchEvent(new Event('change'));
+                                document.getElementById('brideYear').dispatchEvent(new Event('change'));
+
+                                brideSet = true;
+                                checkAndSubmitForm();
+                            }, 500);
+                        }
+                    } else {
+                        brideSet = true;
+                    }
+
+                    if (params.khoang) {
+                        // Set date range
+                        setTimeout(() => {
+                            const khoangInput = document.getElementById('date_range');
+                            if (khoangInput) {
+                                khoangInput.value = params.khoang;
+                                dateRangeSet = true;
+                                checkAndSubmitForm();
+                            }
+                        }, 500);
+                    } else {
+                        dateRangeSet = true;
+                    }
+
+                    // Function to check if all fields are set and submit form
+                    function checkAndSubmitForm() {
+                        if (groomSet && brideSet && dateRangeSet && !formRestored) {
+                            formRestored = true;
+                            // Auto submit form after a short delay
+                            setTimeout(() => {
+                                const form = document.querySelector('form');
+                                if (form) {
+                                    form.requestSubmit();
+                                }
+                            }, 1000);
+                        }
+                    }
+                }
+            }
+
+            // Restore form from hash on page load
+            setTimeout(restoreFromHash, 1000);
+
             // ========== AJAX FORM SUBMISSION ==========
             const form = document.querySelector('form');
             const submitBtn = document.getElementById('submitBtn');
@@ -507,6 +639,14 @@
                     wedding_date_range: dateRangeValue,
                     _token: csrfToken
                 };
+
+                // Set hash parameters for URL state
+                const hashParams = {
+                    groom: formattedGroomDob,
+                    bride: formattedBrideDob,
+                    khoang: dateRangeValue
+                };
+                setHashParams(hashParams);
 
                 // Show loading state
                 submitBtn.disabled = true;
