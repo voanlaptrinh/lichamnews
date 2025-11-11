@@ -197,7 +197,7 @@
                                 <img src="{{ asset('icons/dac-diem1.svg') }}" alt="thông tin người xem" width="28"
                                     height="28" class="me-1"> <span>Đánh giá cho điểm các yếu tố ngày cho tuổi
                                     {{ $groomData['personInfo']['can_chi_nam'] }}
-                                    ({{ $groomData['personInfo']['dob']->format('d-m-Y') }}) mua nhà:
+                                    ({{ $groomData['personInfo']['dob']->format('d-m-Y') }}) tốt xấu:
                                     {{ round($groomData['score']['percentage']) }}/100
                                     ({{ round($groomData['score']['percentage']) }}%)</span>
                             </div>

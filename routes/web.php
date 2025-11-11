@@ -104,22 +104,23 @@ Route::prefix('xem-ngay-tot-xau')->group(function () {
     Route::post('/check-days', [TotXauController::class, 'checkDays'])->name('totxau.checkDays');
     Route::get('/chi-tiet/{date}', [TotXauController::class, 'showDayDetails'])->name('totxau.dayDetails');
 });
+//Xem ngày mua nhà
 Route::prefix('xem-ngay-mua-nha')->group(function () {
-    //Xem ngày mua nhà
     Route::get('/', [BuyHouseController::class, 'showForm'])->name('buy-house.form');
     Route::post('/', [BuyHouseController::class, 'checkDays'])->name('buy-house.check');
     Route::get('/chi-tiet/{date}', [BuyHouseController::class, 'showDayDetails'])->name('buy-house.details');
 });
-
-
 // Xem tuổi để cưới hỏi
 Route::prefix('xem-tuoi-cuoi-hoi')->group(function () {
     Route::get('/', [WeddingController::class, 'showForm'])->name('astrology.form');
     Route::post('/', [WeddingController::class, 'check'])->name('astrology.check');
     Route::get('/chi-tiet', [WeddingController::class, 'showDayDetails'])->name('wedding.day.details');
 });
-
-
+//Xem ngày khai trương
+Route::prefix('xem-ngay-khai-truong')->group(function () {
+Route::get('/', [KhaiTruongController::class, 'showForm'])->name('khai-truong.form');
+Route::post('/', [KhaiTruongController::class, 'checkDays'])->name('khai-truong.check');
+});
 
 //Xem ngày động thổ
 Route::get('/xem-ngay-dong-tho', [DongThoController::class, 'showForm'])->name('breaking.form');
@@ -134,9 +135,7 @@ Route::post('/xem-ngay-nhap-trach', [NhapTrachController::class, 'checkDays'])->
 Route::get('/xem-ngay-xuat-hanh', [XuatHanhController::class, 'showForm'])->name('xuat-hanh.form');
 Route::post('/xem-ngay-xuat-hanh', [XuatHanhController::class, 'checkDays'])->name('xuat-hanh.check');
 
-//Xem ngày khai trương
-Route::get('/xem-ngay-khai-truong', [KhaiTruongController::class, 'showForm'])->name('khai-truong.form');
-Route::post('/xem-ngay-khai-truong', [KhaiTruongController::class, 'checkDays'])->name('khai-truong.check');
+
 
 //Xem ngày ký hợp đồng
 Route::get('/xem-ngay-ky-hop-dong', [KyHopDongController::class, 'showForm'])->name('ky-hop-dong.form');

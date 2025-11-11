@@ -9,6 +9,10 @@
 
     class LunarSolarDateSelect {
         constructor(options = {}) {
+            // Create unique instance ID for debugging and state isolation
+            this.instanceId = `lsd_${Math.random().toString(36).substr(2, 9)}`;
+            console.log(`🌙 LunarSolarDateSelect instance ${this.instanceId} created`);
+
             this.options = {
                 daySelectId: options.daySelectId || 'ngaySelect',
                 monthSelectId: options.monthSelectId || 'thangSelect',
@@ -313,64 +317,24 @@
         }
 
         setupEventListeners() {
+            // Bind methods to preserve 'this' context
+            const boundHandleMonthChange = this.handleMonthChange.bind(this);
+            const boundHandleYearChange = this.handleYearChange.bind(this);
+            const boundHandleSolarRadioChange = this.handleSolarRadioChange.bind(this);
+            const boundHandleLunarRadioChange = this.handleLunarRadioChange.bind(this);
+
             // Date select changes
             this.daySelect.addEventListener('change', async () => await this.handleDateChange());
-            this.monthSelect.addEventListener('change', async () => {
-                // Check if selected option is leap month
-                const selectedOption = this.monthSelect.options[this.monthSelect.selectedIndex];
-                if (this.isLunar && selectedOption && selectedOption.dataset.isLeap === '1') {
-                    this.isLeapMonth = true;
-                    if (this.leapCheckbox) {
-                        this.leapCheckbox.checked = true;
-                    }
-                } else {
-                    this.isLeapMonth = false;
-                    if (this.leapCheckbox) {
-                        this.leapCheckbox.checked = false;
-                    }
-                }
-
-                await this.updateDaysInMonth();
-                await this.handleDateChange();
-                // Update month info when month changes
-                this.updateMonthInfoAfterSelection();
-            });
-            this.yearSelect.addEventListener('change', async () => {
-                // Repopulate months when year changes (for lunar calendar to show leap months)
-                if (this.isLunar) {
-                    await this.populateMonthSelect();
-                }
-                await this.updateDaysInMonth();
-                await this.handleDateChange();
-                // Update month info when year changes
-                this.updateMonthInfoAfterSelection();
-            });
+            this.monthSelect.addEventListener('change', boundHandleMonthChange);
+            this.yearSelect.addEventListener('change', boundHandleYearChange);
 
             // Calendar type changes
             if (this.solarRadio) {
-                this.solarRadio.addEventListener('change', async () => {
-                    if (this.solarRadio.checked) {
-                        this.isLunar = false;
-                        this.isLeapMonth = false;
-                        this.hideLeapOption();
-                        await this.populateMonthSelect();
-                        await this.updateDaysInMonth();
-                        this.handleCalendarTypeChange();
-                        this.updateMonthInfoAfterSelection();
-                    }
-                });
+                this.solarRadio.addEventListener('change', boundHandleSolarRadioChange);
             }
 
             if (this.lunarRadio) {
-                this.lunarRadio.addEventListener('change', async () => {
-                    if (this.lunarRadio.checked) {
-                        this.isLunar = true;
-                        await this.populateMonthSelect();
-                        await this.updateDaysInMonth();
-                        this.handleCalendarTypeChange();
-                        this.updateMonthInfoAfterSelection();
-                    }
-                });
+                this.lunarRadio.addEventListener('change', boundHandleLunarRadioChange);
             }
 
             // Leap month checkbox (hidden but kept for compatibility)
@@ -383,20 +347,83 @@
             }
         }
 
+        async handleMonthChange() {
+            // Update leap month state based on current instance's month selection
+            this.updateLeapMonthState();
+            await this.updateDaysInMonth();
+            await this.handleDateChange();
+            this.updateMonthInfoAfterSelection();
+        }
+
+        async handleYearChange() {
+            // Repopulate months when year changes (for lunar calendar to show leap months)
+            if (this.isLunar) {
+                await this.populateMonthSelect();
+            }
+            await this.updateDaysInMonth();
+            await this.handleDateChange();
+            this.updateMonthInfoAfterSelection();
+        }
+
+        async handleSolarRadioChange() {
+            if (this.solarRadio.checked) {
+                console.log(`🌙 Instance ${this.instanceId}: switching to solar calendar`);
+                this.isLunar = false;
+                this.isLeapMonth = false;
+                this.hideLeapOption();
+                await this.populateMonthSelect();
+                await this.updateDaysInMonth();
+                this.handleCalendarTypeChange();
+                this.updateMonthInfoAfterSelection();
+            }
+        }
+
+        async handleLunarRadioChange() {
+            if (this.lunarRadio.checked) {
+                console.log(`🌙 Instance ${this.instanceId}: switching to lunar calendar`);
+                this.isLunar = true;
+                await this.populateMonthSelect();
+                await this.updateDaysInMonth();
+                this.handleCalendarTypeChange();
+                this.updateMonthInfoAfterSelection();
+            }
+        }
+
+        updateLeapMonthState() {
+            // Check if selected option is leap month for THIS instance only
+            const selectedOption = this.monthSelect.options[this.monthSelect.selectedIndex];
+            const wasLeap = this.isLeapMonth;
+
+            if (this.isLunar && selectedOption && selectedOption.dataset.isLeap === '1') {
+                this.isLeapMonth = true;
+                if (this.leapCheckbox) {
+                    this.leapCheckbox.checked = true;
+                }
+            } else {
+                this.isLeapMonth = false;
+                if (this.leapCheckbox) {
+                    this.leapCheckbox.checked = false;
+                }
+            }
+
+            // Debug logging when state changes
+            if (wasLeap !== this.isLeapMonth) {
+                console.log(`🌙 Instance ${this.instanceId}: leap state changed from ${wasLeap} to ${this.isLeapMonth}`);
+            }
+        }
+
         async updateDaysInMonth() {
             const month = parseInt(this.monthSelect.value) || 1;
             const year = parseInt(this.yearSelect.value) || 1945;
             const currentDay = parseInt(this.daySelect.value);
 
-            // Get leap status from selected option
-            const selectedOption = this.monthSelect.options[this.monthSelect.selectedIndex];
+            // Ensure leap month state is current for this instance
+            this.updateLeapMonthState();
+
+            // Get leap status from current instance state
             let isLeapForApi = false;
-            if (this.isLunar && selectedOption && selectedOption.dataset.isLeap === '1') {
-                this.isLeapMonth = true;
-                isLeapForApi = true;
-            } else if (this.isLunar) {
-                this.isLeapMonth = false;
-                isLeapForApi = false;
+            if (this.isLunar) {
+                isLeapForApi = this.isLeapMonth;
             }
 
             let daysInMonth = 31;
@@ -525,14 +552,14 @@
                 let actualValue = displayString; // Default to same as display
 
                 if (this.isLunar) {
-                    // Check if current selection is leap month
-                    const selectedOption = this.monthSelect.options[this.monthSelect.selectedIndex];
-                    if (selectedOption && selectedOption.dataset.isLeap === '1') {
+                    // Ensure leap month state is current for this instance
+                    this.updateLeapMonthState();
+
+                    // Use instance state instead of re-checking DOM
+                    if (this.isLeapMonth) {
                         displayString += ' (ÂL-Nhuận)';
-                        this.isLeapMonth = true;
                     } else {
                         displayString += ' (ÂL)';
-                        this.isLeapMonth = false;
                     }
 
                     // Convert lunar to solar for the actual value

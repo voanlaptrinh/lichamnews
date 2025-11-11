@@ -291,7 +291,7 @@
                                                             @endforeach
                                                         </ul>
                                                     @else
-                                                        <span class="text-warning small">
+                                                        <span class="text-warning small" style="color: #2254AB !important">
                                                             <i class="bi bi-exclamation-triangle-fill"></i> Không có yếu
                                                             tố hỗ trợ
                                                         </span>
@@ -303,19 +303,19 @@
                                                         $brideScore = $day['bride_score']['percentage'] ?? 0;
 
                                                         // Xác định màu cho chú rể
-                                                        if ($groomScore < 30) {
+                                                        if ($groomScore <= 30) {
                                                             $groomColor = [
                                                                 'bg' => '#FEE2E2',
                                                                 'border' => '#DC2626',
                                                                 'text' => '#DC2626',
                                                             ];
-                                                        } elseif ($groomScore < 50) {
+                                                        } elseif ($groomScore <= 50) {
                                                             $groomColor = [
                                                                 'bg' => '#FFE3D5',
                                                                 'border' => '#FC6803',
                                                                 'text' => '#FC6803',
                                                             ];
-                                                        } elseif ($groomScore < 70) {
+                                                        } elseif ($groomScore <= 70) {
                                                             $groomColor = [
                                                                 'bg' => '#FEF3C7',
                                                                 'border' => '#F59E0B',
@@ -330,19 +330,19 @@
                                                         }
 
                                                         // Xác định màu cho cô dâu
-                                                        if ($brideScore < 30) {
+                                                        if ($brideScore <= 30) {
                                                             $brideColor = [
                                                                 'bg' => '#FEE2E2',
                                                                 'border' => '#DC2626',
                                                                 'text' => '#DC2626',
                                                             ];
-                                                        } elseif ($brideScore < 50) {
+                                                        } elseif ($brideScore <= 50) {
                                                             $brideColor = [
                                                                 'bg' => '#FFE3D5',
                                                                 'border' => '#FC6803',
                                                                 'text' => '#FC6803',
                                                             ];
-                                                        } elseif ($brideScore < 70) {
+                                                        } elseif ($brideScore <= 70) {
                                                             $brideColor = [
                                                                 'bg' => '#FEF3C7',
                                                                 'border' => '#F59E0B',

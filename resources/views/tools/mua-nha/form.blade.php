@@ -182,7 +182,7 @@
 @endsection
 
 @push('scripts')
-    <script src="{{ asset('js/lunar-solar-date-select.js?v=1.2') }}"></script>
+    <script src="{{ asset('js/lunar-solar-date-select.js?v=1.3') }}"></script>
     {{-- Date Range Picker JS (vanilla JS version) --}}
     <script src="{{ asset('/js/vanilla-daterangepicker.js?v=6.6') }}" defer></script>
 
@@ -201,7 +201,7 @@
                 leapContainerId: 'leapMonthContainer',
                 defaultDay: 1,
                 defaultMonth: 1,
-                defaultYear: 1945,
+                defaultYear: 2000,
                 yearRangeStart: 1900,
                 yearRangeEnd: new Date().getFullYear(),
                 lunarApiUrl: '/api/lunar-solar-convert',

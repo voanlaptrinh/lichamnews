@@ -231,7 +231,7 @@
                                                             @endforeach
                                                         </ul>
                                                     @else
-                                                        <span class="text-warning small">
+                                                        <span class="text-warning small" style="color: #2254AB !important">
                                                             <i class="bi bi-exclamation-triangle-fill"></i> Không có yếu
                                                             tố hỗ trợ
                                                         </span>
@@ -242,15 +242,15 @@
                                                     @php
                                                         $score = $day['day_score']['percentage'] ?? 0;
                                                         $bgColor = '#D1FAE5'; // Green
-                                                        if ($score < 30) {
+                                                        if ($score <= 30) {
                                                             $bgColor = '#FEE2E2'; // Red
                                                             $border = '#DC2626';
                                                             $text_box = '#DC2626';
-                                                        } elseif ($score < 50) {
+                                                        } elseif ($score <= 50) {
                                                             $bgColor = '#FFE3D5'; // Yellow
                                                             $border = '#FC6803';
                                                             $text_box = '#FC6803';
-                                                        } elseif ($score < 70) {
+                                                        } elseif ($score <= 70) {
                                                             $bgColor = '#FEF3C7'; // Orange
                                                             $border = '#F59E0B';
                                                             $text_box = '#F59E0B';
