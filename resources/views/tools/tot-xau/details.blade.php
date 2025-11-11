@@ -32,10 +32,18 @@
 
                     <div class="card border-0 mb-3 w-100 box-detial-year">
                         <div class="card-body box1-con-year">
-                            <div
-                                class="text-primary mb-3 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
-                                <img src="{{ asset('icons/dac-diem1.svg') }}" alt="thông tin người xem" width="28"
-                                    height="28" class="me-1"> <span>Thông Tin Ngày</span>
+                             <div class="box-title-goback">
+                                <div
+                                    class="text-primary mb-3 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
+                                    <img src="{{ asset('icons/dac-diem1.svg') }}" alt="thông tin người xem" width="28"
+                                        height="28" class="me-1"> <span>Thông Tin Ngày</span>
+                                </div>
+                                <div class="mb-3">
+                                    <a href="#" class="btn btn-outline-primary btn-sm" id="backToListBtn"
+                                        onclick="goBackToForm()">
+                                        <i class="bi bi-arrow-left me-1"></i> Quay lại danh sách ngày
+                                    </a>
+                                </div>
                             </div>
 
                             <div>
@@ -260,7 +268,7 @@
                                                 <button class="accordion-button collapsed" type="button"
                                                     data-bs-toggle="collapse"
                                                     data-bs-target="#collapse-canchi-{{ Str::slug($groomData['personTitle']) }}">
-                                                   Xem can chi- khí vận & tuổi hợp/xung trong ngày
+                                                   Xem can chi - khí vận & tuổi hợp/xung trong ngày
                                                 </button>
                                             </h2>
                                             <div id="collapse-canchi-{{ Str::slug($groomData['personTitle']) }}"

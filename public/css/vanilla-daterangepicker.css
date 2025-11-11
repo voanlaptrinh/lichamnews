@@ -337,6 +337,10 @@ html.daterangepicker-open {
         display: flex;
         justify-content: space-between;
     }
+    .box-title-goback {
+        display: flex;
+        justify-content: space-between;
+    }
 }
 
 /* Large Desktop - 1400px+ */
@@ -378,6 +382,10 @@ html.daterangepicker-open {
         display: flex;
         justify-content: space-between;
     }
+    .box-title-goback {
+        display: flex;
+        justify-content: space-between;
+    }
 }
 
 /* Desktop - 1200px to 1399.98px */
@@ -386,7 +394,10 @@ html.daterangepicker-open {
         /* min-width: 450px; */
         max-width: 500px;
     }
-
+.box-title-goback {
+        display: flex;
+        justify-content: space-between;
+    }
     .box--house-tot {
         display: flex;
         gap: 3px;
@@ -424,7 +435,10 @@ html.daterangepicker-open {
         /* min-width: 500px; */
         max-width: 550px;
     }
-
+.box-title-goback {
+        display: flex;
+        justify-content: space-between;
+    }
     .box--house-tot {
         display: flex;
         gap: 3px;
@@ -471,7 +485,10 @@ html.daterangepicker-open {
         max-width: 700px;
         padding: 18px;
     }
-
+.box-title-goback {
+        display: flex;
+        justify-content: space-between;
+    }
     .form--submit-totxau {
         padding: 24px 40px;
     }
@@ -557,7 +574,10 @@ html.daterangepicker-open {
         /* max-height: 90vh; */
         overflow: hidden;
     }
-
+.box-title-goback {
+        display: flex;
+        justify-content: space-between;
+    }
     .form--submit-totxau {
         padding: 24px 40px;
     }
@@ -2261,4 +2281,14 @@ th {
 }
 .table-detail{
     border-collapse:collapse;
+}
+#backToListBtn{
+        background-color: #fff;
+    color: #192E52;
+    border: 0.5px solid #2254AB;
+    border-radius: 12px;
+    padding: 6px 12px;
+    box-shadow: 2px 2px 2px #00000026;
+    color: #192E52;
+    font-weight: 600;
 }

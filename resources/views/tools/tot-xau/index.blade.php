@@ -182,7 +182,7 @@
     {{-- Load the lunar-solar date select module --}}
     <script src="{{ asset('js/lunar-solar-date-select.js?v=1.2') }}"></script>
     {{-- Date Range Picker JS (vanilla JS version) --}}
-    <script src="{{ asset('/js/vanilla-daterangepicker.js?v=6.5') }}" defer></script>
+    <script src="{{ asset('/js/vanilla-daterangepicker.js?v=6.6') }}" defer></script>
 
 
     <script>
