@@ -118,8 +118,9 @@ Route::prefix('xem-tuoi-cuoi-hoi')->group(function () {
 });
 //Xem ngày khai trương
 Route::prefix('xem-ngay-khai-truong')->group(function () {
-Route::get('/', [KhaiTruongController::class, 'showForm'])->name('khai-truong.form');
-Route::post('/', [KhaiTruongController::class, 'checkDays'])->name('khai-truong.check');
+    Route::get('/', [KhaiTruongController::class, 'showForm'])->name('khai-truong.form');
+    Route::post('/', [KhaiTruongController::class, 'checkDays'])->name('khai-truong.check');
+    Route::get('/chi-tiet/{date}', [KhaiTruongController::class, 'showDayDetails'])->name('khai-truong.details');
 });
 
 //Xem ngày động thổ

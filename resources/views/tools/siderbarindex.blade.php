@@ -29,10 +29,19 @@
                      </a>
                  </li>
                  <li class="list-group-item  pb-0">
-                     <a href="https://phonglich.com/lich-nam-2024">
+                     <a href="{{ route('astrology.form') }}" class="{{ request()->routeIs('astrology.form') ? 'active-tools' : '' }}">
                          <div class="event-details  --padding-event-tot">
                              <div class="event-name" style="font-weight: unset">
                                  Xem ngày kết hôn
+                             </div>
+                         </div>
+                     </a>
+                 </li>
+                   <li class="list-group-item  pb-0">
+                     <a href="{{ route('khai-truong.form') }}" class="{{ request()->routeIs('khai-truong.form') ? 'active-tools' : '' }}">
+                         <div class="event-details  --padding-event-tot">
+                             <div class="event-name" style="font-weight: unset">
+                                 Xem ngày khai trương
                              </div>
                          </div>
                      </a>

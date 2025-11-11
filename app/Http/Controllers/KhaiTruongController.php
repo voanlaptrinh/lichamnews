@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Helpers\AstrologyHelper;
+use App\Helpers\BadDayHelper;
 use App\Helpers\DataHelper;
 use App\Helpers\GoodBadDayHelper;
 use App\Helpers\KhiVanHelper;
@@ -20,7 +21,7 @@ class KhaiTruongController extends Controller
     public function showForm()
     {
         // Không cần truyền dateRanges nữa
-        return view('khai-truong.form');
+        return view('tools.khai-truong.form');
     }
 
     /**
@@ -33,7 +34,7 @@ class KhaiTruongController extends Controller
         $originalInputs = $input;
 
         $dateRange = $request->input('date_range');
-        $dates = $dateRange ? explode(' đến ', $dateRange) : [null, null];
+        $dates = $dateRange ? explode(' - ', $dateRange) : [null, null];
         if (count($dates) === 1) $dates[1] = $dates[0];
 
         $request->merge([
@@ -62,6 +63,9 @@ class KhaiTruongController extends Controller
         ]);
 
         if ($validator->fails()) {
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json(['success' => false, 'errors' => $validator->errors()], 422);
+            }
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
@@ -119,17 +123,46 @@ class KhaiTruongController extends Controller
 
             // f. Thêm tất cả kết quả vào mảng `days` của năm tương ứng
             $resultsByYear[$year]['days'][] = [
-                
                 'date' => $date->copy(),
                 'weekday_name' => $date->isoFormat('dddd'),
                 'full_lunar_date_str' => $fullLunarDateStr,
+                'al_name' => $lunarParts,
                 'good_hours' => $goodHours,
                 'day_score' => $dayScoreDetails, // Toàn bộ object điểm số và chi tiết
             ];
         }
 
-        // 4. Trả kết quả về cho view
-        return view('khai-truong.form', [
+        // Sắp xếp kết quả theo điểm số
+        $sortOrder = $request->input('sort', 'desc');
+        foreach ($resultsByYear as &$yearData) {
+            if (isset($yearData['days']) && is_array($yearData['days'])) {
+                usort($yearData['days'], function ($a, $b) use ($sortOrder) {
+                    $scoreA = $a['day_score']['percentage'] ?? 0;
+                    $scoreB = $b['day_score']['percentage'] ?? 0;
+                    return $sortOrder === 'asc' ? $scoreA <=> $scoreB : $scoreB <=> $scoreA;
+                });
+            }
+        }
+        unset($yearData);
+
+        // 4. Trả kết quả về cho view hoặc AJAX
+        if ($request->ajax() || $request->wantsJson()) {
+            $html = view('tools.khai-truong.results', [
+                'user_name' => $input['user_name'],
+                'date_start_end' => $dates,
+                'inputs' => $originalInputs,
+                'birthdateInfo' => $birthdateInfo,
+                'resultsByYear' => $resultsByYear,
+                'sortOrder' => $sortOrder,
+            ])->render();
+
+            return response()->json([
+                'success' => true,
+                'html' => $html,
+            ]);
+        }
+
+        return view('tools.khai-truong.form', [
             'user_name' => $input['user_name'],
             'date_start_end' => $dates,
             'inputs' => $originalInputs,
@@ -142,7 +175,9 @@ class KhaiTruongController extends Controller
      */
     private function calculateYearAnalysis(Carbon $dob, int $yearToCheck): array
     {
-        $birthYear = $dob->year;
+        $lunarDob = LunarHelper::convertSolar2Lunar($dob->day, $dob->month, $dob->year);
+        $birthYear = $lunarDob[2];
+
         $lunarAge = AstrologyHelper::getLunarAge($birthYear, $yearToCheck);
 
         $kimLau = AstrologyHelper::checkKimLau($lunarAge);
@@ -155,11 +190,17 @@ class KhaiTruongController extends Controller
         if ($tamTai['is_bad']) $badFactors[] = 'Tam Tai';
 
         $isBadYear = count($badFactors) > 0;
-      
+
+        $message = $isBadYear
+            ? "Năm {$yearToCheck}, bạn phạm phải: <strong>" . implode(', ', $badFactors) . "</strong> – đây là yếu tố phong thủy cần đặc biệt lưu ý khi tiến hành khai trương kinh doanh.
+<ul><li>Nếu mục đích khai trương chỉ để thử nghiệm kinh doanh hoặc chưa có kế hoạch đầu tư lớn: vẫn có thể tiến hành trong năm nay, miễn là chọn đúng ngày giờ tốt hợp tuổi, có thể hóa giải phần nào sát khí.</li><li>Ngược lại, nếu bạn dự định đầu tư mạnh hoặc khai trương cửa hàng quan trọng: nên cân nhắc kỹ lưỡng. Trường hợp vẫn muốn thực hiện trong năm, cần áp dụng các biện pháp hóa giải vận hạn phù hợp hoặc chờ sang năm thuận lợi hơn để đảm bảo kinh doanh phát đạt, tránh vận rủi không đáng có.</li></ul>"
+            : "Năm {$yearToCheck}, bạn không phạm Kim Lâu, Hoang Ốc hay Tam Tai – đây là tín hiệu rất tốt trong phong thủy. Bạn hoàn toàn có thể an tâm tiến hành khai trương kinh doanh trong năm nay.
+Thời điểm cát lợi, vận khí hanh thông – rất thích hợp để khai trương, khởi nghiệp và phát triển sự nghiệp.";
 
         return [
             'is_bad_year' => $isBadYear,
             'lunar_age' => $lunarAge,
+            'description' => $message,
             'details' => compact('kimLau', 'hoangOc', 'tamTai'),
         ];
     }
@@ -182,5 +223,32 @@ class KhaiTruongController extends Controller
             'can_chi_nam' => $canChiNam,
             'menh' => $menh,
         ];
+    }
+
+    public function showDayDetails(Request $request, $date)
+    {
+        // 1. Validate dữ liệu
+        $validated = Validator::make(['date' => $date, 'birthdate' => $request->input('birthdate')], [
+            'date' => 'required|date_format:Y-m-d',
+            'birthdate' => 'required|date_format:Y-m-d',
+        ])->validate();
+
+        // 2. Chuẩn bị các đối tượng ngày tháng
+        $dateToCheck = Carbon::parse($validated['date']);
+        $ownerDob = Carbon::parse($validated['birthdate']);
+
+        // 3. Lấy thông tin chung của ngày (tính 1 lần, vì nó không đổi)
+        $commonDayInfo = BadDayHelper::getdetailtable($dateToCheck);
+        $tabooResult = GoodBadDayHelper::checkTabooDays($dateToCheck, 'KHAI_TRUONG');
+
+        // 4. Lấy thông tin chi tiết cho chủ cửa hàng
+        $ownerData = BadDayHelper::getDetailedAnalysisForPerson($dateToCheck, $ownerDob, 'Ngày khai trương', 'KHAI_TRUONG');
+
+        // 5. Trả về view với toàn bộ dữ liệu
+        return view('tools.khai-truong.day_details', compact(
+            'commonDayInfo',
+            'ownerData',
+            'tabooResult',
+        ));
     }
 }
