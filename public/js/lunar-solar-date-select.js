@@ -46,6 +46,10 @@
             this.isLeapMonth = false;
             this.hasLeapMonth = false;
 
+            // Initialize cache for leap months and year data
+            if (!window.leapMonthsCache) window.leapMonthsCache = {};
+            if (!window.yearMonthDataCache) window.yearMonthDataCache = {};
+
             this.init();
         }
 
@@ -140,32 +144,41 @@
                     this.monthSelect.value = this.options.defaultMonth;
                 }
             } else {
-                // Lunar calendar - check for leap month
-                let leapMonthNumber = 0;
+                // Lunar calendar - use cached year data for leap months
+                let leapMonths = [];
 
-                // Check which month has leap version in this year
-                for (let m = 1; m <= 12; m++) {
+                // Try to get cached data first
+                if (window.leapMonthsCache && window.leapMonthsCache[year]) {
+                    leapMonths = window.leapMonthsCache[year];
+                } else {
+                    // Get all leap months for the year in one API call
                     try {
-                        const response = await fetch(this.options.lunarMonthDaysUrl, {
+                        const response = await fetch('/api/get-year-leap-months', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
                                 'X-CSRF-TOKEN': this.options.csrfToken
                             },
                             body: JSON.stringify({
-                                month: m,
-                                year: year,
-                                isLeap: 1
+                                year: year
                             })
                         });
 
                         const data = await response.json();
-                        if (data.success && data.days > 0) {
-                            leapMonthNumber = m;
-                            break;
+                        if (data.success) {
+                            leapMonths = data.leapMonths;
+
+                            // Cache the result for future use
+                            if (!window.leapMonthsCache) window.leapMonthsCache = {};
+                            window.leapMonthsCache[year] = leapMonths;
+
+                            // Also cache full month data for getDaysInMonth optimization
+                            if (!window.yearMonthDataCache) window.yearMonthDataCache = {};
+                            window.yearMonthDataCache[year] = data.allMonthsData;
                         }
                     } catch (error) {
-                        console.error('Error checking leap month:', error);
+                        console.error('Error getting leap months for year:', error);
+                        leapMonths = [];
                     }
                 }
 
@@ -183,7 +196,7 @@
                     this.monthSelect.appendChild(option);
 
                     // Add leap month after the normal month if it exists
-                    if (i === leapMonthNumber) {
+                    if (leapMonths.includes(i)) {
                         const leapOption = document.createElement('option');
                         leapOption.value = i;
                         leapOption.textContent = `Tháng ${i} nhuận`;
@@ -396,35 +409,53 @@
                     daysInMonth = 30;
                 }
             } else {
-                // Lunar calendar - get actual days from API
-                try {
-                    const response = await fetch(this.options.lunarMonthDaysUrl, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': this.options.csrfToken
-                        },
-                        body: JSON.stringify({
-                            month: month,
-                            year: year,
-                            isLeap: isLeapForApi ? 1 : 0
-                        })
-                    });
+                // Lunar calendar - try cached data first, then API if needed
+                let usedCache = false;
 
-                    const data = await response.json();
-                 
-                    if (data.success && data.days > 0) {
-                        daysInMonth = data.days;
-                       
-                    } else {
-                        // Default fallback for lunar months
-                        // Most lunar months have 29 or 30 days
-                        daysInMonth = 29;
-                        console.warn(`Could not get days for lunar month ${month}/${year}, using default ${daysInMonth}`);
+                // Check if we have cached month data for this year
+                if (window.yearMonthDataCache && window.yearMonthDataCache[year] && window.yearMonthDataCache[year][month]) {
+                    const cachedData = window.yearMonthDataCache[year][month];
+
+                    if (isLeapForApi && cachedData.leapDays > 0) {
+                        daysInMonth = cachedData.leapDays;
+                        usedCache = true;
+                    } else if (!isLeapForApi && cachedData.regularDays > 0) {
+                        daysInMonth = cachedData.regularDays;
+                        usedCache = true;
                     }
-                } catch (error) {
-                    console.error('Error getting lunar month days:', error);
-                    daysInMonth = 29;
+                }
+
+                // If no cached data available, use API
+                if (!usedCache) {
+                    try {
+                        const response = await fetch(this.options.lunarMonthDaysUrl, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': this.options.csrfToken
+                            },
+                            body: JSON.stringify({
+                                month: month,
+                                year: year,
+                                isLeap: isLeapForApi ? 1 : 0
+                            })
+                        });
+
+                        const data = await response.json();
+
+                        if (data.success && data.days > 0) {
+                            daysInMonth = data.days;
+
+                        } else {
+                            // Default fallback for lunar months
+                            // Most lunar months have 29 or 30 days
+                            daysInMonth = 29;
+                            console.warn(`Could not get days for lunar month ${month}/${year}, using default ${daysInMonth}`);
+                        }
+                    } catch (error) {
+                        console.error('Error getting lunar month days:', error);
+                        daysInMonth = 29;
+                    }
                 }
             }
 

@@ -246,7 +246,7 @@
                                                 <button class="accordion-button collapsed" type="button"
                                                     data-bs-toggle="collapse"
                                                     data-bs-target="#collapse-canchi-{{ Str::slug($groomData['personTitle']) }}">
-                                                   Xem can chi- khí vận & tuổi hợp/xung trong ngày
+                                                    Xem can chi- khí vận & tuổi hợp/xung trong ngày
                                                 </button>
                                             </h2>
                                             <div id="collapse-canchi-{{ Str::slug($groomData['personTitle']) }}"
@@ -339,57 +339,65 @@
                                                 class="accordion-collapse collapse"
                                                 data-bs-parent="#accordion-{{ Str::slug($groomData['personTitle']) }}">
                                                 <div class="accordion-body">
-                                                   @php $getThongTinTruc = $commonDayInfo['getThongTinTruc']; @endphp
-                                                    <p class="mb-1"><b>Trực ngày: </b>Trực <b>{{ $getThongTinTruc['title'] }}</b> - Là
+                                                    @php $getThongTinTruc = $commonDayInfo['getThongTinTruc']; @endphp
+                                                    <p class="mb-1"><b>Trực ngày: </b>Trực
+                                                        <b>{{ $getThongTinTruc['title'] }}</b> - Là
                                                         trực
-                                                        {{ $getThongTinTruc['description']['rating'] }}.</p>
-                                                    <p class="mb-1">{{ $getThongTinTruc['description']['description'] }}</p>
-                                                  <div class="ps-3">
-                                                      @if (!empty($getThongTinTruc['description']['good']))
-                                                        <p class="mb-0"><b>Nên làm:</b>
-                                                            {{ $getThongTinTruc['description']['good'] }}</p>
-                                                    @endif
-                                                    @if (!empty($getThongTinTruc['description']['bad']))
-                                                        <p><b>Kiêng kỵ:</b> {{ $getThongTinTruc['description']['bad'] }}
-                                                        </p>
-                                                    @endif
+                                                        {{ $getThongTinTruc['description']['rating'] }}.
+                                                    </p>
+                                                    <p class="mb-1">{{ $getThongTinTruc['description']['description'] }}
+                                                    </p>
+                                                    <div class="ps-3">
+                                                        @if (!empty($getThongTinTruc['description']['good']))
+                                                            <p class="mb-0"><b>Nên làm:</b>
+                                                                {{ $getThongTinTruc['description']['good'] }}</p>
+                                                        @endif
+                                                        @if (!empty($getThongTinTruc['description']['bad']))
+                                                            <p><b>Kiêng kỵ:</b>
+                                                                {{ $getThongTinTruc['description']['bad'] }}
+                                                            </p>
+                                                        @endif
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                        <div class="accordion-item">
-                                            <h2 class="accordion-header">
-                                                <button class="accordion-button collapsed" type="button"
-                                                    data-bs-toggle="collapse"
-                                                    data-bs-target="#collapse-sao-cat-hung-{{ Str::slug($groomData['personTitle']) }}">
-                                                    Sao Cát Hung (Ngọc Hạp Thông Thư)
-                                                </button>
-                                            </h2>
-                                            <div id="collapse-sao-cat-hung-{{ Str::slug($groomData['personTitle']) }}"
-                                                class="accordion-collapse collapse"
-                                                data-bs-parent="#accordion-{{ Str::slug($groomData['personTitle']) }}">
-                                                <div class="accordion-body">
-                                                    @php $getSaoTotXauInfo = $commonDayInfo['getSaoTotXauInfo']; @endphp
-                                                    <h6><i class="fas fa-star text-success"></i> Sao tốt:</h6>
-                                                    <ul class="list-unstyled ps-3">
-                                                        @forelse ($getSaoTotXauInfo['sao_tot'] as $tenSao => $yNghia)
-                                                            <li><strong>{{ $tenSao }}:</strong> {{ $yNghia }}
-                                                            </li>
-                                                        @empty
-                                                            <li>Không có sao tốt nổi bật.</li>
-                                                        @endforelse
-                                                    </ul>
-                                                    <h6 class="mt-3"><i class="fas fa-moon text-danger"></i> Sao xấu:
-                                                    </h6>
-                                                    <ul class="list-unstyled ps-3">
-                                                        @forelse ($getSaoTotXauInfo['sao_xau'] as $tenSao => $yNghia)
-                                                            <li><strong>{{ $tenSao }}:</strong> {{ $yNghia }}
-                                                            </li>
-                                                        @empty
-                                                            <li>Không có sao xấu đáng kể.</li>
-                                                        @endforelse
-                                                    </ul>
-                                                    <p class="mt-3 fst-italic">{{ $getSaoTotXauInfo['ket_luan'] }}</p>
+                                            <div class="accordion-item">
+                                                <h2 class="accordion-header">
+                                                    <button class="accordion-button collapsed" type="button"
+                                                        data-bs-toggle="collapse"
+                                                        data-bs-target="#collapse-sao-cat-hung-{{ Str::slug($groomData['personTitle']) }}">
+                                                        Sao Cát Hung (Ngọc Hạp Thông Thư)
+                                                    </button>
+                                                </h2>
+                                                <div id="collapse-sao-cat-hung-{{ Str::slug($groomData['personTitle']) }}"
+                                                    class="accordion-collapse collapse"
+                                                    data-bs-parent="#accordion-{{ Str::slug($groomData['personTitle']) }}">
+                                                    <div class="accordion-body">
+                                                        @php $getSaoTotXauInfo = $commonDayInfo['getSaoTotXauInfo']; @endphp
+                                                        <h6><i class="fas fa-star text-success"></i> Sao tốt:</h6>
+                                                        <ul class="list-unstyled ps-3">
+                                                            @forelse ($getSaoTotXauInfo['sao_tot'] as $tenSao => $yNghia)
+                                                                <li><strong>{{ $tenSao }}:</strong>
+                                                                    {{ $yNghia }}
+                                                                </li>
+                                                            @empty
+                                                                <li>Không có sao tốt nổi bật.</li>
+                                                            @endforelse
+                                                        </ul>
+                                                        <h6 class="mt-3"><i class="fas fa-moon text-danger"></i> Sao
+                                                            xấu:
+                                                        </h6>
+                                                        <ul class="list-unstyled ps-3">
+                                                            @forelse ($getSaoTotXauInfo['sao_xau'] as $tenSao => $yNghia)
+                                                                <li><strong>{{ $tenSao }}:</strong>
+                                                                    {{ $yNghia }}
+                                                                </li>
+                                                            @empty
+                                                                <li>Không có sao xấu đáng kể.</li>
+                                                            @endforelse
+                                                        </ul>
+                                                        <p class="mt-3 fst-italic">{{ $getSaoTotXauInfo['ket_luan'] }}</p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -397,7 +405,9 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
+                    
                     <div class="card border-0 mb-3 w-100 box-detial-year">
                         <div class="card-body box1-con-year">
                             <div class="text-primary mb-2  text-dark d-flex align-items-center fw-bolder">
@@ -408,9 +418,11 @@
 
                         </div>
                     </div>
+
                 </div>
                 @include('tools.siderbardetail')
             </div>
         </div>
     </div>
+
 @endsection
