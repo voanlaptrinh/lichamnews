@@ -42,8 +42,57 @@ class VanillaDateRangePicker {
     }
 
     init() {
+        // Ngăn hoàn toàn input text và keyboard trên mobile
+        this.preventTextInput();
         this.createElements();
         this.attachEventListeners();
+    }
+
+    preventTextInput() {
+        // Set readonly và các thuộc tính ngăn input
+        this.input.readOnly = true;
+        this.input.setAttribute('readonly', 'readonly');
+        this.input.setAttribute('inputmode', 'none');
+        this.input.style.caretColor = 'transparent';
+        this.input.style.userSelect = 'none';
+        this.input.style.cursor = 'pointer';
+
+        // Ngăn các event input
+        this.input.addEventListener('keydown', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+        });
+
+        this.input.addEventListener('keyup', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+        });
+
+        this.input.addEventListener('keypress', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+        });
+
+        this.input.addEventListener('input', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+        });
+
+        this.input.addEventListener('paste', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+        });
+
+        this.input.addEventListener('cut', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+        });
     }
 
     createElements() {
@@ -92,12 +141,15 @@ class VanillaDateRangePicker {
         const ul = document.createElement('ul');
 
         const shortcutsList = [
-            { label: 'Hôm nay', days: 0 },
-            { label: 'Ngày mai', days: 1, single: true },
+            // { label: 'Hôm nay', days: 0 },
+            // { label: 'Ngày mai', days: 1, single: true },
             { label: '7 ngày tới', days: 6 },
+            { label: '14 ngày tới', days: 13 },
             { label: '30 ngày tới', days: 29 },
             { label: 'Tháng này', type: 'thisMonth' },
-            { label: 'Tháng sau', type: 'nextMonth' }
+            { label: 'Tháng sau', type: 'nextMonth' },
+            { label: 'Năm nay', type: 'thisYear' },
+            { label: 'Năm tới', type: 'nextYear' }
         ];
 
         shortcutsList.forEach(shortcut => {
@@ -286,13 +338,36 @@ class VanillaDateRangePicker {
     attachEventListeners() {
         // Click vào input để mở picker
         this.input.addEventListener('click', (e) => {
+            e.preventDefault();
             e.stopPropagation();
-            this.show();
+            this.input.blur(); // Ngay lập tức blur để tránh keyboard
+            setTimeout(() => {
+                this.show();
+            }, 10);
         });
 
         this.input.addEventListener('focus', (e) => {
+            e.preventDefault();
             e.stopPropagation();
-            this.show();
+            this.input.blur(); // Ngay lập tức blur để tránh keyboard
+            setTimeout(() => {
+                this.show();
+            }, 10);
+        });
+
+        // Ngăn touchstart trên mobile
+        this.input.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            this.input.blur();
+            setTimeout(() => {
+                this.show();
+            }, 10);
+        });
+
+        // Ngăn mousedown
+        this.input.addEventListener('mousedown', (e) => {
+            e.preventDefault();
+            this.input.blur();
         });
 
         // Click vào overlay để đóng
@@ -331,8 +406,7 @@ class VanillaDateRangePicker {
     }
 
     show() {
-        console.log('📱 Show() called');
-        console.log('🔍 Window width:', window.innerWidth);
+
 
         // Clean up any existing popups first
         this.cleanupMobilePopups();
@@ -342,11 +416,9 @@ class VanillaDateRangePicker {
         const isMobilePhone = this.isMobileDevice();
 
         if (isMobilePhone) {
-            console.log('📱 Mobile phone detected, showing mobile popup');
+
             this.showMobileDateRangePopup();
             return;
-        } else {
-            console.log('💻 Tablet/Desktop detected, showing desktop picker');
         }
 
         // Parse giá trị hiện tại trong input nếu có
@@ -386,10 +458,10 @@ class VanillaDateRangePicker {
         }
 
         // Hiển thị desktop picker
-        console.log('💻 Adding show classes to desktop picker');
+
         this.overlay.classList.add('show');
         this.container.classList.add('show');
-        console.log('✅ Desktop picker show classes added - overlay:', this.overlay.classList.contains('show'), 'container:', this.container.classList.contains('show'));
+
     }
 
     hide() {
@@ -574,7 +646,7 @@ class VanillaDateRangePicker {
                         e.stopPropagation();
 
                         const clickedDate = new Date(e.currentTarget.dataset.date);
-                        console.log('📅 Clicked date:', this.formatDate(clickedDate));
+
 
                         this.selectDate(clickedDate);
                     });
@@ -653,7 +725,7 @@ class VanillaDateRangePicker {
             this.startDate.setHours(0, 0, 0, 0);
             this.endDate = null;
             this.isSelecting = true;
-            console.log('✅ Chọn ngày bắt đầu:', this.formatDate(this.startDate));
+
         }
         // Nếu đã có startDate nhưng chưa có endDate
         else {
@@ -674,8 +746,7 @@ class VanillaDateRangePicker {
                 this.endDate = selectedDate;
                 this.isSelecting = false;
             }
-            console.log('✅ Chọn ngày kết thúc:', this.formatDate(this.endDate));
-            console.log('✅ Khoảng:', this.formatDate(this.startDate), '-', this.formatDate(this.endDate));
+
 
             // Auto apply nếu được cấu hình
             if (this.options.autoApply) {
@@ -750,16 +821,33 @@ class VanillaDateRangePicker {
         today.setHours(0, 0, 0, 0);
 
         if (shortcut.type === 'thisMonth') {
+            // Tháng này
             this.startDate = new Date(today.getFullYear(), today.getMonth(), 1);
             this.endDate = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+
         } else if (shortcut.type === 'nextMonth') {
+            // Tháng tới
             this.startDate = new Date(today.getFullYear(), today.getMonth() + 1, 1);
             this.endDate = new Date(today.getFullYear(), today.getMonth() + 2, 0);
+
+        } else if (shortcut.type === 'thisYear') {
+            // Năm nay
+            this.startDate = new Date(today);
+            this.endDate = new Date(today.getFullYear(), 11, 31);
+
+        } else if (shortcut.type === 'nextYear') {
+            // Năm tới
+            this.startDate = new Date(today.getFullYear() + 1, 0, 1);
+            this.endDate = new Date(today.getFullYear() + 1, 11, 31);
+
         } else if (shortcut.single) {
+            // Một ngày đơn lẻ
             this.startDate = new Date(today);
             this.startDate.setDate(today.getDate() + shortcut.days);
             this.endDate = new Date(this.startDate);
+
         } else {
+            // Khoảng ngày tùy chỉnh
             this.startDate = new Date(today);
             this.endDate = new Date(today);
             this.endDate.setDate(today.getDate() + shortcut.days);
@@ -830,8 +918,8 @@ class VanillaDateRangePicker {
     isSameDay(date1, date2) {
         if (!date1 || !date2) return false;
         return date1.getDate() === date2.getDate() &&
-               date1.getMonth() === date2.getMonth() &&
-               date1.getFullYear() === date2.getFullYear();
+            date1.getMonth() === date2.getMonth() &&
+            date1.getFullYear() === date2.getFullYear();
     }
 
     isDisabled(date) {
@@ -970,17 +1058,10 @@ class VanillaDateRangePicker {
 
         // Kiểm tra touch support
         const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-
-        console.log('🔍 Mobile Detection:');
-        console.log('- Mobile Phone UA:', isMobilePhone);
-        console.log('- Window Width < 768:', isMobileWidth);
-        console.log('- Touch Support:', hasTouch);
-        console.log('- Navigator UA:', navigator.userAgent);
-
         // Chỉ return true nếu là mobile phone THỰC SỰ (UA mobile + width nhỏ)
         // iPad và tablet sẽ bị loại trừ
         const isMobile = isMobilePhone && isMobileWidth;
-        console.log('🎯 Final Decision - Is Mobile Phone:', isMobile);
+
 
         return isMobile;
     }
@@ -1019,13 +1100,14 @@ class VanillaDateRangePicker {
         quickGrid.className = 'quick-options-grid';
 
         const quickOptions = [
-            { label: 'Hôm nay', days: 0 },
-            { label: 'Ngày mai', days: 1, single: true },
+            
             { label: '7 ngày tới', days: 6 },
             { label: '14 ngày tới', days: 13 },
             { label: '30 ngày tới', days: 29 },
             { label: 'Tháng này', type: 'thisMonth' },
             { label: 'Tháng sau', type: 'nextMonth' },
+            { label: 'Năm nay', type: 'thisYear' },
+            { label: 'Năm tới', type: 'nextYear' },
             { label: 'Tuỳ chọn', custom: true }
         ];
 
@@ -1154,7 +1236,7 @@ class VanillaDateRangePicker {
     }
 
     handleMobileOptionSelection(option) {
-        switch(option) {
+        switch (option) {
             case 'single-date':
                 this.showDatePicker('single');
                 break;
@@ -1236,12 +1318,13 @@ class VanillaDateRangePicker {
         quickList.className = 'mobile-quick-list';
 
         const quickOptions = [
-            { label: 'Hôm nay', days: 0, icon: '📅' },
-            { label: 'Ngày mai', days: 1, single: true, icon: '➡️' },
+            
             { label: '7 ngày tới', days: 6, icon: '📅' },
             { label: '30 ngày tới', days: 29, icon: '📅' },
             { label: 'Tháng này', type: 'thisMonth', icon: '📆' },
-            { label: 'Tháng sau', type: 'nextMonth', icon: '📆' }
+            { label: 'Tháng sau', type: 'nextMonth', icon: '📆' },
+            { label: 'Năm nay', type: 'thisYear', icon: '🗓️' },
+            { label: 'Năm tới', type: 'nextYear', icon: '🗓️' }
         ];
 
         quickOptions.forEach(option => {
@@ -1326,7 +1409,7 @@ class VanillaDateRangePicker {
         existingMobileOverlays.forEach(overlay => {
             overlay.remove();
         });
-        console.log('🧹 Cleaned up existing mobile popups:', existingMobileOverlays.length);
+
     }
 
     destroy() {
@@ -1340,7 +1423,7 @@ class VanillaDateRangePicker {
 }
 
 // Auto initialize cho tất cả input có class wedding_date_range
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const dateRangeInputs = document.querySelectorAll('.wedding_date_range');
 
     dateRangeInputs.forEach(input => {
@@ -1351,5 +1434,5 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    console.log('✅ Vanilla Date Range Picker đã khởi tạo cho', dateRangeInputs.length, 'inputs');
+
 });
