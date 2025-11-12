@@ -2,10 +2,10 @@
 
 @section('content')
     <div class="container-setup">
-        <h6 class="content-title-detail"><a href="{{ route('home') }}"
+        <div class="content-title-detail"><a href="{{ route('home') }}"
                 style="color: #2254AB; text-decoration: underline;">Trang chủ</a><i class="bi bi-chevron-right"></i><a  style="color: #2254AB; text-decoration: underline;" href="{{ route('horoscope.index') }}">Cung
                 Hoàng Đạo</a><i class="bi bi-chevron-right"></i><span>Mã Kết</span>
-        </h6>
+        </div>
         <h1 class="content-title-home-lich">Giới thiệu cung Ma Kết</h1>
         <div class="row mt-3">
             <div class="col-lg-9">

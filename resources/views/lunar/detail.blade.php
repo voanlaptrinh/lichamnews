@@ -4,10 +4,10 @@
          <div class="col-xl-9 col-sm-12 col-12">
              <div class="d-flex justify-content-between align-items-center mb-3">
             <div>
-                <h6 class="content-title-detail"><a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a> <i
+                <div class="content-title-detail"><a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a> <i
                         class="bi bi-chevron-right"></i>
                     <span id="breadcrumb-text"> Lịch ngày {{ $dd }}/{{ $mm }}/{{ $yy }}</span>
-                </h6>
+                </div>
                 <h1 class="content-title-home-lich" id="page-title">Lịch Âm Dương Ngày {{ $dd }} Tháng
                     {{ $mm }} Năm {{ $yy }}</h1>
             </div>

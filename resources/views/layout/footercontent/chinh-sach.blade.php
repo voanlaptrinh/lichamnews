@@ -1,9 +1,9 @@
 @extends('welcome')
 @section('content')
     <div class="container-setup">
-        <h6 class="content-title-detail"><a  href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a> <i class="bi bi-chevron-right"></i>
+        <div class="content-title-detail"><a  href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a> <i class="bi bi-chevron-right"></i>
             Về chúng tôi<i class="bi bi-chevron-right"></i> <span class="text-dark">Chính sách</span>
-        </h6>
+        </div>
         <h1 class="content-title-home-lich">Chính sách bảo mật</h1>
         <div class="text-box-tong-quan mt-3">
             <p>phonglich.com cam kết tôn trọng và bảo vệ quyền riêng tư của người dùng khi truy cập và sử dụng dịch vụ của

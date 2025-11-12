@@ -8,11 +8,11 @@
         </style>
     @endpush
     <div class="container-setup">
-        <h6 class="content-title-detail"><a href="{{ route('home') }}"
+        <div class="content-title-detail"><a href="{{ route('home') }}"
                 style="color: #2254AB; text-decoration: underline;">Trang chủ</a><i class="bi bi-chevron-right"></i> <a
                 style="color: #2254AB; text-decoration: underline;" href="{{ route('lich.nam', ['nam' => $yy]) }}">Lịch
                 năm {{ $yy }}</a> <i class="bi bi-chevron-right"></i> <span>
-                Tháng {{ $mm }}</span></h6>
+                Tháng {{ $mm }}</span></div>
         @if (isset($is_leap_month_view) && $is_leap_month_view)
             <h1 class="content-title-home-lich">Lịch Âm Tháng {{ $lunar_month_num }} Nhuận Năm {{ $lunar_year }}</h1>
         @else

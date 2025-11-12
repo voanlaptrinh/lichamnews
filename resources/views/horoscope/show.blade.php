@@ -62,14 +62,14 @@
         ];
     @endphp
     <div class="container-setup">
-        <h6 class="content-title-detail"><a href="{{ route('home') }}"
+        <div class="content-title-detail"><a href="{{ route('home') }}"
                 style="color: #2254AB; text-decoration: underline;">Trang chủ</a> <i class="bi bi-chevron-right"></i>
             <a style="color: #2254AB; text-decoration: underline;" href="{{ route('horoscope.index') }}">Cung hoàng đạo</a> <i
                 class="bi bi-chevron-right"></i><a style="color: #2254AB; text-decoration: underline;"
                 href="{{ route('horoscope.show', ['signSlug' => $zodiacNames_acc[$zodiac['sign']]]) }}"
                 id="breadcrumb-zodiac">{{ $zodiacNames[$zodiac['sign']] ?? 'Cung hoàng đạo' }}</a> <i
                 class="bi bi-chevron-right"></i><span id="breadcrumb-time">Hôm nay</span>
-        </h6>
+        </div>
         <h1 class="content-title-home-lich" id="main-title">Tử Vi Cung
             {{ $zodiacNames[$zodiac['sign']] ?? 'Cung hoàng đạo' }} Hôm nay</h1>
     </div>

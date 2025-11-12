@@ -1,10 +1,10 @@
 @extends('welcome')
 @section('content')
     <div class="container-setup">
-        <h6 class="content-title-detail"><a href="{{ route('home') }}"
+        <div class="content-title-detail"><a href="{{ route('home') }}"
                 style="color: #2254AB; text-decoration: underline;">Trang chủ</a><i class="bi bi-chevron-right"></i>
             <span>Lịch năm {{ $nam }} </span>
-        </h6>
+        </div>
         @php
             use App\Helpers\LunarHelper;
         @endphp

@@ -2,10 +2,10 @@
 
 @section('content')
     <div class="container-setup">
-        <h6 class="content-title-detail"><a href="{{ route('home') }}"
+        <div class="content-title-detail"><a href="{{ route('home') }}"
                 style="color: #2254AB; text-decoration: underline;">Trang chủ</a> <i class="bi bi-chevron-right"></i>
            Cung hoàng đạo
-        </h6>
+        </div>
         <h1 class="content-title-home-lich">Tử Vi 12 Cung Hoàng Đạo</h1>
         <div class="row mt-3">
             <div class="col-lg-9">
