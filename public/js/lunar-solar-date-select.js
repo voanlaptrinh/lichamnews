@@ -11,8 +11,7 @@
         constructor(options = {}) {
             // Create unique instance ID for debugging and state isolation
             this.instanceId = `lsd_${Math.random().toString(36).substr(2, 9)}`;
-            console.log(`🌙 LunarSolarDateSelect instance ${this.instanceId} created`);
-
+    
             this.options = {
                 daySelectId: options.daySelectId || 'ngaySelect',
                 monthSelectId: options.monthSelectId || 'thangSelect',
@@ -254,13 +253,13 @@
             // Check if hidden input has existing value to preserve
             const existingValue = this.hiddenInput.value;
             if (existingValue && existingValue.trim() !== '') {
-                console.log('📅 Preserving existing date value:', existingValue);
+             
                 this.parseAndSetExistingValue(existingValue);
                 return;
             }
 
             // Only set defaults if no existing value
-            console.log('📅 Setting default values (no existing value found)');
+         
             this.daySelect.value = this.options.defaultDay;
             this.monthSelect.value = this.options.defaultMonth;
             this.yearSelect.value = this.options.defaultYear;

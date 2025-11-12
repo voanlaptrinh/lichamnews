@@ -15,7 +15,7 @@
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#collapse-canchi-{{ Str::slug($personData['personTitle']) }}">
-                               Xem can chi - khí vận & tuổi hợp/xung trong ngày
+                                Xem can chi - khí vận & tuổi hợp/xung trong ngày
                             </button>
                         </h2>
                         <div id="collapse-canchi-{{ Str::slug($personData['personTitle']) }}"
@@ -28,12 +28,14 @@
                                 <h6><b>* Vận khí ngày & tháng (khí tháng):</b></h6>
                                 <p>Ngày {{ $personData['getThongTinCanChiVaIcon']['can_chi_ngay'] }} - Tháng
                                     {{ $personData['getThongTinCanChiVaIcon']['can_chi_thang'] }}</p>
-                                {!! $personData['getVongKhiNgayThang']['analysis'] !!}
-                                {!! $personData['getVongKhiNgayThang']['conclusion'] !!}
+                                <ul class="mb-0 mt-0">
+                                    {!! $personData['getVongKhiNgayThang']['analysis'] !!}
+                                </ul>
+                                <p>{!! $personData['getVongKhiNgayThang']['conclusion'] !!}</p>
                                 <h6><b>Cục khí - hợp xung</b></h6>
                                 <ul>
-                                    <li>{{ $commonData['hopxungNgay']['hop'] }}</li>
-                                    <li>{{ $commonData['hopxungNgay']['ky'] }}</li>
+                                    <li>{!! $commonData['hopxungNgay']['hop'] !!}</li>
+                                    <li>{!! $commonData['hopxungNgay']['ky'] !!}</li>
                                 </ul>
                                 <h6><b>* So sánh ngày với mệnh tuổi của bạn:</b></h6>
                                 @php $analyze = $personData['analyzeNgayVoiTuoi']; @endphp

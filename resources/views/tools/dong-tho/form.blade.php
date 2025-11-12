@@ -10,9 +10,9 @@
                 style="color: #2254AB; text-decoration: underline;">Trang chủ</a><i class="bi bi-chevron-right"></i> <a
                 style="color: #2254AB; text-decoration: underline;" href="">Tiện ích</a> <i
                 class="bi bi-chevron-right"></i> <span>
-                Xem ngày khai trương</span></div>
+                Xem ngày Động thổ</span></div>
 
-        <h1 class="content-title-home-lich">Xem ngày khai trương</h1>
+        <h1 class="content-title-home-lich">Xem ngày động thổ</h1>
 
         <div>
             <div class="row g-lg-3 g-2 pt-lg-3 pt-2">
@@ -32,26 +32,12 @@
                                             ô dưới
                                             đây để xem ngày tốt xấu</p>
 
-                                        <form id="khaiTruongForm">
+                                        <form id="buildHouseForm">
                                             @csrf
 
                                             <div class="row">
-                                                <!-- Name field -->
-                                                <div class="mb-3">
-                                                    <div class="fw-bold title-tong-quan-h2-log">Tên người xem</div>
-                                                    <input type="text"
-                                                        class="form-control --border-box-form @error('user_name') is-invalid @enderror"
-                                                        id="user_name" name="user_name" placeholder="Nhập tên của bạn"
-                                                        value="{{ old('user_name', $inputs['user_name'] ?? '') }}"
-                                                        style="border-radius: 10px; border: none; padding: 12px 15px; background-color: rgba(255,255,255,0.95);">
-                                                    @error('user_name')
-                                                        <div class="invalid-feedback">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
-
                                                 <div class="mb-3">
                                                     <!-- Date Selects -->
-                                                    <div class="fw-bold title-tong-quan-h2-log">Ngày sinh của gia chủ</div>
                                                     <div class="row g-2 mb-2">
                                                         <div class="col-6 col-sm-4 col-lg-4 col-xl-4">
                                                             <div class="position-relative">
@@ -110,7 +96,6 @@
                                                         </div>
                                                     </div>
 
-
                                                     <!-- Leap Month Option (hidden) -->
                                                     <div class="form-check mt-2" id="leapMonthContainer"
                                                         style="display: none;">
@@ -122,18 +107,41 @@
                                                     </div>
 
                                                     <!-- Hidden input to store formatted date -->
-                                                    <input type="hidden" id="ngayXem" name="birthdate"
-                                                        value="{{ old('birthdate', $inputs['birthdate'] ?? '') }}">
+                                                    <input type="hidden" id="ngayXem" name="birthdate" value="{{ old('birthdate', $inputs['birthdate'] ?? '') }}">
 
                                                     @error('birthdate')
                                                         <div class="invalid-feedback">{{ $message }}</div>
                                                     @enderror
                                                 </div>
 
+                                                <!-- Gender Selection -->
+                                                <div class="mb-3">
+                                                    <div class="fw-bold title-tong-quan-h2-log">Giới tính</div>
+                                                    <div class="d-flex gap-4 ps-2">
+                                                        <div class="form-check d-flex align-items-center">
+                                                            <input type="radio" class="form-check-input"
+                                                                name="gender" id="maleGender" value="male"
+                                                                checked style="width: 24px; height: 24px; cursor: pointer;">
+                                                            <label class="form-check-label ms-2" for="maleGender"
+                                                                style="cursor: pointer; font-size: 15px; color: #333;">
+                                                                Nam
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check d-flex align-items-center">
+                                                            <input type="radio" class="form-check-input"
+                                                                name="gender" id="femaleGender" value="female"
+                                                                style="width: 24px; height: 24px; cursor: pointer;">
+                                                            <label class="form-check-label ms-2" for="femaleGender"
+                                                                style="cursor: pointer; font-size: 15px; color: #333;">
+                                                                Nữ
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
 
                                                 <div class="input-group mb-4">
                                                     <div for="date_range" class="fw-bold title-tong-quan-h2-log">Dự kiến
-                                                        thời gian khai trương</div>
+                                                        thời gian động thổ</div>
                                                     <div class="input-group">
                                                         <input type="text"
                                                             class="form-control wedding_date_range --border-box-form @error('date_range') is-invalid @enderror"
@@ -182,15 +190,6 @@
                             <p class="text-muted" style="font-size: 16px;">
                                 Hiện chưa có thông tin, bạn vui lòng nhập thông tin để xem kết quả.
                             </p>
-                            <!-- Auto-submit notification (hidden by default) -->
-                            <div id="autoSubmitNotification" class="alert alert-info" style="display: none;">
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <span>Đang khôi phục dữ liệu từ trang chi tiết...</span>
-                                    <button type="button" class="btn btn-sm btn-primary" onclick="manualSubmit()">
-                                        Xem kết quả ngay
-                                    </button>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -199,6 +198,160 @@
 
         </div>
     </div>
+        {{-- Results will be displayed here via AJAX --}}
+        @if (isset($resultsByYear))
+            <div class="results-container mt-5">
+
+                <div class="card-header">
+                    <ul class="nav nav-tabs card-header-tabs" id="yearTab" role="tablist">
+                        @foreach ($resultsByYear as $year => $data)
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link @if ($loop->first) active @endif"
+                                    id="tab-{{ $year }}-tab" data-bs-toggle="tab"
+                                    data-bs-target="#tab-{{ $year }}" type="button" role="tab"
+                                    aria-controls="tab-{{ $year }}"
+                                    aria-selected="{{ $loop->first ? 'true' : 'false' }}">
+                                    Năm {{ $year }}
+                                </button>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+                <div class="card-body">
+                    <div class="tab-content" id="yearTabContent">
+                        @foreach ($resultsByYear as $year => $data)
+                            <div class="tab-pane fade @if ($loop->first) show active @endif"
+                                id="tab-{{ $year }}" role="tabpanel"
+                                aria-labelledby="tab-{{ $year }}-tab">
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <div class="card p-4 ">
+                                            <h4 class="mb-3">Thông tin gia chủ</h4>
+                                            <ul>
+                                                <li>Ngày sinh dương lịch:
+                                                    <b>{{ $birthdateInfo['dob']->format('d/m/Y') }}</b>
+                                                </li>
+                                                <li>Ngày sinh âm lịch: <b>{{ $birthdateInfo['lunar_dob_str'] }}</b></li>
+                                                <li>Tuổi: <b>{{ $birthdateInfo['can_chi_nam'] }}</b>, Mệnh:
+                                                    {{ $birthdateInfo['menh']['hanh'] }}
+                                                    ({{ $birthdateInfo['menh']['napAm'] }})
+                                                </li>
+                                                <li>Tuổi âm: <b>{{ $data['year_analysis']['lunar_age'] }}</b></li>
+
+                                            </ul>
+
+                                        </div>
+                                    </div>
+                                    {{-- @dd($data) --}}
+                                    <div class="col-lg-8">
+                                        <div class="card p-4 ">
+                                            <h5 class="text-center">
+                                                kiểm tra kim lâu - hoang ốc - tam tai
+                                            </h5>
+                                            <p>
+                                                Kiểm tra xem năm {{ $year }} {{ $data['canchi'] }} gia chủ tuổi
+                                                {{ $birthdateInfo['can_chi_nam'] }}
+                                                ({{ $data['year_analysis']['lunar_age'] }} tuổi) có phạm phải Kim Lâu,
+                                                Hoang Ốc, Tam Tai không?
+                                            </p>
+                                            <ul>
+                                                <li>
+                                                    {{ $data['year_analysis']['details']['kimLau']['message'] }}
+                                                </li>
+                                                <li>
+                                                    {{ $data['year_analysis']['details']['hoangOc']['message'] }}
+                                                </li>
+                                                <li>
+                                                    {{ $data['year_analysis']['details']['tamTai']['message'] }}
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    {{-- @dd($data) --}}
+                                    <p>{!! $data['year_analysis']['description'] !!}</p>
+                                </div>
+
+
+                                @if ($data['year_analysis'])
+                                    <h4 class="mt-4 mb-3">Bảng điểm chi tiết các ngày tốt</h4>
+
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-hover text-center align-middle">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th>Ngày Dương Lịch</th>
+                                                    <th>Ngày Âm Lịch</th>
+                                                    <th>Điểm</th>
+                                                    <th>Đánh giá</th>
+                                                    <th>Giờ tốt (Hoàng Đạo)</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {{-- Lọc và chỉ hiển thị những ngày có điểm TỐT hoặc RẤT TỐT --}}
+                                                @php
+                                                    $goodDays = array_filter($data['days'], function ($day) {
+                                                        $rating = $day['day_score']['rating'];
+                                                        return $rating === 'Tốt' || $rating === 'Rất tốt';
+                                                    });
+                                                @endphp
+
+                                                @forelse($data['days'] as $day)
+                                                    @php
+                                                        if (!function_exists('getRatingClassBuildHouse')) {
+                                                            function getRatingClassBuildHouse(string $rating): string
+                                                            {
+                                                                return match ($rating) {
+                                                                    'Rất tốt' => 'table-success',
+                                                                    'Tốt' => 'table-info',
+                                                                    'Trung bình' => 'table-warning',
+                                                                    default => 'table-danger',
+                                                                };
+                                                            }
+                                                        }
+                                                    @endphp
+                                                    <tr
+                                                        class="{{ getRatingClassBuildHouse($day['day_score']['rating']) }}">
+                                                        <td>
+                                                            <strong>{{ $day['date']->format('d/m/Y') }}</strong>
+                                                            <br>
+                                                            <small>{{ $day['weekday_name'] }}</small>
+                                                        </td>
+                                                        <td>{{ $day['full_lunar_date_str'] }}</td>
+                                                        <td class="fw-bold fs-5">{{ $day['day_score']['percentage'] }}%
+                                                        </td>
+                                                        <td><strong>{{ $day['day_score']['rating'] }}</strong></td>
+                                                        <td>
+                                                            @if (!empty($day['good_hours']))
+                                                                {{ implode('; ', $day['good_hours']) }}
+                                                            @else
+                                                                <span class="text-muted">Không có</span>
+                                                            @endif
+                                                        </td>
+                                                    </tr>
+                                                @empty
+                                                    <tr>
+                                                        <td colspan="5" class="text-center p-4">
+                                                            <p class="mb-0">Trong khoảng thời gian bạn chọn của năm nay,
+                                                                không tìm thấy ngày nào thực sự tốt để tiến hành xây dựng.
+                                                            </p>
+                                                            <small>Bạn có thể thử mở rộng khoảng thời gian tìm kiếm.</small>
+                                                        </td>
+                                                    </tr>
+                                                @endforelse
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                @endif
+
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+
+            </div>
+        @endif
+    </div>
+
 @endsection
 
 @push('scripts')
@@ -240,6 +393,8 @@
 
             function initDateRangePicker() {
                 if (dateRangeInitAttempts >= maxDateRangeAttempts) {
+                    console.warn('VanillaDateRangePicker could not be loaded after ' + maxDateRangeAttempts +
+                        ' attempts');
                     if (dateRangeInput) {
                         dateRangeInput.removeAttribute('readonly');
                         dateRangeInput.placeholder = 'DD/MM/YY - DD/MM/YY';
@@ -273,10 +428,14 @@
                                 firstDay: 1
                             }
                         });
+
+                        console.log('Date range picker initialized successfully');
                     } catch (error) {
+                        console.error('Error initializing date range picker:', error);
                         dateRangeInitAttempts = maxDateRangeAttempts;
                     }
                 } else {
+                   
                     setTimeout(initDateRangePicker, 500);
                 }
             }
@@ -313,111 +472,54 @@
                 window.location.hash = hashParts.join('&');
             }
 
-            // Manual submit function
-            function manualSubmit() {
-                const form = document.getElementById('khaiTruongForm');
-                if (form) {
-                    form.requestSubmit();
-                    document.getElementById('autoSubmitNotification').style.display = 'none';
-                }
-            }
-
-            // Make function global
-            window.manualSubmit = manualSubmit;
-
             // Function to restore form from hash parameters
             function restoreFromHash() {
                 const params = parseHashParams();
 
-                if (params.user_name || params.birthdate || params.khoang) {
-                    // Show restoration notification
-                    const notification = document.getElementById('autoSubmitNotification');
-                    if (notification) {
-                        notification.style.display = 'block';
-                    }
+                if (params.birthdate || params.khoang) {
                     let formRestored = false;
-                    let userNameSet = false;
                     let birthdateSet = false;
                     let dateRangeSet = false;
 
-                    if (params.user_name) {
-                        const userNameInput = document.getElementById('user_name');
-                        userNameInput.value = params.user_name;
-                        userNameSet = true;
-                    } else {
-                        userNameSet = true;
-                    }
-
                     if (params.birthdate) {
-                        let formattedBirthdate = params.birthdate;
-                        let day, month, year;
-
-                        // Check if birthdate is in Y-m-d format (from URL params)
-                        if (params.birthdate.includes('-') && params.birthdate.split('-').length === 3) {
-                            const ymdParts = params.birthdate.split('-');
-                            year = parseInt(ymdParts[0]);
-                            month = parseInt(ymdParts[1]);
-                            day = parseInt(ymdParts[2]);
-                            formattedBirthdate = `${String(day).padStart(2, '0')}/${String(month).padStart(2, '0')}/${year}`;
-                        } else {
-                            // Parse d/m/Y format
-                            const dateParts = params.birthdate.split('/');
-                            if (dateParts.length === 3) {
-                                day = parseInt(dateParts[0]);
-                                month = parseInt(dateParts[1]);
-                                year = parseInt(dateParts[2]);
-                            }
-                        }
-
-                        // Set birthdate in the hidden input
+                        // Set birthdate
                         const ngayXemInput = document.getElementById('ngayXem');
-                        ngayXemInput.value = formattedBirthdate;
+                        ngayXemInput.value = params.birthdate;
 
-                        if (day && month && year) {
+                        // Parse birthdate to set individual fields
+                        const dateParts = params.birthdate.split('/');
+                        if (dateParts.length === 3) {
+                            const day = parseInt(dateParts[0]);
+                            const month = parseInt(dateParts[1]);
+                            const year = parseInt(dateParts[2]);
 
                             // Set the selects with multiple retries to ensure they're populated
                             function trySetSelects(attempts = 0) {
-                                const maxAttempts = 15;
+                                const maxAttempts = 10;
                                 const daySelect = document.getElementById('ngaySelect');
                                 const monthSelect = document.getElementById('thangSelect');
                                 const yearSelect = document.getElementById('namSelect');
 
-                                if (attempts >= maxAttempts) {
-                                    birthdateSet = true; // Set to true to prevent blocking form submission
-                                    checkAndSubmitForm();
-                                    return;
-                                }
+                                if (attempts >= maxAttempts) return;
 
-                                if (daySelect && monthSelect && yearSelect &&
-                                    daySelect.options.length > 1 &&
-                                    monthSelect.options.length > 1 &&
-                                    yearSelect.options.length > 1) {
-
-                                    // Set year first, then month, then day (important order)
+                                if (daySelect.options.length > 1 && monthSelect.options.length > 1 && yearSelect.options.length > 1) {
+                                    daySelect.value = day;
+                                    monthSelect.value = month;
                                     yearSelect.value = year;
+
+                                    // Trigger change events to update the form
+                                    daySelect.dispatchEvent(new Event('change'));
+                                    monthSelect.dispatchEvent(new Event('change'));
                                     yearSelect.dispatchEvent(new Event('change'));
 
-                                    // Use shorter delays for faster restoration
-                                    setTimeout(() => {
-                                        monthSelect.value = month;
-                                        monthSelect.dispatchEvent(new Event('change'));
-
-                                        setTimeout(() => {
-                                            daySelect.value = day;
-                                            daySelect.dispatchEvent(new Event('change'));
-
-                                            birthdateSet = true;
-                                            checkAndSubmitForm();
-                                        }, 50);
-                                    }, 50);
+                                    birthdateSet = true;
+                                    checkAndSubmitForm();
                                 } else {
-                                    setTimeout(() => trySetSelects(attempts + 1), 150);
+                                    setTimeout(() => trySetSelects(attempts + 1), 200);
                                 }
                             }
 
                             trySetSelects();
-                        } else {
-                            birthdateSet = true;
                         }
                     } else {
                         birthdateSet = true;
@@ -426,12 +528,8 @@
                     if (params.khoang) {
                         // Set date range with retry
                         function trySetDateRange(attempts = 0) {
-                            const maxAttempts = 8;
-                            if (attempts >= maxAttempts) {
-                                dateRangeSet = true;
-                                checkAndSubmitForm();
-                                return;
-                            }
+                            const maxAttempts = 5;
+                            if (attempts >= maxAttempts) return;
 
                             const khoangInput = document.getElementById('date_range');
                             if (khoangInput) {
@@ -439,7 +537,7 @@
                                 dateRangeSet = true;
                                 checkAndSubmitForm();
                             } else {
-                                setTimeout(() => trySetDateRange(attempts + 1), 100);
+                                setTimeout(() => trySetDateRange(attempts + 1), 200);
                             }
                         }
 
@@ -450,34 +548,25 @@
 
                     // Function to check if all fields are set and submit form
                     function checkAndSubmitForm() {
-                        if (userNameSet && birthdateSet && dateRangeSet && !formRestored) {
+                        if (birthdateSet && dateRangeSet && !formRestored) {
                             formRestored = true;
-
-                            // Auto submit form immediately
-                            const form = document.getElementById('khaiTruongForm');
-                            if (form) {
-                                // Try different submission methods
-                                try {
+                            // Auto submit form after a short delay to ensure everything is set
+                            setTimeout(() => {
+                                const form = document.getElementById('buildHouseForm');
+                                if (form) {
                                     form.requestSubmit();
-                                    // Hide notification after successful submit
-                                    const notification = document.getElementById('autoSubmitNotification');
-                                    if (notification) {
-                                        notification.style.display = 'none';
-                                    }
-                                } catch (e) {
-                                    form.dispatchEvent(new Event('submit', { cancelable: true }));
                                 }
-                            }
+                            }, 500);
                         }
                     }
                 }
             }
 
-            // Restore form from hash on page load - optimized for faster restoration
-            setTimeout(restoreFromHash, 800);
+            // Restore form from hash on page load
+            setTimeout(restoreFromHash, 1000);
 
             // ========== AJAX FORM SUBMISSION ==========
-            const form = document.getElementById('khaiTruongForm');
+            const form = document.getElementById('buildHouseForm');
             const submitBtn = document.getElementById('submitBtn');
             const resultsContainer = document.getElementById('resultsContainer');
             const btnText = submitBtn.querySelector('.btn-text');
@@ -486,21 +575,12 @@
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
 
-                // Get user name
-                const userNameInput = document.getElementById('user_name');
-                const userNameValue = userNameInput.value;
-
-                if (!userNameValue.trim()) {
-                    alert('Vui lòng nhập tên');
-                    return;
-                }
-
                 // Get birthdate value
                 const ngayXemInput = document.getElementById('ngayXem');
                 const ngayXemValue = ngayXemInput.value;
 
                 if (!ngayXemValue) {
-                    alert('Vui lòng chọn đầy đủ ngày, tháng, năm sinh');
+                    alert('Vui lòng chọn đầy đủ ngày, tháng, năm');
                     return;
                 }
 
@@ -508,9 +588,12 @@
                 const dateRangeValue = dateRangeInput.value;
 
                 if (!dateRangeValue) {
-                    alert('Vui lòng chọn khoảng thời gian khai trương');
+                    alert('Vui lòng chọn khoảng thời gian');
                     return;
                 }
+
+                // Get gender value
+                const genderValue = document.querySelector('input[name="gender"]:checked').value;
 
                 // Get the date based on calendar type
                 let formattedBirthdate = '';
@@ -573,8 +656,8 @@
 
                 // Prepare form data
                 const formData = {
-                    user_name: userNameValue,
                     birthdate: formattedBirthdate,
+                    gender: genderValue,
                     calendar_type: calendarType,
                     leap_month: isLeapMonth,
                     date_range: dateRangeValue,
@@ -586,9 +669,9 @@
 
                 // Set hash parameters for URL state
                 const hashParams = {
-                    user_name: userNameValue,
                     birthdate: formattedBirthdate,
-                    khoang: dateRangeValue
+                    khoang: dateRangeValue,
+                    gender: genderValue
                 };
                 setHashParams(hashParams);
 
@@ -598,7 +681,7 @@
                 spinner.classList.remove('d-none');
 
                 // Submit via AJAX
-                fetch('{{ route('khai-truong.check') }}', {
+                fetch('{{ route('breaking.check') }}', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',

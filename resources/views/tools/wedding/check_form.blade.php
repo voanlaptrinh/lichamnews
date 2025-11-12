@@ -2,17 +2,17 @@
 
 @section('content')
     @push('styles')
-        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=10.5') }}">
+        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=10.7') }}">
     @endpush
 
 
 
     <div class="container-setup">
-        <h6 class="content-title-detail"><a href="{{ route('home') }}"
+        <div class="content-title-detail"><a href="{{ route('home') }}"
                 style="color: #2254AB; text-decoration: underline;">Trang chủ</a><i class="bi bi-chevron-right"></i> <a
                 style="color: #2254AB; text-decoration: underline;" href="">Tiện ích</a> <i
                 class="bi bi-chevron-right"></i> <span>
-                Xem ngày kết hôn</span></h6>
+                Xem ngày kết hôn</span></div>
 
         <h1 class="content-title-home-lich">Xem ngày kết hôn</h1>
 
@@ -270,7 +270,7 @@
 @push('scripts')
     <script src="{{ asset('js/lunar-solar-date-select.js?v=1.3') }}"></script>
     {{-- Date Range Picker JS (vanilla JS version) --}}
-    <script src="{{ asset('/js/vanilla-daterangepicker.js?v=6.6') }}" defer></script>
+    <script src="{{ asset('/js/vanilla-daterangepicker.js?v=6.7') }}" defer></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -385,9 +385,7 @@
                         dateRangeInitAttempts = maxDateRangeAttempts;
                     }
                 } else {
-                    if (dateRangeInitAttempts <= 3) {
-                        console.log('VanillaDateRangePicker not loaded yet, attempt ' + dateRangeInitAttempts);
-                    }
+                   
                     setTimeout(initDateRangePicker, 500);
                 }
             }
@@ -497,7 +495,7 @@
                     if (params.khoang) {
                         // Set date range
                         setTimeout(() => {
-                            const khoangInput = document.getElementById('date_range');
+                            const khoangInput = document.getElementById('wedding_date_range');
                             if (khoangInput) {
                                 khoangInput.value = params.khoang;
                                 dateRangeSet = true;

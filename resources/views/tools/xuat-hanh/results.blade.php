@@ -20,7 +20,6 @@
         </div>
     @endif
 
-
     <div class="tab-content">
         @php $firstYear = true; @endphp
         @foreach ($resultsByYear as $year => $yearData)
@@ -36,61 +35,27 @@
                         @if (isset($birthdateInfo))
                             <div class="info-grid">
                                 <p class="mb-2">
-                                    <strong>Tên:</strong>
-                                    {{ $user_name }}
-                                </p>
-                                <p class="mb-2">
                                     <strong>Ngày sinh:</strong>
-                                    {{ $birthdateInfo['dob']->format('d/m/Y') }} tức ngày
-                                    {{ $birthdateInfo['lunar_dob_str'] }} âm lịch
+                                    {{ $birthdateInfo['solar_date'] }} tức ngày
+                                    {{ $birthdateInfo['lunar_date'] }} âm lịch
                                 </p>
                                 <p class="mb-2">
                                     <strong>Tuổi:</strong>
-                                    <b>{{ $birthdateInfo['can_chi_nam'] }}</b>, Mệnh:
-                                    {{ $birthdateInfo['menh']['hanh'] }}
-                                    ({{ $birthdateInfo['menh']['napAm'] }})
+                                    {{ $birthdateInfo['can_chi'] }}, Mệnh:
+                                    {{ $birthdateInfo['hanh'] }}
+                                    ({{ $birthdateInfo['menh'] }})
                                 </p>
                                 <p class="mb-2">
                                     <strong>Tuổi âm:</strong>
-                                    {{ $yearData['year_analysis']['lunar_age'] }} tuổi
+                                    {{ $year - explode('/', $birthdateInfo['solar_date'])[2] + 1 }} tuổi
                                 </p>
 
                                 <p class="mb-2">
-                                    <strong>Thời gian khai trương:</strong>
+                                    <strong>Dự kiến xuất hành:</strong>
                                     {{ $inputs['date_range'] ?? '' }}
                                 </p>
                             </div>
                         @endif
-                    </div>
-                </div>
-
-                <div class="card border-0 mb-3 w-100 box-detial-year">
-                    <div class="card-body box1-con-year">
-                        <div
-                            class="text-primary mb-1 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
-                            <img src="{{ asset('/icons/dac-diem1.svg') }}" alt="thông tin người xem" width="28"
-                                height="28" class="me-1"> Kiểm tra Kim Lâu - Hoang Ốc - Tam Tai
-                        </div>
-                        <div class="info-grid">
-                            <p class="mb-2">
-                                Kiểm tra ngày tốt xấu và các yếu tố hỗ trợ cho việc khai trương năm {{ $year }}
-                                {{ $yearData['canchi'] }}
-                                của {{ $user_name }} tuổi {{ $birthdateInfo['can_chi_nam'] }}
-                                ({{ $yearData['year_analysis']['lunar_age'] }} tuổi).
-                            </p>
-                            <ul>
-
-                                <li>{{ $yearData['year_analysis']['details']['kimLau']['is_bad'] ? $yearData['year_analysis']['details']['kimLau']['message'] : 'Không phạm Kim Lâu' }}
-                                </li>
-                                <li> {{ $yearData['year_analysis']['details']['hoangOc']['is_bad'] ? $yearData['year_analysis']['details']['hoangOc']['message'] : 'Không phạm Hoang Ốc' }}
-                                </li>
-                                <li>{{ $yearData['year_analysis']['details']['tamTai']['is_bad'] ? $yearData['year_analysis']['details']['tamTai']['message'] : 'Không phạm Tam Tai' }}
-                                </li>
-
-                              
-                            </ul>
-                            <p>{!! $yearData['year_analysis']['description'] !!}</p>
-                        </div>
                     </div>
                 </div>
 
@@ -100,11 +65,11 @@
                             <div
                                 class="text-primary mb-0 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
                                 <img src="{{ asset('icons/k_nen_1.svg') }}" alt="thông tin người xem" width="28"
-                                    height="28" class="me-1"> Danh Sách Điểm
-                                Theo Ngày
+                                    height="28" class="me-1"> Danh Sách Điểm Theo Ngày
                             </div>
+
                             <select name="sort" class=" form-select-sm sort-select" style="width: auto;"
-                                form="khaiTruongForm">
+                                form="xuatHanhForm">
                                 <option value="desc" {{ ($sortOrder ?? 'desc') === 'desc' ? 'selected' : '' }}>Điểm
                                     giảm dần</option>
                                 <option value="asc" {{ ($sortOrder ?? 'desc') === 'asc' ? 'selected' : '' }}>Điểm
@@ -120,7 +85,7 @@
                                         <tr>
                                             <th style="border-radius: 8px 0 0 8px">Ngày</th>
                                             <th style="">Yếu tố hỗ trợ</th>
-                                            <th style="border-radius: 0 8px 8px 0" class="score-header">Điểm</th>
+                                            <th style=" border-radius: 0 8px 8px 0" class="score-header">Điểm</th>
                                         </tr>
                                     </thead>
                                     <tbody class="text-center">
@@ -128,12 +93,7 @@
                                             <tr>
                                                 <td style="text-align: start">
                                                     <a
-                                                        href="{{ route('khai-truong.details', [
-                                                            'date' => $day['date']->format('Y-m-d'),
-                                                            'birthdate' => $birthdateInfo['dob']->format('Y-m-d'),
-                                                            'date_range' => $inputs['date_range'] ?? '',
-                                                            'user_name' => $user_name,
-                                                        ]) }}">
+                                                        href="{{ route('xuat-hanh.details', ['date' => $day['date']->format('Y-m-d'), 'birthdate' => $formattedBirthdate, 'date_range' => $inputs['date_range'] ?? '']) }}">
                                                         <div class="box-dtl-pc">
                                                             <div style="color: #0F172A;font-size: 18px">
                                                                 <strong
@@ -156,6 +116,7 @@
                                                                     {{ $day['al_name'][0] ?? '' }}/{{ $day['al_name'][1] ?? '' }}
                                                                     ÂL <i class="bi bi-chevron-right"></i></div>
                                                             </div>
+
                                                         </div>
                                                     </a>
                                                 </td>
@@ -165,8 +126,8 @@
 
                                                         // Kiểm tra ngày hoàng đạo - sử dụng helper
                                                         if (
-                                                            isset($day['day_score']['hoangdao']) &&
-                                                            $day['day_score']['hoangdao'] === true
+                                                            isset($day['day_score']['score']['hoangdao']) &&
+                                                            $day['day_score']['score']['hoangdao'] === true
                                                         ) {
                                                             $starName = \App\Helpers\GoodBadDayHelper::getHoangDaoStar(
                                                                 $day['date'],
@@ -178,19 +139,19 @@
 
                                                         // Kiểm tra trực tốt
                                                         if (
-                                                            isset($day['day_score']['tructot']) &&
-                                                            $day['day_score']['tructot'] === true
+                                                            isset($day['day_score']['score']['tructot']) &&
+                                                            $day['day_score']['score']['tructot'] === true
                                                         ) {
                                                             $trucName =
-                                                                $day['day_score']['truc']['details']['name'] ??
+                                                                $day['day_score']['score']['truc']['details']['name'] ??
                                                                 'Không xác định';
                                                             $supportFactors[] = "Trực tốt: Trực {$trucName}";
                                                         }
 
                                                         // Kiểm tra hợp tuổi - sử dụng helper
                                                         if (
-                                                            isset($day['day_score']['hopttuoi']) &&
-                                                            $day['day_score']['hopttuoi'] === true
+                                                            isset($day['day_score']['score']['hopttuoi']) &&
+                                                            $day['day_score']['score']['hopttuoi'] === true
                                                         ) {
                                                             $hopType = \App\Helpers\GoodBadDayHelper::getHopTuoiDetail(
                                                                 $day['date'],
@@ -202,11 +163,9 @@
                                                         }
 
                                                         // Kiểm tra sao tốt - gộp thành 1 dòng
-                                                        if (
-                                                            isset($day['day_score']['good_stars']) &&
-                                                            !empty($day['day_score']['good_stars'])
-                                                        ) {
-                                                            $starNames = implode(', ', $day['day_score']['good_stars']);
+                                                        $goodStars = $day['day_score']['score']['good_stars'] ?? [];
+                                                        if (!empty($goodStars) && is_array($goodStars)) {
+                                                            $starNames = implode(', ', $goodStars);
                                                             $supportFactors[] = "Sao tốt: {$starNames}";
                                                         }
 
@@ -222,6 +181,8 @@
                                                         <ul class="list-unstyled mb-0">
                                                             @foreach ($supportFactors as $factor)
                                                                 <li class="d-flex align-items-center mb-1">
+
+
                                                                     <span class="small">{{ $factor }}</span>
                                                                 </li>
                                                             @endforeach
@@ -237,7 +198,9 @@
                                                 </td>
                                                 <td class="text-center">
                                                     @php
-                                                        $score = $day['day_score']['percentage'] ?? 0;
+                                                        $score =
+                                                            $day['day_score']['score']['percentage'] ??
+                                                            ($day['day_score']['percentage'] ?? 0);
                                                         $bgColor = '#D1FAE5'; // Green
                                                         $score = round($score);
                                                         if ($score <= 30) {
@@ -258,8 +221,6 @@
                                                         }
                                                     @endphp
                                                     <div class=" d-flex justify-content-center align-items-center">
-
-
                                                         <div class="battery">
                                                             <div class="battery-body"
                                                                 style="border:1px solid {{ $border }}">

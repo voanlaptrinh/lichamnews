@@ -97,17 +97,6 @@ class TotXauController extends Controller
             $lunarParts = LunarHelper::convertSolar2Lunar($date->day, $date->month, $date->year);
             $fullLunarDateStr = sprintf('%02d/%02d %s', $lunarParts[0], $lunarParts[1], $dayCanChi);
 
-            // $details = [];
-            // if (isset($dayScoreDetails['score']['issues']) && is_array($dayScoreDetails['score']['issues'])) {
-            //     foreach ($dayScoreDetails['score']['issues'] as $issue) {
-            //         if (isset($issue['reason'])) {
-            //             $details[] = $issue['reason'];
-            //         } elseif (isset($issue['message'])) {
-            //             $details[] = $issue['message'];
-            //         }
-            //     }
-            // }
-
             $resultsByYear[$year]['days'][] = [
                 'date' => $date->copy(),
                 'weekday_name' => $date->isoFormat('dddd'),
@@ -148,7 +137,7 @@ class TotXauController extends Controller
             ]);
         }
 
-        return view('build-house.form', [
+        return view('tools.tot-xau.index', [
             'inputs' => $originalInputs,
             'birthdateInfo' => $birthdateInfo,
             'resultsByYear' => $resultsByYear,

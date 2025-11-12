@@ -75,23 +75,14 @@
                                 ({{ $yearData['year_analysis']['lunar_age'] }} tuổi).
                             </p>
                             <ul>
-                                @if ($yearData['year_analysis']['details']['kimLau']['is_bad'])
-                                    <li>
-                                        Phạm Kim Lâu
+                                <li>{{ $yearData['year_analysis']['details']['kimLau']['is_bad'] ? $yearData['year_analysis']['details']['kimLau']['message'] : 'Không phạm Kim Lâu' }}
+                                </li>
+                                <li> {{ $yearData['year_analysis']['details']['hoangOc']['is_bad'] ? $yearData['year_analysis']['details']['hoangOc']['message'] : 'Không phạm Hoang Ốc' }}
+                                </li>
+                                <li>{{ $yearData['year_analysis']['details']['tamTai']['is_bad'] ? $yearData['year_analysis']['details']['tamTai']['message'] : 'Không phạm Tam Tai' }}
+                                </li>
 
-                                    </li>
-                                @endif
-                                @if ($yearData['year_analysis']['details']['hoangOc']['is_bad'])
-                                    <li>
-                                        Phạm Hoang Ốc
 
-                                    </li>
-                                @endif
-                                @if ($yearData['year_analysis']['details']['tamTai']['is_bad'])
-                                    <li>
-                                        Phạm Tam Tai
-                                    </li>
-                                @endif
                             </ul>
                             <p>{!! $yearData['year_analysis']['description'] !!}</p>
                         </div>
@@ -131,8 +122,8 @@
                                     <tbody class="text-center">
                                         @foreach ($yearData['days'] as $day)
                                             <tr>
-                                                <td>
-                                                    <a 
+                                                <td style="text-align: start">
+                                                    <a
                                                         href="{{ route('buy-house.details', [
                                                             'date' => $day['date']->format('Y-m-d'),
                                                             'birthdate' => $birthdateInfo['dob']->format('Y-m-d'),
@@ -231,7 +222,8 @@
                                                             @endforeach
                                                         </ul>
                                                     @else
-                                                        <span class="text-warning small" style="color: #2254AB !important">
+                                                        <span class="text-warning small"
+                                                            style="color: #2254AB !important">
                                                             <i class="bi bi-exclamation-triangle-fill"></i> Không có yếu
                                                             tố hỗ trợ
                                                         </span>
@@ -242,6 +234,7 @@
                                                     @php
                                                         $score = $day['day_score']['percentage'] ?? 0;
                                                         $bgColor = '#D1FAE5'; // Green
+                                                        $score = round($score);
                                                         if ($score <= 30) {
                                                             $bgColor = '#FEE2E2'; // Red
                                                             $border = '#DC2626';

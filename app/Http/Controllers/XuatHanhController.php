@@ -2,24 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Helpers\AstrologyHelper;
+use App\Helpers\BadDayHelper;
 use App\Helpers\DataHelper;
+use App\Helpers\FunctionHelper;
 use App\Helpers\GoodBadDayHelper;
 use App\Helpers\KhiVanHelper;
 use App\Helpers\LunarHelper;
 use Carbon\CarbonPeriod;
+use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
+
 class XuatHanhController extends Controller
 {
     /**
-     * Hiển thị form xem ngày làm nhà.
+     * Hiển thị form xem ngày xuất hành.
      */
     public function showForm()
     {
         // Không cần truyền dateRanges nữa
-        return view('xuat-hanh.form');
+        return view('tools.xuat-hanh.form');
     }
 
     /**
@@ -47,13 +50,13 @@ class XuatHanhController extends Controller
         $request->merge($input);
 
         $validator = Validator::make($request->all(), [
-            
+
             'birthdate' => 'required|date',
             'date_range' => 'required',
             'start_date' => 'required|date_format:d/m/Y',
             'end_date' => 'required|date_format:d/m/Y|after_or_equal:start_date',
         ], [
-        
+
             'birthdate.required' => 'Vui lòng nhập ngày sinh của gia chủ.',
             'date_range.required' => 'Vui lòng chọn khoảng ngày dự định.',
             'start_date.*' => 'Định dạng ngày bắt đầu không hợp lệ.',
@@ -98,27 +101,18 @@ class XuatHanhController extends Controller
         $purpose = 'XUAT_HANH'; // Hoặc 'LAM_NHA', tùy theo bạn định nghĩa trong DataHelper
 
         foreach ($period as $date) {
-            $year = $date->year;
-
-
-            // b. Tính toán điểm số của ngày dựa trên tuổi gia chủ
-            $dayScoreDetails = GoodBadDayHelper::calculateDayScore($date, $birthdate->year, $purpose);
-
-            // c. Lấy thông tin Can Chi của ngày
+             $year = $date->year;
+            $dayScoreDetails = FunctionHelper::getDaySummaryInfo($date->day, $date->month, $date->year, $birthdate->year, $purpose);
             $jd = LunarHelper::jdFromDate($date->day, $date->month, $date->year);
             $dayCanChi = LunarHelper::canchiNgayByJD($jd);
-
-            // d. Lấy Giờ Hoàng Đạo (chỉ giờ ban ngày)
             $dayChi = explode(' ', $dayCanChi)[1];
-            $goodHours = LunarHelper::getGoodHours($dayChi, 'day'); // 'day' để chỉ lấy giờ ban ngày
-
-            // e. Tạo chuỗi ngày Âm lịch đầy đủ để hiển thị
+            $goodHours = LunarHelper::getGoodHours($dayChi, 'day');
             $lunarParts = LunarHelper::convertSolar2Lunar($date->day, $date->month, $date->year);
-            $fullLunarDateStr = sprintf('Ngày %02d/%02d %s', $lunarParts[0], $lunarParts[1], $dayCanChi);
+            $fullLunarDateStr = sprintf('%02d/%02d %s', $lunarParts[0], $lunarParts[1], $dayCanChi);
 
             // f. Thêm tất cả kết quả vào mảng `days` của năm tương ứng
             $resultsByYear[$year]['days'][] = [
-                
+
                 'date' => $date->copy(),
                 'weekday_name' => $date->isoFormat('dddd'),
                 'full_lunar_date_str' => $fullLunarDateStr,
@@ -126,13 +120,42 @@ class XuatHanhController extends Controller
                 'day_score' => $dayScoreDetails, // Toàn bộ object điểm số và chi tiết
             ];
         }
+        $sortOrder = $request->input('sort', 'desc');
+        foreach ($resultsByYear as &$yearData) {
+            if (isset($yearData['days']) && is_array($yearData['days'])) {
+                usort($yearData['days'], function ($a, $b) use ($sortOrder) {
+                    // Cấu trúc có thể là day_score.score.percentage hoặc day_score.percentage
+                    $scoreA = $a['day_score']['score']['percentage'] ?? $a['day_score']['percentage'] ?? 0;
+                    $scoreB = $b['day_score']['score']['percentage'] ?? $b['day_score']['percentage'] ?? 0;
+                    return $sortOrder === 'asc' ? $scoreA <=> $scoreB : $scoreB <=> $scoreA;
+                });
+            }
+        }
+        unset($yearData);
 
-        // 4. Trả kết quả về cho view
-        return view('xuat-hanh.form', [
-            'date_start_end' => $dates,
+        $formattedBirthdateForUrl = $birthdate->format('Y-m-d');
+
+        if ($request->ajax() || $request->wantsJson()) {
+            $html = view('tools.xuat-hanh.results', [
+                'inputs' => $originalInputs,
+                'birthdateInfo' => $birthdateInfo,
+                'resultsByYear' => $resultsByYear,
+                'sortOrder' => $sortOrder,
+                'formattedBirthdate' => $formattedBirthdateForUrl,
+            ])->render();
+
+            return response()->json([
+                'success' => true,
+                'html' => $html,
+            ]);
+        }
+
+        return view('tools.xuat-hanh.form', [
             'inputs' => $originalInputs,
             'birthdateInfo' => $birthdateInfo,
             'resultsByYear' => $resultsByYear,
+            'sortOrder' => $sortOrder,
+            'formattedBirthdate' => $formattedBirthdateForUrl,
         ]);
     }
     /**
@@ -140,11 +163,14 @@ class XuatHanhController extends Controller
      */
     private function calculateYearAnalysis(Carbon $dob, int $yearToCheck): array
     {
-        $birthYear = $dob->year;
+        $lunarDob = LunarHelper::convertSolar2Lunar($dob->day, $dob->month, $dob->year);
+        $birthYear = $lunarDob[2];
+
         $lunarAge = AstrologyHelper::getLunarAge($birthYear, $yearToCheck);
 
         $kimLau = AstrologyHelper::checkKimLau($lunarAge);
         $hoangOc = AstrologyHelper::checkHoangOc($lunarAge);
+
         $tamTai = AstrologyHelper::checkTamTai($birthYear, $yearToCheck);
 
         $badFactors = [];
@@ -154,11 +180,8 @@ class XuatHanhController extends Controller
 
         $isBadYear = count($badFactors) > 0;
         $message = $isBadYear
-            ? "Năm {$yearToCheck}, gia chủ phạm phải: <strong>" . implode(', ', $badFactors) . "</strong>  – đây là yếu tố phong thủy cần đặc biệt lưu ý khi thực hiện các việc trọng đại liên quan đến nhà cửa.
-<ul><li>Nếu mục đích mua nhà/đất chỉ để đầu tư hoặc chưa có kế hoạch vào ở ngay: vẫn có thể tiến hành giao dịch trong năm nay, miễn là chọn đúng ngày giờ tốt hợp tuổi, có thể hóa giải phần nào sát khí.</li><li>Ngược lại, nếu gia chủ dự định mua xong là dọn vào ở ngay, hoặc tiến hành xây dựng: nên cân nhắc kỹ lưỡng. Trường hợp vẫn muốn thực hiện trong năm, cần áp dụng các biện pháp hóa giải vận hạn phù hợp hoặc chờ sang năm thuận lợi hơn để đảm bảo an cư lạc nghiệp lâu dài, tránh vận rủi không đáng có.</li> </ul>
-"
-            : "Năm {$yearToCheck}, gia chủ không phạm Kim Lâu, Hoang Ốc hay Tam Tai – đây là tín hiệu rất tốt trong phong thủy. Bạn hoàn toàn có thể an tâm tiến hành các công việc trọng đại liên quan đến nhà cửa như mua nhà/đất, xây dựng, hoặc chuyển về nhà mới trong năm nay.
-Thời điểm cát lợi, vận khí hanh thông – rất thích hợp để an cư, lập nghiệp";
+            ? "Năm {$yearToCheck}, gia chủ phạm phải: <strong>" . implode(', ', $badFactors) . "</strong> – đây là dấu hiệu phong thủy không thuận lợi cho việc xuất hành, đi xa hay khai trương. Tuy nhiên, nếu chỉ là các chuyến đi ngắn hạn như du lịch, công tác, lễ chùa thì vẫn có thể thực hiện, miễn là chọn ngày giờ hoàng đạo, hướng xuất hành cát lợi để giảm bớt sát khí. Trường hợp xuất hành cho những việc trọng đại như khai trương, khởi hành lập nghiệp hoặc bắt đầu dự án mới, gia chủ nên cân nhắc kỹ lưỡng, có thể chọn ngày hợp tuổi hoặc làm lễ cầu an để hóa giải vận hạn."
+            : "Năm {$yearToCheck}, gia chủ không phạm Kim Lâu, Hoang Ốc hay Tam Tai – đây là tín hiệu cát lành trong phong thủy cho việc xuất hành. Mọi chuyến đi xa, du lịch, công tác hay khai trương đều có thể tiến hành thuận lợi. Vận khí hanh thông, gặp nhiều may mắn và quý nhân phù trợ, rất thích hợp để khởi đầu hành trình mới trong năm nay.";
 
         return [
             'is_bad_year' => $isBadYear,
@@ -173,18 +196,60 @@ Thời điểm cát lợi, vận khí hanh thông – rất thích hợp để a
      * Hàm trợ giúp: Lấy thông tin cơ bản của một người.
      * Cần thêm hàm này vào vì bạn có gọi $this->getPersonBasicInfo($birthdate).
      */
-    private function getPersonBasicInfo(Carbon $dob): array
+    private function getPersonBasicInfo($birthdate)
     {
-        $birthYear = $dob->year;
-        $canChiNam = KhiVanHelper::canchiNam((int)$birthYear);
-        $menh = DataHelper::$napAmTable[$canChiNam]; // Giả sử bạn có DataHelper
-        $lunarDob = LunarHelper::convertSolar2Lunar($dob->day, $dob->month, $dob->year);
+        $lunarDate = LunarHelper::convertSolar2Lunar(
+            $birthdate->day,
+            $birthdate->month,
+            $birthdate->year
+        );
+
+        $canChiNam = KhiVanHelper::canchiNam($birthdate->year);
+
+        $menh = '';
+        if (isset(DataHelper::$napAmTable[$canChiNam])) {
+            $menhData = DataHelper::$napAmTable[$canChiNam];
+            if (is_array($menhData) && isset($menhData['napAm'])) {
+                $menh = $menhData['napAm'];
+                $hanh = $menhData['hanh'];
+            };
+        }
 
         return [
-            'dob' => $dob,
-            'lunar_dob_str' => sprintf('%02d/%02d/%d', $lunarDob[0], $lunarDob[1], $lunarDob[2]),
-            'can_chi_nam' => $canChiNam,
+            'dob' => $birthdate, // Thêm đối tượng Carbon gốc
+            'solar_date' => $birthdate->format('d/m/Y'),
+            'lunar_date' => sprintf('%02d/%02d/%04d', $lunarDate[0], $lunarDate[1], $lunarDate[2]),
+            'can_chi' => $canChiNam,
             'menh' => $menh,
+            'hanh' => $hanh,
         ];
+    }
+    
+     public function showDayDetails(Request $request, $date)
+    {
+        // 1. Validate dữ liệu - đã loại bỏ 'person_type'
+         $validated = Validator::make(['date' => $date, 'birthdate' => $request->input('birthdate')], [
+            'date' => 'required|date_format:Y-m-d',
+            'birthdate' => 'required|date_format:Y-m-d',
+        ])->validate();
+
+        // 2. Chuẩn bị các đối tượng ngày tháng
+        $dateToCheck = Carbon::parse($validated['date']);
+        $groomDob = Carbon::parse($validated['birthdate']);
+
+        // 3. Lấy thông tin chung của ngày (tính 1 lần, vì nó không đổi)
+
+        $commonDayInfo = BadDayHelper::getdetailtable($dateToCheck);
+        $tabooResult = GoodBadDayHelper::checkTabooDays($dateToCheck, 'XUAT_HANH');
+
+        // 4. Lấy thông tin chi tiết cho Chú Rể
+        $groomData = BadDayHelper::getDetailedAnalysisForPerson($dateToCheck, $groomDob, 'Ngày xuất hành', 'XUAT_HANH');
+        // 5. Tính điểm số của ngày - sử dụng năm sinh thay vì Carbon object
+        // 6. Trả về view với toàn bộ dữ liệu
+        return view('tools.xuat-hanh.day_details', compact(
+            'commonDayInfo',
+            'groomData',
+            'tabooResult',
+        ));
     }
 }

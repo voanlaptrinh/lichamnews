@@ -232,12 +232,6 @@ Thời điểm cát lợi, vận khí hanh thông – rất thích hợp để a
             'birthdate' => 'required|date_format:Y-m-d',
         ])->validate();
 
-        // if ($validator->fails()) {
-        //     return redirect()->back()->withErrors('Dữ liệu không hợp lệ để xem chi tiết.');
-        // }
-
-        // $validated = $validator->validated();
-
         // 2. Chuẩn bị các đối tượng ngày tháng
         $dateToCheck = Carbon::parse($validated['date']);
         $groomDob = Carbon::parse($validated['birthdate']);

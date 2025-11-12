@@ -3,16 +3,16 @@
 @section('content')
 
     @push('styles')
-        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=10.6') }}">
+        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=10.7') }}">
     @endpush
 
     <div class="container-setup">
-        <h6 class="content-title-detail"><a href="{{ route('home') }}"
+        <div class="content-title-detail"><a href="{{ route('home') }}"
                 style="color: #2254AB; text-decoration: underline;">Trang chủ</a><i class="bi bi-chevron-right"></i> <a
                 style="color: #2254AB; text-decoration: underline;" href="">Tiện ích</a> <i
                 class="bi bi-chevron-right"></i> <span>
                 Xem ngày cưới</span> <i class="bi bi-chevron-right"></i> <span>
-                Chi tiết</span></h6>
+                Chi tiết</span></div>
 
         <h1 class="content-title-home-lich">Chi tiết xem ngày cưới</h1>
 
@@ -45,7 +45,7 @@
                                             <td>
                                                 <span style="font-weight: 600">Ngày Dương lịch:</span>
                                                 {{ $commonDayInfo['dateToCheck']->format('d/m/Y') }}
-                                                ({{ $commonDayInfo['dayOfWeek'] }})
+                                              (<span style="text-transform:capitalize;">{{ $commonDayInfo['dayOfWeek'] }}</span>)
                                             </td>
                                             <td>
                                                 <span style="font-weight: 600">Ngày Âm lịch:</span>
@@ -363,7 +363,7 @@
                                                             <strong>✓ Sao tốt theo Ngọc Hạp Thông Thư:</strong>
                                                             @foreach ($brideData['score']['catHung']['details']['catStars'] as $index => $sao)
                                                                 <span
-                                                                    class=" bg-success me-1">{{ $sao['name'] }}</span>{{ $loop->last ? '' : ',' }}
+                                                                    class=" bg-success">{{ $sao['name'] }}</span>{{ $loop->last ? '' : ',' }}
                                                             @endforeach
                                                         @endif
                                                     </td>
@@ -372,7 +372,7 @@
                                                             <strong>❌ Sao xấu theo Ngọc Hạp Thông Thư:</strong>
                                                             @foreach ($brideData['score']['catHung']['details']['hungStars'] as $sao)
                                                                 <span
-                                                                    class=" bg-danger me-1">{{ $sao['name'] }}</span>{{ $loop->last ? '' : ',' }}
+                                                                    class=" bg-danger ">{{ $sao['name'] }}</span>{{ $loop->last ? '' : ',' }}
                                                             @endforeach
                                                         @endif
                                                     </td>

@@ -36,10 +36,6 @@
                         @if (isset($birthdateInfo))
                             <div class="info-grid">
                                 <p class="mb-2">
-                                    <strong>Tên:</strong>
-                                    {{ $user_name }}
-                                </p>
-                                <p class="mb-2">
                                     <strong>Ngày sinh:</strong>
                                     {{ $birthdateInfo['dob']->format('d/m/Y') }} tức ngày
                                     {{ $birthdateInfo['lunar_dob_str'] }} âm lịch
@@ -54,9 +50,14 @@
                                     <strong>Tuổi âm:</strong>
                                     {{ $yearData['year_analysis']['lunar_age'] }} tuổi
                                 </p>
-
+                                @if (isset($inputs['gender']))
+                                    <p class="mb-2">
+                                        <strong>Giới tính:</strong>
+                                        {{ $inputs['gender'] === 'male' ? 'Nam' : 'Nữ' }}
+                                    </p>
+                                @endif
                                 <p class="mb-2">
-                                    <strong>Thời gian khai trương:</strong>
+                                    <strong>Thời gian xem:</strong>
                                     {{ $inputs['date_range'] ?? '' }}
                                 </p>
                             </div>
@@ -73,21 +74,22 @@
                         </div>
                         <div class="info-grid">
                             <p class="mb-2">
-                                Kiểm tra ngày tốt xấu và các yếu tố hỗ trợ cho việc khai trương năm {{ $year }}
+                                Kiểm tra ngày tốt xấu và các yếu tố hỗ trợ cho việc động thổ năm {{ $year }}
                                 {{ $yearData['canchi'] }}
-                                của {{ $user_name }} tuổi {{ $birthdateInfo['can_chi_nam'] }}
+                                của gia chủ tuổi {{ $birthdateInfo['can_chi_nam'] }}
                                 ({{ $yearData['year_analysis']['lunar_age'] }} tuổi).
                             </p>
                             <ul>
 
-                                <li>{{ $yearData['year_analysis']['details']['kimLau']['is_bad'] ? $yearData['year_analysis']['details']['kimLau']['message'] : 'Không phạm Kim Lâu' }}
+   <li>{{ $yearData['year_analysis']['details']['kimLau']['is_bad'] ? $yearData['year_analysis']['details']['kimLau']['message'] : 'Không phạm Kim Lâu' }}
                                 </li>
                                 <li> {{ $yearData['year_analysis']['details']['hoangOc']['is_bad'] ? $yearData['year_analysis']['details']['hoangOc']['message'] : 'Không phạm Hoang Ốc' }}
                                 </li>
                                 <li>{{ $yearData['year_analysis']['details']['tamTai']['is_bad'] ? $yearData['year_analysis']['details']['tamTai']['message'] : 'Không phạm Tam Tai' }}
                                 </li>
 
-                              
+
+                               
                             </ul>
                             <p>{!! $yearData['year_analysis']['description'] !!}</p>
                         </div>
@@ -104,7 +106,7 @@
                                 Theo Ngày
                             </div>
                             <select name="sort" class=" form-select-sm sort-select" style="width: auto;"
-                                form="khaiTruongForm">
+                                form="buildHouseForm">
                                 <option value="desc" {{ ($sortOrder ?? 'desc') === 'desc' ? 'selected' : '' }}>Điểm
                                     giảm dần</option>
                                 <option value="asc" {{ ($sortOrder ?? 'desc') === 'asc' ? 'selected' : '' }}>Điểm
@@ -128,11 +130,11 @@
                                             <tr>
                                                 <td style="text-align: start">
                                                     <a
-                                                        href="{{ route('khai-truong.details', [
+                                                        href="{{ route('breaking.details', [
                                                             'date' => $day['date']->format('Y-m-d'),
                                                             'birthdate' => $birthdateInfo['dob']->format('Y-m-d'),
                                                             'date_range' => $inputs['date_range'] ?? '',
-                                                            'user_name' => $user_name,
+                                                            'gender' => $inputs['gender'] ?? 'male',
                                                         ]) }}">
                                                         <div class="box-dtl-pc">
                                                             <div style="color: #0F172A;font-size: 18px">
@@ -227,8 +229,7 @@
                                                             @endforeach
                                                         </ul>
                                                     @else
-                                                        <span class="text-warning small"
-                                                            style="color: #2254AB !important">
+                                                        <span class="text-warning small" style="color: #2254AB !important">
                                                             <i class="bi bi-exclamation-triangle-fill"></i> Không có yếu
                                                             tố hỗ trợ
                                                         </span>
@@ -239,7 +240,7 @@
                                                     @php
                                                         $score = $day['day_score']['percentage'] ?? 0;
                                                         $bgColor = '#D1FAE5'; // Green
-                                                        $score = round($score);
+                                                         $score =  round($score);
                                                         if ($score <= 30) {
                                                             $bgColor = '#FEE2E2'; // Red
                                                             $border = '#DC2626';

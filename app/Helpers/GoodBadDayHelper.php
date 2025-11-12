@@ -788,7 +788,7 @@ class GoodBadDayHelper
         $truc = NhiTrucHelper::getTruc($date->day, $date->month, $date->year);
 
         // Các trực tốt (khác với hoàng đạo): Định, Chấp, Kiến, Mãn
-     $trucTot = ['Thành', 'Định', 'Khai', 'Mãn', 'Thu'];
+     $trucTot = ['Thành', 'Định', 'Khai', 'Mãn', 'Thu', 'Trừ', 'Bình','Nguy'];
 
         return in_array($truc, $trucTot);
     }

@@ -1,5 +1,90 @@
 <div class="w-100">
     @if (isset($resultsByYear) && count($resultsByYear) > 0)
+        <!-- Feng Shui Analysis Section -->
+        <div class="card border-0 mb-3 w-100 box-detial-year">
+            <div class="card-body box1-con-year">
+                <div class="text-primary mb-3 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
+                    <img src="{{ asset('icons/dac-diem1.svg') }}" alt="thông tin người xem" width="28" height="28"
+                        class="me-1"> Thông Tin Phong Thủy Nhà
+                </div>
+                @if (isset($birthdateInfo) && isset($huongNhaAnalysis))
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="info-grid">
+                                <p class="mb-2">
+                                    <strong>Ngày sinh:</strong>
+                                    {{ $birthdateInfo['dob']->format('d/m/Y') }} tức ngày
+                                    {{ $birthdateInfo['lunar_dob_str'] }} âm lịch
+                                </p>
+                                <p class="mb-2">
+                                    <strong>Tuổi:</strong>
+                                    <b>{{ $birthdateInfo['can_chi_nam'] }}</b>, Mệnh:
+                                    {{ $birthdateInfo['menh']['hanh'] }}
+                                    ({{ $birthdateInfo['menh']['napAm'] }})
+                                </p>
+                                <p class="mb-2">
+                                    <strong>Giới tính:</strong>
+                                    {{ $inputs['gioi_tinh'] === 'nam' ? 'Nam' : 'Nữ' }}
+                                </p>
+                                <p class="mb-2">
+                                    <strong>Năm sinh âm lịch:</strong>
+                                    {{ $birthdateInfo['lunar_birth_year'] }}
+                                </p>
+                                @php
+                                    $currentYear = date('Y');
+                                    $currentLunarAge = \App\Helpers\AstrologyHelper::getLunarAge(
+                                        $birthdateInfo['lunar_birth_year'],
+                                        $currentYear,
+                                    );
+                                @endphp
+                                <p class="mb-2">
+                                    <strong>Tuổi âm hiện tại:</strong>
+                                    {{ $currentLunarAge }} tuổi (năm {{ $currentYear }})
+                                </p>
+                                <p class="mb-2">
+                                    <strong>Cung mệnh:</strong>
+                                    {{ $birthdateInfo['phong_thuy']['cung_menh'] }}
+                                    ({{ $birthdateInfo['phong_thuy']['nhom'] }})
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="@if ($huongNhaAnalysis['is_good']) text-success @else text-danger @endif">
+                                <h6>
+                                    <strong>Hướng nhà: {{ $huongNhaAnalysis['direction_name'] }}</strong>
+                                    @if ($huongNhaAnalysis['is_good'])
+                                        <span class="badge bg-success ms-2">HỢP TUỔI</span>
+                                    @else
+                                        <span class="badge bg-danger ms-2">KHÔNG HỢP</span>
+                                    @endif
+                                </h6>
+                                <p class="small">{{ $huongNhaAnalysis['description'] }}</p>
+
+                                @if (!$huongNhaAnalysis['is_good'])
+                                    <div class="mt-2">
+                                        <small class="text-success">
+                                            <strong>Hướng hợp tuổi:</strong>
+                                            {{ collect($birthdateInfo['phong_thuy']['huong_tot'])->values()->implode(', ') }}
+                                        </small>
+                                    </div>
+                                @endif
+                                @if (!$huongNhaAnalysis['is_good'])
+                                    <div class="card mt-2" style="background: #fffce1;">
+                                        <div class="card-body pt-1 pb-1 " style="color: #d2941e;">
+                                            Hướng nhà không thuộc nhóm hướng hợp mệnh của gia chủ. Nếu có điều kiện, gia
+                                            chủ nên cân nhắc chọn các hướng khác trong nhóm phù hợp để mang lại nhiều
+                                            may mắn và lợi nhuận hơn cho gia đình.
+                                        </div>
+                                    </div>
+                                @endif
+
+                            </div>
+                        </div>
+                    </div>
+                @endif
+            </div>
+        </div>
+
         <div class="year-tabs mb-3">
             <ul class="nav nav-pills">
                 @php $firstYear = true; @endphp
@@ -20,49 +105,10 @@
         </div>
     @endif
 
-
     <div class="tab-content">
         @php $firstYear = true; @endphp
         @foreach ($resultsByYear as $year => $yearData)
             <div class="tab-pane fade {{ $firstYear ? 'show active' : '' }}" id="year-{{ $year }}">
-
-                <div class="card border-0 mb-3 w-100 box-detial-year">
-                    <div class="card-body box1-con-year">
-                        <div
-                            class="text-primary mb-3 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
-                            <img src="{{ asset('icons/dac-diem1.svg') }}" alt="thông tin người xem" width="28"
-                                height="28" class="me-1"> Thông Tin Người Xem
-                        </div>
-                        @if (isset($birthdateInfo))
-                            <div class="info-grid">
-                                <p class="mb-2">
-                                    <strong>Tên:</strong>
-                                    {{ $user_name }}
-                                </p>
-                                <p class="mb-2">
-                                    <strong>Ngày sinh:</strong>
-                                    {{ $birthdateInfo['dob']->format('d/m/Y') }} tức ngày
-                                    {{ $birthdateInfo['lunar_dob_str'] }} âm lịch
-                                </p>
-                                <p class="mb-2">
-                                    <strong>Tuổi:</strong>
-                                    <b>{{ $birthdateInfo['can_chi_nam'] }}</b>, Mệnh:
-                                    {{ $birthdateInfo['menh']['hanh'] }}
-                                    ({{ $birthdateInfo['menh']['napAm'] }})
-                                </p>
-                                <p class="mb-2">
-                                    <strong>Tuổi âm:</strong>
-                                    {{ $yearData['year_analysis']['lunar_age'] }} tuổi
-                                </p>
-
-                                <p class="mb-2">
-                                    <strong>Thời gian khai trương:</strong>
-                                    {{ $inputs['date_range'] ?? '' }}
-                                </p>
-                            </div>
-                        @endif
-                    </div>
-                </div>
 
                 <div class="card border-0 mb-3 w-100 box-detial-year">
                     <div class="card-body box1-con-year">
@@ -73,23 +119,45 @@
                         </div>
                         <div class="info-grid">
                             <p class="mb-2">
-                                Kiểm tra ngày tốt xấu và các yếu tố hỗ trợ cho việc khai trương năm {{ $year }}
+                                Kiểm tra ngày tốt xấu và các yếu tố hỗ trợ cho việc nhập trạch năm {{ $year }}
                                 {{ $yearData['canchi'] }}
-                                của {{ $user_name }} tuổi {{ $birthdateInfo['can_chi_nam'] }}
-                                ({{ $yearData['year_analysis']['lunar_age'] }} tuổi).
+                                của gia chủ tuổi {{ $birthdateInfo['can_chi_nam'] }}
+                                ({{ $yearData['lunar_age'] }} tuổi âm).
                             </p>
                             <ul>
-
-                                <li>{{ $yearData['year_analysis']['details']['kimLau']['is_bad'] ? $yearData['year_analysis']['details']['kimLau']['message'] : 'Không phạm Kim Lâu' }}
-                                </li>
-                                <li> {{ $yearData['year_analysis']['details']['hoangOc']['is_bad'] ? $yearData['year_analysis']['details']['hoangOc']['message'] : 'Không phạm Hoang Ốc' }}
-                                </li>
-                                <li>{{ $yearData['year_analysis']['details']['tamTai']['is_bad'] ? $yearData['year_analysis']['details']['tamTai']['message'] : 'Không phạm Tam Tai' }}
-                                </li>
-
-                              
+                                @if ($yearData['year_analysis']['details']['kimLau']['is_bad'])
+                                    <li>
+                                        Phạm Kim Lâu
+                                    </li>
+                                @endif
+                                @if ($yearData['year_analysis']['details']['hoangOc']['is_bad'])
+                                    <li>
+                                        Phạm Hoang Ốc
+                                    </li>
+                                @endif
+                                @if ($yearData['year_analysis']['details']['tamTai']['is_bad'])
+                                    <li>
+                                        Phạm Tam Tai
+                                    </li>
+                                @endif
                             </ul>
                             <p>{!! $yearData['year_analysis']['description'] !!}</p>
+
+                            @if (isset($huongNhaAnalysis))
+                                <div class="mt-3">
+                                    <h6 class="text-primary">Kết luận phong thủy nhà:</h6>
+                                    <p class="mb-0">{!! $huongNhaAnalysis['conclusion'] !!}</p>
+
+                                    @if (!$huongNhaAnalysis['is_good'])
+                                        <div class="mt-2">
+                                            <small class="text-success">
+                                                <strong>Hướng hợp tuổi:</strong>
+                                                {{ collect($birthdateInfo['phong_thuy']['huong_tot'])->values()->implode(', ') }}
+                                            </small>
+                                        </div>
+                                    @endif
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -100,11 +168,11 @@
                             <div
                                 class="text-primary mb-0 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
                                 <img src="{{ asset('icons/k_nen_1.svg') }}" alt="thông tin người xem" width="28"
-                                    height="28" class="me-1"> Danh Sách Điểm
-                                Theo Ngày
+                                    height="28" class="me-1"> Danh Sách Điểm Theo Ngày
+                                <span class="badge bg-info ms-2">{{ $yearData['lunar_age'] }} tuổi âm</span>
                             </div>
                             <select name="sort" class=" form-select-sm sort-select" style="width: auto;"
-                                form="khaiTruongForm">
+                                form="buildHouseForm">
                                 <option value="desc" {{ ($sortOrder ?? 'desc') === 'desc' ? 'selected' : '' }}>Điểm
                                     giảm dần</option>
                                 <option value="asc" {{ ($sortOrder ?? 'desc') === 'asc' ? 'selected' : '' }}>Điểm
@@ -128,11 +196,12 @@
                                             <tr>
                                                 <td style="text-align: start">
                                                     <a
-                                                        href="{{ route('khai-truong.details', [
+                                                        href="{{ route('nhap-trach.details', [
                                                             'date' => $day['date']->format('Y-m-d'),
                                                             'birthdate' => $birthdateInfo['dob']->format('Y-m-d'),
                                                             'date_range' => $inputs['date_range'] ?? '',
-                                                            'user_name' => $user_name,
+                                                            'gioi_tinh' => $inputs['gioi_tinh'] ?? 'nam',
+                                                            'huong_nha' => $inputs['huong_nha'] ?? '',
                                                         ]) }}">
                                                         <div class="box-dtl-pc">
                                                             <div style="color: #0F172A;font-size: 18px">
@@ -163,7 +232,7 @@
                                                     @php
                                                         $supportFactors = [];
 
-                                                        // Kiểm tra ngày hoàng đạo - sử dụng helper
+                                                        // Kiểm tra ngày hoàng đạo
                                                         if (
                                                             isset($day['day_score']['hoangdao']) &&
                                                             $day['day_score']['hoangdao'] === true
@@ -187,7 +256,7 @@
                                                             $supportFactors[] = "Trực tốt: Trực {$trucName}";
                                                         }
 
-                                                        // Kiểm tra hợp tuổi - sử dụng helper
+                                                        // Kiểm tra hợp tuổi
                                                         if (
                                                             isset($day['day_score']['hopttuoi']) &&
                                                             $day['day_score']['hopttuoi'] === true
@@ -201,7 +270,7 @@
                                                             }
                                                         }
 
-                                                        // Kiểm tra sao tốt - gộp thành 1 dòng
+                                                        // Kiểm tra sao tốt
                                                         if (
                                                             isset($day['day_score']['good_stars']) &&
                                                             !empty($day['day_score']['good_stars'])
@@ -210,7 +279,6 @@
                                                             $supportFactors[] = "Sao tốt: {$starNames}";
                                                         }
 
-                                                        // Chỉ lấy tối đa 4 yếu tố
                                                         $supportFactors = array_slice(
                                                             array_unique($supportFactors),
                                                             0,
@@ -239,7 +307,7 @@
                                                     @php
                                                         $score = $day['day_score']['percentage'] ?? 0;
                                                         $bgColor = '#D1FAE5'; // Green
-                                                        $score = round($score);
+                                                         $score =  round($score);
                                                         if ($score <= 30) {
                                                             $bgColor = '#FEE2E2'; // Red
                                                             $border = '#DC2626';
@@ -258,8 +326,6 @@
                                                         }
                                                     @endphp
                                                     <div class=" d-flex justify-content-center align-items-center">
-
-
                                                         <div class="battery">
                                                             <div class="battery-body"
                                                                 style="border:1px solid {{ $border }}">
@@ -268,7 +334,6 @@
                                                                 </div>
                                                                 <div class="battery-label"> {{ round($score) }}%</div>
                                                             </div>
-
                                                         </div>
                                                     </div>
                                                 </td>

@@ -1,7 +1,7 @@
 @extends('welcome')
 @section('content')
     @push('styles')
-        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=10.5') }}">
+        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=10.7') }}">
 
         <style>
            
@@ -10,11 +10,11 @@
 
 
     <div class="container-setup">
-        <h6 class="content-title-detail"><a href="{{ route('home') }}"
+        <div class="content-title-detail"><a href="{{ route('home') }}"
                 style="color: #2254AB; text-decoration: underline;">Trang chủ</a><i class="bi bi-chevron-right"></i> <a
                 style="color: #2254AB; text-decoration: underline;" href="">Tiện ích</a> <i
                 class="bi bi-chevron-right"></i> <span>
-                Xem ngày tốt xấu</span></h6>
+                Xem ngày tốt xấu</span></div>
 
         <h1 class="content-title-home-lich">Xem ngày tốt xấu</h1>
 
@@ -182,7 +182,7 @@
     {{-- Load the lunar-solar date select module --}}
     <script src="{{ asset('js/lunar-solar-date-select.js?v=1.3') }}"></script>
     {{-- Date Range Picker JS (vanilla JS version) --}}
-    <script src="{{ asset('/js/vanilla-daterangepicker.js?v=6.6') }}" defer></script>
+    <script src="{{ asset('/js/vanilla-daterangepicker.js?v=6.7') }}" defer></script>
 
 
     <script>
@@ -285,10 +285,7 @@
                         dateRangeInitAttempts = maxDateRangeAttempts;
                     }
                 } else {
-                    // Only log first few attempts to avoid spam
-                    if (dateRangeInitAttempts <= 3) {
-                        console.log('VanillaDateRangePicker not loaded yet, attempt ' + dateRangeInitAttempts);
-                    }
+                    
                     // Try again after a delay
                     setTimeout(initDateRangePicker, 500);
                 }
@@ -561,6 +558,16 @@
                             // Update UI with results
                             const resultContainer = document.querySelector('.--detail-success');
                             resultContainer.innerHTML = data.html;
+
+                            // Scroll to results with delay to ensure content is rendered
+                            setTimeout(() => {
+                                // Normal form submission - scroll to general results
+                                console.log('Scrolling to .--detail-success for normal submit');
+                                resultContainer.scrollIntoView({
+                                    behavior: 'smooth',
+                                    block: 'start'
+                                });
+                            }, 100);
                         } else if (data.errors) {
                             // Show validation errors
                             let errorMessage = 'Vui lòng kiểm tra lại:\n';
@@ -585,9 +592,77 @@
                 const resultContainer = document.querySelector('.--detail-success');
                 resultContainer.addEventListener('change', function(event) {
                     if (event.target.matches('[name="sort"]')) {
-                        form.requestSubmit();
+                        const sortValue = event.target.value;
+
+                        // Apply sorting directly without form submission
+                        applySortingToTable(sortValue);
+
+                        // Scroll to table after sort
+                        setTimeout(() => {
+                            const bangChiTiet = document.querySelector('#bang-chi-tiet');
+                            if (bangChiTiet) {
+                                console.log('Scrolling to #bang-chi-tiet for filtering');
+                                bangChiTiet.scrollIntoView({
+                                    behavior: 'smooth',
+                                    block: 'start'
+                                });
+                            }
+                        }, 100);
                     }
                 });
+
+                // Function to apply sorting without form submission
+                function applySortingToTable(sortValue) {
+                    const table = document.querySelector('#bang-chi-tiet table tbody');
+                    if (!table) return;
+
+                    const rows = Array.from(table.querySelectorAll('tr'));
+
+                    rows.sort((a, b) => {
+                        // Get score from battery or score element
+                        const scoreA = getScoreFromRow(a);
+                        const scoreB = getScoreFromRow(b);
+
+                        if (sortValue === 'asc') {
+                            return scoreA - scoreB;
+                        } else {
+                            return scoreB - scoreA;
+                        }
+                    });
+
+                    // Clear and re-append sorted rows
+                    table.innerHTML = '';
+                    rows.forEach(row => table.appendChild(row));
+                }
+
+                // Helper function to extract score from table row
+                function getScoreFromRow(row) {
+                    // Try to find score in battery element
+                    const battery = row.querySelector('.battery-label');
+                    if (battery) {
+                        return parseInt(battery.textContent.replace('%', '')) || 0;
+                    }
+
+                    // Try to find score in other score elements
+                    const scoreElement = row.querySelector('.diem-so, .score');
+                    if (scoreElement) {
+                        return parseInt(scoreElement.textContent.replace(/[^\d]/g, '')) || 0;
+                    }
+
+                    // Try to find score in any cell containing numbers
+                    const cells = row.querySelectorAll('td');
+                    for (let cell of cells) {
+                        const text = cell.textContent.trim();
+                        const match = text.match(/(\d+)/);
+                        if (match) {
+                            return parseInt(match[1]) || 0;
+                        }
+                    }
+
+                    return 0;
+                }
+
+               
             });
 
             // Note: All calendar switching and initialization is now handled by the DatePicker.CalendarSwitcher module

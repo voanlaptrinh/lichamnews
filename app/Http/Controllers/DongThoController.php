@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\AstrologyHelper;
+use App\Helpers\BadDayHelper;
 use App\Helpers\DataHelper;
 use App\Helpers\GoodBadDayHelper;
 use App\Helpers\KhiVanHelper;
@@ -20,7 +21,7 @@ class DongThoController extends Controller
     public function showForm()
     {
         // Không cần truyền dateRanges nữa
-        return view('dong-tho.form');
+        return view('tools.dong-tho.form');
     }
 
     /**
@@ -33,7 +34,7 @@ class DongThoController extends Controller
         $originalInputs = $input;
 
         $dateRange = $request->input('date_range');
-        $dates = $dateRange ? explode(' đến ', $dateRange) : [null, null];
+        $dates = $dateRange ? explode(' - ', $dateRange) : [null, null];
         if (count($dates) === 1) $dates[1] = $dates[0];
 
         $request->merge([
@@ -60,6 +61,9 @@ class DongThoController extends Controller
         ]);
 
         if ($validator->fails()) {
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json(['success' => false, 'errors' => $validator->errors()], 422);
+            }
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
@@ -125,8 +129,35 @@ class DongThoController extends Controller
             ];
         }
 
-        // 4. Trả kết quả về cho view
-        return view('dong-tho.form', [
+        // Sắp xếp kết quả theo điểm số
+        $sortOrder = $request->input('sort', 'desc');
+        foreach ($resultsByYear as &$yearData) {
+            if (isset($yearData['days']) && is_array($yearData['days'])) {
+                usort($yearData['days'], function ($a, $b) use ($sortOrder) {
+                    $scoreA = $a['day_score']['percentage'] ?? 0;
+                    $scoreB = $b['day_score']['percentage'] ?? 0;
+                    return $sortOrder === 'asc' ? $scoreA <=> $scoreB : $scoreB <=> $scoreA;
+                });
+            }
+        }
+        unset($yearData);
+
+        // 4. Trả kết quả về cho view hoặc AJAX
+        if ($request->ajax() || $request->wantsJson()) {
+            $html = view('tools.dong-tho.results', [
+                'inputs' => $originalInputs,
+                'birthdateInfo' => $birthdateInfo,
+                'resultsByYear' => $resultsByYear,
+                'sortOrder' => $sortOrder,
+            ])->render();
+
+            return response()->json([
+                'success' => true,
+                'html' => $html,
+            ]);
+        }
+
+        return view('tools.dong-tho.form', [
             'inputs' => $originalInputs,
             'birthdateInfo' => $birthdateInfo,
             'resultsByYear' => $resultsByYear,
@@ -137,12 +168,14 @@ class DongThoController extends Controller
      */
     private function calculateYearAnalysis(Carbon $dob, int $yearToCheck): array
     {
-        $birthYear = $dob->year;
+        $lunarDob = LunarHelper::convertSolar2Lunar($dob->day, $dob->month, $dob->year);
+        $birthYear = $lunarDob[2];
+
         $lunarAge = AstrologyHelper::getLunarAge($birthYear, $yearToCheck);
 
         $kimLau = AstrologyHelper::checkKimLau($lunarAge);
         $hoangOc = AstrologyHelper::checkHoangOc($lunarAge);
-        $tamTai = AstrologyHelper::checkTamTai( $birthYear, $yearToCheck);
+        $tamTai = AstrologyHelper::checkTamTai($birthYear, $yearToCheck);
 
         $badFactors = [];
         if ($kimLau['is_bad']) $badFactors[] = 'Kim Lâu';
@@ -182,5 +215,32 @@ Thời điểm cát lợi, vận khí hanh thông – rất thích hợp để a
             'can_chi_nam' => $canChiNam,
             'menh' => $menh,
         ];
+    }
+
+    public function showDayDetails(Request $request, $date)
+    {
+        // 1. Validate dữ liệu
+         $validated = Validator::make(['date' => $date, 'birthdate' => $request->input('birthdate')], [
+            'date' => 'required|date_format:Y-m-d',
+            'birthdate' => 'required|date_format:Y-m-d',
+        ])->validate();
+
+        // 2. Chuẩn bị các đối tượng ngày tháng
+        $dateToCheck = Carbon::parse($validated['date']);
+        $groomDob = Carbon::parse($validated['birthdate']);
+
+        // 3. Lấy thông tin chung của ngày (tính 1 lần, vì nó không đổi)
+        $commonDayInfo = BadDayHelper::getdetailtable($dateToCheck);
+        $tabooResult = GoodBadDayHelper::checkTabooDays($dateToCheck, 'DONG_THO');
+
+        // 4. Lấy thông tin chi tiết cho người xem
+        $groomData = BadDayHelper::getDetailedAnalysisForPerson($dateToCheck, $groomDob, 'Ngày động thổ', 'DONG_THO');
+
+        // 5. Trả về view với toàn bộ dữ liệu
+        return view('tools.dong-tho.day_details', compact(
+            'commonDayInfo',
+            'groomData',
+            'tabooResult',
+        ));
     }
 }

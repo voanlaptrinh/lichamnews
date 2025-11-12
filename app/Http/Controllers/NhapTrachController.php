@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\FengShuiHelper;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use Carbon\Carbon;
-use Carbon\CarbonPeriod;
-
-// Giả sử các helper của bạn được đặt tên như thế này
 use App\Helpers\AstrologyHelper;
+use App\Helpers\BadDayHelper;
+use App\Helpers\DataHelper;
+use App\Helpers\FengShuiHelper;
 use App\Helpers\GoodBadDayHelper;
 use App\Helpers\KhiVanHelper;
 use App\Helpers\LunarHelper;
-use App\Helpers\DataHelper;
+use Carbon\Carbon;
+use Carbon\CarbonPeriod;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class NhapTrachController extends Controller
 {
@@ -22,7 +21,7 @@ class NhapTrachController extends Controller
      */
     public function showForm()
     {
-        return view('nhap-trach.index');
+        return view('tools.nhap-trach.form');
     }
 
     /**
@@ -35,7 +34,7 @@ class NhapTrachController extends Controller
         $originalInputs = $input;
 
         $dateRange = $request->input('date_range');
-        $dates = $dateRange ? explode(' đến ', $dateRange) : [null, null];
+        $dates = $dateRange ? explode(' - ', $dateRange) : [null, null];
         if (count($dates) === 1) $dates[1] = $dates[0];
 
         $request->merge([
@@ -70,6 +69,9 @@ class NhapTrachController extends Controller
 
 
         if ($validator->fails()) {
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json(['success' => false, 'errors' => $validator->errors()], 422);
+            }
             return redirect()->back()->withErrors($validator)->withInput($originalInputs);
         }
 
@@ -86,11 +88,13 @@ class NhapTrachController extends Controller
         // 2.1 Phân tích hướng nhà đã chọn
         $huongNhaAnalysis = null;
         if (isset($birthdateInfo['phong_thuy'])) {
+           $lunarDob = LunarHelper::convertSolar2Lunar($birthdate->day, $birthdate->month, $birthdate->year);
+           $lunarBirthYear = $lunarDob[2];
            $huongNhaAnalysis = $this->analyzeHouseDirection(
     $validated['huong_nha'],
     $birthdateInfo['phong_thuy'],
-    $birthdate, // Thêm biến $birthdate
-    $validated['gioi_tinh'] // Thêm biến $gioi_tinh
+    $birthdate,
+    $validated['gioi_tinh']
 );
         }
 
@@ -105,9 +109,16 @@ class NhapTrachController extends Controller
         foreach ($uniqueYears as $year) {
             $yearAnalysis = $this->calculateYearAnalysis($birthdate, $year);
             $canChiNam = KhiVanHelper::canchiNam((int)$year);
+
+            // Tính tuổi âm cho năm này
+            $lunarDob = LunarHelper::convertSolar2Lunar($birthdate->day, $birthdate->month, $birthdate->year);
+            $lunarBirthYear = $lunarDob[2];
+            $lunarAge = AstrologyHelper::getLunarAge($lunarBirthYear, $year);
+
             $resultsByYear[$year] = [
                 'year_analysis' => $yearAnalysis,
                 'canchi' => $canChiNam,
+                'lunar_age' => $lunarAge, // Thêm tuổi âm
                 'days' => [], // Mảng để lưu kết quả chi tiết của từng ngày
             ];
         }
@@ -117,7 +128,10 @@ class NhapTrachController extends Controller
 
         foreach ($period as $date) {
             $year = $date->year;
-            $dayScoreDetails = GoodBadDayHelper::calculateDayScore($date, $birthdate->year, $purpose);
+            // Sử dụng năm âm lịch của ngày sinh thay vì năm dương lịch
+            $lunarDob = LunarHelper::convertSolar2Lunar($birthdate->day, $birthdate->month, $birthdate->year);
+            $lunarBirthYear = $lunarDob[2];
+            $dayScoreDetails = GoodBadDayHelper::calculateDayScore($date, $lunarBirthYear, $purpose);
             $jd = LunarHelper::jdFromDate($date->day, $date->month, $date->year);
             $dayCanChi = LunarHelper::canchiNgayByJD($jd);
             $dayChi = explode(' ', $dayCanChi)[1];
@@ -134,11 +148,39 @@ class NhapTrachController extends Controller
             ];
         }
 
-        // 5. Trả kết quả về cho view
-        return view('nhap-trach.index', [
+        // Sắp xếp kết quả theo điểm số
+        $sortOrder = $request->input('sort', 'desc');
+        foreach ($resultsByYear as &$yearData) {
+            if (isset($yearData['days']) && is_array($yearData['days'])) {
+                usort($yearData['days'], function ($a, $b) use ($sortOrder) {
+                    $scoreA = $a['day_score']['percentage'] ?? 0;
+                    $scoreB = $b['day_score']['percentage'] ?? 0;
+                    return $sortOrder === 'asc' ? $scoreA <=> $scoreB : $scoreB <=> $scoreA;
+                });
+            }
+        }
+        unset($yearData);
+
+        // 5. Trả kết quả về cho view hoặc AJAX
+        if ($request->ajax() || $request->wantsJson()) {
+            $html = view('tools.nhap-trach.results', [
+                'inputs' => $originalInputs,
+                'birthdateInfo' => $birthdateInfo,
+                'huongNhaAnalysis' => $huongNhaAnalysis,
+                'resultsByYear' => $resultsByYear,
+                'sortOrder' => $sortOrder,
+            ])->render();
+
+            return response()->json([
+                'success' => true,
+                'html' => $html,
+            ]);
+        }
+
+        return view('tools.nhap-trach.form', [
             'inputs' => $originalInputs,
             'birthdateInfo' => $birthdateInfo,
-            'huongNhaAnalysis' => $huongNhaAnalysis, // TRUYỀN KẾT QUẢ PHÂN TÍCH HƯỚNG NHÀ
+            'huongNhaAnalysis' => $huongNhaAnalysis,
             'resultsByYear' => $resultsByYear,
         ]);
     }
@@ -148,8 +190,9 @@ class NhapTrachController extends Controller
      */
     private function calculateYearAnalysis(Carbon $dob, int $yearToCheck): array
     {
-        // (Giữ nguyên code của bạn)
-        $birthYear = $dob->year;
+        $lunarDob = LunarHelper::convertSolar2Lunar($dob->day, $dob->month, $dob->year);
+        $birthYear = $lunarDob[2];
+
         $lunarAge = AstrologyHelper::getLunarAge($birthYear, $yearToCheck);
 
         $kimLau = AstrologyHelper::checkKimLau($lunarAge);
@@ -182,20 +225,23 @@ Thời điểm cát lợi, vận khí hanh thông – rất thích hợp để a
      */
     private function getPersonBasicInfo(Carbon $dob, string $gender): array
     {
-        $birthYear = $dob->year;
-        $canChiNam = KhiVanHelper::canchiNam((int)$birthYear);
-        $menh = DataHelper::$napAmTable[$canChiNam];
+        // Sử dụng năm âm lịch thay vì năm dương lịch
         $lunarDob = LunarHelper::convertSolar2Lunar($dob->day, $dob->month, $dob->year);
+        $lunarBirthYear = $lunarDob[2];
+
+        $canChiNam = KhiVanHelper::canchiNam((int)$lunarBirthYear);
+        $menh = DataHelper::$napAmTable[$canChiNam];
 
         // *** LOGIC MỚI: TÍNH TOÁN PHONG THỦY ***
-        // Sử dụng helper `tinhHuongHopTuoi()` đã tạo trước đó.
-        $phongThuyInfo = FengShuiHelper::tinhHuongHopTuoi($birthYear, $gender);
+        // Sử dụng năm âm lịch để tính phong thủy
+        $phongThuyInfo = FengShuiHelper::tinhHuongHopTuoi($lunarBirthYear, $gender);
 
         return [
             'dob' => $dob,
             'gender' => $gender,
             'lunar_dob_str' => sprintf('%02d/%02d/%d', $lunarDob[0], $lunarDob[1], $lunarDob[2]),
             'can_chi_nam' => $canChiNam,
+            'lunar_birth_year' => $lunarBirthYear, // Thêm năm âm lịch
             'menh' => $menh,
             'phong_thuy' => $phongThuyInfo, // Thêm thông tin phong thủy vào đây
         ];
@@ -266,5 +312,38 @@ Thời điểm cát lợi, vận khí hanh thông – rất thích hợp để a
         }
 
         return $result;
+    }
+
+    public function showDayDetails(Request $request, $date)
+    {
+        // 1. Validate dữ liệu
+         $validated = Validator::make(['date' => $date, 'birthdate' => $request->input('birthdate')], [
+            'date' => 'required|date_format:Y-m-d',
+            'birthdate' => 'required|date_format:Y-m-d',
+        ])->validate();
+
+        // 2. Chuẩn bị các đối tượng ngày tháng
+        $dateToCheck = Carbon::parse($validated['date']);
+        $groomDob = Carbon::parse($validated['birthdate']);
+
+        // 3. Lấy thông tin chung của ngày (tính 1 lần, vì nó không đổi)
+        $commonDayInfo = BadDayHelper::getdetailtable($dateToCheck);
+        $tabooResult = GoodBadDayHelper::checkTabooDays($dateToCheck, 'NHAP_TRACH');
+
+        // 4. Lấy thông tin chi tiết cho người xem
+        // Sử dụng năm âm lịch để tính toán
+        $lunarDob = LunarHelper::convertSolar2Lunar($groomDob->day, $groomDob->month, $groomDob->year);
+        $lunarBirthYear = $lunarDob[2];
+
+        // Tạo một Carbon object với năm âm lịch để truyền vào helper
+        $lunarDateForAnalysis = Carbon::create($lunarBirthYear, $groomDob->month, $groomDob->day);
+        $groomData = BadDayHelper::getDetailedAnalysisForPerson($dateToCheck, $lunarDateForAnalysis, 'Ngày nhập trạch', 'NHAP_TRACH');
+
+        // 5. Trả về view với toàn bộ dữ liệu
+        return view('tools.nhap-trach.day_details', compact(
+            'commonDayInfo',
+            'groomData',
+            'tabooResult',
+        ));
     }
 }

@@ -62,9 +62,10 @@
                                 Lâu, Hoang Ốc, Tam Tai không?
                             </p>
                             <ul class="mb-1">
-                                <li>{{ $yearData['groom_analysis']['kim_lau']['message'] }}</li>
-                                <li>{{ $yearData['groom_analysis']['hoang_oc']['message'] }}</li>
-                                <li>{{ $yearData['groom_analysis']['tam_tai']['message'] }}</li>
+                                 <li>{{ $yearData['groom_analysis']['kim_lau']['is_bad']? $yearData['groom_analysis']['kim_lau']['message'] : 'Không phạm Kim Lâu'  }}</li>
+                               <li> {{ $yearData['groom_analysis']['hoang_oc']['is_bad'] ? $yearData['groom_analysis']['hoang_oc']['message'] : 'Không phạm Hoang Ốc' }}</li>
+                                <li>{{ $yearData['groom_analysis']['tam_tai']['is_bad']? $yearData['groom_analysis']['tam_tai']['message'] : 'Không phạm Tam Tai'  }}</li>
+                              
                             </ul>
                             <p>Kết luận {!! $yearData['groom_analysis']['description'] !!}</p>
                         </div>
@@ -103,9 +104,9 @@
                                 Lâu, Hoang Ốc, Tam Tai không?
                             </p>
                             <ul class="mb-1">
-                                <li>{{ $yearData['bride_analysis']['kim_lau']['message'] }}</li>
-                                <li>{{ $yearData['bride_analysis']['hoang_oc']['message'] }}</li>
-                                <li>{{ $yearData['bride_analysis']['tam_tai']['message'] }}</li>
+                                <li>{{ $yearData['bride_analysis']['kim_lau']['is_bad']? $yearData['bride_analysis']['kim_lau']['message'] : 'Không phạm Kim Lâu'  }}</li>
+                               <li> {{ $yearData['bride_analysis']['hoang_oc']['is_bad'] ? $yearData['bride_analysis']['hoang_oc']['message'] : 'Không phạm Hoang Ốc' }}</li>
+                                <li>{{ $yearData['bride_analysis']['tam_tai']['is_bad']? $yearData['bride_analysis']['tam_tai']['message'] : 'Không phạm Tam Tai'  }}</li>
                             </ul>
                             <p>Kết luận {!! $yearData['bride_analysis']['description'] !!}</p>
                         </div>
@@ -145,7 +146,7 @@
                                         @foreach ($yearData['days'] as $day)
                                             <tr>
                                                 <td>
-                                                    <a 
+                                                    <a
                                                         href="{{ route('wedding.day.details', [
                                                             'date' => $day['date']->format('Y-m-d'),
                                                             'groom_dob' => $groomInfo['dob']->format('Y-m-d'),
@@ -291,7 +292,8 @@
                                                             @endforeach
                                                         </ul>
                                                     @else
-                                                        <span class="text-warning small" style="color: #2254AB !important">
+                                                        <span class="text-warning small"
+                                                            style="color: #2254AB !important">
                                                             <i class="bi bi-exclamation-triangle-fill"></i> Không có yếu
                                                             tố hỗ trợ
                                                         </span>
@@ -301,6 +303,8 @@
                                                     @php
                                                         $groomScore = $day['groom_score']['percentage'] ?? 0;
                                                         $brideScore = $day['bride_score']['percentage'] ?? 0;
+                                                        $groomScore = round($groomScore);
+                                                        $brideScore = round($brideScore);
 
                                                         // Xác định màu cho chú rể
                                                         if ($groomScore <= 30) {

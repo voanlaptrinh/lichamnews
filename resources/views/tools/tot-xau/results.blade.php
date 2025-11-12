@@ -203,6 +203,7 @@
                                                             $day['day_score']['score']['percentage'] ??
                                                             ($day['day_score']['percentage'] ?? 0);
                                                         $bgColor = '#D1FAE5'; // Green
+                                                        $score =  round($score);
                                                         if ($score <= 30) {
                                                             $bgColor = '#FEE2E2'; // Red
                                                             $border = '#DC2626';

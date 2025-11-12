@@ -2292,3 +2292,42 @@ th {
     color: #192E52;
     font-weight: 600;
 }
+.btn-light-settup:hover {
+    background-color: rgba(34, 84, 171, 1);
+    color: rgba(255, 255, 255, 1);
+}
+
+/* Wedding date range input styling - Ngăn hoàn toàn input text và keyboard trên mobile */
+.wedding_date_range {
+    /* Ngăn hoàn toàn text input và keyboard trên mobile */
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    user-select: none !important;
+
+    /* Ngăn zoom trên iOS */
+    -webkit-text-size-adjust: 100% !important;
+
+    /* Ngăn text cursor */
+    caret-color: transparent !important;
+
+    /* Pointer cursor */
+    cursor: pointer !important;
+
+    /* Ngăn outline khi focus */
+    outline: none !important;
+
+    /* Ngăn highlight */
+    -webkit-touch-callout: none !important;
+    -webkit-tap-highlight-color: transparent !important;
+
+    /* Ngăn input mode và keyboard */
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    appearance: none !important;
+}
+
+.wedding_date_range:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}

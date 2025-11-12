@@ -1,32 +1,26 @@
 @extends('welcome')
 
 @section('content')
-
     @push('styles')
         <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=10.7') }}">
     @endpush
-
-
 
     <div class="container-setup">
         <div class="content-title-detail"><a href="{{ route('home') }}"
                 style="color: #2254AB; text-decoration: underline;">Trang chủ</a><i class="bi bi-chevron-right"></i> <a
                 style="color: #2254AB; text-decoration: underline;" href="">Tiện ích</a> <i
                 class="bi bi-chevron-right"></i> <span>
-                Xem ngày tốt xấu</span> <i class="bi bi-chevron-right"></i> <span>
+                Xem ngày nhập trạch</span> <i class="bi bi-chevron-right"></i> <span>
                 Chi tiết</span></div>
 
-        <h1 class="content-title-home-lich">Chi tiết xem ngày tốt xấu</h1>
+        <h1 class="content-title-home-lich">Chi tiết xem ngày nhập trạch</h1>
 
-       
         <div>
             <div class="row g-lg-3 g-2 pt-lg-3 pt-2">
                 <div class="col-xl-9 col-sm-12 col-12 ">
-
-
                     <div class="card border-0 mb-3 w-100 box-detial-year">
                         <div class="card-body box1-con-year">
-                             <div class="box-title-goback">
+                            <div class="box-title-goback">
                                 <div
                                     class="text-primary mb-3 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
                                     <img src="{{ asset('icons/dac-diem1.svg') }}" alt="thông tin người xem" width="28"
@@ -47,7 +41,7 @@
                                             <td>
                                                 <span style="font-weight: 600">Ngày Dương lịch:</span>
                                                 {{ $commonDayInfo['dateToCheck']->format('d/m/Y') }}
-                                                <span style="text-transform:capitalize;">({{ $commonDayInfo['dayOfWeek'] }})</span>
+                                                ({{ $commonDayInfo['dayOfWeek'] }})
                                             </td>
                                             <td>
                                                 <span style="font-weight: 600">Ngày Âm lịch:</span>
@@ -82,7 +76,6 @@
                             </div>
 
                         </div>
-                        {{-- @dd($groomData) --}}
                     </div>
                     <div class="card border-0 mb-3 w-100 box-detial-year">
                         <div class="card-body box1-con-year">
@@ -98,18 +91,27 @@
                                                 Các yếu tố xấu/ cản trở cần xem xét
                                             </td>
                                         </tr>
-                                        @if ($groomData['score']['hopttuoi'] || !empty($tabooResult['issues']))
+                                        @php
+                                            $hopTuoi = $groomData['score']['hopttuoi'] ?? null;
+                                            $hopTuoiReason = $groomData['score']['hopTuoiReason'] ?? '';
+                                            $tabooIssues = collect($tabooResult['issues'] ?? [])
+                                                ->filter()
+                                                ->map(fn($day) => 'Phạm Ngày ' . ($day['details']['tabooName'] ?? ''))
+                                                ->implode(', ');
+                                        @endphp
+
+                                        @if ($hopTuoi || $tabooIssues)
                                             <tr>
                                                 <td>
-                                                    @if ($groomData['score']['hopttuoi'])
-                                                        ✓ Ngày hợp tuổi: {{ $groomData['score']['hopTuoiReason'] }}
+                                                    @if ($hopTuoi)
+                                                        ✓ Ngày hợp tuổi: {{ $hopTuoiReason }}
                                                     @endif
-
                                                 </td>
                                                 <td>
-                                                    {{ collect($tabooResult['issues'] ?? [])->map(fn($day) => 'Phạm Ngày ' . ($day['details']['tabooName'] ?? ''))->implode(', ') }}
+                                                    @if ($tabooIssues)
+                                                        {{ $tabooIssues }}
+                                                    @endif
                                                 </td>
-
                                             </tr>
                                         @endif
 
@@ -157,7 +159,7 @@
                                                     <strong>Sao tốt theo Ngọc Hạp Thông Thư:</strong>
                                                     @foreach ($groomData['score']['catHung']['details']['catStars'] as $index => $sao)
                                                         <span
-                                                            class=" bg-success ">{{ $sao['name'] }}</span>{{ $loop->last ? '' : ',' }}
+                                                            class=" bg-success">{{ $sao['name'] }}</span>{{ $loop->last ? '' : ',' }}
                                                     @endforeach
                                                 @endif
                                             </td>
@@ -191,7 +193,7 @@
                                 <img src="{{ asset('icons/dac-diem1.svg') }}" alt="thông tin người xem" width="28"
                                     height="28" class="me-1"> <span>Đánh giá cho điểm các yếu tố ngày cho tuổi
                                     {{ $groomData['personInfo']['can_chi_nam'] }}
-                                    ({{ $groomData['personInfo']['dob']->format('d-m-Y') }}) tốt xấu:
+                                    ({{ $groomData['personInfo']['dob']->format('d-m-Y') }}) nhập trạch:
                                     {{ round($groomData['score']['percentage']) }}/100
                                     ({{ round($groomData['score']['percentage']) }}%)</span>
                             </div>
@@ -211,7 +213,7 @@
                                         </tr>
                                         @php
                                             $weights =
-                                                \App\Helpers\DataHelper::$PURPOSE_WEIGHTS_PERSONALIZED['TOT_XAU_CHUNG'];
+                                                \App\Helpers\DataHelper::$PURPOSE_WEIGHTS_PERSONALIZED['NHAP_TRACH'];
                                             $totalWeight = array_sum($weights);
                                         @endphp
                                         <tr>
@@ -262,7 +264,7 @@
                                                 <button class="accordion-button collapsed" type="button"
                                                     data-bs-toggle="collapse"
                                                     data-bs-target="#collapse-canchi-{{ Str::slug($groomData['personTitle']) }}">
-                                                   Xem can chi - khí vận & tuổi hợp/xung trong ngày
+                                                    Xem can chi - khí vận & tuổi hợp/xung trong ngày
                                                 </button>
                                             </h2>
                                             <div id="collapse-canchi-{{ Str::slug($groomData['personTitle']) }}"
@@ -273,12 +275,12 @@
                                                     <p>{!! $groomData['noiKhiNgay'] !!}</p>
 
                                                     <h6><b>* Vận khí ngày & tháng (khí tháng):</b></h6>
-                                                    <p class="mb-1">Ngày {{ $groomData['getThongTinCanChiVaIcon']['can_chi_ngay'] }} -
+                                                    <p>Ngày {{ $groomData['getThongTinCanChiVaIcon']['can_chi_ngay'] }} -
                                                         Tháng
                                                         {{ $groomData['getThongTinCanChiVaIcon']['can_chi_thang'] }}</p>
-                                                  <ul class="mb-0 mt-0">
-                                                      {!! $groomData['getVongKhiNgayThang']['analysis'] !!}
-                                                  </ul>
+                                                    <ul class="mb-0 mt-0">
+                                                        {!! $groomData['getVongKhiNgayThang']['analysis'] !!}
+                                                    </ul>
                                                     <p>{!! $groomData['getVongKhiNgayThang']['conclusion'] !!}</p>
                                                     <h6><b>* Cục khí - hợp xung</b></h6>
                                                     <ul>
@@ -336,8 +338,7 @@
                                                         sao <b>{{ $nhiThapBatTu['nature'] }}</b>.</p>
                                                     <p>{{ $nhiThapBatTu['description'] }}</p>
                                                     @if (!empty($nhiThapBatTu['guidance']['good']))
-                                                        <p class="mb-0"><b>Nên làm:</b>
-                                                            {{ $nhiThapBatTu['guidance']['good'] }}</p>
+                                                        <p><b>Nên làm:</b> {{ $nhiThapBatTu['guidance']['good'] }}</p>
                                                     @endif
                                                     @if (!empty($nhiThapBatTu['guidance']['bad']))
                                                         <p><b>Kiêng kỵ:</b> {{ $nhiThapBatTu['guidance']['bad'] }}</p>
@@ -359,58 +360,64 @@
                                                 data-bs-parent="#accordion-{{ Str::slug($groomData['personTitle']) }}">
                                                 <div class="accordion-body">
                                                     @php $getThongTinTruc = $commonDayInfo['getThongTinTruc']; @endphp
-                                                    <p class="mb-1"><b>Trực ngày: </b>Trực <b>{{ $getThongTinTruc['title'] }}</b> - Là
+                                                    <p class="mb-1"><b>Trực ngày: </b>Trực
+                                                        <b>{{ $getThongTinTruc['title'] }}</b> - Là
                                                         trực
-                                                        {{ $getThongTinTruc['description']['rating'] }}.</p>
-                                                    <p class="mb-1">{{ $getThongTinTruc['description']['description'] }}</p>
-                                                  <div class="ps-3">
-                                                      @if (!empty($getThongTinTruc['description']['good']))
-                                                        <p class="mb-0"><b>Nên làm:</b>
-                                                            {{ $getThongTinTruc['description']['good'] }}</p>
-                                                    @endif
-                                                    @if (!empty($getThongTinTruc['description']['bad']))
-                                                        <p><b>Kiêng kỵ:</b> {{ $getThongTinTruc['description']['bad'] }}
-                                                        </p>
-                                                    @endif
-                                                  </div>
-
+                                                        {{ $getThongTinTruc['description']['rating'] }}.
+                                                    </p>
+                                                    <p class="mb-1">{{ $getThongTinTruc['description']['description'] }}
+                                                    </p>
+                                                    <div class="ps-3">
+                                                        @if (!empty($getThongTinTruc['description']['good']))
+                                                            <p class="mb-0"><b>Nên làm:</b>
+                                                                {{ $getThongTinTruc['description']['good'] }}</p>
+                                                        @endif
+                                                        @if (!empty($getThongTinTruc['description']['bad']))
+                                                            <p><b>Kiêng kỵ:</b>
+                                                                {{ $getThongTinTruc['description']['bad'] }}
+                                                            </p>
+                                                        @endif
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                        <div class="accordion-item">
-                                            <h2 class="accordion-header">
-                                                <button class="accordion-button collapsed" type="button"
-                                                    data-bs-toggle="collapse"
-                                                    data-bs-target="#collapse-sao-cat-hung-{{ Str::slug($groomData['personTitle']) }}">
-                                                    Sao Cát Hung (Ngọc Hạp Thông Thư)
-                                                </button>
-                                            </h2>
-                                            <div id="collapse-sao-cat-hung-{{ Str::slug($groomData['personTitle']) }}"
-                                                class="accordion-collapse collapse"
-                                                data-bs-parent="#accordion-{{ Str::slug($groomData['personTitle']) }}">
-                                                <div class="accordion-body">
-                                                    @php $getSaoTotXauInfo = $commonDayInfo['getSaoTotXauInfo']; @endphp
-                                                    <h6><i class="fas fa-star text-success"></i> Sao tốt:</h6>
-                                                    <ul class="list-unstyled ps-3">
-                                                        @forelse ($getSaoTotXauInfo['sao_tot'] as $tenSao => $yNghia)
-                                                            <li><strong>{{ $tenSao }}:</strong> {{ $yNghia }}
-                                                            </li>
-                                                        @empty
-                                                            <li>Không có sao tốt nổi bật.</li>
-                                                        @endforelse
-                                                    </ul>
-                                                    <h6 class="mt-3"><i class="fas fa-moon text-danger"></i> Sao xấu:
-                                                    </h6>
-                                                    <ul class="list-unstyled ps-3">
-                                                        @forelse ($getSaoTotXauInfo['sao_xau'] as $tenSao => $yNghia)
-                                                            <li><strong>{{ $tenSao }}:</strong> {{ $yNghia }}
-                                                            </li>
-                                                        @empty
-                                                            <li>Không có sao xấu đáng kể.</li>
-                                                        @endforelse
-                                                    </ul>
-                                                    <p class="mt-3 fst-italic">{{ $getSaoTotXauInfo['ket_luan'] }}</p>
+                                            <div class="accordion-item">
+                                                <h2 class="accordion-header">
+                                                    <button class="accordion-button collapsed" type="button"
+                                                        data-bs-toggle="collapse"
+                                                        data-bs-target="#collapse-sao-cat-hung-{{ Str::slug($groomData['personTitle']) }}">
+                                                        Sao Cát Hung (Ngọc Hạp Thông Thư)
+                                                    </button>
+                                                </h2>
+                                                <div id="collapse-sao-cat-hung-{{ Str::slug($groomData['personTitle']) }}"
+                                                    class="accordion-collapse collapse"
+                                                    data-bs-parent="#accordion-{{ Str::slug($groomData['personTitle']) }}">
+                                                    <div class="accordion-body">
+                                                        @php $getSaoTotXauInfo = $commonDayInfo['getSaoTotXauInfo']; @endphp
+                                                        <h6><i class="fas fa-star text-success"></i> Sao tốt:</h6>
+                                                        <ul class="list-unstyled ps-3">
+                                                            @forelse ($getSaoTotXauInfo['sao_tot'] as $tenSao => $yNghia)
+                                                                <li><strong>{{ $tenSao }}:</strong>
+                                                                    {{ $yNghia }}
+                                                                </li>
+                                                            @empty
+                                                                <li>Không có sao tốt nổi bật.</li>
+                                                            @endforelse
+                                                        </ul>
+                                                        <h6 class="mt-3"><i class="fas fa-moon text-danger"></i> Sao
+                                                            xấu:
+                                                        </h6>
+                                                        <ul class="list-unstyled ps-3">
+                                                            @forelse ($getSaoTotXauInfo['sao_xau'] as $tenSao => $yNghia)
+                                                                <li><strong>{{ $tenSao }}:</strong>
+                                                                    {{ $yNghia }}
+                                                                </li>
+                                                            @empty
+                                                                <li>Không có sao xấu đáng kể.</li>
+                                                            @endforelse
+                                                        </ul>
+                                                        <p class="mt-3 fst-italic">{{ $getSaoTotXauInfo['ket_luan'] }}</p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -418,7 +425,9 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
+
                     <div class="card border-0 mb-3 w-100 box-detial-year">
                         <div class="card-body box1-con-year">
                             <div class="text-primary mb-2  text-dark d-flex align-items-center fw-bolder">
@@ -429,6 +438,7 @@
 
                         </div>
                     </div>
+
                 </div>
                 @include('tools.siderbardetail')
             </div>
@@ -438,39 +448,51 @@
 @endsection
 
 @push('scripts')
-<script>
-function goBackToForm() {
-    // Get current URL parameters to extract birthdate and date range info
-    const urlParams = new URLSearchParams(window.location.search);
-    const birthdate = urlParams.get('birthdate');
-    const dateRange = urlParams.get('date_range');
+    <script>
+        function goBackToForm() {
+            // Get current URL parameters to extract birthdate and date range info
+            const urlParams = new URLSearchParams(window.location.search);
+            const birthdate = urlParams.get('birthdate');
+            const dateRange = urlParams.get('date_range');
+            const gender = urlParams.get('gioi_tinh');
+            const houseDirection = urlParams.get('huong_nha');
 
-    // Build the target URL with hash parameters
-    let targetUrl = '{{ route("totxau.form") }}';
-    const hashParams = [];
+            // Build the target URL with hash parameters
+            let targetUrl = '{{ route('nhap-trach.form') }}';
+            const hashParams = [];
 
-    // Add birthdate to hash if available
-    if (birthdate) {
-        // Convert Y-m-d format to d/m/Y format for the form
-        const dateParts = birthdate.split('-');
-        if (dateParts.length === 3) {
-            const formattedDate = `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
-            hashParams.push(`birthdate=${encodeURIComponent(formattedDate)}`);
+            // Add birthdate to hash if available
+            if (birthdate) {
+                // Convert Y-m-d format to d/m/Y format for the form
+                const dateParts = birthdate.split('-');
+                if (dateParts.length === 3) {
+                    const formattedDate = `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
+                    hashParams.push(`birthdate=${encodeURIComponent(formattedDate)}`);
+                }
+            }
+
+            // Add date range to hash if available
+            if (dateRange) {
+                hashParams.push(`khoang=${encodeURIComponent(dateRange)}`);
+            }
+
+            // Add gender to hash if available
+            if (gender) {
+                hashParams.push(`gender=${encodeURIComponent(gender)}`);
+            }
+
+            // Add house direction to hash if available
+            if (houseDirection) {
+                hashParams.push(`house_direction=${encodeURIComponent(houseDirection)}`);
+            }
+
+            // Build final URL with hash
+            if (hashParams.length > 0) {
+                targetUrl += `#${hashParams.join('&')}`;
+            }
+
+            // Redirect to the form page
+            window.location.href = targetUrl;
         }
-    }
-
-    // Add date range to hash if available
-    if (dateRange) {
-        hashParams.push(`khoang=${encodeURIComponent(dateRange)}`);
-    }
-
-    // Build final URL with hash
-    if (hashParams.length > 0) {
-        targetUrl += `#${hashParams.join('&')}`;
-    }
-
-    // Redirect to the form page
-    window.location.href = targetUrl;
-}
-</script>
+    </script>
 @endpush

@@ -7,7 +7,8 @@
              <div class="card-title-right title-tong-quan-h5-log">Tiện ích xem ngày</div>
              <ul class="list-group list-group-flush events-list">
                  <li class="list-group-item pb-0">
-                     <a href="{{ route('totxau.form') }}" class="{{ request()->routeIs('totxau.form') ? 'active-tools' : '' }}">
+                     <a href="{{ route('totxau.form') }}"
+                         class="{{ request()->routeIs('totxau.form') ? 'active-tools' : '' }}">
 
                          <div class="event-details --padding-event-tot">
                              <div class="event-name" style="font-weight: unset">
@@ -18,7 +19,8 @@
                      </a>
                  </li>
                  <li class="list-group-item pb-0">
-                     <a href="{{ route('buy-house.form') }}" class="{{ request()->routeIs('buy-house.form') ? 'active-tools' : '' }}">
+                     <a href="{{ route('buy-house.form') }}"
+                         class="{{ request()->routeIs('buy-house.form') ? 'active-tools' : '' }}">
 
                          <div class="event-details --padding-event-tot">
                              <div class="event-name" style="font-weight: unset">
@@ -29,7 +31,8 @@
                      </a>
                  </li>
                  <li class="list-group-item  pb-0">
-                     <a href="{{ route('astrology.form') }}" class="{{ request()->routeIs('astrology.form') ? 'active-tools' : '' }}">
+                     <a href="{{ route('astrology.form') }}"
+                         class="{{ request()->routeIs('astrology.form') ? 'active-tools' : '' }}">
                          <div class="event-details  --padding-event-tot">
                              <div class="event-name" style="font-weight: unset">
                                  Xem ngày kết hôn
@@ -37,11 +40,42 @@
                          </div>
                      </a>
                  </li>
-                   <li class="list-group-item  pb-0">
-                     <a href="{{ route('khai-truong.form') }}" class="{{ request()->routeIs('khai-truong.form') ? 'active-tools' : '' }}">
+                 <li class="list-group-item  pb-0">
+                     <a href="{{ route('khai-truong.form') }}"
+                         class="{{ request()->routeIs('khai-truong.form') ? 'active-tools' : '' }}">
                          <div class="event-details  --padding-event-tot">
                              <div class="event-name" style="font-weight: unset">
                                  Xem ngày khai trương
+                             </div>
+                         </div>
+                     </a>
+                 </li>
+                  <li class="list-group-item  pb-0">
+                     <a href="{{ route('breaking.form') }}"
+                         class="{{ request()->routeIs('breaking.form') ? 'active-tools' : '' }}">
+                         <div class="event-details  --padding-event-tot">
+                             <div class="event-name" style="font-weight: unset">
+                                 Xem ngày động thổ
+                             </div>
+                         </div>
+                     </a>
+                 </li>
+                  <li class="list-group-item  pb-0">
+                     <a href="{{ route('nhap-trach.form') }}"
+                         class="{{ request()->routeIs('nhap-trach.form') ? 'active-tools' : '' }}">
+                         <div class="event-details  --padding-event-tot">
+                             <div class="event-name" style="font-weight: unset">
+                                 Xem ngày nhập trạch
+                             </div>
+                         </div>
+                     </a>
+                 </li>
+                 <li class="list-group-item  pb-0">
+                     <a href="{{ route('xuat-hanh.form') }}"
+                         class="{{ request()->routeIs('xuat-hanh.form') ? 'active-tools' : '' }}">
+                         <div class="event-details  --padding-event-tot">
+                             <div class="event-name" style="font-weight: unset">
+                                 Xem ngày xuất hành
                              </div>
                          </div>
                      </a>

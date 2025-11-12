@@ -2,16 +2,16 @@
 
 @section('content')
     @push('styles')
-        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=10.5') }}">
+        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=10.7') }}">
        
     @endpush
 
     <div class="container-setup">
-        <h6 class="content-title-detail"><a href="{{ route('home') }}"
+        <div class="content-title-detail"><a href="{{ route('home') }}"
                 style="color: #2254AB; text-decoration: underline;">Trang chủ</a><i class="bi bi-chevron-right"></i> <a
                 style="color: #2254AB; text-decoration: underline;" href="">Tiện ích</a> <i
                 class="bi bi-chevron-right"></i> <span>
-                Xem ngày mua Nhà</span></h6>
+                Xem ngày mua Nhà</span></div>
 
         <h1 class="content-title-home-lich">Xem ngày mua nhà</h1>
 
@@ -184,7 +184,7 @@
 @push('scripts')
     <script src="{{ asset('js/lunar-solar-date-select.js?v=1.3') }}"></script>
     {{-- Date Range Picker JS (vanilla JS version) --}}
-    <script src="{{ asset('/js/vanilla-daterangepicker.js?v=6.6') }}" defer></script>
+    <script src="{{ asset('/js/vanilla-daterangepicker.js?v=6.7') }}" defer></script>
 
 
     <script>
@@ -262,9 +262,7 @@
                         dateRangeInitAttempts = maxDateRangeAttempts;
                     }
                 } else {
-                    if (dateRangeInitAttempts <= 3) {
-                        console.log('VanillaDateRangePicker not loaded yet, attempt ' + dateRangeInitAttempts);
-                    }
+                   
                     setTimeout(initDateRangePicker, 500);
                 }
             }
@@ -531,11 +529,13 @@
                             resultsContainer.style.display = 'block';
                             resultsContainer.innerHTML = data.html;
 
-                            // Scroll to results
-                            resultsContainer.scrollIntoView({
-                                behavior: 'smooth',
-                                block: 'start'
-                            });
+                            // Scroll to results with delay to ensure content is rendered
+                            setTimeout(() => {
+                                resultsContainer.scrollIntoView({
+                                    behavior: 'smooth',
+                                    block: 'start'
+                                });
+                            }, 100);
 
                             // Re-initialize Bootstrap tabs if present
                             const tabs = resultsContainer.querySelectorAll('[data-bs-toggle="tab"]');
@@ -568,20 +568,75 @@
 
             resultsContainer.addEventListener('change', function(event) {
                 if (event.target.matches('[name="sort"]')) {
-                    form.requestSubmit();
+                    const sortValue = event.target.value;
 
-                    // scroll sau 1 chút để đảm bảo DOM update
+                    // Apply sorting directly without form submission
+                    applySortingToTable(sortValue);
+
+                    // Scroll to table after sort
                     setTimeout(() => {
                         const target = document.getElementById("bang-chi-tiet");
                         if (target) {
+                            console.log('Scrolling to #bang-chi-tiet for filtering');
                             target.scrollIntoView({
                                 behavior: "smooth",
                                 block: "start"
                             });
                         }
-                    }, 300);
+                    }, 100);
                 }
             });
+
+            // Function to apply sorting without form submission
+            function applySortingToTable(sortValue) {
+                const table = document.querySelector('#bang-chi-tiet table tbody');
+                if (!table) return;
+
+                const rows = Array.from(table.querySelectorAll('tr'));
+
+                rows.sort((a, b) => {
+                    // Get score from battery or score element
+                    const scoreA = getScoreFromRow(a);
+                    const scoreB = getScoreFromRow(b);
+
+                    if (sortValue === 'asc') {
+                        return scoreA - scoreB;
+                    } else {
+                        return scoreB - scoreA;
+                    }
+                });
+
+                // Clear and re-append sorted rows
+                table.innerHTML = '';
+                rows.forEach(row => table.appendChild(row));
+            }
+
+            // Helper function to extract score from table row
+            function getScoreFromRow(row) {
+                // Try to find score in battery element
+                const battery = row.querySelector('.battery-label');
+                if (battery) {
+                    return parseInt(battery.textContent.replace('%', '')) || 0;
+                }
+
+                // Try to find score in other score elements
+                const scoreElement = row.querySelector('.diem-so, .score');
+                if (scoreElement) {
+                    return parseInt(scoreElement.textContent.replace(/[^\d]/g, '')) || 0;
+                }
+
+                // Try to find score in any cell containing numbers
+                const cells = row.querySelectorAll('td');
+                for (let cell of cells) {
+                    const text = cell.textContent.trim();
+                    const match = text.match(/(\d+)/);
+                    if (match) {
+                        return parseInt(match[1]) || 0;
+                    }
+                }
+
+                return 0;
+            }
 
         });
     </script>

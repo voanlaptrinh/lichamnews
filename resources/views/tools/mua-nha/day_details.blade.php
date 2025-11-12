@@ -2,18 +2,18 @@
 
 @section('content')
     @push('styles')
-        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=10.6') }}">
+        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=10.7') }}">
     @endpush
 
 
 
     <div class="container-setup">
-        <h6 class="content-title-detail"><a href="{{ route('home') }}"
+        <div class="content-title-detail"><a href="{{ route('home') }}"
                 style="color: #2254AB; text-decoration: underline;">Trang chủ</a><i class="bi bi-chevron-right"></i> <a
                 style="color: #2254AB; text-decoration: underline;" href="">Tiện ích</a> <i
                 class="bi bi-chevron-right"></i> <span>
                 Xem ngày mua nhà</span> <i class="bi bi-chevron-right"></i> <span>
-                Chi tiết</span></h6>
+                Chi tiết</span></div>
 
         <h1 class="content-title-home-lich">Chi tiết xem ngày mua nhà</h1>
 
@@ -47,7 +47,8 @@
                                             <td>
                                                 <span style="font-weight: 600">Ngày Dương lịch:</span>
                                                 {{ $commonDayInfo['dateToCheck']->format('d/m/Y') }}
-                                                ({{ $commonDayInfo['dayOfWeek'] }})
+                                                (<span
+                                                    style="text-transform:capitalize;">{{ $commonDayInfo['dayOfWeek'] }}</span>)
                                             </td>
                                             <td>
                                                 <span style="font-weight: 600">Ngày Âm lịch:</span>
@@ -99,15 +100,31 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>
-                                                @if ($groomData['score']['hopttuoi'])
-                                                    ✓ Ngày hợp tuổi: {{ $groomData['score']['hopTuoiReason'] }}
-                                                @endif
+                                            @php
+                                                $hopTuoi = $groomData['score']['hopttuoi'] ?? null;
+                                                $hopTuoiReason = $groomData['score']['hopTuoiReason'] ?? '';
+                                                $tabooIssues = collect($tabooResult['issues'] ?? [])
+                                                    ->filter()
+                                                    ->map(
+                                                        fn($day) => 'Phạm Ngày ' . ($day['details']['tabooName'] ?? ''),
+                                                    )
+                                                    ->implode(', ');
+                                            @endphp
 
+                                            @if ($hopTuoi || $tabooIssues)
+                                        <tr>
+                                            <td>
+                                                @if ($hopTuoi)
+                                                    ✓ Ngày hợp tuổi: {{ $hopTuoiReason }}
+                                                @endif
                                             </td>
                                             <td>
-                                                {{ collect($tabooResult['issues'] ?? [])->map(fn($day) => 'Phạm Ngày ' . ($day['details']['tabooName'] ?? ''))->implode(', ') }}
+                                                @if ($tabooIssues)
+                                                    {{ $tabooIssues }}
+                                                @endif
                                             </td>
+                                        </tr>
+                                        @endif
 
                                         </tr>
                                         @if (!$groomData['score']['hopttuoi'])
@@ -154,7 +171,7 @@
                                                     <strong>Sao tốt theo Ngọc Hạp Thông Thư:</strong>
                                                     @foreach ($groomData['score']['catHung']['details']['catStars'] as $index => $sao)
                                                         <span
-                                                            class=" bg-success me-1">{{ $sao['name'] }}</span>{{ $loop->last ? '' : ',' }}
+                                                            class=" bg-success">{{ $sao['name'] }}</span>{{ $loop->last ? '' : ',' }}
                                                     @endforeach
                                                 @endif
                                             </td>
@@ -163,7 +180,7 @@
                                                     <strong>Sao xấu theo Ngọc Hạp Thông Thư:</strong>
                                                     @foreach ($groomData['score']['catHung']['details']['hungStars'] as $sao)
                                                         <span
-                                                            class=" bg-danger me-1">{{ $sao['name'] }}</span>{{ $loop->last ? '' : ',' }}
+                                                            class=" bg-danger">{{ $sao['name'] }}</span>{{ $loop->last ? '' : ',' }}
                                                     @endforeach
                                                 @endif
                                             </td>
@@ -273,9 +290,11 @@
                                                     <p>Ngày {{ $groomData['getThongTinCanChiVaIcon']['can_chi_ngay'] }} -
                                                         Tháng
                                                         {{ $groomData['getThongTinCanChiVaIcon']['can_chi_thang'] }}</p>
-                                                    {!! $groomData['getVongKhiNgayThang']['analysis'] !!}
-                                                    {!! $groomData['getVongKhiNgayThang']['conclusion'] !!}
-                                                    <h6><b>Cục khí - hợp xung</b></h6>
+                                                    <ul class="mb-0 mt-0">
+                                                        {!! $groomData['getVongKhiNgayThang']['analysis'] !!}
+                                                    </ul>
+                                                    <p> {!! $groomData['getVongKhiNgayThang']['conclusion'] !!}</p>
+                                                    <h6><b>* Cục khí - hợp xung</b></h6>
                                                     <ul>
                                                         <li>{!! $commonDayInfo['hopxungNgay']['hop'] !!}</li>
                                                         <li>{!! $commonDayInfo['hopxungNgay']['ky'] !!}</li>
