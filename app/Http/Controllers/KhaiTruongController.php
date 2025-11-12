@@ -213,13 +213,14 @@ Thời điểm cát lợi, vận khí hanh thông – rất thích hợp để k
     private function getPersonBasicInfo(Carbon $dob): array
     {
         $birthYear = $dob->year;
+        
         $canChiNam = KhiVanHelper::canchiNam((int)$birthYear);
         $menh = DataHelper::$napAmTable[$canChiNam]; // Giả sử bạn có DataHelper
         $lunarDob = LunarHelper::convertSolar2Lunar($dob->day, $dob->month, $dob->year);
 
         return [
             'dob' => $dob,
-            'lunar_dob_str' => sprintf('%02d/%02d/%d', $lunarDob[0], $lunarDob[1], $lunarDob[2]),
+            'lunar_dob_str' => sprintf('%02d/%02d/%d',  $lunarDob[0], $lunarDob[1], $lunarDob[2]),
             'can_chi_nam' => $canChiNam,
             'menh' => $menh,
         ];
