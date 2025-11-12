@@ -2,9 +2,18 @@
 @section('content')
 
     <div class="container-setup">
-        <div class="content-title-detail"><a href="{{ route('home') }}"
-                style="color: #2254AB; text-decoration: underline;">Trang chủ</a><i class="bi bi-chevron-right"></i> <span>Đổi
-                ngày âm dương </span></div>
+        <nav aria-label="breadcrumb" class="content-title-detail">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{{ route('home') }}"  style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    Đổi ngày âm dương
+                </li>
+            </ol>
+        </nav>
+
+    
         <h1 class="content-title-home-lich">Đổi Ngày Dương Sang Âm & Âm Sang Dương</h1>
         <div class="row g-3">
             <div class="col-xl-9 col-sm-12 col-12">
@@ -101,18 +110,22 @@
                                                                     </select>
                                                                 </div>
                                                             </div>
-                                                            <div class="row g-2" id="lunar-leap-container" style="display: none !important;">
+                                                            <div class="row g-2" id="lunar-leap-container"
+                                                                style="display: none !important;">
                                                                 <div class="col-12">
                                                                     <div class="form-check">
-                                                                        <input class="form-check-input" type="checkbox" id="lunar-leap-check">
-                                                                        <label class="form-check-label" for="lunar-leap-check">
+                                                                        <input class="form-check-input" type="checkbox"
+                                                                            id="lunar-leap-check">
+                                                                        <label class="form-check-label"
+                                                                            for="lunar-leap-check">
                                                                             <small>Tháng nhuận</small>
                                                                         </label>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="mt-2 text-end">
-                                                                <button type="button" class="btn btn-sm btn-secondary me-1"
+                                                                <button type="button"
+                                                                    class="btn btn-sm btn-secondary me-1"
                                                                     onclick="hideDateSelect('lunar')">Hủy</button>
                                                                 <button type="button" class="btn btn-sm btn-primary"
                                                                     onclick="applyDateSelect('lunar')">Chọn</button>
@@ -128,8 +141,9 @@
                                                         class="img-fluid">
                                                 </button>
                                                 <div class="col-lg-12">
-                                                    <div class="d-flex justify-content-center" >
-                                                        <button type="submit" style="background: #115097" class="btn btn-primary btnd-nfay">Chuyển
+                                                    <div class="d-flex justify-content-center">
+                                                        <button type="submit" style="background: #115097"
+                                                            class="btn btn-primary btnd-nfay">Chuyển
                                                             đổi</button>
                                                     </div>
                                                 </div>
@@ -196,7 +210,7 @@
                                                     {{ $al[0] }}
                                                 </div>
                                                 <div class="date-weekday">Tháng {{ $al[1] }}
-                                                  
+
                                                     ({{ $al[4] }})
                                                     năm
                                                     {{ $getThongTinCanChiVaIcon['can_chi_nam'] }}</div>
@@ -247,7 +261,7 @@
                                                         class="bi bi-chevron-left"></i></button>
                                             </div>
                                             <div class="div">
-                                                <button type="button" 
+                                                <button type="button"
                                                     class="nav-arrow  next-day-btn-mobie nave-right next-day-btn"
                                                     title="Ngày hôm sau" id="mobile-next-btn"> <i
                                                         class="bi bi-chevron-right"></i></button>
@@ -263,9 +277,9 @@
                                     <p>✦ Ngày Dương: <span
                                             class="sonar-date">{{ $dd }}/{{ $mm }}/{{ $yy }}</span>
                                     </p>
-                                    <p>✦ Ngày Âm: <span
-                                            class="lunar-date " style="color: #744F0C !important">{{ $al[0] }}/{{ $al[1] }}/{{ $al[2] }}
-                                            @if($is_leap_month_selected)
+                                    <p>✦ Ngày Âm: <span class="lunar-date "
+                                            style="color: #744F0C !important">{{ $al[0] }}/{{ $al[1] }}/{{ $al[2] }}
+                                            @if ($is_leap_month_selected)
                                                 <span style="color: #d83131;"> (nhuận)</span>
                                             @endif
                                         </span>
@@ -279,8 +293,8 @@
                                     <div class="col-lg-12 pt-2 d-flex justify-content-center ">
                                         <a href="{{ route('detai_home', ['nam' => $yy, 'thang' => $mm, 'ngay' => $dd]) }}"
                                             class="btn btn-primary w-100 mt-3 btn0mobie mt-3"> <img
-                                                src="{{ asset('/icons/hand_2_white.svg') }}" alt="hand_2" width="28" height="29"
-                                                class="img-fluid">
+                                                src="{{ asset('/icons/hand_2_white.svg') }}" alt="hand_2"
+                                                width="28" height="29" class="img-fluid">
                                             Xem chi
                                             tiết</a>
                                     </div>
@@ -296,11 +310,11 @@
                 <div class="mt-3">
                     <div class="calendar-wrapper">
                         <div class="calendar-header-convert calendar-header">
-                             <div class="text-center">
-                                    <div class="mb-0 pt-2 lich-van--nien">Lịch vạn niên {{ $yy }} - tháng
-                                        {{ $mm }}
-                                    </div>
+                            <div class="text-center">
+                                <div class="mb-0 pt-2 lich-van--nien">Lịch vạn niên {{ $yy }} - tháng
+                                    {{ $mm }}
                                 </div>
+                            </div>
                             <div class="d-flex align-items-center justify-content-center">
                                 <select id="month-select" class="form-select me-2 custom-select-style"
                                     aria-label="Chọn tháng">
@@ -322,7 +336,7 @@
                                     @endfor
                                 </select>
                             </div>
-                          
+
                         </div>
                         <div id="calendar-body-container" class="mb-3">
                             <table class="calendar-table">
@@ -358,8 +372,8 @@
                             </table>
                         </div>
                         <div class="calendar-legend">
-                           <span class="box-title--hoangdao"><span class="dot dot-hoangdao"></span> Ngày hoàng đạo</span>
-                        <span class="box-title--hacdao"><span class="dot dot-hacdao"></span> Ngày hắc đạo</span>
+                            <span class="box-title--hoangdao"><span class="dot dot-hoangdao"></span> Ngày hoàng đạo</span>
+                            <span class="box-title--hacdao"><span class="dot dot-hacdao"></span> Ngày hắc đạo</span>
                         </div>
                     </div>
                 </div>
@@ -585,9 +599,10 @@
 
 @push('styles')
     <style>
-         .form-select-sm{
-        padding-right: 0 !important;
-    }
+        .form-select-sm {
+            padding-right: 0 !important;
+        }
+
         .date-input-wrapper .date-icon-custom {
             position: absolute;
             right: 15px;
@@ -711,11 +726,31 @@
                 }
             }
         }
-
     </style>
 @endpush
 
 @push('scripts')
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Trang chủ",
+      "item": "https://phonglich.com"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Đổi ngày âm dương",
+      "item": "https://phonglich.com/doi-ngay-am-duong"
+    }
+  ]
+}
+</script>
+
     <script>
         // Utility function for debouncing
         function debounce(func, delay) {
@@ -815,7 +850,8 @@
                     const data = await response.json();
 
                     if (data.success) {
-                        let result = `${String(data.lunarDay).padStart(2, '0')}/${String(data.lunarMonth).padStart(2, '0')}/${data.lunarYear}`;
+                        let result =
+                            `${String(data.lunarDay).padStart(2, '0')}/${String(data.lunarMonth).padStart(2, '0')}/${data.lunarYear}`;
 
                         // Check if this is a leap month (if API provides this info)
                         if (data.isLeap) {
@@ -828,8 +864,7 @@
                 } else {
                     const errorData = await response.json();
                 }
-            } catch (error) {
-            }
+            } catch (error) {}
             return null;
         };
 
@@ -871,8 +906,7 @@
                 } else {
                     const errorData = await response.json();
                 }
-            } catch (error) {
-            }
+            } catch (error) {}
             return null;
         };
 
@@ -960,7 +994,8 @@
             if (!currentValue) {
                 // If no value, use today as default
                 const today = new Date();
-                currentValue = `${String(today.getDate()).padStart(2, '0')}/${String(today.getMonth() + 1).padStart(2, '0')}/${today.getFullYear()}`;
+                currentValue =
+                    `${String(today.getDate()).padStart(2, '0')}/${String(today.getMonth() + 1).padStart(2, '0')}/${today.getFullYear()}`;
             }
 
 
@@ -1197,8 +1232,7 @@
                             }
                         }
                     }
-                } catch (error) {
-                }
+                } catch (error) {}
 
             }
         };
@@ -1270,7 +1304,7 @@
                 return;
             }
             // Không cần loading cho year vì chỉ 1 option
-         
+
 
             // Chỉ thêm năm hiện tại ban đầu
             const option = document.createElement('option');
@@ -1389,7 +1423,8 @@
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                            'content')
                     },
                     body: JSON.stringify({
                         year: year
@@ -1409,10 +1444,8 @@
 
                         return data.leapMonths;
                     }
-                } else {
-                }
-            } catch (error) {
-            }
+                } else {}
+            } catch (error) {}
 
             // Fallback: return empty array if API fails
             window.leapMonthsCache[year] = [];
@@ -1423,20 +1456,22 @@
 
         // Helper function to get the number of days in a month
         window.getDaysInMonth = async function(month, year, isLunar = false, isLeap = false) {
-            
+
 
             if (isLunar) {
                 // Check if we have cached data from getYearLeapMonths API
-                if (window.yearMonthDataCache && window.yearMonthDataCache[year] && window.yearMonthDataCache[year][month]) {
+                if (window.yearMonthDataCache && window.yearMonthDataCache[year] && window.yearMonthDataCache[year][
+                        month
+                    ]) {
                     const cachedData = window.yearMonthDataCache[year][month];
-                   
+
 
                     if (isLeap) {
                         const days = cachedData.leapDays > 0 ? cachedData.leapDays : cachedData.regularDays;
-                      
+
                         return days;
                     } else {
-                      
+
                         return cachedData.regularDays;
                     }
                 }
@@ -1460,10 +1495,8 @@
                     if (response.ok) {
                         const data = await response.json();
                         return data.days || 29;
-                    } else {
-                    }
-                } catch (error) {
-                }
+                    } else {}
+                } catch (error) {}
 
                 // Fallback to 29 if API fails
                 return 29;
@@ -1541,7 +1574,15 @@
                 lunarDisplayContainer: document.getElementById('lunar-display-container')
             };
 
-            const {solarInput, lunarInput, swapBtn, solarContainer, lunarContainer, solarDisplayContainer, lunarDisplayContainer} = domCache;
+            const {
+                solarInput,
+                lunarInput,
+                swapBtn,
+                solarContainer,
+                lunarContainer,
+                solarDisplayContainer,
+                lunarDisplayContainer
+            } = domCache;
 
             // Function to swap content inside result boxes
             const swapContentOnly = (immediate = false) => {
@@ -1555,7 +1596,8 @@
                     // Batch DOM operations to prevent forced reflows
                     requestAnimationFrame(() => {
                         // Swap input positions (keep existing logic for inputs)
-                        const solarInputFirst = Array.from(inputRow.children).indexOf(solarContainer) < Array
+                        const solarInputFirst = Array.from(inputRow.children).indexOf(
+                                solarContainer) < Array
                             .from(inputRow.children).indexOf(lunarContainer);
                         if (solarInputFirst) {
                             inputRow.insertBefore(lunarContainer, solarContainer);
@@ -1617,7 +1659,7 @@
                 // Có request từ form submit - hiển thị ngày được chọn
                 const solarDateFromController = '{{ $dd }}/{{ $mm }}/{{ $yy }}';
                 const lunarDateFromController =
-                    '{{ sprintf('%02d', $al[0]) }}/{{ sprintf('%02d', $al[1]) }}@if($is_leap_month_selected)(nhuận)@endif/{{ $al[2] }}';
+                    '{{ sprintf('%02d', $al[0]) }}/{{ sprintf('%02d', $al[1]) }}@if ($is_leap_month_selected)(nhuận)@endif/{{ $al[2] }}';
 
                 solarInput.value = solarDateFromController;
                 lunarInput.value = lunarDateFromController;
@@ -1626,7 +1668,7 @@
                 const solarDateFromController =
                     '{{ sprintf('%02d', $dd) }}/{{ sprintf('%02d', $mm) }}/{{ $yy }}';
                 const lunarDateFromController =
-                    '{{ sprintf('%02d', $al[0]) }}/{{ sprintf('%02d', $al[1]) }}@if($is_leap_month_selected)(nhuận)@endif/{{ $al[2] }}';
+                    '{{ sprintf('%02d', $al[0]) }}/{{ sprintf('%02d', $al[1]) }}@if ($is_leap_month_selected)(nhuận)@endif/{{ $al[2] }}';
 
                 solarInput.value = solarDateFromController;
                 lunarInput.value = lunarDateFromController;
@@ -1686,7 +1728,8 @@
                                 isLeap = true;
                             } else {
                                 // Fallback to checkbox
-                                const mobileLeapCheckbox = document.getElementById('mobile-lunar-leap-check');
+                                const mobileLeapCheckbox = document.getElementById(
+                                    'mobile-lunar-leap-check');
                                 isLeap = mobileLeapCheckbox && mobileLeapCheckbox.checked;
                             }
                         }
@@ -1713,12 +1756,18 @@
                             targetInput.setAttribute('value', finalValue);
 
                             // Trigger multiple events to ensure update
-                            targetInput.dispatchEvent(new Event('input', { bubbles: true }));
-                            targetInput.dispatchEvent(new Event('change', { bubbles: true }));
-                            targetInput.dispatchEvent(new Event('keyup', { bubbles: true }));
+                            targetInput.dispatchEvent(new Event('input', {
+                                bubbles: true
+                            }));
+                            targetInput.dispatchEvent(new Event('change', {
+                                bubbles: true
+                            }));
+                            targetInput.dispatchEvent(new Event('keyup', {
+                                bubbles: true
+                            }));
 
                             // Visual feedback
-                        
+
 
                             // Force DOM update
                             targetInput.focus();
@@ -1745,24 +1794,29 @@
 
                                 if (selectedType === 'lunar') {
                                     // User selected lunar date, convert to solar
-                                    const lunarDateForConversion = isLeap ? `${day}/${month}(nhuận)/${year}` : formattedDate;
-                                    convertedDate = await convertLunarToSolar(lunarDateForConversion, isLeap);
+                                    const lunarDateForConversion = isLeap ?
+                                        `${day}/${month}(nhuận)/${year}` : formattedDate;
+                                    convertedDate = await convertLunarToSolar(
+                                        lunarDateForConversion, isLeap);
 
                                     if (convertedDate) {
-                                        const solarInput = document.getElementById('solar_date');
+                                        const solarInput = document.getElementById(
+                                            'solar_date');
                                         if (solarInput) {
                                             solarInput.value = convertedDate;
                                             solarInput.setAttribute('value', convertedDate);
 
-                                           
+
                                         }
                                     }
                                 } else {
                                     // User selected solar date, convert to lunar
-                                    convertedDate = await convertSolarToLunar(formattedDate);
+                                    convertedDate = await convertSolarToLunar(
+                                        formattedDate);
 
                                     if (convertedDate) {
-                                        const lunarInput = document.getElementById('lunar_date');
+                                        const lunarInput = document.getElementById(
+                                            'lunar_date');
                                         if (lunarInput) {
                                             lunarInput.value = convertedDate;
                                             lunarInput.setAttribute('value', convertedDate);
@@ -1806,7 +1860,8 @@
 
                         // Update mobile leap checkbox to match selection
                         const mobileLeapCheckbox = document.getElementById('mobile-lunar-leap-check');
-                        const mobileLeapContainer = document.getElementById('mobile-lunar-leap-container');
+                        const mobileLeapContainer = document.getElementById(
+                            'mobile-lunar-leap-container');
 
                         if (mobileLeapCheckbox) {
                             mobileLeapCheckbox.checked = isLeap;
@@ -1894,7 +1949,8 @@
                             const selectedYear = parseInt(yearSelect.value);
                             const selectedDay = parseInt(daySelect.value) || 1;
 
-                            await updateMobileDayOptions('lunar', selectedMonth, selectedYear, selectedDay);
+                            await updateMobileDayOptions('lunar', selectedMonth, selectedYear,
+                                selectedDay);
                         }
                     }
                 });
@@ -1928,7 +1984,9 @@
                 mobilePrevBtn.addEventListener('click', function(e) {
                     e.preventDefault();
                     debouncedPrev();
-                }, {passive: false});
+                }, {
+                    passive: false
+                });
             }
 
             if (mobileNextBtn) {
@@ -1937,7 +1995,9 @@
                 mobileNextBtn.addEventListener('click', function(e) {
                     e.preventDefault();
                     debouncedNext();
-                }, {passive: false});
+                }, {
+                    passive: false
+                });
             }
 
         });
