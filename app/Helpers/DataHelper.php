@@ -4411,7 +4411,7 @@ class DataHelper
         ],
         "Dực" => [
             "good" => "Cầu công danh, khai trương, sinh con, kinh doanh",
-            "bad"  => ""
+            "bad"  => "Cưới hỏi, xây cất, khai trương, mai táng."
         ],
         "Chẩn" => [
             "good" => "Xuất hành, chuyển nhà, thi cử, đầu tư",
