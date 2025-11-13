@@ -733,6 +733,7 @@ class FengShuiHelper //cần xác định xem gia chủ thuộc Tây Tứ Mệnh
                         return [
                             'score'       => (float)($relationBaseData['baseScore'] ?? 0.0),
                             'explanation' => $relationBaseData['explanation'] ?? 'Không có diễn giải.',
+                            'fakeHợpExplanation' => $relationBaseData['fakeHợpExplanation'] ?? 'Không có diễn giải giả.',
                             'rating'      => $relationBaseData['rating'] ?? 'Không rõ đánh giá.',
                             'relation'    => $relationBaseData['relation'] ?? 'Hợp Hóa',
                             'canNgay'    => $canNgay ?? '',
@@ -743,6 +744,7 @@ class FengShuiHelper //cần xác định xem gia chủ thuộc Tây Tứ Mệnh
                         return [
                             'score'       => (float)($fakeScore ?? 0.5),
                             'explanation' => $fakeExplanation ?? 'Hợp hóa nhưng không đủ điều kiện.',
+  'fakeHợpExplanation' => $relationBaseData['fakeHợpExplanation'] ?? 'Không có diễn giải giả.',
                             'rating'      => $fakeRating ?? 'Hợp hóa giả',
                             'relation'    => 'Hợp Hóa Giả',
                             'canNgay'    => $canNgay ?? '',

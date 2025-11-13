@@ -93,7 +93,7 @@
                     <div class="card-body">
                         <div class="betwen-ds mb-3 flex-wrap">
                             <div
-                                class="text-primary mb-0 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
+                                class="text-primary mb-0 title-tong-quan-h4-log text-dark fw-bolder">
                                 <img src="{{ asset('icons/k_nen_1.svg') }}" alt="thông tin người xem" width="28"
                                     height="28" class="me-1"> Danh Sách Điểm
                                 Theo Ngày

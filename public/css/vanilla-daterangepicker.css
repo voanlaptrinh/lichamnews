@@ -2561,3 +2561,6 @@ th {
         display: none !important;
     }
 }
+.small{
+    font-size: 13px;
+}

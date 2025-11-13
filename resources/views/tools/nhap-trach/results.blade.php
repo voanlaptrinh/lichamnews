@@ -125,20 +125,20 @@
                                 ({{ $yearData['lunar_age'] }} tuổi âm).
                             </p>
                             <ul>
-                                  <li>{{ $yearData['year_analysis']['details']['kimLau']['is_bad'] ? 'Phạm Kim Lâu' : 'Không phạm Kim Lâu' }}
+                                <li>{{ $yearData['year_analysis']['details']['kimLau']['is_bad'] ? 'Phạm Kim Lâu' : 'Không phạm Kim Lâu' }}
                                 </li>
                                 <li> {{ $yearData['year_analysis']['details']['hoangOc']['is_bad'] ? 'Phạm Hoang Ốc' : 'Không phạm Hoang Ốc' }}
                                 </li>
                                 <li>{{ $yearData['year_analysis']['details']['tamTai']['is_bad'] ? 'Phạm Tam Tai' : 'Không phạm Tam Tai' }}
                                 </li>
 
-                             
+
                             </ul>
                             <p>{!! $yearData['year_analysis']['description'] !!}</p>
 
                             @if (isset($huongNhaAnalysis))
                                 <div class="mt-3">
-                                    <h6 class="text-primary">Kết luận phong thủy nhà:</h6>
+                                    <h6 class="text-primary text-dark" style="font-weight: 600">Kết luận phong thủy nhà:</h6>
                                     <p class="mb-0">{!! $huongNhaAnalysis['conclusion'] !!}</p>
 
                                     @if (!$huongNhaAnalysis['is_good'])
@@ -159,10 +159,10 @@
                     <div class="card-body">
                         <div class="betwen-ds mb-3 flex-wrap">
                             <div
-                                class="text-primary mb-0 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
+                                class="text-primary mb-0 title-tong-quan-h4-log text-dark fw-bolder">
                                 <img src="{{ asset('icons/k_nen_1.svg') }}" alt="thông tin người xem" width="28"
                                     height="28" class="me-1"> Danh Sách Điểm Theo Ngày
-                                <span class="badge bg-info ms-2">{{ $yearData['lunar_age'] }} tuổi âm</span>
+                            
                             </div>
                             <select name="sort" class=" form-select-sm sort-select" style="width: auto;"
                                 form="buildHouseForm">
@@ -175,8 +175,8 @@
 
                         @if (isset($yearData['days']) && count($yearData['days']) > 0)
                             <div class="table-responsive w-100" id="bang-chi-tiet">
-                                <table class="table table-hover align-middle w-100 table-layout" id="table-{{ $year }}"
-                                    style=" width: 100%;">
+                                <table class="table table-hover align-middle w-100 table-layout"
+                                    id="table-{{ $year }}" style=" width: 100%;">
                                     <thead class="text-center" style="background-color: #e8ebee;">
                                         <tr>
                                             <th style="border-radius: 8px 0 0 8px">Ngày</th>
@@ -186,27 +186,27 @@
                                     </thead>
                                     <tbody class="text-center">
                                         @foreach ($yearData['days'] as $day)
-                                         @php
-                                                        $score = $day['day_score']['percentage'] ?? 0;
-                                                        $bgColor = '#D1FAE5'; // Green
-                                                         $score =  round($score);
-                                                        if ($score <= 30) {
-                                                            $bgColor = '#FEE2E2'; // Red
-                                                            $border = '#DC2626';
-                                                            $text_box = '#DC2626';
-                                                        } elseif ($score <= 50) {
-                                                            $bgColor = '#FFE3D5'; // Yellow
-                                                            $border = '#FC6803';
-                                                            $text_box = '#FC6803';
-                                                        } elseif ($score <= 70) {
-                                                            $bgColor = '#FEF3C7'; // Orange
-                                                            $border = '#F59E0B';
-                                                            $text_box = '#F59E0B';
-                                                        } else {
-                                                            $border = '#10B981';
-                                                            $text_box = '#10B981';
-                                                        }
-                                                    @endphp
+                                            @php
+                                                $score = $day['day_score']['percentage'] ?? 0;
+                                                $bgColor = '#D1FAE5'; // Green
+                                                $score = round($score);
+                                                if ($score <= 30) {
+                                                    $bgColor = '#FEE2E2'; // Red
+                                                    $border = '#DC2626';
+                                                    $text_box = '#DC2626';
+                                                } elseif ($score <= 50) {
+                                                    $bgColor = '#FFE3D5'; // Yellow
+                                                    $border = '#FC6803';
+                                                    $text_box = '#FC6803';
+                                                } elseif ($score <= 70) {
+                                                    $bgColor = '#FEF3C7'; // Orange
+                                                    $border = '#F59E0B';
+                                                    $text_box = '#F59E0B';
+                                                } else {
+                                                    $border = '#10B981';
+                                                    $text_box = '#10B981';
+                                                }
+                                            @endphp
                                             <tr>
                                                 <td style="text-align: start">
                                                     <a
@@ -311,18 +311,19 @@
                                                     @else
                                                         <span class="text-warning small"
                                                             style="color: #2254AB !important">
-                                                            <i class="bi bi-exclamation-triangle-fill"></i> Không có yếu
+                                                            <i class="bi bi-exclamation-triangle-fill"></i> Không có
+                                                            yếu
                                                             tố hỗ trợ
                                                         </span>
                                                     @endif
-  <!-- Score hiển thị tròn cho mobile -->
+                                                    <!-- Score hiển thị tròn cho mobile -->
                                                     <div class="score-circle-mobile"
                                                         style="background-color: white; border: 1px solid #2254AB">
                                                         {{ round($score) }}%
                                                     </div>
                                                 </td>
                                                 <td class="text-center score-battery-pc">
-                                                   
+
                                                     <div class=" d-flex justify-content-center align-items-center">
                                                         <div class="battery">
                                                             <div class="battery-body"

@@ -276,7 +276,7 @@
                                                 <button class="accordion-button collapsed" type="button"
                                                     data-bs-toggle="collapse"
                                                     data-bs-target="#collapse-canchi-{{ Str::slug($groomData['personTitle']) }}">
-                                                    Xem can chi - khí vận & tuổi hợp/xung trong ngày
+                                                    Xem Can Chi - Khí vận & tuổi hợp/xung trong ngày
                                                 </button>
                                             </h2>
                                             <div id="collapse-canchi-{{ Str::slug($groomData['personTitle']) }}"
@@ -308,7 +308,12 @@
                                                             là
                                                             <b>{{ $analyze['details']['can']['relation'] }}</b>
                                                             ({{ $analyze['details']['can']['rating'] }}).
+                                                             @if (!empty($analyze['details']['can']['fakeHợpExplanation']))
+                                                                {{ $analyze['details']['can']['fakeHợpExplanation'] }}
+                                                            @else
                                                             {{ $analyze['details']['can']['explanation'] }}
+                                                            
+                                                            @endif
                                                         </li>
                                                         <li><strong>Địa chi:</strong> Chi ngày
                                                             <i>{{ $analyze['details']['chi']['chiNgay'] }}</i>

@@ -365,24 +365,145 @@
         }
 
         async handleSolarRadioChange() {
-            if (this.solarRadio.checked) {
+            if (this.solarRadio.checked && this.isLunar) {
                 console.log(`🌙 Instance ${this.instanceId}: switching to solar calendar`);
-                this.isLunar = false;
-                this.isLeapMonth = false;
-                this.hideLeapOption();
-                await this.populateMonthSelect();
-                await this.updateDaysInMonth();
+
+                // Get current lunar date before conversion
+                const currentDay = parseInt(this.daySelect.value);
+                const currentMonth = parseInt(this.monthSelect.value);
+                const currentYear = parseInt(this.yearSelect.value);
+
+                // Convert current lunar date to corresponding solar date
+                if (currentDay && currentMonth && currentYear) {
+                    try {
+                        const response = await fetch(this.options.lunarApiUrl, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': this.options.csrfToken
+                            },
+                            body: JSON.stringify({
+                                day: currentDay,
+                                month: currentMonth,
+                                year: currentYear,
+                                type: 'lunar-to-solar',
+                                isLeap: this.isLeapMonth
+                            })
+                        });
+
+                        const result = await response.json();
+                        if (result.success) {
+                            // Switch to solar calendar
+                            this.isLunar = false;
+                            this.isLeapMonth = false;
+                            this.hideLeapOption();
+                            await this.populateMonthSelect();
+
+                            // Set the converted solar date
+                            this.yearSelect.value = result.year;
+                            this.monthSelect.value = result.month;
+                            await this.updateDaysInMonth();
+                            this.daySelect.value = result.day;
+
+                            console.log(`🌙 Converted lunar ${currentDay}/${currentMonth}/${currentYear} to solar ${result.day}/${result.month}/${result.year}`);
+                        } else {
+                            throw new Error('Conversion failed');
+                        }
+                    } catch (error) {
+                        console.error('Error converting lunar to solar:', error);
+                        // Fallback: just switch calendar type without conversion
+                        this.isLunar = false;
+                        this.isLeapMonth = false;
+                        this.hideLeapOption();
+                        await this.populateMonthSelect();
+                        await this.updateDaysInMonth();
+                    }
+                } else {
+                    // No date selected, just switch calendar type
+                    this.isLunar = false;
+                    this.isLeapMonth = false;
+                    this.hideLeapOption();
+                    await this.populateMonthSelect();
+                    await this.updateDaysInMonth();
+                }
+
                 this.handleCalendarTypeChange();
                 this.updateMonthInfoAfterSelection();
             }
         }
 
         async handleLunarRadioChange() {
-            if (this.lunarRadio.checked) {
+            if (this.lunarRadio.checked && !this.isLunar) {
                 console.log(`🌙 Instance ${this.instanceId}: switching to lunar calendar`);
-                this.isLunar = true;
-                await this.populateMonthSelect();
-                await this.updateDaysInMonth();
+
+                // Get current solar date before conversion
+                const currentDay = parseInt(this.daySelect.value);
+                const currentMonth = parseInt(this.monthSelect.value);
+                const currentYear = parseInt(this.yearSelect.value);
+
+                // Convert current solar date to corresponding lunar date
+                if (currentDay && currentMonth && currentYear) {
+                    try {
+                        const response = await fetch(this.options.lunarApiUrl, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': this.options.csrfToken
+                            },
+                            body: JSON.stringify({
+                                day: currentDay,
+                                month: currentMonth,
+                                year: currentYear,
+                                type: 'solar-to-lunar'
+                            })
+                        });
+
+                        const result = await response.json();
+                        if (result.success) {
+                            // Switch to lunar calendar
+                            this.isLunar = true;
+                            await this.populateMonthSelect();
+
+                            // Set the converted lunar date
+                            this.yearSelect.value = result.year;
+
+                            // Find and select the correct month (including leap month)
+                            this.isLeapMonth = result.isLeap || false;
+                            const targetMonth = result.month;
+
+                            // Select the appropriate month option (normal or leap)
+                            for (let i = 0; i < this.monthSelect.options.length; i++) {
+                                const option = this.monthSelect.options[i];
+                                if (option.value == targetMonth) {
+                                    if ((this.isLeapMonth && option.dataset.isLeap === '1') ||
+                                        (!this.isLeapMonth && option.dataset.isLeap !== '1')) {
+                                        this.monthSelect.selectedIndex = i;
+                                        break;
+                                    }
+                                }
+                            }
+
+                            await this.updateDaysInMonth();
+                            this.daySelect.value = result.day;
+
+                            console.log(`🌙 Converted solar ${currentDay}/${currentMonth}/${currentYear} to lunar ${result.day}/${result.month}/${result.year}${result.isLeap ? ' (nhuận)' : ''}`);
+                        } else {
+                            throw new Error('Conversion failed');
+                        }
+                    } catch (error) {
+                        console.error('Error converting solar to lunar:', error);
+                        // Fallback: just switch calendar type without conversion
+                        this.isLunar = true;
+                        await this.populateMonthSelect();
+                        await this.updateDaysInMonth();
+                    }
+                } else {
+                    // No date selected, just switch calendar type
+                    this.isLunar = true;
+                    await this.populateMonthSelect();
+                    await this.updateDaysInMonth();
+                }
+
                 this.handleCalendarTypeChange();
                 this.updateMonthInfoAfterSelection();
             }

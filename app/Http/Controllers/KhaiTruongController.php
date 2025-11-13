@@ -193,7 +193,7 @@ class KhaiTruongController extends Controller
 
         $message = $isBadYear
             ? "Năm {$yearToCheck}, bạn phạm phải: <strong>" . implode(', ', $badFactors) . "</strong> – đây là yếu tố phong thủy cần đặc biệt lưu ý khi tiến hành khai trương kinh doanh.
-<ul><li>Nếu mục đích khai trương chỉ để thử nghiệm kinh doanh hoặc chưa có kế hoạch đầu tư lớn: vẫn có thể tiến hành trong năm nay, miễn là chọn đúng ngày giờ tốt hợp tuổi, có thể hóa giải phần nào sát khí.</li><li>Ngược lại, nếu bạn dự định đầu tư mạnh hoặc khai trương cửa hàng quan trọng: nên cân nhắc kỹ lưỡng. Trường hợp vẫn muốn thực hiện trong năm, cần áp dụng các biện pháp hóa giải vận hạn phù hợp hoặc chờ sang năm thuận lợi hơn để đảm bảo kinh doanh phát đạt, tránh vận rủi không đáng có.</li></ul>"
+<ul><li>Nếu mục đích khai trương chỉ để thử nghiệm kinh doanh hoặc chưa có kế hoạch đầu tư lớn vẫn có thể tiến hành trong năm nay, miễn là chọn đúng ngày giờ tốt hợp tuổi, có thể hóa giải phần nào sát khí.</li><li>Ngược lại, nếu bạn dự định đầu tư mạnh hoặc khai trương cửa hàng quan trọng nên cân nhắc kỹ lưỡng. Trường hợp vẫn muốn thực hiện trong năm, cần áp dụng các biện pháp hóa giải vận hạn phù hợp hoặc chờ sang năm thuận lợi hơn để đảm bảo kinh doanh phát đạt, tránh vận rủi không đáng có.</li></ul>"
             : "Năm {$yearToCheck}, bạn không phạm Kim Lâu, Hoang Ốc hay Tam Tai – đây là tín hiệu rất tốt trong phong thủy. Bạn hoàn toàn có thể an tâm tiến hành khai trương kinh doanh trong năm nay.
 Thời điểm cát lợi, vận khí hanh thông – rất thích hợp để khai trương, khởi nghiệp và phát triển sự nghiệp.";
 
