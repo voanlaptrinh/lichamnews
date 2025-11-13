@@ -426,6 +426,38 @@
             function restoreFromHash() {
                 const params = parseHashParams();
 
+                // Restore groom calendar type from hash
+                if (params.groom_calendar_type) {
+                    const groomSolarRadio = document.getElementById('groomSolarCalendar');
+                    const groomLunarRadio = document.getElementById('groomLunarCalendar');
+
+                    if (params.groom_calendar_type === 'lunar' && groomLunarRadio) {
+                        groomLunarRadio.checked = true;
+                        groomSolarRadio.checked = false;
+                        groomLunarRadio.dispatchEvent(new Event('change'));
+                    } else if (params.groom_calendar_type === 'solar' && groomSolarRadio) {
+                        groomSolarRadio.checked = true;
+                        groomLunarRadio.checked = false;
+                        groomSolarRadio.dispatchEvent(new Event('change'));
+                    }
+                }
+
+                // Restore bride calendar type from hash
+                if (params.bride_calendar_type) {
+                    const brideSolarRadio = document.getElementById('brideSolarCalendar');
+                    const brideLunarRadio = document.getElementById('brideLunarCalendar');
+
+                    if (params.bride_calendar_type === 'lunar' && brideLunarRadio) {
+                        brideLunarRadio.checked = true;
+                        brideSolarRadio.checked = false;
+                        brideLunarRadio.dispatchEvent(new Event('change'));
+                    } else if (params.bride_calendar_type === 'solar' && brideSolarRadio) {
+                        brideSolarRadio.checked = true;
+                        brideLunarRadio.checked = false;
+                        brideSolarRadio.dispatchEvent(new Event('change'));
+                    }
+                }
+
                 if (params.groom || params.bride || params.khoang) {
                     let formRestored = false;
                     let groomSet = false;
@@ -642,7 +674,9 @@
                 const hashParams = {
                     groom: formattedGroomDob,
                     bride: formattedBrideDob,
-                    khoang: dateRangeValue
+                    khoang: dateRangeValue,
+                    groom_calendar_type: groomCalendarType,
+                    bride_calendar_type: brideCalendarType
                 };
                 setHashParams(hashParams);
 

@@ -211,6 +211,7 @@
                                                             'date' => $day['date']->format('Y-m-d'),
                                                             'groom_dob' => $groomInfo['dob']->format('Y-m-d'),
                                                             'bride_dob' => $brideInfo['dob']->format('Y-m-d'),
+                                                            'calendar_type' => $inputs['calendar_type'] ?? 'solar'
                                                         ]) }}">
                                                         <div class="box-dtl-pc">
                                                             <div style="color: #0F172A;font-size: 18px">

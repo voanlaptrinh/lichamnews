@@ -153,6 +153,7 @@ class TotXauController extends Controller
             'birthdate' => 'required|date_format:Y-m-d',
         ])->validate();
 
+
         $dateToCheck = Carbon::parse($validated['date']);
         $groomDob = Carbon::parse($validated['birthdate']);
 

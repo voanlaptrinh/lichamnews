@@ -491,6 +491,12 @@
                 hashParams.push(`house_direction=${encodeURIComponent(houseDirection)}`);
             }
 
+            // Add calendar_type to hash if available
+            const calendarType = urlParams.get('calendar_type');
+            if (calendarType) {
+                hashParams.push(`calendar_type=${encodeURIComponent(calendarType)}`);
+            }
+
             // Build final URL with hash
             if (hashParams.length > 0) {
                 targetUrl += `#${hashParams.join('&')}`;

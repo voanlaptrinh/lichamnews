@@ -329,6 +329,22 @@
             function restoreFromHash() {
                 const params = parseHashParams();
 
+                // Restore calendar type from hash
+                if (params.calendar_type) {
+                    const solarRadio = document.getElementById('solarCalendar');
+                    const lunarRadio = document.getElementById('lunarCalendar');
+
+                    if (params.calendar_type === 'lunar' && lunarRadio) {
+                        lunarRadio.checked = true;
+                        solarRadio.checked = false;
+                        lunarRadio.dispatchEvent(new Event('change'));
+                    } else if (params.calendar_type === 'solar' && solarRadio) {
+                        solarRadio.checked = true;
+                        lunarRadio.checked = false;
+                        solarRadio.dispatchEvent(new Event('change'));
+                    }
+                }
+
                 if (params.user_name || params.birthdate || params.khoang) {
                     // Show restoration notification
                     const notification = document.getElementById('autoSubmitNotification');
@@ -382,6 +398,12 @@
                                 const monthSelect = document.getElementById('thangSelect');
                                 const yearSelect = document.getElementById('namSelect');
 
+                                console.log(`trySetSelects attempt ${attempts + 1}/${maxAttempts}`, {
+                                    dayOptions: daySelect?.options?.length,
+                                    monthOptions: monthSelect?.options?.length,
+                                    yearOptions: yearSelect?.options?.length
+                                });
+
                                 if (attempts >= maxAttempts) {
                                     birthdateSet = true; // Set to true to prevent blocking form submission
                                     checkAndSubmitForm();
@@ -393,25 +415,28 @@
                                     monthSelect.options.length > 1 &&
                                     yearSelect.options.length > 1) {
 
-                                    // Set year first, then month, then day (important order)
+                                    console.log('Setting select values sequentially:', { year, month, day });
+
+                                    // Set year first, trigger change, wait
                                     yearSelect.value = year;
                                     yearSelect.dispatchEvent(new Event('change'));
 
-                                    // Use shorter delays for faster restoration
                                     setTimeout(() => {
+                                        // Set month second, trigger change, wait
                                         monthSelect.value = month;
                                         monthSelect.dispatchEvent(new Event('change'));
 
                                         setTimeout(() => {
+                                            // Set day last, trigger change
                                             daySelect.value = day;
                                             daySelect.dispatchEvent(new Event('change'));
 
                                             birthdateSet = true;
                                             checkAndSubmitForm();
-                                        }, 50);
-                                    }, 50);
+                                        }, 100);
+                                    }, 100);
                                 } else {
-                                    setTimeout(() => trySetSelects(attempts + 1), 150);
+                                    setTimeout(() => trySetSelects(attempts + 1), 300);
                                 }
                             }
 
@@ -588,7 +613,8 @@
                 const hashParams = {
                     user_name: userNameValue,
                     birthdate: formattedBirthdate,
-                    khoang: dateRangeValue
+                    khoang: dateRangeValue,
+                    calendar_type: calendarType
                 };
                 setHashParams(hashParams);
 

@@ -216,6 +216,7 @@
                                                             'date_range' => $inputs['date_range'] ?? '',
                                                             'gioi_tinh' => $inputs['gioi_tinh'] ?? 'nam',
                                                             'huong_nha' => $inputs['huong_nha'] ?? '',
+                                                            'calendar_type' => $inputs['calendar_type'] ?? 'solar'
                                                         ]) }}">
                                                         <div class="box-dtl-pc">
                                                             <div style="color: #0F172A;font-size: 18px">

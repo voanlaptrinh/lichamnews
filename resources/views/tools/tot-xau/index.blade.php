@@ -187,6 +187,9 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Check if we have hash parameters to avoid setting defaults
+            const hasHashParams = window.location.hash && window.location.hash.includes('birthdate');
+
             // Initialize the lunar-solar date selector
             const dateSelector = new LunarSolarDateSelect({
                 daySelectId: 'ngaySelect',
@@ -197,16 +200,16 @@
                 lunarRadioId: 'lunarCalendar',
                 leapCheckboxId: 'leapMonth',
                 leapContainerId: 'leapMonthContainer',
-                defaultDay: 1,
-                defaultMonth: 1,
-                defaultYear: 2000,
+                defaultDay: hasHashParams ? null : 1,
+                defaultMonth: hasHashParams ? null : 1,
+                defaultYear: hasHashParams ? null : 2000,
                 yearRangeStart: 1900,
                 yearRangeEnd: new Date().getFullYear(),
                 lunarApiUrl: '/api/lunar-solar-convert',
                 lunarMonthDaysUrl: '/api/get-lunar-month-days',
                 monthInfoContainerId: 'monthInfoContainer',
                 csrfToken: '{{ csrf_token() }}',
-               
+
             });
 
             // ========== DATE SELECTOR POPUP FOR NGAYXEM ==========
@@ -326,6 +329,22 @@
             function restoreFromHash() {
                 const params = parseHashParams();
 
+                // Restore calendar type from hash
+                if (params.calendar_type) {
+                    const solarRadio = document.getElementById('solarCalendar');
+                    const lunarRadio = document.getElementById('lunarCalendar');
+
+                    if (params.calendar_type === 'lunar' && lunarRadio) {
+                        lunarRadio.checked = true;
+                        solarRadio.checked = false;
+                        lunarRadio.dispatchEvent(new Event('change'));
+                    } else if (params.calendar_type === 'solar' && solarRadio) {
+                        solarRadio.checked = true;
+                        lunarRadio.checked = false;
+                        solarRadio.dispatchEvent(new Event('change'));
+                    }
+                }
+
                 if (params.birthdate || params.khoang) {
                     let formRestored = false;
                     let birthdateSet = false;
@@ -345,27 +364,44 @@
 
                             // Set the selects with multiple retries to ensure they're populated
                             function trySetSelects(attempts = 0) {
-                                const maxAttempts = 10;
+                                const maxAttempts = 15;
                                 const daySelect = document.getElementById('ngaySelect');
                                 const monthSelect = document.getElementById('thangSelect');
                                 const yearSelect = document.getElementById('namSelect');
 
+                                console.log(`trySetSelects attempt ${attempts + 1}/${maxAttempts}`, {
+                                    dayOptions: daySelect?.options?.length,
+                                    monthOptions: monthSelect?.options?.length,
+                                    yearOptions: yearSelect?.options?.length
+                                });
+
                                 if (attempts >= maxAttempts) return;
 
-                                if (daySelect.options.length > 1 && monthSelect.options.length > 1 && yearSelect.options.length > 1) {
-                                    daySelect.value = day;
-                                    monthSelect.value = month;
-                                    yearSelect.value = year;
+                                if (daySelect && monthSelect && yearSelect &&
+                                    daySelect.options.length > 1 && monthSelect.options.length > 1 && yearSelect.options.length > 1) {
 
-                                    // Trigger change events to update the form
-                                    daySelect.dispatchEvent(new Event('change'));
-                                    monthSelect.dispatchEvent(new Event('change'));
+                                    console.log('Setting select values sequentially:', { year, month, day });
+
+                                    // Set year first, trigger change, wait
+                                    yearSelect.value = year;
                                     yearSelect.dispatchEvent(new Event('change'));
 
-                                    birthdateSet = true;
-                                    checkAndSubmitForm();
+                                    setTimeout(() => {
+                                        // Set month second, trigger change, wait
+                                        monthSelect.value = month;
+                                        monthSelect.dispatchEvent(new Event('change'));
+
+                                        setTimeout(() => {
+                                            // Set day last, trigger change
+                                            daySelect.value = day;
+                                            daySelect.dispatchEvent(new Event('change'));
+
+                                            birthdateSet = true;
+                                            checkAndSubmitForm();
+                                        }, 100);
+                                    }, 100);
                                 } else {
-                                    setTimeout(() => trySetSelects(attempts + 1), 200);
+                                    setTimeout(() => trySetSelects(attempts + 1), 300);
                                 }
                             }
 
@@ -528,7 +564,8 @@
                 // Set hash parameters for URL state
                 const hashParams = {
                     birthdate: formattedBirthdate,
-                    khoang: khoangNgay.value
+                    khoang: khoangNgay.value,
+                    calendar_type: calendarType
                 };
                 setHashParams(hashParams);
 

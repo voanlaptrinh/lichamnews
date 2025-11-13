@@ -345,6 +345,32 @@
             function restoreFromHash() {
                 const params = parseHashParams();
 
+                // Restore calendar type from hash FIRST
+                if (params.calendar_type) {
+                    const solarRadio = document.getElementById('solarCalendar');
+                    const lunarRadio = document.getElementById('lunarCalendar');
+
+                    if (params.calendar_type === 'lunar' && lunarRadio) {
+                        lunarRadio.checked = true;
+                        solarRadio.checked = false;
+                        lunarRadio.dispatchEvent(new Event('change'));
+                    } else if (params.calendar_type === 'solar' && solarRadio) {
+                        solarRadio.checked = true;
+                        lunarRadio.checked = false;
+                        solarRadio.dispatchEvent(new Event('change'));
+                    }
+
+                    // Wait a bit for calendar type change to take effect
+                    setTimeout(() => {
+                        restoreOtherFields(params);
+                    }, 100);
+                } else {
+                    restoreOtherFields(params);
+                }
+            }
+
+            // Function to restore other fields after calendar type is set
+            function restoreOtherFields(params) {
                 if (params.birthdate || params.khoang || params.gender || params.house_direction) {
                     let formRestored = false;
                     let birthdateSet = false;
@@ -364,27 +390,40 @@
 
                             // Set the selects with multiple retries to ensure they're populated
                             function trySetSelects(attempts = 0) {
-                                const maxAttempts = 10;
+                                const maxAttempts = 15; // Increased attempts
                                 const daySelect = document.getElementById('ngaySelect');
                                 const monthSelect = document.getElementById('thangSelect');
                                 const yearSelect = document.getElementById('namSelect');
 
-                                if (attempts >= maxAttempts) return;
+                                if (attempts >= maxAttempts) {
+                                    console.log('Max attempts reached for setting selects');
+                                    return;
+                                }
 
-                                if (daySelect.options.length > 1 && monthSelect.options.length > 1 && yearSelect.options.length > 1) {
-                                    daySelect.value = day;
-                                    monthSelect.value = month;
+                                if (daySelect && monthSelect && yearSelect &&
+                                    daySelect.options.length > 1 && monthSelect.options.length > 1 && yearSelect.options.length > 1) {
+
+                                    // First set year, then month, then day (proper order)
                                     yearSelect.value = year;
-
-                                    // Trigger change events to update the form
-                                    daySelect.dispatchEvent(new Event('change'));
-                                    monthSelect.dispatchEvent(new Event('change'));
                                     yearSelect.dispatchEvent(new Event('change'));
 
-                                    birthdateSet = true;
-                                    checkAndSubmitForm();
+                                    // Wait for year change to take effect before setting month
+                                    setTimeout(() => {
+                                        monthSelect.value = month;
+                                        monthSelect.dispatchEvent(new Event('change'));
+
+                                        // Wait for month change to take effect before setting day
+                                        setTimeout(() => {
+                                            daySelect.value = day;
+                                            daySelect.dispatchEvent(new Event('change'));
+
+                                            birthdateSet = true;
+                                            checkAndSubmitForm();
+                                        }, 100);
+                                    }, 100);
                                 } else {
-                                    setTimeout(() => trySetSelects(attempts + 1), 200);
+                                    console.log(`Attempt ${attempts + 1}: Selects not ready yet`);
+                                    setTimeout(() => trySetSelects(attempts + 1), 300); // Increased delay
                                 }
                             }
 
@@ -567,7 +606,8 @@
                     birthdate: formattedBirthdate,
                     khoang: dateRangeValue,
                     gender: genderValue,
-                    house_direction: houseDirectionValue
+                    house_direction: houseDirectionValue,
+                    calendar_type: calendarType
                 };
                 setHashParams(hashParams);
 

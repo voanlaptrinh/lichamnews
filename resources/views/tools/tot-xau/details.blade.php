@@ -445,10 +445,11 @@
 @push('scripts')
 <script>
 function goBackToForm() {
-    // Get current URL parameters to extract birthdate and date range info
+    // Get current URL parameters to extract birthdate, date range and calendar type info
     const urlParams = new URLSearchParams(window.location.search);
     const birthdate = urlParams.get('birthdate');
     const dateRange = urlParams.get('date_range');
+    const calendarType = urlParams.get('calendar_type');
 
     // Build the target URL with hash parameters
     let targetUrl = '{{ route("totxau.form") }}';
@@ -467,6 +468,11 @@ function goBackToForm() {
     // Add date range to hash if available
     if (dateRange) {
         hashParams.push(`khoang=${encodeURIComponent(dateRange)}`);
+    }
+
+    // Add calendar type to hash if available
+    if (calendarType) {
+        hashParams.push(`calendar_type=${encodeURIComponent(calendarType)}`);
     }
 
     // Build final URL with hash
