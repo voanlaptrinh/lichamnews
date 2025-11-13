@@ -80,14 +80,14 @@
                             </p>
                             <ul>
 
-                                <li>{{ $yearData['year_analysis']['details']['kimLau']['is_bad'] ? $yearData['year_analysis']['details']['kimLau']['message'] : 'Không phạm Kim Lâu' }}
+                                <li>{{ $yearData['year_analysis']['details']['kimLau']['is_bad'] ? 'Phạm Kim Lâu' : 'Không phạm Kim Lâu' }}
                                 </li>
-                                <li> {{ $yearData['year_analysis']['details']['hoangOc']['is_bad'] ? $yearData['year_analysis']['details']['hoangOc']['message'] : 'Không phạm Hoang Ốc' }}
+                                <li> {{ $yearData['year_analysis']['details']['hoangOc']['is_bad'] ? 'Phạm Hoang Ốc' : 'Không phạm Hoang Ốc' }}
                                 </li>
-                                <li>{{ $yearData['year_analysis']['details']['tamTai']['is_bad'] ? $yearData['year_analysis']['details']['tamTai']['message'] : 'Không phạm Tam Tai' }}
+                                <li>{{ $yearData['year_analysis']['details']['tamTai']['is_bad'] ? 'Phạm Tam Tai' : 'Không phạm Tam Tai' }}
                                 </li>
 
-                              
+
                             </ul>
                             <p>{!! $yearData['year_analysis']['description'] !!}</p>
                         </div>
@@ -114,8 +114,8 @@
 
                         @if (isset($yearData['days']) && count($yearData['days']) > 0)
                             <div class="table-responsive w-100" id="bang-chi-tiet">
-                                <table class="table table-hover align-middle w-100" id="table-{{ $year }}"
-                                    style="table-layout: fixed; width: 100%;">
+                                <table class="table table-hover align-middle w-100 table-layout"
+                                    id="table-{{ $year }}" style=" width: 100%;">
                                     <thead class="text-center" style="background-color: #e8ebee;">
                                         <tr>
                                             <th style="border-radius: 8px 0 0 8px">Ngày</th>
@@ -125,6 +125,27 @@
                                     </thead>
                                     <tbody class="text-center">
                                         @foreach ($yearData['days'] as $day)
+                                            @php
+                                                $score = $day['day_score']['percentage'] ?? 0;
+                                                $bgColor = '#D1FAE5'; // Green
+                                                $score = round($score);
+                                                if ($score <= 30) {
+                                                    $bgColor = '#FEE2E2'; // Red
+                                                    $border = '#DC2626';
+                                                    $text_box = '#DC2626';
+                                                } elseif ($score <= 50) {
+                                                    $bgColor = '#FFE3D5'; // Yellow
+                                                    $border = '#FC6803';
+                                                    $text_box = '#FC6803';
+                                                } elseif ($score <= 70) {
+                                                    $bgColor = '#FEF3C7'; // Orange
+                                                    $border = '#F59E0B';
+                                                    $text_box = '#F59E0B';
+                                                } else {
+                                                    $border = '#10B981';
+                                                    $text_box = '#10B981';
+                                                }
+                                            @endphp
                                             <tr>
                                                 <td style="text-align: start">
                                                     <a
@@ -233,30 +254,14 @@
                                                             tố hỗ trợ
                                                         </span>
                                                     @endif
-
+                                                    <!-- Score hiển thị tròn cho mobile -->
+                                                    <div class="score-circle-mobile"
+                                                        style="background-color: white; border: 1px solid #2254AB">
+                                                        {{ round($score) }}%
+                                                    </div>
                                                 </td>
-                                                <td class="text-center">
-                                                    @php
-                                                        $score = $day['day_score']['percentage'] ?? 0;
-                                                        $bgColor = '#D1FAE5'; // Green
-                                                        $score = round($score);
-                                                        if ($score <= 30) {
-                                                            $bgColor = '#FEE2E2'; // Red
-                                                            $border = '#DC2626';
-                                                            $text_box = '#DC2626';
-                                                        } elseif ($score <= 50) {
-                                                            $bgColor = '#FFE3D5'; // Yellow
-                                                            $border = '#FC6803';
-                                                            $text_box = '#FC6803';
-                                                        } elseif ($score <= 70) {
-                                                            $bgColor = '#FEF3C7'; // Orange
-                                                            $border = '#F59E0B';
-                                                            $text_box = '#F59E0B';
-                                                        } else {
-                                                            $border = '#10B981';
-                                                            $text_box = '#10B981';
-                                                        }
-                                                    @endphp
+                                                <td class="text-center score-battery-pc">
+
                                                     <div class=" d-flex justify-content-center align-items-center">
 
 

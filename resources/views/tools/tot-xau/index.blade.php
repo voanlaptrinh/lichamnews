@@ -222,7 +222,6 @@
             function initDateRangePicker() {
                 // Stop after max attempts to prevent infinite loop
                 if (dateRangeInitAttempts >= maxDateRangeAttempts) {
-                    console.warn('VanillaDateRangePicker could not be loaded after ' + maxDateRangeAttempts + ' attempts');
                     // Allow manual input as fallback
                     if (khoangNgayInput) {
                         khoangNgayInput.removeAttribute('readonly');
@@ -562,7 +561,6 @@
                             // Scroll to results with delay to ensure content is rendered
                             setTimeout(() => {
                                 // Normal form submission - scroll to general results
-                                console.log('Scrolling to .--detail-success for normal submit');
                                 resultContainer.scrollIntoView({
                                     behavior: 'smooth',
                                     block: 'start'
@@ -665,7 +663,7 @@
                
             });
 
-            // Note: All calendar switching and initialization is now handled by the DatePicker.CalendarSwitcher module
+           
         });
     </script>
 @endpush

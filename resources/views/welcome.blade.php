@@ -218,8 +218,6 @@
     <script src="{{ asset('/js/bootstrap.bundle.min.js?v=5.7') }}" defer></script>
     @stack('scripts')
 
-    {{-- Vanilla Date Range Picker JS - Auto-initialize for all .wedding_date_range inputs --}}
-    {{-- <script src="{{ asset('/js/vanilla-daterangepicker.js?v=6.4') }}" defer></script> --}}
 
     <!-- IMMEDIATE LCP optimization -->
     <script>

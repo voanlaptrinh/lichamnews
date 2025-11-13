@@ -116,6 +116,7 @@ class XuatHanhController extends Controller
                 'date' => $date->copy(),
                 'weekday_name' => $date->isoFormat('dddd'),
                 'full_lunar_date_str' => $fullLunarDateStr,
+                 'al_name' => $lunarParts,
                 'good_hours' => $goodHours,
                 'day_score' => $dayScoreDetails, // Toàn bộ object điểm số và chi tiết
             ];
@@ -204,7 +205,7 @@ class XuatHanhController extends Controller
             $birthdate->year
         );
 
-        $canChiNam = KhiVanHelper::canchiNam($birthdate->year);
+        $canChiNam = KhiVanHelper::canchiNam((int)$lunarDate[2]);
 
         $menh = '';
         if (isset(DataHelper::$napAmTable[$canChiNam])) {

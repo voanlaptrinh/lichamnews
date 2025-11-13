@@ -43,9 +43,11 @@
                                     {{ $birthdateInfo['lunar_date'] ?? '' }} âm lịch
                                 </p>
                                 <p class="mb-2">
+
                                     <strong>Tuổi:</strong>
                                     {{ $birthdateInfo['can_chi'] ?? '' }}, mệnh:
-                                    {{ $birthdateInfo['hanh'] ?? '' }} ({{ $birthdateInfo['menh'] ?? '' }})
+                                    {{ $birthdateInfo['menh']['hanh'] ?? '' }}
+                                    ({{ $birthdateInfo['menh']['napAm'] ?? '' }})
                                 </p>
                                 <p class="mb-2">
                                     <strong>Tuổi âm:</strong>
@@ -70,7 +72,7 @@
                                     height="28" class="me-1"> Danh Sách Điểm
                                 Theo Ngày
                             </div>
-                            <select name="sort" class=" form-select-sm sort-select" style="width: auto;"
+                            <select name="sort" class="mt-2 form-select-sm sort-select" style="width: auto;"
                                 form="totXauForm">
                                 <option value="desc" {{ ($sortOrder ?? 'desc') === 'desc' ? 'selected' : '' }}>Điểm
                                     giảm dần</option>
@@ -81,8 +83,8 @@
 
                         @if (isset($yearData['days']) && count($yearData['days']) > 0)
                             <div class="table-responsive w-100" id="bang-chi-tiet">
-                                <table class="table table-hover align-middle w-100" id="table-{{ $year }}"
-                                    style="table-layout: fixed; width: 100%;">
+                                <table class="table table-hover align-middle w-100 table-layout" id="table-{{ $year }}"
+                                    style=" width: 100%;">
                                     <thead class="text-center" style="background-color: #e8ebee;">
                                         <tr>
                                             <th style="border-radius: 8px 0 0 8px">Ngày</th>
@@ -90,9 +92,33 @@
                                             <th style=" border-radius: 0 8px 8px 0" class="score-header">Điểm</th>
                                         </tr>
                                     </thead>
-                                    <tbody class="text-center">
-                                        @foreach ($yearData['days'] as $day)
-                                            <tr>
+                                    <tbody class="text-center table-body-{{ $year }}">
+                                        @foreach ($yearData['days'] as $index => $day)
+                                            @php
+                                                $score =
+                                                    $day['day_score']['score']['percentage'] ??
+                                                    ($day['day_score']['percentage'] ?? 0);
+                                                $bgColor = '#D1FAE5'; // Green
+                                                $score = round($score);
+                                                if ($score <= 30) {
+                                                    $bgColor = '#FEE2E2'; // Red
+                                                    $border = '#DC2626';
+                                                    $text_box = '#DC2626';
+                                                } elseif ($score <= 50) {
+                                                    $bgColor = '#FFE3D5'; // Yellow
+                                                    $border = '#FC6803';
+                                                    $text_box = '#FC6803';
+                                                } elseif ($score <= 70) {
+                                                    $bgColor = '#FEF3C7'; // Orange
+                                                    $border = '#F59E0B';
+                                                    $text_box = '#F59E0B';
+                                                } else {
+                                                    $border = '#10B981';
+                                                    $text_box = '#10B981';
+                                                }
+                                            @endphp
+                                            <tr class="table-row-{{ $year }}"
+                                                data-index="{{ $index }}">
                                                 <td style="text-align: start">
                                                     <a
                                                         href="{{ route('totxau.dayDetails', ['date' => $day['date']->format('Y-m-d'), 'birthdate' => $formattedBirthdate, 'date_range' => $inputs['date_range'] ?? '']) }}">
@@ -183,44 +209,26 @@
                                                         <ul class="list-unstyled mb-0">
                                                             @foreach ($supportFactors as $factor)
                                                                 <li class="d-flex align-items-center mb-1">
-
-
                                                                     <span class="small">{{ $factor }}</span>
                                                                 </li>
                                                             @endforeach
                                                         </ul>
                                                     @else
-                                                        <span class="text-warning small" style="color: #2254AB !important">
+                                                        <span class="text-warning small"
+                                                            style="color: #2254AB !important">
                                                             <i class="bi bi-exclamation-triangle-fill"></i> Không có yếu
                                                             tố hỗ trợ
                                                         </span>
                                                     @endif
-
+                                                  
+                                                    <!-- Score hiển thị tròn cho mobile -->
+                                                    <div class="score-circle-mobile"
+                                                         style="background-color: white; border: 1px solid #2254AB">
+                                                        {{ round($score) }}%
+                                                    </div>
                                                 </td>
-                                                <td class="text-center">
-                                                    @php
-                                                        $score =
-                                                            $day['day_score']['score']['percentage'] ??
-                                                            ($day['day_score']['percentage'] ?? 0);
-                                                        $bgColor = '#D1FAE5'; // Green
-                                                        $score =  round($score);
-                                                        if ($score <= 30) {
-                                                            $bgColor = '#FEE2E2'; // Red
-                                                            $border = '#DC2626';
-                                                            $text_box = '#DC2626';
-                                                        } elseif ($score <= 50) {
-                                                            $bgColor = '#FFE3D5'; // Yellow
-                                                            $border = '#FC6803';
-                                                            $text_box = '#FC6803';
-                                                        } elseif ($score <= 70) {
-                                                            $bgColor = '#FEF3C7'; // Orange
-                                                            $border = '#F59E0B';
-                                                            $text_box = '#F59E0B';
-                                                        } else {
-                                                            $border = '#10B981';
-                                                            $text_box = '#10B981';
-                                                        }
-                                                    @endphp
+                                                <td class="text-center score-battery-pc">
+
                                                     <div class=" d-flex justify-content-center align-items-center">
                                                         <div class="battery">
                                                             <div class="battery-body"
@@ -253,3 +261,4 @@
         @endforeach
     </div>
 </div>
+

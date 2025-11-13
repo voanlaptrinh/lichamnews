@@ -30,6 +30,13 @@ class VanillaDateRangePicker {
         this.isMobile = true; // Always use mobile-style interface
         this.datePickerMode = 'range'; // 'single' or 'range'
 
+        // Thêm biến để ngăn popup hiển thị khi vuốt
+        this.touchStartTime = 0;
+        this.touchStartX = 0;
+        this.touchStartY = 0;
+        this.isScrolling = false;
+        this.scrollResetTimeout = null;
+
         this.monthNames = [
             'Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4',
             'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8',
@@ -336,8 +343,15 @@ class VanillaDateRangePicker {
     }
 
     attachEventListeners() {
-        // Click vào input để mở picker
+        // Click vào input để mở picker (chỉ cho desktop)
         this.input.addEventListener('click', (e) => {
+            // Nếu là mobile, kiểm tra xem có phải từ touch event không
+            if (this.isMobileDevice() && this.isScrolling) {
+                e.preventDefault();
+                e.stopPropagation();
+                return;
+            }
+
             e.preventDefault();
             e.stopPropagation();
             this.input.blur(); // Ngay lập tức blur để tránh keyboard
@@ -350,18 +364,62 @@ class VanillaDateRangePicker {
             e.preventDefault();
             e.stopPropagation();
             this.input.blur(); // Ngay lập tức blur để tránh keyboard
-            setTimeout(() => {
-                this.show();
-            }, 10);
+
+            // Chỉ hiển thị popup nếu không phải mobile hoặc không đang scroll
+            if (!this.isMobileDevice() || !this.isScrolling) {
+                setTimeout(() => {
+                    this.show();
+                }, 10);
+            }
         });
 
-        // Ngăn touchstart trên mobile
+        // Ngăn touchstart trên mobile nhưng phân biệt tap vs scroll
         this.input.addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            this.input.blur();
-            setTimeout(() => {
-                this.show();
-            }, 10);
+            this.touchStartTime = Date.now();
+            const touch = e.touches[0];
+            this.touchStartX = touch.clientX;
+            this.touchStartY = touch.clientY;
+            this.isScrolling = false;
+
+            // Clear timeout cũ nếu có
+            if (this.scrollResetTimeout) {
+                clearTimeout(this.scrollResetTimeout);
+                this.scrollResetTimeout = null;
+            }
+        }, { passive: true });
+
+        this.input.addEventListener('touchmove', (e) => {
+            const touch = e.touches[0];
+            const deltaX = Math.abs(touch.clientX - this.touchStartX);
+            const deltaY = Math.abs(touch.clientY - this.touchStartY);
+
+            // Nếu có chuyển động > 10px thì coi như đang scroll
+            if (deltaX > 10 || deltaY > 10) {
+                this.isScrolling = true;
+
+                // Reset trạng thái scroll sau 300ms để input có thể hoạt động lại
+                clearTimeout(this.scrollResetTimeout);
+                this.scrollResetTimeout = setTimeout(() => {
+                    this.isScrolling = false;
+                }, 300);
+            }
+        }, { passive: true });
+
+        this.input.addEventListener('touchend', (e) => {
+            const touchDuration = Date.now() - this.touchStartTime;
+
+            // Chỉ hiển thị popup nếu:
+            // 1. Không phải scroll (isScrolling = false)
+            // 2. Touch duration < 300ms (tap nhanh)
+            if (!this.isScrolling && touchDuration < 300) {
+                // Chỉ preventDefault khi thực sự cần hiển thị popup
+                e.preventDefault();
+                this.input.blur();
+                setTimeout(() => {
+                    this.show();
+                }, 10);
+            }
+            // Nếu đang scroll, không preventDefault để tránh warning
         });
 
         // Ngăn mousedown
@@ -406,7 +464,11 @@ class VanillaDateRangePicker {
     }
 
     show() {
-
+        // Ngăn hiển thị popup nếu đang trong trạng thái scroll/vuốt
+        if (this.isMobileDevice() && this.isScrolling) {
+          
+            return;
+        }
 
         // Clean up any existing popups first
         this.cleanupMobilePopups();
@@ -416,7 +478,11 @@ class VanillaDateRangePicker {
         const isMobilePhone = this.isMobileDevice();
 
         if (isMobilePhone) {
-
+            // Double check - ngăn popup nếu đang scroll
+            if (this.isScrolling) {
+               
+                return;
+            }
             this.showMobileDateRangePopup();
             return;
         }
@@ -442,15 +508,15 @@ class VanillaDateRangePicker {
         const scrollbarWidth = this.getScrollbarWidth();
 
         // Thêm class cho html và body
-        document.documentElement.classList.add('daterangepicker-open');
-        document.body.classList.add('daterangepicker-open');
+        document.documentElement.classList.add('menu-open');
+        document.body.classList.add('menu-open');
 
         // Set position fixed và top để giữ vị trí scroll
-        document.body.style.position = 'fixed';
-        document.body.style.top = `-${this.scrollPosition}px`;
-        document.body.style.left = '0';
-        document.body.style.right = '0';
-        document.body.style.overflow = 'hidden';
+        // document.body.style.position = 'fixed';
+        // document.body.style.top = `-${this.scrollPosition}px`;
+        // document.body.style.left = '0';
+        // document.body.style.right = '0';
+        // document.body.style.overflow = 'hidden';
 
         // Thêm padding để tránh layout shift khi scrollbar biến mất
         if (scrollbarWidth > 0) {
@@ -477,16 +543,16 @@ class VanillaDateRangePicker {
         this.datePickerMode = 'range';
 
         // Mở khóa scroll body khi đóng popup
-        document.documentElement.classList.remove('daterangepicker-open');
-        document.body.classList.remove('daterangepicker-open');
+        document.documentElement.classList.remove('menu-open');
+        document.body.classList.remove('menu-open');
 
         // Reset styles
-        document.body.style.position = '';
-        document.body.style.top = '';
-        document.body.style.left = '';
-        document.body.style.right = '';
-        document.body.style.overflow = '';
-        document.body.style.paddingRight = '';
+        // document.body.style.position = '';
+        // document.body.style.top = '';
+        // document.body.style.left = '';
+        // document.body.style.right = '';
+        // document.body.style.overflow = '';
+        // document.body.style.paddingRight = '';
 
         // Restore vị trí scroll
         window.scrollTo(0, this.scrollPosition);
@@ -711,7 +777,7 @@ class VanillaDateRangePicker {
             this.startDate.setHours(0, 0, 0, 0);
             this.endDate = new Date(this.startDate); // Same as start date for single mode
             this.isSelecting = false;
-            console.log('✅ Chọn ngày đơn:', this.formatDate(this.startDate));
+         
 
             // Auto apply for single date
             setTimeout(() => this.apply(), 100);
@@ -1067,11 +1133,11 @@ class VanillaDateRangePicker {
     }
 
     showMobileDateRangePopup() {
-        console.log('📱 Showing mobile date range popup');
+       
 
         // Double check - chỉ cho phép mobile phone thực sự
         if (window.innerWidth >= 768) {
-            console.log('🚫 Blocked mobile popup on tablet/desktop - Width:', window.innerWidth);
+       
             return;
         }
 
@@ -1158,7 +1224,7 @@ class VanillaDateRangePicker {
         mobileOverlay.appendChild(mobilePopup);
         document.body.appendChild(mobileOverlay);
 
-        console.log('📱 Mobile popup with quick options added to DOM');
+      
 
         // Khóa scroll
         this.lockBodyScroll();
@@ -1167,12 +1233,12 @@ class VanillaDateRangePicker {
         setTimeout(() => {
             mobileOverlay.classList.add('show');
             mobilePopup.classList.add('show');
-            console.log('✅ Mobile popup show classes added');
+        
         }, 10);
 
         // Event listeners
         cancelBtn.addEventListener('click', () => {
-            console.log('❌ Cancel button clicked');
+          
             this.closeMobilePopup(mobileOverlay);
         });
 
@@ -1190,7 +1256,7 @@ class VanillaDateRangePicker {
 
             if (optionBtn.dataset.custom === 'true') {
                 // Tùy chọn - hiển thị popup chọn khoảng ngày
-                console.log('🎛️ Custom option selected - showing date range picker');
+              
                 this.closeMobilePopup(mobileOverlay);
 
                 setTimeout(() => {
@@ -1205,7 +1271,7 @@ class VanillaDateRangePicker {
                     label: optionBtn.querySelector('.option-title').textContent
                 };
 
-                console.log('⚡ Quick option applied:', option.label);
+             
                 this.applyShortcut(option);
                 this.closeMobilePopup(mobileOverlay);
 
@@ -1217,10 +1283,7 @@ class VanillaDateRangePicker {
     }
 
     closeMobilePopup(overlay) {
-        console.log('🔄 Closing mobile popup');
-
         const popup = overlay.querySelector('.mobile-date-range-popup');
-
         // Remove show classes for animation
         overlay.classList.remove('show');
         if (popup) {
@@ -1231,7 +1294,6 @@ class VanillaDateRangePicker {
 
         setTimeout(() => {
             overlay.remove();
-            console.log('🗑️ Mobile popup removed');
         }, 300);
     }
 
@@ -1270,17 +1332,8 @@ class VanillaDateRangePicker {
         const scrollbarWidth = this.getScrollbarWidth();
 
         // Thêm class cho html và body
-        document.documentElement.classList.add('daterangepicker-open');
-        document.body.classList.add('daterangepicker-open');
-
-        // Set position fixed và top để giữ vị trí scroll
-        document.body.style.position = 'fixed';
-        document.body.style.top = `-${this.scrollPosition}px`;
-        document.body.style.left = '0';
-        document.body.style.right = '0';
-        document.body.style.overflow = 'hidden';
-
-        // Thêm padding để tránh layout shift khi scrollbar biến mất
+        document.documentElement.classList.add('menu-open');
+        document.body.classList.add('menu-open');
         if (scrollbarWidth > 0) {
             document.body.style.paddingRight = scrollbarWidth + 'px';
         }
@@ -1377,13 +1430,9 @@ class VanillaDateRangePicker {
         this.scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
         const scrollbarWidth = this.getScrollbarWidth();
 
-        document.documentElement.classList.add('daterangepicker-open');
-        document.body.classList.add('daterangepicker-open');
-        document.body.style.position = 'fixed';
-        document.body.style.top = `-${this.scrollPosition}px`;
-        document.body.style.left = '0';
-        document.body.style.right = '0';
-        document.body.style.overflow = 'hidden';
+        document.documentElement.classList.add('menu-open');
+        document.body.classList.add('menu-open');
+      
 
         if (scrollbarWidth > 0) {
             document.body.style.paddingRight = scrollbarWidth + 'px';
@@ -1391,15 +1440,8 @@ class VanillaDateRangePicker {
     }
 
     unlockBodyScroll() {
-        document.documentElement.classList.remove('daterangepicker-open');
-        document.body.classList.remove('daterangepicker-open');
-        document.body.style.position = '';
-        document.body.style.top = '';
-        document.body.style.left = '';
-        document.body.style.right = '';
-        document.body.style.overflow = '';
-        document.body.style.paddingRight = '';
-
+        document.documentElement.classList.remove('menu-open');
+        document.body.classList.remove('menu-open');
         window.scrollTo(0, this.scrollPosition);
     }
 
@@ -1413,6 +1455,11 @@ class VanillaDateRangePicker {
     }
 
     destroy() {
+        // Clear timeout nếu có
+        if (this.scrollResetTimeout) {
+            clearTimeout(this.scrollResetTimeout);
+        }
+
         if (this.container) {
             this.container.remove();
         }

@@ -337,9 +337,17 @@ html.daterangepicker-open {
         display: flex;
         justify-content: space-between;
     }
+
     .box-title-goback {
         display: flex;
         justify-content: space-between;
+    }
+
+    .score-battery-mb {
+        display: none;
+    }
+    .table-layout{
+        table-layout: fixed;
     }
 }
 
@@ -347,6 +355,12 @@ html.daterangepicker-open {
 @media screen and (min-width:1400px) {
     .daterangepicker-container {
         max-width: 500px;
+    }
+.table-layout{
+        table-layout: fixed;
+    }
+    .score-battery-mb {
+        display: none;
     }
 
     .box--house-tot {
@@ -382,6 +396,7 @@ html.daterangepicker-open {
         display: flex;
         justify-content: space-between;
     }
+
     .box-title-goback {
         display: flex;
         justify-content: space-between;
@@ -394,10 +409,18 @@ html.daterangepicker-open {
         /* min-width: 450px; */
         max-width: 500px;
     }
-.box-title-goback {
+.table-layout{
+        table-layout: fixed;
+    }
+    .score-battery-mb {
+        display: none;
+    }
+
+    .box-title-goback {
         display: flex;
         justify-content: space-between;
     }
+
     .box--house-tot {
         display: flex;
         gap: 3px;
@@ -435,10 +458,18 @@ html.daterangepicker-open {
         /* min-width: 500px; */
         max-width: 550px;
     }
-.box-title-goback {
+.table-layout{
+        table-layout: fixed;
+    }
+    .score-battery-mb {
+        display: none;
+    }
+
+    .box-title-goback {
         display: flex;
         justify-content: space-between;
     }
+
     .box--house-tot {
         display: flex;
         gap: 3px;
@@ -485,10 +516,16 @@ html.daterangepicker-open {
         max-width: 700px;
         padding: 18px;
     }
-.box-title-goback {
+
+    .score-battery-mb {
+        display: none;
+    }
+
+    .box-title-goback {
         display: flex;
         justify-content: space-between;
     }
+
     .form--submit-totxau {
         padding: 24px 40px;
     }
@@ -503,24 +540,27 @@ html.daterangepicker-open {
         display: flex !important;
         justify-content: center;
     }
-  .daterangepicker-shortcuts{
-      border-bottom: 1px solid;
-      border-right: unset;
-  }
-    .daterangepicker-shortcuts ul{
-      display: flex;
-      gap: 10px;
-      justify-content: center;
-      align-items: center;
+
+    .daterangepicker-shortcuts {
+        border-bottom: 1px solid;
+        border-right: unset;
+    }
+
+    .daterangepicker-shortcuts ul {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        align-items: center;
     }
 
     .box--house-tot {
         display: grid;
         gap: 3px;
     }
-.daterangepicker-shortcuts li{
-    border: 1px solid;
-}
+
+    .daterangepicker-shortcuts li {
+        border: 1px solid;
+    }
 
     .daterangepicker-calendar {
         width: 100%;
@@ -563,7 +603,7 @@ html.daterangepicker-open {
 }
 
 /* Large Phone - 480px to 767.98px */
-@media screen and (min-width:480px) and (max-width:767.98px) {
+@media screen and (min-width: 480px) and (max-width: 767.98px) {
     .daterangepicker-container {
         position: fixed !important;
         flex-direction: column;
@@ -574,10 +614,21 @@ html.daterangepicker-open {
         /* max-height: 90vh; */
         overflow: hidden;
     }
-.box-title-goback {
+ .score-header{
+        display: none;
+    }
+    .score-battery-pc{
+        display: none;
+    }
+    .score-battery-mb {
+        display: flex;
+    }
+
+    .box-title-goback {
         display: flex;
         justify-content: space-between;
     }
+
     .form--submit-totxau {
         padding: 24px 40px;
     }
@@ -666,6 +717,7 @@ html.daterangepicker-open {
     .betwen-ds {
         display: flex;
         justify-content: space-between;
+        gap: 10px;
     }
 }
 
@@ -673,7 +725,12 @@ html.daterangepicker-open {
     .form--submit-totxau {
         padding: 14px 20px;
     }
-
+    .score-header{
+        display: none;
+    }
+    .score-battery-pc{
+        display: none;
+    }
     .box-dtl-pc {
         display: none;
     }
@@ -687,12 +744,13 @@ html.daterangepicker-open {
     }
 
     .battery-body {
-        width: 73px;
+        width: 120px;
     }
 
     .betwen-ds {
         display: flex;
         justify-content: center;
+        gap: 5px;
     }
 }
 
@@ -2029,6 +2087,7 @@ th {
 
 /* Hide mobile popup overlay from tablet up (768px+) */
 @media (min-width: 768px) {
+
     .mobile-date-range-overlay,
     .mobile-quick-options-overlay,
     .mobile-date-range-popup {
@@ -2245,6 +2304,7 @@ th {
 
 /* Responsive adjustments */
 @media (max-width: 480px) {
+
     .mobile-date-range-popup,
     .mobile-quick-options-popup {
         padding: 20px 15px 30px;
@@ -2272,18 +2332,28 @@ th {
     .quick-icon {
         font-size: 18px;
     }
+
+    .score-battery-mb {
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        height: 100%;
+    }
 }
-.table-detail  tbody td{
+
+.table-detail tbody td {
     border: 1px solid #000000 !important;
     background: white !important;
     border-color: #EDF0F3;
     vertical-align: top;
 }
-.table-detail{
-    border-collapse:collapse;
+
+.table-detail {
+    border-collapse: collapse;
 }
-#backToListBtn{
-        background-color: #fff;
+
+#backToListBtn {
+    background-color: #fff;
     color: #192E52;
     border: 0.5px solid #2254AB;
     border-radius: 12px;
@@ -2292,6 +2362,7 @@ th {
     color: #192E52;
     font-weight: 600;
 }
+
 .btn-light-settup:hover {
     background-color: rgba(34, 84, 171, 1);
     color: rgba(255, 255, 255, 1);
@@ -2330,4 +2401,163 @@ th {
 .wedding_date_range:focus {
     outline: none !important;
     box-shadow: none !important;
+}
+
+/* ========================================
+   MOBILE SCORE CIRCLE & TABLE PAGINATION
+   ======================================== */
+
+/* Mobile Score Circle Styles */
+.score-circle-mobile {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translate(-50%, -50%); /* canh giữa hoàn hảo */
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex; /* bật flex để căn chữ giữa */
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: bold;
+    color: #000 !important;
+    z-index: 2;
+}
+
+/* Wedding - Dual Score Circles for Groom & Bride */
+.score-circles-wedding {
+    position: absolute;
+    top: 0;
+    right: 8px;
+    top: 50%;
+    right: 0;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    z-index: 2;
+}
+
+.score-circle-groom,
+.score-circle-bride {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    font-weight: bold;
+    color: #000 !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    border: 2px solid;
+}
+
+.score-circle-groom {
+    background-color: #E3F2FD; /* Light blue for groom */
+    border-color: #2196F3;
+}
+
+.score-circle-bride {
+    background-color: #FCE4EC; /* Light pink for bride */
+    border-color: #E91E63;
+}
+
+
+/* Table Pagination - Load More Button */
+.load-more-btn {
+    transition: all 0.3s ease;
+}
+
+.load-more-btn:hover {
+    background-color: #007bff !important;
+    color: white !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+}
+
+
+
+/* Animation cho việc hiển thị từng dòng */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* Responsive behavior for Score Circle */
+@media (min-width: 768px) {
+    /* Desktop - ẩn circle, hiện battery PC */
+    .score-circle-mobile {
+        display: none !important;
+    }
+    .score-battery-pc {
+        display: table-cell !important;
+    }
+    .score-battery-mb {
+        display: none !important;
+    }
+}
+
+@media (max-width: 767px) {
+    /* Mobile - hiện circle, ẩn battery PC */
+    .score-circle-mobile {
+        display: flex !important;
+    }
+    .score-battery-pc {
+        display: none !important;
+    }
+    .score-battery-mb {
+        display: none !important;
+    }
+
+    /* Đảm bảo td có position relative để circle có thể absolute */
+    .table-responsive td {
+        position: relative;
+    }
+
+    /* Tăng padding-right cho td chứa yếu tố hỗ trợ để tránh circle che text */
+    .table-responsive td:nth-child(2) {
+        padding-right: 45px !important;
+    }
+.table-responsive th:nth-child(2){
+      border-radius: 0 8px 8px 0;
+
+}
+    /* Ẩn cột điểm trên mobile vì đã có circle */
+    .table-responsive th:nth-child(3),
+    .table-responsive td:nth-child(3) {
+        display: none !important;
+    }
+}
+
+/* ========================================
+   WEDDING - DUAL SCORE CIRCLES
+   ======================================== */
+
+/* Mobile responsive for wedding dual circles */
+@media (max-width: 767px) {
+    /* Wedding specific - hiện dual circles cho wedding page */
+    .score-circles-wedding {
+        display: flex !important;
+    }
+
+    /* Tăng padding để chứa 2 circles wedding */
+    .table-responsive td:nth-child(2):has(.score-circles-wedding) {
+        padding-right: 45px !important;
+    }
+}
+
+@media (min-width: 768px) {
+    /* Desktop - ẩn wedding circles */
+    .score-circles-wedding {
+        display: none !important;
+    }
 }

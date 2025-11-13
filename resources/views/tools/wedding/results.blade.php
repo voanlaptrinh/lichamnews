@@ -133,8 +133,8 @@
 
                         @if (isset($yearData['days']) && count($yearData['days']) > 0)
                             <div class="table-responsive w-100" id="bang-chi-tiet">
-                                <table class="table table-hover align-middle w-100" id="table-{{ $year }}"
-                                    style="table-layout: fixed; width: 100%;">
+                                <table class="table table-hover align-middle w-100 table-layout" id="table-{{ $year }}"
+                                    style=" width: 100%;">
                                     <thead class="text-center" style="background-color: #e8ebee;">
                                         <tr>
                                             <th style="border-radius: 8px 0 0 8px">Ngày</th>
@@ -144,6 +144,66 @@
                                     </thead>
                                     <tbody class="text-center">
                                         @foreach ($yearData['days'] as $day)
+                                         @php
+                                                        $groomScore = $day['groom_score']['percentage'] ?? 0;
+                                                        $brideScore = $day['bride_score']['percentage'] ?? 0;
+                                                        $groomScore = round($groomScore);
+                                                        $brideScore = round($brideScore);
+
+                                                        // Xác định màu cho chú rể
+                                                        if ($groomScore <= 30) {
+                                                            $groomColor = [
+                                                                'bg' => '#FEE2E2',
+                                                                'border' => '#DC2626',
+                                                                'text' => '#DC2626',
+                                                            ];
+                                                        } elseif ($groomScore <= 50) {
+                                                            $groomColor = [
+                                                                'bg' => '#FFE3D5',
+                                                                'border' => '#FC6803',
+                                                                'text' => '#FC6803',
+                                                            ];
+                                                        } elseif ($groomScore <= 70) {
+                                                            $groomColor = [
+                                                                'bg' => '#FEF3C7',
+                                                                'border' => '#F59E0B',
+                                                                'text' => '#F59E0B',
+                                                            ];
+                                                        } else {
+                                                            $groomColor = [
+                                                                'bg' => '#D1FAE5',
+                                                                'border' => '#10B981',
+                                                                'text' => '#10B981',
+                                                            ];
+                                                        }
+
+                                                        // Xác định màu cho cô dâu
+                                                        if ($brideScore <= 30) {
+                                                            $brideColor = [
+                                                                'bg' => '#FEE2E2',
+                                                                'border' => '#DC2626',
+                                                                'text' => '#DC2626',
+                                                            ];
+                                                        } elseif ($brideScore <= 50) {
+                                                            $brideColor = [
+                                                                'bg' => '#FFE3D5',
+                                                                'border' => '#FC6803',
+                                                                'text' => '#FC6803',
+                                                            ];
+                                                        } elseif ($brideScore <= 70) {
+                                                            $brideColor = [
+                                                                'bg' => '#FEF3C7',
+                                                                'border' => '#F59E0B',
+                                                                'text' => '#F59E0B',
+                                                            ];
+                                                        } else {
+                                                            $brideColor = [
+                                                                'bg' => '#D1FAE5',
+                                                                'border' => '#10B981',
+                                                                'text' => '#10B981',
+                                                            ];
+                                                        }
+                                                    @endphp
                                             <tr>
                                                 <td>
                                                     <a
@@ -298,68 +358,19 @@
                                                             tố hỗ trợ
                                                         </span>
                                                     @endif
+                                                    
+                                                    <!-- Wedding - Dual Score Circles cho mobile -->
+                                                    <div class="score-circles-wedding">
+                                                        <div class="score-circle-groom">
+                                                            {{ round($day['groom_score']['percentage']) }}%
+                                                        </div>
+                                                        <div class="score-circle-bride">
+                                                            {{ round($day['bride_score']['percentage']) }}%
+                                                        </div>
+                                                    </div>
                                                 </td>
-                                                <td class="text-center">
-                                                    @php
-                                                        $groomScore = $day['groom_score']['percentage'] ?? 0;
-                                                        $brideScore = $day['bride_score']['percentage'] ?? 0;
-                                                        $groomScore = round($groomScore);
-                                                        $brideScore = round($brideScore);
-
-                                                        // Xác định màu cho chú rể
-                                                        if ($groomScore <= 30) {
-                                                            $groomColor = [
-                                                                'bg' => '#FEE2E2',
-                                                                'border' => '#DC2626',
-                                                                'text' => '#DC2626',
-                                                            ];
-                                                        } elseif ($groomScore <= 50) {
-                                                            $groomColor = [
-                                                                'bg' => '#FFE3D5',
-                                                                'border' => '#FC6803',
-                                                                'text' => '#FC6803',
-                                                            ];
-                                                        } elseif ($groomScore <= 70) {
-                                                            $groomColor = [
-                                                                'bg' => '#FEF3C7',
-                                                                'border' => '#F59E0B',
-                                                                'text' => '#F59E0B',
-                                                            ];
-                                                        } else {
-                                                            $groomColor = [
-                                                                'bg' => '#D1FAE5',
-                                                                'border' => '#10B981',
-                                                                'text' => '#10B981',
-                                                            ];
-                                                        }
-
-                                                        // Xác định màu cho cô dâu
-                                                        if ($brideScore <= 30) {
-                                                            $brideColor = [
-                                                                'bg' => '#FEE2E2',
-                                                                'border' => '#DC2626',
-                                                                'text' => '#DC2626',
-                                                            ];
-                                                        } elseif ($brideScore <= 50) {
-                                                            $brideColor = [
-                                                                'bg' => '#FFE3D5',
-                                                                'border' => '#FC6803',
-                                                                'text' => '#FC6803',
-                                                            ];
-                                                        } elseif ($brideScore <= 70) {
-                                                            $brideColor = [
-                                                                'bg' => '#FEF3C7',
-                                                                'border' => '#F59E0B',
-                                                                'text' => '#F59E0B',
-                                                            ];
-                                                        } else {
-                                                            $brideColor = [
-                                                                'bg' => '#D1FAE5',
-                                                                'border' => '#10B981',
-                                                                'text' => '#10B981',
-                                                            ];
-                                                        }
-                                                    @endphp
+                                                <td class="text-center score-battery-pc">
+                                                   
 
                                                     <div class=" d-flex justify-content-center align-items-center">
                                                         <div class="battery">

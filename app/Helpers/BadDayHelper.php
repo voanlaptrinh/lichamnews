@@ -209,16 +209,27 @@ class BadDayHelper
     public static function getPersonBasicInfo(Carbon $dob): array
     {
         $birthYear = $dob->year;
-        $canChiNam = KhiVanHelper::canchiNam($birthYear);
+        $lunarDob = LunarHelper::convertSolar2Lunar($dob->day, $dob->month, $dob->year);
+        $canChiNam = KhiVanHelper::canchiNam($lunarDob[2]);
         $menh = DataHelper::$napAmTable[$canChiNam];
         $zodiac = AstrologyHelper::getZodiacSign($birthYear);
-        $lunarDob = LunarHelper::convertSolar2Lunar($dob->day, $dob->month, $dob->year);
+        if (isset(DataHelper::$napAmTable[$canChiNam])) {
+            $menhData = DataHelper::$napAmTable[$canChiNam];
+            if (is_array($menhData) && isset($menhData['napAm'])) {
+              
+                $hanh = $menhData['hanh'];
+            };
+        }
 
         return [
             'dob' => $dob,
+            'solar_date' => $dob->format('d/m/Y'),
+             'lunar_date' => sprintf('%02d/%02d/%04d', $lunarDob[0], $lunarDob[1], $lunarDob[2]),
             'lunar_dob_str' => sprintf('%02d/%02d/%d', $lunarDob[0], $lunarDob[1], $lunarDob[2]),
             'can_chi_nam' => $canChiNam,
+            'can_chi' => $canChiNam,
             'menh' => $menh,
+            'hanh' => $hanh,
             'zodiac' => $zodiac,
         ];
     }

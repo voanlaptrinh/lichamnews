@@ -67,7 +67,7 @@ class TotXauController extends Controller
         $endDate = Carbon::createFromFormat('d/m/Y', $validated['end_date'])->endOfDay();
         $period = CarbonPeriod::create($startDate, $endDate);
 
-        $birthdateInfo = $this->getPersonBasicInfo($birthdate);
+        $birthdateInfo = BadDayHelper::getPersonBasicInfo($birthdate);
         $uniqueYears = [];
         foreach ($period as $date) {
             $uniqueYears[$date->year] = true;
@@ -168,37 +168,6 @@ class TotXauController extends Controller
             'groomData' => $groomData,
             'tabooResult' => $tabooResult,
         ]);
-    }
-
-    private function getPersonBasicInfo($birthdate)
-    {
-        $lunarDate = LunarHelper::convertSolar2Lunar(
-            $birthdate->day,
-            $birthdate->month,
-            $birthdate->year
-        );
-
-        $canChiNam = KhiVanHelper::canchiNam($birthdate->year);
-        
-        $menh = '';
-        if (isset(DataHelper::$napAmTable[$canChiNam])) {
-            $menhData = DataHelper::$napAmTable[$canChiNam];
-            if (is_array($menhData) && isset($menhData['napAm'])) {
-                $menh = $menhData['napAm'];
-                $hanh = $menhData['hanh'];
-            };
-
-           
-        }
-
-        return [
-            'dob' => $birthdate, // Thêm đối tượng Carbon gốc
-            'solar_date' => $birthdate->format('d/m/Y'),
-            'lunar_date' => sprintf('%02d/%02d/%04d', $lunarDate[0], $lunarDate[1], $lunarDate[2]),
-            'can_chi' => $canChiNam,
-            'menh' => $menh,
-            'hanh' => $hanh,
-        ];
     }
 
     private function calculateYearAnalysis(Carbon $dob, int $yearToCheck): array
