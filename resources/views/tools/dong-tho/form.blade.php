@@ -362,6 +362,9 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Check if we have hash parameters to avoid setting defaults
+            const hasHashParams = window.location.hash && window.location.hash.includes('birthdate');
+
             // Initialize the lunar-solar date selector
             const dateSelector = new LunarSolarDateSelect({
                 daySelectId: 'ngaySelect',
@@ -372,16 +375,15 @@
                 lunarRadioId: 'lunarCalendar',
                 leapCheckboxId: 'leapMonth',
                 leapContainerId: 'leapMonthContainer',
-                defaultDay: 1,
-                defaultMonth: 1,
-                defaultYear: 2000,
+                defaultDay: hasHashParams ? null : 1,
+                defaultMonth: hasHashParams ? null : 1,
+                defaultYear: hasHashParams ? null : 2000,
                 yearRangeStart: 1900,
                 yearRangeEnd: new Date().getFullYear(),
                 lunarApiUrl: '/api/lunar-solar-convert',
                 lunarMonthDaysUrl: '/api/get-lunar-month-days',
-
+                monthInfoContainerId: 'monthInfoContainer',
                 csrfToken: '{{ csrf_token() }}',
-
             });
 
             // ========== DATE RANGE PICKER ==========
@@ -391,10 +393,10 @@
             let dateRangeInitAttempts = 0;
             const maxDateRangeAttempts = 10;
 
+            // Optimized date range picker initialization
             function initDateRangePicker() {
                 if (dateRangeInitAttempts >= maxDateRangeAttempts) {
-                    console.warn('VanillaDateRangePicker could not be loaded after ' + maxDateRangeAttempts +
-                        ' attempts');
+                    // Fallback to manual input
                     if (dateRangeInput) {
                         dateRangeInput.removeAttribute('readonly');
                         dateRangeInput.placeholder = 'DD/MM/YY - DD/MM/YY';
@@ -406,13 +408,11 @@
 
                 if (typeof window.VanillaDateRangePicker !== 'undefined') {
                     try {
-                        if (dateRangePickerInstance) {
-                            try {
-                                dateRangePickerInstance.destroy();
-                            } catch (e) {}
-                        }
+                        // Destroy existing instance
+                        dateRangePickerInstance?.destroy?.();
 
-                        dateRangePickerInstance = new window.VanillaDateRangePicker(dateRangeInput, {
+                        // Common configuration
+                        const config = {
                             autoApply: true,
                             showDropdowns: true,
                             linkedCalendars: false,
@@ -421,21 +421,17 @@
                                 format: 'DD/MM/YY',
                                 separator: ' - ',
                                 daysOfWeek: ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'],
-                                monthNames: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5',
-                                    'Tháng 6',
-                                    'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'
-                                ],
+                                monthNames: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6',
+                                            'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
                                 firstDay: 1
                             }
-                        });
+                        };
 
-                        console.log('Date range picker initialized successfully');
+                        dateRangePickerInstance = new window.VanillaDateRangePicker(dateRangeInput, config);
                     } catch (error) {
-                        console.error('Error initializing date range picker:', error);
                         dateRangeInitAttempts = maxDateRangeAttempts;
                     }
                 } else {
-                   
                     setTimeout(initDateRangePicker, 500);
                 }
             }
@@ -476,7 +472,7 @@
             function restoreFromHash() {
                 const params = parseHashParams();
 
-                // Restore calendar type from hash
+                // Restore calendar type from hash first
                 if (params.calendar_type) {
                     const solarRadio = document.getElementById('solarCalendar');
                     const lunarRadio = document.getElementById('lunarCalendar');
@@ -484,11 +480,31 @@
                     if (params.calendar_type === 'lunar' && lunarRadio) {
                         lunarRadio.checked = true;
                         solarRadio.checked = false;
-                        lunarRadio.dispatchEvent(new Event('change'));
+                        // Update the dateSelector instance state
+                        if (dateSelector) {
+                            dateSelector.isLunar = true;
+                        }
                     } else if (params.calendar_type === 'solar' && solarRadio) {
                         solarRadio.checked = true;
                         lunarRadio.checked = false;
-                        solarRadio.dispatchEvent(new Event('change'));
+                        // Update the dateSelector instance state
+                        if (dateSelector) {
+                            dateSelector.isLunar = false;
+                        }
+                    }
+                }
+
+                // Restore gender from hash
+                if (params.gender) {
+                    const maleRadio = document.getElementById('maleGender');
+                    const femaleRadio = document.getElementById('femaleGender');
+
+                    if (params.gender === 'female' && femaleRadio) {
+                        femaleRadio.checked = true;
+                        maleRadio.checked = false;
+                    } else if (params.gender === 'male' && maleRadio) {
+                        maleRadio.checked = true;
+                        femaleRadio.checked = false;
                     }
                 }
 
@@ -498,62 +514,90 @@
                     let dateRangeSet = false;
 
                     if (params.birthdate) {
-                        // Set birthdate
-                        const ngayXemInput = document.getElementById('ngayXem');
-                        ngayXemInput.value = params.birthdate;
+                        // Use the dateSelector's method to properly restore and convert the date
+                        function tryRestoreBirthdate(attempts = 0) {
+                            const maxAttempts = 20;
 
-                        // Parse birthdate to set individual fields
-                        const dateParts = params.birthdate.split('/');
-                        if (dateParts.length === 3) {
-                            const day = parseInt(dateParts[0]);
-                            const month = parseInt(dateParts[1]);
-                            const year = parseInt(dateParts[2]);
-
-                            // Set the selects with multiple retries to ensure they're populated
-                            function trySetSelects(attempts = 0) {
-                                const maxAttempts = 15;
-                                const daySelect = document.getElementById('ngaySelect');
-                                const monthSelect = document.getElementById('thangSelect');
-                                const yearSelect = document.getElementById('namSelect');
-
-                                console.log(`trySetSelects attempt ${attempts + 1}/${maxAttempts}`, {
-                                    dayOptions: daySelect?.options?.length,
-                                    monthOptions: monthSelect?.options?.length,
-                                    yearOptions: yearSelect?.options?.length
-                                });
-
-                                if (attempts >= maxAttempts) return;
-
-                                if (daySelect && monthSelect && yearSelect &&
-                                    daySelect.options.length > 1 && monthSelect.options.length > 1 && yearSelect.options.length > 1) {
-
-                                    console.log('Setting select values sequentially:', { year, month, day });
-
-                                    // Set year first, trigger change, wait
-                                    yearSelect.value = year;
-                                    yearSelect.dispatchEvent(new Event('change'));
-
-                                    setTimeout(() => {
-                                        // Set month second, trigger change, wait
-                                        monthSelect.value = month;
-                                        monthSelect.dispatchEvent(new Event('change'));
-
-                                        setTimeout(() => {
-                                            // Set day last, trigger change
-                                            daySelect.value = day;
-                                            daySelect.dispatchEvent(new Event('change'));
-
-                                            birthdateSet = true;
-                                            checkAndSubmitForm();
-                                        }, 100);
-                                    }, 100);
-                                } else {
-                                    setTimeout(() => trySetSelects(attempts + 1), 300);
-                                }
+                            if (attempts >= maxAttempts) {
+                                birthdateSet = true;
+                                checkAndSubmitForm();
+                                return;
                             }
 
-                            trySetSelects();
+                            // Check if dateSelector is available and fully initialized
+                            if (dateSelector && dateSelector.daySelect && dateSelector.monthSelect && dateSelector.yearSelect &&
+                                dateSelector.yearSelect.options.length > 1) {
+
+                                // Parse birthdate from URL (always in solar format from URL)
+                                const dateParts = params.birthdate.split('/');
+                                if (dateParts.length === 3) {
+                                    const day = parseInt(dateParts[0]);
+                                    const month = parseInt(dateParts[1]);
+                                    const year = parseInt(dateParts[2]);
+
+                                    (async () => {
+                                        try {
+                                            if (params.calendar_type === 'lunar') {
+                                                // Date from URL is solar date, need to convert to lunar using API
+                                                // First set as solar date in selects
+                                                await dateSelector.setDate(day, month, year, false, false);
+
+                                                // Use LunarSolarDateSelect's handleLunarRadioChange method for conversion
+                                                try {
+                                                    // First set solar date in selects
+                                                    await dateSelector.setDate(day, month, year, false, false);
+
+                                                    // Then switch to lunar mode - this will trigger automatic conversion
+                                                    const lunarRadio = document.getElementById('lunarCalendar');
+                                                    const solarRadio = document.getElementById('solarCalendar');
+                                                    if (lunarRadio && solarRadio) {
+                                                        lunarRadio.checked = true;
+                                                        solarRadio.checked = false;
+
+                                                        // Trigger the built-in conversion method
+                                                        if (dateSelector && typeof dateSelector.handleLunarRadioChange === 'function') {
+                                                            await dateSelector.handleLunarRadioChange();
+                                                        }
+                                                    }
+                                                } catch (error) {
+                                                    // Fallback: just set as lunar without conversion
+                                                    await dateSelector.setDate(day, month, year, true, false);
+                                                }
+
+                                            } else {
+                                                // Use solar date directly
+                                                await dateSelector.setDate(day, month, year, false, false);
+
+                                                // Ensure radio button stays checked and update instance state
+                                                const lunarRadio = document.getElementById('lunarCalendar');
+                                                const solarRadio = document.getElementById('solarCalendar');
+                                                if (lunarRadio && solarRadio) {
+                                                    solarRadio.checked = true;
+                                                    lunarRadio.checked = false;
+                                                    // Update dateSelector instance state to solar
+                                                    dateSelector.isLunar = false;
+                                                }
+                                            }
+
+                                            await dateSelector.updateHiddenInput();
+                                            birthdateSet = true;
+                                            checkAndSubmitForm();
+                                        } catch (error) {
+                                            birthdateSet = true;
+                                            checkAndSubmitForm();
+                                        }
+                                    })();
+                                } else {
+                                    birthdateSet = true;
+                                    checkAndSubmitForm();
+                                }
+                            } else {
+                                // DateSelector not ready yet, try again
+                                setTimeout(() => tryRestoreBirthdate(attempts + 1), 300);
+                            }
                         }
+
+                        tryRestoreBirthdate();
                     } else {
                         birthdateSet = true;
                     }
@@ -598,14 +642,19 @@
             // Restore form from hash on page load
             setTimeout(restoreFromHash, 1000);
 
-            // ========== AJAX FORM SUBMISSION ==========
+            // ========== SOLAR DATE UPDATE IS HANDLED BY LunarSolarDateSelect MODULE ==========
+            // No need for additional logic here as the module handles all conversions automatically
+
+            // ========== FORM HANDLING ==========
             const form = document.getElementById('buildHouseForm');
             const submitBtn = document.getElementById('submitBtn');
             const resultsContainer = document.getElementById('resultsContainer');
             const btnText = submitBtn.querySelector('.btn-text');
             const spinner = submitBtn.querySelector('.spinner-border');
+            const originalBtnText = btnText.innerHTML;
 
-            form.addEventListener('submit', function(e) {
+            // Handle form submission
+            form.addEventListener('submit', async function(e) {
                 e.preventDefault();
 
                 // Get birthdate value
@@ -628,28 +677,54 @@
                 // Get gender value
                 const genderValue = document.querySelector('input[name="gender"]:checked').value;
 
-                // Get the date based on calendar type
-                let formattedBirthdate = '';
-                const calendarType = ngayXemInput.dataset.calendarType || 'solar';
+                // Get the date and calendar type based on current selection
+                let formattedBirthdate = ''; // For form data (backend)
+                let urlBirthdate = ''; // For URL hash (sharing)
+                let calendarType = 'solar'; // default
                 let isLeapMonth = false;
 
-                if (calendarType === 'lunar') {
-                    // If lunar date, use the converted solar date
-                    const solarDay = ngayXemInput.dataset.solarDay;
-                    const solarMonth = ngayXemInput.dataset.solarMonth;
-                    const solarYear = ngayXemInput.dataset.solarYear;
-                    isLeapMonth = ngayXemInput.dataset.lunarLeap === '1';
+                // Determine calendar type from radio buttons
+                const solarRadio = document.getElementById('solarCalendar');
+                const lunarRadio = document.getElementById('lunarCalendar');
 
-                    if (solarDay && solarMonth && solarYear) {
-                        formattedBirthdate =
-                            `${String(solarDay).padStart(2, '0')}/${String(solarMonth).padStart(2, '0')}/${solarYear}`;
+                if (lunarRadio && lunarRadio.checked) {
+                    calendarType = 'lunar';
+                } else if (solarRadio && solarRadio.checked) {
+                    calendarType = 'solar';
+                }
+
+                if (calendarType === 'lunar') {
+                    // For lunar calendar:
+                    // - ngayXemValue is already SOLAR date (from hidden input .value)
+                    // - data-display-value contains the lunar display format
+
+                    const daySelect = document.getElementById('ngaySelect');
+                    const monthSelect = document.getElementById('thangSelect');
+                    const yearSelect = document.getElementById('namSelect');
+
+                    // Get lunar date from selects (what user actually selected)
+                    if (daySelect.value && monthSelect.value && yearSelect.value) {
+                        const lunarDay = String(daySelect.value).padStart(2, '0');
+                        const lunarMonth = String(monthSelect.value).padStart(2, '0');
+                        const lunarYear = yearSelect.value;
+
+                        // Use dateSelector's leap month state instead of manual detection
+                        isLeapMonth = dateSelector.isLeapMonth;
+
+                        formattedBirthdate = `${lunarDay}/${lunarMonth}/${lunarYear}`;
                     } else {
-                        // Fallback to parsing lunar date from value
-                        formattedBirthdate = ngayXemValue.replace(' (ÂL)', '').replace(' (ÂL-Nhuận)', '');
+                        // Fallback: extract lunar from display value
+                        const displayValue = ngayXemInput.dataset.displayValue || '';
+                        formattedBirthdate = displayValue.replace(' (ÂL)', '').replace(' (ÂL-Nhuận)', '');
+                        isLeapMonth = displayValue.includes('(ÂL-Nhuận)');
                     }
+
+                    // For URL: use solar date from hidden input .value
+                    urlBirthdate = ngayXemValue; // This is already solar!
                 } else {
-                    // Solar date can be used directly
+                    // Solar date can be used directly for both
                     formattedBirthdate = ngayXemValue;
+                    urlBirthdate = ngayXemValue;
                 }
 
                 // Parse date range
@@ -687,25 +762,53 @@
                 const sortSelect = resultsContainer.querySelector('[name="sort"]');
                 const sortValue = sortSelect ? sortSelect.value : 'desc';
 
-                // Prepare form data
-                const formData = {
-                    birthdate: formattedBirthdate,
-                    gender: genderValue,
-                    calendar_type: calendarType,
-                    leap_month: isLeapMonth,
-                    date_range: dateRangeValue,
-                    start_date: startDate,
-                    end_date: endDate,
-                    sort: sortValue,
-                    _token: '{{ csrf_token() }}'
-                };
+                // The LunarSolarDateSelect module automatically maintains solar date in hidden input
+                // No need for additional conversion here - just use the value that's already there
+                const finalSolarDate = ngayXemValue; // This is always solar date maintained by the module
 
-                // Set hash parameters for URL state
+                // URL birthdate is the same as final solar date
+                if (calendarType === 'lunar') {
+                    urlBirthdate = finalSolarDate; // Use solar date for URL sharing
+                }
+
+                // Process form data - birthdate is ALWAYS solar date for backend processing
+                let formData = {};
+
+                if (calendarType === 'lunar') {
+                    // For lunar: send solar date as birthdate, lunar date as additional info
+                    formData = {
+                        birthdate: urlBirthdate, // ALWAYS solar date for backend
+                        gender: genderValue,
+                        calendar_type: 'lunar',
+                        leap_month: isLeapMonth,
+                        lunar_date: formattedBirthdate, // Additional info: what user selected in lunar
+                        date_range: dateRangeValue,
+                        start_date: startDate,
+                        end_date: endDate,
+                        sort: sortValue,
+                        _token: '{{ csrf_token() }}'
+                    };
+                } else {
+                    // For solar: send solar date as birthdate
+                    formData = {
+                        birthdate: urlBirthdate, // Solar date (same as what user selected)
+                        gender: genderValue,
+                        calendar_type: 'solar',
+                        leap_month: false,
+                        date_range: dateRangeValue,
+                        start_date: startDate,
+                        end_date: endDate,
+                        sort: sortValue,
+                        _token: '{{ csrf_token() }}'
+                    };
+                }
+
+                // Set hash parameters for URL state - preserve original calendar type
                 const hashParams = {
-                    birthdate: formattedBirthdate,
+                    birthdate: urlBirthdate, // Use solar date for URL (easier to share)
                     khoang: dateRangeValue,
                     gender: genderValue,
-                    calendar_type: calendarType
+                    calendar_type: calendarType // This will be 'lunar' or 'solar' based on radio selection
                 };
                 setHashParams(hashParams);
 
@@ -733,7 +836,7 @@
                     .then(data => {
                         // Reset button state
                         submitBtn.disabled = false;
-                        btnText.textContent = 'Xem Kết Quả';
+                        btnText.innerHTML = originalBtnText;
                         spinner.classList.add('d-none');
 
                         if (data.success) {
@@ -750,27 +853,22 @@
                             }, 100);
 
                             // Re-initialize Bootstrap tabs if present
-                            const tabs = resultsContainer.querySelectorAll('[data-bs-toggle="tab"]');
-                            tabs.forEach(tab => {
-                                new bootstrap.Tab(tab);
-                            });
+                            resultsContainer.querySelectorAll('[data-bs-toggle="tab"]')
+                                .forEach(tab => new bootstrap.Tab(tab));
                         } else if (data.errors) {
                             // Show validation errors
-                            let errorMessage = 'Vui lòng kiểm tra lại:\\n';
-                            for (const field in data.errors) {
-                                errorMessage += '- ' + data.errors[field][0] + '\\n';
-                            }
-                            alert(errorMessage);
-                        } else if (data.message) {
-                            alert(data.message);
+                            const errorMessages = Object.entries(data.errors)
+                                .map(([field, errors]) => `- ${errors[0]}`)
+                                .join('\\n');
+                            alert(`Vui lòng kiểm tra lại:\\n${errorMessages}`);
                         } else {
-                            alert('Có lỗi xảy ra. Vui lòng thử lại.');
+                            alert(data.message || 'Có lỗi xảy ra. Vui lòng thử lại.');
                         }
                     })
                     .catch(error => {
                         // Reset button state
                         submitBtn.disabled = false;
-                        btnText.textContent = 'Xem Kết Quả';
+                        btnText.innerHTML = originalBtnText;
                         spinner.classList.add('d-none');
 
                         console.error('Error:', error);
@@ -778,52 +876,7 @@
                     });
             });
 
-            resultsContainer.addEventListener('change', function(event) {
-                if (event.target.matches('[name="sort"]')) {
-                    const sortValue = event.target.value;
-
-                    // Apply sorting directly without form submission
-                    applySortingToTable(sortValue);
-
-                    // Scroll to table after sort
-                    setTimeout(() => {
-                        const target = document.getElementById("bang-chi-tiet");
-                        if (target) {
-                            console.log('Scrolling to #bang-chi-tiet for filtering');
-                            target.scrollIntoView({
-                                behavior: "smooth",
-                                block: "start"
-                            });
-                        }
-                    }, 100);
-                }
-            });
-
-            // Function to apply sorting without form submission
-            function applySortingToTable(sortValue) {
-                const table = document.querySelector('#bang-chi-tiet table tbody');
-                if (!table) return;
-
-                const rows = Array.from(table.querySelectorAll('tr'));
-
-                rows.sort((a, b) => {
-                    // Get score from battery or score element
-                    const scoreA = getScoreFromRow(a);
-                    const scoreB = getScoreFromRow(b);
-
-                    if (sortValue === 'asc') {
-                        return scoreA - scoreB;
-                    } else {
-                        return scoreB - scoreA;
-                    }
-                });
-
-                // Clear and re-append sorted rows
-                table.innerHTML = '';
-                rows.forEach(row => table.appendChild(row));
-            }
-
-            // Helper function to extract score from table row
+            // Move sorting functions to be defined before use
             function getScoreFromRow(row) {
                 // Try to find score in battery element
                 const battery = row.querySelector('.battery-label');
@@ -849,6 +902,36 @@
 
                 return 0;
             }
+
+            function applySortingToTable(sortValue) {
+                const table = document.querySelector('#bang-chi-tiet table tbody');
+                if (!table) return;
+
+                const rows = Array.from(table.querySelectorAll('tr'));
+
+                rows.sort((a, b) => {
+                    const scoreA = getScoreFromRow(a);
+                    const scoreB = getScoreFromRow(b);
+                    return sortValue === 'asc' ? scoreA - scoreB : scoreB - scoreA;
+                });
+
+                // Clear and re-append sorted rows
+                table.innerHTML = '';
+                rows.forEach(row => table.appendChild(row));
+            }
+
+            // Handle sorting change using event delegation
+            resultsContainer.addEventListener('change', function(event) {
+                if (event.target.matches('[name="sort"]')) {
+                    applySortingToTable(event.target.value);
+
+                    // Scroll to table after sort
+                    setTimeout(() => {
+                        const bangChiTiet = document.querySelector('#bang-chi-tiet');
+                        bangChiTiet?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 100);
+                }
+            });
 
         });
     </script>

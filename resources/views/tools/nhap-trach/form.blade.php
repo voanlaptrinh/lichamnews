@@ -231,6 +231,9 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Check if we have hash parameters to avoid setting defaults
+            const hasHashParams = window.location.hash?.includes('birthdate');
+
             // Initialize the lunar-solar date selector
             const dateSelector = new LunarSolarDateSelect({
                 daySelectId: 'ngaySelect',
@@ -241,47 +244,37 @@
                 lunarRadioId: 'lunarCalendar',
                 leapCheckboxId: 'leapMonth',
                 leapContainerId: 'leapMonthContainer',
-                defaultDay: 1,
-                defaultMonth: 1,
-                defaultYear: 2000,
+                defaultDay: hasHashParams ? null : 1,
+                defaultMonth: hasHashParams ? null : 1,
+                defaultYear: hasHashParams ? null : 2000,
                 yearRangeStart: 1900,
                 yearRangeEnd: new Date().getFullYear(),
                 lunarApiUrl: '/api/lunar-solar-convert',
                 lunarMonthDaysUrl: '/api/get-lunar-month-days',
-
+                monthInfoContainerId: 'monthInfoContainer',
                 csrfToken: '{{ csrf_token() }}',
-
             });
 
             // ========== DATE RANGE PICKER ==========
-            // Initialize vanilla daterangepicker for date_range
             const dateRangeInput = document.getElementById('date_range');
             let dateRangePickerInstance = null;
-            let dateRangeInitAttempts = 0;
             const maxDateRangeAttempts = 10;
+            let dateRangeInitAttempts = 0;
 
-            function initDateRangePicker() {
+            const initDateRangePicker = () => {
                 if (dateRangeInitAttempts >= maxDateRangeAttempts) {
-                    console.warn('VanillaDateRangePicker could not be loaded after ' + maxDateRangeAttempts +
-                        ' attempts');
-                    if (dateRangeInput) {
-                        dateRangeInput.removeAttribute('readonly');
-                        dateRangeInput.placeholder = 'DD/MM/YY - DD/MM/YY';
-                    }
+                    dateRangeInput?.removeAttribute('readonly');
+                    if (dateRangeInput) dateRangeInput.placeholder = 'DD/MM/YY - DD/MM/YY';
                     return;
                 }
 
                 dateRangeInitAttempts++;
 
-                if (typeof window.VanillaDateRangePicker !== 'undefined') {
+                if (window.VanillaDateRangePicker) {
                     try {
-                        if (dateRangePickerInstance) {
-                            try {
-                                dateRangePickerInstance.destroy();
-                            } catch (e) {}
-                        }
+                        dateRangePickerInstance?.destroy?.();
 
-                        dateRangePickerInstance = new window.VanillaDateRangePicker(dateRangeInput, {
+                        const config = {
                             autoApply: true,
                             showDropdowns: true,
                             linkedCalendars: false,
@@ -291,23 +284,20 @@
                                 separator: ' - ',
                                 daysOfWeek: ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'],
                                 monthNames: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5',
-                                    'Tháng 6',
-                                    'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'
+                                    'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'
                                 ],
                                 firstDay: 1
                             }
-                        });
+                        };
 
-                        console.log('Date range picker initialized successfully');
+                        dateRangePickerInstance = new window.VanillaDateRangePicker(dateRangeInput, config);
                     } catch (error) {
-                        console.error('Error initializing date range picker:', error);
                         dateRangeInitAttempts = maxDateRangeAttempts;
                     }
                 } else {
-                  
                     setTimeout(initDateRangePicker, 500);
                 }
-            }
+            };
 
             // Initialize after a short delay to ensure library is loaded
             setTimeout(initDateRangePicker, 100);
@@ -315,279 +305,244 @@
             // ========== HASH PARAMETER HANDLING ==========
 
             // Function to parse hash parameters
-            function parseHashParams() {
+            const parseHashParams = () => {
                 const hash = window.location.hash.substring(1);
                 const params = {};
                 if (hash) {
-                    const pairs = hash.split('&');
-                    for (const pair of pairs) {
+                    hash.split('&').forEach(pair => {
                         const [key, value] = pair.split('=');
                         if (key && value) {
                             params[decodeURIComponent(key)] = decodeURIComponent(value);
                         }
-                    }
+                    });
                 }
                 return params;
-            }
+            };
 
             // Function to set hash parameters
-            function setHashParams(params) {
-                const hashParts = [];
-                for (const [key, value] of Object.entries(params)) {
-                    if (value) {
-                        hashParts.push(`${encodeURIComponent(key)}=${encodeURIComponent(value)}`);
-                    }
-                }
+            const setHashParams = params => {
+                const hashParts = Object.entries(params)
+                    .filter(([_, value]) => value)
+                    .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`);
                 window.location.hash = hashParts.join('&');
-            }
+            };
 
             // Function to restore form from hash parameters
-            function restoreFromHash() {
+            const restoreFromHash = () => {
                 const params = parseHashParams();
+                console.log('🔄 Restoring from hash:', params);
 
-                // Restore calendar type from hash FIRST
+                // Restore calendar type from hash first
                 if (params.calendar_type) {
-                    const solarRadio = document.getElementById('solarCalendar');
-                    const lunarRadio = document.getElementById('lunarCalendar');
+                    const { solarRadio, lunarRadio } = {
+                        solarRadio: document.getElementById('solarCalendar'),
+                        lunarRadio: document.getElementById('lunarCalendar')
+                    };
 
-                    if (params.calendar_type === 'lunar' && lunarRadio) {
+                    const isLunar = params.calendar_type === 'lunar';
+                    if (isLunar && lunarRadio) {
                         lunarRadio.checked = true;
                         solarRadio.checked = false;
-                        lunarRadio.dispatchEvent(new Event('change'));
-                    } else if (params.calendar_type === 'solar' && solarRadio) {
+                        dateSelector && (dateSelector.isLunar = true);
+                    } else if (!isLunar && solarRadio) {
                         solarRadio.checked = true;
                         lunarRadio.checked = false;
-                        solarRadio.dispatchEvent(new Event('change'));
+                        dateSelector && (dateSelector.isLunar = false);
                     }
-
-                    // Wait a bit for calendar type change to take effect
-                    setTimeout(() => {
-                        restoreOtherFields(params);
-                    }, 100);
-                } else {
-                    restoreOtherFields(params);
                 }
-            }
+
+                // Restore gender from hash
+                if (params.gender) {
+                    const genderRadio = document.querySelector(`input[name="gender"][value="${params.gender}"]`);
+                    if (genderRadio) {
+                        genderRadio.checked = true;
+                        console.log('✅ Restored gender:', params.gender);
+                    }
+                }
+
+                // Restore house direction from hash
+                if (params.house_direction) {
+                    const houseDirectionSelect = document.getElementById('houseDirectionSelect');
+                    if (houseDirectionSelect) houseDirectionSelect.value = params.house_direction;
+                }
+
+                restoreOtherFields(params);
+            };
 
             // Function to restore other fields after calendar type is set
-            function restoreOtherFields(params) {
-                if (params.birthdate || params.khoang || params.gender || params.house_direction) {
-                    let formRestored = false;
-                    let birthdateSet = false;
-                    let dateRangeSet = false;
+            const restoreOtherFields = params => {
+                if (!params.birthdate && !params.khoang) return;
 
-                    if (params.birthdate) {
-                        // Set birthdate
-                        const ngayXemInput = document.getElementById('ngayXem');
-                        ngayXemInput.value = params.birthdate;
+                let formRestored = false;
+                let birthdateSet = false;
+                let dateRangeSet = false;
 
-                        // Parse birthdate to set individual fields
+                const checkAndSubmitForm = () => {
+                    if (birthdateSet && dateRangeSet && !formRestored) {
+                        formRestored = true;
+                        setTimeout(() => document.getElementById('buildHouseForm')?.requestSubmit(), 500);
+                    }
+                };
+
+                if (params.birthdate) {
+                    const tryRestoreBirthdate = async (attempts = 0) => {
+                        const maxAttempts = 20;
+
+                        if (attempts >= maxAttempts) {
+                            birthdateSet = true;
+                            checkAndSubmitForm();
+                            return;
+                        }
+
+                        const { daySelect, monthSelect, yearSelect } = dateSelector || {};
+                        if (!dateSelector || !daySelect || !monthSelect || !yearSelect || yearSelect.options.length <= 1) {
+                            setTimeout(() => tryRestoreBirthdate(attempts + 1), 300);
+                            return;
+                        }
+
                         const dateParts = params.birthdate.split('/');
-                        if (dateParts.length === 3) {
-                            const day = parseInt(dateParts[0]);
-                            const month = parseInt(dateParts[1]);
-                            const year = parseInt(dateParts[2]);
-
-                            // Set the selects with multiple retries to ensure they're populated
-                            function trySetSelects(attempts = 0) {
-                                const maxAttempts = 15; // Increased attempts
-                                const daySelect = document.getElementById('ngaySelect');
-                                const monthSelect = document.getElementById('thangSelect');
-                                const yearSelect = document.getElementById('namSelect');
-
-                                if (attempts >= maxAttempts) {
-                                    console.log('Max attempts reached for setting selects');
-                                    return;
-                                }
-
-                                if (daySelect && monthSelect && yearSelect &&
-                                    daySelect.options.length > 1 && monthSelect.options.length > 1 && yearSelect.options.length > 1) {
-
-                                    // First set year, then month, then day (proper order)
-                                    yearSelect.value = year;
-                                    yearSelect.dispatchEvent(new Event('change'));
-
-                                    // Wait for year change to take effect before setting month
-                                    setTimeout(() => {
-                                        monthSelect.value = month;
-                                        monthSelect.dispatchEvent(new Event('change'));
-
-                                        // Wait for month change to take effect before setting day
-                                        setTimeout(() => {
-                                            daySelect.value = day;
-                                            daySelect.dispatchEvent(new Event('change'));
-
-                                            birthdateSet = true;
-                                            checkAndSubmitForm();
-                                        }, 100);
-                                    }, 100);
-                                } else {
-                                    console.log(`Attempt ${attempts + 1}: Selects not ready yet`);
-                                    setTimeout(() => trySetSelects(attempts + 1), 300); // Increased delay
-                                }
-                            }
-
-                            trySetSelects();
+                        if (dateParts.length !== 3) {
+                            birthdateSet = true;
+                            checkAndSubmitForm();
+                            return;
                         }
-                    } else {
-                        birthdateSet = true;
-                    }
 
-                    if (params.khoang) {
-                        // Set date range with retry
-                        function trySetDateRange(attempts = 0) {
-                            const maxAttempts = 5;
-                            if (attempts >= maxAttempts) return;
+                        const [day, month, year] = dateParts.map(Number);
+                        const isLunar = params.calendar_type === 'lunar';
 
-                            const khoangInput = document.getElementById('date_range');
-                            if (khoangInput) {
-                                khoangInput.value = params.khoang;
-                                dateRangeSet = true;
-                                checkAndSubmitForm();
+                        try {
+                            // ========== SOLAR DATE UPDATE IS HANDLED BY LunarSolarDateSelect MODULE ==========
+                            if (isLunar) {
+                                await dateSelector.setDate(day, month, year, false, false);
+                                const lunarRadio = document.getElementById('lunarCalendar');
+                                if (lunarRadio) {
+                                    lunarRadio.checked = true;
+                                    await dateSelector.handleLunarRadioChange();
+                                }
                             } else {
-                                setTimeout(() => trySetDateRange(attempts + 1), 200);
-                            }
-                        }
-
-                        trySetDateRange();
-                    } else {
-                        dateRangeSet = true;
-                    }
-
-                    // Set gender
-                    if (params.gender) {
-                        const genderRadio = document.querySelector(`input[name="gender"][value="${params.gender}"]`);
-                        if (genderRadio) {
-                            genderRadio.checked = true;
-                        }
-                    }
-
-                    // Set house direction
-                    if (params.house_direction) {
-                        const houseDirectionSelect = document.getElementById('houseDirectionSelect');
-                        if (houseDirectionSelect) {
-                            houseDirectionSelect.value = params.house_direction;
-                        }
-                    }
-
-                    // Function to check if all fields are set and submit form
-                    function checkAndSubmitForm() {
-                        if (birthdateSet && dateRangeSet && !formRestored) {
-                            formRestored = true;
-                            // Auto submit form after a short delay to ensure everything is set
-                            setTimeout(() => {
-                                const form = document.getElementById('buildHouseForm');
-                                if (form) {
-                                    form.requestSubmit();
+                                await dateSelector.setDate(day, month, year, false, false);
+                                const solarRadio = document.getElementById('solarCalendar');
+                                if (solarRadio) {
+                                    solarRadio.checked = true;
+                                    dateSelector.isLunar = false;
                                 }
-                            }, 500);
+                            }
+
+                            await dateSelector.updateHiddenInput();
+                            birthdateSet = true;
+                            checkAndSubmitForm();
+                        } catch (error) {
+                            birthdateSet = true;
+                            checkAndSubmitForm();
                         }
-                    }
+                    };
+
+                    tryRestoreBirthdate();
+                } else {
+                    birthdateSet = true;
                 }
-            }
+
+                if (params.khoang) {
+                    const trySetDateRange = (attempts = 0) => {
+                        const maxAttempts = 5;
+                        if (attempts >= maxAttempts) return;
+
+                        const khoangInput = document.getElementById('date_range');
+                        if (khoangInput) {
+                            khoangInput.value = params.khoang;
+                            dateRangeSet = true;
+                            checkAndSubmitForm();
+                        } else {
+                            setTimeout(() => trySetDateRange(attempts + 1), 200);
+                        }
+                    };
+
+                    trySetDateRange();
+                } else {
+                    dateRangeSet = true;
+                }
+            };
 
             // Restore form from hash on page load
             setTimeout(restoreFromHash, 1000);
 
             // ========== AJAX FORM SUBMISSION ==========
-            const form = document.getElementById('buildHouseForm');
-            const submitBtn = document.getElementById('submitBtn');
-            const resultsContainer = document.getElementById('resultsContainer');
-            const btnText = submitBtn.querySelector('.btn-text');
-            const spinner = submitBtn.querySelector('.spinner-border');
+            const formElements = {
+                form: document.getElementById('buildHouseForm'),
+                submitBtn: document.getElementById('submitBtn'),
+                resultsContainer: document.getElementById('resultsContainer'),
+                btnText: document.querySelector('#submitBtn .btn-text'),
+                spinner: document.querySelector('#submitBtn .spinner-border')
+            };
 
-            form.addEventListener('submit', function(e) {
+            const { form, submitBtn, resultsContainer, btnText, spinner } = formElements;
+
+            form?.addEventListener('submit', e => {
                 e.preventDefault();
 
-                // Get birthdate value
+                // Get form values using modern destructuring and optional chaining
                 const ngayXemInput = document.getElementById('ngayXem');
-                const ngayXemValue = ngayXemInput.value;
+                const ngayXemValue = ngayXemInput?.value;
+                const dateRangeValue = dateRangeInput?.value;
+                const genderValue = document.querySelector('input[name="gender"]:checked')?.value;
+                const houseDirectionValue = document.getElementById('houseDirectionSelect')?.value;
 
+                // Validate required fields
                 if (!ngayXemValue) {
                     alert('Vui lòng chọn đầy đủ ngày, tháng, năm');
                     return;
                 }
-
-                // Get date range value
-                const dateRangeValue = dateRangeInput.value;
 
                 if (!dateRangeValue) {
                     alert('Vui lòng chọn khoảng thời gian');
                     return;
                 }
 
-                // Get gender value
-                const genderValue = document.querySelector('input[name="gender"]:checked').value;
-
-                // Get house direction value
-                const houseDirectionSelect = document.getElementById('houseDirectionSelect');
-                const houseDirectionValue = houseDirectionSelect.value;
-
                 if (!houseDirectionValue) {
                     alert('Vui lòng chọn hướng nhà');
                     return;
                 }
 
-                // Get the date based on calendar type
-                let formattedBirthdate = '';
-                const calendarType = ngayXemInput.dataset.calendarType || 'solar';
+                // Get date and calendar type using modern destructuring
+                const { solarRadio, lunarRadio } = {
+                    solarRadio: document.getElementById('solarCalendar'),
+                    lunarRadio: document.getElementById('lunarCalendar')
+                };
+
+                const calendarType = lunarRadio?.checked ? 'lunar' : 'solar';
                 let isLeapMonth = false;
+                let formattedBirthdate = '';
 
+                // ========== SOLAR DATE UPDATE IS HANDLED BY LunarSolarDateSelect MODULE ==========
                 if (calendarType === 'lunar') {
-                    // If lunar date, use the converted solar date
-                    const solarDay = ngayXemInput.dataset.solarDay;
-                    const solarMonth = ngayXemInput.dataset.solarMonth;
-                    const solarYear = ngayXemInput.dataset.solarYear;
-                    isLeapMonth = ngayXemInput.dataset.lunarLeap === '1';
-
-                    if (solarDay && solarMonth && solarYear) {
-                        formattedBirthdate =
-                            `${String(solarDay).padStart(2, '0')}/${String(solarMonth).padStart(2, '0')}/${solarYear}`;
-                    } else {
-                        // Fallback to parsing lunar date from value
-                        formattedBirthdate = ngayXemValue.replace(' (ÂL)', '').replace(' (ÂL-Nhuận)', '');
-                    }
+                    const { solarDay, solarMonth, solarYear, lunarLeap } = ngayXemInput?.dataset || {};
+                    isLeapMonth = lunarLeap === '1';
+                    formattedBirthdate = (solarDay && solarMonth && solarYear)
+                        ? `${solarDay.padStart(2, '0')}/${solarMonth.padStart(2, '0')}/${solarYear}`
+                        : ngayXemValue.replace(/ \(ÂL(?:-Nhuận)?\)/g, '');
                 } else {
-                    // Solar date can be used directly
                     formattedBirthdate = ngayXemValue;
                 }
 
-                // Parse date range
+                // Parse date range with improved logic
                 const dateRangeParts = dateRangeValue.split(' - ');
-                let startDate = '';
-                let endDate = '';
+                const parseDate = datePart => {
+                    const parts = datePart.trim().split('/');
+                    if (parts.length !== 3) return '';
 
-                if (dateRangeParts.length === 2) {
-                    // Parse start date (format: dd/mm/yy)
-                    const startParts = dateRangeParts[0].trim().split('/');
-                    if (startParts.length === 3) {
-                        const day = startParts[0].padStart(2, '0');
-                        const month = startParts[1].padStart(2, '0');
-                        let year = startParts[2];
-                        if (year.length === 2) {
-                            year = '20' + year;
-                        }
-                        startDate = `${day}/${month}/${year}`;
-                    }
+                    const [day, month, year] = parts;
+                    const fullYear = year.length === 2 ? `20${year}` : year;
+                    return `${day.padStart(2, '0')}/${month.padStart(2, '0')}/${fullYear}`;
+                };
 
-                    // Parse end date
-                    const endParts = dateRangeParts[1].trim().split('/');
-                    if (endParts.length === 3) {
-                        const day = endParts[0].padStart(2, '0');
-                        const month = endParts[1].padStart(2, '0');
-                        let year = endParts[2];
-                        if (year.length === 2) {
-                            year = '20' + year;
-                        }
-                        endDate = `${day}/${month}/${year}`;
-                    }
-                }
+                const [startDate, endDate] = dateRangeParts.length === 2
+                    ? [parseDate(dateRangeParts[0]), parseDate(dateRangeParts[1])]
+                    : ['', ''];
 
-                // Get sort value if exists
-                const sortSelect = resultsContainer.querySelector('[name="sort"]');
-                const sortValue = sortSelect ? sortSelect.value : 'desc';
+                // Get sort value using optional chaining
+                const sortValue = resultsContainer?.querySelector('[name="sort"]')?.value ?? 'desc';
 
-                // Prepare form data
+                // Prepare form data using object shorthand
                 const formData = {
                     birthdate: formattedBirthdate,
                     gioi_tinh: genderValue,
@@ -611,146 +566,128 @@
                 };
                 setHashParams(hashParams);
 
-                // Show loading state
-                submitBtn.disabled = true;
-                btnText.textContent = 'Đang xử lý...';
-                spinner.classList.remove('d-none');
+                // Show loading state using modern approach
+                const setLoadingState = (loading = true) => {
+                    if (submitBtn) submitBtn.disabled = loading;
+                    if (btnText) btnText.textContent = loading ? 'Đang xử lý...' : 'Xem Kết Quả';
+                    if (spinner) spinner.classList.toggle('d-none', !loading);
+                };
 
-                // Submit via AJAX
-                fetch('{{ route('nhap-trach.check') }}', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                            'Accept': 'application/json'
-                        },
-                        body: JSON.stringify(formData)
-                    })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Network response was not ok');
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
-                        // Reset button state
-                        submitBtn.disabled = false;
-                        btnText.textContent = 'Xem Kết Quả';
-                        spinner.classList.add('d-none');
+                setLoadingState(true);
+
+                // Submit via AJAX with modern async/await approach
+                const submitForm = async () => {
+                    try {
+                        const response = await fetch('{{ route('nhap-trach.check') }}', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                'Accept': 'application/json'
+                            },
+                            body: JSON.stringify(formData)
+                        });
+
+                        if (!response.ok) throw new Error('Network response was not ok');
+
+                        const data = await response.json();
+                        setLoadingState(false);
 
                         if (data.success) {
-                            // Show results container
-                            resultsContainer.style.display = 'block';
-                            resultsContainer.innerHTML = data.html;
+                            // Show results using modern approach
+                            if (resultsContainer) {
+                                resultsContainer.style.display = 'block';
+                                resultsContainer.innerHTML = data.html;
 
-                            // Scroll to results with delay to ensure content is rendered
-                            setTimeout(() => {
-                                resultsContainer.scrollIntoView({
-                                    behavior: 'smooth',
-                                    block: 'start'
-                                });
-                            }, 100);
+                                // Smooth scroll to results
+                                setTimeout(() => {
+                                    resultsContainer.scrollIntoView({
+                                        behavior: 'smooth',
+                                        block: 'start'
+                                    });
+                                }, 100);
 
-                            // Re-initialize Bootstrap tabs if present
-                            const tabs = resultsContainer.querySelectorAll('[data-bs-toggle="tab"]');
-                            tabs.forEach(tab => {
-                                new bootstrap.Tab(tab);
-                            });
-                        } else if (data.errors) {
-                            // Show validation errors
-                            let errorMessage = 'Vui lòng kiểm tra lại:\\n';
-                            for (const field in data.errors) {
-                                errorMessage += '- ' + data.errors[field][0] + '\\n';
+                                // Re-initialize Bootstrap tabs using modern approach
+                                resultsContainer.querySelectorAll('[data-bs-toggle="tab"]')
+                                    .forEach(tab => new bootstrap.Tab(tab));
                             }
-                            alert(errorMessage);
-                        } else if (data.message) {
-                            alert(data.message);
+                        } else if (data.errors) {
+                            // Show validation errors using modern string formatting
+                            const errorMessages = Object.values(data.errors)
+                                .map(errors => errors[0])
+                                .join('\n- ');
+                            alert(`Vui lòng kiểm tra lại:\n- ${errorMessages}`);
                         } else {
-                            alert('Có lỗi xảy ra. Vui lòng thử lại.');
+                            alert(data.message || 'Có lỗi xảy ra. Vui lòng thử lại.');
                         }
-                    })
-                    .catch(error => {
-                        // Reset button state
-                        submitBtn.disabled = false;
-                        btnText.textContent = 'Xem Kết Quả';
-                        spinner.classList.add('d-none');
-
-                        console.error('Error:', error);
+                    } catch (error) {
+                        setLoadingState(false);
                         alert('Có lỗi xảy ra khi kết nối. Vui lòng thử lại.');
+                    }
+                };
+
+                submitForm();
+            });
+
+            // Modern event delegation for sorting
+            resultsContainer?.addEventListener('change', event => {
+                if (!event.target.matches('[name="sort"]')) return;
+
+                const sortValue = event.target.value;
+                applySortingToTable(sortValue);
+
+                // Smooth scroll to table after sort
+                setTimeout(() => {
+                    const target = document.getElementById("bang-chi-tiet");
+                    target?.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start"
                     });
+                }, 100);
             });
 
-            resultsContainer.addEventListener('change', function(event) {
-                if (event.target.matches('[name="sort"]')) {
-                    const sortValue = event.target.value;
-
-                    // Apply sorting directly without form submission
-                    applySortingToTable(sortValue);
-
-                    // Scroll to table after sort
-                    setTimeout(() => {
-                        const target = document.getElementById("bang-chi-tiet");
-                        if (target) {
-                            console.log('Scrolling to #bang-chi-tiet for filtering');
-                            target.scrollIntoView({
-                                behavior: "smooth",
-                                block: "start"
-                            });
-                        }
-                    }, 100);
-                }
-            });
-
-            // Function to apply sorting without form submission
-            function applySortingToTable(sortValue) {
+            // Optimized sorting function using modern JS patterns
+            const applySortingToTable = sortValue => {
                 const table = document.querySelector('#bang-chi-tiet table tbody');
                 if (!table) return;
 
                 const rows = Array.from(table.querySelectorAll('tr'));
-
-                rows.sort((a, b) => {
-                    // Get score from battery or score element
+                const sortedRows = rows.sort((a, b) => {
                     const scoreA = getScoreFromRow(a);
                     const scoreB = getScoreFromRow(b);
-
-                    if (sortValue === 'asc') {
-                        return scoreA - scoreB;
-                    } else {
-                        return scoreB - scoreA;
-                    }
+                    return sortValue === 'asc' ? scoreA - scoreB : scoreB - scoreA;
                 });
 
-                // Clear and re-append sorted rows
-                table.innerHTML = '';
-                rows.forEach(row => table.appendChild(row));
-            }
+                // Clear and re-append sorted rows efficiently
+                table.replaceChildren(...sortedRows);
+            };
 
-            // Helper function to extract score from table row
-            function getScoreFromRow(row) {
-                // Try to find score in battery element
-                const battery = row.querySelector('.battery-label');
-                if (battery) {
-                    return parseInt(battery.textContent.replace('%', '')) || 0;
-                }
+            // Improved helper function to extract score from table row
+            const getScoreFromRow = row => {
+                // Try multiple selectors for score elements
+                const selectors = [
+                    '.battery-label',
+                    '.diem-so',
+                    '.score'
+                ];
 
-                // Try to find score in other score elements
-                const scoreElement = row.querySelector('.diem-so, .score');
-                if (scoreElement) {
-                    return parseInt(scoreElement.textContent.replace(/[^\d]/g, '')) || 0;
-                }
-
-                // Try to find score in any cell containing numbers
-                const cells = row.querySelectorAll('td');
-                for (let cell of cells) {
-                    const text = cell.textContent.trim();
-                    const match = text.match(/(\d+)/);
-                    if (match) {
-                        return parseInt(match[1]) || 0;
+                for (const selector of selectors) {
+                    const element = row.querySelector(selector);
+                    if (element) {
+                        const score = parseInt(element.textContent.replace(/[^\d]/g, '')) || 0;
+                        return score;
                     }
+                }
+
+                // Fallback: search all cells for numeric values
+                const cells = Array.from(row.querySelectorAll('td'));
+                for (const cell of cells) {
+                    const match = cell.textContent.trim().match(/(\d+)/);
+                    if (match) return parseInt(match[1]) || 0;
                 }
 
                 return 0;
-            }
+            };
 
         });
     </script>

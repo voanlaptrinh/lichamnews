@@ -426,35 +426,43 @@
             function restoreFromHash() {
                 const params = parseHashParams();
 
-                // Restore groom calendar type from hash
+                // Restore groom calendar type from hash first
                 if (params.groom_calendar_type) {
-                    const groomSolarRadio = document.getElementById('groomSolarCalendar');
-                    const groomLunarRadio = document.getElementById('groomLunarCalendar');
+                    const groomSolarRadio = document.getElementById('groomSolar');
+                    const groomLunarRadio = document.getElementById('groomLunar');
 
                     if (params.groom_calendar_type === 'lunar' && groomLunarRadio) {
                         groomLunarRadio.checked = true;
                         groomSolarRadio.checked = false;
-                        groomLunarRadio.dispatchEvent(new Event('change'));
+                        if (groomDatePicker) {
+                            groomDatePicker.isLunar = true;
+                        }
                     } else if (params.groom_calendar_type === 'solar' && groomSolarRadio) {
                         groomSolarRadio.checked = true;
                         groomLunarRadio.checked = false;
-                        groomSolarRadio.dispatchEvent(new Event('change'));
+                        if (groomDatePicker) {
+                            groomDatePicker.isLunar = false;
+                        }
                     }
                 }
 
-                // Restore bride calendar type from hash
+                // Restore bride calendar type from hash first
                 if (params.bride_calendar_type) {
-                    const brideSolarRadio = document.getElementById('brideSolarCalendar');
-                    const brideLunarRadio = document.getElementById('brideLunarCalendar');
+                    const brideSolarRadio = document.getElementById('brideSolar');
+                    const brideLunarRadio = document.getElementById('brideLunar');
 
                     if (params.bride_calendar_type === 'lunar' && brideLunarRadio) {
                         brideLunarRadio.checked = true;
                         brideSolarRadio.checked = false;
-                        brideLunarRadio.dispatchEvent(new Event('change'));
+                        if (brideDatePicker) {
+                            brideDatePicker.isLunar = true;
+                        }
                     } else if (params.bride_calendar_type === 'solar' && brideSolarRadio) {
                         brideSolarRadio.checked = true;
                         brideLunarRadio.checked = false;
-                        brideSolarRadio.dispatchEvent(new Event('change'));
+                        if (brideDatePicker) {
+                            brideDatePicker.isLunar = false;
+                        }
                     }
                 }
 
@@ -465,61 +473,129 @@
                     let dateRangeSet = false;
 
                     if (params.groom) {
-                        // Set groom birthdate
-                        const groomInput = document.getElementById('groomDobHidden');
-                        groomInput.value = params.groom;
+                        // Use the dateSelector's method to properly restore and convert the date
+                        function tryRestoreGroomBirthdate(attempts = 0) {
+                            const maxAttempts = 20;
 
-                        // Parse and set groom date selects
-                        const dateParts = params.groom.split('/');
-                        if (dateParts.length === 3) {
-                            const day = parseInt(dateParts[0]);
-                            const month = parseInt(dateParts[1]);
-                            const year = parseInt(dateParts[2]);
-
-                            setTimeout(() => {
-                                document.getElementById('groomDay').value = day;
-                                document.getElementById('groomMonth').value = month;
-                                document.getElementById('groomYear').value = year;
-
-                                // Trigger change events
-                                document.getElementById('groomDay').dispatchEvent(new Event('change'));
-                                document.getElementById('groomMonth').dispatchEvent(new Event('change'));
-                                document.getElementById('groomYear').dispatchEvent(new Event('change'));
-
+                            if (attempts >= maxAttempts) {
                                 groomSet = true;
                                 checkAndSubmitForm();
-                            }, 500);
+                                return;
+                            }
+
+                            // Check if groomDatePicker is available and fully initialized
+                            if (groomDatePicker && groomDatePicker.daySelect && groomDatePicker.monthSelect && groomDatePicker.yearSelect &&
+                                groomDatePicker.yearSelect.options.length > 1) {
+
+                                // Parse birthdate from URL (always in solar format from URL)
+                                const dateParts = params.groom.split('/');
+                                if (dateParts.length === 3) {
+                                    const day = parseInt(dateParts[0]);
+                                    const month = parseInt(dateParts[1]);
+                                    const year = parseInt(dateParts[2]);
+
+                                    (async () => {
+                                        try {
+                                            // ========== SOLAR DATE UPDATE IS HANDLED BY LunarSolarDateSelect MODULE ==========
+                                            if (params.groom_calendar_type === 'lunar') {
+                                                await groomDatePicker.setDate(day, month, year, false, false);
+                                                const lunarRadio = document.getElementById('groomLunar');
+                                                if (lunarRadio) {
+                                                    lunarRadio.checked = true;
+                                                    await groomDatePicker.handleLunarRadioChange();
+                                                }
+                                            } else {
+                                                await groomDatePicker.setDate(day, month, year, false, false);
+                                                const solarRadio = document.getElementById('groomSolar');
+                                                if (solarRadio) {
+                                                    solarRadio.checked = true;
+                                                    groomDatePicker.isLunar = false;
+                                                }
+                                            }
+
+                                            await groomDatePicker.updateHiddenInput();
+                                            groomSet = true;
+                                            checkAndSubmitForm();
+                                        } catch (error) {
+                                            groomSet = true;
+                                            checkAndSubmitForm();
+                                        }
+                                    })();
+                                } else {
+                                    groomSet = true;
+                                    checkAndSubmitForm();
+                                }
+                            } else {
+                                // DateSelector not ready yet, try again
+                                setTimeout(() => tryRestoreGroomBirthdate(attempts + 1), 300);
+                            }
                         }
+
+                        tryRestoreGroomBirthdate();
                     } else {
                         groomSet = true;
                     }
 
                     if (params.bride) {
-                        // Set bride birthdate
-                        const brideInput = document.getElementById('brideDobHidden');
-                        brideInput.value = params.bride;
+                        // Use the dateSelector's method to properly restore and convert the date
+                        function tryRestoreBrideBirthdate(attempts = 0) {
+                            const maxAttempts = 20;
 
-                        // Parse and set bride date selects
-                        const dateParts = params.bride.split('/');
-                        if (dateParts.length === 3) {
-                            const day = parseInt(dateParts[0]);
-                            const month = parseInt(dateParts[1]);
-                            const year = parseInt(dateParts[2]);
-
-                            setTimeout(() => {
-                                document.getElementById('brideDay').value = day;
-                                document.getElementById('brideMonth').value = month;
-                                document.getElementById('brideYear').value = year;
-
-                                // Trigger change events
-                                document.getElementById('brideDay').dispatchEvent(new Event('change'));
-                                document.getElementById('brideMonth').dispatchEvent(new Event('change'));
-                                document.getElementById('brideYear').dispatchEvent(new Event('change'));
-
+                            if (attempts >= maxAttempts) {
                                 brideSet = true;
                                 checkAndSubmitForm();
-                            }, 500);
+                                return;
+                            }
+
+                            // Check if brideDatePicker is available and fully initialized
+                            if (brideDatePicker && brideDatePicker.daySelect && brideDatePicker.monthSelect && brideDatePicker.yearSelect &&
+                                brideDatePicker.yearSelect.options.length > 1) {
+
+                                // Parse birthdate from URL (always in solar format from URL)
+                                const dateParts = params.bride.split('/');
+                                if (dateParts.length === 3) {
+                                    const day = parseInt(dateParts[0]);
+                                    const month = parseInt(dateParts[1]);
+                                    const year = parseInt(dateParts[2]);
+
+                                    (async () => {
+                                        try {
+                                            // ========== SOLAR DATE UPDATE IS HANDLED BY LunarSolarDateSelect MODULE ==========
+                                            if (params.bride_calendar_type === 'lunar') {
+                                                await brideDatePicker.setDate(day, month, year, false, false);
+                                                const lunarRadio = document.getElementById('brideLunar');
+                                                if (lunarRadio) {
+                                                    lunarRadio.checked = true;
+                                                    await brideDatePicker.handleLunarRadioChange();
+                                                }
+                                            } else {
+                                                await brideDatePicker.setDate(day, month, year, false, false);
+                                                const solarRadio = document.getElementById('brideSolar');
+                                                if (solarRadio) {
+                                                    solarRadio.checked = true;
+                                                    brideDatePicker.isLunar = false;
+                                                }
+                                            }
+
+                                            await brideDatePicker.updateHiddenInput();
+                                            brideSet = true;
+                                            checkAndSubmitForm();
+                                        } catch (error) {
+                                            brideSet = true;
+                                            checkAndSubmitForm();
+                                        }
+                                    })();
+                                } else {
+                                    brideSet = true;
+                                    checkAndSubmitForm();
+                                }
+                            } else {
+                                // DateSelector not ready yet, try again
+                                setTimeout(() => tryRestoreBrideBirthdate(attempts + 1), 300);
+                            }
                         }
+
+                        tryRestoreBrideBirthdate();
                     } else {
                         brideSet = true;
                     }
@@ -595,42 +671,64 @@
 
                 // Get the groom date based on calendar type
                 let formattedGroomDob = '';
-                const groomCalendarType = groomDobInput.dataset.calendarType || 'solar';
+                let urlGroomDob = '';
+                let groomCalendarType = 'solar';
                 let groomIsLeapMonth = false;
 
-                if (groomCalendarType === 'lunar') {
-                    const solarDay = groomDobInput.dataset.solarDay;
-                    const solarMonth = groomDobInput.dataset.solarMonth;
-                    const solarYear = groomDobInput.dataset.solarYear;
-                    groomIsLeapMonth = groomDobInput.dataset.lunarLeap === '1';
+                // Determine groom calendar type from radio buttons
+                const groomSolarRadio = document.getElementById('groomSolar');
+                const groomLunarRadio = document.getElementById('groomLunar');
+                if (groomLunarRadio && groomLunarRadio.checked) {
+                    groomCalendarType = 'lunar';
+                } else if (groomSolarRadio && groomSolarRadio.checked) {
+                    groomCalendarType = 'solar';
+                }
 
-                    if (solarDay && solarMonth && solarYear) {
-                        formattedGroomDob = `${String(solarDay).padStart(2, '0')}/${String(solarMonth).padStart(2, '0')}/${solarYear}`;
-                    } else {
-                        formattedGroomDob = groomDobValue.replace(' (ÂL)', '').replace(' (ÂL-Nhuận)', '');
-                    }
+                // ========== SOLAR DATE UPDATE IS HANDLED BY LunarSolarDateSelect MODULE ==========
+                if (groomCalendarType === 'lunar') {
+                    const { solarDay, solarMonth, solarYear } = groomDobInput.dataset;
+                    const groomMonthSelect = document.getElementById('groomMonth');
+                    const selectedOption = groomMonthSelect.options[groomMonthSelect.selectedIndex];
+                    groomIsLeapMonth = selectedOption?.dataset.isLeap === '1';
+
+                    formattedGroomDob = groomDobValue;
+                    urlGroomDob = (solarDay && solarMonth && solarYear)
+                        ? `${String(solarDay).padStart(2, '0')}/${String(solarMonth).padStart(2, '0')}/${solarYear}`
+                        : groomDobValue;
                 } else {
                     formattedGroomDob = groomDobValue;
+                    urlGroomDob = groomDobValue;
                 }
 
                 // Get the bride date based on calendar type
                 let formattedBrideDob = '';
-                const brideCalendarType = brideDobInput.dataset.calendarType || 'solar';
+                let urlBrideDob = '';
+                let brideCalendarType = 'solar';
                 let brideIsLeapMonth = false;
 
-                if (brideCalendarType === 'lunar') {
-                    const solarDay = brideDobInput.dataset.solarDay;
-                    const solarMonth = brideDobInput.dataset.solarMonth;
-                    const solarYear = brideDobInput.dataset.solarYear;
-                    brideIsLeapMonth = brideDobInput.dataset.lunarLeap === '1';
+                // Determine bride calendar type from radio buttons
+                const brideSolarRadio = document.getElementById('brideSolar');
+                const brideLunarRadio = document.getElementById('brideLunar');
+                if (brideLunarRadio && brideLunarRadio.checked) {
+                    brideCalendarType = 'lunar';
+                } else if (brideSolarRadio && brideSolarRadio.checked) {
+                    brideCalendarType = 'solar';
+                }
 
-                    if (solarDay && solarMonth && solarYear) {
-                        formattedBrideDob = `${String(solarDay).padStart(2, '0')}/${String(solarMonth).padStart(2, '0')}/${solarYear}`;
-                    } else {
-                        formattedBrideDob = brideDobValue.replace(' (ÂL)', '').replace(' (ÂL-Nhuận)', '');
-                    }
+                // ========== SOLAR DATE UPDATE IS HANDLED BY LunarSolarDateSelect MODULE ==========
+                if (brideCalendarType === 'lunar') {
+                    const { solarDay, solarMonth, solarYear } = brideDobInput.dataset;
+                    const brideMonthSelect = document.getElementById('brideMonth');
+                    const selectedOption = brideMonthSelect.options[brideMonthSelect.selectedIndex];
+                    brideIsLeapMonth = selectedOption?.dataset.isLeap === '1';
+
+                    formattedBrideDob = brideDobValue;
+                    urlBrideDob = (solarDay && solarMonth && solarYear)
+                        ? `${String(solarDay).padStart(2, '0')}/${String(solarMonth).padStart(2, '0')}/${solarYear}`
+                        : brideDobValue;
                 } else {
                     formattedBrideDob = brideDobValue;
+                    urlBrideDob = brideDobValue;
                 }
 
                 // Parse date range
@@ -672,8 +770,8 @@
 
                 // Set hash parameters for URL state
                 const hashParams = {
-                    groom: formattedGroomDob,
-                    bride: formattedBrideDob,
+                    groom: urlGroomDob, // Use solar date for URL (easier to share)
+                    bride: urlBrideDob, // Use solar date for URL (easier to share)
                     khoang: dateRangeValue,
                     groom_calendar_type: groomCalendarType,
                     bride_calendar_type: brideCalendarType

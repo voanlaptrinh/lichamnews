@@ -209,6 +209,9 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Check if we have hash parameters to avoid setting defaults
+            const hasHashParams = window.location.hash && window.location.hash.includes('birthdate');
+
             // Initialize the lunar-solar date selector
             const dateSelector = new LunarSolarDateSelect({
                 daySelectId: 'ngaySelect',
@@ -219,16 +222,15 @@
                 lunarRadioId: 'lunarCalendar',
                 leapCheckboxId: 'leapMonth',
                 leapContainerId: 'leapMonthContainer',
-                defaultDay: 1,
-                defaultMonth: 1,
-                defaultYear: 2000,
+                defaultDay: hasHashParams ? null : 1,
+                defaultMonth: hasHashParams ? null : 1,
+                defaultYear: hasHashParams ? null : 2000,
                 yearRangeStart: 1900,
                 yearRangeEnd: new Date().getFullYear(),
                 lunarApiUrl: '/api/lunar-solar-convert',
                 lunarMonthDaysUrl: '/api/get-lunar-month-days',
-
+                monthInfoContainerId: 'monthInfoContainer',
                 csrfToken: '{{ csrf_token() }}',
-
             });
 
             // ========== DATE RANGE PICKER ==========
@@ -251,13 +253,9 @@
 
                 if (typeof window.VanillaDateRangePicker !== 'undefined') {
                     try {
-                        if (dateRangePickerInstance) {
-                            try {
-                                dateRangePickerInstance.destroy();
-                            } catch (e) {}
-                        }
+                        dateRangePickerInstance?.destroy?.();
 
-                        dateRangePickerInstance = new window.VanillaDateRangePicker(dateRangeInput, {
+                        const config = {
                             autoApply: true,
                             showDropdowns: true,
                             linkedCalendars: false,
@@ -267,12 +265,12 @@
                                 separator: ' - ',
                                 daysOfWeek: ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'],
                                 monthNames: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5',
-                                    'Tháng 6',
-                                    'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'
-                                ],
+                                    'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
                                 firstDay: 1
                             }
-                        });
+                        };
+
+                        dateRangePickerInstance = new window.VanillaDateRangePicker(dateRangeInput, config);
                     } catch (error) {
                         dateRangeInitAttempts = maxDateRangeAttempts;
                     }
@@ -318,7 +316,8 @@
                 const form = document.getElementById('khaiTruongForm');
                 if (form) {
                     form.requestSubmit();
-                    document.getElementById('autoSubmitNotification').style.display = 'none';
+                    const notification = document.getElementById('autoSubmitNotification');
+                    notification?.style?.setProperty('display', 'none');
                 }
             }
 
@@ -329,7 +328,7 @@
             function restoreFromHash() {
                 const params = parseHashParams();
 
-                // Restore calendar type from hash
+                // Restore calendar type from hash first
                 if (params.calendar_type) {
                     const solarRadio = document.getElementById('solarCalendar');
                     const lunarRadio = document.getElementById('lunarCalendar');
@@ -337,11 +336,17 @@
                     if (params.calendar_type === 'lunar' && lunarRadio) {
                         lunarRadio.checked = true;
                         solarRadio.checked = false;
-                        lunarRadio.dispatchEvent(new Event('change'));
+                        // Update the dateSelector instance state
+                        if (dateSelector) {
+                            dateSelector.isLunar = true;
+                        }
                     } else if (params.calendar_type === 'solar' && solarRadio) {
                         solarRadio.checked = true;
                         lunarRadio.checked = false;
-                        solarRadio.dispatchEvent(new Event('change'));
+                        // Update the dateSelector instance state
+                        if (dateSelector) {
+                            dateSelector.isLunar = false;
+                        }
                     }
                 }
 
@@ -358,92 +363,111 @@
 
                     if (params.user_name) {
                         const userNameInput = document.getElementById('user_name');
-                        userNameInput.value = params.user_name;
+                        if (userNameInput) {
+                            userNameInput.value = params.user_name;
+                        }
                         userNameSet = true;
                     } else {
                         userNameSet = true;
                     }
 
                     if (params.birthdate) {
-                        let formattedBirthdate = params.birthdate;
-                        let day, month, year;
+                        // Use the dateSelector's method to properly restore and convert the date
+                        function tryRestoreBirthdate(attempts = 0) {
+                            const maxAttempts = 20;
 
-                        // Check if birthdate is in Y-m-d format (from URL params)
-                        if (params.birthdate.includes('-') && params.birthdate.split('-').length === 3) {
-                            const ymdParts = params.birthdate.split('-');
-                            year = parseInt(ymdParts[0]);
-                            month = parseInt(ymdParts[1]);
-                            day = parseInt(ymdParts[2]);
-                            formattedBirthdate = `${String(day).padStart(2, '0')}/${String(month).padStart(2, '0')}/${year}`;
-                        } else {
-                            // Parse d/m/Y format
-                            const dateParts = params.birthdate.split('/');
-                            if (dateParts.length === 3) {
-                                day = parseInt(dateParts[0]);
-                                month = parseInt(dateParts[1]);
-                                year = parseInt(dateParts[2]);
+                            if (attempts >= maxAttempts) {
+                                birthdateSet = true;
+                                checkAndSubmitForm();
+                                return;
                             }
-                        }
 
-                        // Set birthdate in the hidden input
-                        const ngayXemInput = document.getElementById('ngayXem');
-                        ngayXemInput.value = formattedBirthdate;
+                            // Check if dateSelector is available and fully initialized
+                            if (dateSelector && dateSelector.daySelect && dateSelector.monthSelect && dateSelector.yearSelect &&
+                                dateSelector.yearSelect.options.length > 1) {
 
-                        if (day && month && year) {
+                                // Parse birthdate from URL (always in solar format from URL)
+                                let day, month, year;
 
-                            // Set the selects with multiple retries to ensure they're populated
-                            function trySetSelects(attempts = 0) {
-                                const maxAttempts = 15;
-                                const daySelect = document.getElementById('ngaySelect');
-                                const monthSelect = document.getElementById('thangSelect');
-                                const yearSelect = document.getElementById('namSelect');
-
-                                console.log(`trySetSelects attempt ${attempts + 1}/${maxAttempts}`, {
-                                    dayOptions: daySelect?.options?.length,
-                                    monthOptions: monthSelect?.options?.length,
-                                    yearOptions: yearSelect?.options?.length
-                                });
-
-                                if (attempts >= maxAttempts) {
-                                    birthdateSet = true; // Set to true to prevent blocking form submission
-                                    checkAndSubmitForm();
-                                    return;
+                                // Handle both Y-m-d and d/m/Y formats
+                                if (params.birthdate.includes('-') && params.birthdate.split('-').length === 3) {
+                                    const ymdParts = params.birthdate.split('-');
+                                    year = parseInt(ymdParts[0]);
+                                    month = parseInt(ymdParts[1]);
+                                    day = parseInt(ymdParts[2]);
+                                } else {
+                                    const dateParts = params.birthdate.split('/');
+                                    if (dateParts.length === 3) {
+                                        day = parseInt(dateParts[0]);
+                                        month = parseInt(dateParts[1]);
+                                        year = parseInt(dateParts[2]);
+                                    }
                                 }
 
-                                if (daySelect && monthSelect && yearSelect &&
-                                    daySelect.options.length > 1 &&
-                                    monthSelect.options.length > 1 &&
-                                    yearSelect.options.length > 1) {
+                                if (day && month && year) {
+                                    (async () => {
+                                        try {
+                                            if (params.calendar_type === 'lunar') {
+                                                // Date from URL is solar date, need to convert to lunar using API
+                                                // First set as solar date in selects
+                                                await dateSelector.setDate(day, month, year, false, false);
 
-                                    console.log('Setting select values sequentially:', { year, month, day });
+                                                // Use LunarSolarDateSelect's handleLunarRadioChange method for conversion
+                                                try {
+                                                    // First set solar date in selects
+                                                    await dateSelector.setDate(day, month, year, false, false);
 
-                                    // Set year first, trigger change, wait
-                                    yearSelect.value = year;
-                                    yearSelect.dispatchEvent(new Event('change'));
+                                                    // Then switch to lunar mode - this will trigger automatic conversion
+                                                    const lunarRadio = document.getElementById('lunarCalendar');
+                                                    const solarRadio = document.getElementById('solarCalendar');
+                                                    if (lunarRadio && solarRadio) {
+                                                        lunarRadio.checked = true;
+                                                        solarRadio.checked = false;
 
-                                    setTimeout(() => {
-                                        // Set month second, trigger change, wait
-                                        monthSelect.value = month;
-                                        monthSelect.dispatchEvent(new Event('change'));
+                                                        // Trigger the built-in conversion method
+                                                        if (dateSelector && typeof dateSelector.handleLunarRadioChange === 'function') {
+                                                            await dateSelector.handleLunarRadioChange();
+                                                        }
+                                                    }
+                                                } catch (error) {
+                                                    // Fallback: just set as lunar without conversion
+                                                    await dateSelector.setDate(day, month, year, true, false);
+                                                }
 
-                                        setTimeout(() => {
-                                            // Set day last, trigger change
-                                            daySelect.value = day;
-                                            daySelect.dispatchEvent(new Event('change'));
+                                            } else {
+                                                // Use solar date directly
+                                                await dateSelector.setDate(day, month, year, false, false);
 
+                                                // Ensure radio button stays checked and update instance state
+                                                const lunarRadio = document.getElementById('lunarCalendar');
+                                                const solarRadio = document.getElementById('solarCalendar');
+                                                if (lunarRadio && solarRadio) {
+                                                    solarRadio.checked = true;
+                                                    lunarRadio.checked = false;
+                                                    // Update dateSelector instance state to solar
+                                                    dateSelector.isLunar = false;
+                                                }
+                                            }
+
+                                            await dateSelector.updateHiddenInput();
                                             birthdateSet = true;
                                             checkAndSubmitForm();
-                                        }, 100);
-                                    }, 100);
+                                        } catch (error) {
+                                            birthdateSet = true;
+                                            checkAndSubmitForm();
+                                        }
+                                    })();
                                 } else {
-                                    setTimeout(() => trySetSelects(attempts + 1), 300);
+                                    birthdateSet = true;
+                                    checkAndSubmitForm();
                                 }
+                            } else {
+                                // DateSelector not ready yet, try again
+                                setTimeout(() => tryRestoreBirthdate(attempts + 1), 300);
                             }
-
-                            trySetSelects();
-                        } else {
-                            birthdateSet = true;
                         }
+
+                        tryRestoreBirthdate();
                     } else {
                         birthdateSet = true;
                     }
@@ -486,9 +510,7 @@
                                     form.requestSubmit();
                                     // Hide notification after successful submit
                                     const notification = document.getElementById('autoSubmitNotification');
-                                    if (notification) {
-                                        notification.style.display = 'none';
-                                    }
+                                    notification?.style?.setProperty('display', 'none');
                                 } catch (e) {
                                     form.dispatchEvent(new Event('submit', { cancelable: true }));
                                 }
@@ -513,16 +535,16 @@
 
                 // Get user name
                 const userNameInput = document.getElementById('user_name');
-                const userNameValue = userNameInput.value;
+                const userNameValue = userNameInput?.value?.trim() || '';
 
-                if (!userNameValue.trim()) {
+                if (!userNameValue) {
                     alert('Vui lòng nhập tên');
                     return;
                 }
 
                 // Get birthdate value
                 const ngayXemInput = document.getElementById('ngayXem');
-                const ngayXemValue = ngayXemInput.value;
+                const ngayXemValue = ngayXemInput?.value || '';
 
                 if (!ngayXemValue) {
                     alert('Vui lòng chọn đầy đủ ngày, tháng, năm sinh');
@@ -530,34 +552,36 @@
                 }
 
                 // Get date range value
-                const dateRangeValue = dateRangeInput.value;
+                const dateRangeValue = dateRangeInput?.value || '';
 
                 if (!dateRangeValue) {
                     alert('Vui lòng chọn khoảng thời gian khai trương');
                     return;
                 }
 
-                // Get the date based on calendar type
+                // Get the date and calendar type based on current selection
                 let formattedBirthdate = '';
-                const calendarType = ngayXemInput.dataset.calendarType || 'solar';
+                let calendarType = 'solar'; // default
                 let isLeapMonth = false;
 
-                if (calendarType === 'lunar') {
-                    // If lunar date, use the converted solar date
-                    const solarDay = ngayXemInput.dataset.solarDay;
-                    const solarMonth = ngayXemInput.dataset.solarMonth;
-                    const solarYear = ngayXemInput.dataset.solarYear;
-                    isLeapMonth = ngayXemInput.dataset.lunarLeap === '1';
+                // Determine calendar type from radio buttons
+                const solarRadio = document.getElementById('solarCalendar');
+                const lunarRadio = document.getElementById('lunarCalendar');
 
-                    if (solarDay && solarMonth && solarYear) {
-                        formattedBirthdate =
-                            `${String(solarDay).padStart(2, '0')}/${String(solarMonth).padStart(2, '0')}/${solarYear}`;
-                    } else {
-                        // Fallback to parsing lunar date from value
-                        formattedBirthdate = ngayXemValue.replace(' (ÂL)', '').replace(' (ÂL-Nhuận)', '');
-                    }
+                if (lunarRadio && lunarRadio.checked) {
+                    calendarType = 'lunar';
+                } else if (solarRadio && solarRadio.checked) {
+                    calendarType = 'solar';
+                }
+
+                // ========== SOLAR DATE UPDATE IS HANDLED BY LunarSolarDateSelect MODULE ==========
+                if (calendarType === 'lunar') {
+                    const { solarDay, solarMonth, solarYear, lunarLeap } = ngayXemInput.dataset;
+                    isLeapMonth = lunarLeap === '1';
+                    formattedBirthdate = (solarDay && solarMonth && solarYear)
+                        ? `${String(solarDay).padStart(2, '0')}/${String(solarMonth).padStart(2, '0')}/${solarYear}`
+                        : ngayXemValue.replace(' (ÂL)', '').replace(' (ÂL-Nhuận)', '');
                 } else {
-                    // Solar date can be used directly
                     formattedBirthdate = ngayXemValue;
                 }
 
@@ -661,7 +685,9 @@
                             // Re-initialize Bootstrap tabs if present
                             const tabs = resultsContainer.querySelectorAll('[data-bs-toggle="tab"]');
                             tabs.forEach(tab => {
-                                new bootstrap.Tab(tab);
+                                if (typeof bootstrap !== 'undefined' && bootstrap.Tab) {
+                                    new bootstrap.Tab(tab);
+                                }
                             });
                         } else if (data.errors) {
                             // Show validation errors
@@ -682,7 +708,6 @@
                         btnText.textContent = 'Xem Kết Quả';
                         spinner.classList.add('d-none');
 
-                        console.error('Error:', error);
                         alert('Có lỗi xảy ra khi kết nối. Vui lòng thử lại.');
                     });
             });
@@ -697,13 +722,10 @@
                     // Scroll to table after sort
                     setTimeout(() => {
                         const target = document.getElementById("bang-chi-tiet");
-                        if (target) {
-                            console.log('Scrolling to #bang-chi-tiet for filtering');
-                            target.scrollIntoView({
-                                behavior: "smooth",
-                                block: "start"
-                            });
-                        }
+                        target?.scrollIntoView?.({
+                            behavior: "smooth",
+                            block: "start"
+                        });
                     }, 100);
                 }
             });
@@ -720,11 +742,7 @@
                     const scoreA = getScoreFromRow(a);
                     const scoreB = getScoreFromRow(b);
 
-                    if (sortValue === 'asc') {
-                        return scoreA - scoreB;
-                    } else {
-                        return scoreB - scoreA;
-                    }
+                    return sortValue === 'asc' ? scoreA - scoreB : scoreB - scoreA;
                 });
 
                 // Clear and re-append sorted rows
@@ -748,8 +766,8 @@
 
                 // Try to find score in any cell containing numbers
                 const cells = row.querySelectorAll('td');
-                for (let cell of cells) {
-                    const text = cell.textContent.trim();
+                for (const cell of cells) {
+                    const text = cell.textContent?.trim() || '';
                     const match = text.match(/(\d+)/);
                     if (match) {
                         return parseInt(match[1]) || 0;
