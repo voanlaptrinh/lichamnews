@@ -130,7 +130,7 @@
 
 
                                         </tr>
-                                        @if (!$groomData['score']['hopttuoi'])
+                                        @if (!$groomData['score']['hopttuoi'] && $groomData['score']['hopTuoiReason'] != 'Ngày bình thường')
                                             <tr>
                                                 <td></td>
                                                 <td>
@@ -154,7 +154,8 @@
                                                 @endif
                                             </td>
                                         </tr>
-                                        <tr>
+                                        @if ($groomData['score']['tructot'] || $groomData['score']['trucxau'])
+                                             <tr>
                                             <td>
                                                 @if ($groomData['score']['tructot'])
                                                     Thập Nhị Trực {{ $groomData['score']['truc']['details']['name'] }}
@@ -162,12 +163,14 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                @if (!$groomData['score']['tructot'])
+                                                @if ($groomData['score']['trucxau'])
                                                     Thập Nhị Trực {{ $groomData['score']['truc']['details']['name'] }}
                                                     (Xấu)
                                                 @endif
                                             </td>
                                         </tr>
+                                        @endif
+                                       
                                         <tr>
                                             <td>
                                                 @if (!empty($groomData['score']['catHung']['details']['catStars']))

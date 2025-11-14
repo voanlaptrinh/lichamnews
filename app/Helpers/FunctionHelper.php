@@ -108,7 +108,7 @@ class FunctionHelper
         $can_chi_nam = KhiVanHelper::canchiNam($al[2]);
         $can_chi_thang = KhiVanHelper::canchiThang($al[2], $al[1]);
         $chi_thang = KhiVanHelper::extractChi(KhiVanHelper::canchiThang($al[2], $al[1]));
-        $chi_nam   = KhiVanHelper::extractChi(KhiVanHelper::canchiNam(yy: $al[2]));
+        $chi_nam   = KhiVanHelper::extractChi(KhiVanHelper::canchiNam( $al[2]));
         $icon_ngay  = KhiVanHelper::getChiSvg($chi_ngay);
         $icon_thang = KhiVanHelper::getChiSvg($chi_thang);
         $icon_nam   = KhiVanHelper::getChiSvg($chi_nam);

@@ -1,13 +1,12 @@
 @extends('welcome')
 
 @section('content')
-
     @push('styles')
         <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=10.7') }}">
     @endpush
 
     <div class="container-setup">
-        
+
         <div class="content-title-detail"><a href="{{ route('home') }}"
                 style="color: #2254AB; text-decoration: underline;">Trang chủ</a><i class="bi bi-chevron-right"></i> <a
                 style="color: #2254AB; text-decoration: underline;" href="">Tiện ích</a> <i
@@ -17,7 +16,7 @@
 
         <h1 class="content-title-home-lich">Chi tiết xem ngày cưới</h1>
 
-        
+
 
         <div>
             <div class="row g-lg-3 g-2 pt-lg-3 pt-2">
@@ -46,7 +45,8 @@
                                             <td>
                                                 <span style="font-weight: 600">Ngày Dương lịch:</span>
                                                 {{ $commonDayInfo['dateToCheck']->format('d/m/Y') }}
-                                              (<span style="text-transform:capitalize;">{{ $commonDayInfo['dayOfWeek'] }}</span>)
+                                                (<span
+                                                    style="text-transform:capitalize;">{{ $commonDayInfo['dayOfWeek'] }}</span>)
                                             </td>
                                             <td>
                                                 <span style="font-weight: 600">Ngày Âm lịch:</span>
@@ -123,20 +123,29 @@
                                                         Các yếu tố xấu/ cản trở cần xem xét
                                                     </td>
                                                 </tr>
-                                                @if ($groomData['score']['hopttuoi'] || !empty($groomData['score']['bad_days']))
+
+                                                @php
+                                                    $tabooIssuesgroom = collect(
+                                                        $groomData['score']['issues'] ?? [],
+                                                    )->filter(fn($issue) => ($issue['source'] ?? '') === 'Taboo');
+                                                @endphp
+
+                                                @if ($groomData['score']['hopttuoi'] || $tabooIssuesgroom->isNotEmpty())
                                                     <tr>
                                                         <td>
                                                             @if ($groomData['score']['hopttuoi'])
                                                                 ✓ Ngày hợp tuổi: {{ $groomData['score']['hopTuoiReason'] }}
                                                             @endif
                                                         </td>
+
                                                         <td>
-                                                            {{ collect($groomData['score']['bad_days'] ?? [])->map(fn($day) => 'Phạm ' . ($day ?? ''))->implode(', ') }}
+                                                            {{ $tabooIssuesgroom->map(fn($issue) => 'Phạm ' . ($issue['details']['tabooName'] ?? ''))->implode(', ') }}
                                                         </td>
                                                     </tr>
                                                 @endif
 
-                                                @if (!$groomData['score']['hopttuoi'])
+
+                                                @if (!$groomData['score']['hopttuoi'] && $groomData['score']['hopTuoiReason'] != 'Ngày bình thường')
                                                     <tr>
                                                         <td></td>
                                                         <td>
@@ -162,22 +171,25 @@
                                                         @endif
                                                     </td>
                                                 </tr>
-                                                <tr>
-                                                    <td>
-                                                        @if ($groomData['score']['tructot'])
-                                                            ✓ Thập Nhị Trực
-                                                            {{ $groomData['score']['truc']['details']['name'] }}
-                                                            (Tốt)
-                                                        @endif
-                                                    </td>
-                                                    <td>
-                                                        @if (!$groomData['score']['tructot'])
-                                                            ❌ Thập Nhị Trực
-                                                            {{ $groomData['score']['truc']['details']['name'] }}
-                                                            (Xấu)
-                                                        @endif
-                                                    </td>
-                                                </tr>
+                                                @if ($groomData['score']['tructot'] || $groomData['score']['trucxau'])
+                                                    <tr>
+                                                        <td>
+                                                            @if ($groomData['score']['tructot'])
+                                                                ✓ Thập Nhị Trực
+                                                                {{ $groomData['score']['truc']['details']['name'] }}
+                                                                (Tốt)
+                                                            @endif
+                                                        </td>
+                                                        <td>
+                                                            @if ($groomData['score']['trucxau'])
+                                                                ❌ Thập Nhị Trực
+                                                                {{ $groomData['score']['truc']['details']['name'] }}
+                                                                (Xấu)
+                                                            @endif
+                                                        </td>
+                                                    </tr>
+                                                @endif
+
                                                 <tr>
                                                     <td>
                                                         @if (!empty($groomData['score']['catHung']['details']['catStars']))
@@ -282,7 +294,8 @@
                         </div>
 
                         {{-- TAB CỦA CÔ DÂU --}}
-                        <div class="tab-pane fade" id="bride-tab-pane" role="tabpanel" aria-labelledby="bride-tab" tabindex="0">
+                        <div class="tab-pane fade" id="bride-tab-pane" role="tabpanel" aria-labelledby="bride-tab"
+                            tabindex="0">
 
                             <div class="card border-0 mb-3 w-100 box-detial-year">
                                 <div class="card-body box1-con-year">
@@ -303,20 +316,30 @@
                                                         Các yếu tố xấu/ cản trở cần xem xét
                                                     </td>
                                                 </tr>
-                                                @if ($brideData['score']['hopttuoi'] || !empty($brideData['score']['bad_days']))
+                                                @php
+                                                    $tabooIssues = collect($brideData['score']['issues'] ?? [])->filter(
+                                                        fn($issue) => ($issue['source'] ?? '') === 'Taboo',
+                                                    );
+                                                @endphp
+
+                                                @if ($brideData['score']['hopttuoi'] || $tabooIssues->isNotEmpty())
                                                     <tr>
                                                         <td>
                                                             @if ($brideData['score']['hopttuoi'])
                                                                 ✓ Ngày hợp tuổi: {{ $brideData['score']['hopTuoiReason'] }}
                                                             @endif
                                                         </td>
+
                                                         <td>
-                                                            {{ collect($brideData['score']['bad_days'] ?? [])->map(fn($day) => 'Phạm ' . ($day ?? ''))->implode(', ') }}
+                                                            {{ $tabooIssues->map(fn($issue) => 'Phạm ' . ($issue['details']['tabooName'] ?? ''))->implode(', ') }}
                                                         </td>
                                                     </tr>
                                                 @endif
 
-                                                @if (!$brideData['score']['hopttuoi'])
+
+
+
+                                                @if (!$brideData['score']['hopttuoi'] && $brideData['score']['hopTuoiReason'] != 'Ngày bình thường')
                                                     <tr>
                                                         <td></td>
                                                         <td>
@@ -342,22 +365,33 @@
                                                         @endif
                                                     </td>
                                                 </tr>
-                                                <tr>
-                                                    <td>
-                                                        @if ($brideData['score']['tructot'])
-                                                            ✓ Thập Nhị Trực
-                                                            {{ $brideData['score']['truc']['details']['name'] }}
-                                                            (Tốt)
-                                                        @endif
-                                                    </td>
-                                                    <td>
-                                                        @if (!$brideData['score']['tructot'])
-                                                            ❌ Thập Nhị Trực
-                                                            {{ $brideData['score']['truc']['details']['name'] }}
-                                                            (Xấu)
-                                                        @endif
-                                                    </td>
-                                                </tr>
+                                                @if ($brideData['score']['tructot'] || $brideData['score']['trucxau'])
+                                                    <tr>
+                                                        <td>
+                                                            @if ($brideData['score']['tructot'])
+                                                                ✓ Thập Nhị Trực
+                                                                {{ $brideData['score']['truc']['details']['name'] }}
+                                                                (Tốt)
+                                                            @endif
+                                                        </td>
+                                                        <td>
+                                                            @if ($brideData['score']['trucxau'])
+                                                                ❌ Thập Nhị Trực
+                                                                {{ $brideData['score']['truc']['details']['name'] }}
+                                                                (Xấu)
+                                                            @endif
+                                                        </td>
+                                                    </tr>
+                                                    </tr>
+                                                    </tr>
+                                                    </tr>
+                                                    </tr>
+                                                    </tr>
+                                                    </tr>
+                                                    </tr>
+                                                    </tr>
+                                                @endif
+
                                                 <tr>
                                                     <td>
                                                         @if (!empty($brideData['score']['catHung']['details']['catStars']))
@@ -473,56 +507,56 @@
 @endsection
 
 @push('scripts')
-<script>
-function goBackToForm() {
-    // Get current URL parameters to extract groom, bride and date range info
-    const urlParams = new URLSearchParams(window.location.search);
-    const groomDob = urlParams.get('groom_dob');
-    const brideDob = urlParams.get('bride_dob');
-    const dateRange = urlParams.get('date_range');
+    <script>
+        function goBackToForm() {
+            // Get current URL parameters to extract groom, bride and date range info
+            const urlParams = new URLSearchParams(window.location.search);
+            const groomDob = urlParams.get('groom_dob');
+            const brideDob = urlParams.get('bride_dob');
+            const dateRange = urlParams.get('khoang');
 
-    // Build the target URL with hash parameters
-    let targetUrl = '{{ route("astrology.form") }}';
-    const hashParams = [];
+            // Build the target URL with hash parameters
+            let targetUrl = '{{ route('astrology.form') }}';
+            const hashParams = [];
 
-    // Add groom to hash if available
-    if (groomDob) {
-        // Convert Y-m-d format to d/m/Y format for the form
-        const dateParts = groomDob.split('-');
-        if (dateParts.length === 3) {
-            const formattedDate = `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
-            hashParams.push(`groom=${encodeURIComponent(formattedDate)}`);
+            // Add groom to hash if available
+            if (groomDob) {
+                // Convert Y-m-d format to d/m/Y format for the form
+                const dateParts = groomDob.split('-');
+                if (dateParts.length === 3) {
+                    const formattedDate = `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
+                    hashParams.push(`groom=${encodeURIComponent(formattedDate)}`);
+                }
+            }
+
+            // Add bride to hash if available
+            if (brideDob) {
+                // Convert Y-m-d format to d/m/Y format for the form
+                const dateParts = brideDob.split('-');
+                if (dateParts.length === 3) {
+                    const formattedDate = `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
+                    hashParams.push(`bride=${encodeURIComponent(formattedDate)}`);
+                }
+            }
+
+            // Add date range to hash if available
+            if (dateRange) {
+                hashParams.push(`khoang=${encodeURIComponent(dateRange)}`);
+            }
+
+            // Add calendar_type to hash if available
+            const calendarType = urlParams.get('calendar_type');
+            if (calendarType) {
+                hashParams.push(`calendar_type=${encodeURIComponent(calendarType)}`);
+            }
+
+            // Build final URL with hash
+            if (hashParams.length > 0) {
+                targetUrl += `#${hashParams.join('&')}`;
+            }
+
+            // Redirect to the form page
+            window.location.href = targetUrl;
         }
-    }
-
-    // Add bride to hash if available
-    if (brideDob) {
-        // Convert Y-m-d format to d/m/Y format for the form
-        const dateParts = brideDob.split('-');
-        if (dateParts.length === 3) {
-            const formattedDate = `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
-            hashParams.push(`bride=${encodeURIComponent(formattedDate)}`);
-        }
-    }
-
-    // Add date range to hash if available
-    if (dateRange) {
-        hashParams.push(`khoang=${encodeURIComponent(dateRange)}`);
-    }
-
-    // Add calendar_type to hash if available
-    const calendarType = urlParams.get('calendar_type');
-    if (calendarType) {
-        hashParams.push(`calendar_type=${encodeURIComponent(calendarType)}`);
-    }
-
-    // Build final URL with hash
-    if (hashParams.length > 0) {
-        targetUrl += `#${hashParams.join('&')}`;
-    }
-
-    // Redirect to the form page
-    window.location.href = targetUrl;
-}
-</script>
+    </script>
 @endpush

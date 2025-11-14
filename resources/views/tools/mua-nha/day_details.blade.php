@@ -103,15 +103,14 @@
                                             @php
                                                 $hopTuoi = $groomData['score']['hopttuoi'] ?? null;
                                                 $hopTuoiReason = $groomData['score']['hopTuoiReason'] ?? '';
-                                                $tabooIssues = collect($tabooResult['issues'] ?? [])
-                                                    ->filter()
-                                                    ->map(
-                                                        fn($day) => 'Phạm Ngày ' . ($day['details']['tabooName'] ?? ''),
-                                                    )
-                                                    ->implode(', ');
+
+                                                $tabooIssues = collect($groomData['score']['issues'] ?? [])->filter(
+                                                    fn($issue) => ($issue['source'] ?? '') === 'Taboo',
+                                                );
+
                                             @endphp
 
-                                            @if ($hopTuoi || $tabooIssues)
+                                            @if ($hopTuoi || $tabooIssues->isNotEmpty())
                                         <tr>
                                             <td>
                                                 @if ($hopTuoi)
@@ -119,15 +118,13 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                @if ($tabooIssues)
-                                                    {{ $tabooIssues }}
-                                                @endif
+                                                {{ $tabooIssues->map(fn($issue) => 'Phạm ' . ($issue['details']['tabooName'] ?? ''))->implode(', ') }}
                                             </td>
                                         </tr>
                                         @endif
 
                                         </tr>
-                                        @if (!$groomData['score']['hopttuoi'])
+                                        @if (!$groomData['score']['hopttuoi'] && $groomData['score']['hopTuoiReason'] != 'Ngày bình thường')
                                             <tr>
                                                 <td></td>
                                                 <td>
@@ -151,20 +148,23 @@
                                                 @endif
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td>
-                                                @if ($groomData['score']['tructot'])
-                                                    Thập Nhị Trực {{ $groomData['score']['truc']['details']['name'] }}
-                                                    (Tốt)
-                                                @endif
-                                            </td>
-                                            <td>
-                                                @if (!$groomData['score']['tructot'])
-                                                    Thập Nhị Trực {{ $groomData['score']['truc']['details']['name'] }}
-                                                    (Xấu)
-                                                @endif
-                                            </td>
-                                        </tr>
+                                        @if ($groomData['score']['tructot'] || $groomData['score']['trucxau'])
+                                            <tr>
+                                                <td>
+                                                    @if ($groomData['score']['tructot'])
+                                                        Thập Nhị Trực {{ $groomData['score']['truc']['details']['name'] }}
+                                                        (Tốt)
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($groomData['score']['trucxau'])
+                                                        Thập Nhị Trực {{ $groomData['score']['truc']['details']['name'] }}
+                                                        (Xấu)
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endif
+
                                         <tr>
                                             <td>
                                                 @if (!empty($groomData['score']['catHung']['details']['catStars']))
@@ -308,11 +308,10 @@
                                                             là
                                                             <b>{{ $analyze['details']['can']['relation'] }}</b>
                                                             ({{ $analyze['details']['can']['rating'] }}).
-                                                             @if (!empty($analyze['details']['can']['fakeHợpExplanation']))
+                                                            @if (!empty($analyze['details']['can']['fakeHợpExplanation']))
                                                                 {{ $analyze['details']['can']['fakeHợpExplanation'] }}
                                                             @else
-                                                            {{ $analyze['details']['can']['explanation'] }}
-                                                            
+                                                                {{ $analyze['details']['can']['explanation'] }}
                                                             @endif
                                                         </li>
                                                         <li><strong>Địa chi:</strong> Chi ngày

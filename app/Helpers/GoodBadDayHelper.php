@@ -74,7 +74,7 @@ class GoodBadDayHelper
         $trucIssues = NhiTrucHelper::checkTrucIssues($trucName, $effectivePurpose);
         $allIssues = array_merge($allIssues, $trucIssues);
 
-      
+
 
 
         // 7. Tổng hợp điểm có trọng số
@@ -180,11 +180,12 @@ class GoodBadDayHelper
             // Thêm các yếu tố hỗ trợ
             'hoangdao' => $supportFactors['hoangdao'],
             'tructot' => $supportFactors['tructot'],
+            'trucxau' => $supportFactors['trucxau'],
             'hopttuoi' => $supportFactors['hopttuoi'],
             'hopTuoiReason' => $supportFactors['hopTuoiReason'] ?? '',
             'good_stars' => $supportFactors['good_stars'],
             'positive_factors' => $supportFactors['positive_factors'],
-         
+
         ];
     }
 
@@ -458,9 +459,11 @@ class GoodBadDayHelper
             if ($isLeap == 1) {
                 $normalStart = @LunarHelper::convertLunar2Solar(1, $month, $year, 0);
                 // If both return same date, there's no actual leap month
-                if ($normalStart && $normalStart[0] == $solarStart[0] &&
+                if (
+                    $normalStart && $normalStart[0] == $solarStart[0] &&
                     $normalStart[1] == $solarStart[1] &&
-                    $normalStart[2] == $solarStart[2]) {
+                    $normalStart[2] == $solarStart[2]
+                ) {
                     return 0; // No leap month exists
                 }
             }
@@ -478,10 +481,12 @@ class GoodBadDayHelper
                 $leapTest = @LunarHelper::convertLunar2Solar(15, $month, $year, 1);
                 $normalTest = @LunarHelper::convertLunar2Solar(15, $month, $year, 0);
 
-                if ($leapTest && $normalTest &&
+                if (
+                    $leapTest && $normalTest &&
                     !($leapTest[0] == $normalTest[0] &&
-                      $leapTest[1] == $normalTest[1] &&
-                      $leapTest[2] == $normalTest[2])) {
+                        $leapTest[1] == $normalTest[1] &&
+                        $leapTest[2] == $normalTest[2])
+                ) {
                     // Leap month exists for this month number
                     $nextIsLeap = 1;
                 } else {
@@ -504,8 +509,10 @@ class GoodBadDayHelper
             // Get the first day of next month
             $nextMonthStart = @LunarHelper::convertLunar2Solar(1, $nextMonth, $nextYear, $nextIsLeap);
 
-            if ($currentMonthStart && $nextMonthStart &&
-                isset($currentMonthStart[0]) && isset($nextMonthStart[0])) {
+            if (
+                $currentMonthStart && $nextMonthStart &&
+                isset($currentMonthStart[0]) && isset($nextMonthStart[0])
+            ) {
 
                 // Calculate the difference in days
                 $currentDate = new \DateTime();
@@ -548,7 +555,6 @@ class GoodBadDayHelper
 
             // Default to 29 days (most common for lunar months)
             return 29;
-
         } catch (\Exception $e) {
             // If conversion fails completely, return 0 to indicate invalid
             return 0;
@@ -705,6 +711,7 @@ class GoodBadDayHelper
 
         // 2. Kiểm tra trực tốt
         $tructot = self::isTrucTot($date);
+        $trucxau = self::isTrucXau($date);
 
         // 3. Kiểm tra hợp tuổi (nếu có năm sinh)
         $hopttuoi = false;
@@ -724,7 +731,7 @@ class GoodBadDayHelper
                 $isTuongPha = GioHoangDaoHelper::isTuongPha($dayChi, $birthChi);
                 $isTuHinh = ($birthChi === $dayChi);
 
-             
+
 
                 if ($isLucXung) {
                     $hopTuoiReason = "Lục xung";
@@ -760,6 +767,7 @@ class GoodBadDayHelper
         return [
             'hoangdao' => $hoangdao,
             'tructot' => $tructot,
+            'trucxau' => $trucxau,
             'hopttuoi' => $hopttuoi,
             'hopTuoiReason' => $hopTuoiReason,
             'good_stars' => $good_stars,
@@ -787,10 +795,27 @@ class GoodBadDayHelper
     {
         $truc = NhiTrucHelper::getTruc($date->day, $date->month, $date->year);
 
-        // Các trực tốt (khác với hoàng đạo): Định, Chấp, Kiến, Mãn
-     $trucTot = ['Thành', 'Định', 'Khai', 'Mãn', 'Thu', 'Trừ', 'Bình','Nguy','Chấp'];
+        $info = DataHelper::$trucInfo[$truc] ?? null;
 
-        return in_array($truc, $trucTot);
+        if (!$info) {
+            return false;
+        }
+
+        // Rating tốt = "Tốt" hoặc "Rất tốt"
+        return in_array($info['rating'], ['Tốt', 'Rất tốt']);
+    }
+    private static function isTrucXau(Carbon $date): bool
+    {
+        $truc = NhiTrucHelper::getTruc($date->day, $date->month, $date->year);
+
+        $info = DataHelper::$trucInfo[$truc] ?? null;
+
+        if (!$info) {
+            return false;
+        }
+
+        // Rating tốt = "xấu" hoặc "Rất xấu"
+        return in_array($info['rating'], ['Xấu', 'Rất xấu']);
     }
 
     /**
@@ -957,6 +982,4 @@ class GoodBadDayHelper
 
         return $trucToStar[$truc] ?? null;
     }
-
-  
 }

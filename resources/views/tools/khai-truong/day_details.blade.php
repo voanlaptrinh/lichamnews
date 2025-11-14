@@ -41,7 +41,8 @@
                                             <td>
                                                 <span style="font-weight: 600">Ngày Dương lịch:</span>
                                                 {{ $commonDayInfo['dateToCheck']->format('d/m/Y') }}
-                                                (<span style="text-transform:capitalize;">{{ $commonDayInfo['dayOfWeek'] }}</span>)
+                                                (<span
+                                                    style="text-transform:capitalize;">{{ $commonDayInfo['dayOfWeek'] }}</span>)
                                             </td>
                                             <td>
                                                 <span style="font-weight: 600">Ngày Âm lịch:</span>
@@ -91,32 +92,32 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                          @php
-    $hopTuoi = $ownerData['score']['hopttuoi'] ?? null;
-    $hopTuoiReason = $ownerData['score']['hopTuoiReason'] ?? '';
-    $tabooIssues = collect($tabooResult['issues'] ?? [])
-        ->filter()
-        ->map(fn($day) => 'Phạm Ngày ' . ($day['details']['tabooName'] ?? ''))
-        ->implode(', ');
-@endphp
+                                            @php
+                                                $hopTuoi = $ownerData['score']['hopttuoi'] ?? null;
+                                                $hopTuoiReason = $ownerData['score']['hopTuoiReason'] ?? '';
+                                                $tabooIssues = collect($ownerData['score']['issues'] ?? [])->filter(
+                                                    fn($issue) => ($issue['source'] ?? '') === 'Taboo',
+                                                );
 
-@if ($hopTuoi || $tabooIssues)
-    <tr><td>
+                                            @endphp
 
-    
-        @if ($hopTuoi)
-            ✓ Ngày hợp tuổi: {{ $hopTuoiReason }}
-        @endif</td>
-<td>
-        @if ($tabooIssues)
-            {{ $tabooIssues }}
-        @endif
-        </td>
-    </tr>
-@endif
+                                            @if ($hopTuoi || $tabooIssues->isNotEmpty())
+                                        <tr>
+                                            <td>
+
+
+                                                @if ($hopTuoi)
+                                                    ✓ Ngày hợp tuổi: {{ $hopTuoiReason }}
+                                                @endif
+                                            </td>
+                                            <td>
+                                                {{ $tabooIssues->map(fn($issue) => 'Phạm ' . ($issue['details']['tabooName'] ?? ''))->implode(', ') }}
+                                            </td>
+                                        </tr>
+                                        @endif
 
                                         </tr>
-                                        @if (!$ownerData['score']['hopttuoi'])
+                                        @if (!$ownerData['score']['hopttuoi'] && $ownerData['score']['hopTuoiReason'] != 'Ngày bình thường')
                                             <tr>
                                                 <td></td>
                                                 <td>
@@ -139,26 +140,30 @@
                                                 @endif
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td>
-                                                @if ($ownerData['score']['tructot'])
-                                                    Thập Nhị Trực {{ $ownerData['score']['truc']['details']['name'] }}
-                                                    (Tốt)
-                                                @endif
-                                            </td>
-                                            <td>
-                                                @if (!$ownerData['score']['tructot'])
-                                                    Thập Nhị Trực {{ $ownerData['score']['truc']['details']['name'] }}
-                                                    (Xấu)
-                                                @endif
-                                            </td>
-                                        </tr>
+                                        @if ($ownerData['score']['tructot'] || $ownerData['score']['trucxau'])
+                                            <tr>
+                                                <td>
+                                                    @if ($ownerData['score']['tructot'])
+                                                        Thập Nhị Trực {{ $ownerData['score']['truc']['details']['name'] }}
+                                                        (Tốt)
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($ownerData['score']['trucxau'])
+                                                        Thập Nhị Trực {{ $ownerData['score']['truc']['details']['name'] }}
+                                                        (Xấu)
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endif
+
                                         <tr>
                                             <td>
                                                 @if (!empty($ownerData['score']['catHung']['details']['catStars']))
                                                     <strong>Sao tốt theo Ngọc Hạp Thông Thư:</strong>
                                                     @foreach ($ownerData['score']['catHung']['details']['catStars'] as $index => $sao)
-                                                        <span class=" bg-success">{{ $sao['name'] }}</span>{{ $loop->last ? '' : ',' }}
+                                                        <span
+                                                            class=" bg-success">{{ $sao['name'] }}</span>{{ $loop->last ? '' : ',' }}
                                                     @endforeach
                                                 @endif
                                             </td>
@@ -166,7 +171,8 @@
                                                 @if (!empty($ownerData['score']['catHung']['details']['hungStars']))
                                                     <strong>Sao xấu theo Ngọc Hạp Thông Thư:</strong>
                                                     @foreach ($ownerData['score']['catHung']['details']['hungStars'] as $sao)
-                                                        <span class=" bg-danger">{{ $sao['name'] }}</span>{{ $loop->last ? '' : ',' }}
+                                                        <span
+                                                            class=" bg-danger">{{ $sao['name'] }}</span>{{ $loop->last ? '' : ',' }}
                                                     @endforeach
                                                 @endif
                                             </td>
@@ -183,13 +189,14 @@
                                 class="text-primary mb-3 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
                                 <img src="{{ asset('icons/dac-diem1.svg') }}" alt="thông tin người xem" width="28"
                                     height="28" class="me-1"> <span>Đánh giá cho điểm các yếu tố ngày cho
-                                    @if(isset(request()->user_name) && !empty(request()->user_name))
+                                    @if (isset(request()->user_name) && !empty(request()->user_name))
                                         {{ request()->user_name }}
                                     @endif
                                     tuổi {{ $ownerData['personInfo']['can_chi_nam'] }}
                                     ({{ $ownerData['personInfo']['dob']->format('d-m-Y') }}) khai trương:
                                     {{ round($ownerData['score']['percentage']) }}/100
-                                    ({{ round($ownerData['score']['percentage']) }}%)</span>
+                                    ({{ round($ownerData['score']['percentage']) }}%)
+                                </span>
                             </div>
                             <div>
                                 <table class="table table-detail" style="table-layout: fixed;">
@@ -206,7 +213,8 @@
                                             </td>
                                         </tr>
                                         @php
-                                            $weights = \App\Helpers\DataHelper::$PURPOSE_WEIGHTS_PERSONALIZED['KHAI_TRUONG'];
+                                            $weights =
+                                                \App\Helpers\DataHelper::$PURPOSE_WEIGHTS_PERSONALIZED['KHAI_TRUONG'];
                                             $totalWeight = array_sum($weights);
                                         @endphp
                                         <tr>
@@ -237,7 +245,8 @@
 
                     <div class="card border-0 mb-3 w-100 box-detial-year">
                         <div class="card-body box1-con-year">
-                            <div class="text-primary mb-2 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
+                            <div
+                                class="text-primary mb-2 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
                                 <div>
                                     <img src="{{ asset('icons/dac-diem1.svg') }}" alt="thông tin người xem" width="28"
                                         height="28" class="me-1">
@@ -246,7 +255,8 @@
                             </div>
                             <div>
                                 <div class="card-body p-0">
-                                    <div class="accordion accordion-flush" id="accordion-{{ Str::slug($ownerData['personTitle']) }}">
+                                    <div class="accordion accordion-flush"
+                                        id="accordion-{{ Str::slug($ownerData['personTitle']) }}">
                                         <div class="accordion-item">
                                             <h2 class="accordion-header">
                                                 <button class="accordion-button collapsed" type="button"
@@ -264,11 +274,12 @@
 
                                                     <h6><b>* Vận khí ngày & tháng (khí tháng):</b></h6>
                                                     <p>Ngày {{ $ownerData['getThongTinCanChiVaIcon']['can_chi_ngay'] }} -
-                                                        Tháng {{ $ownerData['getThongTinCanChiVaIcon']['can_chi_thang'] }}</p>
-                                                        <ul class="mb-0 mt-0">
-                                                     {!! $ownerData['getVongKhiNgayThang']['analysis'] !!}
-                                                   </ul>
-                                                   <p> {!! $ownerData['getVongKhiNgayThang']['conclusion'] !!}</p>
+                                                        Tháng {{ $ownerData['getThongTinCanChiVaIcon']['can_chi_thang'] }}
+                                                    </p>
+                                                    <ul class="mb-0 mt-0">
+                                                        {!! $ownerData['getVongKhiNgayThang']['analysis'] !!}
+                                                    </ul>
+                                                    <p> {!! $ownerData['getVongKhiNgayThang']['conclusion'] !!}</p>
                                                     <h6><b>Cục khí - hợp xung</b></h6>
                                                     <ul>
                                                         <li>{!! $commonDayInfo['hopxungNgay']['hop'] !!}</li>
@@ -285,8 +296,7 @@
                                                             @if (!empty($analyze['details']['can']['fakeHợpExplanation']))
                                                                 {{ $analyze['details']['can']['fakeHợpExplanation'] }}
                                                             @else
-                                                            {{ $analyze['details']['can']['explanation'] }}
-                                                            
+                                                                {{ $analyze['details']['can']['explanation'] }}
                                                             @endif
                                                         </li>
                                                         <li><strong>Địa chi:</strong> Chi ngày
@@ -298,7 +308,8 @@
                                                         </li>
                                                         <li><strong>Nạp âm:</strong> Nạp âm ngày
                                                             ({{ $analyze['details']['nap_am']['napAmNgay']['hanh'] }}) và
-                                                            nạp âm tuổi ({{ $analyze['details']['nap_am']['napAmTuoi']['hanh'] }}) là
+                                                            nạp âm tuổi
+                                                            ({{ $analyze['details']['nap_am']['napAmTuoi']['hanh'] }}) là
                                                             <b>{{ $analyze['details']['nap_am']['relationKey'] }}</b>
                                                             ({{ $analyze['details']['nap_am']['rating'] }}).
                                                             {{ $analyze['details']['nap_am']['explanation'] }}
@@ -352,7 +363,8 @@
                                                         <b>{{ $getThongTinTruc['title'] }}</b> - Là trực
                                                         {{ $getThongTinTruc['description']['rating'] }}.
                                                     </p>
-                                                    <p class="mb-1">{{ $getThongTinTruc['description']['description'] }}</p>
+                                                    <p class="mb-1">{{ $getThongTinTruc['description']['description'] }}
+                                                    </p>
                                                     <div class="ps-3">
                                                         @if (!empty($getThongTinTruc['description']['good']))
                                                             <p class="mb-0"><b>Nên làm:</b>
@@ -383,15 +395,18 @@
                                                         <h6><i class="fas fa-star text-success"></i> Sao tốt:</h6>
                                                         <ul class="list-unstyled ps-3">
                                                             @forelse ($getSaoTotXauInfo['sao_tot'] as $tenSao => $yNghia)
-                                                                <li><strong>{{ $tenSao }}:</strong> {{ $yNghia }}</li>
+                                                                <li><strong>{{ $tenSao }}:</strong>
+                                                                    {{ $yNghia }}</li>
                                                             @empty
                                                                 <li>Không có sao tốt nổi bật.</li>
                                                             @endforelse
                                                         </ul>
-                                                        <h6 class="mt-3"><i class="fas fa-moon text-danger"></i> Sao xấu:</h6>
+                                                        <h6 class="mt-3"><i class="fas fa-moon text-danger"></i> Sao
+                                                            xấu:</h6>
                                                         <ul class="list-unstyled ps-3">
                                                             @forelse ($getSaoTotXauInfo['sao_xau'] as $tenSao => $yNghia)
-                                                                <li><strong>{{ $tenSao }}:</strong> {{ $yNghia }}</li>
+                                                                <li><strong>{{ $tenSao }}:</strong>
+                                                                    {{ $yNghia }}</li>
                                                             @empty
                                                                 <li>Không có sao xấu đáng kể.</li>
                                                             @endforelse

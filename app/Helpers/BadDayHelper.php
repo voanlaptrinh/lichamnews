@@ -262,8 +262,8 @@ class BadDayHelper
         $canChiNgay = \App\Helpers\LunarHelper::canchiNgayByJD($jd);
         list($dayCan, $dayChi) = explode(' ', $canChiNgay);
         $hopxungNgay = FengShuiHelper::getCucKhiHopXung($dayChi);
-        $canChiThang = KhiVanHelper::canchiThang($dateToCheck->year, $dateToCheck->month);
-        $canChiNam = KhiVanHelper::canchiNam($dateToCheck->year);
+        $canChiThang = KhiVanHelper::canchiThang($lunarParts[2], $lunarParts[1]);
+        $canChiNam = KhiVanHelper::canchiNam($lunarParts[2]);
         // Lấy thứ trong tuần
         $dayOfWeek = $dateToCheck->locale('vi')->dayName;
 
