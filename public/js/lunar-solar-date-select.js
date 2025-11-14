@@ -11,7 +11,10 @@
         constructor(options = {}) {
             // Create unique instance ID for debugging and state isolation
             this.instanceId = `lsd_${Math.random().toString(36).substr(2, 9)}`;
-    
+
+            // Flag to prevent API calls during initialization
+            this.isInitializing = true;
+
             this.options = {
                 daySelectId: options.daySelectId || 'ngaySelect',
                 monthSelectId: options.monthSelectId || 'thangSelect',
@@ -25,7 +28,7 @@
                 monthDaysInfoId: options.monthDaysInfoId || 'monthDaysInfo',
                 defaultDay: options.defaultDay || 1,
                 defaultMonth: options.defaultMonth || 1,
-                defaultYear: options.defaultYear || 1945,
+                defaultYear: options.defaultYear || 2000,
                 yearRangeStart: options.yearRangeStart || 1900,
                 yearRangeEnd: options.yearRangeEnd || new Date().getFullYear(),
                 lunarApiUrl: options.lunarApiUrl || '/api/lunar-solar-convert',
@@ -53,10 +56,13 @@
             if (!window.leapMonthsCache) window.leapMonthsCache = {};
             if (!window.yearMonthDataCache) window.yearMonthDataCache = {};
 
-            this.init();
+            // Initialize asynchronously to handle existing values properly
+            this.init().catch(error => {
+                console.error('Error initializing LunarSolarDateSelect:', error);
+            });
         }
 
-        init() {
+        async init() {
             // Get DOM elements
             this.daySelect = document.getElementById(this.options.daySelectId);
             this.monthSelect = document.getElementById(this.options.monthSelectId);
@@ -80,11 +86,16 @@
             // Set up event listeners
             this.setupEventListeners();
 
-            // Set default values
-            this.setDefaultValues();
+            // Set default values (async to handle existing values)
+            const hasExistingValue = await this.setDefaultValues();
 
-            // Update hidden input with initial value
-            this.updateHiddenInput();
+            // Update hidden input with initial value only if no existing value was parsed
+            if (!hasExistingValue) {
+                await this.updateHiddenInput();
+            }
+
+            // Mark initialization as complete
+            this.isInitializing = false;
         }
 
         initializeSelects() {
@@ -249,25 +260,32 @@
             this.yearSelect.value = this.options.defaultYear;
         }
 
-        setDefaultValues() {
+        async setDefaultValues() {
             // Check if hidden input has existing value to preserve
             const existingValue = this.hiddenInput.value;
             if (existingValue && existingValue.trim() !== '') {
-             
-                this.parseAndSetExistingValue(existingValue);
-                return;
+                await this.parseAndSetExistingValue(existingValue);
+                return true; // Indicates existing value was parsed
             }
 
-            // Only set defaults if no existing value
-         
-            this.daySelect.value = this.options.defaultDay;
-            this.monthSelect.value = this.options.defaultMonth;
-            this.yearSelect.value = this.options.defaultYear;
+            // Only set defaults if they are provided (not null/undefined)
+            if (this.options.defaultDay !== null && this.options.defaultDay !== undefined) {
+                this.daySelect.value = this.options.defaultDay;
+            }
+            if (this.options.defaultMonth !== null && this.options.defaultMonth !== undefined) {
+                this.monthSelect.value = this.options.defaultMonth;
+            }
+            if (this.options.defaultYear !== null && this.options.defaultYear !== undefined) {
+                this.yearSelect.value = this.options.defaultYear;
+            }
+            return false; // Indicates defaults were set
         }
 
-        parseAndSetExistingValue(value) {
+        async parseAndSetExistingValue(value) {
             // Parse existing value and set selects accordingly
             try {
+               
+
                 // Remove lunar indicators
                 const cleanValue = value.replace(' (ÂL)', '').replace(' (ÂL-Nhuận)', '');
 
@@ -282,36 +300,88 @@
                     const month = parseInt(parts[1]);
                     const year = parseInt(parts[2]);
 
-                    // Set calendar type
+                  
+
+                    // Set calendar type first
                     if (isLunar && this.lunarRadio) {
                         this.lunarRadio.checked = true;
                         this.isLunar = true;
+                        this.isLeapMonth = isLeapMonth;
                         if (this.solarRadio) this.solarRadio.checked = false;
                     } else if (this.solarRadio) {
                         this.solarRadio.checked = true;
                         this.isLunar = false;
+                        this.isLeapMonth = false;
                         if (this.lunarRadio) this.lunarRadio.checked = false;
                     }
 
-                    // Set leap month if applicable
+                    // Set leap month state
                     if (isLeapMonth && this.leapCheckbox) {
                         this.leapCheckbox.checked = true;
-                        this.isLeapMonth = true;
+                    } else if (this.leapCheckbox) {
+                        this.leapCheckbox.checked = false;
                     }
 
-                    // Set select values
+                    // Set year first
                     this.yearSelect.value = year;
-                    this.monthSelect.value = month;
+
+                    // Populate month select with proper lunar/solar months
+                    if (this.isLunar) {
+                        await this.populateMonthSelect();
+                    }
+
+                    // Set month (including leap month if applicable)
+                    if (this.isLunar && isLeapMonth) {
+                        // Find the leap month option
+                        for (let i = 0; i < this.monthSelect.options.length; i++) {
+                            const option = this.monthSelect.options[i];
+                            if (option.value == month && option.dataset.isLeap === '1') {
+                                this.monthSelect.selectedIndex = i;
+                                break;
+                            }
+                        }
+                    } else {
+                        this.monthSelect.value = month;
+                    }
+
+                    // Update days in month
+                    await this.updateDaysInMonth();
+
+                    // Set day
                     this.daySelect.value = day;
 
-                    console.log('📅 Parsed and set existing value:', { day, month, year, isLunar, isLeapMonth });
+                    // Pre-populate solar data if lunar calendar to avoid duplicate API calls
+                    if (this.isLunar && this.hiddenInput.value && this.hiddenInput.value.trim() !== '') {
+                        // Extract solar date from existing value
+                        const solarParts = this.hiddenInput.value.split('/');
+                        if (solarParts.length === 3) {
+                            this.hiddenInput.dataset.solarDay = parseInt(solarParts[0]);
+                            this.hiddenInput.dataset.solarMonth = parseInt(solarParts[1]);
+                            this.hiddenInput.dataset.solarYear = parseInt(solarParts[2]);
+                            this.hiddenInput.dataset.lunarDay = day;
+                            this.hiddenInput.dataset.lunarMonth = month;
+                            this.hiddenInput.dataset.lunarYear = year;
+                            this.hiddenInput.dataset.lunarLeap = isLeapMonth ? '1' : '0';
+                            this.hiddenInput.dataset.calendarType = 'lunar';
+                            this.hiddenInput.dataset.displayValue = `${String(day).padStart(2, '0')}/${String(month).padStart(2, '0')}/${year}${isLeapMonth ? ' (ÂL-Nhuận)' : ' (ÂL)'}`;
+                          
+                        }
+                    }
+
+                  
                 }
             } catch (error) {
-                console.error('Error parsing existing date value:', error);
-                // Fallback to defaults
-                this.daySelect.value = this.options.defaultDay;
-                this.monthSelect.value = this.options.defaultMonth;
-                this.yearSelect.value = this.options.defaultYear;
+                console.error('❌ Error parsing existing date value:', error);
+                // Fallback to defaults only if they are defined
+                if (this.options.defaultDay !== null && this.options.defaultDay !== undefined) {
+                    this.daySelect.value = this.options.defaultDay;
+                }
+                if (this.options.defaultMonth !== null && this.options.defaultMonth !== undefined) {
+                    this.monthSelect.value = this.options.defaultMonth;
+                }
+                if (this.options.defaultYear !== null && this.options.defaultYear !== undefined) {
+                    this.yearSelect.value = this.options.defaultYear;
+                }
             }
         }
 
@@ -350,7 +420,9 @@
             // Update leap month state based on current instance's month selection
             this.updateLeapMonthState();
             await this.updateDaysInMonth();
-            await this.handleDateChange();
+            if (!this.isInitializing) {
+                await this.handleDateChange();
+            }
             this.updateMonthInfoAfterSelection();
         }
 
@@ -360,13 +432,15 @@
                 await this.populateMonthSelect();
             }
             await this.updateDaysInMonth();
-            await this.handleDateChange();
+            if (!this.isInitializing) {
+                await this.handleDateChange();
+            }
             this.updateMonthInfoAfterSelection();
         }
 
         async handleSolarRadioChange() {
             if (this.solarRadio.checked && this.isLunar) {
-                console.log(`🌙 Instance ${this.instanceId}: switching to solar calendar`);
+               
 
                 // Get current lunar date before conversion
                 const currentDay = parseInt(this.daySelect.value);
@@ -405,7 +479,7 @@
                             await this.updateDaysInMonth();
                             this.daySelect.value = result.day;
 
-                            console.log(`🌙 Converted lunar ${currentDay}/${currentMonth}/${currentYear} to solar ${result.day}/${result.month}/${result.year}`);
+                           
                         } else {
                             throw new Error('Conversion failed');
                         }
@@ -434,7 +508,7 @@
 
         async handleLunarRadioChange() {
             if (this.lunarRadio.checked && !this.isLunar) {
-                console.log(`🌙 Instance ${this.instanceId}: switching to lunar calendar`);
+               
 
                 // Get current solar date before conversion
                 const currentDay = parseInt(this.daySelect.value);
@@ -486,7 +560,7 @@
                             await this.updateDaysInMonth();
                             this.daySelect.value = result.day;
 
-                            console.log(`🌙 Converted solar ${currentDay}/${currentMonth}/${currentYear} to lunar ${result.day}/${result.month}/${result.year}${result.isLeap ? ' (nhuận)' : ''}`);
+                          
                         } else {
                             throw new Error('Conversion failed');
                         }
@@ -526,15 +600,12 @@
                 }
             }
 
-            // Debug logging when state changes
-            if (wasLeap !== this.isLeapMonth) {
-                console.log(`🌙 Instance ${this.instanceId}: leap state changed from ${wasLeap} to ${this.isLeapMonth}`);
-            }
+         
         }
 
         async updateDaysInMonth() {
             const month = parseInt(this.monthSelect.value) || 1;
-            const year = parseInt(this.yearSelect.value) || 1945;
+            const year = parseInt(this.yearSelect.value) || 2000;
             const currentDay = parseInt(this.daySelect.value);
 
             // Ensure leap month state is current for this instance
@@ -641,6 +712,12 @@
         }
 
         async handleDateChange() {
+            // Skip during initialization to prevent unnecessary API calls
+            if (this.isInitializing) {
+              
+                return;
+            }
+
             await this.updateHiddenInput();
 
             if (this.options.onChange) {
@@ -663,6 +740,26 @@
 
             if (!this.hiddenInput) return;
 
+            // Skip API calls during initialization unless specifically needed
+            if (this.isInitializing && this.isLunar) {
+               
+                // But still set the display value if we can
+                if (day && month && year) {
+                    const formattedDay = String(day).padStart(2, '0');
+                    const formattedMonth = String(month).padStart(2, '0');
+                    const formattedYear = String(year);
+                    let displayString = `${formattedDay}/${formattedMonth}/${formattedYear}`;
+                    if (this.isLeapMonth) {
+                        displayString += ' (ÂL-Nhuận)';
+                    } else {
+                        displayString += ' (ÂL)';
+                    }
+                    this.hiddenInput.dataset.displayValue = displayString;
+                    this.hiddenInput.dataset.calendarType = 'lunar';
+                }
+                return;
+            }
+
             if (day && month && year) {
                 const formattedDay = String(day).padStart(2, '0');
                 const formattedMonth = String(month).padStart(2, '0');
@@ -682,39 +779,97 @@
                         displayString += ' (ÂL)';
                     }
 
-                    // Convert lunar to solar for the actual value
-                    try {
-                        const response = await fetch(this.options.lunarApiUrl, {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': this.options.csrfToken
-                            },
-                            body: JSON.stringify({
-                                day: parseInt(day),
-                                month: parseInt(month),
-                                year: parseInt(year),
-                                type: 'lunar-to-solar',
-                                isLeap: this.isLeapMonth
-                            })
-                        });
+                    // Check if we already have solar data AND the lunar date hasn't changed
+                    const existingSolarDay = this.hiddenInput.dataset.solarDay;
+                    const existingSolarMonth = this.hiddenInput.dataset.solarMonth;
+                    const existingSolarYear = this.hiddenInput.dataset.solarYear;
+                    const existingLunarDay = this.hiddenInput.dataset.lunarDay;
+                    const existingLunarMonth = this.hiddenInput.dataset.lunarMonth;
+                    const existingLunarYear = this.hiddenInput.dataset.lunarYear;
+                    const existingLunarLeap = this.hiddenInput.dataset.lunarLeap;
 
-                        const result = await response.json();
-                        if (result.success) {
-                            // Use solar date as the actual value
-                            actualValue = `${String(result.day).padStart(2, '0')}/${String(result.month).padStart(2, '0')}/${result.year}`;
+                   
 
-                            // Store both lunar and solar info
+                    // During initialization, if we have complete solar data, always use it
+                    if (this.isInitializing && existingSolarDay && existingSolarMonth && existingSolarYear) {
+                       
+                        actualValue = `${String(existingSolarDay).padStart(2, '0')}/${String(existingSolarMonth).padStart(2, '0')}/${existingSolarYear}`;
+
+                        // Update lunar info
+                        this.hiddenInput.dataset.lunarDay = day;
+                        this.hiddenInput.dataset.lunarMonth = month;
+                        this.hiddenInput.dataset.lunarYear = year;
+                        this.hiddenInput.dataset.lunarLeap = this.isLeapMonth ? '1' : '0';
+                    }
+                    // If lunar data is missing but we have solar data, also use cached approach
+                    else if (existingSolarDay && existingSolarMonth && existingSolarYear && (!existingLunarDay || !existingLunarMonth || !existingLunarYear)) {
+                     
+                        actualValue = `${String(existingSolarDay).padStart(2, '0')}/${String(existingSolarMonth).padStart(2, '0')}/${existingSolarYear}`;
+
+                        // Force update lunar info since it was missing
+                        this.hiddenInput.dataset.lunarDay = day;
+                        this.hiddenInput.dataset.lunarMonth = month;
+                        this.hiddenInput.dataset.lunarYear = year;
+                        this.hiddenInput.dataset.lunarLeap = this.isLeapMonth ? '1' : '0';
+                    } else {
+                        // Only use cached solar data if lunar date AND leap status haven't changed
+                        const lunarDateUnchanged = (
+                            existingLunarDay == day &&
+                            existingLunarMonth == month &&
+                            existingLunarYear == year &&
+                            existingLunarLeap == (this.isLeapMonth ? '1' : '0')
+                        );
+
+                       
+
+                        if (existingSolarDay && existingSolarMonth && existingSolarYear && lunarDateUnchanged) {
+                        
+                            // Use existing solar data only if lunar date is exactly the same
+                            actualValue = `${String(existingSolarDay).padStart(2, '0')}/${String(existingSolarMonth).padStart(2, '0')}/${existingSolarYear}`;
+
+                            // Update lunar info
                             this.hiddenInput.dataset.lunarDay = day;
                             this.hiddenInput.dataset.lunarMonth = month;
                             this.hiddenInput.dataset.lunarYear = year;
                             this.hiddenInput.dataset.lunarLeap = this.isLeapMonth ? '1' : '0';
-                            this.hiddenInput.dataset.solarDay = result.day;
-                            this.hiddenInput.dataset.solarMonth = result.month;
-                            this.hiddenInput.dataset.solarYear = result.year;
+                        } else {
+                     
+
+                        // Convert lunar to solar for the actual value
+                        try {
+                            const response = await fetch(this.options.lunarApiUrl, {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRF-TOKEN': this.options.csrfToken
+                                },
+                                body: JSON.stringify({
+                                    day: parseInt(day),
+                                    month: parseInt(month),
+                                    year: parseInt(year),
+                                    type: 'lunar-to-solar',
+                                    isLeap: this.isLeapMonth
+                                })
+                            });
+
+                            const result = await response.json();
+                            if (result.success) {
+                                // Use solar date as the actual value
+                                actualValue = `${String(result.day).padStart(2, '0')}/${String(result.month).padStart(2, '0')}/${result.year}`;
+
+                                // Store both lunar and solar info
+                                this.hiddenInput.dataset.lunarDay = day;
+                                this.hiddenInput.dataset.lunarMonth = month;
+                                this.hiddenInput.dataset.lunarYear = year;
+                                this.hiddenInput.dataset.lunarLeap = this.isLeapMonth ? '1' : '0';
+                                this.hiddenInput.dataset.solarDay = result.day;
+                                this.hiddenInput.dataset.solarMonth = result.month;
+                                this.hiddenInput.dataset.solarYear = result.year;
+                            }
+                        } catch (error) {
+                            console.error('Error converting lunar to solar:', error);
                         }
-                    } catch (error) {
-                        console.error('Error converting lunar to solar:', error);
+                        }
                     }
                 } else {
                     // Solar date - use as is
@@ -796,6 +951,20 @@
         async convertToSolar() {
             if (!this.isLunar) return this.getSelectedDate();
 
+            // Check if we already have solar data cached
+            const existingSolarDay = this.hiddenInput.dataset.solarDay;
+            const existingSolarMonth = this.hiddenInput.dataset.solarMonth;
+            const existingSolarYear = this.hiddenInput.dataset.solarYear;
+
+            if (existingSolarDay && existingSolarMonth && existingSolarYear) {
+                return {
+                    success: true,
+                    day: parseInt(existingSolarDay),
+                    month: parseInt(existingSolarMonth),
+                    year: parseInt(existingSolarYear)
+                };
+            }
+
             const date = this.getSelectedDate();
 
             try {
@@ -809,12 +978,19 @@
                         day: date.day,
                         month: date.month,
                         year: date.year,
-                        type: 'lunar-to-solar'
+                        type: 'lunar-to-solar',
+                        isLeap: this.isLeapMonth
                     })
                 });
 
                 if (response.ok) {
                     const result = await response.json();
+                    if (result.success) {
+                        // Cache the result
+                        this.hiddenInput.dataset.solarDay = result.day;
+                        this.hiddenInput.dataset.solarMonth = result.month;
+                        this.hiddenInput.dataset.solarYear = result.year;
+                    }
                     return result;
                 }
             } catch (error) {

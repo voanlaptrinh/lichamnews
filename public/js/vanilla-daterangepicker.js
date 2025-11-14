@@ -604,6 +604,11 @@ class VanillaDateRangePicker {
             year += 2000;
         }
 
+        // Giới hạn năm tối đa là 2100
+        if (year > 2100) {
+            year = 2100;
+        }
+
         const date = new Date(year, month, day);
         return isNaN(date.getTime()) ? null : date;
     }
@@ -991,6 +996,8 @@ class VanillaDateRangePicker {
     isDisabled(date) {
         if (this.options.minDate && date < this.options.minDate) return true;
         if (this.options.maxDate && date > this.options.maxDate) return true;
+        // Giới hạn năm tối đa là 2100
+        if (date.getFullYear() > 2100) return true;
         return false;
     }
 
@@ -1073,16 +1080,23 @@ class VanillaDateRangePicker {
 
         yearPrev.addEventListener('click', () => {
             selectedYear--;
+            if (selectedYear < 1900) selectedYear = 1900;
             yearInput.value = selectedYear;
         });
 
         yearNext.addEventListener('click', () => {
             selectedYear++;
+            if (selectedYear > 2100) selectedYear = 2100;
             yearInput.value = selectedYear;
         });
 
         yearInput.addEventListener('change', (e) => {
             selectedYear = parseInt(e.target.value);
+            // Giới hạn năm tối đa là 2100
+            if (selectedYear > 2100) {
+                selectedYear = 2100;
+                e.target.value = 2100;
+            }
         });
 
         // Month selection
