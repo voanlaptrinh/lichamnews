@@ -2,10 +2,22 @@
 
 @section('content')
     <div class="container-setup">
-        <div class="content-title-detail"><a href="{{ route('home') }}"
-                style="color: #2254AB; text-decoration: underline;">Trang chủ</a><i class="bi bi-chevron-right"></i><a href="{{ route('horoscope.index') }}"  style="color: #2254AB; text-decoration: underline;">Cung
-                Hoàng Đạo</a><i class="bi bi-chevron-right"></i><span>Bạch Dương</span>
-        </div>
+        <nav aria-label="breadcrumb" class="content-title-detail">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
+                </li>
+                <li class="breadcrumb-item" aria-current="page">
+                    <a href="{{ route('horoscope.index') }}" style="color: #2254AB; text-decoration: underline;">Cung
+                        Hoàng Đạo</a>
+                </li>
+
+                <li class="breadcrumb-item active" aria-current="page">
+                    Bạch Dương
+                </li>
+            </ol>
+        </nav>
+       
         <h1 class="content-title-home-lich">Giới thiệu cung Bạch Dương</h1>
         <div class="row mt-3">
             <div class="col-lg-9">
@@ -108,7 +120,7 @@
                                 <li>Song Tử: linh hoạt, năng động, dễ đồng điệu.</li>
                             </ul>
                             <h3 class="title-tong-quan-h5 pt-2 mb-0">Không hợp lắm với:</h3>
-                         <ul class="mb-0">
+                            <ul class="mb-0">
                                 <li>Cự Giải: vì quá nhạy cảm, Bạch Dương dễ khiến họ tổn thương.</li>
                                 <li>Ma Kết: khác biệt trong cách sống và nhịp điệu cuộc đời.</li>
                             </ul>

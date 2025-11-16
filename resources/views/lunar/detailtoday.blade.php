@@ -2,23 +2,32 @@
 @section('content')
     <div class="container-setup">
         <div class="col-xl-9 col-sm-12 col-12">
-            <div class="content-title-detail"><a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a> <i class="bi bi-chevron-right"></i>
-                <span >Lịch âm hôm nay</span>
-            </div>
-            
-               <div class="d-flex justify-content-between">
-                    <div>
-                         <h1 class="content-title-home-lich">Lịch Âm Hôm Nay - Lịch Vạn Niên Hôm Nay</h1>
-                        <p class="mb-1">Âm lịch hôm nay là ngày nào?</p>
-                    </div>
-                    <div>
-                        <button
-                            class="btn-today-home-pc btn-today-home justify-content-center align-items-center quickPickerBtn">
-                            <i class="bi bi-calendar-event pe-2"></i>
-                            <div>Xem nhanh theo ngày</div>
-                        </button>
-                    </div>
+            <nav aria-label="breadcrumb" class="content-title-detail">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
+                    </li>
+
+
+                    <li class="breadcrumb-item active" aria-current="page">
+                        Lịch âm hôm nay
+                    </li>
+                </ol>
+            </nav>
+
+            <div class="d-flex justify-content-between">
+                <div>
+                    <h1 class="content-title-home-lich">Lịch Âm Hôm Nay - Lịch Vạn Niên Hôm Nay</h1>
+                    <p class="mb-1">Âm lịch hôm nay là ngày nào?</p>
                 </div>
+                <div>
+                    <button
+                        class="btn-today-home-pc btn-today-home justify-content-center align-items-center quickPickerBtn">
+                        <i class="bi bi-calendar-event pe-2"></i>
+                        <div>Xem nhanh theo ngày</div>
+                    </button>
+                </div>
+            </div>
             <div class="row ">
                 <div class="col-xl-12 col-sm-12 col-12">
                     <div class="ngay-hom-ngay mb-3">
@@ -29,7 +38,7 @@
                     </div>
                 </div>
             </div>
-          
+
         </div>
 
         <div id="detail-content">

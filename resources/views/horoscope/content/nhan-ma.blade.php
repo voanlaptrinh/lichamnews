@@ -2,10 +2,22 @@
 
 @section('content')
     <div class="container-setup">
-        <div class="content-title-detail"><a href="{{ route('home') }}"
-                style="color: #2254AB; text-decoration: underline;">Trang chủ</a><i class="bi bi-chevron-right"></i><a  style="color: #2254AB; text-decoration: underline;" href="{{ route('horoscope.index') }}">Cung
-                Hoàng Đạo</a><i class="bi bi-chevron-right"></i><span>Nhân Mã</span>
-        </div>
+          <nav aria-label="breadcrumb" class="content-title-detail">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
+                </li>
+                <li class="breadcrumb-item" aria-current="page">
+                    <a href="{{ route('horoscope.index') }}" style="color: #2254AB; text-decoration: underline;">Cung
+                        Hoàng Đạo</a>
+                </li>
+
+                <li class="breadcrumb-item active" aria-current="page">
+                    Nhân Mã
+                </li>
+            </ol>
+        </nav>
+      
         <h1 class="content-title-home-lich">Giới thiệu cung Nhân Mã</h1>
         <div class="row mt-3">
             <div class="col-lg-9">

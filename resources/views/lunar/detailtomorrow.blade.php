@@ -4,9 +4,20 @@
         <div class="col-xl-9 col-sm-12 col-12">
 
             <div>
-                <div class="content-title-detail"><a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a><i class="bi bi-chevron-right"></i>
-                    <span >Lịch âm ngày mai</span>
-                </div>
+                 <nav aria-label="breadcrumb" class="content-title-detail">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
+                    </li>
+
+
+                    <li class="breadcrumb-item active" aria-current="page">
+                        Lịch âm ngày mai
+                    </li>
+                </ol>
+            </nav>
+
+            
                
 
                 <div class="d-flex justify-content-between">

@@ -1,9 +1,21 @@
 @extends('welcome')
 @section('content')
     <div class="container-setup">
-        <div class="content-title-detail"><a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a> <i class="bi bi-chevron-right"></i>
-            Về chúng tôi<i class="bi bi-chevron-right"></i> <span class="text-dark">Điều khoản</span>
-        </div>
+         <nav aria-label="breadcrumb" class="content-title-detail">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
+                </li>
+                <li class="breadcrumb-item" aria-current="page">
+                  Về chúng tôi
+                </li>
+
+                <li class="breadcrumb-item active" aria-current="page">
+                   Điều khoản
+                </li>
+            </ol>
+        </nav>
+       
         <h1 class="content-title-home-lich">Điều Khoản Dịch Vụ </h1>
         <div class="text-box-tong-quan mt-3">
             <p>Cảm ơn bạn đã truy cập và sử dụng <b>phonglich.com</b> – website cung cấp thông tin về <b>Lịch Âm Dương, Lịch

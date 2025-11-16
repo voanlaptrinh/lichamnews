@@ -62,14 +62,26 @@
         ];
     @endphp
     <div class="container-setup">
-        <div class="content-title-detail"><a href="{{ route('home') }}"
-                style="color: #2254AB; text-decoration: underline;">Trang chủ</a> <i class="bi bi-chevron-right"></i>
-            <a style="color: #2254AB; text-decoration: underline;" href="{{ route('horoscope.index') }}">Cung hoàng đạo</a> <i
-                class="bi bi-chevron-right"></i><a style="color: #2254AB; text-decoration: underline;"
-                href="{{ route('horoscope.show', ['signSlug' => $zodiacNames_acc[$zodiac['sign']]]) }}"
-                id="breadcrumb-zodiac">{{ $zodiacNames[$zodiac['sign']] ?? 'Cung hoàng đạo' }}</a> <i
-                class="bi bi-chevron-right"></i><span id="breadcrumb-time">Hôm nay</span>
-        </div>
+        <nav aria-label="breadcrumb" class="content-title-detail">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
+                </li>
+                <li class="breadcrumb-item" aria-current="page">
+                    <a href="{{ route('horoscope.index') }}" style="color: #2254AB; text-decoration: underline;">Cung hoàng
+                        đạo</a>
+                </li>
+                <li class="breadcrumb-item" aria-current="page">
+                    <a id="breadcrumb-zodiac"
+                        href="{{ route('horoscope.show', ['signSlug' => $zodiacNames_acc[$zodiac['sign']]]) }}"
+                        style="color: #2254AB; text-decoration: underline;">{{ $zodiacNames[$zodiac['sign']] ?? 'Cung hoàng đạo' }}</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    <span id="breadcrumb-time">Hôm nay</span>
+                </li>
+            </ol>
+        </nav>
+
         <h1 class="content-title-home-lich" id="main-title">Tử Vi Cung
             {{ $zodiacNames[$zodiac['sign']] ?? 'Cung hoàng đạo' }} Hôm nay</h1>
     </div>
@@ -95,7 +107,8 @@
 
                     <div class="zodiac-current" style="display: flex; align-items: center;">
                         <div class="zodiac-icon" id="zodiac-icon">
-                            <img src="{{ asset($zodiacIcons[$zodiac['sign']] ?? '⭐') }}" alt="{{ $zodiacNames[$zodiac['sign']] ?? 'Cung hoàng đạo' }}" class="img-fluid">
+                            <img src="{{ asset($zodiacIcons[$zodiac['sign']] ?? '⭐') }}"
+                                alt="{{ $zodiacNames[$zodiac['sign']] ?? 'Cung hoàng đạo' }}" class="img-fluid">
                         </div>
                         <div class="zodiac-info">
                             <div id="zodiac-name">{{ $zodiacNames[$zodiac['sign']] ?? 'Cung hoàng đạo' }}</div>
@@ -105,14 +118,16 @@
 
                     <div class="zodiac-selector-form">
                         <div class="zodiac-select-wrapper position-relative ms-2">
-                           
-                            <select id="zodiac-select" class="form-select custom-select-style" aria-label="Chọn cung hoàng đạo" >
+
+                            <select id="zodiac-select" class="form-select custom-select-style"
+                                aria-label="Chọn cung hoàng đạo">
                                 @foreach ($zodiacNames as $sign => $name)
                                     <option value="{{ $sign }}" {{ $sign == $zodiac['sign'] ? 'selected' : '' }}>
                                         {{ $name }}</option>
                                 @endforeach
                             </select>
-                            <i class="bi bi-chevron-down position-absolute" style="right: 12px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #6c757d; z-index: 10;"></i>
+                            <i class="bi bi-chevron-down position-absolute"
+                                style="right: 12px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #6c757d; z-index: 10;"></i>
                         </div>
                     </div>
 
@@ -122,7 +137,7 @@
 
             <!-- Main Content Card -->
             <div id="horoscope-content" class="horoscope-content">
-              
+
                 <div style="text-align: center; padding: 40px; color: #666; font-style: italic;">Đang tải dữ liệu...</div>
             </div>
 
@@ -130,7 +145,6 @@
 
         @include('horoscope.box-right')
     </div>
-   
 @endsection
 
 
@@ -176,7 +190,8 @@
             startOfWeek.setDate(diff);
             const endOfWeek = new Date(startOfWeek);
             endOfWeek.setDate(startOfWeek.getDate() + 6);
-            const weekRange = `${startOfWeek.getDate()}/${startOfWeek.getMonth() + 1} - ${endOfWeek.getDate()}/${endOfWeek.getMonth() + 1}`;
+            const weekRange =
+                `${startOfWeek.getDate()}/${startOfWeek.getMonth() + 1} - ${endOfWeek.getDate()}/${endOfWeek.getMonth() + 1}`;
 
             // Get month name
             const monthNames = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
@@ -334,7 +349,8 @@
                 const typeMeta = typeMetaData[type];
                 if (zodiac && typeMeta && typeMeta.getTitle) {
                     // Add h2 title at the beginning of content
-                    const h2Title = `<h2 class="title-tong-quan-h2-log pb-2">${typeMeta.getTitle(zodiac.name)}</h2>`;
+                    const h2Title =
+                    `<h2 class="title-tong-quan-h2-log pb-2">${typeMeta.getTitle(zodiac.name)}</h2>`;
                     return h2Title;
                 }
                 return '';
@@ -446,7 +462,7 @@
                 } else {
                     // Nếu không có state hoặc không trong trang horoscope,
                     // chuyển hướng về trang cung hoàng đạo chính
-                    window.location.href = '{{ url("/cung-hoang-dao") }}';
+                    window.location.href = '{{ url('/cung-hoang-dao') }}';
                 }
             });
 
@@ -469,5 +485,3 @@
         });
     </script>
 @endpush
-
-

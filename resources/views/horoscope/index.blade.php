@@ -2,10 +2,17 @@
 
 @section('content')
     <div class="container-setup">
-        <div class="content-title-detail"><a href="{{ route('home') }}"
-                style="color: #2254AB; text-decoration: underline;">Trang chủ</a> <i class="bi bi-chevron-right"></i>
-           Cung hoàng đạo
-        </div>
+        <nav aria-label="breadcrumb" class="content-title-detail">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    Cung hoàng đạo
+                </li>
+            </ol>
+        </nav>
+
         <h1 class="content-title-home-lich">Tử Vi 12 Cung Hoàng Đạo</h1>
         <div class="row mt-3">
             <div class="col-lg-9">
@@ -25,7 +32,8 @@
 
                                     <img src="{{ asset($details['icon']) }}?v=1.0" alt="{{ $details['name'] }}"
                                         class="icon">
-                                    <div class="fs-6 card-title mb-0 fw-bold name text-uppercase">{{ $details['name'] }}</div>
+                                    <div class="fs-6 card-title mb-0 fw-bold name text-uppercase">{{ $details['name'] }}
+                                    </div>
                                     <div class="date">
                                         {{ $details['date'] }}
                                     </div>
@@ -128,7 +136,7 @@
                     </div>
                 </div>
             </div>
-             @include('horoscope.box-right')
+            @include('horoscope.box-right')
         </div>
 
     </div>
