@@ -218,6 +218,8 @@
     <script src="{{ asset('/js/bootstrap.bundle.min.js?v=5.7') }}" defer></script>
     @stack('scripts')
 
+    {{-- Vanilla Date Range Picker JS - Auto-initialize for all .wedding_date_range inputs --}}
+    {{-- <script src="{{ asset('/js/vanilla-daterangepicker.js?v=6.4') }}" defer></script> --}}
 
     <!-- IMMEDIATE LCP optimization -->
     <script>
@@ -264,7 +266,7 @@
             } else {
                 optimizeLCP();
             }
-            
+
             try {
                 const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
                 if (tz) {
@@ -292,6 +294,15 @@
 
         gtag('config', 'G-KVKGWDRXSC');
     </script>
+    {{-- <script>
+        var xla_init_date = 14;
+        window.addEventListener('focus', function() {
+            var xla_today = new Date();
+            if (xla_init_date !== xla_today.getDate()) {
+                window.location.reload();
+            }
+        });
+    </script> --}}
 
 
 </body>
