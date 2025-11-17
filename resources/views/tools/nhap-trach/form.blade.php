@@ -6,11 +6,21 @@
     @endpush
 
     <div class="container-setup">
-        <div class="content-title-detail"><a href="{{ route('home') }}"
-                style="color: #2254AB; text-decoration: underline;">Trang chủ</a><i class="bi bi-chevron-right"></i> <a
-                style="color: #2254AB; text-decoration: underline;" href="">Tiện ích</a> <i
-                class="bi bi-chevron-right"></i> <span>
-                Xem ngày nhập trạch</span></div>
+        <nav aria-label="breadcrumb" class="content-title-detail">
+            <ol class="breadcrumb mb-1">
+                <li class="breadcrumb-item">
+                    <a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
+                </li>
+                <li class="breadcrumb-item" aria-current="page">
+                    Tiện ích
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    Xem ngày nhập trạch
+                </li>
+
+            </ol>
+        </nav>
+      
 
         <h1 class="content-title-home-lich">Xem ngày nhập trạch</h1>
 
@@ -107,7 +117,8 @@
                                                     </div>
 
                                                     <!-- Hidden input to store formatted date -->
-                                                    <input type="hidden" id="ngayXem" name="birthdate" value="{{ old('birthdate', $inputs['birthdate'] ?? '') }}">
+                                                    <input type="hidden" id="ngayXem" name="birthdate"
+                                                        value="{{ old('birthdate', $inputs['birthdate'] ?? '') }}">
 
                                                     @error('birthdate')
                                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -119,17 +130,17 @@
                                                     <div class="fw-bold title-tong-quan-h2-log">Giới tính</div>
                                                     <div class="d-flex gap-4 ps-2">
                                                         <div class="form-check d-flex align-items-center">
-                                                            <input type="radio" class="form-check-input"
-                                                                name="gender" id="maleGender" value="nam"
-                                                                checked style="width: 24px; height: 24px; cursor: pointer;">
+                                                            <input type="radio" class="form-check-input" name="gender"
+                                                                id="maleGender" value="nam" checked
+                                                                style="width: 24px; height: 24px; cursor: pointer;">
                                                             <label class="form-check-label ms-2" for="maleGender"
                                                                 style="cursor: pointer; font-size: 15px; color: #333;">
                                                                 Nam
                                                             </label>
                                                         </div>
                                                         <div class="form-check d-flex align-items-center">
-                                                            <input type="radio" class="form-check-input"
-                                                                name="gender" id="femaleGender" value="nữ"
+                                                            <input type="radio" class="form-check-input" name="gender"
+                                                                id="femaleGender" value="nữ"
                                                                 style="width: 24px; height: 24px; cursor: pointer;">
                                                             <label class="form-check-label ms-2" for="femaleGender"
                                                                 style="cursor: pointer; font-size: 15px; color: #333;">
@@ -146,7 +157,7 @@
                                                         <select class="form-select pe-5 --border-box-form"
                                                             id="houseDirectionSelect" name="house_direction"
                                                             style="padding: 12px 45px 12px 15px">
-                                                           
+
                                                             <option value="bac">Bắc</option>
                                                             <option value="dong_bac">Đông Bắc</option>
                                                             <option value="dong">Đông</option>
@@ -220,7 +231,6 @@
 
         </div>
     </div>
-
 @endsection
 
 @push('scripts')
@@ -284,7 +294,8 @@
                                 separator: ' - ',
                                 daysOfWeek: ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'],
                                 monthNames: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5',
-                                    'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'
+                                    'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11',
+                                    'Tháng 12'
                                 ],
                                 firstDay: 1
                             }
@@ -334,7 +345,10 @@
 
                 // Restore calendar type from hash first
                 if (params.calendar_type) {
-                    const { solarRadio, lunarRadio } = {
+                    const {
+                        solarRadio,
+                        lunarRadio
+                    } = {
                         solarRadio: document.getElementById('solarCalendar'),
                         lunarRadio: document.getElementById('lunarCalendar')
                     };
@@ -353,7 +367,8 @@
 
                 // Restore gender from hash
                 if (params.gender) {
-                    const genderRadio = document.querySelector(`input[name="gender"][value="${params.gender}"]`);
+                    const genderRadio = document.querySelector(
+                    `input[name="gender"][value="${params.gender}"]`);
                     if (genderRadio) {
                         genderRadio.checked = true;
                         console.log('✅ Restored gender:', params.gender);
@@ -394,8 +409,13 @@
                             return;
                         }
 
-                        const { daySelect, monthSelect, yearSelect } = dateSelector || {};
-                        if (!dateSelector || !daySelect || !monthSelect || !yearSelect || yearSelect.options.length <= 1) {
+                        const {
+                            daySelect,
+                            monthSelect,
+                            yearSelect
+                        } = dateSelector || {};
+                        if (!dateSelector || !daySelect || !monthSelect || !yearSelect || yearSelect
+                            .options.length <= 1) {
                             setTimeout(() => tryRestoreBirthdate(attempts + 1), 300);
                             return;
                         }
@@ -475,7 +495,13 @@
                 spinner: document.querySelector('#submitBtn .spinner-border')
             };
 
-            const { form, submitBtn, resultsContainer, btnText, spinner } = formElements;
+            const {
+                form,
+                submitBtn,
+                resultsContainer,
+                btnText,
+                spinner
+            } = formElements;
 
             form?.addEventListener('submit', e => {
                 e.preventDefault();
@@ -504,7 +530,10 @@
                 }
 
                 // Get date and calendar type using modern destructuring
-                const { solarRadio, lunarRadio } = {
+                const {
+                    solarRadio,
+                    lunarRadio
+                } = {
                     solarRadio: document.getElementById('solarCalendar'),
                     lunarRadio: document.getElementById('lunarCalendar')
                 };
@@ -515,11 +544,16 @@
 
                 // ========== SOLAR DATE UPDATE IS HANDLED BY LunarSolarDateSelect MODULE ==========
                 if (calendarType === 'lunar') {
-                    const { solarDay, solarMonth, solarYear, lunarLeap } = ngayXemInput?.dataset || {};
+                    const {
+                        solarDay,
+                        solarMonth,
+                        solarYear,
+                        lunarLeap
+                    } = ngayXemInput?.dataset || {};
                     isLeapMonth = lunarLeap === '1';
-                    formattedBirthdate = (solarDay && solarMonth && solarYear)
-                        ? `${solarDay.padStart(2, '0')}/${solarMonth.padStart(2, '0')}/${solarYear}`
-                        : ngayXemValue.replace(/ \(ÂL(?:-Nhuận)?\)/g, '');
+                    formattedBirthdate = (solarDay && solarMonth && solarYear) ?
+                        `${solarDay.padStart(2, '0')}/${solarMonth.padStart(2, '0')}/${solarYear}` :
+                        ngayXemValue.replace(/ \(ÂL(?:-Nhuận)?\)/g, '');
                 } else {
                     formattedBirthdate = ngayXemValue;
                 }
@@ -535,9 +569,9 @@
                     return `${day.padStart(2, '0')}/${month.padStart(2, '0')}/${fullYear}`;
                 };
 
-                const [startDate, endDate] = dateRangeParts.length === 2
-                    ? [parseDate(dateRangeParts[0]), parseDate(dateRangeParts[1])]
-                    : ['', ''];
+                const [startDate, endDate] = dateRangeParts.length === 2 ?
+                    [parseDate(dateRangeParts[0]), parseDate(dateRangeParts[1])] :
+                    ['', ''];
 
                 // Get sort value using optional chaining
                 const sortValue = resultsContainer?.querySelector('[name="sort"]')?.value ?? 'desc';

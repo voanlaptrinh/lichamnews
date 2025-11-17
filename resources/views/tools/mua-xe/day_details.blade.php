@@ -5,25 +5,32 @@
         <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=10.7') }}">
     @endpush
 
+
+
     <div class="container-setup">
-           <nav aria-label="breadcrumb" class="content-title-detail">
+            <nav aria-label="breadcrumb" class="content-title-detail">
             <ol class="breadcrumb mb-1">
                 <li class="breadcrumb-item">
-                    <a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
+                    <a href="{{ route('home') }}"  style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
                 </li>
                 <li class="breadcrumb-item" aria-current="page">
-                    Tiện ích
+                  Tiện ích
                 </li>
-                <li class="breadcrumb-item" aria-current="page">
-                    Xem ngày khai trương
+                 <li class="breadcrumb-item" aria-current="page">
+                  Xem ngày mua xe
                 </li>
-                <li class="breadcrumb-item active" aria-current="page">
-                    Chi tiết
+                 <li class="breadcrumb-item active" aria-current="page">
+               Chi tiết
                 </li>
             </ol>
         </nav>
-        
-        <h1 class="content-title-home-lich">Chi tiết xem ngày khai trương</h1>
+
+
+
+        <h1 class="content-title-home-lich">Chi tiết xem ngày mua xe</h1>
+
+        <!-- Nút quay lại -->
+
 
         <div>
             <div class="row g-lg-3 g-2 pt-lg-3 pt-2">
@@ -43,6 +50,7 @@
                                     </a>
                                 </div>
                             </div>
+
 
                             <div>
                                 <table class="table table-detail" style="table-layout: fixed;">
@@ -85,11 +93,13 @@
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
-                    </div>
 
+                        </div>
+                        {{-- @dd($groomData) --}}
+                    </div>
                     <div class="card border-0 mb-3 w-100 box-detial-year">
                         <div class="card-body box1-con-year">
+
                             <div>
                                 <table class="table table-detail" style="table-layout: fixed;">
                                     <tbody>
@@ -103,9 +113,10 @@
                                         </tr>
                                         <tr>
                                             @php
-                                                $hopTuoi = $ownerData['score']['hopttuoi'] ?? null;
-                                                $hopTuoiReason = $ownerData['score']['hopTuoiReason'] ?? '';
-                                                $tabooIssues = collect($ownerData['score']['issues'] ?? [])->filter(
+                                                $hopTuoi = $groomData['score']['hopttuoi'] ?? null;
+                                                $hopTuoiReason = $groomData['score']['hopTuoiReason'] ?? '';
+
+                                                $tabooIssues = collect($groomData['score']['issues'] ?? [])->filter(
                                                     fn($issue) => ($issue['source'] ?? '') === 'Taboo',
                                                 );
 
@@ -114,8 +125,6 @@
                                             @if ($hopTuoi || $tabooIssues->isNotEmpty())
                                         <tr>
                                             <td>
-
-
                                                 @if ($hopTuoi)
                                                     ✓ Ngày hợp tuổi: {{ $hopTuoiReason }}
                                                 @endif
@@ -127,40 +136,41 @@
                                         @endif
 
                                         </tr>
-                                        @if (!$ownerData['score']['hopttuoi'] && $ownerData['score']['hopTuoiReason'] != 'Ngày bình thường')
+                                        @if (!$groomData['score']['hopttuoi'] && $groomData['score']['hopTuoiReason'] != 'Ngày bình thường')
                                             <tr>
                                                 <td></td>
                                                 <td>
                                                     ❌ Ngày kỵ tuổi:
-                                                    {{ $ownerData['score']['hopTuoiReason'] ?? 'Không hợp tuổi' }}
+                                                    {{ $groomData['score']['hopTuoiReason'] ?? 'Không hợp tuổi' }}
                                                 </td>
                                             </tr>
                                         @endif
+
                                         <tr>
                                             <td>
-                                                @if ($ownerData['score']['tu']['details']['data']['nature'] == 'Tốt')
+                                                @if ($groomData['score']['tu']['details']['data']['nature'] == 'Tốt')
                                                     Nhị thập bát tú: Sao
-                                                    {{ $ownerData['score']['tu']['details']['data']['name'] }} (Tốt)
+                                                    {{ $groomData['score']['tu']['details']['data']['name'] }} (Tốt)
                                                 @endif
                                             </td>
                                             <td>
-                                                @if ($ownerData['score']['tu']['details']['data']['nature'] == 'Xấu')
+                                                @if ($groomData['score']['tu']['details']['data']['nature'] == 'Xấu')
                                                     Nhị thập bát tú: Sao
-                                                    {{ $ownerData['score']['tu']['details']['data']['name'] }} (Xấu)
+                                                    {{ $groomData['score']['tu']['details']['data']['name'] }} (Xấu)
                                                 @endif
                                             </td>
                                         </tr>
-                                        @if ($ownerData['score']['tructot'] || $ownerData['score']['trucxau'])
+                                        @if ($groomData['score']['tructot'] || $groomData['score']['trucxau'])
                                             <tr>
                                                 <td>
-                                                    @if ($ownerData['score']['tructot'])
-                                                        Thập Nhị Trực {{ $ownerData['score']['truc']['details']['name'] }}
+                                                    @if ($groomData['score']['tructot'])
+                                                        Thập Nhị Trực {{ $groomData['score']['truc']['details']['name'] }}
                                                         (Tốt)
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    @if ($ownerData['score']['trucxau'])
-                                                        Thập Nhị Trực {{ $ownerData['score']['truc']['details']['name'] }}
+                                                    @if ($groomData['score']['trucxau'])
+                                                        Thập Nhị Trực {{ $groomData['score']['truc']['details']['name'] }}
                                                         (Xấu)
                                                     @endif
                                                 </td>
@@ -169,28 +179,35 @@
 
                                         <tr>
                                             <td>
-                                                @if (!empty($ownerData['score']['catHung']['details']['catStars']))
+                                                @if (!empty($groomData['score']['catHung']['details']['catStars']))
                                                     <strong>Sao tốt theo Ngọc Hạp Thông Thư:</strong>
-                                                    @foreach ($ownerData['score']['catHung']['details']['catStars'] as $index => $sao)
+                                                    @foreach ($groomData['score']['catHung']['details']['catStars'] as $index => $sao)
                                                         <span
                                                             class=" bg-success">{{ $sao['name'] }}</span>{{ $loop->last ? '' : ',' }}
                                                     @endforeach
                                                 @endif
                                             </td>
                                             <td>
-                                                @if (!empty($ownerData['score']['catHung']['details']['hungStars']))
+                                                @if (!empty($groomData['score']['catHung']['details']['hungStars']))
                                                     <strong>Sao xấu theo Ngọc Hạp Thông Thư:</strong>
-                                                    @foreach ($ownerData['score']['catHung']['details']['hungStars'] as $sao)
+                                                    @foreach ($groomData['score']['catHung']['details']['hungStars'] as $sao)
                                                         <span
                                                             class=" bg-danger">{{ $sao['name'] }}</span>{{ $loop->last ? '' : ',' }}
                                                     @endforeach
                                                 @endif
                                             </td>
                                         </tr>
+
+
                                     </tbody>
                                 </table>
                             </div>
+
+
+
+
                         </div>
+
                     </div>
 
                     <div class="card border-0 mb-3 w-100 box-detial-year">
@@ -198,15 +215,11 @@
                             <div
                                 class="text-primary mb-3 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
                                 <img src="{{ asset('icons/dac-diem1.svg') }}" alt="thông tin người xem" width="28"
-                                    height="28" class="me-1"> <span>Đánh giá cho điểm các yếu tố ngày cho
-                                    @if (isset(request()->user_name) && !empty(request()->user_name))
-                                        {{ request()->user_name }}
-                                    @endif
-                                    tuổi {{ $ownerData['personInfo']['can_chi_nam'] }}
-                                    ({{ $ownerData['personInfo']['dob']->format('d-m-Y') }}) khai trương:
-                                    {{ round($ownerData['score']['percentage']) }}/100
-                                    ({{ round($ownerData['score']['percentage']) }}%)
-                                </span>
+                                    height="28" class="me-1"> <span>Đánh giá cho điểm các yếu tố ngày cho tuổi
+                                    {{ $groomData['personInfo']['can_chi_nam'] }}
+                                    ({{ $groomData['personInfo']['dob']->format('d-m-Y') }}) mua xe:
+                                    {{ round($groomData['score']['percentage']) }}/100
+                                    ({{ round($groomData['score']['percentage']) }}%)</span>
                             </div>
                             <div>
                                 <table class="table table-detail" style="table-layout: fixed;">
@@ -224,27 +237,31 @@
                                         </tr>
                                         @php
                                             $weights =
-                                                \App\Helpers\DataHelper::$PURPOSE_WEIGHTS_PERSONALIZED['KHAI_TRUONG'];
+                                                \App\Helpers\DataHelper::$PURPOSE_WEIGHTS_PERSONALIZED['MUA_XE'];
                                             $totalWeight = array_sum($weights);
                                         @endphp
                                         <tr>
                                             <td>Can chi - vận khí ngày so với tuổi</td>
-                                            <td>{{ round($ownerData['score']['vanKhi']['percentage']) }}/100</td>
+                                            <td>{{ round($groomData['score']['vanKhi']['percentage']) }}/100
+                                            </td>
                                             <td>{{ round(($weights['VanKhi'] / $totalWeight) * 100, 1) }}%</td>
                                         </tr>
                                         <tr>
                                             <td>Nhị Thập Bát Tú</td>
-                                            <td>{{ round($ownerData['score']['tu']['percentage']) }}/100</td>
+                                            <td>{{ round($groomData['score']['tu']['percentage']) }}/100
+                                            </td>
                                             <td>{{ round(($weights['28Tu'] / $totalWeight) * 100, 1) }}%</td>
                                         </tr>
                                         <tr>
                                             <td>Thập Nhị Trực</td>
-                                            <td>{{ round($ownerData['score']['truc']['percentage']) }}/100</td>
+                                            <td>{{ round($groomData['score']['truc']['percentage']) }}/100
+                                            </td>
                                             <td>{{ round(($weights['12Truc'] / $totalWeight) * 100, 1) }}%</td>
                                         </tr>
                                         <tr>
                                             <td>Sao Cát Hung - Ngọc Hạp Thông Thư</td>
-                                            <td>{{ round($ownerData['score']['catHung']['percentage']) }}/100</td>
+                                            <td>{{ round($groomData['score']['catHung']['percentage']) }}/100
+                                            </td>
                                             <td>{{ round(($weights['CatHung'] / $totalWeight) * 100, 1) }}%</td>
                                         </tr>
                                     </tbody>
@@ -252,7 +269,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="card border-0 mb-3 w-100 box-detial-year">
                         <div class="card-body box1-con-year">
                             <div
@@ -266,42 +282,43 @@
                             <div>
                                 <div class="card-body p-0">
                                     <div class="accordion accordion-flush"
-                                        id="accordion-{{ Str::slug($ownerData['personTitle']) }}">
+                                        id="accordion-{{ Str::slug($groomData['personTitle']) }}">
                                         <div class="accordion-item">
                                             <h2 class="accordion-header">
                                                 <button class="accordion-button collapsed" type="button"
                                                     data-bs-toggle="collapse"
-                                                    data-bs-target="#collapse-canchi-{{ Str::slug($ownerData['personTitle']) }}">
+                                                    data-bs-target="#collapse-canchi-{{ Str::slug($groomData['personTitle']) }}">
                                                     Xem Can Chi - Khí vận & tuổi hợp/xung trong ngày
                                                 </button>
                                             </h2>
-                                            <div id="collapse-canchi-{{ Str::slug($ownerData['personTitle']) }}"
+                                            <div id="collapse-canchi-{{ Str::slug($groomData['personTitle']) }}"
                                                 class="accordion-collapse collapse"
-                                                data-bs-parent="#accordion-{{ Str::slug($ownerData['personTitle']) }}">
+                                                data-bs-parent="#accordion-{{ Str::slug($groomData['personTitle']) }}">
                                                 <div class="accordion-body">
                                                     <h6><b>* Quan hệ Can chi ngày (nội khí):</b></h6>
-                                                    <p>{!! $ownerData['noiKhiNgay'] !!}</p>
+                                                    <p>{!! $groomData['noiKhiNgay'] !!}</p>
 
                                                     <h6><b>* Vận khí ngày & tháng (khí tháng):</b></h6>
-                                                    <p>Ngày {{ $ownerData['getThongTinCanChiVaIcon']['can_chi_ngay'] }} -
-                                                        Tháng {{ $ownerData['getThongTinCanChiVaIcon']['can_chi_thang'] }}
-                                                    </p>
+                                                    <p>Ngày {{ $groomData['getThongTinCanChiVaIcon']['can_chi_ngay'] }} -
+                                                        Tháng
+                                                        {{ $groomData['getThongTinCanChiVaIcon']['can_chi_thang'] }}</p>
                                                     <ul class="mb-0 mt-0">
-                                                        {!! $ownerData['getVongKhiNgayThang']['analysis'] !!}
+                                                        {!! $groomData['getVongKhiNgayThang']['analysis'] !!}
                                                     </ul>
-                                                    <p> {!! $ownerData['getVongKhiNgayThang']['conclusion'] !!}</p>
-                                                    <h6><b>Cục khí - hợp xung</b></h6>
+                                                    <p> {!! $groomData['getVongKhiNgayThang']['conclusion'] !!}</p>
+                                                    <h6><b>* Cục khí - hợp xung</b></h6>
                                                     <ul>
                                                         <li>{!! $commonDayInfo['hopxungNgay']['hop'] !!}</li>
                                                         <li>{!! $commonDayInfo['hopxungNgay']['ky'] !!}</li>
                                                     </ul>
                                                     <h6><b>* So sánh ngày với mệnh tuổi của bạn:</b></h6>
-                                                    @php $analyze = $ownerData['analyzeNgayVoiTuoi']; @endphp
+                                                    @php $analyze = $groomData['analyzeNgayVoiTuoi']; @endphp
                                                     <ul class="list-unstyled">
                                                         <li><strong>Thiên can:</strong> Can ngày
                                                             <i>{{ $analyze['details']['can']['canNgay'] }}</i>
                                                             và can tuổi <i>{{ $analyze['details']['can']['canTuoi'] }}</i>
-                                                            là <b>{{ $analyze['details']['can']['relation'] }}</b>
+                                                            là
+                                                            <b>{{ $analyze['details']['can']['relation'] }}</b>
                                                             ({{ $analyze['details']['can']['rating'] }}).
                                                             @if (!empty($analyze['details']['can']['fakeHợpExplanation']))
                                                                 {{ $analyze['details']['can']['fakeHợpExplanation'] }}
@@ -312,7 +329,8 @@
                                                         <li><strong>Địa chi:</strong> Chi ngày
                                                             <i>{{ $analyze['details']['chi']['chiNgay'] }}</i>
                                                             và chi tuổi <i>{{ $analyze['details']['chi']['chiTuoi'] }}</i>
-                                                            là <b>{{ $analyze['details']['chi']['relationKey'] }}</b>
+                                                            là
+                                                            <b>{{ $analyze['details']['chi']['relationKey'] }}</b>
                                                             ({{ $analyze['details']['chi']['rating'] }}).
                                                             {{ $analyze['details']['chi']['explanation'] }}
                                                         </li>
@@ -333,18 +351,19 @@
                                             <h2 class="accordion-header">
                                                 <button class="accordion-button collapsed" type="button"
                                                     data-bs-toggle="collapse"
-                                                    data-bs-target="#collapse-nhi-thap-bat-tu-{{ Str::slug($ownerData['personTitle']) }}">
+                                                    data-bs-target="#collapse-nhi-thap-bat-tu-{{ Str::slug($groomData['personTitle']) }}">
                                                     Nhị Thập Bát Tú
                                                 </button>
                                             </h2>
-                                            <div id="collapse-nhi-thap-bat-tu-{{ Str::slug($ownerData['personTitle']) }}"
+                                            <div id="collapse-nhi-thap-bat-tu-{{ Str::slug($groomData['personTitle']) }}"
                                                 class="accordion-collapse collapse"
-                                                data-bs-parent="#accordion-{{ Str::slug($ownerData['personTitle']) }}">
+                                                data-bs-parent="#accordion-{{ Str::slug($groomData['personTitle']) }}">
                                                 <div class="accordion-body">
                                                     @php $nhiThapBatTu = $commonDayInfo['nhiThapBatTu']; @endphp
                                                     <p>Ngày này có sao: <b>{{ $nhiThapBatTu['name'] }}
                                                             ({{ $nhiThapBatTu['fullName'] }})</b> -
-                                                        Là sao <b>{{ $nhiThapBatTu['nature'] }}</b>.</p>
+                                                        Là
+                                                        sao <b>{{ $nhiThapBatTu['nature'] }}</b>.</p>
                                                     <p>{{ $nhiThapBatTu['description'] }}</p>
                                                     @if (!empty($nhiThapBatTu['guidance']['good']))
                                                         <p><b>Nên làm:</b> {{ $nhiThapBatTu['guidance']['good'] }}</p>
@@ -360,17 +379,18 @@
                                             <h2 class="accordion-header">
                                                 <button class="accordion-button collapsed" type="button"
                                                     data-bs-toggle="collapse"
-                                                    data-bs-target="#collapse-thap-nhi-truc-{{ Str::slug($ownerData['personTitle']) }}">
+                                                    data-bs-target="#collapse-thap-nhi-truc-{{ Str::slug($groomData['personTitle']) }}">
                                                     Thập Nhị Trực
                                                 </button>
                                             </h2>
-                                            <div id="collapse-thap-nhi-truc-{{ Str::slug($ownerData['personTitle']) }}"
+                                            <div id="collapse-thap-nhi-truc-{{ Str::slug($groomData['personTitle']) }}"
                                                 class="accordion-collapse collapse"
-                                                data-bs-parent="#accordion-{{ Str::slug($ownerData['personTitle']) }}">
+                                                data-bs-parent="#accordion-{{ Str::slug($groomData['personTitle']) }}">
                                                 <div class="accordion-body">
                                                     @php $getThongTinTruc = $commonDayInfo['getThongTinTruc']; @endphp
                                                     <p class="mb-1"><b>Trực ngày: </b>Trực
-                                                        <b>{{ $getThongTinTruc['title'] }}</b> - Là trực
+                                                        <b>{{ $getThongTinTruc['title'] }}</b> - Là
+                                                        trực
                                                         {{ $getThongTinTruc['description']['rating'] }}.
                                                     </p>
                                                     <p class="mb-1">{{ $getThongTinTruc['description']['description'] }}
@@ -393,30 +413,33 @@
                                                 <h2 class="accordion-header">
                                                     <button class="accordion-button collapsed" type="button"
                                                         data-bs-toggle="collapse"
-                                                        data-bs-target="#collapse-sao-cat-hung-{{ Str::slug($ownerData['personTitle']) }}">
+                                                        data-bs-target="#collapse-sao-cat-hung-{{ Str::slug($groomData['personTitle']) }}">
                                                         Sao Cát Hung (Ngọc Hạp Thông Thư)
                                                     </button>
                                                 </h2>
-                                                <div id="collapse-sao-cat-hung-{{ Str::slug($ownerData['personTitle']) }}"
+                                                <div id="collapse-sao-cat-hung-{{ Str::slug($groomData['personTitle']) }}"
                                                     class="accordion-collapse collapse"
-                                                    data-bs-parent="#accordion-{{ Str::slug($ownerData['personTitle']) }}">
+                                                    data-bs-parent="#accordion-{{ Str::slug($groomData['personTitle']) }}">
                                                     <div class="accordion-body">
                                                         @php $getSaoTotXauInfo = $commonDayInfo['getSaoTotXauInfo']; @endphp
                                                         <h6><i class="fas fa-star text-success"></i> Sao tốt:</h6>
                                                         <ul class="list-unstyled ps-3">
                                                             @forelse ($getSaoTotXauInfo['sao_tot'] as $tenSao => $yNghia)
                                                                 <li><strong>{{ $tenSao }}:</strong>
-                                                                    {{ $yNghia }}</li>
+                                                                    {{ $yNghia }}
+                                                                </li>
                                                             @empty
                                                                 <li>Không có sao tốt nổi bật.</li>
                                                             @endforelse
                                                         </ul>
                                                         <h6 class="mt-3"><i class="fas fa-moon text-danger"></i> Sao
-                                                            xấu:</h6>
+                                                            xấu:
+                                                        </h6>
                                                         <ul class="list-unstyled ps-3">
                                                             @forelse ($getSaoTotXauInfo['sao_xau'] as $tenSao => $yNghia)
                                                                 <li><strong>{{ $tenSao }}:</strong>
-                                                                    {{ $yNghia }}</li>
+                                                                    {{ $yNghia }}
+                                                                </li>
                                                             @empty
                                                                 <li>Không có sao xấu đáng kể.</li>
                                                             @endforelse
@@ -430,15 +453,17 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
 
                     <div class="card border-0 mb-3 w-100 box-detial-year">
                         <div class="card-body box1-con-year">
-                            <div class="text-primary mb-2 text-dark d-flex align-items-center fw-bolder">
+                            <div class="text-primary mb-2  text-dark d-flex align-items-center fw-bolder">
                                 Chú ý: Đây là các thông tin xem mang tính chất tham khảo, không thay thế cho các tư vấn
                                 chuyên môn. Người dùng tự chịu trách nhiệm với mọi quyết định cá nhân dựa trên thông tin
                                 tham khảo tại Phong Lịch.
                             </div>
+
                         </div>
                     </div>
 
@@ -457,16 +482,10 @@
             const urlParams = new URLSearchParams(window.location.search);
             const birthdate = urlParams.get('birthdate');
             const dateRange = urlParams.get('date_range');
-            const userName = urlParams.get('user_name');
 
             // Build the target URL with hash parameters
-            let targetUrl = '{{ route('khai-truong.form') }}';
+            let targetUrl = '{{ route('mua-xe.form') }}';
             const hashParams = [];
-
-            // Add user name to hash if available
-            if (userName) {
-                hashParams.push(`user_name=${encodeURIComponent(userName)}`);
-            }
 
             // Add birthdate to hash if available
             if (birthdate) {

@@ -64,35 +64,7 @@
                     </div>
                 </div>
 
-                <div class="card border-0 mb-3 w-100 box-detial-year">
-                    <div class="card-body box1-con-year">
-                        <div
-                            class="text-primary mb-1 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
-                            <img src="{{ asset('/icons/dac-diem1.svg') }}" alt="thông tin người xem" width="28"
-                                height="28" class="me-1"> Kiểm tra Kim Lâu - Hoang Ốc - Tam Tai
-                        </div>
-                        <div class="info-grid">
-                            <p class="mb-2">
-                                Kiểm tra ngày tốt xấu và các yếu tố hỗ trợ cho việc khai trương năm {{ $year }}
-                                {{ $yearData['canchi'] }}
-                                của {{ $user_name }} tuổi {{ $birthdateInfo['can_chi_nam'] }}
-                                ({{ $yearData['year_analysis']['lunar_age'] }} tuổi).
-                            </p>
-                            <ul>
-
-                                <li>{{ $yearData['year_analysis']['details']['kimLau']['is_bad'] ? 'Phạm Kim Lâu' : 'Không phạm Kim Lâu' }}
-                                </li>
-                                <li> {{ $yearData['year_analysis']['details']['hoangOc']['is_bad'] ? 'Phạm Hoang Ốc' : 'Không phạm Hoang Ốc' }}
-                                </li>
-                                <li>{{ $yearData['year_analysis']['details']['tamTai']['is_bad'] ? 'Phạm Tam Tai' : 'Không phạm Tam Tai' }}
-                                </li>
-
-
-                            </ul>
-                            <p>{!! $yearData['year_analysis']['description'] !!}</p>
-                        </div>
-                    </div>
-                </div>
+              
 
                 <div class="card border-0 mb-3 w-100 box-detial-year">
                     <div class="card-body">

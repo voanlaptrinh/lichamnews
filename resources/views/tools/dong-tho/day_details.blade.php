@@ -8,13 +8,23 @@
 
 
     <div class="container-setup">
+        <nav aria-label="breadcrumb" class="content-title-detail">
+            <ol class="breadcrumb mb-1">
+                <li class="breadcrumb-item">
+                    <a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
+                </li>
+                <li class="breadcrumb-item" aria-current="page">
+                    Tiện ích
+                </li>
+                <li class="breadcrumb-item" aria-current="page">
+                    Xem ngày động thổ
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    Chi tiết
+                </li>
+            </ol>
+        </nav>
 
-        <div class="content-title-detail"><a href="{{ route('home') }}"
-                style="color: #2254AB; text-decoration: underline;">Trang chủ</a><i class="bi bi-chevron-right"></i> <a
-                style="color: #2254AB; text-decoration: underline;" href="">Tiện ích</a> <i
-                class="bi bi-chevron-right"></i> <span>
-                Xem ngày động thổ</span> <i class="bi bi-chevron-right"></i> <span>
-                Chi tiết</span></div>
 
         <h1 class="content-title-home-lich">Chi tiết xem ngày động thổ</h1>
 
@@ -155,22 +165,22 @@
                                             </td>
                                         </tr>
                                         @if ($groomData['score']['tructot'] || $groomData['score']['trucxau'])
-                                             <tr>
-                                            <td>
-                                                @if ($groomData['score']['tructot'])
-                                                    Thập Nhị Trực {{ $groomData['score']['truc']['details']['name'] }}
-                                                    (Tốt)
-                                                @endif
-                                            </td>
-                                            <td>
-                                                @if ($groomData['score']['trucxau'])
-                                                    Thập Nhị Trực {{ $groomData['score']['truc']['details']['name'] }}
-                                                    (Xấu)
-                                                @endif
-                                            </td>
-                                        </tr>
+                                            <tr>
+                                                <td>
+                                                    @if ($groomData['score']['tructot'])
+                                                        Thập Nhị Trực {{ $groomData['score']['truc']['details']['name'] }}
+                                                        (Tốt)
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($groomData['score']['trucxau'])
+                                                        Thập Nhị Trực {{ $groomData['score']['truc']['details']['name'] }}
+                                                        (Xấu)
+                                                    @endif
+                                                </td>
+                                            </tr>
                                         @endif
-                                       
+
                                         <tr>
                                             <td>
                                                 @if (!empty($groomData['score']['catHung']['details']['catStars']))
@@ -317,8 +327,7 @@
                                                             @if (!empty($analyze['details']['can']['fakeHợpExplanation']))
                                                                 {{ $analyze['details']['can']['fakeHợpExplanation'] }}
                                                             @else
-                                                            {{ $analyze['details']['can']['explanation'] }}
-                                                            
+                                                                {{ $analyze['details']['can']['explanation'] }}
                                                             @endif
                                                         </li>
                                                         <li><strong>Địa chi:</strong> Chi ngày

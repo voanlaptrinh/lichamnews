@@ -80,6 +80,16 @@
                          </div>
                      </a>
                  </li>
+                  <li class="list-group-item  pb-0">
+                     <a href="{{ route('mua-xe.form') }}"
+                         class="{{ request()->routeIs('mua-xe.form') ? 'active-tools' : '' }}">
+                         <div class="event-details  --padding-event-tot">
+                             <div class="event-name" style="font-weight: unset">
+                                 Xem ngày mua xe
+                             </div>
+                         </div>
+                     </a>
+                 </li>
              </ul>
          </div>
      </div>

@@ -8,14 +8,20 @@
 
 
     <div class="container-setup">
-        <div class="content-title-detail"><a href="{{ route('home') }}"
-                style="color: #2254AB; text-decoration: underline;">Trang chủ</a><i class="bi bi-chevron-right"></i> <a
-                style="color: #2254AB; text-decoration: underline;" href="">Tiện ích</a> <i
-                class="bi bi-chevron-right"></i> <span>
-                Xem ngày kết hôn</span></div>
-
+        <nav aria-label="breadcrumb" class="content-title-detail">
+            <ol class="breadcrumb mb-1">
+                <li class="breadcrumb-item">
+                    <a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
+                </li>
+                <li class="breadcrumb-item" aria-current="page">
+                    Tiện ích
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    Xem ngày kết hôn
+                </li>
+            </ol>
+        </nav>
         <h1 class="content-title-home-lich">Xem ngày kết hôn</h1>
-
         <div>
             <div class="row g-lg-3 g-2 pt-lg-3 pt-2">
 
@@ -36,11 +42,12 @@
 
                                         <form action="{{ route('astrology.check') }}" method="POST">
                                             @csrf
-                                         
+
                                             <div class="row">
                                                 {{-- Ngày sinh Chú rể --}}
                                                 <div class="col-md-12 mb-3">
-                                                   <div for="date_range" class="fw-bold title-tong-quan-h2-log">Ngày sinh Chú rể</div>
+                                                    <div for="date_range" class="fw-bold title-tong-quan-h2-log">Ngày sinh
+                                                        Chú rể</div>
 
                                                     {{-- Date Selects --}}
                                                     <div class="row g-2 mb-2">
@@ -122,7 +129,8 @@
 
                                                 {{-- Ngày sinh Cô dâu --}}
                                                 <div class="col-md-12 mb-3">
-                                                    <div for="date_range" class="fw-bold title-tong-quan-h2-log">Ngày sinh Cô dâu</div>
+                                                    <div for="date_range" class="fw-bold title-tong-quan-h2-log">Ngày sinh
+                                                        Cô dâu</div>
 
                                                     {{-- Date Selects --}}
                                                     <div class="row g-2 mb-2">
@@ -205,7 +213,8 @@
 
                                                 {{-- Khoảng ngày dự định cưới --}}
                                                 <div class="col-md-12 mb-3">
-                                                   <div for="date_range" class="fw-bold title-tong-quan-h2-log">Khoảng ngày dự kiến cưới</div>
+                                                    <div for="date_range" class="fw-bold title-tong-quan-h2-log">Khoảng
+                                                        ngày dự kiến cưới</div>
                                                     <div class="input-group">
                                                         <input type="text"
                                                             class="form-control wedding_date_range --border-box-form @error('wedding_date_range') is-invalid @enderror"
@@ -224,12 +233,14 @@
                                                 </div>
                                             </div>
                                             <div class="d-flex justify-content-center">
-                                                <button type="submit" class="btn btn-light-settup fw-bold w-100" id="submitBtn">
+                                                <button type="submit" class="btn btn-light-settup fw-bold w-100"
+                                                    id="submitBtn">
                                                     <span class="btn-text">Xem Kết Quả</span>
-                                                    <span class="spinner-border spinner-border-sm ms-2 d-none" role="status"></span>
+                                                    <span class="spinner-border spinner-border-sm ms-2 d-none"
+                                                        role="status"></span>
                                                 </button>
                                             </div>
-                                            
+
                                         </form>
                                     </div>
                                 </div>
@@ -255,7 +266,7 @@
                         </div>
                     </div>
                 </div>
-             @include('tools.siderbarindex')
+                @include('tools.siderbarindex')
             </div>
         </div>
     </div>
@@ -264,7 +275,6 @@
 
 
     {{-- Hiển thị kết quả qua AJAX sẽ xuất hiện trong resultsContainer --}}
-
 @endsection
 
 @push('scripts')
@@ -385,7 +395,7 @@
                         dateRangeInitAttempts = maxDateRangeAttempts;
                     }
                 } else {
-                   
+
                     setTimeout(initDateRangePicker, 500);
                 }
             }
@@ -484,7 +494,8 @@
                             }
 
                             // Check if groomDatePicker is available and fully initialized
-                            if (groomDatePicker && groomDatePicker.daySelect && groomDatePicker.monthSelect && groomDatePicker.yearSelect &&
+                            if (groomDatePicker && groomDatePicker.daySelect && groomDatePicker.monthSelect &&
+                                groomDatePicker.yearSelect &&
                                 groomDatePicker.yearSelect.options.length > 1) {
 
                                 // Parse birthdate from URL (always in solar format from URL)
@@ -498,14 +509,16 @@
                                         try {
                                             // ========== SOLAR DATE UPDATE IS HANDLED BY LunarSolarDateSelect MODULE ==========
                                             if (params.groom_calendar_type === 'lunar') {
-                                                await groomDatePicker.setDate(day, month, year, false, false);
+                                                await groomDatePicker.setDate(day, month, year, false,
+                                                    false);
                                                 const lunarRadio = document.getElementById('groomLunar');
                                                 if (lunarRadio) {
                                                     lunarRadio.checked = true;
                                                     await groomDatePicker.handleLunarRadioChange();
                                                 }
                                             } else {
-                                                await groomDatePicker.setDate(day, month, year, false, false);
+                                                await groomDatePicker.setDate(day, month, year, false,
+                                                    false);
                                                 const solarRadio = document.getElementById('groomSolar');
                                                 if (solarRadio) {
                                                     solarRadio.checked = true;
@@ -548,7 +561,8 @@
                             }
 
                             // Check if brideDatePicker is available and fully initialized
-                            if (brideDatePicker && brideDatePicker.daySelect && brideDatePicker.monthSelect && brideDatePicker.yearSelect &&
+                            if (brideDatePicker && brideDatePicker.daySelect && brideDatePicker.monthSelect &&
+                                brideDatePicker.yearSelect &&
                                 brideDatePicker.yearSelect.options.length > 1) {
 
                                 // Parse birthdate from URL (always in solar format from URL)
@@ -562,14 +576,16 @@
                                         try {
                                             // ========== SOLAR DATE UPDATE IS HANDLED BY LunarSolarDateSelect MODULE ==========
                                             if (params.bride_calendar_type === 'lunar') {
-                                                await brideDatePicker.setDate(day, month, year, false, false);
+                                                await brideDatePicker.setDate(day, month, year, false,
+                                                    false);
                                                 const lunarRadio = document.getElementById('brideLunar');
                                                 if (lunarRadio) {
                                                     lunarRadio.checked = true;
                                                     await brideDatePicker.handleLunarRadioChange();
                                                 }
                                             } else {
-                                                await brideDatePicker.setDate(day, month, year, false, false);
+                                                await brideDatePicker.setDate(day, month, year, false,
+                                                    false);
                                                 const solarRadio = document.getElementById('brideSolar');
                                                 if (solarRadio) {
                                                     solarRadio.checked = true;
@@ -686,15 +702,19 @@
 
                 // ========== SOLAR DATE UPDATE IS HANDLED BY LunarSolarDateSelect MODULE ==========
                 if (groomCalendarType === 'lunar') {
-                    const { solarDay, solarMonth, solarYear } = groomDobInput.dataset;
+                    const {
+                        solarDay,
+                        solarMonth,
+                        solarYear
+                    } = groomDobInput.dataset;
                     const groomMonthSelect = document.getElementById('groomMonth');
                     const selectedOption = groomMonthSelect.options[groomMonthSelect.selectedIndex];
                     groomIsLeapMonth = selectedOption?.dataset.isLeap === '1';
 
                     formattedGroomDob = groomDobValue;
-                    urlGroomDob = (solarDay && solarMonth && solarYear)
-                        ? `${String(solarDay).padStart(2, '0')}/${String(solarMonth).padStart(2, '0')}/${solarYear}`
-                        : groomDobValue;
+                    urlGroomDob = (solarDay && solarMonth && solarYear) ?
+                        `${String(solarDay).padStart(2, '0')}/${String(solarMonth).padStart(2, '0')}/${solarYear}` :
+                        groomDobValue;
                 } else {
                     formattedGroomDob = groomDobValue;
                     urlGroomDob = groomDobValue;
@@ -717,15 +737,19 @@
 
                 // ========== SOLAR DATE UPDATE IS HANDLED BY LunarSolarDateSelect MODULE ==========
                 if (brideCalendarType === 'lunar') {
-                    const { solarDay, solarMonth, solarYear } = brideDobInput.dataset;
+                    const {
+                        solarDay,
+                        solarMonth,
+                        solarYear
+                    } = brideDobInput.dataset;
                     const brideMonthSelect = document.getElementById('brideMonth');
                     const selectedOption = brideMonthSelect.options[brideMonthSelect.selectedIndex];
                     brideIsLeapMonth = selectedOption?.dataset.isLeap === '1';
 
                     formattedBrideDob = brideDobValue;
-                    urlBrideDob = (solarDay && solarMonth && solarYear)
-                        ? `${String(solarDay).padStart(2, '0')}/${String(solarMonth).padStart(2, '0')}/${solarYear}`
-                        : brideDobValue;
+                    urlBrideDob = (solarDay && solarMonth && solarYear) ?
+                        `${String(solarDay).padStart(2, '0')}/${String(solarMonth).padStart(2, '0')}/${solarYear}` :
+                        brideDobValue;
                 } else {
                     formattedBrideDob = brideDobValue;
                     urlBrideDob = brideDobValue;
@@ -784,7 +808,7 @@
                 spinner.classList.remove('d-none');
 
                 // Submit via AJAX
-                fetch('{{ route("astrology.check") }}', {
+                fetch('{{ route('astrology.check') }}', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -833,7 +857,7 @@
                                     };
 
                                     // Submit with new sort order
-                                    fetch('{{ route("astrology.check") }}', {
+                                    fetch('{{ route('astrology.check') }}', {
                                             method: 'POST',
                                             headers: {
                                                 'Content-Type': 'application/json',
@@ -845,18 +869,29 @@
                                         .then(response => response.json())
                                         .then(data => {
                                             if (data.success) {
-                                                resultsContainer.innerHTML = data.html;
+                                                resultsContainer.innerHTML = data
+                                                    .html;
 
                                                 // Re-initialize tabs
-                                                const newTabs = resultsContainer.querySelectorAll('[data-bs-toggle="tab"]');
+                                                const newTabs = resultsContainer
+                                                    .querySelectorAll(
+                                                        '[data-bs-toggle="tab"]');
                                                 newTabs.forEach(tab => {
                                                     new bootstrap.Tab(tab);
                                                 });
 
                                                 // Re-add sort event listeners recursively
-                                                const newSortSelects = resultsContainer.querySelectorAll('[name="sort"]');
-                                                newSortSelects.forEach(newSelect => {
-                                                    newSelect.addEventListener('change', arguments.callee);
+                                                const newSortSelects =
+                                                    resultsContainer
+                                                    .querySelectorAll(
+                                                        '[name="sort"]');
+                                                newSortSelects.forEach(
+                                                newSelect => {
+                                                    newSelect
+                                                        .addEventListener(
+                                                            'change',
+                                                            arguments.callee
+                                                            );
                                                 });
                                             }
                                         })

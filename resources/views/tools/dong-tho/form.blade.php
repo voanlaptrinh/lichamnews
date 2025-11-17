@@ -6,6 +6,20 @@
     @endpush
 
     <div class="container-setup">
+           <nav aria-label="breadcrumb" class="content-title-detail">
+            <ol class="breadcrumb mb-1">
+                <li class="breadcrumb-item">
+                    <a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
+                </li>
+                <li class="breadcrumb-item" aria-current="page">
+                    Tiện ích
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    Xem ngày Động thổ
+                </li>
+             
+            </ol>
+        </nav>
         <div class="content-title-detail"><a href="{{ route('home') }}"
                 style="color: #2254AB; text-decoration: underline;">Trang chủ</a><i class="bi bi-chevron-right"></i> <a
                 style="color: #2254AB; text-decoration: underline;" href="">Tiện ích</a> <i

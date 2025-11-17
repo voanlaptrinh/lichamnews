@@ -142,6 +142,18 @@ Route::prefix('xem-ngay-xuat-hanh')->group(function () {
     Route::post('/', [XuatHanhController::class, 'checkDays'])->name('xuat-hanh.check');
     Route::get('/chi-tiet/{date}', [XuatHanhController::class, 'showDayDetails'])->name('xuat-hanh.details');
 });
+// === ROUTE Xem ngày mua xe - nhận xe mới ===
+Route::prefix('xem-ngay-mua-xe')->group(function () {
+    Route::get('/', [MuaXeController::class, 'showForm'])->name('mua-xe.form');
+    Route::post('/', [MuaXeController::class, 'checkDays'])->name('mua-xe.check');
+    Route::get('/chi-tiet/{date}', [MuaXeController::class, 'showDayDetails'])->name('mua-xe.details');
+});
+// === ROUTE Xem ngày thi cử phỏng vấn ===
+Route::prefix('xem-ngay-thi-cu-phong-van')->group(function () {
+    Route::get('/', [ThiCuPhongVanController::class, 'showForm'])->name('thi-cu.form');
+    Route::post('/', [ThiCuPhongVanController::class, 'checkDays'])->name('thi-cu.check');
+    Route::get('/chi-tiet/{date}', [ThiCuPhongVanController::class, 'showDayDetails'])->name('thi-cu.details');
+});
 
 //Xem ngày ký hợp đồng
 Route::get('/xem-ngay-ky-hop-dong', [KyHopDongController::class, 'showForm'])->name('ky-hop-dong.form');
@@ -171,17 +183,13 @@ Route::post('/xem-ngay-yem-tran-tran-trach', [TranTrachController::class, 'check
 Route::get('/xem-ngay-cau-an-lam-phuc-phong-sinh', [PhongSinhController::class, 'showForm'])->name('phong-sinh.form');
 Route::post('/xem-ngay-cau-an-lam-phuc-phong-sinh', [PhongSinhController::class, 'checkDays'])->name('phong-sinh.check');
 
-// === ROUTE Xem ngày mua xe - nhận xe mới ===
-Route::get('/xem-ngay-mua-xe-nhan-xe', [MuaXeController::class, 'showForm'])->name('mua-xe.form');
-Route::post('/xem-ngay-mua-xe-nhan-xe', [MuaXeController::class, 'checkDays'])->name('mua-xe.check');
+
 
 // === ROUTE Xem ngày xuất hành du lịch công tác ===
 Route::get('/xem-ngay-xuat-hanh-du-lich-cong-tac', [DuLichCongTacController::class, 'showForm'])->name('du-lich.form');
 Route::post('/xem-ngay-xuat-hanh-du-lich-cong-tac', [DuLichCongTacController::class, 'checkDays'])->name('du-lich.check');
 
-// === ROUTE Xem ngày thi cử phỏng vấn ===
-Route::get('/xem-ngay-thi-cu-phong-van', [ThiCuPhongVanController::class, 'showForm'])->name('thi-cu.form');
-Route::post('/xem-ngay-thi-cu-phong-van', [ThiCuPhongVanController::class, 'checkDays'])->name('thi-cu.check');
+
 
 
 // === ROUTE Xem ngày nhận công việc mới ===

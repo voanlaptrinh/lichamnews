@@ -6,11 +6,21 @@
     @endpush
 
     <div class="container-setup">
-        <div class="content-title-detail"><a href="{{ route('home') }}"
-                style="color: #2254AB; text-decoration: underline;">Trang chủ</a><i class="bi bi-chevron-right"></i> <a
-                style="color: #2254AB; text-decoration: underline;" href="">Tiện ích</a> <i
-                class="bi bi-chevron-right"></i> <span>
-                Xem ngày khai trương</span></div>
+        <nav aria-label="breadcrumb" class="content-title-detail">
+            <ol class="breadcrumb mb-1">
+                <li class="breadcrumb-item">
+                    <a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
+                </li>
+                <li class="breadcrumb-item" aria-current="page">
+                    Tiện ích
+                </li>
+
+                <li class="breadcrumb-item active" aria-current="page">
+                    Xem ngày khai trương
+                </li>
+            </ol>
+        </nav>
+
 
         <h1 class="content-title-home-lich">Xem ngày khai trương</h1>
 
@@ -265,7 +275,9 @@
                                 separator: ' - ',
                                 daysOfWeek: ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'],
                                 monthNames: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5',
-                                    'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
+                                    'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11',
+                                    'Tháng 12'
+                                ],
                                 firstDay: 1
                             }
                         };
@@ -383,7 +395,8 @@
                             }
 
                             // Check if dateSelector is available and fully initialized
-                            if (dateSelector && dateSelector.daySelect && dateSelector.monthSelect && dateSelector.yearSelect &&
+                            if (dateSelector && dateSelector.daySelect && dateSelector.monthSelect && dateSelector
+                                .yearSelect &&
                                 dateSelector.yearSelect.options.length > 1) {
 
                                 // Parse birthdate from URL (always in solar format from URL)
@@ -415,23 +428,28 @@
                                                 // Use LunarSolarDateSelect's handleLunarRadioChange method for conversion
                                                 try {
                                                     // First set solar date in selects
-                                                    await dateSelector.setDate(day, month, year, false, false);
+                                                    await dateSelector.setDate(day, month, year, false,
+                                                        false);
 
                                                     // Then switch to lunar mode - this will trigger automatic conversion
-                                                    const lunarRadio = document.getElementById('lunarCalendar');
-                                                    const solarRadio = document.getElementById('solarCalendar');
+                                                    const lunarRadio = document.getElementById(
+                                                        'lunarCalendar');
+                                                    const solarRadio = document.getElementById(
+                                                        'solarCalendar');
                                                     if (lunarRadio && solarRadio) {
                                                         lunarRadio.checked = true;
                                                         solarRadio.checked = false;
 
                                                         // Trigger the built-in conversion method
-                                                        if (dateSelector && typeof dateSelector.handleLunarRadioChange === 'function') {
+                                                        if (dateSelector && typeof dateSelector
+                                                            .handleLunarRadioChange === 'function') {
                                                             await dateSelector.handleLunarRadioChange();
                                                         }
                                                     }
                                                 } catch (error) {
                                                     // Fallback: just set as lunar without conversion
-                                                    await dateSelector.setDate(day, month, year, true, false);
+                                                    await dateSelector.setDate(day, month, year, true,
+                                                        false);
                                                 }
 
                                             } else {
@@ -512,7 +530,9 @@
                                     const notification = document.getElementById('autoSubmitNotification');
                                     notification?.style?.setProperty('display', 'none');
                                 } catch (e) {
-                                    form.dispatchEvent(new Event('submit', { cancelable: true }));
+                                    form.dispatchEvent(new Event('submit', {
+                                        cancelable: true
+                                    }));
                                 }
                             }
                         }
@@ -576,11 +596,16 @@
 
                 // ========== SOLAR DATE UPDATE IS HANDLED BY LunarSolarDateSelect MODULE ==========
                 if (calendarType === 'lunar') {
-                    const { solarDay, solarMonth, solarYear, lunarLeap } = ngayXemInput.dataset;
+                    const {
+                        solarDay,
+                        solarMonth,
+                        solarYear,
+                        lunarLeap
+                    } = ngayXemInput.dataset;
                     isLeapMonth = lunarLeap === '1';
-                    formattedBirthdate = (solarDay && solarMonth && solarYear)
-                        ? `${String(solarDay).padStart(2, '0')}/${String(solarMonth).padStart(2, '0')}/${solarYear}`
-                        : ngayXemValue.replace(' (ÂL)', '').replace(' (ÂL-Nhuận)', '');
+                    formattedBirthdate = (solarDay && solarMonth && solarYear) ?
+                        `${String(solarDay).padStart(2, '0')}/${String(solarMonth).padStart(2, '0')}/${solarYear}` :
+                        ngayXemValue.replace(' (ÂL)', '').replace(' (ÂL-Nhuận)', '');
                 } else {
                     formattedBirthdate = ngayXemValue;
                 }

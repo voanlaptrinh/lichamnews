@@ -11065,7 +11065,7 @@ class TimeConstant {
       "good": "Khởi công sửa chữa nhỏ", // <-- Cập nhật
       "bad": "Ký kết hợp đồng mới, cho vay mượn" // <-- Cập nhật
     },
-    "Tinh": {
+    "Tỉnh": {
       "good": "Khởi công xây dựng, sửa bếp, xây nhà", // <-- Cập nhật
       "bad": "Cưới hỏi, tổ chức hôn nhân" // <-- Cập nhật
     },

@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Helpers\AstrologyHelper;
+use App\Helpers\BadDayHelper;
 use App\Helpers\DataHelper;
 use App\Helpers\GoodBadDayHelper;
 use App\Helpers\KhiVanHelper;
 use App\Helpers\LunarHelper;
 use Carbon\CarbonPeriod;
+use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
 
@@ -20,7 +21,7 @@ class ThiCuPhongVanController extends Controller
     public function showForm()
     {
         // Không cần truyền dateRanges nữa
-        return view('thi-cu.index');
+        return view('tools.thi-cu.index');
     }
 
     /**
@@ -33,7 +34,7 @@ class ThiCuPhongVanController extends Controller
         $originalInputs = $input;
 
         $dateRange = $request->input('date_range');
-        $dates = $dateRange ? explode(' đến ', $dateRange) : [null, null];
+        $dates = $dateRange ? explode(' - ', $dateRange) : [null, null];
         if (count($dates) === 1) $dates[1] = $dates[0];
 
         $request->merge([
@@ -61,6 +62,9 @@ class ThiCuPhongVanController extends Controller
         ]);
 
         if ($validator->fails()) {
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json(['success' => false, 'errors' => $validator->errors()], 422);
+            }
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
@@ -121,14 +125,41 @@ class ThiCuPhongVanController extends Controller
                 'date' => $date->copy(),
                 'weekday_name' => $date->isoFormat('dddd'),
                 'full_lunar_date_str' => $fullLunarDateStr,
+                'al_name' => $lunarParts,
                 'good_hours' => $goodHours,
                 'day_score' => $dayScoreDetails, // Toàn bộ object điểm số và chi tiết
             ];
         }
 
-        // 4. Trả kết quả về cho view
-        return view('thi-cu.index', [
-            'date_start_end' => $dates,
+        // Sắp xếp kết quả theo điểm số
+        $sortOrder = $request->input('sort', 'desc');
+        foreach ($resultsByYear as &$yearData) {
+            if (isset($yearData['days']) && is_array($yearData['days'])) {
+                usort($yearData['days'], function ($a, $b) use ($sortOrder) {
+                    $scoreA = $a['day_score']['percentage'] ?? 0;
+                    $scoreB = $b['day_score']['percentage'] ?? 0;
+                    return $sortOrder === 'asc' ? $scoreA <=> $scoreB : $scoreB <=> $scoreA;
+                });
+            }
+        }
+        unset($yearData);
+
+        // 4. Trả kết quả về cho view hoặc AJAX
+        if ($request->ajax() || $request->wantsJson()) {
+            $html = view('tools.thi-cu.results', [
+                'inputs' => $originalInputs,
+                'birthdateInfo' => $birthdateInfo,
+                'resultsByYear' => $resultsByYear,
+                'sortOrder' => $sortOrder,
+            ])->render();
+
+            return response()->json([
+                'success' => true,
+                'html' => $html,
+            ]);
+        }
+
+        return view('tools.thi-cu.index', [
             'inputs' => $originalInputs,
             'birthdateInfo' => $birthdateInfo,
             'resultsByYear' => $resultsByYear,
@@ -139,11 +170,14 @@ class ThiCuPhongVanController extends Controller
      */
     private function calculateYearAnalysis(Carbon $dob, int $yearToCheck): array
     {
-        $birthYear = $dob->year;
+      $lunarDob = LunarHelper::convertSolar2Lunar($dob->day, $dob->month, $dob->year);
+        $birthYear = $lunarDob[2];
+
         $lunarAge = AstrologyHelper::getLunarAge($birthYear, $yearToCheck);
 
         $kimLau = AstrologyHelper::checkKimLau($lunarAge);
         $hoangOc = AstrologyHelper::checkHoangOc($lunarAge);
+
         $tamTai = AstrologyHelper::checkTamTai($birthYear, $yearToCheck);
 
         $badFactors = [];
@@ -152,11 +186,17 @@ class ThiCuPhongVanController extends Controller
         if ($tamTai['is_bad']) $badFactors[] = 'Tam Tai';
 
         $isBadYear = count($badFactors) > 0;
-
+        $message = $isBadYear
+            ? "Năm {$yearToCheck}, thí sinh phạm phải: <strong>" . implode(', ', $badFactors) . "</strong> – đây là yếu tố phong thủy cần đặc biệt lưu ý khi tham gia các kỳ thi quan trọng hoặc phỏng vấn.
+<ul><li>Nếu mục đích chỉ là các kỳ thi nhỏ, phỏng vấn không quan trọng: vẫn có thể tham gia trong năm nay, miễn là chọn đúng ngày giờ tốt hợp tuổi, có thể hóa giải phần nào sát khí.</li><li>Ngược lại, nếu đây là những kỳ thi quan trọng (tốt nghiệp, đại học, công chức...) hoặc phỏng vấn công việc mơ ước: nên cân nhắc kỹ lưỡng. Trường hợp vẫn muốn tham gia trong năm, cần áp dụng các biện pháp hóa giải vận hạn phù hợp và chuẩn bị thật kỹ lưỡng để vượt qua khó khăn.</li> </ul>
+"
+            : "Năm {$yearToCheck}, thí sinh không phạm Kim Lâu, Hoang Ốc hay Tam Tai – đây là tín hiệu rất tốt trong phong thủy. Bạn hoàn toàn có thể an tâm tham gia các kỳ thi và phỏng vấn trong năm nay.
+Thời điểm cát lợi, vận khí hanh thông – rất thích hợp cho việc học hành, thi cử, sẽ mang lại thành công và may mắn";
 
         return [
             'is_bad_year' => $isBadYear,
             'lunar_age' => $lunarAge,
+            'description' => $message,
             'details' => compact('kimLau', 'hoangOc', 'tamTai'),
         ];
     }
@@ -168,10 +208,11 @@ class ThiCuPhongVanController extends Controller
      */
     private function getPersonBasicInfo(Carbon $dob): array
     {
-        $birthYear = $dob->year;
-        $canChiNam = KhiVanHelper::canchiNam((int)$birthYear);
-        $menh = DataHelper::$napAmTable[$canChiNam]; // Giả sử bạn có DataHelper
+
         $lunarDob = LunarHelper::convertSolar2Lunar($dob->day, $dob->month, $dob->year);
+         $canChiNam = KhiVanHelper::canchiNam($lunarDob[2]);
+
+        $menh = DataHelper::$napAmTable[$canChiNam]; // Giả sử bạn có DataHelper
 
         return [
             'dob' => $dob,
@@ -179,5 +220,35 @@ class ThiCuPhongVanController extends Controller
             'can_chi_nam' => $canChiNam,
             'menh' => $menh,
         ];
+    }
+
+
+
+     public function showDayDetails(Request $request, $date)
+    {
+        // 1. Validate dữ liệu - đã loại bỏ 'person_type'
+         $validated = Validator::make(['date' => $date, 'birthdate' => $request->input('birthdate')], [
+            'date' => 'required|date_format:Y-m-d',
+            'birthdate' => 'required|date_format:Y-m-d',
+        ])->validate();
+
+        // 2. Chuẩn bị các đối tượng ngày tháng
+        $dateToCheck = Carbon::parse($validated['date']);
+        $groomDob = Carbon::parse($validated['birthdate']);
+
+        // 3. Lấy thông tin chung của ngày (tính 1 lần, vì nó không đổi)
+
+        $commonDayInfo = BadDayHelper::getdetailtable($dateToCheck);
+        $tabooResult = GoodBadDayHelper::checkTabooDays($dateToCheck, 'THI_CU');
+
+        // 4. Lấy thông tin chi tiết cho Chú Rể
+        $groomData = BadDayHelper::getDetailedAnalysisForPerson($dateToCheck, $groomDob, 'Ngày thi cử - phỏng vấn', 'THI_CU');
+        // 5. Tính điểm số của ngày - sử dụng năm sinh thay vì Carbon object
+        // 6. Trả về view với toàn bộ dữ liệu
+        return view('tools.thi-cu.day_details', compact(
+            'commonDayInfo',
+            'groomData',
+            'tabooResult',
+        ));
     }
 }

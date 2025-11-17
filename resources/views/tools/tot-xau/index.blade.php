@@ -10,11 +10,21 @@
 
 
     <div class="container-setup">
-        <div class="content-title-detail"><a href="{{ route('home') }}"
-                style="color: #2254AB; text-decoration: underline;">Trang chủ</a><i class="bi bi-chevron-right"></i> <a
-                style="color: #2254AB; text-decoration: underline;" href="">Tiện ích</a> <i
-                class="bi bi-chevron-right"></i> <span>
-                Xem ngày tốt xấu</span></div>
+         <nav aria-label="breadcrumb" class="content-title-detail">
+            <ol class="breadcrumb mb-1">
+                <li class="breadcrumb-item">
+                    <a href="{{ route('home') }}"  style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
+                </li>
+                <li class="breadcrumb-item" aria-current="page">
+                  Tiện ích
+                </li>
+                 <li class="breadcrumb-item active" aria-current="page">
+                  Xem ngày tốt xấu
+                </li>
+            </ol>
+        </nav>
+
+       
 
         <h1 class="content-title-home-lich">Xem ngày tốt xấu</h1>
 
