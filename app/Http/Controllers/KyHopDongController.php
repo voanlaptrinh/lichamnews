@@ -2,38 +2,39 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Helpers\AstrologyHelper;
+use App\Helpers\BadDayHelper;
 use App\Helpers\DataHelper;
 use App\Helpers\GoodBadDayHelper;
 use App\Helpers\KhiVanHelper;
 use App\Helpers\LunarHelper;
 use Carbon\CarbonPeriod;
+use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
+
 class KyHopDongController extends Controller
 {
-       
- /**
-     * Hiển thị form xem ngày làm nhà.
+    /**
+     * Hiển thị form xem ngày ký hợp đồng.
      */
     public function showForm()
     {
-        // Không cần truyền dateRanges nữa
-        return view('ky-hop-dong.form');
+        return view('tools.ky-hop-dong.form');
     }
 
     /**
-     * Xử lý dữ liệu, phân tích năm, phân tích ngày và trả kết quả.
+     * Xử lý dữ liệu AJAX, phân tích năm, phân tích ngày và trả kết quả JSON.
      */
-    public function checkDays(Request $request)
+    public function check(Request $request)
     {
-        // 1. Xử lý Input và Validation (Giữ nguyên code của bạn)
+        // 1. Xử lý Input và Validation theo pattern chuẩn
         $input = $request->all();
         $originalInputs = $input;
 
+        // Xử lý date_range theo pattern BuyHouseController
         $dateRange = $request->input('date_range');
-        $dates = $dateRange ? explode(' đến ', $dateRange) : [null, null];
+        $dates = $dateRange ? explode(' - ', $dateRange) : [null, null];
         if (count($dates) === 1) $dates[1] = $dates[0];
 
         $request->merge([
@@ -42,107 +43,183 @@ class KyHopDongController extends Controller
             'birthdate_formatted' => $input['birthdate'] ?? null,
         ]);
 
+        // Chuyển đổi format birthdate nếu cần
         if (!empty($input['birthdate']) && Carbon::hasFormat($input['birthdate'], 'd/m/Y')) {
             $input['birthdate'] = Carbon::createFromFormat('d/m/Y', $input['birthdate'])->format('Y-m-d');
         }
         $request->merge($input);
 
+        // Validation chuẩn
         $validator = Validator::make($request->all(), [
-            'user_name' => 'required',
+            'person_name' => 'required|string|max:255',
             'birthdate' => 'required|date',
             'date_range' => 'required',
             'start_date' => 'required|date_format:d/m/Y',
             'end_date' => 'required|date_format:d/m/Y|after_or_equal:start_date',
         ], [
-            'user_name.required' => 'Vui lòng nhập tên',
-            'birthdate.required' => 'Vui lòng nhập ngày sinh của gia chủ.',
+            'person_name.required' => 'Vui lòng nhập tên người ký hợp đồng.',
+            'person_name.string' => 'Tên phải là chuỗi ký tự.',
+            'person_name.max' => 'Tên không được quá 255 ký tự.',
+            'birthdate.required' => 'Vui lòng nhập ngày sinh của người ký hợp đồng.',
             'date_range.required' => 'Vui lòng chọn khoảng ngày dự định.',
             'start_date.*' => 'Định dạng ngày bắt đầu không hợp lệ.',
             'end_date.*' => 'Định dạng ngày kết thúc không hợp lệ hoặc trước ngày bắt đầu.',
         ]);
 
         if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
+            return response()->json([
+                'success' => false,
+                'errors' => $validator->errors()
+            ], 422);
         }
 
-        $validated = $validator->validated();
+        try {
+            $validated = $validator->validated();
+            $birthdate = Carbon::parse($validated['birthdate']);
+            $startDate = Carbon::createFromFormat('d/m/Y', $validated['start_date'])->startOfDay();
+            $endDate = Carbon::createFromFormat('d/m/Y', $validated['end_date'])->endOfDay();
+            $period = CarbonPeriod::create($startDate, $endDate);
 
-        $birthdate = Carbon::parse($validated['birthdate']);
-        $startDate = Carbon::createFromFormat('d/m/Y', $validated['start_date'])->startOfDay();
-        $endDate = Carbon::createFromFormat('d/m/Y', $validated['end_date'])->endOfDay();
-        $period = CarbonPeriod::create($startDate, $endDate);
+            // 2. Lấy thông tin cơ bản của người ký hợp đồng và phân tích các năm
+            $birthdateInfo = $this->getPersonBasicInfo($birthdate);
+            $uniqueYears = [];
+            foreach ($period as $date) {
+                $uniqueYears[$date->year] = true;
+            }
+            $uniqueYears = array_keys($uniqueYears);
 
-        // 2. Lấy thông tin cơ bản của gia chủ và phân tích các năm
-        $birthdateInfo = $this->getPersonBasicInfo($birthdate);
-        $uniqueYears = [];
-        foreach ($period as $date) {
-            $uniqueYears[$date->year] = true;
+            $resultsByYear = [];
+            foreach ($uniqueYears as $year) {
+                $yearAnalysis = $this->calculateYearAnalysis($birthdate, $year);
+                $canChiNam = KhiVanHelper::canchiNam((int)$year);
+                $resultsByYear[$year] = [
+                    'year_analysis' => $yearAnalysis,
+                    'canchi' => $canChiNam,
+                    'days' => [], // Mảng để lưu kết quả chi tiết của từng ngày
+                ];
+            }
+
+            // 3. Phần logic chính: Lặp qua từng ngày để tính điểm chi tiết
+            $purpose = 'KY_HOP_DONG'; // Mục đích cho việc ký hợp đồng
+
+            foreach ($period as $date) {
+                $year = $date->year;
+
+                // Tính toán điểm số của ngày dựa trên tuổi người ký hợp đồng
+                $dayScoreDetails = GoodBadDayHelper::calculateDayScore($date, $birthdate->year, $purpose);
+
+                // Lấy thông tin Can Chi của ngày
+                $jd = LunarHelper::jdFromDate($date->day, $date->month, $date->year);
+                $dayCanChi = LunarHelper::canchiNgayByJD($jd);
+
+                // Lấy Giờ Hoàng Đạo (chỉ giờ ban ngày)
+                $dayChi = explode(' ', $dayCanChi)[1];
+                $goodHours = LunarHelper::getGoodHours($dayChi, 'day');
+
+                // Tạo chuỗi ngày Âm lịch đầy đủ để hiển thị
+                $lunarParts = LunarHelper::convertSolar2Lunar($date->day, $date->month, $date->year);
+                $fullLunarDateStr = sprintf('Ngày %02d/%02d %s', $lunarParts[0], $lunarParts[1], $dayCanChi);
+
+                // Thêm tất cả kết quả vào mảng `days` của năm tương ứng
+                $resultsByYear[$year]['days'][] = [
+                    'date' => $date->copy(),
+                    'weekday_name' => $this->getVietnameseWeekday($date),
+                    'full_lunar_date_str' => $fullLunarDateStr,
+                    'al_name' => $lunarParts,
+                    'good_hours' => $goodHours,
+                    'day_score' => $dayScoreDetails, // Toàn bộ object điểm số và chi tiết
+                ];
+            }
+
+            // 4. Sắp xếp kết quả theo điểm số
+            $sortOrder = $request->input('sort', 'desc');
+            foreach ($resultsByYear as &$yearData) {
+                if (isset($yearData['days']) && is_array($yearData['days'])) {
+                    usort($yearData['days'], function ($a, $b) use ($sortOrder) {
+                        $scoreA = $a['day_score']['percentage'] ?? 0;
+                        $scoreB = $b['day_score']['percentage'] ?? 0;
+                        return $sortOrder === 'asc' ? $scoreA <=> $scoreB : $scoreB <=> $scoreA;
+                    });
+                }
+            }
+            unset($yearData);
+
+            // 5. Trả kết quả JSON với HTML được render
+            $html = view('tools.ky-hop-dong.results', [
+                'inputs' => $originalInputs,
+                'personName' => $validated['person_name'],
+                'birthdateInfo' => $birthdateInfo,
+                'resultsByYear' => $resultsByYear,
+                'sortOrder' => $sortOrder,
+            ])->render();
+
+            return response()->json([
+                'success' => true,
+                'html' => $html
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Có lỗi xảy ra: ' . $e->getMessage()
+            ], 500);
         }
-        $uniqueYears = array_keys($uniqueYears);
+    }
 
-        $resultsByYear = [];
-        foreach ($uniqueYears as $year) {
-            $yearAnalysis = $this->calculateYearAnalysis($birthdate, $year);
-            $canChiNam = KhiVanHelper::canchiNam((int)$year);
-            $resultsByYear[$year] = [
-                'year_analysis' => $yearAnalysis,
-                'canchi' => $canChiNam,
-                'days' => [], // Mảng để lưu kết quả chi tiết của từng ngày
-            ];
+    /**
+     * Hiển thị chi tiết ngày ký hợp đồng
+     */
+    public function details(Request $request)
+    {
+        $validated = Validator::make([
+            'date' => $request->get('date'),
+            'birthdate' => $request->input('birthdate'),
+            'person_name' => $request->input('person_name')
+        ], [
+            'date' => 'required|date_format:Y-m-d',
+            'birthdate' => 'required|date_format:Y-m-d',
+            'person_name' => 'nullable|string|max:255',
+        ])->validate();
+
+        try {
+            $dateToCheck = Carbon::parse($validated['date']);
+            $groomDob = Carbon::parse($validated['birthdate']);
+
+            // Lấy thông tin chung của ngày (tính 1 lần, vì nó không đổi)
+            $commonDayInfo = BadDayHelper::getdetailtable($dateToCheck);
+            $tabooResult = GoodBadDayHelper::checkTabooDays($dateToCheck, 'KY_HOP_DONG');
+
+            // Lấy thông tin chi tiết cho người ký hợp đồng
+            $groomData = BadDayHelper::getDetailedAnalysisForPerson($dateToCheck, $groomDob, 'Ngày ký hợp đồng', 'KY_HOP_DONG');
+
+            return view('tools.ky-hop-dong.day_details', compact(
+                'commonDayInfo',
+                'groomData',
+                'tabooResult'
+            ))->with('personName', $validated['person_name'] ?? null);
+
+        } catch (\Exception $e) {
+            return redirect()->route('ky-hop-dong.form')
+                ->with('error', 'Có lỗi xảy ra: ' . $e->getMessage());
         }
+    }
 
-        // ---------------------------------------------------------------------
-        // ---- PHẦN LOGIC MỚI: LẶP QUA TỪNG NGÀY ĐỂ TÍNH ĐIỂM CHI TIẾT ----
-        // ---------------------------------------------------------------------
-
-        // a. Xác định mục đích (purpose) cho việc xem ngày làm nhà
-        $purpose = 'KHAI_TRUONG'; // Hoặc 'LAM_NHA', tùy theo bạn định nghĩa trong DataHelper
-
-        foreach ($period as $date) {
-            $year = $date->year;
-
-
-            // b. Tính toán điểm số của ngày dựa trên tuổi gia chủ
-            $dayScoreDetails = GoodBadDayHelper::calculateDayScore($date, $birthdate->year, $purpose);
-
-            // c. Lấy thông tin Can Chi của ngày
-            $jd = LunarHelper::jdFromDate($date->day, $date->month, $date->year);
-            $dayCanChi = LunarHelper::canchiNgayByJD($jd);
-
-            // d. Lấy Giờ Hoàng Đạo (chỉ giờ ban ngày)
-            $dayChi = explode(' ', $dayCanChi)[1];
-            $goodHours = LunarHelper::getGoodHours($dayChi, 'day'); // 'day' để chỉ lấy giờ ban ngày
-
-            // e. Tạo chuỗi ngày Âm lịch đầy đủ để hiển thị
-            $lunarParts = LunarHelper::convertSolar2Lunar($date->day, $date->month, $date->year);
-            $fullLunarDateStr = sprintf('Ngày %02d/%02d %s', $lunarParts[0], $lunarParts[1], $dayCanChi);
-
-            // f. Thêm tất cả kết quả vào mảng `days` của năm tương ứng
-            $resultsByYear[$year]['days'][] = [
-                
-                'date' => $date->copy(),
-                'weekday_name' => $date->isoFormat('dddd'),
-                'full_lunar_date_str' => $fullLunarDateStr,
-                'good_hours' => $goodHours,
-                'day_score' => $dayScoreDetails, // Toàn bộ object điểm số và chi tiết
-            ];
-        }
-
-        // 4. Trả kết quả về cho view
-        return view('ky-hop-dong.form', [
-            'user_name' => $input['user_name'],
-            'date_start_end' => $dates,
-            'inputs' => $originalInputs,
-            'birthdateInfo' => $birthdateInfo,
-            'resultsByYear' => $resultsByYear,
-        ]);
+    /**
+     * Legacy method - keeping for compatibility but updating description
+     */
+    public function checkDays(Request $request)
+    {
+        // Redirect to new check method
+        return $this->check($request);
     }
     /**
-     * Hàm trợ giúp: Phân tích các hạn lớn trong một năm cho gia chủ.
+     * Hàm trợ giúp: Phân tích các hạn lớn trong một năm cho người ký hợp đồng.
      */
     private function calculateYearAnalysis(Carbon $dob, int $yearToCheck): array
     {
-        $birthYear = $dob->year;
+        $lunarDob = LunarHelper::convertSolar2Lunar($dob->day, $dob->month, $dob->year);
+        $birthYear = $lunarDob[2];
+
         $lunarAge = AstrologyHelper::getLunarAge($birthYear, $yearToCheck);
 
         $kimLau = AstrologyHelper::checkKimLau($lunarAge);
@@ -155,26 +232,30 @@ class KyHopDongController extends Controller
         if ($tamTai['is_bad']) $badFactors[] = 'Tam Tai';
 
         $isBadYear = count($badFactors) > 0;
-      
+        $message = $isBadYear
+            ? "Năm {$yearToCheck}, bạn phạm phải: <strong>" . implode(', ', $badFactors) . "</strong> – đây là yếu tố phong thủy cần đặc biệt lưu ý khi thực hiện các giao dịch trọng đại và ký kết hợp đồng.
+<ul><li>Nếu việc ký hợp đồng không quá cấp bách và có thể hoãn lại: nên cân nhắc chờ sang năm thuận lợi hơn để đảm bảo giao dịch thành công, tránh rủi ro pháp lý không đáng có.</li><li>Trường hợp vẫn muốn ký trong năm nay: cần chọn đúng ngày giờ tốt hợp tuổi, đồng thời áp dụng các biện pháp hóa giải vận hạn phù hợp để giảm thiểu tác động xấu, đảm bảo hợp đồng được thực hiện suôn sẻ.</li></ul>"
+            : "Năm {$yearToCheck}, bạn không phạm Kim Lâu, Hoang Ốc hay Tam Tai – đây là tín hiệu rất tốt trong phong thủy. Bạn hoàn toàn có thể an tâm tiến hành ký kết hợp đồng, thực hiện các giao dịch quan trọng trong năm nay.
+Thời điểm cát lợi, vận khí hanh thông – rất thích hợp để ký kết các hợp đồng kinh doanh, mua bán, đầu tư và các cam kết lâu dài khác.";
 
         return [
             'is_bad_year' => $isBadYear,
             'lunar_age' => $lunarAge,
+            'description' => $message,
             'details' => compact('kimLau', 'hoangOc', 'tamTai'),
         ];
     }
 
 
     /**
-     * Hàm trợ giúp: Lấy thông tin cơ bản của một người.
-     * Cần thêm hàm này vào vì bạn có gọi $this->getPersonBasicInfo($birthdate).
+     * Hàm trợ giúp: Lấy thông tin cơ bản của người ký hợp đồng.
      */
     private function getPersonBasicInfo(Carbon $dob): array
     {
-        $birthYear = $dob->year;
-        $canChiNam = KhiVanHelper::canchiNam((int)$birthYear);
-        $menh = DataHelper::$napAmTable[$canChiNam]; // Giả sử bạn có DataHelper
         $lunarDob = LunarHelper::convertSolar2Lunar($dob->day, $dob->month, $dob->year);
+        $canChiNam = KhiVanHelper::canchiNam($lunarDob[2]);
+
+        $menh = DataHelper::$napAmTable[$canChiNam];
 
         return [
             'dob' => $dob,
@@ -182,5 +263,13 @@ class KyHopDongController extends Controller
             'can_chi_nam' => $canChiNam,
             'menh' => $menh,
         ];
+    }
+
+    /**
+     * Hàm trợ giúp: Lấy tên thứ trong tuần bằng tiếng Việt
+     */
+    private function getVietnameseWeekday(Carbon $date): string
+    {
+        return $date->isoFormat('dddd');
     }
 }

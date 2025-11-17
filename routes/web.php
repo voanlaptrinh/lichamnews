@@ -156,9 +156,11 @@ Route::prefix('xem-ngay-thi-cu-phong-van')->group(function () {
 });
 
 //Xem ngày ký hợp đồng
-Route::get('/xem-ngay-ky-hop-dong', [KyHopDongController::class, 'showForm'])->name('ky-hop-dong.form');
-Route::post('/xem-ngay-ky-hop-dong', [KyHopDongController::class, 'checkDays'])->name('ky-hop-dong.check');
-
+Route::prefix('xem-ngay-ky-hop-dong')->group(function () {
+    Route::get('/', [KyHopDongController::class, 'showForm'])->name('ky-hop-dong.form');
+    Route::post('/', [KyHopDongController::class, 'check'])->name('ky-hop-dong.check');
+    Route::get('/chi-tiet', [KyHopDongController::class, 'details'])->name('ky-hop-dong.details');
+});
 // Route cho chức năng xem ngày Cải táng
 Route::get('/xem-ngay-cai-tang', [CaiTangController::class, 'showForm'])->name('cai-tang.form');
 Route::post('/xem-ngay-cai-tang', [CaiTangController::class, 'checkDays'])->name('cai-tang.check');
