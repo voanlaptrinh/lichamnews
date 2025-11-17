@@ -79,7 +79,7 @@ class XemNgayTotXauHelper
         }
 
         // Lấy sao theo can_chi nếu có
-        $keyCanChi = $ngayCan . '_' . $ngayChi;
+        $keyCanChi = $ngayCan . ' ' . $ngayChi;
         if (isset($thongTinThang['can_chi'][$keyCanChi]) && is_array($thongTinThang['can_chi'][$keyCanChi])) {
             $danhSachSao = array_merge($danhSachSao, $thongTinThang['can_chi'][$keyCanChi]);
         }
