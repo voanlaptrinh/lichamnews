@@ -430,6 +430,11 @@ class LoadConfigHelper
             'mm' => 11,
             'name' => 'Ngày Pháp luật Việt Nam'
         ),
+          array(
+            'dd' => 19,
+            'mm' => 11,
+            'name' => 'Quốc tế Nam giới'
+        ),
         array(
             'dd' => 20,
             'mm' => 11,

@@ -1167,6 +1167,7 @@ class LunarHelper
             '11-9' => 'Ngày Pháp luật Việt Nam',
             '11-17' => 'Ngày truyền thống Mặt trận Tổ quốc Việt Nam',
             '11-20' => 'Ngày Nhà giáo Việt Nam',
+            '11-19' => 'Ngày Quốc tế Nam giới',
             '11-23' => 'Ngày thành lập Hội Chữ thập đỏ Việt Nam',
 
             // THÁNG 12
