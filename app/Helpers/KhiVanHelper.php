@@ -92,8 +92,6 @@ class KhiVanHelper
         $canCanScore = $isPersonalized ? (float)($canCanResult['score'] ?? 0.0) : 0.0;
         $chiChiScore = $isPersonalized ? (float)($chiChiResult['score'] ?? 0.0) : 0.0;
         $napAmScore = $isPersonalized ? (float)($napAmResult['score'] ?? 0.0) : 0.0;
-
-
         // --- BƯỚC 2: CHUYỂN ĐỔI TỪNG ĐIỂM SANG PHẦN TRĂM (0-100) ---
         $noiKhiPercent = DataHelper::$noiKhiScoreToPercentage[number_format($noiKhiScore, 1)] ?? self::defaultScoreToPercentage($noiKhiScore);
         $khiThangPercent = DataHelper::$khiThangScoreToPercentage[number_format($khiThangScore, 1)] ?? self::defaultScoreToPercentage($khiThangScore, -3.0, 3.0);
@@ -104,10 +102,8 @@ class KhiVanHelper
 
 
 
-
         // --- BƯỚC 3: TÍNH TỔNG PHẦN TRĂM CÓ TRỌNG SỐ ---
         $componentWeights = $isPersonalized ? DataHelper::$vanKhiComponentWeightsFractionPersonalized : DataHelper::$vanKhiComponentWeightsFractionGeneral;
-
         $totalVanKhiPercentage = 0.0;
         $totalVanKhiPercentage += $noiKhiPercent * $componentWeights['NoiKhi'];
         $totalVanKhiPercentage += $khiThangPercent * $componentWeights['KhiThang'];
@@ -395,14 +391,15 @@ class KhiVanHelper
 
         // 4️⃣ Kiểm tra quan hệ Can-Can trong DataHelper
         $relationships = DataHelper::$canCanNewRelationships;
-
         if (
             isset($relationships[$birthCan]) &&
             isset($relationships[$dayCan][$birthCan])
         ) {
             $info = $relationships[$dayCan][$birthCan];
+            // Ưu tiên fakeHợpScore nếu có, nếu không thì dùng baseScore
+            $score = isset($info['fakeHợpScore']) ? $info['fakeHợpScore'] : ($info['baseScore'] ?? 0);
             return [
-                'score' => $info['baseScore'] ?? 0,
+                'score' => $score,
                 'description' => $info['explanation'] ?? '',
                 'type' => $info['relation'] ?? '',
             ];

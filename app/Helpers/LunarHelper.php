@@ -145,7 +145,13 @@ class LunarHelper
     static function tietKhiByJD($jd)
     {
         // Trả về tên tiết khí
-        return DataHelper::$TIETKHI[self::getSunLongitudeKinh($jd + 1)];
+        return DataHelper::$TIETKHI[self::getSunLongitudeKinh($jd)];
+    }
+    function mb_ucfirst($string)
+    {
+        $first = mb_strtoupper(mb_substr($string, 0, 1, 'UTF-8'));
+        $rest = mb_substr($string, 1, null, 'UTF-8');
+        return $first . $rest;
     }
 
     static function tietKhiWithIcon($jd): array
@@ -153,7 +159,13 @@ class LunarHelper
         $tietKhi = self::tietKhiByJD($jd);
 
         // Viết hoa đúng định dạng để map với $tietKhiIcons
-        $tietKhiFormatted = implode(' ', array_map('ucfirst', explode(' ', mb_strtolower($tietKhi, 'UTF-8'))));
+        $parts = explode(' ', mb_strtolower($tietKhi, 'UTF-8'));
+        $parts = array_map(function ($p) {
+            return mb_ucfirst($p);
+        }, $parts);
+
+        $tietKhiFormatted = implode(' ', $parts);
+
 
         $icon = DataHelper::$tietKhiIcons[$tietKhiFormatted] ?? '';
 
@@ -419,7 +431,7 @@ class LunarHelper
                     //         $res .= self::printCell($prevDay, $solarDate, $prevMonth, $prevYear, $show_canchi, $rturn_totxau, $date_array, $selected_date, $events_duong_prev, $events_am_prev, 'other-month');
                     //     }
                     // } else {
-                        $res .= '<td class="skip"></td>';
+                    $res .= '<td class="skip"></td>';
                     // }
                 } elseif ($cellIndex < $daysFromPrevMonth + $currentMonthDays) {
                     // Hiển thị ngày của tháng hiện tại
@@ -499,7 +511,7 @@ class LunarHelper
             '1-15' => '🌕 Rằm tháng Giêng',
             '2-1' => 'Mồng 1 tháng Hai',
             '2-15' => 'Rằm tháng Hai',
-          
+
             '3-1' => '🌸 Mồng 1 tháng Ba',
             '3-3' => 'Tết Hàn Thực',
             '3-10' => 'Giỗ tổ Hùng Vương',
@@ -511,7 +523,7 @@ class LunarHelper
             '5-15' => '🌕 Rằm tháng Năm',
             '6-1' => '🌸 Mồng 1 tháng Sáu',
             '6-15' => '🌕 Rằm tháng Sáu',
-          
+
             '7-1' => '🌸 Mồng 1 tháng Bảy',
             '7-7' => 'Thất Tịch',
             '7-15' => '🌕 Lễ Vu Lan',
@@ -520,7 +532,7 @@ class LunarHelper
             '9-1' => '🌸 Mồng 1 tháng Chín',
             '9-9' => 'Tết Trùng Cửu',
             '9-15' => '🌕 Rằm tháng Chín',
-           
+
             '10-1' => '🌸 Mồng 1 tháng Mười',
             '10-10' => 'Tết Thường Tân',
             '10-15' => '🌕 Tết Hạ Nguyên',
@@ -535,90 +547,90 @@ class LunarHelper
         ];
     }
 
-   static function printCell($lunarDate, $solarDate, $solarMonth, $solarYear, $show_canchi, $rturn_totxau, $date_array, $selected_date, $events = [], $events_am = [], $additionalClass = '')
-{
-    $dd = $date_array['mday'];
-    $mm = $date_array['mon'];
-    $yy = $date_array['year'];
+    static function printCell($lunarDate, $solarDate, $solarMonth, $solarYear, $show_canchi, $rturn_totxau, $date_array, $selected_date, $events = [], $events_am = [], $additionalClass = '')
+    {
+        $dd = $date_array['mday'];
+        $mm = $date_array['mon'];
+        $yy = $date_array['year'];
 
-    $selected_dd = $selected_date ? $selected_date['mday'] : 0;
-    $selected_mm = $selected_date ? $selected_date['mon'] : 0;
-    $selected_yy = $selected_date ? $selected_date['year'] : 0;
+        $selected_dd = $selected_date ? $selected_date['mday'] : 0;
+        $selected_mm = $selected_date ? $selected_date['mon'] : 0;
+        $selected_yy = $selected_date ? $selected_date['year'] : 0;
 
-    $dow = ($lunarDate['jd'] + 1) % 7;
-    $canChi = @$lunarDate['canchi'];
-    $tot_xau = self::checkTotXau($canChi, $lunarDate['month']);
-    $classCell = [];
+        $dow = ($lunarDate['jd'] + 1) % 7;
+        $canChi = @$lunarDate['canchi'];
+        $tot_xau = self::checkTotXau($canChi, $lunarDate['month']);
+        $classCell = [];
 
-    // Thêm class cho ngày của tháng khác
-    if ($additionalClass) {
-        $classCell[] = $additionalClass;
-    }
-    if ($lunarDate['month'] == 1 && $lunarDate['day'] <= 10) $classCell[] = 'tet';
-    if ($solarYear == $yy && $solarMonth == $mm && $solarDate == $dd) $classCell[] = 'current';
-    if ($solarYear == $selected_yy && $solarMonth == $selected_mm && $solarDate == $selected_dd) {
-        $classCell[] = 'hovered';
-        $classCell[] = 'viewing-day'; // Thêm class rõ ràng cho ngày đang xem
-    }
+        // Thêm class cho ngày của tháng khác
+        if ($additionalClass) {
+            $classCell[] = $additionalClass;
+        }
+        if ($lunarDate['month'] == 1 && $lunarDate['day'] <= 10) $classCell[] = 'tet';
+        if ($solarYear == $yy && $solarMonth == $mm && $solarDate == $dd) $classCell[] = 'current';
+        if ($solarYear == $selected_yy && $solarMonth == $selected_mm && $solarDate == $selected_dd) {
+            $classCell[] = 'hovered';
+            $classCell[] = 'viewing-day'; // Thêm class rõ ràng cho ngày đang xem
+        }
 
-    // ✅ Sự kiện ngày dương
-    $event_text_duong = @$events[$solarDate];
+        // ✅ Sự kiện ngày dương
+        $event_text_duong = @$events[$solarDate];
 
-    // ✅ Sự kiện ngày âm
-    $am_key = $lunarDate['month'] . '-' . $lunarDate['day'];
-    $event_text_am = @$events_am[$am_key];
+        // ✅ Sự kiện ngày âm
+        $am_key = $lunarDate['month'] . '-' . $lunarDate['day'];
+        $event_text_am = @$events_am[$am_key];
 
-    // ✅ Ưu tiên hiện cả 2 nếu có
-    if ($event_text_duong && $event_text_am) {
-        $event_text = $event_text_duong . ' - ' . $event_text_am;
-    } elseif ($event_text_duong) {
-        $event_text = $event_text_duong;
-    } elseif ($event_text_am) {
-        $event_text = $event_text_am;
-    } else {
-        $event_text = '';
-    }
-    
-    // Thêm class has-event nếu có sự kiện
-    if ($event_text) {
-        $classCell[] = 'has-event';
-    }
-    
-    // Thêm class cho ngày mồng 1 âm lịch
-    if ($lunarDate['day'] == 1) {
-        $classCell[] = 'lunar-first-day';
-    }
-    
-    // Thêm class cho ngày rằm (15 âm lịch)
-    if ($lunarDate['day'] == 15) {
-        $classCell[] = 'lunar-full-moon';
-    }
+        // ✅ Ưu tiên hiện cả 2 nếu có
+        if ($event_text_duong && $event_text_am) {
+            $event_text = $event_text_duong . ' - ' . $event_text_am;
+        } elseif ($event_text_duong) {
+            $event_text = $event_text_duong;
+        } elseif ($event_text_am) {
+            $event_text = $event_text_am;
+        } else {
+            $event_text = '';
+        }
 
-    $classCellHTML = $classCell ? ' class="' . implode(' ', $classCell) . '"' : '';
+        // Thêm class has-event nếu có sự kiện
+        if ($event_text) {
+            $classCell[] = 'has-event';
+        }
 
-    // Phần ngày âm
-    if ($lunarDate['day'] == 1) {
-        $am_html = '<span style="color: #990000">' . $lunarDate['day'] . '/' . $lunarDate['month'] . ($lunarDate['leap'] ? ' <span class="nhuan-khong">(nhuận)</span>' : '') . '</span>';
-    } elseif ($solarDate == 1) {
-        $am_html = $lunarDate['day'] . '/' . $lunarDate['month'] . ($lunarDate['leap'] ? ' <span class="nhuan-khong">(nhuận)</span>' : '');
-    } else {
-        $am_html = $lunarDate['day'];
-    }
+        // Thêm class cho ngày mồng 1 âm lịch
+        if ($lunarDate['day'] == 1) {
+            $classCell[] = 'lunar-first-day';
+        }
 
-    // ✅ Hiển thị sự kiện hoặc can chi ngày
-    if ($event_text) {
-        $can_chi_html = '<span class="hidden-xs" style="color:#8A1E31; font-weight:bold">' . $event_text . '</span>';
-    } elseif ($lunarDate['day'] == 15) {
-        $can_chi_html = '<span class="hidden-xs" style="color: #BE0000; font-weight: bold;">🌕 Ngày Rằm</span>';
-    } else {
-        // Luôn hiển thị can chi ngày khi không có sự kiện
-        $can_chi_html = '<span class="hidden-xs">' . $canChi . '</span>';
-    }
+        // Thêm class cho ngày rằm (15 âm lịch)
+        if ($lunarDate['day'] == 15) {
+            $classCell[] = 'lunar-full-moon';
+        }
 
-    $base = rtrim(config('app.url'), '/');
-    $url = $base . "/lich-nam-$solarYear/thang-$solarMonth/ngay-$solarDate";
+        $classCellHTML = $classCell ? ' class="' . implode(' ', $classCell) . '"' : '';
 
-    $html = '<td' . $classCellHTML . '><a href="' . $url . '">
+        // Phần ngày âm
+        if ($lunarDate['day'] == 1) {
+            $am_html = '<span style="color: #990000">' . $lunarDate['day'] . '/' . $lunarDate['month'] . ($lunarDate['leap'] ? ' <span class="nhuan-khong">(nhuận)</span>' : '') . '</span>';
+        } elseif ($solarDate == 1) {
+            $am_html = $lunarDate['day'] . '/' . $lunarDate['month'] . ($lunarDate['leap'] ? ' <span class="nhuan-khong">(nhuận)</span>' : '');
+        } else {
+            $am_html = $lunarDate['day'];
+        }
+
+        // ✅ Hiển thị sự kiện hoặc can chi ngày
+        if ($event_text) {
+            $can_chi_html = '<span class="hidden-xs" style="color:#8A1E31; font-weight:bold">' . $event_text . '</span>';
+        } elseif ($lunarDate['day'] == 15) {
+            $can_chi_html = '<span class="hidden-xs" style="color: #BE0000; font-weight: bold;">🌕 Ngày Rằm</span>';
+        } else {
+            // Luôn hiển thị can chi ngày khi không có sự kiện
+            $can_chi_html = '<span class="hidden-xs">' . $canChi . '</span>';
+        }
+
+        $base = rtrim(config('app.url'), '/');
+        $url = $base . "/lich-nam-$solarYear/thang-$solarMonth/ngay-$solarDate";
+
+        $html = '<td' . $classCellHTML . '><a href="' . $url . '">
         <div class="box-contnet-date">
             <div class="duong-lich' . ($dow == 0 ? ' sun' : ($dow == 6 ? ' sat' : '')) . '">' . $solarDate . '</div>
             <div class="dao' . ($tot_xau ? ' ' . $tot_xau : '') . '">' . ($tot_xau ? '●' : '&nbsp;') . '</div>
@@ -627,8 +639,8 @@ class LunarHelper
         <div class="can_chi_text" title="' . htmlspecialchars(strip_tags($can_chi_html)) . '">' . $can_chi_html . '</div>
     </a></td>';
 
-    return $rturn_totxau ? array($html, $tot_xau) : $html;
-}
+        return $rturn_totxau ? array($html, $tot_xau) : $html;
+    }
 
     static function gioHDTrongNgayTXT($chi_ngay, $type = 'mini')
     {
@@ -907,108 +919,108 @@ class LunarHelper
         } while ($arc != $last && $i < 14);
         return $i - 1;
     }
-static function convertSolar2Lunar($dd, $mm, $yy, $timeZone = 7.0)
-{
-    // --- Phần đầu của hàm giữ nguyên, nó tính toán ngày/tháng/năm Âm lịch chính xác ---
-    $dayNumber = self::jdFromDate($dd, $mm, $yy);
-    $k = floor(($dayNumber - 2415021.076998695) / 29.530588853);
-    $monthStart = self::getNewMoonDay($k + 1, $timeZone);
-    if ($monthStart > $dayNumber) {
-        $monthStart = self::getNewMoonDay($k, $timeZone);
-    }
-    $a11 = self::getLunarMonth11($yy, $timeZone);
-    $b11 = $a11;
-    if ($a11 >= $monthStart) {
-        $lunarYear = $yy;
-        $a11 = self::getLunarMonth11($yy - 1, $timeZone);
-    } else {
-        $lunarYear = $yy + 1;
-        $b11 = self::getLunarMonth11($yy + 1, $timeZone);
-    }
-    $lunarDay = $dayNumber - $monthStart + 1;
-    $diff = floor(($monthStart - $a11) / 29);
-    $lunarLeap = 0;
-    $lunarMonth = $diff + 11;
-    if ($b11 - $a11 > 365) {
-        $leapMonthDiff = self::getLeapMonthOffset($a11, $timeZone);
-        if ($diff >= $leapMonthDiff) {
-            $lunarMonth = $diff + 10;
-            if ($diff == $leapMonthDiff) {
-                $lunarLeap = 1;
+    static function convertSolar2Lunar($dd, $mm, $yy, $timeZone = 7.0)
+    {
+        // --- Phần đầu của hàm giữ nguyên, nó tính toán ngày/tháng/năm Âm lịch chính xác ---
+        $dayNumber = self::jdFromDate($dd, $mm, $yy);
+        $k = floor(($dayNumber - 2415021.076998695) / 29.530588853);
+        $monthStart = self::getNewMoonDay($k + 1, $timeZone);
+        if ($monthStart > $dayNumber) {
+            $monthStart = self::getNewMoonDay($k, $timeZone);
+        }
+        $a11 = self::getLunarMonth11($yy, $timeZone);
+        $b11 = $a11;
+        if ($a11 >= $monthStart) {
+            $lunarYear = $yy;
+            $a11 = self::getLunarMonth11($yy - 1, $timeZone);
+        } else {
+            $lunarYear = $yy + 1;
+            $b11 = self::getLunarMonth11($yy + 1, $timeZone);
+        }
+        $lunarDay = $dayNumber - $monthStart + 1;
+        $diff = floor(($monthStart - $a11) / 29);
+        $lunarLeap = 0;
+        $lunarMonth = $diff + 11;
+        if ($b11 - $a11 > 365) {
+            $leapMonthDiff = self::getLeapMonthOffset($a11, $timeZone);
+            if ($diff >= $leapMonthDiff) {
+                $lunarMonth = $diff + 10;
+                if ($diff == $leapMonthDiff) {
+                    $lunarLeap = 1;
+                }
             }
         }
-    }
-    if ($lunarMonth > 12) {
-        $lunarMonth = $lunarMonth - 12;
-    }
-    if ($lunarMonth >= 11 && $diff < 4) {
-        $lunarYear -= 1;
-    }
-    
-    // =========================================================================
-    // BẮT ĐẦU PHẦN SỬA LỖI TÍNH THÁNG ĐỦ/THIẾU
-    // =========================================================================
-
-    // Thay vì dùng $k+1, chúng ta sẽ tìm ngày Sóc của tháng kế tiếp một cách chính xác
-    // dựa trên tháng/năm Âm lịch mà chúng ta vừa tính được.
-    
-    $isLeap = ($b11 - $a11 > 365);
-    $leapMonthOffset = $isLeap ? self::getLeapMonthOffset($a11, $timeZone) : 0;
-    
-    // Tính toán 'diff' của tháng kế tiếp
-    $nextDiff = $diff + 1;
-
-    // Điều chỉnh nextDiff cho các trường hợp tháng nhuận
-    if ($isLeap) {
-        // Nếu tháng hiện tại đang TRƯỚC tháng nhuận (diff < leapMonthOffset)
-        // và tháng kế tiếp là tháng nhuận: không cần tăng nextDiff
-        if ($diff + 1 == $leapMonthOffset && $lunarLeap == 0) {
-            // Tháng hiện tại là tháng chính trước tháng nhuận
-            // Tháng kế tiếp sẽ là tháng nhuận (có cùng số tháng với tháng hiện tại)
-            // Do đó nextDiff vẫn giữ nguyên = diff + 1
+        if ($lunarMonth > 12) {
+            $lunarMonth = $lunarMonth - 12;
         }
-        // Nếu tháng hiện tại LÀ tháng nhuận
-        else if ($diff == $leapMonthOffset && $lunarLeap == 1) {
-            // Tháng kế tiếp là tháng chính sau tháng nhuận
-            // Cần tăng nextDiff thêm 1 để bỏ qua tháng nhuận
-            $nextDiff = $diff + 1;
+        if ($lunarMonth >= 11 && $diff < 4) {
+            $lunarYear -= 1;
         }
-        // Nếu tháng hiện tại đã qua tháng nhuận
-        else if ($diff >= $leapMonthOffset) {
-            // Cần điều chỉnh nextDiff
-            $nextDiff = $diff + 1;
+
+        // =========================================================================
+        // BẮT ĐẦU PHẦN SỬA LỖI TÍNH THÁNG ĐỦ/THIẾU
+        // =========================================================================
+
+        // Thay vì dùng $k+1, chúng ta sẽ tìm ngày Sóc của tháng kế tiếp một cách chính xác
+        // dựa trên tháng/năm Âm lịch mà chúng ta vừa tính được.
+
+        $isLeap = ($b11 - $a11 > 365);
+        $leapMonthOffset = $isLeap ? self::getLeapMonthOffset($a11, $timeZone) : 0;
+
+        // Tính toán 'diff' của tháng kế tiếp
+        $nextDiff = $diff + 1;
+
+        // Điều chỉnh nextDiff cho các trường hợp tháng nhuận
+        if ($isLeap) {
+            // Nếu tháng hiện tại đang TRƯỚC tháng nhuận (diff < leapMonthOffset)
+            // và tháng kế tiếp là tháng nhuận: không cần tăng nextDiff
+            if ($diff + 1 == $leapMonthOffset && $lunarLeap == 0) {
+                // Tháng hiện tại là tháng chính trước tháng nhuận
+                // Tháng kế tiếp sẽ là tháng nhuận (có cùng số tháng với tháng hiện tại)
+                // Do đó nextDiff vẫn giữ nguyên = diff + 1
+            }
+            // Nếu tháng hiện tại LÀ tháng nhuận
+            else if ($diff == $leapMonthOffset && $lunarLeap == 1) {
+                // Tháng kế tiếp là tháng chính sau tháng nhuận
+                // Cần tăng nextDiff thêm 1 để bỏ qua tháng nhuận
+                $nextDiff = $diff + 1;
+            }
+            // Nếu tháng hiện tại đã qua tháng nhuận
+            else if ($diff >= $leapMonthOffset) {
+                // Cần điều chỉnh nextDiff
+                $nextDiff = $diff + 1;
+            }
         }
-    }
 
-    // Tính toán ngày Sóc của tháng sau dựa trên `nextDiff` đã điều chỉnh
-    $nextMonth_k_estimate = floor(($a11 - 2415021.076998695) / 29.530588853 + 0.5) + $nextDiff;
-    $nextMonthStart = self::getNewMoonDay($nextMonth_k_estimate, $timeZone);
+        // Tính toán ngày Sóc của tháng sau dựa trên `nextDiff` đã điều chỉnh
+        $nextMonth_k_estimate = floor(($a11 - 2415021.076998695) / 29.530588853 + 0.5) + $nextDiff;
+        $nextMonthStart = self::getNewMoonDay($nextMonth_k_estimate, $timeZone);
 
-    // Đôi khi ước lượng bị lệch 1 chu kỳ, cần kiểm tra và điều chỉnh
-    if($nextMonthStart <= $monthStart) {
-        $nextMonthStart = self::getNewMoonDay($nextMonth_k_estimate + 1, $timeZone);
-    }
-    if($nextMonthStart <= $monthStart) { // Kiểm tra lại một lần nữa
-         $nextMonthStart = self::getNewMoonDay($nextMonth_k_estimate + 2, $timeZone);
-    }
-    
-    $monthLength = $nextMonthStart - $monthStart;
-    
-    // Một tháng âm lịch chỉ có thể có 29 hoặc 30 ngày.
-    // Nếu kết quả khác, có thể do lỗi tính toán ngày sóc.
-    // Ta làm tròn kết quả để đảm bảo an toàn.
-    if ($monthLength > 29.5) {
-        $isFullMonth = 'Đủ'; // 30 ngày
-    } else {
-        $isFullMonth = 'Thiếu'; // 29 ngày
-    }
+        // Đôi khi ước lượng bị lệch 1 chu kỳ, cần kiểm tra và điều chỉnh
+        if ($nextMonthStart <= $monthStart) {
+            $nextMonthStart = self::getNewMoonDay($nextMonth_k_estimate + 1, $timeZone);
+        }
+        if ($nextMonthStart <= $monthStart) { // Kiểm tra lại một lần nữa
+            $nextMonthStart = self::getNewMoonDay($nextMonth_k_estimate + 2, $timeZone);
+        }
 
-    // =========================================================================
-    // KẾT THÚC PHẦN SỬA LỖI
-    // =========================================================================
-    
-    return array($lunarDay, $lunarMonth, $lunarYear, $lunarLeap, $isFullMonth);
-}
+        $monthLength = $nextMonthStart - $monthStart;
+
+        // Một tháng âm lịch chỉ có thể có 29 hoặc 30 ngày.
+        // Nếu kết quả khác, có thể do lỗi tính toán ngày sóc.
+        // Ta làm tròn kết quả để đảm bảo an toàn.
+        if ($monthLength > 29.5) {
+            $isFullMonth = 'Đủ'; // 30 ngày
+        } else {
+            $isFullMonth = 'Thiếu'; // 29 ngày
+        }
+
+        // =========================================================================
+        // KẾT THÚC PHẦN SỬA LỖI
+        // =========================================================================
+
+        return array($lunarDay, $lunarMonth, $lunarYear, $lunarLeap, $isFullMonth);
+    }
     // static function convertSolar2Lunar($dd, $mm, $yy, $timeZone = 7.0)
     // {
     //     $dayNumber = self::jdFromDate($dd, $mm, $yy);
@@ -1274,7 +1286,7 @@ static function convertSolar2Lunar($dd, $mm, $yy, $timeZone = 7.0)
 
         return $html;
     }
-   /**
+    /**
      * Lấy Giờ Hoàng Đạo dựa trên loại (tất cả, ngày, đêm).
      * Hàm này được thiết kế để hoạt động với đầu ra là CHUỖI từ hàm gioHDTrongNgayTXT.
      *
@@ -1282,7 +1294,7 @@ static function convertSolar2Lunar($dd, $mm, $yy, $timeZone = 7.0)
      * @param string $type Loại giờ muốn lấy: 'all', 'day', hoặc 'night'
      * @return array
      */
-     public static function getGoodHours(string $dayChi, string $type = 'day'): array
+    public static function getGoodHours(string $dayChi, string $type = 'day'): array
     {
         // 1. Lấy chuỗi giờ tốt từ hàm gốc của bạn
         $hoursString = self::gioHDTrongNgayTXT($dayChi);
@@ -1319,7 +1331,7 @@ static function convertSolar2Lunar($dd, $mm, $yy, $timeZone = 7.0)
             }
             return false;
         });
-        
+
         // Sắp xếp lại chỉ số mảng
         return array_values($filteredHours);
     }
@@ -1327,7 +1339,7 @@ static function convertSolar2Lunar($dd, $mm, $yy, $timeZone = 7.0)
 
 
 
-     /**
+    /**
      * Lấy danh sách các sự kiện/ngày lễ lớn của Việt Nam theo LỊCH ÂM.
      * Trả về một mảng các sự kiện cho tháng âm lịch được chỉ định.
      *
@@ -1351,7 +1363,7 @@ static function convertSolar2Lunar($dd, $mm, $yy, $timeZone = 7.0)
             '15-1'  => ['ten_su_kien' => '🌕 Tết Nguyên tiêu (Rằm tháng Giêng)', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Đêm rằm đầu tiên của năm mới, còn được gọi là Lễ Thượng Nguyên.'],
 
             // THÁNG HAI (Tháng 2)
-                '1-2'   => ['ten_su_kien' => '🌸 Mồng 2 tháng Hai', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Đầu tháng Hai âm lịch.'],
+            '1-2'   => ['ten_su_kien' => '🌸 Mồng 2 tháng Hai', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Đầu tháng Hai âm lịch.'],
             '15-2'  => ['ten_su_kien' => '🌕 Rằm tháng Hai', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày cúng tổ tiên và thần linh.'],
 
             // THÁNG BA (Tháng 3)
@@ -1409,7 +1421,7 @@ static function convertSolar2Lunar($dd, $mm, $yy, $timeZone = 7.0)
         ];
 
         $result = [];
-        
+
         // Lấy các sự kiện cố định cho tháng được yêu cầu
         foreach ($events as $key => $eventData) {
             list($ed, $em) = explode('-', $key);
@@ -1422,6 +1434,4 @@ static function convertSolar2Lunar($dd, $mm, $yy, $timeZone = 7.0)
 
         return $result;
     }
-
-    
 }

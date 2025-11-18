@@ -122,10 +122,12 @@ class WeddingController extends Controller
         $purpose = 'CUOI_HOI';
         foreach ($period as $date) {
             $year = $date->year;
+            $birthdatealGrom = LunarHelper::convertSolar2Lunar($groomDob->day, $groomDob->month, $groomDob->year);
+            $birthdatealBride = LunarHelper::convertSolar2Lunar($brideDob->day, $brideDob->month, $brideDob->year);
 
-            $groomScoreDetails = GoodBadDayHelper::calculateDayScore($date, $groomDob->year, $purpose);
+            $groomScoreDetails = GoodBadDayHelper::calculateDayScore($date, $birthdatealGrom[2], $purpose);
             // Tính điểm cho cô dâu vào ngày này
-            $brideScoreDetails = GoodBadDayHelper::calculateDayScore($date, $brideDob->year, $purpose);
+            $brideScoreDetails = GoodBadDayHelper::calculateDayScore($date, $birthdatealBride[2], $purpose);
             $jd = LunarHelper::jdFromDate($date->day, $date->month, $date->year);
             $dayCanChi = LunarHelper::canchiNgayByJD($jd); // Kết quả ví dụ: "Ất Tỵ"
 

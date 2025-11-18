@@ -102,11 +102,11 @@ class DongThoController extends Controller
 
         foreach ($period as $date) {
             $year = $date->year;
-
+            $birthdateal = LunarHelper::convertSolar2Lunar($birthdate->day, $birthdate->month, $birthdate->year);
+          
 
             // b. Tính toán điểm số của ngày dựa trên tuổi gia chủ
-            $dayScoreDetails = GoodBadDayHelper::calculateDayScore($date, $birthdate->year, $purpose);
-
+            $dayScoreDetails = GoodBadDayHelper::calculateDayScore($date, $birthdateal[2], $purpose);
             // c. Lấy thông tin Can Chi của ngày
             $jd = LunarHelper::jdFromDate($date->day, $date->month, $date->year);
             $dayCanChi = LunarHelper::canchiNgayByJD($jd);

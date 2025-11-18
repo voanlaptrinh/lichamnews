@@ -106,7 +106,8 @@ class KyHopDongController extends Controller
                 $year = $date->year;
 
                 // Tính toán điểm số của ngày dựa trên tuổi người ký hợp đồng
-                $dayScoreDetails = GoodBadDayHelper::calculateDayScore($date, $birthdate->year, $purpose);
+                $birthdateal = LunarHelper::convertSolar2Lunar($birthdate->day, $birthdate->month, $birthdate->year);
+                $dayScoreDetails = GoodBadDayHelper::calculateDayScore($date, $birthdateal[2], $purpose);
 
                 // Lấy thông tin Can Chi của ngày
                 $jd = LunarHelper::jdFromDate($date->day, $date->month, $date->year);
@@ -169,10 +170,10 @@ class KyHopDongController extends Controller
     /**
      * Hiển thị chi tiết ngày ký hợp đồng
      */
-    public function details(Request $request)
+    public function details(Request $request, $date)
     {
         $validated = Validator::make([
-            'date' => $request->get('date'),
+            'date' => $date,
             'birthdate' => $request->input('birthdate'),
             'person_name' => $request->input('person_name')
         ], [

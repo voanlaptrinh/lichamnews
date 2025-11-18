@@ -8,7 +8,7 @@
                         <a class="nav-link {{ $firstYear ? 'active' : '' }}" data-bs-toggle="pill"
                             href="#year-{{ $year }}"
                             style="border-radius: 20px; margin: 0 5px; padding: 8px 20px;">
-                            {{ $year }}
+                            {{ $year }}s
                             @if (isset($yearData['canchi']))
                                 ({{ $yearData['canchi'] }})
                             @endif
@@ -20,64 +20,176 @@
         </div>
     @endif
 
-
-    <div class="tab-content">
+    <div class="tab-content  ssss">
         @php $firstYear = true; @endphp
         @foreach ($resultsByYear as $year => $yearData)
             <div class="tab-pane fade {{ $firstYear ? 'show active' : '' }}" id="year-{{ $year }}">
+                <div class="card border-0 mb-3 w-100 box-detial-year">
+                    <div class="card-body box1-con-year">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                {{-- Thông tin người đứng lễ --}}
 
+                                <div
+                                    class="text-primary mb-3 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
+                                    <img src="{{ asset('icons/dac-diem1.svg') }}" alt="thông tin người đứng lễ"
+                                        width="28" height="28" class="me-1"> Thông Tin Người Đứng Lễ
+                                </div>
+                                @if (isset($hostInfo))
+                                    <div class="info-grid">
+                                        <p class="mb-2">
+                                            <strong>Ngày sinh:</strong>
+                                            {{ $hostInfo['dob_str'] }} tức ngày
+                                            {{ $hostInfo['lunar_dob_str'] }} âm lịch
+                                        </p>
+                                        <p class="mb-2">
+                                            <strong>Tuổi:</strong>
+                                            <b>{{ $hostInfo['can_chi_nam'] }}</b>, Mệnh:
+                                            {{ $hostInfo['menh']['hanh'] ?? 'Không rõ' }}
+                                            ({{ $hostInfo['menh']['napAm'] ?? 'Không rõ' }})
+                                        </p>
+                                        <p class="mb-2">
+                                            <strong>Tuổi âm:</strong>
+                                            {{ $yearData['host_analysis']['lunar_age'] }} tuổi
+                                        </p>
+                                        <p class="mb-2">
+                                            <strong>Thời gian cải táng:</strong>
+                                            {{ $inputs['date_range'] ?? '' }}
+                                        </p>
+                                    </div>
+                                @endif
+
+
+                            </div>
+                            <div class="col-lg-6">
+                                {{-- Thông tin người mất --}}
+
+                                <div
+                                    class="text-primary mb-3 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
+                                    <img src="{{ asset('icons/dac-diem1.svg') }}" alt="thông tin người mất"
+                                        width="28" height="28" class="me-1"> Thông Tin Người Mất
+                                </div>
+                                @if (isset($deceasedInfo))
+                                    <div class="info-grid">
+                                        <p class="mb-2">
+                                            <strong>Năm sinh âm lịch:</strong>
+                                            {{ $deceasedInfo['birth_year_lunar'] }}
+                                            ({{ $deceasedInfo['birth_can_chi'] }})
+                                        </p>
+                                        <p class="mb-2">
+                                            <strong>Năm mất âm lịch:</strong>
+                                            {{ $deceasedInfo['death_year_lunar'] }}
+                                            ({{ $deceasedInfo['death_can_chi'] }})
+                                        </p>
+                                        <p class="mb-2">
+                                            <strong>Tuổi người mất:</strong>
+                                            {{ $deceasedInfo['birth_can_chi'] }}
+                                        </p>
+                                    </div>
+                                @endif
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{-- Phân tích người đứng lễ --}}
                 <div class="card border-0 mb-3 w-100 box-detial-year">
                     <div class="card-body box1-con-year">
                         <div
-                            class="text-primary mb-3 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
-                            <img src="{{ asset('icons/dac-diem1.svg') }}" alt="thông tin người ký hợp đồng" width="28"
-                                height="28" class="me-1"> Thông Tin Người Ký Hợp Đồng
+                            class="text-primary mb-1 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
+                            <img src="{{ asset('/icons/dac-diem1.svg') }}" alt="phân tích người đứng lễ" width="28"
+                                height="28" class="me-1"> Kiểm tra Kim Lâu - Hoang Ốc - Tam Tai - Thái Tuế
                         </div>
-                        @if (isset($birthdateInfo))
-                            <div class="info-grid">
-                                @if(isset($personName))
-                                <p class="mb-2">
-                                    <strong>Họ tên:</strong>
-                                    {{ $personName }}
-                                </p>
-                                @endif
-                                <p class="mb-2">
-                                    <strong>Ngày sinh:</strong>
-                                    {{ $birthdateInfo['dob']->format('d/m/Y') }} tức ngày
-                                    {{ $birthdateInfo['lunar_dob_str'] }} âm lịch
-                                </p>
-                                <p class="mb-2">
-                                    <strong>Tuổi:</strong>
-                                    <b>{{ $birthdateInfo['can_chi_nam'] }}</b>, Mệnh:
-                                    {{ $birthdateInfo['menh']['hanh'] }}
-                                    ({{ $birthdateInfo['menh']['napAm'] }})
-                                </p>
-                                <p class="mb-2">
-                                    <strong>Tuổi âm:</strong>
-                                    {{ $yearData['year_analysis']['lunar_age'] }} tuổi
-                                </p>
-
-                                <p class="mb-2">
-                                    <strong>Thời gian ký hợp đồng:</strong>
-                                    {{ $inputs['date_range'] ?? '' }}
-                                </p>
-                            </div>
-                        @endif
+                        <div class="info-grid">
+                            @php $deceasedResult = $yearData['deceased_analysis']; @endphp
+                            <p class="mb-2">
+                                Kiểm tra người đứng lễ sinh năm {{ $hostInfo['dob_obj']->year }}
+                                ({{ \App\Helpers\KhiVanHelper::canchiNam($hostInfo['dob_obj']->year) }})
+                                có gặp hạn Kim Lâu, Tam Tai, Hoang Ốc hoặc xung với năm
+                                {{ $deceasedResult['check_year_can_chi'] ?? $year }} không?
+                            </p>
+                            <ul>
+                                <li>{{ $yearData['host_analysis']['kimLau']['is_bad'] ? $yearData['host_analysis']['kimLau']['message'] : 'Không phạm Kim Lâu' }}
+                                </li>
+                                <li>{{ $yearData['host_analysis']['hoangOc']['is_bad'] ? 'Phạm Hoang Ốc ' . $yearData['host_analysis']['hoangOc']['message'] : 'Không phạm Hoang Ốc' }}
+                                </li>
+                                <li>{{ $yearData['host_analysis']['tamTai']['is_bad'] ? $yearData['host_analysis']['tamTai']['message'] : 'Không phạm Tam Tai' }}
+                                </li>
+                                <li>
+                                    @if ($yearData['host_analysis']['thaiTue']['is_pham'])
+                                        Năm {{ $deceasedResult['check_year_can_chi'] ?? $year }}
+                                        ({{ $deceasedResult['check_year'] ?? $year }}) xung với tuổi
+                                        {{ \App\Helpers\KhiVanHelper::canchiNam($hostInfo['dob_obj']->year) }}
+                                        ({{ $hostInfo['dob_obj']->year }})
+                                    @else
+                                        Năm {{ $deceasedResult['check_year_can_chi'] ?? $year }}
+                                        ({{ $deceasedResult['check_year'] ?? $year }}) Không xung với tuổi
+                                        {{ \App\Helpers\KhiVanHelper::canchiNam($hostInfo['dob_obj']->year) }}
+                                        ({{ $hostInfo['dob_obj']->year }})
+                                    @endif
+                                </li>
+                            </ul>
+                            <p><strong>Kết luận:</strong> {!! $yearData['host_analysis']['description'] !!}</p>
+                        </div>
                     </div>
                 </div>
 
-             
+                {{-- Phân tích người mất --}}
+                <div class="card border-0 mb-3 w-100 box-detial-year">
+                    <div class="card-body box1-con-year">
+                        <div
+                            class="text-primary mb-1 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
+                            <img src="{{ asset('/icons/dac-diem1.svg') }}" alt="phân tích người mất" width="28"
+                                height="28" class="me-1"> Kiểm tra Thái Tuế - Tuế Phá cho người mất
+                        </div>
+                        <div class="info-grid">
+                            @php $deceasedResult = $yearData['deceased_analysis']; @endphp
+                            <p class="mb-2">
+                                Kiểm tra năm <strong>{{ $deceasedResult['check_year_can_chi'] ?? $year }}
+                                    ({{ $deceasedResult['check_year'] ?? $year }})</strong> có phạm Thái Tuế, Tuế Phá
+                                (lục xung) với
+                                tuổi người mất hay không?
+                            </p>
+                            <p class="mb-2">
+                                <strong>Người mất sinh năm
+                                    {{ $deceasedResult['deceased_birth_year'] ?? $deceasedInfo['birth_year_lunar'] }}
+                                    ({{ $deceasedResult['deceased_can_chi'] ?? $deceasedInfo['birth_can_chi'] }}):</strong>
+                            </p>
+                            <ul>
+                                <li> Năm {{ $deceasedResult['check_year_can_chi'] ?? $year }}
+                                    @if ($deceasedResult['is_thai_tue'] ?? false)
+                                        <strong style="color: #dc3545">Phạm Thái Tuế</strong>
+                                    @else
+                                        <strong style="color: #28a745">Không phạm Thái Tuế</strong>
+                                    @endif
+                                </li>
+                                <li>@if ($deceasedResult['is_tue_pha'] ?? false)
+                                        <strong style="color: #dc3545">Phạm Tuế Phá (xung Thái Tuế)</strong>
+                                    @else
+                                        <strong style="color: #28a745">Không phạm Tuế Phá</strong>
+                                    @endif
+                                </li>
+                            </ul>
+                            <p><strong>Kết luận:</strong>
+                                <span style="color: {{ $deceasedResult['is_bad'] ?? false ? '#dc3545' : '#28a745' }}">
+                                    {!! $deceasedResult['conclusion'] ?? 'Không có vấn đề gì với năm này' !!}
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Bảng điểm chi tiết --}}
                 <div class="card border-0 mb-3 w-100 box-detial-year">
                     <div class="card-body">
                         <div class="betwen-ds mb-3 flex-wrap">
-                            <div
-                                class="text-primary mb-0 title-tong-quan-h4-log text-dark fw-bolder">
-                                <img src="{{ asset('icons/k_nen_1.svg') }}" alt="thông tin người ký hợp đồng" width="28"
+                            <div class="text-primary mb-0 title-tong-quan-h4-log text-dark fw-bolder">
+                                <img src="{{ asset('icons/k_nen_1.svg') }}" alt="bảng điểm cải táng" width="28"
                                     height="28" class="me-1"> Danh Sách Điểm
-                                Theo Ngày Ký Hợp Đồng
+                                Theo Ngày Cải Táng
                             </div>
                             <select name="sort" class=" form-select-sm sort-select" style="width: auto;"
-                                form="contractSigningForm">
+                                form="caiTangForm">
                                 <option value="desc" {{ ($sortOrder ?? 'desc') === 'desc' ? 'selected' : '' }}>Điểm
                                     giảm dần</option>
                                 <option value="asc" {{ ($sortOrder ?? 'desc') === 'asc' ? 'selected' : '' }}>Điểm
@@ -92,9 +204,8 @@
                                     <thead class="text-center" style="background-color: #e8ebee;">
                                         <tr>
                                             <th style="border-radius: 8px 0 0 8px">Ngày</th>
-                                            <th style="">Yếu tố hỗ trợ ký hợp đồng</th>
+                                            <th style="">Yếu tố hỗ trợ cải táng</th>
                                             <th style="border-radius: 0 8px 8px 0" class="score-header">Điểm</th>
-                                            {{-- <th style="min-width: 120px;border-radius: 0 8px 8px 0">Chi tiết</th> --}}
                                         </tr>
                                     </thead>
                                     <tbody class="text-center">
@@ -123,11 +234,13 @@
                                             <tr>
                                                 <td style="text-align: start">
                                                     <a
-                                                        href="{{ route('ky-hop-dong.details', [
+                                                        href="{{ route('cai-tang.details', [
                                                             'date' => $day['date']->format('Y-m-d'),
-                                                            'birthdate' => $birthdateInfo['dob']->format('Y-m-d'),
+                                                            'birthdate' => $hostInfo['dob_obj']->format('Y-m-d'),
+                                                            'birth_mat' => $deceasedInfo['birth_year_lunar'],
+                                                            'nam_mat' => $deceasedInfo['death_year_lunar'],
                                                             'date_range' => $inputs['date_range'] ?? '',
-                                                            'calendar_type' => $inputs['calendar_type'] ?? 'solar'
+                                                            'calendar_type' => $inputs['calendar_type'] ?? 'solar',
                                                         ]) }}">
                                                         <div class="box-dtl-pc">
                                                             <div style="color: #0F172A;font-size: 18px">
@@ -142,7 +255,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="box-dtl-mb">
-                                                            <div class="hv-memorial-date-panel">
+                                                             <div class="hv-memorial-date-panel">
                                                                 <div class="hv-memorial-month-text">Tháng
                                                                     {{ $day['date']->format('m') }}</div>
                                                                 <div class="hv-memorial-day-digit">
@@ -151,8 +264,8 @@
                                                                     {{ $day['al_name'][0] ?? '' }}/{{ $day['al_name'][1] ?? '' }}
                                                                     ÂL <i class="bi bi-chevron-right"></i></div>
                                                             </div>
+                                                           
                                                         </div>
-                                                    </a>
                                                 </td>
                                                 <td style="text-align: start">
                                                     @php
@@ -189,7 +302,7 @@
                                                         ) {
                                                             $hopType = \App\Helpers\GoodBadDayHelper::getHopTuoiDetail(
                                                                 $day['date'],
-                                                                $birthdateInfo['dob']->year,
+                                                                $hostInfo['dob_obj']->year,
                                                             );
                                                             if ($hopType) {
                                                                 $supportFactors[] = "Ngày hợp tuổi: {$hopType}";
@@ -203,6 +316,14 @@
                                                         ) {
                                                             $starNames = implode(', ', $day['day_score']['good_stars']);
                                                             $supportFactors[] = "Sao tốt: {$starNames}";
+                                                        }
+
+                                                        // Giờ tốt
+                                                        if (!empty($day['good_hours'])) {
+                                                            $goodHoursList = is_array($day['good_hours'])
+                                                                ? implode(', ', $day['good_hours'])
+                                                                : $day['good_hours'];
+                                                            $supportFactors[] = "Giờ hoàng đạo: {$goodHoursList}";
                                                         }
 
                                                         // Chỉ lấy tối đa 4 yếu tố
@@ -224,7 +345,8 @@
                                                     @else
                                                         <span class="text-warning small"
                                                             style="color: #2254AB !important">
-                                                            <i class="bi bi-exclamation-triangle-fill"></i> Không có yếu
+                                                            <i class="bi bi-exclamation-triangle-fill"></i> Không có
+                                                            yếu
                                                             tố hỗ trợ đặc biệt
                                                         </span>
                                                     @endif
@@ -235,10 +357,7 @@
                                                     </div>
                                                 </td>
                                                 <td class="text-center score-battery-pc">
-
                                                     <div class=" d-flex justify-content-center align-items-center">
-
-
                                                         <div class="battery">
                                                             <div class="battery-body"
                                                                 style="border:1px solid {{ $border }}">
@@ -247,11 +366,9 @@
                                                                 </div>
                                                                 <div class="battery-label"> {{ round($score) }}%</div>
                                                             </div>
-
                                                         </div>
                                                     </div>
                                                 </td>
-
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -259,7 +376,7 @@
                             </div>
                         @else
                             <p class="text-muted text-center py-4">
-                                Không có ngày nào trong khoảng thời gian đã chọn phù hợp để ký hợp đồng.
+                                Không có ngày nào trong khoảng thời gian đã chọn phù hợp để cải táng.
                             </p>
                         @endif
                     </div>

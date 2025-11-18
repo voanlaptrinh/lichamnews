@@ -102,7 +102,8 @@ class XuatHanhController extends Controller
 
         foreach ($period as $date) {
              $year = $date->year;
-            $dayScoreDetails = FunctionHelper::getDaySummaryInfo($date->day, $date->month, $date->year, $birthdate->year, $purpose);
+             $birthdateal = LunarHelper::convertSolar2Lunar($birthdate->day, $birthdate->month, $birthdate->year);
+            $dayScoreDetails = FunctionHelper::getDaySummaryInfo($date->day, $date->month, $date->year, $birthdateal[2], $purpose);
             $jd = LunarHelper::jdFromDate($date->day, $date->month, $date->year);
             $dayCanChi = LunarHelper::canchiNgayByJD($jd);
             $dayChi = explode(' ', $dayCanChi)[1];

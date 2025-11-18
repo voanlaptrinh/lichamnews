@@ -8,7 +8,7 @@
                         <a class="nav-link {{ $firstYear ? 'active' : '' }}" data-bs-toggle="pill"
                             href="#year-{{ $year }}"
                             style="border-radius: 20px; margin: 0 5px; padding: 8px 20px;">
-                            {{ $year }}
+                            Năm {{ $year }}
                             @if (isset($yearData['canchi']))
                                 ({{ $yearData['canchi'] }})
                             @endif
@@ -20,68 +20,55 @@
         </div>
     @endif
 
-
-    <div class="tab-content">
+    <div class="tab-content ssss">
         @php $firstYear = true; @endphp
         @foreach ($resultsByYear as $year => $yearData)
             <div class="tab-pane fade {{ $firstYear ? 'show active' : '' }}" id="year-{{ $year }}">
-
                 <div class="card border-0 mb-3 w-100 box-detial-year">
                     <div class="card-body box1-con-year">
-                        <div
-                            class="text-primary mb-3 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
-                            <img src="{{ asset('icons/dac-diem1.svg') }}" alt="thông tin người ký hợp đồng" width="28"
-                                height="28" class="me-1"> Thông Tin Người Ký Hợp Đồng
-                        </div>
-                        @if (isset($birthdateInfo))
-                            <div class="info-grid">
-                                @if(isset($personName))
-                                <p class="mb-2">
-                                    <strong>Họ tên:</strong>
-                                    {{ $personName }}
-                                </p>
-                                @endif
-                                <p class="mb-2">
-                                    <strong>Ngày sinh:</strong>
-                                    {{ $birthdateInfo['dob']->format('d/m/Y') }} tức ngày
-                                    {{ $birthdateInfo['lunar_dob_str'] }} âm lịch
-                                </p>
-                                <p class="mb-2">
-                                    <strong>Tuổi:</strong>
-                                    <b>{{ $birthdateInfo['can_chi_nam'] }}</b>, Mệnh:
-                                    {{ $birthdateInfo['menh']['hanh'] }}
-                                    ({{ $birthdateInfo['menh']['napAm'] }})
-                                </p>
-                                <p class="mb-2">
-                                    <strong>Tuổi âm:</strong>
-                                    {{ $yearData['year_analysis']['lunar_age'] }} tuổi
-                                </p>
-
-                                <p class="mb-2">
-                                    <strong>Thời gian ký hợp đồng:</strong>
-                                    {{ $inputs['date_range'] ?? '' }}
-                                </p>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div
+                                    class="text-primary mb-3 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
+                                    <img src="{{ asset('icons/dac-diem1.svg') }}" alt="thông tin gia chủ"
+                                        width="28" height="28" class="me-1"> Thông Tin Gia Chủ
+                                </div>
+                                <div class="info-grid">
+                                    <p class="mb-2">
+                                        <strong>Ngày sinh:</strong>
+                                        {{ $birthdateInfo['dob']->format('d/m/Y') }} tức ngày
+                                        {{ $birthdateInfo['lunar_dob_str'] }} âm lịch
+                                    </p>
+                                    <p class="mb-2">
+                                        <strong>Tuổi:</strong>
+                                        <b>{{ $birthdateInfo['can_chi_nam'] }}</b>, Mệnh:
+                                        {{ $birthdateInfo['menh']['hanh'] }} ({{ $birthdateInfo['menh']['napAm'] }})
+                                    </p>
+                                    <p class="mb-2">
+                                        <strong>Tuổi âm:</strong>
+                                        {{ $yearData['year_analysis']['lunar_age'] }} tuổi
+                                    </p>
+                                    <p class="mb-2">
+                                        <strong>Thời gian dời bàn thờ:</strong>
+                                        {{ $inputs['date_range'] ?? '' }}
+                                    </p>
+                                </div>
                             </div>
-                        @endif
+                        </div>
                     </div>
                 </div>
 
-             
                 <div class="card border-0 mb-3 w-100 box-detial-year">
                     <div class="card-body">
                         <div class="betwen-ds mb-3 flex-wrap">
-                            <div
-                                class="text-primary mb-0 title-tong-quan-h4-log text-dark fw-bolder">
-                                <img src="{{ asset('icons/k_nen_1.svg') }}" alt="thông tin người ký hợp đồng" width="28"
+                            <div class="text-primary mb-0 title-tong-quan-h4-log text-dark fw-bolder">
+                                <img src="{{ asset('icons/k_nen_1.svg') }}" alt="bảng điểm dời bàn thờ" width="28"
                                     height="28" class="me-1"> Danh Sách Điểm
-                                Theo Ngày Ký Hợp Đồng
+                                Theo Ngày Dời Bàn Thờ
                             </div>
-                            <select name="sort" class=" form-select-sm sort-select" style="width: auto;"
-                                form="contractSigningForm">
-                                <option value="desc" {{ ($sortOrder ?? 'desc') === 'desc' ? 'selected' : '' }}>Điểm
-                                    giảm dần</option>
-                                <option value="asc" {{ ($sortOrder ?? 'desc') === 'asc' ? 'selected' : '' }}>Điểm
-                                    tăng dần</option>
+                            <select name="sort" class=" form-select-sm sort-select" style="width: auto;">
+                                <option value="desc">Điểm giảm dần</option>
+                                <option value="asc">Điểm tăng dần</option>
                             </select>
                         </div>
 
@@ -92,9 +79,8 @@
                                     <thead class="text-center" style="background-color: #e8ebee;">
                                         <tr>
                                             <th style="border-radius: 8px 0 0 8px">Ngày</th>
-                                            <th style="">Yếu tố hỗ trợ ký hợp đồng</th>
+                                            <th style="">Yếu tố hỗ trợ dời bàn thờ</th>
                                             <th style="border-radius: 0 8px 8px 0" class="score-header">Điểm</th>
-                                            {{-- <th style="min-width: 120px;border-radius: 0 8px 8px 0">Chi tiết</th> --}}
                                         </tr>
                                     </thead>
                                     <tbody class="text-center">
@@ -123,8 +109,8 @@
                                             <tr>
                                                 <td style="text-align: start">
                                                     <a
-                                                        href="{{ route('ky-hop-dong.details', [
-                                                            'date' => $day['date']->format('Y-m-d'),
+                                                        href="{{ route('ban-tho.details', [
+                                                          'date' => $day['date']->format('Y-m-d'),
                                                             'birthdate' => $birthdateInfo['dob']->format('Y-m-d'),
                                                             'date_range' => $inputs['date_range'] ?? '',
                                                             'calendar_type' => $inputs['calendar_type'] ?? 'solar'
@@ -142,13 +128,13 @@
                                                             </div>
                                                         </div>
                                                         <div class="box-dtl-mb">
-                                                            <div class="hv-memorial-date-panel">
+                                                             <div class="hv-memorial-date-panel">
                                                                 <div class="hv-memorial-month-text">Tháng
                                                                     {{ $day['date']->format('m') }}</div>
                                                                 <div class="hv-memorial-day-digit">
                                                                     {{ $day['date']->format('d') }}</div>
                                                                 <div class="hv-memorial-lunar-calendar-info">
-                                                                    {{ $day['al_name'][0] ?? '' }}/{{ $day['al_name'][1] ?? '' }}
+                                                                    {{ explode('/', $day['full_lunar_date_str'])[0] ?? '' }}/{{ explode('/', $day['full_lunar_date_str'])[1] ?? '' }}
                                                                     ÂL <i class="bi bi-chevron-right"></i></div>
                                                             </div>
                                                         </div>
@@ -158,54 +144,34 @@
                                                     @php
                                                         $supportFactors = [];
 
-                                                        // Kiểm tra ngày hoàng đạo - sử dụng helper
-                                                        if (
-                                                            isset($day['day_score']['hoangdao']) &&
-                                                            $day['day_score']['hoangdao'] === true
-                                                        ) {
-                                                            $starName = \App\Helpers\GoodBadDayHelper::getHoangDaoStar(
-                                                                $day['date'],
-                                                            );
-                                                            if ($starName) {
-                                                                $supportFactors[] = "Ngày hoàng đạo: Sao {$starName}";
-                                                            }
+                                                        // Kiểm tra ngày hoàng đạo
+                                                        if (isset($day['day_score']['details']['hoang_dao']) && $day['day_score']['details']['hoang_dao']['score'] > 50) {
+                                                            $supportFactors[] = "Ngày hoàng đạo";
                                                         }
 
                                                         // Kiểm tra trực tốt
-                                                        if (
-                                                            isset($day['day_score']['tructot']) &&
-                                                            $day['day_score']['tructot'] === true
-                                                        ) {
-                                                            $trucName =
-                                                                $day['day_score']['truc']['details']['name'] ??
-                                                                'Không xác định';
-                                                            $supportFactors[] = "Trực tốt: Trực {$trucName}";
+                                                        if (isset($day['day_score']['details']['thap_nhi_truc']) && $day['day_score']['details']['thap_nhi_truc']['score'] > 50) {
+                                                            $supportFactors[] = "Trực tốt";
                                                         }
 
-                                                        // Kiểm tra hợp tuổi - sử dụng helper
-                                                        if (
-                                                            isset($day['day_score']['hopttuoi']) &&
-                                                            $day['day_score']['hopttuoi'] === true
-                                                        ) {
-                                                            $hopType = \App\Helpers\GoodBadDayHelper::getHopTuoiDetail(
-                                                                $day['date'],
-                                                                $birthdateInfo['dob']->year,
-                                                            );
-                                                            if ($hopType) {
-                                                                $supportFactors[] = "Ngày hợp tuổi: {$hopType}";
-                                                            }
+                                                        // Kiểm tra nhị thập bát tú
+                                                        if (isset($day['day_score']['details']['nhi_thap_bat_tu']) && $day['day_score']['details']['nhi_thap_bat_tu']['score'] > 50) {
+                                                            $supportFactors[] = "Nhị thập bát tú tốt";
                                                         }
 
-                                                        // Kiểm tra sao tốt - gộp thành 1 dòng
-                                                        if (
-                                                            isset($day['day_score']['good_stars']) &&
-                                                            !empty($day['day_score']['good_stars'])
-                                                        ) {
-                                                            $starNames = implode(', ', $day['day_score']['good_stars']);
-                                                            $supportFactors[] = "Sao tốt: {$starNames}";
+                                                        // Kiểm tra sao tốt
+                                                        if (isset($day['day_score']['details']['sao_cat_hung']) && $day['day_score']['details']['sao_cat_hung']['score'] > 50) {
+                                                            $supportFactors[] = "Sao tốt";
                                                         }
 
-                                                        // Chỉ lấy tối đa 4 yếu tố
+                                                        // Giờ tốt
+                                                        if (!empty($day['good_hours'])) {
+                                                            $goodHoursList = is_array($day['good_hours'])
+                                                                ? implode(', ', $day['good_hours'])
+                                                                : $day['good_hours'];
+                                                            $supportFactors[] = "Giờ hoàng đạo: {$goodHoursList}";
+                                                        }
+
                                                         $supportFactors = array_slice(
                                                             array_unique($supportFactors),
                                                             0,
@@ -224,7 +190,8 @@
                                                     @else
                                                         <span class="text-warning small"
                                                             style="color: #2254AB !important">
-                                                            <i class="bi bi-exclamation-triangle-fill"></i> Không có yếu
+                                                            <i class="bi bi-exclamation-triangle-fill"></i> Không có
+                                                            yếu
                                                             tố hỗ trợ đặc biệt
                                                         </span>
                                                     @endif
@@ -235,10 +202,7 @@
                                                     </div>
                                                 </td>
                                                 <td class="text-center score-battery-pc">
-
                                                     <div class=" d-flex justify-content-center align-items-center">
-
-
                                                         <div class="battery">
                                                             <div class="battery-body"
                                                                 style="border:1px solid {{ $border }}">
@@ -247,11 +211,9 @@
                                                                 </div>
                                                                 <div class="battery-label"> {{ round($score) }}%</div>
                                                             </div>
-
                                                         </div>
                                                     </div>
                                                 </td>
-
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -259,7 +221,7 @@
                             </div>
                         @else
                             <p class="text-muted text-center py-4">
-                                Không có ngày nào trong khoảng thời gian đã chọn phù hợp để ký hợp đồng.
+                                Không có ngày nào trong khoảng thời gian đã chọn phù hợp để dời bàn thờ.
                             </p>
                         @endif
                     </div>

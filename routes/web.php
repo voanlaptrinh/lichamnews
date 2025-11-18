@@ -159,15 +159,20 @@ Route::prefix('xem-ngay-thi-cu-phong-van')->group(function () {
 Route::prefix('xem-ngay-ky-hop-dong')->group(function () {
     Route::get('/', [KyHopDongController::class, 'showForm'])->name('ky-hop-dong.form');
     Route::post('/', [KyHopDongController::class, 'check'])->name('ky-hop-dong.check');
-    Route::get('/chi-tiet', [KyHopDongController::class, 'details'])->name('ky-hop-dong.details');
+    Route::get('/chi-tiet/{date}', [KyHopDongController::class, 'details'])->name('ky-hop-dong.details');
 });
 // Route cho chức năng xem ngày Cải táng
-Route::get('/xem-ngay-cai-tang', [CaiTangController::class, 'showForm'])->name('cai-tang.form');
-Route::post('/xem-ngay-cai-tang', [CaiTangController::class, 'checkDays'])->name('cai-tang.check');
-
+Route::prefix('xem-ngay-cai-tang')->group(function () {
+    Route::get('/', [CaiTangController::class, 'showForm'])->name('cai-tang.form');
+    Route::post('/', [CaiTangController::class, 'checkDays'])->name('cai-tang.check');
+    Route::get('/chi-tiet/{date}', [CaiTangController::class, 'details'])->name('cai-tang.details');
+});
 // === ROUTE XEM NGÀY DỜI BÀN THỜ ===
-Route::get('/xem-ngay-doi-ban-tho', [BanThoController::class, 'showForm'])->name('ban-tho.form');
-Route::post('/xem-ngay-doi-ban-tho', [BanThoController::class, 'checkDays'])->name('ban-tho.check');
+Route::prefix('xem-ngay-doi-ban-tho')->group(function () {
+    Route::get('/', [BanThoController::class, 'showForm'])->name('ban-tho.form');
+    Route::post('/', [BanThoController::class, 'checkDays'])->name('ban-tho.check');
+    Route::get('/chi-tiet/{date}', [BanThoController::class, 'details'])->name('ban-tho.details');
+});
 
 // === ROUTE XEM NGÀY Lập BÀN THỜ ===
 Route::get('/xem-ngay-lap-ban-tho', [LapBanThoController::class, 'showForm'])->name('lap-ban-tho.form');

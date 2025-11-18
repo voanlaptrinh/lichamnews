@@ -74,9 +74,6 @@ class GoodBadDayHelper
         $trucIssues = NhiTrucHelper::checkTrucIssues($trucName, $effectivePurpose);
         $allIssues = array_merge($allIssues, $trucIssues);
 
-
-
-
         // 7. Tổng hợp điểm có trọng số
         $totalWeights = self::getTotalWeight($effectivePurpose, $isPersonalized);
         $totalWeightedScore = $vanKhiWeightedScore + $catHungWeightedScore + $tuWeightedScore + $trucWeightedScore;

@@ -1,0 +1,592 @@
+@extends('welcome')
+
+@section('content')
+    @push('styles')
+        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=10.7') }}">
+    @endpush
+
+    <div class="container-setup">
+        <nav aria-label="breadcrumb" class="content-title-detail">
+            <ol class="breadcrumb mb-1">
+                <li class="breadcrumb-item">
+                    <a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
+                </li>
+                <li class="breadcrumb-item" aria-current="page">
+                    Tiện ích
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    Xem ngày đổi ban thờ
+                </li>
+            </ol>
+        </nav>
+
+        <h1 class="content-title-home-lich">Xem ngày đổi ban thờ</h1>
+
+        <div>
+            <div class="row g-lg-3 g-2 pt-lg-3 pt-2">
+                <div class="col-xl-9 col-sm-12 col-12 ">
+                    <div class="backv-doi-lich ">
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <div class="">
+                                    <div class="form--submit-totxau">
+                                        <form id="banThoForm">
+                                            @csrf
+
+                                            <div class="row g-1">
+                                                <div class="">
+                                                    <div class="fw-bold title-tong-quan-h2-log mb-3"
+                                                        style="color: rgba(25, 46, 82, 1); border-bottom: 1px solid #ddd; padding-bottom: 8px;">
+                                                        Thông tin gia chủ
+                                                    </div>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <div for="birthdate" class="fw-bold title-tong-quan-h4-log mb-2">Ngày
+                                                        sinh</div>
+                                                    <!-- Date Selects -->
+                                                    <div class="row g-2 mb-2">
+                                                        <div class="col-6 col-sm-4 col-lg-4 col-xl-4">
+                                                            <div class="position-relative">
+                                                                <select class="form-select pe-5 --border-box-form"
+                                                                    id="ngaySelect" name="day"
+                                                                    style="padding: 12px 45px 12px 15px">
+                                                                    <option value="">Ngày</option>
+                                                                </select>
+                                                                <i class="bi bi-chevron-down position-absolute"
+                                                                    style="right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #6c757d;"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6 col-sm-4 col-lg-4 col-xl-4">
+                                                            <div class="position-relative">
+                                                                <select class="form-select pe-5 --border-box-form"
+                                                                    id="thangSelect" name="month"
+                                                                    style="padding: 12px 45px 12px 15px">
+                                                                    <option value="">Tháng</option>
+                                                                </select>
+                                                                <i class="bi bi-chevron-down position-absolute"
+                                                                    style="right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #6c757d;"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12 col-sm-4 col-lg-4 col-xl-4">
+                                                            <div class="position-relative">
+                                                                <select class="form-select pe-5 --border-box-form"
+                                                                    id="namSelect" name="year"
+                                                                    style="padding: 12px 45px 12px 15px">
+                                                                    <option value="">Năm</option>
+                                                                </select>
+                                                                <i class="bi bi-chevron-down position-absolute"
+                                                                    style="right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #6c757d;"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Radio buttons dạng tròn bên dưới selects -->
+                                                    <div class="d-flex gap-4 ps-2">
+                                                        <div class="form-check d-flex align-items-center">
+                                                            <input type="radio" class="form-check-input"
+                                                                name="calendar_type" id="solarCalendar" value="solar"
+                                                                checked style="width: 24px; height: 24px; cursor: pointer;">
+                                                            <label class="form-check-label ms-2" for="solarCalendar"
+                                                                style="cursor: pointer; font-size: 15px; color: #333;">
+                                                                Dương lịch
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check d-flex align-items-center">
+                                                            <input type="radio" class="form-check-input"
+                                                                name="calendar_type" id="lunarCalendar" value="lunar"
+                                                                style="width: 24px; height: 24px; cursor: pointer;">
+                                                            <label class="form-check-label ms-2" for="lunarCalendar"
+                                                                style="cursor: pointer; font-size: 15px; color: #333;">
+                                                                Âm lịch
+                                                            </label>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <!-- Leap Month Option (hidden) -->
+                                                    <div class="form-check mt-2" id="leapMonthContainer"
+                                                        style="display: none;">
+                                                        <input class="form-check-input" type="checkbox" id="leapMonth"
+                                                            name="leap_month">
+                                                        <label class="form-check-label" for="leapMonth">
+                                                            Tháng nhuận
+                                                        </label>
+                                                    </div>
+
+                                                    <!-- Hidden input to store formatted date -->
+                                                    <input type="hidden" id="ngayXem" name="birthdate" value="{{ old('birthdate', $inputs['birthdate'] ?? '') }}">
+
+                                                    @error('birthdate')
+                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="input-group mb-4">
+                                                    <div for="date_range" class="fw-bold title-tong-quan-h4-log">Dự kiến
+                                                        thời gian dời bàn thờ</div>
+                                                    <div class="input-group">
+                                                        <input type="text"
+                                                            class="form-control wedding_date_range --border-box-form @error('date_range') is-invalid @enderror"
+                                                            id="date_range" name="date_range"
+                                                            placeholder="DD/MM/YY - DD/MM/YY" autocomplete="off"
+                                                            value="{{ old('date_range', $inputs['date_range'] ?? '') }}"
+                                                            style="border-radius: 10px; border: none; padding: 12px 45px 12px 15px; background-color: rgba(255,255,255,0.95); cursor: pointer;">
+                                                        <span class="input-group-text bg-transparent border-0"
+                                                            style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); z-index: 5; pointer-events: none;">
+                                                            <i class="bi-calendar-date-fill text-muted"></i>
+                                                        </span>
+                                                    </div>
+                                                    @error('date_range')
+                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="d-flex justify-content-center">
+                                                <button type="submit" class="btn btn-light-settup fw-bold w-100"
+                                                    id="submitBtn">
+                                                    <span class="btn-text">Xem Kết Quả</span>
+                                                    <span class="spinner-border spinner-border-sm ms-2 d-none"
+                                                        role="status"></span>
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 d-none d-lg-block d-flex">
+                                <div class="d-flex align-items-end h-100 w-100">
+                                    <img src="{{ asset('/icons/datedoilich.svg') }}" alt="ảnh đổi lich"
+                                        class="img-fluid">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="resultsContainer" class="--detail-success">
+                        @if (isset($resultsByYear))
+                            @include('tools.ban-tho.results')
+                        @else
+                            <div class="d-flex flex-column align-items-center justify-content-center h-100 text-center">
+                                <div class="mb-4">
+                                    <img src="{{ asset('/icons/defaild.png?v=1.0') }}" alt="defakd" class="img-fuild">
+                                </div>
+                                <p class="text-muted" style="font-size: 16px;">
+                                    Hiện chưa có thông tin, bạn vui lòng nhập thông tin để xem kết quả.
+                                </p>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+                @include('tools.siderbarindex')
+            </div>
+        </div>
+    </div>
+@endsection
+
+@push('scripts')
+    <script src="{{ asset('js/lunar-solar-date-select.js?v=1.3') }}"></script>
+    <script src="{{ asset('/js/vanilla-daterangepicker.js?v=6.7') }}" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const hasHashParams = window.location.hash && window.location.hash.includes('birthdate');
+
+            const dateSelector = new LunarSolarDateSelect({
+                daySelectId: 'ngaySelect',
+                monthSelectId: 'thangSelect',
+                yearSelectId: 'namSelect',
+                hiddenInputId: 'ngayXem',
+                solarRadioId: 'solarCalendar',
+                lunarRadioId: 'lunarCalendar',
+                leapCheckboxId: 'leapMonth',
+                leapContainerId: 'leapMonthContainer',
+                defaultDay: hasHashParams ? null : 1,
+                defaultMonth: hasHashParams ? null : 1,
+                defaultYear: hasHashParams ? null : 2000,
+                yearRangeStart: 1900,
+                yearRangeEnd: new Date().getFullYear(),
+                lunarApiUrl: '/api/lunar-solar-convert',
+                lunarMonthDaysUrl: '/api/get-lunar-month-days',
+                monthInfoContainerId: 'monthInfoContainer',
+                csrfToken: '{{ csrf_token() }}',
+            });
+
+            // ========== DATE RANGE PICKER ==========
+            const dateRangeInput = document.getElementById('date_range');
+            let dateRangePickerInstance = null;
+            let dateRangeInitAttempts = 0;
+            const maxDateRangeAttempts = 10;
+
+            function initDateRangePicker() {
+                if (dateRangeInitAttempts >= maxDateRangeAttempts) {
+                    if (dateRangeInput) {
+                        dateRangeInput.removeAttribute('readonly');
+                        dateRangeInput.placeholder = 'dd/mm/yy - dd/mm/yy';
+                    }
+                    return;
+                }
+
+                dateRangeInitAttempts++;
+
+                if (typeof window.VanillaDateRangePicker !== 'undefined') {
+                    try {
+                        dateRangePickerInstance?.destroy?.();
+
+                        const config = {
+                            autoApply: true,
+                            showDropdowns: true,
+                            linkedCalendars: false,
+                            singleDatePicker: false,
+                            locale: {
+                                format: 'DD/MM/YY',
+                                separator: ' - ',
+                                daysOfWeek: ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'],
+                                monthNames: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5',
+                                    'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11',
+                                    'Tháng 12'
+                                ],
+                                firstDay: 1
+                            }
+                        };
+
+                        dateRangePickerInstance = new window.VanillaDateRangePicker(dateRangeInput, config);
+                    } catch (error) {
+                        dateRangeInitAttempts = maxDateRangeAttempts;
+                    }
+                } else {
+                    setTimeout(initDateRangePicker, 500);
+                }
+            }
+
+            setTimeout(initDateRangePicker, 100);
+
+            // ========== HASH PARAMETER HANDLING ==========
+            function parseHashParams() {
+                const hash = window.location.hash.substring(1);
+                const params = {};
+                if (hash) {
+                    const pairs = hash.split('&');
+                    for (const pair of pairs) {
+                        const [key, value] = pair.split('=');
+                        if (key && value) {
+                            params[decodeURIComponent(key)] = decodeURIComponent(value);
+                        }
+                    }
+                }
+                return params;
+            }
+
+            function setHashParams(params) {
+                const hashParts = [];
+                for (const [key, value] of Object.entries(params)) {
+                    if (value) {
+                        hashParts.push(`${encodeURIComponent(key)}=${encodeURIComponent(value)}`);
+                    }
+                }
+                window.location.hash = hashParts.join('&');
+            }
+
+            function restoreFromHash() {
+                const params = parseHashParams();
+                if (params.calendar_type) {
+                    const solarRadio = document.getElementById('solarCalendar');
+                    const lunarRadio = document.getElementById('lunarCalendar');
+
+                    if (params.calendar_type === 'lunar' && lunarRadio) {
+                        lunarRadio.checked = true;
+                        solarRadio.checked = false;
+                        if (dateSelector) {
+                            dateSelector.isLunar = true;
+                        }
+                    } else if (params.calendar_type === 'solar' && solarRadio) {
+                        solarRadio.checked = true;
+                        lunarRadio.checked = false;
+                        if (dateSelector) {
+                            dateSelector.isLunar = false;
+                        }
+                    }
+                }
+
+                if (params.birthdate || params.date_range) {
+                    let formRestored = false;
+                    let birthdateSet = false;
+                    let dateRangeSet = false;
+
+                    if (params.birthdate) {
+                        function tryRestoreBirthdate(attempts = 0) {
+                            const maxAttempts = 20;
+
+                            if (attempts >= maxAttempts) {
+                                birthdateSet = true;
+                                checkAndSubmitForm();
+                                return;
+                            }
+
+                            if (dateSelector && dateSelector.daySelect && dateSelector.monthSelect && dateSelector.yearSelect &&
+                                dateSelector.yearSelect.options.length > 1) {
+
+                                const dateParts = params.birthdate.split('/');
+                                if (dateParts.length === 3) {
+                                    const day = parseInt(dateParts[0]);
+                                    const month = parseInt(dateParts[1]);
+                                    const year = parseInt(dateParts[2]);
+
+                                    (async () => {
+                                        try {
+                                            if (params.calendar_type === 'lunar') {
+                                                await dateSelector.setDate(day, month, year, false, false);
+                                                try {
+                                                    await dateSelector.setDate(day, month, year, false,
+                                                        false);
+                                                    const lunarRadio = document.getElementById(
+                                                        'lunarCalendar');
+                                                    const solarRadio = document.getElementById(
+                                                        'solarCalendar');
+                                                    if (lunarRadio && solarRadio) {
+                                                        lunarRadio.checked = true;
+                                                        solarRadio.checked = false;
+                                                        if (dateSelector && typeof dateSelector
+                                                            .handleLunarRadioChange === 'function') {
+                                                            await dateSelector.handleLunarRadioChange();
+                                                        }
+                                                    }
+                                                } catch (error) {
+                                                    await dateSelector.setDate(day, month, year, true,
+                                                        false);
+                                                }
+
+                                            } else {
+                                                await dateSelector.setDate(day, month, year, false, false);
+                                                const lunarRadio = document.getElementById('lunarCalendar');
+                                                const solarRadio = document.getElementById('solarCalendar');
+                                                if (lunarRadio && solarRadio) {
+                                                    solarRadio.checked = true;
+                                                    lunarRadio.checked = false;
+                                                    dateSelector.isLunar = false;
+                                                }
+                                            }
+
+                                            await dateSelector.updateHiddenInput();
+                                            birthdateSet = true;
+                                            checkAndSubmitForm();
+                                        } catch (error) {
+                                            birthdateSet = true;
+                                            checkAndSubmitForm();
+                                        }
+                                    })();
+                                } else {
+                                    birthdateSet = true;
+                                    checkAndSubmitForm();
+                                }
+                            } else {
+                                setTimeout(() => tryRestoreBirthdate(attempts + 1), 300);
+                            }
+                        }
+
+                        tryRestoreBirthdate();
+                    } else {
+                        birthdateSet = true;
+                    }
+
+                    if (params.date_range) {
+                        function trySetDateRange(attempts = 0) {
+                            const maxAttempts = 5;
+                            if (attempts >= maxAttempts) return;
+
+                            const khoangInput = document.getElementById('date_range');
+                            if (khoangInput) {
+                                khoangInput.value = params.date_range;
+                                dateRangeSet = true;
+                                checkAndSubmitForm();
+                            } else {
+                                setTimeout(() => trySetDateRange(attempts + 1), 200);
+                            }
+                        }
+
+                        trySetDateRange();
+                    } else {
+                        dateRangeSet = true;
+                    }
+
+                    function checkAndSubmitForm() {
+                        if (birthdateSet && dateRangeSet && !formRestored) {
+                            formRestored = true;
+                            setTimeout(() => {
+                                const form = document.getElementById('banThoForm');
+                                if (form) {
+                                    form.requestSubmit();
+                                }
+                            }, 500);
+                        }
+                    }
+                }
+            }
+
+            setTimeout(restoreFromHash, 1000);
+
+            // ========== AJAX FORM SUBMISSION ==========
+            const form = document.getElementById('banThoForm');
+            const submitBtn = document.getElementById('submitBtn');
+            const resultsContainer = document.getElementById('resultsContainer');
+            const btnText = submitBtn.querySelector('.btn-text');
+            const spinner = submitBtn.querySelector('.spinner-border');
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                const ngayXemInput = document.getElementById('ngayXem');
+                const ngayXemValue = ngayXemInput.value;
+
+                if (!ngayXemValue) {
+                    alert('Vui lòng chọn đầy đủ ngày, tháng, năm sinh của gia chủ');
+                    return;
+                }
+
+                const dateRangeValue = dateRangeInput.value;
+                if (!dateRangeValue) {
+                    alert('Vui lòng chọn khoảng thời gian dự kiến');
+                    return;
+                }
+
+                let formattedBirthdate = '';
+                let calendarType = 'solar';
+                let isLeapMonth = false;
+
+                const solarRadio = document.getElementById('solarCalendar');
+                const lunarRadio = document.getElementById('lunarCalendar');
+
+                if (lunarRadio && lunarRadio.checked) {
+                    calendarType = 'lunar';
+                } else if (solarRadio && solarRadio.checked) {
+                    calendarType = 'solar';
+                }
+
+                if (calendarType === 'lunar') {
+                    const solarDay = ngayXemInput.dataset.solarDay;
+                    const solarMonth = ngayXemInput.dataset.solarMonth;
+                    const solarYear = ngayXemInput.dataset.solarYear;
+                    isLeapMonth = ngayXemInput.dataset.lunarLeap === '1';
+
+                    if (solarDay && solarMonth && solarYear) {
+                        formattedBirthdate = `${String(solarDay).padStart(2, '0')}/${String(solarMonth).padStart(2, '0')}/${solarYear}`;
+                    } else {
+                        formattedBirthdate = ngayXemValue.replace(' (ÂL)', '').replace(' (ÂL-Nhuận)', '');
+                        isLeapMonth = ngayXemValue.includes('(ÂL-Nhuận)');
+                    }
+                } else {
+                    formattedBirthdate = ngayXemValue;
+                }
+
+                const sortSelect = resultsContainer.querySelector('[name="sort"]');
+                const sortValue = sortSelect ? sortSelect.value : 'desc';
+
+                const formData = new FormData(form);
+                formData.set('birthdate', formattedBirthdate);
+                formData.set('calendar_type', calendarType);
+                formData.set('leap_month', isLeapMonth);
+                formData.set('sort', sortValue);
+
+                const hashParams = {
+                    birthdate: formattedBirthdate,
+                    date_range: dateRangeValue,
+                    calendar_type: calendarType
+                };
+                setHashParams(hashParams);
+
+
+                submitBtn.disabled = true;
+                btnText.textContent = 'Đang xử lý...';
+                spinner.classList.remove('d-none');
+
+                fetch('{{ route('ban-tho.check') }}', {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                            'Accept': 'application/json'
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        submitBtn.disabled = false;
+                        btnText.textContent = 'Xem Kết Quả';
+                        spinner.classList.add('d-none');
+
+                        if (data.success) {
+                            resultsContainer.innerHTML = data.html;
+                            resultsContainer.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                            const tabs = resultsContainer.querySelectorAll('[data-bs-toggle="pill"]');
+                            tabs.forEach(tab => {
+                                new bootstrap.Tab(tab);
+                            });
+                        } else if (data.errors) {
+                            let errorMessage = 'Vui lòng kiểm tra lại:\\n';
+                            for (const field in data.errors) {
+                                errorMessage += '- ' + data.errors[field][0] + '\\n';
+                            }
+                            alert(errorMessage);
+                        } else {
+                            alert('Có lỗi xảy ra. Vui lòng thử lại.');
+                        }
+                    })
+                    .catch(error => {
+                        submitBtn.disabled = false;
+                        btnText.textContent = 'Xem Kết Quả';
+                        spinner.classList.add('d-none');
+                        console.error('Error:', error);
+                        alert('Có lỗi xảy ra khi kết nối. Vui lòng thử lại.');
+                    });
+            });
+
+            function getScoreFromRow(row) {
+                const battery = row.querySelector('.battery-label');
+                if (battery) {
+                    return parseInt(battery.textContent.replace('%', '')) || 0;
+                }
+
+                const scoreElement = row.querySelector('.diem-so, .score');
+                if (scoreElement) {
+                    return parseInt(scoreElement.textContent.replace(/[^\d]/g, '')) || 0;
+                }
+
+                const cells = row.querySelectorAll('td');
+                for (let cell of cells) {
+                    const match = cell.textContent.trim().match(/(\d+)/);
+                    if (match) {
+                        return parseInt(match[1]) || 0;
+                    }
+                }
+                return 0;
+            }
+
+            function applySortingToTable(sortValue) {
+                const table = document.querySelector('#bang-chi-tiet table tbody');
+                if (!table) return;
+
+                const rows = Array.from(table.querySelectorAll('tr'));
+                rows.sort((a, b) => {
+                    const scoreA = getScoreFromRow(a);
+                    const scoreB = getScoreFromRow(b);
+                    return sortValue === 'asc' ? scoreA - scoreB : scoreB - scoreA;
+                });
+
+                table.innerHTML = '';
+                rows.forEach(row => table.appendChild(row));
+            }
+
+            resultsContainer.addEventListener('change', function(event) {
+                if (event.target.matches('[name="sort"]')) {
+                    applySortingToTable(event.target.value);
+                    setTimeout(() => {
+                        document.getElementById('bang-chi-tiet')?.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }, 100);
+                }
+            });
+        });
+    </script>
+@endpush

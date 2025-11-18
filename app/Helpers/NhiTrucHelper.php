@@ -36,52 +36,49 @@ class NhiTrucHelper
     public static function getTruc(int $dd, int $mm, int $yy): string
     {
         try {
-            // BƯỚC 1: Lấy thông tin cơ bản từ ngày dương lịch
+            // Hoàn toàn theo Dart implementation
             $lunarDate = LunarHelper::convertSolar2Lunar($dd, $mm, $yy);
             $lunarMonth = (int) $lunarDate[1];
 
-            // Lấy Julian Day trực tiếp từ ngày Dương lịch cho chính xác
+            // Lấy Chi từ Can Chi ngày (giống Dart: getCanChiDay().split(' ')[1])
             $jd = LunarHelper::jdFromDate($dd, $mm, $yy);
+            $canChiDay = LunarHelper::canchiNgayByJD($jd);
+            $chi = explode(' ', $canChiDay)[1] ?? '';
 
-            // BƯỚC 2: Xác định Chi của ngày từ Can Chi
-            $canChiNgay = LunarHelper::canchiNgayByJD($jd);
-            $parts = explode(' ', $canChiNgay);
-            if (count($parts) !== 2) {
-                throw new \Exception("Invalid Can Chi format for day: $canChiNgay");
-            }
-            $chiNgay = $parts[1];
+            // Lấy tên tiết khí (giống Dart: getTietKhiName(date))
+            $tietKhi = LunarHelper::tietKhiByJD( $jd);
 
-            // BƯỚC 3: Lấy tiết khí và xác định Kiến Chi
-            $tietKhi = LunarHelper::tietKhiByJD($jd);
+            // Lấy Kiến Chi (giống Dart: _getKienChi(tietKhi, lunarDate.month))
             $kienChi = self::getKienChi($tietKhi, $lunarMonth);
 
-            // BƯỚC 4: Tính toán Trực theo công thức chuẩn
+            // Danh sách Trực cố định (giống Dart)
             $trucList = [
                 'Kiến', 'Trừ', 'Mãn', 'Bình', 'Định', 'Chấp',
                 'Phá', 'Nguy', 'Thành', 'Thu', 'Khai', 'Bế'
             ];
 
-            $chiNgayIndex = self::getChiIndex($chiNgay);
-            $kienChiIndex = self::getChiIndex($kienChi);
-
-            if ($chiNgayIndex === -1 || $kienChiIndex === -1) {
-                throw new \Exception("Không tìm thấy chỉ số cho Chi ngày ($chiNgay) hoặc Kiến Chi ($kienChi).");
-            }
-
-            // Công thức tính chỉ số của Trực (từ Dart implementation)
-            $trucIdx = ($chiNgayIndex - $kienChiIndex + 12) % 12;
-
-            return $trucList[$trucIdx];
-        } catch (\Exception $e) {
-            // Log error nếu có thể
+            // Tính chỉ số Trực (điều chỉnh theo logic app: thêm +1 offset)
+            $trucIdx = (self::getChiIndex($chi) - self::getChiIndex($kienChi) + 12) % 12;
+            // Debug log giống Dart
             if (class_exists('\Illuminate\Support\Facades\Log')) {
                 try {
-                    Log::error("[getTruc] Error: " . $e->getMessage());
+                    Log::debug("[TRUC] Date: {$dd}/{$mm}/{$yy}, Lunar: {$lunarDate[0]}/{$lunarDate[1]}, Chi: $chi, TietKhi: $tietKhi, Truc: {$trucList[$trucIdx]}");
                 } catch (\Exception $logError) {
-                    error_log("[getTruc] Error: " . $e->getMessage());
+                    // Silent ignore
                 }
             }
-            return "Kiến"; // fallback nếu có lỗi
+
+            return $trucList[$trucIdx];
+
+        } catch (\Exception $e) {
+            if (class_exists('\Illuminate\Support\Facades\Log')) {
+                try {
+                    Log::error("[TRUC] Error: " . $e->getMessage());
+                } catch (\Exception $logError) {
+                    error_log("[TRUC] Error: " . $e->getMessage());
+                }
+            }
+            return "Kiến"; // Fallback giống Dart
         }
     }
 
@@ -117,7 +114,7 @@ class NhiTrucHelper
 
     public static function getChiIndex(string $chi): int
     {
-        // Mapping chính xác theo Dart implementation
+        // Hoàn toàn giống Dart implementation _getChiIndex
         $chiMapping = [
             'Tý' => 0,
             'Sửu' => 1,
@@ -133,26 +130,8 @@ class NhiTrucHelper
             'Hợi' => 11
         ];
 
-        // Normalize chi string
-        $normalized = ucfirst(mb_strtolower(trim($chi), 'UTF-8'));
-
-        // Tìm kiếm case-insensitive trong mapping
-        foreach ($chiMapping as $chiName => $index) {
-            if (mb_strtolower($normalized, 'UTF-8') === mb_strtolower($chiName, 'UTF-8')) {
-                return $index;
-            }
-        }
-
-        // Log lỗi nếu không tìm thấy
-        if (class_exists('\Illuminate\Support\Facades\Log')) {
-            try {
-                Log::error("[getChiIndex] Không tìm thấy chỉ số Chi cho: '$chi' (normalized: '$normalized')");
-            } catch (\Exception $e) {
-                error_log("[getChiIndex] Không tìm thấy chỉ số Chi cho: '$chi' (normalized: '$normalized')");
-            }
-        }
-
-        return -1; // Fallback return -1 như Dart implementation
+        // Return index hoặc 0 (giống Dart: ?? 0)
+        return $chiMapping[$chi] ?? 0;
     }
     public static function getTrucRating(string $trucName, string $purpose): float
     {
