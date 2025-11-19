@@ -3,27 +3,31 @@
 @section('content')
     @push('styles')
         <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=10.7') }}">
+       
     @endpush
 
     <div class="container-setup">
-        <nav aria-label="breadcrumb" class="content-title-detail">
+            <nav aria-label="breadcrumb" class="content-title-detail">
             <ol class="breadcrumb mb-1">
                 <li class="breadcrumb-item">
-                    <a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
+                    <a href="{{ route('home') }}"  style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
                 </li>
                 <li class="breadcrumb-item" aria-current="page">
-                    Tiện ích
+                  Tiện ích
                 </li>
-                <li class="breadcrumb-item active" aria-current="page">
-                    Xem ngày lập bàn thờ
+                 <li class="breadcrumb-item active" aria-current="page">
+                 Xem ngày cúng sao giải hạn
                 </li>
             </ol>
         </nav>
 
-        <h1 class="content-title-home-lich">Xem ngày lập bàn thờ</h1>
+     
+
+        <h1 class="content-title-home-lich">Xem ngày cúng sao giải hạn</h1>
 
         <div>
             <div class="row g-lg-3 g-2 pt-lg-3 pt-2">
+
                 <div class="col-xl-9 col-sm-12 col-12 ">
                     <div class="backv-doi-lich ">
                         <div class="row">
@@ -31,13 +35,16 @@
                                 <div class="">
                                     <div class="form--submit-totxau">
                                         <div class="fw-bold  title-tong-quan-h2-log" style="color: rgba(25, 46, 82, 1);">
-                                            Thông tin người xem
+                                            Thông tin người
+                                            xem
                                         </div>
-                                        <p class="" style=" font-size: 14px;">Bạn hãy nhập thông tin vào ô dưới
+                                        <p class="" style=" font-size: 14px;">Bạn hãy nhập thông tin
+                                            vào
+                                            ô dưới
                                             đây để xem ngày tốt xấu</p>
 
-                                        <form id="lapBanThoForm">
-                                            @csrf
+                                                                                 <form id="giaiHanForm">                                            @csrf
+
                                             <div class="row">
                                                 <div class="mb-3">
                                                     <!-- Date Selects -->
@@ -99,6 +106,7 @@
                                                         </div>
                                                     </div>
 
+
                                                     <!-- Leap Month Option (hidden) -->
                                                     <div class="form-check mt-2" id="leapMonthContainer"
                                                         style="display: none;">
@@ -117,9 +125,10 @@
                                                     @enderror
                                                 </div>
 
+
                                                 <div class="input-group mb-4">
                                                     <div for="date_range" class="fw-bold title-tong-quan-h2-log">Dự kiến
-                                                        thời gian</div>
+                                                        thời gian cúng sao giải hạn</div>
                                                     <div class="input-group">
                                                         <input type="text"
                                                             class="form-control wedding_date_range --border-box-form @error('date_range') is-invalid @enderror"
@@ -145,8 +154,10 @@
                                                         role="status"></span>
                                                 </button>
                                             </div>
+
                                         </form>
                                     </div>
+
                                 </div>
                             </div>
                             <div class="col-lg-4 d-none d-lg-block d-flex">
@@ -156,6 +167,7 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
                     <div id="resultsContainer" class="--detail-success">
                         <div class="d-flex flex-column align-items-center justify-content-center h-100 text-center">
@@ -170,15 +182,18 @@
                 </div>
                 @include('tools.siderbarindex')
             </div>
+
         </div>
     </div>
+
+    <!-- Mobile Date Range Quick Options Popup -->
+   
 @endsection
 
 @push('scripts')
     <script src="{{ asset('js/lunar-solar-date-select.js?v=1.3') }}"></script>
     {{-- Date Range Picker JS (vanilla JS version) --}}
     <script src="{{ asset('/js/vanilla-daterangepicker.js?v=6.7') }}" defer></script>
-
 
 
     <script>
@@ -432,7 +447,7 @@
                             formRestored = true;
                             // Auto submit form after a short delay to ensure everything is set
                             setTimeout(() => {
-                                const form = document.getElementById('lapBanThoForm'); // Changed from buildHouseForm
+                                const form = document.getElementById('giaiHanForm');
                                 if (form) {
                                     form.requestSubmit();
                                 }
@@ -449,7 +464,7 @@
             // No need for additional logic here as the module handles all conversions automatically
 
             // ========== AJAX FORM SUBMISSION ==========
-            const form = document.getElementById('lapBanThoForm'); // Changed from buildHouseForm
+            const form = document.getElementById('giaiHanForm');
             const submitBtn = document.getElementById('submitBtn');
             const resultsContainer = document.getElementById('resultsContainer');
             const btnText = submitBtn.querySelector('.btn-text');
@@ -540,9 +555,9 @@
                     }
                 }
 
-                // Get sort value if exists (removed for lap-ban-tho as it's not in results)
-                // const sortSelect = resultsContainer.querySelector('[name="sort"]');
-                // const sortValue = sortSelect ? sortSelect.value : 'desc';
+                // Get sort value if exists
+                const sortSelect = resultsContainer.querySelector('[name="sort"]');
+                const sortValue = sortSelect ? sortSelect.value : 'desc';
 
                 // Prepare form data
                 const formData = {
@@ -552,7 +567,7 @@
                     date_range: dateRangeValue,
                     start_date: startDate,
                     end_date: endDate,
-                    // sort: sortValue, // Removed for lap-ban-tho
+                    sort: sortValue,
                     _token: '{{ csrf_token() }}'
                 };
 
@@ -570,7 +585,7 @@
                 spinner.classList.remove('d-none');
 
                 // Submit via AJAX
-                fetch('{{ route('lap-ban-tho.check') }}', { // Changed route
+                fetch('{{ route('giai-han.check') }}', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -611,9 +626,9 @@
                             });
                         } else if (data.errors) {
                             // Show validation errors
-                            let errorMessage = 'Vui lòng kiểm tra lại:\n';
+                            let errorMessage = 'Vui lòng kiểm tra lại:\\n';
                             for (const field in data.errors) {
-                                errorMessage += '- ' + data.errors[field][0] + '\n';
+                                errorMessage += '- ' + data.errors[field][0] + '\\n';
                             }
                             alert(errorMessage);
                         } else if (data.message) {
@@ -633,7 +648,7 @@
                     });
             });
 
-            // Optimized sorting functions (removed for lap-ban-tho)
+            // Optimized sorting functions
             function getScoreFromRow(row) {
                 const battery = row.querySelector('.battery-label');
                 if (battery) {
@@ -670,7 +685,7 @@
                 rows.forEach(row => table.appendChild(row));
             }
 
-            // Event delegation for sorting (removed for lap-ban-tho)
+            // Event delegation for sorting
             resultsContainer.addEventListener('change', function(event) {
                 if (event.target.matches('[name="sort"]')) {
                     applySortingToTable(event.target.value);

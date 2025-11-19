@@ -130,6 +130,16 @@
                          </div>
                      </a>
                  </li>
+                  <li class="list-group-item  pb-0">
+                     <a href="{{ route('giai-han.form') }}"
+                         class="{{ request()->routeIs('giai-han.form') ? 'active-tools' : '' }}">
+                         <div class="event-details  --padding-event-tot">
+                             <div class="event-name" style="font-weight: unset">
+                                 Xem ngày cúng sao giải hạn
+                             </div>
+                         </div>
+                     </a>
+                 </li>
              </ul>
          </div>
      </div>

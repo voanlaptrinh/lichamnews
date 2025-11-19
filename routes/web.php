@@ -181,9 +181,12 @@ Route::prefix('xem-ngay-lap-ban-tho')->group(function () {
     Route::get('/chi-tiet/{date}', [LapBanThoController::class, 'details'])->name('lap-ban-tho.details');
 });
 
-// === ROUTE XEM NGÀY Lập BÀN THỜ ===
-Route::get('/xem-ngay-cung-sao-giai-han', [GiaiHanController::class, 'showForm'])->name('giai-han.form');
-Route::post('/xem-ngay-cung-sao-giai-han', [GiaiHanController::class, 'checkDays'])->name('giai-han.check');
+// === ROUTE XEM NGÀY cung sao giải hạn ===
+Route::prefix('xem-ngay-cung-sao-giai-han')->group(function () {
+Route::get('/', [GiaiHanController::class, 'showForm'])->name('giai-han.form');
+Route::post('/', [GiaiHanController::class, 'checkDays'])->name('giai-han.check');
+ Route::get('/chi-tiet/{date}', [GiaiHanController::class, 'details'])->name('giai-han.details');
+});
 
 // === ROUTE XEM NGÀY tRẤN TRẠCH ===
 Route::get('/xem-ngay-yem-tran-tran-trach', [TranTrachController::class, 'showForm'])->name('tran-trach.form');
