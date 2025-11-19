@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Helpers\AstrologyHelper;
+use App\Helpers\BadDayHelper;
 use App\Helpers\DataHelper;
 use App\Helpers\GoodBadDayHelper;
 use App\Helpers\KhiVanHelper;
@@ -19,7 +20,7 @@ class PhongSinhController extends Controller
     public function showForm()
     {
         // Không cần truyền dateRanges nữa
-        return view('phong-sinh.index');
+        return view('tools.phong-sinh.form');
     }
 
     /**
@@ -32,7 +33,7 @@ class PhongSinhController extends Controller
         $originalInputs = $input;
 
         $dateRange = $request->input('date_range');
-        $dates = $dateRange ? explode(' đến ', $dateRange) : [null, null];
+        $dates = $dateRange ? explode(' - ', $dateRange) : [null, null];
         if (count($dates) === 1) $dates[1] = $dates[0];
 
         $request->merge([
@@ -60,6 +61,9 @@ class PhongSinhController extends Controller
         ]);
 
         if ($validator->fails()) {
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json(['success' => false, 'errors' => $validator->errors()], 422);
+            }
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
@@ -98,10 +102,10 @@ class PhongSinhController extends Controller
 
         foreach ($period as $date) {
             $year = $date->year;
-
+            $birthdateal = LunarHelper::convertSolar2Lunar($birthdate->day, $birthdate->month, $birthdate->year);
 
             // b. Tính toán điểm số của ngày dựa trên tuổi gia chủ
-            $dayScoreDetails = GoodBadDayHelper::calculateDayScore($date, $birthdate->year, $purpose);
+            $dayScoreDetails = GoodBadDayHelper::calculateDayScore($date, $birthdateal[2], $purpose);
 
             // c. Lấy thông tin Can Chi của ngày
             $jd = LunarHelper::jdFromDate($date->day, $date->month, $date->year);
@@ -120,14 +124,41 @@ class PhongSinhController extends Controller
                 'date' => $date->copy(),
                 'weekday_name' => $date->isoFormat('dddd'),
                 'full_lunar_date_str' => $fullLunarDateStr,
+                'al_name' => $lunarParts,
                 'good_hours' => $goodHours,
                 'day_score' => $dayScoreDetails, // Toàn bộ object điểm số và chi tiết
             ];
         }
 
-        // 4. Trả kết quả về cho view
-        return view('phong-sinh.index', [
-            'date_start_end' => $dates,
+        // Sắp xếp kết quả theo điểm số
+        $sortOrder = $request->input('sort', 'desc');
+        foreach ($resultsByYear as &$yearData) {
+            if (isset($yearData['days']) && is_array($yearData['days'])) {
+                usort($yearData['days'], function ($a, $b) use ($sortOrder) {
+                    $scoreA = $a['day_score']['percentage'] ?? 0;
+                    $scoreB = $b['day_score']['percentage'] ?? 0;
+                    return $sortOrder === 'asc' ? $scoreA <=> $scoreB : $scoreB <=> $scoreA;
+                });
+            }
+        }
+        unset($yearData);
+
+        // 4. Trả kết quả về cho view hoặc AJAX
+        if ($request->ajax() || $request->wantsJson()) {
+            $html = view('tools.phong-sinh.results', [
+                'inputs' => $originalInputs,
+                'birthdateInfo' => $birthdateInfo,
+                'resultsByYear' => $resultsByYear,
+                'sortOrder' => $sortOrder,
+            ])->render();
+
+            return response()->json([
+                'success' => true,
+                'html' => $html,
+            ]);
+        }
+
+        return view('tools.phong-sinh.form', [
             'inputs' => $originalInputs,
             'birthdateInfo' => $birthdateInfo,
             'resultsByYear' => $resultsByYear,
@@ -138,11 +169,14 @@ class PhongSinhController extends Controller
      */
     private function calculateYearAnalysis(Carbon $dob, int $yearToCheck): array
     {
-        $birthYear = $dob->year;
+      $lunarDob = LunarHelper::convertSolar2Lunar($dob->day, $dob->month, $dob->year);
+        $birthYear = $lunarDob[2];
+
         $lunarAge = AstrologyHelper::getLunarAge($birthYear, $yearToCheck);
 
         $kimLau = AstrologyHelper::checkKimLau($lunarAge);
         $hoangOc = AstrologyHelper::checkHoangOc($lunarAge);
+        
         $tamTai = AstrologyHelper::checkTamTai($birthYear, $yearToCheck);
 
         $badFactors = [];
@@ -151,11 +185,17 @@ class PhongSinhController extends Controller
         if ($tamTai['is_bad']) $badFactors[] = 'Tam Tai';
 
         $isBadYear = count($badFactors) > 0;
-      
+        $message = $isBadYear
+            ? "Năm {$yearToCheck}, gia chủ phạm phải: <strong>" . implode(', ', $badFactors) . "</strong>  – đây là yếu tố phong thủy cần đặc biệt lưu ý khi thực hiện các việc trọng đại liên quan đến phóng sinh.
+<ul><li>Phóng sinh là việc làm thiện nguyện, tích đức. Tuy nhiên, nếu phạm các hạn này, cần cẩn trọng hơn trong việc chọn ngày giờ, địa điểm và cách thức phóng sinh để công đức được trọn vẹn và tránh những điều không may.</li><li>Nên tham khảo ý kiến chuyên gia phong thủy để có biện pháp hóa giải phù hợp, đảm bảo việc phóng sinh mang lại hiệu quả tốt nhất cho bản thân và gia đình.</li> </ul>
+"
+            : "Năm {$yearToCheck}, gia chủ không phạm Kim Lâu, Hoang Ốc hay Tam Tai – đây là tín hiệu rất tốt trong phong thủy. Bạn hoàn toàn có thể an tâm tiến hành các công việc phóng sinh trong năm nay.
+Thời điểm cát lợi, vận khí hanh thông – rất thích hợp để thực hiện các việc thiện nguyện, tích đức, cầu bình an và may mắn.";
 
         return [
             'is_bad_year' => $isBadYear,
             'lunar_age' => $lunarAge,
+            'description' => $message,
             'details' => compact('kimLau', 'hoangOc', 'tamTai'),
         ];
     }
@@ -167,10 +207,11 @@ class PhongSinhController extends Controller
      */
     private function getPersonBasicInfo(Carbon $dob): array
     {
-        $birthYear = $dob->year;
-        $canChiNam = KhiVanHelper::canchiNam((int)$birthYear);
-        $menh = DataHelper::$napAmTable[$canChiNam]; // Giả sử bạn có DataHelper
+      
         $lunarDob = LunarHelper::convertSolar2Lunar($dob->day, $dob->month, $dob->year);
+         $canChiNam = KhiVanHelper::canchiNam($lunarDob[2]);
+        
+        $menh = DataHelper::$napAmTable[$canChiNam]; // Giả sử bạn có DataHelper
 
         return [
             'dob' => $dob,
@@ -178,5 +219,33 @@ class PhongSinhController extends Controller
             'can_chi_nam' => $canChiNam,
             'menh' => $menh,
         ];
+    }
+
+     public function showDayDetails(Request $request, $date)
+    {
+        // 1. Validate dữ liệu - đã loại bỏ 'person_type'
+         $validated = Validator::make(['date' => $date, 'birthdate' => $request->input('birthdate')], [
+            'date' => 'required|date_format:Y-m-d',
+            'birthdate' => 'required|date_format:Y-m-d',
+        ])->validate();
+
+        // 2. Chuẩn bị các đối tượng ngày tháng
+        $dateToCheck = Carbon::parse($validated['date']);
+        $groomDob = Carbon::parse($validated['birthdate']);
+
+        // 3. Lấy thông tin chung của ngày (tính 1 lần, vì nó không đổi)
+
+        $commonDayInfo = BadDayHelper::getdetailtable($dateToCheck);
+        $tabooResult = GoodBadDayHelper::checkTabooDays($dateToCheck, 'CUU_MANG'); // Changed purpose
+
+        // 4. Lấy thông tin chi tiết cho Chú Rể
+        $groomData = BadDayHelper::getDetailedAnalysisForPerson($dateToCheck, $groomDob, 'Ngày phóng sinh', 'CUU_MANG'); // Changed purpose and title
+        // 5. Tính điểm số của ngày - sử dụng năm sinh thay vì Carbon object
+        // 6. Trả về view với toàn bộ dữ liệu
+        return view('tools.phong-sinh.day_details', compact( // Changed view
+            'commonDayInfo',
+            'groomData',
+            'tabooResult',
+        ));
     }
 }

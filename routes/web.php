@@ -198,14 +198,15 @@ Route::prefix('xem-ngay-tran-trach')->group(function () {
 // Route::post('/xem-ngay-yem-tran-tran-trach', [TranTrachController::class, 'checkDays'])->name('tran-trach.check');
 
 // === ROUTE Xem Ngày Cầu an - làm phúc - phóng sinh ===
-Route::get('/xem-ngay-cau-an-lam-phuc-phong-sinh', [PhongSinhController::class, 'showForm'])->name('phong-sinh.form');
-Route::post('/xem-ngay-cau-an-lam-phuc-phong-sinh', [PhongSinhController::class, 'checkDays'])->name('phong-sinh.check');
-
-
+Route::prefix('xem-ngay-cau-an-lam-phuc')->group(function () {
+    Route::get('/', [PhongSinhController::class, 'showForm'])->name('phong-sinh.form');
+    Route::post('/', [PhongSinhController::class, 'checkDays'])->name('phong-sinh.check');
+        Route::get('/chi-tiet/{date}', [PhongSinhController::class, 'showDayDetails'])->name('phong-sinh.details');
+});
 
 // === ROUTE Xem ngày xuất hành du lịch công tác ===
-Route::get('/xem-ngay-xuat-hanh-du-lich-cong-tac', [DuLichCongTacController::class, 'showForm'])->name('du-lich.form');
-Route::post('/xem-ngay-xuat-hanh-du-lich-cong-tac', [DuLichCongTacController::class, 'checkDays'])->name('du-lich.check');
+// Route::get('/xem-ngay-xuat-hanh-du-lich-cong-tac', [DuLichCongTacController::class, 'showForm'])->name('du-lich.form');
+// Route::post('/xem-ngay-xuat-hanh-du-lich-cong-tac', [DuLichCongTacController::class, 'checkDays'])->name('du-lich.check');
 
 
 
