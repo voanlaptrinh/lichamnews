@@ -151,6 +151,16 @@
                      </a>
                  </li>
                   <li class="list-group-item  pb-0">
+                     <a href="{{ route('thi-cu.form') }}"
+                         class="{{ request()->routeIs('thi-cu.form') ? 'active-tools' : '' }}">
+                         <div class="event-details  --padding-event-tot">
+                             <div class="event-name" style="font-weight: unset">
+                                 Xem ngày thi cử - phỏng vấn
+                             </div>
+                         </div>
+                     </a>
+                 </li>
+                  <li class="list-group-item  pb-0">
                      <a href="{{ route('phong-sinh.form') }}"
                          class="{{ request()->routeIs('phong-sinh.form') ? 'active-tools' : '' }}">
                          <div class="event-details  --padding-event-tot">
@@ -166,6 +176,16 @@
                          <div class="event-details  --padding-event-tot">
                              <div class="event-name" style="font-weight: unset">
                                  Xem ngày nhận công việc mới
+                             </div>
+                         </div>
+                     </a>
+                 </li>
+                  <li class="list-group-item  pb-0">
+                     <a href="{{ route('giay-to.form') }}"
+                         class="{{ request()->routeIs('giay-to.form') ? 'active-tools' : '' }}">
+                         <div class="event-details  --padding-event-tot">
+                             <div class="event-name" style="font-weight: unset">
+                                 Xem ngày làm giấy tờ
                              </div>
                          </div>
                      </a>

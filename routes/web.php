@@ -201,19 +201,24 @@ Route::prefix('xem-ngay-tran-trach')->group(function () {
 Route::prefix('xem-ngay-cau-an-lam-phuc')->group(function () {
     Route::get('/', [PhongSinhController::class, 'showForm'])->name('phong-sinh.form');
     Route::post('/', [PhongSinhController::class, 'checkDays'])->name('phong-sinh.check');
-        Route::get('/chi-tiet/{date}', [PhongSinhController::class, 'showDayDetails'])->name('phong-sinh.details');
+    Route::get('/chi-tiet/{date}', [PhongSinhController::class, 'showDayDetails'])->name('phong-sinh.details');
 });
 
 // === ROUTE Xem ngày nhận công việc mới ===
 Route::prefix('xem-ngay-nhan-cong-viec-moi')->group(function () {
-Route::get('/', [NhanCongViecMoiController::class, 'showForm'])->name('cong-viec-moi.form');
-Route::post('/', [NhanCongViecMoiController::class, 'checkDays'])->name('cong-viec-moi.check');
-        Route::get('/chi-tiet/{date}', [NhanCongViecMoiController::class, 'showDayDetails'])->name('cong-viec-moi.details');
+    Route::get('/', [NhanCongViecMoiController::class, 'showForm'])->name('cong-viec-moi.form');
+    Route::post('/', [NhanCongViecMoiController::class, 'checkDays'])->name('cong-viec-moi.check');
+    Route::get('/chi-tiet/{date}', [NhanCongViecMoiController::class, 'showDayDetails'])->name('cong-viec-moi.details');
 });
 
 // === ROUTE Xem Ngày làm giấy tờ - cccd, hộ chiếu ===
-Route::get('/xem-ngay-lam-giay-to', [GiayToController::class, 'showForm'])->name('giay-to.form');
-Route::post('/xem-ngay-lam-giay-to', [GiayToController::class, 'checkDays'])->name('giay-to.check');
+Route::prefix('xem-ngay-lam-giay-to')->group(function () {
+Route::get('/', [GiayToController::class, 'showForm'])->name('giay-to.form');
+Route::post('/', [GiayToController::class, 'checkDays'])->name('giay-to.check');
+    Route::get('/chi-tiet/{date}', [GiayToController::class, 'showDayDetails'])->name('giay-to.details');
+});
+
+
 
 // === ROUTE Xem hướng ban thờ ===
 Route::get('/xem-huong-ban-tho', [XemHuongBanThoController::class, 'showForm'])->name('huong-ban-tho.form');
