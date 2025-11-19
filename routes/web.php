@@ -204,16 +204,12 @@ Route::prefix('xem-ngay-cau-an-lam-phuc')->group(function () {
         Route::get('/chi-tiet/{date}', [PhongSinhController::class, 'showDayDetails'])->name('phong-sinh.details');
 });
 
-// === ROUTE Xem ngày xuất hành du lịch công tác ===
-// Route::get('/xem-ngay-xuat-hanh-du-lich-cong-tac', [DuLichCongTacController::class, 'showForm'])->name('du-lich.form');
-// Route::post('/xem-ngay-xuat-hanh-du-lich-cong-tac', [DuLichCongTacController::class, 'checkDays'])->name('du-lich.check');
-
-
-
-
 // === ROUTE Xem ngày nhận công việc mới ===
-Route::get('/xem-ngay-nhan-cong-viec-moi', [NhanCongViecMoiController::class, 'showForm'])->name('cong-viec-moi.form');
-Route::post('/xem-ngay-nhan-cong-viec-moi', [NhanCongViecMoiController::class, 'checkDays'])->name('cong-viec-moi.check');
+Route::prefix('xem-ngay-nhan-cong-viec-moi')->group(function () {
+Route::get('/', [NhanCongViecMoiController::class, 'showForm'])->name('cong-viec-moi.form');
+Route::post('/', [NhanCongViecMoiController::class, 'checkDays'])->name('cong-viec-moi.check');
+        Route::get('/chi-tiet/{date}', [NhanCongViecMoiController::class, 'showDayDetails'])->name('cong-viec-moi.details');
+});
 
 // === ROUTE Xem Ngày làm giấy tờ - cccd, hộ chiếu ===
 Route::get('/xem-ngay-lam-giay-to', [GiayToController::class, 'showForm'])->name('giay-to.form');

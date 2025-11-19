@@ -484,7 +484,7 @@
             const dateRange = urlParams.get('date_range');
 
             // Build the target URL with hash parameters
-            let targetUrl = '{{ route('buy-house.form') }}';
+            let targetUrl = '{{ route('tran-trach.form') }}';
             const hashParams = [];
 
             // Add birthdate to hash if available

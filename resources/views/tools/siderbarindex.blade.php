@@ -150,6 +150,26 @@
                          </div>
                      </a>
                  </li>
+                  <li class="list-group-item  pb-0">
+                     <a href="{{ route('phong-sinh.form') }}"
+                         class="{{ request()->routeIs('phong-sinh.form') ? 'active-tools' : '' }}">
+                         <div class="event-details  --padding-event-tot">
+                             <div class="event-name" style="font-weight: unset">
+                                 Xem ngày cầu an - làm phúc 
+                             </div>
+                         </div>
+                     </a>
+                 </li>
+                  <li class="list-group-item  pb-0">
+                     <a href="{{ route('cong-viec-moi.form') }}"
+                         class="{{ request()->routeIs('cong-viec-moi.form') ? 'active-tools' : '' }}">
+                         <div class="event-details  --padding-event-tot">
+                             <div class="event-name" style="font-weight: unset">
+                                 Xem ngày nhận công việc mới
+                             </div>
+                         </div>
+                     </a>
+                 </li>
              </ul>
          </div>
      </div>

@@ -17,7 +17,7 @@
                   Tiện ích
                 </li>
                  <li class="breadcrumb-item" aria-current="page">
-                  Xem ngày cầu an
+                  Xem ngày nhận công việc mới
                 </li>
                  <li class="breadcrumb-item active" aria-current="page">
                Chi tiết
@@ -27,7 +27,7 @@
 
        
 
-        <h1 class="content-title-home-lich">Chi tiết xem ngày cầu an</h1>
+        <h1 class="content-title-home-lich">Chi tiết xem ngày nhận công việc mới</h1>
 
         <!-- Nút quay lại -->
 
@@ -217,7 +217,7 @@
                                 <img src="{{ asset('icons/dac-diem1.svg') }}" alt="thông tin người xem" width="28"
                                     height="28" class="me-1"> <span>Đánh giá cho điểm các yếu tố ngày cho tuổi
                                     {{ $groomData['personInfo']['can_chi_nam'] }}
-                                    ({{ $groomData['personInfo']['dob']->format('d-m-Y') }}) cầu an:
+                                    ({{ $groomData['personInfo']['dob']->format('d-m-Y') }}) nhận công việc mới:
                                     {{ round($groomData['score']['percentage']) }}/100
                                     ({{ round($groomData['score']['percentage']) }}%)</span>
                             </div>
@@ -237,7 +237,7 @@
                                         </tr>
                                         @php
                                             $weights =
-                                                \App\Helpers\DataHelper::$PURPOSE_WEIGHTS_PERSONALIZED['CUU_MANG'];
+                                                \App\Helpers\DataHelper::$PURPOSE_WEIGHTS_PERSONALIZED['NHAN_CONG'];
                                             $totalWeight = array_sum($weights);
                                         @endphp
                                         <tr>
@@ -484,7 +484,7 @@
             const dateRange = urlParams.get('date_range');
 
             // Build the target URL with hash parameters
-            let targetUrl = '{{ route('phong-sinh.form') }}';
+            let targetUrl = '{{ route('buy-house.form') }}';
             const hashParams = [];
 
             // Add birthdate to hash if available

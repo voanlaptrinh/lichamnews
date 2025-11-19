@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Helpers\AstrologyHelper;
+use App\Helpers\BadDayHelper;
 use App\Helpers\DataHelper;
 use App\Helpers\GoodBadDayHelper;
 use App\Helpers\KhiVanHelper;
@@ -20,7 +21,7 @@ class NhanCongViecMoiController extends Controller
     public function showForm()
     {
         // Không cần truyền dateRanges nữa
-        return view('cong-viec-moi.index');
+        return view('tools.cong-viec-moi.form');
     }
 
     /**
@@ -33,7 +34,7 @@ class NhanCongViecMoiController extends Controller
         $originalInputs = $input;
 
         $dateRange = $request->input('date_range');
-        $dates = $dateRange ? explode(' đến ', $dateRange) : [null, null];
+        $dates = $dateRange ? explode(' - ', $dateRange) : [null, null];
         if (count($dates) === 1) $dates[1] = $dates[0];
 
         $request->merge([
@@ -61,6 +62,9 @@ class NhanCongViecMoiController extends Controller
         ]);
 
         if ($validator->fails()) {
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json(['success' => false, 'errors' => $validator->errors()], 422);
+            }
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
@@ -99,10 +103,10 @@ class NhanCongViecMoiController extends Controller
 
         foreach ($period as $date) {
             $year = $date->year;
-
+            $birthdateal = LunarHelper::convertSolar2Lunar($birthdate->day, $birthdate->month, $birthdate->year);
 
             // b. Tính toán điểm số của ngày dựa trên tuổi gia chủ
-            $dayScoreDetails = GoodBadDayHelper::calculateDayScore($date, $birthdate->year, $purpose);
+            $dayScoreDetails = GoodBadDayHelper::calculateDayScore($date, $birthdateal[2], $purpose);
 
             // c. Lấy thông tin Can Chi của ngày
             $jd = LunarHelper::jdFromDate($date->day, $date->month, $date->year);
@@ -121,14 +125,41 @@ class NhanCongViecMoiController extends Controller
                 'date' => $date->copy(),
                 'weekday_name' => $date->isoFormat('dddd'),
                 'full_lunar_date_str' => $fullLunarDateStr,
+                'al_name' => $lunarParts,
                 'good_hours' => $goodHours,
                 'day_score' => $dayScoreDetails, // Toàn bộ object điểm số và chi tiết
             ];
         }
 
-        // 4. Trả kết quả về cho view
-        return view('cong-viec-moi.index', [
-            'date_start_end' => $dates,
+        // Sắp xếp kết quả theo điểm số
+        $sortOrder = $request->input('sort', 'desc');
+        foreach ($resultsByYear as &$yearData) {
+            if (isset($yearData['days']) && is_array($yearData['days'])) {
+                usort($yearData['days'], function ($a, $b) use ($sortOrder) {
+                    $scoreA = $a['day_score']['percentage'] ?? 0;
+                    $scoreB = $b['day_score']['percentage'] ?? 0;
+                    return $sortOrder === 'asc' ? $scoreA <=> $scoreB : $scoreB <=> $scoreA;
+                });
+            }
+        }
+        unset($yearData);
+
+        // 4. Trả kết quả về cho view hoặc AJAX
+        if ($request->ajax() || $request->wantsJson()) {
+            $html = view('tools.cong-viec-moi.results', [
+                'inputs' => $originalInputs,
+                'birthdateInfo' => $birthdateInfo,
+                'resultsByYear' => $resultsByYear,
+                'sortOrder' => $sortOrder,
+            ])->render();
+
+            return response()->json([
+                'success' => true,
+                'html' => $html,
+            ]);
+        }
+
+        return view('tools.cong-viec-moi.form', [
             'inputs' => $originalInputs,
             'birthdateInfo' => $birthdateInfo,
             'resultsByYear' => $resultsByYear,
@@ -139,11 +170,14 @@ class NhanCongViecMoiController extends Controller
      */
     private function calculateYearAnalysis(Carbon $dob, int $yearToCheck): array
     {
-        $birthYear = $dob->year;
+      $lunarDob = LunarHelper::convertSolar2Lunar($dob->day, $dob->month, $dob->year);
+        $birthYear = $lunarDob[2];
+
         $lunarAge = AstrologyHelper::getLunarAge($birthYear, $yearToCheck);
 
         $kimLau = AstrologyHelper::checkKimLau($lunarAge);
         $hoangOc = AstrologyHelper::checkHoangOc($lunarAge);
+        
         $tamTai = AstrologyHelper::checkTamTai($birthYear, $yearToCheck);
 
         $badFactors = [];
@@ -152,11 +186,17 @@ class NhanCongViecMoiController extends Controller
         if ($tamTai['is_bad']) $badFactors[] = 'Tam Tai';
 
         $isBadYear = count($badFactors) > 0;
-
+        $message = $isBadYear
+            ? "Năm {$yearToCheck}, gia chủ phạm phải: <strong>" . implode(', ', $badFactors) . "</strong>  – đây là yếu tố phong thủy cần đặc biệt lưu ý khi nhận công việc mới.
+<ul><li>Nếu công việc không quá quan trọng, bạn vẫn có thể tiến hành nhưng cần cẩn trọng và chọn ngày giờ thật tốt để giảm thiểu rủi ro.</li><li>Nếu là công việc quan trọng, có tính chất lâu dài, ảnh hưởng lớn đến sự nghiệp, bạn nên cân nhắc kỹ lưỡng, có thể chờ sang năm khác thuận lợi hơn hoặc tìm cách hóa giải các yếu tố xấu theo tư vấn phong thủy.</li> </ul>
+"
+            : "Năm {$yearToCheck}, gia chủ không phạm Kim Lâu, Hoang Ốc hay Tam Tai – đây là tín hiệu rất tốt trong phong thủy. Bạn hoàn toàn có thể an tâm tiến hành nhận công việc mới trong năm nay.
+Thời điểm cát lợi, vận khí hanh thông – rất thích hợp để phát triển sự nghiệp, thăng tiến và gặt hái thành công.";
 
         return [
             'is_bad_year' => $isBadYear,
             'lunar_age' => $lunarAge,
+            'description' => $message,
             'details' => compact('kimLau', 'hoangOc', 'tamTai'),
         ];
     }
@@ -168,10 +208,11 @@ class NhanCongViecMoiController extends Controller
      */
     private function getPersonBasicInfo(Carbon $dob): array
     {
-        $birthYear = $dob->year;
-        $canChiNam = KhiVanHelper::canchiNam((int)$birthYear);
-        $menh = DataHelper::$napAmTable[$canChiNam]; // Giả sử bạn có DataHelper
+      
         $lunarDob = LunarHelper::convertSolar2Lunar($dob->day, $dob->month, $dob->year);
+         $canChiNam = KhiVanHelper::canchiNam($lunarDob[2]);
+        
+        $menh = DataHelper::$napAmTable[$canChiNam]; // Giả sử bạn có DataHelper
 
         return [
             'dob' => $dob,
@@ -179,5 +220,33 @@ class NhanCongViecMoiController extends Controller
             'can_chi_nam' => $canChiNam,
             'menh' => $menh,
         ];
+    }
+
+     public function showDayDetails(Request $request, $date)
+    {
+        // 1. Validate dữ liệu - đã loại bỏ 'person_type'
+         $validated = Validator::make(['date' => $date, 'birthdate' => $request->input('birthdate')], [
+            'date' => 'required|date_format:Y-m-d',
+            'birthdate' => 'required|date_format:Y-m-d',
+        ])->validate();
+
+        // 2. Chuẩn bị các đối tượng ngày tháng
+        $dateToCheck = Carbon::parse($validated['date']);
+        $groomDob = Carbon::parse($validated['birthdate']);
+
+        // 3. Lấy thông tin chung của ngày (tính 1 lần, vì nó không đổi)
+
+        $commonDayInfo = BadDayHelper::getdetailtable($dateToCheck);
+        $tabooResult = GoodBadDayHelper::checkTabooDays($dateToCheck, 'NHAN_CONG'); // Changed purpose
+
+        // 4. Lấy thông tin chi tiết cho Chú Rể
+        $groomData = BadDayHelper::getDetailedAnalysisForPerson($dateToCheck, $groomDob, 'Ngày nhận việc mới', 'NHAN_CONG'); // Changed purpose and title
+        // 5. Tính điểm số của ngày - sử dụng năm sinh thay vì Carbon object
+        // 6. Trả về view với toàn bộ dữ liệu
+        return view('tools.cong-viec-moi.day_details', compact( // Changed view
+            'commonDayInfo',
+            'groomData',
+            'tabooResult',
+        ));
     }
 }
