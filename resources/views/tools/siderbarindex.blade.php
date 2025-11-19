@@ -120,6 +120,16 @@
                          </div>
                      </a>
                  </li>
+                  <li class="list-group-item  pb-0">
+                     <a href="{{ route('lap-ban-tho.form') }}"
+                         class="{{ request()->routeIs('lap-ban-tho.form') ? 'active-tools' : '' }}">
+                         <div class="event-details  --padding-event-tot">
+                             <div class="event-name" style="font-weight: unset">
+                                 Xem ngày lập ban thờ
+                             </div>
+                         </div>
+                     </a>
+                 </li>
              </ul>
          </div>
      </div>
