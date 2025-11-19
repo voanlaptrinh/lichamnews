@@ -41,6 +41,16 @@
                      </a>
                  </li>
                  <li class="list-group-item  pb-0">
+                     <a href="{{ route('dam-ngo.form') }}"
+                         class="{{ request()->routeIs('dam-ngo.form') ? 'active-tools' : '' }}">
+                         <div class="event-details  --padding-event-tot">
+                             <div class="event-name" style="font-weight: unset">
+                                 Xem ngày dạm ngõ
+                             </div>
+                         </div>
+                     </a>
+                 </li>
+                 <li class="list-group-item  pb-0">
                      <a href="{{ route('khai-truong.form') }}"
                          class="{{ request()->routeIs('khai-truong.form') ? 'active-tools' : '' }}">
                          <div class="event-details  --padding-event-tot">

@@ -4,6 +4,7 @@ use App\Http\Controllers\BanThoController;
 use App\Http\Controllers\BuyHouseController;
 use App\Http\Controllers\CaiTangController;
 use App\Http\Controllers\CompatibilityController;
+use App\Http\Controllers\DamNgoController;
 use App\Http\Controllers\DongThoController;
 use App\Http\Controllers\DuLichCongTacController;
 use App\Http\Controllers\FooterController;
@@ -115,6 +116,12 @@ Route::prefix('xem-ngay-ket-hon')->group(function () {
     Route::get('/', [WeddingController::class, 'showForm'])->name('astrology.form');
     Route::post('/', [WeddingController::class, 'check'])->name('astrology.check');
     Route::get('/chi-tiet', [WeddingController::class, 'showDayDetails'])->name('wedding.day.details');
+});
+// Xem tuổi để cưới hỏi
+Route::prefix('xem-ngay-dam-ngo')->group(function () {
+    Route::get('/', [DamNgoController::class, 'showForm'])->name('dam-ngo.form');
+    Route::post('/', [DamNgoController::class, 'check'])->name('dam-ngo.check');
+    Route::get('/chi-tiet', [DamNgoController::class, 'showDayDetails'])->name('dam-ngo.day.details');
 });
 //Xem ngày khai trương
 Route::prefix('xem-ngay-khai-truong')->group(function () {
