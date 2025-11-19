@@ -140,6 +140,16 @@
                          </div>
                      </a>
                  </li>
+                 <li class="list-group-item  pb-0">
+                     <a href="{{ route('tran-trach.form') }}"
+                         class="{{ request()->routeIs('tran-trach.form') ? 'active-tools' : '' }}">
+                         <div class="event-details  --padding-event-tot">
+                             <div class="event-name" style="font-weight: unset">
+                                 Xem ngày trấn trạch
+                             </div>
+                         </div>
+                     </a>
+                 </li>
              </ul>
          </div>
      </div>

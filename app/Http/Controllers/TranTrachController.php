@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Helpers\AstrologyHelper;
+use App\Helpers\BadDayHelper;
 use App\Helpers\DataHelper;
 use App\Helpers\GoodBadDayHelper;
 use App\Helpers\KhiVanHelper;
@@ -11,15 +12,16 @@ use App\Helpers\LunarHelper;
 use Carbon\CarbonPeriod;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
+
 class TranTrachController extends Controller
 {
-       /**
+    /**
      * Hiển thị form xem ngày trấn trạch.
      */
     public function showForm()
     {
         // Không cần truyền dateRanges nữa
-        return view('tran-trach.index');
+        return view('tools.tran-trach.form');
     }
 
     /**
@@ -32,7 +34,7 @@ class TranTrachController extends Controller
         $originalInputs = $input;
 
         $dateRange = $request->input('date_range');
-        $dates = $dateRange ? explode(' đến ', $dateRange) : [null, null];
+        $dates = $dateRange ? explode(' - ', $dateRange) : [null, null];
         if (count($dates) === 1) $dates[1] = $dates[0];
 
         $request->merge([
@@ -47,7 +49,7 @@ class TranTrachController extends Controller
         $request->merge($input);
 
         $validator = Validator::make($request->all(), [
-           
+
             'birthdate' => 'required|date',
             'date_range' => 'required',
             'start_date' => 'required|date_format:d/m/Y',
@@ -60,12 +62,17 @@ class TranTrachController extends Controller
         ]);
 
         if ($validator->fails()) {
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json(['success' => false, 'errors' => $validator->errors()], 422);
+            }
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
         $validated = $validator->validated();
 
         $birthdate = Carbon::parse($validated['birthdate']);
+
+
         $startDate = Carbon::createFromFormat('d/m/Y', $validated['start_date'])->startOfDay();
         $endDate = Carbon::createFromFormat('d/m/Y', $validated['end_date'])->endOfDay();
         $period = CarbonPeriod::create($startDate, $endDate);
@@ -98,10 +105,10 @@ class TranTrachController extends Controller
 
         foreach ($period as $date) {
             $year = $date->year;
-
+            $birthdateal = LunarHelper::convertSolar2Lunar($birthdate->day, $birthdate->month, $birthdate->year);
 
             // b. Tính toán điểm số của ngày dựa trên tuổi gia chủ
-            $dayScoreDetails = GoodBadDayHelper::calculateDayScore($date, $birthdate->year, $purpose);
+            $dayScoreDetails = GoodBadDayHelper::calculateDayScore($date, $birthdateal[2], $purpose);
 
             // c. Lấy thông tin Can Chi của ngày
             $jd = LunarHelper::jdFromDate($date->day, $date->month, $date->year);
@@ -120,14 +127,41 @@ class TranTrachController extends Controller
                 'date' => $date->copy(),
                 'weekday_name' => $date->isoFormat('dddd'),
                 'full_lunar_date_str' => $fullLunarDateStr,
+                'al_name' => $lunarParts,
                 'good_hours' => $goodHours,
                 'day_score' => $dayScoreDetails, // Toàn bộ object điểm số và chi tiết
             ];
         }
 
-        // 4. Trả kết quả về cho view
-        return view('tran-trach.index', [
-            'date_start_end' => $dates,
+        // Sắp xếp kết quả theo điểm số
+        $sortOrder = $request->input('sort', 'desc');
+        foreach ($resultsByYear as &$yearData) {
+            if (isset($yearData['days']) && is_array($yearData['days'])) {
+                usort($yearData['days'], function ($a, $b) use ($sortOrder) {
+                    $scoreA = $a['day_score']['percentage'] ?? 0;
+                    $scoreB = $b['day_score']['percentage'] ?? 0;
+                    return $sortOrder === 'asc' ? $scoreA <=> $scoreB : $scoreB <=> $scoreA;
+                });
+            }
+        }
+        unset($yearData);
+
+        // 4. Trả kết quả về cho view hoặc AJAX
+        if ($request->ajax() || $request->wantsJson()) {
+            $html = view('tools.tran-trach.results', [
+                'inputs' => $originalInputs,
+                'birthdateInfo' => $birthdateInfo,
+                'resultsByYear' => $resultsByYear,
+                'sortOrder' => $sortOrder,
+            ])->render();
+
+            return response()->json([
+                'success' => true,
+                'html' => $html,
+            ]);
+        }
+
+        return view('tools.tran-trach.form', [
             'inputs' => $originalInputs,
             'birthdateInfo' => $birthdateInfo,
             'resultsByYear' => $resultsByYear,
@@ -138,11 +172,14 @@ class TranTrachController extends Controller
      */
     private function calculateYearAnalysis(Carbon $dob, int $yearToCheck): array
     {
-        $birthYear = $dob->year;
+        $lunarDob = LunarHelper::convertSolar2Lunar($dob->day, $dob->month, $dob->year);
+        $birthYear = $lunarDob[2];
+
         $lunarAge = AstrologyHelper::getLunarAge($birthYear, $yearToCheck);
 
         $kimLau = AstrologyHelper::checkKimLau($lunarAge);
         $hoangOc = AstrologyHelper::checkHoangOc($lunarAge);
+
         $tamTai = AstrologyHelper::checkTamTai($birthYear, $yearToCheck);
 
         $badFactors = [];
@@ -151,11 +188,17 @@ class TranTrachController extends Controller
         if ($tamTai['is_bad']) $badFactors[] = 'Tam Tai';
 
         $isBadYear = count($badFactors) > 0;
-      
+        $message = $isBadYear
+            ? "Năm {$yearToCheck}, gia chủ phạm phải: <strong>" . implode(', ', $badFactors) . "</strong>  – đây là yếu tố phong thủy cần đặc biệt lưu ý khi thực hiện các việc trọng đại liên quan đến trấn trạch.
+<ul><li>Nếu mục đích trấn trạch chỉ là nghi lễ nhỏ hoặc mang tính biểu tượng: vẫn có thể tiến hành trong năm nay, miễn là chọn đúng ngày giờ tốt hợp tuổi, có thể hóa giải phần nào sát khí.</li><li>Ngược lại, nếu gia chủ dự định thực hiện trấn trạch lớn, động thổ, hoặc thay đổi cấu trúc nhà cửa: nên cân nhắc kỹ lưỡng. Trường hợp vẫn muốn thực hiện trong năm, cần áp dụng các biện pháp hóa giải vận hạn phù hợp hoặc chờ sang năm thuận lợi hơn để đảm bảo an toàn và may mắn.</li> </ul>
+"
+            : "Năm {$yearToCheck}, gia chủ không phạm Kim Lâu, Hoang Ốc hay Tam Tai – đây là tín hiệu rất tốt trong phong thủy. Bạn hoàn toàn có thể an tâm tiến hành các công việc trọng đại liên quan đến trấn trạch trong năm nay.
+Thời điểm cát lợi, vận khí hanh thông – rất thích hợp để cầu an, chiêu tài lộc.";
 
         return [
             'is_bad_year' => $isBadYear,
             'lunar_age' => $lunarAge,
+            'description' => $message,
             'details' => compact('kimLau', 'hoangOc', 'tamTai'),
         ];
     }
@@ -167,10 +210,11 @@ class TranTrachController extends Controller
      */
     private function getPersonBasicInfo(Carbon $dob): array
     {
-        $birthYear = $dob->year;
-        $canChiNam = KhiVanHelper::canchiNam((int)$birthYear);
-        $menh = DataHelper::$napAmTable[$canChiNam]; // Giả sử bạn có DataHelper
+
         $lunarDob = LunarHelper::convertSolar2Lunar($dob->day, $dob->month, $dob->year);
+        $canChiNam = KhiVanHelper::canchiNam($lunarDob[2]);
+
+        $menh = DataHelper::$napAmTable[$canChiNam]; // Giả sử bạn có DataHelper
 
         return [
             'dob' => $dob,
@@ -178,5 +222,32 @@ class TranTrachController extends Controller
             'can_chi_nam' => $canChiNam,
             'menh' => $menh,
         ];
+    }
+    public function details(Request $request, $date)
+    {
+        // 1. Validate dữ liệu - đã loại bỏ 'person_type'
+        $validated = Validator::make(['date' => $date, 'birthdate' => $request->input('birthdate')], [
+            'date' => 'required|date_format:Y-m-d',
+            'birthdate' => 'required|date_format:Y-m-d',
+        ])->validate();
+
+        // 2. Chuẩn bị các đối tượng ngày tháng
+        $dateToCheck = Carbon::parse($validated['date']);
+        $groomDob = Carbon::parse($validated['birthdate']);
+
+        // 3. Lấy thông tin chung của ngày (tính 1 lần, vì nó không đổi)
+
+        $commonDayInfo = BadDayHelper::getdetailtable($dateToCheck);
+        $tabooResult = GoodBadDayHelper::checkTabooDays($dateToCheck, 'CUNG_SAO_GIAI_HAN');
+
+        // 4. Lấy thông tin chi tiết cho Chú Rể
+        $groomData = BadDayHelper::getDetailedAnalysisForPerson($dateToCheck, $groomDob, 'Giải hạn', 'CUNG_SAO_GIAI_HAN');
+        // 5. Tính điểm số của ngày - sử dụng năm sinh thay vì Carbon object
+        // 6. Trả về view với toàn bộ dữ liệu
+        return view('tools.tran-trach.day_details', compact(
+            'commonDayInfo',
+            'groomData',
+            'tabooResult',
+        ));
     }
 }

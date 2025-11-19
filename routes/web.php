@@ -183,14 +183,19 @@ Route::prefix('xem-ngay-lap-ban-tho')->group(function () {
 
 // === ROUTE XEM NGÀY cung sao giải hạn ===
 Route::prefix('xem-ngay-cung-sao-giai-han')->group(function () {
-Route::get('/', [GiaiHanController::class, 'showForm'])->name('giai-han.form');
-Route::post('/', [GiaiHanController::class, 'checkDays'])->name('giai-han.check');
- Route::get('/chi-tiet/{date}', [GiaiHanController::class, 'details'])->name('giai-han.details');
+    Route::get('/', [GiaiHanController::class, 'showForm'])->name('giai-han.form');
+    Route::post('/', [GiaiHanController::class, 'checkDays'])->name('giai-han.check');
+    Route::get('/chi-tiet/{date}', [GiaiHanController::class, 'details'])->name('giai-han.details');
 });
 
 // === ROUTE XEM NGÀY tRẤN TRẠCH ===
-Route::get('/xem-ngay-yem-tran-tran-trach', [TranTrachController::class, 'showForm'])->name('tran-trach.form');
-Route::post('/xem-ngay-yem-tran-tran-trach', [TranTrachController::class, 'checkDays'])->name('tran-trach.check');
+Route::prefix('xem-ngay-tran-trach')->group(function () {
+    Route::get('/', [TranTrachController::class, 'showForm'])->name('tran-trach.form');
+    Route::post('/', [TranTrachController::class, 'checkDays'])->name('tran-trach.check');
+    Route::get('/chi-tiet/{date}', [TranTrachController::class, 'details'])->name('tran-trach.details');
+});
+// Route::get('/xem-ngay-yem-tran-tran-trach', [TranTrachController::class, 'showForm'])->name('tran-trach.form');
+// Route::post('/xem-ngay-yem-tran-tran-trach', [TranTrachController::class, 'checkDays'])->name('tran-trach.check');
 
 // === ROUTE Xem Ngày Cầu an - làm phúc - phóng sinh ===
 Route::get('/xem-ngay-cau-an-lam-phuc-phong-sinh', [PhongSinhController::class, 'showForm'])->name('phong-sinh.form');
