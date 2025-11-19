@@ -89,22 +89,29 @@ class TotXauController extends Controller
 
         foreach ($period as $date) {
             $year = $date->year;
-               $birthdateal = LunarHelper::convertSolar2Lunar($birthdate->day, $birthdate->month, $birthdate->year);
+            $birthdateal = LunarHelper::convertSolar2Lunar($birthdate->day, $birthdate->month, $birthdate->year);
             $dayScoreDetails = FunctionHelper::getDaySummaryInfo($date->day, $date->month, $date->year, $birthdateal[2], $purpose);
             $jd = LunarHelper::jdFromDate($date->day, $date->month, $date->year);
             $dayCanChi = LunarHelper::canchiNgayByJD($jd);
             $dayChi = explode(' ', $dayCanChi)[1];
             $goodHours = LunarHelper::getGoodHours($dayChi, 'day');
             $lunarParts = LunarHelper::convertSolar2Lunar($date->day, $date->month, $date->year);
-            $fullLunarDateStr = sprintf('%02d/%02d %s', $lunarParts[0], $lunarParts[1], $dayCanChi);
+            $fullLunarDateStr = sprintf(
+                '%02d/%02d/%04d %s',
+                $lunarParts[0],
+                $lunarParts[1],
+                $lunarParts[2],
+                '(ÂL)'
+            );
+
 
             $resultsByYear[$year]['days'][] = [
                 'date' => $date->copy(),
                 'weekday_name' => $date->isoFormat('dddd'),
                 'full_lunar_date_str' => $fullLunarDateStr,
-                 'al_name' => $lunarParts,
+                'al_name' => $lunarParts,
                 'good_hours' => $goodHours,
-               'day_score' => $dayScoreDetails, // Toàn bộ object điểm số và chi tiết
+                'day_score' => $dayScoreDetails, // Toàn bộ object điểm số và chi tiết
             ];
         }
 
@@ -174,7 +181,7 @@ class TotXauController extends Controller
 
     private function calculateYearAnalysis(Carbon $dob, int $yearToCheck): array
     {
-     $lunarDob = LunarHelper::convertSolar2Lunar($dob->day, $dob->month, $dob->year);
+        $lunarDob = LunarHelper::convertSolar2Lunar($dob->day, $dob->month, $dob->year);
         $birthYear = $lunarDob[2];
         $lunarAge = AstrologyHelper::getLunarAge($birthYear, $yearToCheck);
 

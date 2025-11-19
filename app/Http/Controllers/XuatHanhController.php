@@ -109,7 +109,14 @@ class XuatHanhController extends Controller
             $dayChi = explode(' ', $dayCanChi)[1];
             $goodHours = LunarHelper::getGoodHours($dayChi, 'day');
             $lunarParts = LunarHelper::convertSolar2Lunar($date->day, $date->month, $date->year);
-            $fullLunarDateStr = sprintf('%02d/%02d %s', $lunarParts[0], $lunarParts[1], $dayCanChi);
+        $fullLunarDateStr = sprintf(
+                '%02d/%02d/%04d %s',
+                $lunarParts[0],
+                $lunarParts[1],
+                $lunarParts[2],
+                '(ÂL)'
+            );
+
 
             // f. Thêm tất cả kết quả vào mảng `days` của năm tương ứng
             $resultsByYear[$year]['days'][] = [

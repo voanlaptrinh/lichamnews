@@ -20,11 +20,7 @@
              
             </ol>
         </nav>
-        <div class="content-title-detail"><a href="{{ route('home') }}"
-                style="color: #2254AB; text-decoration: underline;">Trang chủ</a><i class="bi bi-chevron-right"></i> <a
-                style="color: #2254AB; text-decoration: underline;" href="">Tiện ích</a> <i
-                class="bi bi-chevron-right"></i> <span>
-                Xem ngày Động thổ</span></div>
+  
 
         <h1 class="content-title-home-lich">Xem ngày động thổ</h1>
 

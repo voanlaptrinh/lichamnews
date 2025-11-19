@@ -205,7 +205,7 @@
                                                         }
                                                     @endphp
                                             <tr>
-                                                <td>
+                                                <td style="text-align: start">
                                                     <a
                                                         href="{{ route('wedding.day.details', [
                                                             'date' => $day['date']->format('Y-m-d'),

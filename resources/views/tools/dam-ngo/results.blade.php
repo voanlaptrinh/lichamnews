@@ -177,7 +177,7 @@
                                                         }
                                                     @endphp
                                             <tr>
-                                                <td>
+                                                <td style="text-align: start">
                                                     <a
                                                         href="{{ route('dam-ngo.day.details', [
                                                             'date' => $day['date']->format('Y-m-d'),

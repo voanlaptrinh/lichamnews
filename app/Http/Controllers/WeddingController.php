@@ -136,7 +136,14 @@ class WeddingController extends Controller
             $goodHours = LunarHelper::getGoodHours($dayChi, 'day');
             // c. Tạo chuỗi ngày Âm lịch đầy đủ để hiển thị
             $lunarParts = LunarHelper::convertSolar2Lunar($date->day, $date->month, $date->year);
-            $fullLunarDateStr = sprintf('Ngày %02d/%02d %s', $lunarParts[0], $lunarParts[1], $dayCanChi);
+         $fullLunarDateStr = sprintf(
+                '%02d/%02d/%04d %s',
+                $lunarParts[0],
+                $lunarParts[1],
+                $lunarParts[2],
+                '(ÂL)'
+            );
+
             // Thêm kết quả chi tiết của ngày vào đúng năm của nó
             $resultsByYear[$year]['days'][] = [
                 'date' => $date->copy(), // Dùng copy() để đảm bảo đối tượng date không bị thay đổi

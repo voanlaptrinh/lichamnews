@@ -12,6 +12,7 @@ use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
+
 class DamNgoController extends Controller
 {
     /**
@@ -132,7 +133,15 @@ class DamNgoController extends Controller
             $goodHours = LunarHelper::getGoodHours($dayChi, 'day');
             // c. Tạo chuỗi ngày Âm lịch đầy đủ để hiển thị
             $lunarParts = LunarHelper::convertSolar2Lunar($date->day, $date->month, $date->year);
-            $fullLunarDateStr = sprintf('Ngày %02d/%02d %s', $lunarParts[0], $lunarParts[1], $dayCanChi);
+           $fullLunarDateStr = sprintf(
+                '%02d/%02d/%04d %s',
+                $lunarParts[0],
+                $lunarParts[1],
+                $lunarParts[2],
+                '(ÂL)'
+            );
+
+
             // Thêm kết quả chi tiết của ngày vào đúng năm của nó
             $resultsByYear[$year]['days'][] = [
                 'date' => $date->copy(), // Dùng copy() để đảm bảo đối tượng date không bị thay đổi
@@ -266,7 +275,7 @@ class DamNgoController extends Controller
             'is_bad_year' => count($badFactors) > 0, // Trạng thái tổng quan
         ];
     }
- 
+
     /**
      * [ĐÃ SỬA] Hiển thị trang chi tiết ngày cưới cho cả Chú rể và Cô dâu.
      *
@@ -296,13 +305,13 @@ class DamNgoController extends Controller
         // 3. Lấy thông tin chung của ngày (tính 1 lần, vì nó không đổi)
 
         $commonDayInfo = BadDayHelper::getdetailtable($dateToCheck);
-       
+
 
         // 4. Lấy thông tin chi tiết cho Chú Rể
         $groomData = BadDayHelper::getDetailedAnalysisForPerson($dateToCheck, $groomDob, 'Chú Rể', 'DINH_HON');
 
         // 5. Lấy thông tin chi tiết cho Cô Dâu
-        $brideData = BadDayHelper::getDetailedAnalysisForPerson($dateToCheck, $brideDob, 'Cô Dâu','DINH_HON');
+        $brideData = BadDayHelper::getDetailedAnalysisForPerson($dateToCheck, $brideDob, 'Cô Dâu', 'DINH_HON');
 
         // 6. Trả về view với toàn bộ dữ liệu
         return view('tools.dam-ngo.day_details', compact(

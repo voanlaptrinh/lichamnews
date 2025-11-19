@@ -119,7 +119,14 @@ class KyHopDongController extends Controller
 
                 // Tạo chuỗi ngày Âm lịch đầy đủ để hiển thị
                 $lunarParts = LunarHelper::convertSolar2Lunar($date->day, $date->month, $date->year);
-                $fullLunarDateStr = sprintf('Ngày %02d/%02d %s', $lunarParts[0], $lunarParts[1], $dayCanChi);
+               $fullLunarDateStr = sprintf(
+                '%02d/%02d/%04d %s',
+                $lunarParts[0],
+                $lunarParts[1],
+                $lunarParts[2],
+                '(ÂL)'
+            );
+
 
                 // Thêm tất cả kết quả vào mảng `days` của năm tương ứng
                 $resultsByYear[$year]['days'][] = [
