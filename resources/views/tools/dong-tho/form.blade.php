@@ -865,6 +865,13 @@
                             // Re-initialize Bootstrap tabs if present
                             resultsContainer.querySelectorAll('[data-bs-toggle="tab"]')
                                 .forEach(tab => new bootstrap.Tab(tab));
+
+                            // Khởi tạo taboo filter với dữ liệu từ response
+                            setTimeout(() => {
+                                if (data.resultsByYear) {
+                                    initTabooFilter(data.resultsByYear);
+                                }
+                            }, 500);
                         } else if (data.errors) {
                             // Show validation errors
                             const errorMessages = Object.entries(data.errors)
@@ -945,4 +952,5 @@
 
         });
     </script>
+    @include('components.taboo-filter-script')
 @endpush
