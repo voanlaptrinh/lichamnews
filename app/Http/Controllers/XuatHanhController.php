@@ -22,7 +22,9 @@ class XuatHanhController extends Controller
     public function showForm()
     {
         // Không cần truyền dateRanges nữa
-        return view('tools.xuat-hanh.form');
+                      $metaTitle = "Xem Ngày Tốt Xuất Hành | Chọn Ngày Đẹp Xuất Hành Theo Tuổi";
+        $metaDescription = "Xem ngày tốt xuất hành theo tuổi, chọn hướng đẹp và giờ tốt để đi xa. Tra cứu ngày hoàng đạo giúp hành trình thuận lợi, may mắn và hanh thông.";
+        return view('tools.xuat-hanh.form', compact('metaTitle', 'metaDescription'));
     }
 
     /**

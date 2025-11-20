@@ -23,7 +23,7 @@
 
      
 
-        <h1 class="content-title-home-lich">Xem ngày nhận việc mới</h1>
+        <h1 class="content-title-home-lich">Xem ngày tốt nhận công việc mới theo tuổi</h1>
 
         <div>
             <div class="row g-lg-3 g-2 pt-lg-3 pt-2">

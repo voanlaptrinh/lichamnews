@@ -21,7 +21,9 @@ class ThiCuPhongVanController extends Controller
     public function showForm()
     {
         // Không cần truyền dateRanges nữa
-        return view('tools.thi-cu.index');
+                $metaTitle = "Xem ngày tốt thi cử - phỏng vấn theo tuổi | Chọn ngày đẹp đi thi , phỏng vấn";
+        $metaDescription = "Xem ngày tốt thi cử – phỏng vấn theo tuổi để đạt kết quả tốt, tự tin và may mắn. Tra cứu ngày đẹp, giờ tốt giúp kỳ thi và buổi phỏng vấn diễn ra suôn sẻ.";
+        return view('tools.thi-cu.index', ['metaTitle' => $metaTitle, 'metaDescription' => $metaDescription]);
     }
 
     /**

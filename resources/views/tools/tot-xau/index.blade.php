@@ -2,10 +2,6 @@
 @section('content')
     @push('styles')
         <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=10.7') }}">
-
-        <style>
-           
-        </style>
     @endpush
 
 
@@ -26,7 +22,7 @@
 
        
 
-        <h1 class="content-title-home-lich">Xem ngày tốt xấu</h1>
+        <h1 class="content-title-home-lich">Xem Ngày Tốt – Kiểm Tra Ngày Đẹp, Ngày Xấu Chính Xác</h1>
 
         <div>
             <div class="row g-lg-3 g-2 pt-lg-3 pt-2">

@@ -20,10 +20,12 @@ class BanThoController extends Controller
 {
     public function showForm()
     {
-        return view('tools.ban-tho.form');
+        $metaTitle = "Xem Ngày Tốt Di Dời Bàn Thờ, Hợp Phong Thủy Theo Tuổi";
+        $metaDescription = "Xem ngày tốt di dời bàn thờ theo tuổi, chọn ngày đẹp hợp phong thủy để chuyển vị trí an vị gia tiên. Tra cứu ngày hoàng đạo, giờ tốt giúp nghi lễ diễn ra trang nghiêm.";
+        return view('tools.ban-tho.form', compact('metaTitle', 'metaDescription'));
     }
 
-  
+
 
     public function checkDays(Request $request)
     {
@@ -103,7 +105,7 @@ class BanThoController extends Controller
             $dayChi = explode(' ', $dayCanChi)[1];
             $goodHours = LunarHelper::getGoodHours($dayChi, 'day');
             $lunarParts = LunarHelper::convertSolar2Lunar($date->day, $date->month, $date->year);
-        $fullLunarDateStr = sprintf(
+            $fullLunarDateStr = sprintf(
                 '%02d/%02d/%04d %s',
                 $lunarParts[0],
                 $lunarParts[1],
@@ -191,15 +193,16 @@ class BanThoController extends Controller
             'menh' => $menh,
         ];
     }
-     public function details(Request $request, $date)
+    public function details(Request $request, $date)
     {
         // 1. Validate dữ liệu - đã loại bỏ 'person_type'
-         $validated = Validator::make(
-            ['date' => $date, 'birthdate' => $request->input('birthdate')]
-            , [
-            'date' => 'required|date_format:Y-m-d',
-            'birthdate' => 'required|date_format:Y-m-d',
-        ])->validate();
+        $validated = Validator::make(
+            ['date' => $date, 'birthdate' => $request->input('birthdate')],
+            [
+                'date' => 'required|date_format:Y-m-d',
+                'birthdate' => 'required|date_format:Y-m-d',
+            ]
+        )->validate();
 
         // 2. Chuẩn bị các đối tượng ngày tháng
         $dateToCheck = Carbon::parse($validated['date']);
@@ -220,7 +223,7 @@ class BanThoController extends Controller
             'tabooResult',
         ));
     }
-      // public function details(Request $request)
+    // public function details(Request $request)
     // {
     //     $validator = Validator::make($request->all(), [
     //         'date' => 'required|date_format:d-m-Y',

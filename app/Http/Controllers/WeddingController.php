@@ -24,7 +24,10 @@ class WeddingController extends Controller
     public function showForm()
     {
         // Truyền ngày hôm nay vào view để làm giá trị mặc định cho ngày cưới
-        return view('tools.wedding.check_form');
+          $metaTitle = "Xem Ngày Tốt Cưới Hỏi | Chọn Ngày Đẹp Kết Hôn Theo Tuổi";
+        $metaDescription = "Xem ngày tốt cưới hỏi theo tuổi, chọn ngày đẹp kết hôn hợp mệnh. Tra cứu ngày hoàng đạo, giờ tốt giúp hôn lễ thuận lợi, hạnh phúc trọn đời.";
+        // Không cần truyền dateRanges nữa
+        return view('tools.wedding.check_form', compact('metaTitle', 'metaDescription'));
     }
 
     /**

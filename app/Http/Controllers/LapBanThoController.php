@@ -21,7 +21,9 @@ class LapBanThoController extends Controller
     public function showForm()
     {
         // Không cần truyền dateRanges nữa
-        return view('tools.lap-ban-tho.form', ['inputs' => []]);
+        $metaTitle = "Xem Ngày Tốt Lập Bàn Thờ | Chọn Ngày Đẹp Bốc Bát Hương Theo Tuổi";
+        $metaDescription = "Xem ngày tốt lập bàn thờ theo tuổi, chọn ngày đẹp hợp phong thủy để an vị thần linh – gia tiên. Tra cứu ngày hoàng đạo, giờ tốt giúp nghi lễ trang trọng, thuận lợi.";
+        return view('tools.lap-ban-tho.form', compact('metaTitle', 'metaDescription'));
     }
 
     /**

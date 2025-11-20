@@ -20,7 +20,9 @@ class PhongSinhController extends Controller
     public function showForm()
     {
         // Không cần truyền dateRanges nữa
-        return view('tools.phong-sinh.form');
+        $metaTitle = "Xem Ngày Tốt Cầu An, Làm Phúc Theo Tuổi | Chọn Ngày Đẹp Cầu Bình An, Sức Khỏe";
+        $metaDescription = "Xem ngày tốt cầu an và làm phúc theo tuổi, chọn ngày đẹp hợp phong thủy để cầu bình an, sức khỏe và may mắn. Tra cứu ngày hoàng đạo, giờ tốt chuẩn xác.";
+        return view('tools.phong-sinh.form', ['metaTitle' => $metaTitle, 'metaDescription' => $metaDescription]);
     }
 
     /**

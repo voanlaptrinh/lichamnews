@@ -21,7 +21,9 @@ class DongThoController extends Controller
     public function showForm()
     {
         // Không cần truyền dateRanges nữa
-        return view('tools.dong-tho.form');
+              $metaTitle = "Xem Ngày Tốt Động Thổ | Chọn Ngày Động Thổ Theo Tuổi Hợp Mệnh";
+        $metaDescription = "Xem ngày tốt động thổ theo tuổi, chọn ngày đẹp để khởi công xây nhà hợp phong thủy. Tra cứu ngày hoàng đạo, giờ tốt giúp công trình thuận lợi, bền vững.";
+        return view('tools.dong-tho.form', compact('metaTitle', 'metaDescription'));
     }
 
     /**

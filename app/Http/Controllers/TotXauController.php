@@ -19,7 +19,9 @@ class TotXauController extends Controller
 {
     public function showForm()
     {
-        return view('tools.tot-xau.index');
+         $metaTitle = "Công Cụ Xem Ngày Tốt | Kiểm Tra Ngày Đẹp, Ngày Xấu Nhanh";
+        $metaDescription = "Công cụ xem ngày tốt giúp bạn tra cứu nhanh ngày đẹp hay ngày xấu theo phong thủy. Kiểm tra điểm ngày tốt, mức độ cát hung và đánh giá chi tiết cho từng ngày.";
+        return view('tools.tot-xau.index', compact('metaTitle', 'metaDescription'));
     }
 
     public function checkDays(Request $request)

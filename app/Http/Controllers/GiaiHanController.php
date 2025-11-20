@@ -21,7 +21,9 @@ class GiaiHanController extends Controller
     public function showForm()
     {
         // Không cần truyền dateRanges nữa
-        return view('tools.giai-han.form', ['inputs' => []]);
+        $metaTitle = "Xem Ngày Cúng Sao Giải Hạn Theo Tuổi | Chọn Ngày Tốt Hợp Tuổi Cúng Giải Hạn";
+        $metaDescription = "Xem ngày tốt cúng sao giải hạn theo tuổi, chọn ngày đẹp hợp phong thủy để hóa giải vận hạn. Tra cứu ngày hoàng đạo, giờ tốt giúp nghi lễ diễn ra an lành, hiệu nghiệm.";
+        return view('tools.giai-han.form', ['inputs' => [], 'metaTitle' => $metaTitle, 'metaDescription' => $metaDescription]);
     }
 
     /**

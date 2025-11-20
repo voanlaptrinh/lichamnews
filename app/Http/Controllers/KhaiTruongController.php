@@ -15,13 +15,16 @@ use Illuminate\Support\Facades\Validator;
 
 class KhaiTruongController extends Controller
 {
-     /**
+    /**
      * Hiển thị form xem ngày làm nhà.
      */
     public function showForm()
     {
         // Không cần truyền dateRanges nữa
-        return view('tools.khai-truong.form');
+        $metaTitle = "Xem Ngày Tốt Khai Trương | Chọn Ngày Đẹp Khai Trương Theo Tuổi";
+        $metaDescription = "Xem ngày tốt khai trương theo tuổi, chọn ngày đẹp mở cửa hàng – công ty hợp phong thủy. Tra cứu nhanh ngày hoàng đạo, giờ tốt giúp kinh doanh hanh thông.";
+        // Không cần truyền dateRanges nữa
+        return view('tools.khai-truong.form', compact('metaTitle', 'metaDescription'));
     }
 
     /**
@@ -119,7 +122,7 @@ class KhaiTruongController extends Controller
 
             // e. Tạo chuỗi ngày Âm lịch đầy đủ để hiển thị
             $lunarParts = LunarHelper::convertSolar2Lunar($date->day, $date->month, $date->year);
-       $fullLunarDateStr = sprintf(
+            $fullLunarDateStr = sprintf(
                 '%02d/%02d/%04d %s',
                 $lunarParts[0],
                 $lunarParts[1],
@@ -221,7 +224,7 @@ Thời điểm cát lợi, vận khí hanh thông – rất thích hợp để k
     {
         $birthYear = $dob->year;
         $lunarDob = LunarHelper::convertSolar2Lunar($dob->day, $dob->month, $dob->year);
-        
+
         $canChiNam = KhiVanHelper::canchiNam((int)$lunarDob[2]);
         $menh = DataHelper::$napAmTable[$canChiNam]; // Giả sử bạn có DataHelper
 

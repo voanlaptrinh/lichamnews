@@ -22,7 +22,7 @@
         </nav>
   
 
-        <h1 class="content-title-home-lich">Xem ngày động thổ</h1>
+        <h1 class="content-title-home-lich">Xem ngày tốt động thổ theo tuổi</h1>
 
         <div>
             <div class="row g-lg-3 g-2 pt-lg-3 pt-2">

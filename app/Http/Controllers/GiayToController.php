@@ -21,7 +21,9 @@ class GiayToController extends Controller
     public function showForm()
     {
         // Không cần truyền dateRanges nữa
-        return view('tools.giay-to.form');
+        $metaTitle = "Xem Ngày Tốt Làm Giấy Tờ | Ngày Đẹp Làm CCCD, Hộ Chiếu";
+        $metaDescription = "Xem ngày tốt làm giấy tờ, làm CCCD và hộ chiếu theo tuổi. Chọn ngày đẹp hợp vận khí giúp mọi thủ tục hành chính diễn ra suôn sẻ, nhanh chóng.";
+        return view('tools.giay-to.form', compact('metaTitle', 'metaDescription'));
     }
 
     /**

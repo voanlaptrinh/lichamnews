@@ -22,7 +22,9 @@ class CaiTangController extends Controller
      */
     public function showForm()
     {
-        return view('tools.cai-tang.form'); // Sử dụng 1 view duy nhất cho cả form và kết quả
+        $metaTitle = "Xem Ngày Đẹp Cải Táng, Sang Cát Theo Tuổi";
+        $metaDescription = "Xem ngày tốt cải táng, sang cát theo tuổi, lựa chọn ngày đẹp hợp phong thủy và âm trạch. Tra cứu ngày hoàng đạo giúp lễ cải táng diễn ra thuận lợi, an tâm.";
+        return view('tools.cai-tang.form', compact('metaTitle', 'metaDescription')); // Sử dụng 1 view duy nhất cho cả form và kết quả
     }
     /**
      * Xử lý dữ liệu, phân tích và trả kết quả.
@@ -143,7 +145,7 @@ class CaiTangController extends Controller
             $dayChi = explode(' ', $dayCanChi)[1];
             $goodHours = LunarHelper::getGoodHours($dayChi, 'all');
             $lunarParts = LunarHelper::convertSolar2Lunar($date->day, $date->month, $date->year);
-        $fullLunarDateStr = sprintf(
+            $fullLunarDateStr = sprintf(
                 '%02d/%02d/%04d %s',
                 $lunarParts[0],
                 $lunarParts[1],
@@ -252,22 +254,23 @@ class CaiTangController extends Controller
     public function details(Request $request, $date)
     {
         $validator = Validator::make(
-            ['date' => $date, 
-            'birthdate' => $request->input('birthdate'),
-            'birth_mat' => $request->input('birth_mat'),
-            'nam_mat' => $request->input('nam_mat'),
-            'date_range' => $request->input('date_range'),
-            'calendar_type' => $request->input('calendar_type'),
+            [
+                'date' => $date,
+                'birthdate' => $request->input('birthdate'),
+                'birth_mat' => $request->input('birth_mat'),
+                'nam_mat' => $request->input('nam_mat'),
+                'date_range' => $request->input('date_range'),
+                'calendar_type' => $request->input('calendar_type'),
+            ],
+            [
+                'date' => 'required|date_format:Y-m-d',
+                'birthdate' => 'required|date_format:Y-m-d',
+                'birth_mat' => 'required|integer|min:1800',
+                'nam_mat' => 'required|integer|min:1800',
+                'date_range' => 'required',
+                'calendar_type' => 'sometimes|in:solar,lunar'
             ]
-
-            , [
-            'date' => 'required|date_format:Y-m-d',
-            'birthdate' => 'required|date_format:Y-m-d',
-            'birth_mat' => 'required|integer|min:1800',
-            'nam_mat' => 'required|integer|min:1800',
-            'date_range' => 'required',
-            'calendar_type' => 'sometimes|in:solar,lunar'
-        ]);
+        );
 
         if ($validator->fails()) {
             return redirect()->route('cai-tang.form')->withErrors($validator);
@@ -307,6 +310,4 @@ class CaiTangController extends Controller
             'inputs' => $validated
         ]);
     }
-
-   
 }

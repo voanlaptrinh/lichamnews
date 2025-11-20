@@ -21,7 +21,9 @@ class NhanCongViecMoiController extends Controller
     public function showForm()
     {
         // Không cần truyền dateRanges nữa
-        return view('tools.cong-viec-moi.form');
+        $metaTitle = "Xem Ngày Tốt Nhận Công Việc Mới | Chọn Ngày Đẹp Nhận Việc Theo Tuổi";
+        $metaDescription = "Xem ngày tốt nhận công việc mới theo tuổi để bắt đầu thuận lợi, may mắn và hanh thông. Tra cứu ngày đẹp, giờ tốt giúp công việc mới suôn sẻ và phát triển lâu dài.";
+        return view('tools.cong-viec-moi.form', ['metaTitle' => $metaTitle, 'metaDescription' => $metaDescription]);
     }
 
     /**

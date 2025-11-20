@@ -20,7 +20,9 @@ class KyHopDongController extends Controller
      */
     public function showForm()
     {
-        return view('tools.ky-hop-dong.form');
+                      $metaTitle = "Xem Ngày Tốt Ký Hợp Đồng | Chọn Ngày Đẹp Ký Giấy Tờ Theo Tuổi";
+        $metaDescription = "Xem ngày tốt ký hợp đồng theo tuổi, chọn ngày đẹp hợp phong thủy giúp giao dịch thuận lợi. Tra cứu ngày hoàng đạo, giờ tốt để ký kết hanh thông, suôn sẻ.";
+        return view('tools.ky-hop-dong.form', compact('metaTitle', 'metaDescription'));
     }
 
     /**

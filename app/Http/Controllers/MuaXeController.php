@@ -21,7 +21,9 @@ class MuaXeController extends Controller
     public function showForm()
     {
         // Không cần truyền dateRanges nữa
-        return view('tools.mua-xe.index');
+                      $metaTitle = "Xem Ngày Tốt Mua Xe | Chọn Ngày Đẹp Mua Xe Theo Tuổi";
+        $metaDescription = "Xem ngày tốt mua xe theo tuổi, chọn ngày đẹp hợp mệnh để rước xe mới. Tra cứu giờ tốt, ngày hoàng đạo giúp hành trình an toàn, may mắn và thuận lợi.";
+        return view('tools.mua-xe.index', compact('metaTitle', 'metaDescription'));
     }
 
     /**

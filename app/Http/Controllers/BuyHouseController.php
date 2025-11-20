@@ -20,8 +20,10 @@ class BuyHouseController extends Controller
      */
     public function showForm()
     {
+        $metaTitle = "Xem Ngày Tốt Mua Nhà | Chọn Ngày Đẹp Mua Nhà Theo Tuổi";
+        $metaDescription = "Xem ngày tốt mua nhà theo tuổi, chọn ngày đẹp hợp phong thủy để mua nhà, ký hợp đồng hoặc nhận bàn giao. Tra cứu nhanh – chính xác – chuẩn tuổi.";
         // Không cần truyền dateRanges nữa
-        return view('tools.mua-nha.form');
+        return view('tools.mua-nha.form', compact('metaTitle', 'metaDescription'));
     }
 
     /**
@@ -71,7 +73,7 @@ class BuyHouseController extends Controller
 
         $birthdate = Carbon::parse($validated['birthdate']);
 
- 
+
         $startDate = Carbon::createFromFormat('d/m/Y', $validated['start_date'])->startOfDay();
         $endDate = Carbon::createFromFormat('d/m/Y', $validated['end_date'])->endOfDay();
         $period = CarbonPeriod::create($startDate, $endDate);
@@ -119,7 +121,7 @@ class BuyHouseController extends Controller
 
             // e. Tạo chuỗi ngày Âm lịch đầy đủ để hiển thị
             $lunarParts = LunarHelper::convertSolar2Lunar($date->day, $date->month, $date->year);
-           $fullLunarDateStr = sprintf(
+            $fullLunarDateStr = sprintf(
                 '%02d/%02d/%04d %s',
                 $lunarParts[0],
                 $lunarParts[1],
@@ -178,14 +180,14 @@ class BuyHouseController extends Controller
      */
     private function calculateYearAnalysis(Carbon $dob, int $yearToCheck): array
     {
-      $lunarDob = LunarHelper::convertSolar2Lunar($dob->day, $dob->month, $dob->year);
+        $lunarDob = LunarHelper::convertSolar2Lunar($dob->day, $dob->month, $dob->year);
         $birthYear = $lunarDob[2];
 
         $lunarAge = AstrologyHelper::getLunarAge($birthYear, $yearToCheck);
 
         $kimLau = AstrologyHelper::checkKimLau($lunarAge);
         $hoangOc = AstrologyHelper::checkHoangOc($lunarAge);
-        
+
         $tamTai = AstrologyHelper::checkTamTai($birthYear, $yearToCheck);
 
         $badFactors = [];
@@ -216,10 +218,10 @@ Thời điểm cát lợi, vận khí hanh thông – rất thích hợp để a
      */
     private function getPersonBasicInfo(Carbon $dob): array
     {
-      
+
         $lunarDob = LunarHelper::convertSolar2Lunar($dob->day, $dob->month, $dob->year);
-         $canChiNam = KhiVanHelper::canchiNam($lunarDob[2]);
-        
+        $canChiNam = KhiVanHelper::canchiNam($lunarDob[2]);
+
         $menh = DataHelper::$napAmTable[$canChiNam]; // Giả sử bạn có DataHelper
 
         return [
@@ -232,10 +234,10 @@ Thời điểm cát lợi, vận khí hanh thông – rất thích hợp để a
 
 
 
-     public function showDayDetails(Request $request, $date)
+    public function showDayDetails(Request $request, $date)
     {
         // 1. Validate dữ liệu - đã loại bỏ 'person_type'
-         $validated = Validator::make(['date' => $date, 'birthdate' => $request->input('birthdate')], [
+        $validated = Validator::make(['date' => $date, 'birthdate' => $request->input('birthdate')], [
             'date' => 'required|date_format:Y-m-d',
             'birthdate' => 'required|date_format:Y-m-d',
         ])->validate();
@@ -259,5 +261,4 @@ Thời điểm cát lợi, vận khí hanh thông – rất thích hợp để a
             'tabooResult',
         ));
     }
-
 }
