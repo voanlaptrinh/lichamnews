@@ -714,6 +714,13 @@
                                     new bootstrap.Tab(tab);
                                 }
                             });
+
+                            // Khởi tạo taboo filter với dữ liệu từ response
+                            setTimeout(() => {
+                                if (data.resultsByYear) {
+                                    initTabooFilter(data.resultsByYear);
+                                }
+                            }, 500);
                         } else if (data.errors) {
                             // Show validation errors
                             let errorMessage = 'Vui lòng kiểm tra lại:\\n';
@@ -804,4 +811,5 @@
 
         });
     </script>
+    @include('components.taboo-filter-script')
 @endpush
