@@ -66,25 +66,148 @@
                 <div class="card border-0 mb-3 w-100 box-detial-year">
                     <div class="card-body">
                         <div class="betwen-ds mb-3 flex-wrap">
-                            <div
-                                class="text-primary mb-0 title-tong-quan-h4-log text-dark fw-bolder">
+                            <div class="text-primary mb-0 title-tong-quan-h4-log text-dark fw-bolder">
                                 <img src="{{ asset('icons/k_nen_1.svg') }}" alt="thông tin người xem" width="28"
                                     height="28" class="me-1"> Danh Sách Điểm
                                 Theo Ngày
                             </div>
-                            <select name="sort" class="form-select-sm sort-select" style="width: auto;"
-                                form="totXauForm">
-                                <option value="desc" {{ ($sortOrder ?? 'desc') === 'desc' ? 'selected' : '' }}>Điểm
-                                    giảm dần</option>
-                                <option value="asc" {{ ($sortOrder ?? 'desc') === 'asc' ? 'selected' : '' }}>Điểm
-                                    tăng dần</option>
-                            </select>
+                            <div class="d-flex" style="gap: 10px">
+                                <div class="position-relative mb-3">
+                                    <button type="button" id="tabooFilterBtn"
+                                        class="form-select-sm sort-select" onclick="return false;">
+                                        <i class="bi bi-funnel me-2"></i>
+                                        <span>Lọc ngày xấu</span>
+                                        <i class="bi bi-chevron-down ms-2"></i>
+                                      
+                                    </button>
+
+                                    <!-- Filter Modal/Dropdown -->
+                                    <div id="tabooFilterModal" class="taboo-filter-modal d-none">
+                                        <div class="taboo-filter-header">
+                                            <h6 class="mb-0">Lọc ngày xấu</h6>
+                                            <button type="button" id="closeFilterModal" class="btn-close-filter">
+                                                <i class="bi bi-x"></i>
+                                            </button>
+                                        </div>
+
+                                        <div class="taboo-filter-body">
+                                            <!-- Categories -->
+                                            <div class="filter-section">
+                                                <h6 class="filter-section-title">
+                                                    <i class="bi bi-house-door"></i>
+                                                    Tất cả ngày xấu
+                                                </h6>
+
+                                                <div class="filter-options">
+                                                    <label class="filter-option">
+                                                        <input type="checkbox" class="taboo-checkbox" value="Tam Nương"
+                                                            id="taboo1">
+                                                        <span class="checkmark"></span>
+                                                        <span class="option-text">Tam Nương</span>
+                                                    </label>
+
+                                                    <label class="filter-option">
+                                                        <input type="checkbox" class="taboo-checkbox" value="Nguyệt Kỵ"
+                                                            id="taboo2">
+                                                        <span class="checkmark"></span>
+                                                        <span class="option-text">Nguyệt Kỵ</span>
+                                                    </label>
+
+                                                    <label class="filter-option">
+                                                        <input type="checkbox" class="taboo-checkbox" value="Nguyệt Tận"
+                                                            id="taboo3">
+                                                        <span class="checkmark"></span>
+                                                        <span class="option-text">Nguyệt Tận</span>
+                                                    </label>
+
+                                                    <label class="filter-option">
+                                                        <input type="checkbox" class="taboo-checkbox"
+                                                            value="Dương Công Kỵ Nhật" id="taboo4">
+                                                        <span class="checkmark"></span>
+                                                        <span class="option-text">Dương Công Kỵ Nhật</span>
+                                                    </label>
+
+                                                    <label class="filter-option">
+                                                        <input type="checkbox" class="taboo-checkbox" value="Sát Chủ Âm"
+                                                            id="taboo5">
+                                                        <span class="checkmark"></span>
+                                                        <span class="option-text">Sát Chủ Âm</span>
+                                                    </label>
+
+                                                    <label class="filter-option">
+                                                        <input type="checkbox" class="taboo-checkbox"
+                                                            value="Sát Chủ Dương" id="taboo6">
+                                                        <span class="checkmark"></span>
+                                                        <span class="option-text">Sát Chủ Dương</span>
+                                                    </label>
+
+                                                    <label class="filter-option">
+                                                        <input type="checkbox" class="taboo-checkbox"
+                                                            value="Kim Thần Thất Sát" id="taboo7">
+                                                        <span class="checkmark"></span>
+                                                        <span class="option-text">Kim Thần Thất Sát</span>
+                                                    </label>
+
+                                                    <label class="filter-option">
+                                                        <input type="checkbox" class="taboo-checkbox"
+                                                            value="Trùng Phục" id="taboo8">
+                                                        <span class="checkmark"></span>
+                                                        <span class="option-text">Trùng Phục</span>
+                                                    </label>
+
+                                                    <label class="filter-option">
+                                                        <input type="checkbox" class="taboo-checkbox" value="Thụ Tử"
+                                                            id="taboo9">
+                                                        <span class="checkmark"></span>
+                                                        <span class="option-text">Thụ Tử</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                            <!-- Quick Actions -->
+                                            <div class="filter-quick-actions">
+                                                <button type="button" id="selectCommon" class="btn-quick-action">Phổ
+                                                    biến</button>
+                                                <button type="button" id="selectAll" class="btn-quick-action">Tất
+                                                    cả</button>
+                                                <button type="button" id="clearAll" class="btn-quick-action">Bỏ
+                                                    chọn</button>
+                                            </div>
+                                        </div>
+
+                                        <div class="taboo-filter-footer">
+                                            <button type="button" id="clearTabooFilter" class="btn-cancel">Đặt
+                                                lại</button>
+                                            <button type="button" id="applyTabooFilter" class="btn-apply">Áp
+                                                dụng</button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Backdrop -->
+                                    <div id="tabooFilterBackdrop" class="taboo-filter-backdrop d-none"></div>
+                                </div>
+                                <div>
+                                    <select name="sort" class="form-select-sm sort-select" style="width: auto; height: 40px;"
+                                        form="totXauForm">
+                                        <option value="desc"
+                                            {{ ($sortOrder ?? 'desc') === 'desc' ? 'selected' : '' }}>
+                                            Điểm
+                                            giảm dần</option>
+                                        <option value="asc"
+                                            {{ ($sortOrder ?? 'desc') === 'asc' ? 'selected' : '' }}>
+                                            Điểm
+                                            tăng dần</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
+
+                        <!-- Bộ lọc Taboo - Modal Style -->
 
                         @if (isset($yearData['days']) && count($yearData['days']) > 0)
                             <div class="table-responsive w-100" id="bang-chi-tiet">
-                                <table class="table table-hover align-middle w-100 table-layout" id="table-{{ $year }}"
-                                    style=" width: 100%;">
+                                <table class="table table-hover align-middle w-100 table-layout"
+                                    id="table-{{ $year }}" style=" width: 100%;">
                                     <thead class="text-center" style="background-color: #e8ebee;">
                                         <tr>
                                             <th style="border-radius: 8px 0 0 8px">Ngày</th>
@@ -216,14 +339,15 @@
                                                     @else
                                                         <span class="text-warning small"
                                                             style="color: #2254AB !important">
-                                                            <i class="bi bi-exclamation-triangle-fill"></i> Không có yếu
+                                                            <i class="bi bi-exclamation-triangle-fill"></i> Không có
+                                                            yếu
                                                             tố hỗ trợ
                                                         </span>
                                                     @endif
-                                                  
+
                                                     <!-- Score hiển thị tròn cho mobile -->
                                                     <div class="score-circle-mobile"
-                                                         style="background-color: white; border: 1px solid #2254AB">
+                                                        style="background-color: white; border: 1px solid #2254AB">
                                                         {{ round($score) }}%
                                                     </div>
                                                 </td>
@@ -261,4 +385,3 @@
         @endforeach
     </div>
 </div>
-

@@ -144,6 +144,7 @@ class TotXauController extends Controller
             return response()->json([
                 'success' => true,
                 'html' => $html,
+                'resultsByYear' => $resultsByYear,
             ]);
         }
 
