@@ -22,7 +22,7 @@ class XuatHanhController extends Controller
     public function showForm()
     {
         // Không cần truyền dateRanges nữa
-                      $metaTitle = "Xem Ngày Tốt Xuất Hành | Chọn Ngày Đẹp Xuất Hành Theo Tuổi";
+        $metaTitle = "Xem Ngày Tốt Xuất Hành | Chọn Ngày Đẹp Xuất Hành Theo Tuổi";
         $metaDescription = "Xem ngày tốt xuất hành theo tuổi, chọn hướng đẹp và giờ tốt để đi xa. Tra cứu ngày hoàng đạo giúp hành trình thuận lợi, may mắn và hanh thông.";
         return view('tools.xuat-hanh.form', compact('metaTitle', 'metaDescription'));
     }
@@ -103,15 +103,15 @@ class XuatHanhController extends Controller
         $purpose = 'XUAT_HANH'; // Hoặc 'LAM_NHA', tùy theo bạn định nghĩa trong DataHelper
 
         foreach ($period as $date) {
-             $year = $date->year;
-             $birthdateal = LunarHelper::convertSolar2Lunar($birthdate->day, $birthdate->month, $birthdate->year);
+            $year = $date->year;
+            $birthdateal = LunarHelper::convertSolar2Lunar($birthdate->day, $birthdate->month, $birthdate->year);
             $dayScoreDetails = FunctionHelper::getDaySummaryInfo($date->day, $date->month, $date->year, $birthdateal[2], $purpose);
             $jd = LunarHelper::jdFromDate($date->day, $date->month, $date->year);
             $dayCanChi = LunarHelper::canchiNgayByJD($jd);
             $dayChi = explode(' ', $dayCanChi)[1];
             $goodHours = LunarHelper::getGoodHours($dayChi, 'day');
             $lunarParts = LunarHelper::convertSolar2Lunar($date->day, $date->month, $date->year);
-        $fullLunarDateStr = sprintf(
+            $fullLunarDateStr = sprintf(
                 '%02d/%02d/%04d %s',
                 $lunarParts[0],
                 $lunarParts[1],
@@ -126,7 +126,7 @@ class XuatHanhController extends Controller
                 'date' => $date->copy(),
                 'weekday_name' => $date->isoFormat('dddd'),
                 'full_lunar_date_str' => $fullLunarDateStr,
-                 'al_name' => $lunarParts,
+                'al_name' => $lunarParts,
                 'good_hours' => $goodHours,
                 'day_score' => $dayScoreDetails, // Toàn bộ object điểm số và chi tiết
             ];
@@ -142,7 +142,7 @@ class XuatHanhController extends Controller
                 });
             }
         }
-        unset($yearData);
+
 
         $formattedBirthdateForUrl = $birthdate->format('Y-m-d');
 
@@ -157,6 +157,7 @@ class XuatHanhController extends Controller
 
             return response()->json([
                 'success' => true,
+                'resultsByYear' => $resultsByYear,
                 'html' => $html,
             ]);
         }
@@ -235,11 +236,11 @@ class XuatHanhController extends Controller
             'hanh' => $hanh,
         ];
     }
-    
-     public function showDayDetails(Request $request, $date)
+
+    public function showDayDetails(Request $request, $date)
     {
         // 1. Validate dữ liệu - đã loại bỏ 'person_type'
-         $validated = Validator::make(['date' => $date, 'birthdate' => $request->input('birthdate')], [
+        $validated = Validator::make(['date' => $date, 'birthdate' => $request->input('birthdate')], [
             'date' => 'required|date_format:Y-m-d',
             'birthdate' => 'required|date_format:Y-m-d',
         ])->validate();
