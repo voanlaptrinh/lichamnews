@@ -165,6 +165,7 @@ class BuyHouseController extends Controller
 
             return response()->json([
                 'success' => true,
+                'resultsByYear' => $resultsByYear,
                 'html' => $html,
             ]);
         }
