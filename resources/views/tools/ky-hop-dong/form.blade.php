@@ -33,18 +33,19 @@
                                         <div class="fw-bold title-tong-quan-h2-log" style="color: rgba(25, 46, 82, 1);">
                                             Thông tin người ký hợp đồng
                                         </div>
-                                        <p class="" style="font-size: 14px;">Bạn hãy nhập thông tin vào ô dưới đây để xem ngày tốt ký hợp đồng</p>
+                                        <p class="" style="font-size: 14px;">Bạn hãy nhập thông tin vào ô dưới đây để
+                                            xem ngày tốt ký hợp đồng</p>
 
                                         <form id="contractSigningForm">
                                             @csrf
 
                                             <div class="row">
                                                 <div class="mb-3">
-                                                    <div for="person_name" class="fw-bold title-tong-quan-h2-log mb-2">Tên người ký hợp đồng</div>
+                                                    <div for="person_name" class="fw-bold title-tong-quan-h2-log mb-2">Tên
+                                                        người ký hợp đồng</div>
                                                     <input type="text"
                                                         class="form-control --border-box-form @error('person_name') is-invalid @enderror"
-                                                        id="person_name"
-                                                        name="person_name"
+                                                        id="person_name" name="person_name"
                                                         placeholder="Nhập tên người ký hợp đồng"
                                                         value="{{ old('person_name', $inputs['person_name'] ?? '') }}"
                                                         style="padding: 12px 15px; border-radius: 10px; border: none; background-color: rgba(255,255,255,0.95);">
@@ -54,7 +55,8 @@
                                                 </div>
 
                                                 <div class="mb-3">
-                                                    <div for="birthdate" class="fw-bold title-tong-quan-h2-log mb-2">Ngày sinh</div>
+                                                    <div for="birthdate" class="fw-bold title-tong-quan-h2-log mb-2">Ngày
+                                                        sinh</div>
                                                     <!-- Date Selects -->
                                                     <div class="row g-2 mb-2">
                                                         <div class="col-6 col-sm-4 col-lg-4 col-xl-4">
@@ -125,7 +127,8 @@
                                                     </div>
 
                                                     <!-- Hidden input to store formatted date -->
-                                                    <input type="hidden" id="ngayXem" name="birthdate" value="{{ old('birthdate', $inputs['birthdate'] ?? '') }}">
+                                                    <input type="hidden" id="ngayXem" name="birthdate"
+                                                        value="{{ old('birthdate', $inputs['birthdate'] ?? '') }}">
 
                                                     @error('birthdate')
                                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -133,7 +136,8 @@
                                                 </div>
 
                                                 <div class="input-group mb-4">
-                                                    <div for="date_range" class="fw-bold title-tong-quan-h2-log">Dự kiến thời gian ký hợp đồng</div>
+                                                    <div for="date_range" class="fw-bold title-tong-quan-h2-log">Dự kiến
+                                                        thời gian ký hợp đồng</div>
                                                     <div class="input-group">
                                                         <input type="text"
                                                             class="form-control wedding_date_range --border-box-form @error('date_range') is-invalid @enderror"
@@ -152,9 +156,11 @@
                                                 </div>
                                             </div>
                                             <div class="d-flex justify-content-center">
-                                                <button type="submit" class="btn btn-light-settup fw-bold w-100" id="submitBtn">
+                                                <button type="submit" class="btn btn-light-settup fw-bold w-100"
+                                                    id="submitBtn">
                                                     <span class="btn-text">Xem Kết Quả</span>
-                                                    <span class="spinner-border spinner-border-sm ms-2 d-none" role="status"></span>
+                                                    <span class="spinner-border spinner-border-sm ms-2 d-none"
+                                                        role="status"></span>
                                                 </button>
                                             </div>
                                         </form>
@@ -163,7 +169,8 @@
                             </div>
                             <div class="col-lg-4 d-none d-lg-block d-flex">
                                 <div class="d-flex align-items-end h-100 w-100">
-                                    <img src="{{ asset('/icons/datedoilich.svg') }}" alt="ảnh đổi lich" class="img-fluid">
+                                    <img src="{{ asset('/icons/datedoilich.svg') }}" alt="ảnh đổi lich"
+                                        class="img-fluid">
                                 </div>
                             </div>
                         </div>
@@ -183,7 +190,6 @@
             </div>
         </div>
     </div>
-
 @endsection
 
 @push('scripts')
@@ -249,7 +255,9 @@
                                 separator: ' - ',
                                 daysOfWeek: ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'],
                                 monthNames: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5',
-                                    'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
+                                    'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11',
+                                    'Tháng 12'
+                                ],
                                 firstDay: 1
                             }
                         };
@@ -350,7 +358,8 @@
                             }
 
                             // Check if dateSelector is available and fully initialized
-                            if (dateSelector && dateSelector.daySelect && dateSelector.monthSelect && dateSelector.yearSelect &&
+                            if (dateSelector && dateSelector.daySelect && dateSelector.monthSelect && dateSelector
+                                .yearSelect &&
                                 dateSelector.yearSelect.options.length > 1) {
 
                                 // Parse birthdate from URL (always in solar format from URL)
@@ -370,23 +379,28 @@
                                                 // Use LunarSolarDateSelect's handleLunarRadioChange method for conversion
                                                 try {
                                                     // First set solar date in selects
-                                                    await dateSelector.setDate(day, month, year, false, false);
+                                                    await dateSelector.setDate(day, month, year, false,
+                                                        false);
 
                                                     // Then switch to lunar mode - this will trigger automatic conversion
-                                                    const lunarRadio = document.getElementById('lunarCalendar');
-                                                    const solarRadio = document.getElementById('solarCalendar');
+                                                    const lunarRadio = document.getElementById(
+                                                        'lunarCalendar');
+                                                    const solarRadio = document.getElementById(
+                                                        'solarCalendar');
                                                     if (lunarRadio && solarRadio) {
                                                         lunarRadio.checked = true;
                                                         solarRadio.checked = false;
 
                                                         // Trigger the built-in conversion method
-                                                        if (dateSelector && typeof dateSelector.handleLunarRadioChange === 'function') {
+                                                        if (dateSelector && typeof dateSelector
+                                                            .handleLunarRadioChange === 'function') {
                                                             await dateSelector.handleLunarRadioChange();
                                                         }
                                                     }
                                                 } catch (error) {
                                                     // Fallback: just set as lunar without conversion
-                                                    await dateSelector.setDate(day, month, year, true, false);
+                                                    await dateSelector.setDate(day, month, year, true,
+                                                        false);
                                                 }
 
                                             } else {
@@ -526,7 +540,8 @@
                     isLeapMonth = ngayXemInput.dataset.lunarLeap === '1';
 
                     if (solarDay && solarMonth && solarYear) {
-                        formattedBirthdate = `${String(solarDay).padStart(2, '0')}/${String(solarMonth).padStart(2, '0')}/${solarYear}`;
+                        formattedBirthdate =
+                            `${String(solarDay).padStart(2, '0')}/${String(solarMonth).padStart(2, '0')}/${solarYear}`;
                     } else {
                         // Fallback to parsing lunar date from value
                         formattedBirthdate = ngayXemValue.replace(' (ÂL)', '').replace(' (ÂL-Nhuận)', '');
@@ -626,19 +641,31 @@
                             resultsContainer.style.display = 'block';
                             resultsContainer.innerHTML = data.html;
 
+                            // Store data for taboo filter
+                            window.resultsByYear = data.resultsByYear;
+
                             // Scroll to results with delay to ensure content is rendered
                             setTimeout(() => {
                                 resultsContainer.scrollIntoView({
                                     behavior: 'smooth',
                                     block: 'start'
                                 });
-                            }, 100);
+
+
+                            }, 500);
 
                             // Re-initialize Bootstrap tabs if present
                             const tabs = resultsContainer.querySelectorAll('[data-bs-toggle="tab"]');
                             tabs.forEach(tab => {
                                 new bootstrap.Tab(tab);
                             });
+                            setTimeout(() => {
+
+                                resultsContainer.innerHTML = data.html;
+                                setTimeout(() => {
+                                    initTabooFilter(data.resultsByYear);
+                                }, 200);
+                            }, 500);
                         } else if (data.errors) {
                             // Show validation errors
                             let errorMessage = 'Vui lòng kiểm tra lại:\\n';
@@ -714,4 +741,6 @@
             });
         });
     </script>
+    @include('components.taboo-filter-script')
+
 @endpush

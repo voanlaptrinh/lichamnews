@@ -734,11 +734,7 @@
         window.testTabooFilter = function() {
             const btn = document.getElementById('tabooFilterBtn');
             const modal = document.getElementById('tabooFilterModal');
-            console.log('Test results:', {
-                btn: !!btn,
-                modal: !!modal,
-                btnText: btn ? btn.textContent : 'N/A'
-            });
+         
             if (btn) {
                 btn.click();
             }

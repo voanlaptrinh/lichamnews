@@ -165,6 +165,7 @@ class KyHopDongController extends Controller
 
             return response()->json([
                 'success' => true,
+                'resultsByYear' => $resultsByYear, // Thêm data cho JS filter
                 'html' => $html
             ]);
 
