@@ -645,12 +645,16 @@
                                 resultsContainer.querySelectorAll('[data-bs-toggle="tab"]')
                                     .forEach(tab => new bootstrap.Tab(tab));
 
-                                // Khởi tạo taboo filter với dữ liệu từ response
+                                // Khởi tạo taboo filter và pagination với dữ liệu từ response
                                 setTimeout(() => {
                                     if (data.resultsByYear) {
-                                        initTabooFilter(data.resultsByYear);
+                                        if (typeof window.initTabooFilter === 'function') {
+                                            window.initTabooFilter(data.resultsByYear);
+                                        }
                                     }
-                                }, 500);
+                                    initPagination();
+                                    setupContainerEventDelegation();
+                                }, 200);
                             }
                         } else if (data.errors) {
                             // Show validation errors using modern string formatting
@@ -670,65 +674,241 @@
                 submitForm();
             });
 
-            // Modern event delegation for sorting
-            resultsContainer?.addEventListener('change', event => {
-                if (!event.target.matches('[name="sort"]')) return;
+            // Setup container-level event delegation like other working tools
+            function setupContainerEventDelegation() {
+                console.log('Setting up container event delegation');
 
-                const sortValue = event.target.value;
-                applySortingToTable(sortValue);
+                const resultContainer = document.querySelector('.--detail-success');
+                if (resultContainer) {
+                    console.log('Result container found, setting up event delegation');
 
-                // Smooth scroll to table after sort
-                setTimeout(() => {
-                    const target = document.getElementById("bang-chi-tiet");
-                    target?.scrollIntoView({
-                        behavior: "smooth",
-                        block: "start"
-                    });
-                }, 100);
-            });
+                    // Remove any existing listeners first
+                    resultContainer.removeEventListener('change', handleContainerChange);
 
-            // Optimized sorting function using modern JS patterns
-            const applySortingToTable = sortValue => {
-                const table = document.querySelector('#bang-chi-tiet table tbody');
-                if (!table) return;
+                    // Add new listener
+                    resultContainer.addEventListener('change', handleContainerChange);
+                    console.log('Container event delegation setup complete');
+                } else {
+                    console.log('Result container not found');
+                }
+            }
 
-                const rows = Array.from(table.querySelectorAll('tr'));
-                const sortedRows = rows.sort((a, b) => {
-                    const scoreA = getScoreFromRow(a);
-                    const scoreB = getScoreFromRow(b);
-                    return sortValue === 'asc' ? scoreA - scoreB : scoreB - scoreA;
-                });
+            function handleContainerChange(event) {
+                console.log('Change event detected on:', event.target);
+                console.log('Target name:', event.target.name);
+                console.log('Target value:', event.target.value);
 
-                // Clear and re-append sorted rows efficiently
-                table.replaceChildren(...sortedRows);
-            };
+                if (event.target.name === 'sort') {
+                    console.log('Sort dropdown changed to:', event.target.value);
+                    event.preventDefault();
+                    event.stopPropagation();
 
-            // Improved helper function to extract score from table row
-            const getScoreFromRow = row => {
-                // Try multiple selectors for score elements
-                const selectors = [
-                    '.battery-label',
-                    '.diem-so',
-                    '.score'
-                ];
+                    applySortingToTable(event.target.value);
 
-                for (const selector of selectors) {
-                    const element = row.querySelector(selector);
-                    if (element) {
-                        const score = parseInt(element.textContent.replace(/[^\d]/g, '')) || 0;
-                        return score;
+                    // Scroll to table after sort
+                    setTimeout(() => {
+                        const bangChiTiet = document.querySelector('#bang-chi-tiet');
+                        bangChiTiet?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 100);
+                }
+            }
+
+            function getScoreFromRow(row) {
+                // Try to find score in battery element
+                const battery = row.querySelector('.battery-label');
+                if (battery) {
+                    return parseInt(battery.textContent.replace('%', '')) || 0;
+                }
+
+                // Try to find score in other score elements
+                const scoreElement = row.querySelector('.diem-so, .score');
+                if (scoreElement) {
+                    return parseInt(scoreElement.textContent.replace(/[^\d]/g, '')) || 0;
+                }
+
+                // Try to find score in any cell containing numbers
+                const cells = row.querySelectorAll('td');
+                for (let cell of cells) {
+                    const text = cell.textContent.trim();
+                    const match = text.match(/(\d+)/);
+                    if (match) {
+                        return parseInt(match[1]) || 0;
                     }
                 }
 
-                // Fallback: search all cells for numeric values
-                const cells = Array.from(row.querySelectorAll('td'));
-                for (const cell of cells) {
-                    const match = cell.textContent.trim().match(/(\d+)/);
-                    if (match) return parseInt(match[1]) || 0;
+                return 0;
+            }
+
+            function applySortingToTable(sortValue, maintainCurrentPagination = true) {
+                console.log('applySortingToTable called with:', sortValue);
+
+                // Try multiple ways to find the table like other working tools
+                let table = null;
+
+                // Method 1: Direct search
+                table = document.querySelector('#bang-chi-tiet table tbody');
+
+                // Method 2: Any table in results container
+                if (!table) {
+                    const resultsContainer = document.querySelector('.--detail-success');
+                    if (resultsContainer) {
+                        table = resultsContainer.querySelector('table tbody');
+                    }
                 }
 
-                return 0;
-            };
+                if (!table) {
+                    console.log('No table found for sorting');
+                    return;
+                }
+
+                const rows = Array.from(table.querySelectorAll('tr'));
+                console.log(`Found ${rows.length} rows to sort`);
+
+                rows.sort((a, b) => {
+                    if (sortValue === 'date_asc' || sortValue === 'date_desc') {
+                        const dateA = getDateFromRow(a);
+                        const dateB = getDateFromRow(b);
+                        const result = sortValue === 'date_asc' ? dateA - dateB : dateB - dateA;
+                        console.log(`Sorting ${dateA} vs ${dateB} = ${result}`);
+                        return result;
+                    } else {
+                        const scoreA = getScoreFromRow(a);
+                        const scoreB = getScoreFromRow(b);
+                        return sortValue === 'asc' ? scoreA - scoreB : scoreB - scoreA;
+                    }
+                });
+
+                // Clear table and re-append sorted rows
+                table.innerHTML = '';
+                rows.forEach(row => table.appendChild(row));
+
+                // Maintain current pagination if specified
+                if (maintainCurrentPagination) {
+                    maintainCurrentPaginationState(table);
+                }
+            }
+
+            function getDateFromRow(row) {
+                // Try different ways to find the date - same as other working tools
+
+                // Method 1: Look for link with details
+                let dateText = row.querySelector('a[href*="details"] strong');
+                if (dateText) {
+                    const text = dateText.textContent;
+                    console.log('Method 1 - Date text found:', text);
+                    const match = text.match(/(\d{1,2}\/\d{1,2}\/\d{4})/);
+                    if (match) {
+                        const dateStr = match[1];
+                        const parts = dateStr.split('/');
+                        const date = new Date(parts[2], parts[1] - 1, parts[0]);
+                        console.log('Parsed date:', dateStr, '->', date);
+                        return date;
+                    }
+                }
+
+                // Method 2: Look for any strong element with date pattern
+                const allStrong = row.querySelectorAll('strong');
+                for (let strong of allStrong) {
+                    const text = strong.textContent;
+                    const match = text.match(/(\d{1,2}\/\d{1,2}\/\d{4})/);
+                    if (match) {
+                        console.log('Method 2 - Date text found:', text);
+                        const dateStr = match[1];
+                        const parts = dateStr.split('/');
+                        const date = new Date(parts[2], parts[1] - 1, parts[0]);
+                        console.log('Parsed date:', dateStr, '->', date);
+                        return date;
+                    }
+                }
+
+                // Method 3: Look for any text with date pattern
+                const allText = row.textContent;
+                const match = allText.match(/(\d{1,2}\/\d{1,2}\/\d{4})/);
+                if (match) {
+                    console.log('Method 3 - Date found in row text:', match[1]);
+                    const dateStr = match[1];
+                    const parts = dateStr.split('/');
+                    const date = new Date(parts[2], parts[1] - 1, parts[0]);
+                    console.log('Parsed date:', dateStr, '->', date);
+                    return date;
+                }
+
+                console.log('No date found in row:', row.innerHTML.substring(0, 200));
+                return new Date();
+            }
+
+            // Pagination functions
+            function initPagination() {
+                const resultsContainer = document.querySelector('.--detail-success');
+                resultsContainer.addEventListener('click', function(event) {
+                    if (event.target.matches('.load-more-btn') || event.target.closest('.load-more-btn')) {
+                        const btn = event.target.matches('.load-more-btn') ? event.target : event.target.closest('.load-more-btn');
+                        const year = btn.getAttribute('data-year');
+                        const currentLoaded = parseInt(btn.getAttribute('data-loaded'));
+                        const total = parseInt(btn.getAttribute('data-total'));
+                        const loadMore = Math.min(10, total - currentLoaded);
+
+                        // Show next 10 items
+                        const table = document.querySelector(`#table-${year} tbody`);
+                        if (table) {
+                            const allRows = table.querySelectorAll('.table-row-' + year);
+                            for (let i = currentLoaded; i < currentLoaded + loadMore; i++) {
+                                if (allRows[i]) {
+                                    allRows[i].style.display = '';
+                                    allRows[i].setAttribute('data-visible', 'true');
+                                }
+                            }
+
+                            const newLoaded = currentLoaded + loadMore;
+                            btn.setAttribute('data-loaded', newLoaded);
+
+                            // Update button text
+                            const remaining = total - newLoaded;
+                            if (remaining > 0) {
+                                const nextLoad = Math.min(10, remaining);
+                                btn.innerHTML = `<i class="bi bi-plus-circle me-2"></i>Xem thêm ${nextLoad} bảng<span class="text-muted ms-2">(${remaining} còn lại)</span>`;
+                            } else {
+                                btn.style.display = 'none';
+                            }
+                        }
+                    }
+                });
+            }
+
+            function maintainCurrentPaginationState(table) {
+                // Follow working pattern from other tools - simpler approach
+                const loadMoreBtn = table.closest('.card-body').querySelector('.load-more-btn');
+                if (!loadMoreBtn) {
+                    console.log('No load more button found');
+                    return;
+                }
+
+                let currentLoaded = parseInt(loadMoreBtn.dataset.loaded) || 10;
+                const rows = table.querySelectorAll('tr:not(.empty-filter-row)');
+                console.log(`Maintaining pagination: ${currentLoaded} out of ${rows.length} total rows`);
+
+                // Show rows according to current pagination state
+                rows.forEach((row, index) => {
+                    if (index >= currentLoaded) {
+                        row.style.display = 'none';
+                        row.setAttribute('data-visible', 'false');
+                    } else {
+                        row.style.display = '';
+                        row.setAttribute('data-visible', 'true');
+                    }
+                });
+
+                // Update load more button
+                const remaining = rows.length - currentLoaded;
+                if (remaining > 0) {
+                    const nextLoad = Math.min(10, remaining);
+                    loadMoreBtn.innerHTML = `<i class="bi bi-plus-circle me-2"></i>Xem thêm ${nextLoad} bảng<span class="text-muted ms-2">(${remaining} còn lại)</span>`;
+                    loadMoreBtn.style.display = '';
+                    loadMoreBtn.setAttribute('data-total', rows.length);
+                } else {
+                    loadMoreBtn.style.display = 'none';
+                }
+            }
 
         });
     </script>
