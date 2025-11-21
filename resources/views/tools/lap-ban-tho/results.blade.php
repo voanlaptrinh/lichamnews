@@ -193,6 +193,8 @@
                                             giảm dần</option>
                                         <option value="asc" {{ ($sortOrder ?? 'desc') === 'asc' ? 'selected' : '' }}>Điểm
                                             tăng dần</option>
+                                        <option value="date_asc">Ngày tăng dần</option>
+                                        <option value="date_desc">Ngày giảm dần</option>
                                     </select>
                                 </div>
                             </div>
@@ -204,7 +206,10 @@
                         @if (isset($yearData['days']) && count($yearData['days']) > 0)
                             <div class="table-responsive w-100" id="bang-chi-tiet">
                                 <table class="table table-hover align-middle w-100 table-layout"
-                                    id="table-{{ $year }}" style=" width: 100%;">
+                                    id="table-{{ $year }}" style=" width: 100%;"
+                                    data-pagination-size="10"
+                                    data-load-more-text="Xem thêm 10 bảng"
+                                    data-no-more-text="Không còn bảng nào">
                                     <thead class="text-center" style="background-color: #e8ebee;">
                                         <tr>
                                             <th style="border-radius: 8px 0 0 8px">Ngày</th>
@@ -372,6 +377,15 @@
                                         @endforeach
                                     </tbody>
                                 </table>
+
+                                <!-- Load More Button -->
+                                @if (isset($yearData['days']) && count($yearData['days']) > 10)
+                                    <div class="text-center mt-3">
+                                        <button type="button" id="loadMoreBtn" class="btn btn-outline-primary btn-sm">
+                                            Xem thêm 10 bảng (còn {{ count($yearData['days']) - 10 }} bảng)
+                                        </button>
+                                    </div>
+                                @endif
                             </div>
                         @else
                             <p class="text-muted text-center py-4">

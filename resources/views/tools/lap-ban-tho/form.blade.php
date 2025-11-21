@@ -607,6 +607,9 @@
                                     if (data.resultsByYear && typeof initTabooFilter === 'function') {
                                         initTabooFilter(data.resultsByYear);
                                     }
+
+                                    // Initialize comprehensive sorting system after content loads
+                                    initializeComprehensiveSorting();
                                 }, 200);
                             }, 500);
 
@@ -647,8 +650,10 @@
                     });
             });
 
-            // Optimized sorting functions (removed for lap-ban-tho)
+            // ============ COMPREHENSIVE SORTING AND PAGINATION FUNCTIONS ============
+
             function getScoreFromRow(row) {
+                // Try multiple methods to extract score
                 const battery = row.querySelector('.battery-label');
                 if (battery) {
                     return parseInt(battery.textContent.replace('%', '')) || 0;
@@ -669,25 +674,223 @@
                 return 0;
             }
 
-            function applySortingToTable(sortValue) {
-                const table = document.querySelector('#bang-chi-tiet table tbody');
-                if (!table) return;
+            function getDateFromRow(row) {
+                // Try multiple methods to extract date for robust date parsing
+                const dateCell = row.querySelector('td:first-child');
+                if (!dateCell) return null;
 
-                const rows = Array.from(table.querySelectorAll('tr'));
-                rows.sort((a, b) => {
-                    const scoreA = getScoreFromRow(a);
-                    const scoreB = getScoreFromRow(b);
-                    return sortValue === 'asc' ? scoreA - scoreB : scoreB - scoreA;
-                });
+                // Method 1: Look for dd/mm/yyyy pattern in the cell
+                const dateMatch = dateCell.textContent.match(/(\d{1,2})\/(\d{1,2})\/(\d{4})/);
+                if (dateMatch) {
+                    const [, day, month, year] = dateMatch;
+                    return new Date(year, month - 1, day);
+                }
 
-                table.innerHTML = '';
-                rows.forEach(row => table.appendChild(row));
+                // Method 2: Try to find a link with date
+                const link = dateCell.querySelector('a[href*="date="]');
+                if (link) {
+                    const href = link.getAttribute('href');
+                    const dateParam = href.match(/date=(\d{4}-\d{2}-\d{2})/);
+                    if (dateParam) {
+                        return new Date(dateParam[1]);
+                    }
+                }
+
+                // Method 3: Look for any date pattern in text content
+                const allText = dateCell.textContent;
+                const patterns = [
+                    /(\d{1,2})\/(\d{1,2})\/(\d{4})/g,
+                    /(\d{4})-(\d{2})-(\d{2})/g
+                ];
+
+                for (const pattern of patterns) {
+                    const match = pattern.exec(allText);
+                    if (match) {
+                        if (pattern.source.includes('-')) {
+                            // YYYY-MM-DD format
+                            return new Date(match[1], match[2] - 1, match[3]);
+                        } else {
+                            // DD/MM/YYYY format
+                            return new Date(match[3], match[2] - 1, match[1]);
+                        }
+                    }
+                }
+
+                return null;
             }
 
-            // Event delegation for sorting (removed for lap-ban-tho)
+            function maintainCurrentPaginationState(table) {
+                // This function preserves the current pagination state during sorting
+                if (!table) return;
+
+                const tbody = table.querySelector('tbody');
+                if (!tbody) return;
+
+                const allRows = tbody.querySelectorAll('tr');
+                let visibleCount = 0;
+
+                // Count currently visible rows (not hidden by display:none and not filter rows)
+                const visibleRows = Array.from(allRows).filter(row => {
+                    const isVisible = row.style.display !== 'none';
+                    const isNotFilterRow = !row.classList.contains('empty-filter-row');
+                    if (isVisible && isNotFilterRow) {
+                        visibleCount++;
+                        return true;
+                    }
+                    return false;
+                });
+
+                console.log(`[Pagination] Found ${visibleCount} visible rows out of ${allRows.length} total`);
+
+                // Hide rows beyond the current visible count
+                allRows.forEach((row, index) => {
+                    if (!row.classList.contains('empty-filter-row')) {
+                        if (index < visibleCount) {
+                            row.style.display = '';
+                        } else {
+                            row.style.display = 'none';
+                        }
+                    }
+                });
+
+                // Update load more button
+                const loadMoreBtn = table.closest('.--detail-success')?.querySelector('#loadMoreBtn');
+                if (loadMoreBtn) {
+                    const totalRows = Array.from(allRows).filter(row => !row.classList.contains('empty-filter-row')).length;
+                    const remaining = totalRows - visibleCount;
+
+                    console.log(`[Load More] ${visibleCount} visible, ${totalRows} total, ${remaining} remaining`);
+
+                    if (remaining > 0) {
+                        loadMoreBtn.style.display = '';
+                        loadMoreBtn.textContent = `Xem thêm 10 bảng (còn ${remaining} bảng)`;
+                    } else {
+                        loadMoreBtn.style.display = 'none';
+                    }
+                }
+            }
+
+            function applySortingToTable(sortValue, maintainCurrentPagination = true) {
+                console.log(`[Sorting] Starting sort with value: ${sortValue}, maintainPagination: ${maintainCurrentPagination}`);
+
+                const table = document.querySelector('#bang-chi-tiet table');
+                if (!table) {
+                    console.log('[Sorting] Table not found');
+                    return;
+                }
+
+                const tbody = table.querySelector('tbody');
+                if (!tbody) {
+                    console.log('[Sorting] Table body not found');
+                    return;
+                }
+
+                // Get only the rows that should be sorted (exclude hidden by filter and empty rows)
+                const rows = Array.from(table.querySelectorAll('tr')).filter(row => {
+                    // Don't sort the header or special filter rows
+                    return row.style.display !== 'none' && !row.classList.contains('empty-filter-row');
+                });
+
+                console.log(`[Sorting] Found ${rows.length} rows to sort`);
+
+                if (rows.length === 0) {
+                    console.log('[Sorting] No rows to sort');
+                    return;
+                }
+
+                rows.sort((a, b) => {
+                    if (sortValue === 'date_asc' || sortValue === 'date_desc') {
+                        // Date sorting
+                        const dateA = getDateFromRow(a);
+                        const dateB = getDateFromRow(b);
+
+                        if (!dateA || !dateB) {
+                            console.log('[Sorting] Could not parse dates for comparison');
+                            return 0;
+                        }
+
+                        const comparison = dateA - dateB;
+                        return sortValue === 'date_asc' ? comparison : -comparison;
+                    } else {
+                        // Score sorting
+                        const scoreA = getScoreFromRow(a);
+                        const scoreB = getScoreFromRow(b);
+                        return sortValue === 'asc' ? scoreA - scoreB : scoreB - scoreA;
+                    }
+                });
+
+                // Clear and re-append sorted rows
+                tbody.innerHTML = '';
+                rows.forEach(row => tbody.appendChild(row));
+
+                console.log('[Sorting] Rows have been sorted and reinserted');
+
+                // Maintain pagination state if requested
+                if (maintainCurrentPagination) {
+                    maintainCurrentPaginationState(table);
+                }
+
+                console.log('[Sorting] Sort completed successfully');
+            }
+
+            function setupContainerEventDelegation() {
+                const container = document.querySelector('.--detail-success');
+                if (!container) {
+                    console.log('[Event Setup] Container .--detail-success not found');
+                    return;
+                }
+
+                console.log('[Event Setup] Setting up container-level event delegation');
+
+                // Remove any existing listeners on the container to avoid duplicates
+                const newContainer = container.cloneNode(true);
+                container.parentNode.replaceChild(newContainer, container);
+
+                // Add single event listener to the new container
+                newContainer.addEventListener('change', function(event) {
+                    console.log('[Event] Change event detected on:', event.target);
+
+                    if (event.target.matches('[name="sort"]')) {
+                        console.log('[Event] Sort dropdown changed to:', event.target.value);
+                        applySortingToTable(event.target.value, true);
+
+                        setTimeout(() => {
+                            const bangChiTiet = document.getElementById('bang-chi-tiet');
+                            if (bangChiTiet) {
+                                bangChiTiet.scrollIntoView({
+                                    behavior: 'smooth',
+                                    block: 'start'
+                                });
+                            }
+                        }, 100);
+                    }
+                });
+
+                console.log('[Event Setup] Container event delegation setup completed');
+            }
+
+            // Initialize comprehensive sorting after AJAX load
+            function initializeComprehensiveSorting() {
+                console.log('[Init] Initializing comprehensive sorting system');
+
+                // Setup container-level event delegation
+                setupContainerEventDelegation();
+
+                // Apply initial sorting if a sort value is present
+                const sortSelect = document.querySelector('.--detail-success [name="sort"]');
+                if (sortSelect && sortSelect.value) {
+                    console.log('[Init] Applying initial sort:', sortSelect.value);
+                    applySortingToTable(sortSelect.value, false); // Don't maintain pagination on initial load
+                }
+
+                console.log('[Init] Comprehensive sorting initialization completed');
+            }
+
+            // Event delegation for sorting with comprehensive functionality
             resultsContainer.addEventListener('change', function(event) {
                 if (event.target.matches('[name="sort"]')) {
-                    applySortingToTable(event.target.value);
+                    console.log('[Legacy Event] Sort changed (legacy handler):', event.target.value);
+                    applySortingToTable(event.target.value, true);
                     setTimeout(() => {
                         document.getElementById('bang-chi-tiet')?.scrollIntoView({
                             behavior: 'smooth',
