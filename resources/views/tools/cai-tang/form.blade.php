@@ -689,7 +689,9 @@
                         if (data.success) {
                             // Show results container
                             resultsContainer.style.display = 'block';
-                            resultsContainer.innerHTML = data.html;
+
+                            // Store data for taboo filter
+                            window.resultsByYear = data.resultsByYear;
 
                             // Scroll to results with delay to ensure content is rendered
                             setTimeout(() => {
@@ -697,13 +699,22 @@
                                     behavior: 'smooth',
                                     block: 'start'
                                 });
-                            }, 100);
+                            }, 500);
 
                             // Re-initialize Bootstrap tabs if present
                             const tabs = resultsContainer.querySelectorAll('[data-bs-toggle="tab"]');
                             tabs.forEach(tab => {
                                 new bootstrap.Tab(tab);
                             });
+
+                            setTimeout(() => {
+                                resultsContainer.innerHTML = data.html;
+                                setTimeout(() => {
+                                    if (window.resultsByYear && typeof initTabooFilter === 'function') {
+                                        initTabooFilter(window.resultsByYear);
+                                    }
+                                }, 200);
+                            }, 500);
                         } else if (data.errors) {
                             // Show validation errors
                             let errorMessage = 'Vui lòng kiểm tra lại:\\n';
@@ -779,4 +790,5 @@
             });
         });
     </script>
+    @include('components.taboo-filter-script')
 @endpush
