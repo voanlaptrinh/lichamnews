@@ -846,11 +846,17 @@
                 }
 
                 let currentLoaded = parseInt(loadMoreBtn.dataset.loaded) || 10;
-                const rows = table.querySelectorAll('tr:not(.empty-filter-row)');
-                console.log(`Maintaining pagination: ${currentLoaded} out of ${rows.length} total rows`);
 
-                // Show rows according to current pagination state
-                rows.forEach((row, index) => {
+                // Chỉ count visible rows (không bị ẩn bởi filter)
+                const allRows = table.querySelectorAll('tr:not(.empty-filter-row)');
+                const visibleRows = Array.from(allRows).filter(row => {
+                    return row.style.display !== 'none';
+                });
+
+                console.log(`Maintaining pagination: ${currentLoaded} out of ${visibleRows.length} visible rows (${allRows.length} total)`);
+
+                // Show rows according to current pagination state cho visible rows only
+                visibleRows.forEach((row, index) => {
                     if (index >= currentLoaded) {
                         row.style.display = 'none';
                         row.setAttribute('data-visible', 'false');
@@ -860,13 +866,13 @@
                     }
                 });
 
-                // Update load more button
-                const remaining = rows.length - currentLoaded;
-                if (remaining > 0) {
+                // Update load more button dựa trên visible rows
+                const remaining = visibleRows.length - currentLoaded;
+                if (remaining > 0 && visibleRows.length > 10) {
                     const nextLoad = Math.min(10, remaining);
                     loadMoreBtn.innerHTML = `<i class="bi bi-plus-circle me-2"></i>Xem thêm ${nextLoad} bảng<span class="text-muted ms-2">(${remaining} còn lại)</span>`;
                     loadMoreBtn.style.display = '';
-                    loadMoreBtn.setAttribute('data-total', rows.length);
+                    loadMoreBtn.setAttribute('data-total', visibleRows.length);
                 } else {
                     loadMoreBtn.style.display = 'none';
                 }

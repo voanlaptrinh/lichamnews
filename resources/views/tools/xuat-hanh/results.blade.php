@@ -174,12 +174,12 @@
                                     <div id="tabooFilterBackdrop" class="taboo-filter-backdrop d-none"></div>
                                 </div>
                                 <div>
-                                    <select name="sort" class=" form-select-sm sort-select" style="width: auto;"
+                                    <select name="sort" class="form-select-sm sort-select" style="width: auto; height: 40px;"
                                         form="xuatHanhForm">
-                                        <option value="desc" {{ ($sortOrder ?? 'desc') === 'desc' ? 'selected' : '' }}>Điểm
-                                            giảm dần</option>
-                                        <option value="asc" {{ ($sortOrder ?? 'desc') === 'asc' ? 'selected' : '' }}>Điểm
-                                            tăng dần</option>
+                                        <option value="desc" selected>Điểm giảm dần</option>
+                                        <option value="asc">Điểm tăng dần</option>
+                                        <option value="date_asc">Ngày tăng dần</option>
+                                        <option value="date_desc">Ngày giảm dần</option>
                                     </select>
                                 </div>
                             </div>
@@ -202,7 +202,7 @@
                                         </tr>
                                     </thead>
                                     <tbody class="text-center table-body-{{ $year }}">
-                                        @foreach ($yearData['days'] as $day)
+                                        @foreach ($yearData['days'] as $index => $day)
                                         @php
                                                         $score =
                                                             $day['day_score']['score']['percentage'] ??
@@ -226,7 +226,11 @@
                                                             $text_box = '#10B981';
                                                         }
                                                     @endphp
-                                            <tr>
+                                            <tr class="table-row-{{ $year }}"
+                                                data-index="{{ $index }}"
+                                                style="{{ $index >= 10 ? 'display: none;' : '' }}"
+                                                data-visible="{{ $index < 10 ? 'true' : 'false' }}"
+                                                data-taboo-days="{{ implode(',', $day['day_score']['taboo_details']['taboo_types'] ?? []) }}">
                                                 <td style="text-align: start">
                                                     <a
                                                         href="{{ route('xuat-hanh.details', ['date' => $day['date']->format('Y-m-d'), 'birthdate' => $formattedBirthdate, 'date_range' => $inputs['date_range'] ?? '', 'calendar_type' => $inputs['calendar_type'] ?? 'solar']) }}">
@@ -356,6 +360,21 @@
                                         @endforeach
                                     </tbody>
                                 </table>
+
+                                <!-- Nút xem thêm -->
+                                @if(count($yearData['days']) > 10)
+                                    <div class="text-center mt-3">
+                                        <button type="button"
+                                                class="btn btn-outline-primary load-more-btn"
+                                                data-year="{{ $year }}"
+                                                data-loaded="10"
+                                                data-total="{{ count($yearData['days']) }}">
+                                            <i class="bi bi-plus-circle me-2"></i>
+                                            Xem thêm 10 bảng
+                                            <span class="text-muted ms-2">({{ count($yearData['days']) - 10 }} còn lại)</span>
+                                        </button>
+                                    </div>
+                                @endif
                             </div>
                         @else
                             <p class="text-muted text-center py-4">

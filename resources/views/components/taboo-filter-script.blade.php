@@ -223,12 +223,9 @@ function initTabooFilter(resultsByYear) {
             return;
         }
 
-        // Lấy số lượng hiện tại đang hiển thị để duy trì pagination
+        // Khi apply filter mới, luôn reset pagination về 10
         const loadMoreBtn = tbody.closest('.card-body')?.querySelector('.load-more-btn');
-        let currentLoaded = 10; // Default
-        if (loadMoreBtn && loadMoreBtn.dataset.loaded) {
-            currentLoaded = parseInt(loadMoreBtn.dataset.loaded) || 10;
-        }
+        let currentLoaded = 10; // Luôn reset về 10 khi filter
 
         // Lấy tất cả row hiện tại (từ blade template gốc)
         const allRows = Array.from(tbody.querySelectorAll('tr:not(.empty-filter-row)'));
@@ -273,14 +270,18 @@ function initTabooFilter(resultsByYear) {
 
         // Cập nhật load more button với filtered results
         if (loadMoreBtn) {
-            const totalFiltered = filteredIndexes.size;
-            // Sử dụng filteredDays.length thay vì filteredIndexes.size để đảm bảo đúng số lượng
             const actualTotal = filteredDays.length;
-            loadMoreBtn.dataset.loaded = Math.min(currentLoaded, actualTotal).toString();
+            const actualLoaded = Math.min(visibleCount, actualTotal);
+
+            loadMoreBtn.dataset.loaded = actualLoaded.toString();
             loadMoreBtn.dataset.total = actualTotal.toString();
 
-            const remaining = actualTotal - Math.min(currentLoaded, actualTotal);
-            if (remaining > 0 && actualTotal > currentLoaded) {
+            const remaining = actualTotal - actualLoaded;
+
+            // Chỉ hiện load more button khi:
+            // 1. Còn items để load (remaining > 0)
+            // 2. Tổng số filtered items > 10
+            if (remaining > 0 && actualTotal > 10) {
                 loadMoreBtn.style.display = '';
                 loadMoreBtn.innerHTML = `
                     <i class="bi bi-plus-circle me-2"></i>
@@ -504,12 +505,15 @@ function initTabooFilter(resultsByYear) {
                     const loadMoreBtn = tbody.closest('.card-body')?.querySelector('.load-more-btn');
                     if (loadMoreBtn) {
                         const totalRows = allRows.length;
-                        loadMoreBtn.dataset.loaded = '10';
+                        const visibleRows = 10; // Luôn reset về 10 rows visible
+
+                        loadMoreBtn.dataset.loaded = visibleRows.toString();
                         loadMoreBtn.dataset.total = totalRows.toString();
 
+                        // Chỉ hiện load more button khi tổng số rows > 10
                         if (totalRows > 10) {
                             loadMoreBtn.style.display = '';
-                            const remaining = totalRows - 10;
+                            const remaining = totalRows - visibleRows;
                             loadMoreBtn.innerHTML = `
                                 <i class="bi bi-plus-circle me-2"></i>
                                 Xem thêm ${Math.min(10, remaining)} bảng
