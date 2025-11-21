@@ -210,19 +210,19 @@
                                     <div id="tabooFilterBackdrop" class="taboo-filter-backdrop d-none"></div>
                                 </div>
                                 <div>
-                                    <select name="sort" class=" form-select-sm sort-select" style="width: auto;"
-                                        form="weddingForm">
-                                        <option value="desc"
-                                            {{ ($sortOrder ?? 'desc') === 'desc' ? 'selected' : '' }}>Tổng
-                                            điểm giảm dần</option>
-                                        <option value="asc"
-                                            {{ ($sortOrder ?? 'desc') === 'asc' ? 'selected' : '' }}>Tổng
-                                            điểm tăng dần</option>
+                                    <select name="sort" class="form-select-sm sort-select" style="width: auto; height: 40px;"
+                                        form="damNgoForm">
+                                        <option value="desc" selected>Điểm giảm dần</option>
+                                        <option value="date_asc">Ngày tăng dần</option>
+                                        <option value="date_desc">Ngày giảm dần</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
-
+  <div id="filterStatus" class="alert alert-success d-none mb-3" role="alert">
+                            <i class="bi bi-funnel"></i>
+                            <span id="filterStatusText"></span>
+                        </div>
                         @if (isset($yearData['days']) && count($yearData['days']) > 0)
                             <div class="table-responsive w-100" id="bang-chi-tiet">
                                 <table class="table table-hover align-middle w-100 table-layout"
@@ -235,7 +235,7 @@
                                         </tr>
                                     </thead>
                                     <tbody class="text-center table-body-{{ $year }}">
-                                        @foreach ($yearData['days'] as $day)
+                                        @foreach ($yearData['days'] as $index => $day)
                                             @php
                                                 $groomScore = $day['groom_score']['percentage'] ?? 0;
                                                 $brideScore = $day['bride_score']['percentage'] ?? 0;
@@ -296,7 +296,14 @@
                                                     ];
                                                 }
                                             @endphp
-                                            <tr>
+                                            <tr class="table-row-{{ $year }}"
+                                                data-index="{{ $index }}"
+                                                style="{{ $index >= 10 ? 'display: none;' : '' }}"
+                                                data-visible="{{ $index < 10 ? 'true' : 'false' }}"
+                                                data-taboo-days="{{ implode(',', array_merge(
+                                                    $day['groom_score']['taboo_details']['taboo_types'] ?? [],
+                                                    $day['bride_score']['taboo_details']['taboo_types'] ?? []
+                                                )) }}">
                                                 <td style="text-align: start">
                                                     <a
                                                         href="{{ route('dam-ngo.day.details', [
@@ -506,6 +513,21 @@
                                         @endforeach
                                     </tbody>
                                 </table>
+
+                                <!-- Nút xem thêm -->
+                                @if(count($yearData['days']) > 10)
+                                    <div class="text-center mt-3">
+                                        <button type="button"
+                                                class="btn btn-outline-primary load-more-btn"
+                                                data-year="{{ $year }}"
+                                                data-loaded="10"
+                                                data-total="{{ count($yearData['days']) }}">
+                                            <i class="bi bi-plus-circle me-2"></i>
+                                            Xem thêm 10 bảng
+                                            <span class="text-muted ms-2">({{ count($yearData['days']) - 10 }} còn lại)</span>
+                                        </button>
+                                    </div>
+                                @endif
                             </div>
                         @else
                             <p class="text-muted text-center py-4">
