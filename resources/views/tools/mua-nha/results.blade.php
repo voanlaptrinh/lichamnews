@@ -209,14 +209,10 @@
                                     <div id="tabooFilterBackdrop" class="taboo-filter-backdrop d-none"></div>
                                 </div>
                                 <div>
-                                    <select name="sort" class=" form-select-sm sort-select" style="width: auto;"
-                                        form="buildHouseForm">
-                                        <option value="desc"
-                                            {{ ($sortOrder ?? 'desc') === 'desc' ? 'selected' : '' }}>Điểm
-                                            giảm dần</option>
-                                        <option value="asc"
-                                            {{ ($sortOrder ?? 'desc') === 'asc' ? 'selected' : '' }}>Điểm
-                                            tăng dần</option>
+                                    <select name="sort" class="form-select-sm sort-select" style="width: auto; height: 40px;">
+                                        <option value="desc" selected>Điểm giảm dần</option>
+                                        <option value="date_asc">Ngày tăng dần</option>
+                                        <option value="date_desc">Ngày giảm dần</option>
                                     </select>
                                 </div>
                             </div>
@@ -238,7 +234,7 @@
                                         </tr>
                                     </thead>
                                     <tbody class="text-center table-body-{{ $year }}">
-                                        @foreach ($yearData['days'] as $day)
+                                        @foreach ($yearData['days'] as $index => $day)
                                             @php
                                                 $score = $day['day_score']['percentage'] ?? 0;
                                                 $bgColor = '#D1FAE5'; // Green
@@ -260,7 +256,10 @@
                                                     $text_box = '#10B981';
                                                 }
                                             @endphp
-                                            <tr>
+                                            <tr class="table-row-{{ $year }}"
+                                                data-index="{{ $index }}"
+                                                style="{{ $index >= 10 ? 'display: none;' : '' }}"
+                                                data-visible="{{ $index < 10 ? 'true' : 'false' }}">
                                                 <td style="text-align: start">
                                                     <a
                                                         href="{{ route('buy-house.details', [
@@ -397,6 +396,21 @@
                                         @endforeach
                                     </tbody>
                                 </table>
+
+                                <!-- Nút xem thêm -->
+                                @if(count($yearData['days']) > 10)
+                                    <div class="text-center mt-3">
+                                        <button type="button"
+                                                class="btn btn-outline-primary load-more-btn"
+                                                data-year="{{ $year }}"
+                                                data-loaded="10"
+                                                data-total="{{ count($yearData['days']) }}">
+                                            <i class="bi bi-plus-circle me-2"></i>
+                                            Xem thêm 10 bảng
+                                            <span class="text-muted ms-2">({{ count($yearData['days']) - 10 }} còn lại)</span>
+                                        </button>
+                                    </div>
+                                @endif
                             </div>
                         @else
                             <p class="text-muted text-center py-4">
@@ -411,9 +425,4 @@
     </div>
 </div>
 
-<script>
-    // Đưa dữ liệu PHP ra JavaScript cho taboo filter
-    @if (isset($resultsByYear))
-        window.resultsByYear = @json($resultsByYear);
-    @endif
-</script>
+{{-- results.blade.php chỉ là template, logic được handle trong form.blade.php --}}

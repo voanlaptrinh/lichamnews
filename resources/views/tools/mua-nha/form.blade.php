@@ -634,18 +634,14 @@
                                 new bootstrap.Tab(tab);
                             });
 
-                            // Khởi tạo taboo filter với dữ liệu từ response
+                            // Khởi tạo taboo filter và pagination với dữ liệu từ response
                             setTimeout(() => {
-                             
-                                const btn = document.getElementById('tabooFilterBtn');
-                                const modal = document.getElementById('tabooFilterModal');
-                            
-
-                                resultsContainer.innerHTML = data.html;
-                                setTimeout(() => {
-                                    initTabooFilter(data.resultsByYear);
-                                }, 200);
-                            }, 500);
+                                // Sử dụng global initTabooFilter từ component
+                                if (typeof window.initTabooFilter === 'function') {
+                                    window.initTabooFilter(data.resultsByYear);
+                                }
+                                initPagination();
+                            }, 200);
                         } else if (data.errors) {
                             // Show validation errors
                             let errorMessage = 'Vui lòng kiểm tra lại:\\n';
@@ -739,6 +735,176 @@
                 btn.click();
             }
         };
+
+        // ========== PAGINATION & SORT FUNCTIONS - GIỐNG TOT-XAU ==========
+        function initPagination() {
+            console.log('initPagination called');
+
+            // Event delegation cho load more button
+            const resultsContainer = document.querySelector('.--detail-success');
+            resultsContainer.addEventListener('click', function(event) {
+                if (event.target.matches('.load-more-btn') || event.target.closest('.load-more-btn')) {
+                    const btn = event.target.matches('.load-more-btn') ? event.target : event.target.closest('.load-more-btn');
+                    const year = btn.dataset.year;
+                    const loaded = parseInt(btn.dataset.loaded);
+                    const total = parseInt(btn.dataset.total);
+                    const tbody = document.querySelector(`.table-body-${year}`);
+
+                    if (!tbody) return;
+
+                    const rows = tbody.querySelectorAll('tr');
+                    let newLoaded = loaded;
+
+                    // Hiển thị thêm 10 rows tiếp theo
+                    for (let i = loaded; i < Math.min(loaded + 10, total); i++) {
+                        if (rows[i]) {
+                            rows[i].style.display = '';
+                            rows[i].dataset.visible = 'true';
+                            newLoaded++;
+                        }
+                    }
+
+                    // Cập nhật dataset và text
+                    btn.dataset.loaded = newLoaded;
+                    const remaining = total - newLoaded;
+
+                    if (remaining > 0) {
+                        btn.innerHTML = `
+                            <i class="bi bi-plus-circle me-2"></i>
+                            Xem thêm ${Math.min(10, remaining)} bảng
+                            <span class="text-muted ms-2">(${remaining} còn lại)</span>
+                        `;
+                    } else {
+                        btn.style.display = 'none';
+                    }
+                }
+            });
+
+            // Event delegation cho sort select
+            resultsContainer.addEventListener('change', function(event) {
+                if (event.target.matches('[name="sort"]') || event.target.matches('.sort-select')) {
+                    const sortValue = event.target.value;
+                    console.log('Sort changed to:', sortValue);
+                    applySortingToTable(sortValue);
+                }
+            });
+        }
+
+        // SORT FUNCTIONS - COPY TỪ TOT-XAU
+        function getScoreFromRow(row) {
+            // For mua-nha: tìm score trong battery-fill style width
+            const batteryFill = row.querySelector('.battery-fill');
+            if (batteryFill) {
+                const style = batteryFill.getAttribute('style');
+                const match = style.match(/width:\s*(\d+)%/);
+                if (match) {
+                    return parseInt(match[1]) || 0;
+                }
+            }
+
+            // Fallback: Try other score elements
+            const scoreElement = row.querySelector('.diem-so, .score, .battery-label');
+            if (scoreElement) {
+                return parseInt(scoreElement.textContent.replace(/[^\d]/g, '')) || 0;
+            }
+
+            return 0;
+        }
+
+        function getDateFromRow(row) {
+            const dateCell = row.querySelector('td:first-child a');
+            if (!dateCell) return new Date(0);
+
+            const dateText = dateCell.textContent;
+            const match = dateText.match(/(\d{1,2})\/(\d{1,2})\/(\d{4})/);
+            if (match) {
+                return new Date(match[3], match[2] - 1, match[1]);
+            }
+            return new Date(0);
+        }
+
+        function applySortingToTable(sortValue) {
+            console.log('applySortingToTable called with:', sortValue);
+
+            // Tìm table giống tot-xau
+            const tables = document.querySelectorAll('tbody');
+            console.log('Found tables:', tables.length);
+
+            if (tables.length === 0) return;
+
+            tables.forEach(table => {
+                const rows = Array.from(table.querySelectorAll('tr'));
+                console.log(`Sorting ${rows.length} rows`);
+
+                if (rows.length === 0) return;
+
+                rows.sort((a, b) => {
+                    if (sortValue === 'date_asc' || sortValue === 'date_desc') {
+                        // Sắp xếp theo ngày
+                        const dateA = getDateFromRow(a);
+                        const dateB = getDateFromRow(b);
+                        return sortValue === 'date_asc' ? dateA - dateB : dateB - dateA;
+                    } else {
+                        // Sắp xếp theo điểm (desc only)
+                        const scoreA = getScoreFromRow(a);
+                        const scoreB = getScoreFromRow(b);
+                        return scoreB - scoreA; // Luôn giảm dần
+                    }
+                });
+
+                // Clear và append lại rows đã sắp xếp
+                table.innerHTML = '';
+                rows.forEach(row => table.appendChild(row));
+
+                // Giữ pagination state
+                maintainCurrentPagination(table);
+            });
+        }
+
+        function maintainCurrentPagination(table) {
+            // Kiểm tra xem có filter active không
+            const filterStatus = document.getElementById('filterStatus');
+            const isFilterActive = filterStatus && !filterStatus.classList.contains('d-none');
+
+            if (isFilterActive) return; // Để taboo component quản lý
+
+            const loadMoreBtn = table.closest('.card-body')?.querySelector('.load-more-btn');
+            let currentLoaded = 10;
+
+            if (loadMoreBtn) {
+                currentLoaded = parseInt(loadMoreBtn.dataset.loaded) || 10;
+            }
+
+            const rows = table.querySelectorAll('tr');
+
+            rows.forEach((row, index) => {
+                if (index >= currentLoaded) {
+                    row.style.display = 'none';
+                    row.dataset.visible = 'false';
+                } else {
+                    row.style.display = '';
+                    row.dataset.visible = 'true';
+                }
+            });
+
+            // Cập nhật load more button
+            if (loadMoreBtn) {
+                loadMoreBtn.dataset.loaded = currentLoaded.toString();
+                loadMoreBtn.dataset.total = rows.length.toString();
+                const remaining = rows.length - currentLoaded;
+
+                if (remaining > 0) {
+                    loadMoreBtn.style.display = '';
+                    loadMoreBtn.innerHTML = `
+                        <i class="bi bi-plus-circle me-2"></i>
+                        Xem thêm ${Math.min(10, remaining)} bảng
+                        <span class="text-muted ms-2">(${remaining} còn lại)</span>
+                    `;
+                } else {
+                    loadMoreBtn.style.display = 'none';
+                }
+            }
+        }
     </script>
     @include('components.taboo-filter-script')
 @endpush
