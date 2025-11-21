@@ -483,15 +483,42 @@ function initTabooFilter(resultsByYear) {
             // Cập nhật badge
             updateFilterBadge();
 
-            // Khôi phục hiển thị tất cả row cho tất cả năm
+            // Khôi phục hiển thị tất cả row cho tất cả năm với pagination ban đầu
             Object.keys(resultsByYear).forEach(year => {
                 const tbody = document.querySelector(`.table-body-${year}`);
                 if (tbody) {
-                    // Hiển thị lại tất cả row gốc
+                    // Hiển thị lại tất cả row gốc với pagination reset về 10
                     const allRows = tbody.querySelectorAll('tr:not(.empty-filter-row)');
-                    allRows.forEach(row => {
-                        row.style.display = '';
+                    allRows.forEach((row, index) => {
+                        // Chỉ hiển thị 10 row đầu, ẩn phần còn lại
+                        if (index < 10) {
+                            row.style.display = '';
+                            row.dataset.visible = 'true';
+                        } else {
+                            row.style.display = 'none';
+                            row.dataset.visible = 'false';
+                        }
                     });
+
+                    // Reset load more button về trạng thái ban đầu
+                    const loadMoreBtn = tbody.closest('.card-body')?.querySelector('.load-more-btn');
+                    if (loadMoreBtn) {
+                        const totalRows = allRows.length;
+                        loadMoreBtn.dataset.loaded = '10';
+                        loadMoreBtn.dataset.total = totalRows.toString();
+
+                        if (totalRows > 10) {
+                            loadMoreBtn.style.display = '';
+                            const remaining = totalRows - 10;
+                            loadMoreBtn.innerHTML = `
+                                <i class="bi bi-plus-circle me-2"></i>
+                                Xem thêm ${Math.min(10, remaining)} bảng
+                                <span class="text-muted ms-2">(${remaining} còn lại)</span>
+                            `;
+                        } else {
+                            loadMoreBtn.style.display = 'none';
+                        }
+                    }
 
                     // Ẩn row thông báo empty nếu có
                     const emptyRow = tbody.querySelector('.empty-filter-row');
