@@ -458,7 +458,7 @@
 @push('scripts')
 <script>
 function goBackToForm() {
-    // Get current URL parameters to extract birthdate, date range and calendar type info
+    // Get current URL parameters to extract basic info
     const urlParams = new URLSearchParams(window.location.search);
     const birthdate = urlParams.get('birthdate');
     const dateRange = urlParams.get('date_range');
@@ -493,7 +493,7 @@ function goBackToForm() {
         targetUrl += `#${hashParams.join('&')}`;
     }
 
-    // Redirect to the form page
+    // Redirect to the form page (filter được restore từ localStorage)
     window.location.href = targetUrl;
 }
 </script>

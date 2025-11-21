@@ -71,14 +71,13 @@
                                     height="28" class="me-1"> Danh Sách Điểm
                                 Theo Ngày
                             </div>
-                            <div class="d-flex" style="gap: 10px">
+                            <div class="d-flex flex-wrap" style="gap: 10px">
                                 <div class="position-relative mb-3">
                                     <button type="button" id="tabooFilterBtn"
                                         class="form-select-sm sort-select" onclick="return false;">
                                         <i class="bi bi-funnel me-2"></i>
                                         <span>Lọc ngày kỵ</span>
                                         <i class="bi bi-chevron-down ms-2"></i>
-                                      
                                     </button>
 
                                     <!-- Filter Modal/Dropdown -->
@@ -183,17 +182,14 @@
                                     <!-- Backdrop -->
                                     <div id="tabooFilterBackdrop" class="taboo-filter-backdrop d-none"></div>
                                 </div>
+
+                                <!-- Sắp xếp tích hợp điểm và ngày -->
                                 <div>
                                     <select name="sort" class="form-select-sm sort-select" style="width: auto; height: 40px;"
                                         form="totXauForm">
-                                        <option value="desc"
-                                            {{ ($sortOrder ?? 'desc') === 'desc' ? 'selected' : '' }}>
-                                            Điểm
-                                            giảm dần</option>
-                                        <option value="asc"
-                                            {{ ($sortOrder ?? 'desc') === 'asc' ? 'selected' : '' }}>
-                                            Điểm
-                                            tăng dần</option>
+                                        <option value="desc" selected>Điểm giảm dần</option>
+                                        <option value="date_asc">Ngày tăng dần</option>
+                                        <option value="date_desc">Ngày giảm dần</option>
                                     </select>
                                 </div>
                             </div>
@@ -241,7 +237,9 @@
                                                 }
                                             @endphp
                                             <tr class="table-row-{{ $year }}"
-                                                data-index="{{ $index }}">
+                                                data-index="{{ $index }}"
+                                                style="{{ $index >= 10 ? 'display: none;' : '' }}"
+                                                data-visible="{{ $index < 10 ? 'true' : 'false' }}">
                                                 <td style="text-align: start">
                                                     <a
                                                         href="{{ route('totxau.dayDetails', ['date' => $day['date']->format('Y-m-d'), 'birthdate' => $formattedBirthdate, 'date_range' => $inputs['date_range'] ?? '', 'calendar_type' => $inputs['calendar_type'] ?? 'solar']) }}">
@@ -371,6 +369,21 @@
                                         @endforeach
                                     </tbody>
                                 </table>
+
+                                <!-- Nút xem thêm -->
+                                @if(count($yearData['days']) > 10)
+                                    <div class="text-center mt-3">
+                                        <button type="button"
+                                                class="btn btn-outline-primary load-more-btn"
+                                                data-year="{{ $year }}"
+                                                data-loaded="10"
+                                                data-total="{{ count($yearData['days']) }}">
+                                            <i class="bi bi-plus-circle me-2"></i>
+                                            Xem thêm 10 bảng
+                                            <span class="text-muted ms-2">({{ count($yearData['days']) - 10 }} còn lại)</span>
+                                        </button>
+                                    </div>
+                                @endif
                             </div>
                         @else
                             <p class="text-muted text-center py-4">
@@ -385,3 +398,21 @@
         @endforeach
     </div>
 </div>
+
+@include('components.taboo-filter-script')
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Khởi tạo taboo filter với dữ liệu từ backend
+    const resultsByYear = @json($resultsByYear ?? []);
+
+    // Khởi tạo filter sau khi DOM loaded
+    setTimeout(() => {
+        if (typeof initTabooFilter === 'function') {
+            initTabooFilter(resultsByYear);
+        }
+    }, 300);
+
+    // Không cần cập nhật links vì filter đã được lưu trong localStorage
+});
+</script>

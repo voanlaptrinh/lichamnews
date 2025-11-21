@@ -223,6 +223,13 @@ function initTabooFilter(resultsByYear) {
             return;
         }
 
+        // Lấy số lượng hiện tại đang hiển thị để duy trì pagination
+        const loadMoreBtn = tbody.closest('.card-body')?.querySelector('.load-more-btn');
+        let currentLoaded = 10; // Default
+        if (loadMoreBtn && loadMoreBtn.dataset.loaded) {
+            currentLoaded = parseInt(loadMoreBtn.dataset.loaded) || 10;
+        }
+
         // Lấy tất cả row hiện tại (từ blade template gốc)
         const allRows = Array.from(tbody.querySelectorAll('tr:not(.empty-filter-row)'));
 
@@ -245,14 +252,45 @@ function initTabooFilter(resultsByYear) {
             }
         });
 
-        // Ẩn/hiện các row
+        // Ẩn/hiện các row với pagination
+        let visibleCount = 0;
         allRows.forEach((row, index) => {
             if (filteredIndexes.has(index)) {
-                row.style.display = '';  // Hiển thị
+                // Row thuộc filter results
+                if (visibleCount < currentLoaded) {
+                    row.style.display = '';  // Hiển thị theo pagination
+                    row.dataset.visible = 'true';
+                    visibleCount++;
+                } else {
+                    row.style.display = 'none';  // Ẩn nếu vượt quá pagination
+                    row.dataset.visible = 'false';
+                }
             } else {
-                row.style.display = 'none';  // Ẩn
+                row.style.display = 'none';  // Ẩn vì không thuộc filter
+                row.dataset.visible = 'false';
             }
         });
+
+        // Cập nhật load more button với filtered results
+        if (loadMoreBtn) {
+            const totalFiltered = filteredIndexes.size;
+            // Sử dụng filteredDays.length thay vì filteredIndexes.size để đảm bảo đúng số lượng
+            const actualTotal = filteredDays.length;
+            loadMoreBtn.dataset.loaded = Math.min(currentLoaded, actualTotal).toString();
+            loadMoreBtn.dataset.total = actualTotal.toString();
+
+            const remaining = actualTotal - Math.min(currentLoaded, actualTotal);
+            if (remaining > 0 && actualTotal > currentLoaded) {
+                loadMoreBtn.style.display = '';
+                loadMoreBtn.innerHTML = `
+                    <i class="bi bi-plus-circle me-2"></i>
+                    Xem thêm ${Math.min(10, remaining)} bảng
+                    <span class="text-muted ms-2">(${remaining} còn lại)</span>
+                `;
+            } else {
+                loadMoreBtn.style.display = 'none';
+            }
+        }
 
         // Hiển thị thông báo nếu không có ngày nào
         if (filteredDays.length === 0) {
@@ -533,58 +571,53 @@ function initTabooFilter(resultsByYear) {
             localStorage.removeItem(storageKey);
         }
 
-        // Cập nhật URL hash (chỉ cho session hiện tại)
-        const url = new URL(window.location);
-        if (selectedTaboos.length > 0) {
-            url.searchParams.set('filter', selectedTaboos.join(','));
-        } else {
-            url.searchParams.delete('filter');
-        }
-
-        // Cập nhật URL mà không reload trang
-        window.history.replaceState({}, '', url.toString());
+        // Không cần lưu vào URL vì đã có localStorage
     }
 
     // Khôi phục trạng thái filter từ localStorage theo tool cụ thể
     function restoreFilterState() {
         let selectedTaboos = [];
 
-        // Ưu tiên từ URL parameters trước (cho session hiện tại)
-        const urlParams = new URLSearchParams(window.location.search);
-        const filterParam = urlParams.get('filter');
+        // Chỉ sử dụng localStorage, không dùng URL parameters
+        const toolName = getCurrentToolName();
+        const storageKey = `tabooFilter_${toolName}`;
+        const savedFilter = localStorage.getItem(storageKey);
 
-        if (filterParam) {
-            selectedTaboos = filterParam.split(',').filter(Boolean);
-        } else {
-            // Fallback từ localStorage theo tool cụ thể
-            const toolName = getCurrentToolName();
-            const storageKey = `tabooFilter_${toolName}`;
-            const savedFilter = localStorage.getItem(storageKey);
-
-            if (savedFilter) {
-                try {
-                    selectedTaboos = JSON.parse(savedFilter);
-                } catch (e) {
-                    console.log('Error parsing saved filter for', toolName, ':', e);
-                    selectedTaboos = [];
-                }
+        if (savedFilter) {
+            try {
+                selectedTaboos = JSON.parse(savedFilter);
+            } catch (e) {
+                console.log('Error parsing saved filter for', toolName, ':', e);
+                selectedTaboos = [];
             }
         }
 
         if (selectedTaboos.length > 0) {
             console.log('Restoring filter state for', getCurrentToolName(), ':', selectedTaboos);
 
-            // Khôi phục checkbox states
-            document.querySelectorAll('.taboo-checkbox').forEach(cb => {
-                cb.checked = selectedTaboos.includes(cb.value);
-            });
+            // Đợi UI được render hoàn toàn
+            const waitForCheckboxes = (attempts = 0) => {
+                const checkboxes = document.querySelectorAll('.taboo-checkbox');
 
-            // Áp dụng filter tự động
-            setTimeout(() => {
-                applyFilterWithValues(selectedTaboos);
-            }, 100);
+                if (checkboxes.length > 0 || attempts > 20) {
+                    // Khôi phục checkbox states
+                    checkboxes.forEach(cb => {
+                        cb.checked = selectedTaboos.includes(cb.value);
+                    });
 
-            updateFilterBadge();
+                    // Áp dụng filter tự động với delay để đảm bảo data đã load
+                    setTimeout(() => {
+                        applyFilterWithValues(selectedTaboos);
+                    }, 300);
+
+                    updateFilterBadge();
+                } else {
+                    // Retry sau 200ms
+                    setTimeout(() => waitForCheckboxes(attempts + 1), 200);
+                }
+            };
+
+            waitForCheckboxes();
         }
     }
 
@@ -624,10 +657,20 @@ function initTabooFilter(resultsByYear) {
     // Khởi tạo modal filter
     setupModalFilter();
 
-    // Khôi phục trạng thái filter khi trang load
+    // Khôi phục trạng thái filter khi trang load - tăng thời gian chờ
     setTimeout(() => {
         restoreFilterState();
-    }, 500);
+    }, 800);
+
+    // Thêm listener cho sự kiện quay lại từ trang khác
+    window.addEventListener('pageshow', function(event) {
+        // Nếu trang được load từ cache (quay lại từ trang khác)
+        if (event.persisted) {
+            setTimeout(() => {
+                restoreFilterState();
+            }, 300);
+        }
+    });
   
 
     // Tích hợp với bộ lọc sắp xếp hiện tại
@@ -643,7 +686,15 @@ function initTabooFilter(resultsByYear) {
                 const sortedDays = [...currentFilteredData[year]];
 
                 sortedDays.sort((a, b) => {
-                    // Tìm điểm số từ nhiều cấu trúc dữ liệu khác nhau
+                    // Kiểm tra xem có sắp xếp theo ngày không
+                    if (sortOrder === 'date_asc' || sortOrder === 'date_desc') {
+                        // Sắp xếp theo ngày
+                        const dateA = new Date(a.date);
+                        const dateB = new Date(b.date);
+                        return sortOrder === 'date_asc' ? dateA - dateB : dateB - dateA;
+                    }
+
+                    // Sắp xếp theo điểm số từ nhiều cấu trúc dữ liệu khác nhau
                     let scoreA = 0;
                     let scoreB = 0;
 
@@ -699,6 +750,9 @@ function initTabooFilter(resultsByYear) {
         sortSelect.addEventListener('change', sortSelect._tabooSortHandler);
     }
 }
+
+// Expose initTabooFilter ra global scope để có thể gọi từ index.blade.php
+window.initTabooFilter = initTabooFilter;
 
 // Global functions để có thể gọi từ dropdown buttons
 function applyFilter() {
