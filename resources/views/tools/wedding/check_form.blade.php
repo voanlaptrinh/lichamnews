@@ -831,7 +831,21 @@
 
                         if (data.success) {
                             resultsContainer.style.display = 'block';
-                            resultsContainer.innerHTML = data.html;
+
+                            setTimeout(() => {
+                                resultsContainer.innerHTML = data.html;
+
+                                // Cập nhật window.resultsByYear cho global access
+                                if (data.resultsByYear) {
+                                    window.resultsByYear = data.resultsByYear;
+                                }
+
+                                setTimeout(() => {
+                                    if (data.resultsByYear && typeof initTabooFilter === 'function') {
+                                        initTabooFilter(data.resultsByYear);
+                                    }
+                                }, 200);
+                            }, 500);
 
                             resultsContainer.scrollIntoView({
                                 behavior: 'smooth',
@@ -871,6 +885,18 @@
                                             if (data.success) {
                                                 resultsContainer.innerHTML = data
                                                     .html;
+
+                                                // Cập nhật window.resultsByYear cho global access
+                                                if (data.resultsByYear) {
+                                                    window.resultsByYear = data.resultsByYear;
+                                                }
+
+                                                // Re-initialize filter
+                                                if (data.resultsByYear && typeof initTabooFilter === 'function') {
+                                                    setTimeout(() => {
+                                                        initTabooFilter(data.resultsByYear);
+                                                    }, 200);
+                                                }
 
                                                 // Re-initialize tabs
                                                 const newTabs = resultsContainer
@@ -923,4 +949,5 @@
             });
         });
     </script>
+    @include('components.taboo-filter-script')
 @endpush

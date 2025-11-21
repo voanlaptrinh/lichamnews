@@ -4,27 +4,35 @@ TABOO FILTER HYBRID SCRIPT - Tương thích với nhiều cấu trúc dữ liệ
 
 Script này được thiết kế để hoạt động với nhiều cấu trúc dữ liệu khác nhau:
 
-1. Cấu trúc FunctionHelper (xuất hành):
+1. Cấu trúc Wedding Tool (kết hôn) - Dual score:
+   day.groom_score.issues[] và day.bride_score.issues[] với issue.source = 'Taboo'
+   day.groom_score.percentage + day.bride_score.percentage cho điểm số (average)
+
+2. Cấu trúc FunctionHelper (xuất hành):
    day.day_score.score.issues[] với issue.source = 'Taboo' và issue.details.tabooName
    day.day_score.score.percentage cho điểm số
 
-2. Cấu trúc GoodBadDayHelper (mua xe):
+3. Cấu trúc GoodBadDayHelper (mua xe):
    day.day_score.issues[] với issue.source = 'Taboo' và issue.details.tabooName
    day.day_score.percentage cho điểm số
 
-3. Cấu trúc từ controller:
+4. Cấu trúc từ controller:
    day.day_score.checkTabooDays.issues[] với issue.details.tabooName
 
-4. Cấu trúc cũ (tương thích ngược):
+5. Cấu trúc cũ (tương thích ngược):
    day.issues[] với issue.details.tabooName hoặc issue.name
 
-5. Cấu trúc đơn giản:
+6. Cấu trúc đơn giản:
    day.taboo_days[] với string hoặc object.name
 
 Supports multiple tbody selectors:
 - .table-body-{year} (preferred)
 - #table-{year} tbody (fallback)
 - .table tbody (general fallback)
+
+UI Patterns:
+- Dropdown filter (tabooFilterModal với backdrop)
+- Modal filter (cho backward compatibility)
 --}}
 <script>
 // ========== TABOO FILTER HYBRID FUNCTIONS ==========
@@ -34,6 +42,8 @@ function initTabooFilter(resultsByYear) {
         console.log('No resultsByYear data, returning');
         return;
     }
+
+    console.log('initTabooFilter called with data:', resultsByYear);
 
     let originalData = {}; // Lưu dữ liệu gốc
     let currentFilteredData = {}; // Dữ liệu sau khi lọc
@@ -46,6 +56,67 @@ function initTabooFilter(resultsByYear) {
 
     // Hàm kiểm tra xem ngày có chứa taboo không - Phiên bản hybrid tương thích
     function hasTaboo(day, tabooNames) {
+        // Kiểm tra trong wedding tool - dual score structure (groom_score và bride_score)
+        if (day.groom_score && day.bride_score) {
+            console.log('Wedding tool detected, checking groom_score and bride_score for taboos:', tabooNames);
+            // Kiểm tra trong groom_score
+            if (day.groom_score.issues && Array.isArray(day.groom_score.issues)) {
+                console.log('Groom issues found:', day.groom_score.issues);
+                const found = day.groom_score.issues.some(issue => {
+                    console.log('Checking groom issue:', issue);
+                    if (issue.source === 'Taboo' && issue.details && issue.details.tabooName) {
+                        console.log('Found groom taboo:', issue.details.tabooName, 'in list:', tabooNames);
+                        return tabooNames.includes(issue.details.tabooName);
+                    }
+                    if (issue.name && tabooNames.includes(issue.name)) {
+                        return true;
+                    }
+                    if (issue.reason) {
+                        return tabooNames.some(taboo => issue.reason.includes(taboo));
+                    }
+                    return false;
+                });
+                if (found) return true;
+            }
+
+            // Kiểm tra trong bride_score
+            if (day.bride_score.issues && Array.isArray(day.bride_score.issues)) {
+                console.log('Bride issues found:', day.bride_score.issues);
+                const found = day.bride_score.issues.some(issue => {
+                    console.log('Checking bride issue:', issue);
+                    if (issue.source === 'Taboo' && issue.details && issue.details.tabooName) {
+                        console.log('Found bride taboo:', issue.details.tabooName, 'in list:', tabooNames);
+                        return tabooNames.includes(issue.details.tabooName);
+                    }
+                    if (issue.name && tabooNames.includes(issue.name)) {
+                        return true;
+                    }
+                    if (issue.reason) {
+                        return tabooNames.some(taboo => issue.reason.includes(taboo));
+                    }
+                    return false;
+                });
+                if (found) return true;
+            }
+
+            // Kiểm tra trong day_score chung cho wedding (nếu có)
+            if (day.day_score?.issues && Array.isArray(day.day_score.issues)) {
+                const found = day.day_score.issues.some(issue => {
+                    if (issue.source === 'Taboo' && issue.details && issue.details.tabooName) {
+                        return tabooNames.includes(issue.details.tabooName);
+                    }
+                    if (issue.name && tabooNames.includes(issue.name)) {
+                        return true;
+                    }
+                    if (issue.reason) {
+                        return tabooNames.some(taboo => issue.reason.includes(taboo));
+                    }
+                    return false;
+                });
+                if (found) return true;
+            }
+        }
+
         // Kiểm tra trong day_score.score.issues (cấu trúc từ FunctionHelper - xuất hành)
         if (day.day_score?.score?.issues && Array.isArray(day.day_score.score.issues)) {
             const found = day.day_score.score.issues.some(issue => {
@@ -256,7 +327,7 @@ function initTabooFilter(resultsByYear) {
 
         if (selectCommonBtn) {
             selectCommonBtn.addEventListener('click', () => {
-                // Chọn các taboo phổ biến
+                // Chọn các taboo phổ biến cho kết hôn
                 const commonTaboos = ['Tam Nương', 'Nguyệt Kỵ', 'Nguyệt Tận'];
                 document.querySelectorAll('.taboo-checkbox').forEach(cb => {
                     cb.checked = commonTaboos.includes(cb.value);
@@ -435,8 +506,14 @@ function initTabooFilter(resultsByYear) {
                     let scoreA = 0;
                     let scoreB = 0;
 
+                    // Wedding tool - dual score structure: tính điểm trung bình của groom và bride
+                    if (a.groom_score && a.bride_score) {
+                        const groomScoreA = a.groom_score.percentage || 0;
+                        const brideScoreA = a.bride_score.percentage || 0;
+                        scoreA = (groomScoreA + brideScoreA) / 2;
+                    }
                     // Ưu tiên: cấu trúc từ FunctionHelper (xuất hành): day_score.score.percentage
-                    if (a.day_score?.score?.percentage !== undefined) {
+                    else if (a.day_score?.score?.percentage !== undefined) {
                         scoreA = a.day_score.score.percentage;
                     }
                     // Cấu trúc từ GoodBadDayHelper (mua xe): day_score.percentage
@@ -452,7 +529,13 @@ function initTabooFilter(resultsByYear) {
                         scoreA = a.percentage;
                     }
 
-                    if (b.day_score?.score?.percentage !== undefined) {
+                    // Wedding tool - dual score structure: tính điểm trung bình của groom và bride
+                    if (b.groom_score && b.bride_score) {
+                        const groomScoreB = b.groom_score.percentage || 0;
+                        const brideScoreB = b.bride_score.percentage || 0;
+                        scoreB = (groomScoreB + brideScoreB) / 2;
+                    }
+                    else if (b.day_score?.score?.percentage !== undefined) {
                         scoreB = b.day_score.score.percentage;
                     }
                     else if (b.day_score?.percentage !== undefined) {
@@ -473,6 +556,21 @@ function initTabooFilter(resultsByYear) {
         };
 
         sortSelect.addEventListener('change', sortSelect._tabooSortHandler);
+    }
+}
+
+// Global functions để có thể gọi từ dropdown buttons
+function applyFilter() {
+    const applyBtn = document.getElementById('applyTabooFilter');
+    if (applyBtn && applyBtn._tabooHandler) {
+        applyBtn._tabooHandler();
+    }
+}
+
+function clearFilter() {
+    const clearBtn = document.getElementById('clearTabooFilter');
+    if (clearBtn && clearBtn._tabooHandler) {
+        clearBtn._tabooHandler();
     }
 }
 </script>

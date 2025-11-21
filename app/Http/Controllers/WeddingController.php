@@ -190,7 +190,6 @@ class WeddingController extends Controller
             }
         }
         unset($yearData);
-
         // 5. Trả về kết quả
         if ($request->wantsJson()) {
             // AJAX request - trả về JSON với HTML rendered
@@ -204,6 +203,7 @@ class WeddingController extends Controller
 
             return response()->json([
                 'success' => true,
+                'resultsByYear' => $resultsByYear, // Thêm data cho JS filter
                 'html' => $html
             ]);
         }
