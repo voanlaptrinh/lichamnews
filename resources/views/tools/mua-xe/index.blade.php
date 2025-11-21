@@ -3,20 +3,19 @@
 @section('content')
     @push('styles')
         <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=10.7') }}">
-
     @endpush
 
     <div class="container-setup">
-            <nav aria-label="breadcrumb" class="content-title-detail">
+        <nav aria-label="breadcrumb" class="content-title-detail">
             <ol class="breadcrumb mb-1">
                 <li class="breadcrumb-item">
-                    <a href="{{ route('home') }}"  style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
+                    <a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
                 </li>
                 <li class="breadcrumb-item" aria-current="page">
-                  Tiện ích
+                    Tiện ích
                 </li>
-                 <li class="breadcrumb-item active" aria-current="page">
-                 Xem ngày mua Xe
+                <li class="breadcrumb-item active" aria-current="page">
+                    Xem ngày mua Xe
                 </li>
             </ol>
         </nav>
@@ -119,7 +118,8 @@
                                                     </div>
 
                                                     <!-- Hidden input to store formatted date -->
-                                                    <input type="hidden" id="ngayXem" name="birthdate" value="{{ old('birthdate', $inputs['birthdate'] ?? '') }}">
+                                                    <input type="hidden" id="ngayXem" name="birthdate"
+                                                        value="{{ old('birthdate', $inputs['birthdate'] ?? '') }}">
 
                                                     @error('birthdate')
                                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -188,7 +188,6 @@
     </div>
 
     <!-- Mobile Date Range Quick Options Popup -->
-
 @endsection
 
 @push('scripts')
@@ -255,7 +254,9 @@
                                 separator: ' - ',
                                 daysOfWeek: ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'],
                                 monthNames: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5',
-                                    'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
+                                    'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11',
+                                    'Tháng 12'
+                                ],
                                 firstDay: 1
                             }
                         };
@@ -348,7 +349,8 @@
                     }
 
                     // Check if dateSelector is available and fully initialized
-                    if (dateSelector && dateSelector.daySelect && dateSelector.monthSelect && dateSelector.yearSelect &&
+                    if (dateSelector && dateSelector.daySelect && dateSelector.monthSelect && dateSelector
+                        .yearSelect &&
                         dateSelector.yearSelect.options.length > 1) {
 
                         // Parse birthdate from URL (always in solar format from URL)
@@ -378,7 +380,8 @@
                                                 solarRadio.checked = false;
 
                                                 // Trigger the built-in conversion method
-                                                if (dateSelector && typeof dateSelector.handleLunarRadioChange === 'function') {
+                                                if (dateSelector && typeof dateSelector
+                                                    .handleLunarRadioChange === 'function') {
                                                     await dateSelector.handleLunarRadioChange();
                                                 }
                                             }
@@ -529,7 +532,8 @@
                     isLeapMonth = ngayXemInput.dataset.lunarLeap === '1';
 
                     if (solarDay && solarMonth && solarYear) {
-                        formattedBirthdate = `${String(solarDay).padStart(2, '0')}/${String(solarMonth).padStart(2, '0')}/${solarYear}`;
+                        formattedBirthdate =
+                            `${String(solarDay).padStart(2, '0')}/${String(solarMonth).padStart(2, '0')}/${solarYear}`;
                     } else {
                         // Fallback to parsing lunar date from value
                         formattedBirthdate = ngayXemValue.replace(' (ÂL)', '').replace(' (ÂL-Nhuận)', '');
@@ -648,6 +652,11 @@
                                     bsTab.show();
                                 });
                             });
+                            setTimeout(() => {
+                                if (data.resultsByYear) {
+                                    initTabooFilter(data.resultsByYear);
+                                }
+                            }, 500);
                         } else if (data.errors) {
                             // Show validation errors
                             let errorMessage = 'Vui lòng kiểm tra lại:\\n';
@@ -724,4 +733,6 @@
 
         });
     </script>
+    @include('components.taboo-filter-script')
+
 @endpush

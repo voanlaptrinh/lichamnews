@@ -1,6 +1,33 @@
-{{-- JavaScript logic cho taboo filter --}}
+{{--
+TABOO FILTER HYBRID SCRIPT - Tương thích với nhiều cấu trúc dữ liệu
+=====================================================================
+
+Script này được thiết kế để hoạt động với nhiều cấu trúc dữ liệu khác nhau:
+
+1. Cấu trúc FunctionHelper (xuất hành):
+   day.day_score.score.issues[] với issue.source = 'Taboo' và issue.details.tabooName
+   day.day_score.score.percentage cho điểm số
+
+2. Cấu trúc GoodBadDayHelper (mua xe):
+   day.day_score.issues[] với issue.source = 'Taboo' và issue.details.tabooName
+   day.day_score.percentage cho điểm số
+
+3. Cấu trúc từ controller:
+   day.day_score.checkTabooDays.issues[] với issue.details.tabooName
+
+4. Cấu trúc cũ (tương thích ngược):
+   day.issues[] với issue.details.tabooName hoặc issue.name
+
+5. Cấu trúc đơn giản:
+   day.taboo_days[] với string hoặc object.name
+
+Supports multiple tbody selectors:
+- .table-body-{year} (preferred)
+- #table-{year} tbody (fallback)
+- .table tbody (general fallback)
+--}}
 <script>
-// ========== TABOO FILTER FUNCTIONS ==========
+// ========== TABOO FILTER HYBRID FUNCTIONS ==========
 function initTabooFilter(resultsByYear) {
 
     if (!resultsByYear) {
@@ -17,47 +44,113 @@ function initTabooFilter(resultsByYear) {
         currentFilteredData[year] = [...resultsByYear[year].days];
     });
 
-    // Hàm kiểm tra xem ngày có chứa taboo không
+    // Hàm kiểm tra xem ngày có chứa taboo không - Phiên bản hybrid tương thích
     function hasTaboo(day, tabooNames) {
-        // Kiểm tra trong day_score.score.issues (cấu trúc mới)
+        // Kiểm tra trong day_score.score.issues (cấu trúc từ FunctionHelper - xuất hành)
         if (day.day_score?.score?.issues && Array.isArray(day.day_score.score.issues)) {
             const found = day.day_score.score.issues.some(issue => {
-                if (issue.details && issue.details.tabooName) {
+                // Kiểm tra source = 'Taboo' và details.tabooName
+                if (issue.source === 'Taboo' && issue.details && issue.details.tabooName) {
                     return tabooNames.includes(issue.details.tabooName);
+                }
+                // Fallback: kiểm tra trong issue.name
+                if (issue.name && tabooNames.includes(issue.name)) {
+                    return true;
+                }
+                // Fallback: kiểm tra trong reason cho các taboo phổ biến
+                if (issue.reason) {
+                    return tabooNames.some(taboo => issue.reason.includes(taboo));
                 }
                 return false;
             });
             if (found) return true;
         }
 
-        // Kiểm tra trong day_score.issues (fallback)
+        // Kiểm tra trong day_score.issues (cấu trúc mới từ GoodBadDayHelper - mua xe)
         if (day.day_score?.issues && Array.isArray(day.day_score.issues)) {
             const found = day.day_score.issues.some(issue => {
-                if (issue.details && issue.details.tabooName) {
+                // Kiểm tra source = 'Taboo' và details.tabooName
+                if (issue.source === 'Taboo' && issue.details && issue.details.tabooName) {
                     return tabooNames.includes(issue.details.tabooName);
+                }
+                // Fallback: kiểm tra trong issue.name
+                if (issue.name && tabooNames.includes(issue.name)) {
+                    return true;
+                }
+                // Fallback: kiểm tra trong reason cho các taboo phổ biến
+                if (issue.reason) {
+                    return tabooNames.some(taboo => issue.reason.includes(taboo));
                 }
                 return false;
             });
             if (found) return true;
         }
 
-        // Kiểm tra trong day.issues (fallback cũ)
-        if (day.issues && Array.isArray(day.issues)) {
-            return day.issues.some(issue => {
+        // Kiểm tra trong day_score.checkTabooDays.issues (cấu trúc từ controller)
+        if (day.day_score?.checkTabooDays?.issues && Array.isArray(day.day_score.checkTabooDays.issues)) {
+            const found = day.day_score.checkTabooDays.issues.some(issue => {
                 if (issue.details && issue.details.tabooName) {
                     return tabooNames.includes(issue.details.tabooName);
                 }
+                if (issue.name && tabooNames.includes(issue.name)) {
+                    return true;
+                }
+                if (issue.reason) {
+                    return tabooNames.some(taboo => issue.reason.includes(taboo));
+                }
                 return false;
             });
+            if (found) return true;
+        }
+
+        // Kiểm tra trong day.issues (cấu trúc cũ để tương thích với view khác)
+        if (day.issues && Array.isArray(day.issues)) {
+            const found = day.issues.some(issue => {
+                if (issue.details && issue.details.tabooName) {
+                    return tabooNames.includes(issue.details.tabooName);
+                }
+                if (issue.name && tabooNames.includes(issue.name)) {
+                    return true;
+                }
+                if (issue.reason) {
+                    return tabooNames.some(taboo => issue.reason.includes(taboo));
+                }
+                return false;
+            });
+            if (found) return true;
+        }
+
+        // Kiểm tra trực tiếp trong day.taboo_days (cấu trúc đơn giản nhất)
+        if (day.taboo_days && Array.isArray(day.taboo_days)) {
+            const found = day.taboo_days.some(taboo => {
+                if (typeof taboo === 'string') {
+                    return tabooNames.includes(taboo);
+                }
+                if (taboo.name) {
+                    return tabooNames.includes(taboo.name);
+                }
+                return false;
+            });
+            if (found) return true;
         }
 
         return false;
     }
 
-    // Hàm cập nhật hiển thị table
+    // Hàm cập nhật hiển thị table - Phiên bản hybrid
     function updateTable(year, filteredDays) {
-        const tbody = document.querySelector(`.table-body-${year}`);
-        if (!tbody) return;
+        // Tìm tbody theo nhiều selector để tương thích
+        let tbody = document.querySelector(`.table-body-${year}`); // Selector mới
+        if (!tbody) {
+            tbody = document.querySelector(`#table-${year} tbody`); // Selector fallback
+        }
+        if (!tbody) {
+            tbody = document.querySelector('.table tbody'); // Selector tổng quát
+        }
+        if (!tbody) {
+            console.warn(`Không tìm thấy tbody cho năm ${year}`);
+            return;
+        }
 
         // Lấy tất cả row hiện tại (từ blade template gốc)
         const allRows = Array.from(tbody.querySelectorAll('tr:not(.empty-filter-row)'));
@@ -229,7 +322,10 @@ function initTabooFilter(resultsByYear) {
                 const originalDays = originalData[year];
                 totalDays += originalDays.length;
 
-                const filteredDays = originalDays.filter(day => !hasTaboo(day, selectedTaboos));
+                const filteredDays = originalDays.filter(day => {
+                    const hasTabooResult = hasTaboo(day, selectedTaboos);
+                    return !hasTabooResult;
+                });
                 totalFiltered += (originalDays.length - filteredDays.length);
 
                 // Cập nhật dữ liệu hiện tại
@@ -335,8 +431,39 @@ function initTabooFilter(resultsByYear) {
                 const sortedDays = [...currentFilteredData[year]];
 
                 sortedDays.sort((a, b) => {
-                    const scoreA = a.day_score?.score?.percentage ?? a.day_score?.percentage ?? 0;
-                    const scoreB = b.day_score?.score?.percentage ?? b.day_score?.percentage ?? 0;
+                    // Tìm điểm số từ nhiều cấu trúc dữ liệu khác nhau
+                    let scoreA = 0;
+                    let scoreB = 0;
+
+                    // Ưu tiên: cấu trúc từ FunctionHelper (xuất hành): day_score.score.percentage
+                    if (a.day_score?.score?.percentage !== undefined) {
+                        scoreA = a.day_score.score.percentage;
+                    }
+                    // Cấu trúc từ GoodBadDayHelper (mua xe): day_score.percentage
+                    else if (a.day_score?.percentage !== undefined) {
+                        scoreA = a.day_score.percentage;
+                    }
+                    // Cấu trúc cũ: score trực tiếp
+                    else if (a.score !== undefined) {
+                        scoreA = a.score;
+                    }
+                    // Fallback: percentage trực tiếp
+                    else if (a.percentage !== undefined) {
+                        scoreA = a.percentage;
+                    }
+
+                    if (b.day_score?.score?.percentage !== undefined) {
+                        scoreB = b.day_score.score.percentage;
+                    }
+                    else if (b.day_score?.percentage !== undefined) {
+                        scoreB = b.day_score.percentage;
+                    }
+                    else if (b.score !== undefined) {
+                        scoreB = b.score;
+                    }
+                    else if (b.percentage !== undefined) {
+                        scoreB = b.percentage;
+                    }
 
                     return sortOrder === 'desc' ? scoreB - scoreA : scoreA - scoreB;
                 });

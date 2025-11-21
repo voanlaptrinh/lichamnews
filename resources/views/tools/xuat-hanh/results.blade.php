@@ -187,6 +187,11 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- Filter Status Message -->
+                        <div id="filterStatus" class="alert alert-info d-none mb-3" role="alert">
+                            <i class="bi bi-funnel"></i>
+                            <span id="filterStatusText"></span>
+                        </div>
 
                         @if (isset($yearData['days']) && count($yearData['days']) > 0)
                             <div class="table-responsive w-100" id="bang-chi-tiet">
@@ -373,4 +378,16 @@
     @if (isset($resultsByYear))
         window.resultsByYear = @json($resultsByYear);
     @endif
+</script>
+
+{{-- Include hybrid taboo filter script --}}
+@include('components.taboo-filter-script')
+
+<script>
+    // Khởi tạo taboo filter cho xuất hành
+    document.addEventListener('DOMContentLoaded', function() {
+        if (window.resultsByYear && typeof initTabooFilter === 'function') {
+            initTabooFilter(window.resultsByYear);
+        }
+    });
 </script>
