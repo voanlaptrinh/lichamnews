@@ -492,18 +492,48 @@ function initTabooFilter(resultsByYear) {
 
     // ========== LƯU VÀ KHÔI PHỤC TRẠNG THÁI FILTER ==========
 
-    // Lưu trạng thái filter vào localStorage và URL
+    // Lấy tên tool từ URL để tách biệt storage giữa các tool
+    function getCurrentToolName() {
+        const path = window.location.pathname;
+        // Danh sách đầy đủ các tools theo routes
+        if (path.includes('/xem-ngay-tot-xau') || path.includes('/tot-xau')) return 'tot-xau';
+        if (path.includes('/xem-ngay-mua-nha') || path.includes('/mua-nha')) return 'mua-nha';
+        if (path.includes('/xem-ngay-ket-hon') || path.includes('/ket-hon')) return 'ket-hon';
+        if (path.includes('/xem-ngay-dam-ngo') || path.includes('/dam-ngo')) return 'dam-ngo';
+        if (path.includes('/xem-ngay-khai-truong') || path.includes('/khai-truong')) return 'khai-truong';
+        if (path.includes('/xem-ngay-dong-tho') || path.includes('/dong-tho')) return 'dong-tho';
+        if (path.includes('/xem-ngay-nhap-trach') || path.includes('/nhap-trach')) return 'nhap-trach';
+        if (path.includes('/xem-ngay-xuat-hanh') || path.includes('/xuat-hanh')) return 'xuat-hanh';
+        if (path.includes('/xem-ngay-mua-xe') || path.includes('/mua-xe')) return 'mua-xe';
+        if (path.includes('/xem-ngay-thi-cu-phong-van') || path.includes('/thi-cu')) return 'thi-cu';
+        if (path.includes('/xem-ngay-ky-hop-dong') || path.includes('/ky-hop-dong')) return 'ky-hop-dong';
+        if (path.includes('/xem-ngay-cai-tang') || path.includes('/cai-tang')) return 'cai-tang';
+        if (path.includes('/xem-ngay-doi-ban-tho') || path.includes('/ban-tho')) return 'ban-tho';
+        if (path.includes('/xem-ngay-lap-ban-tho') || path.includes('/lap-ban-tho')) return 'lap-ban-tho';
+        if (path.includes('/xem-ngay-cung-sao-giai-han') || path.includes('/giai-han')) return 'giai-han';
+        if (path.includes('/xem-ngay-tran-trach') || path.includes('/tran-trach')) return 'tran-trach';
+        if (path.includes('/xem-ngay-cau-an-lam-phuc') || path.includes('/phong-sinh')) return 'phong-sinh';
+        if (path.includes('/xem-ngay-nhan-cong-viec-moi') || path.includes('/cong-viec-moi')) return 'cong-viec-moi';
+        if (path.includes('/xem-ngay-lam-giay-to') || path.includes('/giay-to')) return 'giay-to';
+        return 'default';
+    }
+
+    // Lưu trạng thái filter vào localStorage theo từng tool riêng biệt
     function saveFilterState() {
         const selectedTaboos = Array.from(document.querySelectorAll('.taboo-checkbox:checked')).map(cb => cb.value);
 
-        // Lưu vào localStorage
+        // Lấy tên tool và tạo key riêng cho từng tool
+        const toolName = getCurrentToolName();
+        const storageKey = `tabooFilter_${toolName}`;
+
+        // Lưu vào localStorage theo tool
         if (selectedTaboos.length > 0) {
-            localStorage.setItem('tabooFilter', JSON.stringify(selectedTaboos));
+            localStorage.setItem(storageKey, JSON.stringify(selectedTaboos));
         } else {
-            localStorage.removeItem('tabooFilter');
+            localStorage.removeItem(storageKey);
         }
 
-        // Cập nhật URL hash
+        // Cập nhật URL hash (chỉ cho session hiện tại)
         const url = new URL(window.location);
         if (selectedTaboos.length > 0) {
             url.searchParams.set('filter', selectedTaboos.join(','));
@@ -515,31 +545,34 @@ function initTabooFilter(resultsByYear) {
         window.history.replaceState({}, '', url.toString());
     }
 
-    // Khôi phục trạng thái filter từ localStorage và URL
+    // Khôi phục trạng thái filter từ localStorage theo tool cụ thể
     function restoreFilterState() {
         let selectedTaboos = [];
 
-        // Ưu tiên từ URL parameters trước
+        // Ưu tiên từ URL parameters trước (cho session hiện tại)
         const urlParams = new URLSearchParams(window.location.search);
         const filterParam = urlParams.get('filter');
 
         if (filterParam) {
             selectedTaboos = filterParam.split(',').filter(Boolean);
         } else {
-            // Fallback từ localStorage
-            const savedFilter = localStorage.getItem('tabooFilter');
+            // Fallback từ localStorage theo tool cụ thể
+            const toolName = getCurrentToolName();
+            const storageKey = `tabooFilter_${toolName}`;
+            const savedFilter = localStorage.getItem(storageKey);
+
             if (savedFilter) {
                 try {
                     selectedTaboos = JSON.parse(savedFilter);
                 } catch (e) {
-                    console.log('Error parsing saved filter:', e);
+                    console.log('Error parsing saved filter for', toolName, ':', e);
                     selectedTaboos = [];
                 }
             }
         }
 
         if (selectedTaboos.length > 0) {
-            console.log('Restoring filter state:', selectedTaboos);
+            console.log('Restoring filter state for', getCurrentToolName(), ':', selectedTaboos);
 
             // Khôi phục checkbox states
             document.querySelectorAll('.taboo-checkbox').forEach(cb => {

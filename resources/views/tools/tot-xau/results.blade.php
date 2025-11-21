@@ -65,7 +65,7 @@
                 <!-- Danh sách điểm theo ngày -->
                 <div class="card border-0 mb-3 w-100 box-detial-year">
                     <div class="card-body">
-                        <div class="betwen-ds mb-3 flex-wrap">
+                        <div class="betwen-ds flex-wrap">
                             <div class="text-primary mb-0 title-tong-quan-h4-log text-dark fw-bolder">
                                 <img src="{{ asset('icons/k_nen_1.svg') }}" alt="thông tin người xem" width="28"
                                     height="28" class="me-1"> Danh Sách Điểm
@@ -76,7 +76,7 @@
                                     <button type="button" id="tabooFilterBtn"
                                         class="form-select-sm sort-select" onclick="return false;">
                                         <i class="bi bi-funnel me-2"></i>
-                                        <span>Lọc ngày xấu</span>
+                                        <span>Lọc ngày kỵ</span>
                                         <i class="bi bi-chevron-down ms-2"></i>
                                       
                                     </button>
@@ -84,7 +84,7 @@
                                     <!-- Filter Modal/Dropdown -->
                                     <div id="tabooFilterModal" class="taboo-filter-modal d-none">
                                         <div class="taboo-filter-header">
-                                            <h6 class="mb-0">Lọc ngày xấu</h6>
+                                            <h6 class="mb-0">Lọc ngày kỵ</h6>
                                             <button type="button" id="closeFilterModal" class="btn-close-filter">
                                                 <i class="bi bi-x"></i>
                                             </button>
@@ -93,10 +93,15 @@
                                         <div class="taboo-filter-body">
                                             <!-- Categories -->
                                             <div class="filter-section">
-                                                <h6 class="filter-section-title">
-                                                    <i class="bi bi-house-door"></i>
-                                                    Tất cả ngày xấu
-                                                </h6>
+                                                 <!-- Quick Actions -->
+                                            <div class="filter-quick-actions">
+                                                <button type="button" id="selectCommon" class="btn-quick-action">Phổ
+                                                    biến</button>
+                                                <button type="button" id="selectAll" class="btn-quick-action">Tất
+                                                    cả</button>
+                                                <button type="button" id="clearAll" class="btn-quick-action">Bỏ
+                                                    chọn</button>
+                                            </div>
 
                                                 <div class="filter-options">
                                                     <label class="filter-option">
@@ -164,15 +169,7 @@
                                                 </div>
                                             </div>
 
-                                            <!-- Quick Actions -->
-                                            <div class="filter-quick-actions">
-                                                <button type="button" id="selectCommon" class="btn-quick-action">Phổ
-                                                    biến</button>
-                                                <button type="button" id="selectAll" class="btn-quick-action">Tất
-                                                    cả</button>
-                                                <button type="button" id="clearAll" class="btn-quick-action">Bỏ
-                                                    chọn</button>
-                                            </div>
+                                          
                                         </div>
 
                                         <div class="taboo-filter-footer">
@@ -201,7 +198,10 @@
                                 </div>
                             </div>
                         </div>
-
+  <div id="filterStatus" class="alert alert-success d-none mb-3" role="alert">
+                            <i class="bi bi-funnel"></i>
+                            <span id="filterStatusText"></span>
+                        </div>
                         <!-- Bộ lọc Taboo - Modal Style -->
 
                         @if (isset($yearData['days']) && count($yearData['days']) > 0)

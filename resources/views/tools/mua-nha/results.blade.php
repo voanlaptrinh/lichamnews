@@ -91,26 +91,25 @@
 
                 <div class="card border-0 mb-3 w-100 box-detial-year">
                     <div class="card-body">
-                        <div class="betwen-ds mb-3 flex-wrap">
-                            <div
-                                class="text-primary mb-0 title-tong-quan-h4-log text-dark fw-bolder">
+                        <div class="betwen-ds flex-wrap">
+                            <div class="text-primary mb-0 title-tong-quan-h4-log text-dark fw-bolder">
                                 <img src="{{ asset('icons/k_nen_1.svg') }}" alt="thông tin người xem" width="28"
                                     height="28" class="me-1"> Danh Sách Điểm
                                 Theo Ngày
                             </div>
                             <div class="d-flex" style="gap: 10px">
                                 <div class="position-relative mb-3">
-                                    <button type="button" id="tabooFilterBtn"
-                                        class="form-select-sm sort-select" onclick="return false;">
+                                    <button type="button" id="tabooFilterBtn" class="form-select-sm sort-select"
+                                        onclick="return false;">
                                         <i class="bi bi-funnel me-2"></i>
-                                        <span>Lọc ngày xấu</span>
+                                        <span>Lọc ngày kỵ</span>
                                         <i class="bi bi-chevron-down ms-2"></i>
                                     </button>
 
                                     <!-- Filter Modal/Dropdown -->
                                     <div id="tabooFilterModal" class="taboo-filter-modal d-none">
                                         <div class="taboo-filter-header">
-                                            <h6 class="mb-0">Lọc ngày xấu</h6>
+                                            <h6 class="mb-0">Lọc ngày kỵ</h6>
                                             <button type="button" id="closeFilterModal" class="btn-close-filter">
                                                 <i class="bi bi-x"></i>
                                             </button>
@@ -119,10 +118,15 @@
                                         <div class="taboo-filter-body">
                                             <!-- Categories -->
                                             <div class="filter-section">
-                                                <h6 class="filter-section-title">
-                                                    <i class="bi bi-house-door"></i>
-                                                    Tất cả ngày xấu
-                                                </h6>
+                                                <!-- Quick Actions -->
+                                                <div class="filter-quick-actions">
+                                                    <button type="button" id="selectCommon"
+                                                        class="btn-quick-action">Phổ biến</button>
+                                                    <button type="button" id="selectAll" class="btn-quick-action">Tất
+                                                        cả</button>
+                                                    <button type="button" id="clearAll" class="btn-quick-action">Bỏ
+                                                        chọn</button>
+                                                </div>
 
                                                 <div class="filter-options">
                                                     <label class="filter-option">
@@ -154,8 +158,8 @@
                                                     </label>
 
                                                     <label class="filter-option">
-                                                        <input type="checkbox" class="taboo-checkbox" value="Sát Chủ Âm"
-                                                            id="taboo5">
+                                                        <input type="checkbox" class="taboo-checkbox"
+                                                            value="Sát Chủ Âm" id="taboo5">
                                                         <span class="checkmark"></span>
                                                         <span class="option-text">Sát Chủ Âm</span>
                                                     </label>
@@ -190,17 +194,14 @@
                                                 </div>
                                             </div>
 
-                                            <!-- Quick Actions -->
-                                            <div class="filter-quick-actions">
-                                                <button type="button" id="selectCommon" class="btn-quick-action">Phổ biến</button>
-                                                <button type="button" id="selectAll" class="btn-quick-action">Tất cả</button>
-                                                <button type="button" id="clearAll" class="btn-quick-action">Bỏ chọn</button>
-                                            </div>
+
                                         </div>
 
                                         <div class="taboo-filter-footer">
-                                            <button type="button" id="clearTabooFilter" class="btn-cancel">Đặt lại</button>
-                                            <button type="button" id="applyTabooFilter" class="btn-apply">Áp dụng</button>
+                                            <button type="button" id="clearTabooFilter" class="btn-cancel">Đặt
+                                                lại</button>
+                                            <button type="button" id="applyTabooFilter" class="btn-apply">Áp
+                                                dụng</button>
                                         </div>
                                     </div>
 
@@ -210,15 +211,20 @@
                                 <div>
                                     <select name="sort" class=" form-select-sm sort-select" style="width: auto;"
                                         form="buildHouseForm">
-                                        <option value="desc" {{ ($sortOrder ?? 'desc') === 'desc' ? 'selected' : '' }}>Điểm
+                                        <option value="desc"
+                                            {{ ($sortOrder ?? 'desc') === 'desc' ? 'selected' : '' }}>Điểm
                                             giảm dần</option>
-                                        <option value="asc" {{ ($sortOrder ?? 'desc') === 'asc' ? 'selected' : '' }}>Điểm
+                                        <option value="asc"
+                                            {{ ($sortOrder ?? 'desc') === 'asc' ? 'selected' : '' }}>Điểm
                                             tăng dần</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
-
+                        <div id="filterStatus" class="alert alert-success d-none mb-3" role="alert">
+                            <i class="bi bi-funnel"></i>
+                            <span id="filterStatusText"></span>
+                        </div>
                         @if (isset($yearData['days']) && count($yearData['days']) > 0)
                             <div class="table-responsive w-100" id="bang-chi-tiet">
                                 <table class="table table-hover align-middle w-100 table-layout"
@@ -261,7 +267,7 @@
                                                             'date' => $day['date']->format('Y-m-d'),
                                                             'birthdate' => $birthdateInfo['dob']->format('Y-m-d'),
                                                             'date_range' => $inputs['date_range'] ?? '',
-                                                            'calendar_type' => $inputs['calendar_type'] ?? 'solar'
+                                                            'calendar_type' => $inputs['calendar_type'] ?? 'solar',
                                                         ]) }}">
                                                         <div class="box-dtl-pc">
                                                             <div style="color: #0F172A;font-size: 18px">
@@ -358,7 +364,8 @@
                                                     @else
                                                         <span class="text-warning small"
                                                             style="color: #2254AB !important">
-                                                            <i class="bi bi-exclamation-triangle-fill"></i> Không có yếu
+                                                            <i class="bi bi-exclamation-triangle-fill"></i> Không có
+                                                            yếu
                                                             tố hỗ trợ
                                                         </span>
                                                     @endif

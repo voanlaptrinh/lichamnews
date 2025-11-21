@@ -21,10 +21,7 @@
     @endif
 
     <!-- Filter Status -->
-    <div class="alert alert-info d-none" id="filterStatus">
-        <i class="bi bi-funnel"></i> <span id="filterStatusText"></span>
-        <button type="button" class="btn btn-sm btn-outline-primary ms-2" onclick="clearFilter()">Bỏ lọc</button>
-    </div>
+ 
 
     <div class="tab-content ssss">
         @php $firstYear = true; @endphp
@@ -66,7 +63,7 @@
 
                 <div class="card border-0 mb-3 w-100 box-detial-year">
                     <div class="card-body">
-                        <div class="betwen-ds mb-3 flex-wrap">
+                        <div class="betwen-ds flex-wrap">
                             <div class="text-primary mb-0 title-tong-quan-h4-log text-dark fw-bolder">
                                 <img src="{{ asset('icons/k_nen_1.svg') }}" alt="bảng điểm dời bàn thờ" width="28"
                                     height="28" class="me-1"> Danh Sách Điểm
@@ -96,10 +93,15 @@
                                         <div class="taboo-filter-body">
                                             <!-- Categories -->
                                             <div class="filter-section">
-                                                <h6 class="filter-section-title">
-                                                    <i class="bi bi-exclamation-triangle" style="color: #dc3545;"></i>
-                                                    Ngày xấu dời bàn thờ
-                                                </h6>
+                                               <!-- Quick Actions -->
+                                            <div class="filter-quick-actions">
+                                                <button type="button" id="selectCommon" class="btn-quick-action">Phổ
+                                                    biến</button>
+                                                <button type="button" id="selectAll" class="btn-quick-action">Tất
+                                                    cả</button>
+                                                <button type="button" id="clearAll" class="btn-quick-action">Bỏ
+                                                    chọn</button>
+                                            </div>
 
                                                 <div class="filter-options">
                                                     <label class="filter-option">
@@ -167,15 +169,7 @@
                                                 </div>
                                             </div>
 
-                                            <!-- Quick Actions -->
-                                            <div class="filter-quick-actions">
-                                                <button type="button" id="selectCommon" class="btn-quick-action">Phổ
-                                                    biến</button>
-                                                <button type="button" id="selectAll" class="btn-quick-action">Tất
-                                                    cả</button>
-                                                <button type="button" id="clearAll" class="btn-quick-action">Bỏ
-                                                    chọn</button>
-                                            </div>
+                                           
                                         </div>
 
                                         <div class="taboo-filter-footer">
@@ -197,7 +191,10 @@
                                 </div>
                             </div>
                         </div>
-
+   <div class="alert alert-success d-none mb-3" id="filterStatus">
+        <i class="bi bi-funnel"></i> <span id="filterStatusText"></span>
+        {{-- <button type="button" class="btn btn-sm btn-outline-primary ms-2" onclick="clearFilter()">Bỏ lọc</button> --}}
+    </div>
                         @if (isset($yearData['days']) && count($yearData['days']) > 0)
                             <div class="table-responsive w-100" id="bang-chi-tiet">
                                 <table class="table table-hover align-middle w-100 table-layout"

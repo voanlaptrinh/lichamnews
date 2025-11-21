@@ -98,7 +98,7 @@
 
                 <div class="card border-0 mb-3 w-100 box-detial-year">
                     <div class="card-body">
-                        <div class="betwen-ds mb-3 flex-wrap g-2">
+                        <div class="betwen-ds flex-wrap g-2">
                             <div
                                 class="text-primary mb-0 title-tong-quan-h4-log text-dark fw-bolder">
                                 <img src="{{ asset('icons/k_nen_1.svg') }}" alt="thông tin người xem" width="28"
@@ -126,10 +126,12 @@
                                         <div class="taboo-filter-body">
                                             <!-- Categories -->
                                             <div class="filter-section">
-                                                <h6 class="filter-section-title">
-                                                    <i class="bi bi-building"></i>
-                                                    Tất cả ngày xấu
-                                                </h6>
+                                                <!-- Quick Actions -->
+                                            <div class="filter-quick-actions">
+                                                <button type="button" id="selectCommon" class="btn-quick-action">Phổ biến</button>
+                                                <button type="button" id="selectAll" class="btn-quick-action">Tất cả</button>
+                                                <button type="button" id="clearAll" class="btn-quick-action">Bỏ chọn</button>
+                                            </div>
 
                                                 <div class="filter-options">
                                                     <label class="filter-option">
@@ -197,12 +199,7 @@
                                                 </div>
                                             </div>
 
-                                            <!-- Quick Actions -->
-                                            <div class="filter-quick-actions">
-                                                <button type="button" id="selectCommon" class="btn-quick-action">Phổ biến</button>
-                                                <button type="button" id="selectAll" class="btn-quick-action">Tất cả</button>
-                                                <button type="button" id="clearAll" class="btn-quick-action">Bỏ chọn</button>
-                                            </div>
+                                        
                                         </div>
 
                                         <div class="taboo-filter-footer">
@@ -225,7 +222,10 @@
                                 </div>
                             </div>
                         </div>
-
+  <div id="filterStatus" class="alert alert-success d-none mb-3" role="alert">
+                            <i class="bi bi-funnel"></i>
+                            <span id="filterStatusText"></span>
+                        </div>
                         @if (isset($yearData['days']) && count($yearData['days']) > 0)
                             <div class="table-responsive w-100" id="bang-chi-tiet">
                                 <table class="table table-hover align-middle w-100 table-layout"

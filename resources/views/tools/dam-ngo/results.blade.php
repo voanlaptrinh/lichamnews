@@ -21,7 +21,7 @@
         </div>
     @endif
 
- 
+
     <div class="tab-content">
         @php $firstYear = true; @endphp
         @foreach ($resultsByYear as $year => $yearData)
@@ -53,8 +53,8 @@
                                 {{ $groomInfo['menh']['hanh'] }}
                                 ({{ $groomInfo['menh']['napAm'] }})
                             </p>
-                        
-                         
+
+
                         </div>
                     </div>
                 </div>
@@ -81,26 +81,25 @@
                                 {{ $brideInfo['menh']['hanh'] }}
                                 ({{ $brideInfo['menh']['napAm'] }})
                             </p>
-                          
+
                         </div>
                     </div>
                 </div>
 
                 <div class="card border-0 mb-3 w-100 box-detial-year">
                     <div class="card-body">
-                        <div class="betwen-ds mb-3 flex-wrap">
-                            <div
-                                class="text-primary mb-0 title-tong-quan-h4-log text-dark fw-bolder">
+                        <div class="betwen-ds flex-wrap">
+                            <div class="text-primary mb-0 title-tong-quan-h4-log text-dark fw-bolder">
                                 <img src="{{ asset('icons/k_nen_1.svg') }}" alt="thông tin người xem" width="28"
                                     height="28" class="me-1"> Danh Sách Điểm
                                 Theo Ngày
                             </div>
                             <div class="d-flex" style="gap: 10px">
                                 <div class="position-relative mb-3">
-                                    <button type="button" id="tabooFilterBtn"
-                                        class="form-select-sm sort-select" onclick="return false;">
+                                    <button type="button" id="tabooFilterBtn" class="form-select-sm sort-select"
+                                        onclick="return false;">
                                         <i class="bi bi-building me-2" style="color: #2254AB;"></i>
-                                        <span>Lọc ngày xấu</span>
+                                        <span>Lọc ngày kỵ</span>
                                         <i class="bi bi-chevron-down ms-2"></i>
                                     </button>
 
@@ -109,7 +108,7 @@
                                         <div class="taboo-filter-header">
                                             <h6 class="mb-0">
                                                 <i class="bi bi-building" style="color: #2254AB;"></i>
-                                                Lọc ngày xấu đàm ngô
+                                                Lọc ngày kỵ
                                             </h6>
                                             <button type="button" id="closeFilterModal" class="btn-close-filter">
                                                 <i class="bi bi-x"></i>
@@ -119,10 +118,16 @@
                                         <div class="taboo-filter-body">
                                             <!-- Categories -->
                                             <div class="filter-section">
-                                                <h6 class="filter-section-title">
-                                                    <i class="bi bi-exclamation-triangle" style="color: #dc3545;"></i>
-                                                    Ngày xấu đàm ngô
-                                                </h6>
+                                                <!-- Quick Actions -->
+                                                <div class="filter-quick-actions">
+                                                    <button type="button" id="selectCommon"
+                                                        class="btn-quick-action">Phổ
+                                                        biến</button>
+                                                    <button type="button" id="selectAll" class="btn-quick-action">Tất
+                                                        cả</button>
+                                                    <button type="button" id="clearAll" class="btn-quick-action">Bỏ
+                                                        chọn</button>
+                                                </div>
 
                                                 <div class="filter-options">
                                                     <label class="filter-option">
@@ -147,36 +152,36 @@
                                                     </label>
 
                                                     <label class="filter-option">
-                                                        <input type="checkbox" class="taboo-checkbox" value="Dương Công Kỵ Nhật"
-                                                            id="taboo4">
+                                                        <input type="checkbox" class="taboo-checkbox"
+                                                            value="Dương Công Kỵ Nhật" id="taboo4">
                                                         <span class="checkmark"></span>
                                                         <span class="option-text">Dương Công Kỵ Nhật</span>
                                                     </label>
 
                                                     <label class="filter-option">
-                                                        <input type="checkbox" class="taboo-checkbox" value="Sát Chủ Âm"
-                                                            id="taboo5">
+                                                        <input type="checkbox" class="taboo-checkbox"
+                                                            value="Sát Chủ Âm" id="taboo5">
                                                         <span class="checkmark"></span>
                                                         <span class="option-text">Sát Chủ Âm</span>
                                                     </label>
 
                                                     <label class="filter-option">
-                                                        <input type="checkbox" class="taboo-checkbox" value="Sát Chủ Dương"
-                                                            id="taboo6">
+                                                        <input type="checkbox" class="taboo-checkbox"
+                                                            value="Sát Chủ Dương" id="taboo6">
                                                         <span class="checkmark"></span>
                                                         <span class="option-text">Sát Chủ Dương</span>
                                                     </label>
 
                                                     <label class="filter-option">
-                                                        <input type="checkbox" class="taboo-checkbox" value="Kim Thần Thất Sát"
-                                                            id="taboo7">
+                                                        <input type="checkbox" class="taboo-checkbox"
+                                                            value="Kim Thần Thất Sát" id="taboo7">
                                                         <span class="checkmark"></span>
                                                         <span class="option-text">Kim Thần Thất Sát</span>
                                                     </label>
 
                                                     <label class="filter-option">
-                                                        <input type="checkbox" class="taboo-checkbox" value="Trùng Phục"
-                                                            id="taboo8">
+                                                        <input type="checkbox" class="taboo-checkbox"
+                                                            value="Trùng Phục" id="taboo8">
                                                         <span class="checkmark"></span>
                                                         <span class="option-text">Trùng Phục</span>
                                                     </label>
@@ -190,15 +195,7 @@
                                                 </div>
                                             </div>
 
-                                            <!-- Quick Actions -->
-                                            <div class="filter-quick-actions">
-                                                <button type="button" id="selectCommon" class="btn-quick-action">Phổ
-                                                    biến</button>
-                                                <button type="button" id="selectAll" class="btn-quick-action">Tất
-                                                    cả</button>
-                                                <button type="button" id="clearAll" class="btn-quick-action">Bỏ
-                                                    chọn</button>
-                                            </div>
+
                                         </div>
 
                                         <div class="taboo-filter-footer">
@@ -215,9 +212,11 @@
                                 <div>
                                     <select name="sort" class=" form-select-sm sort-select" style="width: auto;"
                                         form="weddingForm">
-                                        <option value="desc" {{ ($sortOrder ?? 'desc') === 'desc' ? 'selected' : '' }}>Tổng
+                                        <option value="desc"
+                                            {{ ($sortOrder ?? 'desc') === 'desc' ? 'selected' : '' }}>Tổng
                                             điểm giảm dần</option>
-                                        <option value="asc" {{ ($sortOrder ?? 'desc') === 'asc' ? 'selected' : '' }}>Tổng
+                                        <option value="asc"
+                                            {{ ($sortOrder ?? 'desc') === 'asc' ? 'selected' : '' }}>Tổng
                                             điểm tăng dần</option>
                                     </select>
                                 </div>
@@ -226,8 +225,8 @@
 
                         @if (isset($yearData['days']) && count($yearData['days']) > 0)
                             <div class="table-responsive w-100" id="bang-chi-tiet">
-                                <table class="table table-hover align-middle w-100 table-layout" id="table-{{ $year }}"
-                                    style=" width: 100%;">
+                                <table class="table table-hover align-middle w-100 table-layout"
+                                    id="table-{{ $year }}" style=" width: 100%;">
                                     <thead class="text-center" style="background-color: #e8ebee;">
                                         <tr>
                                             <th style="border-radius: 8px 0 0 8px">Ngày</th>
@@ -237,66 +236,66 @@
                                     </thead>
                                     <tbody class="text-center table-body-{{ $year }}">
                                         @foreach ($yearData['days'] as $day)
-                                         @php
-                                                        $groomScore = $day['groom_score']['percentage'] ?? 0;
-                                                        $brideScore = $day['bride_score']['percentage'] ?? 0;
-                                                        $groomScore = round($groomScore);
-                                                        $brideScore = round($brideScore);
+                                            @php
+                                                $groomScore = $day['groom_score']['percentage'] ?? 0;
+                                                $brideScore = $day['bride_score']['percentage'] ?? 0;
+                                                $groomScore = round($groomScore);
+                                                $brideScore = round($brideScore);
 
-                                                        // Xác định màu cho chú rể
-                                                        if ($groomScore <= 30) {
-                                                            $groomColor = [
-                                                                'bg' => '#FEE2E2',
-                                                                'border' => '#DC2626',
-                                                                'text' => '#DC2626',
-                                                            ];
-                                                        } elseif ($groomScore <= 50) {
-                                                            $groomColor = [
-                                                                'bg' => '#FFE3D5',
-                                                                'border' => '#FC6803',
-                                                                'text' => '#FC6803',
-                                                            ];
-                                                        } elseif ($groomScore <= 70) {
-                                                            $groomColor = [
-                                                                'bg' => '#FEF3C7',
-                                                                'border' => '#F59E0B',
-                                                                'text' => '#F59E0B',
-                                                            ];
-                                                        } else {
-                                                            $groomColor = [
-                                                                'bg' => '#D1FAE5',
-                                                                'border' => '#10B981',
-                                                                'text' => '#10B981',
-                                                            ];
-                                                        }
+                                                // Xác định màu cho chú rể
+                                                if ($groomScore <= 30) {
+                                                    $groomColor = [
+                                                        'bg' => '#FEE2E2',
+                                                        'border' => '#DC2626',
+                                                        'text' => '#DC2626',
+                                                    ];
+                                                } elseif ($groomScore <= 50) {
+                                                    $groomColor = [
+                                                        'bg' => '#FFE3D5',
+                                                        'border' => '#FC6803',
+                                                        'text' => '#FC6803',
+                                                    ];
+                                                } elseif ($groomScore <= 70) {
+                                                    $groomColor = [
+                                                        'bg' => '#FEF3C7',
+                                                        'border' => '#F59E0B',
+                                                        'text' => '#F59E0B',
+                                                    ];
+                                                } else {
+                                                    $groomColor = [
+                                                        'bg' => '#D1FAE5',
+                                                        'border' => '#10B981',
+                                                        'text' => '#10B981',
+                                                    ];
+                                                }
 
-                                                        // Xác định màu cho cô dâu
-                                                        if ($brideScore <= 30) {
-                                                            $brideColor = [
-                                                                'bg' => '#FEE2E2',
-                                                                'border' => '#DC2626',
-                                                                'text' => '#DC2626',
-                                                            ];
-                                                        } elseif ($brideScore <= 50) {
-                                                            $brideColor = [
-                                                                'bg' => '#FFE3D5',
-                                                                'border' => '#FC6803',
-                                                                'text' => '#FC6803',
-                                                            ];
-                                                        } elseif ($brideScore <= 70) {
-                                                            $brideColor = [
-                                                                'bg' => '#FEF3C7',
-                                                                'border' => '#F59E0B',
-                                                                'text' => '#F59E0B',
-                                                            ];
-                                                        } else {
-                                                            $brideColor = [
-                                                                'bg' => '#D1FAE5',
-                                                                'border' => '#10B981',
-                                                                'text' => '#10B981',
-                                                            ];
-                                                        }
-                                                    @endphp
+                                                // Xác định màu cho cô dâu
+                                                if ($brideScore <= 30) {
+                                                    $brideColor = [
+                                                        'bg' => '#FEE2E2',
+                                                        'border' => '#DC2626',
+                                                        'text' => '#DC2626',
+                                                    ];
+                                                } elseif ($brideScore <= 50) {
+                                                    $brideColor = [
+                                                        'bg' => '#FFE3D5',
+                                                        'border' => '#FC6803',
+                                                        'text' => '#FC6803',
+                                                    ];
+                                                } elseif ($brideScore <= 70) {
+                                                    $brideColor = [
+                                                        'bg' => '#FEF3C7',
+                                                        'border' => '#F59E0B',
+                                                        'text' => '#F59E0B',
+                                                    ];
+                                                } else {
+                                                    $brideColor = [
+                                                        'bg' => '#D1FAE5',
+                                                        'border' => '#10B981',
+                                                        'text' => '#10B981',
+                                                    ];
+                                                }
+                                            @endphp
                                             <tr>
                                                 <td style="text-align: start">
                                                     <a
@@ -305,7 +304,7 @@
                                                             'groom_dob' => $groomInfo['dob']->format('Y-m-d'),
                                                             'bride_dob' => $brideInfo['dob']->format('Y-m-d'),
                                                             'calendar_type' => $inputs['calendar_type'] ?? 'solar',
-                                                            'khoang' => $inputs['wedding_date_range'] ?? ''
+                                                            'khoang' => $inputs['wedding_date_range'] ?? '',
                                                         ]) }}">
                                                         <div class="box-dtl-pc">
                                                             <div style="color: #0F172A;font-size: 18px">
@@ -449,11 +448,12 @@
                                                     @else
                                                         <span class="text-warning small"
                                                             style="color: #2254AB !important">
-                                                            <i class="bi bi-exclamation-triangle-fill"></i> Không có yếu
+                                                            <i class="bi bi-exclamation-triangle-fill"></i> Không có
+                                                            yếu
                                                             tố hỗ trợ
                                                         </span>
                                                     @endif
-                                                    
+
                                                     <!-- Wedding - Dual Score Circles cho mobile -->
                                                     <div class="score-circles-wedding">
                                                         <div class="score-circle-groom">
@@ -465,7 +465,7 @@
                                                     </div>
                                                 </td>
                                                 <td class="text-center score-battery-pc">
-                                                   
+
 
                                                     <div class=" d-flex justify-content-center align-items-center">
                                                         <div class="battery">

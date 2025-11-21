@@ -191,11 +191,11 @@
                             </div>
 
                         </div>
-                        <div id="filterStatus" class="alert alert-success d-none mb-3" role="alert">
+                          <div id="filterStatus" class="alert alert-success d-none mb-3" role="alert">
                             <i class="bi bi-funnel"></i>
                             <span id="filterStatusText"></span>
                         </div>
-
+                        
                         @if (isset($yearData['days']) && count($yearData['days']) > 0)
                             <div class="table-responsive w-100" id="bang-chi-tiet">
                                 <table class="table table-hover align-middle w-100 table-layout"
