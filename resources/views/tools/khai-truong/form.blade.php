@@ -715,12 +715,14 @@
                                 }
                             });
 
-                            // Khởi tạo taboo filter với dữ liệu từ response
+                            // Khởi tạo taboo filter và pagination với dữ liệu từ response
                             setTimeout(() => {
-                                if (data.resultsByYear) {
-                                    initTabooFilter(data.resultsByYear);
+                                // Sử dụng global initTabooFilter từ component
+                                if (typeof window.initTabooFilter === 'function') {
+                                    window.initTabooFilter(data.resultsByYear);
                                 }
-                            }, 500);
+                                initPagination();
+                            }, 200);
                         } else if (data.errors) {
                             // Show validation errors
                             let errorMessage = 'Vui lòng kiểm tra lại:\\n';
@@ -746,18 +748,11 @@
 
             resultsContainer.addEventListener('change', function(event) {
                 if (event.target.matches('[name="sort"]')) {
-                    const sortValue = event.target.value;
-
-                    // Apply sorting directly without form submission
-                    applySortingToTable(sortValue);
-
-                    // Scroll to table after sort
+                    console.log('Sort changed to:', event.target.value);
+                    applySortingToTable(event.target.value);
                     setTimeout(() => {
-                        const target = document.getElementById("bang-chi-tiet");
-                        target?.scrollIntoView?.({
-                            behavior: "smooth",
-                            block: "start"
-                        });
+                        const bangChiTiet = document.querySelector('#bang-chi-tiet');
+                        bangChiTiet?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     }, 100);
                 }
             });
@@ -765,21 +760,34 @@
             // Function to apply sorting without form submission
             function applySortingToTable(sortValue) {
                 const table = document.querySelector('#bang-chi-tiet table tbody');
-                if (!table) return;
+                if (!table) {
+                    console.log('No table found for sorting');
+                    return;
+                }
 
                 const rows = Array.from(table.querySelectorAll('tr'));
+                console.log(`Found ${rows.length} rows to sort`);
 
                 rows.sort((a, b) => {
-                    // Get score from battery or score element
-                    const scoreA = getScoreFromRow(a);
-                    const scoreB = getScoreFromRow(b);
-
-                    return sortValue === 'asc' ? scoreA - scoreB : scoreB - scoreA;
+                    if (sortValue === 'date_asc' || sortValue === 'date_desc') {
+                        const dateA = getDateFromRow(a);
+                        const dateB = getDateFromRow(b);
+                        const result = sortValue === 'date_asc' ? dateA - dateB : dateB - dateA;
+                        console.log(`Sorting ${dateA} vs ${dateB} = ${result}`);
+                        return result;
+                    } else {
+                        const scoreA = getScoreFromRow(a);
+                        const scoreB = getScoreFromRow(b);
+                        return sortValue === 'asc' ? scoreA - scoreB : scoreB - scoreA;
+                    }
                 });
 
-                // Clear and re-append sorted rows
+                // Clear table and re-append sorted rows
                 table.innerHTML = '';
                 rows.forEach(row => table.appendChild(row));
+
+                // Maintain current pagination - pass table parameter like mua-xe
+                maintainCurrentPagination(table);
             }
 
             // Helper function to extract score from table row
@@ -807,6 +815,128 @@
                 }
 
                 return 0;
+            }
+
+            function getDateFromRow(row) {
+                // Try different ways to find the date - same as mua-xe
+
+                // Method 1: Look for link with details
+                let dateText = row.querySelector('a[href*="details"] strong');
+                if (dateText) {
+                    const text = dateText.textContent;
+                    console.log('Method 1 - Date text found:', text);
+                    const match = text.match(/(\d{1,2}\/\d{1,2}\/\d{4})/);
+                    if (match) {
+                        const dateStr = match[1];
+                        const parts = dateStr.split('/');
+                        const date = new Date(parts[2], parts[1] - 1, parts[0]);
+                        console.log('Parsed date:', dateStr, '->', date);
+                        return date;
+                    }
+                }
+
+                // Method 2: Look for any strong element with date pattern
+                const allStrong = row.querySelectorAll('strong');
+                for (let strong of allStrong) {
+                    const text = strong.textContent;
+                    const match = text.match(/(\d{1,2}\/\d{1,2}\/\d{4})/);
+                    if (match) {
+                        console.log('Method 2 - Date text found:', text);
+                        const dateStr = match[1];
+                        const parts = dateStr.split('/');
+                        const date = new Date(parts[2], parts[1] - 1, parts[0]);
+                        console.log('Parsed date:', dateStr, '->', date);
+                        return date;
+                    }
+                }
+
+                // Method 3: Look for any text with date pattern
+                const allText = row.textContent;
+                const match = allText.match(/(\d{1,2}\/\d{1,2}\/\d{4})/);
+                if (match) {
+                    console.log('Method 3 - Date found in row text:', match[1]);
+                    const dateStr = match[1];
+                    const parts = dateStr.split('/');
+                    const date = new Date(parts[2], parts[1] - 1, parts[0]);
+                    console.log('Parsed date:', dateStr, '->', date);
+                    return date;
+                }
+
+                console.log('No date found in row:', row.innerHTML.substring(0, 200));
+                return new Date();
+            }
+
+            // Pagination functions
+            function initPagination() {
+                const resultsContainer = document.querySelector('.--detail-success');
+                resultsContainer.addEventListener('click', function(event) {
+                    if (event.target.matches('.load-more-btn') || event.target.closest('.load-more-btn')) {
+                        const btn = event.target.matches('.load-more-btn') ? event.target : event.target.closest('.load-more-btn');
+                        const year = btn.getAttribute('data-year');
+                        const currentLoaded = parseInt(btn.getAttribute('data-loaded'));
+                        const total = parseInt(btn.getAttribute('data-total'));
+                        const loadMore = Math.min(10, total - currentLoaded);
+
+                        // Show next 10 items
+                        const table = document.querySelector(`#table-${year} tbody`);
+                        if (table) {
+                            const allRows = table.querySelectorAll('.table-row-' + year);
+                            for (let i = currentLoaded; i < currentLoaded + loadMore; i++) {
+                                if (allRows[i]) {
+                                    allRows[i].style.display = '';
+                                    allRows[i].setAttribute('data-visible', 'true');
+                                }
+                            }
+
+                            const newLoaded = currentLoaded + loadMore;
+                            btn.setAttribute('data-loaded', newLoaded);
+
+                            // Update button text
+                            const remaining = total - newLoaded;
+                            if (remaining > 0) {
+                                const nextLoad = Math.min(10, remaining);
+                                btn.innerHTML = `<i class="bi bi-plus-circle me-2"></i>Xem thêm ${nextLoad} bảng<span class="text-muted ms-2">(${remaining} còn lại)</span>`;
+                            } else {
+                                btn.style.display = 'none';
+                            }
+                        }
+                    }
+                });
+            }
+
+            function maintainCurrentPagination(table) {
+                // Follow mua-xe pattern - simpler approach
+                const loadMoreBtn = table.closest('.card-body').querySelector('.load-more-btn');
+                if (!loadMoreBtn) {
+                    console.log('No load more button found');
+                    return;
+                }
+
+                let currentLoaded = parseInt(loadMoreBtn.dataset.loaded) || 10;
+                const rows = table.querySelectorAll('tr:not(.empty-filter-row)');
+                console.log(`Maintaining pagination: ${currentLoaded} out of ${rows.length} total rows`);
+
+                // Show rows according to current pagination state
+                rows.forEach((row, index) => {
+                    if (index >= currentLoaded) {
+                        row.style.display = 'none';
+                        row.setAttribute('data-visible', 'false');
+                    } else {
+                        row.style.display = '';
+                        row.setAttribute('data-visible', 'true');
+                    }
+                });
+
+                // Update load more button
+                const remaining = rows.length - currentLoaded;
+                if (remaining > 0) {
+                    const nextLoad = Math.min(10, remaining);
+                    loadMoreBtn.innerHTML = `<i class="bi bi-plus-circle me-2"></i>Xem thêm ${nextLoad} bảng<span class="text-muted ms-2">(${remaining} còn lại)</span>`;
+                    loadMoreBtn.style.display = '';
+                    loadMoreBtn.setAttribute('data-total', rows.length);
+                } else {
+                    loadMoreBtn.style.display = 'none';
+                }
             }
 
         });
