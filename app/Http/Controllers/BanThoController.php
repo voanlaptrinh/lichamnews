@@ -145,7 +145,11 @@ class BanThoController extends Controller
                 'sortOrder' => $sortOrder,
             ])->render();
 
-            return response()->json(['success' => true, 'html' => $html]);
+            return response()->json([
+                'success' => true,
+                'resultsByYear' => $resultsByYear, // Thêm data cho JS filter
+                'html' => $html
+            ]);
         }
 
         return view('tools.ban-tho.form', [
