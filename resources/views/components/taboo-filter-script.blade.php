@@ -405,6 +405,9 @@ function initTabooFilter(resultsByYear) {
                 updateTable(year, filteredDays);
             });
 
+            // Lưu trạng thái filter
+            saveFilterState();
+
             // Hiển thị trạng thái
             const filterStatus = document.getElementById('filterStatus');
             const filterStatusText = document.getElementById('filterStatusText');
@@ -462,6 +465,9 @@ function initTabooFilter(resultsByYear) {
                 currentFilteredData[year] = [...originalData[year]];
             });
 
+            // Lưu trạng thái filter (rỗng)
+            saveFilterState();
+
             // Ẩn trạng thái
             const filterStatus = document.getElementById('filterStatus');
             if (filterStatus) {
@@ -484,9 +490,111 @@ function initTabooFilter(resultsByYear) {
         clearBtn.addEventListener('click', clearBtn._tabooHandler);
     }
 
-    // Khởi tạo modal filter
+    // ========== LƯU VÀ KHÔI PHỤC TRẠNG THÁI FILTER ==========
 
+    // Lưu trạng thái filter vào localStorage và URL
+    function saveFilterState() {
+        const selectedTaboos = Array.from(document.querySelectorAll('.taboo-checkbox:checked')).map(cb => cb.value);
+
+        // Lưu vào localStorage
+        if (selectedTaboos.length > 0) {
+            localStorage.setItem('tabooFilter', JSON.stringify(selectedTaboos));
+        } else {
+            localStorage.removeItem('tabooFilter');
+        }
+
+        // Cập nhật URL hash
+        const url = new URL(window.location);
+        if (selectedTaboos.length > 0) {
+            url.searchParams.set('filter', selectedTaboos.join(','));
+        } else {
+            url.searchParams.delete('filter');
+        }
+
+        // Cập nhật URL mà không reload trang
+        window.history.replaceState({}, '', url.toString());
+    }
+
+    // Khôi phục trạng thái filter từ localStorage và URL
+    function restoreFilterState() {
+        let selectedTaboos = [];
+
+        // Ưu tiên từ URL parameters trước
+        const urlParams = new URLSearchParams(window.location.search);
+        const filterParam = urlParams.get('filter');
+
+        if (filterParam) {
+            selectedTaboos = filterParam.split(',').filter(Boolean);
+        } else {
+            // Fallback từ localStorage
+            const savedFilter = localStorage.getItem('tabooFilter');
+            if (savedFilter) {
+                try {
+                    selectedTaboos = JSON.parse(savedFilter);
+                } catch (e) {
+                    console.log('Error parsing saved filter:', e);
+                    selectedTaboos = [];
+                }
+            }
+        }
+
+        if (selectedTaboos.length > 0) {
+            console.log('Restoring filter state:', selectedTaboos);
+
+            // Khôi phục checkbox states
+            document.querySelectorAll('.taboo-checkbox').forEach(cb => {
+                cb.checked = selectedTaboos.includes(cb.value);
+            });
+
+            // Áp dụng filter tự động
+            setTimeout(() => {
+                applyFilterWithValues(selectedTaboos);
+            }, 100);
+
+            updateFilterBadge();
+        }
+    }
+
+    // Hàm áp dụng filter với giá trị cho trước (không cần modal)
+    function applyFilterWithValues(selectedTaboos) {
+        if (selectedTaboos.length === 0) return;
+
+        let totalFiltered = 0;
+        let totalDays = 0;
+
+        // Lọc cho từng năm
+        Object.keys(resultsByYear).forEach(year => {
+            const originalDays = originalData[year];
+            totalDays += originalDays.length;
+
+            const filteredDays = originalDays.filter(day => {
+                const hasTabooResult = hasTaboo(day, selectedTaboos);
+                return !hasTabooResult;
+            });
+            totalFiltered += (originalDays.length - filteredDays.length);
+
+            // Cập nhật dữ liệu hiện tại
+            currentFilteredData[year] = filteredDays;
+
+            updateTable(year, filteredDays);
+        });
+
+        // Hiển thị trạng thái
+        const filterStatus = document.getElementById('filterStatus');
+        const filterStatusText = document.getElementById('filterStatusText');
+        if (filterStatus && filterStatusText) {
+            filterStatus.classList.remove('d-none');
+            filterStatusText.textContent = `Đã lọc ${totalFiltered} ngày có ${selectedTaboos.join(', ')}. Hiển thị ${totalDays - totalFiltered}/${totalDays} ngày.`;
+        }
+    }
+
+    // Khởi tạo modal filter
     setupModalFilter();
+
+    // Khôi phục trạng thái filter khi trang load
+    setTimeout(() => {
+        restoreFilterState();
+    }, 500);
   
 
     // Tích hợp với bộ lọc sắp xếp hiện tại
