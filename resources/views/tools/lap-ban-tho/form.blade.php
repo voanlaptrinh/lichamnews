@@ -594,7 +594,21 @@
                         if (data.success) {
                             // Show results container
                             resultsContainer.style.display = 'block';
-                            resultsContainer.innerHTML = data.html;
+
+                            setTimeout(() => {
+                                resultsContainer.innerHTML = data.html;
+
+                                // Cập nhật window.resultsByYear cho global access
+                                if (data.resultsByYear) {
+                                    window.resultsByYear = data.resultsByYear;
+                                }
+
+                                setTimeout(() => {
+                                    if (data.resultsByYear && typeof initTabooFilter === 'function') {
+                                        initTabooFilter(data.resultsByYear);
+                                    }
+                                }, 200);
+                            }, 500);
 
                             // Scroll to results with delay to ensure content is rendered
                             setTimeout(() => {
@@ -685,4 +699,5 @@
 
         });
     </script>
+    @include('components.taboo-filter-script')
 @endpush
