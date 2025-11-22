@@ -321,8 +321,43 @@ function initTabooFilter(resultsByYear) {
         }
     }
 
+    // Ensure only one filter section is active (remove duplicates if any)
+    const ensureSingleFilterSection = () => {
+        const filterBtns = document.querySelectorAll('#tabooFilterBtn');
+        const filterModals = document.querySelectorAll('#tabooFilterModal');
+        const filterBackdrops = document.querySelectorAll('#tabooFilterBackdrop');
+
+        // If multiple filter buttons exist, disable all but the first
+        if (filterBtns.length > 1) {
+            console.warn(`Found ${filterBtns.length} filter buttons, keeping only the first one`);
+            for (let i = 1; i < filterBtns.length; i++) {
+                filterBtns[i].style.display = 'none';
+                filterBtns[i].remove();
+            }
+        }
+
+        // Same for modals
+        if (filterModals.length > 1) {
+            console.warn(`Found ${filterModals.length} filter modals, keeping only the first one`);
+            for (let i = 1; i < filterModals.length; i++) {
+                filterModals[i].remove();
+            }
+        }
+
+        // Same for backdrops
+        if (filterBackdrops.length > 1) {
+            console.warn(`Found ${filterBackdrops.length} filter backdrops, keeping only the first one`);
+            for (let i = 1; i < filterBackdrops.length; i++) {
+                filterBackdrops[i].remove();
+            }
+        }
+    };
+
     // Xử lý modal filter
     const setupModalFilter = () => {
+        // Ensure only one filter section exists
+        ensureSingleFilterSection();
+
         const filterBtn = document.getElementById('tabooFilterBtn');
         const modal = document.getElementById('tabooFilterModal');
         const backdrop = document.getElementById('tabooFilterBackdrop');
@@ -414,6 +449,12 @@ function initTabooFilter(resultsByYear) {
         }
     };
 
+    // Debug: check for multiple apply buttons and checkboxes
+    const allApplyBtns = document.querySelectorAll('#applyTabooFilter');
+    const allCheckboxes = document.querySelectorAll('.taboo-checkbox');
+    console.log('DEBUG: Found', allApplyBtns.length, 'apply buttons');
+    console.log('DEBUG: Found', allCheckboxes.length, 'total checkboxes');
+
     // Xử lý áp dụng filter taboo
     const applyBtn = document.getElementById('applyTabooFilter');
     if (applyBtn) {
@@ -421,7 +462,12 @@ function initTabooFilter(resultsByYear) {
         applyBtn.removeEventListener('click', applyBtn._tabooHandler);
 
         applyBtn._tabooHandler = function() {
-            const selectedTaboos = Array.from(document.querySelectorAll('.taboo-checkbox:checked')).map(cb => cb.value);
+            const allCheckboxes = document.querySelectorAll('.taboo-checkbox:checked');
+            console.log('DEBUG: All checked checkboxes found:', allCheckboxes.length);
+            console.log('DEBUG: All checked checkbox values:', Array.from(allCheckboxes).map(cb => cb.value));
+
+            const selectedTaboos = [...new Set(Array.from(allCheckboxes).map(cb => cb.value))];
+            console.log('DEBUG: Deduplicated selectedTaboos:', selectedTaboos);
 
             if (selectedTaboos.length === 0) {
                 alert('Vui lòng chọn ít nhất một loại taboo để lọc');
@@ -465,10 +511,13 @@ function initTabooFilter(resultsByYear) {
                     const currentYearFiltered = (originalData[activeYear]?.length || 0) - (currentFilteredData[activeYear]?.length || 0);
                     const currentYearRemaining = currentFilteredData[activeYear]?.length || 0;
 
-                    filterStatusText.textContent = `Đã lọc ${currentYearFiltered} ngày có ${selectedTaboos.join(', ')} trong năm ${activeYear}. Hiển thị ${currentYearRemaining}/${currentYearDays} ngày.`;
+                    // Ensure unique taboo names in message
+                    const uniqueTaboos = [...new Set(selectedTaboos)];
+                    filterStatusText.textContent = `Đã lọc ${currentYearFiltered} ngày có ${uniqueTaboos.join(', ')} trong năm ${activeYear}. Hiển thị ${currentYearRemaining}/${currentYearDays} ngày.`;
                 } else {
                     // Fallback cho trường hợp không có tab active
-                    filterStatusText.textContent = `Đã lọc ${totalFiltered} ngày có ${selectedTaboos.join(', ')}. Hiển thị ${totalDays - totalFiltered}/${totalDays} ngày.`;
+                    const uniqueTaboos = [...new Set(selectedTaboos)];
+                    filterStatusText.textContent = `Đã lọc ${totalFiltered} ngày có ${uniqueTaboos.join(', ')}. Hiển thị ${totalDays - totalFiltered}/${totalDays} ngày.`;
                 }
             }
 
@@ -606,7 +655,7 @@ function initTabooFilter(resultsByYear) {
 
     // Lưu trạng thái filter vào localStorage theo từng tool riêng biệt
     function saveFilterState() {
-        const selectedTaboos = Array.from(document.querySelectorAll('.taboo-checkbox:checked')).map(cb => cb.value);
+        const selectedTaboos = [...new Set(Array.from(document.querySelectorAll('.taboo-checkbox:checked')).map(cb => cb.value))];
 
         // Lấy tên tool và tạo key riêng cho từng tool
         const toolName = getCurrentToolName();
@@ -759,7 +808,7 @@ function initTabooFilter(resultsByYear) {
             return; // Không có filter nào đang active
         }
 
-        const selectedTaboos = Array.from(document.querySelectorAll('.taboo-checkbox:checked')).map(cb => cb.value);
+        const selectedTaboos = [...new Set(Array.from(document.querySelectorAll('.taboo-checkbox:checked')).map(cb => cb.value))];
         if (selectedTaboos.length === 0) {
             return;
         }
@@ -772,7 +821,9 @@ function initTabooFilter(resultsByYear) {
             const currentYearFiltered = (originalData[activeYear]?.length || 0) - (currentFilteredData[activeYear]?.length || 0);
             const currentYearRemaining = currentFilteredData[activeYear]?.length || 0;
 
-            filterStatusText.textContent = `Đã lọc ${currentYearFiltered} ngày có ${selectedTaboos.join(', ')} trong năm ${activeYear}. Hiển thị ${currentYearRemaining}/${currentYearDays} ngày.`;
+            // Ensure unique taboo names in message
+            const uniqueTaboos = [...new Set(selectedTaboos)];
+            filterStatusText.textContent = `Đã lọc ${currentYearFiltered} ngày có ${uniqueTaboos.join(', ')} trong năm ${activeYear}. Hiển thị ${currentYearRemaining}/${currentYearDays} ngày.`;
         }
     }
 

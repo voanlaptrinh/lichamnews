@@ -838,7 +838,16 @@
             }
 
             function maintainCurrentPagination(table) {
-                // Follow tot-xau pattern - simpler approach
+                // Kiểm tra xem có đang trong filter state không
+                const filterStatus = document.getElementById('filterStatus');
+                const isFilterActive = filterStatus && !filterStatus.classList.contains('d-none');
+
+                // Nếu filter đang active, không can thiệp vào pagination
+                // Vì taboo component đã quản lý rồi
+                if (isFilterActive) {
+                    return;
+                }
+
                 const loadMoreBtn = table.closest('.card-body').querySelector('.load-more-btn');
                 if (!loadMoreBtn) {
                     console.log('No load more button found');
@@ -846,64 +855,35 @@
                 }
 
                 let currentLoaded = parseInt(loadMoreBtn.dataset.loaded) || 10;
-                const allRows = table.querySelectorAll('tr:not(.empty-filter-row)');
 
                 // Đếm TOTAL filtered rows TRƯỚC khi thay đổi pagination
+                const allRows = table.querySelectorAll('tr:not(.empty-filter-row)');
                 const totalFilteredRows = parseInt(loadMoreBtn.getAttribute('data-total')) || Array.from(allRows).filter(row => {
                     return row.style.display !== 'none';
                 }).length;
 
-                console.log(`DEBUG: allRows=${allRows.length}, totalFilteredRows=${totalFilteredRows}, currentLoaded=${currentLoaded}`);
                 console.log(`Maintaining pagination: ${currentLoaded} out of ${totalFilteredRows} filtered rows (${allRows.length} total)`);
 
-                // Tìm tất cả rows được filter
-                const filteredRows = Array.from(allRows).filter(row => {
-                    return !row.classList.contains('filtered-out');
+                // Show rows according to current pagination state
+                allRows.forEach((row, index) => {
+                    if (index >= currentLoaded) {
+                        row.style.display = 'none';
+                        row.setAttribute('data-visible', 'false');
+                    } else {
+                        row.style.display = '';
+                        row.setAttribute('data-visible', 'true');
+                    }
                 });
-
-                // Logic show/hide rows với pagination
-                if (filteredRows.length === 0 || filteredRows.length === allRows.length) {
-                    // Sử dụng data-total từ button
-                    let visibleCount = 0;
-                    Array.from(allRows).forEach((row, index) => {
-                        if (index < totalFilteredRows) {
-                            if (visibleCount < currentLoaded) {
-                                row.style.display = '';
-                                row.setAttribute('data-visible', 'true');
-                                visibleCount++;
-                            } else {
-                                row.style.display = 'none';
-                                row.setAttribute('data-visible', 'false');
-                            }
-                        }
-                    });
-                } else {
-                    let visibleCount = 0;
-                    filteredRows.forEach((row) => {
-                        if (visibleCount < currentLoaded) {
-                            row.style.display = '';
-                            row.setAttribute('data-visible', 'true');
-                            visibleCount++;
-                        } else {
-                            row.style.display = 'none';
-                            row.setAttribute('data-visible', 'false');
-                        }
-                    });
-                }
 
                 // Update load more button với total filtered rows
                 const remaining = totalFilteredRows - currentLoaded;
-                console.log(`DEBUG BUTTON: totalFilteredRows=${totalFilteredRows}, currentLoaded=${currentLoaded}, remaining=${remaining}`);
-
-                if (remaining > 0 && totalFilteredRows > 10) {
+                if (remaining > 0) {
                     const nextLoad = Math.min(10, remaining);
                     loadMoreBtn.innerHTML = `<i class="bi bi-plus-circle me-2"></i>Xem thêm ${nextLoad} bảng<span class="text-muted ms-2">(${remaining} còn lại)</span>`;
                     loadMoreBtn.style.display = '';
-                    loadMoreBtn.setAttribute('data-total', totalFilteredRows);
-                    console.log(`DEBUG BUTTON: Showing button - Xem thêm ${nextLoad} bảng (${remaining} còn lại)`);
+                    loadMoreBtn.setAttribute('data-total', totalFilteredRows.toString());
                 } else {
                     loadMoreBtn.style.display = 'none';
-                    console.log(`DEBUG BUTTON: Hiding button - no remaining items`);
                 }
             }
 
