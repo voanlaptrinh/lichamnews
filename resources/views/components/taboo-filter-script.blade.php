@@ -447,12 +447,25 @@ function initTabooFilter(resultsByYear) {
             // Lưu trạng thái filter
             saveFilterState();
 
-            // Hiển thị trạng thái
+            // Hiển thị trạng thái - hiển thị cho tab hiện tại
             const filterStatus = document.getElementById('filterStatus');
             const filterStatusText = document.getElementById('filterStatusText');
             if (filterStatus && filterStatusText) {
                 filterStatus.classList.remove('d-none');
-                filterStatusText.textContent = `Đã lọc ${totalFiltered} ngày có ${selectedTaboos.join(', ')}. Hiển thị ${totalDays - totalFiltered}/${totalDays} ngày.`;
+
+                // Tìm tab đang active
+                const activeTab = document.querySelector('.tab-pane.show.active');
+                if (activeTab) {
+                    const activeYear = activeTab.id.replace('year-', '');
+                    const currentYearDays = originalData[activeYear]?.length || 0;
+                    const currentYearFiltered = (originalData[activeYear]?.length || 0) - (currentFilteredData[activeYear]?.length || 0);
+                    const currentYearRemaining = currentFilteredData[activeYear]?.length || 0;
+
+                    filterStatusText.textContent = `Đã lọc ${currentYearFiltered} ngày có ${selectedTaboos.join(', ')} trong năm ${activeYear}. Hiển thị ${currentYearRemaining}/${currentYearDays} ngày.`;
+                } else {
+                    // Fallback cho trường hợp không có tab active
+                    filterStatusText.textContent = `Đã lọc ${totalFiltered} ngày có ${selectedTaboos.join(', ')}. Hiển thị ${totalDays - totalFiltered}/${totalDays} ngày.`;
+                }
             }
 
             // Đóng modal sau khi áp dụng
@@ -676,17 +689,33 @@ function initTabooFilter(resultsByYear) {
             updateTable(year, filteredDays);
         });
 
-        // Hiển thị trạng thái
+        // Hiển thị trạng thái - hiển thị cho tab hiện tại
         const filterStatus = document.getElementById('filterStatus');
         const filterStatusText = document.getElementById('filterStatusText');
         if (filterStatus && filterStatusText) {
             filterStatus.classList.remove('d-none');
-            filterStatusText.textContent = `Đã lọc ${totalFiltered} ngày có ${selectedTaboos.join(', ')}. Hiển thị ${totalDays - totalFiltered}/${totalDays} ngày.`;
+
+            // Tìm tab đang active
+            const activeTab = document.querySelector('.tab-pane.show.active');
+            if (activeTab) {
+                const activeYear = activeTab.id.replace('year-', '');
+                const currentYearDays = originalData[activeYear]?.length || 0;
+                const currentYearFiltered = (originalData[activeYear]?.length || 0) - (currentFilteredData[activeYear]?.length || 0);
+                const currentYearRemaining = currentFilteredData[activeYear]?.length || 0;
+
+                filterStatusText.textContent = `Đã lọc ${currentYearFiltered} ngày có ${selectedTaboos.join(', ')} trong năm ${activeYear}. Hiển thị ${currentYearRemaining}/${currentYearDays} ngày.`;
+            } else {
+                // Fallback cho trường hợp không có tab active
+                filterStatusText.textContent = `Đã lọc ${totalFiltered} ngày có ${selectedTaboos.join(', ')}. Hiển thị ${totalDays - totalFiltered}/${totalDays} ngày.`;
+            }
         }
     }
 
     // Khởi tạo modal filter
     setupModalFilter();
+
+    // Khởi tạo tab switch listener
+    setupTabSwitchListener();
 
     // Khôi phục trạng thái filter khi trang load - tăng thời gian chờ
     setTimeout(() => {
@@ -703,6 +732,45 @@ function initTabooFilter(resultsByYear) {
         }
     });
   
+
+    // Thêm listener cho tab switching để cập nhật filter status
+    function setupTabSwitchListener() {
+        const tabLinks = document.querySelectorAll('.nav-pills .nav-link');
+        tabLinks.forEach(tabLink => {
+            tabLink.addEventListener('click', function() {
+                // Delay để đợi tab switching hoàn tất
+                setTimeout(() => {
+                    updateFilterStatusForActiveTab();
+                }, 100);
+            });
+        });
+    }
+
+    // Hàm cập nhật filter status cho tab hiện tại
+    function updateFilterStatusForActiveTab() {
+        const filterStatus = document.getElementById('filterStatus');
+        const filterStatusText = document.getElementById('filterStatusText');
+
+        if (!filterStatus || filterStatus.classList.contains('d-none')) {
+            return; // Không có filter nào đang active
+        }
+
+        const selectedTaboos = Array.from(document.querySelectorAll('.taboo-checkbox:checked')).map(cb => cb.value);
+        if (selectedTaboos.length === 0) {
+            return;
+        }
+
+        // Tìm tab đang active
+        const activeTab = document.querySelector('.tab-pane.show.active');
+        if (activeTab && filterStatusText) {
+            const activeYear = activeTab.id.replace('year-', '');
+            const currentYearDays = originalData[activeYear]?.length || 0;
+            const currentYearFiltered = (originalData[activeYear]?.length || 0) - (currentFilteredData[activeYear]?.length || 0);
+            const currentYearRemaining = currentFilteredData[activeYear]?.length || 0;
+
+            filterStatusText.textContent = `Đã lọc ${currentYearFiltered} ngày có ${selectedTaboos.join(', ')} trong năm ${activeYear}. Hiển thị ${currentYearRemaining}/${currentYearDays} ngày.`;
+        }
+    }
 
     // Tích hợp với bộ lọc sắp xếp hiện tại
     const sortSelect = document.querySelector('.sort-select');
