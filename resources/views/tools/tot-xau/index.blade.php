@@ -872,10 +872,14 @@
                         currentLoaded = parseInt(loadMoreBtn.dataset.loaded) || 10;
                     }
 
-                    const rows = table.querySelectorAll('tr:not(.empty-filter-row)');
+                    // Đếm TOTAL filtered rows TRƯỚC khi thay đổi pagination
+                    const allRows = table.querySelectorAll('tr:not(.empty-filter-row)');
+                    const totalFilteredRows = parseInt(loadMoreBtn?.getAttribute('data-total')) || Array.from(allRows).filter(row => {
+                        return row.style.display !== 'none';
+                    }).length;
 
                     // Hiển thị theo số lượng hiện tại, ẩn phần còn lại
-                    rows.forEach((row, index) => {
+                    allRows.forEach((row, index) => {
                         if (index >= currentLoaded) {
                             row.style.display = 'none';
                             row.dataset.visible = 'false';
@@ -885,11 +889,13 @@
                         }
                     });
 
-                    // Cập nhật load more button với số lượng hiện tại
+                    // Cập nhật load more button với total filtered rows
                     if (loadMoreBtn) {
                         loadMoreBtn.dataset.loaded = currentLoaded.toString();
-                        loadMoreBtn.dataset.total = rows.length.toString();
-                        const remaining = rows.length - currentLoaded;
+                        loadMoreBtn.dataset.total = totalFilteredRows.toString();
+                        const remaining = totalFilteredRows - currentLoaded;
+
+                        console.log(`Maintaining pagination: ${currentLoaded} out of ${totalFilteredRows} filtered rows (${allRows.length} total)`);
 
                         if (remaining > 0) {
                             loadMoreBtn.style.display = '';
