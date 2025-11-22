@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Helpers\AstrologyHelper;
 use App\Helpers\BadDayHelper;
 use App\Helpers\DataHelper;
+use App\Helpers\FunctionHelper;
 use App\Helpers\GoodBadDayHelper;
 use App\Helpers\KhiVanHelper;
 use App\Helpers\LunarHelper;
@@ -42,7 +43,6 @@ class GiaiHanController extends Controller
         $request->merge([
             'start_date' => $dates[0] ?? null,
             'end_date' => $dates[1] ?? null,
-            'birthdate_formatted' => $input['birthdate'] ?? null,
         ]);
 
         if (!empty($input['birthdate']) && Carbon::hasFormat($input['birthdate'], 'd/m/Y')) {
@@ -79,7 +79,7 @@ class GiaiHanController extends Controller
         $period = CarbonPeriod::create($startDate, $endDate);
 
         // 2. Lấy thông tin cơ bản của gia chủ và phân tích các năm
-        $birthdateInfo = $this->getPersonBasicInfo($birthdate);
+        $birthdateInfo = BadDayHelper::getPersonBasicInfo($birthdate);
         $uniqueYears = [];
         foreach ($period as $date) {
             $uniqueYears[$date->year] = true;
@@ -101,15 +101,18 @@ class GiaiHanController extends Controller
         // ---- PHẦN LOGIC MỚI: LẶP QUA TỪNG NGÀY ĐỂ TÍNH ĐIỂM CHI TIẾT ----
         // ---------------------------------------------------------------------
 
-        // a. Xác định mục đích (purpose) cho việc xem ngày làm nhà
-        $purpose = 'CUNG_SAO_GIAI_HAN'; // Hoặc 'LAM_NHA', tùy theo bạn định nghĩa trong DataHelper
+        $purpose = 'CUNG_SAO_GIAI_HAN';
 
         foreach ($period as $date) {
             $year = $date->year;
             $birthdateal = LunarHelper::convertSolar2Lunar($birthdate->day, $birthdate->month, $birthdate->year);
+            $dayScoreDetails = FunctionHelper::getDaySummaryInfo($date->day, $date->month, $date->year, $birthdateal[2], $purpose);
 
-            // b. Tính toán điểm số của ngày dựa trên tuổi gia chủ
-            $dayScoreDetails = GoodBadDayHelper::calculateDayScore($date, $birthdateal[2], $purpose);
+            // Thêm thông tin taboo days
+            $tabooResult = GoodBadDayHelper::checkTabooDays($date, $purpose);
+            if ($tabooResult && isset($tabooResult['issues'])) {
+                $dayScoreDetails['checkTabooDays'] = $tabooResult;
+            }
 
             // c. Lấy thông tin Can Chi của ngày
             $jd = LunarHelper::jdFromDate($date->day, $date->month, $date->year);
@@ -141,18 +144,20 @@ class GiaiHanController extends Controller
             ];
         }
 
-        // Sắp xếp kết quả theo điểm số
         $sortOrder = $request->input('sort', 'desc');
         foreach ($resultsByYear as &$yearData) {
             if (isset($yearData['days']) && is_array($yearData['days'])) {
                 usort($yearData['days'], function ($a, $b) use ($sortOrder) {
-                    $scoreA = $a['day_score']['percentage'] ?? 0;
-                    $scoreB = $b['day_score']['percentage'] ?? 0;
+                    // Cấu trúc có thể là day_score.score.percentage hoặc day_score.percentage
+                    $scoreA = $a['day_score']['score']['percentage'] ?? $a['day_score']['percentage'] ?? 0;
+                    $scoreB = $b['day_score']['score']['percentage'] ?? $b['day_score']['percentage'] ?? 0;
                     return $sortOrder === 'asc' ? $scoreA <=> $scoreB : $scoreB <=> $scoreA;
                 });
             }
         }
         unset($yearData);
+
+        $formattedBirthdateForUrl = $birthdate->format('Y-m-d');
 
         // 4. Trả kết quả về cho view hoặc AJAX
         if ($request->ajax() || $request->wantsJson()) {
@@ -161,27 +166,54 @@ class GiaiHanController extends Controller
                 'birthdateInfo' => $birthdateInfo,
                 'resultsByYear' => $resultsByYear,
                 'sortOrder' => $sortOrder,
+                'formattedBirthdate' => $formattedBirthdateForUrl,
             ])->render();
 
             return response()->json([
                 'success' => true,
-                'resultsByYear' => $resultsByYear, // Thêm data cho JS filter
                 'html' => $html,
+                'resultsByYear' => $resultsByYear,
             ]);
         }
 
-        return view('tools.giai-han.form', [
+        return view('tools.giai-han.index', [
             'inputs' => $originalInputs,
             'birthdateInfo' => $birthdateInfo,
             'resultsByYear' => $resultsByYear,
+            'sortOrder' => $sortOrder,
+            'formattedBirthdate' => $formattedBirthdateForUrl,
         ]);
     }
-    /**
-     * Hàm trợ giúp: Phân tích các hạn lớn trong một năm cho gia chủ.
-     */
+  
+
+    public function showDayDetails(Request $request, $date)
+    {
+        $validated = Validator::make(['date' => $date, 'birthdate' => $request->input('birthdate')], [
+            'date' => 'required|date_format:Y-m-d',
+            'birthdate' => 'required|date_format:Y-m-d',
+        ])->validate();
+
+
+        $dateToCheck = Carbon::parse($validated['date']);
+        $groomDob = Carbon::parse($validated['birthdate']);
+
+        // 3. Lấy thông tin chung của ngày (tính 1 lần, vì nó không đổi)
+
+        $commonDayInfo = BadDayHelper::getdetailtable($dateToCheck);
+        $tabooResult = GoodBadDayHelper::checkTabooDays($dateToCheck, 'CUNG_SAO_GIAI_HAN');
+
+        // 4. Lấy thông tin chi tiết cho Chú Rể
+        $groomData = BadDayHelper::getDetailedAnalysisForPerson($dateToCheck, $groomDob, 'Xem Ngày Giải Hạn', 'CUNG_SAO_GIAI_HAN');
+        return view('tools.giai-han.details', [
+            'commonDayInfo' => $commonDayInfo,
+            'groomData' => $groomData,
+            'tabooResult' => $tabooResult,
+        ]);
+    }
     private function calculateYearAnalysis(Carbon $dob, int $yearToCheck): array
     {
-        $birthYear = $dob->year;
+        $lunarDob = LunarHelper::convertSolar2Lunar($dob->day, $dob->month, $dob->year);
+        $birthYear = $lunarDob[2];
         $lunarAge = AstrologyHelper::getLunarAge($birthYear, $yearToCheck);
 
         $kimLau = AstrologyHelper::checkKimLau($lunarAge);
@@ -194,59 +226,15 @@ class GiaiHanController extends Controller
         if ($tamTai['is_bad']) $badFactors[] = 'Tam Tai';
 
         $isBadYear = count($badFactors) > 0;
-      
+        $message = $isBadYear
+            ? "Năm {$yearToCheck}, gia chủ phạm phải: <strong>" . implode(', ', $badFactors) . "</strong>..."
+            : "Năm {$yearToCheck}, gia chủ không phạm Kim Lâu, Hoang Ốc hay Tam Tai...";
 
         return [
             'is_bad_year' => $isBadYear,
             'lunar_age' => $lunarAge,
+            'description' => $message,
             'details' => compact('kimLau', 'hoangOc', 'tamTai'),
         ];
-    }
-
-
-    /**
-     * Hàm trợ giúp: Lấy thông tin cơ bản của một người.
-     * Cần thêm hàm này vào vì bạn có gọi $this->getPersonBasicInfo($birthdate).
-     */
-    private function getPersonBasicInfo(Carbon $dob): array
-    {
-        $birthYear = $dob->year;
-        $canChiNam = KhiVanHelper::canchiNam((int)$birthYear);
-        $menh = DataHelper::$napAmTable[$canChiNam]; // Giả sử bạn có DataHelper
-        $lunarDob = LunarHelper::convertSolar2Lunar($dob->day, $dob->month, $dob->year);
-
-        return [
-            'dob' => $dob,
-            'lunar_dob_str' => sprintf('%02d/%02d/%d', $lunarDob[0], $lunarDob[1], $lunarDob[2]),
-            'can_chi_nam' => $canChiNam,
-            'menh' => $menh,
-        ];
-    }
-      public function details(Request $request, $date)
-    {
-        // 1. Validate dữ liệu - đã loại bỏ 'person_type'
-         $validated = Validator::make(['date' => $date, 'birthdate' => $request->input('birthdate')], [
-            'date' => 'required|date_format:Y-m-d',
-            'birthdate' => 'required|date_format:Y-m-d',
-        ])->validate();
-
-        // 2. Chuẩn bị các đối tượng ngày tháng
-        $dateToCheck = Carbon::parse($validated['date']);
-        $groomDob = Carbon::parse($validated['birthdate']);
-
-        // 3. Lấy thông tin chung của ngày (tính 1 lần, vì nó không đổi)
-
-        $commonDayInfo = BadDayHelper::getdetailtable($dateToCheck);
-        $tabooResult = GoodBadDayHelper::checkTabooDays($dateToCheck, 'CUNG_SAO_GIAI_HAN');
-
-        // 4. Lấy thông tin chi tiết cho Chú Rể
-        $groomData = BadDayHelper::getDetailedAnalysisForPerson($dateToCheck, $groomDob, 'Giải hạn', 'CUNG_SAO_GIAI_HAN');
-        // 5. Tính điểm số của ngày - sử dụng năm sinh thay vì Carbon object
-        // 6. Trả về view với toàn bộ dữ liệu
-        return view('tools.giai-han.day_details', compact(
-            'commonDayInfo',
-            'groomData',
-            'tabooResult',
-        ));
     }
 }
