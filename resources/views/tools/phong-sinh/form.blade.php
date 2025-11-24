@@ -170,7 +170,7 @@
                         </div>
 
                     </div>
-                    <div id="resultsContainer" class="--detail-success">
+                    <div id="resultsContainer" class="results-container">
                         <div class="d-flex flex-column align-items-center justify-content-center h-100 text-center">
                             <div class="mb-4">
                                 <img src="{{ asset('/icons/defaild.png?v=1.0') }}" alt="defakd" class="img-fuild">
@@ -625,9 +625,62 @@
                                 }
 
                                 setTimeout(() => {
-                                    if (data.resultsByYear && typeof initTabooFilter ===
-                                        'function') {
+                                    if (data.resultsByYear && typeof initTabooFilter === 'function') {
+                                        console.log('Phong Sinh Form: Initializing taboo filter with data:', data.resultsByYear);
+                                        console.log('Phong Sinh Form: Available sort dropdowns:', document.querySelectorAll('[name="sort"]').length);
+
+                                        // Debug sort dropdown content
+                                        const sortDropdowns = document.querySelectorAll('[name="sort"]');
+                                        sortDropdowns.forEach((dropdown, index) => {
+                                            console.log(`Sort dropdown ${index + 1}:`, {
+                                                value: dropdown.value,
+                                                options: Array.from(dropdown.options).map(opt => opt.value),
+                                                hasDateOptions: Array.from(dropdown.options).some(opt => opt.value.includes('date'))
+                                            });
+                                        });
+
                                         initTabooFilter(data.resultsByYear);
+                                        console.log('Phong Sinh Form: Taboo filter initialized successfully');
+
+                                        // Check legacy system detection after init
+                                        setTimeout(() => {
+                                            const hasLegacy = document.querySelector('.--detail-success');
+                                            console.log('Phong Sinh Form: Legacy system detected?', !!hasLegacy);
+
+                                            const sortElements = document.querySelectorAll('[name="sort"]');
+                                            sortElements.forEach((el, idx) => {
+                                                console.log(`Sort element ${idx + 1} has event listeners:`, {
+                                                    hasTabooHandler: !!el._tabooSortHandler,
+                                                    parentTab: el.closest('.tab-pane')?.id
+                                                });
+                                            });
+                                        }, 100);
+
+                                        // Test sort functionality after init
+                                        setTimeout(() => {
+                                            const firstSortDropdown = document.querySelector('[name="sort"]');
+                                            if (firstSortDropdown) {
+                                                console.log('Phong Sinh Form: Testing sort functionality...');
+                                                const originalValue = firstSortDropdown.value;
+
+                                                // Test by programmatically changing dropdown
+                                                firstSortDropdown.value = 'date_asc';
+                                                const changeEvent = new Event('change', { bubbles: true });
+                                                firstSortDropdown.dispatchEvent(changeEvent);
+
+                                                // Restore original value after test
+                                                setTimeout(() => {
+                                                    firstSortDropdown.value = originalValue;
+                                                    firstSortDropdown.dispatchEvent(changeEvent);
+                                                    console.log('Phong Sinh Form: Sort test completed');
+                                                }, 1000);
+                                            }
+                                        }, 500);
+                                    } else {
+                                        console.error('Phong Sinh Form: initTabooFilter not available or no data', {
+                                            hasFunction: typeof initTabooFilter === 'function',
+                                            hasData: !!data.resultsByYear
+                                        });
                                     }
                                 }, 200);
                             }, 300);
@@ -691,33 +744,11 @@
                 return 0;
             }
 
-            function applySortingToTable(sortValue) {
-                const table = document.querySelector('#bang-chi-tiet table tbody');
-                if (!table) return;
+            // getDateFromRow and applySortingToTable functions are now handled
+            // by taboo-filter-script component to avoid conflicts
 
-                const rows = Array.from(table.querySelectorAll('tr'));
-                rows.sort((a, b) => {
-                    const scoreA = getScoreFromRow(a);
-                    const scoreB = getScoreFromRow(b);
-                    return sortValue === 'asc' ? scoreA - scoreB : scoreB - scoreA;
-                });
-
-                table.innerHTML = '';
-                rows.forEach(row => table.appendChild(row));
-            }
-
-            // Event delegation for sorting
-            resultsContainer.addEventListener('change', function(event) {
-                if (event.target.matches('[name="sort"]')) {
-                    applySortingToTable(event.target.value);
-                    setTimeout(() => {
-                        document.getElementById('bang-chi-tiet')?.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }, 100);
-                }
-            });
+            // Sorting is now handled by taboo-filter-script component
+            // Do not add duplicate sort handlers here to avoid conflicts
 
         });
     </script>

@@ -631,7 +631,20 @@
                         event.preventDefault();
                         event.stopPropagation();
 
-                        applySortingToTable(event.target.value);
+                        // Find the current active year for multi-year support
+                        const activeTab = document.querySelector('.tab-pane.active');
+                        if (activeTab) {
+                            const yearMatch = activeTab.id.match(/year-(\d+)/);
+                            if (yearMatch) {
+                                const currentYear = yearMatch[1];
+                                console.log('Applying sort to year:', currentYear);
+                                applySortingToTable(event.target.value, currentYear);
+                            } else {
+                                applySortingToTable(event.target.value);
+                            }
+                        } else {
+                            applySortingToTable(event.target.value);
+                        }
 
                         // Scroll to table after sort
                         setTimeout(() => {
@@ -667,20 +680,36 @@
                     return 0;
                 }
 
-                function applySortingToTable(sortValue, maintainCurrentPagination = true) {
-                    console.log('applySortingToTable called with:', sortValue);
+                function applySortingToTable(sortValue, year = null, maintainCurrentPagination = true) {
+                    console.log('applySortingToTable called with:', sortValue, 'year:', year);
 
                     // Try multiple ways to find the table like other working tools
                     let table = null;
 
-                    // Method 1: Direct search
-                    table = document.querySelector('#bang-chi-tiet table tbody');
+                    // If year is provided, target specific year table
+                    if (year) {
+                        table = document.querySelector(`#table-${year} tbody`);
+                        console.log('Looking for year-specific table:', `#table-${year} tbody`);
+                    }
+
+                    // Method 1: Direct search if no year or year-specific table not found
+                    if (!table) {
+                        table = document.querySelector('#bang-chi-tiet table tbody');
+                    }
 
                     // Method 2: Any table in results container
                     if (!table) {
                         const resultsContainer = document.querySelector('.--detail-success');
                         if (resultsContainer) {
                             table = resultsContainer.querySelector('table tbody');
+                        }
+                    }
+
+                    // Method 3: Try to find table in active tab if still not found
+                    if (!table) {
+                        const activeTab = document.querySelector('.tab-pane.active');
+                        if (activeTab) {
+                            table = activeTab.querySelector('table tbody');
                         }
                     }
 

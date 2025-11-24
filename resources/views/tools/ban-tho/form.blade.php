@@ -585,12 +585,32 @@
                     event.preventDefault();
                     event.stopPropagation();
 
-                    applySortingToTable(event.target.value);
+                    // Find the year from the parent tab
+                    const parentTabPane = event.target.closest('.tab-pane');
+                    const year = parentTabPane ? parentTabPane.id.replace('year-', '') : null;
+
+                    console.log('Sorting for year:', year);
+
+                    // Sync all sort dropdowns to same value
+                    const allSortSelects = document.querySelectorAll('[name="sort"]');
+                    allSortSelects.forEach(select => {
+                        if (select !== event.target) {
+                            select.value = event.target.value;
+                        }
+                    });
+
+                    applySortingToTable(event.target.value, year);
 
                     // Scroll to table after sort
                     setTimeout(() => {
-                        const bangChiTiet = document.querySelector('#bang-chi-tiet');
-                        bangChiTiet?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        if (year) {
+                            const yearTab = document.querySelector(`#year-${year}`);
+                            const bangChiTiet = yearTab?.querySelector('#bang-chi-tiet');
+                            bangChiTiet?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        } else {
+                            const bangChiTiet = document.querySelector('#bang-chi-tiet');
+                            bangChiTiet?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
                     }, 100);
                 }
             }
@@ -621,16 +641,42 @@
                 return 0;
             }
 
-            function applySortingToTable(sortValue, maintainCurrentPagination = true) {
-                console.log('applySortingToTable called with:', sortValue);
+            function applySortingToTable(sortValue, year = null, maintainCurrentPagination = true) {
+                console.log('applySortingToTable called with:', sortValue, 'year:', year);
 
-                // Try multiple ways to find the table like other working tools
+                // If no year specified, try to get active tab year
+                if (!year) {
+                    const activeTab = document.querySelector('.tab-pane.show.active');
+                    if (activeTab) {
+                        year = activeTab.id.replace('year-', '');
+                    }
+                }
+
+                console.log('Using year for sorting:', year);
+
+                // Find table for specific year first
                 let table = null;
 
-                // Method 1: Direct search
-                table = document.querySelector('#bang-chi-tiet table tbody');
+                if (year) {
+                    // Year-specific table search
+                    const activeTabPane = document.querySelector(`#year-${year}`);
+                    if (activeTabPane) {
+                        table = activeTabPane.querySelector(`#table-${year} tbody`) ||
+                               activeTabPane.querySelector('.table tbody') ||
+                               activeTabPane.querySelector('tbody');
+                    }
 
-                // Method 2: Any table in results container
+                    // Fallback: global search for year-specific table
+                    if (!table) {
+                        table = document.querySelector(`#table-${year} tbody`);
+                    }
+                }
+
+                // Fallback: general search
+                if (!table) {
+                    table = document.querySelector('#bang-chi-tiet table tbody');
+                }
+
                 if (!table) {
                     const resultsContainer = document.querySelector('.--detail-success');
                     if (resultsContainer) {
@@ -642,6 +688,8 @@
                     console.log('No table found for sorting');
                     return;
                 }
+
+                console.log('Table found for sorting:', table);
 
                 // Chỉ lấy các rows đang visible (không bị ẩn bởi taboo filter)
                 const rows = Array.from(table.querySelectorAll('tr')).filter(row => {
@@ -677,6 +725,11 @@
                 // Maintain current pagination if specified
                 if (maintainCurrentPagination) {
                     maintainCurrentPaginationState(table);
+                }
+
+                // Update filter status for this year if taboo filter is active
+                if (year && typeof window.updateFilterStatusOnPagination === 'function') {
+                    window.updateFilterStatusOnPagination(year);
                 }
             }
 

@@ -21,11 +21,6 @@
     @endif
 
 
-
-    <!-- Backdrop -->
-    <div id="tabooFilterBackdrop" class="taboo-filter-backdrop d-none"></div>
-
-
     <div class="tab-content">
         @php $firstYear = true; @endphp
         @foreach ($resultsByYear as $year => $yearData)
@@ -74,109 +69,10 @@
                             </div>
                             <div class="d-flex flex-wrap" style="gap: 10px">
                                 <div class="position-relative mb-3">
-                                    <button type="button" class="taboo-filter-btn form-select-sm sort-select"
-                                        data-year="{{ $year }}">
-                                        <i class="bi bi-funnel me-2"></i>
-                                        <span>Lọc ngày kỵ</span>
+                                    <button type="button" class="taboo-filter-btn form-select-sm sort-select" data-year="{{ $year }}">
+                                        <span>Lọc ngày xấu</span>
                                         <i class="bi bi-chevron-down ms-2"></i>
                                     </button>
-                                    <!-- Filter Modal/Dropdown - Global for all tabs -->
-                                    <div id="tabooFilterModal" class="taboo-filter-modal d-none">
-                                        <div class="taboo-filter-header">
-                                            <h6 class="mb-0">Lọc ngày kỵ phong sinh</h6>
-                                            <button type="button" id="closeFilterModal" class="btn-close-filter">
-                                                <i class="bi bi-x"></i>
-                                            </button>
-                                        </div>
-
-                                        <div class="taboo-filter-body">
-                                            <!-- Categories -->
-                                            <div class="filter-section">
-                                                <!-- Quick Actions -->
-                                                <div class="filter-quick-actions">
-                                                    <button type="button" id="selectCommon"
-                                                        class="btn-quick-action">Phổ
-                                                        biến</button>
-                                                    <button type="button" id="selectAll" class="btn-quick-action">Tất
-                                                        cả</button>
-                                                    <button type="button" id="clearAll" class="btn-quick-action">Bỏ
-                                                        chọn</button>
-                                                </div>
-
-                                                <div class="filter-options">
-                                                    <label class="filter-option">
-                                                        <input type="checkbox" class="taboo-checkbox" value="Tam Nương"
-                                                            id="taboo1">
-                                                        <span class="checkmark"></span>
-                                                        <span class="option-text">Tam Nương</span>
-                                                    </label>
-
-                                                    <label class="filter-option">
-                                                        <input type="checkbox" class="taboo-checkbox" value="Nguyệt Kỵ"
-                                                            id="taboo2">
-                                                        <span class="checkmark"></span>
-                                                        <span class="option-text">Nguyệt Kỵ</span>
-                                                    </label>
-
-                                                    <label class="filter-option">
-                                                        <input type="checkbox" class="taboo-checkbox" value="Nguyệt Tận"
-                                                            id="taboo3">
-                                                        <span class="checkmark"></span>
-                                                        <span class="option-text">Nguyệt Tận</span>
-                                                    </label>
-
-                                                    <label class="filter-option">
-                                                        <input type="checkbox" class="taboo-checkbox"
-                                                            value="Dương Công Kỵ Nhật" id="taboo4">
-                                                        <span class="checkmark"></span>
-                                                        <span class="option-text">Dương Công Kỵ Nhật</span>
-                                                    </label>
-
-                                                    <label class="filter-option">
-                                                        <input type="checkbox" class="taboo-checkbox" value="Sát Chủ Âm"
-                                                            id="taboo5">
-                                                        <span class="checkmark"></span>
-                                                        <span class="option-text">Sát Chủ Âm</span>
-                                                    </label>
-
-                                                    <label class="filter-option">
-                                                        <input type="checkbox" class="taboo-checkbox"
-                                                            value="Sát Chủ Dương" id="taboo6">
-                                                        <span class="checkmark"></span>
-                                                        <span class="option-text">Sát Chủ Dương</span>
-                                                    </label>
-
-                                                    <label class="filter-option">
-                                                        <input type="checkbox" class="taboo-checkbox"
-                                                            value="Kim Thần Thất Sát" id="taboo7">
-                                                        <span class="checkmark"></span>
-                                                        <span class="option-text">Kim Thần Thất Sát</span>
-                                                    </label>
-
-                                                    <label class="filter-option">
-                                                        <input type="checkbox" class="taboo-checkbox"
-                                                            value="Trùng Phục" id="taboo8">
-                                                        <span class="checkmark"></span>
-                                                        <span class="option-text">Trùng Phục</span>
-                                                    </label>
-
-                                                    <label class="filter-option">
-                                                        <input type="checkbox" class="taboo-checkbox" value="Thụ Tử"
-                                                            id="taboo9">
-                                                        <span class="checkmark"></span>
-                                                        <span class="option-text">Thụ Tử</span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="taboo-filter-footer">
-                                            <button type="button" id="clearTabooFilter" class="btn-cancel">Đặt
-                                                lại</button>
-                                            <button type="button" id="applyTabooFilter" class="btn-apply">Áp
-                                                dụng</button>
-                                        </div>
-                                    </div>
                                 </div>
 
                                 <!-- Sắp xếp tích hợp điểm và ngày -->
@@ -250,7 +146,7 @@
                                                 data-index="{{ $index }}"
                                                 style="{{ $index >= 10 ? 'display: none;' : '' }}"
                                                 data-visible="{{ $index < 10 ? 'true' : 'false' }}"
-                                                data-taboos="{{ implode(',', $tabooTypes) }}">
+                                                data-taboo-days="{{ implode(',', $tabooTypes) }}">
                                                 <td style="text-align: start">
                                                     <a
                                                         href="{{ route('phong-sinh.details', [
@@ -388,16 +284,16 @@
                                     </tbody>
                                 </table>
 
-                                <!-- Load More Button -->
+                                <!-- Nút xem thêm -->
                                 @if (count($yearData['days']) > 10)
-                                    <div class="d-flex justify-content-center mt-3">
+                                    <div class="text-center mt-3">
                                         <button type="button" class="btn btn-outline-primary load-more-btn"
-                                            data-year="{{ $year }}"
-                                            data-total="{{ count($yearData['days']) }}" data-current="10">
-                                            <i class="bi bi-chevron-down me-2"></i>
-                                            Xem thêm (<span
-                                                class="remaining-count">{{ count($yearData['days']) - 10 }}</span>
-                                            ngày)
+                                            data-year="{{ $year }}" data-loaded="10"
+                                            data-total="{{ count($yearData['days']) }}">
+                                            <i class="bi bi-plus-circle me-2"></i>
+                                            Xem thêm 10 bảng
+                                            <span class="text-muted ms-2">({{ count($yearData['days']) - 10 }} còn
+                                                lại)</span>
                                         </button>
                                     </div>
                                 @endif
@@ -413,28 +309,94 @@
             @php $firstYear = false; @endphp
         @endforeach
     </div>
+
+   <!-- Filter Modal/Dropdown - Global -->
+    <div id="tabooFilterModal" class="taboo-filter-modal d-none">
+        <div class="taboo-filter-header">
+            <h6 class="mb-0">Lọc ngày kỵ</h6>
+            <button type="button" id="closeFilterModal" class="btn-close-filter">
+                <i class="bi bi-x"></i>
+            </button>
+        </div>
+
+        <div class="taboo-filter-body">
+            <!-- Categories -->
+            <div class="filter-section">
+                <!-- Quick Actions -->
+                <div class="filter-quick-actions">
+                    <button type="button" id="selectCommon" class="btn-quick-action">Phổ biến</button>
+                    <button type="button" id="selectAll" class="btn-quick-action">Tất cả</button>
+                    <button type="button" id="clearAll" class="btn-quick-action">Bỏ chọn</button>
+                </div>
+
+                <div class="filter-options">
+                    <label class="filter-option">
+                        <input type="checkbox" class="taboo-checkbox" value="Tam Nương" id="taboo1">
+                        <span class="checkmark"></span>
+                        <span class="option-text">Tam Nương</span>
+                    </label>
+
+                    <label class="filter-option">
+                        <input type="checkbox" class="taboo-checkbox" value="Nguyệt Kỵ" id="taboo2">
+                        <span class="checkmark"></span>
+                        <span class="option-text">Nguyệt Kỵ</span>
+                    </label>
+
+                    <label class="filter-option">
+                        <input type="checkbox" class="taboo-checkbox" value="Nguyệt Tận" id="taboo3">
+                        <span class="checkmark"></span>
+                        <span class="option-text">Nguyệt Tận</span>
+                    </label>
+
+                    <label class="filter-option">
+                        <input type="checkbox" class="taboo-checkbox" value="Dương Công Kỵ Nhật" id="taboo4">
+                        <span class="checkmark"></span>
+                        <span class="option-text">Dương Công Kỵ Nhật</span>
+                    </label>
+
+                    <label class="filter-option">
+                        <input type="checkbox" class="taboo-checkbox" value="Sát Chủ Âm" id="taboo5">
+                        <span class="checkmark"></span>
+                        <span class="option-text">Sát Chủ Âm</span>
+                    </label>
+
+                    <label class="filter-option">
+                        <input type="checkbox" class="taboo-checkbox" value="Sát Chủ Dương" id="taboo6">
+                        <span class="checkmark"></span>
+                        <span class="option-text">Sát Chủ Dương</span>
+                    </label>
+
+                    <label class="filter-option">
+                        <input type="checkbox" class="taboo-checkbox" value="Kim Thần Thất Sát" id="taboo7">
+                        <span class="checkmark"></span>
+                        <span class="option-text">Kim Thần Thất Sát</span>
+                    </label>
+
+                    <label class="filter-option">
+                        <input type="checkbox" class="taboo-checkbox" value="Trùng Phục" id="taboo8">
+                        <span class="checkmark"></span>
+                        <span class="option-text">Trùng Phục</span>
+                    </label>
+
+                    <label class="filter-option">
+                        <input type="checkbox" class="taboo-checkbox" value="Thụ Tử" id="taboo9">
+                        <span class="checkmark"></span>
+                        <span class="option-text">Thụ Tử</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="taboo-filter-footer">
+            <button type="button" id="clearTabooFilter" class="btn-cancel">Đặt lại</button>
+            <button type="button" id="applyTabooFilter" class="btn-apply">Áp dụng</button>
+        </div>
+    </div>
+
+    <!-- Backdrop -->
+    <div id="tabooFilterBackdrop" class="taboo-filter-backdrop d-none"></div>
 </div>
 
 @include('components.taboo-filter-script')
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Khởi tạo filter cho phong-sinh với data từ server
-        const resultsByYear = @json($resultsByYear);
-
-        // Transform data để phù hợp với script
-        const transformedData = {};
-        Object.keys(resultsByYear).forEach(year => {
-            transformedData[year] = {
-                days: resultsByYear[year].days || []
-            };
-        });
-
-        if (typeof window.initTabooFilter === 'function') {
-            window.initTabooFilter(transformedData);
-            console.log('Taboo filter initialized for phong-sinh tool');
-        } else {
-            console.error('initTabooFilter function not found');
-        }
-    });
-</script>
+<!-- Script initialization is handled by form.blade.php AJAX success to avoid conflicts -->

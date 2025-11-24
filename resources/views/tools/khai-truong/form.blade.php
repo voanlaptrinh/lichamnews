@@ -749,24 +749,40 @@
             resultsContainer.addEventListener('change', function(event) {
                 if (event.target.matches('[name="sort"]')) {
                     console.log('Sort changed to:', event.target.value);
-                    applySortingToTable(event.target.value);
+
+                    // Tìm năm hiện tại từ tab active
+                    const activeTab = document.querySelector('.tab-pane.show.active');
+                    const currentYear = activeTab ? activeTab.id.replace('year-', '') : null;
+
+                    applySortingToTable(event.target.value, currentYear);
                     setTimeout(() => {
-                        const bangChiTiet = document.querySelector('#bang-chi-tiet');
+                        const bangChiTiet = activeTab?.querySelector('#bang-chi-tiet');
                         bangChiTiet?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     }, 100);
                 }
             });
 
             // Function to apply sorting without form submission
-            function applySortingToTable(sortValue) {
-                const table = document.querySelector('#bang-chi-tiet table tbody');
+            function applySortingToTable(sortValue, year) {
+                // Tìm tab hiện tại hoặc sử dụng year parameter
+                let activeTab = document.querySelector('.tab-pane.show.active');
+                if (!activeTab && year) {
+                    activeTab = document.querySelector(`#year-${year}`);
+                }
+                if (!activeTab) {
+                    console.log('No active tab found');
+                    return;
+                }
+
+                // Tìm table trong tab hiện tại
+                const table = activeTab.querySelector('#bang-chi-tiet table tbody');
                 if (!table) {
-                    console.log('No table found for sorting');
+                    console.log('No table found for sorting in active tab');
                     return;
                 }
 
                 const rows = Array.from(table.querySelectorAll('tr'));
-                console.log(`Found ${rows.length} rows to sort`);
+                console.log(`Found ${rows.length} rows to sort in tab ${activeTab.id}`);
 
                 rows.sort((a, b) => {
                     if (sortValue === 'date_asc' || sortValue === 'date_desc') {
@@ -786,8 +802,9 @@
                 table.innerHTML = '';
                 rows.forEach(row => table.appendChild(row));
 
-                // Maintain current pagination - pass table parameter like mua-xe
-                maintainCurrentPagination(table);
+                // Maintain current pagination - pass year parameter
+                const currentYear = activeTab.id.replace('year-', '');
+                maintainCurrentPagination(table, currentYear);
             }
 
             // Helper function to extract score from table row
@@ -873,40 +890,60 @@
                     if (event.target.matches('.load-more-btn') || event.target.closest('.load-more-btn')) {
                         const btn = event.target.matches('.load-more-btn') ? event.target : event.target.closest('.load-more-btn');
                         const year = btn.getAttribute('data-year');
-                        const currentLoaded = parseInt(btn.getAttribute('data-loaded'));
-                        const total = parseInt(btn.getAttribute('data-total'));
+
+                        // Reread attributes every time (might be updated by taboo filter)
+                        const currentLoaded = parseInt(btn.getAttribute('data-loaded')) || 10;
+                        const total = parseInt(btn.getAttribute('data-total')) || 0;
                         const loadMore = Math.min(10, total - currentLoaded);
 
-                        // Show next 10 items
-                        const table = document.querySelector(`#table-${year} tbody`);
+                        console.log(`PAGINATION DEBUG: year=${year}, currentLoaded=${currentLoaded}, total=${total}, loadMore=${loadMore}`);
+
+                        // Tìm table trong tab hiện tại của năm đó
+                        const targetTab = document.querySelector(`#year-${year}`);
+                        const table = targetTab ? targetTab.querySelector('#bang-chi-tiet table tbody') : null;
+
                         if (table) {
-                            const allRows = table.querySelectorAll('.table-row-' + year);
+                            const allRows = table.querySelectorAll(`.table-row-${year}`);
+                            console.log(`Showing more rows for year ${year}: currentLoaded=${currentLoaded}, total=${total}, allRows=${allRows.length}`);
+
+                            // Show next loadMore rows
                             for (let i = currentLoaded; i < currentLoaded + loadMore; i++) {
                                 if (allRows[i]) {
                                     allRows[i].style.display = '';
                                     allRows[i].setAttribute('data-visible', 'true');
+                                    console.log(`Showing row ${i}`);
                                 }
                             }
 
                             const newLoaded = currentLoaded + loadMore;
                             btn.setAttribute('data-loaded', newLoaded);
 
-                            // Update button text
+                            // Update button text - total should be correct from taboo filter
                             const remaining = total - newLoaded;
+                            const nextLoad = Math.min(10, remaining);
+
+                            console.log(`BUTTON UPDATE: newLoaded=${newLoaded}, total=${total}, remaining=${remaining}, nextLoad=${nextLoad}`);
+
                             if (remaining > 0) {
-                                const nextLoad = Math.min(10, remaining);
                                 btn.innerHTML = `<i class="bi bi-plus-circle me-2"></i>Xem thêm ${nextLoad} bảng<span class="text-muted ms-2">(${remaining} còn lại)</span>`;
                             } else {
                                 btn.style.display = 'none';
                             }
+
+                            // Update filter status if active
+                            if (typeof window.updateFilterStatusOnPagination === 'function') {
+                                window.updateFilterStatusOnPagination(year);
+                            }
+                        } else {
+                            console.error(`Cannot find table for year ${year}`);
                         }
                     }
                 });
             }
 
-            function maintainCurrentPagination(table) {
+            function maintainCurrentPagination(table, year) {
                 // Kiểm tra xem có đang trong filter state không
-                const filterStatus = document.getElementById('filterStatus');
+                const filterStatus = document.getElementById(`filterStatus-${year || ''}`);
                 const isFilterActive = filterStatus && !filterStatus.classList.contains('d-none');
 
                 // Nếu filter đang active, không can thiệp vào pagination
@@ -929,16 +966,19 @@
                     return row.style.display !== 'none';
                 }).length;
 
-                console.log(`Maintaining pagination: ${currentLoaded} out of ${totalFilteredRows} filtered rows (${allRows.length} total)`);
+                console.log(`DEBUG: Maintaining pagination for year ${year}: currentLoaded=${currentLoaded}, totalFilteredRows=${totalFilteredRows}, allRows=${allRows.length}`);
 
                 // Show rows according to current pagination state
+                let visibleCount = 0;
                 allRows.forEach((row, index) => {
-                    if (index >= currentLoaded) {
-                        row.style.display = 'none';
-                        row.setAttribute('data-visible', 'false');
-                    } else {
+                    if (visibleCount < currentLoaded) {
                         row.style.display = '';
                         row.setAttribute('data-visible', 'true');
+                        visibleCount++;
+                        console.log(`DEBUG: Showing row ${index}`);
+                    } else {
+                        row.style.display = 'none';
+                        row.setAttribute('data-visible', 'false');
                     }
                 });
 

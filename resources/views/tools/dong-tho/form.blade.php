@@ -923,30 +923,28 @@
                 return 0;
             }
 
-            function applySortingToTable(sortValue) {
-                console.log('applySortingToTable called with:', sortValue);
+            function applySortingToTable(sortValue, year) {
+                console.log('applySortingToTable called with:', sortValue, 'year:', year);
 
-                // Try multiple ways to find the table like mua-xe
-                let table = null;
-
-                // Method 1: Direct search
-                table = document.querySelector('#bang-chi-tiet table tbody');
-
-                // Method 2: Any table in results container
-                if (!table) {
-                    const resultsContainer = document.querySelector('.--detail-success');
-                    if (resultsContainer) {
-                        table = resultsContainer.querySelector('table tbody');
-                    }
+                // Tìm tab hiện tại hoặc sử dụng year parameter
+                let activeTab = document.querySelector('.tab-pane.show.active');
+                if (!activeTab && year) {
+                    activeTab = document.querySelector(`#year-${year}`);
+                }
+                if (!activeTab) {
+                    console.log('No active tab found');
+                    return;
                 }
 
+                // Tìm table trong tab hiện tại
+                const table = activeTab.querySelector('#bang-chi-tiet table tbody');
                 if (!table) {
-                    console.log('No table found for sorting');
+                    console.log('No table found for sorting in active tab');
                     return;
                 }
 
                 const rows = Array.from(table.querySelectorAll('tr'));
-                console.log(`Found ${rows.length} rows to sort`);
+                console.log(`Found ${rows.length} rows to sort in tab ${activeTab.id}`);
 
                 rows.sort((a, b) => {
                     if (sortValue === 'date_asc' || sortValue === 'date_desc') {
@@ -966,8 +964,9 @@
                 table.innerHTML = '';
                 rows.forEach(row => table.appendChild(row));
 
-                // Maintain current pagination - pass table parameter
-                maintainCurrentPagination(table);
+                // Maintain current pagination - pass year parameter
+                const currentYear = activeTab.id.replace('year-', '');
+                maintainCurrentPagination(table, currentYear);
             }
 
             // Setup container-level event delegation like mua-xe
@@ -999,11 +998,15 @@
                     event.preventDefault();
                     event.stopPropagation();
 
-                    applySortingToTable(event.target.value);
+                    // Tìm năm hiện tại từ tab active
+                    const activeTab = document.querySelector('.tab-pane.show.active');
+                    const currentYear = activeTab ? activeTab.id.replace('year-', '') : null;
+
+                    applySortingToTable(event.target.value, currentYear);
 
                     // Scroll to table after sort
                     setTimeout(() => {
-                        const bangChiTiet = document.querySelector('#bang-chi-tiet');
+                        const bangChiTiet = activeTab?.querySelector('#bang-chi-tiet');
                         bangChiTiet?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     }, 100);
                 }
@@ -1096,9 +1099,9 @@
                 });
             }
 
-            function maintainCurrentPagination(table) {
+            function maintainCurrentPagination(table, year) {
                 // Kiểm tra xem có đang trong filter state không
-                const filterStatus = document.getElementById('filterStatus');
+                const filterStatus = document.getElementById(`filterStatus-${year || ''}`);
                 const isFilterActive = filterStatus && !filterStatus.classList.contains('d-none');
 
                 // Nếu filter đang active, không can thiệp vào pagination

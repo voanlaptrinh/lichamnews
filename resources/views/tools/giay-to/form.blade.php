@@ -169,7 +169,7 @@
                         </div>
 
                     </div>
-                    <div id="resultsContainer" class="--detail-success">
+                    <div id="resultsContainer" class="results-container">
                         <div class="d-flex flex-column align-items-center justify-content-center h-100 text-center">
                             <div class="mb-4">
                                 <img src="{{ asset('/icons/defaild.png?v=1.0') }}" alt="defakd" class="img-fuild">

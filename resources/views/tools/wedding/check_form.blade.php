@@ -894,11 +894,31 @@
 
             // Sort function - follow mua-xe pattern
             function applySortingToTable(sortValue) {
-                const table = document.querySelector('#bang-chi-tiet table tbody');
-                if (!table) {
-                    console.log('No table found for sorting');
+                // Get active tab first to determine which table to sort
+                const activeTabPane = document.querySelector('.tab-pane.show.active');
+                if (!activeTabPane) {
+                    console.log('No active tab found');
                     return;
                 }
+
+                const activeYear = activeTabPane.id.replace('year-', '');
+                console.log(`Sorting table for active year: ${activeYear}`);
+
+                // Find table within the active tab pane
+                let table = activeTabPane.querySelector('#bang-chi-tiet table tbody');
+                if (!table) {
+                    table = activeTabPane.querySelector(`#table-${activeYear} tbody`);
+                }
+                if (!table) {
+                    table = activeTabPane.querySelector('.table tbody');
+                }
+
+                if (!table) {
+                    console.log(`No table found for sorting in year ${activeYear}`);
+                    return;
+                }
+
+                console.log(`Found table for year ${activeYear}:`, table);
 
                 const rows = Array.from(table.querySelectorAll('tr'));
                 console.log(`Found ${rows.length} rows to sort`);
@@ -921,8 +941,8 @@
                 table.innerHTML = '';
                 rows.forEach(row => table.appendChild(row));
 
-                // Maintain current pagination - pass table parameter like mua-xe
-                maintainCurrentPagination(table);
+                // Maintain current pagination - pass table parameter and year for specificity
+                maintainCurrentPagination(table, activeYear);
             }
 
             // Pagination functions
@@ -1023,9 +1043,23 @@
                 return new Date();
             }
 
-            function maintainCurrentPagination(table) {
+            function maintainCurrentPagination(table, activeYear = null) {
                 // Follow mua-xe pattern - simpler approach
-                const loadMoreBtn = table.closest('.card-body').querySelector('.load-more-btn');
+                console.log(`Maintaining pagination for year: ${activeYear || 'unknown'}`);
+
+                // Find load more button specific to the year if available
+                let loadMoreBtn = null;
+                if (activeYear) {
+                    const tabPane = document.querySelector(`#year-${activeYear}`);
+                    if (tabPane) {
+                        loadMoreBtn = tabPane.querySelector('.load-more-btn');
+                    }
+                }
+
+                // Fallback to table's closest load more button
+                if (!loadMoreBtn) {
+                    loadMoreBtn = table.closest('.card-body').querySelector('.load-more-btn');
+                }
                 if (!loadMoreBtn) {
                     console.log('No load more button found');
                     return;

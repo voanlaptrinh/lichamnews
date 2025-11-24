@@ -742,51 +742,128 @@
                     return 0;
                 }
 
-                function applySortingToTable(sortValue) {
-                    // Lấy tất cả các table trong các tab year
-                    const allTables = document.querySelectorAll('[id^="table-"] tbody');
+                function applySortingToTable(sortValue, year = null) {
+                    console.log('applySortingToTable called with:', sortValue, 'year:', year);
 
-                    if (!allTables.length) return;
+                    // If no year specified, try to get active tab year
+                    if (!year) {
+                        const activeTab = document.querySelector('.tab-pane.show.active');
+                        if (activeTab) {
+                            year = activeTab.id.replace('year-', '');
+                        }
+                    }
 
-                    // Áp dụng sorting cho từng table
-                    allTables.forEach(table => {
-                        const rows = Array.from(table.querySelectorAll('tr'));
-                        if (rows.length === 0) return;
+                    console.log('Using year for sorting:', year);
 
-                        rows.sort((a, b) => {
-                            if (sortValue === 'date_asc' || sortValue === 'date_desc') {
-                                // Sắp xếp theo ngày
-                                const dateA = getDateFromRow(a);
-                                const dateB = getDateFromRow(b);
-                                return sortValue === 'date_asc' ? dateA - dateB : dateB - dateA;
-                            } else {
-                                // Sắp xếp theo điểm
-                                const scoreA = getScoreFromRow(a);
-                                const scoreB = getScoreFromRow(b);
-                                return sortValue === 'asc' ? scoreA - scoreB : scoreB - scoreA;
-                            }
-                        });
+                    // Find table for specific year first
+                    let table = null;
 
-                        // Clear và append lại rows đã sắp xếp
-                        table.innerHTML = '';
-                        rows.forEach(row => table.appendChild(row));
+                    if (year) {
+                        // Year-specific table search
+                        const activeTabPane = document.querySelector(`#year-${year}`);
+                        if (activeTabPane) {
+                            table = activeTabPane.querySelector(`#table-${year} tbody`) ||
+                                   activeTabPane.querySelector('.table tbody') ||
+                                   activeTabPane.querySelector('tbody');
+                        }
 
-                        // Giữ nguyên số lượng đang hiển thị thay vì reset về 10
-                        maintainCurrentPagination(table);
+                        // Fallback: global search for year-specific table
+                        if (!table) {
+                            table = document.querySelector(`#table-${year} tbody`);
+                        }
+                    }
+
+                    // Fallback: general search
+                    if (!table) {
+                        table = document.querySelector('#bang-chi-tiet table tbody');
+                    }
+
+                    if (!table) {
+                        const resultsContainer = document.querySelector('.--detail-success');
+                        if (resultsContainer) {
+                            table = resultsContainer.querySelector('table tbody');
+                        }
+                    }
+
+                    if (!table) {
+                        console.log('No table found for sorting');
+                        return;
+                    }
+
+                    console.log('Table found for sorting:', table);
+
+                    // Chỉ lấy các rows đang visible (không bị ẩn bởi taboo filter)
+                    const rows = Array.from(table.querySelectorAll('tr')).filter(row => {
+                        return row.style.display !== 'none' && !row.classList.contains('empty-filter-row');
                     });
+                    console.log(`Found ${rows.length} visible rows to sort`);
+
+                    rows.sort((a, b) => {
+                        if (sortValue === 'date_asc' || sortValue === 'date_desc') {
+                            const dateA = getDateFromRow(a);
+                            const dateB = getDateFromRow(b);
+                            const result = sortValue === 'date_asc' ? dateA - dateB : dateB - dateA;
+                            return result;
+                        } else {
+                            const scoreA = getScoreFromRow(a);
+                            const scoreB = getScoreFromRow(b);
+                            return sortValue === 'asc' ? scoreA - scoreB : scoreB - scoreA;
+                        }
+                    });
+
+                    // Lưu tất cả rows (bao gồm hidden) trước khi sort
+                    const allRows = Array.from(table.querySelectorAll('tr'));
+                    const hiddenRows = allRows.filter(row => {
+                        return row.style.display === 'none' || row.classList.contains('empty-filter-row');
+                    });
+
+                    // Clear table và append lại: sorted visible rows + hidden rows
+                    table.innerHTML = '';
+                    rows.forEach(row => table.appendChild(row));
+                    hiddenRows.forEach(row => table.appendChild(row));
+
+                    // Giữ nguyên số lượng đang hiển thị thay vì reset về 10
+                    maintainCurrentPagination(table);
+
+                    // Update filter status for this year if taboo filter is active
+                    if (year && typeof window.updateFilterStatusOnPagination === 'function') {
+                        window.updateFilterStatusOnPagination(year);
+                    }
                 }
 
                 // Handle sorting change using event delegation
                 const resultContainer = document.querySelector('.--detail-success');
                 resultContainer.addEventListener('change', function(event) {
                     if (event.target.matches('[name="sort"]')) {
-                        applySortingToTable(event.target.value);
+                        console.log('Sort dropdown changed to:', event.target.value);
+
+                        // Find the year from the parent tab
+                        const parentTabPane = event.target.closest('.tab-pane');
+                        const year = parentTabPane ? parentTabPane.id.replace('year-', '') : null;
+
+                        console.log('Sorting for year:', year);
+
+                        // Sync all sort dropdowns to same value
+                        const allSortSelects = document.querySelectorAll('[name="sort"]');
+                        allSortSelects.forEach(select => {
+                            if (select !== event.target) {
+                                select.value = event.target.value;
+                            }
+                        });
+
+                        applySortingToTable(event.target.value, year);
 
                         // Scroll to active tab table after sort
                         setTimeout(() => {
-                            const activeTab = document.querySelector('.tab-pane.active');
-                            const bangChiTiet = activeTab?.querySelector('.table-responsive');
-                            bangChiTiet?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            if (year) {
+                                const yearTab = document.querySelector(`#year-${year}`);
+                                const bangChiTiet = yearTab?.querySelector('.table-responsive');
+                                bangChiTiet?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            } else {
+                                const activeTab = document.querySelector('.tab-pane.active');
+                                const bangChiTiet = activeTab?.querySelector('.table-responsive');
+                                bangChiTiet?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            }
                         }, 100);
                     }
                 });

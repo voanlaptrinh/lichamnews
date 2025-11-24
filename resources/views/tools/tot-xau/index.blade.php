@@ -741,9 +741,35 @@
                 }
 
                 function applySortingToTable(sortValue) {
-                    const table = document.querySelector('#bang-chi-tiet table tbody');
-                    if (!table) return;
+                    // Tìm tab hiện tại đang active
+                    const activeTab = document.querySelector('.tab-pane.show.active');
+                    if (!activeTab) {
+                        // Fallback cho single table (không có tabs)
+                        const table = document.querySelector('#bang-chi-tiet table tbody');
+                        if (table) {
+                            applySortToSingleTable(table, sortValue);
+                        }
+                        return;
+                    }
 
+                    // Multi-tab case: Lấy năm từ active tab
+                    const activeYear = activeTab.id.replace('year-', '');
+                    console.log('Sorting for active year:', activeYear);
+
+                    // Tìm table trong active tab
+                    const table = activeTab.querySelector('table tbody') ||
+                                 activeTab.querySelector('.table-body-' + activeYear) ||
+                                 activeTab.querySelector('#table-' + activeYear + ' tbody');
+
+                    if (!table) {
+                        console.log('No table found in active tab for year:', activeYear);
+                        return;
+                    }
+
+                    applySortToSingleTable(table, sortValue);
+                }
+
+                function applySortToSingleTable(table, sortValue) {
                     const rows = Array.from(table.querySelectorAll('tr'));
 
                     rows.sort((a, b) => {
@@ -772,10 +798,34 @@
                 const resultContainer = document.querySelector('.--detail-success');
                 resultContainer.addEventListener('change', function(event) {
                     if (event.target.matches('[name="sort"]')) {
-                        applySortingToTable(event.target.value);
+                        const sortValue = event.target.value;
+
+                        // Đồng bộ tất cả dropdown sort về cùng giá trị
+                        const allSortSelects = document.querySelectorAll('select[name="sort"]');
+                        allSortSelects.forEach(select => {
+                            if (select !== event.target) {
+                                select.value = sortValue;
+                            }
+                        });
+
+                        applySortingToTable(sortValue);
 
                         // Scroll to table after sort
                         setTimeout(() => {
+                            // Tìm tab hiện tại và scroll đến table của tab đó
+                            const activeTab = document.querySelector('.tab-pane.show.active');
+                            if (activeTab) {
+                                const activeYear = activeTab.id.replace('year-', '');
+                                const tableContainer = activeTab.querySelector(`#table-${activeYear}`) ||
+                                                     activeTab.querySelector('.table-responsive') ||
+                                                     activeTab.querySelector('#bang-chi-tiet');
+                                if (tableContainer) {
+                                    tableContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                    return;
+                                }
+                            }
+
+                            // Fallback cho single table
                             const bangChiTiet = document.querySelector('#bang-chi-tiet');
                             bangChiTiet?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                         }, 100);
@@ -854,9 +904,24 @@
                 }
 
                 function maintainCurrentPagination(table) {
-                    // Kiểm tra xem có đang trong filter state không
-                    const filterStatus = document.getElementById('filterStatus');
-                    const isFilterActive = filterStatus && !filterStatus.classList.contains('d-none');
+                    // Kiểm tra filter active cho tab năm cụ thể và global
+                    let isFilterActive = false;
+
+                    // Kiểm tra global filter status
+                    const globalFilterStatus = document.getElementById('filterStatus');
+                    if (globalFilterStatus && !globalFilterStatus.classList.contains('d-none')) {
+                        isFilterActive = true;
+                    }
+
+                    // Kiểm tra filter status cho tab năm cụ thể nếu có
+                    const activeTab = document.querySelector('.tab-pane.show.active');
+                    if (activeTab) {
+                        const activeYear = activeTab.id.replace('year-', '');
+                        const yearFilterStatus = document.getElementById(`filterStatus-${activeYear}`);
+                        if (yearFilterStatus && !yearFilterStatus.classList.contains('d-none')) {
+                            isFilterActive = true;
+                        }
+                    }
 
                     // Nếu filter đang active, không can thiệp vào pagination
                     // Vì taboo component đã quản lý rồi

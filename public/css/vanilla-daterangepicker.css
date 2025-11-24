@@ -2,20 +2,41 @@
 /* Responsive cho tất cả các thiết bị */
 
 /* ========== TABOO FILTER MODAL STYLES ========== */
+
+/* Container cho filter button cần có position relative */
+.taboo-filter-container,
+.position-relative {
+    position: relative;
+}
+
+/* Button filter styles để đảm bảo positioning đúng */
+.taboo-filter-btn {
+    position: relative;
+    cursor: pointer;
+    z-index: 10;
+    pointer-events: auto;
+}
+
+.taboo-filter-btn:hover {
+    background-color: #f8f9fa;
+    border-color: #6c757d;
+}
+
 .taboo-filter-modal {
     position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
+    top: calc(100% + 5px);
+    /* left: 0; */
     background: #fff;
     border: 1px solid #e0e6ed;
     border-radius: 8px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-    z-index: 1000;
-    width: 300px;
-    min-width: 120px;
-    margin-top: 4px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    z-index: 1050;
+    width: 320px;
+    min-width: 300px;
+    max-width: 90vw;
     animation: fadeInDown 0.2s ease;
+    /* Đảm bảo popup không bị ẩn */
+    transform: translateZ(0);
 }
 
 .taboo-filter-backdrop {
@@ -288,15 +309,15 @@
 /* Responsive */
 @media (max-width: 768px) {
     .taboo-filter-modal {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        right: auto;
-        transform: translate(-50%, -50%);
-        width: 90vw;
-        max-width: 400px;
-        max-height: 80vh;
-        margin-top: 0;
+        position: fixed !important;
+        top: 50% !important;
+        left: 50% !important;
+        right: auto !important;
+        transform: translate(-50%, -50%) !important;
+        width: 90vw !important;
+        max-width: 400px !important;
+        max-height: 80vh !important;
+        margin-top: 0 !important;
     }
 
     .taboo-filter-body {
@@ -305,6 +326,20 @@
 
     .filter-quick-actions {
         flex-wrap: wrap;
+    }
+}
+
+/* Desktop - đảm bảo popup hiện dưới button */
+@media (min-width: 769px) {
+    .taboo-filter-modal {
+ position: absolute !important;
+    top: calc(100% + 5px) !important;
+
+    left: 50% !important;     /* đẩy popup về giữa cha */
+    transform: translateX(-50%) !important; /* căn giữa chuẩn */
+
+    right: auto !important;
+    max-height: 500px !important;
     }
 }
 
