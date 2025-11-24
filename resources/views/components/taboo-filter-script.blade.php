@@ -323,20 +323,14 @@ function initTabooFilter(resultsByYear) {
 
     // Ensure only one filter section is active (remove duplicates if any)
     const ensureSingleFilterSection = () => {
-        const filterBtns = document.querySelectorAll('#tabooFilterBtn');
         const filterModals = document.querySelectorAll('#tabooFilterModal');
         const filterBackdrops = document.querySelectorAll('#tabooFilterBackdrop');
 
-        // If multiple filter buttons exist, disable all but the first
-        if (filterBtns.length > 1) {
-            console.warn(`Found ${filterBtns.length} filter buttons, keeping only the first one`);
-            for (let i = 1; i < filterBtns.length; i++) {
-                filterBtns[i].style.display = 'none';
-                filterBtns[i].remove();
-            }
-        }
+        // Keep all filter buttons (they have different data-year attributes now)
+        const filterBtns = document.querySelectorAll('.taboo-filter-btn');
+        console.log(`Found ${filterBtns.length} filter buttons (should be one per tab)`);
 
-        // Same for modals
+        // Remove duplicate modals (keep only one)
         if (filterModals.length > 1) {
             console.warn(`Found ${filterModals.length} filter modals, keeping only the first one`);
             for (let i = 1; i < filterModals.length; i++) {
@@ -344,7 +338,7 @@ function initTabooFilter(resultsByYear) {
             }
         }
 
-        // Same for backdrops
+        // Remove duplicate backdrops (keep only one)
         if (filterBackdrops.length > 1) {
             console.warn(`Found ${filterBackdrops.length} filter backdrops, keeping only the first one`);
             for (let i = 1; i < filterBackdrops.length; i++) {
@@ -358,29 +352,33 @@ function initTabooFilter(resultsByYear) {
         // Ensure only one filter section exists
         ensureSingleFilterSection();
 
-        const filterBtn = document.getElementById('tabooFilterBtn');
+        const filterBtns = document.querySelectorAll('.taboo-filter-btn'); // Tìm tất cả nút filter
         const modal = document.getElementById('tabooFilterModal');
         const backdrop = document.getElementById('tabooFilterBackdrop');
         const closeBtn = document.getElementById('closeFilterModal');
         const badge = document.getElementById('filterBadge');
 
+        // Mở modal - bind cho tất cả nút filter
+        filterBtns.forEach(filterBtn => {
+            if (filterBtn) {
+                filterBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
 
-        // Mở modal
-        if (filterBtn) {
-           
-            filterBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
+                    modal.classList.remove('d-none');
+                    backdrop.classList.remove('d-none');
+                    // document.body.classList.add('menu-open');
 
-             
-                modal.classList.remove('d-none');
-                backdrop.classList.remove('d-none');
-                // document.body.classList.add('menu-open');
+                    return false;
+                });
+                console.log('Filter button bound for year:', filterBtn.dataset.year);
+            }
+        });
 
-                return false;
-            });
+        if (filterBtns.length === 0) {
+            console.log('Filter buttons NOT found');
         } else {
-            console.log('Filter button NOT found');
+            console.log('Found', filterBtns.length, 'filter buttons');
         }
 
         // Đóng modal
@@ -497,29 +495,23 @@ function initTabooFilter(resultsByYear) {
             // Lưu trạng thái filter
             saveFilterState();
 
-            // Hiển thị trạng thái - hiển thị cho tab hiện tại
-            const filterStatus = document.getElementById('filterStatus');
-            const filterStatusText = document.getElementById('filterStatusText');
-            if (filterStatus && filterStatusText) {
-                filterStatus.classList.remove('d-none');
+            // Hiển thị trạng thái - hiển thị cho tất cả tabs
+            Object.keys(resultsByYear).forEach(year => {
+                const filterStatus = document.getElementById(`filterStatus-${year}`);
+                const filterStatusText = document.getElementById(`filterStatusText-${year}`);
 
-                // Tìm tab đang active
-                const activeTab = document.querySelector('.tab-pane.show.active');
-                if (activeTab) {
-                    const activeYear = activeTab.id.replace('year-', '');
-                    const currentYearDays = originalData[activeYear]?.length || 0;
-                    const currentYearFiltered = (originalData[activeYear]?.length || 0) - (currentFilteredData[activeYear]?.length || 0);
-                    const currentYearRemaining = currentFilteredData[activeYear]?.length || 0;
+                if (filterStatus && filterStatusText) {
+                    filterStatus.classList.remove('d-none');
+
+                    const currentYearDays = originalData[year]?.length || 0;
+                    const currentYearFiltered = (originalData[year]?.length || 0) - (currentFilteredData[year]?.length || 0);
+                    const currentYearRemaining = currentFilteredData[year]?.length || 0;
 
                     // Ensure unique taboo names in message
                     const uniqueTaboos = [...new Set(selectedTaboos)];
-                    filterStatusText.textContent = `Đã lọc ${currentYearFiltered} ngày có ${uniqueTaboos.join(', ')} trong năm ${activeYear}. Hiển thị ${currentYearRemaining}/${currentYearDays} ngày.`;
-                } else {
-                    // Fallback cho trường hợp không có tab active
-                    const uniqueTaboos = [...new Set(selectedTaboos)];
-                    filterStatusText.textContent = `Đã lọc ${totalFiltered} ngày có ${uniqueTaboos.join(', ')}. Hiển thị ${totalDays - totalFiltered}/${totalDays} ngày.`;
+                    filterStatusText.textContent = `Đã lọc ${currentYearFiltered} ngày có ${uniqueTaboos.join(', ')} trong năm ${year}. Hiển thị ${currentYearRemaining}/${currentYearDays} ngày.`;
                 }
-            }
+            });
 
             // Đóng modal sau khi áp dụng
             const modal = document.getElementById('tabooFilterModal');
@@ -527,10 +519,11 @@ function initTabooFilter(resultsByYear) {
             if (modal) modal.classList.add('d-none');
             if (backdrop) backdrop.classList.add('d-none');
 
-            // Scroll đến bảng điểm
-            const resultTable = document.querySelector('.table-responsive');
-            if (resultTable) {
-                resultTable.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            // Scroll đến bảng điểm của tab hiện tại
+            const activeTab = document.querySelector('.tab-pane.show.active');
+            if (activeTab) {
+                const activeYear = activeTab.id.replace('year-', '');
+                scrollToTable(activeYear);
             }
         };
 
@@ -603,11 +596,13 @@ function initTabooFilter(resultsByYear) {
             // Lưu trạng thái filter (rỗng)
             saveFilterState();
 
-            // Ẩn trạng thái
-            const filterStatus = document.getElementById('filterStatus');
-            if (filterStatus) {
-                filterStatus.classList.add('d-none');
-            }
+            // Ẩn trạng thái cho tất cả tabs
+            Object.keys(resultsByYear).forEach(year => {
+                const filterStatus = document.getElementById(`filterStatus-${year}`);
+                if (filterStatus) {
+                    filterStatus.classList.add('d-none');
+                }
+            });
 
             // Đóng modal
             const modal = document.getElementById('tabooFilterModal');
@@ -615,10 +610,11 @@ function initTabooFilter(resultsByYear) {
             if (modal) modal.classList.add('d-none');
             if (backdrop) backdrop.classList.add('d-none');
 
-            // Scroll đến bảng điểm
-            const resultTable = document.querySelector('.table-responsive');
-            if (resultTable) {
-                resultTable.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            // Scroll đến bảng điểm của tab hiện tại
+            const activeTab = document.querySelector('.tab-pane.show.active');
+            if (activeTab) {
+                const activeYear = activeTab.id.replace('year-', '');
+                scrollToTable(activeYear);
             }
         };
 
@@ -742,26 +738,21 @@ function initTabooFilter(resultsByYear) {
             updateTable(year, filteredDays);
         });
 
-        // Hiển thị trạng thái - hiển thị cho tab hiện tại
-        const filterStatus = document.getElementById('filterStatus');
-        const filterStatusText = document.getElementById('filterStatusText');
-        if (filterStatus && filterStatusText) {
-            filterStatus.classList.remove('d-none');
+        // Hiển thị trạng thái cho tất cả tabs
+        Object.keys(resultsByYear).forEach(year => {
+            const filterStatus = document.getElementById(`filterStatus-${year}`);
+            const filterStatusText = document.getElementById(`filterStatusText-${year}`);
 
-            // Tìm tab đang active
-            const activeTab = document.querySelector('.tab-pane.show.active');
-            if (activeTab) {
-                const activeYear = activeTab.id.replace('year-', '');
-                const currentYearDays = originalData[activeYear]?.length || 0;
-                const currentYearFiltered = (originalData[activeYear]?.length || 0) - (currentFilteredData[activeYear]?.length || 0);
-                const currentYearRemaining = currentFilteredData[activeYear]?.length || 0;
+            if (filterStatus && filterStatusText) {
+                filterStatus.classList.remove('d-none');
 
-                filterStatusText.textContent = `Đã lọc ${currentYearFiltered} ngày có ${selectedTaboos.join(', ')} trong năm ${activeYear}. Hiển thị ${currentYearRemaining}/${currentYearDays} ngày.`;
-            } else {
-                // Fallback cho trường hợp không có tab active
-                filterStatusText.textContent = `Đã lọc ${totalFiltered} ngày có ${selectedTaboos.join(', ')}. Hiển thị ${totalDays - totalFiltered}/${totalDays} ngày.`;
+                const currentYearDays = originalData[year]?.length || 0;
+                const currentYearFiltered = (originalData[year]?.length || 0) - (currentFilteredData[year]?.length || 0);
+                const currentYearRemaining = currentFilteredData[year]?.length || 0;
+
+                filterStatusText.textContent = `Đã lọc ${currentYearFiltered} ngày có ${selectedTaboos.join(', ')} trong năm ${year}. Hiển thị ${currentYearRemaining}/${currentYearDays} ngày.`;
             }
-        }
+        });
     }
 
     // Khởi tạo modal filter
@@ -786,144 +777,292 @@ function initTabooFilter(resultsByYear) {
     });
   
 
-    // Thêm listener cho tab switching để cập nhật filter status
+    // Thêm listener cho tab switching để cập nhật filter status và áp dụng sort
     function setupTabSwitchListener() {
         const tabLinks = document.querySelectorAll('.nav-pills .nav-link');
         tabLinks.forEach(tabLink => {
             tabLink.addEventListener('click', function() {
                 // Delay để đợi tab switching hoàn tất
                 setTimeout(() => {
+                    // Lấy tab năm hiện tại đang active
+                    const activeTab = document.querySelector('.tab-pane.show.active');
+                    if (activeTab) {
+                        const activeYear = activeTab.id.replace('year-', '');
+                        console.log('Tab switched to year:', activeYear);
+
+                        // Kiểm tra xem có filter nào đang active không
+                        const selectedTaboos = [...new Set(Array.from(document.querySelectorAll('.taboo-checkbox:checked')).map(cb => cb.value))];
+
+                        if (selectedTaboos.length > 0) {
+                            console.log('Reapplying filter for year', activeYear, 'with taboos:', selectedTaboos);
+
+                            // Áp dụng lại filter cho năm mới nếu chưa được filtered
+                            if (currentFilteredData[activeYear] && currentFilteredData[activeYear].length === originalData[activeYear]?.length) {
+                                console.log('Year', activeYear, 'not filtered yet, applying filter...');
+
+                                const originalDays = originalData[activeYear];
+                                const filteredDays = originalDays.filter(day => {
+                                    const hasTabooResult = hasTaboo(day, selectedTaboos);
+                                    return !hasTabooResult;
+                                });
+
+                                currentFilteredData[activeYear] = filteredDays;
+                                console.log('Filter applied to year', activeYear, '- filtered', originalDays.length - filteredDays.length, 'days');
+                            }
+                        }
+
+                        // Áp dụng sort order hiện tại cho tab mới
+                        const currentTabSortSelect = activeTab.querySelector('select[name="sort"]');
+                        if (currentTabSortSelect && currentTabSortSelect.value !== 'desc') {
+                            console.log('Applying current sort order', currentTabSortSelect.value, 'to year', activeYear);
+                            applySortToYear(activeYear, currentTabSortSelect.value, true); // Thêm shouldScroll = true
+                        } else {
+                            // Nếu không có sort hoặc sort = default (desc), chỉ update table
+                            updateTable(activeYear, currentFilteredData[activeYear]);
+                            // Vẫn scroll xuống table để user thấy kết quả
+                            setTimeout(() => {
+                                scrollToTable(activeYear);
+                            }, 200);
+                        }
+                    }
+
+                    // Cập nhật filter status
                     updateFilterStatusForActiveTab();
-                }, 100);
+                }, 150);
+            });
+        });
+
+        // Thêm listener cho Bootstrap tab events để đảm bảo bắt được sự kiện tab switching
+        const tabPanes = document.querySelectorAll('.tab-pane[id^="year-"]');
+        tabPanes.forEach(tabPane => {
+            tabPane.addEventListener('shown.bs.tab', function(event) {
+                const activeYear = event.target.id.replace('year-', '');
+                console.log('Bootstrap tab shown event for year:', activeYear);
+
+                // Kiểm tra và áp dụng filter nếu cần
+                const selectedTaboos = [...new Set(Array.from(document.querySelectorAll('.taboo-checkbox:checked')).map(cb => cb.value))];
+
+                if (selectedTaboos.length > 0) {
+                    // Đảm bảo filter được áp dụng cho tab mới
+                    setTimeout(() => {
+                        if (currentFilteredData[activeYear] && currentFilteredData[activeYear].length === originalData[activeYear]?.length) {
+                            const originalDays = originalData[activeYear];
+                            const filteredDays = originalDays.filter(day => {
+                                const hasTabooResult = hasTaboo(day, selectedTaboos);
+                                return !hasTabooResult;
+                            });
+
+                            currentFilteredData[activeYear] = filteredDays;
+                        }
+
+                        // Áp dụng sort order hiện tại
+                        const currentTabPane = document.getElementById(`year-${activeYear}`);
+                        const currentTabSortSelect = currentTabPane ? currentTabPane.querySelector('select[name="sort"]') : null;
+                        if (currentTabSortSelect && currentTabSortSelect.value !== 'desc') {
+                            applySortToYear(activeYear, currentTabSortSelect.value, true); // Thêm shouldScroll = true
+                        } else {
+                            // Scroll xuống table ngay cả khi không có sort
+                            setTimeout(() => {
+                                scrollToTable(activeYear);
+                            }, 200);
+                        }
+
+                        updateFilterStatusForActiveTab();
+                    }, 100);
+                }
             });
         });
     }
 
-    // Hàm cập nhật filter status cho tab hiện tại
-    function updateFilterStatusForActiveTab() {
-        const filterStatus = document.getElementById('filterStatus');
-        const filterStatusText = document.getElementById('filterStatusText');
-
-        if (!filterStatus || filterStatus.classList.contains('d-none')) {
-            return; // Không có filter nào đang active
-        }
-
-        const selectedTaboos = [...new Set(Array.from(document.querySelectorAll('.taboo-checkbox:checked')).map(cb => cb.value))];
-        if (selectedTaboos.length === 0) {
+    // Helper function để áp dụng sort cho một năm cụ thể
+    function applySortToYear(year, sortOrder, shouldScroll = false) {
+        if (!currentFilteredData[year] || currentFilteredData[year].length === 0) {
+            console.log(`No data for year ${year} to sort`);
             return;
         }
 
-        // Tìm tab đang active
-        const activeTab = document.querySelector('.tab-pane.show.active');
-        if (activeTab && filterStatusText) {
-            const activeYear = activeTab.id.replace('year-', '');
-            const currentYearDays = originalData[activeYear]?.length || 0;
-            const currentYearFiltered = (originalData[activeYear]?.length || 0) - (currentFilteredData[activeYear]?.length || 0);
-            const currentYearRemaining = currentFilteredData[activeYear]?.length || 0;
+        const sortedDays = [...currentFilteredData[year]];
 
-            // Ensure unique taboo names in message
-            const uniqueTaboos = [...new Set(selectedTaboos)];
-            filterStatusText.textContent = `Đã lọc ${currentYearFiltered} ngày có ${uniqueTaboos.join(', ')} trong năm ${activeYear}. Hiển thị ${currentYearRemaining}/${currentYearDays} ngày.`;
+        sortedDays.sort((a, b) => {
+            // Kiểm tra xem có sắp xếp theo ngày không
+            if (sortOrder === 'date_asc' || sortOrder === 'date_desc') {
+                // Sắp xếp theo ngày
+                const dateA = new Date(a.date);
+                const dateB = new Date(b.date);
+                return sortOrder === 'date_asc' ? dateA - dateB : dateB - dateA;
+            }
+
+            // Sắp xếp theo điểm số từ nhiều cấu trúc dữ liệu khác nhau
+            let scoreA = 0;
+            let scoreB = 0;
+
+            // Cấu trúc từ FunctionHelper (xuất hành): day_score.score.percentage
+            if (a.day_score?.score?.percentage !== undefined) {
+                scoreA = a.day_score.score.percentage;
+            }
+            // Cấu trúc từ GoodBadDayHelper (mua xe): day_score.percentage
+            else if (a.day_score?.percentage !== undefined) {
+                scoreA = a.day_score.percentage;
+            }
+            // Wedding tool - dual score structure
+            else if (a.groom_score && a.bride_score) {
+                const groomScoreA = a.groom_score.percentage || 0;
+                const brideScoreA = a.bride_score.percentage || 0;
+                scoreA = (groomScoreA + brideScoreA) / 2;
+            }
+            // Cấu trúc cũ: score trực tiếp
+            else if (a.score !== undefined) {
+                scoreA = a.score;
+            }
+            // Fallback: percentage trực tiếp
+            else if (a.percentage !== undefined) {
+                scoreA = a.percentage;
+            }
+
+            if (b.day_score?.score?.percentage !== undefined) {
+                scoreB = b.day_score.score.percentage;
+            }
+            else if (b.day_score?.percentage !== undefined) {
+                scoreB = b.day_score.percentage;
+            }
+            else if (b.groom_score && b.bride_score) {
+                const groomScoreB = b.groom_score.percentage || 0;
+                const brideScoreB = b.bride_score.percentage || 0;
+                scoreB = (groomScoreB + brideScoreB) / 2;
+            }
+            else if (b.score !== undefined) {
+                scoreB = b.score;
+            }
+            else if (b.percentage !== undefined) {
+                scoreB = b.percentage;
+            }
+
+            return sortOrder === 'desc' ? scoreB - scoreA : scoreA - scoreB;
+        });
+
+        console.log(`Applied sort ${sortOrder} to year ${year}, length: ${sortedDays.length}`);
+
+        // Cập nhật currentFilteredData với thứ tự mới
+        currentFilteredData[year] = sortedDays;
+
+        // Cập nhật hiển thị
+        updateTable(year, sortedDays, true);
+
+        // Auto-scroll xuống table nếu được yêu cầu
+        if (shouldScroll) {
+            setTimeout(() => {
+                scrollToTable(year);
+            }, 200);
         }
     }
 
-    // Tích hợp với bộ lọc sắp xếp hiện tại
-    const sortSelect = document.querySelector('.sort-select');
-    console.log('Sort select found:', !!sortSelect);
+    // Helper function để scroll xuống table của một năm cụ thể
+    function scrollToTable(year) {
+        // Tìm tab pane của năm cụ thể trước
+        const activeTabPane = document.querySelector(`#year-${year}`);
 
-    if (sortSelect) {
-        console.log('Setting up sort handler...');
+        if (!activeTabPane) {
+            console.log(`Tab pane not found for year ${year}`);
+            return;
+        }
+
+        // Tìm table trong tab pane của năm cụ thể
+        const tableContainer = activeTabPane.querySelector(`#table-${year}`) ||
+                              activeTabPane.querySelector('.table-responsive') ||
+                              activeTabPane.querySelector('#bang-chi-tiet');
+
+        if (tableContainer) {
+            console.log(`Scrolling to table for year ${year}`);
+            tableContainer.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        } else {
+            console.log(`Table container not found for year ${year} in its tab pane`);
+
+            // Fallback: scroll đến tab pane nếu không tìm thấy table
+            activeTabPane.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    }
+
+    // Hàm cập nhật filter status cho tất cả tabs
+    function updateFilterStatusForActiveTab() {
+        const selectedTaboos = [...new Set(Array.from(document.querySelectorAll('.taboo-checkbox:checked')).map(cb => cb.value))];
+
+        if (selectedTaboos.length === 0) {
+            // Ẩn tất cả filter status nếu không có filter
+            Object.keys(resultsByYear).forEach(year => {
+                const filterStatus = document.getElementById(`filterStatus-${year}`);
+                if (filterStatus) {
+                    filterStatus.classList.add('d-none');
+                }
+            });
+            return;
+        }
+
+        // Cập nhật filter status cho tất cả tabs
+        Object.keys(resultsByYear).forEach(year => {
+            const filterStatus = document.getElementById(`filterStatus-${year}`);
+            const filterStatusText = document.getElementById(`filterStatusText-${year}`);
+
+            if (filterStatus && filterStatusText) {
+                filterStatus.classList.remove('d-none');
+
+                const currentYearDays = originalData[year]?.length || 0;
+                const currentYearFiltered = (originalData[year]?.length || 0) - (currentFilteredData[year]?.length || 0);
+                const currentYearRemaining = currentFilteredData[year]?.length || 0;
+
+                // Ensure unique taboo names in message
+                const uniqueTaboos = [...new Set(selectedTaboos)];
+                filterStatusText.textContent = `Đã lọc ${currentYearFiltered} ngày có ${uniqueTaboos.join(', ')} trong năm ${year}. Hiển thị ${currentYearRemaining}/${currentYearDays} ngày.`;
+            }
+        });
+    }
+
+    // Tích hợp với bộ lọc sắp xếp hiện tại - Updated to work with all sort controls
+    const sortSelects = document.querySelectorAll('select[name="sort"]'); // Tìm tất cả select sort
+    console.log('Sort selects found:', sortSelects.length);
+
+    sortSelects.forEach((sortSelect, index) => {
+        console.log(`Setting up sort handler for sort control ${index + 1}...`);
         // Remove any existing listeners
         sortSelect.removeEventListener('change', sortSelect._tabooSortHandler);
 
         sortSelect._tabooSortHandler = function() {
             const sortOrder = this.value;
-            console.log('Sort triggered with order:', sortOrder);
+            console.log('Sort triggered with order:', sortOrder, 'from select', index + 1);
 
-            Object.keys(currentFilteredData).forEach(year => {
-                console.log(`Processing year ${year}, currentFilteredData length:`, currentFilteredData[year]?.length);
+            // Tìm tab chứa dropdown sort này
+            const parentTabPane = this.closest('.tab-pane');
+            if (parentTabPane) {
+                const activeYear = parentTabPane.id.replace('year-', '');
+                console.log(`Processing year ${activeYear} from its own sort dropdown`);
 
-                if (!currentFilteredData[year] || currentFilteredData[year].length === 0) {
-                    console.log(`No data for year ${year}, skipping`);
-                    return;
-                }
-
-                const sortedDays = [...currentFilteredData[year]];
-
-                sortedDays.sort((a, b) => {
-                    // Kiểm tra xem có sắp xếp theo ngày không
-                    if (sortOrder === 'date_asc' || sortOrder === 'date_desc') {
-                        // Sắp xếp theo ngày
-                        const dateA = new Date(a.date);
-                        const dateB = new Date(b.date);
-                        return sortOrder === 'date_asc' ? dateA - dateB : dateB - dateA;
+                // Đồng bộ tất cả dropdown sort khác về cùng giá trị
+                sortSelects.forEach(otherSelect => {
+                    if (otherSelect !== this) {
+                        otherSelect.value = sortOrder;
                     }
-
-                    // Sắp xếp theo điểm số từ nhiều cấu trúc dữ liệu khác nhau
-                    let scoreA = 0;
-                    let scoreB = 0;
-
-                    // Wedding tool - dual score structure: tính điểm trung bình của groom và bride
-                    if (a.groom_score && a.bride_score) {
-                        const groomScoreA = a.groom_score.percentage || 0;
-                        const brideScoreA = a.bride_score.percentage || 0;
-                        scoreA = (groomScoreA + brideScoreA) / 2;
-                    }
-                    // Ưu tiên: cấu trúc từ FunctionHelper (xuất hành): day_score.score.percentage
-                    else if (a.day_score?.score?.percentage !== undefined) {
-                        scoreA = a.day_score.score.percentage;
-                    }
-                    // Cấu trúc từ GoodBadDayHelper (mua xe): day_score.percentage
-                    else if (a.day_score?.percentage !== undefined) {
-                        scoreA = a.day_score.percentage;
-                    }
-                    // Cấu trúc cũ: score trực tiếp
-                    else if (a.score !== undefined) {
-                        scoreA = a.score;
-                    }
-                    // Fallback: percentage trực tiếp
-                    else if (a.percentage !== undefined) {
-                        scoreA = a.percentage;
-                    }
-
-                    // Wedding tool - dual score structure: tính điểm trung bình của groom và bride
-                    if (b.groom_score && b.bride_score) {
-                        const groomScoreB = b.groom_score.percentage || 0;
-                        const brideScoreB = b.bride_score.percentage || 0;
-                        scoreB = (groomScoreB + brideScoreB) / 2;
-                    }
-                    else if (b.day_score?.score?.percentage !== undefined) {
-                        scoreB = b.day_score.score.percentage;
-                    }
-                    else if (b.day_score?.percentage !== undefined) {
-                        scoreB = b.day_score.percentage;
-                    }
-                    else if (b.score !== undefined) {
-                        scoreB = b.score;
-                    }
-                    else if (b.percentage !== undefined) {
-                        scoreB = b.percentage;
-                    }
-
-                    return sortOrder === 'desc' ? scoreB - scoreA : scoreA - scoreB;
                 });
 
-                console.log(`Sorted days length: ${sortedDays.length}`);
+                applySortToYear(activeYear, sortOrder, true); // Thêm shouldScroll = true
 
-                // Không cập nhật currentFilteredData ở đây nữa vì có thể gây confusion
-                // currentFilteredData[year] = sortedDays;
-
-                updateTable(year, sortedDays, true); // Preserve current pagination
-            });
-
-            // Cập nhật filter status sau khi sort
-            updateFilterStatusForActiveTab();
+                // Cập nhật filter status sau khi sort
+                updateFilterStatusForActiveTab();
+            } else {
+                console.log('No parent tab pane found for this sort select');
+            }
         };
 
         sortSelect.addEventListener('change', sortSelect._tabooSortHandler);
-        console.log('Sort handler attached successfully');
-    } else {
-        console.log('No sort select element found');
+        console.log(`Sort handler attached successfully to sort control ${index + 1}`);
+    });
+
+    if (sortSelects.length === 0) {
+        console.log('No sort select elements found');
     }
 }
 

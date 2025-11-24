@@ -21,17 +21,23 @@
     @endif
 
 
+
+
+    <!-- Backdrop -->
+    <div id="tabooFilterBackdrop" class="taboo-filter-backdrop d-none"></div>
+
     <div class="tab-content">
         @php $firstYear = true; @endphp
         @foreach ($resultsByYear as $year => $yearData)
             <div class="tab-pane fade {{ $firstYear ? 'show active' : '' }}" id="year-{{ $year }}">
 
+                <!-- Thông tin gia chủ -->
                 <div class="card border-0 mb-3 w-100 box-detial-year">
                     <div class="card-body box1-con-year">
                         <div
                             class="text-primary mb-3 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
-                            <img src="{{ asset('icons/dac-diem1.svg') }}" alt="thông tin người xem" width="28"
-                                height="28" class="me-1"> Thông Tin Người Xem
+                            <img src="{{ asset('icons/dac-diem1.svg') }}" alt="thông tin gia chủ" width="28"
+                                height="28" class="me-1"> Thông Tin Gia Chủ
                         </div>
                         @if (isset($birthdateInfo))
                             <div class="info-grid">
@@ -42,17 +48,16 @@
                                 </p>
                                 <p class="mb-2">
                                     <strong>Tuổi:</strong>
-                                    <b>{{ $birthdateInfo['can_chi_nam'] }}</b>, Mệnh:
-                                    {{ $birthdateInfo['menh']['hanh'] }}
-                                    ({{ $birthdateInfo['menh']['napAm'] }})
+                                    {{ $birthdateInfo['can_chi_nam'] ?? '' }}, mệnh:
+                                    {{ $birthdateInfo['menh']['hanh'] ?? '' }}
+                                    ({{ $birthdateInfo['menh']['napAm'] ?? '' }})
                                 </p>
                                 <p class="mb-2">
                                     <strong>Tuổi âm:</strong>
-                                    {{ $yearData['year_analysis']['lunar_age'] }} tuổi
+                                    {{ $year - explode('/', $birthdateInfo['dob']->format('d/m/Y'))[2] + 1 }} tuổi
                                 </p>
-
                                 <p class="mb-2">
-                                    <strong>Thời gian xem:</strong>
+                                    <strong>Thời gian trấn trạch:</strong>
                                     {{ $inputs['date_range'] ?? '' }}
                                 </p>
                             </div>
@@ -60,27 +65,27 @@
                     </div>
                 </div>
 
+
                 <div class="card border-0 mb-3 w-100 box-detial-year">
                     <div class="card-body">
-                      <div class="betwen-ds flex-wrap">
-                            <div
-                                class="text-primary mb-0 title-tong-quan-h4-log text-dark fw-bolder">
-                                <img src="{{ asset('icons/k_nen_1.svg') }}" alt="thông tin người xem" width="28"
-                                    height="28" class="me-1"> Danh Sách Điểm Theo Ngày
+                        <div class="betwen-ds flex-wrap mb-1">
+                            <div class="text-primary mb-0 title-tong-quan-h4-log text-dark fw-bolder">
+                                <img src="{{ asset('icons/k_nen_1.svg') }}" alt="bảng điểm trấn trạch" width="28"
+                                    height="28" class="me-1"> Danh Sách Điểm Theo Ngày Trấn Trạch
                             </div>
-                            <div class="d-flex" style="gap: 10px">
+                            <div class="d-flex flex-wrap" style="gap: 10px">
                                 <div class="position-relative mb-3">
-                                    <button type="button" id="tabooFilterBtn"
-                                        class="form-select-sm sort-select" onclick="return false;">
+                                    <button type="button" class="taboo-filter-btn form-select-sm sort-select"
+                                        data-year="{{ $year }}">
                                         <i class="bi bi-funnel me-2"></i>
-                                        <span>Lọc ngày xấu</span>
+                                        <span>Lọc ngày kỵ</span>
                                         <i class="bi bi-chevron-down ms-2"></i>
                                     </button>
 
-                                    <!-- Filter Modal/Dropdown -->
+                                    <!-- Filter Modal/Dropdown - Global for all tabs (ẩn, chỉ modal) -->
                                     <div id="tabooFilterModal" class="taboo-filter-modal d-none">
                                         <div class="taboo-filter-header">
-                                            <h6 class="mb-0">Lọc ngày xấu</h6>
+                                            <h6 class="mb-0">Lọc ngày kỵ trấn trạch</h6>
                                             <button type="button" id="closeFilterModal" class="btn-close-filter">
                                                 <i class="bi bi-x"></i>
                                             </button>
@@ -89,15 +94,16 @@
                                         <div class="taboo-filter-body">
                                             <!-- Categories -->
                                             <div class="filter-section">
-                                              <!-- Quick Actions -->
-                                            <div class="filter-quick-actions">
-                                                <button type="button" id="selectCommon" class="btn-quick-action">Phổ
-                                                    biến</button>
-                                                <button type="button" id="selectAll" class="btn-quick-action">Tất
-                                                    cả</button>
-                                                <button type="button" id="clearAll" class="btn-quick-action">Bỏ
-                                                    chọn</button>
-                                            </div>
+                                                <!-- Quick Actions -->
+                                                <div class="filter-quick-actions">
+                                                    <button type="button" id="selectCommon"
+                                                        class="btn-quick-action">Phổ
+                                                        biến</button>
+                                                    <button type="button" id="selectAll" class="btn-quick-action">Tất
+                                                        cả</button>
+                                                    <button type="button" id="clearAll" class="btn-quick-action">Bỏ
+                                                        chọn</button>
+                                                </div>
 
                                                 <div class="filter-options">
                                                     <label class="filter-option">
@@ -165,54 +171,53 @@
                                                 </div>
                                             </div>
 
-                                           
+
                                         </div>
 
                                         <div class="taboo-filter-footer">
-                                            <button type="button" id="clearTabooFilter" class="btn-cancel">Đặt lại</button>
-                                            <button type="button" id="applyTabooFilter" class="btn-apply">Áp dụng</button>
+                                            <button type="button" id="clearTabooFilter" class="btn-cancel">Đặt
+                                                lại</button>
+                                            <button type="button" id="applyTabooFilter" class="btn-apply">Áp
+                                                dụng</button>
                                         </div>
                                     </div>
 
-                                    <!-- Backdrop -->
-                                    <div id="tabooFilterBackdrop" class="taboo-filter-backdrop d-none"></div>
                                 </div>
+
+                                <!-- Sắp xếp tích hợp điểm và ngày -->
                                 <div>
-                                    <select name="sort" class=" form-select-sm sort-select" style="width: auto;"
-                                        form="xuatHanhForm">
-                                        <option value="desc" {{ ($sortOrder ?? 'desc') === 'desc' ? 'selected' : '' }}>Điểm
-                                            giảm dần</option>
-                                        <option value="asc" {{ ($sortOrder ?? 'desc') === 'asc' ? 'selected' : '' }}>Điểm
-                                            tăng dần</option>
+                                    <select name="sort" class="form-select-sm sort-select"
+                                        style="width: auto; height: 40px;">
+                                        <option value="desc" selected>Điểm giảm dần</option>
                                         <option value="date_asc">Ngày tăng dần</option>
                                         <option value="date_desc">Ngày giảm dần</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
-   <div class="alert alert-success d-none" id="filterStatus">
-        <i class="bi bi-funnel"></i> <span id="filterStatusText"></span>
-        {{-- <button type="button" class="btn btn-sm btn-outline-primary ms-2" onclick="clearFilter()">Bỏ lọc</button> --}}
-    </div>
+                        <!-- Filter Status for this tab -->
+                        <div id="filterStatus-{{ $year }}" class="alert alert-success d-none mb-3"
+                            role="alert">
+                            <i class="bi bi-funnel"></i>
+                            <span id="filterStatusText-{{ $year }}"></span>
+                        </div>
                         @if (isset($yearData['days']) && count($yearData['days']) > 0)
                             <div class="table-responsive w-100" id="bang-chi-tiet">
                                 <table class="table table-hover align-middle w-100 table-layout"
-                                    id="table-{{ $year }}" style=" width: 100%;"
-                                    data-pagination-size="10"
-                                    data-load-more-text="Xem thêm 10 bảng"
-                                    data-no-more-text="Không còn bảng nào">
+                                    id="table-{{ $year }}" style=" width: 100%;">
                                     <thead class="text-center" style="background-color: #e8ebee;">
                                         <tr>
                                             <th style="border-radius: 8px 0 0 8px">Ngày</th>
                                             <th style="">Yếu tố hỗ trợ</th>
-                                            <th style="border-radius: 0 8px 8px 0" class="score-header">Điểm</th>
-                                            {{-- <th style="min-width: 120px;border-radius: 0 8px 8px 0">Chi tiết</th> --}}
+                                            <th style=" border-radius: 0 8px 8px 0" class="score-header">Điểm</th>
                                         </tr>
                                     </thead>
                                     <tbody class="text-center table-body-{{ $year }}">
-                                        @foreach ($yearData['days'] as $day)
+                                        @foreach ($yearData['days'] as $index => $day)
                                             @php
-                                                $score = $day['day_score']['percentage'] ?? 0;
+                                                $score =
+                                                    $day['day_score']['score']['percentage'] ??
+                                                    ($day['day_score']['percentage'] ?? 0);
                                                 $bgColor = '#D1FAE5'; // Green
                                                 $score = round($score);
                                                 if ($score <= 30) {
@@ -231,15 +236,31 @@
                                                     $border = '#10B981';
                                                     $text_box = '#10B981';
                                                 }
+
+                                                // Lấy taboo days từ checkTabooDays issues
+                                                $tabooTypes = [];
+                                                if (
+                                                    isset($day['day_score']['checkTabooDays']['issues']) &&
+                                                    is_array($day['day_score']['checkTabooDays']['issues'])
+                                                ) {
+                                                    foreach ($day['day_score']['checkTabooDays']['issues'] as $issue) {
+                                                        if (isset($issue['details']['tabooName'])) {
+                                                            $tabooTypes[] = $issue['details']['tabooName'];
+                                                        }
+                                                    }
+                                                }
                                             @endphp
-                                            <tr>
+                                            <tr class="table-row-{{ $year }}"
+                                                data-index="{{ $index }}"
+                                                style="{{ $index >= 10 ? 'display: none;' : '' }}"
+                                                data-visible="{{ $index < 10 ? 'true' : 'false' }}">
                                                 <td style="text-align: start">
                                                     <a
                                                         href="{{ route('tran-trach.details', [
                                                             'date' => $day['date']->format('Y-m-d'),
                                                             'birthdate' => $birthdateInfo['dob']->format('Y-m-d'),
                                                             'date_range' => $inputs['date_range'] ?? '',
-                                                            'calendar_type' => $inputs['calendar_type'] ?? 'solar'
+                                                            'calendar_type' => $inputs['calendar_type'] ?? 'solar',
                                                         ]) }}">
                                                         <div class="box-dtl-pc">
                                                             <div style="color: #0F172A;font-size: 18px">
@@ -263,11 +284,12 @@
                                                                     {{ $day['al_name'][0] ?? '' }}/{{ $day['al_name'][1] ?? '' }}
                                                                     ÂL <i class="bi bi-chevron-right"></i></div>
                                                             </div>
+
                                                         </div>
                                                     </a>
                                                 </td>
                                                 <td style="text-align: start">
-                                                    @php
+                                              @php
                                                         $supportFactors = [];
 
                                                         // Kiểm tra ngày hoàng đạo - sử dụng helper
@@ -336,10 +358,12 @@
                                                     @else
                                                         <span class="text-warning small"
                                                             style="color: #2254AB !important">
-                                                            <i class="bi bi-exclamation-triangle-fill"></i> Không có yếu
+                                                            <i class="bi bi-exclamation-triangle-fill"></i> Không có
+                                                            yếu
                                                             tố hỗ trợ
                                                         </span>
                                                     @endif
+
                                                     <!-- Score hiển thị tròn cho mobile -->
                                                     <div class="score-circle-mobile"
                                                         style="background-color: white; border: 1px solid #2254AB">
@@ -349,8 +373,6 @@
                                                 <td class="text-center score-battery-pc">
 
                                                     <div class=" d-flex justify-content-center align-items-center">
-
-
                                                         <div class="battery">
                                                             <div class="battery-body"
                                                                 style="border:1px solid {{ $border }}">
@@ -368,15 +390,21 @@
                                         @endforeach
                                     </tbody>
                                 </table>
+
+                                <!-- Nút xem thêm -->
+                                @if (count($yearData['days']) > 10)
+                                    <div class="text-center mt-3">
+                                        <button type="button" class="btn btn-outline-primary load-more-btn"
+                                            data-year="{{ $year }}" data-loaded="10"
+                                            data-total="{{ count($yearData['days']) }}">
+                                            <i class="bi bi-plus-circle me-2"></i>
+                                            Xem thêm 10 bảng
+                                            <span class="text-muted ms-2">({{ count($yearData['days']) - 10 }} còn
+                                                lại)</span>
+                                        </button>
+                                    </div>
+                                @endif
                             </div>
-                            <!-- Load More Button -->
-                            @if (isset($yearData['days']) && count($yearData['days']) > 10)
-                                <div class="text-center mt-3">
-                                    <button type="button" id="loadMoreBtn" class="btn btn-outline-primary btn-sm">
-                                        Xem thêm 10 bảng (còn {{ count($yearData['days']) - 10 }} bảng)
-                                    </button>
-                                </div>
-                            @endif
                         @else
                             <p class="text-muted text-center py-4">
                                 Không có ngày nào trong khoảng thời gian đã chọn.
@@ -388,4 +416,26 @@
             @php $firstYear = false; @endphp
         @endforeach
     </div>
+
+
+
+    <!-- Backdrop -->
+    <div id="tabooFilterBackdrop" class="taboo-filter-backdrop d-none"></div>
 </div>
+@include('components.taboo-filter-script')
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Khởi tạo taboo filter với dữ liệu từ backend
+        const resultsByYear = @json($resultsByYear ?? []);
+
+        // Khởi tạo filter sau khi DOM loaded
+        setTimeout(() => {
+            if (typeof initTabooFilter === 'function') {
+                initTabooFilter(resultsByYear);
+            }
+        }, 300);
+
+        // Không cần cập nhật links vì filter đã được lưu trong localStorage
+    });
+</script>

@@ -43,7 +43,8 @@
                                             ô dưới
                                             đây để xem ngày tốt xấu</p>
 
-                                                                                 <form id="tranTrachForm">                                            @csrf
+                                        <form id="tranTrachForm">
+                                            @csrf
 
                                             <div class="row">
                                                 <div class="mb-3">
@@ -222,7 +223,7 @@
                 csrfToken: '{{ csrf_token() }}',
             });
 
-            // ========== DATE RANGE PICKER ========== 
+            // ========== DATE RANGE PICKER ==========
             // Initialize vanilla daterangepicker for date_range
             const dateRangeInput = document.getElementById('date_range');
             let dateRangePickerInstance = null;
@@ -254,7 +255,9 @@
                                 separator: ' - ',
                                 daysOfWeek: ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'],
                                 monthNames: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5',
-                                    'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
+                                    'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11',
+                                    'Tháng 12'
+                                ],
                                 firstDay: 1
                             }
                         };
@@ -271,7 +274,7 @@
             // Initialize after a short delay to ensure library is loaded
             setTimeout(initDateRangePicker, 100);
 
-            // ========== HASH PARAMETER HANDLING ========== 
+            // ========== HASH PARAMETER HANDLING ==========
 
             // Function to parse hash parameters
             function parseHashParams() {
@@ -343,7 +346,8 @@
                             }
 
                             // Check if dateSelector is available and fully initialized
-                            if (dateSelector && dateSelector.daySelect && dateSelector.monthSelect && dateSelector.yearSelect &&
+                            if (dateSelector && dateSelector.daySelect && dateSelector.monthSelect && dateSelector
+                                .yearSelect &&
                                 dateSelector.yearSelect.options.length > 1) {
 
                                 // Parse birthdate from URL (always in solar format from URL)
@@ -363,23 +367,28 @@
                                                 // Use LunarSolarDateSelect's handleLunarRadioChange method for conversion
                                                 try {
                                                     // First set solar date in selects
-                                                    await dateSelector.setDate(day, month, year, false, false);
+                                                    await dateSelector.setDate(day, month, year, false,
+                                                        false);
 
                                                     // Then switch to lunar mode - this will trigger automatic conversion
-                                                    const lunarRadio = document.getElementById('lunarCalendar');
-                                                    const solarRadio = document.getElementById('solarCalendar');
+                                                    const lunarRadio = document.getElementById(
+                                                        'lunarCalendar');
+                                                    const solarRadio = document.getElementById(
+                                                        'solarCalendar');
                                                     if (lunarRadio && solarRadio) {
                                                         lunarRadio.checked = true;
                                                         solarRadio.checked = false;
 
                                                         // Trigger the built-in conversion method
-                                                        if (dateSelector && typeof dateSelector.handleLunarRadioChange === 'function') {
+                                                        if (dateSelector && typeof dateSelector
+                                                            .handleLunarRadioChange === 'function') {
                                                             await dateSelector.handleLunarRadioChange();
                                                         }
                                                     }
                                                 } catch (error) {
                                                     // Fallback: just set as lunar without conversion
-                                                    await dateSelector.setDate(day, month, year, true, false);
+                                                    await dateSelector.setDate(day, month, year, true,
+                                                        false);
                                                 }
 
                                             } else {
@@ -460,10 +469,10 @@
             // Restore form from hash on page load
             setTimeout(restoreFromHash, 1000);
 
-            // ========== SOLAR DATE UPDATE IS HANDLED BY LunarSolarDateSelect MODULE ========== 
+            // ========== SOLAR DATE UPDATE IS HANDLED BY LunarSolarDateSelect MODULE ==========
             // No need for additional logic here as the module handles all conversions automatically
 
-            // ========== AJAX FORM SUBMISSION ========== 
+            // ========== AJAX FORM SUBMISSION ==========
             const form = document.getElementById('tranTrachForm');
             const submitBtn = document.getElementById('submitBtn');
             const resultsContainer = document.getElementById('resultsContainer');
@@ -513,7 +522,8 @@
                     isLeapMonth = ngayXemInput.dataset.lunarLeap === '1';
 
                     if (solarDay && solarMonth && solarYear) {
-                        formattedBirthdate = `${String(solarDay).padStart(2, '0')}/${String(solarMonth).padStart(2, '0')}/${solarYear}`;
+                        formattedBirthdate =
+                            `${String(solarDay).padStart(2, '0')}/${String(solarMonth).padStart(2, '0')}/${solarYear}`;
                     } else {
                         // Fallback to parsing lunar date from value
                         formattedBirthdate = ngayXemValue.replace(' (ÂL)', '').replace(' (ÂL-Nhuận)', '');
@@ -609,23 +619,7 @@
                         if (data.success) {
                             // Show results container
                             resultsContainer.style.display = 'block';
-
-                            setTimeout(() => {
-                                resultsContainer.innerHTML = data.html;
-
-                                // Cập nhật window.resultsByYear cho global access
-                                if (data.resultsByYear) {
-                                    window.resultsByYear = data.resultsByYear;
-                                }
-
-                                setTimeout(() => {
-                                    if (data.resultsByYear && typeof initTabooFilter === 'function') {
-                                        initTabooFilter(data.resultsByYear);
-                                    }
-                                    // Initialize comprehensive sorting system after content loads
-                                    initializeComprehensiveSorting();
-                                }, 200);
-                            }, 300);
+                            resultsContainer.innerHTML = data.html;
 
                             // Scroll to results with delay to ensure content is rendered
                             setTimeout(() => {
@@ -640,11 +634,20 @@
                             tabs.forEach(tab => {
                                 new bootstrap.Tab(tab);
                             });
+
+                            // Khởi tạo taboo filter và pagination với dữ liệu từ response
+                            setTimeout(() => {
+                                // Sử dụng global initTabooFilter từ component
+                                if (typeof window.initTabooFilter === 'function') {
+                                    window.initTabooFilter(data.resultsByYear);
+                                }
+                                initPagination();
+                            }, 200);
                         } else if (data.errors) {
                             // Show validation errors
-                            let errorMessage = 'Vui lòng kiểm tra lại:\n';
+                            let errorMessage = 'Vui lòng kiểm tra lại:\\n';
                             for (const field in data.errors) {
-                                errorMessage += '- ' + data.errors[field][0] + '\n';
+                                errorMessage += '- ' + data.errors[field][0] + '\\n';
                             }
                             alert(errorMessage);
                         } else if (data.message) {
@@ -664,7 +667,8 @@
                     });
             });
 
-           function getScoreFromRow(row) {
+            // Optimized sorting functions
+            function getScoreFromRow(row) {
                 const battery = row.querySelector('.battery-label');
                 if (battery) {
                     return parseInt(battery.textContent.replace('%', '')) || 0;
@@ -685,178 +689,25 @@
                 return 0;
             }
 
-            function getDateFromRow(row) {
-                // Try multiple methods to extract date for robust date parsing
-                const dateCell = row.querySelector('td:first-child');
-                if (!dateCell) return null;
-
-                // Method 1: Look for dd/mm/yyyy pattern in the cell
-                const dateMatch = dateCell.textContent.match(/(\d{1,2})\/(\d{1,2})\/(\d{4})/);
-                if (dateMatch) {
-                    const [, day, month, year] = dateMatch;
-                    return new Date(year, month - 1, day);
-                }
-
-                // Method 2: Try to find a link with date
-                const link = dateCell.querySelector('a[href*="date="]');
-                if (link) {
-                    const href = link.getAttribute('href');
-                    const dateParam = href.match(/date=(\d{4}-\d{2}-\d{2})/);
-                    if (dateParam) {
-                        return new Date(dateParam[1]);
-                    }
-                }
-
-                // Method 3: Look for any date pattern in text content
-                const allText = dateCell.textContent;
-                const patterns = [
-                    /(\d{1,2})\/(\d{1,2})\/(\d{4})/g,
-                    /(\d{4})-(\d{2})-(\d{2})/g
-                ];
-
-                for (const pattern of patterns) {
-                    const match = pattern.exec(allText);
-                    if (match) {
-                        if (pattern.source.includes('-')) {
-                            // YYYY-MM-DD format
-                            return new Date(match[1], match[2] - 1, match[3]);
-                        } else {
-                            // DD/MM/YYYY format
-                            return new Date(match[3], match[2] - 1, match[1]);
-                        }
-                    }
-                }
-
-                return null;
-            }
-
-            function maintainCurrentPaginationState(table) {
-                // This function preserves the current pagination state during sorting
+            function applySortingToTable(sortValue) {
+                const table = document.querySelector('#bang-chi-tiet table tbody');
                 if (!table) return;
 
-                const tbody = table.querySelector('tbody');
-                if (!tbody) return;
-
-                // Implementation placeholder - this maintains pagination state
-                console.log('[Pagination] Maintaining current pagination state');
-            }
-
-            function applySortingToTable(sortValue, maintainCurrentPagination = true) {
-                console.log(`[Sorting] Starting sort with value: ${sortValue}, maintainPagination: ${maintainCurrentPagination}`);
-                const table = document.querySelector('#bang-chi-tiet table');
-                if (!table) {
-                    console.log('[Sorting] Table not found');
-                    return;
-                }
-
-                const tbody = table.querySelector('tbody');
-                if (!tbody) {
-                    console.log('[Sorting] Table body not found');
-                    return;
-                }
-
-                // Get only the rows that should be sorted (exclude hidden by filter and empty rows)
-                const rows = Array.from(table.querySelectorAll('tr')).filter(row => {
-                    // Don't sort the header or special filter rows
-                    return row.style.display !== 'none' && !row.classList.contains('empty-filter-row');
-                });
-
-                console.log(`[Sorting] Found ${rows.length} rows to sort`);
-
-                if (rows.length === 0) {
-                    console.log('[Sorting] No rows to sort');
-                    return;
-                }
-
+                const rows = Array.from(table.querySelectorAll('tr'));
                 rows.sort((a, b) => {
-                    if (sortValue === 'date_asc' || sortValue === 'date_desc') {
-                        // Date sorting
-                        const dateA = getDateFromRow(a);
-                        const dateB = getDateFromRow(b);
-
-                        if (!dateA || !dateB) {
-                            console.log('[Sorting] Could not parse dates for comparison');
-                            return 0;
-                        }
-
-                        const comparison = dateA - dateB;
-                        return sortValue === 'date_asc' ? comparison : -comparison;
-                    } else {
-                        // Score sorting
-                        const scoreA = getScoreFromRow(a);
-                        const scoreB = getScoreFromRow(b);
-                        return sortValue === 'asc' ? scoreA - scoreB : scoreB - scoreA;
-                    }
+                    const scoreA = getScoreFromRow(a);
+                    const scoreB = getScoreFromRow(b);
+                    return sortValue === 'asc' ? scoreA - scoreB : scoreB - scoreA;
                 });
 
-                // Clear and re-append sorted rows
-                tbody.innerHTML = '';
-                rows.forEach(row => tbody.appendChild(row));
-
-                console.log('[Sorting] Rows have been sorted and reinserted');
-
-                // Maintain pagination state if requested
-                if (maintainCurrentPagination) {
-                    maintainCurrentPaginationState(table);
-                }
-
-                console.log('[Sorting] Sort completed successfully');
+                table.innerHTML = '';
+                rows.forEach(row => table.appendChild(row));
             }
 
-            function setupContainerEventDelegation() {
-                const container = document.querySelector('.--detail-success');
-                if (!container) {
-                    console.log('[Event Setup] Container .--detail-success not found');
-                    return;
-                }
-
-                console.log('[Event Setup] Setting up container-level event delegation');
-
-                // Remove any existing listeners on the container to avoid duplicates
-                const newContainer = container.cloneNode(true);
-                container.parentNode.replaceChild(newContainer, container);
-
-                // Add single event listener to the new container
-                newContainer.addEventListener('change', function(event) {
-                    console.log('[Event] Change event detected on:', event.target);
-
-                    if (event.target.matches('[name="sort"]')) {
-                        console.log('[Event] Sort change detected:', event.target.value);
-                        applySortingToTable(event.target.value, true);
-                        setTimeout(() => {
-                            document.getElementById('bang-chi-tiet')?.scrollIntoView({
-                                behavior: 'smooth',
-                                block: 'start'
-                            });
-                        }, 100);
-                    }
-                });
-
-                console.log('[Event Setup] Container event delegation setup completed');
-            }
-
-            // Initialize comprehensive sorting after AJAX load
-            function initializeComprehensiveSorting() {
-                console.log('[Init] Initializing comprehensive sorting system');
-
-                // Setup container-level event delegation
-                setupContainerEventDelegation();
-
-                // Apply initial sorting if a sort value is present
-                const sortSelect = document.querySelector('.--detail-success [name="sort"]');
-                if (sortSelect && sortSelect.value) {
-                    console.log('[Init] Applying initial sort:', sortSelect.value);
-                    applySortingToTable(sortSelect.value, false); // Don't maintain pagination on initial load
-                }
-
-                console.log('[Init] Comprehensive sorting initialization completed');
-            }
-
-            // Event delegation for sorting with comprehensive functionality
+            // Event delegation for sorting
             resultsContainer.addEventListener('change', function(event) {
                 if (event.target.matches('[name="sort"]')) {
-                    console.log('[Legacy Event] Sort changed (legacy handler):', event.target.value);
-                    applySortingToTable(event.target.value, true);
+                    applySortingToTable(event.target.value);
                     setTimeout(() => {
                         document.getElementById('bang-chi-tiet')?.scrollIntoView({
                             behavior: 'smooth',
@@ -867,7 +718,194 @@
             });
 
         });
-    </script>
 
+        // Direct test for filter button
+        document.addEventListener('click', function(e) {
+            console.log('Click detected on:', e.target.id, e.target.className);
+            if (e.target.id === 'tabooFilterBtn') {
+                console.log('Direct click on filter button detected!');
+            }
+        });
+
+        // Test function that can be called from console
+        window.testTabooFilter = function() {
+            const btn = document.getElementById('tabooFilterBtn');
+            const modal = document.getElementById('tabooFilterModal');
+         
+            if (btn) {
+                btn.click();
+            }
+        };
+
+        // ========== PAGINATION & SORT FUNCTIONS - GIỐNG TOT-XAU ==========
+        function initPagination() {
+            console.log('initPagination called');
+
+            // Event delegation cho load more button
+            const resultsContainer = document.querySelector('.--detail-success');
+            resultsContainer.addEventListener('click', function(event) {
+                if (event.target.matches('.load-more-btn') || event.target.closest('.load-more-btn')) {
+                    const btn = event.target.matches('.load-more-btn') ? event.target : event.target.closest('.load-more-btn');
+                    const year = btn.dataset.year;
+                    const loaded = parseInt(btn.dataset.loaded);
+                    const total = parseInt(btn.dataset.total);
+                    const tbody = document.querySelector(`.table-body-${year}`);
+
+                    if (!tbody) return;
+
+                    const rows = tbody.querySelectorAll('tr');
+                    let newLoaded = loaded;
+
+                    // Hiển thị thêm 10 rows tiếp theo
+                    for (let i = loaded; i < Math.min(loaded + 10, total); i++) {
+                        if (rows[i]) {
+                            rows[i].style.display = '';
+                            rows[i].dataset.visible = 'true';
+                            newLoaded++;
+                        }
+                    }
+
+                    // Cập nhật dataset và text
+                    btn.dataset.loaded = newLoaded;
+                    const remaining = total - newLoaded;
+
+                    if (remaining > 0) {
+                        btn.innerHTML = `
+                            <i class="bi bi-plus-circle me-2"></i>
+                            Xem thêm ${Math.min(10, remaining)} bảng
+                            <span class="text-muted ms-2">(${remaining} còn lại)</span>
+                        `;
+                    } else {
+                        btn.style.display = 'none';
+                    }
+                }
+            });
+
+            // Event delegation cho sort select
+            resultsContainer.addEventListener('change', function(event) {
+                if (event.target.matches('[name="sort"]') || event.target.matches('.sort-select')) {
+                    const sortValue = event.target.value;
+                    console.log('Sort changed to:', sortValue);
+                    applySortingToTable(sortValue);
+                }
+            });
+        }
+
+        // SORT FUNCTIONS - COPY TỪ TOT-XAU
+        function getScoreFromRow(row) {
+            // For mua-nha: tìm score trong battery-fill style width
+            const batteryFill = row.querySelector('.battery-fill');
+            if (batteryFill) {
+                const style = batteryFill.getAttribute('style');
+                const match = style.match(/width:\s*(\d+)%/);
+                if (match) {
+                    return parseInt(match[1]) || 0;
+                }
+            }
+
+            // Fallback: Try other score elements
+            const scoreElement = row.querySelector('.diem-so, .score, .battery-label');
+            if (scoreElement) {
+                return parseInt(scoreElement.textContent.replace(/[^\d]/g, '')) || 0;
+            }
+
+            return 0;
+        }
+
+        function getDateFromRow(row) {
+            const dateCell = row.querySelector('td:first-child a');
+            if (!dateCell) return new Date(0);
+
+            const dateText = dateCell.textContent;
+            const match = dateText.match(/(\d{1,2})\/(\d{1,2})\/(\d{4})/);
+            if (match) {
+                return new Date(match[3], match[2] - 1, match[1]);
+            }
+            return new Date(0);
+        }
+
+        function applySortingToTable(sortValue) {
+            console.log('applySortingToTable called with:', sortValue);
+
+            // Tìm table giống tot-xau
+            const tables = document.querySelectorAll('tbody');
+            console.log('Found tables:', tables.length);
+
+            if (tables.length === 0) return;
+
+            tables.forEach(table => {
+                const rows = Array.from(table.querySelectorAll('tr'));
+                console.log(`Sorting ${rows.length} rows`);
+
+                if (rows.length === 0) return;
+
+                rows.sort((a, b) => {
+                    if (sortValue === 'date_asc' || sortValue === 'date_desc') {
+                        // Sắp xếp theo ngày
+                        const dateA = getDateFromRow(a);
+                        const dateB = getDateFromRow(b);
+                        return sortValue === 'date_asc' ? dateA - dateB : dateB - dateA;
+                    } else {
+                        // Sắp xếp theo điểm (desc only)
+                        const scoreA = getScoreFromRow(a);
+                        const scoreB = getScoreFromRow(b);
+                        return scoreB - scoreA; // Luôn giảm dần
+                    }
+                });
+
+                // Clear và append lại rows đã sắp xếp
+                table.innerHTML = '';
+                rows.forEach(row => table.appendChild(row));
+
+                // Giữ pagination state
+                maintainCurrentPagination(table);
+            });
+        }
+
+        function maintainCurrentPagination(table) {
+            // Kiểm tra xem có filter active không
+            const filterStatus = document.getElementById('filterStatus');
+            const isFilterActive = filterStatus && !filterStatus.classList.contains('d-none');
+
+            if (isFilterActive) return; // Để taboo component quản lý
+
+            const loadMoreBtn = table.closest('.card-body')?.querySelector('.load-more-btn');
+            let currentLoaded = 10;
+
+            if (loadMoreBtn) {
+                currentLoaded = parseInt(loadMoreBtn.dataset.loaded) || 10;
+            }
+
+            const rows = table.querySelectorAll('tr');
+
+            rows.forEach((row, index) => {
+                if (index >= currentLoaded) {
+                    row.style.display = 'none';
+                    row.dataset.visible = 'false';
+                } else {
+                    row.style.display = '';
+                    row.dataset.visible = 'true';
+                }
+            });
+
+            // Cập nhật load more button
+            if (loadMoreBtn) {
+                loadMoreBtn.dataset.loaded = currentLoaded.toString();
+                loadMoreBtn.dataset.total = rows.length.toString();
+                const remaining = rows.length - currentLoaded;
+
+                if (remaining > 0) {
+                    loadMoreBtn.style.display = '';
+                    loadMoreBtn.innerHTML = `
+                        <i class="bi bi-plus-circle me-2"></i>
+                        Xem thêm ${Math.min(10, remaining)} bảng
+                        <span class="text-muted ms-2">(${remaining} còn lại)</span>
+                    `;
+                } else {
+                    loadMoreBtn.style.display = 'none';
+                }
+            }
+        }
+    </script>
     @include('components.taboo-filter-script')
 @endpush
