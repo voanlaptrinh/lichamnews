@@ -289,7 +289,7 @@
                                                     </a>
                                                 </td>
                                                 <td style="text-align: start">
-                                              @php
+                                                    @php
                                                         $supportFactors = [];
 
                                                         // Kiểm tra ngày hoàng đạo - sử dụng helper
