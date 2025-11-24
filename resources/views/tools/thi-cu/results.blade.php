@@ -20,7 +20,67 @@
         </div>
     @endif
 
-    <!-- Filter Modal/Dropdown - Global for all tabs -->
+ 
+
+    <!-- Backdrop -->
+    <div id="tabooFilterBackdrop" class="taboo-filter-backdrop d-none"></div>
+
+
+    <div class="tab-content">
+        @php $firstYear = true; @endphp
+        @foreach ($resultsByYear as $year => $yearData)
+            <div class="tab-pane fade {{ $firstYear ? 'show active' : '' }}" id="year-{{ $year }}">
+
+                <div class="card border-0 mb-3 w-100 box-detial-year">
+                    <div class="card-body box1-con-year">
+                        <div
+                            class="text-primary mb-3 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
+                            <img src="{{ asset('icons/dac-diem1.svg') }}" alt="thông tin người xem" width="28"
+                                height="28" class="me-1"> Thông Tin Người Xem
+                        </div>
+                        @if (isset($birthdateInfo))
+                            <div class="info-grid">
+                                <p class="mb-2">
+                                    <strong>Ngày sinh:</strong>
+                                    {{ $birthdateInfo['dob']->format('d/m/Y') }} tức ngày
+                                    {{ $birthdateInfo['lunar_dob_str'] }} âm lịch
+                                </p>
+                                <p class="mb-2">
+                                    <strong>Tuổi:</strong>
+                                    <b>{{ $birthdateInfo['can_chi_nam'] }}</b>, Mệnh:
+                                    {{ $birthdateInfo['menh']['hanh'] }}
+                                    ({{ $birthdateInfo['menh']['napAm'] }})
+                                </p>
+                                <p class="mb-2">
+                                    <strong>Tuổi âm:</strong>
+                                    {{ $yearData['year_analysis']['lunar_age'] }} tuổi
+                                </p>
+
+                                <p class="mb-2">
+                                    <strong>Thời gian xem:</strong>
+                                    {{ $inputs['date_range'] ?? '' }}
+                                </p>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+
+
+                <div class="card border-0 mb-3 w-100 box-detial-year">
+                    <div class="card-body">
+                        <div class="betwen-ds flex-wrap mb-1">
+                            <div class="text-primary mb-0 title-tong-quan-h4-log text-dark fw-bolder">
+                                <img src="{{ asset('icons/k_nen_1.svg') }}" alt="thông tin người xem" width="28"
+                                    height="28" class="me-1"> Danh Sách Điểm Theo Ngày Thi Cử
+                            </div>
+                            <div class="d-flex flex-wrap" style="gap: 10px">
+                                <div class="position-relative mb-3">
+                                    <button type="button" class="taboo-filter-btn form-select-sm sort-select" data-year="{{ $year }}">
+                                        <i class="bi bi-funnel me-2"></i>
+                                        <span>Lọc ngày kỵ</span>
+                                        <i class="bi bi-chevron-down ms-2"></i>
+                                    </button>
+                                       <!-- Filter Modal/Dropdown - Global for all tabs -->
     <div id="tabooFilterModal" class="taboo-filter-modal d-none">
         <div class="taboo-filter-header">
             <h6 class="mb-0">Lọc ngày kỵ thi cử</h6>
@@ -116,65 +176,6 @@
                 dụng</button>
         </div>
     </div>
-
-    <!-- Backdrop -->
-    <div id="tabooFilterBackdrop" class="taboo-filter-backdrop d-none"></div>
-
-
-    <div class="tab-content">
-        @php $firstYear = true; @endphp
-        @foreach ($resultsByYear as $year => $yearData)
-            <div class="tab-pane fade {{ $firstYear ? 'show active' : '' }}" id="year-{{ $year }}">
-
-                <div class="card border-0 mb-3 w-100 box-detial-year">
-                    <div class="card-body box1-con-year">
-                        <div
-                            class="text-primary mb-3 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
-                            <img src="{{ asset('icons/dac-diem1.svg') }}" alt="thông tin người xem" width="28"
-                                height="28" class="me-1"> Thông Tin Người Xem
-                        </div>
-                        @if (isset($birthdateInfo))
-                            <div class="info-grid">
-                                <p class="mb-2">
-                                    <strong>Ngày sinh:</strong>
-                                    {{ $birthdateInfo['dob']->format('d/m/Y') }} tức ngày
-                                    {{ $birthdateInfo['lunar_dob_str'] }} âm lịch
-                                </p>
-                                <p class="mb-2">
-                                    <strong>Tuổi:</strong>
-                                    <b>{{ $birthdateInfo['can_chi_nam'] }}</b>, Mệnh:
-                                    {{ $birthdateInfo['menh']['hanh'] }}
-                                    ({{ $birthdateInfo['menh']['napAm'] }})
-                                </p>
-                                <p class="mb-2">
-                                    <strong>Tuổi âm:</strong>
-                                    {{ $yearData['year_analysis']['lunar_age'] }} tuổi
-                                </p>
-
-                                <p class="mb-2">
-                                    <strong>Thời gian xem:</strong>
-                                    {{ $inputs['date_range'] ?? '' }}
-                                </p>
-                            </div>
-                        @endif
-                    </div>
-                </div>
-
-
-                <div class="card border-0 mb-3 w-100 box-detial-year">
-                    <div class="card-body">
-                        <div class="betwen-ds flex-wrap mb-1">
-                            <div class="text-primary mb-0 title-tong-quan-h4-log text-dark fw-bolder">
-                                <img src="{{ asset('icons/k_nen_1.svg') }}" alt="thông tin người xem" width="28"
-                                    height="28" class="me-1"> Danh Sách Điểm Theo Ngày Thi Cử
-                            </div>
-                            <div class="d-flex flex-wrap" style="gap: 10px">
-                                <div class="position-relative mb-3">
-                                    <button type="button" class="taboo-filter-btn form-select-sm sort-select" data-year="{{ $year }}">
-                                        <i class="bi bi-funnel me-2"></i>
-                                        <span>Lọc ngày kỵ</span>
-                                        <i class="bi bi-chevron-down ms-2"></i>
-                                    </button>
                                 </div>
 
                                 <!-- Sắp xếp tích hợp điểm và ngày -->
