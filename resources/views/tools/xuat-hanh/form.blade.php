@@ -171,14 +171,121 @@
                     </div>
                     <div id="resultsContainer" class="--detail-success">
                         <div class="d-flex flex-column align-items-center justify-content-center h-100 text-center">
-                            <div class="mb-4">
-                                <img src="{{ asset('/icons/defaild.png?v=1.0') }}" alt="defakd" class="img-fuild">
-                            </div>
-                            <p class="text-muted" style="font-size: 16px;">
-                                Hiện chưa có thông tin, bạn vui lòng nhập thông tin để xem kết quả.
-                            </p>
+
                         </div>
                     </div>
+                    <div class="box--bg-thang mt-3 mb-3">
+                        <div class="text-box-tong-quan">
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Vì sao nên xem ngày xuất hành?
+                            </h2>
+                            <p class="mb-1">Xuất hành là thời điểm bạn rời nhà để đi làm xa, công tác, du lịch, đi lễ
+                                chùa hay thực hiện những công việc quan trọng cần di chuyển. Việc chọn đúng ngày – giờ không
+                                chỉ mang ý nghĩa tâm linh mà còn giúp:</p>
+                            <ul class="mb-1">
+                                <li>Đi đường thuận lợi, an toàn, ít gặp trở ngại</li>
+                                <li>Tâm lý thoải mái, tự tin</li>
+                                <li>Thu hút may mắn khi đi làm ăn, ký kết, gặp đối tác</li>
+                                <li>Gặp đúng người – đúng thời điểm, dễ thành công hơn</li>
+                            </ul>
+                            <p class="mb-1">Vì vậy, nhiều người luôn ưu tiên xem ngày tốt trước khi khởi hành quan trọng.
+                            </p>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Lợi ích khi chọn đúng ngày xuất hành
+                            </h2>
+                            <ul class="mb-1">
+                                <li>Tăng cát khí – may mắn cho cả hành trình</li>
+                                <li>Hợp tuổi – hợp ngũ hành, dễ gặp thuận lợi</li>
+                                <li>Tránh xung khắc, hạn chế mệt mỏi hoặc chuyện bất ngờ</li>
+                                <li>Tối ưu cho các chuyến đi cầu tài, giải hạn, công việc</li>
+                            </ul>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Cách xem ngày xuất hành: Những yếu tố quan trọng cần biết
+                            </h2>
+                            <ul style="list-style-type: upper-alpha;">
+                                <li>
+                                    <h3 class="title-tong-quan-h4-log"> Nên chọn ngày có:</h3>
+                                    <ul style="list-style-type: decimal;">
+                                        <li>
+                                            <p class="mb-1">Ngày Hoàng đạo</p>
+                                            <p class="mb-1">Ngày cát lành, phù hợp để khởi đầu mọi hành động tốt.</p>
+                                        </li>
+                                        <li>
+                                            <p class="mb-1">Sao tốt chiếu mệnh</p>
+                                            <p class="mb-1"> Các sao phù trợ cho di chuyển – gặp gỡ – cầu tài:</p>
+                                            <ul class="mb-1" style="list-style-type: circle;">
+                                                <li>Thanh Long: May mắn, thuận lợi.</li>
+                                                <li>Thiên Hỷ: Mang đến niềm vui, dễ gặp chuyện tốt đẹp.</li>
+                                                <li>Thiên Mã: Rất tốt cho việc đi xa, di chuyển, công tác.</li>
+                                                <li>Nguyệt Đức: Có quý nhân giúp đỡ, hành trình thuận buồm xuôi gió.</li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <p class="mb-1">Hướng xuất hành tốt</p>
+                                            <p class="mb-1"> Khi xuất hành, nên đi theo hướng:</p>
+                                            <ul class="mb-1" style="list-style-type: circle;">
+                                                <li>Hỷ Thần → Mang đến niềm vui, may mắn</li>
+                                                <li>Tài Thần → Tốt cho cầu tài, làm ăn, ký kết</li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <p class="mb-1">Ngũ hành hòa hợp với tuổi</p>
+                                            <p class="mb-1">Ngày có ngũ hành tương sinh hoặc tương hỗ giúp chuyến đi thêm
+                                                thuận lợi, tinh thần nhẹ nhàng.</p>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <h3 class="title-tong-quan-h4-log">Tránh các ngày sau:</h3>
+                                    <ul style="list-style-type: decimal;">
+                                        <li>Ngày đại kỵ:
+                                            <ul style="	list-style-type: circle;">
+                                                <li>Tam Nương</li>
+                                                <li>Sát Chủ, Thổ Phủ</li>
+                                                <li>Dương Công Kỵ Nhật</li>
+                                                <li>Nguyệt Kỵ (mùng 5 – 14 – 23)</li>
+                                                <li>Trùng Tang
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <p class="mb-0">Ngày xung tuổi</p>
+                                            <p class="mb-0"> Dễ gặp phiền phức, bất lợi, tâm lý không thoải mái khi xuất
+                                                hành.</p>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Hướng dẫn sử dụng công cụ xem ngày xuất hành trên Phong Lịch
+                            </h2>
+                            <ul style="list-style-type: decimal;">
+                                <li>Chọn tuổi (âm lịch hoặc dương lịch).</li>
+                                <li>Chọn thời gian bạn muốn xuất hành.</li>
+                                <li>Hệ thống sẽ tự động phân tích:
+                                    <ul style="list-style-type: circle;">
+                                        <li>Hoàng đạo – hắc đạo</li>
+                                        <li>Sao tốt – sao xấu</li>
+                                        <li>Hướng xuất hành phù hợp</li>
+                                        <li>Ngũ hành hợp tuổi</li>
+                                        <li>Giờ tốt trong ngày</li>
+                                    </ul>
+                                </li>
+                                <li>Bạn chỉ cần chọn ngày phù hợp nhất với lịch cá nhân để yên tâm lên đường.</li>
+                            </ul>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Một ngày xuất hành đẹp mang lại điều gì?
+                            </h2>
+                            <ul class="mb-1">
+                                <li>Đi đường bình an, thông suốt</li>
+                                <li>Dễ gặp quý nhân, thuận lợi trong công việc</li>
+                                <li>Cảm giác tự tin, yên tâm suốt chuyến đi</li>
+                                <li>Thu hút may mắn, đặc biệt khi đi mở hàng – gặp đối tác – ký kết</li>
+                                <li>Mọi sự khởi đầu tốt đẹp và viên mãn hơn</li>
+                            </ul>
+                        </div>
+                    </div>
+
                 </div>
 
                 @include('tools.siderbarindex')
@@ -499,9 +606,8 @@
                     };
 
                     const dateRangeParts = dateRangeValue.split(' - ');
-                    const [startDate, endDate] = dateRangeParts.length === 2 ?
-                        [parseDatePart(dateRangeParts[0]), parseDatePart(dateRangeParts[1])] :
-                        ['', ''];
+                    const [startDate, endDate] = dateRangeParts.length === 2 ? [parseDatePart(dateRangeParts[
+                        0]), parseDatePart(dateRangeParts[1])] : ['', ''];
 
                     // Get sort value if exists
                     const sortValue = resultsContainer.querySelector('[name="sort"]')?.value ?? 'desc';
@@ -649,7 +755,10 @@
                         // Scroll to table after sort
                         setTimeout(() => {
                             const bangChiTiet = document.querySelector('#bang-chi-tiet');
-                            bangChiTiet?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            bangChiTiet?.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
                         }, 100);
                     }
                 }
@@ -809,7 +918,8 @@
                     const resultsContainer = document.querySelector('.--detail-success');
                     resultsContainer.addEventListener('click', function(event) {
                         if (event.target.matches('.load-more-btn') || event.target.closest('.load-more-btn')) {
-                            const btn = event.target.matches('.load-more-btn') ? event.target : event.target.closest('.load-more-btn');
+                            const btn = event.target.matches('.load-more-btn') ? event.target : event.target
+                                .closest('.load-more-btn');
                             const year = btn.getAttribute('data-year');
                             const currentLoaded = parseInt(btn.getAttribute('data-loaded'));
                             const total = parseInt(btn.getAttribute('data-total'));
@@ -833,7 +943,8 @@
                                 const remaining = total - newLoaded;
                                 if (remaining > 0) {
                                     const nextLoad = Math.min(10, remaining);
-                                    btn.innerHTML = `<i class="bi bi-plus-circle me-2"></i>Xem thêm ${nextLoad} bảng<span class="text-muted ms-2">(${remaining} còn lại)</span>`;
+                                    btn.innerHTML =
+                                        `<i class="bi bi-plus-circle me-2"></i>Xem thêm ${nextLoad} bảng<span class="text-muted ms-2">(${remaining} còn lại)</span>`;
                                 } else {
                                     btn.style.display = 'none';
                                 }
@@ -858,7 +969,9 @@
                         return row.style.display !== 'none';
                     });
 
-                    console.log(`Maintaining pagination: ${currentLoaded} out of ${visibleRows.length} visible rows (${allRows.length} total)`);
+                    console.log(
+                        `Maintaining pagination: ${currentLoaded} out of ${visibleRows.length} visible rows (${allRows.length} total)`
+                    );
 
                     // Show rows according to current pagination state cho visible rows only
                     visibleRows.forEach((row, index) => {
@@ -875,7 +988,8 @@
                     const remaining = visibleRows.length - currentLoaded;
                     if (remaining > 0 && visibleRows.length > 10) {
                         const nextLoad = Math.min(10, remaining);
-                        loadMoreBtn.innerHTML = `<i class="bi bi-plus-circle me-2"></i>Xem thêm ${nextLoad} bảng<span class="text-muted ms-2">(${remaining} còn lại)</span>`;
+                        loadMoreBtn.innerHTML =
+                            `<i class="bi bi-plus-circle me-2"></i>Xem thêm ${nextLoad} bảng<span class="text-muted ms-2">(${remaining} còn lại)</span>`;
                         loadMoreBtn.style.display = '';
                         loadMoreBtn.setAttribute('data-total', visibleRows.length);
                     } else {

@@ -20,7 +20,7 @@
 
             </ol>
         </nav>
-      
+
 
         <h1 class="content-title-home-lich">Xem ngày tốt nhập trạch theo tuổi</h1>
 
@@ -217,12 +217,101 @@
                     </div>
                     <div id="resultsContainer" class="--detail-success">
                         <div class="d-flex flex-column align-items-center justify-content-center h-100 text-center">
-                            <div class="mb-4">
-                                <img src="{{ asset('/icons/defaild.png?v=1.0') }}" alt="defakd" class="img-fuild">
-                            </div>
-                            <p class="text-muted" style="font-size: 16px;">
-                                Hiện chưa có thông tin, bạn vui lòng nhập thông tin để xem kết quả.
-                            </p>
+
+                        </div>
+                    </div>
+
+                    <div class="box--bg-thang mt-3 mb-3">
+                        <div class="text-box-tong-quan">
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Vì sao nhập trạch cần chọn ngày tốt?
+                            </h2>
+                            <p class="mb-1">Nhập trạch là nghi lễ quan trọng đánh dấu việc chuyển vào nhà mới, nơi gắn
+                                liền với cuộc sống
+                                gia đình và năng lượng phong thủy của căn nhà. Một ngày tốt giúp:</p>
+                            <ul class="mb-1">
+                                <li>Gia đình yên tâm và thuận lợi trong việc dọn về nhà mới.</li>
+                                <li>Tăng cát khí, mang lại may mắn, sức khỏe và tài lộc cho các thành viên.</li>
+                                <li>Tránh xung khắc, hạn chế rủi ro về phong thủy hoặc tâm lý khi chuyển nhà.</li>
+                            </ul>
+                            <p class="mb-1">Ngày nhập trạch đẹp còn giúp lễ cúng đầy đủ, nghi thức trọn vẹn, tạo không
+                                gian hài hòa cho gia chủ.</p>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Lợi ích của việc chọn ngày nhập trạch hợp tuổi
+                            </h2>
+                            <ul class="mb-1">
+                                <li>Ngày hợp tuổi gia chủ: Tránh xung khắc tuổi, giúp gia đình yên tâm, thuận hòa.</li>
+                                <li>Ngày hoàng đạo và giờ hoàng đạo: Thuận lợi cho các nghi lễ, đi lại, vận chuyển đồ đạc.
+                                </li>
+                                <li>Sao tốt và trực tốt: Tăng cát khí, hạn chế những điều xui rủi trong ngày đầu về nhà mới.
+                                </li>
+                            </ul>
+                            <p class="mb-1">Chọn đúng ngày nhập trạch không chỉ mang ý nghĩa phong thủy mà còn giúp gia
+                                chủ cảm thấy tâm lý an toàn, tự tin khi bước vào ngôi nhà mới.</p>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Khi xem ngày nhập trạch cần lưu ý điều gì?
+                            </h2>
+                            <ul style="	list-style-type: upper-alpha;">
+                                <li>
+                                    <h3 class="title-tong-quan-h4-log">Các yếu tố cát lành nên ưu tiên</h3>
+                                    <ul style="	list-style-type: decimal;">
+                                        <li>
+                                            <p class="mb-0">Ngày hoàng đạo và trực tốt</p>
+                                            <p class="mb-0">Ngày Hoàng Đạo, Trực Khai, Trực Thành, Trực Mãn thường được
+                                                ưu tiên cho nhập trạch.</p>
+                                        </li>
+                                        <li>
+                                            <p class="mb-0">Ngày hợp tuổi gia chủ</p>
+                                            <p class="mb-0">Ngũ hành và Can Chi của ngày nên tương sinh hoặc hỗ trợ tuổi
+                                                gia chủ.</p>
+                                        </li>
+                                        <li>
+                                            <p class="mb-0">Sao tốt và giờ tốt</p>
+                                            <ul style="	list-style-type: circle;">
+                                                <li>Sao Thiên Đức, Phúc Sinh, Hỷ Thần… rất thuận cho gia đạo.</li>
+                                                <li>Giờ hoàng đạo giúp nghi lễ và vận chuyển đồ đạc diễn ra suôn sẻ.</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <h3 class="title-tong-quan-h4-log">Các yếu tố xấu nên tránh</h3>
+                                    <ul class="mb-1">
+                                        <li>Ngày xung tuổi, phạm Thái Tuế.</li>
+                                        <li>Ngày hắc đạo, trực xấu như Trực Phá, Trực Bế.</li>
+                                        <li>Sao xấu như Bại, Hao, Thiên Cương.</li>
+                                        <li>Ngày bách kỵ liên quan đến chuyển nhà hoặc xây dựng.</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <p class="mb-1"> Việc tránh những ngày này giúp lễ nhập trạch diễn ra thuận lợi, gia đình ổn
+                                định nhanh chóng, hạn chế phiền toái.</p>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Hướng dẫn sử dụng công cụ Xem Ngày Nhập Trạch tại Phong Lịch
+                            </h2>
+                            <ul style="list-style-type: decimal;">
+                                <li>Nhập tuổi gia chủ (âm lịch hoặc dương lịch).</li>
+                                <li>Chọn khoảng thời gian dự định chuyển vào nhà mới.</li>
+                                <li>Hệ thống sẽ:
+                                    <ul>
+                                        <li>Gợi ý những ngày nhập trạch đẹp nhất,</li>
+                                        <li>Hiển thị điểm tốt – xấu của từng ngày,</li>
+                                        <li>Liệt kê sao tốt/xấu, trực, giờ hoàng đạo,</li>
+                                        <li>Đưa ra lưu ý chi tiết cho gia chủ.</li>
+                                    </ul>
+                                </li>
+                                <li>Chọn ngày phù hợp dựa trên lịch trình thực tế và sự thuận tiện của gia đình.</li>
+                            </ul>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Một ngày nhập trạch đẹp mang lại lợi ích gì?
+                            </h2>
+                            <ul class="mb-1">
+                                <li>Gia đình yên tâm, mọi việc thuận lợi từ ngày đầu tiên.</li>
+                                <li>Hóa giải xung khắc, hạn chế những trục trặc về phong thủy hoặc tâm lý.</li>
+                                <li>Tăng cát khí cho ngôi nhà, giúp cuộc sống ổn định, tài lộc và sức khỏe tốt.</li>
+                                <li>Nghi lễ trọn vẹn, đúng truyền thống, tạo cảm giác hạnh phúc, hài hòa cho mọi thành viên.
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -368,7 +457,7 @@
                 // Restore gender from hash
                 if (params.gender) {
                     const genderRadio = document.querySelector(
-                    `input[name="gender"][value="${params.gender}"]`);
+                        `input[name="gender"][value="${params.gender}"]`);
                     if (genderRadio) {
                         genderRadio.checked = true;
                         console.log('✅ Restored gender:', params.gender);
@@ -569,9 +658,9 @@
                     return `${day.padStart(2, '0')}/${month.padStart(2, '0')}/${fullYear}`;
                 };
 
-                const [startDate, endDate] = dateRangeParts.length === 2 ?
-                    [parseDate(dateRangeParts[0]), parseDate(dateRangeParts[1])] :
-                    ['', ''];
+                const [startDate, endDate] = dateRangeParts.length === 2 ? [parseDate(dateRangeParts[0]),
+                    parseDate(dateRangeParts[1])
+                ] : ['', ''];
 
                 // Get sort value using optional chaining
                 const sortValue = resultsContainer?.querySelector('[name="sort"]')?.value ?? 'desc';
@@ -721,7 +810,10 @@
                     // Scroll to table after sort
                     setTimeout(() => {
                         const bangChiTiet = document.querySelector('#bang-chi-tiet');
-                        bangChiTiet?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        bangChiTiet?.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
                     }, 100);
                 }
             }
@@ -871,7 +963,8 @@
                 const resultsContainer = document.querySelector('.--detail-success');
                 resultsContainer.addEventListener('click', function(event) {
                     if (event.target.matches('.load-more-btn') || event.target.closest('.load-more-btn')) {
-                        const btn = event.target.matches('.load-more-btn') ? event.target : event.target.closest('.load-more-btn');
+                        const btn = event.target.matches('.load-more-btn') ? event.target : event.target
+                            .closest('.load-more-btn');
                         const year = btn.getAttribute('data-year');
                         const currentLoaded = parseInt(btn.getAttribute('data-loaded'));
                         const total = parseInt(btn.getAttribute('data-total'));
@@ -895,7 +988,8 @@
                             const remaining = total - newLoaded;
                             if (remaining > 0) {
                                 const nextLoad = Math.min(10, remaining);
-                                btn.innerHTML = `<i class="bi bi-plus-circle me-2"></i>Xem thêm ${nextLoad} bảng<span class="text-muted ms-2">(${remaining} còn lại)</span>`;
+                                btn.innerHTML =
+                                    `<i class="bi bi-plus-circle me-2"></i>Xem thêm ${nextLoad} bảng<span class="text-muted ms-2">(${remaining} còn lại)</span>`;
                             } else {
                                 btn.style.display = 'none';
                             }
@@ -936,11 +1030,14 @@
 
                 // Đếm TOTAL filtered rows TRƯỚC khi thay đổi pagination
                 const allRows = table.querySelectorAll('tr:not(.empty-filter-row)');
-                const totalFilteredRows = parseInt(loadMoreBtn.getAttribute('data-total')) || Array.from(allRows).filter(row => {
-                    return row.style.display !== 'none';
-                }).length;
+                const totalFilteredRows = parseInt(loadMoreBtn.getAttribute('data-total')) || Array.from(allRows)
+                    .filter(row => {
+                        return row.style.display !== 'none';
+                    }).length;
 
-                console.log(`Maintaining pagination: ${currentLoaded} out of ${totalFilteredRows} filtered rows (${allRows.length} total)`);
+                console.log(
+                    `Maintaining pagination: ${currentLoaded} out of ${totalFilteredRows} filtered rows (${allRows.length} total)`
+                );
 
                 // Show rows according to current pagination state
                 allRows.forEach((row, index) => {
@@ -957,7 +1054,8 @@
                 const remaining = totalFilteredRows - currentLoaded;
                 if (remaining > 0) {
                     const nextLoad = Math.min(10, remaining);
-                    loadMoreBtn.innerHTML = `<i class="bi bi-plus-circle me-2"></i>Xem thêm ${nextLoad} bảng<span class="text-muted ms-2">(${remaining} còn lại)</span>`;
+                    loadMoreBtn.innerHTML =
+                        `<i class="bi bi-plus-circle me-2"></i>Xem thêm ${nextLoad} bảng<span class="text-muted ms-2">(${remaining} còn lại)</span>`;
                     loadMoreBtn.style.display = '';
                     loadMoreBtn.setAttribute('data-total', totalFilteredRows.toString());
                 } else {

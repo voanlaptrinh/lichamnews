@@ -257,14 +257,207 @@
                     {{-- Results Container --}}
                     <div id="resultsContainer" class="--detail-success">
                         <div class="d-flex flex-column align-items-center justify-content-center h-100 text-center">
-                            <div class="mb-4">
-                                <img src="{{ asset('/icons/defaild.png?v=1.0') }}" alt="defakd" class="img-fuild">
-                            </div>
-                            <p class="text-muted" style="font-size: 16px;">
-                                Hiện chưa có thông tin, bạn vui lòng nhập thông tin để xem kết quả.
-                            </p>
+
                         </div>
                     </div>
+                    <div class="box--bg-thang mt-3 mb-3">
+                        <div class="text-box-tong-quan">
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Vì sao trong cưới hỏi cần xem ngày tốt?
+                            </h2>
+                            <p class="mb-1">Trong văn hóa Á Đông, cưới hỏi không chỉ là việc trọng đại của hai người mà
+                                còn là sự hòa hợp giữa hai gia đình, là bước khởi đầu cho một cuộc sống mới. Vì vậy, việc
+                                chọn một ngày tốt cho lễ cưới, ăn hỏi, dạm ngõ… được xem là cách để cầu mong hạnh phúc viên
+                                mãn, cuộc sống vợ chồng hòa thuận, làm ăn thuận lợi và gia đạo bình an.
+                            </p>
+                            <p class="mb-1">Không ít người nghĩ xem ngày cưới hỏi chỉ mang tính phong tục, nhưng thực tế
+                                nó còn mang lại 3 giá trị quan trọng:</p>
+                            <h3 class="title-tong-quan-h4-log fw-bolder">
+                                1. Tạo sự yên tâm cho hai bên gia đình
+                            </h3>
+                            <p class="mb-1">Khi ngày cưới đã được chọn kỹ lưỡng, mọi người đều cảm thấy an lòng. Sự đồng
+                                thuận và tinh thần thoải mái giúp không khí chuẩn bị đám cưới trở nên vui vẻ, tránh được bất
+                                đồng hay lo lắng.</p>
+                            <h3 class="title-tong-quan-h4-log fw-bolder">
+                                2. Tạo khởi đầu thuận lợi cho đôi trẻ
+                            </h3>
+                            <p class="mb-1">Một ngày đẹp mang năng lượng tốt lành, tượng trưng cho sự cát tường. Nó giống
+                                như một lời chúc phúc để đôi vợ chồng trẻ bắt đầu cuộc sống hôn nhân một cách thuận lợi và
+                                tràn đầy niềm vui.
+                            </p>
+                            <h3 class="title-tong-quan-h4-log fw-bolder">
+                                3. Tránh các ngày xung – kỵ không tốt cho hôn nhân
+                            </h3>
+                            <p class="mb-1">Một số ngày phạm phải sao xấu, ngày xung tuổi, ngày cô thần – quả tú… thường
+                                được dân gian khuyên tránh vì có thể mang tính chất không may mắn. Việc xem ngày giúp bạn
+                                loại bỏ những ngày này để mọi nghi lễ được suôn sẻ.
+                            </p>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Ý nghĩa phong tục xem ngày cưới hỏi
+                            </h2>
+                            <p class="mb-1">Xem ngày cưới hỏi dựa trên những yếu tố phong thủy truyền thống như:
+                            </p>
+                            <ul class="mb-1">
+                                <li>
+                                    Ngũ hành – Can Chi giữa tuổi cô dâu chú rể
+                                </li>
+                                <li>
+                                    Sao tốt – sao xấu trong ngày
+                                </li>
+                                <li>
+                                    Hoàng đạo – hắc đạo
+                                </li>
+                                <li>
+                                    Nhị Thập Bát Tú liên quan đến hôn sự
+                                </li>
+                                <li>
+                                    Trực ngày hợp với cưới gả
+                                </li>
+                                <li>
+                                    Tránh các ngày xấu: Tam nương, Nguyệt kỵ, Không phòng, Sát chủ, v.v.
+                                </li>
+                            </ul>
+                            <p class="mb-1">
+                                Những yếu tố này được dùng không phải vì mê tín, mà bởi chúng là sự tổng hợp kinh nghiệm từ
+                                hàng trăm năm, thể hiện mong muốn điều tốt lành, tránh điều không may.
+                            </p>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Khi xem ngày cưới hỏi cần xét những yếu tố có lợi
+                            </h2>
+                            <p class="mb-1">
+                                Dưới đây là các yếu tố cát (tốt) mà ngày cưới hỏi nên có:
+                            </p>
+                            <h3 class="title-tong-quan-h4-log">
+                                1. Ngày hoàng đạo
+                            </h3>
+                            <p class="mb-1">
+                                Hoàng đạo là ngày được coi là có năng lượng tốt, rất thích hợp cho việc vui mừng và lễ nghi
+                                gia đình.
+                            </p>
+                            <h3 class="title-tong-quan-h4-log">
+                                2. Ngày hợp tuổi cô dâu – chú rể
+                            </h3>
+                            <p class="mb-1">
+                                Ngày có Can Chi – Ngũ Hành tương sinh với tuổi hai người sẽ mang ý nghĩa hòa hợp, thuận lợi
+                                cho hôn nhân.
+                            </p>
+                            <h3 class="title-tong-quan-h4-log">
+                                3. Sao tốt liên quan đến hôn sự
+                            </h3>
+                            <p class="mb-1">
+                                Một số sao cát đặc biệt tốt cho cưới hỏi, ví dụ như:
+                            </p>
+                            <ul class="mb-1">
+                                <li>
+                                    Sao Thiên Đức, Nguyệt Đức
+                                </li>
+                                <li>
+                                    Sao Thiên Hỷ
+                                </li>
+                                <li>
+                                    Sao Thiên Quan, Thiên Phúc
+                                </li>
+                                <li>
+                                    Sao Tam Hợp
+                                </li>
+                            </ul>
+                            <p class="mb-1">Những sao này tượng trưng cho hỷ khí, hạnh phúc và sự viên mãn.</p>
+                            <h3 class="title-tong-quan-h4-log">
+                                4. Trực ngày phù hợp
+                            </h3>
+                            <p class="mb-1">
+                                Trong Thập Nhị Trực, những trực cát cho cưới hỏi gồm:
+                            </p>
+                            <ul class="mb-1">
+                                <li>
+                                    Trực Thành
+                                </li>
+                                <li>
+                                    Trực Khai
+                                </li>
+                                <li>
+                                    Trực Mãn
+                                </li>
+                            </ul>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Những yếu tố bất lợi cần tránh khi chọn ngày cưới hỏi
+                            </h2>
+                            <p class="mb-1">Để lễ cưới diễn ra suôn sẻ, bạn cũng nên tránh những yếu tố hung:</p>
+                            <h3 class="title-tong-quan-h4-log">
+                                1. Ngày xung tuổi cô dâu – chú rể
+                            </h3>
+                            <p class="mb-1">Ngày phạm hình – xung – phá – hại với tuổi hai người thường được coi là kỵ.
+                            </p>
+                            <h3 class="title-tong-quan-h4-log">
+                                2. Ngày Tam Nương – Nguyệt Kỵ
+                            </h3>
+                            <p class="mb-1">Dân gian xem đây là những ngày mang năng lượng xấu, không phù hợp để tiến
+                                hành việc vui.
+                            </p>
+                            <h3 class="title-tong-quan-h4-log">
+                                3. Sao xấu liên quan đến hôn nhân
+                            </h3>
+                            <p class="mb-1">Ví dụ: Cô Thần, Quả Tú, Không Vong, Thiên Cương, v.v.
+                            </p>
+                            <h3 class="title-tong-quan-h4-log">
+                                4. Trực xấu hoặc ngày hắc đạo
+                            </h3>
+                            <p class="mb-1">Những ngày này mang ý nghĩa không thuận, nên hạn chế.
+                            </p>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Cách sử dụng công cụ Xem Ngày Cưới Hỏi tại Phong Lịch
+                            </h2>
+                            <p class="mb-1">Công cụ được thiết kế đơn giản để ai cũng có thể tự xem:</p>
+                            <h3 class="title-tong-quan-h4-log">
+                                Bước 1: Nhập tuổi cô dâu – chú rể
+                            </h3>
+                            <p class="mb-1">Hệ thống tự động đối chiếu tuổi theo âm lịch hoặc dương lịch, phân tích Can
+                                Chi và ngũ hành để tìm ngày hợp nhất.
+                            </p>
+                            <h3 class="title-tong-quan-h4-log">
+                                Bước 2: Chọn khoảng thời gian dự định tổ chức
+                            </h3>
+                            <p class="mb-1">Bạn chỉ cần chọn tháng hoặc thời gian mong muốn, hệ thống sẽ lọc ra những
+                                ngày đẹp nhất.
+                            </p>
+                            <h3 class="title-tong-quan-h4-log">
+                                Bước 3: Nhận danh sách ngày tốt kèm phân tích chi tiết
+                            </h3>
+                            <p class="mb-1">Mỗi ngày đều có:
+                            </p>
+                            <ul class="mb-1">
+                                <li>Đánh giá mức độ đẹp</li>
+                                <li>Các sao tốt – xấu</li>
+                                <li>Trực ngày</li>
+                                <li>Giờ hoàng đạo</li>
+                                <li>Những lưu ý quan trọng</li>
+                                <li>Gợi ý linh hoạt nếu muốn dời ngày</li>
+                            </ul>
+                            <h3 class="title-tong-quan-h4-log">
+                                Bước 4: Chọn ngày phù hợp nhất cho hai gia đình
+                            </h3>
+                            <p class="mb-1">Bạn có thể so sánh nhiều ngày để chọn thời điểm vừa đẹp vừa phù hợp với lịch
+                                trình tổ chức.
+                            </p>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Kết luận
+                            </h2>
+                            <p class="mb-1">Chọn ngày cưới hỏi không chỉ là một nghi thức truyền thống, mà còn là cách
+                                tạo sự an tâm và khởi đầu tốt đẹp cho đôi vợ chồng trẻ. Khi hiểu rõ ý nghĩa của việc xem
+                                ngày và biết cách chọn, bạn sẽ cảm thấy tự tin hơn trong quá trình chuẩn bị lễ cưới.
+                            </p>
+                            <p class="mb-1">
+                                Tính năng Xem Ngày Cưới Hỏi của Phong Lịch giúp bạn dễ dàng:
+                            </p>
+                            <ul class="mb-1">
+                                <li>Chọn ngày đẹp hợp tuổi</li>
+                                <li>Tránh ngày xấu</li>
+                                <li>Hiểu vì sao một ngày phù hợp hoặc không</li>
+                                <li>Chuẩn bị lễ cưới trọn vẹn và thuận lợi nhất</li>
+                            </ul>
+                        </div>
+                    </div>
+
                 </div>
                 @include('tools.siderbarindex')
             </div>
@@ -865,8 +1058,12 @@
                                     console.log('Sort changed to:', event.target.value);
                                     applySortingToTable(event.target.value);
                                     setTimeout(() => {
-                                        const bangChiTiet = document.querySelector('#bang-chi-tiet');
-                                        bangChiTiet?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                        const bangChiTiet = document.querySelector(
+                                            '#bang-chi-tiet');
+                                        bangChiTiet?.scrollIntoView({
+                                            behavior: 'smooth',
+                                            block: 'start'
+                                        });
                                     }, 100);
                                 }
                             });
@@ -950,7 +1147,8 @@
                 const resultsContainer = document.querySelector('.--detail-success');
                 resultsContainer.addEventListener('click', function(event) {
                     if (event.target.matches('.load-more-btn') || event.target.closest('.load-more-btn')) {
-                        const btn = event.target.matches('.load-more-btn') ? event.target : event.target.closest('.load-more-btn');
+                        const btn = event.target.matches('.load-more-btn') ? event.target : event.target
+                            .closest('.load-more-btn');
                         const year = btn.getAttribute('data-year');
                         const currentLoaded = parseInt(btn.getAttribute('data-loaded'));
                         const total = parseInt(btn.getAttribute('data-total'));
@@ -974,7 +1172,8 @@
                             const remaining = total - newLoaded;
                             if (remaining > 0) {
                                 const nextLoad = Math.min(10, remaining);
-                                btn.innerHTML = `<i class="bi bi-plus-circle me-2"></i>Xem thêm ${nextLoad} bảng<span class="text-muted ms-2">(${remaining} còn lại)</span>`;
+                                btn.innerHTML =
+                                    `<i class="bi bi-plus-circle me-2"></i>Xem thêm ${nextLoad} bảng<span class="text-muted ms-2">(${remaining} còn lại)</span>`;
                             } else {
                                 btn.style.display = 'none';
                             }
@@ -1069,12 +1268,17 @@
                 const allRows = table.querySelectorAll('tr:not(.empty-filter-row)');
 
                 // Đếm TOTAL filtered rows TRƯỚC khi thay đổi pagination
-                const totalFilteredRows = parseInt(loadMoreBtn.getAttribute('data-total')) || Array.from(allRows).filter(row => {
-                    return row.style.display !== 'none';
-                }).length;
+                const totalFilteredRows = parseInt(loadMoreBtn.getAttribute('data-total')) || Array.from(allRows)
+                    .filter(row => {
+                        return row.style.display !== 'none';
+                    }).length;
 
-                console.log(`DEBUG: allRows=${allRows.length}, totalFilteredRows=${totalFilteredRows}, currentLoaded=${currentLoaded}`);
-                console.log(`Maintaining pagination: ${currentLoaded} out of ${totalFilteredRows} filtered rows (${allRows.length} total)`);
+                console.log(
+                    `DEBUG: allRows=${allRows.length}, totalFilteredRows=${totalFilteredRows}, currentLoaded=${currentLoaded}`
+                );
+                console.log(
+                    `Maintaining pagination: ${currentLoaded} out of ${totalFilteredRows} filtered rows (${allRows.length} total)`
+                );
 
                 // Tìm tất cả rows được filter (không bị ẩn hoàn toàn)
                 const filteredRows = Array.from(allRows).filter(row => {
@@ -1114,11 +1318,14 @@
 
                 // Update load more button với total filtered rows
                 const remaining = totalFilteredRows - currentLoaded;
-                console.log(`DEBUG BUTTON: totalFilteredRows=${totalFilteredRows}, currentLoaded=${currentLoaded}, remaining=${remaining}`);
+                console.log(
+                    `DEBUG BUTTON: totalFilteredRows=${totalFilteredRows}, currentLoaded=${currentLoaded}, remaining=${remaining}`
+                );
 
                 if (remaining > 0) {
                     const nextLoad = Math.min(10, remaining);
-                    loadMoreBtn.innerHTML = `<i class="bi bi-plus-circle me-2"></i>Xem thêm ${nextLoad} bảng<span class="text-muted ms-2">(${remaining} còn lại)</span>`;
+                    loadMoreBtn.innerHTML =
+                        `<i class="bi bi-plus-circle me-2"></i>Xem thêm ${nextLoad} bảng<span class="text-muted ms-2">(${remaining} còn lại)</span>`;
                     loadMoreBtn.style.display = '';
                     loadMoreBtn.setAttribute('data-total', totalFilteredRows);
                     console.log(`DEBUG BUTTON: Showing button - Xem thêm ${nextLoad} bảng (${remaining} còn lại)`);

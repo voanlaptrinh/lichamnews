@@ -3,25 +3,24 @@
 @section('content')
     @push('styles')
         <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=10.7') }}">
-       
     @endpush
 
     <div class="container-setup">
-            <nav aria-label="breadcrumb" class="content-title-detail">
+        <nav aria-label="breadcrumb" class="content-title-detail">
             <ol class="breadcrumb mb-1">
                 <li class="breadcrumb-item">
-                    <a href="{{ route('home') }}"  style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
+                    <a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
                 </li>
                 <li class="breadcrumb-item" aria-current="page">
-                  Tiện ích
+                    Tiện ích
                 </li>
-                 <li class="breadcrumb-item active" aria-current="page">
-                 Xem ngày nhận việc mới
+                <li class="breadcrumb-item active" aria-current="page">
+                    Xem ngày nhận việc mới
                 </li>
             </ol>
         </nav>
 
-     
+
 
         <h1 class="content-title-home-lich">Xem ngày tốt nhận công việc mới theo tuổi</h1>
 
@@ -43,7 +42,7 @@
                                             ô dưới
                                             đây để xem ngày tốt xấu</p>
 
-                                                                                 <form id="congViecMoiForm">                                            @csrf
+                                        <form id="congViecMoiForm"> @csrf
 
                                             <div class="row">
                                                 <div class="mb-3">
@@ -87,7 +86,8 @@
                                                     <!-- Radio buttons dạng tròn bên dưới selects -->
                                                     <div class="d-flex gap-4 ps-2">
                                                         <div class="form-check d-flex align-items-center">
-                                                            <input type="radio" class="form-check-input" name="calendar_type" id="solarCalendar" value="solar"
+                                                            <input type="radio" class="form-check-input"
+                                                                name="calendar_type" id="solarCalendar" value="solar"
                                                                 checked style="width: 24px; height: 24px; cursor: pointer;">
                                                             <label class="form-check-label ms-2" for="solarCalendar"
                                                                 style="cursor: pointer; font-size: 15px; color: #333;">
@@ -117,7 +117,8 @@
                                                     </div>
 
                                                     <!-- Hidden input to store formatted date -->
-                                                    <input type="hidden" id="ngayXem" name="birthdate" value="{{ old('birthdate', $inputs['birthdate'] ?? '') }}">
+                                                    <input type="hidden" id="ngayXem" name="birthdate"
+                                                        value="{{ old('birthdate', $inputs['birthdate'] ?? '') }}">
 
                                                     @error('birthdate')
                                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -168,16 +169,160 @@
                         </div>
 
                     </div>
-                    <div id="resultsContainer" class="results-container">
+                    <div id="resultsContainer" class="results-container --detail-success">
                         <div class="d-flex flex-column align-items-center justify-content-center h-100 text-center">
-                            <div class="mb-4">
-                                <img src="{{ asset('/icons/defaild.png?v=1.0') }}" alt="defakd" class="img-fuild">
-                            </div>
-                            <p class="text-muted" style="font-size: 16px;">
-                                Hiện chưa có thông tin, bạn vui lòng nhập thông tin để xem kết quả.
-                            </p>
+
                         </div>
                     </div>
+                    <div class="box--bg-thang mt-3 mb-3">
+                        <div class="text-box-tong-quan">
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Vì sao nên xem ngày nhận công việc mới?
+                            </h2>
+                            <p class="mb-1">Bắt đầu một công việc mới là bước ngoặt quan trọng trong sự nghiệp. Việc chọn
+                                ngày tốt để nhận việc không chỉ mang ý nghĩa tâm linh mà còn giúp bạn:
+                            </p>
+                            <ul class="mb-1">
+                                <li>Khởi đầu thuận lợi, hòa hợp với môi trường mới</li>
+                                <li>Tâm lý tự tin, sẵn sàng cho những thử thách và cơ hội</li>
+                                <li>Thu hút cát khí, may mắn trong công việc và tài lộc</li>
+                                <li>Hạn chế rủi ro, xung đột hoặc mệt mỏi trong những ngày đầu tiên</li>
+                            </ul>
+                            <p class="mb-1">Ngày tốt sẽ giúp bạn để lại ấn tượng tích cực với đồng nghiệp và cấp trên
+                                ngay từ những ngày đầu tiên.</p>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Lợi ích khi chọn ngày tốt nhận việc mới
+                            </h2>
+                            <ul class="mb-1">
+                                <li>Tăng cát khí cho sự nghiệp: Bắt đầu công việc đúng ngày hợp tuổi, hợp ngũ hành giúp mọi
+                                    việc hanh thông, thuận lợi.
+                                </li>
+                                <li>Hòa hợp môi trường mới: Ngày hợp tuổi và Hoàng đạo giúp giảm xung khắc, dễ thích nghi.
+                                </li>
+                                <li>Tâm lý vững vàng: Giảm áp lực tâm lý khi bước vào môi trường mới.
+                                </li>
+                                <li>Tạo nền tảng lâu dài: Công việc, mối quan hệ, cơ hội phát triển được thuận lợi ngay từ
+                                    đầu.</li>
+                            </ul>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Cách xem ngày nhận công việc mới: Các yếu tố quan trọng
+                            </h2>
+                            <ul class="mb-1" style="list-style-type: upper-alpha;">
+                                <li>
+                                    <h3 class="title-tong-quan-h4-log"> Nên chọn ngày</h3>
+                                    <ul style="	list-style-type: decimal;" class="mb-1">
+                                        <li>
+                                            <p class="mb-1">Ngày Hoàng đạo
+                                            </p>
+                                            <p class="mb-1">Ngày có năng lượng tốt, thuận lợi cho mọi khởi đầu, giúp hòa
+                                                hợp với môi trường làm việc mới.
+                                            </p>
+
+                                        </li>
+                                        <li>
+                                            <p class="mb-1">Trực tốt
+                                            </p>
+                                            <p class="mb-1">Các trực phù hợp để bắt đầu công việc:
+                                            </p>
+                                            <ul class="mb-1">
+                                                <li>Trực Kiến → Thích hợp khởi sự, bắt đầu công việc mới</li>
+                                                <li>Trực Khai → Mở đầu thuận lợi, dễ thành công</li>
+                                                <li>Trực Thành → Hoàn tất mọi việc, thuận lợi cho các nhiệm vụ đầu tiên</li>
+                                                <li>Trực Mãn → Sự việc trọn vẹn, hoàn hảo, hỗ trợ quá trình hòa nhập</li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <p class="mb-1">Ngũ hành sinh cho mệnh
+                                            </p>
+                                            <p class="mb-1">Chọn ngày có ngũ hành tương sinh hoặc hỗ trợ bản mệnh để tăng
+                                                cát khí, giảm xung khắc.
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <p class="mb-1">Sao cát tốt</p>
+                                            <p class="mb-1">Ngày có các sao sau rất tốt cho sự nghiệp và khởi đầu:</p>
+                                            <ul class="mb-1">
+                                                <li>Thiên Đức, Nguyệt Đức → Quý nhân giúp đỡ, thuận lợi</li>
+                                                <li>Thiên Quan, Thiên Phúc → Hóa giải trở ngại, dễ hòa hợp</li>
+                                                <li>Lộc Tồn → Thu hút tài lộc, cơ hội phát triển</li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <p class="mb-1">Giờ Hoàng đạo</p>
+                                            <p class="mb-1">Bắt đầu ngày làm việc đầu tiên nên chọn giờ hoàng đạo, hợp
+                                                tuổi để khởi sự thuận lợi, năng lượng tích cực.</p>
+                                        </li>
+                                        <li>
+                                            <p class="mb-1">Ngày không xung tuổi</p>
+                                            <p class="mb-1">Tránh chọn ngày xung với tuổi người nhận việc để giảm rủi ro
+                                                và khó khăn trong những ngày đầu.</p>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <h3 class="title-tong-quan-h4-log">Những điều cần tránh</h3>
+                                    <ul style="list-style-type: decimal;">
+                                        <li>
+                                            <p class="mb-1">Ngày Hắc đạo</p>
+                                            <p class="mb-1">Các ngày năng lượng xấu, không thuận lợi cho khởi đầu.</p>
+                                        </li>
+                                        <li>
+                                            <p class="mb-1">
+                                                Ngày đại kỵ
+                                            </p>
+                                            <p class="mb-1">Tam Nương, Nguyệt Kỵ → Tránh các ngày xấu đã định sẵn trong
+                                                tháng.</p>
+                                        </li>
+                                        <li>
+                                            <p class="mb-1">
+                                                Trực xấu
+                                            </p>
+                                            <p class="mb-1">Trực Phá, Trực Nguy, Trực Thu, Trực Bế → Dễ gặp trục trặc,
+                                                bất lợi trong công việc đầu tiên.</p>
+                                        </li>
+                                        <li>
+                                            <p class="mb-1">
+                                                Ngày xung tuổi
+                                            </p>
+                                            <p class="mb-1">Tránh ngày xung với tuổi của người nhận việc để hạn chế căng
+                                                thẳng và trục trặc ngay từ những ngày đầu.</p>
+                                        </li>
+                                    </ul>
+
+                                </li>
+                            </ul>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Hướng dẫn sử dụng công cụ Xem Ngày Nhận Công Việc Mới tại Phong Lịch
+
+                            </h2>
+                            <ul class="mb-1" style="list-style-type: decimal;">
+                                <li>Nhập tuổi người nhận việc (âm lịch hoặc dương lịch)</li>
+                                <li>Chọn khoảng thời gian dự kiến bắt đầu công việc</li>
+                                <li>
+                                  Hệ thống sẽ phân tích:
+                                    <ul class="mb-1">
+                                        <li>Hoàng đạo – hắc đạo.</li>
+                                        <li>Trực tốt – trực xấu.</li>
+                                        <li>Sao cát – sao hung.</li>
+                                        <li>Ngũ hành hợp tuổi.</li>
+                                        <li>Giờ hoàng đạo và giờ xung tuổi.</li>
+                                    </ul>
+                                </li>
+                                <li>Bạn chỉ cần chọn ngày và giờ phù hợp để khởi đầu công việc thuận lợi và may mắn.</li>
+                            </ul>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Lợi ích thực tế khi chọn đúng ngày nhận công việc mới
+                            </h2>
+                            <ul class="mb-1">
+                                <li>Bắt đầu công việc suôn sẻ, dễ hòa nhập môi trường mới</li>
+                                <li>Tăng tinh thần tự tin, ít áp lực trong những ngày đầu</li>
+                                <li>Thu hút may mắn, cơ hội và tài lộc</li>
+                                <li>Hạn chế xung đột, trục trặc, sai sót ngay từ đầu</li>
+                                <li>Tạo nền tảng tốt cho phát triển lâu dài và sự nghiệp bền vững</li>
+                            </ul>
+                        </div>
+                    </div>
+
                 </div>
                 @include('tools.siderbarindex')
             </div>
@@ -186,7 +331,6 @@
     </div>
 
     <!-- Mobile Date Range Quick Options Popup -->
-   
 @endsection
 
 @push('scripts')
@@ -253,7 +397,9 @@
                                 separator: ' - ',
                                 daysOfWeek: ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'],
                                 monthNames: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5',
-                                    'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
+                                    'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11',
+                                    'Tháng 12'
+                                ],
                                 firstDay: 1
                             }
                         };
@@ -342,7 +488,8 @@
                             }
 
                             // Check if dateSelector is available and fully initialized
-                            if (dateSelector && dateSelector.daySelect && dateSelector.monthSelect && dateSelector.yearSelect &&
+                            if (dateSelector && dateSelector.daySelect && dateSelector.monthSelect && dateSelector
+                                .yearSelect &&
                                 dateSelector.yearSelect.options.length > 1) {
 
                                 // Parse birthdate from URL (always in solar format from URL)
@@ -362,23 +509,28 @@
                                                 // Use LunarSolarDateSelect's handleLunarRadioChange method for conversion
                                                 try {
                                                     // First set solar date in selects
-                                                    await dateSelector.setDate(day, month, year, false, false);
+                                                    await dateSelector.setDate(day, month, year, false,
+                                                        false);
 
                                                     // Then switch to lunar mode - this will trigger automatic conversion
-                                                    const lunarRadio = document.getElementById('lunarCalendar');
-                                                    const solarRadio = document.getElementById('solarCalendar');
+                                                    const lunarRadio = document.getElementById(
+                                                        'lunarCalendar');
+                                                    const solarRadio = document.getElementById(
+                                                        'solarCalendar');
                                                     if (lunarRadio && solarRadio) {
                                                         lunarRadio.checked = true;
                                                         solarRadio.checked = false;
 
                                                         // Trigger the built-in conversion method
-                                                        if (dateSelector && typeof dateSelector.handleLunarRadioChange === 'function') {
+                                                        if (dateSelector && typeof dateSelector
+                                                            .handleLunarRadioChange === 'function') {
                                                             await dateSelector.handleLunarRadioChange();
                                                         }
                                                     }
                                                 } catch (error) {
                                                     // Fallback: just set as lunar without conversion
-                                                    await dateSelector.setDate(day, month, year, true, false);
+                                                    await dateSelector.setDate(day, month, year, true,
+                                                        false);
                                                 }
 
                                             } else {
@@ -512,7 +664,8 @@
                     isLeapMonth = ngayXemInput.dataset.lunarLeap === '1';
 
                     if (solarDay && solarMonth && solarYear) {
-                        formattedBirthdate = `${String(solarDay).padStart(2, '0')}/${String(solarMonth).padStart(2, '0')}/${solarYear}`;
+                        formattedBirthdate =
+                            `${String(solarDay).padStart(2, '0')}/${String(solarMonth).padStart(2, '0')}/${solarYear}`;
                     } else {
                         // Fallback to parsing lunar date from value
                         formattedBirthdate = ngayXemValue.replace(' (ÂL)', '').replace(' (ÂL-Nhuận)', '');
@@ -618,7 +771,8 @@
                                 }
 
                                 setTimeout(() => {
-                                    if (data.resultsByYear && typeof initTabooFilter === 'function') {
+                                    if (data.resultsByYear && typeof initTabooFilter ===
+                                        'function') {
                                         initTabooFilter(data.resultsByYear);
                                     }
                                 }, 200);

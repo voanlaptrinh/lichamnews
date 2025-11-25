@@ -177,14 +177,184 @@
                     </div>
                     <div id="resultsContainer" class="--detail-success">
                         <div class="d-flex flex-column align-items-center justify-content-center h-100 text-center">
-                            <div class="mb-4">
-                                <img src="{{ asset('/icons/defaild.png?v=1.0') }}" alt="defakd" class="img-fuild">
-                            </div>
-                            <p class="text-muted" style="font-size: 16px;">
-                                Hiện chưa có thông tin, bạn vui lòng nhập thông tin để xem kết quả.
-                            </p>
+
                         </div>
                     </div>
+                    <div class="box--bg-thang mt-3 mb-3">
+                        <div class="text-box-tong-quan">
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Vì sao nên xem ngày trước khi ký hợp đồng?
+                            </h2>
+                            <p class="mb-1">Ký hợp đồng là bước quan trọng trong kinh doanh, mua bán, đầu tư hoặc hợp tác
+                                giữa hai bên. Một hợp đồng được ký trong ngày – giờ tốt, hợp tuổi, hợp ngũ hành sẽ giúp:</p>
+                            <ul class="mb-1">
+                                <li>Tạo không khí thuận hòa, dễ đạt thỏa thuận</li>
+                                <li>Hạn chế tranh cãi, bất đồng quan điểm</li>
+                                <li>Giao dịch diễn ra nhanh, rõ ràng, ít phát sinh rủi ro</li>
+                                <li>Mang lại vận khí tốt cho tài chính và công việc về lâu dài</li>
+                                <li>Giúp tâm lý hai bên nhẹ nhàng, tự tin và thoải mái hơn</li>
+                            </ul>
+                            <p class="mb-1">Chính vì vậy, xem ngày ký hợp đồng đã trở thành một thói quen phổ biến, mang
+                                tính “chuẩn bị tinh thần” và hỗ trợ phong thủy thực tế.</p>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Khi nào bạn nên xem ngày ký hợp đồng?
+                            </h2>
+                            <ul class="mb-1">
+                                <li>Ký hợp đồng mua bán nhà – đất</li>
+                                <li>Ký hợp đồng lao động</li>
+                                <li>Ký hợp đồng kinh doanh – thương mại</li>
+                                <li>Ký hợp đồng đầu tư – góp vốn</li>
+                                <li>Ký hợp đồng mua xe, mua tài sản lớn</li>
+                                <li>Ký văn bản quan trọng giữa hai tổ chức</li>
+                            </ul>
+                            <p class="mb-1">Với các hợp đồng có giá trị lớn hoặc ảnh hưởng dài lâu, việc xem ngày chuẩn
+                                xác lại càng cần thiết.</p>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Cách xem ngày ký hợp đồng: Những yếu tố quan trọng nhất
+                            </h2>
+                            <ul class="mb-1" style="list-style-type: decimal;">
+                                <li>
+                                    <h3 class="title-tong-quan-h4-log">Ưu tiên ngày Hoàng đạo</h3>
+                                    <p class="mb-1">Ngày Hoàng đạo mang năng lượng cát lành, giúp:</p>
+                                    <ul class="mb-1">
+                                        <li>Đối tác dễ đồng thuận</li>
+                                        <li>Buổi làm việc diễn ra nhẹ nhàng, vui vẻ</li>
+                                        <li>Ký kết nhanh gọn, hợp tác bền lâu</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <h3 class="title-tong-quan-h4-log">Chọn ngày có Trực tốt</h3>
+                                    <p class="mb-1">Các Trực dưới đây đặc biệt phù hợp cho ký hợp đồng:</p>
+                                    <ul class="mb-1">
+                                        <li>Trực Mãn → Sự việc đầy đủ, trọn vẹn, thích hợp giao dịch</li>
+                                        <li>Trực Thành → Thành tựu, đại cát cho việc chốt hợp đồng</li>
+                                        <li>Trực Khai → Mở đầu tốt, thuận lợi đạt thỏa thuận</li>
+                                        <li>Trực Kiến → Thích hợp ký kết giấy tờ, khởi đầu mới</li>
+                                    </ul>
+                                    <p class="mb-1">Với hợp đồng quan trọng, hãy ưu tiên Trực Thành hoặc Trực Khai.</p>
+                                </li>
+                                <li>
+                                    <h3 class="title-tong-quan-h4-log">Chọn ngày hợp tuổi, ngũ hành sinh cho bản mệnh</h3>
+                                    <p class="mb-1">Ngày hợp tuổi giúp giảm xung khắc, tăng sự hòa hợp và dễ đạt thỏa
+                                        thuận.</p>
+                                    <ul class="mb-1">
+                                        <li>Mệnh Mộc → chọn ngày Thủy hoặc Mộc</li>
+                                        <li>Mệnh Hỏa → ngày Mộc hoặc Hỏa</li>
+                                        <li>Mệnh Thổ → ngày Hỏa hoặc Thổ</li>
+                                        <li>Mệnh Kim → ngày Thổ hoặc Kim</li>
+                                        <li>Mệnh Thủy → ngày Kim hoặc Thủy</li>
+                                    </ul>
+                                    <p class="mb-1">Sự tương sinh, tương hỗ này giúp tăng vận khí, hạn chế tranh chấp và
+                                        sai sót.</p>
+                                </li>
+                                <li>
+                                    <h3 class="title-tong-quan-h4-log">Chọn ngày có sao cát</h3>
+                                    <p class="mb-1">Một số sao cát rất tốt cho ký kết – làm ăn – giao dịch:</p>
+                                    <ul class="mb-1">
+                                        <li>Thiên Đức, Nguyệt Đức → Quý nhân phù trợ, đàm phán thuận lợi</li>
+                                        <li>Thiên Hỷ → Không khí vui vẻ, dễ đồng thuận</li>
+                                        <li>Thiên Quan – Thiên Phúc → Hóa giải xung đột, giảm tranh chấp</li>
+                                        <li>Lộc Tồn, Hóa Lộc → Tài lộc, hợp đồng mang lại lợi ích kinh tế</li>
+                                        <li>Tam Hợp, Lục Hợp → Tăng hòa khí giữa hai bên</li>
+                                        <li>Thiên Mã → Tốt cho giao thương, ký kết hợp đồng làm ăn</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <h3 class="title-tong-quan-h4-log">Chọn giờ tốt</h3>
+                                    <p class="mb-1">Nếu có thể lựa chọn thời gian ký:</p>
+                                    <ul class="mb-1">
+                                        <li>Ưu tiên giờ Hoàng đạo</li>
+                                        <li>Tránh giờ xung tuổi (ví dụ: tuổi Mão tránh giờ Dậu, tuổi Tý tránh giờ Ngọ…)</li>
+
+                                    </ul>
+                                    <p class="mb-1">Giờ đẹp giúp buổi ký kết diễn ra thuận lợi, tinh thần đôi bên cũng
+                                        thoải mái hơn.
+                                    </p>
+                                </li>
+                            </ul>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Những ngày KHÔNG nên ký hợp đồng
+                            </h2>
+                            <h3 class="title-tong-quan-h4-log">
+                                1. Ngày Hắc đạo
+                            </h3>
+                            <ul class="mb-1">
+                                <li>Câu Trận</li>
+                                <li>Bạch Hổ</li>
+                                <li>Thiên Lao</li>
+                                <li>Nguyên Vũ</li>
+                            </ul>
+                            <p class="mb-1"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                    fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                        d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
+                                </svg> Đây là nhóm ngày xấu dễ gây thị phi, tranh chấp, kiện tụng.
+                            </p>
+                            <h3 class="title-tong-quan-h4-log">
+                                2. Trực xấu
+                            </h3>
+                            <ul class="mb-1">
+                                <li>Trực Phá → Hỏng việc</li>
+                                <li>Trực Nguy → Bất ổn, tiềm ẩn rủi ro</li>
+                                <li>Trực Thu → Hao hụt, thất thoát</li>
+                                <li>Trực Bế → Bế tắc, dễ xảy ra tranh cãi</li>
+                            </ul>
+                            <h3 class="title-tong-quan-h4-log">
+                                3. Ngày xung tuổi
+                            </h3>
+                            <p class="mb-1"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                    fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                        d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
+                                </svg> Hai bên dễ bất đồng, ký kết không thuận lợi.</p>
+                            <h3 class="title-tong-quan-h4-log">
+                                4. Tránh ngày kỵ
+                            </h3>
+                            <ul class="mb-1">
+                                <li>Tam Nương: 3 – 7 – 13 – 18 – 22 – 27</li>
+                                <li>Nguyệt Kỵ: 5 – 14 – 23</li>
+                                <li>Dương Công Kỵ Nhật:</li>
+                            </ul>
+                            <p class="mb-1"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                    fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                        d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
+                                </svg> Đây là những ngày đại kỵ ký kết, dễ gặp cản trở hoặc phát sinh kiện tụng về sau.</p>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Hướng dẫn sử dụng công cụ xem ngày ký hợp đồng trên Phong Lịch
+                            </h2>
+                            <ul style="	list-style-type: decimal;" class="mb-1">
+                                <li>Chọn tuổi người ký</li>
+                                <li>Chọn khoảng thời gian dự kiến ký kết</li>
+                                <li>Hệ thống tự động phân tích:
+                                    <ul>
+                                        <li>Hoàng đạo – hắc đạo</li>
+                                        <li>Trực tốt – xấu</li>
+                                        <li>Sao cát – sao hung</li>
+                                        <li>Ngũ hành hợp tuổi</li>
+                                        <li>Giờ tốt – giờ xung tuổi</li>
+                                    </ul>
+                                </li>
+                                <li>Công cụ gợi ý những ngày đẹp nhất, kèm điểm tốt – xấu và lưu ý chi tiết.</li>
+                            </ul>
+                            <p class="mb-1">Bạn chỉ cần chọn ngày phù hợp nhất với kế hoạch làm việc của hai bên.
+                            </p>
+                             <h2 class="title-tong-quan-h3-log fw-bolder">
+                             Chọn đúng ngày ký hợp đồng mang lại gì?
+                            </h2>
+                            <ul class="mb-1"> 
+                                <li>Giao dịch suôn sẻ – rõ ràng</li>
+                                <li>Đối tác dễ đồng thuận, tinh thần thoải mái</li>
+                                <li>Hạn chế sai sót, tranh chấp, đứt đoạn thỏa thuận</li>
+                                <li>Thu hút tài lộc, lợi ích lâu dài</li>
+                                <li>Tạo nền tảng cho hợp tác bền vững giữa hai bên</li>
+                            </ul>
+                        </div>
+                    </div>
+
+
+
+
                 </div>
                 @include('tools.siderbarindex')
             </div>
@@ -741,7 +911,10 @@
                     // Scroll to table after sort
                     setTimeout(() => {
                         const bangChiTiet = document.querySelector('#bang-chi-tiet');
-                        bangChiTiet?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        bangChiTiet?.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
                     }, 100);
                 }
             }
@@ -901,7 +1074,8 @@
                 const resultsContainer = document.querySelector('.--detail-success');
                 resultsContainer.addEventListener('click', function(event) {
                     if (event.target.matches('.load-more-btn') || event.target.closest('.load-more-btn')) {
-                        const btn = event.target.matches('.load-more-btn') ? event.target : event.target.closest('.load-more-btn');
+                        const btn = event.target.matches('.load-more-btn') ? event.target : event.target
+                            .closest('.load-more-btn');
                         const year = btn.getAttribute('data-year');
                         const currentLoaded = parseInt(btn.getAttribute('data-loaded'));
                         const total = parseInt(btn.getAttribute('data-total'));
@@ -925,7 +1099,8 @@
                             const remaining = total - newLoaded;
                             if (remaining > 0) {
                                 const nextLoad = Math.min(10, remaining);
-                                btn.innerHTML = `<i class="bi bi-plus-circle me-2"></i>Xem thêm ${nextLoad} bảng<span class="text-muted ms-2">(${remaining} còn lại)</span>`;
+                                btn.innerHTML =
+                                    `<i class="bi bi-plus-circle me-2"></i>Xem thêm ${nextLoad} bảng<span class="text-muted ms-2">(${remaining} còn lại)</span>`;
                             } else {
                                 btn.style.display = 'none';
                             }
@@ -966,11 +1141,14 @@
 
                 // Đếm TOTAL filtered rows TRƯỚC khi thay đổi pagination
                 const allRows = table.querySelectorAll('tr:not(.empty-filter-row)');
-                const totalFilteredRows = parseInt(loadMoreBtn.getAttribute('data-total')) || Array.from(allRows).filter(row => {
-                    return row.style.display !== 'none';
-                }).length;
+                const totalFilteredRows = parseInt(loadMoreBtn.getAttribute('data-total')) || Array.from(allRows)
+                    .filter(row => {
+                        return row.style.display !== 'none';
+                    }).length;
 
-                console.log(`Maintaining pagination: ${currentLoaded} out of ${totalFilteredRows} filtered rows (${allRows.length} total)`);
+                console.log(
+                    `Maintaining pagination: ${currentLoaded} out of ${totalFilteredRows} filtered rows (${allRows.length} total)`
+                );
 
                 // Show rows according to current pagination state
                 allRows.forEach((row, index) => {
@@ -987,7 +1165,8 @@
                 const remaining = totalFilteredRows - currentLoaded;
                 if (remaining > 0) {
                     const nextLoad = Math.min(10, remaining);
-                    loadMoreBtn.innerHTML = `<i class="bi bi-plus-circle me-2"></i>Xem thêm ${nextLoad} bảng<span class="text-muted ms-2">(${remaining} còn lại)</span>`;
+                    loadMoreBtn.innerHTML =
+                        `<i class="bi bi-plus-circle me-2"></i>Xem thêm ${nextLoad} bảng<span class="text-muted ms-2">(${remaining} còn lại)</span>`;
                     loadMoreBtn.style.display = '';
                     loadMoreBtn.setAttribute('data-total', totalFilteredRows.toString());
                 } else {
@@ -997,5 +1176,4 @@
         });
     </script>
     @include('components.taboo-filter-script')
-
 @endpush

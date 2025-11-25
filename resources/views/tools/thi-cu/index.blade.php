@@ -3,20 +3,19 @@
 @section('content')
     @push('styles')
         <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=10.7') }}">
-
     @endpush
 
     <div class="container-setup">
-            <nav aria-label="breadcrumb" class="content-title-detail">
+        <nav aria-label="breadcrumb" class="content-title-detail">
             <ol class="breadcrumb mb-1">
                 <li class="breadcrumb-item">
-                    <a href="{{ route('home') }}"  style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
+                    <a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
                 </li>
                 <li class="breadcrumb-item" aria-current="page">
-                  Tiện ích
+                    Tiện ích
                 </li>
-                 <li class="breadcrumb-item active" aria-current="page">
-                 Xem ngày thi cử - phỏng vấn
+                <li class="breadcrumb-item active" aria-current="page">
+                    Xem ngày thi cử - phỏng vấn
                 </li>
             </ol>
         </nav>
@@ -119,7 +118,8 @@
                                                     </div>
 
                                                     <!-- Hidden input to store formatted date -->
-                                                    <input type="hidden" id="ngayXem" name="birthdate" value="{{ old('birthdate', $inputs['birthdate'] ?? '') }}">
+                                                    <input type="hidden" id="ngayXem" name="birthdate"
+                                                        value="{{ old('birthdate', $inputs['birthdate'] ?? '') }}">
 
                                                     @error('birthdate')
                                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -172,12 +172,80 @@
                     </div>
                     <div id="resultsContainer" class="--detail-success">
                         <div class="d-flex flex-column align-items-center justify-content-center h-100 text-center">
-                            <div class="mb-4">
-                                <img src="{{ asset('/icons/defaild.png?v=1.0') }}" alt="defakd" class="img-fuild">
-                            </div>
-                            <p class="text-muted" style="font-size: 16px;">
-                                Hiện chưa có thông tin, bạn vui lòng nhập thông tin để xem kết quả.
+
+                        </div>
+                    </div>
+                    <div class="box--bg-thang mt-3 mb-3">
+                        <div class="text-box-tong-quan">
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Vì sao nên xem ngày thi cử, phỏng vấn?
+                            </h2>
+                            <p class="mb-1">
+                                Ngày thi hay phỏng vấn là bước quan trọng, ảnh hưởng trực tiếp đến kết quả học tập, công
+                                việc và cơ hội thăng tiến. Chọn ngày tốt giúp:
                             </p>
+                            <ul class="mb-1">
+                                <li>Tâm lý tự tin, bình tĩnh khi tham gia</li>
+                                <li>Tránh xung khắc tuổi, giảm áp lực, stress</li>
+                                <li>Thu hút may mắn, thuận lợi trong quá trình thi hoặc phỏng vấn</li>
+                                <li>Tăng khả năng đạt kết quả tốt và để lại ấn tượng tích cực</li>
+                            </ul>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Lợi ích khi chọn ngày tốt
+                            </h2>
+                            <ul class="mb-1">
+                                <li>Tăng tâm lý vững vàng, giảm lo lắng</li>
+                                <li>Kết quả thi hoặc phỏng vấn khả quan hơn</li>
+                                <li>Thuận lợi về phong thủy, năng lượng tích cực hỗ trợ học tập, làm việc</li>
+                                <li>Tránh xung đột, trục trặc không cần thiết</li>
+                                <li>Tạo nền tảng may mắn cho các bước tiếp theo trong học tập và sự nghiệp</li>
+                            </ul>
+                              <h2 class="title-tong-quan-h3-log fw-bolder">
+                               Cách chọn ngày thi cử, phỏng vấn
+                            </h2>
+                            <p class="mb-1">Những ngày có yếu tố cát lành nên chọn:</p>
+                            <ul class="mb-1">
+                                <li>Hoàng đạo → Ngày thuận lợi, tăng cát khí</li>
+                                <li>Trực tốt: Kiến – Khai – Thành – Mãn → Hỗ trợ bắt đầu công việc mới hoặc thi cử thuận lợi</li>
+                                <li>Ngũ hành hợp tuổi/mệnh → Tăng may mắn, giảm xung khắc</li>
+                                <li>Sao cát: Thiên Đức, Nguyệt Đức, Thiên Quan, Thiên Phúc, Lộc Tồn → Hỗ trợ thi cử, giao tiếp tốt</li>
+                                <li>Giờ Hoàng đạo → Thời điểm làm bài hay phỏng vấn thuận lợi</li>
+                                <li>Ngày không xung tuổi</li>
+                            </ul>
+                            <p class="mb-1">Những ngày có yếu tố xấu cần tránh:</p>
+                            <ul class="mb-1">
+                                <li>Ngày Hắc đạo: Câu Trận, Bạch Hổ, Thiên Lao, Nguyên Vũ</li>
+                                <li>Trực xấu: Phá – Nguy – Thu – Bế → Gây trục trặc, căng thẳng</li>
+                                <li>Ngày xung tuổi</li>
+                                <li>Ngày đại kỵ: Tam Nương, Nguyệt Kỵ, Dương Công Kỵ Nhật</li>
+                            </ul>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Hướng dẫn sử dụng công cụ Phong Lịch
+                            </h2>
+                            <ul class="mb-1" style="list-style-type: decimal;">
+                                <li>Nhập tuổi của thí sinh hoặc người phỏng vấn</li>
+                                <li>Chọn khoảng thời gian dự kiến thi hoặc phỏng vấn</li>
+                                <li>Hệ thống phân tích:
+                                    <ul class="mb-1">
+                                        <li>Hoàng đạo – hắc đạo</li>
+                                        <li>Trực tốt – xấu</li>
+                                        <li>Sao cát – sao hung</li>
+                                        <li>Ngũ hành hợp tuổi</li>
+                                        <li>Giờ tốt – giờ xung tuổi</li>
+                                    </ul>
+                                </li>
+                                <li>Công cụ gợi ý ngày tốt nhất, kèm điểm tốt – xấu và lưu ý chi tiết</li>
+                            </ul>
+                             <h2 class="title-tong-quan-h3-log fw-bolder">
+                              Lợi ích khi chọn đúng ngày thi cử, phỏng vấn
+                            </h2>
+                            <ul class="mb-1">
+                                <li>Tâm lý tự tin, giảm áp lực</li>
+                                <li>Hiệu suất tối ưu, kết quả khả quan</li>
+                                <li>Tránh rủi ro, trục trặc không đáng có</li>
+                                <li>Thu hút may mắn và thuận lợi cho các bước tiếp theo</li>
+                                <li>Tạo ấn tượng tích cực trong mắt giáo viên, giám khảo hoặc nhà tuyển dụng</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -188,7 +256,6 @@
     </div>
 
     <!-- Mobile Date Range Quick Options Popup -->
-
 @endsection
 
 @push('scripts')
@@ -255,7 +322,9 @@
                                 separator: ' - ',
                                 daysOfWeek: ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'],
                                 monthNames: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5',
-                                    'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
+                                    'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11',
+                                    'Tháng 12'
+                                ],
                                 firstDay: 1
                             }
                         };
@@ -348,7 +417,8 @@
                     }
 
                     // Check if dateSelector is available and fully initialized
-                    if (dateSelector && dateSelector.daySelect && dateSelector.monthSelect && dateSelector.yearSelect &&
+                    if (dateSelector && dateSelector.daySelect && dateSelector.monthSelect && dateSelector
+                        .yearSelect &&
                         dateSelector.yearSelect.options.length > 1) {
 
                         // Parse birthdate from URL (always in solar format from URL)
@@ -378,7 +448,8 @@
                                                 solarRadio.checked = false;
 
                                                 // Trigger the built-in conversion method
-                                                if (dateSelector && typeof dateSelector.handleLunarRadioChange === 'function') {
+                                                if (dateSelector && typeof dateSelector
+                                                    .handleLunarRadioChange === 'function') {
                                                     await dateSelector.handleLunarRadioChange();
                                                 }
                                             }
@@ -529,7 +600,8 @@
                     isLeapMonth = ngayXemInput.dataset.lunarLeap === '1';
 
                     if (solarDay && solarMonth && solarYear) {
-                        formattedBirthdate = `${String(solarDay).padStart(2, '0')}/${String(solarMonth).padStart(2, '0')}/${solarYear}`;
+                        formattedBirthdate =
+                            `${String(solarDay).padStart(2, '0')}/${String(solarMonth).padStart(2, '0')}/${solarYear}`;
                     } else {
                         // Fallback to parsing lunar date from value
                         formattedBirthdate = ngayXemValue.replace(' (ÂL)', '').replace(' (ÂL-Nhuận)', '');
@@ -635,7 +707,8 @@
                                 }
 
                                 setTimeout(() => {
-                                    if (data.resultsByYear && typeof initTabooFilter === 'function') {
+                                    if (data.resultsByYear && typeof initTabooFilter ===
+                                        'function') {
                                         initTabooFilter(data.resultsByYear);
                                     }
                                 }, 200);
@@ -778,8 +851,8 @@
                     const activeTabPane = document.querySelector(`#year-${year}`);
                     if (activeTabPane) {
                         table = activeTabPane.querySelector(`#table-${year} tbody`) ||
-                               activeTabPane.querySelector('.table tbody') ||
-                               activeTabPane.querySelector('tbody');
+                            activeTabPane.querySelector('.table tbody') ||
+                            activeTabPane.querySelector('tbody');
                     }
 
                     // Fallback: global search for year-specific table
@@ -868,7 +941,10 @@
                         if (year) {
                             const yearTab = document.querySelector(`#year-${year}`);
                             const bangChiTiet = yearTab?.querySelector('#bang-chi-tiet');
-                            bangChiTiet?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            bangChiTiet?.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
                         } else {
                             document.getElementById('bang-chi-tiet')?.scrollIntoView({
                                 behavior: 'smooth',
@@ -888,7 +964,9 @@
                     const total = parseInt(btn.dataset.total) || 0;
                     const loadAmount = 10;
 
-                    console.log(`Load more for year ${year}: showing ${currentLoaded + loadAmount} out of ${total}`);
+                    console.log(
+                        `Load more for year ${year}: showing ${currentLoaded + loadAmount} out of ${total}`
+                    );
 
                     // Show more rows for this specific year
                     const yearTab = document.querySelector(`#year-${year}`);

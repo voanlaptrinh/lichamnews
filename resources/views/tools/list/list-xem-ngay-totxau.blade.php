@@ -29,14 +29,14 @@
                         <p>Mỗi công cụ đều dựa trên tuổi của người xem (âm hoặc dương lịch), tra cứu theo Ngọc Hạp Thông
                             Thư, Nhị Thập Bát Tú, Thập Nhị Trực, Can Chi, Hoàng Đạo… để đưa ra ngày giờ tốt, và các lưu ý
                             chi tiết.</p>
-                        <h2 class="title-tong-quan-h2-log mb-0">Việc Đại Sự</h2>
+                        <h2 class="title-tong-quan-h3-log mb-0">Việc Đại Sự</h2>
                         <div class="row g-3 pt-4 pb-4">
                             <div class="col-lg-2 col-xl-2 col-md-4 col-6">
                                 <div class="box-tong-quan-tot-xau">
                                     <a href="{{ route('astrology.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('icons/xem-ngay-tot.svg') }}" class="icon img-fluid"
+                                            <img src="{{ asset('images/tool_kethon.svg') }}" class="icon img-fluid"
                                                 width="80px" height="80px">
                                         </div>
 
@@ -52,7 +52,7 @@
                                     <a href="{{ route('dam-ngo.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('icons/xem-ngay-tot.svg') }}" class="icon img-fluid"
+                                            <img src="{{ asset('images/tool_damngo.svg') }}" class="icon img-fluid"
                                                 width="80px" height="80px">
                                         </div>
 
@@ -68,7 +68,7 @@
                                     <a href="{{ route('khai-truong.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('icons/xem-ngay-tot.svg') }}" class="icon img-fluid"
+                                            <img src="{{ asset('images/tool_khaitruong.svg') }}" class="icon img-fluid"
                                                 width="80px" height="80px">
                                         </div>
 
@@ -84,7 +84,7 @@
                                     <a href="{{ route('breaking.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('icons/xem-ngay-tot.svg') }}" class="icon img-fluid"
+                                            <img src="{{ asset('images/tool_dongtho.svg') }}" class="icon img-fluid"
                                                 width="80px" height="80px">
                                         </div>
 
@@ -100,7 +100,7 @@
                                     <a href="{{ route('nhap-trach.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('icons/xem-ngay-tot.svg') }}" class="icon img-fluid"
+                                            <img src="{{ asset('images/tool_nhaptrach.svg') }}" class="icon img-fluid"
                                                 width="80px" height="80px">
                                         </div>
 
@@ -116,7 +116,7 @@
                                     <a href="{{ route('buy-house.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('icons/xem-ngay-tot.svg') }}" class="icon img-fluid"
+                                            <img src="{{ asset('images/tool_muanha.svg') }}" class="icon img-fluid"
                                                 width="80px" height="80px">
                                         </div>
 
@@ -132,7 +132,7 @@
                                     <a href="{{ route('mua-xe.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('icons/xem-ngay-tot.svg') }}" class="icon img-fluid"
+                                            <img src="{{ asset('images/tool_muaxe.svg') }}" class="icon img-fluid"
                                                 width="80px" height="80px">
                                         </div>
 
@@ -148,7 +148,7 @@
                                     <a href="{{ route('totxau.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('icons/xem-ngay-tot.svg') }}" class="icon img-fluid"
+                                            <img src="{{ asset('images/tool_totxau.svg') }}" class="icon img-fluid"
                                                 width="80px" height="80px">
                                         </div>
 
@@ -160,14 +160,14 @@
                                 </div>
                             </div>
                         </div>
-                        <h2 class="title-tong-quan-h2-log mb-0">Công Việc - Sự Nghiệp</h2>
+                        <h2 class="title-tong-quan-h3-log mb-0">Công Việc - Sự Nghiệp</h2>
                         <div class="row g-3 pt-4 pb-4">
                             <div class="col-lg-2 col-xl-2 col-md-4 col-6">
                                 <div class="box-tong-quan-tot-xau">
                                     <a href="{{ route('xuat-hanh.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('icons/xem-ngay-tot.svg') }}" class="icon img-fluid"
+                                            <img src="{{ asset('images/tool_xuathanh.svg') }}" class="icon img-fluid"
                                                 width="80px" height="80px">
                                         </div>
 
@@ -183,7 +183,7 @@
                                     <a href="{{ route('ky-hop-dong.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('icons/xem-ngay-tot.svg') }}" class="icon img-fluid"
+                                            <img src="{{ asset('images/tool_hopdong.svg') }}" class="icon img-fluid"
                                                 width="80px" height="80px">
                                         </div>
 
@@ -199,7 +199,7 @@
                                     <a href="{{ route('cong-viec-moi.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('icons/xem-ngay-tot.svg') }}" class="icon img-fluid"
+                                            <img src="{{ asset('images/tool_nhancongviec.svg') }}" class="icon img-fluid"
                                                 width="80px" height="80px">
                                         </div>
 
@@ -215,7 +215,7 @@
                                     <a href="{{ route('giay-to.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('icons/xem-ngay-tot.svg') }}" class="icon img-fluid"
+                                            <img src="{{ asset('images/tool_giayto.svg') }}" class="icon img-fluid"
                                                 width="80px" height="80px">
                                         </div>
 
@@ -231,7 +231,7 @@
                                     <a href="{{ route('thi-cu.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('icons/xem-ngay-tot.svg') }}" class="icon img-fluid"
+                                            <img src="{{ asset('images/tool_thicu.svg') }}" class="icon img-fluid"
                                                 width="80px" height="80px">
                                         </div>
 
@@ -244,14 +244,14 @@
                             </div>
 
                         </div>
-                        <h2 class="title-tong-quan-h2-log mb-0">Nhà Cửa - Tâm Linh</h2>
+                        <h2 class="title-tong-quan-h3-log mb-0">Nhà Cửa - Tâm Linh</h2>
                         <div class="row g-3 pt-4 pb-4">
                             <div class="col-lg-2 col-xl-2 col-md-4 col-6">
                                 <div class="box-tong-quan-tot-xau">
                                     <a href="{{ route('cai-tang.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('icons/xem-ngay-tot.svg') }}" class="icon img-fluid"
+                                            <img src="{{ asset('images/tool_sangcat.svg') }}" class="icon img-fluid"
                                                 width="80px" height="80px">
                                         </div>
 
@@ -267,7 +267,7 @@
                                     <a href="{{ route('tran-trach.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('icons/xem-ngay-tot.svg') }}" class="icon img-fluid"
+                                            <img src="{{ asset('images/tool_trantrach.svg') }}" class="icon img-fluid"
                                                 width="80px" height="80px">
                                         </div>
 
@@ -283,7 +283,7 @@
                                     <a href="{{ route('lap-ban-tho.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('icons/xem-ngay-tot.svg') }}" class="icon img-fluid"
+                                            <img src="{{ asset('images/tool_lapban.svg') }}" class="icon img-fluid"
                                                 width="80px" height="80px">
                                         </div>
 
@@ -299,7 +299,7 @@
                                     <a href="{{ route('ban-tho.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('icons/xem-ngay-tot.svg') }}" class="icon img-fluid"
+                                            <img src="{{ asset('images/tool_doiban.svg') }}" class="icon img-fluid"
                                                 width="80px" height="80px">
                                         </div>
 
@@ -315,7 +315,7 @@
                                     <a href="{{ route('giai-han.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('icons/xem-ngay-tot.svg') }}" class="icon img-fluid"
+                                            <img src="{{ asset('images/tool_giaihan.svg') }}" class="icon img-fluid"
                                                 width="80px" height="80px">
                                         </div>
 
@@ -331,7 +331,7 @@
                                     <a href="{{ route('phong-sinh.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('icons/xem-ngay-tot.svg') }}" class="icon img-fluid"
+                                            <img src="{{ asset('images/tool_cauan.svg') }}" class="icon img-fluid"
                                                 width="80px" height="80px">
                                         </div>
 
@@ -349,7 +349,7 @@
                         <div class="text-box-tong-quan">
 
 
-                            <h2 class="title-tong-quan-h2-log fw-bolder">Giới thiệu về tính năng xem ngày tốt theo tuổi cho
+                            <h2 class="title-tong-quan-h3-log fw-bolder">Giới thiệu về tính năng xem ngày tốt theo tuổi cho
                                 mọi
                                 công việc
                                 quan trọng</h2>
@@ -368,7 +368,7 @@
                                 từng việc: cưới hỏi, xây dựng, khai trương, ký kết, di chuyển, cúng lễ… hoặc đơn giản là xem
                                 một ngày bất kỳ có đẹp hay không.</p>
 
-                            <h2 class="title-tong-quan-h2-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
                                 Tại sao nên sử dụng hệ thống xem ngày tốt?
                             </h2>
                             <h3 class="title-tong-quan-h4-log">
@@ -397,7 +397,7 @@
                             </ul>
                             <p class="mb-1">Việc lọc ngày theo mục đích + theo tuổi giúp bạn chọn được ngày phù hợp nhất.
                             </p>
-                            <h2 class="title-tong-quan-h2-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
                                 Hướng dẫn cách sử dụng danh sách công cụ xem ngày tốt
                             </h2>
                             <h3 class="title-tong-quan-h4-log">
@@ -432,7 +432,7 @@
                             </h3>
                             <p class="mb-1">Bạn có thể xem thêm các lựa chọn khác trong cùng khoảng thời gian nếu muốn
                                 linh hoạt hơn về lịch trình.</p>
-                            <h2 class="title-tong-quan-h2-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
                                 Khi chọn một ngày tốt, bạn cần xét những yếu tố có lợi nào?
                             </h2>
                             <p class="mb-1">Dưới đây là các yếu tố cát lợi mà hệ thống ưu tiên khi gợi ý ngày đẹp:</p>
@@ -459,7 +459,7 @@
                             </h3>
                             <p class="mb-1">Một số sao đặc biệt tốt cho xây dựng, hoặc đặc biệt tốt cho cưới hỏi, khai
                                 trương…</p>
-                            <h2 class="title-tong-quan-h2-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
                                 Những yếu tố bất lợi cần tránh khi chọn ngày
                             </h2>
                             <p class="mb-1">Khi tìm ngày tốt, hệ thống tự động loại bỏ các yếu tố xấu sau:</p>
@@ -483,7 +483,7 @@
                                 4. Ngày hắc đạo – ngày không hợp ngũ hành công việc
                             </h3>
                             <p class="mb-1">Dễ gây trở ngại, trì hoãn hoặc thiếu thuận lợi khi triển khai.</p>
-                            <h2 class="title-tong-quan-h2-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
                                 Kết luận
                             </h2>
                             <p class="mb-0">Trang danh sách các công cụ xem ngày tốt trên Phong Lịch giúp bạn dễ dàng tìm

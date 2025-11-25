@@ -6,7 +6,7 @@
     @endpush
 
     <div class="container-setup">
-           <nav aria-label="breadcrumb" class="content-title-detail">
+        <nav aria-label="breadcrumb" class="content-title-detail">
             <ol class="breadcrumb mb-1">
                 <li class="breadcrumb-item">
                     <a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
@@ -17,10 +17,10 @@
                 <li class="breadcrumb-item active" aria-current="page">
                     Xem ngày Động thổ
                 </li>
-             
+
             </ol>
         </nav>
-  
+
 
         <h1 class="content-title-home-lich">Xem ngày tốt động thổ theo tuổi</h1>
 
@@ -117,7 +117,8 @@
                                                     </div>
 
                                                     <!-- Hidden input to store formatted date -->
-                                                    <input type="hidden" id="ngayXem" name="birthdate" value="{{ old('birthdate', $inputs['birthdate'] ?? '') }}">
+                                                    <input type="hidden" id="ngayXem" name="birthdate"
+                                                        value="{{ old('birthdate', $inputs['birthdate'] ?? '') }}">
 
                                                     @error('birthdate')
                                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -129,17 +130,17 @@
                                                     <div class="fw-bold title-tong-quan-h2-log">Giới tính</div>
                                                     <div class="d-flex gap-4 ps-2">
                                                         <div class="form-check d-flex align-items-center">
-                                                            <input type="radio" class="form-check-input"
-                                                                name="gender" id="maleGender" value="male"
-                                                                checked style="width: 24px; height: 24px; cursor: pointer;">
+                                                            <input type="radio" class="form-check-input" name="gender"
+                                                                id="maleGender" value="male" checked
+                                                                style="width: 24px; height: 24px; cursor: pointer;">
                                                             <label class="form-check-label ms-2" for="maleGender"
                                                                 style="cursor: pointer; font-size: 15px; color: #333;">
                                                                 Nam
                                                             </label>
                                                         </div>
                                                         <div class="form-check d-flex align-items-center">
-                                                            <input type="radio" class="form-check-input"
-                                                                name="gender" id="femaleGender" value="female"
+                                                            <input type="radio" class="form-check-input" name="gender"
+                                                                id="femaleGender" value="female"
                                                                 style="width: 24px; height: 24px; cursor: pointer;">
                                                             <label class="form-check-label ms-2" for="femaleGender"
                                                                 style="cursor: pointer; font-size: 15px; color: #333;">
@@ -194,174 +195,107 @@
                     </div>
                     <div id="resultsContainer" class="--detail-success">
                         <div class="d-flex flex-column align-items-center justify-content-center h-100 text-center">
-                            <div class="mb-4">
-                                <img src="{{ asset('/icons/defaild.png?v=1.0') }}" alt="defakd" class="img-fuild">
-                            </div>
-                            <p class="text-muted" style="font-size: 16px;">
-                                Hiện chưa có thông tin, bạn vui lòng nhập thông tin để xem kết quả.
-                            </p>
+
                         </div>
                     </div>
+
+                    <div class="box--bg-thang mt-3 mb-3">
+                        <div class="text-box-tong-quan">
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Vì sao động thổ cần chọn ngày tốt?
+                            </h2>
+                            <p class="mb-1">Động thổ là nghi lễ quan trọng mở đầu cho việc xây dựng hoặc sửa chữa công
+                                trình: nhà ở, văn phòng, công ty hay dự án lớn. Đây là bước khởi đầu mang tính quyết định,
+                                vì người xưa tin rằng chọn ngày tốt sẽ giúp:</p>
+                            <ul class="mb-1">
+                                <li>Công trình thi công thuận lợi, tránh trắc trở, chậm tiến độ.</li>
+                                <li>Tăng năng lượng may mắn, giảm rủi ro, tai ương trong quá trình thi công.</li>
+                                <li>Tâm lý chủ đầu tư và gia đình yên tâm, tự tin thực hiện kế hoạch.</li>
+                            </ul>
+                            <p class="mb-1">Nếu ngày động thổ không phù hợp, theo phong thủy truyền thống, có thể gặp các
+                                bất lợi như trì trệ, hao tốn chi phí hoặc ảnh hưởng đến phong thủy nhà cửa.</p>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Lợi ích của việc chọn ngày động thổ hợp tuổi
+                            </h2>
+                            <p class="mb-1">Chọn ngày động thổ phù hợp mang lại những lợi ích cụ thể:</p>
+                            <ul class="mb-1">
+                                <li>Hạn chế xung khắc tuổi gia chủ với ngày, tránh các yếu tố phong thủy không thuận.</li>
+                                <li>Chọn ngày hoàng đạo, giờ hoàng đạo, giúp công trình khởi công trôi chảy.</li>
+                                <li>Tạo nền tảng vững chắc về tâm lý và phong thủy, từ ngày đầu thi công cho tới hoàn thiện.
+                                </li>
+                            </ul>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Khi xem ngày động thổ, cần chú ý điều gì?
+                            </h2>
+                            <ul style="list-style-type: upper-alpha;">
+                                <li>
+                                    <h3 class="title-tong-quan-h4-log">Các yếu tố có lợi cần ưu tiên</h3>
+                                    <ul style="list-style-type: decimal;">
+                                        <li>
+                                            <p class="mb-0">Ngày hoàng đạo, trực tốt</p>
+                                            <p class="mb-0">Ngày Hoàng đạo và các trực như: Trực Khai, Trực Thành, Trực
+                                                Mãn thường được dùng cho động thổ vì mang ý nghĩa mở đầu thuận lợi.</p>
+                                        </li>
+                                        <li>
+                                            <p class="mb-0">Ngày hợp tuổi gia chủ</p>
+                                            <p class="mb-0">Ngũ hành và Can Chi của ngày nên tương sinh hoặc tương hỗ với
+                                                tuổi chủ công trình.</p>
+                                        </li>
+                                        <li>
+                                            <p class="mb-0">Sao tốt và giờ tốt</p>
+                                            <p class="mb-0">Lựa chọn ngày có sao cát lợi về xây dựng, như Thiên Đức, Phúc
+                                                Sinh…</p>
+                                            <p class="mb-0">Chọn khung giờ hoàng đạo để làm lễ động thổ, xuất hành vật
+                                                liệu hoặc làm nghi thức khai sàng.</p>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <h3 class="title-tong-quan-h4-log">Các yếu tố cần tránh</h3>
+                                    <ul class="mb-1">
+                                        <li>Ngày xung tuổi hoặc phạm Thái Tuế của gia chủ.</li>
+                                        <li>Ngày hắc đạo hoặc trực xấu, ví dụ Trực Bế, Trực Phá, Trực Nguy.</li>
+                                        <li>Sao xấu, như sao Đại Hao, Thiên Cương…</li>
+                                        <li>Ngày có bách kỵ liên quan đến xây dựng, khởi công: Thọ Tử, Sát Chủ Dương…</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <p class="mb-1">Tránh những ngày này giúp buổi động thổ diễn ra suôn sẻ, giảm rủi ro và khó
+                                khăn cho công trình.</p>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Hướng dẫn sử dụng công cụ Xem Ngày Động Thổ trên Phong Lịch
+                            </h2>
+                            <ul class="mb-1" style="list-style-type: decimal;">
+                                <li>Nhập tuổi gia chủ (âm lịch hoặc dương lịch).</li>
+                                <li>Chọn khoảng thời gian dự định khởi công.</li>
+                                <li>Hệ thống sẽ:
+                                    <ul>
+                                        <li>Gợi ý những ngày động thổ tốt nhất,</li>
+                                        <li>Hiển thị điểm tốt – xấu của từng ngày,</li>
+                                        <li>Liệt kê sao tốt/xấu, trực, giờ hoàng đạo,</li>
+                                        <li>Đưa ra các lưu ý quan trọng.</li>
+                                    </ul>
+                                </li>
+                                <li>Chọn ngày phù hợp thực tế dựa trên lịch trình và tiện ích của gia chủ.</li>
+                            </ul>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Một ngày động thổ đẹp mang lại lợi ích gì?
+                            </h2>
+                            <ul class="mb-1">
+                                <li>Công trình thi công thuận lợi, khởi đầu suôn sẻ.</li>
+                                <li>Tránh rủi ro và hao tổn không đáng có từ những yếu tố xấu trong phong thủy.</li>
+                                <li>Tạo tâm lý an tâm cho gia chủ và đội thi công, mọi việc tiến triển suôn sẻ hơn.</li>
+                                <li>Đặt nền móng may mắn cho toàn bộ quá trình xây dựng, từ động thổ đến hoàn thiện.</li>
+                            </ul>
+                        </div>
+                    </div>
+
                 </div>
                 @include('tools.siderbarindex')
             </div>
 
         </div>
     </div>
-        {{-- Results will be displayed here via AJAX --}}
-        @if (isset($resultsByYear))
-            <div class="results-container mt-5">
-
-                <div class="card-header">
-                    <ul class="nav nav-tabs card-header-tabs" id="yearTab" role="tablist">
-                        @foreach ($resultsByYear as $year => $data)
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link @if ($loop->first) active @endif"
-                                    id="tab-{{ $year }}-tab" data-bs-toggle="tab"
-                                    data-bs-target="#tab-{{ $year }}" type="button" role="tab"
-                                    aria-controls="tab-{{ $year }}"
-                                    aria-selected="{{ $loop->first ? 'true' : 'false' }}">
-                                    Năm {{ $year }}
-                                </button>
-                            </li>
-                        @endforeach
-                    </ul>
-                </div>
-                <div class="card-body">
-                    <div class="tab-content" id="yearTabContent">
-                        @foreach ($resultsByYear as $year => $data)
-                            <div class="tab-pane fade @if ($loop->first) show active @endif"
-                                id="tab-{{ $year }}" role="tabpanel"
-                                aria-labelledby="tab-{{ $year }}-tab">
-                                <div class="row">
-                                    <div class="col-lg-4">
-                                        <div class="card p-4 ">
-                                            <h4 class="mb-3">Thông tin gia chủ</h4>
-                                            <ul>
-                                                <li>Ngày sinh dương lịch:
-                                                    <b>{{ $birthdateInfo['dob']->format('d/m/Y') }}</b>
-                                                </li>
-                                                <li>Ngày sinh âm lịch: <b>{{ $birthdateInfo['lunar_dob_str'] }}</b></li>
-                                                <li>Tuổi: <b>{{ $birthdateInfo['can_chi_nam'] }}</b>, Mệnh:
-                                                    {{ $birthdateInfo['menh']['hanh'] }}
-                                                    ({{ $birthdateInfo['menh']['napAm'] }})
-                                                </li>
-                                                <li>Tuổi âm: <b>{{ $data['year_analysis']['lunar_age'] }}</b></li>
-
-                                            </ul>
-
-                                        </div>
-                                    </div>
-                                    {{-- @dd($data) --}}
-                                    <div class="col-lg-8">
-                                        <div class="card p-4 ">
-                                            <h5 class="text-center">
-                                                kiểm tra kim lâu - hoang ốc - tam tai
-                                            </h5>
-                                            <p>
-                                                Kiểm tra xem năm {{ $year }} {{ $data['canchi'] }} gia chủ tuổi
-                                                {{ $birthdateInfo['can_chi_nam'] }}
-                                                ({{ $data['year_analysis']['lunar_age'] }} tuổi) có phạm phải Kim Lâu,
-                                                Hoang Ốc, Tam Tai không?
-                                            </p>
-                                            <ul>
-                                                <li>
-                                                    {{ $data['year_analysis']['details']['kimLau']['message'] }}
-                                                </li>
-                                                <li>
-                                                    {{ $data['year_analysis']['details']['hoangOc']['message'] }}
-                                                </li>
-                                                <li>
-                                                    {{ $data['year_analysis']['details']['tamTai']['message'] }}
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    {{-- @dd($data) --}}
-                                    <p>{!! $data['year_analysis']['description'] !!}</p>
-                                </div>
-
-
-                                @if ($data['year_analysis'])
-                                    <h4 class="mt-4 mb-3">Bảng điểm chi tiết các ngày tốt</h4>
-
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered table-hover text-center align-middle">
-                                            <thead class="table-light">
-                                                <tr>
-                                                    <th>Ngày Dương Lịch</th>
-                                                    <th>Ngày Âm Lịch</th>
-                                                    <th>Điểm</th>
-                                                    <th>Đánh giá</th>
-                                                    <th>Giờ tốt (Hoàng Đạo)</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {{-- Lọc và chỉ hiển thị những ngày có điểm TỐT hoặc RẤT TỐT --}}
-                                                @php
-                                                    $goodDays = array_filter($data['days'], function ($day) {
-                                                        $rating = $day['day_score']['rating'];
-                                                        return $rating === 'Tốt' || $rating === 'Rất tốt';
-                                                    });
-                                                @endphp
-
-                                                @forelse($data['days'] as $day)
-                                                    @php
-                                                        if (!function_exists('getRatingClassBuildHouse')) {
-                                                            function getRatingClassBuildHouse(string $rating): string
-                                                            {
-                                                                return match ($rating) {
-                                                                    'Rất tốt' => 'table-success',
-                                                                    'Tốt' => 'table-info',
-                                                                    'Trung bình' => 'table-warning',
-                                                                    default => 'table-danger',
-                                                                };
-                                                            }
-                                                        }
-                                                    @endphp
-                                                    <tr
-                                                        class="{{ getRatingClassBuildHouse($day['day_score']['rating']) }}">
-                                                        <td>
-                                                            <strong>{{ $day['date']->format('d/m/Y') }}</strong>
-                                                            <br>
-                                                            <small>{{ $day['weekday_name'] }}</small>
-                                                        </td>
-                                                        <td>{{ $day['full_lunar_date_str'] }}</td>
-                                                        <td class="fw-bold fs-5">{{ $day['day_score']['percentage'] }}%
-                                                        </td>
-                                                        <td><strong>{{ $day['day_score']['rating'] }}</strong></td>
-                                                        <td>
-                                                            @if (!empty($day['good_hours']))
-                                                                {{ implode('; ', $day['good_hours']) }}
-                                                            @else
-                                                                <span class="text-muted">Không có</span>
-                                                            @endif
-                                                        </td>
-                                                    </tr>
-                                                @empty
-                                                    <tr>
-                                                        <td colspan="5" class="text-center p-4">
-                                                            <p class="mb-0">Trong khoảng thời gian bạn chọn của năm nay,
-                                                                không tìm thấy ngày nào thực sự tốt để tiến hành xây dựng.
-                                                            </p>
-                                                            <small>Bạn có thể thử mở rộng khoảng thời gian tìm kiếm.</small>
-                                                        </td>
-                                                    </tr>
-                                                @endforelse
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                @endif
-
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-
-            </div>
-        @endif
-    </div>
-
 @endsection
 
 @push('scripts')
@@ -432,7 +366,8 @@
                                 separator: ' - ',
                                 daysOfWeek: ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'],
                                 monthNames: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6',
-                                            'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
+                                    'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'
+                                ],
                                 firstDay: 1
                             }
                         };
@@ -535,7 +470,8 @@
                             }
 
                             // Check if dateSelector is available and fully initialized
-                            if (dateSelector && dateSelector.daySelect && dateSelector.monthSelect && dateSelector.yearSelect &&
+                            if (dateSelector && dateSelector.daySelect && dateSelector.monthSelect && dateSelector
+                                .yearSelect &&
                                 dateSelector.yearSelect.options.length > 1) {
 
                                 // Parse birthdate from URL (always in solar format from URL)
@@ -555,23 +491,28 @@
                                                 // Use LunarSolarDateSelect's handleLunarRadioChange method for conversion
                                                 try {
                                                     // First set solar date in selects
-                                                    await dateSelector.setDate(day, month, year, false, false);
+                                                    await dateSelector.setDate(day, month, year, false,
+                                                        false);
 
                                                     // Then switch to lunar mode - this will trigger automatic conversion
-                                                    const lunarRadio = document.getElementById('lunarCalendar');
-                                                    const solarRadio = document.getElementById('solarCalendar');
+                                                    const lunarRadio = document.getElementById(
+                                                        'lunarCalendar');
+                                                    const solarRadio = document.getElementById(
+                                                        'solarCalendar');
                                                     if (lunarRadio && solarRadio) {
                                                         lunarRadio.checked = true;
                                                         solarRadio.checked = false;
 
                                                         // Trigger the built-in conversion method
-                                                        if (dateSelector && typeof dateSelector.handleLunarRadioChange === 'function') {
+                                                        if (dateSelector && typeof dateSelector
+                                                            .handleLunarRadioChange === 'function') {
                                                             await dateSelector.handleLunarRadioChange();
                                                         }
                                                     }
                                                 } catch (error) {
                                                     // Fallback: just set as lunar without conversion
-                                                    await dateSelector.setDate(day, month, year, true, false);
+                                                    await dateSelector.setDate(day, month, year, true,
+                                                        false);
                                                 }
 
                                             } else {
@@ -725,7 +666,8 @@
                     } else {
                         // Fallback: extract lunar from display value
                         const displayValue = ngayXemInput.dataset.displayValue || '';
-                        formattedBirthdate = displayValue.replace(' (ÂL)', '').replace(' (ÂL-Nhuận)', '');
+                        formattedBirthdate = displayValue.replace(' (ÂL)', '').replace(' (ÂL-Nhuận)',
+                            '');
                         isLeapMonth = displayValue.includes('(ÂL-Nhuận)');
                     }
 
@@ -774,7 +716,8 @@
 
                 // The LunarSolarDateSelect module automatically maintains solar date in hidden input
                 // No need for additional conversion here - just use the value that's already there
-                const finalSolarDate = ngayXemValue; // This is always solar date maintained by the module
+                const finalSolarDate =
+                    ngayXemValue; // This is always solar date maintained by the module
 
                 // URL birthdate is the same as final solar date
                 if (calendarType === 'lunar') {
@@ -1007,7 +950,10 @@
                     // Scroll to table after sort
                     setTimeout(() => {
                         const bangChiTiet = activeTab?.querySelector('#bang-chi-tiet');
-                        bangChiTiet?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        bangChiTiet?.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
                     }, 100);
                 }
             }
@@ -1066,7 +1012,8 @@
                 const resultsContainer = document.querySelector('.--detail-success');
                 resultsContainer.addEventListener('click', function(event) {
                     if (event.target.matches('.load-more-btn') || event.target.closest('.load-more-btn')) {
-                        const btn = event.target.matches('.load-more-btn') ? event.target : event.target.closest('.load-more-btn');
+                        const btn = event.target.matches('.load-more-btn') ? event.target : event.target
+                            .closest('.load-more-btn');
                         const year = btn.getAttribute('data-year');
                         const currentLoaded = parseInt(btn.getAttribute('data-loaded'));
                         const total = parseInt(btn.getAttribute('data-total'));
@@ -1090,7 +1037,8 @@
                             const remaining = total - newLoaded;
                             if (remaining > 0) {
                                 const nextLoad = Math.min(10, remaining);
-                                btn.innerHTML = `<i class="bi bi-plus-circle me-2"></i>Xem thêm ${nextLoad} bảng<span class="text-muted ms-2">(${remaining} còn lại)</span>`;
+                                btn.innerHTML =
+                                    `<i class="bi bi-plus-circle me-2"></i>Xem thêm ${nextLoad} bảng<span class="text-muted ms-2">(${remaining} còn lại)</span>`;
                             } else {
                                 btn.style.display = 'none';
                             }
@@ -1120,11 +1068,14 @@
 
                 // Đếm TOTAL filtered rows TRƯỚC khi thay đổi pagination
                 const allRows = table.querySelectorAll('tr:not(.empty-filter-row)');
-                const totalFilteredRows = parseInt(loadMoreBtn.getAttribute('data-total')) || Array.from(allRows).filter(row => {
-                    return row.style.display !== 'none';
-                }).length;
+                const totalFilteredRows = parseInt(loadMoreBtn.getAttribute('data-total')) || Array.from(allRows)
+                    .filter(row => {
+                        return row.style.display !== 'none';
+                    }).length;
 
-                console.log(`Maintaining pagination: ${currentLoaded} out of ${totalFilteredRows} filtered rows (${allRows.length} total)`);
+                console.log(
+                    `Maintaining pagination: ${currentLoaded} out of ${totalFilteredRows} filtered rows (${allRows.length} total)`
+                );
 
                 // Show rows according to current pagination state
                 allRows.forEach((row, index) => {
@@ -1141,7 +1092,8 @@
                 const remaining = totalFilteredRows - currentLoaded;
                 if (remaining > 0) {
                     const nextLoad = Math.min(10, remaining);
-                    loadMoreBtn.innerHTML = `<i class="bi bi-plus-circle me-2"></i>Xem thêm ${nextLoad} bảng<span class="text-muted ms-2">(${remaining} còn lại)</span>`;
+                    loadMoreBtn.innerHTML =
+                        `<i class="bi bi-plus-circle me-2"></i>Xem thêm ${nextLoad} bảng<span class="text-muted ms-2">(${remaining} còn lại)</span>`;
                     loadMoreBtn.style.display = '';
                     loadMoreBtn.setAttribute('data-total', totalFilteredRows.toString());
                 } else {

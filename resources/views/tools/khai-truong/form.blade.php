@@ -186,12 +186,7 @@
                     </div>
                     <div id="resultsContainer" class="--detail-success">
                         <div class="d-flex flex-column align-items-center justify-content-center h-100 text-center">
-                            <div class="mb-4">
-                                <img src="{{ asset('/icons/defaild.png?v=1.0') }}" alt="defakd" class="img-fuild">
-                            </div>
-                            <p class="text-muted" style="font-size: 16px;">
-                                Hiện chưa có thông tin, bạn vui lòng nhập thông tin để xem kết quả.
-                            </p>
+
                             <!-- Auto-submit notification (hidden by default) -->
                             <div id="autoSubmitNotification" class="alert alert-info" style="display: none;">
                                 <div class="d-flex align-items-center justify-content-between">
@@ -203,6 +198,84 @@
                             </div>
                         </div>
                     </div>
+                    <div class="box--bg-thang mt-3 mb-3">
+                        <div class="text-box-tong-quan">
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Vì sao khai trương cần xem ngày tốt?
+                            </h2>
+                            <p class="mb-1">
+                                Khai trương là thời điểm bắt đầu một hành trình kinh doanh mới: mở cửa hàng, công ty, văn
+                                phòng hay một dịch vụ lớn nhỏ. Đây không chỉ là nghi lễ mà còn là lời cầu chúc cho tài lộc
+                                hanh thông, khách hàng tấp nập, công việc thuận buồm xuôi gió.
+                            </p>
+                            <p class="mb-1">
+                                Vì vậy, việc xem ngày khai trương mang ý nghĩa:
+                            </p>
+                            <ul class="mb-1">
+                                <li>Tạo khí thế tốt ngay từ đầu, giúp công việc dễ thu hút may mắn.</li>
+                                <li>Tránh ngày xấu có thể mang lại cản trở, chậm trễ hoặc khó khăn ban đầu.</li>
+                                <li>Tăng sự tự tin và yên tâm cho chủ cửa hàng, doanh nghiệp khi bắt đầu hoạt động.</li>
+                            </ul>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Lợi ích của việc chọn ngày khai trương hợp tuổi
+                            </h2>
+                            <p class="mb-1">Không phải ngày nào cũng hợp với tất cả mọi người. Việc chọn ngày hợp tuổi
+                                giúp bạn:</p>
+                            <ul class="mb-1">
+                                <li>Hạn chế xung tuổi, tránh những ảnh hưởng không may trong kinh doanh.</li>
+                                <li>Chọn được ngày – giờ mang cát khí, tăng khả năng thu hút tài lộc.</li>
+                                <li>Mang lại tâm thế thoải mái, tự tin khi bước vào thị trường.</li>
+                            </ul>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Khi xem ngày khai trương, cần chú ý điều gì?
+                            </h2>
+                            <ul style="	list-style-type: upper-alpha;">
+                                <li>
+                                    <h3 class="title-tong-quan-h4-log">Các yếu tố cát lành nên ưu tiên</h3>
+                                    <ul>
+                                        <li>Ngày hoàng đạo, ngày hợp tuổi chủ kinh doanh.</li>
+                                        <li>Trực tốt như Trực Khai (mở đầu), Trực Thành (hoàn thành), Trực Mãn.</li>
+                                        <li>Giờ tốt hợp tuổi để tiến hành nghi lễ khai trương và mở cửa đón khách.</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <h3 class="title-tong-quan-h4-log">Các yếu tố xấu nên tránh</h3>
+                                    <ul>
+                                        <li>Ngày hắc đạo, ngày xung tuổi hoặc phạm Thái Tuế.</li>
+                                        <li>Trực xấu như Trực Bế, Trực Phá gây kém suôn sẻ.</li>
+                                        <li>Ngày có bách kỵ, đặc biệt là những ngày kỵ mở cửa kinh doanh.</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                             <h2 class="title-tong-quan-h3-log fw-bolder">
+                               Cách sử dụng công cụ Xem Ngày Khai Trương trên Phong Lịch
+                            </h2>
+                            <ul style="	list-style-type: decimal;">
+                                <li>Nhập tuổi của bạn (âm hoặc dương lịch).</li>
+                                <li>Chọn khoảng thời gian bạn dự định khai trương.</li>
+                                <li>
+                                    Hệ thống sẽ:
+                                    <ul>
+                                        <li>Gợi ý những ngày khai trương đẹp nhất,</li>
+                                        <li>Hiển thị điểm tốt – xấu,</li>
+                                        <li>Liệt kê lý do nên chọn hoặc tránh,</li>
+                                        <li>Đưa ra các khung giờ tốt để mở hàng.</li>
+                                    </ul>
+                                </li>
+                                <li>So sánh lịch hoạt động thực tế để chọn ra ngày hợp tuổi – hợp việc – hợp thời điểm.</li>
+                            </ul>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                              Một ngày khai trương đẹp mang lại điều gì?
+                            </h2>
+                            <ul>
+                                <li>Tinh thần thoải mái, tự tin khi bắt đầu mở cửa.</li>
+                                <li>Thuận lợi trong những ngày đầu, dễ “lấy vía” khách hàng.</li>
+                                <li>Gia tăng cát khí tài lộc, tạo nền tảng cho việc kinh doanh lâu dài.</li>
+                                <li>Hóa giải điều xấu, tránh những trở ngại không đáng có.</li>
+                            </ul>
+                        </div>
+                    </div>
+
                 </div>
                 @include('tools.siderbarindex')
             </div>
@@ -757,7 +830,10 @@
                     applySortingToTable(event.target.value, currentYear);
                     setTimeout(() => {
                         const bangChiTiet = activeTab?.querySelector('#bang-chi-tiet');
-                        bangChiTiet?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        bangChiTiet?.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
                     }, 100);
                 }
             });
@@ -888,7 +964,8 @@
                 const resultsContainer = document.querySelector('.--detail-success');
                 resultsContainer.addEventListener('click', function(event) {
                     if (event.target.matches('.load-more-btn') || event.target.closest('.load-more-btn')) {
-                        const btn = event.target.matches('.load-more-btn') ? event.target : event.target.closest('.load-more-btn');
+                        const btn = event.target.matches('.load-more-btn') ? event.target : event.target
+                            .closest('.load-more-btn');
                         const year = btn.getAttribute('data-year');
 
                         // Reread attributes every time (might be updated by taboo filter)
@@ -896,15 +973,20 @@
                         const total = parseInt(btn.getAttribute('data-total')) || 0;
                         const loadMore = Math.min(10, total - currentLoaded);
 
-                        console.log(`PAGINATION DEBUG: year=${year}, currentLoaded=${currentLoaded}, total=${total}, loadMore=${loadMore}`);
+                        console.log(
+                            `PAGINATION DEBUG: year=${year}, currentLoaded=${currentLoaded}, total=${total}, loadMore=${loadMore}`
+                        );
 
                         // Tìm table trong tab hiện tại của năm đó
                         const targetTab = document.querySelector(`#year-${year}`);
-                        const table = targetTab ? targetTab.querySelector('#bang-chi-tiet table tbody') : null;
+                        const table = targetTab ? targetTab.querySelector('#bang-chi-tiet table tbody') :
+                            null;
 
                         if (table) {
                             const allRows = table.querySelectorAll(`.table-row-${year}`);
-                            console.log(`Showing more rows for year ${year}: currentLoaded=${currentLoaded}, total=${total}, allRows=${allRows.length}`);
+                            console.log(
+                                `Showing more rows for year ${year}: currentLoaded=${currentLoaded}, total=${total}, allRows=${allRows.length}`
+                            );
 
                             // Show next loadMore rows
                             for (let i = currentLoaded; i < currentLoaded + loadMore; i++) {
@@ -922,10 +1004,13 @@
                             const remaining = total - newLoaded;
                             const nextLoad = Math.min(10, remaining);
 
-                            console.log(`BUTTON UPDATE: newLoaded=${newLoaded}, total=${total}, remaining=${remaining}, nextLoad=${nextLoad}`);
+                            console.log(
+                                `BUTTON UPDATE: newLoaded=${newLoaded}, total=${total}, remaining=${remaining}, nextLoad=${nextLoad}`
+                            );
 
                             if (remaining > 0) {
-                                btn.innerHTML = `<i class="bi bi-plus-circle me-2"></i>Xem thêm ${nextLoad} bảng<span class="text-muted ms-2">(${remaining} còn lại)</span>`;
+                                btn.innerHTML =
+                                    `<i class="bi bi-plus-circle me-2"></i>Xem thêm ${nextLoad} bảng<span class="text-muted ms-2">(${remaining} còn lại)</span>`;
                             } else {
                                 btn.style.display = 'none';
                             }
@@ -962,11 +1047,14 @@
 
                 // Đếm TOTAL filtered rows TRƯỚC khi thay đổi pagination
                 const allRows = table.querySelectorAll('tr:not(.empty-filter-row)');
-                const totalFilteredRows = parseInt(loadMoreBtn.getAttribute('data-total')) || Array.from(allRows).filter(row => {
-                    return row.style.display !== 'none';
-                }).length;
+                const totalFilteredRows = parseInt(loadMoreBtn.getAttribute('data-total')) || Array.from(allRows)
+                    .filter(row => {
+                        return row.style.display !== 'none';
+                    }).length;
 
-                console.log(`DEBUG: Maintaining pagination for year ${year}: currentLoaded=${currentLoaded}, totalFilteredRows=${totalFilteredRows}, allRows=${allRows.length}`);
+                console.log(
+                    `DEBUG: Maintaining pagination for year ${year}: currentLoaded=${currentLoaded}, totalFilteredRows=${totalFilteredRows}, allRows=${allRows.length}`
+                );
 
                 // Show rows according to current pagination state
                 let visibleCount = 0;
@@ -986,7 +1074,8 @@
                 const remaining = totalFilteredRows - currentLoaded;
                 if (remaining > 0) {
                     const nextLoad = Math.min(10, remaining);
-                    loadMoreBtn.innerHTML = `<i class="bi bi-plus-circle me-2"></i>Xem thêm ${nextLoad} bảng<span class="text-muted ms-2">(${remaining} còn lại)</span>`;
+                    loadMoreBtn.innerHTML =
+                        `<i class="bi bi-plus-circle me-2"></i>Xem thêm ${nextLoad} bảng<span class="text-muted ms-2">(${remaining} còn lại)</span>`;
                     loadMoreBtn.style.display = '';
                     loadMoreBtn.setAttribute('data-total', totalFilteredRows.toString());
                 } else {

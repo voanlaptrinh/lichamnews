@@ -172,14 +172,178 @@
                     </div>
                     <div id="resultsContainer" class="--detail-success">
                         <div class="d-flex flex-column align-items-center justify-content-center h-100 text-center">
-                            <div class="mb-4">
-                                <img src="{{ asset('/icons/defaild.png?v=1.0') }}" alt="defakd" class="img-fuild">
-                            </div>
-                            <p class="text-muted" style="font-size: 16px;">
-                                Hiện chưa có thông tin, bạn vui lòng nhập thông tin để xem kết quả.
-                            </p>
+
                         </div>
                     </div>
+                    <div class="box--bg-thang mt-3 mb-3">
+                        <div class="text-box-tong-quan">
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Tại sao việc chọn ngày mua nhà lại quan trọng?
+                            </h2>
+                            <p class="mb-1">Mua nhà không chỉ là một giao dịch tài chính lớn mà còn là bước ngoặt quan
+                                trọng trong cuộc sống gia đình. Một ngày tốt khi nhận nhà không chỉ giúp mọi việc suôn sẻ mà
+                                còn mang theo:</p>
+                            <ul class="mb-1">
+                                <li>May mắn và cát khí, giúp gia đình an cư, lạc nghiệp.</li>
+                                <li>Hài hòa về phong thủy, tạo nền tảng thuận lợi cho sức khỏe, tài lộc và các mối quan hệ
+                                    trong gia đình.</li>
+                                <li>Tâm lý an tâm cho gia chủ, giúp quá trình chuyển nhà, dọn đồ và ổn định cuộc sống mới
+                                    diễn ra thuận lợi, nhẹ nhàng.</li>
+                            </ul>
+                            <p class="mb-1">Ngày mua nhà được coi là “khai vận” cho ngôi nhà mới. Việc chọn ngày hợp
+                                tuổi, hợp phong thủy sẽ tạo ra sự thuận lợi và trấn an tâm lý, giảm những trục trặc phát
+                                sinh trong quá trình nhận nhà.</p>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Lợi ích của việc chọn ngày mua nhà hợp tuổi
+                            </h2>
+                            <p class="mb-1">Khi chọn được ngày đẹp để mua nhà, gia chủ sẽ nhận được nhiều lợi ích thực
+                                tế:</p>
+                            <ul class="mb-1">
+                                <li>Tránh xung tuổi và hạn chế tai họa phong thủy: Ngày phù hợp giúp gia chủ và các thành
+                                    viên tránh xung khắc với tuổi, hạn chế những điều không may trong quá trình sinh sống.
+                                </li>
+                                <li>
+                                    Khởi đầu thuận lợi: Ngày hợp tuổi và hoàng đạo sẽ giúp quá trình dọn nhà diễn ra suôn
+                                    sẻ, mọi việc trôi chảy từ lễ nhập trạch đến việc ổn định sinh hoạt.
+                                </li>
+                                <li>
+                                    Thu hút cát khí: Hướng, giờ xuất hành và ngày hợp tuổi sẽ hỗ trợ tài lộc, sức khỏe, hòa
+                                    khí và mối quan hệ giữa các thành viên trong gia đình.
+                                </li>
+                                <li>
+                                    Tâm lý an tâm và tự tin: Khi biết ngày đã được lựa chọn cẩn thận, gia chủ cảm thấy vững
+                                    tâm, chủ động trong việc chuẩn bị đồ đạc, bố trí nội thất, lễ nhập trạch.
+                                </li>
+                            </ul>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Các yếu tố cần lưu ý khi xem ngày mua nhà
+                            </h2>
+                            <ul style="list-style-type: upper-alpha;">
+                                <li>Các yếu tố nên ưu tiên
+                                    <ul style="	list-style-type: decimal;">
+                                        <li>
+                                            Ngày hoàng đạo và trực tốt <br>
+                                            Ưu tiên ngày Hoàng đạo và các trực như Trực Khai, Trực Thành, Trực Mãn… mang ý
+                                            nghĩa mở đầu thuận lợi, phù hợp cho việc nhận nhà và bắt đầu cuộc sống mới.
+                                        </li>
+                                        <li>
+                                            Ngày hợp tuổi gia chủ<br>
+                                            Ngày có ngũ hành tương sinh, tương hỗ với tuổi chủ nhà giúp tăng cát khí, hạn
+                                            chế xung khắc.
+                                        </li>
+                                        <li>
+                                            Sao tốt cần chọn <br>
+                                            Khi xem ngày mua nhà, nên ưu tiên các sao mang ý nghĩa may mắn, hanh thông và
+                                            cát lành, gồm:
+                                            <ul style="list-style-type: circle;">
+                                                <li>
+                                                    Thiên Đức – Nguyệt Đức: Mang lại sự may mắn, quý nhân giúp đỡ.
+                                                </li>
+                                                <li>
+                                                    Thiên Hỷ: Tốt cho việc vui mừng, khởi đầu mới, dễ mang tin vui vào nhà.
+                                                </li>
+                                                <li>
+                                                    Sinh Khí: Rất tốt cho sức khỏe, tài lộc và phong thủy nhà ở.
+                                                </li>
+                                                <li>
+                                                    Thiên Mã: Tốt cho giao dịch, ký kết, thuận lợi cho việc nhận bàn giao
+                                                    nhà.
+                                                </li>
+                                                <li>
+                                                    Tam Hợp: Tăng cát khí, sự hòa thuận và hanh thông.
+                                                </li>
+                                                <li>
+                                                    Thiên Quan – Thiên Phúc: Giúp mọi việc suôn sẻ, có thần linh che chở.
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            Chọn giờ hoàng đạo<br>
+                                            Giờ nhận nhà, làm lễ hoặc chuyển đồ cũng nên chọn giờ tốt hợp tuổi để tăng thêm
+                                            may mắn.
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    Các yếu tố cần tránh
+                                    <ul style="list-style-type: decimal;">
+                                        <li>
+                                            Sao xấu cần tránh <br>
+                                            Tránh những ngày xuất hiện các sao mang năng lượng xấu, dễ gây trở ngại trong
+                                            việc chuyển nhà:
+                                            <ul style="	list-style-type: circle;">
+                                                <li>Thiên Ôn, Thiên Cương: Dễ mang đến bất lợi, không tốt cho mua bán – giao
+                                                    dịch.</li>
+                                                <li>Cô Thần, Quả Tú: Mang tính cô đơn, lẻ loi, không tốt cho hòa khí gia
+                                                    đình.</li>
+                                                <li>Không Vong: Ngày rỗng, dễ sinh chuyện không như ý.</li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            Các ngày đại kỵ nhất định phải tránh <br>
+                                            Đây là nhóm ngày cực xấu trong dân gian, không nên dùng cho việc lớn như mua
+                                            nhà, nhập trạch:
+                                            <ul style="	list-style-type: circle;">
+                                                <li>
+                                                    Nguyệt Kỵ, Nguyệt Tận
+                                                </li>
+                                                <li>
+                                                    Tam Nương
+                                                </li>
+                                                <li>
+                                                    Sát Chủ Dương
+                                                </li>
+                                                <li>
+                                                    Dương Công Kỵ Nhật
+                                                </li>
+                                                <li>
+                                                    Thọ Tử
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            Ngày xung tuổi, trực xấu <br>
+                                            Tránh Trực Bế, Trực Phá, Trực Nguy… để giảm rủi ro và bất tiện trong quá trình
+                                            chuyển về nhà mới.
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Hướng dẫn sử dụng công cụ Xem Ngày Mua Nhà tại Phong Lịch
+                            </h2>
+                            <ul style="list-style-type: decimal;">
+                                <li>Nhập tuổi gia chủ (âm lịch hoặc dương lịch).</li>
+                                <li>Chọn khoảng thời gian dự định mua hoặc nhận nhà.</li>
+                                <li>Hệ thống tự động phân tích và gợi ý:
+                                    <ul style="	list-style-type: circle;">
+                                        <li>Những ngày mua nhà đẹp nhất trong khoảng thời gian đã chọn.</li>
+                                        <li>Điểm tốt – xấu, sao tốt/xấu, trực ngày và giờ hoàng đạo.</li>
+                                        <li>Lưu ý chi tiết về các yếu tố phong thủy quan trọng.</li>
+                                    </ul>
+                                </li>
+                                <li>So sánh các ngày phù hợp với lịch trình thực tế để lựa chọn ngày tối ưu nhất.</li>
+                            </ul>
+                            <p>Công cụ này giúp gia chủ tiết kiệm thời gian, dễ dàng so sánh và chọn lựa ngày đẹp, đồng thời
+                                hiểu rõ lý do vì sao ngày được đánh giá tốt hoặc xấu.</p>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Lợi ích thực tế của một ngày mua nhà đẹp
+                            </h2>
+                            <ul>
+                                <li>Gia đình thuận hòa: Mọi thành viên cảm thấy hài lòng, tâm lý an tâm khi chuyển về nhà
+                                    mới.</li>
+                                <li>Công việc dọn về nhà trôi chảy: Không xảy ra trục trặc hay sự cố không đáng có</li>
+                                <li>Thu hút may mắn và tài lộc: Ngôi nhà được nhận vào ngày tốt sẽ tăng cát khí, thuận lợi
+                                    cho sức khỏe, công việc, học tập của các thành viên.
+                                </li>
+                                <li>
+                                    Nghi lễ nhập trạch trọn vẹn: Buổi lễ diễn ra suôn sẻ, đúng truyền thống, mang ý nghĩa
+                                    khởi đầu tốt đẹp cho cuộc sống tại ngôi nhà mới.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
                 </div>
                 @include('tools.siderbarindex')
             </div>
@@ -730,7 +894,7 @@
         window.testTabooFilter = function() {
             const btn = document.getElementById('tabooFilterBtn');
             const modal = document.getElementById('tabooFilterModal');
-         
+
             if (btn) {
                 btn.click();
             }
@@ -744,7 +908,8 @@
             const resultsContainer = document.querySelector('.--detail-success');
             resultsContainer.addEventListener('click', function(event) {
                 if (event.target.matches('.load-more-btn') || event.target.closest('.load-more-btn')) {
-                    const btn = event.target.matches('.load-more-btn') ? event.target : event.target.closest('.load-more-btn');
+                    const btn = event.target.matches('.load-more-btn') ? event.target : event.target.closest(
+                        '.load-more-btn');
                     const year = btn.dataset.year;
                     const loaded = parseInt(btn.dataset.loaded);
                     const total = parseInt(btn.dataset.total);

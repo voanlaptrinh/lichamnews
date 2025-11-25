@@ -42,7 +42,9 @@
                                                         style="color: rgba(25, 46, 82, 1); border-bottom: 1px solid #ddd; padding-bottom: 8px;">
                                                         Thông tin người đứng lễ
                                                     </div>
-                                                    <p class="mb-0" style="color: #000"><span style="color: red">Lưu ý:</span> Thông tin người đứng lễ là con trưởng hoặc người đại diện</p>
+                                                    <p class="mb-0" style="color: #000"><span style="color: red">Lưu
+                                                            ý:</span> Thông tin người đứng lễ là con trưởng hoặc người đại
+                                                        diện</p>
                                                 </div>
 
                                                 <div class="mb-3">
@@ -233,16 +235,149 @@
                             @include('tools.cai-tang.results')
                         @else
                             <div class="d-flex flex-column align-items-center justify-content-center h-100 text-center">
-                                <div class="mb-4">
-                                    <img src="{{ asset('/icons/defaild.png?v=1.0') }}" alt="defakd" class="img-fuild">
-                                </div>
-                                <p class="text-muted" style="font-size: 16px;">
-                                    Hiện chưa có thông tin, bạn vui lòng nhập thông tin để xem kết quả.
-                                </p>
+
                             </div>
                         @endif
                     </div>
+                    <div class="box--bg-thang mt-3 mb-3">
+                        <div class="text-box-tong-quan">
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Vì sao sang cát – cải mộ cần chọn ngày tốt?
+                            </h2>
+                            <p class="mb-1">Sang cát (cải táng) là nghi lễ quan trọng trong văn hóa thờ cúng tổ tiên của
+                                người Việt. Đây là việc động chạm đến âm phần, liên quan đến sự an ổn của người mất và sự
+                                bình yên của con cháu. Vì vậy, chọn ngày tốt có ý nghĩa đặc biệt:
+                            </p>
+                            <ul class="mb-1">
+                                <li>Giúp quá trình bốc mộ, di dời diễn ra thuận lợi, tránh sự cố hoặc điều không may.</li>
+                                <li>Tăng cát khí, đảm bảo phần mộ sau khi sang cát được yên ổn, hài hòa long mạch.</li>
+                                <li>Tránh phạm các ngày xấu khiến gia đình gặp rối ren, bất an hoặc ảnh hưởng vận khí.</li>
+                                <li>Tạo sự yên tâm cho gia đình, đặc biệt là người chủ trì lễ (thường là trưởng nam hoặc
+                                    người đại diện trong nội tộc).</li>
+                            </ul>
+                            <p class="mb-1">Một ngày cải táng đẹp giúp công việc suôn sẻ, phần mộ được an vị tốt, và gia
+                                đình cảm thấy nhẹ lòng, an tâm.</p>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Lợi ích của việc chọn ngày sang cát – cải mộ hợp tuổi
+                            </h2>
+                            <ul class="mb-1">
+                                <li>Không xung tuổi trưởng nam: Tránh lục xung – lục hại, giảm rủi ro, hạn chế việc “động mồ
+                                    – động mả”.</li>
+                                <li>Ngày hoàng đạo và giờ hoàng đạo: Khí trường nhẹ, tốt cho việc động thổ âm phần.</li>
+                                <li>Sao tốt và trực tốt: Giúp long mạch ổn định, việc bốc mộ diễn ra thuận hòa, tránh trục
+                                    trặc.</li>
+                                <li>Ngũ hành ngày tương sinh: Tạo sự phù hợp giữa âm phần và người chủ lễ, làm tăng cát khí.
+                                </li>
+                            </ul>
+                            <p class="mb-1">Chọn được ngày – giờ hợp tuổi giúp gia đình yên tâm, mọi việc được tiến hành
+                                đúng phong tục và mang lại cảm giác an ổn cho cả tâm linh lẫn tinh thần.</p>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Khi xem ngày sang cát – cải mộ cần lưu ý điều gì?
+                            </h2>
+                            <ul class="mb-1" style="list-style-type: upper-alpha;">
+                                <li>
+                                    <h3 class="title-tong-quan-h4-log">Các yếu tố cát lành nên ưu tiên:</h3>
+                                    <ul style="	list-style-type: decimal;" class="mb-1">
+                                        <li>
+                                            <p class="mb-1">Ngày hoàng đạo và trực tốt</p>
+                                            <ul>
+                                                <li>Ngày Hoàng Đạo: Thanh Long, Minh Đường, Kim Quỹ, Ngọc Đường, Tư Mệnh.
+                                                </li>
+                                                <li>Trực tốt: Trực Định (tốt nhất cho sang cát), Trực Thành, Trực Khai, Trực
+                                                    Mãn.</li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <p class="mb-1">Ngày hợp tuổi người chủ trì (người đứng lễ)</p>
+                                            <ul>
+                                                <li>Ngày không xung can – chi với tuổi người được chọn ngày.</li>
+                                                <li>Ngũ hành ngày nên tương sinh hoặc hỗ trợ.</li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <p class="mb-1">Sao tốt và giờ tốt</p>
+                                            <ul>
+                                                <li>Sao cát: Thiên Đức, Nguyệt Đức, Thiên Quan, Thiên Phúc, Thiên Hỷ, Tam
+                                                    Hợp, Lục Hợp.</li>
+                                                <li>Giờ Hoàng Đạo: thích hợp để mở huyệt, bốc mộ, di dời hài cốt.</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                    <p class="mb-1">Ưu tiên các yếu tố này giúp lễ sang cát diễn ra trọn vẹn, phần mộ
+                                        được an vị đúng phong thủy.</p>
+                                </li>
+                                <li>
+                                    <h3 class="title-tong-quan-h4-log">Các yếu tố xấu nên tránh:</h3>
+                                    <ul style="list-style-type: decimal;">
+                                        <li>
+                                            <p class="mb-1">Ngày xung tuổi / phạm hạn</p>
+                                            <ul>
+                                                <li>Xung tuổi trưởng nam hoặc người làm lễ.</li>
+                                                <li>Phạm Tam Tai, Thái Tuế</li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <p class="mb-1">Ngày hắc đạo và trực xấu</p>
+                                            <ul>
+                                                <li>Huyền Vũ, Bạch Hổ, Thiên Lao, Xích Khẩu.</li>
+                                                <li>Trực Nguy, Trực Phá, Trực Thu, Trực Bế.</li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <p class="mb-1">Ngày sát âm trạch</p>
+                                            <ul>
+                                                <li>Thiên Cương, Địa Sát, Sát Chủ, Thổ Phủ, Thổ Ôn, Không Vong.</li>
+                                                <li>Ngày Trùng Tang, Trùng Phục.</li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <p class="mb-1">Ngày bách kỵ đặc biệt</p>
+                                            <ul class="mb-1">
+                                                <li>Tam Nương (3–7–13–18–22–27).</li>
+                                                <li>Nguyệt Kỵ (5–14–23).</li>
+                                                <li>Dương Công Kỵ Nhật.</li>
+                                                <li>Sát Chủ Âm</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                    <p class="mb-1">Việc tránh các ngày này giúp hạn chế rủi ro, giảm hung khí và đảm bảo
+                                        sự yên ổn cho phần mộ.</p>
+                                </li>
+                            </ul>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Hướng dẫn sử dụng công cụ Xem Ngày Sang Cát – Cải Mộ tại Phong Lịch
+                            </h2>
+                            <ul class="mb-1" style="list-style-type: decimal;">
+                                <li>Nhập tuổi người chủ trì (thường là trưởng nam hoặc người đứng ra lo việc).</li>
+                                <li>Nhập thông tin người mất</li>
+                                <li>Chọn khoảng thời gian dự định cải táng.</li>
+                                <li>Hệ thống sẽ:
+                                    <ul>
+                                        <li>Gợi ý các ngày sang cát đẹp nhất.</li>
+                                        <li>Hiển thị điểm tốt – xấu của từng ngày.</li>
+                                        <li>Liệt kê sao tốt, sao xấu, trực, ngày hoàng đạo, ngày cần tránh.</li>
+                                        <li>Đề xuất giờ Hoàng đạo phù hợp để mở huyệt – bốc mộ.</li>
+                                    </ul>
+                                </li>
+                                <li>So sánh các ngày và chọn ngày phù hợp nhất, kết hợp cả điều kiện thời tiết, nhân lực và
+                                    lịch trình gia đình.</li>
+                            </ul>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Một ngày sang cát – cải mộ đẹp mang lại lợi ích gì?
+                            </h2>
+                            <ul>
+                                <li>Công việc diễn ra suôn sẻ, không vướng trở ngại.</li>
+                                <li>Tránh phạm long mạch, giúp phần âm được an vị, người mất được yên ổn.</li>
+                                <li>Gia đạo bớt rủi ro, giảm bất an hoặc biến cố không mong muốn.</li>
+                                <li>Tăng cát khí cho gia đình, giúp cuộc sống ổn định, tinh thần nhẹ nhàng.</li>
+                                <li>Nghi lễ trọn vẹn, đúng truyền thống, tạo sự an tâm cho tất cả thành viên.</li>
+
+                            </ul>
+
+                        </div>
+                    </div>
                 </div>
+
                 @include('tools.siderbarindex')
             </div>
         </div>
@@ -710,7 +845,8 @@
                             setTimeout(() => {
                                 resultsContainer.innerHTML = data.html;
                                 setTimeout(() => {
-                                    if (window.resultsByYear && typeof window.initTabooFilter === 'function') {
+                                    if (window.resultsByYear && typeof window
+                                        .initTabooFilter === 'function') {
                                         window.initTabooFilter(window.resultsByYear);
                                     }
                                     initPagination();
@@ -788,7 +924,10 @@
                     // Scroll to table after sort
                     setTimeout(() => {
                         const bangChiTiet = document.querySelector('#bang-chi-tiet');
-                        bangChiTiet?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        bangChiTiet?.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
                     }, 100);
                 }
             }
@@ -948,7 +1087,8 @@
                 const resultsContainer = document.querySelector('.--detail-success');
                 resultsContainer.addEventListener('click', function(event) {
                     if (event.target.matches('.load-more-btn') || event.target.closest('.load-more-btn')) {
-                        const btn = event.target.matches('.load-more-btn') ? event.target : event.target.closest('.load-more-btn');
+                        const btn = event.target.matches('.load-more-btn') ? event.target : event.target
+                            .closest('.load-more-btn');
                         const year = btn.getAttribute('data-year');
                         const currentLoaded = parseInt(btn.getAttribute('data-loaded'));
                         const total = parseInt(btn.getAttribute('data-total'));
@@ -972,7 +1112,8 @@
                             const remaining = total - newLoaded;
                             if (remaining > 0) {
                                 const nextLoad = Math.min(10, remaining);
-                                btn.innerHTML = `<i class="bi bi-plus-circle me-2"></i>Xem thêm ${nextLoad} bảng<span class="text-muted ms-2">(${remaining} còn lại)</span>`;
+                                btn.innerHTML =
+                                    `<i class="bi bi-plus-circle me-2"></i>Xem thêm ${nextLoad} bảng<span class="text-muted ms-2">(${remaining} còn lại)</span>`;
                             } else {
                                 btn.style.display = 'none';
                             }
@@ -992,12 +1133,17 @@
                 const allRows = table.querySelectorAll('tr:not(.empty-filter-row)');
 
                 // Đếm TOTAL filtered rows TRƯỚC khi thay đổi pagination
-                const totalFilteredRows = parseInt(loadMoreBtn.getAttribute('data-total')) || Array.from(allRows).filter(row => {
-                    return row.style.display !== 'none';
-                }).length;
+                const totalFilteredRows = parseInt(loadMoreBtn.getAttribute('data-total')) || Array.from(allRows)
+                    .filter(row => {
+                        return row.style.display !== 'none';
+                    }).length;
 
-                console.log(`DEBUG: allRows=${allRows.length}, totalFilteredRows=${totalFilteredRows}, currentLoaded=${currentLoaded}`);
-                console.log(`Maintaining pagination: ${currentLoaded} out of ${totalFilteredRows} filtered rows (${allRows.length} total)`);
+                console.log(
+                    `DEBUG: allRows=${allRows.length}, totalFilteredRows=${totalFilteredRows}, currentLoaded=${currentLoaded}`
+                );
+                console.log(
+                    `Maintaining pagination: ${currentLoaded} out of ${totalFilteredRows} filtered rows (${allRows.length} total)`
+                );
 
                 // Tìm tất cả rows được filter (không bị ẩn hoàn toàn)
                 const filteredRows = Array.from(allRows).filter(row => {
@@ -1037,11 +1183,14 @@
 
                 // Update load more button với total filtered rows
                 const remaining = totalFilteredRows - currentLoaded;
-                console.log(`DEBUG BUTTON: totalFilteredRows=${totalFilteredRows}, currentLoaded=${currentLoaded}, remaining=${remaining}`);
+                console.log(
+                    `DEBUG BUTTON: totalFilteredRows=${totalFilteredRows}, currentLoaded=${currentLoaded}, remaining=${remaining}`
+                );
 
                 if (remaining > 0) {
                     const nextLoad = Math.min(10, remaining);
-                    loadMoreBtn.innerHTML = `<i class="bi bi-plus-circle me-2"></i>Xem thêm ${nextLoad} bảng<span class="text-muted ms-2">(${remaining} còn lại)</span>`;
+                    loadMoreBtn.innerHTML =
+                        `<i class="bi bi-plus-circle me-2"></i>Xem thêm ${nextLoad} bảng<span class="text-muted ms-2">(${remaining} còn lại)</span>`;
                     loadMoreBtn.style.display = '';
                     loadMoreBtn.setAttribute('data-total', totalFilteredRows);
                     console.log(`DEBUG BUTTON: Showing button - Xem thêm ${nextLoad} bảng (${remaining} còn lại)`);

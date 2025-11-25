@@ -115,7 +115,8 @@
                                                     </div>
 
                                                     <!-- Hidden input to store formatted date -->
-                                                    <input type="hidden" id="ngayXem" name="birthdate" value="{{ old('birthdate', $inputs['birthdate'] ?? '') }}">
+                                                    <input type="hidden" id="ngayXem" name="birthdate"
+                                                        value="{{ old('birthdate', $inputs['birthdate'] ?? '') }}">
 
                                                     @error('birthdate')
                                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -167,14 +168,142 @@
                             @include('tools.lap-ban-tho.results')
                         @else
                             <div class="d-flex flex-column align-items-center justify-content-center h-100 text-center">
-                                <div class="mb-4">
-                                    <img src="{{ asset('/icons/defaild.png?v=1.0') }}" alt="defakd" class="img-fuild">
-                                </div>
-                                <p class="text-muted" style="font-size: 16px;">
-                                    Hiện chưa có thông tin, bạn vui lòng nhập thông tin để xem kết quả.
-                                </p>
+
                             </div>
                         @endif
+                    </div>
+
+
+                    <div class="box--bg-thang mt-3 mb-3">
+                        <div class="text-box-tong-quan">
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Vì sao cần xem ngày tốt để lập bàn thờ?
+                            </h2>
+                            <p class="mb-1">
+                                Lập bàn thờ là nghi thức quan trọng, bởi bàn thờ là nơi kết nối với gia tiên, thần linh và
+                                là trung tâm tâm linh của ngôi nhà. Một ngày lập bàn thờ phù hợp giúp việc an vị trở nên
+                                trang nghiêm, thuận lợi, mang lại sinh khí tốt cho gia đình.
+                            </p>
+                            <p class="mb-1">
+                                Chọn ngày tốt để lập bàn thờ giúp:
+                            </p>
+                            <ul class="mb-1">
+                                <li>Việc an vị diễn ra trọn vẹn, tránh sai phạm về tâm linh.</li>
+                                <li>Tăng cát khí, giúp ngôi nhà ổn định, ấm cúng và linh ứng.</li>
+                                <li>Hạn chế ảnh hưởng của các ngày xấu có thể gây bất an hoặc trắc trở.</li>
+                                <li>Gia chủ cảm thấy an tâm, thuận lợi trong cuộc sống sau này.</li>
+                            </ul>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Lợi ích khi chọn ngày lập bàn thờ hợp tuổi
+                            </h2>
+                            <ul class="mb-1">
+                                <li>Không phạm xung tuổi gia chủ, giúp việc an vị hòa hợp và linh ứng.</li>
+                                <li>Ngũ hành ngày – tuổi – hướng hợp nhau, tăng cát khí trong không gian thờ tự.</li>
+                                <li>Sao tốt, giờ tốt hỗ trợ việc thỉnh thần linh, gia tiên được suôn sẻ.</li>
+                                <li>Tránh được ngày bách kỵ dễ gây trục trặc hoặc thiếu may mắn.</li>
+                            </ul>
+                            <p class="mb-1">Một ngày hợp tuổi sẽ làm nghi thức lập bàn thờ diễn ra trang trọng và vững
+                                vàng hơn.</p>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Khi xem ngày lập bàn thờ, cần lưu ý điều gì?
+                            </h2>
+                            <ul class="mb-1" style="list-style-type: upper-alpha;">
+                                <li>
+                                    <h3 class="title-tong-quan-h4-log">Các yếu tố cát lành nên ưu tiên</h3>
+                                    <ul style="	list-style-type: decimal;" class="mb-1">
+                                        <li>
+                                            <p class="mb-1"> Ngày hoàng đạo – trực tốt
+                                            </p>
+                                            <p class="mb-1">Nên chọn:
+                                            </p>
+                                            <ul class="mb-1">
+                                                <li>Ngày Hoàng đạo như Thanh Long, Minh Đường, Kim Quỹ, Tư Mệnh.</li>
+                                                <li>Các trực mang tính ổn định, cát lợi: Trực Khai, Trực Thành, Trực Mãn.
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <p class="mb-1"> Ngày hợp tuổi gia chủ
+                                            </p>
+                                            <ul class="mb-1">
+                                                <li>Ngày không xung – phá – hại theo tuổi Can Chi.</li>
+                                                <li>Ưu tiên ngày có ngũ hành tương sinh hoặc tương hỗ với bản mệnh.
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <p class="mb-1"> Sao cát và giờ tốt
+                                            </p>
+                                            <p class="mb-1">Các sao nên ưu tiên khi lập bàn thờ:
+                                            </p>
+                                            <ul class="mb-1">
+                                                <li>Thiên Đức, Nguyệt Đức, Thiên Ân, Thiên Phúc.</li>
+                                                <li>Chọn giờ Hoàng đạo để tăng sự trang nghiêm và linh khí của nghi lễ.
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <h3 class="title-tong-quan-h4-log">Các yếu tố xấu nên tránh</h3>
+                                    <ul style="list-style-type: decimal;">
+                                        <li>
+                                            <p class="mb-1">Ngày xung tuổi hoặc phạm hạn</p>
+                                            <ul class="mb-1">
+                                                <li>Ngày Lục Xung, Lục Hại.</li>
+                                                <li>Ngày phạm Thái Tuế.
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <p class="mb-1">Ngày hắc đạo – trực xấu</p>
+                                            <ul class="mb-1">
+                                                <li>Hắc đạo như Huyền Vũ, Bạch Hổ, Câu Trận.</li>
+                                                <li>Trực: Trực Phá, Trực Nguy, Trực Bế.
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <p class="mb-1">Ngày bách kỵ bất lợi cho việc lập bàn thờ</p>
+                                            <ul class="mb-1">
+                                                <li>Tam Nương (3, 7, 13, 18, 22, 27).</li>
+                                                <li>Nguyệt Kỵ (5, 14, 23).</li>
+                                                <li>Dương Công Kỵ Nhật.</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                    <p class="mb-1">Tránh các ngày này sẽ giúp việc lập bàn thờ ổn định, tránh những điều
+                                        bất an về sau.</p>
+                                </li>
+                            </ul>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Hướng dẫn sử dụng công cụ Xem Ngày Lập Bàn Thờ tại Phong Lịch
+                            </h2>
+                            <ul style="	list-style-type: decimal;" class="mb-1">
+                                <li>Nhập tuổi của gia chủ để hệ thống chọn ngày hợp mệnh và tránh xung khắc.</li>
+                                <li>Chọn ngày hoặc khoảng thời gian dự định lập bàn thờ.</li>
+                                <li>Công cụ sẽ tự động hiển thị:
+                                    <ul class="mb-1">
+                                        <li>Danh sách ngày lập bàn thờ tốt nhất.</li>
+                                        <li>Điểm tốt – xấu của từng ngày.</li>
+                                        <li>Sao tốt – sao xấu, trực ngày, hoàng đạo – hắc đạo.</li>
+                                        <li>Gợi ý giờ Hoàng đạo để tiến hành nghi lễ.</li>
+                                    </ul>
+                                </li>
+                                <li>Gia chủ chỉ cần chọn ngày phù hợp với lịch trình, ưu tiên ngày có điểm tốt cao nhất.
+                                </li>
+                            </ul>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Một ngày lập bàn thờ đẹp mang lại lợi ích gì?
+                            </h2>
+                            <ul class="mb-1">
+                                <li>Không gian thờ tự trang trọng, linh khí vững vàng.</li>
+                                <li>Thuận lợi trong việc thỉnh thần linh, gia tiên.</li>
+                                <li>Gia đình được hỗ trợ tốt về bình an, sức khỏe, tài lộc.</li>
+                                <li>Tâm lý an tâm, giúp cuộc sống sau này thuận hòa hơn.</li>
+                                <li>Tạo nền tảng tâm linh bền vững cho ngôi nhà.</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
                 @include('tools.siderbarindex')
@@ -321,7 +450,8 @@
                                 return;
                             }
 
-                            if (dateSelector && dateSelector.daySelect && dateSelector.monthSelect && dateSelector.yearSelect &&
+                            if (dateSelector && dateSelector.daySelect && dateSelector.monthSelect && dateSelector
+                                .yearSelect &&
                                 dateSelector.yearSelect.options.length > 1) {
 
                                 const dateParts = params.birthdate.split('/');
@@ -467,7 +597,8 @@
                     isLeapMonth = ngayXemInput.dataset.lunarLeap === '1';
 
                     if (solarDay && solarMonth && solarYear) {
-                        formattedBirthdate = `${String(solarDay).padStart(2, '0')}/${String(solarMonth).padStart(2, '0')}/${solarYear}`;
+                        formattedBirthdate =
+                            `${String(solarDay).padStart(2, '0')}/${String(solarMonth).padStart(2, '0')}/${solarYear}`;
                     } else {
                         formattedBirthdate = ngayXemValue.replace(' (ÂL)', '').replace(' (ÂL-Nhuận)', '');
                         isLeapMonth = ngayXemValue.includes('(ÂL-Nhuận)');
@@ -521,7 +652,8 @@
                                 }
 
                                 setTimeout(() => {
-                                    if (data.resultsByYear && typeof window.initTabooFilter === 'function') {
+                                    if (data.resultsByYear && typeof window
+                                        .initTabooFilter === 'function') {
                                         window.initTabooFilter(data.resultsByYear);
                                     }
                                     initPagination();
@@ -606,10 +738,16 @@
                         if (year) {
                             const yearTab = document.querySelector(`#year-${year}`);
                             const bangChiTiet = yearTab?.querySelector('#bang-chi-tiet');
-                            bangChiTiet?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            bangChiTiet?.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
                         } else {
                             const bangChiTiet = document.querySelector('#bang-chi-tiet');
-                            bangChiTiet?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            bangChiTiet?.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
                         }
                     }, 100);
                 }
@@ -662,8 +800,8 @@
                     const activeTabPane = document.querySelector(`#year-${year}`);
                     if (activeTabPane) {
                         table = activeTabPane.querySelector(`#table-${year} tbody`) ||
-                               activeTabPane.querySelector('.table tbody') ||
-                               activeTabPane.querySelector('tbody');
+                            activeTabPane.querySelector('.table tbody') ||
+                            activeTabPane.querySelector('tbody');
                     }
 
                     // Fallback: global search for year-specific table
@@ -787,7 +925,8 @@
                 const resultsContainer = document.querySelector('.--detail-success');
                 resultsContainer.addEventListener('click', function(event) {
                     if (event.target.matches('.load-more-btn') || event.target.closest('.load-more-btn')) {
-                        const btn = event.target.matches('.load-more-btn') ? event.target : event.target.closest('.load-more-btn');
+                        const btn = event.target.matches('.load-more-btn') ? event.target : event.target
+                            .closest('.load-more-btn');
                         const year = btn.getAttribute('data-year');
                         const currentLoaded = parseInt(btn.getAttribute('data-loaded'));
                         const total = parseInt(btn.getAttribute('data-total'));
@@ -811,7 +950,8 @@
                             const remaining = total - newLoaded;
                             if (remaining > 0) {
                                 const nextLoad = Math.min(10, remaining);
-                                btn.innerHTML = `<i class="bi bi-plus-circle me-2"></i>Xem thêm ${nextLoad} bảng<span class="text-muted ms-2">(${remaining} còn lại)</span>`;
+                                btn.innerHTML =
+                                    `<i class="bi bi-plus-circle me-2"></i>Xem thêm ${nextLoad} bảng<span class="text-muted ms-2">(${remaining} còn lại)</span>`;
                             } else {
                                 btn.style.display = 'none';
                             }
@@ -831,12 +971,17 @@
                 const allRows = table.querySelectorAll('tr:not(.empty-filter-row)');
 
                 // Đếm TOTAL filtered rows TRƯỚC khi thay đổi pagination
-                const totalFilteredRows = parseInt(loadMoreBtn.getAttribute('data-total')) || Array.from(allRows).filter(row => {
-                    return row.style.display !== 'none';
-                }).length;
+                const totalFilteredRows = parseInt(loadMoreBtn.getAttribute('data-total')) || Array.from(allRows)
+                    .filter(row => {
+                        return row.style.display !== 'none';
+                    }).length;
 
-                console.log(`DEBUG: allRows=${allRows.length}, totalFilteredRows=${totalFilteredRows}, currentLoaded=${currentLoaded}`);
-                console.log(`Maintaining pagination: ${currentLoaded} out of ${totalFilteredRows} filtered rows (${allRows.length} total)`);
+                console.log(
+                    `DEBUG: allRows=${allRows.length}, totalFilteredRows=${totalFilteredRows}, currentLoaded=${currentLoaded}`
+                );
+                console.log(
+                    `Maintaining pagination: ${currentLoaded} out of ${totalFilteredRows} filtered rows (${allRows.length} total)`
+                );
 
                 // Tìm tất cả rows được filter (không bị ẩn hoàn toàn)
                 const filteredRows = Array.from(allRows).filter(row => {
@@ -876,11 +1021,14 @@
 
                 // Update load more button với total filtered rows
                 const remaining = totalFilteredRows - currentLoaded;
-                console.log(`DEBUG BUTTON: totalFilteredRows=${totalFilteredRows}, currentLoaded=${currentLoaded}, remaining=${remaining}`);
+                console.log(
+                    `DEBUG BUTTON: totalFilteredRows=${totalFilteredRows}, currentLoaded=${currentLoaded}, remaining=${remaining}`
+                );
 
                 if (remaining > 0) {
                     const nextLoad = Math.min(10, remaining);
-                    loadMoreBtn.innerHTML = `<i class="bi bi-plus-circle me-2"></i>Xem thêm ${nextLoad} bảng<span class="text-muted ms-2">(${remaining} còn lại)</span>`;
+                    loadMoreBtn.innerHTML =
+                        `<i class="bi bi-plus-circle me-2"></i>Xem thêm ${nextLoad} bảng<span class="text-muted ms-2">(${remaining} còn lại)</span>`;
                     loadMoreBtn.style.display = '';
                     loadMoreBtn.setAttribute('data-total', totalFilteredRows);
                     console.log(`DEBUG BUTTON: Showing button - Xem thêm ${nextLoad} bảng (${remaining} còn lại)`);
@@ -891,5 +1039,5 @@
             }
         });
     </script>
-@include('components.taboo-filter-script')
+    @include('components.taboo-filter-script')
 @endpush

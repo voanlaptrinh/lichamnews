@@ -3,25 +3,24 @@
 @section('content')
     @push('styles')
         <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=10.7') }}">
-       
     @endpush
 
     <div class="container-setup">
-            <nav aria-label="breadcrumb" class="content-title-detail">
+        <nav aria-label="breadcrumb" class="content-title-detail">
             <ol class="breadcrumb mb-1">
                 <li class="breadcrumb-item">
-                    <a href="{{ route('home') }}"  style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
+                    <a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
                 </li>
                 <li class="breadcrumb-item" aria-current="page">
-                  Tiện ích
+                    Tiện ích
                 </li>
-                 <li class="breadcrumb-item active" aria-current="page">
-                 Xem ngày trấn trạch
+                <li class="breadcrumb-item active" aria-current="page">
+                    Xem ngày trấn trạch
                 </li>
             </ol>
         </nav>
 
-     
+
 
         <h1 class="content-title-home-lich">Xem ngày tốt trấn yểm, trấn trạch theo tuổi</h1>
 
@@ -119,7 +118,8 @@
                                                     </div>
 
                                                     <!-- Hidden input to store formatted date -->
-                                                    <input type="hidden" id="ngayXem" name="birthdate" value="{{ old('birthdate', $inputs['birthdate'] ?? '') }}">
+                                                    <input type="hidden" id="ngayXem" name="birthdate"
+                                                        value="{{ old('birthdate', $inputs['birthdate'] ?? '') }}">
 
                                                     @error('birthdate')
                                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -172,14 +172,145 @@
                     </div>
                     <div id="resultsContainer" class="--detail-success">
                         <div class="d-flex flex-column align-items-center justify-content-center h-100 text-center">
-                            <div class="mb-4">
-                                <img src="{{ asset('/icons/defaild.png?v=1.0') }}" alt="defakd" class="img-fuild">
-                            </div>
-                            <p class="text-muted" style="font-size: 16px;">
-                                Hiện chưa có thông tin, bạn vui lòng nhập thông tin để xem kết quả.
-                            </p>
+
                         </div>
                     </div>
+
+                    <div class="box--bg-thang mt-3 mb-3">
+                        <div class="text-box-tong-quan">
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Vì sao cần xem ngày tốt để cúng sao giải hạn?
+                            </h2>
+                            <p class="mb-1">
+                                Trấn trạch là nghi lễ quan trọng giúp ổn định năng lượng của ngôi nhà, hóa giải tà khí, tăng
+                                cát khí và mang lại sự bình an cho gia chủ. Đây thường là nghi thức thực hiện khi mới vào
+                                nhà, khi nhà gặp vận xấu hoặc khi gia chủ cảm thấy không gian sống chưa hài hòa.
+                            </p>
+                            <p class="mb-1">
+                                Chọn ngày tốt để trấn trạch giúp:
+                            </p>
+                            <ul class="mb-1">
+                                <li>Việc cúng lễ diễn ra suôn sẻ, dễ đạt được ý nguyện.</li>
+                                <li>Tăng sinh khí cho căn nhà, cải thiện vận tài lộc - sức khỏe của gia đình.</li>
+                                <li>Tránh phạm ngày xấu, hạn chế rủi ro về phong thủy hoặc tâm linh.</li>
+                                <li>Tạo cảm giác yên tâm và cân bằng tinh thần cho gia chủ.</li>
+                            </ul>
+                            <p class="mb-1">Một ngày phù hợp là yếu tố quan trọng để buổi lễ trấn trạch đạt hiệu quả tốt
+                                nhất.</p>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Lợi ích của việc chọn ngày trấn trạch hợp tuổi
+                            </h2>
+                            <ul class="mb-1">
+                                <li>Không phạm ngày xung tuổi gia chủ, giúp lễ cúng hòa hợp, tránh xung khắc.</li>
+                                <li>Ngày – giờ hoàng đạo hỗ trợ năng lượng cát lành, thúc đẩy vận nhà.</li>
+                                <li>Ngũ hành – Can Chi tương sinh giúp tăng sự hòa hợp giữa gia chủ và mảnh đất.</li>
+                                <li>Sao tốt – trực tốt tạo điều kiện để hóa giải khí xấu, nâng cát khí.</li>
+                            </ul>
+                            <p class="mb-1">Chọn ngày hợp tuổi không chỉ theo phong thủy mà còn giúp gia chủ cảm thấy yên
+                                tâm, tự tin khi làm lễ.</p>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Khi xem ngày trấn trạch cần lưu ý điều gì?
+                            </h2>
+                            <ul class="mb-1" style="list-style-type: upper-alpha;">
+                                <li>
+                                    <h3 class="title-tong-quan-h4-log">Các yếu tố cát lành nên ưu tiên</h3>
+                                    <ul style="	list-style-type: decimal;" class="mb-1">
+                                        <li>
+                                            <p class="mb-1">Ngày hoàng đạo và trực tốt
+                                            </p>
+                                            <p class="mb-1">Thường ưu tiên:
+                                            </p>
+                                            <ul class="mb-1">
+                                                <li>Hoàng Đạo: Thanh Long, Minh Đường, Kim Quỹ, Ngọc Đường, Tư Mệnh.</li>
+                                                <li>Trực tốt: Trực Khai, Trực Thành, Trực Mãn.
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <p class="mb-1"> Ngày hợp tuổi gia chủ
+                                            </p>
+                                            <ul class="mb-1">
+                                                <li>Không phạm xung khắc theo Can Chi.</li>
+                                                <li>Ngũ hành ngày sinh – hỗ trợ bản mệnh của gia chủ.
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <p class="mb-1">Sao tốt và giờ tốt
+                                            </p>
+
+                                            <ul class="mb-1">
+                                                <li>Các sao cát thường dùng: Thiên Đức, Nguyệt Đức, Thiên Quan…</li>
+                                                <li>Giờ Hoàng đạo để cúng lễ, hóa giải khí xấu hiệu quả hơn.
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <h3 class="title-tong-quan-h4-log">Các yếu tố xấu nên tránh</h3>
+                                    <ul style="list-style-type: decimal;">
+                                        <li>
+                                            <p class="mb-1">Ngày xung tuổi hoặc phạm hạn</p>
+                                            <ul class="mb-1">
+                                                <li>Ngày xung, hại mệnh theo ngũ hành.</li>
+                                                <li>Ngày phạm Thái Tuế
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <p class="mb-1">Ngày hắc đạo – trực xấu</p>
+                                            <ul class="mb-1">
+                                                <li>Hắc đạo: Huyền Vũ, Bạch Hổ, Thiên Lao, Nguyên Vũ.</li>
+                                                <li>Trực xấu: Trực Phá, Trực Nguy, Trực Bế.
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <p class="mb-1">Ngày bách kỵ ảnh hưởng đến cúng lễ – cầu an</p>
+                                            <ul class="mb-1">
+                                                <li>Tam Nương (3, 7, 13, 18, 22, 27).</li>
+                                                <li>Nguyệt Kỵ (5, 14, 23).</li>
+                                                <li>Dương Công Kỵ Nhật.</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                    <p class="mb-1">Tránh các ngày này sẽ giúp lễ trấn trạch diễn ra thuận lợi, hạn chế
+                                        những biến động xấu trong không gian sống.</p>
+                                </li>
+                            </ul>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Hướng dẫn sử dụng công cụ Xem Ngày Trấn Trạch tại Phong Lịch
+                            </h2>
+                            <ul class="mb-1" style="list-style-type: decimal;">
+                                <li>Nhập tuổi gia chủ (âm lịch hoặc dương lịch đều được).</li>
+                                <li>Chọn khoảng thời gian dự định làm lễ trấn trạch.</li>
+                                <li>
+                                    Hệ thống sẽ tự động:
+                                    <ul class="mb-1">
+                                        <li>Gợi ý những ngày trấn trạch tốt nhất.</li>
+                                        <li>Hiển thị điểm tốt – xấu của từng ngày.</li>
+                                        <li>Liệt kê sao tốt/xấu, trực tốt, ngày hoàng đạo.</li>
+                                        <li>Đề xuất giờ Hoàng đạo để tiến hành lễ.</li>
+                                    </ul>
+                                </li>
+                                <li>So sánh các ngày và lựa chọn ngày phù hợp nhất, dựa theo lịch gia đình và tình trạng
+                                    ngôi nhà.</li>
+                            </ul>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Một ngày trấn trạch đẹp mang lại lợi ích gì?
+                            </h2>
+                            <ul class="mb-1">
+                                <li>Không gian sống hài hòa, giảm tà khí – tăng sinh khí.</li>
+                                <li>Gia đình cảm thấy an tâm hơn, tinh thần ổn định.</li>
+                                <li>Hỗ trợ tài lộc, sức khỏe và sự thuận hòa giữa các thành viên.</li>
+                                <li>Buổi lễ diễn ra trọn vẹn, đúng nghi thức, mang lại hiệu quả cao.</li>
+                                <li>Tạo nền tảng phong thủy tốt cho ngôi nhà trong thời gian dài.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+
                 </div>
                 @include('tools.siderbarindex')
             </div>
@@ -188,7 +319,6 @@
     </div>
 
     <!-- Mobile Date Range Quick Options Popup -->
-   
 @endsection
 
 @push('scripts')
@@ -710,8 +840,8 @@
                     const activeTabPane = document.querySelector(`#year-${year}`);
                     if (activeTabPane) {
                         table = activeTabPane.querySelector(`#table-${year} tbody`) ||
-                               activeTabPane.querySelector('.table tbody') ||
-                               activeTabPane.querySelector('tbody');
+                            activeTabPane.querySelector('.table tbody') ||
+                            activeTabPane.querySelector('tbody');
                     }
 
                     // Fallback: global search for year-specific table
@@ -800,7 +930,10 @@
                         if (year) {
                             const yearTab = document.querySelector(`#year-${year}`);
                             const bangChiTiet = yearTab?.querySelector('#bang-chi-tiet');
-                            bangChiTiet?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            bangChiTiet?.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
                         } else {
                             document.getElementById('bang-chi-tiet')?.scrollIntoView({
                                 behavior: 'smooth',
@@ -825,7 +958,7 @@
         window.testTabooFilter = function() {
             const btn = document.getElementById('tabooFilterBtn');
             const modal = document.getElementById('tabooFilterModal');
-         
+
             if (btn) {
                 btn.click();
             }
@@ -839,7 +972,8 @@
             const resultsContainer = document.querySelector('.--detail-success');
             resultsContainer.addEventListener('click', function(event) {
                 if (event.target.matches('.load-more-btn') || event.target.closest('.load-more-btn')) {
-                    const btn = event.target.matches('.load-more-btn') ? event.target : event.target.closest('.load-more-btn');
+                    const btn = event.target.matches('.load-more-btn') ? event.target : event.target.closest(
+                        '.load-more-btn');
                     const year = btn.dataset.year;
                     const loaded = parseInt(btn.dataset.loaded);
                     const total = parseInt(btn.dataset.total);
@@ -909,7 +1043,6 @@
             }
             return new Date(0);
         }
-
     </script>
     @include('components.taboo-filter-script')
 @endpush

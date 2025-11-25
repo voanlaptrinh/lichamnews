@@ -6,21 +6,21 @@
 
 
     <div class="container-setup">
-         <nav aria-label="breadcrumb" class="content-title-detail">
+        <nav aria-label="breadcrumb" class="content-title-detail">
             <ol class="breadcrumb mb-1">
                 <li class="breadcrumb-item">
-                    <a href="{{ route('home') }}"  style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
+                    <a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
                 </li>
                 <li class="breadcrumb-item" aria-current="page">
-                  Tiện ích
+                    Tiện ích
                 </li>
-                 <li class="breadcrumb-item active" aria-current="page">
-                  Xem ngày tốt xấu
+                <li class="breadcrumb-item active" aria-current="page">
+                    Xem ngày tốt xấu
                 </li>
             </ol>
         </nav>
 
-       
+
 
         <h1 class="content-title-home-lich">Xem Ngày Tốt – Kiểm Tra Ngày Đẹp, Ngày Xấu Chính Xác</h1>
 
@@ -48,26 +48,35 @@
                                                 <div class="row g-2 mb-2">
                                                     <div class="col-6 col-sm-4 col-lg-4 col-xl-4">
                                                         <div class="position-relative">
-                                                            <select class="form-select pe-5 --border-box-form" id="ngaySelect" name="day" style="padding: 12px 45px 12px 15px">
+                                                            <select class="form-select pe-5 --border-box-form"
+                                                                id="ngaySelect" name="day"
+                                                                style="padding: 12px 45px 12px 15px">
                                                                 <option value="">Ngày</option>
                                                             </select>
-                                                            <i class="bi bi-chevron-down position-absolute" style="right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #6c757d;"></i>
+                                                            <i class="bi bi-chevron-down position-absolute"
+                                                                style="right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #6c757d;"></i>
                                                         </div>
                                                     </div>
                                                     <div class="col-6 col-sm-4 col-lg-4 col-xl-4">
                                                         <div class="position-relative">
-                                                            <select class="form-select pe-5 --border-box-form" id="thangSelect" name="month" style="padding: 12px 45px 12px 15px">
+                                                            <select class="form-select pe-5 --border-box-form"
+                                                                id="thangSelect" name="month"
+                                                                style="padding: 12px 45px 12px 15px">
                                                                 <option value="">Tháng</option>
                                                             </select>
-                                                            <i class="bi bi-chevron-down position-absolute" style="right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #6c757d;"></i>
+                                                            <i class="bi bi-chevron-down position-absolute"
+                                                                style="right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #6c757d;"></i>
                                                         </div>
                                                     </div>
                                                     <div class="col-12 col-sm-4 col-lg-4 col-xl-4">
                                                         <div class="position-relative">
-                                                            <select class="form-select pe-5 --border-box-form" id="namSelect" name="year" style="padding: 12px 45px 12px 15px">
+                                                            <select class="form-select pe-5 --border-box-form"
+                                                                id="namSelect" name="year"
+                                                                style="padding: 12px 45px 12px 15px">
                                                                 <option value="">Năm</option>
                                                             </select>
-                                                            <i class="bi bi-chevron-down position-absolute" style="right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #6c757d;"></i>
+                                                            <i class="bi bi-chevron-down position-absolute"
+                                                                style="right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #6c757d;"></i>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -75,18 +84,20 @@
                                                 <!-- Radio buttons dạng tròn bên dưới selects -->
                                                 <div class="d-flex gap-4 ps-2">
                                                     <div class="form-check d-flex align-items-center">
-                                                        <input type="radio" class="form-check-input" name="calendar_type" id="solarCalendar" value="solar" checked
-                                                               style="width: 24px; height: 24px; cursor: pointer;">
+                                                        <input type="radio" class="form-check-input" name="calendar_type"
+                                                            id="solarCalendar" value="solar" checked
+                                                            style="width: 24px; height: 24px; cursor: pointer;">
                                                         <label class="form-check-label ms-2" for="solarCalendar"
-                                                               style="cursor: pointer; font-size: 15px; color: #333;">
+                                                            style="cursor: pointer; font-size: 15px; color: #333;">
                                                             Dương lịch
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center">
-                                                        <input type="radio" class="form-check-input" name="calendar_type" id="lunarCalendar" value="lunar"
-                                                               style="width: 24px; height: 24px; cursor: pointer;">
+                                                        <input type="radio" class="form-check-input" name="calendar_type"
+                                                            id="lunarCalendar" value="lunar"
+                                                            style="width: 24px; height: 24px; cursor: pointer;">
                                                         <label class="form-check-label ms-2" for="lunarCalendar"
-                                                               style="cursor: pointer; font-size: 15px; color: #333;">
+                                                            style="cursor: pointer; font-size: 15px; color: #333;">
                                                             Âm lịch
                                                         </label>
                                                     </div>
@@ -94,23 +105,26 @@
 
                                                 <!-- Leap Month Option (hidden) -->
                                                 <div class="form-check mt-2" id="leapMonthContainer" style="display: none;">
-                                                    <input class="form-check-input" type="checkbox" id="leapMonth" name="leap_month">
+                                                    <input class="form-check-input" type="checkbox" id="leapMonth"
+                                                        name="leap_month">
                                                     <label class="form-check-label" for="leapMonth">
                                                         Tháng nhuận
                                                     </label>
                                                 </div>
 
                                                 <!-- Hidden input to store formatted date -->
-                                                <input type="hidden" id="ngayXem" name="birthdate" value="{{ old('birthdate', $inputs['birthdate'] ?? '') }}">
+                                                <input type="hidden" id="ngayXem" name="birthdate"
+                                                    value="{{ old('birthdate', $inputs['birthdate'] ?? '') }}">
                                             </div>
 
                                             <div class="fw-bold title-tong-quan-h2-log">Khoảng thời gian cần xem
                                             </div>
                                             <div class="mb-4">
                                                 <div class="input-group">
-                                                    <input type="text"  readonly
+                                                    <input type="text" readonly
                                                         class="form-control wedding_date_range --border-box-form"
-                                                        id="khoangNgay" name="date_range" placeholder="DD/MM/YY - DD/MM/YY" autocomplete="off"
+                                                        id="khoangNgay" name="date_range" placeholder="DD/MM/YY - DD/MM/YY"
+                                                        autocomplete="off"
                                                         value="{{ old('date_range', $inputs['date_range'] ?? '') }}"
                                                         style="border-radius: 10px; border: none; padding: 12px 45px 12px 15px; background-color: rgba(255,255,255,0.95); cursor: pointer;">
                                                     <span class="input-group-text bg-transparent border-0"
@@ -133,7 +147,8 @@
                             </div>
                             <div class="col-lg-4 d-none d-lg-block d-flex">
                                 <div class="d-flex align-items-end h-100 w-100">
-                                    <img src="{{ asset('/icons/datedoilich.svg') }}" alt="ảnh đổi lich" class="img-fluid">
+                                    <img src="{{ asset('/icons/datedoilich.svg') }}" alt="ảnh đổi lich"
+                                        class="img-fluid">
                                 </div>
                             </div>
                         </div>
@@ -144,17 +159,123 @@
 
                     <div class="--detail-success">
                         <div class="d-flex flex-column align-items-center justify-content-center h-100 text-center">
-                            <div class="mb-4">
-                                <img src="{{ asset('/icons/defaild.png?v=1.0') }}" alt="defakd" class="img-fuild">
-                            </div>
-                            <p class="text-muted" style="font-size: 16px;">
-                                Hiện chưa có thông tin, bạn vui lòng nhập thông tin để xem kết quả.
-                            </p>
+
                         </div>
                     </div>
+                    <div class="box--bg-thang mt-3 mb-3">
+                        <div class="text-box-tong-quan">
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Vì sao nên xem ngày tốt – xấu trước khi bắt đầu một việc quan trọng?
+                            </h2>
+                            <p class="mb-1">Trong đời sống hàng ngày, có nhiều việc không nằm trong các nhóm công việc
+                                quen thuộc như
+                                cưới hỏi, nhập trạch, khai trương… Người dùng đôi khi chỉ muốn biết ngày hôm đó tốt hay xấu,
+                                hoặc đang cân nhắc trong một khoảng thời gian để chọn ra ngày đẹp nhất cho kế hoạch của
+                                mình.</p>
+                            <p class="mb-1">Một ngày tốt mang lại sự an tâm, tinh thần thoải mái và cảm giác “thuận trời
+                                – thuận thời
+                                điểm”. Ngược lại, những ngày có nhiều yếu tố xấu có thể khiến bạn do dự, hoặc muốn tránh để
+                                mọi việc diễn ra suôn sẻ hơn.</p>
+                            <p class="mb-1">Vì vậy, một công cụ xem ngày tốt – xấu chung giúp bạn linh hoạt lựa chọn thời
+                                điểm phù hợp
+                                cho bất kỳ công việc, dự định hoặc hành động nào trong cuộc sống.</p>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Lợi ích khi xem ngày tốt – xấu cho các việc khác nhau
+                            </h2>
+                            <ul class="mb-1">
+                                <li>
+                                    <p class="mb-0"> Chủ động chọn thời điểm thuận lợi</p>
+                                    <p class="mb-0">Dù là đi xa, bắt đầu dự án, sửa nhà, mở sổ tiết kiệm hay chỉ đơn giản
+                                        là muốn tìm ngày với năng lượng tốt bạn đều có thể xem trước để sắp xếp hợp lý.</p>
+                                </li>
+                                <li>
+                                    <p class="mb-0"> Giảm rủi ro – tăng an tâm
+                                    </p>
+                                    <p class="mb-0">Một ngày đẹp thường ít phạm các sao xấu, không trùng với các ngày
+                                        kiêng kỵ trong dân gian, giúp tâm lý vững vàng hơn.
+                                    </p>
+                                </li>
+                                <li>
+                                    <p class="mb-0">Hỗ trợ phong thủy cá nhân
+                                    </p>
+                                    <p class="mb-0">Ngày hợp tuổi, ngũ hành hài hòa giúp công việc dễ hanh thông và giảm
+                                        xung khắc.
+                                    </p>
+                                </li>
+                                <li>
+                                    <p class="mb-0">Phù hợp cho nhiều nhu cầu linh hoạt
+                                    </p>
+                                    <p class="mb-0">Không cần phải có mục đích cụ thể, chỉ cần muốn biết ngày nào tốt,
+                                        ngày nào nên hạn chế làm việc quan trọng.
+                                    </p>
+                                </li>
+                            </ul>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Khi xem ngày tốt – xấu cần chú ý những yếu tố nào?
+                            </h2>
+                            <h3 class="title-tong-quan-h4-log mb-1 mt-1">1. Ngày Hoàng đạo – Hắc đạo</h3>
+                            <p class="mb-1">Ngày Hoàng đạo thường mang năng lượng cát lành, phù hợp cho mọi việc. <br>
+                                Ngày Hắc đạo nên cân nhắc nếu bạn có việc quan trọng.
+                            </p>
+                            <h3 class="title-tong-quan-h4-log mb-1 mt-1">2. Trực của ngày</h3>
+                            <ul class="mb-1">
+                                <li>Trực tốt: Trực Khai, Thành, Mãn, Định → thuận lợi, dễ làm việc mới.</li>
+                                <li>Trực xấu: Trực Phá, Nguy, Bế, Thu → nên hạn chế làm việc lớn.</li>
+                            </ul>
+                            <h3 class="title-tong-quan-h4-log mb-1 mt-1">3. Sao tốt – sao xấu trong ngày</h3>
+                            <ul class="mb-1">
+                                <li>Nhiều sao cát bổ trợ năng lượng như: Thiên Đức, Nguyệt Đức, Thiên Hỷ, Phúc Hỷ, Tam Hợp,
+                                    Lục Hợp.</li>
+                                <li>
+                                    Những sao xấu nên tránh: Thiên Cương, Không Vong, Cô Thần – Quả Tú, Nguyệt Hình…
+                                </li>
+                            </ul>
+                            <h3 class="title-tong-quan-h4-log mb-1 mt-1">4. Ngày xung tuổi – hợp tuổi</h3>
+                            <p class="mb-1">Ngày hợp tuổi giúp công việc thuận lợi. Ngược lại, ngày xung tuổi nên tránh
+                                nếu bạn định làm việc quan trọng.
+                            </p>
+                            <h3 class="title-tong-quan-h4-log mb-1 mt-1">5. Ngày kiêng kỵ trong dân gian</h3>
+                            <p class="mb-1">Nên chú ý các ngày: Tam Nương, Nguyệt Kỵ, Dương Công Kỵ Nhật. Đây là những
+                                ngày thường được coi là ít may mắn.
+                            </p>
+                            <h2 class="title-tong-quan-h3-log mb-1 mt-1 fw-bolder">
+                                Hướng dẫn sử dụng công cụ Xem Ngày Tốt – Xấu tại Phong Lịch
+                            </h2>
+                            <ul style="list-style-type: decimal;" class="mb-1">
+                                <li>
+                                    Nhập ngày hoặc khoảng thời gian bạn muốn xem.
+                                </li>
+                                <li>
+                                    Chọn tuổi (nếu bạn muốn xem chi tiết theo hợp – xung).
+                                </li>
+                                <li>
+                                    Hệ thống sẽ tự động phân tích và hiển thị:
+                                    <ul>
+                                        <li>Điểm tốt – xấu của ngày.</li>
+                                        <li>Ngày Hoàng đạo – Hắc đạo.</li>
+                                        <li>Sao tốt/xấu và trực của ngày.</li>
+                                        <li>Ngũ hành ngày và sự hợp – xung với tuổi của bạn.</li>
+                                        <li>Gợi ý nên hay không nên làm việc quan trọng trong ngày.</li>
+                                    </ul>
+                                </li>
+                                <li>Chọn ngày phù hợp nhất theo đánh giá của công cụ và lịch trình cá nhân của bạn.</li>
+                            </ul>
+                             <h2 class="title-tong-quan-h3-log mb-1 mt-1 fw-bolder">
+                              Một ngày đẹp giúp ích như thế nào?
+                            </h2>
+                            <ul>
+                                <li>Tạo cảm giác yên tâm, tinh thần thoải mái.</li>
+                                <li>Tăng khả năng thuận lợi khi bắt đầu việc quan trọng.</li>
+                                <li>Hạn chế rủi ro và xung khắc.</li>
+                                <li>Mang lại sự hài hòa giữa thời điểm – tuổi – ngũ hành.</li>
+                            </ul>
+                            <p>Dù bạn dùng công cụ để xem cho bất kỳ việc gì, lớn hay nhỏ. Một ngày tốt luôn là nền tảng giúp mọi việc dễ dàng và thuận lợi hơn.</p>
+                        </div>
+                    </div>
+
                 </div>
 
-               @include('tools.siderbarindex')
+                @include('tools.siderbarindex')
             </div>
         </div>
     </div>
@@ -255,7 +376,8 @@
                                 separator: ' - ',
                                 daysOfWeek: ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'],
                                 monthNames: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6',
-                                            'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
+                                    'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'
+                                ],
                                 firstDay: 1
                             }
                         };
@@ -344,7 +466,8 @@
                             }
 
                             // Check if dateSelector is available and fully initialized
-                            if (dateSelector && dateSelector.daySelect && dateSelector.monthSelect && dateSelector.yearSelect &&
+                            if (dateSelector && dateSelector.daySelect && dateSelector.monthSelect && dateSelector
+                                .yearSelect &&
                                 dateSelector.yearSelect.options.length > 1) {
 
                                 // Parse birthdate from URL (always in solar format from URL)
@@ -365,24 +488,29 @@
                                                 // Use LunarSolarDateSelect's handleLunarRadioChange method for conversion
                                                 try {
                                                     // First set solar date in selects
-                                                    await dateSelector.setDate(day, month, year, false, false);
+                                                    await dateSelector.setDate(day, month, year, false,
+                                                        false);
 
                                                     // Then switch to lunar mode - this will trigger automatic conversion
-                                                    const lunarRadio = document.getElementById('lunarCalendar');
-                                                    const solarRadio = document.getElementById('solarCalendar');
+                                                    const lunarRadio = document.getElementById(
+                                                        'lunarCalendar');
+                                                    const solarRadio = document.getElementById(
+                                                        'solarCalendar');
                                                     if (lunarRadio && solarRadio) {
                                                         lunarRadio.checked = true;
                                                         solarRadio.checked = false;
 
                                                         // Trigger the built-in conversion method
-                                                        if (dateSelector && typeof dateSelector.handleLunarRadioChange === 'function') {
+                                                        if (dateSelector && typeof dateSelector
+                                                            .handleLunarRadioChange === 'function') {
                                                             await dateSelector.handleLunarRadioChange();
                                                         }
                                                     }
                                                 } catch (error) {
                                                     // Conversion error, using fallback
                                                     // Fallback: just set as lunar without conversion
-                                                    await dateSelector.setDate(day, month, year, true, false);
+                                                    await dateSelector.setDate(day, month, year, true,
+                                                        false);
                                                 }
 
                                             } else {
@@ -536,7 +664,8 @@
                     } else {
                         // Fallback: extract lunar from display value
                         const displayValue = ngayXemInput.dataset.displayValue || '';
-                        formattedBirthdate = displayValue.replace(' (ÂL)', '').replace(' (ÂL-Nhuận)', '');
+                        formattedBirthdate = displayValue.replace(' (ÂL)', '').replace(' (ÂL-Nhuận)',
+                            '');
                         isLeapMonth = displayValue.includes('(ÂL-Nhuận)');
                     }
 
@@ -550,13 +679,14 @@
 
                 // The LunarSolarDateSelect module automatically maintains solar date in hidden input
                 // No need for additional conversion here - just use the value that's already there
-                const finalSolarDate = ngayXemValue; // This is always solar date maintained by the module
+                const finalSolarDate =
+                    ngayXemValue; // This is always solar date maintained by the module
 
                 // URL birthdate is the same as final solar date
                 if (calendarType === 'lunar') {
                     urlBirthdate = finalSolarDate; // Use solar date for URL sharing
                 }
-              
+
 
                 // Parse date range to get start and end dates
                 // Date range format: "28/10/25 - 30/10/25"
@@ -624,7 +754,7 @@
                         sort: sortValue,
                         _token: '{{ csrf_token() }}'
                     };
-                 
+
                 } else {
                     // For solar: send solar date as birthdate
                     formData = {
@@ -758,8 +888,8 @@
 
                     // Tìm table trong active tab
                     const table = activeTab.querySelector('table tbody') ||
-                                 activeTab.querySelector('.table-body-' + activeYear) ||
-                                 activeTab.querySelector('#table-' + activeYear + ' tbody');
+                        activeTab.querySelector('.table-body-' + activeYear) ||
+                        activeTab.querySelector('#table-' + activeYear + ' tbody');
 
                     if (!table) {
                         console.log('No table found in active tab for year:', activeYear);
@@ -813,21 +943,30 @@
                         // Scroll to table after sort
                         setTimeout(() => {
                             // Tìm tab hiện tại và scroll đến table của tab đó
-                            const activeTab = document.querySelector('.tab-pane.show.active');
+                            const activeTab = document.querySelector(
+                                '.tab-pane.show.active');
                             if (activeTab) {
                                 const activeYear = activeTab.id.replace('year-', '');
-                                const tableContainer = activeTab.querySelector(`#table-${activeYear}`) ||
-                                                     activeTab.querySelector('.table-responsive') ||
-                                                     activeTab.querySelector('#bang-chi-tiet');
+                                const tableContainer = activeTab.querySelector(
+                                        `#table-${activeYear}`) ||
+                                    activeTab.querySelector('.table-responsive') ||
+                                    activeTab.querySelector('#bang-chi-tiet');
                                 if (tableContainer) {
-                                    tableContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                    tableContainer.scrollIntoView({
+                                        behavior: 'smooth',
+                                        block: 'start'
+                                    });
                                     return;
                                 }
                             }
 
                             // Fallback cho single table
-                            const bangChiTiet = document.querySelector('#bang-chi-tiet');
-                            bangChiTiet?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            const bangChiTiet = document.querySelector(
+                                '#bang-chi-tiet');
+                            bangChiTiet?.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
                         }, 100);
                     }
                 });
@@ -836,8 +975,10 @@
                 function initPagination() {
                     // Sử dụng event delegation để handle động
                     document.addEventListener('click', function(event) {
-                        if (event.target.matches('.load-more-btn') || event.target.closest('.load-more-btn')) {
-                            const btn = event.target.matches('.load-more-btn') ? event.target : event.target.closest('.load-more-btn');
+                        if (event.target.matches('.load-more-btn') || event.target.closest(
+                                '.load-more-btn')) {
+                            const btn = event.target.matches('.load-more-btn') ? event.target :
+                                event.target.closest('.load-more-btn');
                             const year = btn.dataset.year;
                             const loaded = parseInt(btn.dataset.loaded);
                             const total = parseInt(btn.dataset.total);
@@ -939,9 +1080,10 @@
 
                     // Đếm TOTAL filtered rows TRƯỚC khi thay đổi pagination
                     const allRows = table.querySelectorAll('tr:not(.empty-filter-row)');
-                    const totalFilteredRows = parseInt(loadMoreBtn?.getAttribute('data-total')) || Array.from(allRows).filter(row => {
-                        return row.style.display !== 'none';
-                    }).length;
+                    const totalFilteredRows = parseInt(loadMoreBtn?.getAttribute('data-total')) || Array
+                        .from(allRows).filter(row => {
+                            return row.style.display !== 'none';
+                        }).length;
 
                     // Hiển thị theo số lượng hiện tại, ẩn phần còn lại
                     allRows.forEach((row, index) => {
@@ -960,7 +1102,9 @@
                         loadMoreBtn.dataset.total = totalFilteredRows.toString();
                         const remaining = totalFilteredRows - currentLoaded;
 
-                        console.log(`Maintaining pagination: ${currentLoaded} out of ${totalFilteredRows} filtered rows (${allRows.length} total)`);
+                        console.log(
+                            `Maintaining pagination: ${currentLoaded} out of ${totalFilteredRows} filtered rows (${allRows.length} total)`
+                        );
 
                         if (remaining > 0) {
                             loadMoreBtn.style.display = '';
@@ -990,7 +1134,7 @@
 
             });
 
-           
+
         });
 
         // ========== INCLUDE TABOO FILTER COMPONENT ==========

@@ -6,16 +6,16 @@
 
 
     <div class="container-setup">
-         <nav aria-label="breadcrumb" class="content-title-detail">
+        <nav aria-label="breadcrumb" class="content-title-detail">
             <ol class="breadcrumb mb-1">
                 <li class="breadcrumb-item">
-                    <a href="{{ route('home') }}"  style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
+                    <a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
                 </li>
                 <li class="breadcrumb-item" aria-current="page">
-                  Tiện ích
+                    Tiện ích
                 </li>
-                 <li class="breadcrumb-item active" aria-current="page">
-                  Xem ngày cúng sao giải hạn
+                <li class="breadcrumb-item active" aria-current="page">
+                    Xem ngày cúng sao giải hạn
                 </li>
             </ol>
         </nav>
@@ -47,26 +47,35 @@
                                                 <div class="row g-2 mb-2">
                                                     <div class="col-6 col-sm-4 col-lg-4 col-xl-4">
                                                         <div class="position-relative">
-                                                            <select class="form-select pe-5 --border-box-form" id="ngaySelect" name="day" style="padding: 12px 45px 12px 15px">
+                                                            <select class="form-select pe-5 --border-box-form"
+                                                                id="ngaySelect" name="day"
+                                                                style="padding: 12px 45px 12px 15px">
                                                                 <option value="">Ngày</option>
                                                             </select>
-                                                            <i class="bi bi-chevron-down position-absolute" style="right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #6c757d;"></i>
+                                                            <i class="bi bi-chevron-down position-absolute"
+                                                                style="right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #6c757d;"></i>
                                                         </div>
                                                     </div>
                                                     <div class="col-6 col-sm-4 col-lg-4 col-xl-4">
                                                         <div class="position-relative">
-                                                            <select class="form-select pe-5 --border-box-form" id="thangSelect" name="month" style="padding: 12px 45px 12px 15px">
+                                                            <select class="form-select pe-5 --border-box-form"
+                                                                id="thangSelect" name="month"
+                                                                style="padding: 12px 45px 12px 15px">
                                                                 <option value="">Tháng</option>
                                                             </select>
-                                                            <i class="bi bi-chevron-down position-absolute" style="right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #6c757d;"></i>
+                                                            <i class="bi bi-chevron-down position-absolute"
+                                                                style="right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #6c757d;"></i>
                                                         </div>
                                                     </div>
                                                     <div class="col-12 col-sm-4 col-lg-4 col-xl-4">
                                                         <div class="position-relative">
-                                                            <select class="form-select pe-5 --border-box-form" id="namSelect" name="year" style="padding: 12px 45px 12px 15px">
+                                                            <select class="form-select pe-5 --border-box-form"
+                                                                id="namSelect" name="year"
+                                                                style="padding: 12px 45px 12px 15px">
                                                                 <option value="">Năm</option>
                                                             </select>
-                                                            <i class="bi bi-chevron-down position-absolute" style="right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #6c757d;"></i>
+                                                            <i class="bi bi-chevron-down position-absolute"
+                                                                style="right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #6c757d;"></i>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -74,18 +83,20 @@
                                                 <!-- Radio buttons dạng tròn bên dưới selects -->
                                                 <div class="d-flex gap-4 ps-2">
                                                     <div class="form-check d-flex align-items-center">
-                                                        <input type="radio" class="form-check-input" name="calendar_type" id="solarCalendar" value="solar" checked
-                                                               style="width: 24px; height: 24px; cursor: pointer;">
+                                                        <input type="radio" class="form-check-input" name="calendar_type"
+                                                            id="solarCalendar" value="solar" checked
+                                                            style="width: 24px; height: 24px; cursor: pointer;">
                                                         <label class="form-check-label ms-2" for="solarCalendar"
-                                                               style="cursor: pointer; font-size: 15px; color: #333;">
+                                                            style="cursor: pointer; font-size: 15px; color: #333;">
                                                             Dương lịch
                                                         </label>
                                                     </div>
                                                     <div class="form-check d-flex align-items-center">
-                                                        <input type="radio" class="form-check-input" name="calendar_type" id="lunarCalendar" value="lunar"
-                                                               style="width: 24px; height: 24px; cursor: pointer;">
+                                                        <input type="radio" class="form-check-input" name="calendar_type"
+                                                            id="lunarCalendar" value="lunar"
+                                                            style="width: 24px; height: 24px; cursor: pointer;">
                                                         <label class="form-check-label ms-2" for="lunarCalendar"
-                                                               style="cursor: pointer; font-size: 15px; color: #333;">
+                                                            style="cursor: pointer; font-size: 15px; color: #333;">
                                                             Âm lịch
                                                         </label>
                                                     </div>
@@ -93,23 +104,26 @@
 
                                                 <!-- Leap Month Option (hidden) -->
                                                 <div class="form-check mt-2" id="leapMonthContainer" style="display: none;">
-                                                    <input class="form-check-input" type="checkbox" id="leapMonth" name="leap_month">
+                                                    <input class="form-check-input" type="checkbox" id="leapMonth"
+                                                        name="leap_month">
                                                     <label class="form-check-label" for="leapMonth">
                                                         Tháng nhuận
                                                     </label>
                                                 </div>
 
                                                 <!-- Hidden input to store formatted date -->
-                                                <input type="hidden" id="ngayXem" name="birthdate" value="{{ old('birthdate', $inputs['birthdate'] ?? '') }}">
+                                                <input type="hidden" id="ngayXem" name="birthdate"
+                                                    value="{{ old('birthdate', $inputs['birthdate'] ?? '') }}">
                                             </div>
 
                                             <div class="fw-bold title-tong-quan-h2-log">Khoảng thời gian cúng sao giải hạn
                                             </div>
                                             <div class="mb-4">
                                                 <div class="input-group">
-                                                    <input type="text"  readonly
+                                                    <input type="text" readonly
                                                         class="form-control wedding_date_range --border-box-form"
-                                                        id="khoangNgay" name="date_range" placeholder="DD/MM/YY - DD/MM/YY" autocomplete="off"
+                                                        id="khoangNgay" name="date_range" placeholder="DD/MM/YY - DD/MM/YY"
+                                                        autocomplete="off"
                                                         value="{{ old('date_range', $inputs['date_range'] ?? '') }}"
                                                         style="border-radius: 10px; border: none; padding: 12px 45px 12px 15px; background-color: rgba(255,255,255,0.95); cursor: pointer;">
                                                     <span class="input-group-text bg-transparent border-0"
@@ -132,7 +146,8 @@
                             </div>
                             <div class="col-lg-4 d-none d-lg-block d-flex">
                                 <div class="d-flex align-items-end h-100 w-100">
-                                    <img src="{{ asset('/icons/datedoilich.svg') }}" alt="ảnh cúng sao giải hạn" class="img-fluid">
+                                    <img src="{{ asset('/icons/datedoilich.svg') }}" alt="ảnh cúng sao giải hạn"
+                                        class="img-fluid">
                                 </div>
                             </div>
                         </div>
@@ -145,18 +160,112 @@
                             @include('tools.giai-han.results')
                         @else
                             <div class="d-flex flex-column align-items-center justify-content-center h-100 text-center">
-                                <div class="mb-4">
-                                    <img src="{{ asset('/icons/defaild.png?v=1.0') }}" alt="defakd" class="img-fuild">
-                                </div>
-                                <p class="text-muted" style="font-size: 16px;">
-                                    Hiện chưa có thông tin, bạn vui lòng nhập thông tin để xem kết quả.
-                                </p>
+
                             </div>
                         @endif
                     </div>
+                    <div class="box--bg-thang mt-3 mb-3">
+                        <div class="text-box-tong-quan">
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Vì sao cần xem ngày tốt để cúng sao giải hạn?
+                            </h2>
+                            <p class="mb-1">
+                                Cúng sao giải hạn là nghi lễ tâm linh phổ biến trong văn hóa Việt Nam, giúp hóa giải vận hạn
+                                theo từng sao chiếu mệnh trong năm. Việc chọn đúng ngày tốt để cúng sao không chỉ giúp nghi
+                                lễ diễn ra thuận lợi mà còn gia tăng hiệu quả về mặt tâm linh và tinh thần cho gia chủ.
+
+                            </p>
+                            <p class="mb-1">
+                                Chọn ngày tốt giúp:
+                            </p>
+                            <ul class="mb-1">
+                                <li>Nghi lễ diễn ra trang nghiêm, đúng phong tục, thuận lợi cho việc cầu an.</li>
+                                <li>Hóa giải vận hạn, giảm những điều xui xẻo, tạo cảm giác bình an.</li>
+                                <li>Tăng sinh khí, giúp gia đạo hài hòa, vận khí tốt hơn.</li>
+                                <li>Gia chủ an tâm và tự tin hơn trong cuộc sống hàng ngày.</li>
+                            </ul>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Lợi ích khi chọn ngày cúng sao giải hạn hợp tuổi
+                            </h2>
+                            <ul class="mb-1">
+                                <li>Không phạm xung tuổi: Giúp gia chủ thực hiện lễ cúng thuận hòa, tránh xung khắc.</li>
+                                <li>Ngày hoàng đạo và giờ hoàng đạo: Thuận lợi cho nghi lễ, giúp hóa giải hạn nhanh hơn.
+                                </li>
+                                <li>Sao tốt – trực tốt: Tăng cát khí, giảm hung khí, giúp nghi lễ đạt hiệu quả cao.</li>
+                                <li>Ngũ hành ngày sinh tương sinh với tuổi: Tạo sự hòa hợp âm dương, tăng sự linh nghiệm.
+                                </li>
+                            </ul>
+                            <p class="mb-1">Chọn đúng ngày không chỉ mang ý nghĩa phong thủy mà còn giúp gia chủ cảm thấy
+                                an tâm, nhẹ nhàng về tinh thần.</p>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Khi xem ngày cúng sao giải hạn cần lưu ý điều gì?
+                            </h2>
+
+                            <p class="mb-1">Các yếu tố cát lành nên ưu tiên khi chọn ngày cúng sao giải hạn:</p>
+                            <ul style="	list-style-type: decimal;" class="mb-1">
+                                <li>
+                                    <p class="mb-1"> Ngày hoàng đạo – trực tốt
+                                    </p>
+                                    <ul class="mb-1">
+                                        <li>Chọn ngày Hoàng Đạo như Thanh Long, Minh Đường, Kim Quỹ, Ngọc Đường, Tư Mệnh.
+                                        </li>
+                                        <li>Các trực tốt: Trực Khai, Trực Thành, Trực Mãn.
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <p class="mb-1"> Ngày hợp tuổi gia chủ
+                                    </p>
+                                    <ul class="mb-1">
+                                        <li>Ngày không xung – phá – hại theo Can Chi của tuổi gia chủ.</li>
+                                        <li>Ngũ hành ngày sinh tương sinh hoặc hỗ trợ bản mệnh.
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <p class="mb-1">Sao tốt và giờ Hoàng đạo
+                                    </p>
+                                    <ul class="mb-1">
+                                        <li>Sao cát: Thiên Đức, Nguyệt Đức, Thiên Phúc, Thiên Quan…</li>
+                                        <li>Giờ Hoàng đạo giúp nghi lễ diễn ra thuận lợi, linh khí mạnh.
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Hướng dẫn sử dụng công cụ Xem Ngày Cúng Sao Giải Hạn tại Phong Lịch
+                            </h2>
+                            <ul class="mb-1" style="	list-style-type: decimal;">
+                                <li>Nhập tuổi gia chủ để hệ thống tính sao chiếu mệnh và hạn năm.</li>
+                                <li>Chọn khoảng thời gian dự định cúng sao.</li>
+                                <li>Công cụ sẽ tự động:
+                                    <ul class="mb-1">
+                                        <li>Gợi ý các ngày tốt nhất cho việc cúng sao.</li>
+                                        <li>Hiển thị điểm tốt – xấu của từng ngày.</li>
+                                        <li>Liệt kê sao tốt/xấu, trực, hoàng đạo – hắc đạo.</li>
+                                        <li>Đề xuất giờ Hoàng đạo để cúng sao.</li>
+                                    </ul>
+                                </li>
+                                <li>Chọn ngày phù hợp dựa trên lịch trình và điểm đánh giá ngày tốt.</li>
+                            </ul>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Một ngày tốt để cúng sao giải hạn mang lại lợi ích gì?
+                            </h2>
+                            <ul class="mb-1">
+                                <li>Nghi lễ diễn ra thuận lợi, đúng phong tục.</li>
+                                <li>Hóa giải vận hạn, giảm những điều xui xẻo, tăng cát khí cho gia chủ.</li>
+                                <li>Gia đạo ổn định, tinh thần gia chủ an tâm, vững vàng.</li>
+                                <li>Tạo sự cân bằng âm dương trong không gian sống và tâm linh.</li>
+                                <li>Giúp gia chủ cảm thấy chủ động, tự tin trong mọi việc hằng ngày.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+
+
                 </div>
 
-               @include('tools.siderbarindex')
+                @include('tools.siderbarindex')
             </div>
         </div>
     </div>
@@ -257,7 +366,8 @@
                                 separator: ' - ',
                                 daysOfWeek: ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'],
                                 monthNames: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6',
-                                            'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
+                                    'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'
+                                ],
                                 firstDay: 1
                             }
                         };
@@ -346,7 +456,8 @@
                             }
 
                             // Check if dateSelector is available and fully initialized
-                            if (dateSelector && dateSelector.daySelect && dateSelector.monthSelect && dateSelector.yearSelect &&
+                            if (dateSelector && dateSelector.daySelect && dateSelector.monthSelect && dateSelector
+                                .yearSelect &&
                                 dateSelector.yearSelect.options.length > 1) {
 
                                 // Parse birthdate from URL (always in solar format from URL)
@@ -367,24 +478,29 @@
                                                 // Use LunarSolarDateSelect's handleLunarRadioChange method for conversion
                                                 try {
                                                     // First set solar date in selects
-                                                    await dateSelector.setDate(day, month, year, false, false);
+                                                    await dateSelector.setDate(day, month, year, false,
+                                                        false);
 
                                                     // Then switch to lunar mode - this will trigger automatic conversion
-                                                    const lunarRadio = document.getElementById('lunarCalendar');
-                                                    const solarRadio = document.getElementById('solarCalendar');
+                                                    const lunarRadio = document.getElementById(
+                                                        'lunarCalendar');
+                                                    const solarRadio = document.getElementById(
+                                                        'solarCalendar');
                                                     if (lunarRadio && solarRadio) {
                                                         lunarRadio.checked = true;
                                                         solarRadio.checked = false;
 
                                                         // Trigger the built-in conversion method
-                                                        if (dateSelector && typeof dateSelector.handleLunarRadioChange === 'function') {
+                                                        if (dateSelector && typeof dateSelector
+                                                            .handleLunarRadioChange === 'function') {
                                                             await dateSelector.handleLunarRadioChange();
                                                         }
                                                     }
                                                 } catch (error) {
                                                     // Conversion error, using fallback
                                                     // Fallback: just set as lunar without conversion
-                                                    await dateSelector.setDate(day, month, year, true, false);
+                                                    await dateSelector.setDate(day, month, year, true,
+                                                        false);
                                                 }
 
                                             } else {
@@ -538,7 +654,8 @@
                     } else {
                         // Fallback: extract lunar from display value
                         const displayValue = ngayXemInput.dataset.displayValue || '';
-                        formattedBirthdate = displayValue.replace(' (ÂL)', '').replace(' (ÂL-Nhuận)', '');
+                        formattedBirthdate = displayValue.replace(' (ÂL)', '').replace(' (ÂL-Nhuận)',
+                            '');
                         isLeapMonth = displayValue.includes('(ÂL-Nhuận)');
                     }
 
@@ -552,7 +669,8 @@
 
                 // The LunarSolarDateSelect module automatically maintains solar date in hidden input
                 // No need for additional conversion here - just use the value that's already there
-                const finalSolarDate = ngayXemValue; // This is always solar date maintained by the module
+                const finalSolarDate =
+                    ngayXemValue; // This is always solar date maintained by the module
 
                 // URL birthdate is the same as final solar date
                 if (calendarType === 'lunar') {
@@ -763,8 +881,8 @@
                         const activeTabPane = document.querySelector(`#year-${year}`);
                         if (activeTabPane) {
                             table = activeTabPane.querySelector(`#table-${year} tbody`) ||
-                                   activeTabPane.querySelector('.table tbody') ||
-                                   activeTabPane.querySelector('tbody');
+                                activeTabPane.querySelector('.table tbody') ||
+                                activeTabPane.querySelector('tbody');
                         }
 
                         // Fallback: global search for year-specific table
@@ -794,7 +912,8 @@
 
                     // Chỉ lấy các rows đang visible (không bị ẩn bởi taboo filter)
                     const rows = Array.from(table.querySelectorAll('tr')).filter(row => {
-                        return row.style.display !== 'none' && !row.classList.contains('empty-filter-row');
+                        return row.style.display !== 'none' && !row.classList.contains(
+                            'empty-filter-row');
                     });
                     console.log(`Found ${rows.length} visible rows to sort`);
 
@@ -802,7 +921,8 @@
                         if (sortValue === 'date_asc' || sortValue === 'date_desc') {
                             const dateA = getDateFromRow(a);
                             const dateB = getDateFromRow(b);
-                            const result = sortValue === 'date_asc' ? dateA - dateB : dateB - dateA;
+                            const result = sortValue === 'date_asc' ? dateA - dateB : dateB -
+                                dateA;
                             return result;
                         } else {
                             const scoreA = getScoreFromRow(a);
@@ -814,7 +934,8 @@
                     // Lưu tất cả rows (bao gồm hidden) trước khi sort
                     const allRows = Array.from(table.querySelectorAll('tr'));
                     const hiddenRows = allRows.filter(row => {
-                        return row.style.display === 'none' || row.classList.contains('empty-filter-row');
+                        return row.style.display === 'none' || row.classList.contains(
+                            'empty-filter-row');
                     });
 
                     // Clear table và append lại: sorted visible rows + hidden rows
@@ -839,7 +960,8 @@
 
                         // Find the year from the parent tab
                         const parentTabPane = event.target.closest('.tab-pane');
-                        const year = parentTabPane ? parentTabPane.id.replace('year-', '') : null;
+                        const year = parentTabPane ? parentTabPane.id.replace('year-', '') :
+                            null;
 
                         console.log('Sorting for year:', year);
 
@@ -857,12 +979,21 @@
                         setTimeout(() => {
                             if (year) {
                                 const yearTab = document.querySelector(`#year-${year}`);
-                                const bangChiTiet = yearTab?.querySelector('.table-responsive');
-                                bangChiTiet?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                const bangChiTiet = yearTab?.querySelector(
+                                    '.table-responsive');
+                                bangChiTiet?.scrollIntoView({
+                                    behavior: 'smooth',
+                                    block: 'start'
+                                });
                             } else {
-                                const activeTab = document.querySelector('.tab-pane.active');
-                                const bangChiTiet = activeTab?.querySelector('.table-responsive');
-                                bangChiTiet?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                const activeTab = document.querySelector(
+                                    '.tab-pane.active');
+                                const bangChiTiet = activeTab?.querySelector(
+                                    '.table-responsive');
+                                bangChiTiet?.scrollIntoView({
+                                    behavior: 'smooth',
+                                    block: 'start'
+                                });
                             }
                         }, 100);
                     }
@@ -872,8 +1003,10 @@
                 function initPagination() {
                     // Sử dụng event delegation để handle động
                     document.addEventListener('click', function(event) {
-                        if (event.target.matches('.load-more-btn') || event.target.closest('.load-more-btn')) {
-                            const btn = event.target.matches('.load-more-btn') ? event.target : event.target.closest('.load-more-btn');
+                        if (event.target.matches('.load-more-btn') || event.target.closest(
+                                '.load-more-btn')) {
+                            const btn = event.target.matches('.load-more-btn') ? event.target :
+                                event.target.closest('.load-more-btn');
                             const year = btn.dataset.year;
                             const loaded = parseInt(btn.dataset.loaded);
                             const total = parseInt(btn.dataset.total);
@@ -960,9 +1093,10 @@
 
                     // Đếm TOTAL filtered rows TRƯỚC khi thay đổi pagination
                     const allRows = table.querySelectorAll('tr:not(.empty-filter-row)');
-                    const totalFilteredRows = parseInt(loadMoreBtn?.getAttribute('data-total')) || Array.from(allRows).filter(row => {
-                        return row.style.display !== 'none';
-                    }).length;
+                    const totalFilteredRows = parseInt(loadMoreBtn?.getAttribute('data-total')) || Array
+                        .from(allRows).filter(row => {
+                            return row.style.display !== 'none';
+                        }).length;
 
                     // Hiển thị theo số lượng hiện tại, ẩn phần còn lại
                     allRows.forEach((row, index) => {
@@ -981,7 +1115,9 @@
                         loadMoreBtn.dataset.total = totalFilteredRows.toString();
                         const remaining = totalFilteredRows - currentLoaded;
 
-                        console.log(`Maintaining pagination: ${currentLoaded} out of ${totalFilteredRows} filtered rows (${allRows.length} total)`);
+                        console.log(
+                            `Maintaining pagination: ${currentLoaded} out of ${totalFilteredRows} filtered rows (${allRows.length} total)`
+                        );
 
                         if (remaining > 0) {
                             loadMoreBtn.style.display = '';

@@ -170,16 +170,91 @@
                         </div>
 
                     </div>
-                    <div id="resultsContainer" class="results-container">
+                    <div id="resultsContainer" class="results-container --detail-success">
                         <div class="d-flex flex-column align-items-center justify-content-center h-100 text-center">
-                            <div class="mb-4">
-                                <img src="{{ asset('/icons/defaild.png?v=1.0') }}" alt="defakd" class="img-fuild">
-                            </div>
-                            <p class="text-muted" style="font-size: 16px;">
-                                Hiện chưa có thông tin, bạn vui lòng nhập thông tin để xem kết quả.
-                            </p>
+
                         </div>
                     </div>
+                    <div class="box--bg-thang mt-3 mb-3">
+                        <div class="text-box-tong-quan">
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Gợi ý chọn thời điểm phù hợp cho việc cầu an – làm phúc
+                            </h2>
+                            <p class="mb-1">Cầu an và làm phúc là những việc thiện lành, mang ý nghĩa nuôi dưỡng tâm hồn
+                                và tạo thêm phúc báo cho gia đình. Thực tế, bạn có thể làm việc tốt vào bất kỳ ngày nào
+                                trong năm, chỉ cần có tấm lòng là được.</p>
+                            <p class="mb-1">Tuy nhiên, nhiều người vẫn chọn những ngày đẹp, ngày hợp tuổi hoặc ngày có
+                                khí cát lành để thực hiện lễ cầu an, bố thí, cúng chùa… nhằm giúp tâm được an hơn, nghi lễ
+                                được trọn vẹn hơn và tăng thêm sinh khí may mắn cho cả nhà.</p>
+                            <p class="mb-1">Vì thế, xem ngày cho việc cầu an – làm phúc không phải là bắt buộc, mà đơn
+                                giản là một cách lựa chọn thời điểm hài hòa, để mọi điều thiện lành được khởi đầu trong năng
+                                lượng tốt nhất.</p>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Lợi ích khi chọn ngày tốt để cầu an – làm phúc
+                            </h2>
+                            <ul class="mb-1">
+                                <li>Tâm an hơn: Khi biết mình chọn ngày đẹp, gia chủ sẽ cảm thấy nhẹ nhàng, yên tâm trước
+                                    khi làm lễ hoặc thực hiện các việc thiện.</li>
+                                <li>Nghi thức thuận lợi: Lễ cầu an, phóng sinh, cúng chùa, bố thí… diễn ra trôi chảy, không
+                                    trở ngại.</li>
+                                <li>Tăng sinh khí: Ngày hợp tuổi hoặc có sao cát giúp năng lượng cát tường mạnh mẽ hơn.</li>
+                                <li>Thêm may mắn – hóa giải lo âu: Việc thiện lành kết hợp với thời điểm tốt giúp gia đạo
+                                    bình an, tinh thần vững vàng.</li>
+                            </ul>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Khi xem ngày cầu an – làm phúc nên ưu tiên điều gì?
+                            </h2>
+                            <ul class="mb-1" style="list-style-type: decimal;">
+                                <li>
+                                    <h3 class="title-tong-quan-h4-log">Ngày Hoàng đạo – trực tốt</h3>
+                                    <p class="mb-0">Những ngày Hoàng Đạo như Minh Đường, Kim Quỹ, Ngọc Đường… thường mang
+                                        năng lượng nhẹ nhàng, thích hợp cho các nghi lễ cầu an.</p>
+                                    <p class="mb-0">Các trực dễ hòa hợp: Trực Khai, Trực Thành, Trực Mãn.</p>
+                                </li>
+                                <li>
+                                    <h3 class="title-tong-quan-h4-log">Ngày hợp tuổi – ngũ hành hài hòa</h3>
+                                    <p class="mb-1">Chọn ngày có ngũ hành tương sinh với bản mệnh hoặc ít nhất là bình
+                                        hòa, giúp năng lượng dễ lan tỏa và tâm lý gia chủ ổn định.</p>
+
+                                </li>
+                                <li>
+                                    <h3 class="title-tong-quan-h4-log">Sao cát</h3>
+                                    <p class="mb-1">Một số sao mang ý nghĩa an lành như:</p>
+                                    <ul class="mb-1">
+                                        <li>Thiên Đức, Nguyệt Đức: Hóa giải tai ương, tăng phúc.</li>
+                                        <li>Thiên Quan, Thiên Phúc: Mang năng lượng che chở, độ trì.</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                               Hướng dẫn sử dụng công cụ Xem Ngày Cầu An – Làm Phúc tại Phong Lịch
+                            </h2>
+                            <ul class="mb-1" style="list-style-type: decimal;">
+                                <li>Nhập tuổi hoặc năm sinh của bạn.</li>
+                                <li>Chọn khoảng thời gian bạn muốn thực hiện lễ cầu an, làm phúc hoặc cúng chùa.</li>
+                                <li>Hệ thống sẽ tự động:
+                                    <ul class="mb-1">
+                                        <li>Gợi ý các ngày tốt nhất.</li>
+                                        <li>Hiển thị điểm tốt – xấu của từng ngày.</li>
+                                        <li>Liệt kê Hoàng đạo – Hắc đạo, sao tốt/xấu.</li>
+                                        <li>Gợi ý giờ thuận lợi để làm lễ hoặc bắt đầu việc thiện.</li>
+                                    </ul>
+                                </li>
+                                <li>Bạn chỉ cần chọn ngày phù hợp với lịch trình thực tế, không nhất thiết phải quá cầu kỳ</li>
+                            </ul>
+                             <h2 class="title-tong-quan-h3-log fw-bolder">
+                            Một ngày tốt để cầu an – làm phúc mang lại điều gì?
+                            </h2>
+                            <ul class="mb-1">
+                                <li>Giúp tâm gia chủ nhẹ nhàng, hướng thiện.</li>
+                                <li>Năng lượng của ngày đẹp giúp việc thiện trở nên viên mãn, trọn vẹn hơn.</li>
+                                <li>Gia đạo yên ổn, tinh thần thư thái.</li>
+                                <li>Tạo khởi đầu tốt cho những dự định trong năm.</li>
+                                <li>Tăng thêm phúc khí cho bản thân và gia đình.</li>
+                            </ul>
+                        </div>
+                    </div>
+
                 </div>
                 @include('tools.siderbarindex')
             </div>
@@ -625,62 +700,111 @@
                                 }
 
                                 setTimeout(() => {
-                                    if (data.resultsByYear && typeof initTabooFilter === 'function') {
-                                        console.log('Phong Sinh Form: Initializing taboo filter with data:', data.resultsByYear);
-                                        console.log('Phong Sinh Form: Available sort dropdowns:', document.querySelectorAll('[name="sort"]').length);
+                                    if (data.resultsByYear && typeof initTabooFilter ===
+                                        'function') {
+                                        console.log(
+                                            'Phong Sinh Form: Initializing taboo filter with data:',
+                                            data.resultsByYear);
+                                        console.log(
+                                            'Phong Sinh Form: Available sort dropdowns:',
+                                            document.querySelectorAll(
+                                                '[name="sort"]').length);
 
                                         // Debug sort dropdown content
-                                        const sortDropdowns = document.querySelectorAll('[name="sort"]');
+                                        const sortDropdowns = document.querySelectorAll(
+                                            '[name="sort"]');
                                         sortDropdowns.forEach((dropdown, index) => {
-                                            console.log(`Sort dropdown ${index + 1}:`, {
-                                                value: dropdown.value,
-                                                options: Array.from(dropdown.options).map(opt => opt.value),
-                                                hasDateOptions: Array.from(dropdown.options).some(opt => opt.value.includes('date'))
-                                            });
+                                            console.log(
+                                                `Sort dropdown ${index + 1}:`, {
+                                                    value: dropdown.value,
+                                                    options: Array.from(
+                                                        dropdown.options
+                                                    ).map(opt => opt
+                                                        .value),
+                                                    hasDateOptions: Array
+                                                        .from(dropdown
+                                                            .options).some(
+                                                            opt => opt.value
+                                                            .includes(
+                                                                'date'))
+                                                });
                                         });
 
                                         initTabooFilter(data.resultsByYear);
-                                        console.log('Phong Sinh Form: Taboo filter initialized successfully');
+                                        console.log(
+                                            'Phong Sinh Form: Taboo filter initialized successfully'
+                                        );
 
                                         // Check legacy system detection after init
                                         setTimeout(() => {
-                                            const hasLegacy = document.querySelector('.--detail-success');
-                                            console.log('Phong Sinh Form: Legacy system detected?', !!hasLegacy);
+                                            const hasLegacy = document
+                                                .querySelector(
+                                                    '.--detail-success');
+                                            console.log(
+                                                'Phong Sinh Form: Legacy system detected?',
+                                                !!hasLegacy);
 
-                                            const sortElements = document.querySelectorAll('[name="sort"]');
+                                            const sortElements = document
+                                                .querySelectorAll(
+                                                    '[name="sort"]');
                                             sortElements.forEach((el, idx) => {
-                                                console.log(`Sort element ${idx + 1} has event listeners:`, {
-                                                    hasTabooHandler: !!el._tabooSortHandler,
-                                                    parentTab: el.closest('.tab-pane')?.id
-                                                });
+                                                console.log(
+                                                    `Sort element ${idx + 1} has event listeners:`, {
+                                                        hasTabooHandler:
+                                                            !!el
+                                                            ._tabooSortHandler,
+                                                        parentTab: el
+                                                            .closest(
+                                                                '.tab-pane'
+                                                            )
+                                                            ?.id
+                                                    });
                                             });
                                         }, 100);
 
                                         // Test sort functionality after init
                                         setTimeout(() => {
-                                            const firstSortDropdown = document.querySelector('[name="sort"]');
+                                            const firstSortDropdown = document
+                                                .querySelector('[name="sort"]');
                                             if (firstSortDropdown) {
-                                                console.log('Phong Sinh Form: Testing sort functionality...');
-                                                const originalValue = firstSortDropdown.value;
+                                                console.log(
+                                                    'Phong Sinh Form: Testing sort functionality...'
+                                                );
+                                                const originalValue =
+                                                    firstSortDropdown.value;
 
                                                 // Test by programmatically changing dropdown
-                                                firstSortDropdown.value = 'date_asc';
-                                                const changeEvent = new Event('change', { bubbles: true });
-                                                firstSortDropdown.dispatchEvent(changeEvent);
+                                                firstSortDropdown.value =
+                                                    'date_asc';
+                                                const changeEvent = new Event(
+                                                    'change', {
+                                                        bubbles: true
+                                                    });
+                                                firstSortDropdown.dispatchEvent(
+                                                    changeEvent);
 
                                                 // Restore original value after test
                                                 setTimeout(() => {
-                                                    firstSortDropdown.value = originalValue;
-                                                    firstSortDropdown.dispatchEvent(changeEvent);
-                                                    console.log('Phong Sinh Form: Sort test completed');
+                                                    firstSortDropdown
+                                                        .value =
+                                                        originalValue;
+                                                    firstSortDropdown
+                                                        .dispatchEvent(
+                                                            changeEvent
+                                                        );
+                                                    console.log(
+                                                        'Phong Sinh Form: Sort test completed'
+                                                    );
                                                 }, 1000);
                                             }
                                         }, 500);
                                     } else {
-                                        console.error('Phong Sinh Form: initTabooFilter not available or no data', {
-                                            hasFunction: typeof initTabooFilter === 'function',
-                                            hasData: !!data.resultsByYear
-                                        });
+                                        console.error(
+                                            'Phong Sinh Form: initTabooFilter not available or no data', {
+                                                hasFunction: typeof initTabooFilter ===
+                                                    'function',
+                                                hasData: !!data.resultsByYear
+                                            });
                                     }
                                 }, 200);
                             }, 300);

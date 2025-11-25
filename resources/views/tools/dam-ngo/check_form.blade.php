@@ -257,14 +257,130 @@
                     {{-- Results Container --}}
                     <div id="resultsContainer" class="--detail-success">
                         <div class="d-flex flex-column align-items-center justify-content-center h-100 text-center">
-                            <div class="mb-4">
-                                <img src="{{ asset('/icons/defaild.png?v=1.0') }}" alt="defakd" class="img-fuild">
-                            </div>
-                            <p class="text-muted" style="font-size: 16px;">
-                                Hiện chưa có thông tin, bạn vui lòng nhập thông tin để xem kết quả.
-                            </p>
+
                         </div>
                     </div>
+                    <div class="box--bg-thang mt-3 mb-3">
+                        <div class="text-box-tong-quan">
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Xem Ngày Dạm Ngõ – Chọn Lựa Khởi Đầu Trọn Vẹn Cho Hôn Nhân
+                            </h2>
+                            <p class="mb-1">Dạm ngõ là nghi lễ mở đầu cho con đường về chung một nhà. Một ngày đẹp, hợp
+                                tuổi và thuận khí không chỉ giúp buổi gặp gỡ hai họ diễn ra suôn sẻ mà còn mang ý nghĩa “đặt
+                                nền móng” tốt lành cho chuyện trăm năm phía trước. Vì vậy, việc xem ngày dạm ngõ là điều
+                                nhiều gia đình vẫn coi trọng, vừa giữ giá trị truyền thống, vừa mang lại sự an tâm cho đôi
+                                trẻ.</p>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Ý Nghĩa Của Việc Xem Ngày Dạm Ngõ
+                            </h2>
+                            <p class="mb-1">
+                                Khác với lễ cưới có phần long trọng, dạm ngõ là bước đầu tiên trong tiến trình hôn nhân. Tuy
+                                đơn giản nhưng mang nhiều tầng ý nghĩa:
+                            </p>
+                            <h3 class="title-tong-quan-h4-log">
+                                1. Tạo khởi đầu thuận hòa
+                            </h3>
+                            <p class="mb-1">
+                                Ngày giờ đẹp được cho là giúp không khí giữa hai gia đình thêm vui vẻ, ấm cúng, tránh những
+                                trục trặc không đáng có như muộn giờ, thời tiết xấu hay điều kiêng kỵ theo tuổi.
+                            </p>
+                            <h3 class="title-tong-quan-h4-log">
+                                2. Giữ gìn truyền thống
+                            </h3>
+                            <p class="mb-1">
+                                Dạm ngõ là nghi lễ thưa chuyện, xin phép, thể hiện sự tôn trọng. Việc chọn ngày cẩn thận cho
+                                thấy sự chỉn chu, đặc biệt là với gia đình lớn tuổi.
+                            </p>
+                            <h3 class="title-tong-quan-h4-log">
+                                3. Tâm lý vững vàng cho đôi trẻ
+                            </h3>
+                            <p class="mb-1">
+                                Ngày hợp tuổi và hợp việc giúp các cặp đôi cảm thấy tự tin, bắt đầu hành trình hôn nhân với
+                                tâm thế nhẹ nhàng, vui tươi.
+                            </p>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Vì Sao Nhiều Gia Đình Vẫn Chọn Ngày Dạm Ngõ?
+                            </h2>
+                            <p class="mb-1">Không chỉ vì yếu tố phong tục, mà còn bởi:</p>
+                            <ul class="mb-1">
+                                <li>Tránh ngày xấu theo tuổi hai bạn (ngày xung, ngày sát chủ, ngày thụ tử).</li>
+                                <li>Hợp ngũ hành – can chi, tượng trưng cho sự hòa hợp bền vững.</li>
+                                <li>Thuận khí theo lịch âm, tránh các trực xấu hoặc ngày có sao chiếu không tốt cho cưới
+                                    hỏi.</li>
+                                <li>Chọn giờ đẹp giúp mọi việc diễn ra đúng kế hoạch, hạn chế rủi ro</li>
+                            </ul>
+                            <p class="mb-1">Ngày dạm ngõ đẹp không đảm bảo “mọi thứ đều hoàn hảo”, nhưng giúp bạn giảm
+                                bớt lo lắng, tạo đà may mắn ngay từ buổi gặp đầu tiên.</p>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Cách Xem Ngày Dạm Ngõ Đơn Giản, Dễ Hiểu
+                            </h2>
+                            <p class="mb-1">Bạn có thể tự xem theo các tiêu chí cơ bản hoặc dùng công cụ xem ngày dạm ngõ
+                                để tiết kiệm thời gian. Dưới đây là những yếu tố cần chú ý:</p>
+                            <h3 class="title-tong-quan-h4-log">
+                                1. Ưu tiên ngày Hoàng Đạo và trực thuận
+                            </h3>
+                            <p class="mb-1">Ngày Hoàng Đạo, trực Khai – Thành – Mãn – Định thường là những ngày cát cho
+                                hôn sự.</p>
+                            <h3 class="title-tong-quan-h4-log">
+                                2. Tránh ngày xung tuổi cô dâu – chú rể
+                            </h3>
+                            <ul class="mb-1">
+                                <li>Tránh ngày lục xung, lục hại theo tuổi.</li>
+                                <li>Nếu một trong hai bạn thuộc tuổi kỵ ngày nào đó, nên loại bỏ luôn.</li>
+                            </ul>
+                            <h3 class="title-tong-quan-h4-log">
+                                3. Xét ngũ hành ngày – tuổi
+                            </h3>
+                            <p class="mb-1">Ngày hợp tuổi sẽ mang lại sự hòa hợp cho buổi gặp gỡ:</p>
+                            <ul class="mb-1">
+                                <li>Ngũ hành tương sinh</li>
+                                <li>Thiên can – địa chi tương hỗ</li>
+                            </ul>
+                            <h3 class="title-tong-quan-h4-log">
+                                4. Chọn giờ đẹp
+                            </h3>
+                            <p class="mb-1">Giờ Hoàng Đạo sẽ thuận lợi cho việc xuất hành, trao lễ và trò chuyện giữa hai
+                                họ.</p>
+                            <h3 class="title-tong-quan-h4-log">
+                                5. Hợp lịch của cả hai gia đình
+                            </h3>
+                            <p class="mb-1">Một ngày đẹp về phong thủy nhưng gia đình không tiện tham dự cũng sẽ mất đi ý
+                                nghĩa. Vì vậy, nên thống nhất lịch trước, sau đó chọn trong các ngày đẹp phù hợp.
+                            </p>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Những Điểm Lợi Khi Chọn Đúng Ngày Dạm Ngõ
+                            </h2>
+                            <ul class="mb-1">
+                                <li>Không khí buổi lễ tự nhiên, vui vẻ, tránh những điều kiêng kỵ theo tuổi.</li>
+                                <li>Hai họ nói chuyện thuận lợi, dễ đi đến thống nhất về ngày ăn hỏi – ngày cưới.</li>
+                                <li>Tượng trưng cho lời mở đầu suôn sẻ, mang ý nghĩa may mắn cho cả hành trình sau này.</li>
+                            </ul>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Khi Chọn Ngày Dạm Ngõ, Nên Tránh Những Điều Nào?
+                            </h2>
+                            <ul class="mb-1">
+                                <li>Ngày Hắc Đạo, thụ tử, sát chủ</li>
+                                <li>Ngày lục xung – lục hại theo tuổi</li>
+                                <li>Ngày có sao xấu cho hôn nhân: Nguyệt Hư, Nguyệt Hình, Thiên Cương…</li>
+                                <li>Tránh ngày quá sát ngày cưới để không bị “gấp gáp”</li>
+                                <li>Tránh ngày gia đình không thuận tiện (đám giỗ, việc kiêng kỵ riêng)</li>
+                            </ul>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Sử Dụng Công Cụ Xem Ngày Dạm Ngõ Tại Phong Lịch
+                            </h2>
+                            <p class="mb-1">Công cụ giúp bạn:</p>
+                            <ul class="mb-1">
+                                <li>Chọn ngày đẹp theo tuổi cô dâu – chú rể</li>
+                                <li>Xem mức độ tốt/xấu của từng ngày</li>
+                                <li>Gợi ý giờ đẹp</li>
+                                <li>Hiển thị chi tiết Ngọc Hạp, Nhị Thập Bát Tú, Thập Nhị Trực…</li>
+                                <li>Lọc ngày theo tháng bạn mong muốn</li>
+                            </ul>
+                            <p class="mb-1">Bạn chỉ cần chọn tuổi, tháng dự định dạm ngõ, hệ thống sẽ trả về danh sách
+                                ngày tốt nhất để bạn và gia đình tham khảo.</p>
+                        </div>
+                    </div>
+
                 </div>
                 @include('tools.siderbarindex')
             </div>
@@ -889,13 +1005,18 @@
 
                                                 // Cập nhật window.resultsByYear cho global access
                                                 if (data.resultsByYear) {
-                                                    window.resultsByYear = data.resultsByYear;
+                                                    window.resultsByYear = data
+                                                        .resultsByYear;
                                                 }
 
                                                 // Re-initialize filter
-                                                if (data.resultsByYear && typeof initTabooFilter === 'function') {
+                                                if (data.resultsByYear &&
+                                                    typeof initTabooFilter ===
+                                                    'function') {
                                                     setTimeout(() => {
-                                                        initTabooFilter(data.resultsByYear);
+                                                        initTabooFilter(data
+                                                            .resultsByYear
+                                                        );
                                                     }, 200);
                                                 }
 
@@ -913,13 +1034,13 @@
                                                     .querySelectorAll(
                                                         '[name="sort"]');
                                                 newSortSelects.forEach(
-                                                newSelect => {
-                                                    newSelect
-                                                        .addEventListener(
-                                                            'change',
-                                                            arguments.callee
+                                                    newSelect => {
+                                                        newSelect
+                                                            .addEventListener(
+                                                                'change',
+                                                                arguments.callee
                                                             );
-                                                });
+                                                    });
                                             }
                                         })
                                         .catch(error => {
@@ -1007,7 +1128,10 @@
                     applySortingToTable(event.target.value, currentYear);
                     setTimeout(() => {
                         const bangChiTiet = activeTab?.querySelector('#bang-chi-tiet');
-                        bangChiTiet?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        bangChiTiet?.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
                     }, 100);
                 }
             });
@@ -1017,7 +1141,8 @@
                 const resultsContainer = document.querySelector('.--detail-success');
                 resultsContainer.addEventListener('click', function(event) {
                     if (event.target.matches('.load-more-btn') || event.target.closest('.load-more-btn')) {
-                        const btn = event.target.matches('.load-more-btn') ? event.target : event.target.closest('.load-more-btn');
+                        const btn = event.target.matches('.load-more-btn') ? event.target : event.target
+                            .closest('.load-more-btn');
                         const year = btn.getAttribute('data-year');
                         const currentLoaded = parseInt(btn.getAttribute('data-loaded'));
                         const total = parseInt(btn.getAttribute('data-total'));
@@ -1041,7 +1166,8 @@
                             const remaining = total - newLoaded;
                             if (remaining > 0) {
                                 const nextLoad = Math.min(10, remaining);
-                                btn.innerHTML = `<i class="bi bi-plus-circle me-2"></i>Xem thêm ${nextLoad} bảng<span class="text-muted ms-2">(${remaining} còn lại)</span>`;
+                                btn.innerHTML =
+                                    `<i class="bi bi-plus-circle me-2"></i>Xem thêm ${nextLoad} bảng<span class="text-muted ms-2">(${remaining} còn lại)</span>`;
                             } else {
                                 btn.style.display = 'none';
                             }
@@ -1122,12 +1248,17 @@
                 const allRows = table.querySelectorAll('tr:not(.empty-filter-row)');
 
                 // Đếm TOTAL filtered rows TRƯỚC khi thay đổi pagination
-                const totalFilteredRows = parseInt(loadMoreBtn.getAttribute('data-total')) || Array.from(allRows).filter(row => {
-                    return row.style.display !== 'none';
-                }).length;
+                const totalFilteredRows = parseInt(loadMoreBtn.getAttribute('data-total')) || Array.from(allRows)
+                    .filter(row => {
+                        return row.style.display !== 'none';
+                    }).length;
 
-                console.log(`DEBUG: allRows=${allRows.length}, totalFilteredRows=${totalFilteredRows}, currentLoaded=${currentLoaded}`);
-                console.log(`Maintaining pagination: ${currentLoaded} out of ${totalFilteredRows} filtered rows (${allRows.length} total)`);
+                console.log(
+                    `DEBUG: allRows=${allRows.length}, totalFilteredRows=${totalFilteredRows}, currentLoaded=${currentLoaded}`
+                );
+                console.log(
+                    `Maintaining pagination: ${currentLoaded} out of ${totalFilteredRows} filtered rows (${allRows.length} total)`
+                );
 
                 // Tìm tất cả rows được filter (không bị ẩn hoàn toàn)
                 const filteredRows = Array.from(allRows).filter(row => {
@@ -1168,11 +1299,14 @@
 
                 // Update load more button với total filtered rows
                 const remaining = totalFilteredRows - currentLoaded;
-                console.log(`DEBUG BUTTON: totalFilteredRows=${totalFilteredRows}, currentLoaded=${currentLoaded}, remaining=${remaining}`);
+                console.log(
+                    `DEBUG BUTTON: totalFilteredRows=${totalFilteredRows}, currentLoaded=${currentLoaded}, remaining=${remaining}`
+                );
 
                 if (remaining > 0) {
                     const nextLoad = Math.min(10, remaining);
-                    loadMoreBtn.innerHTML = `<i class="bi bi-plus-circle me-2"></i>Xem thêm ${nextLoad} bảng<span class="text-muted ms-2">(${remaining} còn lại)</span>`;
+                    loadMoreBtn.innerHTML =
+                        `<i class="bi bi-plus-circle me-2"></i>Xem thêm ${nextLoad} bảng<span class="text-muted ms-2">(${remaining} còn lại)</span>`;
                     loadMoreBtn.style.display = '';
                     loadMoreBtn.setAttribute('data-total', totalFilteredRows);
                     console.log(`DEBUG BUTTON: Showing button - Xem thêm ${nextLoad} bảng (${remaining} còn lại)`);

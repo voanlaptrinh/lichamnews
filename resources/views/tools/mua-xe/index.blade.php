@@ -172,14 +172,103 @@
                     </div>
                     <div id="resultsContainer" class="--detail-success">
                         <div class="d-flex flex-column align-items-center justify-content-center h-100 text-center">
-                            <div class="mb-4">
-                                <img src="{{ asset('/icons/defaild.png?v=1.0') }}" alt="defakd" class="img-fuild">
-                            </div>
-                            <p class="text-muted" style="font-size: 16px;">
-                                Hiện chưa có thông tin, bạn vui lòng nhập thông tin để xem kết quả.
-                            </p>
+
                         </div>
                     </div>
+                    <div class="box--bg-thang mt-3 mb-3">
+                        <div class="text-box-tong-quan">
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Vì sao mua xe cần xem ngày tốt?
+                            </h2>
+                            <p class="mb-1">Mua xe, dù là ô tô hay xe máy, không chỉ là giao dịch tài chính mà còn là
+                                bước khởi đầu của một hành trình mới. Trong văn hóa Á Đông, chọn ngày đẹp để nhận xe giúp:
+                            </p>
+                            <ul class="mb-1">
+                                <li>Khởi hành an toàn, mang lại may mắn cho hành trình đầu tiên.</li>
+                                <li>Thu hút cát khí, tăng sự thuận lợi trong công việc, di chuyển và đi lại.</li>
+                                <li>Tâm lý chủ xe yên tâm, tự tin khi sử dụng phương tiện mới.</li>
+                            </ul>
+                            <p class="mb-1">Ngày nhận xe đẹp còn là ngày khai vận, tượng trưng cho sự thuận lợi, an toàn
+                                và hưng thịnh.</p>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Lợi ích khi chọn ngày mua xe hợp tuổi
+                            </h2>
+                            <ul class="mb-1">
+                                <li>Hạn chế xung khắc tuổi chủ xe với ngày, tránh các điều không may trong quá trình sử dụng
+                                    xe.</li>
+                                <li>Chọn ngày hoàng đạo, giờ hoàng đạo, giúp xuất phát thuận lợi, giảm rủi ro tai nạn, trục
+                                    trặc đầu tiên.</li>
+                                <li>Sao tốt và trực tốt tăng cát khí, hỗ trợ tài lộc, may mắn và sự an toàn.</li>
+                            </ul>
+                            <p class="mb-1">Chọn ngày đẹp không chỉ mang ý nghĩa phong thủy mà còn giúp người mua tự tin,
+                                tâm lý thoải mái trong quá trình nhận và sử dụng xe.</p>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Khi xem ngày mua xe cần chú ý điều gì?
+                            </h2>
+                            <ul class="mb-1" style="list-style-type: upper-alpha;">
+                                <li>
+                                    <h3 class="title-tong-quan-h4-log">Các yếu tố cát lành nên ưu tiên</h3>
+                                    <ul style="list-style-type: decimal;">
+                                        <li>
+                                            <p class="mb-0">Ngày hoàng đạo, trực tốt</p>
+                                            <p class="mb-0">Ngày Hoàng Đạo, Trực Khai, Trực Thành, Trực Mãn giúp buổi
+                                                nhận xe suôn sẻ và thuận lợi.</p>
+                                        </li>
+                                        <li>
+                                            <p class="mb-0">Ngày hợp tuổi chủ xe</p>
+                                            <p class="mb-0">Ngũ hành, Can Chi của ngày tương sinh hoặc tương hỗ với tuổi
+                                                chủ xe để tăng cát khí.</p>
+                                        </li>
+                                        <li>
+                                            <p class="mb-0">Sao tốt và giờ tốt</p>
+                                            <ul style="	list-style-type: circle;">
+                                                <li>Sao Thiên Đức, Phúc Sinh, Hỷ Thần giúp vận khí thuận lợi.</li>
+                                                <li>Giờ hoàng đạo hợp tuổi để nhận xe, làm lễ khai vận hoặc xuất hành.</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <h3 class="title-tong-quan-h4-log">Các yếu tố xấu nên tránh</h3>
+                                    <ul class="mb-1">
+                                        <li>Ngày xung tuổi, phạm Thái Tuế hoặc các ngày hình – hại – phá.</li>
+                                        <li>Ngày hắc đạo hoặc trực xấu, ví dụ Trực Phá, Trực Bế.</li>
+                                        <li>Sao xấu như Thọ Tử, Đại Hao, Thiên Cương…</li>
+                                        <li>Ngày bách kỵ liên quan đến khởi hành, di chuyển.</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <p class="mb-1">Việc tránh các yếu tố này giúp bạn nhận xe và xuất phát lần đầu an toàn,
+                                thuận lợi.</p>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Hướng dẫn sử dụng công cụ Xem Ngày Mua Xe tại Phong Lịch
+                            </h2>
+                            <ul class="mb-1" style="list-style-type: decimal;">
+                                <li>Nhập tuổi chủ xe (âm lịch hoặc dương lịch).</li>
+                                <li>Chọn khoảng thời gian dự định nhận xe.</li>
+                                <li>
+                                    <p class="mb-1">Hệ thống sẽ:</p>
+                                    <ul style="list-style-type: circle;">
+                                        <li>Gợi ý những ngày nhận xe đẹp nhất,</li>
+                                        <li>Hiển thị điểm tốt – xấu,</li>
+                                        <li>Liệt kê sao tốt/xấu, trực, giờ hoàng đạo,</li>
+                                        <li>Đưa ra lưu ý chi tiết.</li>
+                                    </ul>
+                                </li>
+                                <li>Chọn ngày phù hợp dựa trên lịch trình và tiện ích thực tế.</li>
+                            </ul>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Một ngày nhận xe đẹp mang lại lợi ích gì?
+                            </h2>
+                            <ul class="mb-1">
+                                <li>Xuất phát an toàn và thuận lợi, hạn chế rủi ro ban đầu.</li>
+                                <li>Tăng cát khí và may mắn, giúp công việc và cuộc sống hằng ngày suôn sẻ.</li>
+                                <li>Tâm lý thoải mái, tự tin khi sử dụng phương tiện mới.</li>
+                                <li>Hóa giải điều xấu, mang lại khởi đầu suôn sẻ cho hành trình di chuyển.</li>
+                            </ul>
+                        </div>
+                    </div>
+
                 </div>
                 @include('tools.siderbarindex')
             </div>
@@ -790,7 +879,10 @@
                     }
                     setTimeout(() => {
                         const bangChiTiet = document.querySelector('#bang-chi-tiet');
-                        bangChiTiet?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        bangChiTiet?.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
                     }, 100);
                 }
             });
@@ -800,7 +892,8 @@
                 const resultsContainer = document.querySelector('.--detail-success');
                 resultsContainer.addEventListener('click', function(event) {
                     if (event.target.matches('.load-more-btn') || event.target.closest('.load-more-btn')) {
-                        const btn = event.target.matches('.load-more-btn') ? event.target : event.target.closest('.load-more-btn');
+                        const btn = event.target.matches('.load-more-btn') ? event.target : event.target
+                            .closest('.load-more-btn');
                         const year = btn.getAttribute('data-year');
                         const currentLoaded = parseInt(btn.getAttribute('data-loaded'));
                         const total = parseInt(btn.getAttribute('data-total'));
@@ -824,7 +917,8 @@
                             const remaining = total - newLoaded;
                             if (remaining > 0) {
                                 const nextLoad = Math.min(10, remaining);
-                                btn.innerHTML = `<i class="bi bi-plus-circle me-2"></i>Xem thêm ${nextLoad} bảng<span class="text-muted ms-2">(${remaining} còn lại)</span>`;
+                                btn.innerHTML =
+                                    `<i class="bi bi-plus-circle me-2"></i>Xem thêm ${nextLoad} bảng<span class="text-muted ms-2">(${remaining} còn lại)</span>`;
                             } else {
                                 btn.style.display = 'none';
                             }
@@ -914,11 +1008,14 @@
 
                 // Đếm TOTAL filtered rows TRƯỚC khi thay đổi pagination
                 const allRows = table.querySelectorAll('tr:not(.empty-filter-row)');
-                const totalFilteredRows = parseInt(loadMoreBtn.getAttribute('data-total')) || Array.from(allRows).filter(row => {
-                    return row.style.display !== 'none';
-                }).length;
+                const totalFilteredRows = parseInt(loadMoreBtn.getAttribute('data-total')) || Array.from(allRows)
+                    .filter(row => {
+                        return row.style.display !== 'none';
+                    }).length;
 
-                console.log(`Maintaining pagination: ${currentLoaded} out of ${totalFilteredRows} filtered rows (${allRows.length} total)`);
+                console.log(
+                    `Maintaining pagination: ${currentLoaded} out of ${totalFilteredRows} filtered rows (${allRows.length} total)`
+                );
 
                 // Show rows according to current pagination state
                 allRows.forEach((row, index) => {
@@ -935,7 +1032,8 @@
                 const remaining = totalFilteredRows - currentLoaded;
                 if (remaining > 0) {
                     const nextLoad = Math.min(10, remaining);
-                    loadMoreBtn.innerHTML = `<i class="bi bi-plus-circle me-2"></i>Xem thêm ${nextLoad} bảng<span class="text-muted ms-2">(${remaining} còn lại)</span>`;
+                    loadMoreBtn.innerHTML =
+                        `<i class="bi bi-plus-circle me-2"></i>Xem thêm ${nextLoad} bảng<span class="text-muted ms-2">(${remaining} còn lại)</span>`;
                     loadMoreBtn.style.display = '';
                     loadMoreBtn.setAttribute('data-total', totalFilteredRows.toString());
                 } else {
@@ -946,5 +1044,4 @@
         });
     </script>
     @include('components.taboo-filter-script')
-
 @endpush

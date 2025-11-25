@@ -169,16 +169,79 @@
                         </div>
 
                     </div>
-                    <div id="resultsContainer" class="results-container">
+                    <div id="resultsContainer" class="results-container --detail-success">
                         <div class="d-flex flex-column align-items-center justify-content-center h-100 text-center">
-                            <div class="mb-4">
-                                <img src="{{ asset('/icons/defaild.png?v=1.0') }}" alt="defakd" class="img-fuild">
-                            </div>
-                            <p class="text-muted" style="font-size: 16px;">
-                                Hiện chưa có thông tin, bạn vui lòng nhập thông tin để xem kết quả.
-                            </p>
+
                         </div>
                     </div>
+                    <div class="box--bg-thang mt-3 mb-3">
+                        <div class="text-box-tong-quan">
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Vì sao nên xem ngày làm giấy tờ?
+                            </h2>
+                            <p class="mb-1">Các thủ tục quan trọng như: khai sinh, đăng ký kết hôn, giấy tờ nhà đất,
+                                chứng minh thư hay hợp đồng pháp lý… đều ảnh hưởng trực tiếp đến quyền lợi của bạn. Chọn
+                                ngày tốt giúp:
+                            </p>
+                            <ul class="mb-1">
+                                <li>Thủ tục suôn sẻ, nhanh chóng, ít rắc rối</li>
+                                <li>Tâm lý tự tin, thoải mái khi làm việc</li>
+                                <li>Thu hút may mắn, giảm sai sót</li>
+                                <li>Khởi đầu thuận lợi, tránh xung đột</li>
+                            </ul>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Lợi ích khi chọn ngày tốt
+                            </h2>
+                            <ul class="mb-1">
+                                <li>Thủ tục được xử lý nhanh, ít trục trặc</li>
+                                <li>Giấy tờ dễ được chấp thuận</li>
+                                <li>Tâm lý thoải mái, tự tin</li>
+                                <li>Hạn chế rủi ro, sai sót</li>
+                                <li>Tạo nền tảng ổn định cho các quyền lợi liên quan</li>
+                            </ul>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Cách chọn ngày làm giấy tờ
+                            </h2>
+                            <h3 class="title-tong-quan-h4-log">Những ngày có yếu tố cát lành nên chọn:</h3>
+                            <ul class="mb-1">
+                                <li>Ngày Hoàng đạo</li>
+                                <li>Trực tốt: Kiến – Khai – Thành – Mãn</li>
+                                <li>Ngũ hành hợp tuổi/mệnh</li>
+                                <li>Sao cát: Thiên Đức, Nguyệt Đức, Thiên Quan, Thiên Phúc, Lộc Tồn</li>
+                                <li>Giờ Hoàng đạo</li>
+                                <li>Ngày không xung tuổi</li>
+                            </ul>
+                            <h3 class="title-tong-quan-h4-log">Những ngày có yếu tố xấu cần tránh:</h3>
+                            <ul class="mb-1">
+                                <li>Hắc đạo: Câu Trận, Bạch Hổ, Thiên Lao, Nguyên Vũ</li>
+                                <li>Trực xấu: Phá – Nguy – Thu – Bế</li>
+                                <li>Ngày xung tuổi</li>
+                                <li>Ngày đại kỵ: Tam Nương, Nguyệt Kỵ, Dương Công Kỵ Nhật</li>
+                            </ul>
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Hướng dẫn sử dụng công cụ Phong Lịch
+                            </h2>
+                            <ul class="mb-1" style="list-style-type: decimal;">
+                                <li>Nhập tuổi người làm giấy tờ</li>
+                                <li>Chọn khoảng thời gian dự kiến</li>
+                                <li>Hệ thống phân tích Hoàng đạo, Trực, Sao cát – hung, Ngũ hành, giờ tốt/xung</li>
+                                <li>Chọn ngày phù hợp để thủ tục suôn sẻ và yên tâm</li>
+                            </ul>
+                              <h2 class="title-tong-quan-h3-log fw-bolder">
+                               Lợi ích khi chọn đúng ngày
+                            </h2>
+                            <ul class="mb-1">
+                                <li>Thủ tục nhanh gọn, thuận lợi</li>
+                                <li>Hạn chế sai sót, trục trặc</li>
+                                <li>Tâm lý thoải mái, tự tin</li>
+                                <li>Tạo nền tảng ổn định cho quyền lợi liên quan</li>
+                            </ul>
+                        </div>
+                    </div>
+
+
+
+
                 </div>
                 @include('tools.siderbarindex')
             </div>
@@ -624,7 +687,8 @@
                                 }
 
                                 setTimeout(() => {
-                                    if (data.resultsByYear && typeof initTabooFilter === 'function') {
+                                    if (data.resultsByYear && typeof initTabooFilter ===
+                                        'function') {
                                         initTabooFilter(data.resultsByYear);
                                     }
                                 }, 200);
@@ -668,7 +732,7 @@
             });
 
             // Optimized sorting functions
-              function getScoreFromRow(row) {
+            function getScoreFromRow(row) {
                 const battery = row.querySelector('.battery-label');
                 if (battery) {
                     return parseInt(battery.textContent.replace('%', '')) || 0;
@@ -688,6 +752,7 @@
                 }
                 return 0;
             }
+
             function applySortingToTable(sortValue) {
                 const table = document.querySelector('#bang-chi-tiet table tbody');
                 if (!table) return;
