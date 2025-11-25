@@ -1658,6 +1658,9 @@ function initTabooFilter(resultsByYear) {
 
     // Setup load more handler
     setupLoadMoreHandler();
+
+    // Expose the applySortToYear function globally after initialization
+    window.applySortToYear = applySortToYear;
 }
 
 // Expose initTabooFilter ra global scope để có thể gọi từ index.blade.php

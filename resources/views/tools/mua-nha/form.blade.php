@@ -913,6 +913,19 @@
                     const year = btn.dataset.year;
                     const loaded = parseInt(btn.dataset.loaded);
                     const total = parseInt(btn.dataset.total);
+
+                    // Check if taboo filter is active
+                    const selectedTaboos = document.querySelectorAll('.taboo-checkbox:checked');
+                    if (selectedTaboos.length > 0) {
+                        console.log('Taboo filter is active, updating filter status after pagination');
+                        // Let taboo filter component handle the pagination update
+                        if (typeof window.updateFilterStatusOnPagination === 'function') {
+                            window.updateFilterStatusOnPagination(year);
+                        }
+                        return; // Let the taboo filter handle this
+                    }
+
+                    // Original pagination logic for when no taboo filter is active
                     const tbody = document.querySelector(`.table-body-${year}`);
 
                     if (!tbody) return;
@@ -935,7 +948,7 @@
 
                     if (remaining > 0) {
                         btn.innerHTML = `
-                            Xem thêm 
+                            Xem thêm
                         `;
                     } else {
                         btn.style.display = 'none';
@@ -989,7 +1002,23 @@
         function applySortingToTable(sortValue) {
             console.log('applySortingToTable called with:', sortValue);
 
-            // Tìm table giống tot-xau
+            // Check if taboo filter is active - if so, let taboo filter handle sorting
+            const selectedTaboos = document.querySelectorAll('.taboo-checkbox:checked');
+            if (selectedTaboos.length > 0 && typeof window.applySortToYear === 'function') {
+                console.log('Taboo filter is active, delegating sort to taboo filter component');
+
+                // Find active year tabs and apply sort to each
+                const activeTabPanes = document.querySelectorAll('.tab-pane');
+                activeTabPanes.forEach(tabPane => {
+                    const year = tabPane.id.replace('year-', '');
+                    if (year && window.applySortToYear) {
+                        window.applySortToYear(year, sortValue, false);
+                    }
+                });
+                return;
+            }
+
+            // If no taboo filter, use regular sorting
             const tables = document.querySelectorAll('tbody');
             console.log('Found tables:', tables.length);
 
