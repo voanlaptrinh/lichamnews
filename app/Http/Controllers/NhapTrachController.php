@@ -21,8 +21,8 @@ class NhapTrachController extends Controller
      */
     public function showForm()
     {
-              $metaTitle = "Xem Ngày Tốt Trấn Yểm, Trấn Trạch Theo Tuổi";
-        $metaDescription = "Xem ngày tốt trấn yểm, trấn trạch theo tuổi giúp hóa giải sát khí, ổn định phong thủy nhà cửa. Tra cứu ngày hoàng đạo, giờ tốt để trấn trạch an lành, hiệu quả.";
+              $metaTitle = "Xem Ngày Tốt Nhập Trạch | Chọn Ngày Đẹp Về Nhà Mới Theo Tuổi";
+        $metaDescription = "Xem ngày tốt nhập trạch theo tuổi, chọn ngày đẹp về nhà mới hợp phong thủy. Tra cứu ngày hoàng đạo, giờ tốt giúp gia chủ đón tài lộc, an cư hưng vượng.";
         return view('tools.nhap-trach.form', compact('metaTitle', 'metaDescription'));
     }
 

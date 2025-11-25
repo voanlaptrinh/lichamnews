@@ -21,7 +21,9 @@ class TranTrachController extends Controller
     public function showForm()
     {
         // Không cần truyền dateRanges nữa
-        return view('tools.tran-trach.form');
+         $metaTitle = "Xem Ngày Tốt Trấn Yểm, Trấn Trạch Theo Tuổi";
+        $metaDescription = "Xem ngày tốt trấn yểm, trấn trạch theo tuổi giúp hóa giải sát khí, ổn định phong thủy nhà cửa. Tra cứu ngày hoàng đạo, giờ tốt để trấn trạch an lành, hiệu quả.";
+        return view('tools.tran-trach.form', compact('metaTitle', 'metaDescription'));
     }
 
     /**

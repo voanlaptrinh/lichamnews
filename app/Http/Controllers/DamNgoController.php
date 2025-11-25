@@ -21,9 +21,9 @@ class DamNgoController extends Controller
     public function showForm()
     {
         // Truyền ngày hôm nay vào view để làm giá trị mặc định cho ngày cưới
-                $metaTitle = "Xem Ngày Tốt Di Dời Bàn Thờ, Hợp Phong Thủy Theo Tuổi";
-        $metaDescription = "Xem ngày tốt di dời bàn thờ theo tuổi, chọn ngày đẹp hợp phong thủy để chuyển vị trí an vị gia tiên. Tra cứu ngày hoàng đạo, giờ tốt giúp nghi lễ diễn ra trang nghiêm.";
-        return view('tools.dam-ngo.check_form');
+                $metaTitle = "Xem Ngày Tốt Dạm Ngõ | Chọn Ngày Đẹp Dạm Ngõ Theo Tuổi";
+        $metaDescription = "Xem ngày tốt dạm ngõ theo tuổi, chọn ngày đẹp hợp mệnh làm lễ dạm ngõ. Tra cứu ngày hoàng đạo, giờ tốt giúp buổi lễ được diễn ra thuận lợi, gia đạo hạnh phúc";
+        return view('tools.dam-ngo.check_form', compact('metaTitle','metaDescription'));
     }
 
     /**
