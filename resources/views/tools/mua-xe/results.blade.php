@@ -280,9 +280,7 @@
                                     <div class="text-center mt-3">
                                         <button type="button" class="btn btn-outline-primary load-more-btn"
                                                 data-year="{{ $year }}" data-loaded="10" data-total="{{ count($yearData['days']) }}">
-                                            <i class="bi bi-plus-circle me-2"></i>
-                                            Xem thêm 10 bảng
-                                            <span class="text-muted ms-2">({{ count($yearData['days']) - 10 }} còn lại)</span>
+                                            Xem thêm 
                                         </button>
                                     </div>
                                 @endif

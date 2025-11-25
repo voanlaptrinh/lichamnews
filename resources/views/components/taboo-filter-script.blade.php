@@ -407,7 +407,7 @@ function initTabooFilter(resultsByYear) {
             loadMoreBtn.dataset.loaded = actualLoaded.toString();
             loadMoreBtn.dataset.total = actualTotal.toString();
 
-            console.log(`Button data updated for year ${year}: loaded=${actualLoaded}, total=${actualTotal}`);
+    
 
             const remaining = actualTotal - actualLoaded;
 
@@ -417,14 +417,13 @@ function initTabooFilter(resultsByYear) {
             if (remaining > 0 && actualTotal > 10) {
                 loadMoreBtn.style.display = '';
                 loadMoreBtn.innerHTML = `
-                    <i class="bi bi-plus-circle me-2"></i>
-                    Xem thêm ${Math.min(10, remaining)} bảng
-                    <span class="text-muted ms-2">(${remaining} còn lại)</span>
+                   
+                    Xem thêm
                 `;
-                console.log(`Load more button updated: ${Math.min(10, remaining)} bảng (${remaining} còn lại)`);
+             
             } else {
                 loadMoreBtn.style.display = 'none';
-                console.log(`Load more button hidden - remaining: ${remaining}, total: ${actualTotal}`);
+              
             }
         }
 
@@ -519,14 +518,59 @@ function initTabooFilter(resultsByYear) {
             e.preventDefault();
             e.stopPropagation();
 
-            if (modal && backdrop) {
+            const clickedButton = e.target.closest('.taboo-filter-btn');
+
+            if (modal && backdrop && clickedButton) {
+                // Find the position-relative container
+                const positionContainer = clickedButton.closest('.position-relative');
+
+                if (positionContainer) {
+                    // Move modal inside the position-relative container
+                    positionContainer.appendChild(modal);
+
+                    // Set CSS positioning
+                    modal.style.position = 'absolute';
+                    modal.style.top = '100%';
+                    modal.style.left = '0';
+                    modal.style.right = 'auto';
+                    modal.style.marginTop = '5px';
+                    modal.style.zIndex = '1050';
+
+                    console.log('Modal moved to position-relative container and positioned below button');
+                } else {
+                    // Fallback: position fixed relative to button
+                    const buttonRect = clickedButton.getBoundingClientRect();
+                    modal.style.position = 'fixed';
+                    modal.style.top = (buttonRect.bottom + 5) + 'px';
+                    modal.style.left = buttonRect.left + 'px';
+                    modal.style.right = 'auto';
+                    modal.style.marginTop = '0';
+                    modal.style.zIndex = '1050';
+
+                    console.log('Modal positioned fixed relative to button as fallback');
+                }
+
                 modal.classList.remove('d-none');
                 backdrop.classList.remove('d-none');
-                // document.body.classList.add('menu-open');
             }
 
             return false;
         };
+
+        // Debug: Log what buttons are actually found
+        console.log('=== BUTTON DETECTION DEBUG ===');
+        console.log('Filter button selectors to try:', filterBtnSelectors);
+
+        filterBtnSelectors.forEach(selector => {
+            const btns = document.querySelectorAll(selector);
+            console.log(`Selector "${selector}" found:`, btns.length, 'buttons');
+            btns.forEach((btn, index) => {
+                console.log(`  - Button ${index}:`, btn, 'dataset.year:', btn.dataset.year, 'id:', btn.id);
+            });
+        });
+
+        console.log('All filter buttons found:', allFilterBtns);
+        console.log('Modal trigger button found:', allFilterBtns.length > 0);
 
         // Bind event cho tất cả filter buttons tìm được
         allFilterBtns.forEach((filterBtn, index) => {
@@ -538,9 +582,11 @@ function initTabooFilter(resultsByYear) {
         });
 
         if (allFilterBtns.length === 0) {
-            console.log('No filter buttons found with any selector');
+            console.log('ERROR: No filter buttons found with any selector');
+            console.log('Available buttons in DOM:', document.querySelectorAll('button'));
+            console.log('Buttons with taboo in class:', document.querySelectorAll('[class*="taboo"]'));
         } else {
-            console.log('Found', allFilterBtns.length, 'filter buttons total across all tools');
+            console.log('SUCCESS: Found', allFilterBtns.length, 'filter buttons total across all tools');
         }
 
         // Đóng modal
@@ -719,7 +765,7 @@ function initTabooFilter(resultsByYear) {
 
                     // Ensure unique taboo names in message
                     const uniqueTaboos = [...new Set(selectedTaboos)];
-                    filterStatusText.textContent = `Đã lọc ${currentYearFiltered} ngày có ${uniqueTaboos.join(', ')} trong năm ${year}. Hiển thị ${currentVisibleCount}/${currentYearDays} ngày.`;
+                    filterStatusText.textContent = `Đã lọc  ${uniqueTaboos.join(', ')} trong năm ${year}. Hiển thị ${currentVisibleCount}/${currentYearDays} ngày.`;
 
                     console.log(`DEBUG: Filter status for year ${year} - filtered: ${currentYearFiltered}, remaining: ${currentYearRemaining}, visible: ${currentVisibleCount}, total: ${currentYearDays}`);
                 }
@@ -734,9 +780,9 @@ function initTabooFilter(resultsByYear) {
 
                 const uniqueTaboos = [...new Set(selectedTaboos)];
                 if (Object.keys(resultsByYear).length > 1) {
-                    globalFilterStatusText.textContent = `Đã lọc ${totalDaysFiltered} ngày có ${uniqueTaboos.join(', ')} trong ${Object.keys(resultsByYear).length} năm. Hiển thị ${totalDaysRemaining}/${totalDaysOriginal} ngày.`;
+                    globalFilterStatusText.textContent = `Đã lọc ${uniqueTaboos.join(', ')} trong ${Object.keys(resultsByYear).length} năm. Hiển thị ${totalDaysRemaining}/${totalDaysOriginal} ngày.`;
                 } else {
-                    globalFilterStatusText.textContent = `Đã lọc ${totalDaysFiltered} ngày có ${uniqueTaboos.join(', ')}. Hiển thị ${totalDaysRemaining}/${totalDaysOriginal} ngày.`;
+                    globalFilterStatusText.textContent = `Đã lọc ${uniqueTaboos.join(', ')}. Hiển thị ${totalDaysRemaining}/${totalDaysOriginal} ngày.`;
                 }
             }
 
@@ -801,9 +847,8 @@ function initTabooFilter(resultsByYear) {
                             loadMoreBtn.style.display = '';
                             const remaining = totalRows - visibleRows;
                             loadMoreBtn.innerHTML = `
-                                <i class="bi bi-plus-circle me-2"></i>
-                                Xem thêm ${Math.min(10, remaining)} bảng
-                                <span class="text-muted ms-2">(${remaining} còn lại)</span>
+                              
+                                Xem thêm
                             `;
                         } else {
                             loadMoreBtn.style.display = 'none';
@@ -1048,9 +1093,8 @@ function initTabooFilter(resultsByYear) {
 
                     if (remaining > 0) {
                         btn.innerHTML = `
-                            <i class="bi bi-plus-circle me-2"></i>
-                            Xem thêm 10 bảng
-                            <span class="text-muted ms-2">(${remaining} còn lại)</span>
+                        
+                            Xem thêm
                         `;
                     } else {
                         btn.style.display = 'none';
@@ -1208,7 +1252,7 @@ function initTabooFilter(resultsByYear) {
 
             if (filterStatus && filterStatusText) {
                 filterStatus.classList.remove('d-none');
-                filterStatusText.textContent = `Đã lọc ${currentYearFiltered} ngày có ${selectedTaboos.join(', ')} trong năm ${year}. Hiển thị ${currentYearRemaining}/${currentYearDays} ngày.`;
+                filterStatusText.textContent = `Đã lọc ${selectedTaboos.join(', ')} trong năm ${year}. Hiển thị ${currentYearRemaining}/${currentYearDays} ngày.`;
             }
         });
 
@@ -1220,9 +1264,9 @@ function initTabooFilter(resultsByYear) {
             globalFilterStatus.classList.remove('d-none');
 
             if (Object.keys(resultsByYear).length > 1) {
-                globalFilterStatusText.textContent = `Đã lọc ${totalDaysFiltered} ngày có ${selectedTaboos.join(', ')} trong ${Object.keys(resultsByYear).length} năm. Hiển thị ${totalDaysRemaining}/${totalDaysOriginal} ngày.`;
+                globalFilterStatusText.textContent = `Đã lọc  ${selectedTaboos.join(', ')} trong ${Object.keys(resultsByYear).length} năm. Hiển thị ${totalDaysRemaining}/${totalDaysOriginal} ngày.`;
             } else {
-                globalFilterStatusText.textContent = `Đã lọc ${totalDaysFiltered} ngày có ${selectedTaboos.join(', ')}. Hiển thị ${totalDaysRemaining}/${totalDaysOriginal} ngày.`;
+                globalFilterStatusText.textContent = `Đã lọc  ${selectedTaboos.join(', ')}. Hiển thị ${totalDaysRemaining}/${totalDaysOriginal} ngày.`;
             }
         }
     }
@@ -1542,7 +1586,7 @@ function initTabooFilter(resultsByYear) {
 
                 // Ensure unique taboo names in message
                 const uniqueTaboos = [...new Set(selectedTaboos)];
-                filterStatusText.textContent = `Đã lọc ${currentYearFiltered} ngày có ${uniqueTaboos.join(', ')} trong năm ${year}. Hiển thị ${currentVisibleCount}/${currentYearDays} ngày.`;
+                filterStatusText.textContent = `Đã lọc ${uniqueTaboos.join(', ')} trong năm ${year}. Hiển thị ${currentVisibleCount}/${currentYearDays} ngày.`;
             }
         });
 
@@ -1555,9 +1599,9 @@ function initTabooFilter(resultsByYear) {
 
             const uniqueTaboos = [...new Set(selectedTaboos)];
             if (Object.keys(resultsByYear).length > 1) {
-                globalFilterStatusText.textContent = `Đã lọc ${totalDaysFiltered} ngày có ${uniqueTaboos.join(', ')} trong ${Object.keys(resultsByYear).length} năm. Hiển thị ${totalDaysRemaining}/${totalDaysOriginal} ngày.`;
+                globalFilterStatusText.textContent = `Đã lọc  ${uniqueTaboos.join(', ')} trong ${Object.keys(resultsByYear).length} năm. Hiển thị ${totalDaysRemaining}/${totalDaysOriginal} ngày.`;
             } else {
-                globalFilterStatusText.textContent = `Đã lọc ${totalDaysFiltered} ngày có ${uniqueTaboos.join(', ')}. Hiển thị ${totalDaysRemaining}/${totalDaysOriginal} ngày.`;
+                globalFilterStatusText.textContent = `Đã lọc  ${uniqueTaboos.join(', ')}. Hiển thị ${totalDaysRemaining}/${totalDaysOriginal} ngày.`;
             }
         }
     }
@@ -1676,7 +1720,7 @@ function updateFilterStatusOnPagination(year) {
         }
 
         const uniqueTaboos = [...new Set(selectedTaboos)];
-        filterStatusText.textContent = `Đã lọc ${currentYearFiltered} ngày có ${uniqueTaboos.join(', ')} trong năm ${year}. Hiển thị ${actualVisibleCount}/${currentYearDays} ngày.`;
+        filterStatusText.textContent = `Đã lọc ${uniqueTaboos.join(', ')} trong năm ${year}. Hiển thị ${actualVisibleCount}/${currentYearDays} ngày.`;
 
         console.log(`Updated filter status for year ${year} on pagination: showing ${actualVisibleCount}/${currentYearRemaining} filtered days`);
     }

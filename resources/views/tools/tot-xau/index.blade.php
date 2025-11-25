@@ -1004,9 +1004,7 @@
 
                             if (remaining > 0) {
                                 btn.innerHTML = `
-                                    <i class="bi bi-plus-circle me-2"></i>
-                                    Xem thêm ${Math.min(10, remaining)} bảng
-                                    <span class="text-muted ms-2">(${remaining} còn lại)</span>
+                                    Xem thêm 
                                 `;
                             } else {
                                 btn.style.display = 'none';
@@ -1037,9 +1035,7 @@
                         loadMoreBtn.style.display = '';
                         const remaining = rows.length - 10;
                         loadMoreBtn.innerHTML = `
-                            <i class="bi bi-plus-circle me-2"></i>
-                            Xem thêm ${Math.min(10, remaining)} bảng
-                            <span class="text-muted ms-2">(${remaining} còn lại)</span>
+                            Xem thêm 
                         `;
                     }
                 }
@@ -1102,16 +1098,12 @@
                         loadMoreBtn.dataset.total = totalFilteredRows.toString();
                         const remaining = totalFilteredRows - currentLoaded;
 
-                        console.log(
-                            `Maintaining pagination: ${currentLoaded} out of ${totalFilteredRows} filtered rows (${allRows.length} total)`
-                        );
+                     
 
                         if (remaining > 0) {
                             loadMoreBtn.style.display = '';
                             loadMoreBtn.innerHTML = `
-                                <i class="bi bi-plus-circle me-2"></i>
-                                Xem thêm ${Math.min(10, remaining)} bảng
-                                <span class="text-muted ms-2">(${remaining} còn lại)</span>
+                                Xem thêm
                             `;
                         } else {
                             loadMoreBtn.style.display = 'none';

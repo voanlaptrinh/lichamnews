@@ -110,6 +110,7 @@ class CaiTangController extends Controller
             'birth_year_lunar' => $deceasedBirthYear,
             'death_year_lunar' => $deceasedDeathYear,
             'birth_can_chi' => KhiVanHelper::canchiNam($deceasedBirthYear),
+            'napAm_birth' => DataHelper::$napAmTable[KhiVanHelper::canchiNam($deceasedBirthYear)],
             'death_can_chi' => KhiVanHelper::canchiNam($deceasedDeathYear), // Thêm Can chi năm mất
         ];
 
@@ -156,6 +157,7 @@ class CaiTangController extends Controller
 
             $resultsByYear[$year]['days'][] = [
                 'al_name' => $lunarParts,
+
                 'date' => $date->copy(),
                 'weekday_name' => $date->isoFormat('dddd'),
                 'full_lunar_date_str' => $fullLunarDateStr,

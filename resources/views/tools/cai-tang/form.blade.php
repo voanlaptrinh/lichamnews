@@ -1113,7 +1113,7 @@
                             if (remaining > 0) {
                                 const nextLoad = Math.min(10, remaining);
                                 btn.innerHTML =
-                                    `<i class="bi bi-plus-circle me-2"></i>Xem thêm ${nextLoad} bảng<span class="text-muted ms-2">(${remaining} còn lại)</span>`;
+                                    `Xem thêm`;
                             } else {
                                 btn.style.display = 'none';
                             }
@@ -1183,20 +1183,18 @@
 
                 // Update load more button với total filtered rows
                 const remaining = totalFilteredRows - currentLoaded;
-                console.log(
-                    `DEBUG BUTTON: totalFilteredRows=${totalFilteredRows}, currentLoaded=${currentLoaded}, remaining=${remaining}`
-                );
+             
 
                 if (remaining > 0) {
                     const nextLoad = Math.min(10, remaining);
                     loadMoreBtn.innerHTML =
-                        `<i class="bi bi-plus-circle me-2"></i>Xem thêm ${nextLoad} bảng<span class="text-muted ms-2">(${remaining} còn lại)</span>`;
+                        `Xem thêm`;
                     loadMoreBtn.style.display = '';
                     loadMoreBtn.setAttribute('data-total', totalFilteredRows);
-                    console.log(`DEBUG BUTTON: Showing button - Xem thêm ${nextLoad} bảng (${remaining} còn lại)`);
+                    
                 } else {
                     loadMoreBtn.style.display = 'none';
-                    console.log(`DEBUG BUTTON: Hiding button - no remaining items`);
+                  
                 }
             }
         });

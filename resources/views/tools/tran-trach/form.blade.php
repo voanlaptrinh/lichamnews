@@ -999,9 +999,7 @@
 
                     if (remaining > 0) {
                         btn.innerHTML = `
-                            <i class="bi bi-plus-circle me-2"></i>
-                            Xem thêm ${Math.min(10, remaining)} bảng
-                            <span class="text-muted ms-2">(${remaining} còn lại)</span>
+                            Xem thêm
                         `;
                     } else {
                         btn.style.display = 'none';
