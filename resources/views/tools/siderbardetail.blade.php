@@ -40,7 +40,7 @@
                          </div>
                      </a>
                  </li>
-                 <li class="list-group-item pb-0">
+                 {{-- <li class="list-group-item pb-0">
                      <a href="" class="">
 
                          <div class="event-details --padding-event-tot">
@@ -61,7 +61,7 @@
 
                          </div>
                      </a>
-                 </li>
+                 </li> --}}
                  <li class="list-group-item pb-0">
                      <a href="" class="">
 
