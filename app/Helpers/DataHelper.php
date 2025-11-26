@@ -4390,8 +4390,8 @@ class DataHelper
             "bad"  => ""
         ],
         "Tỉnh" => [
-            "good" => "Cầu bệnh nhanh khỏi, hôn sự, kinh doanh",
-            "bad"  => ""
+            "good" => "Xây cất, trổ cửa, dựng cửa, mở thông đường nước, đào mương móc giếng, nhậm chức, nhập học, đi thuyền.",
+            "bad"  => "Chôn cất, tu bổ phần mộ, làm sinh phần, đóng thọ đường."
         ],
         "Quỷ" => [
             "good" => "Ma chay, an táng",
@@ -4406,8 +4406,8 @@ class DataHelper
             "bad"  => "Cưới hỏi, tổ chức hôn nhân"
         ],
         "Trương" => [
-            "good" => "Cầu tài lộc, sinh con, khai trương",
-            "bad"  => "Kinh doanh lớn cần chọn giờ tốt"
+            "good" => "Khởi công, xây dựng, khai trương, cưới hỏi, nhập học, nhận chức.",
+            "bad"  => "Đi thuyền, làm thủy lợi, xuất hành đường sông biển"
         ],
         "Dực" => [
             "good" => "Cầu công danh, khai trương, sinh con, kinh doanh",

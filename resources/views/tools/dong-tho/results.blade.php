@@ -160,7 +160,7 @@
                                                     $bgColor = '#FFE3D5'; // Yellow
                                                     $border = '#FC6803';
                                                     $text_box = '#FC6803';
-                                                } elseif ($score <= 70) {
+                                                } elseif ($score < 70) {
                                                     $bgColor = '#FEF3C7'; // Orange
                                                     $border = '#F59E0B';
                                                     $text_box = '#F59E0B';

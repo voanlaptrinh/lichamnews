@@ -455,7 +455,7 @@
                     }
                 }
 
-                if (params.birthdate || params.date_range) {
+                if (params.birthdate || params.khoang) {
                     let formRestored = false;
                     let birthdateSet = false;
                     let dateRangeSet = false;
@@ -537,14 +537,14 @@
                         birthdateSet = true;
                     }
 
-                    if (params.date_range) {
+                    if (params.khoang) {
                         function trySetDateRange(attempts = 0) {
                             const maxAttempts = 5;
                             if (attempts >= maxAttempts) return;
 
                             const khoangInput = document.getElementById('date_range');
                             if (khoangInput) {
-                                khoangInput.value = params.date_range;
+                                khoangInput.value = params.khoang;
                                 dateRangeSet = true;
                                 checkAndSubmitForm();
                             } else {
@@ -638,7 +638,7 @@
 
                 const hashParams = {
                     birthdate: formattedBirthdate,
-                    date_range: dateRangeValue,
+                    khoang: dateRangeValue,
                     calendar_type: calendarType
                 };
                 setHashParams(hashParams);

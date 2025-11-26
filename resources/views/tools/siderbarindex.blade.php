@@ -125,7 +125,7 @@
                          class="{{ request()->routeIs('ban-tho.form') ? 'active-tools' : '' }}">
                          <div class="event-details  --padding-event-tot">
                              <div class="event-name" style="font-weight: unset">
-                                 Xem ngày dời ban thờ
+                                 Xem ngày dời bàn thờ
                              </div>
                          </div>
                      </a>
@@ -135,7 +135,7 @@
                          class="{{ request()->routeIs('lap-ban-tho.form') ? 'active-tools' : '' }}">
                          <div class="event-details  --padding-event-tot">
                              <div class="event-name" style="font-weight: unset">
-                                 Xem ngày lập ban thờ
+                                 Xem ngày lập bàn thờ
                              </div>
                          </div>
                      </a>

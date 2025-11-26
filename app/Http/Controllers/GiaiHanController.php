@@ -204,7 +204,7 @@ class GiaiHanController extends Controller
 
         // 4. Lấy thông tin chi tiết cho Chú Rể
         $groomData = BadDayHelper::getDetailedAnalysisForPerson($dateToCheck, $groomDob, 'Xem Ngày Giải Hạn', 'CUNG_SAO_GIAI_HAN');
-        return view('tools.giai-han.details', [
+        return view('tools.giai-han.day_details', [
             'commonDayInfo' => $commonDayInfo,
             'groomData' => $groomData,
             'tabooResult' => $tabooResult,

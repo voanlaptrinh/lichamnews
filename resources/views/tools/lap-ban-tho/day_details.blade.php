@@ -17,7 +17,7 @@
                           <a href="{{ route('totxau.list') }}"  style="color: #2254AB; text-decoration: underline;">Xem ngày tốt</a>
                 </li>
                  <li class="breadcrumb-item" aria-current="page">
-                  Xem ngày lập ban thờ
+                  Xem ngày lập bàn thờ
                 </li>
                  <li class="breadcrumb-item active" aria-current="page">
                Chi tiết
@@ -27,7 +27,7 @@
 
        
 
-        <h1 class="content-title-home-lich">Chi tiết xem ngày lập ban thờ</h1>
+        <h1 class="content-title-home-lich">Chi tiết xem ngày lập bàn thờ</h1>
 
         <!-- Nút quay lại -->
 
@@ -217,7 +217,7 @@
                                 <img src="{{ asset('icons/dac-diem1.svg') }}" alt="thông tin người xem" width="28"
                                     height="28" class="me-1"> <span>Đánh giá cho điểm các yếu tố ngày cho tuổi
                                     {{ $groomData['personInfo']['can_chi_nam'] }}
-                                    ({{ $groomData['personInfo']['dob']->format('d-m-Y') }}) lập ban thờ:
+                                    ({{ $groomData['personInfo']['dob']->format('d-m-Y') }}) lập bàn thờ:
                                     {{ round($groomData['score']['percentage']) }}/100
                                     ({{ round($groomData['score']['percentage']) }}%)</span>
                             </div>

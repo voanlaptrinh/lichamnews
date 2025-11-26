@@ -15354,7 +15354,7 @@ class PurposeMeaningConstants {
       "Lục Hợp": "Tốt – thuận duyên giữa trạch chủ và thần linh",
       "Mẫu Thương": "Tốt nếu lập bàn thờ mẹ, nữ thần, thần tài",
       "Phúc Hậu": "Tốt – lập bàn thờ tổ, gia tiên có đức sáng chiếu",
-      "Đại Hồng Sa": "Tốt – tăng vượng khí ban thờ",
+      "Đại Hồng Sa": "Tốt – tăng vượng khí bàn thờ",
       "Dân Nhật": "Tốt – tăng khí hoà thuận nếu lập bàn thờ theo dòng họ",
       "Hoàng Ân": "Tốt – nếu khai bàn thờ theo lệnh tổ đường, nghi lễ cao",
       "Thanh Long Hoàng Đạo": "Tốt – trợ lực mở quang, ổn định trạch khí",

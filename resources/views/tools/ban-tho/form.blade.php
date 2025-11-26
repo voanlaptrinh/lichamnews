@@ -15,7 +15,7 @@
                             <a href="{{ route('totxau.list') }}"  style="color: #2254AB; text-decoration: underline;">Xem ngày tốt</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
-                    Xem ngày đổi ban thờ
+                    Xem ngày đổi bàn thờ
                 </li>
             </ol>
         </nav>
@@ -438,7 +438,7 @@
                     }
                 }
 
-                if (params.birthdate || params.date_range) {
+                if (params.birthdate || params.khoang) {
                     let formRestored = false;
                     let birthdateSet = false;
                     let dateRangeSet = false;
@@ -520,14 +520,14 @@
                         birthdateSet = true;
                     }
 
-                    if (params.date_range) {
+                    if (params.khoang) {
                         function trySetDateRange(attempts = 0) {
                             const maxAttempts = 5;
                             if (attempts >= maxAttempts) return;
 
                             const khoangInput = document.getElementById('date_range');
                             if (khoangInput) {
-                                khoangInput.value = params.date_range;
+                                khoangInput.value = params.khoang;
                                 dateRangeSet = true;
                                 checkAndSubmitForm();
                             } else {
@@ -621,7 +621,7 @@
 
                 const hashParams = {
                     birthdate: formattedBirthdate,
-                    date_range: dateRangeValue,
+                    khoang: dateRangeValue,
                     calendar_type: calendarType
                 };
                 setHashParams(hashParams);

@@ -17,7 +17,7 @@
                   <a href="{{ route('totxau.list') }}"  style="color: #2254AB; text-decoration: underline;">Xem ngày tốt</a>
                 </li>
                  <li class="breadcrumb-item" aria-current="page">
-                  Xem ngày dời ban thờ
+                  Xem ngày dời bàn thờ
                 </li>
                  <li class="breadcrumb-item active" aria-current="page">
                Chi tiết
@@ -27,7 +27,7 @@
 
        
 
-        <h1 class="content-title-home-lich">Chi tiết xem ngày dời ban thờ</h1>
+        <h1 class="content-title-home-lich">Chi tiết xem ngày dời bàn thờ</h1>
 
         <!-- Nút quay lại -->
 
@@ -217,7 +217,7 @@
                                 <img src="{{ asset('icons/dac-diem1.svg') }}" alt="thông tin người xem" width="28"
                                     height="28" class="me-1"> <span>Đánh giá cho điểm các yếu tố ngày cho tuổi
                                     {{ $groomData['personInfo']['can_chi_nam'] }}
-                                    ({{ $groomData['personInfo']['dob']->format('d-m-Y') }}) dời ban thờ:
+                                    ({{ $groomData['personInfo']['dob']->format('d-m-Y') }}) dời bàn thờ:
                                     {{ round($groomData['score']['percentage']) }}/100
                                     ({{ round($groomData['score']['percentage']) }}%)</span>
                             </div>
@@ -484,7 +484,7 @@
             const dateRange = urlParams.get('date_range');
 
             // Build the target URL with hash parameters
-            let targetUrl = '{{ route('buy-house.form') }}';
+            let targetUrl = '{{ route('ban-tho.form') }}';
             const hashParams = [];
 
             // Add birthdate to hash if available

@@ -113,7 +113,7 @@
                                         @foreach ($yearData['days'] as $index => $day)
                                             @php
                                                 $score = $day['day_score']['percentage'] ?? 0;
-                                                $bgColor = '#D1FAE5'; // Green
+                                               $bgColor = '#D1FAE5'; // Green
                                                 $score = round($score);
                                                 if ($score <= 30) {
                                                     $bgColor = '#FEE2E2'; // Red
@@ -123,7 +123,7 @@
                                                     $bgColor = '#FFE3D5'; // Yellow
                                                     $border = '#FC6803';
                                                     $text_box = '#FC6803';
-                                                } elseif ($score <= 70) {
+                                                } elseif ($score < 70) {
                                                     $bgColor = '#FEF3C7'; // Orange
                                                     $border = '#F59E0B';
                                                     $text_box = '#F59E0B';
@@ -184,7 +184,7 @@
                                                     @php
                                                         $supportFactors = [];
 
-                                                        // Kiểm tra ngày hoàng đạo - theo logic lập ban thờ
+                                                        // Kiểm tra ngày hoàng đạo - theo logic lập bàn thờ
                                                         if (
                                                             isset($day['day_score']['hoangdao']) &&
                                                             $day['day_score']['hoangdao'] === true

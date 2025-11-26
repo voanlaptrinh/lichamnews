@@ -59,36 +59,69 @@
             background: #F4F0C0;
             /* Màu nền đơn giản hơn khi active */
         }
+
+        /* Lá số tử vi image responsive */
+        .laso-image {
+            max-height: 80vh;
+            max-width: 100%;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+        }
+
+        /* Mobile responsive cho lá số */
+        @media (max-width: 768px) {
+            .laso-image {
+                max-height: 70vh;
+                max-width: 95vw;
+            }
+        }
     </style>
-   <div class="bg-la-so">
-     <div class="container py-5 text-center ">
 
+    <div class="bg-la-so">
+        <div class="container-setup">
+            <nav aria-label="breadcrumb" class="content-title-detail">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
+                    </li>
 
-        @if ($imageUrl)
-            <div class="d-flex justify-content-center">
+                    <li class="breadcrumb-item">
+                        Tử vi & Phong thuỷ
+                    </li>
 
-                <img src="{{ route('laso.image_proxy', ['url' => $imageUrl]) }}" alt="Lá số tử vi" class="img-fluid">
-            </div>
-        @else
-            <div class="alert alert-warning">
-                Không thể hiển thị ảnh lá số.
-            </div>
-        @endif
+                    <li class="breadcrumb-item active" aria-current="page">
+                        Lá số tử vi
+                    </li>
+                </ol>
+            </nav>
 
-        <div class="d-flex justify-content-center gap-3 mt-4">
-            {{-- Nút "Chỉnh sửa lá số" (sẽ quay lại form) --}}
-            <a href="{{ route('laso.create') }}" class="btn-laso-action">
-                <i class="fas fa-edit"></i> Chỉnh sửa lá số
-            </a>
-
-            {{-- Nút "Tải xuống lá số" --}}
             @if ($imageUrl)
-                <a href="{{ route('laso.download', ['url' => $imageUrl, 'ho_ten' => $normalizedData['ho_ten'] ?? '']) }}"
-                    class="btn-laso-action" download>
-                    <i class="fas fa-download"></i> Tải xuống lá số
-                </a>
+                <div class="d-flex justify-content-center">
+
+                    <img src="{{ route('laso.image_proxy', ['url' => $imageUrl]) }}" alt="Lá số tử vi"
+                        class="img-fluid laso-image">
+                </div>
+            @else
+                <div class="alert alert-warning">
+                    Không thể hiển thị ảnh lá số.
+                </div>
             @endif
+
+            <div class="d-flex justify-content-center gap-3 mt-4">
+                {{-- Nút "Chỉnh sửa lá số" (sẽ quay lại form) --}}
+                <a href="{{ route('laso.create') }}" class="btn-laso-action">
+                    <i class="fas fa-edit"></i> Chỉnh sửa lá số
+                </a>
+
+                {{-- Nút "Tải xuống lá số" --}}
+                @if ($imageUrl)
+                    <a href="{{ route('laso.download', ['url' => $imageUrl, 'ho_ten' => $normalizedData['ho_ten'] ?? '']) }}"
+                        class="btn-laso-action" download>
+                        <i class="fas fa-download"></i> Tải xuống lá số
+                    </a>
+                @endif
+            </div>
         </div>
     </div>
-   </div>
 @endsection

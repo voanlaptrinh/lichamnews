@@ -193,7 +193,7 @@ Route::prefix('xem-ngay-lap-ban-tho')->group(function () {
 Route::prefix('xem-ngay-cung-sao-giai-han')->group(function () {
     Route::get('/', [GiaiHanController::class, 'showForm'])->name('giai-han.form');
     Route::post('/', [GiaiHanController::class, 'checkDays'])->name('giai-han.check');
-    Route::get('/chi-tiet/{date}', [GiaiHanController::class, 'details'])->name('giai-han.details');
+    Route::get('/chi-tiet/{date}', [GiaiHanController::class, 'showDayDetails'])->name('giai-han.details');
 });
 
 // === ROUTE XEM NGÀY tRẤN TRẠCH ===
@@ -236,7 +236,7 @@ Route::get('/laso/image-proxy', [LasoController::class, 'proxyImage'])->name('la
 
 
 
-// === ROUTE Xem hướng ban thờ ===
+// === ROUTE Xem hướng bàn thờ ===
 Route::get('/xem-huong-ban-tho', [XemHuongBanThoController::class, 'showForm'])->name('huong-ban-tho.form');
 Route::post('/xem-huong-ban-tho', [XemHuongBanThoController::class, 'check'])->name('huong-ban-tho.check');
 

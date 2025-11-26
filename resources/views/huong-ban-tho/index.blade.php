@@ -5,7 +5,7 @@
         {{-- PHẦN FORM GIỮ NGUYÊN --}}
         <div class="card shadow-sm">
             <div class="card-header bg-light">
-                <h1 class="h3 mb-0">Xem hướng ban thờ</h1>
+                <h1 class="h3 mb-0">Xem hướng bàn thờ</h1>
             </div>
             <div class="card-body">
                 <form action="{{ route('huong-ban-tho.check') }}" method="POST">
@@ -65,7 +65,7 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="text-center">Nguyên tắc đặt ban thờ</h5>
+                            <h5 class="text-center">Nguyên tắc đặt bàn thờ</h5>
                             <ul>
                                 <li>{{ $results['nguyenTacDatBanTho'][0] }}</li>
                                 <li>{{ $results['nguyenTacDatBanTho'][1] }}</li>
@@ -76,7 +76,7 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="text-center">Hướng đặt ban thờ tốt nhất cho {{ $results['basicInfo']['gioiTinh'] }}
+                            <h5 class="text-center">Hướng đặt bàn thờ tốt nhất cho {{ $results['basicInfo']['gioiTinh'] }}
                                 {{ $nam_sinh }}</h5>
 
                             <table class="table table-primary table-bordered">
@@ -104,7 +104,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="text-center">
-                                Những điều cần tránh khi đặt ban thờ
+                                Những điều cần tránh khi đặt bàn thờ
                             </h5>
                             <div>
                                 <h6>

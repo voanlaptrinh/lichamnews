@@ -237,7 +237,7 @@ class LapBanThoController extends Controller
         $tabooResult = GoodBadDayHelper::checkTabooDays($dateToCheck, 'LAP_BAN_THO');
 
         // 4. Lấy thông tin chi tiết cho Chú Rể
-        $groomData = BadDayHelper::getDetailedAnalysisForPerson($dateToCheck, $groomDob, 'Lập ban thờ', 'LAP_BAN_THO');
+        $groomData = BadDayHelper::getDetailedAnalysisForPerson($dateToCheck, $groomDob, 'Lập bàn thờ', 'LAP_BAN_THO');
         // 5. Tính điểm số của ngày - sử dụng năm sinh thay vì Carbon object
         // 6. Trả về view với toàn bộ dữ liệu
         return view('tools.lap-ban-tho.day_details', compact(

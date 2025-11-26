@@ -11,7 +11,7 @@ class FengShuiHelper //cần xác định xem gia chủ thuộc Tây Tứ Mệnh
 
 
     /**
-     * Hàm chính: Lấy thông tin chi tiết về hướng đặt ban thờ cho gia chủ.
+     * Hàm chính: Lấy thông tin chi tiết về hướng đặt bàn thờ cho gia chủ.
      *
      * @param int $namSinh Năm sinh dương lịch (ví dụ: 2000)
      * @param string $thangSinh Tháng sinh dương lịch
@@ -132,7 +132,7 @@ class FengShuiHelper //cần xác định xem gia chủ thuộc Tây Tứ Mệnh
     }
 
     /**
-     * Hàm private: Cung cấp dữ liệu các hướng tốt cho ban thờ.
+     * Hàm private: Cung cấp dữ liệu các hướng tốt cho bàn thờ.
      * Dữ liệu đã được sắp xếp ưu tiên và gán ý nghĩa phù hợp cho việc thờ cúng.
      *
      * @return array

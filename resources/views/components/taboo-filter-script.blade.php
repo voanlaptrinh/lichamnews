@@ -214,7 +214,7 @@ function initTabooFilter(resultsByYear) {
             if (found) return true;
         }
 
-        // Kiểm tra trong day_score.taboo_details.taboo_types (cấu trúc ban thờ)
+        // Kiểm tra trong day_score.taboo_details.taboo_types (cấu trúc bàn thờ)
         if (day.day_score?.taboo_details?.taboo_types && Array.isArray(day.day_score.taboo_details.taboo_types)) {
           
             const found = day.day_score.taboo_details.taboo_types.some(tabooName => {
