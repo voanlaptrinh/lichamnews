@@ -153,7 +153,8 @@
                                                             'date' => $day['date']->format('Y-m-d'),
                                                             'birthdate' => $birthdateInfo['dob']->format('Y-m-d'),
                                                             'date_range' => $inputs['date_range'] ?? '',
-                                                            'calendar_type' => $inputs['calendar_type'] ?? 'solar'
+                                                            'calendar_type' => $inputs['calendar_type'] ?? 'solar',
+                                                            'name' => $personName ?? ''
                                                         ]) }}">
                                                         <div class="box-dtl-pc">
                                                             <div style="color: #0F172A;font-size: 18px">

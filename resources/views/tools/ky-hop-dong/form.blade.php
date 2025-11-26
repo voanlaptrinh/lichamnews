@@ -892,9 +892,7 @@
             }
 
             function handleContainerChange(event) {
-                console.log('Change event detected on:', event.target);
-                console.log('Target name:', event.target.name);
-                console.log('Target value:', event.target.value);
+            
 
                 if (event.target.name === 'sort') {
                     console.log('Sort dropdown changed to:', event.target.value);

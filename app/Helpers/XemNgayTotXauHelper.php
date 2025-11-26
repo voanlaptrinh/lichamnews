@@ -247,24 +247,15 @@ class XemNgayTotXauHelper
                         }
                     }
                 }
-            }
-
-            // Kiểm tra sao theo Chi
-            if (
+            }if (
                 isset(DataHelper::$hungSatData[$month]['chi']) &&
                 is_array(DataHelper::$hungSatData[$month]['chi'])
             ) {
-                foreach (DataHelper::$hungSatData[$month]['chi'] as $matchChi => $stars) {
-                    $matchChiList = array_map(function ($item) {
-                        return explode('_', trim($item))[0];
-                    }, explode(',', $matchChi));
-
-                    if (in_array($chi, $matchChiList)) {
+                foreach (DataHelper::$hungSatData[$month]['chi'] as $matchchi => $stars) {
+                    $matchchiList = array_map('trim', explode(',', $matchchi));
+                    if (in_array($chi, $matchchiList)) {
                         foreach ($stars as $star) {
-                            if (
-                                !self::starExists($result, $star)
-                                && isset(DataHelper::$hungSatDescription[$star])
-                            ) {
+                            if (isset(DataHelper::$hungSatDescription[$star])) {
                                 $result[] = [
                                     'name' => $star,
                                     'description' => DataHelper::$hungSatDescription[$star],
@@ -276,13 +267,16 @@ class XemNgayTotXauHelper
                 }
             }
 
+
+          
+
             // Kiểm tra sao theo Can Chi kết hợp
             if (
                 isset(DataHelper::$hungSatData[$month]['can_chi']) &&
                 is_array(DataHelper::$hungSatData[$month]['can_chi'])
             ) {
                 foreach (DataHelper::$hungSatData[$month]['can_chi'] as $matchCanChi => $stars) {
-                    $canChiParts = explode(' ', $matchCanChi);
+                    $canChiParts = explode('_', $matchCanChi);
                     if (count($canChiParts) == 2 && $canChiParts[0] === $can && $canChiParts[1] === $chi) {
                         foreach ($stars as $star) {
                             if (
@@ -300,10 +294,7 @@ class XemNgayTotXauHelper
                 }
             }
 
-            if (empty($result)) {
-                Log::debug("No Hung Sat stars found for date: {$date}, month: {$month}, can: {$can}, chi: {$chi}");
-            }
-
+          
             return $result;
         } catch (\Throwable $e) {
             Log::error('Error getting hung sat: ' . $e->getMessage());

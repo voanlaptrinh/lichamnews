@@ -508,6 +508,12 @@
                 hashParams.push(`calendar_type=${encodeURIComponent(calendarType)}`);
             }
 
+            // Add person_name to hash if available
+            const personName = urlParams.get('name');
+            if (personName) {
+                hashParams.push(`name=${encodeURIComponent(personName)}`);
+            }
+
             // Build final URL with hash
             if (hashParams.length > 0) {
                 targetUrl += `#${hashParams.join('&')}`;

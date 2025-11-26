@@ -245,7 +245,7 @@ Thời điểm cát lợi, vận khí hanh thông – rất thích hợp để a
 
         // *** LOGIC MỚI: TÍNH TOÁN PHONG THỦY ***
         // Sử dụng năm âm lịch để tính phong thủy
-        $phongThuyInfo = FengShuiHelper::tinhHuongHopTuoi($lunarBirthYear, $gender);
+        $phongThuyInfo = FengShuiHelper::tinhHuongHopTuoi($dob->year, $gender);
 
         return [
             'dob' => $dob,

@@ -831,7 +831,7 @@ class DataHelper
                 'Mão' => ['Hoang Vu', 'Không Phòng', 'Nguyệt Phá', 'Nguyệt Yếm Đại Hoạ', 'Ngũ Hư', 'Phi Ma Sát (Tai Sát)', 'Thiên Tặc', 'Thần Cách', 'Tội Chỉ'],
                 'Mùi' => ['Hoang Vu', 'Nhân Cách', 'Thụ Tử', 'Tứ Thời Cô Quả'],
                 'Ngọ' => ['Băng Tiêu Ngoạ Hãm', 'Cửu Không', 'Lỗ Ban Sát', 'Thiên Cương (hay Diệt Môn)', 'Địa Phá', 'Địa Tặc'],
-                'Sửu' => ['Đại Hao (Tử Khí, Quan Phú)', 'Câu Trận Hắc Đạo'],
+                'Sửu' => ['Đại Hao (Tử khí, quan phú)', 'Câu Trận Hắc Đạo'],
                 'Thân' => ['Bạch Hổ Hắc Đạo', 'Lôi Công', 'Thiên Ôn'],
                 'Thìn' => ['Nguyệt Hư (Nguyệt Sát)', 'Thiên Hình Hắc Đạo'],
                 'Tuất' => ['Hoả Tai', 'Ly Sàng', 'Nguyệt Hoả (Độc Hỏa)', 'Quỷ Khốc', 'Tam Tang', 'Thiên Lao Hắc Đạo'],
@@ -4110,7 +4110,8 @@ class DataHelper
             "Trùng Tang",
             "Âm Thác",
             "Địa Phá",
-            "Địa Tặc"
+            "Địa Tặc",
+         
         ],
         "NHAN_CONG" => [
             "Dương Thác",

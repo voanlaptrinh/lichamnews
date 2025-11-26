@@ -38,7 +38,7 @@ class FengShuiHelper //cần xác định xem gia chủ thuộc Tây Tứ Mệnh
         $lunarYear = $lunarDob[2]; // Năm âm lịch
 
         // Lấy Can Chi của năm sinh Âm lịch
-        $canChiNamSinh = KhiVanHelper::canchiNam($lunarYear);
+        $canChiNamSinh = LunarHelper::canchiNam($lunarYear);
 
         $ketQua = [
             'basicInfo' => [
@@ -215,7 +215,7 @@ class FengShuiHelper //cần xác định xem gia chủ thuộc Tây Tứ Mệnh
 
         // 2. Chuẩn bị dữ liệu cho mục "Thông tin cơ bản"
         $lunarDob = LunarHelper::convertSolar2Lunar($ngaySinh, $thangSinh, $namSinh);
-        $canChiNamSinh = KhiVanHelper::canchiNam($lunarDob[2]); // Lấy Can Chi của năm Âm lịch
+        $canChiNamSinh = LunarHelper::canchiNam($lunarDob[2]); // Lấy Can Chi của năm Âm lịch
 
         $basicInfo = [
             'ngaySinhDuongLich' => sprintf('%02d/%02d/%d', $ngaySinh, $thangSinh, $namSinh),
@@ -291,7 +291,7 @@ class FengShuiHelper //cần xác định xem gia chủ thuộc Tây Tứ Mệnh
 
         // 2. Chuẩn bị dữ liệu cho mục "Thông tin cơ bản"
         $lunarDob = LunarHelper::convertSolar2Lunar($ngaySinh, $thangSinh, $namSinh);
-        $canChiNamSinh = KhiVanHelper::canchiNam($lunarDob[2]);
+        $canChiNamSinh = LunarHelper::canchiNam($lunarDob[2]);
 
         $basicInfo = [
             'ngaySinhDuongLich' => sprintf('%02d/%02d/%d', $ngaySinh, $thangSinh, $namSinh),
@@ -345,7 +345,7 @@ class FengShuiHelper //cần xác định xem gia chủ thuộc Tây Tứ Mệnh
         }
         // 2. Chuẩn bị dữ liệu cho mục "Thông tin cơ bản"
         $lunarDob = LunarHelper::convertSolar2Lunar($ngaySinh, $thangSinh, $namSinh);
-        $canChiNamSinh = KhiVanHelper::canchiNam($lunarDob[2]);
+        $canChiNamSinh = LunarHelper::canchiNam($lunarDob[2]);
         // 2. Lấy danh sách hướng tốt gốc
         $huongTotGoc = $phongThuyCoBan['huong_tot'];
 
@@ -423,7 +423,7 @@ class FengShuiHelper //cần xác định xem gia chủ thuộc Tây Tứ Mệnh
 
         // 2. Chuẩn bị dữ liệu cho mục "Thông tin cơ bản"
         $lunarDob = LunarHelper::convertSolar2Lunar($ngaySinh, $thangSinh, $namSinh);
-        $canChiNamSinh = KhiVanHelper::canchiNam($lunarDob[2]);
+        $canChiNamSinh = LunarHelper::canchiNam($lunarDob[2]);
         // 2. Lấy danh sách hướng tốt gốc
         $huongTotGoc = $phongThuyCoBan['huong_tot'];
 

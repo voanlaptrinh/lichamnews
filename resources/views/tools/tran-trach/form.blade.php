@@ -187,7 +187,7 @@
                     <div class="box--bg-thang mt-3 mb-3">
                         <div class="text-box-tong-quan">
                             <h2 class="title-tong-quan-h3-log fw-bolder">
-                                Vì sao cần xem ngày tốt để cúng sao giải hạn?
+                               Vì sao trấn trạch cần chọn ngày tốt?
                             </h2>
                             <p class="mb-1">
                                 Trấn trạch là nghi lễ quan trọng giúp ổn định năng lượng của ngôi nhà, hóa giải tà khí, tăng

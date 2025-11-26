@@ -171,7 +171,7 @@
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    @if (!$groomData['score']['trucxau'])
+                                                    @if ($groomData['score']['trucxau'])
                                                        ❌ Thập Nhị Trực {{ $groomData['score']['truc']['details']['name'] }}
                                                         (Xấu)
                                                     @endif
