@@ -2,7 +2,8 @@
     
 
     @if (isset($resultsByYear) && count($resultsByYear) > 0)
-        <div class="year-tabs mb-3">
+      <div class="box-tab-white mb-3">
+          <div class="year-tabs ">
             <ul class="nav nav-pills">
                 @php $firstYear = true; @endphp
                 @foreach ($resultsByYear as $year => $yearData)
@@ -20,6 +21,7 @@
                 @endforeach
             </ul>
         </div>
+      </div>
     @endif
 
     <div class="tab-content">

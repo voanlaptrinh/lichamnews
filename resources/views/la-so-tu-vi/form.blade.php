@@ -1,6 +1,5 @@
 @extends('welcome')
 @section('content')
-
     @push('styles')
         <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=10.7') }}">
     @endpush
@@ -17,8 +16,12 @@
             background-position: center center;
             overflow: hidden;
         }
-        .style-input{
-            border-radius: 10px; border: none; padding: 12px 15px; background-color: rgba(255,255,255,0.95);
+
+        .style-input {
+            border-radius: 10px;
+            border: none;
+            padding: 12px 15px;
+            background-color: rgba(255, 255, 255, 0.95);
         }
 
         /* Loading state cho submit button */
@@ -55,11 +58,13 @@
                 </ol>
             </nav>
             <div class="bg-light d-flex align-items-center justify-content-center ">
-                <div class="w-100 container">
+                <div class="w-100 " style="max-width: 950px;">
                     <div class=" mt-5 mb-5">
 
                         <div class="card-body p-1">
-                            <h1 class="text-center mb-4 fw-bold" style="color: #192E52">Lập Lá Số Tử Vi và Luận Giải Vận Mệnh Miễn Phí</h1>
+                            <h1 class="text-center mb-4 title-tong-quan-h1-log fw-bold" style="color: #192E52">Lập Lá Số Tử
+                                Vi và Luận Giải Vận
+                                Mệnh Miễn Phí</h1>
                             <p class="text-center" style="margin-bottom: 40px">Tra cứu lá số tử vi trọn đời có thể giúp bạn
                                 hiểu
                                 về
@@ -70,9 +75,9 @@
                                 như kết hôn, mua nhà, khởi nghiệp,…
                             </p>
 
-                            <div class="row">
-                                <div class="col-lg-8">
-                                    <form action="{{ route('laso.submit') }}" method="POST">
+
+
+                            <form action="{{ route('laso.submit') }}" method="POST">
                                 @csrf
                                 <div class="row gx-4 gx-md-4 gx-sm-1">
 
@@ -80,9 +85,9 @@
                                         <div class="mb-3">
                                             <label for="ho_ten" class="form-label fw-semibold">Họ và Tên</label>
                                             <input type="text" id="ho_ten" name="ho_ten"
-                                                value="{{ old('ho_ten', $lastInput['ho_ten'] ?? '') }}" class="form-control --border-box-form style-input"
-                                                required placeholder="Nhập tên của bạn"
-                                              >
+                                                value="{{ old('ho_ten', $lastInput['ho_ten'] ?? '') }}"
+                                                class="form-control --border-box-form style-input" required
+                                                placeholder="Nhập tên của bạn">
                                         </div>
 
                                         <div class="mb-3">
@@ -223,7 +228,8 @@
                                                 <select name="dl_zodiac_combined" id="dl_zodiac_combined"
                                                     class="form-control --border-box-form style-input" required>
                                                     <option value="" disabled
-                                                        {{ $selectedOptionValue == '' ? 'selected' : '' }}>Chọn giờ sinh
+                                                        {{ $selectedOptionValue == '' ? 'selected' : '' }}>Chọn giờ
+                                                        sinh
                                                     </option>
                                                     @foreach ($zodiacTimeRanges as $range)
                                                         @php
@@ -265,10 +271,11 @@
                                                 <div class="form-check">
                                                     <div class="d-flex align-items-center gap-2">
                                                         <div class="checkbox-wrapper-31">
-                                                            <input type="radio" name="gioi_tinh" value="Nam" style="width: 24px; height: 24px; cursor: pointer;"
+                                                            <input type="radio" name="gioi_tinh" value="Nam"
+                                                                style="width: 24px; height: 24px; cursor: pointer;"
                                                                 id="gt_nam" class="form-check-input"
                                                                 {{ old('gioi_tinh', $lastInput['gioi_tinh'] ?? 'Nam') == 'Nam' ? 'checked' : '' }} />
-                                                           
+
                                                         </div>
                                                         <label for="gt_nam" class="form-check-label">Nam</label>
                                                     </div>
@@ -281,17 +288,15 @@
                                                 <div class="form-check">
                                                     <div class="d-flex align-items-center gap-2">
                                                         <div class="checkbox-wrapper-31">
-                                                            <input type="radio" name="gioi_tinh" value="Nữ" style="width: 24px; height: 24px; cursor: pointer;"
+                                                            <input type="radio" name="gioi_tinh" value="Nữ"
+                                                                style="width: 24px; height: 24px; cursor: pointer;"
                                                                 id="gt_nu" class="form-check-input"
                                                                 {{ old('gioi_tinh', $lastInput['gioi_tinh'] ?? 'Nam') == 'Nữ' ? 'checked' : '' }} />
-                                                           
+
                                                         </div>
-                                                        <label for="gt_nam" class="form-check-label">Nữ</label>
+                                                        <label for="gt_nu" class="form-check-label">Nữ</label>
                                                     </div>
 
-                                                    {{-- <input type="radio" name="gioi_tinh" value="Nữ" id="gt_nu"
-                                                class="form-check-input" {{ old('gioi_tinh') == 'Nữ' ? 'checked' : '' }}>
-                                            <label for="gt_nu" class="form-check-label">Nữ</label> --}}
                                                 </div>
                                             </div>
                                         </div>
@@ -299,7 +304,8 @@
                                         <div class="mb-3">
                                             <label class="form-label fw-semibold">Năm Xem Hạn</label>
                                             <input type="number" id="nam_xem" name="nam_xem"
-                                                value="{{ old('nam_xem', $lastInput['nam_xem'] ?? date('Y')) }}" class="form-control --border-box-form style-input" required>
+                                                value="{{ old('nam_xem', $lastInput['nam_xem'] ?? date('Y')) }}"
+                                                class="form-control --border-box-form style-input" required>
                                         </div>
                                     </div>
                                 </div>
@@ -307,34 +313,37 @@
                                     <div class="mb-3">
                                         <label class="form-label fw-semibold">Ngày Sinh</label>
 
-                                       
+
                                         <!-- Date selects (chỉ để hiển thị, dữ liệu thực sẽ lưu trong input ẩn) -->
                                         <div class="row g-2 mb-2">
                                             <div class="col-4">
                                                 <div class="position-relative">
-                                                    <select class="form-select pe-5 style-input --border-box-form" id="dl_ngaySelect">
+                                                    <select class="form-select pe-5 style-input --border-box-form"
+                                                        id="dl_ngaySelect">
                                                         <option value="">Ngày</option>
                                                     </select>
                                                     <i class="bi bi-chevron-down position-absolute"
-                                                       style="right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #6c757d;"></i>
+                                                        style="right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #6c757d;"></i>
                                                 </div>
                                             </div>
                                             <div class="col-4">
                                                 <div class="position-relative">
-                                                    <select class="form-select pe-5 style-input --border-box-form" id="dl_thangSelect">
+                                                    <select class="form-select pe-5 style-input --border-box-form"
+                                                        id="dl_thangSelect">
                                                         <option value="">Tháng</option>
                                                     </select>
                                                     <i class="bi bi-chevron-down position-absolute"
-                                                       style="right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #6c757d;"></i>
+                                                        style="right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #6c757d;"></i>
                                                 </div>
                                             </div>
                                             <div class="col-4">
                                                 <div class="position-relative">
-                                                    <select class="form-select pe-5 style-input --border-box-form" id="dl_namSelect">
+                                                    <select class="form-select pe-5 style-input --border-box-form"
+                                                        id="dl_namSelect">
                                                         <option value="">Năm</option>
                                                     </select>
                                                     <i class="bi bi-chevron-down position-absolute"
-                                                       style="right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #6c757d;"></i>
+                                                        style="right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #6c757d;"></i>
                                                 </div>
                                             </div>
                                         </div>
@@ -342,7 +351,8 @@
                                         <!-- Leap month container -->
                                         <div id="leapMonthContainer" class="mt-2" style="display: none;">
                                             <div class="form-check">
-                                                <input class="form-check-input --border-box-form" type="checkbox" id="leapMonth" name="leap_month">
+                                                <input class="form-check-input --border-box-form" type="checkbox"
+                                                    id="leapMonth" name="leap_month">
                                                 <label class="form-check-label" for="leapMonth">
                                                     Tháng nhuận
                                                 </label>
@@ -351,23 +361,24 @@
 
                                         <!-- Hidden input for processed date (always solar) -->
                                         <input type="hidden" id="ngayXem" name="dl_date_processed"
-                                               value="{{ old('dl_date_processed', $lastInput['dl_date_processed'] ?? '') }}">
-                                                <!-- Radio buttons cho loại lịch -->
+                                            value="{{ old('dl_date_processed', $lastInput['dl_date_processed'] ?? '') }}">
+                                        <!-- Radio buttons cho loại lịch -->
                                         <div class="d-flex gap-3 mb-3" style="min-height: 40px; align-items: center;">
-                                            <div class="form-check d-flex align-items-center"  style="gap: 10px">
+                                            <div class="form-check d-flex align-items-center" style="gap: 10px">
                                                 <input class="form-check-input" type="radio" name="calendar_type"
-                                                       id="solarCalendar" value="solar"
-                                                       {{ old('calendar_type', $lastInput['calendar_type'] ?? 'solar') == 'solar' ? 'checked' : '' }}
-                                                       style="width: 24px; height: 24px; cursor: pointer;">
+                                                    id="solarCalendar" value="solar"
+                                                    {{ old('calendar_type', $lastInput['calendar_type'] ?? 'solar') == 'solar' ? 'checked' : '' }}
+                                                    style="width: 24px; height: 24px; cursor: pointer;">
                                                 <label class="form-check-label" for="solarCalendar">
                                                     Dương lịch
                                                 </label>
                                             </div>
-                                            <div class="form-check d-flex align-items-center justify-content-center"  style="gap: 10px">
+                                            <div class="form-check d-flex align-items-center justify-content-center"
+                                                style="gap: 10px">
                                                 <input class="form-check-input" type="radio" name="calendar_type"
-                                                       id="lunarCalendar" value="lunar"
-                                                       {{ old('calendar_type', $lastInput['calendar_type'] ?? 'solar') == 'lunar' ? 'checked' : '' }}
-                                                       style="width: 24px; height: 24px; cursor: pointer;">
+                                                    id="lunarCalendar" value="lunar"
+                                                    {{ old('calendar_type', $lastInput['calendar_type'] ?? 'solar') == 'lunar' ? 'checked' : '' }}
+                                                    style="width: 24px; height: 24px; cursor: pointer;">
                                                 <label class="form-check-label" for="lunarCalendar">
                                                     Âm lịch
                                                 </label>
@@ -378,22 +389,14 @@
                                 </div>
 
 
-                              <div class="d-flex justify-content-center">
-                                                <button type="submit" class="btn btn-light-settup fw-bold w-100" id="submitBtn">
-                                                    <span class="btn-text">Xem Kết Quả</span>
-                                                    <span class="spinner-border spinner-border-sm ms-2 d-none" role="status"></span>
-                                                </button>
-                                            </div>
-                                    </form>
+                                <div class="d-flex justify-content-center">
+                                    <button type="submit" class="btn btn-light-settup fw-bold" id="submitBtn" style="width: 350px;">
+                                        <span class="btn-text">Xem Kết Quả</span>
+                                        <span class="spinner-border spinner-border-sm ms-2 d-none" role="status"></span>
+                                    </button>
                                 </div>
+                            </form>
 
-                                <div class="col-lg-4 d-none d-lg-flex">
-                                    <div class="d-flex align-items-center justify-content-center h-100">
-                                        <img src="{{ asset('/images/form_totxau.svg') }}" alt="Lá số tử vi illustration"
-                                             class="img-fluid">
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -436,19 +439,19 @@
 
                     // Nếu là âm lịch và có lưu ngày âm lịch, sử dụng ngày âm lịch gốc
                     if ($savedCalendarType === 'lunar' && $lunarDate) {
-                        echo "defaultDay: " . $lunarDate['day'] . ",\n";
-                        echo "                defaultMonth: " . $lunarDate['month'] . ",\n";
-                        echo "                defaultYear: " . $lunarDate['year'] . ",\n";
-                        echo "                defaultLeapMonth: " . ($lunarDate['is_leap'] ? 'true' : 'false') . ",\n";
+                        echo 'defaultDay: ' . $lunarDate['day'] . ",\n";
+                        echo '                defaultMonth: ' . $lunarDate['month'] . ",\n";
+                        echo '                defaultYear: ' . $lunarDate['year'] . ",\n";
+                        echo '                defaultLeapMonth: ' . ($lunarDate['is_leap'] ? 'true' : 'false') . ",\n";
                     } else {
                         // Sử dụng ngày dương lịch hoặc mặc định
                         $oldDate = old('dl_date_processed', $lastInput['dl_date_processed'] ?? '');
                         if ($oldDate && $savedCalendarType === 'solar') {
                             $dateParts = explode('/', explode(' ', $oldDate)[0]);
                             if (count($dateParts) === 3) {
-                                echo "defaultDay: " . (int)$dateParts[0] . ",\n";
-                                echo "                defaultMonth: " . (int)$dateParts[1] . ",\n";
-                                echo "                defaultYear: " . (int)$dateParts[2] . ",\n";
+                                echo 'defaultDay: ' . (int) $dateParts[0] . ",\n";
+                                echo '                defaultMonth: ' . (int) $dateParts[1] . ",\n";
+                                echo '                defaultYear: ' . (int) $dateParts[2] . ",\n";
                             } else {
                                 echo "defaultDay: 1,\n";
                                 echo "                defaultMonth: 1,\n";
@@ -474,7 +477,7 @@
 
             // Đảm bảo loại lịch được set đúng theo session
             const savedCalendarType = '{{ $savedCalendarType }}';
-            @if($savedCalendarType === 'lunar' && isset($lastInput['lunar_date']))
+            @if ($savedCalendarType === 'lunar' && isset($lastInput['lunar_date']))
                 const savedLunarDate = @json($lastInput['lunar_date']);
             @else
                 const savedLunarDate = null;
@@ -489,7 +492,9 @@
                 setTimeout(() => {
                     const lunarRadio = document.getElementById('lunarCalendar');
                     if (lunarRadio) {
-                        lunarRadio.dispatchEvent(new Event('change', { bubbles: true }));
+                        lunarRadio.dispatchEvent(new Event('change', {
+                            bubbles: true
+                        }));
                     }
                 }, 50);
             } else {
@@ -500,7 +505,9 @@
                 setTimeout(() => {
                     const solarRadio = document.getElementById('solarCalendar');
                     if (solarRadio) {
-                        solarRadio.dispatchEvent(new Event('change', { bubbles: true }));
+                        solarRadio.dispatchEvent(new Event('change', {
+                            bubbles: true
+                        }));
                     }
                 }, 50);
             }
