@@ -716,7 +716,7 @@ class GoodBadDayHelper
         if ($birthDate) {
             $hopttuoi = self::isHopTuoi($date, $birthDate);
 
-            $birthCanChi = KhiVanHelper::canchiNam($birthDate);
+            $birthCanChi = LunarHelper::canchiNam($birthDate);
             $birthChiParts = explode(' ', $birthCanChi);
             $birthChi = $birthChiParts[1] ?? '';
             if ($hopttuoi) {
@@ -821,11 +821,10 @@ class GoodBadDayHelper
     private static function isHopTuoi(Carbon $date, $birthYear): bool
     {
         if (!$birthYear) return false;
-
         try {
             $jd = LunarHelper::jdFromDate($date->day, $date->month, $date->year);
             $dayCanChi = LunarHelper::canchiNgayByJD($jd);
-            $birthCanChi = KhiVanHelper::canchiNam($birthYear);
+            $birthCanChi = LunarHelper::canchiNam($birthYear);
             $parts = explode(' ', $dayCanChi);
             $dayChi = $parts[1] ?? '';
 
@@ -915,49 +914,15 @@ class GoodBadDayHelper
         try {
             $jd = LunarHelper::jdFromDate($date->day, $date->month, $date->year);
             $dayCanChi = LunarHelper::canchiNgayByJD($jd);
-            $birthCanChi = KhiVanHelper::canchiNam($birthYear);
+            $birthCanChi = LunarHelper::canchiNam($birthYear);
 
             $parts = explode(' ', $dayCanChi);
             $dayChi = $parts[1] ?? '';
 
             $birthChiParts = explode(' ', $birthCanChi);
             $birthChi = $birthChiParts[1] ?? '';
-
-            // Kiểm tra Lục hợp trước
-            $lucHop = [
-                'Tý' => 'Sửu',
-                'Sửu' => 'Tý',
-                'Dần' => 'Hợi',
-                'Hợi' => 'Dần',
-                'Mão' => 'Tuất',
-                'Tuất' => 'Mão',
-                'Thìn' => 'Dậu',
-                'Dậu' => 'Thìn',
-                'Tỵ' => 'Thân',
-                'Thân' => 'Tỵ',
-                'Ngọ' => 'Mùi',
-                'Mùi' => 'Ngọ'
-            ];
-
-            if (isset($lucHop[$birthChi]) && $lucHop[$birthChi] == $dayChi) {
-                return 'Lục hợp';
-            }
-
-            // Kiểm tra Tam hợp
-            $tamHop = [
-                'Thủy' => ['Tý', 'Thìn', 'Thân'],
-                'Mộc' => ['Dần', 'Ngọ', 'Tuất'],
-                'Kim' => ['Tỵ', 'Dậu', 'Sửu'],
-                'Hỏa' => ['Mão', 'Mùi', 'Hợi']
-            ];
-
-            foreach ($tamHop as $nhom) {
-                if (in_array($birthChi, $nhom) && in_array($dayChi, $nhom)) {
-                    return 'Tam hợp';
-                }
-            }
-
-            return null;
+            $relationKey = FengShuiHelper::getChiChiRelationshipKey($dayChi, $birthChi);
+            return $relationKey;
         } catch (\Exception $e) {
             return null;
         }

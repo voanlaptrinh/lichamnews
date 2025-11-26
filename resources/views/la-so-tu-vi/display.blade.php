@@ -78,7 +78,7 @@
         }
     </style>
 
-    <div class="bg-la-so">
+    <div class="bg-la-so mb-2">
         <div class="container-setup">
             <nav aria-label="breadcrumb" class="content-title-detail">
                 <ol class="breadcrumb">

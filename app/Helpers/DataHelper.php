@@ -7090,125 +7090,655 @@ class DataHelper
     // 1. QUAN HỆ CAN NGÀY - CAN TUỔI (Theo tài liệu mới)
     public static array $canCanNewRelationships = [
         "Bính" => [
-            "Bính" => ["baseScore" => 0, "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều", "rating" => "Bính và Bính bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực", "relation" => "Bình Hòa"],
-            "Canh" => ["baseScore" => -2, "explanation" => "Ngày xấu với tuổi – Dễ sinh xung khắc, tiêu hao bản mệnh", "rating" => "Bính (hành Hỏa) khắc Canh (hành Kim) – ngày áp chế tuổi, dễ sinh bất lợi", "relation" => "Tương Khắc"],
-            "Giáp" => ["baseScore" => 0, "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều", "rating" => "Bính và Giáp bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực", "relation" => "Bình Hòa"],
-            "Kỷ" => ["baseScore" => 2, "explanation" => "Ngày rất tốt với tuổi – Được ngày hỗ trợ, sinh vượng khí", "rating" => "Bính (hành Hỏa) sinh Kỷ (hành Thổ) – ngày nâng đỡ cho tuổi, cát lợi", "relation" => "Tương Sinh"],
-            "Mậu" => ["baseScore" => 2, "explanation" => "Ngày rất tốt với tuổi – Được ngày hỗ trợ, sinh vượng khí", "rating" => "Bính (hành Hỏa) sinh Mậu (hành Thổ) – ngày nâng đỡ cho tuổi, cát lợi", "relation" => "Tương Sinh"],
-            "Nhâm" => ["baseScore" => 0, "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều", "rating" => "Bính và Nhâm bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực", "relation" => "Bình Hòa"],
-            "Quý" => ["baseScore" => 0, "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều", "rating" => "Bính và Quý bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực", "relation" => "Bình Hòa"],
-            "Tân" => ["baseScore" => 2, "condition" => "Chi ngày hoặc Chi tuổi thuộc Thủy hoặc Kim thì mới hóa thật.", "explanation" => "Ngày rất tốt với tuổi – Hợp sinh, hóa giải vận xấu", "fakeHợpExplanation" => "Ngày có Hợp Hóa nhẹ với tuổi – tạo cảm giác hòa hợp, tuy nhiên chưa đủ trợ lực mạnh", "fakeHợpRating" => "Bính và Tân hợp hóa thành Thủy nhưng không có Chi hỗ trợ nên đây là Hợp hóa giả, không hỗ trợ nhiều", "fakeHợpScore" => 0.5, "hoaKhi" => "Thủy", "rating" => "Bính và Tân hợp hóa thành Thủy tạo ra năng lượng mới cát lành", "relation" => "Hợp Hóa (Thủy)"],
-            "Đinh" => ["baseScore" => 1, "explanation" => "Ngày tốt với tuổi – Tạo cảm giác hài hòa", "rating" => "Bính và Đinh tương hợp – cùng hành, cùng khí, tạo sự hòa hợp và ổn định.", "relation" => "Tương Hợp"],
-            "Ất" => ["baseScore" => 0, "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều", "rating" => "Bính và Ất bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực.", "relation" => "Bình Hòa"],
+            "Bính" => [
+                "baseScore" => 0,
+                "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều",
+                "rating" => "Bính và Bính bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực.",
+                "relation" => "Bình Hòa"
+            ],
+            "Canh" => [
+                "baseScore" => -2,
+                "explanation" => "Ngày xấu với tuổi – Dễ sinh xung khắc, tiêu hao bản mệnh",
+                "rating" => "Bính (hành Hỏa) khắc Canh (hành Kim) – ngày áp chế tuổi, dễ sinh bất lợi.",
+                "relation" => "Tương Khắc"
+            ],
+            "Giáp" => [
+                "baseScore" => 0,
+                "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều",
+                "rating" => "Bính và Giáp bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực.",
+                "relation" => "Bình Hòa"
+            ],
+            "Kỷ" => [
+                "baseScore" => 2,
+                "explanation" => "Ngày rất tốt với tuổi – Được ngày hỗ trợ, sinh vượng khí",
+                "rating" => "Bính (hành Hỏa) sinh Kỷ (hành Thổ) – ngày nâng đỡ cho tuổi, cát lợi.",
+                "relation" => "Tương Sinh"
+            ],
+            "Mậu" => [
+                "baseScore" => 2,
+                "explanation" => "Ngày rất tốt với tuổi – Được ngày hỗ trợ, sinh vượng khí",
+                "rating" => "Bính (hành Hỏa) sinh Mậu (hành Thổ) – ngày nâng đỡ cho tuổi, cát lợi.",
+                "relation" => "Tương Sinh"
+            ],
+            "Nhâm" => [
+                "baseScore" => 0,
+                "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều",
+                "rating" => "Bính và Nhâm bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực.",
+                "relation" => "Bình Hòa"
+            ],
+            "Quý" => [
+                "baseScore" => 0,
+                "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều",
+                "rating" => "Bính và Quý bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực.",
+                "relation" => "Bình Hòa"
+            ],
+            "Tân" => [
+                "baseScore" => 2,
+                "condition" => "Chi ngày hoặc Chi tuổi thuộc Thủy hoặc Kim thì mới hóa thật.",
+                "explanation" => "Ngày rất tốt với tuổi – Hợp sinh, hóa giải vận xấu",
+                "fakeHợpExplanation" => "Ngày có Hợp Hóa nhẹ với tuổi – tạo cảm giác hòa hợp, tuy nhiên chưa đủ trợ lực mạnh",
+                "fakeHợpRating" => "Bính và Tân hợp hóa thành Thủy nhưng không có Chi hỗ trợ nên đây là Hợp hóa giả, không hỗ trợ nhiều",
+                "fakeHợpScore" => 0.5,
+                "hoaKhi" => "Thủy",
+                "rating" => "Bính và Tân hợp hóa thành Thủy tạo ra năng lượng mới cát lành",
+                "relation" => "Hợp Hóa (Thủy)"
+            ],
+            "Đinh" => [
+                "baseScore" => 1,
+                "explanation" => "Ngày tốt với tuổi – Tạo cảm giác hài hòa",
+                "rating" => "Bính và Đinh tương hợp – cùng hành, cùng khí, tạo sự hòa hợp và ổn định.",
+                "relation" => "Tương Hợp"
+            ],
+            "Ất" => [
+                "baseScore" => 0,
+                "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều",
+                "rating" => "Bính và Ất bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực.",
+                "relation" => "Bình Hòa"
+            ]
         ],
         "Canh" => [
-            "Bính" => ["baseScore" => 0, "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều", "rating" => "Canh và Bính bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực", "relation" => "Bình Hòa"],
-            "Canh" => ["baseScore" => 0, "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều", "rating" => "Canh và Canh bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực", "relation" => "Bình Hòa"],
-            "Giáp" => ["baseScore" => -2, "explanation" => "Ngày xấu với tuổi – Dễ sinh xung khắc, tiêu hao bản mệnh", "rating" => "Canh (hành Kim) khắc Giáp (hành Mộc) – ngày áp chế tuổi, dễ sinh bất lợi", "relation" => "Tương Khắc"],
-            "Kỷ" => ["baseScore" => 0, "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều", "rating" => "Canh và Kỷ bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực", "relation" => "Bình Hòa"],
-            "Mậu" => ["baseScore" => 0, "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều", "rating" => "Canh và Mậu bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực", "relation" => "Bình Hòa"],
-            "Nhâm" => ["baseScore" => 2, "explanation" => "Ngày rất tốt với tuổi – Được ngày hỗ trợ, sinh vượng khí", "rating" => "Canh (hành Kim) sinh Nhâm (hành Thủy) – ngày nâng đỡ cho tuổi, cát lợi", "relation" => "Tương Sinh"],
-            "Quý" => ["baseScore" => 2, "explanation" => "Ngày rất tốt với tuổi – Được ngày hỗ trợ, sinh vượng khí", "rating" => "Canh (hành Kim) sinh Quý (hành Thủy) – ngày nâng đỡ cho tuổi, cát lợi", "relation" => "Tương Sinh"],
-            "Tân" => ["baseScore" => 1, "explanation" => "Ngày tốt với tuổi – Tạo cảm giác hài hòa", "rating" => "Canh và Tân tương hợp – cùng hành, cùng khí, tạo sự hòa hợp và ổn định", "relation" => "Tương Hợp"],
-            "Đinh" => ["baseScore" => 0, "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều", "rating" => "Canh và Đinh bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực", "relation" => "Bình Hòa"],
-            "Ất" => ["baseScore" => -2, "condition" => "Chi ngày hoặc Chi tuổi thuộc Kim hoặc Thổ thì mới hóa thật.", "explanation" => "Ngày rất tốt với tuổi – Hợp sinh, hóa giải vận xấu", "fakeHợpExplanation" => "Ngày có Hợp Hóa nhẹ với tuổi – tạo cảm giác hòa hợp, tuy nhiên chưa đủ trợ lực mạnh", "fakeHợpRating" => "Canh và Ất hợp hóa thành Kim nhưng không có Chi hỗ trợ nên đây là Hợp hóa giả, không hỗ trợ nhiều", "fakeHợpScore" => 0.5, "hoaKhi" => "Kim", "rating" => "Canh và Ất hợp hóa thành Kim tạo ra năng lượng mới cát lành", "relation" => "Hợp Hóa (Kim)"],
+            "Bính" => [
+                "baseScore" => 0,
+                "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều",
+                "rating" => "Canh và Bính bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực.",
+                "relation" => "Bình Hòa"
+            ],
+            "Canh" => [
+                "baseScore" => 0,
+                "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều",
+                "rating" => "Canh và Canh bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực.",
+                "relation" => "Bình Hòa"
+            ],
+            "Giáp" => [
+                "baseScore" => -2,
+                "explanation" => "Ngày xấu với tuổi – Dễ sinh xung khắc, tiêu hao bản mệnh",
+                "rating" => "Canh (hành Kim) khắc Giáp (hành Mộc) – ngày áp chế tuổi, dễ sinh bất lợi.",
+                "relation" => "Tương Khắc"
+            ],
+            "Kỷ" => [
+                "baseScore" => 0,
+                "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều",
+                "rating" => "Canh và Kỷ bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực.",
+                "relation" => "Bình Hòa"
+            ],
+            "Mậu" => [
+                "baseScore" => 0,
+                "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều",
+                "rating" => "Canh và Mậu bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực.",
+                "relation" => "Bình Hòa"
+            ],
+            "Nhâm" => [
+                "baseScore" => 2,
+                "explanation" => "Ngày rất tốt với tuổi – Được ngày hỗ trợ, sinh vượng khí",
+                "rating" => "Canh (hành Kim) sinh Nhâm (hành Thủy) – ngày nâng đỡ cho tuổi, cát lợi.",
+                "relation" => "Tương Sinh"
+            ],
+            "Quý" => [
+                "baseScore" => 2,
+                "explanation" => "Ngày rất tốt với tuổi – Được ngày hỗ trợ, sinh vượng khí",
+                "rating" => "Canh (hành Kim) sinh Quý (hành Thủy) – ngày nâng đỡ cho tuổi, cát lợi.",
+                "relation" => "Tương Sinh"
+            ],
+            "Tân" => [
+                "baseScore" => 1,
+                "explanation" => "Ngày tốt với tuổi – Tạo cảm giác hài hòa",
+                "rating" => "Canh và Tân tương hợp – cùng hành, cùng khí, tạo sự hòa hợp và ổn định.",
+                "relation" => "Tương Hợp"
+            ],
+            "Đinh" => [
+                "baseScore" => 0,
+                "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều",
+                "rating" => "Canh và Đinh bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực.",
+                "relation" => "Bình Hòa"
+            ],
+            "Ất" => [
+                "baseScore" => -2,
+                "explanation" => "Ngày xấu với tuổi – Dễ sinh xung khắc, tiêu hao bản mệnh",
+                "rating" => "Canh (hành Kim) khắc Ất (hành Mộc) – ngày áp chế tuổi, dễ sinh bất lợi.",
+                "relation" => "Tương Khắc"
+            ]
         ],
         "Giáp" => [
-            "Bính" => ["baseScore" => 2, "explanation" => "Ngày rất tốt với tuổi – Được ngày hỗ trợ, sinh vượng khí", "rating" => "Giáp (hành Mộc) sinh Bính (hành Hỏa) – ngày nâng đỡ cho tuổi, cát lợi", "relation" => "Tương Sinh"],
-            "Canh" => ["baseScore" => 0, "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều", "rating" => "Giáp và Canh bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực", "relation" => "Bình Hòa"],
-            "Giáp" => ["baseScore" => 0, "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều", "rating" => "Giáp và Giáp bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực", "relation" => "Bình Hòa"],
-            "Kỷ" => ["baseScore" => 2, "condition" => "Chi ngày hoặc Chi tuổi thuộc Thổ hoặc Hỏa thì mới hóa thật.", "explanation" => "Ngày rất tốt với tuổi – Hợp sinh, hóa giải vận xấu", "fakeHợpExplanation" => "Ngày có Hợp Hóa nhẹ với tuổi – tạo cảm giác hòa hợp, tuy nhiên chưa đủ trợ lực mạnh", "fakeHợpRating" => "Giáp và Kỷ hợp hóa thành Thổ, nhưng không có Chi hỗ trợ nên đây là Hợp hóa giả, không hỗ trợ nhiều", "fakeHợpScore" => 0.5, "hoaKhi" => "Thổ", "rating" => "Giáp và Kỷ hợp hóa thành Thổ tạo ra năng lượng mới, cát lành.", "relation" => "Hợp Hóa (Thổ)"],
-            "Mậu" => ["baseScore" => -2, "explanation" => "Ngày xấu với tuổi – Dễ sinh xung khắc, tiêu hao bản mệnh", "rating" => "Giáp (hành Mộc) khắc Mậu (hành Thổ) – ngày áp chế tuổi, dễ sinh bất lợi", "relation" => "Tương Khắc"],
-            "Nhâm" => ["baseScore" => 0, "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều", "rating" => "Giáp và Nhâm bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực", "relation" => "Bình Hòa"],
-            "Quý" => ["baseScore" => 0, "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều", "rating" => "Giáp và Quý bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực", "relation" => "Bình Hòa"],
-            "Tân" => ["baseScore" => 0, "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều", "rating" => "Giáp và Tân bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực.", "relation" => "Bình Hòa"],
-            "Đinh" => ["baseScore" => 2, "explanation" => "Ngày rất tốt với tuổi – Được ngày hỗ trợ, sinh vượng khí", "rating" => "Giáp (hành Mộc) sinh Đinh (hành Hỏa) – ngày nâng đỡ cho tuổi, cát lợi", "relation" => "Tương Sinh"],
-            "Ất" => ["baseScore" => 1, "explanation" => "Ngày tốt với tuổi – Tạo cảm giác hài hòa", "rating" => "Giáp và Ất tương hợp – cùng hành, cùng khí, tạo sự hòa hợp và ổn định", "relation" => "Tương Hợp"],
+            "Bính" => [
+                "baseScore" => 2,
+                "explanation" => "Ngày rất tốt với tuổi – Được ngày hỗ trợ, sinh vượng khí",
+                "rating" => "Giáp (hành Mộc) sinh Bính (hành Hỏa) – ngày nâng đỡ cho tuổi, cát lợi.",
+                "relation" => "Tương Sinh"
+            ],
+            "Canh" => [
+                "baseScore" => 0,
+                "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều",
+                "rating" => "Giáp và Canh bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực.",
+                "relation" => "Bình Hòa"
+            ],
+            "Giáp" => [
+                "baseScore" => 0,
+                "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều",
+                "rating" => "Giáp và Giáp bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực.",
+                "relation" => "Bình Hòa"
+            ],
+            "Kỷ" => [
+                "baseScore" => 2,
+                "condition" => "Chi ngày hoặc Chi tuổi thuộc Thổ hoặc Hỏa thì mới hóa thật.",
+                "explanation" => "Ngày rất tốt với tuổi – Hợp sinh, hóa giải vận xấu",
+                "fakeHợpExplanation" => "Ngày có Hợp Hóa nhẹ với tuổi – tạo cảm giác hòa hợp, tuy nhiên chưa đủ trợ lực mạnh",
+                "fakeHợpRating" => "Giáp và Kỷ hợp hóa thành Thổ, nhưng không có Chi hỗ trợ nên đây là Hợp hóa giả, không hỗ trợ nhiều",
+                "fakeHợpScore" => 0.5,
+                "hoaKhi" => "Thổ",
+                "rating" => "Giáp và Kỷ hợp hóa thành Thổ tạo ra năng lượng mới, cát lành.",
+                "relation" => "Hợp Hóa (Thổ)"
+            ],
+            "Mậu" => [
+                "baseScore" => -2,
+                "explanation" => "Ngày xấu với tuổi – Dễ sinh xung khắc, tiêu hao bản mệnh",
+                "rating" => "Giáp (hành Mộc) khắc Mậu (hành Thổ) – ngày áp chế tuổi, dễ sinh bất lợi.",
+                "relation" => "Tương Khắc"
+            ],
+            "Nhâm" => [
+                "baseScore" => 0,
+                "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều",
+                "rating" => "Giáp và Nhâm bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực.",
+                "relation" => "Bình Hòa"
+            ],
+            "Quý" => [
+                "baseScore" => 0,
+                "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều",
+                "rating" => "Giáp và Quý bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực.",
+                "relation" => "Bình Hòa"
+            ],
+            "Tân" => [
+                "baseScore" => 0,
+                "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều",
+                "rating" => "Giáp và Tân bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực.",
+                "relation" => "Bình Hòa"
+            ],
+            "Đinh" => [
+                "baseScore" => 2,
+                "explanation" => "Ngày rất tốt với tuổi – Được ngày hỗ trợ, sinh vượng khí",
+                "rating" => "Giáp (hành Mộc) sinh Đinh (hành Hỏa) – ngày nâng đỡ cho tuổi, cát lợi.",
+                "relation" => "Tương Sinh"
+            ],
+            "Ất" => [
+                "baseScore" => 1,
+                "explanation" => "Ngày tốt với tuổi – Tạo cảm giác hài hòa",
+                "rating" => "Giáp và Ất tương hợp – cùng hành, cùng khí, tạo sự hòa hợp và ổn định.",
+                "relation" => "Tương Hợp"
+            ]
         ],
         "Kỷ" => [
-            "Bính" => ["baseScore" => 0, "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều", "rating" => "Kỷ và Bính bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực", "relation" => "Bình Hòa"],
-            "Canh" => ["baseScore" => 2, "explanation" => "Ngày rất tốt với tuổi – Được ngày hỗ trợ, sinh vượng khí", "rating" => "Kỷ (hành Thổ) sinh Canh (hành Kim) – ngày nâng đỡ cho tuổi, cát lợi", "relation" => "Tương Sinh"],
-            "Giáp" => ["baseScore" => 2, "condition" => "Chi ngày hoặc Chi tuổi thuộc Thổ hoặc Hỏa thì mới hóa thật.", "explanation" => "Ngày rất tốt với tuổi – Hợp sinh, hóa giải vận xấu", "fakeHợpExplanation" => "Ngày có Hợp Hóa nhẹ với tuổi – tạo cảm giác hòa hợp, tuy nhiên chưa đủ trợ lực mạnh", "fakeHợpRating" => "Kỷ và Giáp hợp hóa thành Thổ nhưng không có Chi hỗ trợ nên đây là Hợp hóa giả, không hỗ trợ nhiều", "fakeHợpScore" => 0.5, "hoaKhi" => "Thổ", "rating" => "Kỷ và Giáp hợp hóa thành Thổ tạo ra năng lượng mới cát lành", "relation" => "Hợp Hóa (Thổ)"],
-            "Kỷ" => ["baseScore" => 0, "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều", "rating" => "Kỷ và Kỷ bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực", "relation" => "Bình Hòa"],
-            "Mậu" => ["baseScore" => 1, "explanation" => "Ngày tốt với tuổi – Tạo cảm giác hài hòa", "rating" => "Kỷ và Mậu tương hợp – cùng hành, cùng khí, tạo sự hòa hợp và ổn định", "relation" => "Tương Hợp"],
-            "Nhâm" => ["baseScore" => -2, "explanation" => "Ngày xấu với tuổi – Dễ sinh xung khắc, tiêu hao bản mệnh", "rating" => "Kỷ (hành Thổ) khắc Nhâm (hành Thủy) – ngày áp chế tuổi, dễ sinh bất lợi", "relation" => "Tương Khắc"],
-            "Quý" => ["baseScore" => -2, "explanation" => "Ngày xấu với tuổi – Dễ sinh xung khắc, tiêu hao bản mệnh", "rating" => "Kỷ (hành Thổ) khắc Quý (hành Thủy) – ngày áp chế tuổi, dễ sinh bất lợi", "relation" => "Tương Khắc"],
-            "Tân" => ["baseScore" => 2, "explanation" => "Ngày rất tốt với tuổi – Được ngày hỗ trợ, sinh vượng khí", "rating" => "Kỷ (hành Thổ) sinh Tân (hành Kim) – ngày nâng đỡ cho tuổi, cát lợi", "relation" => "Tương Sinh"],
-            "Đinh" => ["baseScore" => 0, "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều", "rating" => "Kỷ và Đinh bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực", "relation" => "Bình Hòa"],
-            "Ất" => ["baseScore" => 0, "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều", "rating" => "Kỷ và Ất bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực", "relation" => "Bình Hòa"],
+            "Bính" => [
+                "baseScore" => 0,
+                "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều",
+                "rating" => "Kỷ và Bính bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực.",
+                "relation" => "Bình Hòa"
+            ],
+            "Canh" => [
+                "baseScore" => 2,
+                "explanation" => "Ngày rất tốt với tuổi – Được ngày hỗ trợ, sinh vượng khí",
+                "rating" => "Kỷ (hành Thổ) sinh Canh (hành Kim) – ngày nâng đỡ cho tuổi, cát lợi.",
+                "relation" => "Tương Sinh"
+            ],
+            "Giáp" => [
+                "baseScore" => 2.0,
+                "condition" => "Chi ngày hoặc Chi tuổi thuộc Thổ hoặc Hỏa thì mới hóa thật.",
+                "explanation" => "Ngày rất tốt với tuổi – Hợp sinh, hóa giải vận xấu",
+                "fakeHợpExplanation" => "Ngày có Hợp Hóa nhẹ với tuổi – tạo cảm giác hòa hợp, tuy nhiên chưa đủ trợ lực mạnh",
+                "fakeHợpRating" => "Kỷ và Giáp hợp hóa thành Thổ nhưng không có Chi hỗ trợ nên đây là Hợp hóa giả, không hỗ trợ nhiều",
+                "fakeHợpScore" => 0.5,
+                "hoaKhi" => "Thổ",
+                "rating" => "Kỷ và Giáp hợp hóa thành Thổ tạo ra năng lượng mới cát lành",
+                "relation" => "Hợp Hóa (Thổ)"
+            ],
+            "Kỷ" => [
+                "baseScore" => 0,
+                "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều",
+                "rating" => "Kỷ và Kỷ bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực.",
+                "relation" => "Bình Hòa"
+            ],
+            "Mậu" => [
+                "baseScore" => 1,
+                "explanation" => "Ngày tốt với tuổi – Tạo cảm giác hài hòa",
+                "rating" => "Kỷ và Mậu tương hợp – cùng hành, cùng khí, tạo sự hòa hợp và ổn định.",
+                "relation" => "Tương Hợp"
+            ],
+            "Nhâm" => [
+                "baseScore" => -2,
+                "explanation" => "Ngày xấu với tuổi – Dễ sinh xung khắc, tiêu hao bản mệnh",
+                "rating" => "Kỷ (hành Thổ) khắc Nhâm (hành Thủy) – ngày áp chế tuổi, dễ sinh bất lợi.",
+                "relation" => "Tương Khắc"
+            ],
+            "Quý" => [
+                "baseScore" => -2,
+                "explanation" => "Ngày xấu với tuổi – Dễ sinh xung khắc, tiêu hao bản mệnh",
+                "rating" => "Kỷ (hành Thổ) khắc Quý (hành Thủy) – ngày áp chế tuổi, dễ sinh bất lợi.",
+                "relation" => "Tương Khắc"
+            ],
+            "Tân" => [
+                "baseScore" => 2,
+                "explanation" => "Ngày rất tốt với tuổi – Được ngày hỗ trợ, sinh vượng khí",
+                "rating" => "Kỷ (hành Thổ) sinh Tân (hành Kim) – ngày nâng đỡ cho tuổi, cát lợi.",
+                "relation" => "Tương Sinh"
+            ],
+            "Đinh" => [
+                "baseScore" => 0,
+                "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều",
+                "rating" => "Kỷ và Đinh bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực.",
+                "relation" => "Bình Hòa"
+            ],
+            "Ất" => [
+                "baseScore" => 0,
+                "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều",
+                "rating" => "Kỷ và Ất bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực.",
+                "relation" => "Bình Hòa"
+            ]
         ],
         "Mậu" => [
-            "Bính" => ["baseScore" => 0, "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều", "rating" => "Mậu và Bính bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực", "relation" => "Bình Hòa"],
-            "Canh" => ["baseScore" => 2, "explanation" => "Ngày rất tốt với tuổi – Được ngày hỗ trợ, sinh vượng khí", "rating" => "Mậu (hành Thổ) sinh Canh (hành Kim) – ngày nâng đỡ cho tuổi, cát lợi", "relation" => "Tương Sinh"],
-            "Giáp" => ["baseScore" => 0, "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều", "rating" => "Mậu và Giáp bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực", "relation" => "Bình Hòa"],
-            "Kỷ" => ["baseScore" => 1, "explanation" => "Ngày tốt với tuổi – Tạo cảm giác hài hòa", "rating" => "Mậu và Kỷ tương hợp – cùng hành, cùng khí, tạo sự hòa hợp và ổn định", "relation" => "Tương Hợp"],
-            "Mậu" => ["baseScore" => 0, "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều", "rating" => "Mậu và Mậu bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực", "relation" => "Bình Hòa"],
-            "Nhâm" => ["baseScore" => -2, "explanation" => "Ngày xấu với tuổi – Dễ sinh xung khắc, tiêu hao bản mệnh", "rating" => "Mậu (hành Thổ) khắc Nhâm (hành Thủy) – ngày áp chế tuổi, dễ sinh bất lợi", "relation" => "Tương Khắc"],
-            "Quý" => ["baseScore" => 2, "condition" => "Chi ngày hoặc Chi tuổi thuộc Hỏa hoặc Mộc thì mới hóa thật.", "explanation" => "Ngày rất tốt với tuổi – Hợp sinh, hóa giải vận xấu", "fakeHợpExplanation" => "Ngày có Hợp Hóa nhẹ với tuổi – tạo cảm giác hòa hợp, tuy nhiên chưa đủ trợ lực mạnh", "fakeHợpRating" => "Mậu và Quý hợp hóa thành Hỏa nhưng không có Chi hỗ trợ nên đây là Hợp hóa giả, không hỗ trợ nhiều", "fakeHợpScore" => 0.5, "hoaKhi" => "Hỏa", "rating" => "Mậu và Quý hợp hóa thành Hỏa tạo ra năng lượng mới cát lành", "relation" => "Hợp Hóa (Hỏa)"],
-            "Tân" => ["baseScore" => 2, "explanation" => "Ngày rất tốt với tuổi – Được ngày hỗ trợ, sinh vượng khí", "rating" => "Mậu (hành Thổ) sinh Tân (hành Kim) – ngày nâng đỡ cho tuổi, cát lợi", "relation" => "Tương Sinh"],
-            "Đinh" => ["baseScore" => 0, "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều", "rating" => "Mậu và Đinh bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực", "relation" => "Bình Hòa"],
-            "Ất" => ["baseScore" => 0, "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều", "rating" => "Mậu và Ất bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực", "relation" => "Bình Hòa"],
+            "Bính" => [
+                "baseScore" => 0,
+                "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều",
+                "rating" => "Mậu và Bính bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực.",
+                "relation" => "Bình Hòa"
+            ],
+            "Canh" => [
+                "baseScore" => 2,
+                "explanation" => "Ngày rất tốt với tuổi – Được ngày hỗ trợ, sinh vượng khí",
+                "rating" => "Mậu (hành Thổ) sinh Canh (hành Kim) – ngày nâng đỡ cho tuổi, cát lợi.",
+                "relation" => "Tương Sinh"
+            ],
+            "Giáp" => [
+                "baseScore" => 0,
+                "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều",
+                "rating" => "Mậu và Giáp bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực.",
+                "relation" => "Bình Hòa"
+            ],
+            "Kỷ" => [
+                "baseScore" => 1,
+                "explanation" => "Ngày tốt với tuổi – Tạo cảm giác hài hòa",
+                "rating" => "Mậu và Kỷ tương hợp – cùng hành, cùng khí, tạo sự hòa hợp và ổn định.",
+                "relation" => "Tương Hợp"
+            ],
+            "Mậu" => [
+                "baseScore" => 0,
+                "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều",
+                "rating" => "Mậu và Mậu bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực.",
+                "relation" => "Bình Hòa"
+            ],
+            "Nhâm" => [
+                "baseScore" => -2,
+                "explanation" => "Ngày xấu với tuổi – Dễ sinh xung khắc, tiêu hao bản mệnh",
+                "rating" => "Mậu (hành Thổ) khắc Nhâm (hành Thủy) – ngày áp chế tuổi, dễ sinh bất lợi.",
+                "relation" => "Tương Khắc"
+            ],
+            "Quý" => [
+                "baseScore" => 2.0,
+                "condition" => "Chi ngày hoặc Chi tuổi thuộc Hỏa hoặc Mộc thì mới hóa thật.",
+                "explanation" => "Ngày rất tốt với tuổi – Hợp sinh, hóa giải vận xấu",
+                "fakeHợpExplanation" => "Ngày có Hợp Hóa nhẹ với tuổi – tạo cảm giác hòa hợp, tuy nhiên chưa đủ trợ lực mạnh",
+                "fakeHợpRating" => "Mậu và Quý hợp hóa thành Hỏa nhưng không có Chi hỗ trợ nên đây là Hợp hóa giả, không hỗ trợ nhiều",
+                "fakeHợpScore" => 0.5,
+                "hoaKhi" => "Hỏa",
+                "rating" => "Mậu và Quý hợp hóa thành Hỏa tạo ra năng lượng mới cát lành",
+                "relation" => "Hợp Hóa (Hỏa)"
+            ],
+            "Tân" => [
+                "baseScore" => 2,
+                "explanation" => "Ngày rất tốt với tuổi – Được ngày hỗ trợ, sinh vượng khí",
+                "rating" => "Mậu (hành Thổ) sinh Tân (hành Kim) – ngày nâng đỡ cho tuổi, cát lợi.",
+                "relation" => "Tương Sinh"
+            ],
+            "Đinh" => [
+                "baseScore" => 0,
+                "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều",
+                "rating" => "Mậu và Đinh bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực.",
+                "relation" => "Bình Hòa"
+            ],
+            "Ất" => [
+                "baseScore" => 0,
+                "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều",
+                "rating" => "Mậu và Ất bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực.",
+                "relation" => "Bình Hòa"
+            ]
         ],
         "Nhâm" => [
-            "Bính" => ["baseScore" => -2, "explanation" => "Ngày xấu với tuổi – Dễ sinh xung khắc, tiêu hao bản mệnh", "rating" => "Nhâm (hành Thủy) khắc Bính (hành Hỏa) – ngày áp chế tuổi, dễ sinh bất lợi", "relation" => "Tương Khắc"],
-            "Canh" => ["baseScore" => 0, "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều", "rating" => "Nhâm và Canh bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực", "relation" => "Bình Hòa"],
-            "Giáp" => ["baseScore" => 2, "explanation" => "Ngày rất tốt với tuổi – Được ngày hỗ trợ, sinh vượng khí", "rating" => "Nhâm (hành Thủy) sinh Giáp (hành Mộc) – ngày nâng đỡ cho tuổi, cát lợi", "relation" => "Tương Sinh"],
-            "Kỷ" => ["baseScore" => 0, "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều", "rating" => "Nhâm và Kỷ bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực", "relation" => "Bình Hòa"],
-            "Mậu" => ["baseScore" => 0, "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều", "rating" => "Nhâm và Mậu bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực", "relation" => "Bình Hòa"],
-            "Nhâm" => ["baseScore" => 0, "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều", "rating" => "Nhâm và Nhâm bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực", "relation" => "Bình Hòa"],
-            "Quý" => ["baseScore" => 1, "explanation" => "Ngày tốt với tuổi – Tạo cảm giác hài hòa", "rating" => "Nhâm và Quý tương hợp – cùng hành, cùng khí, tạo sự hòa hợp và ổn định", "relation" => "Tương Hợp"],
-            "Tân" => ["baseScore" => 0, "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều", "rating" => "Nhâm và Tân bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực", "relation" => "Bình Hòa"],
-            "Đinh" => ["baseScore" => -2, "condition" => "Chi ngày hoặc Chi tuổi thuộc Mộc hoặc Hỏa thì mới hóa thật.", "explanation" => "Ngày rất tốt với tuổi – Hợp sinh, hóa giải vận xấu", "fakeHợpExplanation" => "Ngày có Hợp Hóa nhẹ với tuổi – tạo cảm giác hòa hợp, tuy nhiên chưa đủ trợ lực mạnh", "fakeHợpRating" => "Nhâm và Đinh hợp hóa thành Mộc nhưng không có Chi hỗ trợ nên đây là Hợp hóa giả, không hỗ trợ nhiều", "fakeHợpScore" => 0.5, "hoaKhi" => "Mộc", "rating" => "Nhâm và Đinh hợp hóa thành Mộc tạo ra năng lượng mới cát lành", "relation" => "Hợp Hóa (Mộc)"],
-            "Ất" => ["baseScore" => 2, "explanation" => "Ngày rất tốt với tuổi – Được ngày hỗ trợ, sinh vượng khí", "rating" => "Nhâm (hành Thủy) sinh Ất (hành Mộc) – ngày nâng đỡ cho tuổi, cát lợi", "relation" => "Tương Sinh"],
+            "Bính" => [
+                "baseScore" => -2,
+                "explanation" => "Ngày xấu với tuổi – Dễ sinh xung khắc, tiêu hao bản mệnh",
+                "rating" => "Nhâm (hành Thủy) khắc Bính (hành Hỏa) – ngày áp chế tuổi, dễ sinh bất lợi.",
+                "relation" => "Tương Khắc"
+            ],
+            "Canh" => [
+                "baseScore" => 0,
+                "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều",
+                "rating" => "Nhâm và Canh bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực.",
+                "relation" => "Bình Hòa"
+            ],
+            "Giáp" => [
+                "baseScore" => 2,
+                "explanation" => "Ngày rất tốt với tuổi – Được ngày hỗ trợ, sinh vượng khí",
+                "rating" => "Nhâm (hành Thủy) sinh Giáp (hành Mộc) – ngày nâng đỡ cho tuổi, cát lợi.",
+                "relation" => "Tương Sinh"
+            ],
+            "Kỷ" => [
+                "baseScore" => 0,
+                "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều",
+                "rating" => "Nhâm và Kỷ bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực.",
+                "relation" => "Bình Hòa"
+            ],
+            "Mậu" => [
+                "baseScore" => 0,
+                "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều",
+                "rating" => "Nhâm và Mậu bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực.",
+                "relation" => "Bình Hòa"
+            ],
+            "Nhâm" => [
+                "baseScore" => 0,
+                "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều",
+                "rating" => "Nhâm và Nhâm bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực.",
+                "relation" => "Bình Hòa"
+            ],
+            "Quý" => [
+                "baseScore" => 1,
+                "explanation" => "Ngày tốt với tuổi – Tạo cảm giác hài hòa",
+                "rating" => "Nhâm và Quý tương hợp – cùng hành, cùng khí, tạo sự hòa hợp và ổn định.",
+                "relation" => "Tương Hợp"
+            ],
+            "Tân" => [
+                "baseScore" => 0,
+                "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều",
+                "rating" => "Nhâm và Tân bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực.",
+                "relation" => "Bình Hòa"
+            ],
+            "Đinh" => [
+                "baseScore" => -2,
+                "explanation" => "Ngày xấu với tuổi – Dễ sinh xung khắc, tiêu hao bản mệnh",
+                "rating" => "Nhâm (hành Thủy) khắc Đinh (hành Hỏa) – ngày áp chế tuổi, dễ sinh bất lợi.",
+                "relation" => "Tương Khắc"
+            ],
+            "Ất" => [
+                "baseScore" => 2,
+                "explanation" => "Ngày rất tốt với tuổi – Được ngày hỗ trợ, sinh vượng khí",
+                "rating" => "Nhâm (hành Thủy) sinh Ất (hành Mộc) – ngày nâng đỡ cho tuổi, cát lợi.",
+                "relation" => "Tương Sinh"
+            ]
         ],
         "Quý" => [
-            "Bính" => ["baseScore" => -2, "explanation" => "Ngày xấu với tuổi – Dễ sinh xung khắc, tiêu hao bản mệnh", "rating" => "Quý (hành Thủy) khắc Bính (hành Hỏa) – ngày áp chế tuổi, dễ sinh bất lợi", "relation" => "Tương Khắc"],
-            "Canh" => ["baseScore" => 0, "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều", "rating" => "Quý và Canh bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực", "relation" => "Bình Hòa"],
-            "Giáp" => ["baseScore" => 2, "explanation" => "Ngày rất tốt với tuổi – Được ngày hỗ trợ, sinh vượng khí", "rating" => "Quý (hành Thủy) sinh Giáp (hành Mộc) – ngày nâng đỡ cho tuổi, cát lợi", "relation" => "Tương Sinh"],
-            "Kỷ" => ["baseScore" => 0, "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều", "rating" => "Quý và Kỷ bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực", "relation" => "Bình Hòa"],
-            "Mậu" => ["baseScore" => 2, "condition" => "Chi ngày hoặc Chi tuổi thuộc Hỏa hoặc Mộc thì mới hóa thật.", "explanation" => "Ngày rất tốt với tuổi – Hợp sinh, hóa giải vận xấu", "fakeHợpExplanation" => "Ngày có Hợp Hóa nhẹ với tuổi – tạo cảm giác hòa hợp, tuy nhiên chưa đủ trợ lực mạnh", "fakeHợpRating" => "Quý và Mậu hợp hóa thành Hỏa nhưng không có Chi hỗ trợ nên đây là Hợp hóa giả, không hỗ trợ nhiều", "fakeHợpScore" => 0.5, "hoaKhi" => "Hỏa", "rating" => "Quý và Mậu hợp hóa thành Hỏa tạo ra năng lượng mới cát lành", "relation" => "Hợp Hóa (Hỏa)"],
-            "Nhâm" => ["baseScore" => 1, "explanation" => "Ngày tốt với tuổi – Tạo cảm giác hài hòa", "rating" => "Quý và Nhâm tương hợp – cùng hành, cùng khí, tạo sự hòa hợp và ổn định.", "relation" => "Tương Hợp"],
-            "Quý" => ["baseScore" => 0, "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều", "rating" => "Quý và Quý bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực", "relation" => "Bình Hòa"],
-            "Tân" => ["baseScore" => 0, "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều", "rating" => "Quý và Tân bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực", "relation" => "Bình Hòa"],
-            "Đinh" => ["baseScore" => -2, "explanation" => "Ngày xấu với tuổi – Dễ sinh xung khắc, tiêu hao bản mệnh", "rating" => "Quý (hành Thủy) khắc Đinh (hành Hỏa) – ngày áp chế tuổi, dễ sinh bất lợi", "relation" => "Tương Khắc"],
-            "Ất" => ["baseScore" => 2, "explanation" => "Ngày rất tốt với tuổi – Được ngày hỗ trợ, sinh vượng khí", "rating" => "Quý (hành Thủy) sinh Ất (hành Mộc) – ngày nâng đỡ cho tuổi, cát lợi", "relation" => "Tương Sinh"],
+            "Bính" => [
+                "baseScore" => -2,
+                "explanation" => "Ngày xấu với tuổi – Dễ sinh xung khắc, tiêu hao bản mệnh",
+                "rating" => "Quý (hành Thủy) khắc Bính (hành Hỏa) – ngày áp chế tuổi, dễ sinh bất lợi.",
+                "relation" => "Tương Khắc"
+            ],
+            "Canh" => [
+                "baseScore" => 0,
+                "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều",
+                "rating" => "Quý và Canh bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực.",
+                "relation" => "Bình Hòa"
+            ],
+            "Giáp" => [
+                "baseScore" => 2,
+                "explanation" => "Ngày rất tốt với tuổi – Được ngày hỗ trợ, sinh vượng khí",
+                "rating" => "Quý (hành Thủy) sinh Giáp (hành Mộc) – ngày nâng đỡ cho tuổi, cát lợi.",
+                "relation" => "Tương Sinh"
+            ],
+            "Kỷ" => [
+                "baseScore" => 0,
+                "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều",
+                "rating" => "Quý và Kỷ bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực.",
+                "relation" => "Bình Hòa"
+            ],
+            "Mậu" => [
+                "baseScore" => 2.0,
+                "condition" => "Chi ngày hoặc Chi tuổi thuộc Hỏa hoặc Mộc thì mới hóa thật.",
+                "explanation" => "Ngày rất tốt với tuổi – Hợp sinh, hóa giải vận xấu",
+                "fakeHợpExplanation" => "Ngày có Hợp Hóa nhẹ với tuổi – tạo cảm giác hòa hợp, tuy nhiên chưa đủ trợ lực mạnh",
+                "fakeHợpRating" => "Quý và Mậu hợp hóa thành Hỏa nhưng không có Chi hỗ trợ nên đây là Hợp hóa giả, không hỗ trợ nhiều",
+                "fakeHợpScore" => 0.5,
+                "hoaKhi" => "Hỏa",
+                "rating" => "Quý và Mậu hợp hóa thành Hỏa nhưng không có Chi hỗ trợ nên đây là Hợp hóa giả, không hỗ trợ nhiều",
+                "relation" => "Hợp Hóa (Hỏa)"
+            ],
+            "Nhâm" => [
+                "baseScore" => 1,
+                "explanation" => "Ngày tốt với tuổi – Tạo cảm giác hài hòa",
+                "rating" => "Quý và Nhâm tương hợp – cùng hành, cùng khí, tạo sự hòa hợp và ổn định.",
+                "relation" => "Tương Hợp"
+            ],
+            "Quý" => [
+                "baseScore" => 0,
+                "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều",
+                "rating" => "Quý và Quý bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực.",
+                "relation" => "Bình Hòa"
+            ],
+            "Tân" => [
+                "baseScore" => 0,
+                "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều",
+                "rating" => "Quý và Tân bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực.",
+                "relation" => "Bình Hòa"
+            ],
+            "Đinh" => [
+                "baseScore" => -2,
+                "explanation" => "Ngày xấu với tuổi – Dễ sinh xung khắc, tiêu hao bản mệnh",
+                "rating" => "Quý (hành Thủy) khắc Đinh (hành Hỏa) – ngày áp chế tuổi, dễ sinh bất lợi.",
+                "relation" => "Tương Khắc"
+            ],
+            "Ất" => [
+                "baseScore" => 2,
+                "explanation" => "Ngày rất tốt với tuổi – Được ngày hỗ trợ, sinh vượng khí",
+                "rating" => "Quý (hành Thủy) sinh Ất (hành Mộc) – ngày nâng đỡ cho tuổi, cát lợi.",
+                "relation" => "Tương Sinh"
+            ]
         ],
         "Tân" => [
-            "Bính" => ["baseScore" => 2, "condition" => "Chi ngày hoặc Chi tuổi thuộc Thủy hoặc Kim thì mới hóa thật.", "explanation" => "Ngày rất tốt với tuổi – Hợp sinh, hóa giải vận xấu", "fakeHợpExplanation" => "Ngày có Hợp Hóa nhẹ với tuổi – tạo cảm giác hòa hợp, tuy nhiên chưa đủ trợ lực mạnh", "fakeHợpRating" => "Tân và Bính hợp hóa thành Thủy nhưng không có Chi hỗ trợ nên đây là Hợp hóa giả, không hỗ trợ nhiều", "fakeHợpScore" => 0.5, "hoaKhi" => "Thủy", "rating" => "Tân và Bính hợp hóa thành Thủy tạo ra năng lượng mới cát lành", "relation" => "Hợp Hóa (Thủy)"],
-            "Canh" => ["baseScore" => 1, "explanation" => "Ngày tốt với tuổi – Tạo cảm giác hài hòa", "rating" => "Tân và Canh tương hợp – cùng hành, cùng khí, tạo sự hòa hợp và ổn định", "relation" => "Tương Hợp"],
-            "Giáp" => ["baseScore" => -2, "explanation" => "Ngày xấu với tuổi – Dễ sinh xung khắc, tiêu hao bản mệnh", "rating" => "Tân (hành Kim) khắc Giáp (hành Mộc) – ngày áp chế tuổi, dễ sinh bất lợi", "relation" => "Tương Khắc"],
-            "Kỷ" => ["baseScore" => 0, "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều", "rating" => "Tân và Kỷ bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực", "relation" => "Bình Hòa"],
-            "Mậu" => ["baseScore" => 0, "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều", "rating" => "Tân và Mậu bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực", "relation" => "Bình Hòa"],
-            "Nhâm" => ["baseScore" => 2, "explanation" => "Ngày rất tốt với tuổi – Được ngày hỗ trợ, sinh vượng khí", "rating" => "Tân (hành Kim) sinh Nhâm (hành Thủy) – ngày nâng đỡ cho tuổi, cát lợi", "relation" => "Tương Sinh"],
-            "Quý" => ["baseScore" => 2, "explanation" => "Ngày rất tốt với tuổi – Được ngày hỗ trợ, sinh vượng khí", "rating" => "Tân (hành Kim) sinh Quý (hành Thủy) – ngày nâng đỡ cho tuổi, cát lợi", "relation" => "Tương Sinh"],
-            "Tân" => ["baseScore" => 0, "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều", "rating" => "Tân và Tân bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực", "relation" => "Bình Hòa"],
-            "Đinh" => ["baseScore" => 0, "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều", "rating" => "Tân và Đinh bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực", "relation" => "Bình Hòa"],
-            "Ất" => ["baseScore" => -2, "explanation" => "Ngày xấu với tuổi – Dễ sinh xung khắc, tiêu hao bản mệnh", "rating" => "Tân (hành Kim) khắc Ất (hành Mộc) – ngày áp chế tuổi, dễ sinh bất lợi", "relation" => "Tương Khắc"],
+            "Bính" => [
+                "baseScore" => 2.0,
+                "condition" => "Chi ngày hoặc Chi tuổi thuộc Thủy hoặc Kim thì mới hóa thật.",
+                "explanation" => "Ngày rất tốt với tuổi – Hợp sinh, hóa giải vận xấu",
+                "fakeHợpExplanation" => "Ngày có Hợp Hóa nhẹ với tuổi – tạo cảm giác hòa hợp, tuy nhiên chưa đủ trợ lực mạnh",
+                "fakeHợpRating" => "Tân và Bính hợp hóa thành Thủy nhưng không có Chi hỗ trợ nên đây là Hợp hóa giả, không hỗ trợ nhiều",
+                "fakeHợpScore" => 0.5,
+                "hoaKhi" => "Thủy",
+                "rating" => "Tân và Bính hợp hóa thành Thủy nhưng không có Chi hỗ trợ nên đây là Hợp hóa giả, không hỗ trợ nhiều",
+                "relation" => "Hợp Hóa (Thủy)"
+            ],
+            "Canh" => [
+                "baseScore" => 1,
+                "explanation" => "Ngày tốt với tuổi – Tạo cảm giác hài hòa",
+                "rating" => "Tân và Canh tương hợp – cùng hành, cùng khí, tạo sự hòa hợp và ổn định.",
+                "relation" => "Tương Hợp"
+            ],
+            "Giáp" => [
+                "baseScore" => -2,
+                "explanation" => "Ngày xấu với tuổi – Dễ sinh xung khắc, tiêu hao bản mệnh",
+                "rating" => "Tân (hành Kim) khắc Giáp (hành Mộc) – ngày áp chế tuổi, dễ sinh bất lợi.",
+                "relation" => "Tương Khắc"
+            ],
+            "Kỷ" => [
+                "baseScore" => 0,
+                "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều",
+                "rating" => "Tân và Kỷ bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực.",
+                "relation" => "Bình Hòa"
+            ],
+            "Mậu" => [
+                "baseScore" => 0,
+                "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều",
+                "rating" => "Tân và Mậu bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực.",
+                "relation" => "Bình Hòa"
+            ],
+            "Nhâm" => [
+                "baseScore" => 2,
+                "explanation" => "Ngày rất tốt với tuổi – Được ngày hỗ trợ, sinh vượng khí",
+                "rating" => "Tân (hành Kim) sinh Nhâm (hành Thủy) – ngày nâng đỡ cho tuổi, cát lợi.",
+                "relation" => "Tương Sinh"
+            ],
+            "Quý" => [
+                "baseScore" => 2,
+                "explanation" => "Ngày rất tốt với tuổi – Được ngày hỗ trợ, sinh vượng khí",
+                "rating" => "Tân (hành Kim) sinh Quý (hành Thủy) – ngày nâng đỡ cho tuổi, cát lợi.",
+                "relation" => "Tương Sinh"
+            ],
+            "Tân" => [
+                "baseScore" => 0,
+                "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều",
+                "rating" => "Tân và Tân bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực.",
+                "relation" => "Bình Hòa"
+            ],
+            "Đinh" => [
+                "baseScore" => 0,
+                "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều",
+                "rating" => "Tân và Đinh bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực.",
+                "relation" => "Bình Hòa"
+            ],
+            "Ất" => [
+                "baseScore" => -2,
+                "explanation" => "Ngày xấu với tuổi – Dễ sinh xung khắc, tiêu hao bản mệnh",
+                "rating" => "Tân (hành Kim) khắc Ất (hành Mộc) – ngày áp chế tuổi, dễ sinh bất lợi.",
+                "relation" => "Tương Khắc"
+            ]
         ],
         "Đinh" => [
-            "Bính" => ["baseScore" => 1, "explanation" => "Ngày tốt với tuổi – Tạo cảm giác hài hòa", "rating" => "Đinh và Bính tương hợp – cùng hành, cùng khí, tạo sự hòa hợp và ổn định", "relation" => "Tương Hợp"],
-            "Canh" => ["baseScore" => -2, "explanation" => "Ngày xấu với tuổi – Dễ sinh xung khắc, tiêu hao bản mệnh", "rating" => "Đinh (hành Hỏa) khắc Canh (hành Kim) – ngày áp chế tuổi, dễ sinh bất lợi", "relation" => "Tương Khắc"],
-            "Giáp" => ["baseScore" => 0, "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều", "rating" => "Đinh và Giáp bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực", "relation" => "Bình Hòa"],
-            "Kỷ" => ["baseScore" => 2, "explanation" => "Ngày rất tốt với tuổi – Được ngày hỗ trợ, sinh vượng khí", "rating" => "Đinh (hành Hỏa) sinh Kỷ (hành Thổ) – ngày nâng đỡ cho tuổi, cát lợi", "relation" => "Tương Sinh"],
-            "Mậu" => ["baseScore" => 2, "explanation" => "Ngày rất tốt với tuổi – Được ngày hỗ trợ, sinh vượng khí", "rating" => "Đinh (hành Hỏa) sinh Mậu (hành Thổ) – ngày nâng đỡ cho tuổi, cát lợi", "relation" => "Tương Sinh"],
-            "Nhâm" => ["baseScore" => 0, "condition" => "Chi ngày hoặc Chi tuổi thuộc Mộc hoặc Hỏa thì mới hóa thật.", "explanation" => "Ngày rất tốt với tuổi – Hợp sinh, hóa giải vận xấu", "fakeHợpExplanation" => "Ngày có Hợp Hóa nhẹ với tuổi – tạo cảm giác hòa hợp, tuy nhiên chưa đủ trợ lực mạnh", "fakeHợpRating" => "Đinh và Nhâm hợp hóa thành Mộc nhưng không có Chi hỗ trợ nên đây là Hợp hóa giả, không hỗ trợ nhiều", "fakeHợpScore" => 0.5, "hoaKhi" => "Mộc", "rating" => "Đinh và Nhâm hợp hóa thành Mộc tạo ra năng lượng mới cát lành", "relation" => "Hợp Hóa (Mộc)"],
-            "Quý" => ["baseScore" => 0, "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều", "rating" => "Đinh và Quý bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực", "relation" => "Bình Hòa"],
-            "Tân" => ["baseScore" => -2, "explanation" => "Ngày xấu với tuổi – Dễ sinh xung khắc, tiêu hao bản mệnh", "rating" => "Đinh (hành Hỏa) khắc Tân (hành Kim) – ngày áp chế tuổi, dễ sinh bất lợi", "relation" => "Tương Khắc"],
-            "Đinh" => ["baseScore" => 0, "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều", "rating" => "Đinh và Đinh bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực", "relation" => "Bình Hòa"],
-            "Ất" => ["baseScore" => 0, "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều", "rating" => "Đinh và Ất bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực", "relation" => "Bình Hòa"],
+            "Bính" => [
+                "baseScore" => 1,
+                "explanation" => "Ngày tốt với tuổi – Tạo cảm giác hài hòa",
+                "rating" => "Đinh và Bính tương hợp – cùng hành, cùng khí, tạo sự hòa hợp và ổn định.",
+                "relation" => "Tương Hợp"
+            ],
+            "Canh" => [
+                "baseScore" => -2,
+                "explanation" => "Ngày xấu với tuổi – Dễ sinh xung khắc, tiêu hao bản mệnh",
+                "rating" => "Đinh (hành Hỏa) khắc Canh (hành Kim) – ngày áp chế tuổi, dễ sinh bất lợi.",
+                "relation" => "Tương Khắc"
+            ],
+            "Giáp" => [
+                "baseScore" => 0,
+                "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều",
+                "rating" => "Đinh và Giáp bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực.",
+                "relation" => "Bình Hòa"
+            ],
+            "Kỷ" => [
+                "baseScore" => 2,
+                "explanation" => "Ngày rất tốt với tuổi – Được ngày hỗ trợ, sinh vượng khí",
+                "rating" => "Đinh (hành Hỏa) sinh Kỷ (hành Thổ) – ngày nâng đỡ cho tuổi, cát lợi.",
+                "relation" => "Tương Sinh"
+            ],
+            "Mậu" => [
+                "baseScore" => 2,
+                "explanation" => "Ngày rất tốt với tuổi – Được ngày hỗ trợ, sinh vượng khí",
+                "rating" => "Đinh (hành Hỏa) sinh Mậu (hành Thổ) – ngày nâng đỡ cho tuổi, cát lợi.",
+                "relation" => "Tương Sinh"
+            ],
+            "Nhâm" => [
+                "baseScore" => 0,
+                "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều",
+                "rating" => "Đinh và Nhâm bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực.",
+                "relation" => "Bình Hòa"
+            ],
+            "Quý" => [
+                "baseScore" => 0,
+                "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều",
+                "rating" => "Đinh và Quý bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực.",
+                "relation" => "Bình Hòa"
+            ],
+            "Tân" => [
+                "baseScore" => -2,
+                "explanation" => "Ngày xấu với tuổi – Dễ sinh xung khắc, tiêu hao bản mệnh",
+                "rating" => "Đinh (hành Hỏa) khắc Tân (hành Kim) – ngày áp chế tuổi, dễ sinh bất lợi.",
+                "relation" => "Tương Khắc"
+            ],
+            "Đinh" => [
+                "baseScore" => 0,
+                "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều",
+                "rating" => "Đinh và Đinh bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực.",
+                "relation" => "Bình Hòa"
+            ],
+            "Ất" => [
+                "baseScore" => 0,
+                "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều",
+                "rating" => "Đinh và Ất bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực.",
+                "relation" => "Bình Hòa"
+            ]
         ],
         "Ất" => [
-            "Bính" => ["baseScore" => 2, "explanation" => "Ngày rất tốt với tuổi – Được ngày hỗ trợ, sinh vượng khí", "rating" => "Ất (hành Mộc) sinh Bính (hành Hỏa) – ngày nâng đỡ cho tuổi, cát lợi", "relation" => "Tương Sinh"],
-            "Canh" => ["baseScore" => 0, "condition" => "Chi ngày hoặc Chi tuổi thuộc Kim hoặc Thổ thì mới hóa thật.", "explanation" => "Ngày rất tốt với tuổi – Hợp sinh, hóa giải vận xấu", "fakeHợpExplanation" => "Ngày có Hợp Hóa nhẹ với tuổi – tạo cảm giác hòa hợp, tuy nhiên chưa đủ trợ lực mạnh", "fakeHợpRating" => "Ất và Canh hợp hóa thành Kim nhưng không có Chi hỗ trợ nên đây là Hợp hóa giả, không hỗ trợ nhiều", "fakeHợpScore" => 0.5, "hoaKhi" => "Kim", "rating" => "Ất và Canh hợp hóa thành Kim tạo ra năng lượng mới cát lành", "relation" => "Hợp Hóa (Kim)"],
-            "Giáp" => ["baseScore" => 1, "explanation" => "Ngày tốt với tuổi – Tạo cảm giác hài hòa", "rating" => "Ất và Giáp tương hợp – cùng hành, cùng khí, tạo sự hòa hợp và ổn định", "relation" => "Tương Hợp"],
-            "Kỷ" => ["baseScore" => -2, "explanation" => "Ngày xấu với tuổi – Dễ sinh xung khắc, tiêu hao bản mệnh", "rating" => "Ất (hành Mộc) khắc Kỷ (hành Thổ) – ngày áp chế tuổi, dễ sinh bất lợi", "relation" => "Tương Khắc"],
-            "Mậu" => ["baseScore" => -2, "explanation" => "Ngày xấu với tuổi – Dễ sinh xung khắc, tiêu hao bản mệnh", "rating" => "Ất (hành Mộc) khắc Mậu (hành Thổ) – ngày áp chế tuổi, dễ sinh bất lợi", "relation" => "Tương Khắc"],
-            "Nhâm" => ["baseScore" => 0, "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều", "rating" => "Ất và Nhâm bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực", "relation" => "Bình Hòa"],
-            "Quý" => ["baseScore" => 0, "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều", "rating" => "Ất và Quý bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực", "relation" => "Bình Hòa"],
-            "Tân" => ["baseScore" => 0, "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều", "rating" => "Ất và Tân bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực", "relation" => "Bình Hòa"],
-            "Đinh" => ["baseScore" => 2, "explanation" => "Ngày rất tốt với tuổi – Được ngày hỗ trợ, sinh vượng khí", "rating" => "Ất (hành Mộc) sinh Đinh (hành Hỏa) – ngày nâng đỡ cho tuổi, cát lợi", "relation" => "Tương Sinh"],
-            "Ất" => ["baseScore" => 0, "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều", "rating" => "Ất và Ất bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực", "relation" => "Bình Hòa"],
-        ],
+            "Bính" => [
+                "baseScore" => 2,
+                "explanation" => "Ngày rất tốt với tuổi – Được ngày hỗ trợ, sinh vượng khí",
+                "rating" => "Ất (hành Mộc) sinh Bính (hành Hỏa) – ngày nâng đỡ cho tuổi, cát lợi.",
+                "relation" => "Tương Sinh"
+            ],
+            "Canh" => [
+                "baseScore" => 0,
+                "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều",
+                "rating" => "Ất và Canh bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực.",
+                "relation" => "Bình Hòa"
+            ],
+            "Giáp" => [
+                "baseScore" => 1,
+                "explanation" => "Ngày tốt với tuổi – Tạo cảm giác hài hòa",
+                "rating" => "Ất và Giáp tương hợp – cùng hành, cùng khí, tạo sự hòa hợp và ổn định.",
+                "relation" => "Tương Hợp"
+            ],
+            "Kỷ" => [
+                "baseScore" => -2,
+                "explanation" => "Ngày xấu với tuổi – Dễ sinh xung khắc, tiêu hao bản mệnh",
+                "rating" => "Ất (hành Mộc) khắc Kỷ (hành Thổ) – ngày áp chế tuổi, dễ sinh bất lợi.",
+                "relation" => "Tương Khắc"
+            ],
+            "Mậu" => [
+                "baseScore" => -2,
+                "explanation" => "Ngày xấu với tuổi – Dễ sinh xung khắc, tiêu hao bản mệnh",
+                "rating" => "Ất (hành Mộc) khắc Mậu (hành Thổ) – ngày áp chế tuổi, dễ sinh bất lợi.",
+                "relation" => "Tương Khắc"
+            ],
+            "Nhâm" => [
+                "baseScore" => 0,
+                "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều",
+                "rating" => "Ất và Nhâm bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực.",
+                "relation" => "Bình Hòa"
+            ],
+            "Quý" => [
+                "baseScore" => 0,
+                "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều",
+                "rating" => "Ất và Quý bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực.",
+                "relation" => "Bình Hòa"
+            ],
+            "Tân" => [
+                "baseScore" => 0,
+                "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều",
+                "rating" => "Ất và Tân bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực.",
+                "relation" => "Bình Hòa"
+            ],
+            "Đinh" => [
+                "baseScore" => 2,
+                "explanation" => "Ngày rất tốt với tuổi – Được ngày hỗ trợ, sinh vượng khí",
+                "rating" => "Ất (hành Mộc) sinh Đinh (hành Hỏa) – ngày nâng đỡ cho tuổi, cát lợi.",
+                "relation" => "Tương Sinh"
+            ],
+            "Ất" => [
+                "baseScore" => 0,
+                "explanation" => "Ngày trung tính với tuổi – Không ảnh hưởng nhiều",
+                "rating" => "Ất và Ất bình hòa – không sinh không khắc, ít ảnh hưởng tích cực hay tiêu cực.",
+                "relation" => "Bình Hòa"
+            ]
+        ]
     ];
 
 

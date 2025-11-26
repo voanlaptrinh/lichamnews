@@ -375,7 +375,6 @@ class KhiVanHelper
         $jday = LunarHelper::jdFromDate((int)$day, (int)$month, (int)$year);
         $canChiDay = LunarHelper::canchiNgayByJD($jday);
         $dayCan = explode(' ', $canChiDay)[0] ?? null;
-
         // 2️⃣ Nếu không có ngày sinh -> mặc định trung tính
         if ($birthDate === null) {
             return [
@@ -387,8 +386,8 @@ class KhiVanHelper
 
         // 3️⃣ Lấy Can của năm sinh
         $birthCanChi = LunarHelper::canchiNam($birthDate);
+        
         $birthCan = explode(' ', $birthCanChi)[0] ?? null;
-
         // 4️⃣ Kiểm tra quan hệ Can-Can trong DataHelper
         $relationships = DataHelper::$canCanNewRelationships;
         if (
