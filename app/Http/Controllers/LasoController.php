@@ -19,7 +19,9 @@ class LasoController extends Controller
         $metaTitle = "Lá Số Tử Vi Online – Luận Giải Tử Vi 12 Cung, Chính Xác & Miễn Phí";
         $metaDescription = "Xem lá số tử vi online theo ngày tháng năm sinh. Luận giải 12 cung, sao hạn, vận mệnh, tính cách, công danh – đầy đủ, dễ hiểu, miễn phí và chính xác.";
 
-        return view('la-so-tu-vi.form', compact('lastInput', 'metaTitle', 'metaDescription'));
+        return view('la-so-tu-vi.form', compact('lastInput', 'metaTitle', 'metaDescription'))
+            ->with('imageUrl', null)
+            ->with('normalizedData', []);
     }
     public function submitToApi(Request $request)
     {
@@ -98,6 +100,15 @@ class LasoController extends Controller
 
                 if (!$imageUrl) {
                     $error = $result['error_image_generation'] ?? 'API không trả về ảnh.';
+
+                    // Nếu là AJAX request, trả về JSON
+                    if ($request->wantsJson() || $request->header('X-Requested-With') === 'XMLHttpRequest') {
+                        return response()->json([
+                            'success' => false,
+                            'message' => 'Tính toán thành công nhưng không tạo được ảnh: ' . $error
+                        ]);
+                    }
+
                     return back()->withErrors(['msg' => 'Tính toán thành công nhưng không tạo được ảnh: ' . $error])->withInput();
                 }
 
@@ -134,10 +145,19 @@ class LasoController extends Controller
                         'location' => $validatedData['location'] ?? null,
                     ]
                 ]);
+                // Nếu là AJAX request, trả về JSON
+                if ($request->wantsJson() || $request->header('X-Requested-With') === 'XMLHttpRequest') {
+                    return response()->json([
+                        'success' => true,
+                        'imageUrl' => route('laso.image_proxy', ['url' => $imageUrl]),
+                        'normalizedData' => $normalizedData
+                    ]);
+                }
+
                 $metaTitle = "Lá Số Tử Vi Online – Luận Giải Tử Vi 12 Cung, Chính Xác & Miễn Phí";
                 $metaDescription = "Xem lá số tử vi online theo ngày tháng năm sinh. Luận giải 12 cung, sao hạn, vận mệnh, tính cách, công danh – đầy đủ, dễ hiểu, miễn phí và chính xác.";
                 // Trả về một view mới để hiển thị ảnh
-                return view('la-so-tu-vi.display', [
+                return view('la-so-tu-vi.form', [
                     'metaTitle' => $metaTitle,
                     'metaDescription' => $metaDescription,
                     'imageUrl' => $imageUrl,
@@ -151,11 +171,30 @@ class LasoController extends Controller
                     $errorDetails = collect($result['errors'])->flatten()->implode(' ');
                     $errorMessage .= ' Chi tiết: ' . $errorDetails;
                 }
+
+                // Nếu là AJAX request, trả về JSON
+                if ($request->wantsJson() || $request->header('X-Requested-With') === 'XMLHttpRequest') {
+                    return response()->json([
+                        'success' => false,
+                        'message' => $errorMessage
+                    ]);
+                }
+
                 return back()->withErrors(['msg' => $errorMessage])->withInput();
             }
         } catch (\Exception $e) {
             // Bắt các lỗi khác như timeout, lỗi DNS...
-            return back()->withErrors(['msg' => 'Đã xảy ra lỗi khi giao tiếp với API: ' . $e->getMessage()])->withInput();
+            $errorMsg = 'Đã xảy ra lỗi khi giao tiếp với API: ' . $e->getMessage();
+
+            // Nếu là AJAX request, trả về JSON
+            if ($request->wantsJson() || $request->header('X-Requested-With') === 'XMLHttpRequest') {
+                return response()->json([
+                    'success' => false,
+                    'message' => $errorMsg
+                ]);
+            }
+
+            return back()->withErrors(['msg' => $errorMsg])->withInput();
         }
     }
     public function proxyImage(Request $request)
