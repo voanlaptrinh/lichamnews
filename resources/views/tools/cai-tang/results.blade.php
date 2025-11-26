@@ -115,25 +115,13 @@
                                 {{ $deceasedResult['check_year_can_chi'] ?? $year }} không?
                             </p>
                             <ul>
-                                <li>{{ $yearData['host_analysis']['kimLau']['is_bad'] ? $yearData['host_analysis']['kimLau']['message'] : 'Không phạm Kim Lâu' }}
+                                <li>{{ $yearData['host_analysis']['kimLau']['is_bad'] ? 'Phạm Kim Lâu' : 'Không phạm Kim Lâu' }}
                                 </li>
-                                <li>{{ $yearData['host_analysis']['hoangOc']['is_bad'] ? 'Phạm Hoang Ốc ' . $yearData['host_analysis']['hoangOc']['message'] : 'Không phạm Hoang Ốc' }}
+                                <li>{{ $yearData['host_analysis']['hoangOc']['is_bad'] ? 'Phạm Hoang Ốc' : 'Không phạm Hoang Ốc' }}
                                 </li>
-                                <li>{{ $yearData['host_analysis']['tamTai']['is_bad'] ? $yearData['host_analysis']['tamTai']['message'] : 'Không phạm Tam Tai' }}
+                                <li>{{ $yearData['host_analysis']['tamTai']['is_bad'] ? 'Phạm Tam Tai' : 'Không phạm Tam Tai' }}
                                 </li>
-                                <li>
-                                    @if ($yearData['host_analysis']['thaiTue']['is_pham'])
-                                        Năm {{ $deceasedResult['check_year_can_chi'] ?? $year }}
-                                        ({{ $deceasedResult['check_year'] ?? $year }}) xung với tuổi
-                                        {{ \App\Helpers\KhiVanHelper::canchiNam($hostInfo['dob_obj']->year) }}
-                                        ({{ $hostInfo['dob_obj']->year }})
-                                    @else
-                                        Năm {{ $deceasedResult['check_year_can_chi'] ?? $year }}
-                                        ({{ $deceasedResult['check_year'] ?? $year }}) Không xung với tuổi
-                                        {{ \App\Helpers\KhiVanHelper::canchiNam($hostInfo['dob_obj']->year) }}
-                                        ({{ $hostInfo['dob_obj']->year }})
-                                    @endif
-                                </li>
+                
                             </ul>
                             <p><strong>Kết luận:</strong> {!! $yearData['host_analysis']['description'] !!}</p>
                         </div>

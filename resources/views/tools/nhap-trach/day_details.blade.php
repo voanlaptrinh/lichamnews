@@ -12,7 +12,7 @@
                     <a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
                 </li>
                 <li class="breadcrumb-item" aria-current="page">
-                    Tiện ích
+                            <a href="{{ route('totxau.list') }}"  style="color: #2254AB; text-decoration: underline;">Xem ngày tốt</a>
                 </li>
                 <li class="breadcrumb-item" aria-current="page">
                     Xem ngày nhập trạch
@@ -107,7 +107,7 @@
                                             $hopTuoiReason = $groomData['score']['hopTuoiReason'] ?? '';
                                             $tabooIssues = collect($tabooResult['issues'] ?? [])
                                                 ->filter()
-                                                ->map(fn($day) => 'Phạm Ngày ' . ($day['details']['tabooName'] ?? ''))
+                                                ->map(fn($day) => '⚠️ Phạm Ngày ' . ($day['details']['tabooName'] ?? ''))
                                                 ->implode(', ');
                                         @endphp
 
@@ -139,13 +139,13 @@
                                         <tr>
                                             <td>
                                                 @if ($groomData['score']['tu']['details']['data']['nature'] == 'Tốt')
-                                                    Nhị thập bát tú: Sao
+                                                   ✓ Nhị thập bát tú: Sao
                                                     {{ $groomData['score']['tu']['details']['data']['name'] }} (Tốt)
                                                 @endif
                                             </td>
                                             <td>
                                                 @if ($groomData['score']['tu']['details']['data']['nature'] == 'Xấu')
-                                                    Nhị thập bát tú: Sao
+                                                   ❌ Nhị thập bát tú: Sao
                                                     {{ $groomData['score']['tu']['details']['data']['name'] }} (Xấu)
                                                 @endif
                                             </td>
@@ -154,13 +154,13 @@
                                              <tr>
                                             <td>
                                                 @if ($groomData['score']['tructot'])
-                                                    Thập Nhị Trực {{ $groomData['score']['truc']['details']['name'] }}
+                                                   ✓ Thập Nhị Trực {{ $groomData['score']['truc']['details']['name'] }}
                                                     (Tốt)
                                                 @endif
                                             </td>
                                             <td>
                                                 @if ($groomData['score']['trucxau'])
-                                                    Thập Nhị Trực {{ $groomData['score']['truc']['details']['name'] }}
+                                                   ❌ Thập Nhị Trực {{ $groomData['score']['truc']['details']['name'] }}
                                                     (Xấu)
                                                 @endif
                                             </td>
@@ -170,7 +170,7 @@
                                         <tr>
                                             <td>
                                                 @if (!empty($groomData['score']['catHung']['details']['catStars']))
-                                                    <strong>Sao tốt theo Ngọc Hạp Thông Thư:</strong>
+                                                    <strong>✓ Sao tốt theo Ngọc Hạp Thông Thư:</strong>
                                                     @foreach ($groomData['score']['catHung']['details']['catStars'] as $index => $sao)
                                                         <span
                                                             class=" bg-success">{{ $sao['name'] }}</span>{{ $loop->last ? '' : ',' }}
@@ -179,7 +179,7 @@
                                             </td>
                                             <td>
                                                 @if (!empty($groomData['score']['catHung']['details']['hungStars']))
-                                                    <strong>Sao xấu theo Ngọc Hạp Thông Thư:</strong>
+                                                    <strong>❌ Sao xấu theo Ngọc Hạp Thông Thư:</strong>
                                                     @foreach ($groomData['score']['catHung']['details']['hungStars'] as $sao)
                                                         <span
                                                             class=" bg-danger">{{ $sao['name'] }}</span>{{ $loop->last ? '' : ',' }}

@@ -12,7 +12,7 @@
                     <a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
                 </li>
                 <li class="breadcrumb-item" aria-current="page">
-                    Tiện ích
+                            <a href="{{ route('totxau.list') }}"  style="color: #2254AB; text-decoration: underline;">Xem ngày tốt</a>
                 </li>
                 <li class="breadcrumb-item" aria-current="page">
                     Xem ngày kết hôn
@@ -144,7 +144,7 @@
                                                         </td>
 
                                                         <td>
-                                                            {{ $tabooIssuesgroom->map(fn($issue) => 'Phạm ' . ($issue['details']['tabooName'] ?? ''))->implode(', ') }}
+                                                            {{ $tabooIssuesgroom->map(fn($issue) => '⚠️ Phạm ' . ($issue['details']['tabooName'] ?? ''))->implode(', ') }}
                                                         </td>
                                                     </tr>
                                                 @endif
@@ -336,7 +336,7 @@
                                                         </td>
 
                                                         <td>
-                                                            {{ $tabooIssues->map(fn($issue) => 'Phạm ' . ($issue['details']['tabooName'] ?? ''))->implode(', ') }}
+                                                            {{ $tabooIssues->map(fn($issue) => '⚠️ Phạm ' . ($issue['details']['tabooName'] ?? ''))->implode(', ') }}
                                                         </td>
                                                     </tr>
                                                 @endif
@@ -387,14 +387,7 @@
                                                             @endif
                                                         </td>
                                                     </tr>
-                                                    </tr>
-                                                    </tr>
-                                                    </tr>
-                                                    </tr>
-                                                    </tr>
-                                                    </tr>
-                                                    </tr>
-                                                    </tr>
+                                                  
                                                 @endif
 
                                                 <tr>

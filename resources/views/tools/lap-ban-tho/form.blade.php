@@ -12,7 +12,7 @@
                     <a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
                 </li>
                 <li class="breadcrumb-item" aria-current="page">
-                    Tiện ích
+                            <a href="{{ route('totxau.list') }}"  style="color: #2254AB; text-decoration: underline;">Xem ngày tốt</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
                     Xem ngày lập bàn thờ
@@ -35,115 +35,117 @@
 
                                             <div class="row g-1">
                                                 <div class="">
-                                                    <div class="fw-bold title-tong-quan-h2-log mb-3" style="color: #192E52"></div>
+                                                    <div class="fw-bold title-tong-quan-h2-log" style="color: #192E52">
+
                                                         Thông tin gia chủ
                                                     </div>
                                                 </div>
-                                                <hr>
-                                                <div class="mb-3">
-                                                    <div for="birthdate" class="fw-bold title-tong-quan-h4-log mb-2">Ngày
-                                                        sinh</div>
-                                                    <!-- Date Selects -->
-                                                    <div class="row g-2 mb-2">
-                                                        <div class="col-6 col-sm-4 col-lg-4 col-xl-4">
-                                                            <div class="position-relative">
-                                                                <select class="form-select pe-5 --border-box-form"
-                                                                    id="ngaySelect" name="day"
-                                                                    style="padding: 12px 45px 12px 15px">
-                                                                    <option value="">Ngày</option>
-                                                                </select>
-                                                                <i class="bi bi-chevron-down position-absolute"
-                                                                    style="right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #6c757d;"></i>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-6 col-sm-4 col-lg-4 col-xl-4">
-                                                            <div class="position-relative">
-                                                                <select class="form-select pe-5 --border-box-form"
-                                                                    id="thangSelect" name="month"
-                                                                    style="padding: 12px 45px 12px 15px">
-                                                                    <option value="">Tháng</option>
-                                                                </select>
-                                                                <i class="bi bi-chevron-down position-absolute"
-                                                                    style="right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #6c757d;"></i>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-12 col-sm-4 col-lg-4 col-xl-4">
-                                                            <div class="position-relative">
-                                                                <select class="form-select pe-5 --border-box-form"
-                                                                    id="namSelect" name="year"
-                                                                    style="padding: 12px 45px 12px 15px">
-                                                                    <option value="">Năm</option>
-                                                                </select>
-                                                                <i class="bi bi-chevron-down position-absolute"
-                                                                    style="right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #6c757d;"></i>
-                                                            </div>
+
+                                            </div>
+                                            <hr>
+                                            <div class="mb-3">
+                                                <div for="birthdate" class="fw-bold title-tong-quan-h4-log mb-2">Ngày
+                                                    sinh</div>
+                                                <!-- Date Selects -->
+                                                <div class="row g-2 mb-2">
+                                                    <div class="col-6 col-sm-4 col-lg-4 col-xl-4">
+                                                        <div class="position-relative">
+                                                            <select class="form-select pe-5 --border-box-form"
+                                                                id="ngaySelect" name="day"
+                                                                style="padding: 12px 45px 12px 15px">
+                                                                <option value="">Ngày</option>
+                                                            </select>
+                                                            <i class="bi bi-chevron-down position-absolute"
+                                                                style="right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #6c757d;"></i>
                                                         </div>
                                                     </div>
-
-                                                    <!-- Radio buttons dạng tròn bên dưới selects -->
-                                                    <div class="d-flex gap-4 ps-2">
-                                                        <div class="form-check d-flex align-items-center">
-                                                            <input type="radio" class="form-check-input"
-                                                                name="calendar_type" id="solarCalendar" value="solar"
-                                                                checked style="width: 24px; height: 24px; cursor: pointer;">
-                                                            <label class="form-check-label ms-2" for="solarCalendar"
-                                                                style="cursor: pointer; font-size: 15px; color: #333;">
-                                                                Dương lịch
-                                                            </label>
-                                                        </div>
-                                                        <div class="form-check d-flex align-items-center">
-                                                            <input type="radio" class="form-check-input"
-                                                                name="calendar_type" id="lunarCalendar" value="lunar"
-                                                                style="width: 24px; height: 24px; cursor: pointer;">
-                                                            <label class="form-check-label ms-2" for="lunarCalendar"
-                                                                style="cursor: pointer; font-size: 15px; color: #333;">
-                                                                Âm lịch
-                                                            </label>
+                                                    <div class="col-6 col-sm-4 col-lg-4 col-xl-4">
+                                                        <div class="position-relative">
+                                                            <select class="form-select pe-5 --border-box-form"
+                                                                id="thangSelect" name="month"
+                                                                style="padding: 12px 45px 12px 15px">
+                                                                <option value="">Tháng</option>
+                                                            </select>
+                                                            <i class="bi bi-chevron-down position-absolute"
+                                                                style="right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #6c757d;"></i>
                                                         </div>
                                                     </div>
+                                                    <div class="col-12 col-sm-4 col-lg-4 col-xl-4">
+                                                        <div class="position-relative">
+                                                            <select class="form-select pe-5 --border-box-form"
+                                                                id="namSelect" name="year"
+                                                                style="padding: 12px 45px 12px 15px">
+                                                                <option value="">Năm</option>
+                                                            </select>
+                                                            <i class="bi bi-chevron-down position-absolute"
+                                                                style="right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #6c757d;"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
 
-
-                                                    <!-- Leap Month Option (hidden) -->
-                                                    <div class="form-check mt-2" id="leapMonthContainer"
-                                                        style="display: none;">
-                                                        <input class="form-check-input" type="checkbox" id="leapMonth"
-                                                            name="leap_month">
-                                                        <label class="form-check-label" for="leapMonth">
-                                                            Tháng nhuận
+                                                <!-- Radio buttons dạng tròn bên dưới selects -->
+                                                <div class="d-flex gap-4 ps-2">
+                                                    <div class="form-check d-flex align-items-center">
+                                                        <input type="radio" class="form-check-input" name="calendar_type"
+                                                            id="solarCalendar" value="solar" checked
+                                                            style="width: 24px; height: 24px; cursor: pointer;">
+                                                        <label class="form-check-label ms-2" for="solarCalendar"
+                                                            style="cursor: pointer; font-size: 15px; color: #333;">
+                                                            Dương lịch
                                                         </label>
                                                     </div>
-
-                                                    <!-- Hidden input to store formatted date -->
-                                                    <input type="hidden" id="ngayXem" name="birthdate"
-                                                        value="{{ old('birthdate', $inputs['birthdate'] ?? '') }}">
-
-                                                    @error('birthdate')
-                                                        <div class="invalid-feedback">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
-
-                                                <div class="input-group mb-4">
-                                                    <div for="date_range" class="fw-bold title-tong-quan-h4-log"
-                                                        style="color: #192E52; padding-bottom: 12px;"> Dự kiến
-                                                        thời gian lập bàn thờ</div>
-                                                    <div class="input-group">
-                                                        <input type="text"
-                                                            class="form-control wedding_date_range --border-box-form @error('date_range') is-invalid @enderror"
-                                                            id="date_range" name="date_range"
-                                                            placeholder="DD/MM/YY - DD/MM/YY" autocomplete="off"
-                                                            value="{{ old('date_range', $inputs['date_range'] ?? '') }}"
-                                                            style="border-radius: 10px; border: none; padding: 12px 30px 12px 15px; background-color: rgba(255,255,255,0.95); cursor: pointer;">
-                                                        <span class="input-group-text bg-transparent border-0"
-                                                            style="position: absolute; right: 2px; top: 50%; transform: translateY(-50%); z-index: 5; pointer-events: none;">
-                                                            <img src="{{ asset('images/date1-icon.svg') }}"
-                                                                alt="icon ngày tháng năm" class="img-fluid">
-                                                        </span>
+                                                    <div class="form-check d-flex align-items-center">
+                                                        <input type="radio" class="form-check-input" name="calendar_type"
+                                                            id="lunarCalendar" value="lunar"
+                                                            style="width: 24px; height: 24px; cursor: pointer;">
+                                                        <label class="form-check-label ms-2" for="lunarCalendar"
+                                                            style="cursor: pointer; font-size: 15px; color: #333;">
+                                                            Âm lịch
+                                                        </label>
                                                     </div>
-                                                    @error('date_range')
-                                                        <div class="invalid-feedback">{{ $message }}</div>
-                                                    @enderror
                                                 </div>
+
+
+                                                <!-- Leap Month Option (hidden) -->
+                                                <div class="form-check mt-2" id="leapMonthContainer" style="display: none;">
+                                                    <input class="form-check-input" type="checkbox" id="leapMonth"
+                                                        name="leap_month">
+                                                    <label class="form-check-label" for="leapMonth">
+                                                        Tháng nhuận
+                                                    </label>
+                                                </div>
+
+                                                <!-- Hidden input to store formatted date -->
+                                                <input type="hidden" id="ngayXem" name="birthdate"
+                                                    value="{{ old('birthdate', $inputs['birthdate'] ?? '') }}">
+
+                                                @error('birthdate')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
                                             </div>
+
+                                            <div class="input-group mb-4">
+                                                <div for="date_range" class="fw-bold title-tong-quan-h4-log"
+                                                    style="color: #192E52; padding-bottom: 12px;"> Dự kiến
+                                                    thời gian lập bàn thờ</div>
+                                                <div class="input-group">
+                                                    <input type="text"
+                                                        class="form-control wedding_date_range --border-box-form @error('date_range') is-invalid @enderror"
+                                                        id="date_range" name="date_range"
+                                                        placeholder="DD/MM/YY - DD/MM/YY" autocomplete="off"
+                                                        value="{{ old('date_range', $inputs['date_range'] ?? '') }}"
+                                                        style="border-radius: 10px; border: none; padding: 12px 30px 12px 15px; background-color: rgba(255,255,255,0.95); cursor: pointer;">
+                                                    <span class="input-group-text bg-transparent border-0"
+                                                        style="position: absolute; right: 2px; top: 50%; transform: translateY(-50%); z-index: 5; pointer-events: none;">
+                                                        <img src="{{ asset('images/date1-icon.svg') }}"
+                                                            alt="icon ngày tháng năm" class="img-fluid">
+                                                    </span>
+                                                </div>
+                                                @error('date_range')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+
                                             <div class="d-flex justify-content-center">
                                                 <button type="submit" class="btn btn-light-settup fw-bold w-100"
                                                     id="submitBtn">
@@ -156,6 +158,7 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="col-lg-4 d-none d-lg-flex">
                                 <div class="d-flex align-items-center justify-content-center h-100 w-100"
                                     style="padding: 32px 32px 32px 0px;">
@@ -172,6 +175,7 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
                     <div id="resultsContainer" class="--detail-success">
                         @if (isset($resultsByYear))
@@ -190,7 +194,8 @@
                                 Vì sao cần xem ngày tốt để lập bàn thờ?
                             </h2>
                             <p class="mb-1">
-                                Lập bàn thờ là nghi thức quan trọng, bởi bàn thờ là nơi kết nối với gia tiên, thần linh và
+                                Lập bàn thờ là nghi thức quan trọng, bởi bàn thờ là nơi kết nối với gia tiên, thần linh
+                                và
                                 là trung tâm tâm linh của ngôi nhà. Một ngày lập bàn thờ phù hợp giúp việc an vị trở nên
                                 trang nghiêm, thuận lợi, mang lại sinh khí tốt cho gia đình.
                             </p>
@@ -212,7 +217,8 @@
                                 <li>Sao tốt, giờ tốt hỗ trợ việc thỉnh thần linh, gia tiên được suôn sẻ.</li>
                                 <li>Tránh được ngày bách kỵ dễ gây trục trặc hoặc thiếu may mắn.</li>
                             </ul>
-                            <p class="mb-1">Một ngày hợp tuổi sẽ làm nghi thức lập bàn thờ diễn ra trang trọng và vững
+                            <p class="mb-1">Một ngày hợp tuổi sẽ làm nghi thức lập bàn thờ diễn ra trang trọng và
+                                vững
                                 vàng hơn.</p>
                             <h2 class="title-tong-quan-h3-log fw-bolder">
                                 Khi xem ngày lập bàn thờ, cần lưu ý điều gì?
@@ -228,7 +234,8 @@
                                             </p>
                                             <ul class="mb-1">
                                                 <li>Ngày Hoàng đạo như Thanh Long, Minh Đường, Kim Quỹ, Tư Mệnh.</li>
-                                                <li>Các trực mang tính ổn định, cát lợi: Trực Khai, Trực Thành, Trực Mãn.
+                                                <li>Các trực mang tính ổn định, cát lợi: Trực Khai, Trực Thành, Trực
+                                                    Mãn.
                                                 </li>
                                             </ul>
                                         </li>
@@ -282,7 +289,8 @@
                                             </ul>
                                         </li>
                                     </ul>
-                                    <p class="mb-1">Tránh các ngày này sẽ giúp việc lập bàn thờ ổn định, tránh những điều
+                                    <p class="mb-1">Tránh các ngày này sẽ giúp việc lập bàn thờ ổn định, tránh những
+                                        điều
                                         bất an về sau.</p>
                                 </li>
                             </ul>
@@ -318,7 +326,9 @@
                 </div>
                 @include('tools.siderbarindex')
             </div>
+
         </div>
+
     </div>
 @endsection
 

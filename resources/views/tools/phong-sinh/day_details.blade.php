@@ -14,7 +14,7 @@
                     <a href="{{ route('home') }}"  style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
                 </li>
                 <li class="breadcrumb-item" aria-current="page">
-                  Tiện ích
+                          <a href="{{ route('totxau.list') }}"  style="color: #2254AB; text-decoration: underline;">Xem ngày tốt</a>
                 </li>
                  <li class="breadcrumb-item" aria-current="page">
                   Xem ngày cầu an
@@ -130,7 +130,7 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                {{ $tabooIssues->map(fn($issue) => 'Phạm ' . ($issue['details']['tabooName'] ?? ''))->implode(', ') }}
+                                                {{ $tabooIssues->map(fn($issue) => '⚠️ Phạm ' . ($issue['details']['tabooName'] ?? ''))->implode(', ') }}
                                             </td>
                                         </tr>
                                         @endif
@@ -149,13 +149,13 @@
                                         <tr>
                                             <td>
                                                 @if ($groomData['score']['tu']['details']['data']['nature'] == 'Tốt')
-                                                    Nhị thập bát tú: Sao
+                                                   ✓ Nhị thập bát tú: Sao
                                                     {{ $groomData['score']['tu']['details']['data']['name'] }} (Tốt)
                                                 @endif
                                             </td>
                                             <td>
                                                 @if ($groomData['score']['tu']['details']['data']['nature'] == 'Xấu')
-                                                    Nhị thập bát tú: Sao
+                                                   ❌ Nhị thập bát tú: Sao
                                                     {{ $groomData['score']['tu']['details']['data']['name'] }} (Xấu)
                                                 @endif
                                             </td>
@@ -164,13 +164,13 @@
                                             <tr>
                                                 <td>
                                                     @if ($groomData['score']['tructot'])
-                                                        Thập Nhị Trực {{ $groomData['score']['truc']['details']['name'] }}
+                                                       ✓ Thập Nhị Trực {{ $groomData['score']['truc']['details']['name'] }}
                                                         (Tốt)
                                                     @endif
                                                 </td>
                                                 <td>
                                                     @if ($groomData['score']['trucxau'])
-                                                        Thập Nhị Trực {{ $groomData['score']['truc']['details']['name'] }}
+                                                       ❌ Thập Nhị Trực {{ $groomData['score']['truc']['details']['name'] }}
                                                         (Xấu)
                                                     @endif
                                                 </td>
