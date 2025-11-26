@@ -1364,7 +1364,7 @@ class LunarHelper
             '15-1'  => ['ten_su_kien' => '🌕 Tết Nguyên tiêu (Rằm tháng Giêng)', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Đêm rằm đầu tiên của năm mới, còn được gọi là Lễ Thượng Nguyên.'],
 
             // THÁNG HAI (Tháng 2)
-            '1-2'   => ['ten_su_kien' => '🌸 Mồng 2 tháng Hai', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Đầu tháng Hai âm lịch.'],
+            '1-2'   => ['ten_su_kien' => '🌸 Mồng 1 tháng Hai', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Đầu tháng Hai âm lịch.'],
             '15-2'  => ['ten_su_kien' => '🌕 Rằm tháng Hai', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày cúng tổ tiên và thần linh.'],
 
             // THÁNG BA (Tháng 3)

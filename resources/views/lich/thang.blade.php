@@ -95,17 +95,37 @@
                                                                     $day['solar_year'] == date('Y') &&
                                                                     $day['solar_month'] == date('n') &&
                                                                     $day['solar_day'] == date('j');
+                                                                 
+                                                                            // Kiểm tra xem có phải chủ nhật không (day of week = 0)
+                                                                            $solar_date = mktime(0, 0, 0, $day['solar_month'], $day['solar_day'], $day['solar_year']);
+                                                                            $is_sunday = date('w', $solar_date) == 0;
+                                                                            $sun_class = $is_sunday ? 'sun' : '';
+                                                                       
                                                             @endphp
                                                             <td class="{{ $isCurrent ? 'current' : '' }}">
                                                                 <a
                                                                     href="{{ route('detai_home', ['nam' => $day['solar_year'], 'thang' => $day['solar_month'], 'ngay' => $day['solar_day']]) }}">
-                                                                    <div class="box-contnet-date">
-                                                                        <div class="duong-lich">{{ $day['day'] }}</div>
+                                                                    <div class="box-contnet-date ">
+                                                                        <div class="duong-lich {{ $sun_class }}">{{ $day['day'] }}</div>
                                                                     </div>
                                                                     <div class="am am_table">
                                                                         {{ $day['solar_day'] }}/{{ $day['solar_month'] }}
                                                                     </div>
-                                                                    <div class="can_chi_text">{{ $day['canchi'] }}</div>
+                                                                    <div class="can_chi_text">
+                                                                        @php
+                                                                            // Sử dụng hàm getVietnamLunarEvent2 để kiểm tra sự kiện âm lịch
+                                                                            $events = \App\Helpers\LunarHelper::getVietnamLunarEvent2($day['month'], $day['year']);
+                                                                            $lunar_event = isset($events[$day['day']]) ? $events[$day['day']]['ten_su_kien'] : null;
+                                                                        @endphp
+
+                                                                       
+
+                                                                        @if($lunar_event)
+                                                                            <span class="hidden-xs" style="color:#8A1E31; font-weight:bold" title="{{ $lunar_event }}">{{ $lunar_event }}</span>
+                                                                        @else
+                                                                           <span class="hidden-xs">{{ $day['canchi'] }}</span>
+                                                                        @endif
+                                                                    </div>
                                                                 </a>
                                                             </td>
                                                         @else
