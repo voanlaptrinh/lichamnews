@@ -29,15 +29,15 @@
 
                 <div class="col-xl-9 col-sm-12 col-12 ">
                     <div class="backv-doi-lich ">
-                        <div class="row">
+                        <div class="row g-xl-5 g-lg-3 g-sm-5">
                             <div class="col-lg-8">
                                 <div class="">
                                     <div class="form--submit-totxau">
-                                        <div class="fw-bold  title-tong-quan-h2-log" style="color: rgba(25, 46, 82, 1);">
+                                        <div class="fw-bold  title-tong-quan-h2-log" style="#192E52">
                                             Thông tin người
                                             xem
                                         </div>
-                                        <p class="" style=" font-size: 14px;">Bạn hãy nhập thông tin
+                                        <p class="" style=" font-size: 14px; color: #212121;">Bạn hãy nhập thông tin
                                             vào
                                             ô dưới
                                             đây để xem ngày tốt xấu</p>
@@ -117,7 +117,7 @@
                                                     value="{{ old('birthdate', $inputs['birthdate'] ?? '') }}">
                                             </div>
 
-                                            <div class="fw-bold title-tong-quan-h2-log">Khoảng thời gian cần xem
+                                            <div class="fw-bold title-tong-quan-h4-log" style="color: #192E52; padding-bottom: 12px;">Khoảng thời gian cần xem
                                             </div>
                                             <div class="mb-4">
                                                 <div class="input-group">
@@ -126,10 +126,10 @@
                                                         id="khoangNgay" name="date_range" placeholder="DD/MM/YY - DD/MM/YY"
                                                         autocomplete="off"
                                                         value="{{ old('date_range', $inputs['date_range'] ?? '') }}"
-                                                        style="border-radius: 10px; border: none; padding: 12px 45px 12px 15px; background-color: rgba(255,255,255,0.95); cursor: pointer;">
+                                                        style="border-radius: 10px; border: none; padding: 12px 30px 12px 15px; background-color: rgba(255,255,255,0.95); cursor: pointer;">
                                                     <span class="input-group-text bg-transparent border-0"
-                                                        style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); z-index: 5; pointer-events: none;">
-                                                        <i class="bi-calendar-date-fill text-muted"></i>
+                                                        style="position: absolute; right: 2px; top: 50%; transform: translateY(-50%); z-index: 5; pointer-events: none;">
+                                                       <img src="{{ asset('images/date1-icon.svg') }}" alt="icon ngày tháng năm" class="img-fluid">
                                                     </span>
                                                 </div>
                                             </div>
@@ -145,10 +145,18 @@
 
                                 </div>
                             </div>
-                            <div class="col-lg-4 d-none d-lg-block d-flex">
-                                <div class="d-flex align-items-end h-100 w-100">
-                                    <img src="{{ asset('/icons/datedoilich.svg') }}" alt="ảnh đổi lich"
-                                        class="img-fluid">
+                            <div class="col-lg-4 d-none d-lg-flex">
+                                <div class="d-flex align-items-center justify-content-center h-100 w-100"
+                                    style="padding: 32px 32px 32px 0px;">
+                                    <div class="d-flex align-items-center justify-content-center h-100 w-100" style=" background-image: url(../images/form_totxau.svg);
+                                    background-repeat: no-repeat;
+                                    background-size: cover;
+                                    align-items: normal;
+                                    background-position: center center;
+                                    overflow: hidden;
+                                    border-radius: 12px">
+                                        
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -260,8 +268,8 @@
                                 </li>
                                 <li>Chọn ngày phù hợp nhất theo đánh giá của công cụ và lịch trình cá nhân của bạn.</li>
                             </ul>
-                             <h2 class="title-tong-quan-h3-log mb-1 mt-1 fw-bolder">
-                              Một ngày đẹp giúp ích như thế nào?
+                            <h2 class="title-tong-quan-h3-log mb-1 mt-1 fw-bolder">
+                                Một ngày đẹp giúp ích như thế nào?
                             </h2>
                             <ul>
                                 <li>Tạo cảm giác yên tâm, tinh thần thoải mái.</li>
@@ -269,7 +277,8 @@
                                 <li>Hạn chế rủi ro và xung khắc.</li>
                                 <li>Mang lại sự hài hòa giữa thời điểm – tuổi – ngũ hành.</li>
                             </ul>
-                            <p>Dù bạn dùng công cụ để xem cho bất kỳ việc gì, lớn hay nhỏ. Một ngày tốt luôn là nền tảng giúp mọi việc dễ dàng và thuận lợi hơn.</p>
+                            <p>Dù bạn dùng công cụ để xem cho bất kỳ việc gì, lớn hay nhỏ. Một ngày tốt luôn là nền tảng
+                                giúp mọi việc dễ dàng và thuận lợi hơn.</p>
                         </div>
                     </div>
 
@@ -1098,7 +1107,7 @@
                         loadMoreBtn.dataset.total = totalFilteredRows.toString();
                         const remaining = totalFilteredRows - currentLoaded;
 
-                     
+
 
                         if (remaining > 0) {
                             loadMoreBtn.style.display = '';

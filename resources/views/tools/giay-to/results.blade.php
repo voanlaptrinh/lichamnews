@@ -305,7 +305,7 @@
                 <div class="filter-quick-actions">
                     <button type="button" id="selectCommon" class="btn-quick-action">Phổ biến</button>
                     <button type="button" id="selectAll" class="btn-quick-action">Tất cả</button>
-                    <button type="button" id="clearAll" class="btn-quick-action">Bỏ chọn</button>
+                   
                 </div>
 
                 <div class="filter-options">

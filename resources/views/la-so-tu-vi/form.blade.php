@@ -55,7 +55,7 @@
                 </ol>
             </nav>
             <div class="bg-light d-flex align-items-center justify-content-center ">
-                <div class="w-100 " style="max-width: 950px;">
+                <div class="w-100 container">
                     <div class=" mt-5 mb-5">
 
                         <div class="card-body p-1">
@@ -70,8 +70,9 @@
                                 như kết hôn, mua nhà, khởi nghiệp,…
                             </p>
 
-                           
-                            <form action="{{ route('laso.submit') }}" method="POST">
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <form action="{{ route('laso.submit') }}" method="POST">
                                 @csrf
                                 <div class="row gx-4 gx-md-4 gx-sm-1">
 
@@ -383,7 +384,16 @@
                                                     <span class="spinner-border spinner-border-sm ms-2 d-none" role="status"></span>
                                                 </button>
                                             </div>
-                            </form>
+                                    </form>
+                                </div>
+
+                                <div class="col-lg-4 d-none d-lg-flex">
+                                    <div class="d-flex align-items-center justify-content-center h-100">
+                                        <img src="{{ asset('/images/form_totxau.svg') }}" alt="Lá số tử vi illustration"
+                                             class="img-fluid">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

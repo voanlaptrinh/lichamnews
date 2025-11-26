@@ -737,7 +737,8 @@ html.daterangepicker-open {
     }
 
     .form--submit-totxau {
-        padding: 24px 40px;
+        /* padding: 32px 40px; */
+        padding: 32px 0 30px 40px;
     }
 
     .box-dtl-pc {
@@ -791,7 +792,7 @@ html.daterangepicker-open {
     }
 
     .form--submit-totxau {
-        padding: 24px 40px;
+        padding: 24px 20px;
     }
 
     .box-dtl-pc {
@@ -848,7 +849,7 @@ html.daterangepicker-open {
     }
 
     .form--submit-totxau {
-        padding: 24px 40px;
+        padding: 24px 24px;
     }
 
     .box-dtl-pc {
@@ -2012,19 +2013,17 @@ html.daterangepicker-open {
 
 .--border-box-form {
     border: 1px solid rgba(34, 84, 171, 1) !important;
-    border-radius: 5px !important;
-
+    border-radius: 12px !important;
 }
 
 .btn-light-settup {
-    border-radius: 99px;
+    border-radius: 12px;
     padding: 12px;
     background-color: rgba(43, 126, 229, 1);
     color: rgba(255, 255, 255, 1);
     border: none;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
-    max-width: 260px;
-
+    /* box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25); */
+    /* max-width: 260px; */
 }
 
 .--detail-success {

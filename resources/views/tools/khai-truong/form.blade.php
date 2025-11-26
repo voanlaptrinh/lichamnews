@@ -29,7 +29,7 @@
 
                 <div class="col-xl-9 col-sm-12 col-12 ">
                     <div class="backv-doi-lich ">
-                        <div class="row">
+                        <div class="row g-xl-5 g-lg-3 g-sm-5">
                             <div class="col-lg-8">
                                 <div class="">
                                     <div class="form--submit-totxau">
@@ -48,7 +48,7 @@
                                             <div class="row">
                                                 <!-- Name field -->
                                                 <div class="mb-3">
-                                                    <div class="fw-bold title-tong-quan-h2-log">Tên người xem</div>
+                                                    <div class="fw-bold title-tong-quan-h4-log" style="color: #192E52; padding-bottom: 12px;">Tên người xem</div>
                                                     <input type="text"
                                                         class="form-control --border-box-form @error('user_name') is-invalid @enderror"
                                                         id="user_name" name="user_name" placeholder="Nhập tên của bạn"
@@ -61,7 +61,7 @@
 
                                                 <div class="mb-3">
                                                     <!-- Date Selects -->
-                                                    <div class="fw-bold title-tong-quan-h2-log">Ngày sinh của gia chủ</div>
+                                                    <div class="fw-bold title-tong-quan-h4-log" style="color: #192E52; padding-bottom: 12px;">Ngày sinh của gia chủ</div>
                                                     <div class="row g-2 mb-2">
                                                         <div class="col-6 col-sm-4 col-lg-4 col-xl-4">
                                                             <div class="position-relative">
@@ -142,7 +142,7 @@
 
 
                                                 <div class="input-group mb-4">
-                                                    <div for="date_range" class="fw-bold title-tong-quan-h2-log">Dự kiến
+                                                    <div for="date_range" class="fw-bold title-tong-quan-h4-log" >Dự kiến
                                                         thời gian khai trương</div>
                                                     <div class="input-group">
                                                         <input type="text"
@@ -150,11 +150,11 @@
                                                             id="date_range" name="date_range"
                                                             placeholder="DD/MM/YY - DD/MM/YY" autocomplete="off"
                                                             value="{{ old('date_range', $inputs['date_range'] ?? '') }}"
-                                                            style="border-radius: 10px; border: none; padding: 12px 45px 12px 15px; background-color: rgba(255,255,255,0.95); cursor: pointer;">
-                                                        <span class="input-group-text bg-transparent border-0"
-                                                            style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); z-index: 5; pointer-events: none;">
-                                                            <i class="bi-calendar-date-fill text-muted"></i>
-                                                        </span>
+                                                            style="border-radius: 10px; border: none; padding: 12px 30px 12px 15px; background-color: rgba(255,255,255,0.95); cursor: pointer;">
+                                                      <span class="input-group-text bg-transparent border-0"
+                                                        style="position: absolute; right: 2px; top: 50%; transform: translateY(-50%); z-index: 5; pointer-events: none;">
+                                                       <img src="{{ asset('images/date1-icon.svg') }}" alt="icon ngày tháng năm" class="img-fluid">
+                                                    </span>
                                                     </div>
                                                     @error('date_range')
                                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -175,10 +175,18 @@
 
                                 </div>
                             </div>
-                            <div class="col-lg-4 d-none d-lg-block d-flex">
-                                <div class="d-flex align-items-end h-100 w-100">
-                                    <img src="{{ asset('/icons/datedoilich.svg') }}" alt="ảnh đổi lich"
-                                        class="img-fluid">
+                            <div class="col-lg-4 d-none d-lg-flex">
+                                <div class="d-flex align-items-center justify-content-center h-100 w-100"
+                                    style="padding: 32px 32px 32px 0px;">
+                                    <div class="d-flex align-items-center justify-content-center h-100 w-100" style=" background-image: url(../images/form_khaitruong.svg);
+                                    background-repeat: no-repeat;
+                                    background-size: cover;
+                                    align-items: normal;
+                                    background-position: center center;
+                                    overflow: hidden;
+                                    border-radius: 12px">
+                                        
+                                    </div>
                                 </div>
                             </div>
                         </div>

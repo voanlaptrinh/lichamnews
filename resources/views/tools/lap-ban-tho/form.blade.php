@@ -26,7 +26,7 @@
             <div class="row g-lg-3 g-2 pt-lg-3 pt-2">
                 <div class="col-xl-9 col-sm-12 col-12 ">
                     <div class="backv-doi-lich ">
-                        <div class="row">
+                        <div class="row g-xl-5 g-lg-3 g-sm-5">
                             <div class="col-lg-8">
                                 <div class="">
                                     <div class="form--submit-totxau">
@@ -35,12 +35,11 @@
 
                                             <div class="row g-1">
                                                 <div class="">
-                                                    <div class="fw-bold title-tong-quan-h2-log mb-3"
-                                                        style="color: rgba(25, 46, 82, 1); border-bottom: 1px solid #ddd; padding-bottom: 8px;">
+                                                    <div class="fw-bold title-tong-quan-h2-log mb-3" style="color: #192E52"></div>
                                                         Thông tin gia chủ
                                                     </div>
                                                 </div>
-
+                                                <hr>
                                                 <div class="mb-3">
                                                     <div for="birthdate" class="fw-bold title-tong-quan-h4-log mb-2">Ngày
                                                         sinh</div>
@@ -124,7 +123,8 @@
                                                 </div>
 
                                                 <div class="input-group mb-4">
-                                                    <div for="date_range" class="fw-bold title-tong-quan-h4-log">Dự kiến
+                                                    <div for="date_range" class="fw-bold title-tong-quan-h4-log"
+                                                        style="color: #192E52; padding-bottom: 12px;"> Dự kiến
                                                         thời gian lập bàn thờ</div>
                                                     <div class="input-group">
                                                         <input type="text"
@@ -132,10 +132,11 @@
                                                             id="date_range" name="date_range"
                                                             placeholder="DD/MM/YY - DD/MM/YY" autocomplete="off"
                                                             value="{{ old('date_range', $inputs['date_range'] ?? '') }}"
-                                                            style="border-radius: 10px; border: none; padding: 12px 45px 12px 15px; background-color: rgba(255,255,255,0.95); cursor: pointer;">
+                                                            style="border-radius: 10px; border: none; padding: 12px 30px 12px 15px; background-color: rgba(255,255,255,0.95); cursor: pointer;">
                                                         <span class="input-group-text bg-transparent border-0"
-                                                            style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); z-index: 5; pointer-events: none;">
-                                                            <i class="bi-calendar-date-fill text-muted"></i>
+                                                            style="position: absolute; right: 2px; top: 50%; transform: translateY(-50%); z-index: 5; pointer-events: none;">
+                                                            <img src="{{ asset('images/date1-icon.svg') }}"
+                                                                alt="icon ngày tháng năm" class="img-fluid">
                                                         </span>
                                                     </div>
                                                     @error('date_range')
@@ -155,10 +156,19 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-4 d-none d-lg-block d-flex">
-                                <div class="d-flex align-items-end h-100 w-100">
-                                    <img src="{{ asset('/icons/datedoilich.svg') }}" alt="ảnh lập bàn thờ"
-                                        class="img-fluid">
+                            <div class="col-lg-4 d-none d-lg-flex">
+                                <div class="d-flex align-items-center justify-content-center h-100 w-100"
+                                    style="padding: 32px 32px 32px 0px;">
+                                    <div class="d-flex align-items-center justify-content-center h-100 w-100"
+                                        style=" background-image: url(../images/form_lapban.svg);
+                                    background-repeat: no-repeat;
+                                    background-size: cover;
+                                    align-items: normal;
+                                    background-position: center center;
+                                    overflow: hidden;
+                                    border-radius: 12px">
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1021,9 +1031,7 @@
 
                 // Update load more button với total filtered rows
                 const remaining = totalFilteredRows - currentLoaded;
-                console.log(
-                    `DEBUG BUTTON: totalFilteredRows=${totalFilteredRows}, currentLoaded=${currentLoaded}, remaining=${remaining}`
-                );
+
 
                 if (remaining > 0) {
                     const nextLoad = Math.min(10, remaining);
@@ -1031,10 +1039,10 @@
                         `Xem thêm`;
                     loadMoreBtn.style.display = '';
                     loadMoreBtn.setAttribute('data-total', totalFilteredRows);
-                   
+
                 } else {
                     loadMoreBtn.style.display = 'none';
-                    console.log(`DEBUG BUTTON: Hiding button - no remaining items`);
+
                 }
             }
         });
