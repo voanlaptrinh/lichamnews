@@ -84,7 +84,7 @@
                         <i class="bi bi-chevron-down"></i>
                     </span>
                     <ul class="dropdown-menu">
-                        <li><a href="{{ route('horoscope.index') }}">Lá số tử vi</a></li>
+                        <li><a href="{{ route('laso.create') }}">Lá số tử vi</a></li>
 
                         {{-- <li><a href="">Tìm phòng</a></li> --}}
                     </ul>
@@ -209,7 +209,7 @@
                     <i class="bi bi-chevron-down arrow-icon"></i>
                 </span>
                 <ul class="mobile-submenu">
-                    <li><a href="{{ route('horoscope.index') }}">Lá số tử vi</a></li>
+                    <li><a href="{{ route('laso.create') }}">Lá số tử vi</a></li>
                   
 
                 </ul>

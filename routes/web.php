@@ -14,6 +14,7 @@ use App\Http\Controllers\HoroscopeController;
 use App\Http\Controllers\KhaiTruongController;
 use App\Http\Controllers\KyHopDongController;
 use App\Http\Controllers\LapBanThoController;
+use App\Http\Controllers\LasoController;
 use App\Http\Controllers\LichController;
 use App\Http\Controllers\ListController;
 use App\Http\Controllers\LunarController;
@@ -224,6 +225,14 @@ Route::get('/', [GiayToController::class, 'showForm'])->name('giay-to.form');
 Route::post('/', [GiayToController::class, 'checkDays'])->name('giay-to.check');
     Route::get('/chi-tiet/{date}', [GiayToController::class, 'showDayDetails'])->name('giay-to.details');
 });
+
+
+Route::get('/laso', [LasoController::class, 'create'])->name('laso.create');
+
+// Route để nhận dữ liệu từ form và gọi API
+Route::post('/laso', [LaSoController::class, 'submitToApi'])->name('laso.submit');
+Route::get('/laso/download', [LasoController::class, 'downloadImage'])->name('laso.download');
+Route::get('/laso/image-proxy', [LasoController::class, 'proxyImage'])->name('laso.image_proxy');
 
 
 
