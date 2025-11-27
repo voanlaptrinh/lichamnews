@@ -3,6 +3,8 @@
 @section('content')
     @push('styles')
         <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=10.7') }}">
+        
+           
     @endpush
 
     <div class="container-setup">
@@ -92,14 +94,16 @@
                         <li class="nav-item" role="presentation">
                             <button class="nav-link active" id="groom-tab" data-bs-toggle="tab"
                                 data-bs-target="#groom-tab-pane" type="button" role="tab"
-                                aria-controls="groom-tab-pane" aria-selected="true">
-                                <i class="fas fa-male me-2"></i> Luận Giải cho Chú Rể
+                                aria-controls="groom-tab-pane" aria-selected="true" data-short="Chú Rể">
+                                <i class="fas fa-male me-2"></i>
+                                <span>Luận giải cho Chú Rể</span>
                             </button>
                         </li>
                         <li class="nav-item" role="presentation">
                             <button class="nav-link" id="bride-tab" data-bs-toggle="tab" data-bs-target="#bride-tab-pane"
-                                type="button" role="tab" aria-controls="bride-tab-pane" aria-selected="false">
-                                <i class="fas fa-female me-2"></i> Luận Giải cho Cô Dâu
+                                type="button" role="tab" aria-controls="bride-tab-pane" aria-selected="false" data-short="Cô Dâu">
+                                <i class="fas fa-female me-2"></i>
+                                <span>Luận giải cho Cô Dâu</span>
                             </button>
                         </li>
                     </ul>

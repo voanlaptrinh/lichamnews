@@ -2,13 +2,8 @@
 @section('content')
     @push('styles')
         <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=10.7') }}">
-    @endpush
-
-    @push('scripts')
-        <script src="{{ asset('/js/lunar-solar-date-select.js?v=2.0') }}" defer></script>
-    @endpush
-    <style>
-        .main-content-wrapper {
+        <style>
+             .main-content-wrapper {
             background-image: url(../images/Quy_Trinh_Bg.png);
             background-repeat: no-repeat;
             background-size: cover;
@@ -16,92 +11,13 @@
             background-position: center center;
             overflow: hidden;
         }
+        </style>
+    @endpush
 
-        .style-input {
-            border-radius: 10px;
-            border: none;
-            padding: 12px 15px;
-            background-color: rgba(255, 255, 255, 0.95);
-        }
+    @push('scripts')
+        <script src="{{ asset('/js/lunar-solar-date-select.js?v=2.0') }}" defer></script>
+    @endpush
 
-        /* Loading state cho submit button */
-        #submitBtn.loading {
-            opacity: 0.7;
-            cursor: not-allowed;
-        }
-
-        #submitBtn:disabled {
-            opacity: 0.7;
-            cursor: not-allowed;
-        }
-
-        .spinner-border-sm {
-            width: 1rem;
-            height: 1rem;
-        }
-
-        /* Image zoom container for modal */
-        .img-zoom-container {
-            position: relative;
-            display: inline-block;
-            cursor: crosshair;
-        }
-
-        .img-zoom-lens {
-            position: absolute;
-            border: 1px solid #d4af37;
-            width: 150px;
-            height: 150px;
-            background-color: rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(2px);
-            border-radius: 50%;
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
-            pointer-events: none;
-            z-index: 1000;
-            display: none;
-        }
-
-        .img-zoom-result {
-            position: absolute;
-            border: 2px solid #d4af37;
-            width: 300px;
-            height: 300px;
-            background-repeat: no-repeat;
-            z-index: 1001;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            display: none;
-            background-color: white;
-        }
-
-        .img-zoom-result::before {
-            content: '';
-            position: absolute;
-            top: -5px;
-            left: -5px;
-            right: -5px;
-            bottom: -5px;
-            background: linear-gradient(45deg, #d4af37, #f4f0c0, #d4af37);
-            border-radius: 18px;
-            z-index: -1;
-        }
-         .laso-image {
-            max-height: 80vh;
-            max-width: 100%;
-            width: auto;
-            height: auto;
-            object-fit: contain;
-        }
-
-        /* Mobile responsive cho lá số */
-        @media (max-width: 768px) {
-            .laso-image {
-                max-height: 70vh;
-                max-width: 95vw;
-            }
-        }
-
-    </style>
     <div class="bg-la-so">
         <div class="container-setup">
             <nav aria-label="breadcrumb" class="content-title-detail">
@@ -122,9 +38,7 @@
 
 
              @if (isset($imageUrl) && $imageUrl)
-                <div class="mt-5">
-                 
-                       
+                <div class="mt-2">                       
                         <div class=" text-center">
                             <div class="d-flex justify-content-center">
                                 <div class="img-zoom-container" id="img-zoom-container">
@@ -168,7 +82,7 @@
 
 
 
-                            <form action="{{ route('laso.submit') }}" method="POST">
+                            <form id="lasoForm" action="{{ route('laso.submit') }}" method="POST">
                                 @csrf
                                 <div class="row gx-4 gx-md-4 gx-sm-1">
 
@@ -666,12 +580,21 @@
             updateHiddenFields();
             zodiacCombinedSelect.addEventListener('change', updateHiddenFields);
 
-            // Hàm scroll về đầu trang để chỉnh sửa
+            // Hàm scroll xuống form để chỉnh sửa
             window.scrollToTop = function() {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
+                const form = document.getElementById('lasoForm');
+                if (form) {
+                    form.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                } else {
+                    // Fallback: scroll về đầu trang
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                }
             }
 
             // Initialize image zoom nếu có ảnh hiển thị
@@ -713,6 +636,9 @@
 
                         result.style.backgroundSize = `${imgDisplayWidth * zoomRatio}px ${imgDisplayHeight * zoomRatio}px`;
                         result.style.backgroundRepeat = 'no-repeat';
+
+                        // Debug: xác nhận ảnh đã load
+                        console.log('Zoom background image loaded successfully');
                     };
 
                     bgImg.onerror = function() {
@@ -720,6 +646,9 @@
                         result.style.backgroundImage = `url("${img.src}")`;
                         result.style.backgroundSize = `${img.clientWidth * zoomRatio}px ${img.clientHeight * zoomRatio}px`;
                         result.style.backgroundRepeat = 'no-repeat';
+
+                        // Debug: báo lỗi và dùng fallback
+                        console.log('Using fallback image source for zoom');
                     };
 
                     bgImg.src = img.src;
@@ -771,6 +700,16 @@
                         let resultX = imgRect.width + 20;
                         let resultY = y - (resultHeight / 2);
 
+                        // Kiểm tra và điều chỉnh vị trí để không bị đẩy ra ngoài viewport
+                        const imgContainerRect = imgZoomContainer.getBoundingClientRect();
+
+                        // Giới hạn resultY trong viewport
+                        const minY = -imgContainerRect.top + 20; // Cách top viewport 20px
+                        const maxY = window.innerHeight - resultHeight - 20 - imgContainerRect.top; // Cách bottom viewport 20px
+
+                        resultY = Math.max(minY, Math.min(maxY, resultY));
+
+                        // Kiểm tra vị trí X
                         if (resultX + resultWidth > window.innerWidth - 20) {
                             resultX = -resultWidth - 20;
                         }
@@ -778,10 +717,15 @@
                         result.style.left = resultX + 'px';
                         result.style.top = resultY + 'px';
 
-                        const bgPosX = ((lensX + lensWidth/2) / imgRect.width) * 100;
-                        const bgPosY = ((lensY + lensHeight/2) / imgRect.height) * 100;
+                        // Tính toán background position chính xác cho zoom
+                        const centerX = lensX + lensWidth/2;
+                        const centerY = lensY + lensHeight/2;
 
-                        result.style.backgroundPosition = `${bgPosX}% ${bgPosY}%`;
+                        // Background position phải được tính ngược lại cho zoom effect
+                        const bgPosX = -(centerX * zoomRatio - resultWidth/2);
+                        const bgPosY = -(centerY * zoomRatio - resultHeight/2);
+
+                        result.style.backgroundPosition = `${bgPosX}px ${bgPosY}px`;
                     }
                 }
             }

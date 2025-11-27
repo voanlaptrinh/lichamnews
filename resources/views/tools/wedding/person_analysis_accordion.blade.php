@@ -1,6 +1,6 @@
 {{-- File này nhận vào 2 biến: $personData và $commonData --}}
 <div class="card border-0 mb-3 w-100 box-detial-year">
-    <div class="card-body ">
+    <div class="card-body p-0">
         <div class="text-primary mb-2 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
             <div>
                 <img src="{{ asset('icons/dac-diem1.svg') }}" alt="thông tin người xem" width="28" height="28"

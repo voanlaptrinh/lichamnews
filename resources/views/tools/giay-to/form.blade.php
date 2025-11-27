@@ -803,13 +803,13 @@
                                 }
                             }
 
-                            console.log('No date found for row');
+
                             return new Date(0); // Default date nếu không tìm thấy
                         };
 
                         const dateA = getDateFromRow(a);
                         const dateB = getDateFromRow(b);
-                        console.log('Sorting dates:', sortValue, dateA, dateB);
+                   
                         return sortValue === 'date-asc' ? dateA - dateB : dateB - dateA;
                     }
 

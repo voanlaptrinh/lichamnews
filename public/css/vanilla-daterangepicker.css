@@ -166,7 +166,7 @@
     border-color: #3b82f6;
 }
 
-.filter-option input:checked ~ .checkmark {
+.filter-option input:checked~.checkmark {
     background-color: #3b82f6;
     border-color: #3b82f6;
 }
@@ -184,7 +184,7 @@
     transform: rotate(45deg);
 }
 
-.filter-option input:checked ~ .checkmark:after {
+.filter-option input:checked~.checkmark:after {
     display: block;
 }
 
@@ -309,6 +309,7 @@
         opacity: 0;
         transform: translateY(-10px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -341,14 +342,16 @@
 /* Desktop - đảm bảo popup hiện dưới button */
 @media (min-width: 769px) {
     .taboo-filter-modal {
- position: absolute !important;
-    top: calc(100% + 5px) !important;
+        position: absolute !important;
+        top: calc(100% + 5px) !important;
 
-    left: 50% !important;     /* đẩy popup về giữa cha */
-    transform: translateX(-50%) !important; /* căn giữa chuẩn */
+        left: 50% !important;
+        /* đẩy popup về giữa cha */
+        transform: translateX(-50%) !important;
+        /* căn giữa chuẩn */
 
-    right: auto !important;
-    max-height: 500px !important;
+        right: auto !important;
+        max-height: 500px !important;
     }
 }
 
@@ -710,7 +713,8 @@ html.daterangepicker-open {
     .score-battery-mb {
         display: none;
     }
-    .table-layout{
+
+    .table-layout {
         table-layout: fixed;
     }
 }
@@ -720,9 +724,11 @@ html.daterangepicker-open {
     .daterangepicker-container {
         max-width: 500px;
     }
-.table-layout{
+
+    .table-layout {
         table-layout: fixed;
     }
+
     .score-battery-mb {
         display: none;
     }
@@ -774,9 +780,11 @@ html.daterangepicker-open {
         /* min-width: 450px; */
         max-width: 500px;
     }
-.table-layout{
+
+    .table-layout {
         table-layout: fixed;
     }
+
     .score-battery-mb {
         display: none;
     }
@@ -823,9 +831,11 @@ html.daterangepicker-open {
         /* min-width: 500px; */
         max-width: 550px;
     }
-.table-layout{
+
+    .table-layout {
         table-layout: fixed;
     }
+
     .score-battery-mb {
         display: none;
     }
@@ -979,12 +989,15 @@ html.daterangepicker-open {
         /* max-height: 90vh; */
         overflow: hidden;
     }
- .score-header{
+
+    .score-header {
         display: none;
     }
-    .score-battery-pc{
+
+    .score-battery-pc {
         display: none;
     }
+
     .score-battery-mb {
         display: flex;
     }
@@ -1090,12 +1103,15 @@ html.daterangepicker-open {
     .form--submit-totxau {
         padding: 14px 20px;
     }
-    .score-header{
+
+    .score-header {
         display: none;
     }
-    .score-battery-pc{
+
+    .score-battery-pc {
         display: none;
     }
+
     .box-dtl-pc {
         display: none;
     }
@@ -1871,8 +1887,9 @@ html.daterangepicker-open {
     white-space: nowrap;
 
 }
-.box-tab-white{
-     background: white;
+
+.box-tab-white {
+    background: white;
     padding: 8px;
     border-radius: 12px;
 }
@@ -2781,11 +2798,13 @@ th {
     position: absolute;
     top: 50%;
     right: 0;
-    transform: translate(-50%, -50%); /* canh giữa hoàn hảo */
+    transform: translate(-50%, -50%);
+    /* canh giữa hoàn hảo */
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    display: flex; /* bật flex để căn chữ giữa */
+    display: flex;
+    /* bật flex để căn chữ giữa */
     align-items: center;
     justify-content: center;
     font-size: 10px;
@@ -2824,12 +2843,14 @@ th {
 }
 
 .score-circle-groom {
-    background-color: #E3F2FD; /* Light blue for groom */
+    background-color: #E3F2FD;
+    /* Light blue for groom */
     border-color: #2196F3;
 }
 
 .score-circle-bride {
-    background-color: #FCE4EC; /* Light pink for bride */
+    background-color: #FCE4EC;
+    /* Light pink for bride */
     border-color: #E91E63;
 }
 
@@ -2854,6 +2875,7 @@ th {
         opacity: 0;
         transform: translateY(10px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -2863,26 +2885,32 @@ th {
 
 /* Responsive behavior for Score Circle */
 @media (min-width: 768px) {
+
     /* Desktop - ẩn circle, hiện battery PC */
     .score-circle-mobile {
         display: none !important;
     }
+
     .score-battery-pc {
         display: table-cell !important;
     }
+
     .score-battery-mb {
         display: none !important;
     }
 }
 
 @media (max-width: 767px) {
+
     /* Mobile - hiện circle, ẩn battery PC */
     .score-circle-mobile {
         display: flex !important;
     }
+
     .score-battery-pc {
         display: none !important;
     }
+
     .score-battery-mb {
         display: none !important;
     }
@@ -2896,10 +2924,12 @@ th {
     .table-responsive td:nth-child(2) {
         padding-right: 45px !important;
     }
-.table-responsive th:nth-child(2){
-      border-radius: 0 8px 8px 0;
 
-}
+    .table-responsive th:nth-child(2) {
+        border-radius: 0 8px 8px 0;
+
+    }
+
     /* Ẩn cột điểm trên mobile vì đã có circle */
     .table-responsive th:nth-child(3),
     .table-responsive td:nth-child(3) {
@@ -2913,6 +2943,7 @@ th {
 
 /* Mobile responsive for wedding dual circles */
 @media (max-width: 767px) {
+
     /* Wedding specific - hiện dual circles cho wedding page */
     .score-circles-wedding {
         display: flex !important;
@@ -2925,21 +2956,25 @@ th {
 }
 
 @media (min-width: 768px) {
+
     /* Desktop - ẩn wedding circles */
     .score-circles-wedding {
         display: none !important;
     }
 }
-.small{
+
+.small {
     font-size: 13px;
 }
-.alert-success{
+
+.alert-success {
     background: #D1E7DD;
     border: 1px solid #A3CFBB;
     padding: 1rem;
     border-radius: 0.375rem;
 }
-.load-more-btn{
+
+.load-more-btn {
     padding-right: 20px;
     padding-left: 20px;
     /* max-width: 300px; */
@@ -2949,3 +2984,194 @@ th {
 }
 
 
+
+.style-input {
+    border-radius: 10px;
+    border: none;
+    padding: 12px 15px;
+    background-color: rgba(255, 255, 255, 0.95);
+}
+
+/* Loading state cho submit button */
+#submitBtn.loading {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+#submitBtn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.spinner-border-sm {
+    width: 1rem;
+    height: 1rem;
+}
+
+/* Image zoom container for modal */
+.img-zoom-container {
+    position: relative;
+    display: inline-block;
+    cursor: crosshair;
+}
+
+.img-zoom-lens {
+    position: absolute;
+    border: 2px solid #d4af37;
+    width: 150px !important;
+    height: 150px !important;
+    background-color: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(2px);
+    /* border-radius: 50% !important; */
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+    pointer-events: none;
+    z-index: 1000;
+    display: none;
+    /* Đảm bảo hình tròn hoàn hảo */
+    box-sizing: border-box;
+}
+
+.img-zoom-result {
+    position: absolute;
+    border: 2px solid #d4af37;
+    width: 300px;
+    height: 300px;
+    background-repeat: no-repeat;
+    z-index: 1001;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    display: none;
+    background-color: white;
+}
+
+/* Loại bỏ gradient để ảnh hiển thị đúng */
+.img-zoom-result::before {
+    display: none;
+}
+
+.laso-image {
+    max-height: 80vh;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    /* Đảm bảo ảnh responsive với tỷ lệ khung hình khác nhau */
+    display: block;
+    margin: 0 auto;
+}
+
+/* Mobile responsive cho lá số */
+@media (max-width: 768px) {
+    .laso-image {
+        max-height: 70vh;
+        max-width: 95vw;
+    }
+}
+
+/* Điều chỉnh zoom result cho ảnh dọc */
+.img-zoom-result {
+    /* Kích thước zoom result tự động theo tỷ lệ ảnh */
+    min-width: 250px;
+    min-height: 250px;
+    max-width: 400px;
+    max-height: 600px;
+}
+
+/* CSS cho personTab luôn nằm 1 hàng đẹp */
+#personTab {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    justify-content: center;
+    align-items: center;
+    white-space: nowrap;
+    gap: 15px;
+}
+
+#personTab .nav-item {
+    flex: 1;
+    min-width: 0;
+}
+
+#personTab .nav-link {
+    padding: 12px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-radius: 10px 10px 0 0;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+    border: 1px solid #dee2e6;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    color: #495057;
+    margin: 0;
+    position: relative;
+}
+
+#personTab .nav-link:hover {
+    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+    color: #1976d2;
+    border-color: #2196f3;
+}
+
+#personTab .nav-link.active {
+    background: linear-gradient(135deg, #2196f3 0%, #1976d2 100%);
+    color: white;
+    border-color: #1565c0;
+}
+
+#personTab .nav-link.active:hover {
+    background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    #personTab {
+        gap: 10px;
+    }
+
+    #personTab .nav-link {
+        font-size: 12px;
+        padding: 10px 8px;
+        flex-direction: column;
+        gap: 4px;
+        margin: 0;
+    }
+
+    #personTab .nav-link i {
+        margin-right: 0 !important;
+        margin-bottom: 2px;
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 576px) {
+    #personTab {
+        gap: 8px;
+    }
+
+    #personTab .nav-link {
+        font-size: 10px;
+        padding: 8px 6px;
+        margin: 0;
+    }
+
+    #personTab .nav-link i {
+        font-size: 14px;
+    }
+
+    #personTab .nav-link span {
+        display: none;
+    }
+
+    #personTab .nav-link:after {
+        content: attr(data-short);
+        font-weight: 600;
+        font-size: 10px;
+    }
+}

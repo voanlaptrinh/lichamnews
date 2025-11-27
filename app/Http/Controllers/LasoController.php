@@ -156,12 +156,16 @@ class LasoController extends Controller
 
                 $metaTitle = "Lá Số Tử Vi Online – Luận Giải Tử Vi 12 Cung, Chính Xác & Miễn Phí";
                 $metaDescription = "Xem lá số tử vi online theo ngày tháng năm sinh. Luận giải 12 cung, sao hạn, vận mệnh, tính cách, công danh – đầy đủ, dễ hiểu, miễn phí và chính xác.";
+                // Lấy dữ liệu từ session để truyền vào view
+                $lastInput = session('laso_last_input', []);
+
                 // Trả về một view mới để hiển thị ảnh
                 return view('la-so-tu-vi.form', [
                     'metaTitle' => $metaTitle,
                     'metaDescription' => $metaDescription,
                     'imageUrl' => $imageUrl,
-                    'normalizedData' => $normalizedData
+                    'normalizedData' => $normalizedData,
+                    'lastInput' => $lastInput
                 ]);
             } else {
                 // API trả về lỗi (ví dụ: validation thất bại bên phía API)

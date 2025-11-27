@@ -245,14 +245,14 @@
                     </div>
 
                     <div class="card border-0 mb-3 w-100 box-detial-year">
-                        <div class="card-body box1-con-year">
+                        <div class="card-body p-0 box1-con-year">
                             <div
                                 class="text-primary mb-2 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
                                 <div>
                                     <img src="{{ asset('icons/dac-diem1.svg') }}" alt="thông tin chi tiết" width="28"
                                         height="28" class="me-1">
                                 </div>
-                                <div>Các yếu tố chi tiết</div>
+                                <div>Các yếu tố</div>
                             </div>
                             <div>
                                 <div class="card-body p-0">
@@ -262,7 +262,7 @@
                                                 <button class="accordion-button collapsed" type="button"
                                                     data-bs-toggle="collapse"
                                                     data-bs-target="#collapse-canchi-{{ Str::slug($hostData['personTitle']) }}">
-                                                    Xem Can Chi - Khí vận & tuổi hợp/xung trong ngày cải táng
+                                                    Xem Can Chi - Khí vận & tuổi hợp/xung trong ngày
                                                 </button>
                                             </h2>
                                             <div id="collapse-canchi-{{ Str::slug($hostData['personTitle']) }}"
