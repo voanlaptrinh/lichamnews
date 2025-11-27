@@ -14,7 +14,8 @@
                     <a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
                 </li>
                 <li class="breadcrumb-item" aria-current="page">
-                            <a href="{{ route('totxau.list') }}"  style="color: #2254AB; text-decoration: underline;">Xem ngày tốt</a>
+                    <a href="{{ route('totxau.list') }}" style="color: #2254AB; text-decoration: underline;">Xem ngày
+                        tốt</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
                     Xem ngày kết hôn
@@ -46,11 +47,12 @@
                                             <div class="row">
                                                 {{-- Ngày sinh Chú rể --}}
                                                 <div class="col-md-12 mb-3">
-                                                    <div for="date_range" class="fw-bold title-tong-quan-h4-log" style="color: #192E52; padding-bottom: 12px;">Ngày sinh
+                                                    <div for="date_range" class="fw-bold title-tong-quan-h4-log"
+                                                        style="color: #192E52; padding-bottom: 12px;">Ngày sinh
                                                         Chú rể</div>
 
                                                     {{-- Date Selects --}}
-                                                    <div class="row g-2 mb-2">  
+                                                    <div class="row g-2 mb-2">
                                                         <div class="col-6 col-sm-4 col-lg-4 col-xl-4">
                                                             <div class="position-relative">
                                                                 <select class="form-select pe-5 --border-box-form"
@@ -129,7 +131,8 @@
 
                                                 {{-- Ngày sinh Cô dâu --}}
                                                 <div class="col-md-12 mb-3">
-                                                    <div for="date_range" class="fw-bold title-tong-quan-h4-log" style="color: #192E52; padding-bottom: 12px;">Ngày sinh
+                                                    <div for="date_range" class="fw-bold title-tong-quan-h4-log"
+                                                        style="color: #192E52; padding-bottom: 12px;">Ngày sinh
                                                         Cô dâu</div>
 
                                                     {{-- Date Selects --}}
@@ -213,7 +216,8 @@
 
                                                 {{-- Khoảng ngày dự định cưới --}}
                                                 <div class="col-md-12 mb-3">
-                                                    <div for="date_range" class="fw-bold title-tong-quan-h4-log" style="color: #192E52; padding-bottom: 12px;">Khoảng
+                                                    <div for="date_range" class="fw-bold title-tong-quan-h4-log"
+                                                        style="color: #192E52; padding-bottom: 12px;">Khoảng
                                                         ngày dự kiến cưới</div>
                                                     <div class="input-group">
                                                         <input type="text"
@@ -222,10 +226,11 @@
                                                             placeholder="DD/MM/YY - DD/MM/YY" autocomplete="off"
                                                             value="{{ old('wedding_date_range', $inputs['wedding_date_range'] ?? '') }}"
                                                             style="border-radius: 10px; border: none; padding: 12px 30px 12px 15px; background-color: rgba(255,255,255,0.95); cursor: pointer;">
-                                                       <span class="input-group-text bg-transparent border-0"
-                                                        style="position: absolute; right: 2px; top: 50%; transform: translateY(-50%); z-index: 5; pointer-events: none;">
-                                                       <img src="{{ asset('images/date1-icon.svg') }}" alt="icon ngày tháng năm" class="img-fluid">
-                                                    </span>
+                                                        <span class="input-group-text bg-transparent border-0"
+                                                            style="position: absolute; right: 2px; top: 50%; transform: translateY(-50%); z-index: 5; pointer-events: none;">
+                                                            <img src="{{ asset('images/date1-icon.svg') }}"
+                                                                alt="icon ngày tháng năm" class="img-fluid">
+                                                        </span>
                                                     </div>
                                                     @error('wedding_date_range')
                                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -248,14 +253,15 @@
                             <div class="col-lg-4 d-none d-lg-flex">
                                 <div class="d-flex align-items-center justify-content-center h-100 w-100"
                                     style="padding: 32px 32px 32px 0px;">
-                                    <div class="d-flex align-items-center justify-content-center h-100 w-100" style=" background-image: url(../images/form_kethon.svg);
+                                    <div class="d-flex align-items-center justify-content-center h-100 w-100"
+                                        style=" background-image: url(../images/form_kethon.svg);
                                     background-repeat: no-repeat;
                                     background-size: cover;
                                     align-items: normal;
                                     background-position: center center;
                                     overflow: hidden;
                                     border-radius: 12px">
-                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -1048,11 +1054,25 @@
                                     initPagination();
                                 }, 200);
                             }, 500);
-
-                            resultsContainer.scrollIntoView({
-                                behavior: 'smooth',
-                                block: 'start'
-                            });
+                            setTimeout(() => {
+                                const contentBoxSuccess = document.getElementById(
+                                    'content-box-success');
+                                if (contentBoxSuccess) {
+                                    contentBoxSuccess.scrollIntoView({
+                                        behavior: 'smooth',
+                                        block: 'start'
+                                    });
+                                } else {
+                                    resultsContainer.scrollIntoView({
+                                        behavior: 'smooth',
+                                        block: 'start'
+                                    });
+                                }
+                            }, 600);
+                            // resultsContainer.scrollIntoView({
+                            //     behavior: 'smooth',
+                            //     block: 'start'
+                            // });
 
                             const tabs = resultsContainer.querySelectorAll('[data-bs-toggle="tab"]');
                             tabs.forEach(tab => {
@@ -1336,7 +1356,7 @@
                         `Xem thêm`;
                     loadMoreBtn.style.display = '';
                     loadMoreBtn.setAttribute('data-total', totalFilteredRows);
-               
+
                 } else {
                     loadMoreBtn.style.display = 'none';
                     console.log(`DEBUG BUTTON: Hiding button - no remaining items`);

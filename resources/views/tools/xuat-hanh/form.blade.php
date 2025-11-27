@@ -12,7 +12,8 @@
                     <a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
                 </li>
                 <li class="breadcrumb-item" aria-current="page">
-                            <a href="{{ route('totxau.list') }}"  style="color: #2254AB; text-decoration: underline;">Xem ngày tốt</a>
+                    <a href="{{ route('totxau.list') }}" style="color: #2254AB; text-decoration: underline;">Xem ngày
+                        tốt</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
                     Xem ngày xuất hành
@@ -37,7 +38,7 @@
                                             Thông tin người
                                             xem
                                         </div>
-                                        <p class=""  style=" font-size: 14px; color: #212121;">Bạn hãy nhập thông tin
+                                        <p class="" style=" font-size: 14px; color: #212121;">Bạn hãy nhập thông tin
                                             vào
                                             ô dưới
                                             đây để xem ngày tốt xấu</p>
@@ -129,7 +130,8 @@
 
 
                                                 <div class="input-group mb-4">
-                                                    <div for="date_range" class="fw-bold title-tong-quan-h4-log"  style="color: #192E52; padding-bottom: 12px;">Dự kiến
+                                                    <div for="date_range" class="fw-bold title-tong-quan-h4-log"
+                                                        style="color: #192E52; padding-bottom: 12px;">Dự kiến
                                                         thời gian xuất hành</div>
                                                     <div class="input-group">
                                                         <input type="text"
@@ -138,10 +140,11 @@
                                                             placeholder="DD/MM/YY - DD/MM/YY" autocomplete="off"
                                                             value="{{ old('date_range', $inputs['date_range'] ?? '') }}"
                                                             style="border-radius: 10px; border: none; padding: 12px 30px 12px 15px; background-color: rgba(255,255,255,0.95); cursor: pointer;">
-                                                    <span class="input-group-text bg-transparent border-0"
-                                                        style="position: absolute; right: 2px; top: 50%; transform: translateY(-50%); z-index: 5; pointer-events: none;">
-                                                       <img src="{{ asset('images/date1-icon.svg') }}" alt="icon ngày tháng năm" class="img-fluid">
-                                                    </span>
+                                                        <span class="input-group-text bg-transparent border-0"
+                                                            style="position: absolute; right: 2px; top: 50%; transform: translateY(-50%); z-index: 5; pointer-events: none;">
+                                                            <img src="{{ asset('images/date1-icon.svg') }}"
+                                                                alt="icon ngày tháng năm" class="img-fluid">
+                                                        </span>
                                                     </div>
                                                     @error('date_range')
                                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -161,17 +164,18 @@
                                     </div>
                                 </div>
                             </div>
-                             <div class="col-lg-4 d-none d-lg-flex">
+                            <div class="col-lg-4 d-none d-lg-flex">
                                 <div class="d-flex align-items-center justify-content-center h-100 w-100"
                                     style="padding: 32px 32px 32px 0px;">
-                                    <div class="d-flex align-items-center justify-content-center h-100 w-100" style=" background-image: url(../images/form_xuathanh.svg);
+                                    <div class="d-flex align-items-center justify-content-center h-100 w-100"
+                                        style=" background-image: url(../images/form_xuathanh.svg);
                                     background-repeat: no-repeat;
                                     background-size: cover;
                                     align-items: normal;
                                     background-position: center center;
                                     overflow: hidden;
                                     border-radius: 12px">
-                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -674,11 +678,26 @@
 
                                 // Scroll to results with delay to ensure content is rendered
                                 setTimeout(() => {
-                                    resultsContainer.scrollIntoView({
-                                        behavior: 'smooth',
-                                        block: 'start'
-                                    });
-                                }, 100);
+                                    const contentBoxSuccess = document.getElementById(
+                                        'content-box-success');
+                                    if (contentBoxSuccess) {
+                                        contentBoxSuccess.scrollIntoView({
+                                            behavior: 'smooth',
+                                            block: 'start'
+                                        });
+                                    } else {
+                                        resultsContainer.scrollIntoView({
+                                            behavior: 'smooth',
+                                            block: 'start'
+                                        });
+                                    }
+                                }, 600);
+                                // setTimeout(() => {
+                                //     resultsContainer.scrollIntoView({
+                                //         behavior: 'smooth',
+                                //         block: 'start'
+                                //     });
+                                // }, 100);
 
                                 // Re-initialize Bootstrap tabs if present
                                 const tabs = resultsContainer.querySelectorAll('[data-bs-toggle="tab"]');
@@ -736,9 +755,7 @@
                 }
 
                 function handleContainerChange(event) {
-                    console.log('Change event detected on:', event.target);
-                    console.log('Target name:', event.target.name);
-                    console.log('Target value:', event.target.value);
+
 
                     if (event.target.name === 'sort') {
                         console.log('Sort dropdown changed to:', event.target.value);

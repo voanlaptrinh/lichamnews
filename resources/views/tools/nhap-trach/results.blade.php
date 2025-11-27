@@ -1,4 +1,4 @@
-<div class="w-100">
+<div class="w-100" id="content-box-succes">
     @if (isset($resultsByYear) && count($resultsByYear) > 0)
         <!-- Feng Shui Analysis Section -->
         <div class="card border-0 mb-3 w-100 box-detial-year">

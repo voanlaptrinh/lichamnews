@@ -837,12 +837,20 @@
                             window.resultsByYear = data.resultsByYear;
 
                             // Scroll to results with delay to ensure content is rendered
-                            setTimeout(() => {
-                                resultsContainer.scrollIntoView({
-                                    behavior: 'smooth',
-                                    block: 'start'
-                                });
-                            }, 500);
+                             setTimeout(() => {
+                                const contentBoxSuccess = document.getElementById('content-box-success');
+                                if (contentBoxSuccess) {
+                                    contentBoxSuccess.scrollIntoView({
+                                        behavior: 'smooth',
+                                        block: 'start'
+                                    });
+                                } else {
+                                    resultsContainer.scrollIntoView({
+                                        behavior: 'smooth',
+                                        block: 'start'
+                                    });
+                                }
+                            }, 600);
 
                             // Re-initialize Bootstrap tabs if present
                             const tabs = resultsContainer.querySelectorAll('[data-bs-toggle="tab"]');

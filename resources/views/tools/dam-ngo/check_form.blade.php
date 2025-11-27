@@ -972,10 +972,20 @@
                                 }, 200);
                             }, 500);
 
-                            resultsContainer.scrollIntoView({
-                                behavior: 'smooth',
-                                block: 'start'
-                            });
+                            setTimeout(() => {
+                                const contentBoxSuccess = document.getElementById('content-box-success');
+                                if (contentBoxSuccess) {
+                                    contentBoxSuccess.scrollIntoView({
+                                        behavior: 'smooth',
+                                        block: 'start'
+                                    });
+                                } else {
+                                    resultsContainer.scrollIntoView({
+                                        behavior: 'smooth',
+                                        block: 'start'
+                                    });
+                                }
+                            }, 600);
 
                             const tabs = resultsContainer.querySelectorAll('[data-bs-toggle="tab"]');
                             tabs.forEach(tab => {

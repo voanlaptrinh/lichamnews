@@ -12,7 +12,8 @@
                     <a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
                 </li>
                 <li class="breadcrumb-item" aria-current="page">
-                            <a href="{{ route('totxau.list') }}"  style="color: #2254AB; text-decoration: underline;">Xem ngày tốt</a>
+                    <a href="{{ route('totxau.list') }}" style="color: #2254AB; text-decoration: underline;">Xem ngày
+                        tốt</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
                     Xem ngày lập bàn thờ
@@ -680,11 +681,25 @@
                                     setupContainerEventDelegation();
                                 }, 200);
                             }, 500);
-
-                            resultsContainer.scrollIntoView({
-                                behavior: 'smooth',
-                                block: 'start'
-                            });
+                            setTimeout(() => {
+                                const contentBoxSuccess = document.getElementById(
+                                    'content-box-success');
+                                if (contentBoxSuccess) {
+                                    contentBoxSuccess.scrollIntoView({
+                                        behavior: 'smooth',
+                                        block: 'start'
+                                    });
+                                } else {
+                                    resultsContainer.scrollIntoView({
+                                        behavior: 'smooth',
+                                        block: 'start'
+                                    });
+                                }
+                            }, 600);
+                            // resultsContainer.scrollIntoView({
+                            //     behavior: 'smooth',
+                            //     block: 'start'
+                            // });
                             const tabs = resultsContainer.querySelectorAll('[data-bs-toggle="pill"]');
                             tabs.forEach(tab => {
                                 new bootstrap.Tab(tab);

@@ -806,12 +806,20 @@
                             resultsContainer.innerHTML = data.html;
 
                             // Scroll to results with delay to ensure content is rendered
-                            setTimeout(() => {
-                                resultsContainer.scrollIntoView({
-                                    behavior: 'smooth',
-                                    block: 'start'
-                                });
-                            }, 100);
+                             setTimeout(() => {
+                                const contentBoxSuccess = document.getElementById('content-box-success');
+                                if (contentBoxSuccess) {
+                                    contentBoxSuccess.scrollIntoView({
+                                        behavior: 'smooth',
+                                        block: 'start'
+                                    });
+                                } else {
+                                    resultsContainer.scrollIntoView({
+                                        behavior: 'smooth',
+                                        block: 'start'
+                                    });
+                                }
+                            }, 600);
 
                             // Re-initialize Bootstrap tabs if present
                             resultsContainer.querySelectorAll('[data-bs-toggle="tab"]')

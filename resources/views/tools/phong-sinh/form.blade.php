@@ -710,64 +710,24 @@
                                 setTimeout(() => {
                                     if (data.resultsByYear && typeof initTabooFilter ===
                                         'function') {
-                                        console.log(
-                                            'Phong Sinh Form: Initializing taboo filter with data:',
-                                            data.resultsByYear);
-                                        console.log(
-                                            'Phong Sinh Form: Available sort dropdowns:',
-                                            document.querySelectorAll(
-                                                '[name="sort"]').length);
+                                    
 
                                         // Debug sort dropdown content
                                         const sortDropdowns = document.querySelectorAll(
                                             '[name="sort"]');
-                                        sortDropdowns.forEach((dropdown, index) => {
-                                            console.log(
-                                                `Sort dropdown ${index + 1}:`, {
-                                                    value: dropdown.value,
-                                                    options: Array.from(
-                                                        dropdown.options
-                                                    ).map(opt => opt
-                                                        .value),
-                                                    hasDateOptions: Array
-                                                        .from(dropdown
-                                                            .options).some(
-                                                            opt => opt.value
-                                                            .includes(
-                                                                'date'))
-                                                });
-                                        });
-
+                                       
                                         initTabooFilter(data.resultsByYear);
-                                        console.log(
-                                            'Phong Sinh Form: Taboo filter initialized successfully'
-                                        );
-
+                                      
                                         // Check legacy system detection after init
                                         setTimeout(() => {
                                             const hasLegacy = document
                                                 .querySelector(
                                                     '.--detail-success');
-                                            console.log(
-                                                'Phong Sinh Form: Legacy system detected?',
-                                                !!hasLegacy);
-
+                                           
                                             const sortElements = document
                                                 .querySelectorAll(
                                                     '[name="sort"]');
-                                            sortElements.forEach((el, idx) => {
-                                                console.log(
-                                                    `Sort element ${idx + 1} has event listeners:`, {
-                                                        hasTabooHandler:
-                                                            !!el
-                                                            ._tabooSortHandler,
-                                                        parentTab: el
-                                                            .closest(
-                                                                '.tab-pane'
-                                                            )
-                                                            ?.id
-                                                    });
-                                            });
+                                            
                                         }, 100);
 
                                         // Test sort functionality after init
@@ -775,9 +735,7 @@
                                             const firstSortDropdown = document
                                                 .querySelector('[name="sort"]');
                                             if (firstSortDropdown) {
-                                                console.log(
-                                                    'Phong Sinh Form: Testing sort functionality...'
-                                                );
+                                           
                                                 const originalValue =
                                                     firstSortDropdown.value;
 
@@ -818,12 +776,26 @@
                             }, 300);
 
                             // Scroll to results with delay to ensure content is rendered
-                            setTimeout(() => {
-                                resultsContainer.scrollIntoView({
-                                    behavior: 'smooth',
-                                    block: 'start'
-                                });
-                            }, 100);
+                              setTimeout(() => {
+                                const contentBoxSuccess = document.getElementById('content-box-success');
+                                if (contentBoxSuccess) {
+                                    contentBoxSuccess.scrollIntoView({
+                                        behavior: 'smooth',
+                                        block: 'start'
+                                    });
+                                } else {
+                                    resultsContainer.scrollIntoView({
+                                        behavior: 'smooth',
+                                        block: 'start'
+                                    });
+                                }
+                            }, 600);
+                            // setTimeout(() => {
+                            //     resultsContainer.scrollIntoView({
+                            //         behavior: 'smooth',
+                            //         block: 'start'
+                            //     });
+                            // }, 100);
 
                             // Re-initialize Bootstrap tabs if present
                             const tabs = resultsContainer.querySelectorAll('[data-bs-toggle="tab"]');

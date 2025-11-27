@@ -729,14 +729,27 @@
                             if (resultsContainer) {
                                 resultsContainer.style.display = 'block';
                                 resultsContainer.innerHTML = data.html;
-
-                                // Smooth scroll to results
-                                setTimeout(() => {
+  setTimeout(() => {
+                                const contentBoxSuccess = document.getElementById('content-box-success');
+                                if (contentBoxSuccess) {
+                                    contentBoxSuccess.scrollIntoView({
+                                        behavior: 'smooth',
+                                        block: 'start'
+                                    });
+                                } else {
                                     resultsContainer.scrollIntoView({
                                         behavior: 'smooth',
                                         block: 'start'
                                     });
-                                }, 100);
+                                }
+                            }, 600);
+                                // Smooth scroll to results
+                                // setTimeout(() => {
+                                //     resultsContainer.scrollIntoView({
+                                //         behavior: 'smooth',
+                                //         block: 'start'
+                                //     });
+                                // }, 100);
 
                                 // Re-initialize Bootstrap tabs using modern approach
                                 resultsContainer.querySelectorAll('[data-bs-toggle="tab"]')

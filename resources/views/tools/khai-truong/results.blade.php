@@ -1,4 +1,4 @@
-<div class="w-100">
+<div class="w-100" id="content-box-succes">
     <!-- Tabs cho các năm -->
     @if (isset($resultsByYear) && count($resultsByYear) > 0)
          <div class="box-tab-white mb-3">

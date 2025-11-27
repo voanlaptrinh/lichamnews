@@ -664,10 +664,21 @@
                                 }, 200);
                             }, 500);
 
-                            resultsContainer.scrollIntoView({
-                                behavior: 'smooth',
-                                block: 'start'
-                            });
+                            // Scroll tới content-box-success sau khi HTML đã render xong
+                            setTimeout(() => {
+                                const contentBoxSuccess = document.getElementById('content-box-success');
+                                if (contentBoxSuccess) {
+                                    contentBoxSuccess.scrollIntoView({
+                                        behavior: 'smooth',
+                                        block: 'start'
+                                    });
+                                } else {
+                                    resultsContainer.scrollIntoView({
+                                        behavior: 'smooth',
+                                        block: 'start'
+                                    });
+                                }
+                            }, 600);
                             const tabs = resultsContainer.querySelectorAll('[data-bs-toggle="pill"]');
                             tabs.forEach(tab => {
                                 new bootstrap.Tab(tab);
@@ -711,10 +722,7 @@
             }
 
             function handleContainerChange(event) {
-                console.log('Change event detected on:', event.target);
-                console.log('Target name:', event.target.name);
-                console.log('Target value:', event.target.value);
-
+              
                 if (event.target.name === 'sort') {
                     console.log('Sort dropdown changed to:', event.target.value);
                     event.preventDefault();
@@ -724,7 +732,7 @@
                     const parentTabPane = event.target.closest('.tab-pane');
                     const year = parentTabPane ? parentTabPane.id.replace('year-', '') : null;
 
-                    console.log('Sorting for year:', year);
+                 
 
                     // Sync all sort dropdowns to same value
                     const allSortSelects = document.querySelectorAll('[name="sort"]');

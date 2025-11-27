@@ -1,4 +1,4 @@
-<div class="w-100">
+<div class="w-100" id="content-box-succes">
     
 
     @if (isset($resultsByYear) && count($resultsByYear) > 0)
