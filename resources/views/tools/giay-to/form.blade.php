@@ -762,16 +762,64 @@
             }
 
             function applySortingToTable(sortValue) {
-                const table = document.querySelector('#bang-chi-tiet table tbody');
+                // Tìm table trong tab hiện tại đang active
+                const activeTab = document.querySelector('.tab-pane.active');
+                if (!activeTab) return;
+
+                const table = activeTab.querySelector('#bang-chi-tiet table tbody');
                 if (!table) return;
 
                 const rows = Array.from(table.querySelectorAll('tr'));
+
                 rows.sort((a, b) => {
+                    // Sắp xếp theo ngày
+                    if (sortValue === 'date-asc' || sortValue === 'date-desc') {
+                        const getDateFromRow = (row) => {
+                            // Tìm element chứa ngày - dùng selector đơn giản hơn
+                            const dateElement = row.querySelector('td:first-child strong');
+                            if (dateElement) {
+                                // Extract date from text like "Thứ 2, 01/12/2024"
+                                const text = dateElement.textContent.trim();
+                                console.log('Date text found:', text); // Debug log
+                                const dateMatch = text.match(/(\d{1,2})\/(\d{1,2})\/(\d{4})/);
+                                if (dateMatch) {
+                                    const [, day, month, year] = dateMatch;
+                                    const dateObj = new Date(year, month - 1, day);
+                                    console.log('Parsed date:', dateObj); // Debug log
+                                    return dateObj;
+                                }
+                            }
+
+                            // Alternative: Tìm trong link href nếu có
+                            const linkElement = row.querySelector('a[href]');
+                            if (linkElement) {
+                                const href = linkElement.getAttribute('href');
+                                const dateMatch = href.match(/date=(\d{4})-(\d{1,2})-(\d{1,2})/);
+                                if (dateMatch) {
+                                    const [, year, month, day] = dateMatch;
+                                    const dateObj = new Date(year, month - 1, day);
+                                    console.log('Date from href:', dateObj);
+                                    return dateObj;
+                                }
+                            }
+
+                            console.log('No date found for row');
+                            return new Date(0); // Default date nếu không tìm thấy
+                        };
+
+                        const dateA = getDateFromRow(a);
+                        const dateB = getDateFromRow(b);
+                        console.log('Sorting dates:', sortValue, dateA, dateB);
+                        return sortValue === 'date-asc' ? dateA - dateB : dateB - dateA;
+                    }
+
+                    // Sắp xếp theo điểm (logic cũ)
                     const scoreA = getScoreFromRow(a);
                     const scoreB = getScoreFromRow(b);
                     return sortValue === 'asc' ? scoreA - scoreB : scoreB - scoreA;
                 });
 
+                // Clear và thêm lại rows
                 table.innerHTML = '';
                 rows.forEach(row => table.appendChild(row));
             }
