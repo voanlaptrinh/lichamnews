@@ -387,14 +387,7 @@
                                                             @endif
                                                         </td>
                                                     </tr>
-                                                    </tr>
-                                                    </tr>
-                                                    </tr>
-                                                    </tr>
-                                                    </tr>
-                                                    </tr>
-                                                    </tr>
-                                                    </tr>
+                                                   
                                                 @endif
 
                                                 <tr>
@@ -484,7 +477,7 @@
                             <div class="card border-0 mb-3 w-100 box-detial-year">
                                 <div class="card-body box1-con-year">
                                     @include('tools.dam-ngo.person_analysis_accordion', [
-                                        'personData' => $groomData,
+                                        'personData' => $brideData,
                                         'commonData' => $commonDayInfo,
                                     ])
 

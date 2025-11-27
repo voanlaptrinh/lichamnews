@@ -776,7 +776,7 @@ class DataHelper
             'chi' => [
                 'Dần' => ['Ly Sàng', 'Thổ Cẩm', 'Tội Chỉ'],
                 'Dậu' => ['Câu Trận Hắc Đạo', 'Hoả Tai', 'Phi Ma Sát (Tai Sát)', 'Quả Tú', 'Thổ Ôn (Thiên Cẩu)'],
-                'Hợi' => ['Lôi Công', 'Nhân Cách', 'Đại Hao (Tử Khí, Quan Phú)'],
+                'Hợi' => ['Lôi Công', 'Nhân Cách', 'Đại Hao (Tử khí, quan phú)'],
                 'Mão' => ['Cô Thần', 'Lỗ Ban Sát', 'Thiên Hoả', 'Thiên Ngục'],
                 'Mùi' => ['Huyền Vũ Hắc Đạo', 'Không Phòng', 'Phủ Đầu Dát', 'Tam Tang', 'Thần Cách', 'Thổ Phủ'],
                 'Ngọ' => ['Ly Sàng', 'Nguyệt Kiến Chuyển Sát', 'Thiên Lao Hắc Đạo', 'Thiên Lại', 'Thụ Tử', 'Vãng Vong (Thổ Kỵ)'],
@@ -5598,6 +5598,16 @@ class DataHelper
     ];
 
     // Kim Thần Thất Sát theo Thiên Can (can => list chi)
+    //   "Giáp": ["Ngọ", "Mùi", "Thân", "Dậu"],
+    // "Kỷ": ["Ngọ", "Mùi", "Thân", "Dậu"], // Giáp hợp Kỷ
+    // "Ất": ["Thìn", "Tỵ"],
+    // "Canh": ["Thìn", "Tỵ"], // Ất hợp Canh
+    // "Bính": ["Dần", "Mão", "Ngọ", "Mùi"],
+    // "Tân": ["Dần", "Mão", "Ngọ", "Mùi"], // Bính hợp Tân
+    // "Đinh": ["Dần", "Mão", "Tuất", "Hợi"],
+    // "Nhâm": ["Dần", "Mão", "Tuất", "Hợi"], // Đinh hợp Nhâm
+    // "Mậu": ["Thân", "Dậu", "Tý", "Sửu"],
+    // "Quý": ["Thân", "Dậu", "Tý", "Sửu"], // Mậu hợp Quý
     public static array $kimThanThatSat = [
         "Giáp" => ["Ngọ", "Mùi", "Thân", "Dậu"],
         "Kỷ" => ["Ngọ", "Mùi", "Thân", "Dậu"],

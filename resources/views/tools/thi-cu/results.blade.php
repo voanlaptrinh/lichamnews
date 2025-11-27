@@ -82,7 +82,7 @@
                                 <div>
                                     <select name="sort" class="form-select-sm sort-select" style="width: auto; height: 40px;">
                                         <option value="desc" selected>Điểm giảm dần</option>
-                                        <option value="asc">Điểm tăng dần</option>
+                                       
                                         <option value="date_asc">Ngày tăng dần</option>
                                         <option value="date_desc">Ngày giảm dần</option>
                                     </select>

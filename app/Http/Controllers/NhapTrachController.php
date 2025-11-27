@@ -347,7 +347,7 @@ Thời điểm cát lợi, vận khí hanh thông – rất thích hợp để a
         $lunarBirthYear = $lunarDob[2];
 
         // Tạo một Carbon object với năm âm lịch để truyền vào helper
-        $lunarDateForAnalysis = Carbon::create($lunarBirthYear, $groomDob->month, $groomDob->day);
+        $lunarDateForAnalysis = Carbon::create($groomDob->year, $groomDob->month, $groomDob->day);
         $groomData = BadDayHelper::getDetailedAnalysisForPerson($dateToCheck, $lunarDateForAnalysis, 'Ngày nhập trạch', 'NHAP_TRACH');
 
         // 5. Trả về view với toàn bộ dữ liệu

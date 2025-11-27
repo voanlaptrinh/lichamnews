@@ -764,6 +764,15 @@
                                                 }, 1000);
                                             }
                                         }, 500);
+
+                                        // Setup sort handlers
+                                        setTimeout(() => {
+                                            if (typeof setupSortHandlers === 'function') {
+                                                setupSortHandlers();
+                                                console.log('Phong Sinh Form: Sort handlers setup completed');
+                                            }
+                                        }, 600);
+
                                     } else {
                                         console.error(
                                             'Phong Sinh Form: initTabooFilter not available or no data', {
@@ -848,11 +857,71 @@
                 return 0;
             }
 
-            // getDateFromRow and applySortingToTable functions are now handled
-            // by taboo-filter-script component to avoid conflicts
+            // ========== SORT FUNCTIONALITY ==========
+            function setupSortHandlers() {
+                // Setup event listeners for sort dropdowns
+                const sortSelects = document.querySelectorAll('select[name="sort"]');
 
-            // Sorting is now handled by taboo-filter-script component
-            // Do not add duplicate sort handlers here to avoid conflicts
+                sortSelects.forEach(sortSelect => {
+                    sortSelect.addEventListener('change', function() {
+                        const sortValue = this.value;
+                        const year = this.closest('.tab-pane').id.replace('year-', '');
+                        applySortToTable(year, sortValue);
+                    });
+                });
+            }
+
+            function applySortToTable(year, sortValue) {
+                const targetTab = document.getElementById(`year-${year}`);
+                if (!targetTab) return;
+
+                const table = targetTab.querySelector('#bang-chi-tiet table tbody') ||
+                              targetTab.querySelector(`#table-${year} tbody`) ||
+                              targetTab.querySelector('.table tbody');
+
+                if (!table) return;
+
+                const rows = Array.from(table.querySelectorAll('tr'));
+
+                rows.sort((a, b) => {
+                    if (sortValue === 'date_asc' || sortValue === 'date_desc') {
+                        // Sort theo ngày
+                        const getDateFromRow = (row) => {
+                            // Tìm ngày trong text content
+                            const dateMatch = row.textContent.match(/(\d{1,2})\/(\d{1,2})\/(\d{4})/);
+                            if (dateMatch) {
+                                const [, day, month, year] = dateMatch;
+                                return new Date(year, month - 1, day);
+                            }
+                            return new Date(0); // Fallback date
+                        };
+
+                        const dateA = getDateFromRow(a);
+                        const dateB = getDateFromRow(b);
+                        return sortValue === 'date_asc' ? dateA - dateB : dateB - dateA;
+                    } else {
+                        // Sort theo điểm (desc/asc - nếu có)
+                        const getScoreFromRow = (row) => {
+                            // Tìm điểm trong các element có thể chứa điểm
+                            const scoreText = row.querySelector('.battery-label')?.textContent ||
+                                            row.querySelector('.score-circle-mobile')?.textContent ||
+                                            row.textContent.match(/(\d+)%/)?.[1];
+                            return parseInt(scoreText) || 0;
+                        };
+
+                        const scoreA = getScoreFromRow(a);
+                        const scoreB = getScoreFromRow(b);
+                        return sortValue === 'desc' ? scoreB - scoreA : scoreA - scoreB;
+                    }
+                });
+
+                // Clear table và thêm lại rows đã sort
+                table.innerHTML = '';
+                rows.forEach(row => table.appendChild(row));
+            }
+
+            // Setup sort handlers sau khi nhận response
+            window.setupSortHandlers = setupSortHandlers;
 
         });
     </script>

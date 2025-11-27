@@ -916,7 +916,6 @@ class FengShuiHelper //cần xác định xem gia chủ thuộc Tây Tứ Mệnh
         }
         $chi1Lower = strtolower($chi1);
         $chi2Lower = strtolower($chi2);
-
         if ((DataHelper::$LUC_XUNG[$chi1] ?? '') === $chi2) return "Lục xung";
         if ((DataHelper::$TUONG_HAI[$chi1] ?? '') === $chi2) return "Tương hại";
         if ((DataHelper::$TUONG_PHA[$chi1] ?? '') === $chi2) return "Tương phá";

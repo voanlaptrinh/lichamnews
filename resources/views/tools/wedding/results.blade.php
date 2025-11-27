@@ -184,7 +184,7 @@
                                                                 'border' => '#FC6803',
                                                                 'text' => '#FC6803',
                                                             ];
-                                                        } elseif ($groomScore <= 70) {
+                                                        } elseif ($groomScore < 70) {
                                                             $groomColor = [
                                                                 'bg' => '#FEF3C7',
                                                                 'border' => '#F59E0B',
@@ -211,7 +211,7 @@
                                                                 'border' => '#FC6803',
                                                                 'text' => '#FC6803',
                                                             ];
-                                                        } elseif ($brideScore <= 70) {
+                                                        } elseif ($brideScore < 70) {
                                                             $brideColor = [
                                                                 'bg' => '#FEF3C7',
                                                                 'border' => '#F59E0B',

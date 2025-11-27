@@ -354,7 +354,8 @@ class GoodBadDayHelper
         $day = (int)$date->format('d');
         $month = (int)$date->format('m');
         $year = (int)$date->format('Y');
-        $can = lunarHelper::canchiNam($year);
+           $lunar = lunarHelper::convertSolar2Lunar($day,  $month, $year);
+        $can = lunarHelper::canchiNam($lunar[2]);
         $canNam = explode(' ', $can);
         $canNam = $canNam[0]; //Ất
         $jd = LunarHelper::jdFromDate((int)$day, (int)$month, (int)$year);
@@ -363,6 +364,8 @@ class GoodBadDayHelper
         $chi_ngay  = $chi_ngay[1];
 
         $forbiddenChis = DataHelper::$kimThanThatSat[$canNam] ?? [];
+        // dd($chi_ngay, $canNam, $forbiddenChis); // dần // bính
+
         return in_array($chi_ngay, $forbiddenChis);
     }
 
@@ -729,6 +732,7 @@ class GoodBadDayHelper
                 $isTuHinh = ($birthChi === $dayChi);
 
 
+                $isTuongHinh = self::isTuongHinh($dayChi, $birthChi);
 
                 if ($isLucXung) {
                     $hopTuoiReason = "Lục xung";
@@ -736,6 +740,8 @@ class GoodBadDayHelper
                     $hopTuoiReason = "Tương hại";
                 } elseif ($isTuongPha) {
                     $hopTuoiReason = "Tương phá";
+                } elseif ($isTuongHinh) {
+                    $hopTuoiReason = "Tương hình";
                 } elseif ($isTuHinh) {
                     $hopTuoiReason = "Tự hình";
                 } else {
@@ -743,6 +749,7 @@ class GoodBadDayHelper
                 }
             }
         }
+        // dd($hopTuoiReason);
 
         // 4. Kiểm tra sao tốt
         $good_stars = self::getGoodStars($date);
@@ -770,6 +777,31 @@ class GoodBadDayHelper
             'good_stars' => $good_stars,
             'positive_factors' => $positive_factors,
         ];
+    }
+    public static function isTuongHinh(string $dayChi, string $birthChi): bool
+    {
+        // Hình Vô Ẩn (3 chi tự hình lẫn nhau)
+        if (
+            in_array($dayChi, DataHelper::$HINH_VO_AN_TRIPLE)
+            && in_array($birthChi, DataHelper::$HINH_VO_AN_TRIPLE)
+        ) {
+            return true;
+        }
+
+        // Hình Ý Thế (3 chi tự hình lẫn nhau)
+        if (
+            in_array($dayChi, DataHelper::$HINH_Y_THE_TRIPLE)
+            && in_array($birthChi, DataHelper::$HINH_Y_THE_TRIPLE)
+        ) {
+            return true;
+        }
+
+        // Hình Vô Lễ (đối hình 1-1)
+        if ((DataHelper::$HINH_VO_LE_PAIR[$dayChi] ?? null) === $birthChi) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -806,7 +838,6 @@ class GoodBadDayHelper
         $truc = NhiTrucHelper::getTruc($date->day, $date->month, $date->year);
 
         $info = DataHelper::$trucInfo[$truc] ?? null;
-
         if (!$info) {
             return false;
         }

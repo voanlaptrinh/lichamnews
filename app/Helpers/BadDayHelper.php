@@ -237,6 +237,7 @@ class BadDayHelper
     public static function getDetailedAnalysisForPerson(Carbon $dateToCheck, Carbon $personDob, string $personTitle, $purpose = ''): array
     {
         $personInfo = self::getPersonBasicInfo($personDob);
+ 
         $lunarDob = LunarHelper::convertSolar2Lunar($personDob->day, $personDob->month, $personDob->year);
         $getThongTinCanChiVaIcon = FunctionHelper::getThongTinCanChiVaIcon($dateToCheck->day, $dateToCheck->month, $dateToCheck->year);
         $chiNgay = explode(' ', $getThongTinCanChiVaIcon['can_chi_ngay'])[1] ?? '';
