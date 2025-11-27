@@ -241,7 +241,9 @@ class WeddingController extends Controller
     private function calculateAstrologyResults(Carbon $dob, int $yearToCheck, string $genderText): array
     {
         $birthYear = $dob->year;
-        $lunarAge = AstrologyHelper::getLunarAge($birthYear, $yearToCheck);
+            $birthdateal = LunarHelper::convertSolar2Lunar($dob->day, $dob->month, $dob->year);
+        
+        $lunarAge = AstrologyHelper::getLunarAge($birthdateal[2], $yearToCheck);
         $kimLau = AstrologyHelper::checkKimLau($lunarAge);
         $hoangOc = AstrologyHelper::checkHoangOc($lunarAge);
         $tamTai = AstrologyHelper::checkTamTai($birthYear, $yearToCheck);
@@ -280,91 +282,7 @@ class WeddingController extends Controller
             'is_bad_year' => count($badFactors) > 0, // Trạng thái tổng quan
         ];
     }
-    /**
-     * Hiển thị trang chi tiết điểm của một ngày cụ thể cho một người.
-     */
-    // public function showDayDetails(Request $request)
-    // {
-    //     // 1. Validate dữ liệu từ URL query
-    //     $validator = Validator::make($request->all(), [
-    //         'date' => 'required|date_format:Y-m-d',
-    //         'person_type' => 'required|in:groom,bride',
-    //         'groom_dob' => 'required|date_format:Y-m-d',
-    //         'bride_dob' => 'required|date_format:Y-m-d',
-    //     ]);
-
-    //     if ($validator->fails()) {
-    //         // Nếu có lỗi, có thể trả về một trang lỗi hoặc quay lại trang trước
-    //         return redirect()->back()->withErrors('Dữ liệu không hợp lệ để xem chi tiết.');
-    //     }
-
-    //     $validated = $validator->validated();
-
-    //     // 2. Chuẩn bị dữ liệu
-    //     $dateToCheck = Carbon::parse($validated['date']);
-    //     $groomDob = Carbon::parse($validated['groom_dob']);
-    //     $brideDob = Carbon::parse($validated['bride_dob']);
-
-    //     // Xác định thông tin của người cần xem
-    //     if ($validated['person_type'] === 'groom') {
-    //         $personDob = $groomDob;
-    //         $personInfo = $this->getPersonBasicInfo($groomDob);
-    //         $personTitle = 'Chú Rể';
-    //     } else {
-    //         $personDob = $brideDob;
-    //         $personInfo = $this->getPersonBasicInfo($brideDob);
-    //         $personTitle = 'Cô Dâu';
-    //     }
-
-    //     // 3. Tính toán lại điểm số chi tiết
-    //     $purpose = 'CUOI_HOI';
-    //     $scoreDetails = GoodBadDayHelper::calculateDayScore($dateToCheck, $personDob->year, $purpose);
-
-    //     $badDays = BadDayHelper::checkBadDays($dateToCheck);
-    //     // Chuẩn bị dữ liệu ngày tháng để hiển thị
-    //     $lunarParts = LunarHelper::convertSolar2Lunar($dateToCheck->day, $dateToCheck->month, $dateToCheck->year);
-    //     $dayCanChi = LunarHelper::canchiNgayByJD(LunarHelper::jdFromDate($dateToCheck->day, $dateToCheck->month, $dateToCheck->year));
-    //     $getThongTinNgay = FunctionHelper::getThongTinNgay($dateToCheck->day, $dateToCheck->month, $dateToCheck->year);
-    //     $noiKhiNgay =  KhiVanHelper::getDetailedNoiKhiExplanation($dateToCheck->day, $dateToCheck->month, $dateToCheck->year);
-    //     $nhiThapBatTu = FunctionHelper::nhiThapBatTu($dateToCheck->year, $dateToCheck->month, $dateToCheck->day);
-    //     $getThongTinTruc = FunctionHelper::getThongTinTruc($dateToCheck->day, $dateToCheck->month, $dateToCheck->year);
-    //     $getSaoTotXauInfo = FunctionHelper::getSaoTotXauInfo($dateToCheck->day, $dateToCheck->month, $dateToCheck->year);
-
-
-    //     $getThongTinCanChiVaIcon = FunctionHelper::getThongTinCanChiVaIcon($dateToCheck->day, $dateToCheck->month, $dateToCheck->year);
-    //     $personDobYear = $personDob->year;
-    //     $canChiYear = KhiVanHelper::canchiNam($personDobYear);
-
-    //     $chiNgay = explode(' ', $getThongTinCanChiVaIcon['can_chi_ngay'])[1] ?? '';
-
-    //     $getVongKhiNgayThang = KhiVanHelper::getDetailedKhiThangInfo($dateToCheck);
-    //     $getCucKhiHopXung = FengShuiHelper::getCucKhiHopXung($chiNgay);
-
-
-    //     $analyzeNgayVoiTuoi = FengShuiHelper::analyzeNgayVoiTuoi($getThongTinCanChiVaIcon['can_chi_ngay'], $canChiYear);
-
-
-
-    //     // 4. Trả về view chi tiết
-    //     return view('wedding.day_details', [
-    //         'personTitle' => $personTitle,
-    //         'personInfo' => $personInfo,
-    //         'dateToCheck' => $dateToCheck,
-    //         'lunarDateStr' => sprintf('Ngày %s (%02d/%02d)', $dayCanChi, $lunarParts[0], $lunarParts[1]),
-    //         'getThongTinNgay' => $getThongTinNgay,
-    //         'score' => $scoreDetails,
-    //         'badDays' => $badDays,
-    //         'noiKhiNgay' => $noiKhiNgay,
-    //         'nhiThapBatTu' => $nhiThapBatTu,
-    //         'getThongTinTruc' => $getThongTinTruc,
-    //         'getSaoTotXauInfo' => $getSaoTotXauInfo,
-    //         'al' => $lunarParts,
-    //         'getThongTinCanChiVaIcon' => $getThongTinCanChiVaIcon,
-    //         'getVongKhiNgayThang' => $getVongKhiNgayThang,
-    //         'getCucKhiHopXung' => $getCucKhiHopXung,
-    //         'analyzeNgayVoiTuoi' => $analyzeNgayVoiTuoi,
-    //     ]);
-    // }
+ 
     /**
      * [ĐÃ SỬA] Hiển thị trang chi tiết ngày cưới cho cả Chú rể và Cô dâu.
      *
