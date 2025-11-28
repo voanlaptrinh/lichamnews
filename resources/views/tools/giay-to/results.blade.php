@@ -201,7 +201,13 @@
                                                                 $day['date'],
                                                                 $birthdateInfo['dob']->year,
                                                             );
-                                                            if ($hopType) {
+                                                            $badTypes = ['Lục xung', 'Tương hại', 'Tương phá'];
+
+                                                            if (
+                                                                $hopType &&
+                                                                $hopType !== 'Trung bình (không xung, không hợp)' &&
+                                                                !in_array($hopType, $badTypes)
+                                                            ) {
                                                                 $supportFactors[] = "Ngày hợp tuổi: {$hopType}";
                                                             }
                                                         }

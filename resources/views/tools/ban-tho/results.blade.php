@@ -171,37 +171,61 @@
                                                     </a>
                                                 </td>
                                                 <td style="text-align: start">
-                                                    @php
+                                                       @php
                                                         $supportFactors = [];
 
-                                                        // Kiểm tra ngày hoàng đạo
-                                                        if (isset($day['day_score']['details']['hoang_dao']) && $day['day_score']['details']['hoang_dao']['score'] > 50) {
-                                                            $supportFactors[] = "Ngày hoàng đạo";
+                                                        // Kiểm tra ngày hoàng đạo - sử dụng helper
+                                                        if (
+                                                            isset($day['day_score']['hoangdao']) &&
+                                                            $day['day_score']['hoangdao'] === true
+                                                        ) {
+                                                            $starName = \App\Helpers\GoodBadDayHelper::getHoangDaoStar(
+                                                                $day['date'],
+                                                            );
+                                                            if ($starName) {
+                                                                $supportFactors[] = "Ngày hoàng đạo: Sao {$starName}";
+                                                            }
                                                         }
 
                                                         // Kiểm tra trực tốt
-                                                        if (isset($day['day_score']['details']['thap_nhi_truc']) && $day['day_score']['details']['thap_nhi_truc']['score'] > 50) {
-                                                            $supportFactors[] = "Trực tốt";
+                                                        if (
+                                                            isset($day['day_score']['tructot']) &&
+                                                            $day['day_score']['tructot'] === true
+                                                        ) {
+                                                            $trucName =
+                                                                $day['day_score']['truc']['details']['name'] ??
+                                                                'Không xác định';
+                                                            $supportFactors[] = "Trực tốt: Trực {$trucName}";
                                                         }
 
-                                                        // Kiểm tra nhị thập bát tú
-                                                        if (isset($day['day_score']['details']['nhi_thap_bat_tu']) && $day['day_score']['details']['nhi_thap_bat_tu']['score'] > 50) {
-                                                            $supportFactors[] = "Nhị thập bát tú tốt";
+                                                        // Kiểm tra hợp tuổi - sử dụng helper
+                                                        if (
+                                                            isset($day['day_score']['hopttuoi']) &&
+                                                            $day['day_score']['hopttuoi'] === true
+                                                        ) {
+                                                            $hopType = \App\Helpers\GoodBadDayHelper::getHopTuoiDetail(
+                                                                $day['date'],
+                                                                $birthdateInfo['dob']->year,
+                                                            );
+                                                            $badTypes = ['Lục xung', 'Tương hại', 'Tương phá'];
+
+                                                            if (
+                                                                $hopType &&
+                                                                $hopType !== 'Trung bình (không xung, không hợp)' &&
+                                                                !in_array($hopType, $badTypes)
+                                                            ) {
+                                                                $supportFactors[] = "Ngày hợp tuổi: {$hopType}";
+                                                            }
                                                         }
 
-                                                        // Kiểm tra sao tốt
-                                                        if (isset($day['day_score']['details']['sao_cat_hung']) && $day['day_score']['details']['sao_cat_hung']['score'] > 50) {
-                                                            $supportFactors[] = "Sao tốt";
+                                                        // Kiểm tra sao tốt - gộp thành 1 dòng
+                                                        $goodStars = $day['day_score']['good_stars'] ?? [];
+                                                        if (!empty($goodStars) && is_array($goodStars)) {
+                                                            $starNames = implode(', ', $goodStars);
+                                                            $supportFactors[] = "Sao tốt: {$starNames}";
                                                         }
 
-                                                        // Giờ tốt
-                                                        if (!empty($day['good_hours'])) {
-                                                            $goodHoursList = is_array($day['good_hours'])
-                                                                ? implode(', ', $day['good_hours'])
-                                                                : $day['good_hours'];
-                                                            $supportFactors[] = "Giờ hoàng đạo: {$goodHoursList}";
-                                                        }
-
+                                                        // Chỉ lấy tối đa 4 yếu tố
                                                         $supportFactors = array_slice(
                                                             array_unique($supportFactors),
                                                             0,
@@ -209,6 +233,7 @@
                                                         );
                                                         $supportCount = count($supportFactors);
                                                     @endphp
+                                                 
                                                     @if ($supportCount > 0)
                                                         <ul class="list-unstyled mb-0">
                                                             @foreach ($supportFactors as $factor)

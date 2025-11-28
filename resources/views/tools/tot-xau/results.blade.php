@@ -1,26 +1,26 @@
 <div class="w-100" id="content-box-succes">
     <!-- Tabs cho các năm -->
     @if (isset($resultsByYear) && count($resultsByYear) > 0)
-          <div class="box-tab-white mb-3">
-          <div class="year-tabs ">
-            <ul class="nav nav-pills">
-                @php $firstYear = true; @endphp
-                @foreach ($resultsByYear as $year => $yearData)
-                    <li class="nav-item">
-                        <a class="nav-link {{ $firstYear ? 'active' : '' }}" data-bs-toggle="pill"
-                            href="#year-{{ $year }}"
-                            style="border-radius: 20px; margin: 0 5px; padding: 8px 20px;">
-                            {{ $year }}
-                            @if (isset($yearData['canchi']))
-                                ({{ $yearData['canchi'] }})
-                            @endif
-                        </a>
-                    </li>
-                    @php $firstYear = false; @endphp
-                @endforeach
-            </ul>
+        <div class="box-tab-white mb-3">
+            <div class="year-tabs ">
+                <ul class="nav nav-pills">
+                    @php $firstYear = true; @endphp
+                    @foreach ($resultsByYear as $year => $yearData)
+                        <li class="nav-item">
+                            <a class="nav-link {{ $firstYear ? 'active' : '' }}" data-bs-toggle="pill"
+                                href="#year-{{ $year }}"
+                                style="border-radius: 20px; margin: 0 5px; padding: 8px 20px;">
+                                {{ $year }}
+                                @if (isset($yearData['canchi']))
+                                    ({{ $yearData['canchi'] }})
+                                @endif
+                            </a>
+                        </li>
+                        @php $firstYear = false; @endphp
+                    @endforeach
+                </ul>
+            </div>
         </div>
-                </div>
 
     @endif
 
@@ -79,8 +79,8 @@
                             <!-- Filter and Sort Controls - trực tiếp trên table -->
                             <div class="betwen-ds flex-wrap mb-3">
                                 <div class="text-primary mb-0 title-tong-quan-h4-log text-dark fw-bolder">
-                                    <img src="{{ asset('icons/k_nen_1.svg') }}" alt="thông tin người xem" width="28"
-                                        height="28" class="me-1"> Danh Sách Điểm Theo Ngày
+                                    <img src="{{ asset('icons/k_nen_1.svg') }}" alt="thông tin người xem"
+                                        width="28" height="28" class="me-1"> Danh Sách Điểm Theo Ngày
                                 </div>
                                 <div class="d-flex flex-wrap" style="gap: 10px">
                                     <div class="position-relative mb-3">
@@ -94,7 +94,8 @@
 
                                     <!-- Sắp xếp tích hợp điểm và ngày -->
                                     <div>
-                                        <select name="sort" class="form-select-sm sort-select" style="width: auto; height: 40px;">
+                                        <select name="sort" class="form-select-sm sort-select"
+                                            style="width: auto; height: 40px;">
                                             <option value="desc" selected>Điểm giảm dần</option>
                                             <option value="date_asc">Ngày tăng dần</option>
                                             <option value="date_desc">Ngày giảm dần</option>
@@ -104,7 +105,8 @@
                             </div>
 
                             <!-- Filter Status for this tab -->
-                            <div id="filterStatus-{{ $year }}" class="alert alert-success d-none mb-3" role="alert">
+                            <div id="filterStatus-{{ $year }}" class="alert alert-success d-none mb-3"
+                                role="alert">
                                 <i class="bi bi-funnel"></i>
                                 <span id="filterStatusText-{{ $year }}"></span>
                             </div>
@@ -122,21 +124,38 @@
                                     <tbody class="text-center table-body-{{ $year }}">
                                         @foreach ($yearData['days'] as $index => $day)
                                             @php
-                                                $score = $day['day_score']['score']['percentage'] ?? ($day['day_score']['percentage'] ?? 0);
+                                                $score =
+                                                    $day['day_score']['score']['percentage'] ??
+                                                    ($day['day_score']['percentage'] ?? 0);
 
                                                 // Lấy taboo days từ checkTabooDays issues
                                                 $tabooTypes = [];
-                                                if (isset($day['day_score']['score']['issues']) && is_array($day['day_score']['score']['issues'])) {
+                                                if (
+                                                    isset($day['day_score']['score']['issues']) &&
+                                                    is_array($day['day_score']['score']['issues'])
+                                                ) {
                                                     foreach ($day['day_score']['score']['issues'] as $issue) {
-                                                        if (isset($issue['source']) && $issue['source'] === 'Taboo' && isset($issue['details']['tabooName'])) {
+                                                        if (
+                                                            isset($issue['source']) &&
+                                                            $issue['source'] === 'Taboo' &&
+                                                            isset($issue['details']['tabooName'])
+                                                        ) {
                                                             $tabooTypes[] = $issue['details']['tabooName'];
                                                         }
                                                     }
                                                 }
                                                 // Fallback: kiểm tra trong day_score.issues (cấu trúc mới)
-                                                if (empty($tabooTypes) && isset($day['day_score']['issues']) && is_array($day['day_score']['issues'])) {
+                                                if (
+                                                    empty($tabooTypes) &&
+                                                    isset($day['day_score']['issues']) &&
+                                                    is_array($day['day_score']['issues'])
+                                                ) {
                                                     foreach ($day['day_score']['issues'] as $issue) {
-                                                        if (isset($issue['source']) && $issue['source'] === 'Taboo' && isset($issue['details']['tabooName'])) {
+                                                        if (
+                                                            isset($issue['source']) &&
+                                                            $issue['source'] === 'Taboo' &&
+                                                            isset($issue['details']['tabooName'])
+                                                        ) {
                                                             $tabooTypes[] = $issue['details']['tabooName'];
                                                         }
                                                     }
@@ -160,8 +179,7 @@
                                                     $text_box = '#10B981';
                                                 }
                                             @endphp
-                                            <tr class="table-row-{{ $year }}"
-                                                data-index="{{ $index }}"
+                                            <tr class="table-row-{{ $year }}" data-index="{{ $index }}"
                                                 style="{{ $index >= 10 ? 'display: none;' : '' }}"
                                                 data-visible="{{ $index < 10 ? 'true' : 'false' }}"
                                                 data-taboo-days="{{ implode(',', $tabooTypes) }}">
@@ -231,7 +249,13 @@
                                                                 $day['date'],
                                                                 $birthdateInfo['dob']->year,
                                                             );
-                                                            if ($hopType) {
+                                                            $badTypes = ['Lục xung', 'Tương hại', 'Tương phá'];
+
+                                                            if (
+                                                                $hopType &&
+                                                                $hopType !== 'Trung bình (không xung, không hợp)' &&
+                                                                !in_array($hopType, $badTypes)
+                                                            ) {
                                                                 $supportFactors[] = "Ngày hợp tuổi: {$hopType}";
                                                             }
                                                         }
@@ -337,7 +361,7 @@
                 <div class="filter-quick-actions">
                     <button type="button" id="selectCommon" class="btn-quick-action">Phổ biến</button>
                     <button type="button" id="selectAll" class="btn-quick-action">Tất cả</button>
-                   
+
                 </div>
 
                 <div class="filter-options">
@@ -409,5 +433,3 @@
 </div>
 
 @include('components.taboo-filter-script')
-
-   

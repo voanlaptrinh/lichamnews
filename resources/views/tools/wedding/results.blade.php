@@ -273,7 +273,7 @@
                                                         $supportFactors = [];
 
                                                         // Kiểm tra violations (phạm) trước
-                                                        $violations = $day['day_score']['pham']['issues'] ?? [];
+                                                        $violations = $day['groom_score']['pham']['issues'] ?? [];
                                                         if (is_string($violations)) {
                                                             $violations = json_decode($violations, true) ?: [];
                                                         }
@@ -291,8 +291,8 @@
 
                                                         // Kiểm tra ngày hoàng đạo - sử dụng helper
                                                         if (
-                                                            isset($day['day_score']['hoangdao']) &&
-                                                            $day['day_score']['hoangdao'] === true
+                                                            isset($day['groom_score']['hoangdao']) &&
+                                                            $day['groom_score']['hoangdao'] === true
                                                         ) {
                                                             $starName = \App\Helpers\GoodBadDayHelper::getHoangDaoStar(
                                                                 $day['date'],
@@ -304,11 +304,11 @@
 
                                                         // Kiểm tra trực tốt
                                                         if (
-                                                            isset($day['day_score']['tructot']) &&
-                                                            $day['day_score']['tructot'] === true
+                                                            isset($day['groom_score']['tructot']) &&
+                                                            $day['groom_score']['tructot'] === true
                                                         ) {
                                                             $trucName =
-                                                                $day['day_score']['truc']['details']['name'] ??
+                                                                $day['groom_score']['truc']['details']['name'] ??
                                                                 'Không xác định';
                                                             $supportFactors[] = "Trực tốt: Trực {$trucName}";
                                                         }
@@ -322,7 +322,13 @@
                                                                 $day['date'],
                                                                 $groomInfo['dob']->year,
                                                             );
-                                                            if ($hopType) {
+                                                           $badTypes = ['Lục xung', 'Tương hại', 'Tương phá'];
+
+                                                            if (
+                                                                $hopType &&
+                                                                $hopType !== 'Trung bình (không xung, không hợp)' &&
+                                                                !in_array($hopType, $badTypes)
+                                                            ) {
                                                                 $supportFactors[] = "Hợp tuổi chú rể: {$hopType}";
                                                             }
                                                         }
@@ -336,7 +342,13 @@
                                                                 $day['date'],
                                                                 $brideInfo['dob']->year,
                                                             );
-                                                            if ($hopType) {
+                                                            $badTypes = ['Lục xung', 'Tương hại', 'Tương phá'];
+
+                                                            if (
+                                                                $hopType &&
+                                                                $hopType !== 'Trung bình (không xung, không hợp)' &&
+                                                                !in_array($hopType, $badTypes)
+                                                            ) {
                                                                 $supportFactors[] = "Hợp tuổi cô dâu: {$hopType}";
                                                             }
                                                         }
@@ -350,20 +362,10 @@
                                                                 ', ',
                                                                 $day['groom_score']['good_stars'],
                                                             );
-                                                            $supportFactors[] = "Sao tốt chú rể: {$starNames}";
+                                                            $supportFactors[] = "Sao tốt: {$starNames}";
                                                         }
 
-                                                        // Kiểm tra sao tốt cô dâu
-                                                        if (
-                                                            isset($day['bride_score']['good_stars']) &&
-                                                            !empty($day['bride_score']['good_stars'])
-                                                        ) {
-                                                            $starNames = implode(
-                                                                ', ',
-                                                                $day['bride_score']['good_stars'],
-                                                            );
-                                                            $supportFactors[] = "Sao tốt cô dâu: {$starNames}";
-                                                        }
+                                                      
 
                                                         // Chỉ lấy tối đa 5 yếu tố
                                                         $supportFactors = array_slice(
