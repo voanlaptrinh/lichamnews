@@ -12,7 +12,8 @@
                     <a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
                 </li>
                 <li class="breadcrumb-item" aria-current="page">
-                            <a href="{{ route('totxau.list') }}"  style="color: #2254AB; text-decoration: underline;">Xem ngày tốt</a>
+                    <a href="{{ route('totxau.list') }}" style="color: #2254AB; text-decoration: underline;">Xem ngày
+                        tốt</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
                     Xem ngày ký hợp đồng
@@ -33,7 +34,8 @@
                                         <div class="fw-bold title-tong-quan-h2-log" style="color: #192E52">
                                             Thông tin người ký hợp đồng
                                         </div>
-                                        <p class=""  style=" font-size: 14px; color: #212121;">Bạn hãy nhập thông tin vào ô dưới đây để
+                                        <p class="" style=" font-size: 14px; color: #212121;">Bạn hãy nhập thông tin
+                                            vào ô dưới đây để
                                             xem ngày tốt ký hợp đồng</p>
 
                                         <form id="contractSigningForm">
@@ -41,7 +43,8 @@
 
                                             <div class="row">
                                                 <div class="mb-3">
-                                                    <div for="person_name" class="fw-bold title-tong-quan-h4-log "  style="color: #192E52; padding-bottom: 12px;">Tên
+                                                    <div for="person_name" class="fw-bold title-tong-quan-h4-log "
+                                                        style="color: #192E52; padding-bottom: 12px;">Tên
                                                         người ký hợp đồng</div>
                                                     <input type="text"
                                                         class="form-control --border-box-form @error('person_name') is-invalid @enderror"
@@ -55,7 +58,8 @@
                                                 </div>
 
                                                 <div class="mb-3">
-                                                    <div for="birthdate" class="fw-bold title-tong-quan-h4-log"  style="color: #192E52; padding-bottom: 12px;">Ngày
+                                                    <div for="birthdate" class="fw-bold title-tong-quan-h4-log"
+                                                        style="color: #192E52; padding-bottom: 12px;">Ngày
                                                         sinh</div>
                                                     <!-- Date Selects -->
                                                     <div class="row g-2 mb-2">
@@ -136,7 +140,8 @@
                                                 </div>
 
                                                 <div class="input-group mb-4">
-                                                    <div for="date_range" class="fw-bold title-tong-quan-h4-log"  style="color: #192E52; padding-bottom: 12px;">Dự kiến
+                                                    <div for="date_range" class="fw-bold title-tong-quan-h4-log"
+                                                        style="color: #192E52; padding-bottom: 12px;">Dự kiến
                                                         thời gian ký hợp đồng</div>
                                                     <div class="input-group">
                                                         <input type="text"
@@ -145,10 +150,11 @@
                                                             placeholder="DD/MM/YY - DD/MM/YY" autocomplete="off"
                                                             value="{{ old('date_range', $inputs['date_range'] ?? '') }}"
                                                             style="border-radius: 10px; border: none; padding: 12px 30px 12px 15px; background-color: rgba(255,255,255,0.95); cursor: pointer;">
-                                                       <span class="input-group-text bg-transparent border-0"
-                                                        style="position: absolute; right: 2px; top: 50%; transform: translateY(-50%); z-index: 5; pointer-events: none;">
-                                                       <img src="{{ asset('images/date1-icon.svg') }}" alt="icon ngày tháng năm" class="img-fluid">
-                                                    </span>
+                                                        <span class="input-group-text bg-transparent border-0"
+                                                            style="position: absolute; right: 2px; top: 50%; transform: translateY(-50%); z-index: 5; pointer-events: none;">
+                                                            <img src="{{ asset('images/date1-icon.svg') }}"
+                                                                alt="icon ngày tháng năm" class="img-fluid">
+                                                        </span>
                                                     </div>
                                                     @error('date_range')
                                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -167,17 +173,18 @@
                                     </div>
                                 </div>
                             </div>
-                              <div class="col-lg-4 d-none d-lg-flex">
+                            <div class="col-lg-4 d-none d-lg-flex">
                                 <div class="d-flex align-items-center justify-content-center h-100 w-100"
                                     style="padding: 32px 32px 32px 0px;">
-                                    <div class="d-flex align-items-center justify-content-center h-100 w-100" style=" background-image: url(../images/form_kyhopdong.svg);
+                                    <div class="d-flex align-items-center justify-content-center h-100 w-100"
+                                        style=" background-image: url(../images/form_kyhopdong.svg);
                                     background-repeat: no-repeat;
                                     background-size: cover;
                                     align-items: normal;
                                     background-position: center center;
                                     overflow: hidden;
                                     border-radius: 12px">
-                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -283,51 +290,71 @@
                             <h2 class="title-tong-quan-h3-log fw-bolder">
                                 Những ngày KHÔNG nên ký hợp đồng
                             </h2>
-                            <h3 class="title-tong-quan-h4-log">
-                                1. Ngày Hắc đạo
-                            </h3>
-                            <ul class="mb-1">
-                                <li>Câu Trận</li>
-                                <li>Bạch Hổ</li>
-                                <li>Thiên Lao</li>
-                                <li>Nguyên Vũ</li>
+                            <ul class="mb-1" style="list-style-type: decimal;">
+                                <li>
+                                    <h3 class="title-tong-quan-h4-log">
+                                        Ngày Hắc đạo
+                                    </h3>
+
+                                    <ul class="mb-1">
+                                        <li>Câu Trận</li>
+                                        <li>Bạch Hổ</li>
+                                        <li>Thiên Lao</li>
+                                        <li>Nguyên Vũ</li>
+                                    </ul>
+                                    <p class="mb-1"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                            height="16" fill="currentColor" class="bi bi-arrow-right"
+                                            viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd"
+                                                d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
+                                        </svg> Đây là nhóm ngày xấu dễ gây thị phi, tranh chấp, kiện tụng.
+                                    </p>
+                                </li>
+                                <li>
+                                    <h3 class="title-tong-quan-h4-log">
+                                        Trực xấu
+                                    </h3>
+                                    <ul class="mb-1">
+                                        <li>Trực Phá → Hỏng việc</li>
+                                        <li>Trực Nguy → Bất ổn, tiềm ẩn rủi ro</li>
+                                        <li>Trực Thu → Hao hụt, thất thoát</li>
+                                        <li>Trực Bế → Bế tắc, dễ xảy ra tranh cãi</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <h3 class="title-tong-quan-h4-log">
+                                        Ngày xung tuổi
+                                    </h3>
+                                    <p class="mb-1"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                            height="16" fill="currentColor" class="bi bi-arrow-right"
+                                            viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd"
+                                                d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
+                                        </svg> Hai bên dễ bất đồng, ký kết không thuận lợi.</p>
+                                </li>
+                                <li>
+                                    <h3 class="title-tong-quan-h4-log">
+                                        Tránh ngày kỵ
+                                    </h3>
+                                    <ul class="mb-1">
+                                        <li>Tam Nương: 3 – 7 – 13 – 18 – 22 – 27</li>
+                                        <li>Nguyệt Kỵ: 5 – 14 – 23</li>
+                                        <li>Dương Công Kỵ Nhật:</li>
+                                    </ul>
+                                    <p class="mb-1"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                            height="16" fill="currentColor" class="bi bi-arrow-right"
+                                            viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd"
+                                                d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
+                                        </svg> Đây là những ngày đại kỵ ký kết, dễ gặp cản trở hoặc phát sinh kiện tụng về
+                                        sau.</p>
+                                </li>
                             </ul>
-                            <p class="mb-1"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                    fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd"
-                                        d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
-                                </svg> Đây là nhóm ngày xấu dễ gây thị phi, tranh chấp, kiện tụng.
-                            </p>
-                            <h3 class="title-tong-quan-h4-log">
-                                2. Trực xấu
-                            </h3>
-                            <ul class="mb-1">
-                                <li>Trực Phá → Hỏng việc</li>
-                                <li>Trực Nguy → Bất ổn, tiềm ẩn rủi ro</li>
-                                <li>Trực Thu → Hao hụt, thất thoát</li>
-                                <li>Trực Bế → Bế tắc, dễ xảy ra tranh cãi</li>
-                            </ul>
-                            <h3 class="title-tong-quan-h4-log">
-                                3. Ngày xung tuổi
-                            </h3>
-                            <p class="mb-1"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                    fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd"
-                                        d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
-                                </svg> Hai bên dễ bất đồng, ký kết không thuận lợi.</p>
-                            <h3 class="title-tong-quan-h4-log">
-                                4. Tránh ngày kỵ
-                            </h3>
-                            <ul class="mb-1">
-                                <li>Tam Nương: 3 – 7 – 13 – 18 – 22 – 27</li>
-                                <li>Nguyệt Kỵ: 5 – 14 – 23</li>
-                                <li>Dương Công Kỵ Nhật:</li>
-                            </ul>
-                            <p class="mb-1"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                    fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd"
-                                        d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
-                                </svg> Đây là những ngày đại kỵ ký kết, dễ gặp cản trở hoặc phát sinh kiện tụng về sau.</p>
+
+
+
+
+
                             <h2 class="title-tong-quan-h3-log fw-bolder">
                                 Hướng dẫn sử dụng công cụ xem ngày ký hợp đồng trên Phong Lịch
                             </h2>
@@ -347,10 +374,10 @@
                             </ul>
                             <p class="mb-1">Bạn chỉ cần chọn ngày phù hợp nhất với kế hoạch làm việc của hai bên.
                             </p>
-                             <h2 class="title-tong-quan-h3-log fw-bolder">
-                             Chọn đúng ngày ký hợp đồng mang lại gì?
+                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                                Chọn đúng ngày ký hợp đồng mang lại gì?
                             </h2>
-                            <ul class="mb-1"> 
+                            <ul class="mb-1">
                                 <li>Giao dịch suôn sẻ – rõ ràng</li>
                                 <li>Đối tác dễ đồng thuận, tinh thần thoải mái</li>
                                 <li>Hạn chế sai sót, tranh chấp, đứt đoạn thỏa thuận</li>
@@ -823,8 +850,9 @@
                             window.resultsByYear = data.resultsByYear;
 
                             // Scroll to results with delay to ensure content is rendered
-                              setTimeout(() => {
-                                const contentBoxSuccess = document.getElementById('content-box-success');
+                            setTimeout(() => {
+                                const contentBoxSuccess = document.getElementById(
+                                    'content-box-success');
                                 if (contentBoxSuccess) {
                                     contentBoxSuccess.scrollIntoView({
                                         behavior: 'smooth',
@@ -906,7 +934,7 @@
             }
 
             function handleContainerChange(event) {
-            
+
 
                 if (event.target.name === 'sort') {
                     console.log('Sort dropdown changed to:', event.target.value);

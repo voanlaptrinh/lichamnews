@@ -12,7 +12,8 @@
                     <a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
                 </li>
                 <li class="breadcrumb-item" aria-current="page">
-                            <a href="{{ route('totxau.list') }}"  style="color: #2254AB; text-decoration: underline;">Xem ngày tốt</a>
+                    <a href="{{ route('totxau.list') }}" style="color: #2254AB; text-decoration: underline;">Xem ngày
+                        tốt</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
                     Xem ngày tốt xấu
@@ -117,7 +118,8 @@
                                                     value="{{ old('birthdate', $inputs['birthdate'] ?? '') }}">
                                             </div>
 
-                                            <div class="fw-bold title-tong-quan-h4-log" style="color: #192E52; padding-bottom: 12px;">Khoảng thời gian cần xem
+                                            <div class="fw-bold title-tong-quan-h4-log"
+                                                style="color: #192E52; padding-bottom: 12px;">Khoảng thời gian cần xem
                                             </div>
                                             <div class="mb-4">
                                                 <div class="input-group">
@@ -129,7 +131,8 @@
                                                         style="border-radius: 10px; border: none; padding: 12px 30px 12px 15px; background-color: rgba(255,255,255,0.95); cursor: pointer;">
                                                     <span class="input-group-text bg-transparent border-0"
                                                         style="position: absolute; right: 2px; top: 50%; transform: translateY(-50%); z-index: 5; pointer-events: none;">
-                                                       <img src="{{ asset('images/date1-icon.svg') }}" alt="icon ngày tháng năm" class="img-fluid">
+                                                        <img src="{{ asset('images/date1-icon.svg') }}"
+                                                            alt="icon ngày tháng năm" class="img-fluid">
                                                     </span>
                                                 </div>
                                             </div>
@@ -148,14 +151,15 @@
                             <div class="col-lg-4 d-none d-lg-flex">
                                 <div class="d-flex align-items-center justify-content-center h-100 w-100"
                                     style="padding: 32px 32px 32px 0px;">
-                                    <div class="d-flex align-items-center justify-content-center h-100 w-100" style=" background-image: url(../images/form_totxau.svg);
+                                    <div class="d-flex align-items-center justify-content-center h-100 w-100"
+                                        style=" background-image: url(../images/form_totxau.svg);
                                     background-repeat: no-repeat;
                                     background-size: cover;
                                     align-items: normal;
                                     background-position: center center;
                                     overflow: hidden;
                                     border-radius: 12px">
-                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -221,31 +225,49 @@
                             <h2 class="title-tong-quan-h3-log fw-bolder">
                                 Khi xem ngày tốt – xấu cần chú ý những yếu tố nào?
                             </h2>
-                            <h3 class="title-tong-quan-h4-log mb-1 mt-1">1. Ngày Hoàng đạo – Hắc đạo</h3>
-                            <p class="mb-1">Ngày Hoàng đạo thường mang năng lượng cát lành, phù hợp cho mọi việc. <br>
-                                Ngày Hắc đạo nên cân nhắc nếu bạn có việc quan trọng.
-                            </p>
-                            <h3 class="title-tong-quan-h4-log mb-1 mt-1">2. Trực của ngày</h3>
-                            <ul class="mb-1">
-                                <li>Trực tốt: Trực Khai, Thành, Mãn, Định → thuận lợi, dễ làm việc mới.</li>
-                                <li>Trực xấu: Trực Phá, Nguy, Bế, Thu → nên hạn chế làm việc lớn.</li>
-                            </ul>
-                            <h3 class="title-tong-quan-h4-log mb-1 mt-1">3. Sao tốt – sao xấu trong ngày</h3>
-                            <ul class="mb-1">
-                                <li>Nhiều sao cát bổ trợ năng lượng như: Thiên Đức, Nguyệt Đức, Thiên Hỷ, Phúc Hỷ, Tam Hợp,
-                                    Lục Hợp.</li>
+                            <ul class="mb-1" style="list-style-type: decimal;">
                                 <li>
-                                    Những sao xấu nên tránh: Thiên Cương, Không Vong, Cô Thần – Quả Tú, Nguyệt Hình…
+                                    <h3 class="title-tong-quan-h4-log mb-1 mt-1"> Ngày Hoàng đạo – Hắc đạo</h3>
+                                    <p class="mb-1">Ngày Hoàng đạo thường mang năng lượng cát lành, phù hợp cho mọi việc.
+                                        <br>
+                                        Ngày Hắc đạo nên cân nhắc nếu bạn có việc quan trọng.
+                                    </p>
+                                </li>
+                                <li>
+                                    <h3 class="title-tong-quan-h4-log mb-1 mt-1">Trực của ngày</h3>
+                                    <ul class="mb-1">
+                                        <li>Trực tốt: Trực Khai, Thành, Mãn, Định → thuận lợi, dễ làm việc mới.</li>
+                                        <li>Trực xấu: Trực Phá, Nguy, Bế, Thu → nên hạn chế làm việc lớn.</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <h3 class="title-tong-quan-h4-log mb-1 mt-1">Sao tốt – sao xấu trong ngày</h3>
+                                    <ul class="mb-1">
+                                        <li>Nhiều sao cát bổ trợ năng lượng như: Thiên Đức, Nguyệt Đức, Thiên Hỷ, Phúc Hỷ,
+                                            Tam Hợp,
+                                            Lục Hợp.</li>
+                                        <li>
+                                            Những sao xấu nên tránh: Thiên Cương, Không Vong, Cô Thần – Quả Tú, Nguyệt Hình…
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <h3 class="title-tong-quan-h4-log mb-1 mt-1"> Ngày xung tuổi – hợp tuổi</h3>
+                                    <p class="mb-1">Ngày hợp tuổi giúp công việc thuận lợi. Ngược lại, ngày xung tuổi nên
+                                        tránh
+                                        nếu bạn định làm việc quan trọng.
+                                    </p>
+                                </li>
+                                <li>
+                                    <h3 class="title-tong-quan-h4-log mb-1 mt-1">Ngày kiêng kỵ trong dân gian</h3>
+                                    <p class="mb-1">Nên chú ý các ngày: Tam Nương, Nguyệt Kỵ, Dương Công Kỵ Nhật. Đây là
+                                        những
+                                        ngày thường được coi là ít may mắn.
+                                    </p>
                                 </li>
                             </ul>
-                            <h3 class="title-tong-quan-h4-log mb-1 mt-1">4. Ngày xung tuổi – hợp tuổi</h3>
-                            <p class="mb-1">Ngày hợp tuổi giúp công việc thuận lợi. Ngược lại, ngày xung tuổi nên tránh
-                                nếu bạn định làm việc quan trọng.
-                            </p>
-                            <h3 class="title-tong-quan-h4-log mb-1 mt-1">5. Ngày kiêng kỵ trong dân gian</h3>
-                            <p class="mb-1">Nên chú ý các ngày: Tam Nương, Nguyệt Kỵ, Dương Công Kỵ Nhật. Đây là những
-                                ngày thường được coi là ít may mắn.
-                            </p>
+
+
                             <h2 class="title-tong-quan-h3-log mb-1 mt-1 fw-bolder">
                                 Hướng dẫn sử dụng công cụ Xem Ngày Tốt – Xấu tại Phong Lịch
                             </h2>
@@ -823,8 +845,9 @@
                             }, 200);
 
                             // Scroll to results with delay to ensure content is rendered
-                              setTimeout(() => {
-                                const contentBoxSuccess = document.getElementById('content-box-success');
+                            setTimeout(() => {
+                                const contentBoxSuccess = document.getElementById(
+                                    'content-box-success');
                                 if (contentBoxSuccess) {
                                     contentBoxSuccess.scrollIntoView({
                                         behavior: 'smooth',
