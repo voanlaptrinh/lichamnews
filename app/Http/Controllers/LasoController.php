@@ -14,15 +14,35 @@ class LasoController extends Controller
 {
     public function create()
     {
-        // Lấy dữ liệu từ session nếu có (từ lần submit trước)
-        $lastInput = session('laso_last_input', []);
+        // Clear ALL old laso session data when creating new laso
+        session()->forget([
+            'laso_results',      // Kết quả lá số hiện tại
+            'laso_last_input'    // Thông tin input cũ
+        ]);
+
         $metaTitle = "Lá Số Tử Vi Online – Luận Giải Tử Vi 12 Cung, Chính Xác & Miễn Phí";
         $metaDescription = "Xem lá số tử vi online theo ngày tháng năm sinh. Luận giải 12 cung, sao hạn, vận mệnh, tính cách, công danh – đầy đủ, dễ hiểu, miễn phí và chính xác.";
+
+        // Không còn lastInput vì đã clear hết
+        return view('la-so-tu-vi.form', compact('metaTitle', 'metaDescription'))
+            ->with('lastInput', [])  // Trống để form reset hoàn toàn
+            ->with('imageUrl', null)
+            ->with('normalizedData', []);
+    }
+
+    public function edit()
+    {
+        // Giữ nguyên session data để chỉnh sửa
+        $lastInput = session('laso_last_input', []);
+
+        $metaTitle = "Chỉnh Sửa Lá Số Tử Vi - Cập Nhật Thông Tin";
+        $metaDescription = "Chỉnh sửa và cập nhật thông tin lá số tử vi. Thay đổi ngày sinh, giờ sinh, năm xem để có kết quả chính xác nhất.";
 
         return view('la-so-tu-vi.form', compact('lastInput', 'metaTitle', 'metaDescription'))
             ->with('imageUrl', null)
             ->with('normalizedData', []);
     }
+
     public function submitToApi(Request $request)
     {
         // --- 1. VALIDATION PHÍA LARAVEL ---
@@ -159,14 +179,13 @@ class LasoController extends Controller
                 // Lấy dữ liệu từ session để truyền vào view
                 $lastInput = session('laso_last_input', []);
 
-                // Trả về một view mới để hiển thị ảnh
-                return view('la-so-tu-vi.form', [
-                    'metaTitle' => $metaTitle,
-                    'metaDescription' => $metaDescription,
+                // Store results in session and redirect to results page
+                session()->put('laso_results', [
                     'imageUrl' => $imageUrl,
-                    'normalizedData' => $normalizedData,
-                    'lastInput' => $lastInput
+                    'normalizedData' => $normalizedData
                 ]);
+
+                return redirect()->route('laso.results');
             } else {
                 // API trả về lỗi (ví dụ: validation thất bại bên phía API)
                 $errorMessage = $result['message'] ?? 'Có lỗi không xác định từ API.';
@@ -201,6 +220,187 @@ class LasoController extends Controller
             return back()->withErrors(['msg' => $errorMsg])->withInput();
         }
     }
+
+    public function showResults(Request $request)
+    {
+        $results = session('laso_results');
+
+        if (!$results) {
+            // No results found, redirect to form
+            return redirect()->route('laso.create')->with('error', 'Không tìm thấy kết quả lá số. Vui lòng tạo lá số mới.');
+        }
+
+        $imageUrl = $results['imageUrl'];
+        $normalizedData = $results['normalizedData'];
+
+        $metaTitle = "Kết Quả Lá Số Tử Vi - Luận Giải Tử Vi 12 Cung";
+        $metaDescription = "Xem kết quả lá số tử vi chi tiết theo ngày tháng năm sinh. Luận giải 12 cung, sao hạn, vận mệnh, tính cách, công danh.";
+
+        return view('la-so-tu-vi.results', compact('imageUrl', 'normalizedData', 'metaTitle', 'metaDescription'));
+    }
+
+    public function luanGiai(Request $request)
+    {
+        // Lấy thông tin đã lưu từ session
+        $lastInput = session('laso_last_input', []);
+
+        if (empty($lastInput)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Không tìm thấy thông tin lá số. Vui lòng tạo lá số mới.'
+            ]);
+        }
+
+        // Log để debug
+        \Log::info('Luan giai input data', ['input' => $lastInput]);
+
+        // Kiểm tra các field bắt buộc từ session
+        $requiredFields = ['ho_ten', 'gioi_tinh', 'nam_xem', 'dl_date_processed', 'dl_gio', 'dl_phut'];
+        foreach ($requiredFields as $field) {
+            if (!isset($lastInput[$field])) {
+                return response()->json([
+                    'success' => false,
+                    'message' => "Thiếu thông tin: {$field}. Vui lòng tạo lá số mới.",
+                    'debug' => ['missing_field' => $field, 'available_fields' => array_keys($lastInput)]
+                ]);
+            }
+        }
+
+        // Parse ngày từ dl_date_processed (format: DD/MM/YYYY (DL) hoặc DD/MM/YYYY (ÂL))
+        $dateProcessed = $lastInput['dl_date_processed'];
+        $dateParts = explode('/', explode(' ', $dateProcessed)[0]);
+
+        if (count($dateParts) !== 3) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Định dạng ngày không hợp lệ.',
+                'debug' => ['date_processed' => $dateProcessed]
+            ]);
+        }
+
+        $day = (int)$dateParts[0];
+        $month = (int)$dateParts[1];
+        $year = (int)$dateParts[2];
+
+        // Tạo dữ liệu đầy đủ để gửi API (giống như submitToApi)
+        $apiInput = $lastInput;
+        $apiInput['dl_ngay'] = $day;
+        $apiInput['dl_thang'] = $month;
+        $apiInput['dl_nam'] = $year;
+        $apiInput['app_name'] = "phonglich";
+
+        try {
+            // Gọi API để lấy dữ liệu JSON đầy đủ (thay vì chỉ lấy ảnh)
+            $apiUrl = 'http://168.119.14.32/laso_v2/store_laso.php';
+            $response = \Http::timeout(30)->post($apiUrl, $apiInput);
+
+            if ($response->failed()) {
+                \Log::error('Laso API failed', [
+                    'status' => $response->status(),
+                    'body' => $response->body(),
+                    'input' => $apiInput
+                ]);
+
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Không thể kết nối đến máy chủ tính toán lá số. Status: ' . $response->status(),
+                    'debug' => [
+                        'status' => $response->status(),
+                        'error' => $response->body()
+                    ]
+                ]);
+            }
+
+            $result = $response->json();
+
+            if (isset($result['success']) && $result['success']) {
+                // Lấy dữ liệu JSON từ kết quả API
+                $jsonData = $result['data']['laso_details']['info'] ?? null;
+
+                if (!$jsonData) {
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'Không có dữ liệu JSON để luận giải.'
+                    ]);
+                }
+
+                // Log dữ liệu để debug
+                \Log::info('JSON data for luan giai', ['json_data' => $jsonData]);
+
+                // Chuẩn bị dữ liệu theo format mong đợi của API Flutter
+                $infoObject = [
+                    'type' => 'tong_quan',
+                    'info_ten' => $jsonData
+                ];
+
+                // Convert thành JSON string như API mong đợi
+                $requestBody = [
+                    'info' => json_encode($infoObject, JSON_UNESCAPED_UNICODE)
+                ];
+
+                // Log request body để debug
+                \Log::info('Request body for Flutter API', ['request_body' => $requestBody]);
+
+                // Gửi dữ liệu lên API luận giải
+                $luanGiaiApiUrl = 'https://cloudrun-v2.xemlicham.com/api/tu-vi/generate';
+                $luanGiaiResponse = \Http::timeout(180) // 3 phút timeout
+                    ->withHeaders([
+                        'Content-Type' => 'application/json',
+                        'Accept' => 'application/json'
+                    ])
+                    ->post($luanGiaiApiUrl, $requestBody);
+
+                if ($luanGiaiResponse->failed()) {
+                    \Log::error('Flutter API failed', [
+                        'status' => $luanGiaiResponse->status(),
+                        'body' => $luanGiaiResponse->body(),
+                        'request_body' => $requestBody
+                    ]);
+
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'Không thể kết nối đến API luận giải. Status: ' . $luanGiaiResponse->status(),
+                        'debug' => [
+                            'status' => $luanGiaiResponse->status(),
+                            'error' => $luanGiaiResponse->body()
+                        ]
+                    ]);
+                }
+
+                $luanGiaiResult = $luanGiaiResponse->json();
+
+                return response()->json([
+                    'success' => true,
+                    'data' => $luanGiaiResult,
+                    'message' => 'Luận giải thành công!'
+                ]);
+
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => $result['message'] ?? 'API trả về lỗi.'
+                ]);
+            }
+
+        } catch (\Exception $e) {
+            \Log::error('Laso API exception', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+                'input' => $apiInput ?? $lastInput
+            ]);
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Đã xảy ra lỗi: ' . $e->getMessage(),
+                'debug' => [
+                    'error' => $e->getMessage(),
+                    'file' => $e->getFile(),
+                    'line' => $e->getLine()
+                ]
+            ]);
+        }
+    }
+
     public function proxyImage(Request $request)
     {
         // BƯỚC 1: XÁC THỰC DỮ LIỆU ĐẦU VÀO

@@ -228,9 +228,12 @@ Route::post('/', [GiayToController::class, 'checkDays'])->name('giay-to.check');
 
 
 Route::get('/laso', [LasoController::class, 'create'])->name('laso.create');
+Route::get('/laso/edit', [LasoController::class, 'edit'])->name('laso.edit');
 
 // Route để nhận dữ liệu từ form và gọi API
 Route::post('/laso', [LaSoController::class, 'submitToApi'])->name('laso.submit');
+Route::get('/laso/results', [LasoController::class, 'showResults'])->name('laso.results');
+Route::post('/laso/luan-giai', [LasoController::class, 'luanGiai'])->name('laso.luan_giai');
 Route::get('/laso/download', [LasoController::class, 'downloadImage'])->name('laso.download');
 Route::get('/laso/image-proxy', [LasoController::class, 'proxyImage'])->name('laso.image_proxy');
 

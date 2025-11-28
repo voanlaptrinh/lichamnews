@@ -7,7 +7,7 @@
 
     <div class="container-setup">
          <nav aria-label="breadcrumb" class="content-title-detail">
-            <ol class="breadcrumb mb-1">
+            <ol class="breadcrumb">
                 <li class="breadcrumb-item">
                     <a href="{{ route('home') }}"  style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
                 </li>
