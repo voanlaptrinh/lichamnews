@@ -153,6 +153,8 @@ class VanillaDateRangePicker {
             { label: '7 ngày tới', days: 6 },
             { label: '14 ngày tới', days: 13 },
             { label: '30 ngày tới', days: 29 },
+            { label: '3 tháng tới', type: 'next3Months' },
+            { label: '6 tháng tới', type: 'next6Months' },
             { label: 'Tháng này', type: 'thisMonth' },
             { label: 'Tháng sau', type: 'nextMonth' },
             { label: 'Năm nay', type: 'thisYear' },
@@ -911,6 +913,18 @@ class VanillaDateRangePicker {
             this.startDate = new Date(today.getFullYear() + 1, 0, 1);
             this.endDate = new Date(today.getFullYear() + 1, 11, 31);
 
+        } else if (shortcut.type === 'next3Months') {
+            // 3 tháng tới
+            this.startDate = new Date(today);
+            this.endDate = new Date(today);
+            this.endDate.setMonth(this.endDate.getMonth() + 3);
+
+        } else if (shortcut.type === 'next6Months') {
+            // 6 tháng tới
+            this.startDate = new Date(today);
+            this.endDate = new Date(today);
+            this.endDate.setMonth(this.endDate.getMonth() + 6);
+
         } else if (shortcut.single) {
             // Một ngày đơn lẻ
             this.startDate = new Date(today);
@@ -1184,6 +1198,8 @@ class VanillaDateRangePicker {
             { label: '7 ngày tới', days: 6 },
             { label: '14 ngày tới', days: 13 },
             { label: '30 ngày tới', days: 29 },
+            { label: '3 tháng tới', type: 'next3Months' },
+            { label: '6 tháng tới', type: 'next6Months' },
             { label: 'Tháng này', type: 'thisMonth' },
             { label: 'Tháng sau', type: 'nextMonth' },
             { label: 'Năm nay', type: 'thisYear' },
@@ -1388,6 +1404,8 @@ class VanillaDateRangePicker {
             
             { label: '7 ngày tới', days: 6, icon: '📅' },
             { label: '30 ngày tới', days: 29, icon: '📅' },
+            { label: '3 tháng tới', type: 'next3Months', icon: '📅' },
+            { label: '6 tháng tới', type: 'next6Months', icon: '📅' },
             { label: 'Tháng này', type: 'thisMonth', icon: '📆' },
             { label: 'Tháng sau', type: 'nextMonth', icon: '📆' },
             { label: 'Năm nay', type: 'thisYear', icon: '🗓️' },

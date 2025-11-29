@@ -240,6 +240,7 @@
                                                     </a>
                                                 </td>
                                                 <td style="text-align: start">
+
                                                  @php
                                                         $supportFactors = [];
 
@@ -336,7 +337,15 @@
                                                             $supportFactors[] = "Sao tốt: {$starNames}";
                                                         }
 
-                                                      
+                                                        // Kiểm tra nhị thập bát tú tốt
+                                                        if (
+                                                            isset($day['nhi_thap_bat_tu']['is_good']) &&
+                                                            $day['nhi_thap_bat_tu']['is_good'] === true
+                                                        ) {
+                                                            $nhiThapBatTuName =
+                                                                $day['nhi_thap_bat_tu']['name'] ?? 'Không xác định';
+                                                            $supportFactors[] = "Nhị thập bát tú tốt: {$nhiThapBatTuName}";
+                                                        }
 
                                                         // Chỉ lấy tối đa 5 yếu tố
                                                         $supportFactors = array_slice(

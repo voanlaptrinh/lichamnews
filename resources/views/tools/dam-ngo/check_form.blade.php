@@ -14,7 +14,8 @@
                     <a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
                 </li>
                 <li class="breadcrumb-item" aria-current="page">
-                            <a href="{{ route('totxau.list') }}"  style="color: #2254AB; text-decoration: underline;">Xem ngày tốt</a>
+                    <a href="{{ route('totxau.list') }}" style="color: #2254AB; text-decoration: underline;">Xem ngày
+                        tốt</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
                     Xem ngày dạm ngõ
@@ -27,7 +28,7 @@
 
                 <div class="col-xl-9 col-sm-12 col-12 ">
                     <div class="backv-doi-lich ">
-                        <div class="row g-xl-5 g-lg-3 g-sm-5" >
+                        <div class="row g-xl-5 g-lg-3 g-sm-5">
                             <div class="col-lg-8">
                                 <div class="">
                                     <div class="form--submit-totxau">
@@ -46,7 +47,8 @@
                                             <div class="row">
                                                 {{-- Ngày sinh Chú rể --}}
                                                 <div class="col-md-12 mb-3">
-                                                    <div for="date_range" class="fw-bold title-tong-quan-h4-log" style="color: #192E52; padding-bottom: 12px;">Ngày sinh
+                                                    <div for="date_range" class="fw-bold title-tong-quan-h4-log"
+                                                        style="color: #192E52; padding-bottom: 12px;">Ngày sinh
                                                         Chú rể</div>
 
                                                     {{-- Date Selects --}}
@@ -129,7 +131,8 @@
 
                                                 {{-- Ngày sinh Cô dâu --}}
                                                 <div class="col-md-12 mb-3">
-                                                    <div for="date_range" class="fw-bold title-tong-quan-h4-log" style="color: #192E52; padding-bottom: 12px;">Ngày sinh
+                                                    <div for="date_range" class="fw-bold title-tong-quan-h4-log"
+                                                        style="color: #192E52; padding-bottom: 12px;">Ngày sinh
                                                         Cô dâu</div>
 
                                                     {{-- Date Selects --}}
@@ -213,7 +216,8 @@
 
                                                 {{-- Khoảng ngày dự định cưới --}}
                                                 <div class="col-md-12 mb-3">
-                                                    <div for="date_range" class="fw-bold title-tong-quan-h4-log" style="color: #192E52; padding-bottom: 12px;">Khoảng
+                                                    <div for="date_range" class="fw-bold title-tong-quan-h4-log"
+                                                        style="color: #192E52; padding-bottom: 12px;">Khoảng
                                                         ngày dự kiến cưới</div>
                                                     <div class="input-group">
                                                         <input type="text"
@@ -222,10 +226,11 @@
                                                             placeholder="DD/MM/YY - DD/MM/YY" autocomplete="off"
                                                             value="{{ old('wedding_date_range', $inputs['wedding_date_range'] ?? '') }}"
                                                             style="border-radius: 10px; border: none; padding: 12px 30px 12px 15px; background-color: rgba(255,255,255,0.95); cursor: pointer;">
-                                                      <span class="input-group-text bg-transparent border-0"
-                                                        style="position: absolute; right: 2px; top: 50%; transform: translateY(-50%); z-index: 5; pointer-events: none;">
-                                                       <img src="{{ asset('images/date1-icon.svg') }}" alt="icon ngày tháng năm" class="img-fluid">
-                                                    </span>
+                                                        <span class="input-group-text bg-transparent border-0"
+                                                            style="position: absolute; right: 2px; top: 50%; transform: translateY(-50%); z-index: 5; pointer-events: none;">
+                                                            <img src="{{ asset('images/date1-icon.svg') }}"
+                                                                alt="icon ngày tháng năm" class="img-fluid">
+                                                        </span>
                                                     </div>
                                                     @error('wedding_date_range')
                                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -245,17 +250,18 @@
                                     </div>
                                 </div>
                             </div>
-                           <div class="col-lg-4 d-none d-lg-flex">
+                            <div class="col-lg-4 d-none d-lg-flex">
                                 <div class="d-flex align-items-center justify-content-center h-100 w-100"
                                     style="padding: 32px 32px 32px 0px;">
-                                    <div class="d-flex align-items-center justify-content-center h-100 w-100" style=" background-image: url(../images/form_damngo.svg);
+                                    <div class="d-flex align-items-center justify-content-center h-100 w-100"
+                                        style=" background-image: url(../images/form_damngo.svg);
                                     background-repeat: no-repeat;
                                     background-size: cover;
                                     align-items: normal;
                                     background-position: center center;
                                     overflow: hidden;
                                     border-radius: 12px">
-                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -285,27 +291,42 @@
                                 Khác với lễ cưới có phần long trọng, dạm ngõ là bước đầu tiên trong tiến trình hôn nhân. Tuy
                                 đơn giản nhưng mang nhiều tầng ý nghĩa:
                             </p>
-                            <h3 class="title-tong-quan-h4-log">
-                                1. Tạo khởi đầu thuận hòa
-                            </h3>
-                            <p class="mb-1">
-                                Ngày giờ đẹp được cho là giúp không khí giữa hai gia đình thêm vui vẻ, ấm cúng, tránh những
-                                trục trặc không đáng có như muộn giờ, thời tiết xấu hay điều kiêng kỵ theo tuổi.
-                            </p>
-                            <h3 class="title-tong-quan-h4-log">
-                                2. Giữ gìn truyền thống
-                            </h3>
-                            <p class="mb-1">
-                                Dạm ngõ là nghi lễ thưa chuyện, xin phép, thể hiện sự tôn trọng. Việc chọn ngày cẩn thận cho
-                                thấy sự chỉn chu, đặc biệt là với gia đình lớn tuổi.
-                            </p>
-                            <h3 class="title-tong-quan-h4-log">
-                                3. Tâm lý vững vàng cho đôi trẻ
-                            </h3>
-                            <p class="mb-1">
-                                Ngày hợp tuổi và hợp việc giúp các cặp đôi cảm thấy tự tin, bắt đầu hành trình hôn nhân với
-                                tâm thế nhẹ nhàng, vui tươi.
-                            </p>
+                            <ul style="	list-style-type: decimal;">
+                                <li>
+                                    <h3 class="title-tong-quan-h4-log">
+                                        Tạo khởi đầu thuận hòa
+                                    </h3>
+                                    <p class="mb-1">
+                                        Ngày giờ đẹp được cho là giúp không khí giữa hai gia đình thêm vui vẻ, ấm cúng,
+                                        tránh những
+                                        trục trặc không đáng có như muộn giờ, thời tiết xấu hay điều kiêng kỵ theo tuổi.
+                                    </p>
+                                </li>
+                                <li>
+                                    <h3 class="title-tong-quan-h4-log">
+                                        Giữ gìn truyền thống
+                                    </h3>
+                                    <p class="mb-1">
+                                        Dạm ngõ là nghi lễ thưa chuyện, xin phép, thể hiện sự tôn trọng. Việc chọn ngày cẩn
+                                        thận cho
+                                        thấy sự chỉn chu, đặc biệt là với gia đình lớn tuổi.
+                                    </p>
+                                </li>
+                                <li>
+                                    <h3 class="title-tong-quan-h4-log">
+                                        Tâm lý vững vàng cho đôi trẻ
+                                    </h3>
+                                    <p class="mb-1">
+                                        Ngày hợp tuổi và hợp việc giúp các cặp đôi cảm thấy tự tin, bắt đầu hành trình hôn
+                                        nhân với
+                                        tâm thế nhẹ nhàng, vui tươi.
+                                    </p>
+                                </li>
+                            </ul>
+
+
+
+
                             <h2 class="title-tong-quan-h3-log fw-bolder">
                                 Vì Sao Nhiều Gia Đình Vẫn Chọn Ngày Dạm Ngõ?
                             </h2>
@@ -324,37 +345,58 @@
                             </h2>
                             <p class="mb-1">Bạn có thể tự xem theo các tiêu chí cơ bản hoặc dùng công cụ xem ngày dạm ngõ
                                 để tiết kiệm thời gian. Dưới đây là những yếu tố cần chú ý:</p>
-                            <h3 class="title-tong-quan-h4-log">
-                                1. Ưu tiên ngày Hoàng Đạo và trực thuận
-                            </h3>
-                            <p class="mb-1">Ngày Hoàng Đạo, trực Khai – Thành – Mãn – Định thường là những ngày cát cho
-                                hôn sự.</p>
-                            <h3 class="title-tong-quan-h4-log">
-                                2. Tránh ngày xung tuổi cô dâu – chú rể
-                            </h3>
-                            <ul class="mb-1">
-                                <li>Tránh ngày lục xung, lục hại theo tuổi.</li>
-                                <li>Nếu một trong hai bạn thuộc tuổi kỵ ngày nào đó, nên loại bỏ luôn.</li>
+                            <ul style="	list-style-type: decimal;">
+                                <li>
+                                    <h3 class="title-tong-quan-h4-log">
+                                        Ưu tiên ngày Hoàng Đạo và trực thuận
+                                    </h3>
+                                    <p class="mb-1">Ngày Hoàng Đạo, trực Khai – Thành – Mãn – Định thường là những ngày
+                                        cát cho
+                                        hôn sự.</p>
+                                </li>
+                                <li>
+
+                                    <h3 class="title-tong-quan-h4-log">
+                                        Tránh ngày xung tuổi cô dâu – chú rể
+                                    </h3>
+                                    <ul class="mb-1">
+                                        <li>Tránh ngày lục xung, lục hại theo tuổi.</li>
+                                        <li>Nếu một trong hai bạn thuộc tuổi kỵ ngày nào đó, nên loại bỏ luôn.</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <h3 class="title-tong-quan-h4-log">
+                                        Xét ngũ hành ngày – tuổi
+                                    </h3>
+                                    <p class="mb-1">Ngày hợp tuổi sẽ mang lại sự hòa hợp cho buổi gặp gỡ:</p>
+                                    <ul class="mb-1">
+                                        <li>Ngũ hành tương sinh</li>
+                                        <li>Thiên can – địa chi tương hỗ</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <h3 class="title-tong-quan-h4-log">
+                                        Chọn giờ đẹp
+                                    </h3>
+                                    <p class="mb-1">Giờ Hoàng Đạo sẽ thuận lợi cho việc xuất hành, trao lễ và trò chuyện
+                                        giữa hai
+                                        họ.</p>
+                                </li>
+                                <li>
+                                    <h3 class="title-tong-quan-h4-log">
+                                        Hợp lịch của cả hai gia đình
+                                    </h3>
+                                    <p class="mb-1">Một ngày đẹp về phong thủy nhưng gia đình không tiện tham dự cũng sẽ
+                                        mất đi ý
+                                        nghĩa. Vì vậy, nên thống nhất lịch trước, sau đó chọn trong các ngày đẹp phù hợp.
+                                    </p>
+                                </li>
                             </ul>
-                            <h3 class="title-tong-quan-h4-log">
-                                3. Xét ngũ hành ngày – tuổi
-                            </h3>
-                            <p class="mb-1">Ngày hợp tuổi sẽ mang lại sự hòa hợp cho buổi gặp gỡ:</p>
-                            <ul class="mb-1">
-                                <li>Ngũ hành tương sinh</li>
-                                <li>Thiên can – địa chi tương hỗ</li>
-                            </ul>
-                            <h3 class="title-tong-quan-h4-log">
-                                4. Chọn giờ đẹp
-                            </h3>
-                            <p class="mb-1">Giờ Hoàng Đạo sẽ thuận lợi cho việc xuất hành, trao lễ và trò chuyện giữa hai
-                                họ.</p>
-                            <h3 class="title-tong-quan-h4-log">
-                                5. Hợp lịch của cả hai gia đình
-                            </h3>
-                            <p class="mb-1">Một ngày đẹp về phong thủy nhưng gia đình không tiện tham dự cũng sẽ mất đi ý
-                                nghĩa. Vì vậy, nên thống nhất lịch trước, sau đó chọn trong các ngày đẹp phù hợp.
-                            </p>
+
+
+
+
+
                             <h2 class="title-tong-quan-h3-log fw-bolder">
                                 Những Điểm Lợi Khi Chọn Đúng Ngày Dạm Ngõ
                             </h2>
@@ -973,7 +1015,8 @@
                             }, 500);
 
                             setTimeout(() => {
-                                const contentBoxSuccess = document.getElementById('content-box-success');
+                                const contentBoxSuccess = document.getElementById(
+                                    'content-box-success');
                                 if (contentBoxSuccess) {
                                     contentBoxSuccess.scrollIntoView({
                                         behavior: 'smooth',
@@ -1327,10 +1370,10 @@
                         `Xem thêm`;
                     loadMoreBtn.style.display = '';
                     loadMoreBtn.setAttribute('data-total', totalFilteredRows);
-                   
+
                 } else {
                     loadMoreBtn.style.display = 'none';
-                   
+
                 }
             }
 

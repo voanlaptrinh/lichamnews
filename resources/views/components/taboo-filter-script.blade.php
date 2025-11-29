@@ -642,10 +642,10 @@ function initTabooFilter(resultsByYear) {
             const selectedTaboos = [...new Set(Array.from(allCheckboxes).map(cb => cb.value))];
         
 
-            if (selectedTaboos.length === 0) {
-                alert('Vui lòng chọn ít nhất một loại taboo để lọc');
-                return;
-            }
+            // if (selectedTaboos.length === 0) {
+            //     alert('Vui lòng chọn ít nhất một loại taboo để lọc');
+            //     return;
+            // }
 
             let totalFiltered = 0;
             let totalDays = 0;

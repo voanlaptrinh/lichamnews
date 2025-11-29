@@ -217,6 +217,14 @@
                                                         $supportFactors = [];
 
                                                         // Kiểm tra ngày hoàng đạo - sử dụng helper
+                                                        if ($day['day_score']['score']['tu']['details']['data']['nature'] == "Tốt") {
+                                                            $trucName = $day['day_score']['score']['tu']['details']['data']['nature']['name'];
+                                                            if () {
+                                                                # code...
+                                                            }
+                                                              $supportFactors[] = "Trực tốt: Sao {$starName}";
+                                                        }
+                                                        dd($day['day_score']['score']['tu']['details']['data']);
                                                         if (
                                                             isset($day['day_score']['score']['hoangdao']) &&
                                                             $day['day_score']['score']['hoangdao'] === true

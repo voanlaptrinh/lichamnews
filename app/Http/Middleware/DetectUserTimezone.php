@@ -17,7 +17,7 @@ class DetectUserTimezone
     {
         // Lấy từ cookie hoặc session
         $tz = $request->cookie('user_tz') ?? $request->session()->get('user_tz');
-dd($tz);
+
         // Nếu hợp lệ thì setd
         if ($tz && in_array($tz, DateTimeZone::listIdentifiers())) {
             config(['app.timezone' => $tz]);

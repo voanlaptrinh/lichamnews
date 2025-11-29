@@ -341,100 +341,139 @@
                             <p class="mb-1">
                                 Dưới đây là các yếu tố cát (tốt) mà ngày cưới hỏi nên có:
                             </p>
-                            <h3 class="title-tong-quan-h4-log">
-                                1. Ngày hoàng đạo
-                            </h3>
-                            <p class="mb-1">
-                                Hoàng đạo là ngày được coi là có năng lượng tốt, rất thích hợp cho việc vui mừng và lễ nghi
-                                gia đình.
-                            </p>
-                            <h3 class="title-tong-quan-h4-log">
-                                2. Ngày hợp tuổi cô dâu – chú rể
-                            </h3>
-                            <p class="mb-1">
-                                Ngày có Can Chi – Ngũ Hành tương sinh với tuổi hai người sẽ mang ý nghĩa hòa hợp, thuận lợi
-                                cho hôn nhân.
-                            </p>
-                            <h3 class="title-tong-quan-h4-log">
-                                3. Sao tốt liên quan đến hôn sự
-                            </h3>
-                            <p class="mb-1">
-                                Một số sao cát đặc biệt tốt cho cưới hỏi, ví dụ như:
-                            </p>
-                            <ul class="mb-1">
+                            <ul style="	list-style-type: decimal;">
                                 <li>
-                                    Sao Thiên Đức, Nguyệt Đức
+                                    <h3 class="title-tong-quan-h4-log">
+                                        Ngày hoàng đạo
+                                    </h3>
+                                    <p class="mb-1">
+                                        Hoàng đạo là ngày được coi là có năng lượng tốt, rất thích hợp cho việc vui mừng và
+                                        lễ nghi
+                                        gia đình.
+                                    </p>
                                 </li>
                                 <li>
-                                    Sao Thiên Hỷ
+                                    <h3 class="title-tong-quan-h4-log">
+                                        Ngày hợp tuổi cô dâu – chú rể
+                                    </h3>
+                                    <p class="mb-1">
+                                        Ngày có Can Chi – Ngũ Hành tương sinh với tuổi hai người sẽ mang ý nghĩa hòa hợp,
+                                        thuận lợi
+                                        cho hôn nhân.
+                                    </p>
                                 </li>
                                 <li>
-                                    Sao Thiên Quan, Thiên Phúc
+                                    <h3 class="title-tong-quan-h4-log">
+                                        Sao tốt liên quan đến hôn sự
+                                    </h3>
+                                    <p class="mb-1">
+                                        Một số sao cát đặc biệt tốt cho cưới hỏi, ví dụ như:
+                                    </p>
+                                    <ul class="mb-1">
+                                        <li>
+                                            Sao Thiên Đức, Nguyệt Đức
+                                        </li>
+                                        <li>
+                                            Sao Thiên Hỷ
+                                        </li>
+                                        <li>
+                                            Sao Thiên Quan, Thiên Phúc
+                                        </li>
+                                        <li>
+                                            Sao Tam Hợp
+                                        </li>
+                                    </ul>
+                                    <p class="mb-1">Những sao này tượng trưng cho hỷ khí, hạnh phúc và sự viên mãn.</p>
                                 </li>
                                 <li>
-                                    Sao Tam Hợp
+                                    <h3 class="title-tong-quan-h4-log">
+                                        Trực ngày phù hợp
+                                    </h3>
+                                    <p class="mb-1">
+                                        Trong Thập Nhị Trực, những trực cát cho cưới hỏi gồm:
+                                    </p>
+                                    <ul class="mb-1">
+                                        <li>
+                                            Trực Thành
+                                        </li>
+                                        <li>
+                                            Trực Khai
+                                        </li>
+                                        <li>
+                                            Trực Mãn
+                                        </li>
+                                    </ul>
                                 </li>
                             </ul>
-                            <p class="mb-1">Những sao này tượng trưng cho hỷ khí, hạnh phúc và sự viên mãn.</p>
-                            <h3 class="title-tong-quan-h4-log">
-                                4. Trực ngày phù hợp
-                            </h3>
-                            <p class="mb-1">
-                                Trong Thập Nhị Trực, những trực cát cho cưới hỏi gồm:
-                            </p>
-                            <ul class="mb-1">
-                                <li>
-                                    Trực Thành
-                                </li>
-                                <li>
-                                    Trực Khai
-                                </li>
-                                <li>
-                                    Trực Mãn
-                                </li>
-                            </ul>
+
+
                             <h2 class="title-tong-quan-h3-log fw-bolder">
                                 Những yếu tố bất lợi cần tránh khi chọn ngày cưới hỏi
                             </h2>
                             <p class="mb-1">Để lễ cưới diễn ra suôn sẻ, bạn cũng nên tránh những yếu tố hung:</p>
-                            <h3 class="title-tong-quan-h4-log">
-                                1. Ngày xung tuổi cô dâu – chú rể
-                            </h3>
-                            <p class="mb-1">Ngày phạm hình – xung – phá – hại với tuổi hai người thường được coi là kỵ.
-                            </p>
-                            <h3 class="title-tong-quan-h4-log">
-                                2. Ngày Tam Nương – Nguyệt Kỵ
-                            </h3>
-                            <p class="mb-1">Dân gian xem đây là những ngày mang năng lượng xấu, không phù hợp để tiến
-                                hành việc vui.
-                            </p>
-                            <h3 class="title-tong-quan-h4-log">
-                                3. Sao xấu liên quan đến hôn nhân
-                            </h3>
-                            <p class="mb-1">Ví dụ: Cô Thần, Quả Tú, Không Vong, Thiên Cương, v.v.
-                            </p>
-                            <h3 class="title-tong-quan-h4-log">
-                                4. Trực xấu hoặc ngày hắc đạo
-                            </h3>
-                            <p class="mb-1">Những ngày này mang ý nghĩa không thuận, nên hạn chế.
-                            </p>
+                            <ul style="	list-style-type: decimal;">
+                                <li>
+
+                                    <h3 class="title-tong-quan-h4-log">
+                                        Ngày xung tuổi cô dâu – chú rể
+                                    </h3>
+                                    <p class="mb-1">Ngày phạm hình – xung – phá – hại với tuổi hai người thường được coi
+                                        là kỵ.
+                                    </p>
+                                </li>
+                                <li>
+                                    <h3 class="title-tong-quan-h4-log">
+                                        Ngày Tam Nương – Nguyệt Kỵ
+                                    </h3>
+                                    <p class="mb-1">Dân gian xem đây là những ngày mang năng lượng xấu, không phù hợp để
+                                        tiến
+                                        hành việc vui.
+                                    </p>
+                                </li>
+                                <li>
+                                    <h3 class="title-tong-quan-h4-log">
+                                        Sao xấu liên quan đến hôn nhân
+                                    </h3>
+                                    <p class="mb-1">Ví dụ: Cô Thần, Quả Tú, Không Vong, Thiên Cương, v.v.
+                                    </p>
+                                </li>
+                                <li>
+                                    <h3 class="title-tong-quan-h4-log">
+                                        Trực xấu hoặc ngày hắc đạo
+                                    </h3>
+                                    <p class="mb-1">Những ngày này mang ý nghĩa không thuận, nên hạn chế.
+                                    </p>
+                                </li>
+                            </ul>
+
+
+
+
                             <h2 class="title-tong-quan-h3-log fw-bolder">
                                 Cách sử dụng công cụ Xem Ngày Cưới Hỏi tại Phong Lịch
                             </h2>
                             <p class="mb-1">Công cụ được thiết kế đơn giản để ai cũng có thể tự xem:</p>
-                            <h3 class="title-tong-quan-h4-log">
-                                Bước 1: Nhập tuổi cô dâu – chú rể
-                            </h3>
-                            <p class="mb-1">Hệ thống tự động đối chiếu tuổi theo âm lịch hoặc dương lịch, phân tích Can
-                                Chi và ngũ hành để tìm ngày hợp nhất.
-                            </p>
+                            <ul>
+                                <li>
+                                    <h3 class="title-tong-quan-h4-log">
+                                        Bước 1: Nhập tuổi cô dâu – chú rể
+                                    </h3>
+                                    <p class="mb-1">Hệ thống tự động đối chiếu tuổi theo âm lịch hoặc dương lịch, phân
+                                        tích Can
+                                        Chi và ngũ hành để tìm ngày hợp nhất.
+                                    </p>
+                                </li>
+                                <li>
+
                             <h3 class="title-tong-quan-h4-log">
                                 Bước 2: Chọn khoảng thời gian dự định tổ chức
                             </h3>
                             <p class="mb-1">Bạn chỉ cần chọn tháng hoặc thời gian mong muốn, hệ thống sẽ lọc ra những
                                 ngày đẹp nhất.
                             </p>
-                            <h3 class="title-tong-quan-h4-log">
+                                </li>
+                                <li>
+ <h3 class="title-tong-quan-h4-log">
                                 Bước 3: Nhận danh sách ngày tốt kèm phân tích chi tiết
                             </h3>
                             <p class="mb-1">Mỗi ngày đều có:
@@ -447,12 +486,20 @@
                                 <li>Những lưu ý quan trọng</li>
                                 <li>Gợi ý linh hoạt nếu muốn dời ngày</li>
                             </ul>
+                                </li>
+                                <li>
+
                             <h3 class="title-tong-quan-h4-log">
                                 Bước 4: Chọn ngày phù hợp nhất cho hai gia đình
                             </h3>
                             <p class="mb-1">Bạn có thể so sánh nhiều ngày để chọn thời điểm vừa đẹp vừa phù hợp với lịch
                                 trình tổ chức.
                             </p>
+                                </li>
+                            </ul>
+
+
+                           
                             <h2 class="title-tong-quan-h3-log fw-bolder">
                                 Kết luận
                             </h2>
