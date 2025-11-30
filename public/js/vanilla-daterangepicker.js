@@ -468,7 +468,7 @@ class VanillaDateRangePicker {
     show() {
         // Ngăn hiển thị popup nếu đang trong trạng thái scroll/vuốt
         if (this.isMobileDevice() && this.isScrolling) {
-          
+
             return;
         }
 
@@ -482,7 +482,7 @@ class VanillaDateRangePicker {
         if (isMobilePhone) {
             // Double check - ngăn popup nếu đang scroll
             if (this.isScrolling) {
-               
+
                 return;
             }
             this.showMobileDateRangePopup();
@@ -784,7 +784,7 @@ class VanillaDateRangePicker {
             this.startDate.setHours(0, 0, 0, 0);
             this.endDate = new Date(this.startDate); // Same as start date for single mode
             this.isSelecting = false;
-         
+
 
             // Auto apply for single date
             setTimeout(() => this.apply(), 100);
@@ -1161,11 +1161,11 @@ class VanillaDateRangePicker {
     }
 
     showMobileDateRangePopup() {
-       
+
 
         // Double check - chỉ cho phép mobile phone thực sự
         if (window.innerWidth >= 768) {
-       
+
             return;
         }
 
@@ -1194,14 +1194,14 @@ class VanillaDateRangePicker {
         quickGrid.className = 'quick-options-grid';
 
         const quickOptions = [
-            
+
             { label: '7 ngày tới', days: 6 },
             { label: '14 ngày tới', days: 13 },
             { label: '30 ngày tới', days: 29 },
-            { label: '3 tháng tới', type: 'next3Months' },
-            { label: '6 tháng tới', type: 'next6Months' },
             { label: 'Tháng này', type: 'thisMonth' },
             { label: 'Tháng sau', type: 'nextMonth' },
+            { label: '3 tháng tới', type: 'next3Months' },
+            { label: '6 tháng tới', type: 'next6Months' },
             { label: 'Năm nay', type: 'thisYear' },
             { label: 'Năm tới', type: 'nextYear' },
             { label: 'Tuỳ chọn', custom: true }
@@ -1254,7 +1254,7 @@ class VanillaDateRangePicker {
         mobileOverlay.appendChild(mobilePopup);
         document.body.appendChild(mobileOverlay);
 
-      
+
 
         // Khóa scroll
         this.lockBodyScroll();
@@ -1263,12 +1263,12 @@ class VanillaDateRangePicker {
         setTimeout(() => {
             mobileOverlay.classList.add('show');
             mobilePopup.classList.add('show');
-        
+
         }, 10);
 
         // Event listeners
         cancelBtn.addEventListener('click', () => {
-          
+
             this.closeMobilePopup(mobileOverlay);
         });
 
@@ -1286,7 +1286,7 @@ class VanillaDateRangePicker {
 
             if (optionBtn.dataset.custom === 'true') {
                 // Tùy chọn - hiển thị popup chọn khoảng ngày
-              
+
                 this.closeMobilePopup(mobileOverlay);
 
                 setTimeout(() => {
@@ -1301,7 +1301,7 @@ class VanillaDateRangePicker {
                     label: optionBtn.querySelector('.option-title').textContent
                 };
 
-             
+
                 this.applyShortcut(option);
                 this.closeMobilePopup(mobileOverlay);
 
@@ -1401,13 +1401,13 @@ class VanillaDateRangePicker {
         quickList.className = 'mobile-quick-list';
 
         const quickOptions = [
-            
+
             { label: '7 ngày tới', days: 6, icon: '📅' },
             { label: '30 ngày tới', days: 29, icon: '📅' },
-            { label: '3 tháng tới', type: 'next3Months', icon: '📅' },
-            { label: '6 tháng tới', type: 'next6Months', icon: '📅' },
             { label: 'Tháng này', type: 'thisMonth', icon: '📆' },
             { label: 'Tháng sau', type: 'nextMonth', icon: '📆' },
+                { label: '3 tháng tới', type: 'next3Months', icon: '📅' },
+            { label: '6 tháng tới', type: 'next6Months', icon: '📅' },
             { label: 'Năm nay', type: 'thisYear', icon: '🗓️' },
             { label: 'Năm tới', type: 'nextYear', icon: '🗓️' }
         ];
@@ -1464,7 +1464,7 @@ class VanillaDateRangePicker {
 
         document.documentElement.classList.add('menu-open');
         document.body.classList.add('menu-open');
-      
+
 
         if (scrollbarWidth > 0) {
             document.body.style.paddingRight = scrollbarWidth + 'px';

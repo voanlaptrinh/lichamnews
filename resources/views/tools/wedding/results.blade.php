@@ -269,6 +269,7 @@
                                                     </a>
                                                 </td>
                                                 <td style="text-align: start">
+                                                  
                                                     @php
                                                         $supportFactors = [];
 
@@ -287,6 +288,11 @@
                                                         if (count($validViolations) > 0) {
                                                             $supportFactors[] =
                                                                 'Phạm: ' . count($validViolations) . ' vấn đề';
+                                                        }
+
+                                                        if ( $day['groom_score']['tu']['details']['data']['nature'] == 'Tốt') {
+                                                            $nameBatTu = $day['groom_score']['tu']['details']['data']['name'];
+                                                         $supportFactors[] = "Thập nhị bát tú: Sao {$nameBatTu}";
                                                         }
 
                                                         // Kiểm tra ngày hoàng đạo - sử dụng helper
