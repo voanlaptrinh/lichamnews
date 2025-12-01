@@ -305,9 +305,9 @@
 @endsection
 @push('scripts')
     {{-- Load the lunar-solar date select module --}}
-    <script src="{{ asset('js/lunar-solar-date-select.js?v=2.3') }}"></script>
+    <script src="{{ asset('js/lunar-solar-date-select.js?v=2.6') }}"></script>
     {{-- Date Range Picker JS (vanilla JS version) --}}
-    <script src="{{ asset('/js/vanilla-daterangepicker.js?v=6.7') }}" defer></script>
+    <script src="{{ asset('/js/vanilla-daterangepicker.js?v=6.8') }}" defer></script>
 
 
     <script>
