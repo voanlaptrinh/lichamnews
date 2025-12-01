@@ -49,8 +49,8 @@
                                 <p class="mb-2">
                                     <strong>Tuổi:</strong>
                                     <b>{{ $birthdateInfo['can_chi'] ?? '' }}</b>, mệnh:
-                                    {{ $birthdateInfo['menh']['hanh'] ?? '' }}
-                                    ({{ $birthdateInfo['menh']['napAm'] ?? '' }})
+                                    {{ $birthdateInfo['menh'] ?? '' }}
+                                    ({{ $birthdateInfo['hanh'] ?? '' }})
                                 </p>
                                 <p class="mb-2">
                                     <strong>Tuổi âm:</strong>
