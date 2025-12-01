@@ -1,27 +1,27 @@
 <div class="w-100" id="content-box-succes">
-    
+
 
     @if (isset($resultsByYear) && count($resultsByYear) > 0)
-      <div class="box-tab-white mb-3">
-          <div class="year-tabs ">
-            <ul class="nav nav-pills">
-                @php $firstYear = true; @endphp
-                @foreach ($resultsByYear as $year => $yearData)
-                    <li class="nav-item">
-                        <a class="nav-link {{ $firstYear ? 'active' : '' }}" data-bs-toggle="pill"
-                            href="#year-{{ $year }}"
-                            style="border-radius: 20px; margin: 0 5px; padding: 8px 20px;">
-                            Năm {{ $year }}
-                            @if (isset($yearData['canchi']))
-                                ({{ $yearData['canchi'] }})
-                            @endif
-                        </a>
-                    </li>
-                    @php $firstYear = false; @endphp
-                @endforeach
-            </ul>
+        <div class="box-tab-white mb-3">
+            <div class="year-tabs ">
+                <ul class="nav nav-pills">
+                    @php $firstYear = true; @endphp
+                    @foreach ($resultsByYear as $year => $yearData)
+                        <li class="nav-item">
+                            <a class="nav-link {{ $firstYear ? 'active' : '' }}" data-bs-toggle="pill"
+                                href="#year-{{ $year }}"
+                                style="border-radius: 20px; margin: 0 5px; padding: 8px 20px;">
+                                Năm {{ $year }}
+                                @if (isset($yearData['canchi']))
+                                    ({{ $yearData['canchi'] }})
+                                @endif
+                            </a>
+                        </li>
+                        @php $firstYear = false; @endphp
+                    @endforeach
+                </ul>
+            </div>
         </div>
-      </div>
     @endif
 
     <div class="tab-content">
@@ -34,8 +34,8 @@
                             <div class="col-lg-12">
                                 <div
                                     class="text-primary mb-3 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
-                                    <img src="{{ asset('icons/dac-diem1.svg') }}" alt="thông tin gia chủ"
-                                        width="28" height="28" class="me-1"> Thông Tin Gia Chủ
+                                    <img src="{{ asset('icons/dac-diem1.svg') }}" alt="thông tin gia chủ" width="28"
+                                        height="28" class="me-1"> Thông Tin Gia Chủ
                                 </div>
                                 <div class="info-grid">
                                     <p class="mb-2">
@@ -69,7 +69,8 @@
                             <div class="betwen-ds flex-wrap mb-3">
                                 <div class="text-primary mb-0 title-tong-quan-h4-log text-dark fw-bolder">
                                     <img src="{{ asset('icons/k_nen_1.svg') }}" alt="bảng điểm dời bàn thờ"
-                                        width="28" height="28" class="me-1"> Danh Sách Điểm Theo Ngày Dời Bàn Thờ
+                                        width="28" height="28" class="me-1"> Danh Sách Điểm Theo Ngày Dời Bàn
+                                    Thờ
                                 </div>
                                 <div class="d-flex flex-wrap" style="gap: 10px">
                                     <div class="position-relative mb-3">
@@ -85,7 +86,7 @@
                                         <select name="sort" class="form-select-sm sort-select"
                                             style="width: auto; height: 40px;">
                                             <option value="desc" selected>Điểm giảm dần</option>
-                                            
+
                                             <option value="date_asc">Ngày tăng dần</option>
                                             <option value="date_desc">Ngày giảm dần</option>
                                         </select>
@@ -132,18 +133,17 @@
                                                     $text_box = '#10B981';
                                                 }
                                             @endphp
-                                            <tr class="table-row-{{ $year }}"
-                                                data-index="{{ $index }}"
+                                            <tr class="table-row-{{ $year }}" data-index="{{ $index }}"
                                                 style="{{ $index >= 10 ? 'display: none;' : '' }}"
                                                 data-visible="{{ $index < 10 ? 'true' : 'false' }}"
                                                 data-taboo-days="{{ implode(',', $day['day_score']['taboo_details']['taboo_types'] ?? []) }}">
                                                 <td style="text-align: start">
                                                     <a
                                                         href="{{ route('ban-tho.details', [
-                                                          'date' => $day['date']->format('Y-m-d'),
+                                                            'date' => $day['date']->format('Y-m-d'),
                                                             'birthdate' => $birthdateInfo['dob']->format('Y-m-d'),
                                                             'date_range' => $inputs['date_range'] ?? '',
-                                                            'calendar_type' => $inputs['calendar_type'] ?? 'solar'
+                                                            'calendar_type' => $inputs['calendar_type'] ?? 'solar',
                                                         ]) }}">
                                                         <div class="box-dtl-pc">
                                                             <div style="color: #0F172A;font-size: 18px">
@@ -158,7 +158,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="box-dtl-mb">
-                                                             <div class="hv-memorial-date-panel">
+                                                            <div class="hv-memorial-date-panel">
                                                                 <div class="hv-memorial-month-text">Tháng
                                                                     {{ $day['date']->format('m') }}</div>
                                                                 <div class="hv-memorial-day-digit">
@@ -171,9 +171,9 @@
                                                     </a>
                                                 </td>
                                                 <td style="text-align: start">
-                                                       @php
+                                                    @php
                                                         $supportFactors = [];
- if (
+                                                        if (
                                                             $day['day_score']['tu']['details']['data']['nature'] ==
                                                             'Tốt'
                                                         ) {
@@ -214,7 +214,12 @@
                                                                 $day['date'],
                                                                 $birthdateInfo['dob']->year,
                                                             );
-                                                            $badTypes = ['Lục xung', 'Tương hại', 'Tương phá'];
+                                                            $badTypes = [
+                                                                'Lục xung',
+                                                                'Tương hại',
+                                                                'Tương phá',
+                                                                'Tự hình',
+                                                            ];
 
                                                             if (
                                                                 $hopType &&
@@ -240,7 +245,7 @@
                                                         );
                                                         $supportCount = count($supportFactors);
                                                     @endphp
-                                                 
+
                                                     @if ($supportCount > 0)
                                                         <ul class="list-unstyled mb-0">
                                                             @foreach ($supportFactors as $factor)
@@ -282,16 +287,14 @@
                                 </table>
 
                                 <!-- Nút xem thêm -->
-                                @if(count($yearData['days']) > 10)
+                                @if (count($yearData['days']) > 10)
                                     <div class="text-center mt-3">
-                                        <button type="button"
-                                                class="btn btn-outline-primary load-more-btn"
-                                                data-year="{{ $year }}"
-                                                data-loaded="10"
-                                                data-total="{{ count($yearData['days']) }}">
-                                           
+                                        <button type="button" class="btn btn-outline-primary load-more-btn"
+                                            data-year="{{ $year }}" data-loaded="10"
+                                            data-total="{{ count($yearData['days']) }}">
+
                                             Xem thêm
-                                           </span>
+                                            </span>
                                         </button>
                                     </div>
                                 @endif
@@ -309,96 +312,105 @@
     </div>
 </div>
 
-   <!-- Filter Modal/Dropdown - Global -->
-    <div id="tabooFilterModal" class="taboo-filter-modal d-none">
-        <div class="taboo-filter-header">
-            <h6 class="mb-0">Lọc ngày kỵ</h6>
-            <button type="button" id="closeFilterModal" class="btn-close-filter">
-                <i class="bi bi-x"></i>
-            </button>
-        </div>
+<!-- Filter Modal/Dropdown - Global -->
+<div id="tabooFilterModal" class="taboo-filter-modal d-none">
+    <div class="taboo-filter-header">
+        <h6 class="mb-0">Lọc ngày kỵ</h6>
+        <button type="button" id="closeFilterModal" class="btn-close-filter">
+            <i class="bi bi-x"></i>
+        </button>
+    </div>
 
-        <div class="taboo-filter-body">
-            <!-- Categories -->
-            <div class="filter-section">
-                <!-- Quick Actions -->
-                <div class="filter-quick-actions">
-                    <button type="button" id="selectCommon" class="btn-quick-action">Phổ biến</button>
-                    <button type="button" id="selectAll" class="btn-quick-action">Tất cả</button>
-                   
-                </div>
+    <div class="taboo-filter-body">
+        <!-- Categories -->
+        <div class="filter-section">
+            <!-- Quick Actions -->
+            <div class="filter-quick-actions">
+                <button type="button" id="selectCommon" class="btn-quick-action">Phổ biến</button>
+                <button type="button" id="selectAll" class="btn-quick-action">Tất cả</button>
 
-                <div class="filter-options">
-                    <label class="filter-option">
-                        <input type="checkbox" class="taboo-checkbox" value="Tam Nương" id="taboo1">
-                        <span class="checkmark"></span>
-                        <span class="option-text">Tam Nương</span>
-                    </label>
-
-                    <label class="filter-option">
-                        <input type="checkbox" class="taboo-checkbox" value="Nguyệt Kỵ" id="taboo2">
-                        <span class="checkmark"></span>
-                        <span class="option-text">Nguyệt Kỵ</span>
-                    </label>
-
-                    <label class="filter-option">
-                        <input type="checkbox" class="taboo-checkbox" value="Nguyệt Tận" id="taboo3">
-                        <span class="checkmark"></span>
-                        <span class="option-text">Nguyệt Tận</span>
-                    </label>
-
-                    <label class="filter-option">
-                        <input type="checkbox" class="taboo-checkbox" value="Dương Công Kỵ Nhật" id="taboo4">
-                        <span class="checkmark"></span>
-                        <span class="option-text">Dương Công Kỵ Nhật</span>
-                    </label>
-
-                    <label class="filter-option">
-                        <input type="checkbox" class="taboo-checkbox" value="Sát Chủ Âm" id="taboo5">
-                        <span class="checkmark"></span>
-                        <span class="option-text">Sát Chủ Âm</span>
-                    </label>
-
-                    <label class="filter-option">
-                        <input type="checkbox" class="taboo-checkbox" value="Sát Chủ Dương" id="taboo6">
-                        <span class="checkmark"></span>
-                        <span class="option-text">Sát Chủ Dương</span>
-                    </label>
-
-                    <label class="filter-option">
-                        <input type="checkbox" class="taboo-checkbox" value="Kim Thần Thất Sát" id="taboo7">
-                        <span class="checkmark"></span>
-                        <span class="option-text">Kim Thần Thất Sát</span>
-                    </label>
-
-                    <label class="filter-option">
-                        <input type="checkbox" class="taboo-checkbox" value="Trùng Phục" id="taboo8">
-                        <span class="checkmark"></span>
-                        <span class="option-text">Trùng Phục</span>
-                    </label>
-
-                    <label class="filter-option">
-                        <input type="checkbox" class="taboo-checkbox" value="Thụ Tử" id="taboo9">
-                        <span class="checkmark"></span>
-                        <span class="option-text">Thụ Tử</span>
-                    </label>
-                </div>
             </div>
-        </div>
 
-        <div class="taboo-filter-footer">
-            <button type="button" id="clearTabooFilter" class="btn-cancel">Đặt lại</button>
-            <button type="button" id="applyTabooFilter" class="btn-apply">Áp dụng</button>
+            <div class="filter-options">
+                <label class="filter-option">
+                    <input type="checkbox" class="taboo-checkbox" value="Tam Nương" id="taboo1">
+                    <span class="checkmark"></span>
+                    <span class="option-text">Tam Nương</span>
+                </label>
+
+                <label class="filter-option">
+                    <input type="checkbox" class="taboo-checkbox" value="Nguyệt Kỵ" id="taboo2">
+                    <span class="checkmark"></span>
+                    <span class="option-text">Nguyệt Kỵ</span>
+                </label>
+
+                <label class="filter-option">
+                    <input type="checkbox" class="taboo-checkbox" value="Nguyệt Tận" id="taboo3">
+                    <span class="checkmark"></span>
+                    <span class="option-text">Nguyệt Tận</span>
+                </label>
+
+                <label class="filter-option">
+                    <input type="checkbox" class="taboo-checkbox" value="Dương Công Kỵ Nhật" id="taboo4">
+                    <span class="checkmark"></span>
+                    <span class="option-text">Dương Công Kỵ Nhật</span>
+                </label>
+
+                <label class="filter-option">
+                    <input type="checkbox" class="taboo-checkbox" value="Sát Chủ Âm" id="taboo5">
+                    <span class="checkmark"></span>
+                    <span class="option-text">Sát Chủ Âm</span>
+                </label>
+
+                <label class="filter-option">
+                    <input type="checkbox" class="taboo-checkbox" value="Sát Chủ Dương" id="taboo6">
+                    <span class="checkmark"></span>
+                    <span class="option-text">Sát Chủ Dương</span>
+                </label>
+
+                <label class="filter-option">
+                    <input type="checkbox" class="taboo-checkbox" value="Kim Thần Thất Sát" id="taboo7">
+                    <span class="checkmark"></span>
+                    <span class="option-text">Kim Thần Thất Sát</span>
+                </label>
+
+                <label class="filter-option">
+                    <input type="checkbox" class="taboo-checkbox" value="Trùng Phục" id="taboo8">
+                    <span class="checkmark"></span>
+                    <span class="option-text">Trùng Phục</span>
+                </label>
+
+                <label class="filter-option">
+                    <input type="checkbox" class="taboo-checkbox" value="Thụ Tử" id="taboo9">
+                    <span class="checkmark"></span>
+                    <span class="option-text">Thụ Tử</span>
+                </label>
+
+                <label class="filter-option">
+                    <input type="checkbox" class="taboo-checkbox" value="Lục xung" id="taboo10">
+                    <span class="checkmark"></span>
+                    <span class="option-text">Lục Xung</span>
+                </label>
+            </div>
         </div>
     </div>
 
-    <!-- Backdrop -->
-    <div id="tabooFilterBackdrop" class="taboo-filter-backdrop d-none"></div>
+    <div class="taboo-filter-footer">
+        <button type="button" id="clearTabooFilter" class="btn-cancel">Đặt lại</button>
+        <button type="button"id="applyTabooFilter" class="btn-apply">Áp dụng</button>
+    </div>
+</div>
+
+<!-- Backdrop -->
+<div id="tabooFilterBackdrop" class="taboo-filter-backdrop d-none"></div>
 
 @include('components.taboo-filter-script')
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+        // Expose user's 'chi' to global scope
+        window.userChi = '{{ explode(' ', $birthdateInfo['can_chi_nam'] ?? '')[1] ?? '' }}';
+
         // Khởi tạo taboo filter với dữ liệu từ backend
         const resultsByYear = @json($resultsByYear ?? []);
 
@@ -409,10 +421,14 @@
 
                 // Debug first day structure for each year
                 Object.keys(resultsByYear || {}).forEach(year => {
-                    if (resultsByYear[year] && resultsByYear[year].days && resultsByYear[year].days[0]) {
-                        console.log(`Ban Tho Year ${year} first day structure:`, resultsByYear[year].days[0]);
-                        console.log(`Ban Tho Year ${year} day_score structure:`, resultsByYear[year].days[0].day_score);
-                        console.log(`Ban Tho Year ${year} taboo_details:`, resultsByYear[year].days[0].day_score?.taboo_details);
+                    if (resultsByYear[year] && resultsByYear[year].days && resultsByYear[year]
+                        .days[0]) {
+                        console.log(`Ban Tho Year ${year} first day structure:`, resultsByYear[
+                            year].days[0]);
+                        console.log(`Ban Tho Year ${year} day_score structure:`, resultsByYear[
+                            year].days[0].day_score);
+                        console.log(`Ban Tho Year ${year} taboo_details:`, resultsByYear[year]
+                            .days[0].day_score?.taboo_details);
                     }
                 });
 

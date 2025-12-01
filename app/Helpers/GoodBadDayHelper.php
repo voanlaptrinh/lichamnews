@@ -116,7 +116,7 @@ class GoodBadDayHelper
         }
 
         // Tính toán các yếu tố hỗ trợ
-        $supportFactors = self::calculateSupportFactors($date, $birthDate);
+        $supportFactors = self::calculateSupportFactors($date, $birthDate, $trucName);
 
         // Lấy thông tin tuổi kỵ
         $jd = LunarHelper::jdFromDate($date->day, $date->month, $date->year);
@@ -689,7 +689,7 @@ class GoodBadDayHelper
      * @param mixed $birthDate Năm sinh (nếu có)
      * @return array
      */
-    public static function calculateSupportFactors(Carbon $date, $birthDate): array
+    public static function calculateSupportFactors(Carbon $date, $birthDate, $starName = null): array
     {
         $day = $date->day;
         $month = $date->month;
@@ -752,7 +752,7 @@ class GoodBadDayHelper
         // dd($hopTuoiReason);
 
         // 4. Kiểm tra sao tốt
-        $good_stars = self::getGoodStars($date);
+        $good_stars = self::getGoodStars($date, $starName);
 
         // 5. Tính toán các yếu tố tích cực khác
         $positive_factors = [];
@@ -907,14 +907,18 @@ class GoodBadDayHelper
     /**
      * Lấy danh sách sao tốt trong ngày.
      */
-    private static function getGoodStars(Carbon $date): array
+    private static function getGoodStars(Carbon $date, $starName): array
     {
         // Logic lấy sao tốt dựa trên ngày âm lịch
         $lunar = LunarHelper::convertSolar2Lunar($date->day, $date->month, $date->year);
         $lunarDay = $lunar[0];
 
         $goodStars = [];
-
+// $saogood = DataHelper::$trucInfo[$starName];
+// if ($saogood['isCat'] == true) {
+//      $goodStars[] = $saogood[];
+// }
+// dd($saogood);
         // Một số sao tốt theo ngày âm lịch
         if (in_array($lunarDay, [1, 8, 15])) {
             $goodStars[] = 'Thiên Ân';

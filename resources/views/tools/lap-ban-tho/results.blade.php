@@ -228,7 +228,7 @@
                                                                 $day['date'],
                                                                 $birthdateInfo['dob']->year,
                                                             );
-                                                            $badTypes = ['Lục xung', 'Tương hại', 'Tương phá'];
+                                                            $badTypes = ['Lục xung', 'Tương hại', 'Tương phá' , 'Tự hình'];
 
                                                             if (
                                                                 $hopType &&
@@ -399,6 +399,12 @@
                         <input type="checkbox" class="taboo-checkbox" value="Thụ Tử" id="taboo9">
                         <span class="checkmark"></span>
                         <span class="option-text">Thụ Tử</span>
+                    </label>
+
+                    <label class="filter-option">
+                        <input type="checkbox" class="taboo-checkbox" value="Lục xung" id="taboo10">
+                        <span class="checkmark"></span>
+                        <span class="option-text">Lục Xung</span>
                     </label>
                 </div>
             </div>

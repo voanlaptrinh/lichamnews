@@ -121,7 +121,7 @@
 
                                             <div class="d-flex justify-content-center">
                                                 <button type="submit" class="btn btn-light-settup fw-bold w-100">
-                                                    Xem Ngày Cúng Sao Giải Hạn
+                                                    Xem Kết Quả
                                                 </button>
                                             </div>
                                         </form>

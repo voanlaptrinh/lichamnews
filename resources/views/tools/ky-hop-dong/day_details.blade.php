@@ -180,7 +180,7 @@
                                         <tr>
                                             <td>
                                                 @if (!empty($groomData['score']['catHung']['details']['catStars']))
-                                                    <strong>✓ Sao tốt theo Ngọc Hạp Thông Thư:</strong>
+                                                    ✓<strong> Sao tốt theo Ngọc Hạp Thông Thư:</strong>
                                                     @foreach ($groomData['score']['catHung']['details']['catStars'] as $index => $sao)
                                                         <span
                                                             class=" bg-success">{{ $sao['name'] }}</span>{{ $loop->last ? '' : ',' }}
@@ -224,7 +224,7 @@
                             <div>
                                 <table class="table table-detail" style="table-layout: fixed;">
                                     <tbody>
-                                        <tr>
+                                        <tr style="font-weight: 600">
                                             <td>
                                                 Yếu tố đánh giá
                                             </td>
@@ -288,7 +288,7 @@
                                                 <button class="accordion-button collapsed" type="button"
                                                     data-bs-toggle="collapse"
                                                     data-bs-target="#collapse-canchi-{{ Str::slug($groomData['personTitle']) }}">
-                                                    Xem Can Chi - Khí vận & tuổi hợp/xung trong ngày ký hợp đồng
+                                                 Can chi - vận khí ngày so với tuổi
                                                 </button>
                                             </h2>
                                             <div id="collapse-canchi-{{ Str::slug($groomData['personTitle']) }}"
@@ -352,7 +352,7 @@
                                                 <button class="accordion-button collapsed" type="button"
                                                     data-bs-toggle="collapse"
                                                     data-bs-target="#collapse-nhi-thap-bat-tu-{{ Str::slug($groomData['personTitle']) }}">
-                                                    Nhị Thập Bát Tú cho việc ký hợp đồng
+                                                    Nhị Thập Bát Tú 
                                                 </button>
                                             </h2>
                                             <div id="collapse-nhi-thap-bat-tu-{{ Str::slug($groomData['personTitle']) }}"
@@ -380,7 +380,7 @@
                                                 <button class="accordion-button collapsed" type="button"
                                                     data-bs-toggle="collapse"
                                                     data-bs-target="#collapse-thap-nhi-truc-{{ Str::slug($groomData['personTitle']) }}">
-                                                    Thập Nhị Trực cho việc ký hợp đồng
+                                                    Thập Nhị Trực
                                                 </button>
                                             </h2>
                                             <div id="collapse-thap-nhi-truc-{{ Str::slug($groomData['personTitle']) }}"
@@ -414,7 +414,7 @@
                                                     <button class="accordion-button collapsed" type="button"
                                                         data-bs-toggle="collapse"
                                                         data-bs-target="#collapse-sao-cat-hung-{{ Str::slug($groomData['personTitle']) }}">
-                                                        Sao Cát Hung cho việc ký hợp đồng (Ngọc Hạp Thông Thư)
+                                                      Sao Cát Hung - Ngọc Hạp Thông Thư
                                                     </button>
                                                 </h2>
                                                 <div id="collapse-sao-cat-hung-{{ Str::slug($groomData['personTitle']) }}"

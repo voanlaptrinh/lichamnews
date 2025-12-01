@@ -89,8 +89,29 @@ function initTabooFilter(resultsByYear) {
     // Gọi debug function sau khi khởi tạo
     // debugDataStatus();
 
+    const lucXungMap = {
+        'Tý': 'Ngọ', 'Ngọ': 'Tý',
+        'Sửu': 'Mùi', 'Mùi': 'Sửu',
+        'Dần': 'Thân', 'Thân': 'Dần',
+        'Mão': 'Dậu', 'Dậu': 'Mão',
+        'Thìn': 'Tuất', 'Tuất': 'Thìn',
+        'Tỵ': 'Hợi', 'Hợi': 'Tỵ'
+    };
+
+    function isLucXung(userChi, dayLunarDateStr) {
+        if (!userChi || !dayLunarDateStr) return false;
+        
+        const dayCanChiStr = dayLunarDateStr.split(',')[0].replace('Ngày', '').trim();
+        const dayChi = dayCanChiStr.substring(1); // Lấy chi từ can chi, ví dụ "Mậu Thân" -> "Thân"
+
+        return lucXungMap[userChi] === dayChi;
+    }
+
     // Hàm kiểm tra xem ngày có chứa taboo không - Phiên bản hybrid tương thích
     function hasTaboo(day, tabooNames) {
+        if (tabooNames.includes('Lục xung') && isLucXung(window.userChi, day.full_lunar_date_str)) {
+            return true;
+        }
       
         // Kiểm tra trong wedding tool - dual score structure (groom_score và bride_score)
         if (day.groom_score && day.bride_score) {

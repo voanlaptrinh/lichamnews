@@ -292,7 +292,7 @@
                                                 <button class="accordion-button collapsed" type="button"
                                                     data-bs-toggle="collapse"
                                                     data-bs-target="#collapse-canchi-{{ Str::slug($groomData['personTitle']) }}">
-                                                    Xem Can Chi - Khí vận & tuổi hợp/xung trong ngày
+                                    Can chi - vận khí ngày so với tuổi
                                                 </button>
                                             </h2>
                                             <div id="collapse-canchi-{{ Str::slug($groomData['personTitle']) }}"
@@ -418,7 +418,7 @@
                                                     <button class="accordion-button collapsed" type="button"
                                                         data-bs-toggle="collapse"
                                                         data-bs-target="#collapse-sao-cat-hung-{{ Str::slug($groomData['personTitle']) }}">
-                                                        Sao Cát Hung (Ngọc Hạp Thông Thư)
+                                                        Sao Cát Hung - Ngọc Hạp Thông Thư
                                                     </button>
                                                 </h2>
                                                 <div id="collapse-sao-cat-hung-{{ Str::slug($groomData['personTitle']) }}"

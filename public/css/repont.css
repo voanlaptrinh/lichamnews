@@ -117,6 +117,10 @@
         font-size: 24px
     }
 
+    .title-tong-quan-h1-log {
+        font-size: 26px
+    }
+
     .box-chi-so-ngaytot {
         display: flex;
         justify-content: space-around;
@@ -303,17 +307,22 @@
         font-size: 16px
     }
 
+    .title-tong-quan-h1-log {
+        font-size: 36px
+    }
+
+    .title-tong-quan-h2-log {
+        font-size: 28px
+    }
+
+    .title-tong-quan-h3-log {
+        font-size: 22px
+    }
+
     .title-tong-quan-h4-log {
         font-size: 18px
     }
 
-    .title-tong-quan-h3-log {
-        font-size: 20px
-    }
-
-    .title-tong-quan-h2-log {
-        font-size: 22px
-    }
 
     .box-chi-so-ngaytot {
         display: flex;
@@ -459,6 +468,10 @@
         flex-wrap: wrap
     }
 
+    .title-tong-quan-h1 {
+        font-size: 24px
+    }
+
     .title-tong-quan-h2 {
         font-size: 24px
     }
@@ -504,11 +517,15 @@
     }
 
     .title-tong-quan-h3-log {
-        font-size: 20px
+        font-size: 22px
     }
 
     .title-tong-quan-h2-log {
-        font-size: 24px
+        font-size: 28px
+    }
+
+    .title-tong-quan-h1-log {
+        font-size: 36px
     }
 
     .box-chi-so-ngaytot {
@@ -749,15 +766,19 @@
     }
 
     .title-tong-quan-h4-log {
-        font-size: 20px
+        font-size: 18px
     }
 
     .title-tong-quan-h3-log {
-        font-size: 21px
+        font-size: 22px
     }
 
     .title-tong-quan-h2-log {
         font-size: 24px
+    }
+
+    .title-tong-quan-h1-log {
+        font-size: 34px
     }
 
     .box-chi-so-ngaytot {
@@ -1005,11 +1026,15 @@
     }
 
     .title-tong-quan-h3-log {
-        font-size: 20px
+        font-size: 22px
     }
 
     .title-tong-quan-h2-log {
-        font-size: 23px
+        font-size: 28px
+    }
+
+    .title-tong-quan-h1-log {
+        font-size: 36px
     }
 
     .sonar-date,
@@ -1287,11 +1312,15 @@
     }
 
     .title-tong-quan-h3-log {
-        font-size: 16px
+        font-size: 22px
     }
 
     .title-tong-quan-h2-log {
-        font-size: 20px
+        font-size: 28px
+    }
+
+    .title-tong-quan-h1-log {
+        font-size: 34px
     }
 
     .sonar-date,
@@ -1692,11 +1721,15 @@
     }
 
     .title-tong-quan-h3-log {
-        font-size: 16px
+        font-size: 22px
     }
 
     .title-tong-quan-h2-log {
-        font-size: 18px
+        font-size: 24px
+    }
+
+    .title-tong-quan-h1-log {
+        font-size: 28px
     }
 
     .sonar-date,

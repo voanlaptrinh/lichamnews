@@ -3,15 +3,15 @@
     @push('styles')
         <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=10.7') }}">
 
-        <style>
-            .main-content-wrapper {
-                background-image: url(../images/Quy_Trinh_Bg.png);
-                background-repeat: no-repeat;
-                background-size: cover;
-                align-items: normal;
-                background-position: center center;
-                overflow: hidden;
-            }
+        <style>.main-content-wrapper {
+    background-image: url(../images/Quy_Trinh_Bg.png);
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-size: 100% auto; /* Ảnh full-width, giữ đúng tỉ lệ */
+    background-color: #ffffff;  /* Màu nền phía dưới */
+}
+
+
         </style>
     @endpush
 
@@ -39,9 +39,9 @@
                             <!-- Tiêu đề Số tử vi của tên -->
                             <h1 class="content-title-home-lich " style="color: #192E52">
                                              @if(isset($normalizedData['ho_ten']) && $normalizedData['ho_ten'])
-                                        Số tử vi của {{ $normalizedData['ho_ten'] }}
+                                      Tổng Quan Lá Số Tử Vi Của {{ $normalizedData['ho_ten'] }}
                                     @else
-                                        Số tử vi của bạn
+                                      Tổng Quan Lá Số Tử Vi Của Bạn
                                     @endif</h1>
                               
                                 

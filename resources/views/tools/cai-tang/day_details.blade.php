@@ -203,7 +203,7 @@
                             <div>
                                 <table class="table table-detail" style="table-layout: fixed;">
                                     <tbody>
-                                        <tr>
+                                        <tr style="font-weight: 600">
                                             <td>
                                                 Yếu tố đánh giá
                                             </td>
@@ -262,7 +262,7 @@
                                                 <button class="accordion-button collapsed" type="button"
                                                     data-bs-toggle="collapse"
                                                     data-bs-target="#collapse-canchi-{{ Str::slug($hostData['personTitle']) }}">
-                                                    Xem Can Chi - Khí vận & tuổi hợp/xung trong ngày
+                                                   Can chi - vận khí ngày so với tuổi
                                                 </button>
                                             </h2>
                                             <div id="collapse-canchi-{{ Str::slug($hostData['personTitle']) }}"
@@ -325,7 +325,7 @@
                                                 <button class="accordion-button collapsed" type="button"
                                                     data-bs-toggle="collapse"
                                                     data-bs-target="#collapse-nhi-thap-bat-tu-{{ Str::slug($hostData['personTitle']) }}">
-                                                    Nhị Thập Bát Tú cho việc cải táng
+                                                    Nhị Thập Bát Tú
                                                 </button>
                                             </h2>
                                             <div id="collapse-nhi-thap-bat-tu-{{ Str::slug($hostData['personTitle']) }}"
@@ -352,7 +352,7 @@
                                                 <button class="accordion-button collapsed" type="button"
                                                     data-bs-toggle="collapse"
                                                     data-bs-target="#collapse-thap-nhi-truc-{{ Str::slug($hostData['personTitle']) }}">
-                                                    Thập Nhị Trực cho việc cải táng
+                                                    Thập Nhị Trực
                                                 </button>
                                             </h2>
                                             <div id="collapse-thap-nhi-truc-{{ Str::slug($hostData['personTitle']) }}"
@@ -384,7 +384,7 @@
                                                     <button class="accordion-button collapsed" type="button"
                                                         data-bs-toggle="collapse"
                                                         data-bs-target="#collapse-sao-cat-hung-{{ Str::slug($hostData['personTitle']) }}">
-                                                        Sao Cát Hung cho việc cải táng (Ngọc Hạp Thông Thư)
+                                                        Sao Cát Hung - Ngọc Hạp Thông Thư
                                                     </button>
                                                 </h2>
                                                 <div id="collapse-sao-cat-hung-{{ Str::slug($hostData['personTitle']) }}"

@@ -3149,3 +3149,11 @@ table.table-detail th {
     border-radius: 999px;
     margin-right: 12px
 }
+.box-siderbar-index{
+    border: 1px solid #2149874D;
+    border-radius: 16px;
+    background: #FFFFFF; 
+}
+.box-siderbar-index .events-card{
+    background: unset;
+}

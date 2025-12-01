@@ -3,8 +3,6 @@
 @section('content')
     @push('styles')
         <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=10.7') }}">
-        
-           
     @endpush
 
     <div class="container-setup">
@@ -14,7 +12,8 @@
                     <a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
                 </li>
                 <li class="breadcrumb-item" aria-current="page">
-                            <a href="{{ route('totxau.list') }}"  style="color: #2254AB; text-decoration: underline;">Xem ngày tốt</a>
+                    <a href="{{ route('totxau.list') }}" style="color: #2254AB; text-decoration: underline;">Xem ngày
+                        tốt</a>
                 </li>
                 <li class="breadcrumb-item" aria-current="page">
                     Xem ngày kết hôn
@@ -101,7 +100,8 @@
                         </li>
                         <li class="nav-item" role="presentation">
                             <button class="nav-link" id="bride-tab" data-bs-toggle="tab" data-bs-target="#bride-tab-pane"
-                                type="button" role="tab" aria-controls="bride-tab-pane" aria-selected="false" data-short="Cô Dâu">
+                                type="button" role="tab" aria-controls="bride-tab-pane" aria-selected="false"
+                                data-short="Cô Dâu">
                                 <i class="fas fa-female me-2"></i>
                                 <span>Luận giải cho Cô Dâu</span>
                             </button>
@@ -253,9 +253,16 @@
                                                         ];
                                                     $totalWeight = array_sum($weights);
                                                 @endphp
-
                                                 <tr>
-                                                    <td>Nhị thập bát tú</td>
+                                                    <td>Can chi - vận khí ngày so với tuổi</td>
+                                                    <td>{{ round($groomData['score']['vanKhi']['percentage'] ?? 0) }}%</td>
+                                                    <td>
+                                                        {{ round((($weights['VanKhi'] ?? 0) / $totalWeight) * 100) }}%
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>Nhị Thập Bát Tú</td>
                                                     <td>{{ round($groomData['score']['tu']['percentage'] ?? 0) }}%</td>
                                                     <td>
                                                         {{ round((($weights['28Tu'] ?? 0) / $totalWeight) * 100) }}%</td>
@@ -269,7 +276,7 @@
 
                                                 </tr>
                                                 <tr>
-                                                    <td>Cát Hung (Sao tốt xấu)</td>
+                                                    <td>Sao Cát Hung - Ngọc Hạp Thông Thư</td>
                                                     <td>{{ round($groomData['score']['catHung']['percentage'] ?? 0) }}%
                                                     </td>
                                                     <td>
@@ -278,14 +285,7 @@
 
                                                 </tr>
 
-                                                <tr>
-                                                    <td>Văn Khí (Can Chi vận khí)</td>
-                                                    <td>{{ round($groomData['score']['vanKhi']['percentage'] ?? 0) }}%</td>
-                                                    <td>
-                                                        {{ round((($weights['VanKhi'] ?? 0) / $totalWeight) * 100) }}%
-                                                    </td>
 
-                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -391,7 +391,6 @@
                                                             @endif
                                                         </td>
                                                     </tr>
-                                                  
                                                 @endif
 
                                                 <tr>

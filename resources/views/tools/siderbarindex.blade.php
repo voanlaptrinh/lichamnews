@@ -1,5 +1,5 @@
  <div class="col-xl-3  col-sm-12 col-12 mb-3">
-     <div class="d-flex flex-column gap-4">
+     <div class="d-flex flex-column gap-4 box-siderbar-index">
          <!-- ** KHá»I Sá»° KIá»†N Sáº®P Tá»šI ** -->
 
 

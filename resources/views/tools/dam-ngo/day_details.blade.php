@@ -198,7 +198,7 @@
                                                 <tr>
                                                     <td>
                                                         @if (!empty($groomData['score']['catHung']['details']['catStars']))
-                                                            <strong>✓ Sao tốt theo Ngọc Hạp Thông Thư:</strong>
+                                                            ✓<strong> Sao tốt theo Ngọc Hạp Thông Thư:</strong>
                                                             @foreach ($groomData['score']['catHung']['details']['catStars'] as $index => $sao)
                                                                 <span
                                                                     class=" bg-success me-1">{{ $sao['name'] }}</span>{{ $loop->last ? '' : ',' }}
@@ -249,9 +249,16 @@
                                                         ];
                                                     $totalWeight = array_sum($weights);
                                                 @endphp
+ <tr>
+                                                    <td>Can chi - vận khí ngày so với tuổi</td>
+                                                    <td>{{ round($groomData['score']['vanKhi']['percentage'] ?? 0) }}%</td>
+                                                    <td>
+                                                        {{ round((($weights['VanKhi'] ?? 0) / $totalWeight) * 100) }}%
+                                                    </td>
 
+                                                </tr>
                                                 <tr>
-                                                    <td>Nhị thập bát tú</td>
+                                                    <td>Nhị Thập Bát Tú</td>
                                                     <td>{{ round($groomData['score']['tu']['percentage'] ?? 0) }}%</td>
                                                     <td>
                                                         {{ round((($weights['28Tu'] ?? 0) / $totalWeight) * 100) }}%</td>
@@ -265,7 +272,7 @@
 
                                                 </tr>
                                                 <tr>
-                                                    <td>Cát Hung (Sao tốt xấu)</td>
+                                                    <td>Sao Cát Hung - Ngọc Hạp Thông Thư</td>
                                                     <td>{{ round($groomData['score']['catHung']['percentage'] ?? 0) }}%
                                                     </td>
                                                     <td>
@@ -274,14 +281,6 @@
 
                                                 </tr>
 
-                                                <tr>
-                                                    <td>Văn Khí (Can Chi vận khí)</td>
-                                                    <td>{{ round($groomData['score']['vanKhi']['percentage'] ?? 0) }}%</td>
-                                                    <td>
-                                                        {{ round((($weights['VanKhi'] ?? 0) / $totalWeight) * 100) }}%
-                                                    </td>
-
-                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -336,7 +335,7 @@
                                                         </td>
 
                                                         <td>
-                                                            {{ $tabooIssues->map(fn($issue) => 'Phạm ' . ($issue['details']['tabooName'] ?? ''))->implode(', ') }}
+                                                            {{ $tabooIssues->map(fn($issue) => '⚠️ Phạm ' . ($issue['details']['tabooName'] ?? ''))->implode(', ') }}
                                                         </td>
                                                     </tr>
                                                 @endif
@@ -393,7 +392,7 @@
                                                 <tr>
                                                     <td>
                                                         @if (!empty($brideData['score']['catHung']['details']['catStars']))
-                                                            <strong>✓ Sao tốt theo Ngọc Hạp Thông Thư:</strong>
+                                                            ✓<strong> Sao tốt theo Ngọc Hạp Thông Thư:</strong>
                                                             @foreach ($brideData['score']['catHung']['details']['catStars'] as $index => $sao)
                                                                 <span
                                                                     class=" bg-success">{{ $sao['name'] }}</span>{{ $loop->last ? '' : ',' }}
@@ -514,7 +513,7 @@
             const dateRange = urlParams.get('khoang');
 
             // Build the target URL with hash parameters
-            let targetUrl = '{{ route('astrology.form') }}';
+            let targetUrl = '{{ route('dam-ngo.form') }}';
             const hashParams = [];
 
             // Add groom to hash if available
