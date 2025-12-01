@@ -2,16 +2,16 @@
 @section('content')
     @push('styles')
         <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=10.7') }}">
-
-        <style>.main-content-wrapper {
-    background-image: url(../images/Quy_Trinh_Bg.png);
-    background-repeat: no-repeat;
-    background-position: top center;
-    background-size: 100% auto; /* Ảnh full-width, giữ đúng tỉ lệ */
-    background-color: #ffffff;  /* Màu nền phía dưới */
-}
-
-
+        <style>
+            .main-content-wrapper {
+                background-image: url(../images/Quy_Trinh_Bg.png);
+                background-repeat: no-repeat;
+                background-position: top center;
+                background-size: 100% auto;
+                /* Ảnh full-width, giữ đúng tỉ lệ */
+                background-color: #ffffff;
+                /* Màu nền phía dưới */
+            }
         </style>
     @endpush
 
@@ -38,14 +38,15 @@
                         @if (isset($imageUrl) && $imageUrl)
                             <!-- Tiêu đề Số tử vi của tên -->
                             <h1 class="content-title-home-lich " style="color: #192E52">
-                                             @if(isset($normalizedData['ho_ten']) && $normalizedData['ho_ten'])
-                                      Tổng Quan Lá Số Tử Vi Của {{ $normalizedData['ho_ten'] }}
-                                    @else
-                                      Tổng Quan Lá Số Tử Vi Của Bạn
-                                    @endif</h1>
-                              
-                                
-                            
+                                @if (isset($normalizedData['ho_ten']) && $normalizedData['ho_ten'])
+                                    Tổng Quan Lá Số Tử Vi Của {{ $normalizedData['ho_ten'] }}
+                                @else
+                                    Tổng Quan Lá Số Tử Vi Của Bạn
+                                @endif
+                            </h1>
+
+
+
 
                             <div class="box--bg-thang mt-3 mb-3">
                                 <div class=" text-center">
@@ -63,9 +64,7 @@
                                             class="btn btn-success me-2 mt-2" download>
                                             <i class="fas fa-download"></i> Tải lá số
                                         </a>
-                                        <button type="button" class="btn btn-info me-2  mt-2" id="luanGiaiBtn">
-                                            <i class="fas fa-brain"></i> Luận giải
-                                        </button>
+                                     
                                         <a href="{{ route('laso.create') }}" class="btn btn-primary me-2  mt-2">
                                             <i class="fas fa-plus"></i> Tạo lá số mới
                                         </a>
@@ -78,7 +77,7 @@
                         @endif
                         <div id="luanGiaiResults"></div>
                     </div>
-                 @include('tools.siderbardetail')
+                    @include('tools.siderbardetail')
                 </div>
             </div>
         </div>

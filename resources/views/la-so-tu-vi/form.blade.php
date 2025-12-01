@@ -3,13 +3,14 @@
     @push('styles')
         <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=10.7') }}">
         <style>
-            .main-content-wrapper {
+              .main-content-wrapper {
                 background-image: url(../images/Quy_Trinh_Bg.png);
                 background-repeat: no-repeat;
-                background-size: cover;
-                align-items: normal;
-                background-position: center center;
-                overflow: hidden;
+                background-position: top center;
+                background-size: 100% auto;
+                /* Ảnh full-width, giữ đúng tỉ lệ */
+                background-color: #ffffff;
+                /* Màu nền phía dưới */
             }
         </style>
     @endpush
