@@ -2,7 +2,8 @@
     <div class="container-setup d-flex align-items-center justify-content-between">
         <div class="site-logo d-flex align-items-center">
             <a href="{{ route('home') }}" class="text-white">
-                <img class="img-fluid me-2" src="{{ asset('/icons/logo_header.svg') }}" alt="logo Phong lịch" width="40" height="40">
+                <img class="img-fluid me-2" src="{{ asset('/icons/logo_header.svg') }}" alt="logo Phong lịch" width="40"
+                    height="40">
                 PHONG LỊCH
             </a>
         </div>
@@ -37,7 +38,9 @@
                             </span>
                             <!-- Menu cấp 2 (submenu) -->
                             <ul class="submenu">
-                              @include('layout.month_list', ['header_lunar_months' => $header_lunar_months ?? []])
+                                @include('layout.month_list', [
+                                    'header_lunar_months' => $header_lunar_months ?? [],
+                                ])
                             </ul>
                         </li>
 
@@ -61,15 +64,15 @@
                                 @endfor
                             </ul>
                         </li>
-                         <li class="has-submenu"> <!-- << Class mới -->
+                        <li class="has-submenu"> <!-- << Class mới -->
                             <span class="text-white">
-                               Lịch ngày
+                                Lịch ngày
                                 <i class="bi bi-chevron-right "></i> <!-- << Icon mũi tên phải -->
                             </span>
                             <!-- Menu cấp 2 (submenu) -->
                             <ul class="submenu">
-                                 <li><a href="{{ route('am-lich-hom-nay') }}">Lịch âm hôm nay</a></li>
-                        <li><a href="{{ route('am-lich-ngay-mai') }}">Lịch âm ngày mai</a></li>
+                                <li><a href="{{ route('am-lich-hom-nay') }}">Lịch âm hôm nay</a></li>
+                                <li><a href="{{ route('am-lich-ngay-mai') }}">Lịch âm ngày mai</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -78,7 +81,7 @@
                 <li><a href="{{ route('convert.am.to.duong') }}">Đổi ngày</a></li>
                 <li><a href="{{ route('totxau.list') }}">Xem ngày tốt</a></li>
 
-                <li class="has-dropdown">
+                {{-- <li class="has-dropdown">
                     <span class="text-white">Tử vi & Phong thủy
 
                         <i class="bi bi-chevron-down"></i>
@@ -86,9 +89,9 @@
                     <ul class="dropdown-menu">
                         <li><a href="{{ route('laso.create') }}">Lá số tử vi</a></li>
 
-                        {{-- <li><a href="">Tìm phòng</a></li> --}}
+
                     </ul>
-                </li>
+                </li> --}}
                 <li class="has-dropdown">
                     <span class="text-white">Chiêm tinh & Huyền học
 
@@ -97,10 +100,10 @@
                     <ul class="dropdown-menu">
                         <li><a href="{{ route('horoscope.index') }}">Cung hoàng đạo</a></li>
 
-            
+
                     </ul>
                 </li>
-                 {{-- <li class="has-dropdown">
+                {{-- <li class="has-dropdown">
                     <span class="text-white">Tiện ích khác
 
                         <i class="bi bi-chevron-down"></i>
@@ -133,7 +136,8 @@
     <div class="mobile-nav-header">
         <span class="mobile-nav-logo">
             <!-- Thay bằng logo của bạn -->
-            <img src="{{ asset('/icons/logo_header.svg') }}" alt="Logo Phong Lịch mobie" class="img-fluid" width="40" height="40">
+            <img src="{{ asset('/icons/logo_header.svg') }}" alt="Logo Phong Lịch mobie" class="img-fluid"
+                width="40" height="40">
         </span>
         <button class="mobile-nav-close" id="mobile-nav-close" aria-label="Đóng menu">
             <i class="bi bi-x"></i>
@@ -144,9 +148,9 @@
     <nav class="mobile-nav-main">
         <ul>
 
-               <li class="has-dropdown">
+            <li class="has-dropdown">
                 <span class="text-white">
-                   Lịch & sự kiện
+                    Lịch & sự kiện
                     <i class="bi bi-chevron-down arrow-icon"></i>
                 </span>
                 <!-- Menu cấp 1 -->
@@ -159,12 +163,14 @@
                         </span>
                         <!-- Menu cấp 2 -->
                         <ul class="mobile-submenu">
-                             @include('layout.month_list', ['header_lunar_months' => $header_lunar_months ?? []])
+                            @include('layout.month_list', [
+                                'header_lunar_months' => $header_lunar_months ?? [],
+                            ])
                         </ul>
                     </li>
                     <!-- Menu con "Lịch Năm" -->
                     <li class="has-dropdown">
-                        <span class="text-white" >
+                        <span class="text-white">
                             Lịch năm
                             <i class="bi bi-chevron-down arrow-icon"></i>
                         </span>
@@ -182,28 +188,28 @@
                             @endfor
                         </ul>
                     </li>
-                     <li class="has-dropdown">
+                    <li class="has-dropdown">
                         <span class="text-white">
                             Lịch ngày
                             <i class="bi bi-chevron-down arrow-icon"></i>
                         </span>
                         <!-- Menu cấp 2 -->
                         <ul class="mobile-submenu">
-                             <li><a class="text-white" href="{{ route('am-lich-hom-nay') }}">Lịch âm hôm nay</a></li>
-                    <li><a class="text-white" href="{{ route('am-lich-ngay-mai') }}">Lịch âm ngày mai</a></li>
+                            <li><a class="text-white" href="{{ route('am-lich-hom-nay') }}">Lịch âm hôm nay</a></li>
+                            <li><a class="text-white" href="{{ route('am-lich-ngay-mai') }}">Lịch âm ngày mai</a></li>
                         </ul>
                     </li>
                 </ul>
             </li>
-           
+
             <li>
                 <a href="{{ route('convert.am.to.duong') }}">Đổi ngày</a>
             </li>
-          <li>
+            <li>
                 <a href="{{ route('totxau.list') }}">Xem ngày tốt</a>
             </li>
-         
-            <li class="has-dropdown">
+
+            {{-- <li class="has-dropdown">
                 <span class="text-white">
                    Tử vi & Phong thuỷ
                     <i class="bi bi-chevron-down arrow-icon"></i>
@@ -213,19 +219,19 @@
                   
 
                 </ul>
-            </li>
-              <li class="has-dropdown">
+            </li> --}}
+            <li class="has-dropdown">
                 <span class="text-white">
-                   Chiêm tinh & Huyền học
+                    Chiêm tinh & Huyền học
                     <i class="bi bi-chevron-down arrow-icon"></i>
                 </span>
                 <ul class="mobile-submenu">
                     <li><a href="{{ route('horoscope.index') }}">Cung hoàng đạo</a></li>
-                  
+
 
                 </ul>
             </li>
-            
+
         </ul>
     </nav>
 </div>
@@ -256,7 +262,8 @@
         // --- BẮT ĐẦU: JS ĐÃ SỬA LỖI CHO DROPDOWN ĐA CẤP --- //
         // ---------------------------------------------------------------- //
 
-        const mobileDropdownToggles = document.querySelectorAll('.mobile-nav-main .has-dropdown > a, .mobile-nav-main .has-dropdown > span');
+        const mobileDropdownToggles = document.querySelectorAll(
+            '.mobile-nav-main .has-dropdown > a, .mobile-nav-main .has-dropdown > span');
 
         mobileDropdownToggles.forEach(toggle => {
             toggle.addEventListener('click', function(event) {

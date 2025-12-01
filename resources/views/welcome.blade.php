@@ -105,23 +105,23 @@
     </style>
 
     <!-- Preload CSS resources -->
-    <link rel="preload" href="{{ asset('/css/bootstrap.min.css?v=6.4') }}" as="style">
-    <link rel="preload" href="{{ asset('/css/style-date.css?v=6.4') }}" as="style">
+    <link rel="preload" href="{{ asset('/css/bootstrap.min.css?v=6.5') }}" as="style">
+    <link rel="preload" href="{{ asset('/css/style-date.css?v=6.5') }}" as="style">
 
     <!-- Load critical CSS -->
-    <link href="{{ asset('/css/bootstrap.min.css?v=6.4') }}" rel="stylesheet">
-    <link href="{{ asset('/css/style-date.css?v=6.4') }}" rel="stylesheet">
+    <link href="{{ asset('/css/bootstrap.min.css?v=6.5') }}" rel="stylesheet">
+    <link href="{{ asset('/css/style-date.css?v=6.5') }}" rel="stylesheet">
 
     <!-- Defer non-critical CSS -->
-    <link rel="preload" href="{{ asset('/css/bootstrap-icons.min.css?v=6.4') }}" as="style"
+    <link rel="preload" href="{{ asset('/css/bootstrap-icons.min.css?v=6.5') }}" as="style"
         onload="this.onload=null;this.rel='stylesheet'">
     <noscript>
-        <link rel="stylesheet" href="{{ asset('/css/bootstrap-icons.min.css?v=6.4') }}">
+        <link rel="stylesheet" href="{{ asset('/css/bootstrap-icons.min.css?v=6.5') }}">
     </noscript>
-    <link rel="preload" href="{{ asset('/css/repont.css?v=6.4') }}" as="style"
+    <link rel="preload" href="{{ asset('/css/repont.css?v=6.5') }}" as="style"
         onload="this.onload=null;this.rel='stylesheet'">
     <noscript>
-        <link rel="stylesheet" href="{{ asset('/css/repont.css?v=6.4') }}">
+        <link rel="stylesheet" href="{{ asset('/css/repont.css?v=6.5') }}">
     </noscript>
 
     {{-- <link rel="stylesheet" type="text/css" href="{{ asset('/css/daterangepicker.css') }}" /> --}}
@@ -212,14 +212,14 @@
     {{-- @include('gieo-que') --}}
     @if (request()->routeIs('home'))
         {{-- Sử dụng Simple Chart thay vì Chart.js 201KB --}}
-        <script src="{{ asset('/js/simple-chart.js?v=6.4') }}" defer></script>
+        <script src="{{ asset('/js/simple-chart.js?v=6.5') }}" defer></script>
     @endif
     {{-- <script src="{{ asset('/js/jquery-3.7.1.min.js?v=5.67') }}" defer></script> --}}
     <script src="{{ asset('/js/bootstrap.bundle.min.js?v=5.7') }}" defer></script>
     @stack('scripts')
 
     {{-- Vanilla Date Range Picker JS - Auto-initialize for all .wedding_date_range inputs --}}
-    {{-- <script src="{{ asset('/js/vanilla-daterangepicker.js?v=6.4') }}" defer></script> --}}
+    {{-- <script src="{{ asset('/js/vanilla-daterangepicker.js?v=6.5') }}" defer></script> --}}
 
     <!-- IMMEDIATE LCP optimization -->
     <script>
@@ -294,15 +294,19 @@
 
         gtag('config', 'G-KVKGWDRXSC');
     </script>
-    {{-- <script>
-        var xla_init_date = 14;
-        window.addEventListener('focus', function() {
-            var xla_today = new Date();
-            if (xla_init_date !== xla_today.getDate()) {
-                window.location.reload();
-            }
-        });
-    </script> --}}
+    <script>
+    // Luu ng�y khi trang du?c load l?n d?u
+    var xla_init_date = new Date().getDate();
+
+    window.addEventListener('focus', function() {
+        var xla_today = new Date().getDate();
+
+        // N?u ng�y hi?n t?i kh�c ng�y ban d?u ? reload
+        if (xla_init_date !== xla_today) {
+            window.location.reload();
+        }
+    });
+</script>
 
 
 </body>

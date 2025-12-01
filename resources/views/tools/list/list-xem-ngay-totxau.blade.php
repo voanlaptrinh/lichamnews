@@ -1,7 +1,7 @@
 @extends('welcome')
 @section('content')
   @push('styles')
-        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=10.7') }}">
+        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=10.8') }}">
     @endpush
 
     <div class="container-setup">

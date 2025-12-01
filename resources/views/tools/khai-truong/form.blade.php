@@ -2,7 +2,7 @@
 
 @section('content')
     @push('styles')
-        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=10.7') }}">
+        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=10.8') }}">
     @endpush
 
     <div class="container-setup">
@@ -293,7 +293,7 @@
 @endsection
 
 @push('scripts')
-    <script src="{{ asset('js/lunar-solar-date-select.js?v=1.3') }}"></script>
+    <script src="{{ asset('js/lunar-solar-date-select.js?v=2.3') }}"></script>
     {{-- Date Range Picker JS (vanilla JS version) --}}
     <script src="{{ asset('/js/vanilla-daterangepicker.js?v=6.7') }}" defer></script>
 
