@@ -287,7 +287,14 @@
                                                 <td style="text-align: start">
                                                     @php
                                                         $supportFactors = [];
-
+ if (
+                                                            $day['day_score']['tu']['details']['data']['nature'] ==
+                                                            'Tốt'
+                                                        ) {
+                                                            $nameBatTu =
+                                                                $day['day_score']['tu']['details']['data']['name'];
+                                                            $supportFactors[] = "Thập nhị bát tú: Sao {$nameBatTu}";
+                                                        }
                                                         // Kiểm tra ngày hoàng đạo - sử dụng helper
                                                         if (
                                                             isset($day['day_score']['hoangdao']) &&

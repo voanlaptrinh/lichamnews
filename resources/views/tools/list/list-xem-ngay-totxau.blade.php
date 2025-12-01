@@ -1,18 +1,18 @@
 @extends('welcome')
 @section('content')
+  @push('styles')
+        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=10.7') }}">
+    @endpush
+
     <div class="container-setup">
         <nav aria-label="breadcrumb" class="content-title-detail">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
                     <a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
                 </li>
-                <li class="breadcrumb-item" aria-current="page">
+                <li class="breadcrumb-item active" aria-current="page">
                     Xem ngày tốt
                 </li>
-                <li class="breadcrumb-item active" aria-current="page">
-                    Tổng quan
-                </li>
-
             </ol>
         </nav>
 
@@ -36,7 +36,7 @@
                                     <a href="{{ route('astrology.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('images/tool_kethon.svg') }}" class="icon img-fluid"
+                                            <img src="{{ asset('images/tool_kethon.svg') }}" class="icon "
                                                 width="80px" height="80px">
                                         </div>
 
@@ -52,7 +52,7 @@
                                     <a href="{{ route('dam-ngo.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('images/tool_damngo.svg') }}" class="icon img-fluid"
+                                            <img src="{{ asset('images/tool_damngo.svg') }}" class="icon "
                                                 width="80px" height="80px">
                                         </div>
 
@@ -68,7 +68,7 @@
                                     <a href="{{ route('khai-truong.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('images/tool_khaitruong.svg') }}" class="icon img-fluid"
+                                            <img src="{{ asset('images/tool_khaitruong.svg') }}" class="icon "
                                                 width="80px" height="80px">
                                         </div>
 
@@ -84,7 +84,7 @@
                                     <a href="{{ route('breaking.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('images/tool_dongtho.svg') }}" class="icon img-fluid"
+                                            <img src="{{ asset('images/tool_dongtho.svg') }}" class="icon "
                                                 width="80px" height="80px">
                                         </div>
 
@@ -100,7 +100,7 @@
                                     <a href="{{ route('nhap-trach.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('images/tool_nhaptrach.svg') }}" class="icon img-fluid"
+                                            <img src="{{ asset('images/tool_nhaptrach.svg') }}" class="icon "
                                                 width="80px" height="80px">
                                         </div>
 
@@ -116,7 +116,7 @@
                                     <a href="{{ route('buy-house.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('images/tool_muanha.svg') }}" class="icon img-fluid"
+                                            <img src="{{ asset('images/tool_muanha.svg') }}" class="icon "
                                                 width="80px" height="80px">
                                         </div>
 
@@ -132,7 +132,7 @@
                                     <a href="{{ route('mua-xe.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('images/tool_muaxe.svg') }}" class="icon img-fluid"
+                                            <img src="{{ asset('images/tool_muaxe.svg') }}" class="icon "
                                                 width="80px" height="80px">
                                         </div>
 
@@ -148,7 +148,7 @@
                                     <a href="{{ route('totxau.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('images/tool_totxau.svg') }}" class="icon img-fluid"
+                                            <img src="{{ asset('images/tool_totxau.svg') }}" class="icon "
                                                 width="80px" height="80px">
                                         </div>
 
@@ -167,7 +167,7 @@
                                     <a href="{{ route('xuat-hanh.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('images/tool_xuathanh.svg') }}" class="icon img-fluid"
+                                            <img src="{{ asset('images/tool_xuathanh.svg') }}" class="icon "
                                                 width="80px" height="80px">
                                         </div>
 
@@ -183,7 +183,7 @@
                                     <a href="{{ route('ky-hop-dong.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('images/tool_hopdong.svg') }}" class="icon img-fluid"
+                                            <img src="{{ asset('images/tool_hopdong.svg') }}" class="icon "
                                                 width="80px" height="80px">
                                         </div>
 
@@ -199,7 +199,7 @@
                                     <a href="{{ route('cong-viec-moi.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('images/tool_nhancongviec.svg') }}" class="icon img-fluid"
+                                            <img src="{{ asset('images/tool_nhancongviec.svg') }}" class="icon "
                                                 width="80px" height="80px">
                                         </div>
 
@@ -215,7 +215,7 @@
                                     <a href="{{ route('giay-to.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('images/tool_giayto.svg') }}" class="icon img-fluid"
+                                            <img src="{{ asset('images/tool_giayto.svg') }}" class="icon "
                                                 width="80px" height="80px">
                                         </div>
 
@@ -231,7 +231,7 @@
                                     <a href="{{ route('thi-cu.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('images/tool_thicu.svg') }}" class="icon img-fluid"
+                                            <img src="{{ asset('images/tool_thicu.svg') }}" class="icon "
                                                 width="80px" height="80px">
                                         </div>
 
@@ -251,7 +251,7 @@
                                     <a href="{{ route('cai-tang.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('images/tool_sangcat.svg') }}" class="icon img-fluid"
+                                            <img src="{{ asset('images/tool_sangcat.svg') }}" class="icon "
                                                 width="80px" height="80px">
                                         </div>
 
@@ -267,7 +267,7 @@
                                     <a href="{{ route('tran-trach.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('images/tool_trantrach.svg') }}" class="icon img-fluid"
+                                            <img src="{{ asset('images/tool_trantrach.svg') }}" class="icon "
                                                 width="80px" height="80px">
                                         </div>
 
@@ -283,7 +283,7 @@
                                     <a href="{{ route('lap-ban-tho.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('images/tool_lapban.svg') }}" class="icon img-fluid"
+                                            <img src="{{ asset('images/tool_lapban.svg') }}" class="icon "
                                                 width="80px" height="80px">
                                         </div>
 
@@ -299,7 +299,7 @@
                                     <a href="{{ route('ban-tho.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('images/tool_doiban.svg') }}" class="icon img-fluid"
+                                            <img src="{{ asset('images/tool_doiban.svg') }}" class="icon "
                                                 width="80px" height="80px">
                                         </div>
 
@@ -315,7 +315,7 @@
                                     <a href="{{ route('giai-han.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('images/tool_giaihan.svg') }}" class="icon img-fluid"
+                                            <img src="{{ asset('images/tool_giaihan.svg') }}" class="icon "
                                                 width="80px" height="80px">
                                         </div>
 
@@ -331,7 +331,7 @@
                                     <a href="{{ route('phong-sinh.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('images/tool_cauan.svg') }}" class="icon img-fluid"
+                                            <img src="{{ asset('images/tool_cauan.svg') }}" class="icon "
                                                 width="80px" height="80px">
                                         </div>
 

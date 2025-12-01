@@ -4,7 +4,7 @@
 
 
          <div class="events-card">
-             <div class="card-title-right title-tong-quan-h5-log">Tiện ích Khác</div>
+             <div class="card-title-right title-tong-quan-h5-log content-title-home-lich-right">Tiện ích Khác</div>
              <ul class="list-group list-group-flush events-list">
                  <li class="list-group-item pb-0">
                      <a href="{{ route('convert.am.to.duong') }}" class="">

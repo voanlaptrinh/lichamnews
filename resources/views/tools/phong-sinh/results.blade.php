@@ -1,25 +1,25 @@
 <div class="w-100" id="content-box-succes">
     @if (isset($resultsByYear) && count($resultsByYear) > 0)
-         <div class="box-tab-white mb-3">
-          <div class="year-tabs ">
-            <ul class="nav nav-pills">
-                @php $firstYear = true; @endphp
-                @foreach ($resultsByYear as $year => $yearData)
-                    <li class="nav-item">
-                        <a class="nav-link {{ $firstYear ? 'active' : '' }}" data-bs-toggle="pill"
-                            href="#year-{{ $year }}"
-                            style="border-radius: 20px; margin: 0 5px; padding: 8px 20px;">
-                            {{ $year }}
-                            @if (isset($yearData['canchi']))
-                                ({{ $yearData['canchi'] }})
-                            @endif
-                        </a>
-                    </li>
-                    @php $firstYear = false; @endphp
-                @endforeach
-            </ul>
+        <div class="box-tab-white mb-3">
+            <div class="year-tabs ">
+                <ul class="nav nav-pills">
+                    @php $firstYear = true; @endphp
+                    @foreach ($resultsByYear as $year => $yearData)
+                        <li class="nav-item">
+                            <a class="nav-link {{ $firstYear ? 'active' : '' }}" data-bs-toggle="pill"
+                                href="#year-{{ $year }}"
+                                style="border-radius: 20px; margin: 0 5px; padding: 8px 20px;">
+                                {{ $year }}
+                                @if (isset($yearData['canchi']))
+                                    ({{ $yearData['canchi'] }})
+                                @endif
+                            </a>
+                        </li>
+                        @php $firstYear = false; @endphp
+                    @endforeach
+                </ul>
+            </div>
         </div>
-                </div>
 
     @endif
 
@@ -72,7 +72,8 @@
                             </div>
                             <div class="d-flex flex-wrap" style="gap: 10px">
                                 <div class="position-relative mb-3">
-                                    <button type="button" class="taboo-filter-btn form-select-sm sort-select" data-year="{{ $year }}">
+                                    <button type="button" class="taboo-filter-btn form-select-sm sort-select"
+                                        data-year="{{ $year }}">
                                         <span>Lọc ngày xấu</span>
                                         <i class="bi bi-chevron-down ms-2"></i>
                                     </button>
@@ -83,7 +84,7 @@
                                     <select name="sort" class="form-select-sm sort-select"
                                         style="width: auto; height: 40px;">
                                         <option value="desc" selected>Điểm giảm dần</option>
-                                       
+
                                         <option value="date_asc">Ngày tăng dần</option>
                                         <option value="date_desc">Ngày giảm dần</option>
                                     </select>
@@ -145,8 +146,7 @@
                                                     }
                                                 }
                                             @endphp
-                                            <tr class="table-row-{{ $year }}"
-                                                data-index="{{ $index }}"
+                                            <tr class="table-row-{{ $year }}" data-index="{{ $index }}"
                                                 style="{{ $index >= 10 ? 'display: none;' : '' }}"
                                                 data-visible="{{ $index < 10 ? 'true' : 'false' }}"
                                                 data-taboo-days="{{ implode(',', $tabooTypes) }}">
@@ -187,6 +187,14 @@
                                                     @php
                                                         $supportFactors = [];
 
+                                                        if (
+                                                            $day['day_score']['tu']['details']['data']['nature'] ==
+                                                            'Tốt'
+                                                        ) {
+                                                            $nameBatTu =
+                                                                $day['day_score']['tu']['details']['data']['name'];
+                                                            $supportFactors[] = "Thập nhị bát tú: Sao {$nameBatTu}";
+                                                        }
                                                         // Kiểm tra ngày hoàng đạo - sử dụng helper
                                                         if (
                                                             isset($day['day_score']['hoangdao']) &&
@@ -220,7 +228,13 @@
                                                                 $day['date'],
                                                                 $birthdateInfo['dob']->year,
                                                             );
-                                                            if ($hopType) {
+                                                            $badTypes = ['Lục xung', 'Tương hại', 'Tương phá'];
+
+                                                            if (
+                                                                $hopType &&
+                                                                $hopType !== 'Trung bình (không xung, không hợp)' &&
+                                                                !in_array($hopType, $badTypes)
+                                                            ) {
                                                                 $supportFactors[] = "Ngày hợp tuổi: {$hopType}";
                                                             }
                                                         }
@@ -310,7 +324,7 @@
         @endforeach
     </div>
 
-   <!-- Filter Modal/Dropdown - Global -->
+    <!-- Filter Modal/Dropdown - Global -->
     <div id="tabooFilterModal" class="taboo-filter-modal d-none">
         <div class="taboo-filter-header">
             <h6 class="mb-0">Lọc ngày kỵ</h6>
@@ -326,7 +340,7 @@
                 <div class="filter-quick-actions">
                     <button type="button" id="selectCommon" class="btn-quick-action">Phổ biến</button>
                     <button type="button" id="selectAll" class="btn-quick-action">Tất cả</button>
-                   
+
                 </div>
 
                 <div class="filter-options">

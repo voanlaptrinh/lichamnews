@@ -15,7 +15,7 @@
                             <a href="{{ route('totxau.list') }}"  style="color: #2254AB; text-decoration: underline;">Xem ngày tốt</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
-                    Xem ngày cúng sao giải hạn
+                    Xem kết quả
                 </li>
             </ol>
         </nav>

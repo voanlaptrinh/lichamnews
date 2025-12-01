@@ -192,6 +192,17 @@
                                                 <td style="text-align: start">
                                                     @php
                                                         $supportFactors = [];
+ if (
+                                                            $day['day_score']['tu']['details']['data'][
+                                                                'nature'
+                                                            ] == 'Tốt'
+                                                        ) {
+                                                            $nameBatTu =
+                                                                $day['day_score']['tu']['details']['data'][
+                                                                    'name'
+                                                                ];
+                                                            $supportFactors[] = "Thập nhị bát tú: Sao {$nameBatTu}";
+                                                        }
 
                                                         // Kiểm tra ngày hoàng đạo - sử dụng helper
                                                         if (
@@ -218,7 +229,7 @@
                                                         }
 
                                                         // Kiểm tra hợp tuổi - sử dụng helper
-                                                        if (
+                                                         if (
                                                             isset($day['day_score']['hopttuoi']) &&
                                                             $day['day_score']['hopttuoi'] === true
                                                         ) {
@@ -226,11 +237,17 @@
                                                                 $day['date'],
                                                                 $birthdateInfo['dob']->year,
                                                             );
-                                                            if ($hopType) {
+                                                            $badTypes = ['Lục xung', 'Tương hại', 'Tương phá'];
+
+                                                            if (
+                                                                $hopType &&
+                                                                $hopType !== 'Trung bình (không xung, không hợp)' &&
+                                                                !in_array($hopType, $badTypes)
+                                                            ) {
                                                                 $supportFactors[] = "Ngày hợp tuổi: {$hopType}";
                                                             }
                                                         }
-
+                                                      
                                                         // Kiểm tra sao tốt - gộp thành 1 dòng
                                                         if (
                                                             isset($day['day_score']['good_stars']) &&

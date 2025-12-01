@@ -3136,3 +3136,16 @@ table.table-detail td,
 table.table-detail th {
     border: 1px solid #ccc !important; /* cam */
 }
+.content-title-home-lich-right{
+    display: flex;
+    align-items: center;
+}
+.content-title-home-lich-right::before {
+    content: '';
+    display: inline-block;
+    width: 7px;
+    height: 28px;
+    background-color: #4299e1;
+    border-radius: 999px;
+    margin-right: 12px
+}

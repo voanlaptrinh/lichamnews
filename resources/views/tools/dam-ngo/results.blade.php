@@ -1,25 +1,26 @@
 <div class="w-100" id="content-box-succes">
     <!-- Tabs cho các năm -->
     @if (isset($resultsByYear) && count($resultsByYear) > 0)
-          <div class="box-tab-white mb-3">
-          <div class="year-tabs ">
-            <ul class="nav nav-pills">
-                @php $firstYear = true; @endphp
-                @foreach ($resultsByYear as $year => $yearData)
-                    <li class="nav-item">
-                        <a class="nav-link {{ $firstYear ? 'active' : '' }}" data-bs-toggle="pill"
-                            href="#year-{{ $year }}"
-                            style="border-radius: 20px; margin: 0 5px; padding: 8px 20px;">
-                            {{ $year }}
-                            @if (isset($yearData['canchi']))
-                                ({{ $yearData['canchi'] }})
-                            @endif
-                        </a>
-                    </li>
-                    @php $firstYear = false; @endphp
-                @endforeach
-            </ul>
-        </div>        </div>
+        <div class="box-tab-white mb-3">
+            <div class="year-tabs ">
+                <ul class="nav nav-pills">
+                    @php $firstYear = true; @endphp
+                    @foreach ($resultsByYear as $year => $yearData)
+                        <li class="nav-item">
+                            <a class="nav-link {{ $firstYear ? 'active' : '' }}" data-bs-toggle="pill"
+                                href="#year-{{ $year }}"
+                                style="border-radius: 20px; margin: 0 5px; padding: 8px 20px;">
+                                {{ $year }}
+                                @if (isset($yearData['canchi']))
+                                    ({{ $yearData['canchi'] }})
+                                @endif
+                            </a>
+                        </li>
+                        @php $firstYear = false; @endphp
+                    @endforeach
+                </ul>
+            </div>
+        </div>
 
     @endif
 
@@ -94,8 +95,8 @@
                             <!-- Filter and Sort Controls - trực tiếp trên table -->
                             <div class="betwen-ds flex-wrap mb-3">
                                 <div class="text-primary mb-0 title-tong-quan-h4-log text-dark fw-bolder">
-                                    <img src="{{ asset('icons/k_nen_1.svg') }}" alt="thông tin người xem" width="28"
-                                        height="28" class="me-1"> Danh Sách Điểm Theo Ngày
+                                    <img src="{{ asset('icons/k_nen_1.svg') }}" alt="thông tin người xem"
+                                        width="28" height="28" class="me-1"> Danh Sách Điểm Theo Ngày
                                 </div>
                                 <div class="d-flex flex-wrap" style="gap: 10px">
                                     <div class="position-relative mb-3">
@@ -109,7 +110,8 @@
 
                                     <!-- Sắp xếp tích hợp điểm và ngày -->
                                     <div>
-                                        <select name="sort" class="form-select-sm sort-select" style="width: auto; height: 40px;">
+                                        <select name="sort" class="form-select-sm sort-select"
+                                            style="width: auto; height: 40px;">
                                             <option value="desc" selected>Điểm giảm dần</option>
                                             <option value="date_asc">Ngày tăng dần</option>
                                             <option value="date_desc">Ngày giảm dần</option>
@@ -119,7 +121,8 @@
                             </div>
 
                             <!-- Filter Status for this tab -->
-                            <div id="filterStatus-{{ $year }}" class="alert alert-success d-none mb-3" role="alert">
+                            <div id="filterStatus-{{ $year }}" class="alert alert-success d-none mb-3"
+                                role="alert">
                                 <i class="bi bi-funnel"></i>
                                 <span id="filterStatusText-{{ $year }}"></span>
                             </div>
@@ -196,14 +199,16 @@
                                                     ];
                                                 }
                                             @endphp
-                                            <tr class="table-row-{{ $year }}"
-                                                data-index="{{ $index }}"
+                                            <tr class="table-row-{{ $year }}" data-index="{{ $index }}"
                                                 style="{{ $index >= 10 ? 'display: none;' : '' }}"
                                                 data-visible="{{ $index < 10 ? 'true' : 'false' }}"
-                                                data-taboo-days="{{ implode(',', array_merge(
-                                                    $day['groom_score']['taboo_details']['taboo_types'] ?? [],
-                                                    $day['bride_score']['taboo_details']['taboo_types'] ?? []
-                                                )) }}">
+                                                data-taboo-days="{{ implode(
+                                                    ',',
+                                                    array_merge(
+                                                        $day['groom_score']['taboo_details']['taboo_types'] ?? [],
+                                                        $day['bride_score']['taboo_details']['taboo_types'] ?? [],
+                                                    ),
+                                                ) }}">
                                                 <td style="text-align: start">
                                                     <a
                                                         href="{{ route('dam-ngo.day.details', [
@@ -241,9 +246,16 @@
                                                 </td>
                                                 <td style="text-align: start">
 
-                                                 @php
+                                                    @php
                                                         $supportFactors = [];
-
+                                                        if (
+                                                            $day['groom_score']['tu']['details']['data']['nature'] ==
+                                                            'Tốt'
+                                                        ) {
+                                                            $nameBatTu =
+                                                                $day['groom_score']['tu']['details']['data']['name'];
+                                                            $supportFactors[] = "Thập nhị bát tú: Sao {$nameBatTu}";
+                                                        }
                                                         // Kiểm tra violations (phạm) trước
                                                         $violations = $day['groom_score']['pham']['issues'] ?? [];
                                                         if (is_string($violations)) {
@@ -294,7 +306,7 @@
                                                                 $day['date'],
                                                                 $groomInfo['dob']->year,
                                                             );
-                                                           $badTypes = ['Lục xung', 'Tương hại', 'Tương phá'];
+                                                            $badTypes = ['Lục xung', 'Tương hại', 'Tương phá'];
 
                                                             if (
                                                                 $hopType &&
@@ -426,15 +438,13 @@
                                 </table>
 
                                 <!-- Nút xem thêm -->
-                                @if(count($yearData['days']) > 10)
+                                @if (count($yearData['days']) > 10)
                                     <div class="text-center mt-3">
-                                        <button type="button"
-                                                class="btn btn-outline-primary load-more-btn"
-                                                data-year="{{ $year }}"
-                                                data-loaded="10"
-                                                data-total="{{ count($yearData['days']) }}">
-                                         
-                                            Xem thêm 
+                                        <button type="button" class="btn btn-outline-primary load-more-btn"
+                                            data-year="{{ $year }}" data-loaded="10"
+                                            data-total="{{ count($yearData['days']) }}">
+
+                                            Xem thêm
                                         </button>
                                     </div>
                                 @endif
@@ -474,7 +484,7 @@
                 <div class="filter-quick-actions">
                     <button type="button" id="selectCommon" class="btn-quick-action">Phổ biến</button>
                     <button type="button" id="selectAll" class="btn-quick-action">Tất cả</button>
-                   
+
                 </div>
 
                 <div class="filter-options">
