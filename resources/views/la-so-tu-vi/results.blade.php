@@ -53,7 +53,7 @@
                                     <div class="d-flex justify-content-center">
                                         <div class="img-zoom-container" id="img-zoom-container">
                                             <img src="{{ route('laso.image_proxy', ['url' => $imageUrl]) }}"
-                                                alt="Lá số tử vi" class="img-fluid laso-image" id="laso-image">
+                                                alt="Lá số tử vi" class="img-fluid" id="laso-image">
                                             <div class="img-zoom-lens" id="img-zoom-lens"></div>
                                             <div class="img-zoom-result" id="img-zoom-result"></div>
                                         </div>
@@ -64,7 +64,7 @@
                                             class="btn btn-success me-2 mt-2" download>
                                             <i class="fas fa-download"></i> Tải lá số
                                         </a>
-                                     
+
                                         <a href="{{ route('laso.create') }}" class="btn btn-primary me-2  mt-2">
                                             <i class="fas fa-plus"></i> Tạo lá số mới
                                         </a>
@@ -82,6 +82,20 @@
             </div>
         </div>
     </div>
+    <div id="qrcode"></div>
+
+@endsection
+
+@push('scripts')
+    <script src="{{ asset('/js/qrcode.js') }}"></script>
+    <script>
+        new QRCode(document.getElementById("qrcode"), {
+            text: "http://192.168.1.27:8000/app", // URL trung gian
+            width: 240,
+            height: 240,
+            correctLevel: QRCode.CorrectLevel.H
+        });
+    </script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -371,4 +385,4 @@
             }
         });
     </script>
-@endsection
+@endpush

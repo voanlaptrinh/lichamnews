@@ -430,7 +430,7 @@
                                     <div class="d-flex align-items-center justify-content-center h-100 w-100"
                                         style="padding: 32px 32px 32px 0px;">
                                         <div class="d-flex align-items-center justify-content-center h-100 w-100"
-                                            style=" background-image: url(../images/form_totxau.svg);
+                                            style=" background-image: url(../images/form_laso.svg);
                                     background-repeat: no-repeat;
                                     background-size: cover;
                                     align-items: normal;

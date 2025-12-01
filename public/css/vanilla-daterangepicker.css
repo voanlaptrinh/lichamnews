@@ -886,6 +886,12 @@ html.daterangepicker-open {
 
 /* Tablet - 768px to 991.98px */
 @media screen and (min-width:768px) and (max-width:991.98px) {
+    .read-more-link-cotot{
+        padding-right: 10px;
+        padding-left: 10px;
+        height: 48px;
+    }
+
     .daterangepicker-container {
         min-width: 100px;
         max-width: 700px;
@@ -980,6 +986,12 @@ html.daterangepicker-open {
 
 /* Large Phone - 480px to 767.98px */
 @media screen and (min-width: 480px) and (max-width: 767.98px) {
+    .read-more-link-cotot{
+        padding-right: 10px;
+        padding-left: 10px;
+        height: 48px;
+    }
+
     .daterangepicker-container {
         position: fixed !important;
         flex-direction: column;
@@ -1103,6 +1115,11 @@ html.daterangepicker-open {
 @media (max-width:480px) {
     .form--submit-totxau {
         padding: 14px 20px;
+    }
+    .read-more-link-cotot{
+        padding-right: 10px;
+        padding-left: 10px;
+        height: 48px;
     }
 
     .score-header {

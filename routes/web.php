@@ -74,7 +74,26 @@ Route::get('/llms.txt', function () {
 |
 */
 
+Route::get('/app', function () {
+    $ua = request()->header('User-Agent');
 
+    $ios  = 'https://apps.apple.com/vn/app/l%E1%BB%8Bch-%C3%A2m-l%E1%BB%8Bch-v%E1%BA%A1n-ni%C3%AAn-2025/id6499255314?l=vi';
+    $android  = 'https://play.google.com/store/apps/details?id=com.rvn.licham&hl=vi';
+
+     if (preg_match('/iphone|ipad|ipod/i', $ua)) {
+        return redirect()->away($ios);
+    }
+
+    if (preg_match('/android/i', $ua)) {
+        return redirect()->away($android);
+    }
+
+    return "
+        <h2>Tải ứng dụng</h2>
+        <p><a href='$ios'>Tải cho iPhone</a></p>
+        <p><a href='$android'>Tải cho Android</a></p>
+    ";
+});
 
 
 Route::get('/', [LunarController::class, 'index'])->name('home');
