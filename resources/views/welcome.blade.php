@@ -294,19 +294,7 @@
 
         gtag('config', 'G-KVKGWDRXSC');
     </script>
-    <script>
-    // Luu ng�y khi trang du?c load l?n d?u
-    var xla_init_date = new Date().getDate();
-
-    window.addEventListener('focus', function() {
-        var xla_today = new Date().getDate();
-
-        // N?u ng�y hi?n t?i kh�c ng�y ban d?u ? reload
-        if (xla_init_date !== xla_today) {
-            window.location.reload();
-        }
-    });
-</script>
+   
 
 
 </body>

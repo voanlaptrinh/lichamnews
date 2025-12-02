@@ -1,67 +1,71 @@
 @extends('welcome')
 
 @push('critical-css')
-<style>
-    body{
-        background: white
-    }
-    /* Ultra-critical LCP optimization - no font-size changes */
-    .date-number.duong,
-    .date-number.am {
-        display: block !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-        transform: none !important;
-        will-change: auto !important;
-        animation: none !important;
-        transition: none !important;
-        position: static !important;
-        z-index: auto !important;
-        filter: none !important;
-        backdrop-filter: none !important;
-        mask: none !important;
-        clip-path: none !important;
-        contain: none !important;
-        content-visibility: visible !important;
-        -webkit-transform: none !important;
-        -webkit-font-smoothing: auto !important;
-        text-rendering: optimizeSpeed !important;
-    }
+    <style>
+        body {
+            background: white
+        }
 
-    /* Optimize parent containers */
-    .date-display-card {
-        background: white !important;
-        contain: none !important;
-        content-visibility: visible !important;
-        will-change: auto !important;
-        transform: translateZ(0) !important;
-    }
+        /* Ultra-critical LCP optimization - no font-size changes */
+        .date-number.duong,
+        .date-number.am {
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            transform: none !important;
+            will-change: auto !important;
+            animation: none !important;
+            transition: none !important;
+            position: static !important;
+            z-index: auto !important;
+            filter: none !important;
+            backdrop-filter: none !important;
+            mask: none !important;
+            clip-path: none !important;
+            contain: none !important;
+            content-visibility: visible !important;
+            -webkit-transform: none !important;
+            -webkit-font-smoothing: auto !important;
+            text-rendering: optimizeSpeed !important;
+        }
 
-    .col-6 {
-      
-        transform: none !important;
-        will-change: auto !important;
-    }
+        /* Optimize parent containers */
+        .date-display-card {
+            background: white !important;
+            contain: none !important;
+            content-visibility: visible !important;
+            will-change: auto !important;
+            transform: translateZ(0) !important;
+        }
 
-    /* Remove all animations on critical path */
-    .row, .col-6, .text-center {
-        animation: none !important;
-        transition: none !important;
-    }
+        .col-6 {
 
-    /* Force browser to prioritize these elements */
-    #lcp-duong, #lcp-am {
-        contain-intrinsic-size: auto !important;
-        font-display: block !important;
-    }
+            transform: none !important;
+            will-change: auto !important;
+        }
 
-    /* Preload system fonts */
-    @font-face {
-        font-family: 'Arial';
-        font-display: block;
-        src: local('Arial');
-    }
-</style>
+        /* Remove all animations on critical path */
+        .row,
+        .col-6,
+        .text-center {
+            animation: none !important;
+            transition: none !important;
+        }
+
+        /* Force browser to prioritize these elements */
+        #lcp-duong,
+        #lcp-am {
+            contain-intrinsic-size: auto !important;
+            font-display: block !important;
+        }
+
+        /* Preload system fonts */
+        @font-face {
+            font-family: 'Arial';
+            font-display: block;
+            src: local('Arial');
+        }
+    </style>
 @endpush
 
 @section('content')
@@ -78,12 +82,12 @@
                 'use strict';
                 var lcpDuong = document.getElementById('lcp-duong');
                 var lcpAm = document.getElementById('lcp-am');
-                if(lcpDuong) {
+                if (lcpDuong) {
                     lcpDuong.style.visibility = 'visible';
                     lcpDuong.style.opacity = '1';
                     void lcpDuong.offsetHeight;
                 }
-                if(lcpAm) {
+                if (lcpAm) {
                     lcpAm.style.visibility = 'visible';
                     lcpAm.style.opacity = '1';
                     void lcpAm.offsetHeight;
@@ -125,7 +129,9 @@
                                         <div class="card-title title-amduowngbox"><img
                                                 src="{{ asset('icons/icon_duong.svg') }}" alt="icon_duong" width="20"
                                                 height="20" loading="eager"> Dương lịch</div>
-                                        <div class="date-number duong date_number_lich" id="lcp-duong" style="visibility: visible !important; opacity: 1 !important;">{{ $dd }}</div>
+                                        <div class="date-number duong date_number_lich" id="lcp-duong"
+                                            style="visibility: visible !important; opacity: 1 !important;">
+                                            {{ $dd }}</div>
                                         <div class="date-weekday">{{ $weekday }}</div>
                                         <div class="date-special-event text-dark">Tháng {{ $mm }} năm
                                             {{ $yy }}</div>
@@ -149,7 +155,9 @@
                                         <div class="card-title title-amduowngbox"><img
                                                 src="{{ asset('icons/icon_am.svg') }}" alt="icon_am" width="20"
                                                 height="20" loading="eager"> Âm lịch</div>
-                                        <div class="date-number am date_number_lich date_number_lich_am" id="lcp-am" style="visibility: visible !important; opacity: 1 !important;">{{ $al[0] }}</div>
+                                        <div class="date-number am date_number_lich date_number_lich_am" id="lcp-am"
+                                            style="visibility: visible !important; opacity: 1 !important;">
+                                            {{ $al[0] }}</div>
                                         <div class="date-weekday">Tháng {{ $al[1] }} ({{ $al[4] }}) năm
                                             {{ $getThongTinCanChiVaIcon['can_chi_nam'] }}</div>
                                         <div class="date-special-event text-dark">Ngày
@@ -188,7 +196,7 @@
 
                                 </div>
                             </div>
-                          
+
 
                             <div class="col-lg-12 mt-2 btn-mobie-next-prev">
                                 <div>
@@ -215,26 +223,26 @@
                                 </div>
                             </div>
                         </div>
-                          <div class="ring-item1-left item-rings">
-                                <div class="item-ring1">
-                                    <img src="{{ asset('icons/cairing.png') }}" alt="cairing" width="13"
-                                        height="55" loading="lazy" decoding="async">
-                                </div>
-                                <div class="item-ring2">
-                                    <img src="{{ asset('icons/cairing.png') }}" alt="cairing" width="13"
-                                        height="55" loading="lazy" decoding="async">
-                                </div>
+                        <div class="ring-item1-left item-rings">
+                            <div class="item-ring1">
+                                <img src="{{ asset('icons/cairing.png') }}" alt="cairing" width="13" height="55"
+                                    loading="lazy" decoding="async">
                             </div>
-                            <div class="ring-item2-right item-rings">
-                                <div class="item-ring3">
-                                    <img src="{{ asset('icons/cairing.png') }}" alt="cairing" width="13"
-                                        height="55" loading="lazy" decoding="async">
-                                </div>
-                                <div class="item-ring4">
-                                    <img src="{{ asset('icons/cairing.png') }}" alt="cairing" width="13"
-                                        height="55" loading="lazy" decoding="async">
-                                </div>
+                            <div class="item-ring2">
+                                <img src="{{ asset('icons/cairing.png') }}" alt="cairing" width="13" height="55"
+                                    loading="lazy" decoding="async">
                             </div>
+                        </div>
+                        <div class="ring-item2-right item-rings">
+                            <div class="item-ring3">
+                                <img src="{{ asset('icons/cairing.png') }}" alt="cairing" width="13" height="55"
+                                    loading="lazy" decoding="async">
+                            </div>
+                            <div class="item-ring4">
+                                <img src="{{ asset('icons/cairing.png') }}" alt="cairing" width="13" height="55"
+                                    loading="lazy" decoding="async">
+                            </div>
+                        </div>
                         {{-- d-sm-block d-block d-xl-none --}}
                         <div class="position-relative bix-title-thangnam">
 
@@ -248,14 +256,15 @@
                                     </div>
 
                                 </div>
-                                <div class="row g-xl-0 g-2" >
+                                <div class="row g-xl-0 g-2">
                                     <div class="col-xl-7 col-lg-6 col-sm-12 col-12 ">
                                         <div class="info-item">
                                             <img src="{{ asset('icons/icon_tiet_khi.svg') }}" alt="icon_tiet_khi"
                                                 class="icon_tiet_khi" width="24" height="24" loading="eager">
                                             <div class="font-detail-ngay">
                                                 <strong class="title-font-detail-ngay">Tiết khí:</strong>
-                                                <span class="" style="text-transform:capitalize;">{{ $tietkhi['tiet_khi'] }}</span>
+                                                <span class=""
+                                                    style="text-transform:capitalize;">{{ $tietkhi['tiet_khi'] }}</span>
                                             </div>
                                         </div>
                                         <div class="info-item">
@@ -270,9 +279,11 @@
                                             <img src="{{ asset('icons/icon_hoang_dao.svg') }}" alt="icon_hoang_dao"
                                                 class="icon_hoang_dao" width="24" height="24" loading="eager">
 
-                                            <div class="font-detail-ngay" style="visibility: visible !important; opacity: 1 !important; will-change: auto; transform: translateZ(0);">
+                                            <div class="font-detail-ngay"
+                                                style="visibility: visible !important; opacity: 1 !important; will-change: auto; transform: translateZ(0);">
                                                 <strong class="title-font-detail-ngay">Giờ Hoàng đạo:</strong>
-                                                <span id="gio-hoang-dao-content" style="display: inline-block; visibility: visible !important; opacity: 1 !important;">{{ $getThongTinNgay['gio_hoang_dao'] ?? 'Đang tính...' }}</span>
+                                                <span id="gio-hoang-dao-content"
+                                                    style="display: inline-block; visibility: visible !important; opacity: 1 !important;">{{ $getThongTinNgay['gio_hoang_dao'] ?? 'Đang tính...' }}</span>
                                             </div>
                                             <script>
                                                 // Force immediate paint for LCP element
@@ -362,7 +373,8 @@
                                                     $endYear = min(2100, $currentYear + 10);
                                                 @endphp
                                                 @for ($i = $endYear; $i >= $startYear; $i--)
-                                                    <option value="{{ $i }}" {{ $i == $currentYear ? 'selected' : '' }}>
+                                                    <option value="{{ $i }}"
+                                                        {{ $i == $currentYear ? 'selected' : '' }}>
                                                         Năm {{ $i }}
                                                     </option>
                                                 @endfor
@@ -420,8 +432,8 @@
 
                         </div>
                         <div class="calendar-legend">
-                              <span class="box-title--hoangdao"><span class="dot dot-hoangdao"></span> Ngày hoàng đạo</span>
-                        <span class="box-title--hacdao"><span class="dot dot-hacdao"></span> Ngày hắc đạo</span>
+                            <span class="box-title--hoangdao"><span class="dot dot-hoangdao"></span> Ngày hoàng đạo</span>
+                            <span class="box-title--hacdao"><span class="dot dot-hacdao"></span> Ngày hắc đạo</span>
                         </div>
                     </div>
                 </div>
@@ -485,11 +497,13 @@
                         <div class="utilities-grid pt-2 row">
 
                             <!-- Tiện ích 1 -->
-                            <a href="{{ route('convert.am.to.duong') }}" class="utility-item col-6 col-md-6 col-lg-3 mb-4 ">
+                            <a href="{{ route('convert.am.to.duong') }}"
+                                class="utility-item col-6 col-md-6 col-lg-3 mb-4 ">
                                 <div class="utility-title">Đổi ngày Âm - Dương</div>
                                 <div class="icon-wrapper">
-                                    <img src="{{ asset('icons/doi_ngay_am_duong.webp?v=2.0') }}" alt="Đổi ngày Âm - Dương"
-                                        width="77" height="76" class="img-fluid" loading="lazy">
+                                    <img src="{{ asset('icons/doi_ngay_am_duong.webp?v=2.0') }}"
+                                        alt="Đổi ngày Âm - Dương" width="77" height="76" class="img-fluid"
+                                        loading="lazy">
                                 </div>
 
                                 <p class="utility-description">Chuyển đổi nhanh giữa dương lịch và âm lịch.</p>
@@ -499,8 +513,8 @@
                             <a href="#" class="utility-item col-6 col-md-6 col-lg-3 mb-4">
                                 <div class="utility-title">Xem ngày Tốt</div>
                                 <div class="icon-wrapper">
-                                    <img src="{{ asset('icons/xem_ngay_tot.webp?v=2.0') }}" alt="Xem ngày Tốt" width="77"
-                                        height="76" class="img-fluid" loading="lazy">
+                                    <img src="{{ asset('icons/xem_ngay_tot.webp?v=2.0') }}" alt="Xem ngày Tốt"
+                                        width="77" height="76" class="img-fluid" loading="lazy">
                                 </div>
 
                                 <p class="utility-description">Tra cứu ngày hoàng đạo để cưới hỏi, khai trương...</p>
@@ -520,8 +534,8 @@
                             <a href="#" class="utility-item col-6 col-md-6 col-lg-3 mb-4">
                                 <div class="utility-title">Lá số tử vi</div>
                                 <div class="icon-wrapper">
-                                    <img src="{{ asset('icons/la_so_tu_vi.webp?v=2.0') }}" alt="Lá số tử vi" class="img-fluid"
-                                        width="77" height="76" loading="lazy">
+                                    <img src="{{ asset('icons/la_so_tu_vi.webp?v=2.0') }}" alt="Lá số tử vi"
+                                        class="img-fluid" width="77" height="76" loading="lazy">
                                 </div>
 
                                 <p class="utility-description">Lập lá số chi tiết theo giờ/ngày sinh.</p>
@@ -787,8 +801,11 @@
 @endsection
 
 @push('styles')
-    <link rel="preload" href="{{ asset('css/html-chart.css?v=3.3') }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="{{ asset('css/html-chart.css?v=3.3') }}"></noscript>
+    <link rel="preload" href="{{ asset('css/html-chart.css?v=3.3') }}" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="{{ asset('css/html-chart.css?v=3.3') }}">
+    </noscript>
     <style>
         .event-date .solar-date {
             font-size: 14px;
@@ -837,73 +854,82 @@
 @push('scripts')
     <script defer src="{{ asset('js/base-picker.js?v=3.9') }}"></script>
     <script defer src="{{ asset('js/homepage-picker.js?v=3.9') }}"></script>
-   <script>
-    window.addEventListener("DOMContentLoaded", () => {
-        if (typeof HomepagePicker !== 'undefined') {
-            const homepageApp = new HomepagePicker({
-                currentYear: {{ $yy }},
-                currentMonth: {{ $mm }},
-                currentDay: {{ $dd }},
-                labels: @json($labels),
-                dataValues: @json($dataValues),
-                ajaxUrl: '{{ route('lunar.getDateDataAjax') }}',
-                calendarAjaxUrl: '{{ route('lich.thang.ajax') }}'
-            });
-            homepageApp.init();
+    <script>
+        window.addEventListener("DOMContentLoaded", () => {
+            if (typeof HomepagePicker !== 'undefined') {
+                const homepageApp = new HomepagePicker({
+                    currentYear: {{ $yy }},
+                    currentMonth: {{ $mm }},
+                    currentDay: {{ $dd }},
+                    labels: @json($labels),
+                    dataValues: @json($dataValues),
+                    ajaxUrl: '{{ route('lunar.getDateDataAjax') }}',
+                    calendarAjaxUrl: '{{ route('lich.thang.ajax') }}'
+                });
+                homepageApp.init();
 
-            const select = document.getElementById('year-select');
-            const start = 1900;
-            const end = 2100;
-            const current = {{ $yy }};
-            let loaded = false;
+                const select = document.getElementById('year-select');
+                const start = 1900;
+                const end = 2100;
+                const current = {{ $yy }};
+                let loaded = false;
 
-            select.addEventListener('focus', (e) => {
-                if (loaded) return;
-                loaded = true;
+                select.addEventListener('focus', (e) => {
+                    if (loaded) return;
+                    loaded = true;
 
-                // Lưu vị trí scroll hiện tại
-                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+                    // Lưu vị trí scroll hiện tại
+                    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                    const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
 
-                // Xóa tất cả options hiện tại
-                select.innerHTML = '';
+                    // Xóa tất cả options hiện tại
+                    select.innerHTML = '';
 
-                const fragment = document.createDocumentFragment();
-                // 🔁 Lặp ngược: từ năm mới nhất → năm cũ nhất
-                for (let i = end; i >= start; i--) {
-                    const opt = document.createElement('option');
-                    opt.value = i;
-                    opt.textContent = `Năm ${i}`;
-                    if (i === current) {
-                        opt.selected = true;
+                    const fragment = document.createDocumentFragment();
+                    // 🔁 Lặp ngược: từ năm mới nhất → năm cũ nhất
+                    for (let i = end; i >= start; i--) {
+                        const opt = document.createElement('option');
+                        opt.value = i;
+                        opt.textContent = `Năm ${i}`;
+                        if (i === current) {
+                            opt.selected = true;
+                        }
+                        fragment.appendChild(opt);
                     }
-                    fragment.appendChild(opt);
-                }
-                select.appendChild(fragment);
+                    select.appendChild(fragment);
 
-                // Khôi phục vị trí scroll
-                window.scrollTo(scrollLeft, scrollTop);
+                    // Khôi phục vị trí scroll
+                    window.scrollTo(scrollLeft, scrollTop);
 
-                // Ngăn browser tự động scroll đến element
-                e.preventDefault();
-            });
-        } else {
-            setTimeout(() => {
-                if (typeof HomepagePicker !== 'undefined') {
-                    const homepageApp = new HomepagePicker({
-                        currentYear: {{ $yy }},
-                        currentMonth: {{ $mm }},
-                        currentDay: {{ $dd }},
-                        labels: @json($labels),
-                        dataValues: @json($dataValues),
-                        ajaxUrl: '{{ route('lunar.getDateDataAjax') }}',
-                        calendarAjaxUrl: '{{ route('lich.thang.ajax') }}'
-                    });
-                    homepageApp.init();
-                }
-            }, 100);
-        }
-    });
-</script>
+                    // Ngăn browser tự động scroll đến element
+                    e.preventDefault();
+                });
+            } else {
+                setTimeout(() => {
+                    if (typeof HomepagePicker !== 'undefined') {
+                        const homepageApp = new HomepagePicker({
+                            currentYear: {{ $yy }},
+                            currentMonth: {{ $mm }},
+                            currentDay: {{ $dd }},
+                            labels: @json($labels),
+                            dataValues: @json($dataValues),
+                            ajaxUrl: '{{ route('lunar.getDateDataAjax') }}',
+                            calendarAjaxUrl: '{{ route('lich.thang.ajax') }}'
+                        });
+                        homepageApp.init();
+                    }
+                }, 100);
+            }
+        });
+    </script>
+    <script type="text/javascript">
+        const xla_init_date = {{ $dd }};
 
+        window.addEventListener('focus', function() {
+            const xla_today = new Date();
+            if (xla_init_date !== xla_today.getDate()) {
+                window.location.reload();
+            }
+        });
+    </script>
 @endpush
