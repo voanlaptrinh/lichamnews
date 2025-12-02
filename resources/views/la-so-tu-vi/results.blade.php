@@ -12,6 +12,41 @@
                 background-color: #ffffff;
                 /* Màu nền phía dưới */
             }
+            .shimmer {
+    position: relative;
+    overflow: hidden;
+    background: #f0f0f0;
+    animation: pulse 1.5s infinite;
+    border-radius: 8px;
+}
+
+@keyframes pulse {
+    0% { opacity: 0.75; }
+    50% { opacity: 1; }
+    100% { opacity: 0.75; }
+}
+
+.shimmer::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        rgba(255, 255, 255, 0.0) 0%,
+        rgba(255, 255, 255, 0.5) 50%,
+        rgba(255, 255, 255, 0.0) 100%
+    );
+    animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
         </style>
     @endpush
 
@@ -51,11 +86,20 @@
                             <div class="box--bg-thang mt-3 mb-3">
                                 <div class=" text-center">
                                     <div class="d-flex justify-content-center">
-                                        <div class="img-zoom-container" id="img-zoom-container">
-                                            <img src="{{ route('laso.image_proxy', ['url' => $imageUrl]) }}"
-                                                alt="Lá số tử vi" class="img-fluid" id="laso-image">
-                                            <div class="img-zoom-lens" id="img-zoom-lens"></div>
-                                            <div class="img-zoom-result" id="img-zoom-result"></div>
+                                        <div class="img-zoom-container" id="img-zoom-container" style="position: relative;">
+
+                                            <!-- Ảnh khung (placeholder) -->
+                                            <img src="/images/la_so_news1.png" id="laso-frame" class="img-fluid shimmer"
+                                                style="display:block;">
+
+                                            <!-- Ảnh lá số thật — KHÔNG load trực tiếp -->
+                                            <img id="laso-image" class="img-fluid" style="display:none;">
+
+                                            <!-- Loading spinner -->
+                                            <div id="laso-loading"
+                                                style="position:absolute;top:50%;left:50%; transform:translate(-50%, -50%); font-weight:bold;">
+                                                Đang tải lá số...
+                                            </div>
                                         </div>
                                     </div>
 
@@ -104,16 +148,25 @@
             const container = document.getElementById('img-zoom-container');
             const lens = document.getElementById('img-zoom-lens');
             const result = document.getElementById('img-zoom-result');
+            const realImgUrl = "{{ route('laso.image_proxy', ['url' => $imageUrl]) }}";
 
-            if (image && container && lens && result) {
-                // Add zoom functionality here if required
-                // This can be implemented based on your existing zoom script
-            }
+            const img = new Image();
+            img.src = realImgUrl;
+
+            img.onload = function() {
+                // Gắn src vào ảnh hiển thị
+                image.src = realImgUrl;
+                image.style.display = "block";
+                // Ẩn khung
+                document.getElementById("laso-frame").style.display = "none";
+                // Ẩn loading
+                document.getElementById("laso-loading").style.display = "none";
+            };
 
             // Auto chạy luận giải sau 1 giây
             setTimeout(function() {
                 autoRunLuanGiai();
-            }, 1000);
+            }, 500);
 
             // Function tự động chạy luận giải
             function autoRunLuanGiai() {
