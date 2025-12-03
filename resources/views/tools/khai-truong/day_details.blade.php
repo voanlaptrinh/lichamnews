@@ -2,7 +2,7 @@
 
 @section('content')
     @push('styles')
-        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=10.8') }}">
+        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=10.9') }}">
     @endpush
 
     <div class="container-setup">
@@ -290,11 +290,11 @@
                                                         {!! $ownerData['getVongKhiNgayThang']['analysis'] !!}
                                                     </ul>
                                                     <p> {!! $ownerData['getVongKhiNgayThang']['conclusion'] !!}</p>
-                                                    <h6><b>Cục khí - hợp xung</b></h6>
+                                                    {{-- <h6><b>Cục khí - hợp xung</b></h6>
                                                     <ul>
                                                         <li>{!! $commonDayInfo['hopxungNgay']['hop'] !!}</li>
                                                         <li>{!! $commonDayInfo['hopxungNgay']['ky'] !!}</li>
-                                                    </ul>
+                                                    </ul> --}}
                                                     <h6><b>* So sánh ngày với mệnh tuổi của bạn:</b></h6>
                                                     @php $analyze = $ownerData['analyzeNgayVoiTuoi']; @endphp
                                                     <ul class="list-unstyled">

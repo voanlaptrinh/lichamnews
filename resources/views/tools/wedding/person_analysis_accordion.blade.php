@@ -32,11 +32,11 @@
                                     {!! $personData['getVongKhiNgayThang']['analysis'] !!}
                                 </ul>
                                 <p>{!! $personData['getVongKhiNgayThang']['conclusion'] !!}</p>
-                                <h6><b>Cục khí - hợp xung</b></h6>
+                                {{-- <h6><b>Cục khí - hợp xung</b></h6>
                                 <ul>
                                     <li>{!! $commonData['hopxungNgay']['hop'] !!}</li>
                                     <li>{!! $commonData['hopxungNgay']['ky'] !!}</li>
-                                </ul>
+                                </ul> --}}
                                 <h6><b>* So sánh ngày với mệnh tuổi của bạn:</b></h6>
                                 @php $analyze = $personData['analyzeNgayVoiTuoi']; @endphp
                                 <ul class="list-unstyled">

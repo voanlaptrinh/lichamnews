@@ -2,7 +2,7 @@
 
 @section('content')
     @push('styles')
-        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=10.8') }}">
+        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=10.9') }}">
     @endpush
 
 
@@ -126,7 +126,7 @@
                                                 ->implode(', ');
                                         @endphp
                                         <!-- Nội dung (Màu Xanh Nhạt) -->
-                                        <div class="p-4 content-green flex-grow-1">
+                                        <div class="p-2 content-green flex-grow-1">
                                             <ul class="list-unstyled mb-0">
                                                 @if ($hopTuoi)
                                                     <li class="mb-3">
@@ -176,7 +176,7 @@
                                         </div>
 
                                         <!-- Nội dung (Trắng/Đỏ Nhạt) -->
-                                        <div class="p-4 content-red flex-grow-1 border-start">
+                                        <div class="p-2 content-red flex-grow-1 border-start">
                                             <ul class="list-unstyled mb-0">
                                                 <!-- Các yếu tố Cảnh báo (Tam Nương, Kim Thần Thất Sát) -->
                                                 @if ($tabooIssues->isNotEmpty())
@@ -443,7 +443,7 @@
                                                     <ul>
                                                         <li>{!! $commonDayInfo['hopxungNgay']['hop'] !!}</li>
                                                         <li>{!! $commonDayInfo['hopxungNgay']['ky'] !!}</li>
-                                                    </ul> --}}
+                                                    </ul> --}} 
                                                     <h6><b>* So sánh ngày với mệnh tuổi của bạn:</b></h6>
                                                     @php $analyze = $groomData['analyzeNgayVoiTuoi']; @endphp
                                                     <ul class="list-unstyled">
