@@ -249,26 +249,26 @@
                     </div>
                     <div class="box--bg-thang mt-3 mb-3">
                         <div class="text-box-tong-quan">
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Vì sao sang cát – cải mộ cần chọn ngày tốt?
                             </h2>
                             <p class="mb-1">Sang cát (cải táng) là nghi lễ quan trọng trong văn hóa thờ cúng tổ tiên của
                                 người Việt. Đây là việc động chạm đến âm phần, liên quan đến sự an ổn của người mất và sự
                                 bình yên của con cháu. Vì vậy, chọn ngày tốt có ý nghĩa đặc biệt:
                             </p>
-                            <ul class="mb-1">
+                            <ul class="mb-2">
                                 <li>Giúp quá trình bốc mộ, di dời diễn ra thuận lợi, tránh sự cố hoặc điều không may.</li>
                                 <li>Tăng cát khí, đảm bảo phần mộ sau khi sang cát được yên ổn, hài hòa long mạch.</li>
                                 <li>Tránh phạm các ngày xấu khiến gia đình gặp rối ren, bất an hoặc ảnh hưởng vận khí.</li>
                                 <li>Tạo sự yên tâm cho gia đình, đặc biệt là người chủ trì lễ (thường là trưởng nam hoặc
                                     người đại diện trong nội tộc).</li>
                             </ul>
-                            <p class="mb-1">Một ngày cải táng đẹp giúp công việc suôn sẻ, phần mộ được an vị tốt, và gia
+                            <p class="mb-3">Một ngày cải táng đẹp giúp công việc suôn sẻ, phần mộ được an vị tốt, và gia
                                 đình cảm thấy nhẹ lòng, an tâm.</p>
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Lợi ích của việc chọn ngày sang cát – cải mộ hợp tuổi
                             </h2>
-                            <ul class="mb-1">
+                            <ul class="mb-2">
                                 <li>Không xung tuổi trưởng nam: Tránh lục xung – lục hại, giảm rủi ro, hạn chế việc “động mồ
                                     – động mả”.</li>
                                 <li>Ngày hoàng đạo và giờ hoàng đạo: Khí trường nhẹ, tốt cho việc động thổ âm phần.</li>
@@ -277,14 +277,14 @@
                                 <li>Ngũ hành ngày tương sinh: Tạo sự phù hợp giữa âm phần và người chủ lễ, làm tăng cát khí.
                                 </li>
                             </ul>
-                            <p class="mb-1">Chọn được ngày – giờ hợp tuổi giúp gia đình yên tâm, mọi việc được tiến hành
+                            <p class="mb-3">Chọn được ngày – giờ hợp tuổi giúp gia đình yên tâm, mọi việc được tiến hành
                                 đúng phong tục và mang lại cảm giác an ổn cho cả tâm linh lẫn tinh thần.</p>
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Khi xem ngày sang cát – cải mộ cần lưu ý điều gì?
                             </h2>
-                            <ul class="mb-1" style="list-style-type: upper-alpha;">
+                            <ul class="mb-3" style="list-style-type: upper-alpha;">
                                 <li>
-                                    <h3 class="title-tong-quan-h4-log">Các yếu tố cát lành nên ưu tiên:</h3>
+                                    <h3 class="title-tong-quan-h4-log fst-italic">Các yếu tố cát lành nên ưu tiên:</h3>
                                     <ul style="	list-style-type: decimal;" class="mb-1">
                                         <li>
                                             <p class="mb-1">Ngày hoàng đạo và trực tốt</p>
@@ -311,11 +311,11 @@
                                             </ul>
                                         </li>
                                     </ul>
-                                    <p class="mb-1">Ưu tiên các yếu tố này giúp lễ sang cát diễn ra trọn vẹn, phần mộ
+                                    <p class="mb-3">Ưu tiên các yếu tố này giúp lễ sang cát diễn ra trọn vẹn, phần mộ
                                         được an vị đúng phong thủy.</p>
                                 </li>
                                 <li>
-                                    <h3 class="title-tong-quan-h4-log">Các yếu tố xấu nên tránh:</h3>
+                                    <h3 class="title-tong-quan-h4-log fst-italic">Các yếu tố xấu nên tránh:</h3>
                                     <ul style="list-style-type: decimal;">
                                         <li>
                                             <p class="mb-1">Ngày xung tuổi / phạm hạn</p>
@@ -352,10 +352,10 @@
                                         sự yên ổn cho phần mộ.</p>
                                 </li>
                             </ul>
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Hướng dẫn sử dụng công cụ Xem Ngày Sang Cát – Cải Mộ tại Phong Lịch
                             </h2>
-                            <ul class="mb-1" style="list-style-type: decimal;">
+                            <ul class="mb-3" style="list-style-type: decimal;">
                                 <li>Nhập tuổi người chủ trì (thường là trưởng nam hoặc người đứng ra lo việc).</li>
                                 <li>Nhập thông tin người mất</li>
                                 <li>Chọn khoảng thời gian dự định cải táng.</li>
@@ -370,7 +370,7 @@
                                 <li>So sánh các ngày và chọn ngày phù hợp nhất, kết hợp cả điều kiện thời tiết, nhân lực và
                                     lịch trình gia đình.</li>
                             </ul>
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Một ngày sang cát – cải mộ đẹp mang lại lợi ích gì?
                             </h2>
                             <ul>

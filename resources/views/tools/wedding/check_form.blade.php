@@ -286,30 +286,30 @@
                             </p>
                             <p class="mb-1">Không ít người nghĩ xem ngày cưới hỏi chỉ mang tính phong tục, nhưng thực tế
                                 nó còn mang lại 3 giá trị quan trọng:</p>
-                            <h3 class="title-tong-quan-h4-log fw-bolder">
+                            <h3 class="title-tong-quan-h4-log fst-italic pt-2">
                                 1. Tạo sự yên tâm cho hai bên gia đình
                             </h3>
-                            <p class="mb-1">Khi ngày cưới đã được chọn kỹ lưỡng, mọi người đều cảm thấy an lòng. Sự đồng
+                            <p class="mb-3">Khi ngày cưới đã được chọn kỹ lưỡng, mọi người đều cảm thấy an lòng. Sự đồng
                                 thuận và tinh thần thoải mái giúp không khí chuẩn bị đám cưới trở nên vui vẻ, tránh được bất
                                 đồng hay lo lắng.</p>
-                            <h3 class="title-tong-quan-h4-log fw-bolder">
+                            <h3 class="title-tong-quan-h4-log fst-italic">
                                 2. Tạo khởi đầu thuận lợi cho đôi trẻ
                             </h3>
-                            <p class="mb-1">Một ngày đẹp mang năng lượng tốt lành, tượng trưng cho sự cát tường. Nó giống
+                            <p class="mb-3">Một ngày đẹp mang năng lượng tốt lành, tượng trưng cho sự cát tường. Nó giống
                                 như một lời chúc phúc để đôi vợ chồng trẻ bắt đầu cuộc sống hôn nhân một cách thuận lợi và
                                 tràn đầy niềm vui.
                             </p>
-                            <h3 class="title-tong-quan-h4-log fw-bolder">
+                            <h3 class="title-tong-quan-h4-log fst-italic">
                                 3. Tránh các ngày xung – kỵ không tốt cho hôn nhân
                             </h3>
-                            <p class="mb-1">Một số ngày phạm phải sao xấu, ngày xung tuổi, ngày cô thần – quả tú… thường
+                            <p class="mb-3">Một số ngày phạm phải sao xấu, ngày xung tuổi, ngày cô thần – quả tú… thường
                                 được dân gian khuyên tránh vì có thể mang tính chất không may mắn. Việc xem ngày giúp bạn
                                 loại bỏ những ngày này để mọi nghi lễ được suôn sẻ.
                             </p>
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Ý nghĩa phong tục xem ngày cưới hỏi
                             </h2>
-                            <p class="mb-1">Xem ngày cưới hỏi dựa trên những yếu tố phong thủy truyền thống như:
+                            <p class="mb-3">Xem ngày cưới hỏi dựa trên những yếu tố phong thủy truyền thống như:
                             </p>
                             <ul class="mb-1">
                                 <li>
@@ -331,39 +331,39 @@
                                     Tránh các ngày xấu: Tam nương, Nguyệt kỵ, Không phòng, Sát chủ, v.v.
                                 </li>
                             </ul>
-                            <p class="mb-1">
+                            <p class="mb-1 mt-3">
                                 Những yếu tố này được dùng không phải vì mê tín, mà bởi chúng là sự tổng hợp kinh nghiệm từ
                                 hàng trăm năm, thể hiện mong muốn điều tốt lành, tránh điều không may.
                             </p>
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-3 mb-3">
                                 Khi xem ngày cưới hỏi cần xét những yếu tố có lợi
                             </h2>
-                            <p class="mb-1">
+                            <p class="mb-1 mb-3">
                                 Dưới đây là các yếu tố cát (tốt) mà ngày cưới hỏi nên có:
                             </p>
                             <ul style="	list-style-type: decimal;">
                                 <li>
-                                    <h3 class="title-tong-quan-h4-log">
+                                    <h3 class="title-tong-quan-h4-log fst-italic">
                                         Ngày hoàng đạo
                                     </h3>
-                                    <p class="mb-1">
+                                    <p class="mb-3">
                                         Hoàng đạo là ngày được coi là có năng lượng tốt, rất thích hợp cho việc vui mừng và
                                         lễ nghi
                                         gia đình.
                                     </p>
                                 </li>
                                 <li>
-                                    <h3 class="title-tong-quan-h4-log">
+                                    <h3 class="title-tong-quan-h4-log fst-italic">
                                         Ngày hợp tuổi cô dâu – chú rể
                                     </h3>
-                                    <p class="mb-1">
+                                    <p class="mb-3">
                                         Ngày có Can Chi – Ngũ Hành tương sinh với tuổi hai người sẽ mang ý nghĩa hòa hợp,
                                         thuận lợi
                                         cho hôn nhân.
                                     </p>
                                 </li>
                                 <li>
-                                    <h3 class="title-tong-quan-h4-log">
+                                    <h3 class="title-tong-quan-h4-log fst-italic">
                                         Sao tốt liên quan đến hôn sự
                                     </h3>
                                     <p class="mb-1">
@@ -383,10 +383,10 @@
                                             Sao Tam Hợp
                                         </li>
                                     </ul>
-                                    <p class="mb-1">Những sao này tượng trưng cho hỷ khí, hạnh phúc và sự viên mãn.</p>
+                                    <p class="mb-3">Những sao này tượng trưng cho hỷ khí, hạnh phúc và sự viên mãn.</p>
                                 </li>
                                 <li>
-                                    <h3 class="title-tong-quan-h4-log">
+                                    <h3 class="title-tong-quan-h4-log fst-italic">
                                         Trực ngày phù hợp
                                     </h3>
                                     <p class="mb-1">
@@ -407,41 +407,41 @@
                             </ul>
 
 
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mb-3 mt-3">
                                 Những yếu tố bất lợi cần tránh khi chọn ngày cưới hỏi
                             </h2>
-                            <p class="mb-1">Để lễ cưới diễn ra suôn sẻ, bạn cũng nên tránh những yếu tố hung:</p>
+                            <p class="mb-3">Để lễ cưới diễn ra suôn sẻ, bạn cũng nên tránh những yếu tố hung:</p>
                             <ul style="	list-style-type: decimal;">
                                 <li>
 
-                                    <h3 class="title-tong-quan-h4-log">
+                                    <h3 class="title-tong-quan-h4-log fst-italic">
                                         Ngày xung tuổi cô dâu – chú rể
                                     </h3>
-                                    <p class="mb-1">Ngày phạm hình – xung – phá – hại với tuổi hai người thường được coi
+                                    <p class="mb-3">Ngày phạm hình – xung – phá – hại với tuổi hai người thường được coi
                                         là kỵ.
                                     </p>
                                 </li>
                                 <li>
-                                    <h3 class="title-tong-quan-h4-log">
+                                    <h3 class="title-tong-quan-h4-log fst-italic">
                                         Ngày Tam Nương – Nguyệt Kỵ
                                     </h3>
-                                    <p class="mb-1">Dân gian xem đây là những ngày mang năng lượng xấu, không phù hợp để
+                                    <p class="mb-3">Dân gian xem đây là những ngày mang năng lượng xấu, không phù hợp để
                                         tiến
                                         hành việc vui.
                                     </p>
                                 </li>
                                 <li>
-                                    <h3 class="title-tong-quan-h4-log">
+                                    <h3 class="title-tong-quan-h4-log fst-italic">
                                         Sao xấu liên quan đến hôn nhân
                                     </h3>
-                                    <p class="mb-1">Ví dụ: Cô Thần, Quả Tú, Không Vong, Thiên Cương, v.v.
+                                    <p class="mb-3">Ví dụ: Cô Thần, Quả Tú, Không Vong, Thiên Cương, v.v.
                                     </p>
                                 </li>
                                 <li>
-                                    <h3 class="title-tong-quan-h4-log">
+                                    <h3 class="title-tong-quan-h4-log fst-italic">
                                         Trực xấu hoặc ngày hắc đạo
                                     </h3>
-                                    <p class="mb-1">Những ngày này mang ý nghĩa không thuận, nên hạn chế.
+                                    <p class="mb-3">Những ngày này mang ý nghĩa không thuận, nên hạn chế.
                                     </p>
                                 </li>
                             </ul>
@@ -449,57 +449,59 @@
 
 
 
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mb-3 mt-3">
                                 Cách sử dụng công cụ Xem Ngày Cưới Hỏi tại Phong Lịch
                             </h2>
-                            <p class="mb-1">Công cụ được thiết kế đơn giản để ai cũng có thể tự xem:</p>
+                            <p class="mb-3">Công cụ được thiết kế đơn giản để ai cũng có thể tự xem:</p>
                             <ul>
                                 <li>
-                                    <h3 class="title-tong-quan-h4-log">
+                                    <h3 class="title-tong-quan-h4-log fst-italic">
                                         Bước 1: Nhập tuổi cô dâu – chú rể
                                     </h3>
-                                    <p class="mb-1">Hệ thống tự động đối chiếu tuổi theo âm lịch hoặc dương lịch, phân
+                                    <p class="mb-3">Hệ thống tự động đối chiếu tuổi theo âm lịch hoặc dương lịch, phân
                                         tích Can
                                         Chi và ngũ hành để tìm ngày hợp nhất.
                                     </p>
                                 </li>
                                 <li>
 
-                            <h3 class="title-tong-quan-h4-log">
-                                Bước 2: Chọn khoảng thời gian dự định tổ chức
-                            </h3>
-                            <p class="mb-1">Bạn chỉ cần chọn tháng hoặc thời gian mong muốn, hệ thống sẽ lọc ra những
-                                ngày đẹp nhất.
-                            </p>
+                                    <h3 class="title-tong-quan-h4-log fst-italic">
+                                        Bước 2: Chọn khoảng thời gian dự định tổ chức
+                                    </h3>
+                                    <p class="mb-3">Bạn chỉ cần chọn tháng hoặc thời gian mong muốn, hệ thống sẽ lọc ra
+                                        những
+                                        ngày đẹp nhất.
+                                    </p>
                                 </li>
                                 <li>
- <h3 class="title-tong-quan-h4-log">
-                                Bước 3: Nhận danh sách ngày tốt kèm phân tích chi tiết
-                            </h3>
-                            <p class="mb-1">Mỗi ngày đều có:
-                            </p>
-                            <ul class="mb-1">
-                                <li>Đánh giá mức độ đẹp</li>
-                                <li>Các sao tốt – xấu</li>
-                                <li>Trực ngày</li>
-                                <li>Giờ hoàng đạo</li>
-                                <li>Những lưu ý quan trọng</li>
-                                <li>Gợi ý linh hoạt nếu muốn dời ngày</li>
-                            </ul>
+                                    <h3 class="title-tong-quan-h4-log fst-italic">
+                                        Bước 3: Nhận danh sách ngày tốt kèm phân tích chi tiết
+                                    </h3>
+                                    <p class="mb-1">Mỗi ngày đều có:
+                                    </p>
+                                    <ul class="mb-3">
+                                        <li>Đánh giá mức độ đẹp</li>
+                                        <li>Các sao tốt – xấu</li>
+                                        <li>Trực ngày</li>
+                                        <li>Giờ hoàng đạo</li>
+                                        <li>Những lưu ý quan trọng</li>
+                                        <li>Gợi ý linh hoạt nếu muốn dời ngày</li>
+                                    </ul>
                                 </li>
                                 <li>
 
-                            <h3 class="title-tong-quan-h4-log">
-                                Bước 4: Chọn ngày phù hợp nhất cho hai gia đình
-                            </h3>
-                            <p class="mb-1">Bạn có thể so sánh nhiều ngày để chọn thời điểm vừa đẹp vừa phù hợp với lịch
-                                trình tổ chức.
-                            </p>
+                                    <h3 class="title-tong-quan-h4-log fst-italic">
+                                        Bước 4: Chọn ngày phù hợp nhất cho hai gia đình
+                                    </h3>
+                                    <p class="mb-3">Bạn có thể so sánh nhiều ngày để chọn thời điểm vừa đẹp vừa phù hợp
+                                        với lịch
+                                        trình tổ chức.
+                                    </p>
                                 </li>
                             </ul>
 
 
-                           
+
                             <h2 class="title-tong-quan-h3-log fw-bolder">
                                 Kết luận
                             </h2>

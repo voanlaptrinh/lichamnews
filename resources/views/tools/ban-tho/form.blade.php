@@ -182,7 +182,7 @@
                     </div>
                     <div class="box--bg-thang mt-3 mb-3">
                         <div class="text-box-tong-quan">
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Vì sao cần xem ngày tốt khi di dời bàn thờ?
                             </h2>
                             <p class="mb-1">
@@ -193,28 +193,28 @@
                             <p class="mb-1">
                                 Chọn đúng ngày tốt giúp:
                             </p>
-                            <ul class="mb-1">
+                            <ul class="mb-3">
                                 <li>Việc di dời diễn ra nhẹ nhàng, tránh phạm kỵ tâm linh.</li>
                                 <li>Không gian thờ tự giữ được sự linh ứng và ổn định sau khi thay đổi vị trí.</li>
                                 <li>Tạo cảm giác an tâm cho gia chủ, hạn chế lo lắng hay trắc trở sau này.</li>
                                 <li>Tăng cát khí, giúp gia đạo hòa thuận, hanh thông.</li>
                             </ul>
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Lợi ích của việc chọn ngày di dời bàn thờ hợp tuổi
                             </h2>
-                            <ul class="mb-1">
+                            <ul class="mb-3">
                                 <li>Tránh xung khắc với tuổi mệnh gia chủ, giúp quá trình an vị lại được suôn sẻ.</li>
                                 <li>Ngày có ngũ hành tương sinh mang lại năng lượng tốt cho việc thiết lập lại không gian
                                     thờ tự.</li>
                                 <li>Sao tốt, giờ đẹp giúp nghi lễ bái thỉnh, khấn cáo diễn ra trang nghiêm.</li>
                                 <li>Hạn chế các yếu tố xấu có thể ảnh hưởng đến việc thờ cúng sau khi dời bàn thờ.</li>
                             </ul>
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Khi xem ngày di dời bàn thờ cần lưu ý điều gì?
                             </h2>
-                            <ul class="mb-1" style="list-style-type: upper-alpha;">
+                            <ul class="mb-3" style="list-style-type: upper-alpha;">
                                 <li>
-                                    <h3 class="title-tong-quan-h4-log">Các yếu tố cát lành nên ưu tiên</h3>
+                                    <h3 class="title-tong-quan-h4-log fst-italic ">Các yếu tố cát lành nên ưu tiên</h3>
                                     <ul style="	list-style-type: decimal;" class="mb-1">
                                         <li>
                                             <p class="mb-1"> Ngày hoàng đạo – trực tốt
@@ -251,7 +251,7 @@
                                     </ul>
                                 </li>
                                 <li>
-                                    <h3 class="title-tong-quan-h4-log">Các yếu tố xấu nên tránh</h3>
+                                    <h3 class="title-tong-quan-h4-log fst-italic">Các yếu tố xấu nên tránh</h3>
                                     <ul style="list-style-type: decimal;">
                                         <li>
                                             <p class="mb-1">Ngày xung tuổi hoặc phạm hạn</p>
@@ -278,10 +278,10 @@
                                         cần tránh.</p>
                                 </li>
                             </ul>
-                              <h2 class="title-tong-quan-h3-log fw-bolder">
+                              <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                Hướng dẫn sử dụng công cụ Xem Ngày Di Dời Bàn Thờ tại Phong Lịch
                             </h2>
-                            <ul style="	list-style-type: decimal;" class="mb-1">
+                            <ul style="	list-style-type: decimal;" class="mb-3">
                                 <li>Nhập tuổi gia chủ (dương lịch hoặc âm lịch).</li>
                                 <li>Chọn thời gian dự định di dời.</li>
                                 <li>Công cụ sẽ tự động phân tích và hiển thị:
@@ -294,7 +294,7 @@
                                 </li>
                                 <li>Chọn ngày phù hợp với lịch trình của gia đình, ưu tiên ngày có sao cát và trực ngày tốt.</li>
                             </ul>
-                              <h2 class="title-tong-quan-h3-log fw-bolder">
+                              <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                               Một ngày đẹp để di dời bàn thờ mang lại lợi ích gì?
                             </h2>
                             <ul class="mb-1">

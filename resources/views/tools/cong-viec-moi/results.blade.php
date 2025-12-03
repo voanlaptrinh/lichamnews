@@ -1,24 +1,25 @@
 <div class="w-100" id="content-box-succes">
     @if (isset($resultsByYear) && count($resultsByYear) > 0)
-       <div class="box-tab-white mb-3">
-          <div class="year-tabs ">
-            <ul class="nav nav-pills">
-                @php $firstYear = true; @endphp
-                @foreach ($resultsByYear as $year => $yearData)
-                    <li class="nav-item">
-                        <a class="nav-link {{ $firstYear ? 'active' : '' }}" data-bs-toggle="pill"
-                            href="#year-{{ $year }}"
-                            style="border-radius: 20px; margin: 0 5px; padding: 8px 20px;">
-                            {{ $year }}
-                            @if (isset($yearData['canchi']))
-                                ({{ $yearData['canchi'] }})
-                            @endif
-                        </a>
-                    </li>
-                    @php $firstYear = false; @endphp
-                @endforeach
-            </ul>
-        </div>        </div>
+        <div class="box-tab-white mb-3">
+            <div class="year-tabs ">
+                <ul class="nav nav-pills">
+                    @php $firstYear = true; @endphp
+                    @foreach ($resultsByYear as $year => $yearData)
+                        <li class="nav-item">
+                            <a class="nav-link {{ $firstYear ? 'active' : '' }}" data-bs-toggle="pill"
+                                href="#year-{{ $year }}"
+                                style="border-radius: 20px; margin: 0 5px; padding: 8px 20px;">
+                                {{ $year }}
+                                @if (isset($yearData['canchi']))
+                                    ({{ $yearData['canchi'] }})
+                                @endif
+                            </a>
+                        </li>
+                        @php $firstYear = false; @endphp
+                    @endforeach
+                </ul>
+            </div>
+        </div>
 
     @endif
 
@@ -163,10 +164,11 @@
                                                         <span class="option-text">Thụ Tử</span>
                                                     </label>
                                                     <label class="filter-option">
-                        <input type="checkbox" class="taboo-checkbox" value="Lục xung" id="taboo10">
-                        <span class="checkmark"></span>
-                        <span class="option-text">Lục Xung</span>
-                    </label>
+                                                        <input type="checkbox" class="taboo-checkbox"
+                                                            value="Lục xung" id="taboo10">
+                                                        <span class="checkmark"></span>
+                                                        <span class="option-text">Lục Xung</span>
+                                                    </label>
                                                 </div>
                                             </div>
 
@@ -241,8 +243,10 @@
                                                     $text_box = '#10B981';
                                                 }
                                             @endphp
-                                            <tr class="table-row-{{ $year }}" data-taboo-days="{{ implode(',', $day['day_score']['taboo_details']['taboo_types'] ?? []) }}"
-                                                style="{{ $index >= 10 ? 'display: none;' : '' }}" data-visible="{{ $index < 10 ? 'true' : 'false' }}">
+                                            <tr class="table-row-{{ $year }}"
+                                                data-taboo-days="{{ implode(',', $day['day_score']['taboo_details']['taboo_types'] ?? []) }}"
+                                                style="{{ $index >= 10 ? 'display: none;' : '' }}"
+                                                data-visible="{{ $index < 10 ? 'true' : 'false' }}">
                                                 <td style="text-align: start">
                                                     <a
                                                         href="{{ route('cong-viec-moi.details', [
@@ -269,9 +273,11 @@
                                                                     {{ $day['date']->format('m') }}</div>
                                                                 <div class="hv-memorial-day-digit">
                                                                     {{ $day['date']->format('d') }}</div>
-                                                                <div class="hv-memorial-lunar-calendar-info">
-                                                                    {{ $day['al_name'][0] ?? '' }}/{{ $day['al_name'][1] ?? '' }}
-                                                                    ÂL <i class="bi bi-chevron-right"></i></div>
+                                                                <div class="hv-memorial-lunar-calendar-info d-flex">
+                                                                    <span>
+                                                                        {{ $day['al_name'][0] ?? '' }}/{{ $day['al_name'][1] ?? '' }}
+                                                                        ÂL </span><i class="bi bi-chevron-right"></i>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </a>
@@ -279,7 +285,7 @@
                                                 <td style="text-align: start">
                                                     @php
                                                         $supportFactors = [];
- if (
+                                                        if (
                                                             $day['day_score']['tu']['details']['data']['nature'] ==
                                                             'Tốt'
                                                         ) {
@@ -320,7 +326,12 @@
                                                                 $day['date'],
                                                                 $birthdateInfo['dob']->year,
                                                             );
-                                                          $badTypes = ['Lục xung', 'Tương hại', 'Tương phá' , 'Tự hình'];
+                                                            $badTypes = [
+                                                                'Lục xung',
+                                                                'Tương hại',
+                                                                'Tương phá',
+                                                                'Tự hình',
+                                                            ];
 
                                                             if (
                                                                 $hopType &&
@@ -398,7 +409,7 @@
                                         <button type="button" class="btn btn-outline-primary load-more-btn"
                                             data-year="{{ $year }}" data-loaded="10"
                                             data-total="{{ count($yearData['days']) }}">
-                                          
+
                                             Xem thêm
                                         </button>
                                     </div>

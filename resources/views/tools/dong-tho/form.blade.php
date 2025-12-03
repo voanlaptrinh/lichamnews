@@ -209,7 +209,7 @@
 
                     <div class="box--bg-thang mt-3 mb-3">
                         <div class="text-box-tong-quan">
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Vì sao động thổ cần chọn ngày tốt?
                             </h2>
                             <p class="mb-1">Động thổ là nghi lễ quan trọng mở đầu cho việc xây dựng hoặc sửa chữa công
@@ -220,25 +220,25 @@
                                 <li>Tăng năng lượng may mắn, giảm rủi ro, tai ương trong quá trình thi công.</li>
                                 <li>Tâm lý chủ đầu tư và gia đình yên tâm, tự tin thực hiện kế hoạch.</li>
                             </ul>
-                            <p class="mb-1">Nếu ngày động thổ không phù hợp, theo phong thủy truyền thống, có thể gặp các
+                            <p class="mb-3">Nếu ngày động thổ không phù hợp, theo phong thủy truyền thống, có thể gặp các
                                 bất lợi như trì trệ, hao tốn chi phí hoặc ảnh hưởng đến phong thủy nhà cửa.</p>
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Lợi ích của việc chọn ngày động thổ hợp tuổi
                             </h2>
-                            <p class="mb-1">Chọn ngày động thổ phù hợp mang lại những lợi ích cụ thể:</p>
-                            <ul class="mb-1">
+                            <p class="mb-2">Chọn ngày động thổ phù hợp mang lại những lợi ích cụ thể:</p>
+                            <ul class="mb-3">
                                 <li>Hạn chế xung khắc tuổi gia chủ với ngày, tránh các yếu tố phong thủy không thuận.</li>
                                 <li>Chọn ngày hoàng đạo, giờ hoàng đạo, giúp công trình khởi công trôi chảy.</li>
                                 <li>Tạo nền tảng vững chắc về tâm lý và phong thủy, từ ngày đầu thi công cho tới hoàn thiện.
                                 </li>
                             </ul>
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Khi xem ngày động thổ, cần chú ý điều gì?
                             </h2>
-                            <ul style="list-style-type: upper-alpha;">
+                            <ul style="list-style-type: upper-alpha;" class="mb-3">
                                 <li>
-                                    <h3 class="title-tong-quan-h4-log">Các yếu tố có lợi cần ưu tiên</h3>
-                                    <ul style="list-style-type: decimal;">
+                                    <h3 class="title-tong-quan-h4-log fst-italic">Các yếu tố có lợi cần ưu tiên</h3>
+                                    <ul style="list-style-type: decimal;" class="mb-3">
                                         <li>
                                             <p class="mb-0">Ngày hoàng đạo, trực tốt</p>
                                             <p class="mb-0">Ngày Hoàng đạo và các trực như: Trực Khai, Trực Thành, Trực
@@ -259,7 +259,7 @@
                                     </ul>
                                 </li>
                                 <li>
-                                    <h3 class="title-tong-quan-h4-log">Các yếu tố cần tránh</h3>
+                                    <h3 class="title-tong-quan-h4-log fst-italic">Các yếu tố cần tránh</h3>
                                     <ul class="mb-1">
                                         <li>Ngày xung tuổi hoặc phạm Thái Tuế của gia chủ.</li>
                                         <li>Ngày hắc đạo hoặc trực xấu, ví dụ Trực Bế, Trực Phá, Trực Nguy.</li>
@@ -268,12 +268,12 @@
                                     </ul>
                                 </li>
                             </ul>
-                            <p class="mb-1">Tránh những ngày này giúp buổi động thổ diễn ra suôn sẻ, giảm rủi ro và khó
+                            <p class="mb-3">Tránh những ngày này giúp buổi động thổ diễn ra suôn sẻ, giảm rủi ro và khó
                                 khăn cho công trình.</p>
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Hướng dẫn sử dụng công cụ Xem Ngày Động Thổ trên Phong Lịch
                             </h2>
-                            <ul class="mb-1" style="list-style-type: decimal;">
+                            <ul class="mb-3" style="list-style-type: decimal;">
                                 <li>Nhập tuổi gia chủ (âm lịch hoặc dương lịch).</li>
                                 <li>Chọn khoảng thời gian dự định khởi công.</li>
                                 <li>Hệ thống sẽ:
@@ -286,7 +286,7 @@
                                 </li>
                                 <li>Chọn ngày phù hợp thực tế dựa trên lịch trình và tiện ích của gia chủ.</li>
                             </ul>
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Một ngày động thổ đẹp mang lại lợi ích gì?
                             </h2>
                             <ul class="mb-1">

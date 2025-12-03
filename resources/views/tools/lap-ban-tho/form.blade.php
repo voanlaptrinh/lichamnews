@@ -203,13 +203,13 @@
                             <p class="mb-1">
                                 Chọn ngày tốt để lập bàn thờ giúp:
                             </p>
-                            <ul class="mb-1">
+                            <ul class="mb-3">
                                 <li>Việc an vị diễn ra trọn vẹn, tránh sai phạm về tâm linh.</li>
                                 <li>Tăng cát khí, giúp ngôi nhà ổn định, ấm cúng và linh ứng.</li>
                                 <li>Hạn chế ảnh hưởng của các ngày xấu có thể gây bất an hoặc trắc trở.</li>
                                 <li>Gia chủ cảm thấy an tâm, thuận lợi trong cuộc sống sau này.</li>
                             </ul>
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Lợi ích khi chọn ngày lập bàn thờ hợp tuổi
                             </h2>
                             <ul class="mb-1">
@@ -218,15 +218,15 @@
                                 <li>Sao tốt, giờ tốt hỗ trợ việc thỉnh thần linh, gia tiên được suôn sẻ.</li>
                                 <li>Tránh được ngày bách kỵ dễ gây trục trặc hoặc thiếu may mắn.</li>
                             </ul>
-                            <p class="mb-1">Một ngày hợp tuổi sẽ làm nghi thức lập bàn thờ diễn ra trang trọng và
+                            <p class="mb-3">Một ngày hợp tuổi sẽ làm nghi thức lập bàn thờ diễn ra trang trọng và
                                 vững
                                 vàng hơn.</p>
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Khi xem ngày lập bàn thờ, cần lưu ý điều gì?
                             </h2>
-                            <ul class="mb-1" style="list-style-type: upper-alpha;">
+                            <ul class="mb-3" style="list-style-type: upper-alpha;">
                                 <li>
-                                    <h3 class="title-tong-quan-h4-log">Các yếu tố cát lành nên ưu tiên</h3>
+                                    <h3 class="title-tong-quan-h4-log fst-italic">Các yếu tố cát lành nên ưu tiên</h3>
                                     <ul style="	list-style-type: decimal;" class="mb-1">
                                         <li>
                                             <p class="mb-1"> Ngày hoàng đạo – trực tốt
@@ -263,7 +263,7 @@
                                     </ul>
                                 </li>
                                 <li>
-                                    <h3 class="title-tong-quan-h4-log">Các yếu tố xấu nên tránh</h3>
+                                    <h3 class="title-tong-quan-h4-log fst-italic">Các yếu tố xấu nên tránh</h3>
                                     <ul style="list-style-type: decimal;">
                                         <li>
                                             <p class="mb-1">Ngày xung tuổi hoặc phạm hạn</p>
@@ -295,10 +295,10 @@
                                         bất an về sau.</p>
                                 </li>
                             </ul>
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Hướng dẫn sử dụng công cụ Xem Ngày Lập Bàn Thờ tại Phong Lịch
                             </h2>
-                            <ul style="	list-style-type: decimal;" class="mb-1">
+                            <ul style="	list-style-type: decimal;" class="mb-3">
                                 <li>Nhập tuổi của gia chủ để hệ thống chọn ngày hợp mệnh và tránh xung khắc.</li>
                                 <li>Chọn ngày hoặc khoảng thời gian dự định lập bàn thờ.</li>
                                 <li>Công cụ sẽ tự động hiển thị:
@@ -312,7 +312,7 @@
                                 <li>Gia chủ chỉ cần chọn ngày phù hợp với lịch trình, ưu tiên ngày có điểm tốt cao nhất.
                                 </li>
                             </ul>
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Một ngày lập bàn thờ đẹp mang lại lợi ích gì?
                             </h2>
                             <ul class="mb-1">

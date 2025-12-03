@@ -24,10 +24,10 @@ class XemHuongNhaController extends Controller
     {
         // 1. Validation
         $validator = Validator::make($request->all(), [
-            'nam_sinh' => 'required',
+            'birthdate' => 'required',
             'gioi_tinh' => 'required|in:nam,nữ',
         ], [
-            'nam_sinh.required' => 'Vui lòng nhập năm sinh.',
+            'birthdate.required' => 'Vui lòng nhập năm sinh.',
             'gioi_tinh.required' => 'Vui lòng chọn giới tính.',
         ]);
         if ($validator->fails()) {
@@ -35,8 +35,8 @@ class XemHuongNhaController extends Controller
         }
 
         $validated = $validator->validated();
-        // $namSinh = (int)$validated['nam_sinh'];
-        $birthDateInput = $validated['nam_sinh']; // Giữ lại chuỗi 'd/m/Y'
+        // $namSinh = (int)$validated['birthdate'];
+        $birthDateInput = $validated['birthdate']; // Giữ lại chuỗi 'd/m/Y'
         $birthDateObject = Carbon::createFromFormat('d/m/Y', $birthDateInput);
         $gender = $validated['gioi_tinh'];
 
@@ -48,7 +48,7 @@ class XemHuongNhaController extends Controller
             $gender
         );
         if ($request->ajax() || $request->wantsJson()) {
-            $html = view('huong-hop-tuoi.huong-ban-tho.results', [
+            $html = view('huong-hop-tuoi.huong-nha.results', [
                 'results' => $results,
                 'birthDate' => $birthDateInput, // Truyền chuỗi ngày sinh đã nhập
                 'gender' => $gender,             // Truyền giới tính đã chọn
@@ -63,9 +63,9 @@ class XemHuongNhaController extends Controller
         // 3. Trả về view với đầy đủ dữ liệu
         return view('huong-hop-tuoi.huong-nha.form', [
             'results' => $results,
-            'nam_sinh' => $birthDateObject, // Truyền lại năm sinh đã nhập
+            'birthDate' => $birthDateInput, // Truyền lại năm sinh đã nhập
             'gender' => $gender, // Truyền lại giới tính đã chọn
-            'inputdate' => $birthDateInput,
+            'nam_sinh' => $birthDateObject->year,
         ]);
     }
 }

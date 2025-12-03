@@ -214,11 +214,11 @@
                                                     @enderror
                                                 </div>
 
-                                                {{-- Khoảng ngày dự định cưới --}}
+                                
                                                 <div class="col-md-12 mb-3">
                                                     <div for="date_range" class="fw-bold title-tong-quan-h4-log"
                                                         style="color: #192E52; padding-bottom: 12px;">Khoảng
-                                                        ngày dự kiến cưới</div>
+                                                        ngày dự kiến dạm ngõ</div>
                                                     <div class="input-group">
                                                         <input type="text"
                                                             class="form-control wedding_date_range --border-box-form @error('wedding_date_range') is-invalid @enderror"
@@ -276,24 +276,24 @@
                     </div>
                     <div class="box--bg-thang mt-3 mb-3">
                         <div class="text-box-tong-quan">
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Xem Ngày Dạm Ngõ – Chọn Lựa Khởi Đầu Trọn Vẹn Cho Hôn Nhân
                             </h2>
-                            <p class="mb-1">Dạm ngõ là nghi lễ mở đầu cho con đường về chung một nhà. Một ngày đẹp, hợp
+                            <p class="mb-3">Dạm ngõ là nghi lễ mở đầu cho con đường về chung một nhà. Một ngày đẹp, hợp
                                 tuổi và thuận khí không chỉ giúp buổi gặp gỡ hai họ diễn ra suôn sẻ mà còn mang ý nghĩa “đặt
                                 nền móng” tốt lành cho chuyện trăm năm phía trước. Vì vậy, việc xem ngày dạm ngõ là điều
                                 nhiều gia đình vẫn coi trọng, vừa giữ giá trị truyền thống, vừa mang lại sự an tâm cho đôi
                                 trẻ.</p>
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Ý Nghĩa Của Việc Xem Ngày Dạm Ngõ
                             </h2>
-                            <p class="mb-1">
+                            <p class="mb-3">
                                 Khác với lễ cưới có phần long trọng, dạm ngõ là bước đầu tiên trong tiến trình hôn nhân. Tuy
                                 đơn giản nhưng mang nhiều tầng ý nghĩa:
                             </p>
                             <ul style="	list-style-type: decimal;">
                                 <li>
-                                    <h3 class="title-tong-quan-h4-log">
+                                    <h3 class="title-tong-quan-h4-log fst-italic">
                                         Tạo khởi đầu thuận hòa
                                     </h3>
                                     <p class="mb-1">
@@ -303,7 +303,7 @@
                                     </p>
                                 </li>
                                 <li>
-                                    <h3 class="title-tong-quan-h4-log">
+                                    <h3 class="title-tong-quan-h4-log fst-italic">
                                         Giữ gìn truyền thống
                                     </h3>
                                     <p class="mb-1">
@@ -313,7 +313,7 @@
                                     </p>
                                 </li>
                                 <li>
-                                    <h3 class="title-tong-quan-h4-log">
+                                    <h3 class="title-tong-quan-h4-log fst-italic">
                                         Tâm lý vững vàng cho đôi trẻ
                                     </h3>
                                     <p class="mb-1">
@@ -327,27 +327,27 @@
 
 
 
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Vì Sao Nhiều Gia Đình Vẫn Chọn Ngày Dạm Ngõ?
                             </h2>
-                            <p class="mb-1">Không chỉ vì yếu tố phong tục, mà còn bởi:</p>
-                            <ul class="mb-1">
+                            <p class="mb-3">Không chỉ vì yếu tố phong tục, mà còn bởi:</p>
+                            <ul class="mb-3">
                                 <li>Tránh ngày xấu theo tuổi hai bạn (ngày xung, ngày sát chủ, ngày thụ tử).</li>
                                 <li>Hợp ngũ hành – can chi, tượng trưng cho sự hòa hợp bền vững.</li>
                                 <li>Thuận khí theo lịch âm, tránh các trực xấu hoặc ngày có sao chiếu không tốt cho cưới
                                     hỏi.</li>
                                 <li>Chọn giờ đẹp giúp mọi việc diễn ra đúng kế hoạch, hạn chế rủi ro</li>
                             </ul>
-                            <p class="mb-1">Ngày dạm ngõ đẹp không đảm bảo “mọi thứ đều hoàn hảo”, nhưng giúp bạn giảm
+                            <p class="mb-3">Ngày dạm ngõ đẹp không đảm bảo “mọi thứ đều hoàn hảo”, nhưng giúp bạn giảm
                                 bớt lo lắng, tạo đà may mắn ngay từ buổi gặp đầu tiên.</p>
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Cách Xem Ngày Dạm Ngõ Đơn Giản, Dễ Hiểu
                             </h2>
                             <p class="mb-1">Bạn có thể tự xem theo các tiêu chí cơ bản hoặc dùng công cụ xem ngày dạm ngõ
                                 để tiết kiệm thời gian. Dưới đây là những yếu tố cần chú ý:</p>
                             <ul style="	list-style-type: decimal;">
                                 <li>
-                                    <h3 class="title-tong-quan-h4-log">
+                                    <h3 class="title-tong-quan-h4-log fst-italic">
                                         Ưu tiên ngày Hoàng Đạo và trực thuận
                                     </h3>
                                     <p class="mb-1">Ngày Hoàng Đạo, trực Khai – Thành – Mãn – Định thường là những ngày
@@ -356,37 +356,37 @@
                                 </li>
                                 <li>
 
-                                    <h3 class="title-tong-quan-h4-log">
+                                    <h3 class="title-tong-quan-h4-log fst-italic">
                                         Tránh ngày xung tuổi cô dâu – chú rể
                                     </h3>
-                                    <ul class="mb-1">
+                                    <ul class="mb-3">
                                         <li>Tránh ngày lục xung, lục hại theo tuổi.</li>
                                         <li>Nếu một trong hai bạn thuộc tuổi kỵ ngày nào đó, nên loại bỏ luôn.</li>
                                     </ul>
                                 </li>
                                 <li>
-                                    <h3 class="title-tong-quan-h4-log">
+                                    <h3 class="title-tong-quan-h4-log fst-italic">
                                         Xét ngũ hành ngày – tuổi
                                     </h3>
-                                    <p class="mb-1">Ngày hợp tuổi sẽ mang lại sự hòa hợp cho buổi gặp gỡ:</p>
-                                    <ul class="mb-1">
+                                    <p class="mb-2">Ngày hợp tuổi sẽ mang lại sự hòa hợp cho buổi gặp gỡ:</p>
+                                    <ul class="mb-3">
                                         <li>Ngũ hành tương sinh</li>
                                         <li>Thiên can – địa chi tương hỗ</li>
                                     </ul>
                                 </li>
                                 <li>
-                                    <h3 class="title-tong-quan-h4-log">
+                                    <h3 class="title-tong-quan-h4-log fst-italic">
                                         Chọn giờ đẹp
                                     </h3>
-                                    <p class="mb-1">Giờ Hoàng Đạo sẽ thuận lợi cho việc xuất hành, trao lễ và trò chuyện
+                                    <p class="mb-3">Giờ Hoàng Đạo sẽ thuận lợi cho việc xuất hành, trao lễ và trò chuyện
                                         giữa hai
                                         họ.</p>
                                 </li>
                                 <li>
-                                    <h3 class="title-tong-quan-h4-log">
+                                    <h3 class="title-tong-quan-h4-log fst-italic">
                                         Hợp lịch của cả hai gia đình
                                     </h3>
-                                    <p class="mb-1">Một ngày đẹp về phong thủy nhưng gia đình không tiện tham dự cũng sẽ
+                                    <p class="mb-3">Một ngày đẹp về phong thủy nhưng gia đình không tiện tham dự cũng sẽ
                                         mất đi ý
                                         nghĩa. Vì vậy, nên thống nhất lịch trước, sau đó chọn trong các ngày đẹp phù hợp.
                                     </p>
@@ -397,29 +397,29 @@
 
 
 
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Những Điểm Lợi Khi Chọn Đúng Ngày Dạm Ngõ
                             </h2>
-                            <ul class="mb-1">
+                            <ul class="mb-3">
                                 <li>Không khí buổi lễ tự nhiên, vui vẻ, tránh những điều kiêng kỵ theo tuổi.</li>
                                 <li>Hai họ nói chuyện thuận lợi, dễ đi đến thống nhất về ngày ăn hỏi – ngày cưới.</li>
                                 <li>Tượng trưng cho lời mở đầu suôn sẻ, mang ý nghĩa may mắn cho cả hành trình sau này.</li>
                             </ul>
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Khi Chọn Ngày Dạm Ngõ, Nên Tránh Những Điều Nào?
                             </h2>
-                            <ul class="mb-1">
+                            <ul class="mb-3">
                                 <li>Ngày Hắc Đạo, thụ tử, sát chủ</li>
                                 <li>Ngày lục xung – lục hại theo tuổi</li>
                                 <li>Ngày có sao xấu cho hôn nhân: Nguyệt Hư, Nguyệt Hình, Thiên Cương…</li>
                                 <li>Tránh ngày quá sát ngày cưới để không bị “gấp gáp”</li>
                                 <li>Tránh ngày gia đình không thuận tiện (đám giỗ, việc kiêng kỵ riêng)</li>
                             </ul>
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Sử Dụng Công Cụ Xem Ngày Dạm Ngõ Tại Phong Lịch
                             </h2>
                             <p class="mb-1">Công cụ giúp bạn:</p>
-                            <ul class="mb-1">
+                            <ul class="mb-3">
                                 <li>Chọn ngày đẹp theo tuổi cô dâu – chú rể</li>
                                 <li>Xem mức độ tốt/xấu của từng ngày</li>
                                 <li>Gợi ý giờ đẹp</li>
@@ -847,7 +847,7 @@
                 const dateRangeValue = dateRangeInput.value;
 
                 if (!dateRangeValue) {
-                    alert('Vui lòng chọn khoảng thời gian dự định cưới');
+                    alert('Vui lòng chọn khoảng thời gian dự định dạm ngõ');
                     return;
                 }
 

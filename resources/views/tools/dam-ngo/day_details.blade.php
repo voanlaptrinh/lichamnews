@@ -12,7 +12,8 @@
                     <a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
                 </li>
                 <li class="breadcrumb-item" aria-current="page">
-                            <a href="{{ route('totxau.list') }}"  style="color: #2254AB; text-decoration: underline;">Xem ngày tốt</a>
+                    <a href="{{ route('totxau.list') }}" style="color: #2254AB; text-decoration: underline;">Xem ngày
+                        tốt</a>
                 </li>
                 <li class="breadcrumb-item" aria-current="page">
                     Xem ngày dạm ngõ
@@ -118,105 +119,127 @@
                                     </div>
 
                                     <div>
-                                        <table class="table table-detail" style="table-layout: fixed;">
-                                            <tbody>
-                                                <tr>
-                                                    <td style="font-weight: 600">
+                                        <div class="row g-0 table rounded overflow-hidden analysis-box">
+
+                                            <!-- Cột 1: Yếu tố hỗ trợ (Tốt) -->
+                                            <div class="col-6 d-flex flex-column">
+                                                <!-- Header (Màu Xanh) -->
+                                                <div class="p-3 header-green">
+                                                    <div class="mb-0 fw-bold">
                                                         Các yếu tố tốt hỗ trợ cho ngày
-                                                    </td>
-                                                    <td style="font-weight: 600">
-                                                        Các yếu tố xấu/ cản trở cần xem xét
-                                                    </td>
-                                                </tr>
-
+                                                    </div>
+                                                </div>
                                                 @php
-                                                    $tabooIssuesgroom = collect(
-                                                        $groomData['score']['issues'] ?? [],
-                                                    )->filter(fn($issue) => ($issue['source'] ?? '') === 'Taboo');
+                                                    $hopTuoi = $groomData['score']['hopttuoi'] ?? null;
+                                                    $hopTuoiReason = $groomData['score']['hopTuoiReason'] ?? '';
+
+                                                    $tabooIssues = collect($groomData['score']['issues'] ?? [])->filter(
+                                                        fn($issue) => ($issue['source'] ?? '') === 'Taboo',
+                                                    );
+                                                    $names = $tabooIssues
+                                                        ->map(fn($issue) => $issue['details']['tabooName'] ?? '')
+                                                        ->filter()
+                                                        ->implode(', ');
                                                 @endphp
-
-                                                @if ($groomData['score']['hopttuoi'] || $tabooIssuesgroom->isNotEmpty())
-                                                    <tr>
-                                                        <td>
-                                                            @if ($groomData['score']['hopttuoi'])
-                                                                ✓ Ngày hợp tuổi: {{ $groomData['score']['hopTuoiReason'] }}
-                                                            @endif
-                                                        </td>
-
-                                                        <td>
-                                                            {{ $tabooIssuesgroom->map(fn($issue) => '⚠️ Phạm ' . ($issue['details']['tabooName'] ?? ''))->implode(', ') }}
-                                                        </td>
-                                                    </tr>
-                                                @endif
-
-
-                                                @if (!$groomData['score']['hopttuoi'] && $groomData['score']['hopTuoiReason'] != 'Ngày bình thường')
-                                                    <tr>
-                                                        <td></td>
-                                                        <td>
-                                                            ❌ Ngày kỵ tuổi:
-                                                            {{ $groomData['score']['hopTuoiReason'] ?? 'Không hợp tuổi' }}
-                                                        </td>
-                                                    </tr>
-                                                @endif
-
-                                                <tr>
-                                                    <td>
+                                                <!-- Nội dung (Màu Xanh Nhạt) -->
+                                                <div class="p-4 content-green flex-grow-1">
+                                                    <ul class="list-unstyled mb-0">
+                                                        @if ($hopTuoi)
+                                                            <li class="mb-3">
+                                                                <span class="text-success fw-bold list-icon">✓</span>
+                                                                <span class="text-dark">Ngày hợp tuổi:
+                                                                    {{ $hopTuoiReason }}</span>
+                                                            </li>
+                                                        @endif
                                                         @if ($groomData['score']['tu']['details']['data']['nature'] == 'Tốt')
-                                                            ✓ Nhị thập bát tú: Sao
-                                                            {{ $groomData['score']['tu']['details']['data']['name'] }}
-                                                            (Tốt)
+                                                            <li class="mb-3">
+                                                                <span class="text-success fw-bold list-icon">✓</span>
+                                                                <span class="text-dark">Nhị thập bát tú: Sao
+                                                                    {{ $groomData['score']['tu']['details']['data']['name'] }}
+                                                                    (Tốt)</span>
+                                                            </li>
                                                         @endif
-                                                    </td>
-                                                    <td>
+                                                        @if ($groomData['score']['tructot'])
+                                                            <li class="mb-3">
+                                                                <span class="text-success fw-bold list-icon">✓</span>
+                                                                <span class="text-dark">Thập Nhị Trực
+                                                                    {{ $groomData['score']['truc']['details']['name'] }}
+                                                                    (Tốt)
+                                                                </span>
+                                                            </li>
+                                                        @endif
+                                                        @if (!empty($groomData['score']['catHung']['details']['catStars']))
+                                                            <li class="mb-3">
+                                                                <span class="text-success fw-bold list-icon">✓</span>
+                                                                <span class="text-dark"> Sao tốt theo Ngọc Hạp Thông Thư:
+                                                                    @foreach ($groomData['score']['catHung']['details']['catStars'] as $index => $sao)
+                                                                        <span
+                                                                            class=" bg-success">{{ $sao['name'] }}</span>{{ $loop->last ? '' : ',' }}
+                                                                    @endforeach
+                                                                </span>
+                                                            </li>
+                                                        @endif
+                                                    </ul>
+                                                </div>
+                                            </div>
+
+                                            <!-- Cột 2: Yếu tố cản trở (Xấu) -->
+                                            <div class="col-6 d-flex flex-column">
+                                                <!-- Header (Màu Đỏ) -->
+                                                <div class="p-3 header-red border-start">
+                                                    <div class="mb-0 fw-bold text-danger">
+                                                        Các yếu tố xấu/ cản trở cần xem xét
+                                                    </div>
+                                                </div>
+
+                                                <!-- Nội dung (Trắng/Đỏ Nhạt) -->
+                                                <div class="p-4 content-red flex-grow-1 border-start">
+                                                    <ul class="list-unstyled mb-0">
+                                                        <!-- Các yếu tố Cảnh báo (Tam Nương, Kim Thần Thất Sát) -->
+                                                        @if ($tabooIssues->isNotEmpty())
+                                                            <li class="mb-3">
+                                                                <!-- Dùng icon tam giác cảnh báo màu cam -->
+
+                                                                <span class="text-dark">
+                                                                    {{ $names ? '⚠️ Phạm: ' . $names : '' }}</span>
+                                                            </li>
+                                                        @endif
+                                                        @if (!$groomData['score']['hopttuoi'] && $groomData['score']['hopTuoiReason'] != 'Ngày bình thường')
+                                                            <li class="mb-3">
+                                                                <!-- Dùng icon tam giác cảnh báo màu cam -->
+                                                                ❌ Ngày kỵ tuổi:
+                                                                {{ $groomData['score']['hopTuoiReason'] ?? 'Không hợp tuổi' }}
+                                                            </li>
+                                                        @endif
                                                         @if ($groomData['score']['tu']['details']['data']['nature'] == 'Xấu')
-                                                            ❌ Nhị thập bát tú: Sao
-                                                            {{ $groomData['score']['tu']['details']['data']['name'] }}
-                                                            (Xấu)
+                                                            <li class="mb-3">
+                                                                <!-- Dùng icon tam giác cảnh báo màu cam -->
+                                                                ❌ Nhị thập bát tú: Sao
+                                                                {{ $groomData['score']['tu']['details']['data']['name'] }}
+                                                                (Xấu)
+                                                            </li>
                                                         @endif
-                                                    </td>
-                                                </tr>
-                                                @if ($groomData['score']['tructot'] || $groomData['score']['trucxau'])
-                                                    <tr>
-                                                        <td>
-                                                            @if ($groomData['score']['tructot'])
-                                                                ✓ Thập Nhị Trực
-                                                                {{ $groomData['score']['truc']['details']['name'] }}
-                                                                (Tốt)
-                                                            @endif
-                                                        </td>
-                                                        <td>
-                                                            @if ($groomData['score']['trucxau'])
+                                                        @if ($groomData['score']['trucxau'])
+                                                            <li class="mb-3">
                                                                 ❌ Thập Nhị Trực
                                                                 {{ $groomData['score']['truc']['details']['name'] }}
-                                                                (Xấu)
-                                                            @endif
-                                                        </td>
-                                                    </tr>
-                                                @endif
-
-                                                <tr>
-                                                    <td>
-                                                        @if (!empty($groomData['score']['catHung']['details']['catStars']))
-                                                            ✓<strong> Sao tốt theo Ngọc Hạp Thông Thư:</strong>
-                                                            @foreach ($groomData['score']['catHung']['details']['catStars'] as $index => $sao)
-                                                                <span
-                                                                    class=" bg-success me-1">{{ $sao['name'] }}</span>{{ $loop->last ? '' : ',' }}
-                                                            @endforeach
+                                                                (Xấu)</li>
                                                         @endif
-                                                    </td>
-                                                    <td>
                                                         @if (!empty($groomData['score']['catHung']['details']['hungStars']))
-                                                            <strong>❌ Sao xấu theo Ngọc Hạp Thông Thư:</strong>
-                                                            @foreach ($groomData['score']['catHung']['details']['hungStars'] as $sao)
-                                                                <span
-                                                                    class=" bg-danger me-1">{{ $sao['name'] }}</span>{{ $loop->last ? '' : ',' }}
-                                                            @endforeach
+                                                            <li class="mb-3">
+                                                                ❌ Sao xấu theo Ngọc Hạp Thông Thư:
+                                                                @foreach ($groomData['score']['catHung']['details']['hungStars'] as $sao)
+                                                                    <span
+                                                                        class=" bg-danger">{{ $sao['name'] }}</span>{{ $loop->last ? '' : ',' }}
+                                                                @endforeach
+                                                            </li>
                                                         @endif
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -234,6 +257,7 @@
                                             ({{ round($groomData['score']['percentage']) }}%)</span>
                                     </div>
                                     <div>
+
                                         <table class="table table-detail" style="table-layout: fixed;">
                                             <tbody>
                                                 <tr style="font-weight: 600">
@@ -249,7 +273,7 @@
                                                         ];
                                                     $totalWeight = array_sum($weights);
                                                 @endphp
- <tr>
+                                                <tr>
                                                     <td>Can chi - vận khí ngày so với tuổi</td>
                                                     <td>{{ round($groomData['score']['vanKhi']['percentage'] ?? 0) }}%</td>
                                                     <td>
@@ -310,107 +334,127 @@
                                     </div>
 
                                     <div>
-                                        <table class="table table-detail" style="table-layout: fixed;">
-                                            <tbody>
-                                                <tr>
-                                                    <td style="font-weight: 600">
+                                        <div class="row g-0 table rounded overflow-hidden analysis-box">
+
+                                            <!-- Cột 1: Yếu tố hỗ trợ (Tốt) -->
+                                            <div class="col-6 d-flex flex-column">
+                                                <!-- Header (Màu Xanh) -->
+                                                <div class="p-3 header-green">
+                                                    <div class="mb-0 fw-bold">
                                                         Các yếu tố tốt hỗ trợ cho ngày
-                                                    </td>
-                                                    <td style="font-weight: 600">
-                                                        Các yếu tố xấu/ cản trở cần xem xét
-                                                    </td>
-                                                </tr>
+                                                    </div>
+                                                </div>
                                                 @php
+                                                    $hopTuoi = $brideData['score']['hopttuoi'] ?? null;
+                                                    $hopTuoiReason = $brideData['score']['hopTuoiReason'] ?? '';
+
                                                     $tabooIssues = collect($brideData['score']['issues'] ?? [])->filter(
                                                         fn($issue) => ($issue['source'] ?? '') === 'Taboo',
                                                     );
+                                                    $names = $tabooIssues
+                                                        ->map(fn($issue) => $issue['details']['tabooName'] ?? '')
+                                                        ->filter()
+                                                        ->implode(', ');
                                                 @endphp
-
-                                                @if ($brideData['score']['hopttuoi'] || $tabooIssues->isNotEmpty())
-                                                    <tr>
-                                                        <td>
-                                                            @if ($brideData['score']['hopttuoi'])
-                                                                ✓ Ngày hợp tuổi: {{ $brideData['score']['hopTuoiReason'] }}
-                                                            @endif
-                                                        </td>
-
-                                                        <td>
-                                                            {{ $tabooIssues->map(fn($issue) => '⚠️ Phạm ' . ($issue['details']['tabooName'] ?? ''))->implode(', ') }}
-                                                        </td>
-                                                    </tr>
-                                                @endif
-
-
-
-
-                                                @if (!$brideData['score']['hopttuoi'] && $brideData['score']['hopTuoiReason'] != 'Ngày bình thường')
-                                                    <tr>
-                                                        <td></td>
-                                                        <td>
-                                                            ❌ Ngày kỵ tuổi:
-                                                            {{ $brideData['score']['hopTuoiReason'] ?? 'Không hợp tuổi' }}
-                                                        </td>
-                                                    </tr>
-                                                @endif
-
-                                                <tr>
-                                                    <td>
+                                                <!-- Nội dung (Màu Xanh Nhạt) -->
+                                                <div class="p-4 content-green flex-grow-1">
+                                                    <ul class="list-unstyled mb-0">
+                                                        @if ($hopTuoi)
+                                                            <li class="mb-3">
+                                                                <span class="text-success fw-bold list-icon">✓</span>
+                                                                <span class="text-dark">Ngày hợp tuổi:
+                                                                    {{ $hopTuoiReason }}</span>
+                                                            </li>
+                                                        @endif
                                                         @if ($brideData['score']['tu']['details']['data']['nature'] == 'Tốt')
-                                                            ✓ Nhị thập bát tú: Sao
-                                                            {{ $brideData['score']['tu']['details']['data']['name'] }}
-                                                            (Tốt)
+                                                            <li class="mb-3">
+                                                                <span class="text-success fw-bold list-icon">✓</span>
+                                                                <span class="text-dark">Nhị thập bát tú: Sao
+                                                                    {{ $brideData['score']['tu']['details']['data']['name'] }}
+                                                                    (Tốt)</span>
+                                                            </li>
                                                         @endif
-                                                    </td>
-                                                    <td>
+                                                        @if ($brideData['score']['tructot'])
+                                                            <li class="mb-3">
+                                                                <span class="text-success fw-bold list-icon">✓</span>
+                                                                <span class="text-dark">Thập Nhị Trực
+                                                                    {{ $brideData['score']['truc']['details']['name'] }}
+                                                                    (Tốt)
+                                                                </span>
+                                                            </li>
+                                                        @endif
+                                                        @if (!empty($brideData['score']['catHung']['details']['catStars']))
+                                                            <li class="mb-3">
+                                                                <span class="text-success fw-bold list-icon">✓</span>
+                                                                <span class="text-dark"> Sao tốt theo Ngọc Hạp Thông Thư:
+                                                                    @foreach ($brideData['score']['catHung']['details']['catStars'] as $index => $sao)
+                                                                        <span
+                                                                            class=" bg-success">{{ $sao['name'] }}</span>{{ $loop->last ? '' : ',' }}
+                                                                    @endforeach
+                                                                </span>
+                                                            </li>
+                                                        @endif
+                                                    </ul>
+                                                </div>
+                                            </div>
+
+                                            <!-- Cột 2: Yếu tố cản trở (Xấu) -->
+                                            <div class="col-6 d-flex flex-column">
+                                                <!-- Header (Màu Đỏ) -->
+                                                <div class="p-3 header-red border-start">
+                                                    <div class="mb-0 fw-bold text-danger">
+                                                        Các yếu tố xấu/ cản trở cần xem xét
+                                                    </div>
+                                                </div>
+
+                                                <!-- Nội dung (Trắng/Đỏ Nhạt) -->
+                                                <div class="p-4 content-red flex-grow-1 border-start">
+                                                    <ul class="list-unstyled mb-0">
+                                                        <!-- Các yếu tố Cảnh báo (Tam Nương, Kim Thần Thất Sát) -->
+                                                        @if ($tabooIssues->isNotEmpty())
+                                                            <li class="mb-3">
+                                                                <!-- Dùng icon tam giác cảnh báo màu cam -->
+
+                                                                <span class="text-dark">
+                                                                    {{ $names ? '⚠️ Phạm: ' . $names : '' }}</span>
+                                                            </li>
+                                                        @endif
+                                                        @if (!$brideData['score']['hopttuoi'] && $brideData['score']['hopTuoiReason'] != 'Ngày bình thường')
+                                                            <li class="mb-3">
+                                                                <!-- Dùng icon tam giác cảnh báo màu cam -->
+                                                                ❌ Ngày kỵ tuổi:
+                                                                {{ $brideData['score']['hopTuoiReason'] ?? 'Không hợp tuổi' }}
+                                                            </li>
+                                                        @endif
                                                         @if ($brideData['score']['tu']['details']['data']['nature'] == 'Xấu')
-                                                            ❌ Nhị thập bát tú: Sao
-                                                            {{ $brideData['score']['tu']['details']['data']['name'] }}
-                                                            (Xấu)
+                                                            <li class="mb-3">
+                                                                <!-- Dùng icon tam giác cảnh báo màu cam -->
+                                                                ❌ Nhị thập bát tú: Sao
+                                                                {{ $brideData['score']['tu']['details']['data']['name'] }}
+                                                                (Xấu)
+                                                            </li>
                                                         @endif
-                                                    </td>
-                                                </tr>
-                                                @if ($brideData['score']['tructot'] || $brideData['score']['trucxau'])
-                                                    <tr>
-                                                        <td>
-                                                            @if ($brideData['score']['tructot'])
-                                                                ✓ Thập Nhị Trực
-                                                                {{ $brideData['score']['truc']['details']['name'] }}
-                                                                (Tốt)
-                                                            @endif
-                                                        </td>
-                                                        <td>
-                                                            @if ($brideData['score']['trucxau'])
+                                                        @if ($brideData['score']['trucxau'])
+                                                            <li class="mb-3">
                                                                 ❌ Thập Nhị Trực
                                                                 {{ $brideData['score']['truc']['details']['name'] }}
-                                                                (Xấu)
-                                                            @endif
-                                                        </td>
-                                                    </tr>
-                                                   
-                                                @endif
-
-                                                <tr>
-                                                    <td>
-                                                        @if (!empty($brideData['score']['catHung']['details']['catStars']))
-                                                            ✓<strong> Sao tốt theo Ngọc Hạp Thông Thư:</strong>
-                                                            @foreach ($brideData['score']['catHung']['details']['catStars'] as $index => $sao)
-                                                                <span
-                                                                    class=" bg-success">{{ $sao['name'] }}</span>{{ $loop->last ? '' : ',' }}
-                                                            @endforeach
+                                                                (Xấu)</li>
                                                         @endif
-                                                    </td>
-                                                    <td>
                                                         @if (!empty($brideData['score']['catHung']['details']['hungStars']))
-                                                            <strong>❌ Sao xấu theo Ngọc Hạp Thông Thư:</strong>
-                                                            @foreach ($brideData['score']['catHung']['details']['hungStars'] as $sao)
-                                                                <span
-                                                                    class=" bg-danger ">{{ $sao['name'] }}</span>{{ $loop->last ? '' : ',' }}
-                                                            @endforeach
+                                                            <li class="mb-3">
+                                                                ❌ Sao xấu theo Ngọc Hạp Thông Thư:
+                                                                @foreach ($brideData['score']['catHung']['details']['hungStars'] as $sao)
+                                                                    <span
+                                                                        class=" bg-danger">{{ $sao['name'] }}</span>{{ $loop->last ? '' : ',' }}
+                                                                @endforeach
+                                                            </li>
                                                         @endif
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                       
                                     </div>
                                 </div>
                             </div>

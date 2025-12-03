@@ -185,34 +185,34 @@
                     </div>
                     <div class="box--bg-thang mt-3 mb-3">
                         <div class="text-box-tong-quan">
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Vì sao nên xem ngày thi cử, phỏng vấn?
                             </h2>
                             <p class="mb-1">
                                 Ngày thi hay phỏng vấn là bước quan trọng, ảnh hưởng trực tiếp đến kết quả học tập, công
                                 việc và cơ hội thăng tiến. Chọn ngày tốt giúp:
                             </p>
-                            <ul class="mb-1">
+                            <ul class="mb-3">
                                 <li>Tâm lý tự tin, bình tĩnh khi tham gia</li>
                                 <li>Tránh xung khắc tuổi, giảm áp lực, stress</li>
                                 <li>Thu hút may mắn, thuận lợi trong quá trình thi hoặc phỏng vấn</li>
                                 <li>Tăng khả năng đạt kết quả tốt và để lại ấn tượng tích cực</li>
                             </ul>
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Lợi ích khi chọn ngày tốt
                             </h2>
-                            <ul class="mb-1">
+                            <ul class="mb-3">
                                 <li>Tăng tâm lý vững vàng, giảm lo lắng</li>
                                 <li>Kết quả thi hoặc phỏng vấn khả quan hơn</li>
                                 <li>Thuận lợi về phong thủy, năng lượng tích cực hỗ trợ học tập, làm việc</li>
                                 <li>Tránh xung đột, trục trặc không cần thiết</li>
                                 <li>Tạo nền tảng may mắn cho các bước tiếp theo trong học tập và sự nghiệp</li>
                             </ul>
-                              <h2 class="title-tong-quan-h3-log fw-bolder">
+                              <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                Cách chọn ngày thi cử, phỏng vấn
                             </h2>
                             <p class="mb-1">Những ngày có yếu tố cát lành nên chọn:</p>
-                            <ul class="mb-1">
+                            <ul class="mb-3">
                                 <li>Hoàng đạo → Ngày thuận lợi, tăng cát khí</li>
                                 <li>Trực tốt: Kiến – Khai – Thành – Mãn → Hỗ trợ bắt đầu công việc mới hoặc thi cử thuận lợi</li>
                                 <li>Ngũ hành hợp tuổi/mệnh → Tăng may mắn, giảm xung khắc</li>
@@ -221,16 +221,16 @@
                                 <li>Ngày không xung tuổi</li>
                             </ul>
                             <p class="mb-1">Những ngày có yếu tố xấu cần tránh:</p>
-                            <ul class="mb-1">
+                            <ul class="mb-3">
                                 <li>Ngày Hắc đạo: Câu Trận, Bạch Hổ, Thiên Lao, Nguyên Vũ</li>
                                 <li>Trực xấu: Phá – Nguy – Thu – Bế → Gây trục trặc, căng thẳng</li>
                                 <li>Ngày xung tuổi</li>
                                 <li>Ngày đại kỵ: Tam Nương, Nguyệt Kỵ, Dương Công Kỵ Nhật</li>
                             </ul>
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Hướng dẫn sử dụng công cụ Phong Lịch
                             </h2>
-                            <ul class="mb-1" style="list-style-type: decimal;">
+                            <ul class="mb-3" style="list-style-type: decimal;">
                                 <li>Nhập tuổi của thí sinh hoặc người phỏng vấn</li>
                                 <li>Chọn khoảng thời gian dự kiến thi hoặc phỏng vấn</li>
                                 <li>Hệ thống phân tích:
@@ -244,7 +244,7 @@
                                 </li>
                                 <li>Công cụ gợi ý ngày tốt nhất, kèm điểm tốt – xấu và lưu ý chi tiết</li>
                             </ul>
-                             <h2 class="title-tong-quan-h3-log fw-bolder">
+                             <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                               Lợi ích khi chọn đúng ngày thi cử, phỏng vấn
                             </h2>
                             <ul class="mb-1">

@@ -184,34 +184,34 @@
                     </div>
                     <div class="box--bg-thang mt-3 mb-3">
                         <div class="text-box-tong-quan">
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Vì sao nên xem ngày làm giấy tờ?
                             </h2>
                             <p class="mb-1">Các thủ tục quan trọng như: khai sinh, đăng ký kết hôn, giấy tờ nhà đất,
                                 chứng minh thư hay hợp đồng pháp lý… đều ảnh hưởng trực tiếp đến quyền lợi của bạn. Chọn
                                 ngày tốt giúp:
                             </p>
-                            <ul class="mb-1">
+                            <ul class="mb-3">
                                 <li>Thủ tục suôn sẻ, nhanh chóng, ít rắc rối</li>
                                 <li>Tâm lý tự tin, thoải mái khi làm việc</li>
                                 <li>Thu hút may mắn, giảm sai sót</li>
                                 <li>Khởi đầu thuận lợi, tránh xung đột</li>
                             </ul>
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Lợi ích khi chọn ngày tốt
                             </h2>
-                            <ul class="mb-1">
+                            <ul class="mb-3">
                                 <li>Thủ tục được xử lý nhanh, ít trục trặc</li>
                                 <li>Giấy tờ dễ được chấp thuận</li>
                                 <li>Tâm lý thoải mái, tự tin</li>
                                 <li>Hạn chế rủi ro, sai sót</li>
                                 <li>Tạo nền tảng ổn định cho các quyền lợi liên quan</li>
                             </ul>
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Cách chọn ngày làm giấy tờ
                             </h2>
-                            <h3 class="title-tong-quan-h4-log">Những ngày có yếu tố cát lành nên chọn:</h3>
-                            <ul class="mb-1">
+                            <h3 class="title-tong-quan-h4-log fst-italic">Những ngày có yếu tố cát lành nên chọn:</h3>
+                            <ul class="mb-3">
                                 <li>Ngày Hoàng đạo</li>
                                 <li>Trực tốt: Kiến – Khai – Thành – Mãn</li>
                                 <li>Ngũ hành hợp tuổi/mệnh</li>
@@ -219,23 +219,23 @@
                                 <li>Giờ Hoàng đạo</li>
                                 <li>Ngày không xung tuổi</li>
                             </ul>
-                            <h3 class="title-tong-quan-h4-log">Những ngày có yếu tố xấu cần tránh:</h3>
-                            <ul class="mb-1">
+                            <h3 class="title-tong-quan-h4-log fst-italic">Những ngày có yếu tố xấu cần tránh:</h3>
+                            <ul class="mb-3">
                                 <li>Hắc đạo: Câu Trận, Bạch Hổ, Thiên Lao, Nguyên Vũ</li>
                                 <li>Trực xấu: Phá – Nguy – Thu – Bế</li>
                                 <li>Ngày xung tuổi</li>
                                 <li>Ngày đại kỵ: Tam Nương, Nguyệt Kỵ, Dương Công Kỵ Nhật</li>
                             </ul>
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Hướng dẫn sử dụng công cụ Phong Lịch
                             </h2>
-                            <ul class="mb-1" style="list-style-type: decimal;">
+                            <ul class="mb-3" style="list-style-type: decimal;">
                                 <li>Nhập tuổi người làm giấy tờ</li>
                                 <li>Chọn khoảng thời gian dự kiến</li>
                                 <li>Hệ thống phân tích Hoàng đạo, Trực, Sao cát – hung, Ngũ hành, giờ tốt/xung</li>
                                 <li>Chọn ngày phù hợp để thủ tục suôn sẻ và yên tâm</li>
                             </ul>
-                              <h2 class="title-tong-quan-h3-log fw-bolder">
+                              <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                Lợi ích khi chọn đúng ngày
                             </h2>
                             <ul class="mb-1">

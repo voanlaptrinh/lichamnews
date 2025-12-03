@@ -184,7 +184,7 @@
                     </div>
                     <div class="box--bg-thang mt-3 mb-3">
                         <div class="text-box-tong-quan">
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Vì sao nên xem ngày nhận công việc mới?
                             </h2>
                             <p class="mb-1">Bắt đầu một công việc mới là bước ngoặt quan trọng trong sự nghiệp. Việc chọn
@@ -196,12 +196,12 @@
                                 <li>Thu hút cát khí, may mắn trong công việc và tài lộc</li>
                                 <li>Hạn chế rủi ro, xung đột hoặc mệt mỏi trong những ngày đầu tiên</li>
                             </ul>
-                            <p class="mb-1">Ngày tốt sẽ giúp bạn để lại ấn tượng tích cực với đồng nghiệp và cấp trên
+                            <p class="mb-3">Ngày tốt sẽ giúp bạn để lại ấn tượng tích cực với đồng nghiệp và cấp trên
                                 ngay từ những ngày đầu tiên.</p>
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Lợi ích khi chọn ngày tốt nhận việc mới
                             </h2>
-                            <ul class="mb-1">
+                            <ul class="mb-3">
                                 <li>Tăng cát khí cho sự nghiệp: Bắt đầu công việc đúng ngày hợp tuổi, hợp ngũ hành giúp mọi
                                     việc hanh thông, thuận lợi.
                                 </li>
@@ -212,12 +212,12 @@
                                 <li>Tạo nền tảng lâu dài: Công việc, mối quan hệ, cơ hội phát triển được thuận lợi ngay từ
                                     đầu.</li>
                             </ul>
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Cách xem ngày nhận công việc mới: Các yếu tố quan trọng
                             </h2>
-                            <ul class="mb-1" style="list-style-type: upper-alpha;">
+                            <ul class="mb-3" style="list-style-type: upper-alpha;">
                                 <li>
-                                    <h3 class="title-tong-quan-h4-log"> Nên chọn ngày</h3>
+                                    <h3 class="title-tong-quan-h4-log fst-italic"> Nên chọn ngày</h3>
                                     <ul style="	list-style-type: decimal;" class="mb-1">
                                         <li>
                                             <p class="mb-1">Ngày Hoàng đạo
@@ -267,8 +267,8 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li>
-                                    <h3 class="title-tong-quan-h4-log">Những điều cần tránh</h3>
+                                <li class="mt-2">
+                                    <h3 class="title-tong-quan-h4-log fst-italic">Những điều cần tránh</h3>
                                     <ul style="list-style-type: decimal;">
                                         <li>
                                             <p class="mb-1">Ngày Hắc đạo</p>
@@ -299,14 +299,14 @@
 
                                 </li>
                             </ul>
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Hướng dẫn sử dụng công cụ Xem Ngày Nhận Công Việc Mới tại Phong Lịch
 
                             </h2>
-                            <ul class="mb-1" style="list-style-type: decimal;">
-                                <li>Nhập tuổi người nhận việc (âm lịch hoặc dương lịch)</li>
-                                <li>Chọn khoảng thời gian dự kiến bắt đầu công việc</li>
-                                <li>
+                            <ul class="mb-3" style="list-style-type: decimal;">
+                                <li class="mb-2">Nhập tuổi người nhận việc (âm lịch hoặc dương lịch)</li>
+                                <li class="mb-2">Chọn khoảng thời gian dự kiến bắt đầu công việc</li>
+                                <li class="mb-2">
                                   Hệ thống sẽ phân tích:
                                     <ul class="mb-1">
                                         <li>Hoàng đạo – hắc đạo.</li>
@@ -316,9 +316,9 @@
                                         <li>Giờ hoàng đạo và giờ xung tuổi.</li>
                                     </ul>
                                 </li>
-                                <li>Bạn chỉ cần chọn ngày và giờ phù hợp để khởi đầu công việc thuận lợi và may mắn.</li>
+                                <li class="mb-2">Bạn chỉ cần chọn ngày và giờ phù hợp để khởi đầu công việc thuận lợi và may mắn.</li>
                             </ul>
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Lợi ích thực tế khi chọn đúng ngày nhận công việc mới
                             </h2>
                             <ul class="mb-1">

@@ -106,140 +106,136 @@ Route::get('lien-he-voi-chung-toi', [FooterController::class, 'lienHe'])->name('
 Route::get('dieu-khoan-dich-vu', [FooterController::class, 'dieuKhoan'])->name('dieu-khoan');
 Route::get('chinh-sach-bao-mat', [FooterController::class, 'chinhSach'])->name('chinh-sach');
 
+//19 chức năng xem ngày tốt
+Route::prefix('xem-ngay-tot')->group(function () {
+    //list xem ngày tốt
+    Route::get('/',  [ListController::class, 'XemNgayTots'])->name('totxau.list');
+    //xem ngày tốt xấu
+    Route::prefix('xem-ngay-tot-xau')->group(function () {
+        Route::get('/',  [TotXauController::class, 'showForm'])->name('totxau.form');
+        Route::post('/check-days', [TotXauController::class, 'checkDays'])->name('totxau.checkDays');
+        Route::get('/chi-tiet/{date}', [TotXauController::class, 'showDayDetails'])->name('totxau.dayDetails');
+    });
+    //Xem ngày mua nhà
+    Route::prefix('xem-ngay-mua-nha')->group(function () {
+        Route::get('/', [BuyHouseController::class, 'showForm'])->name('buy-house.form');
+        Route::post('/', [BuyHouseController::class, 'checkDays'])->name('buy-house.check');
+        Route::get('/chi-tiet/{date}', [BuyHouseController::class, 'showDayDetails'])->name('buy-house.details');
+    });
+    // Xem tuổi để cưới hỏi
+    Route::prefix('xem-ngay-ket-hon')->group(function () {
+        Route::get('/', [WeddingController::class, 'showForm'])->name('astrology.form');
+        Route::post('/', [WeddingController::class, 'check'])->name('astrology.check');
+        Route::get('/chi-tiet', [WeddingController::class, 'showDayDetails'])->name('wedding.day.details');
+    });
+    // Xem tuổi để cưới hỏi
+    Route::prefix('xem-ngay-dam-ngo')->group(function () {
+        Route::get('/', [DamNgoController::class, 'showForm'])->name('dam-ngo.form');
+        Route::post('/', [DamNgoController::class, 'check'])->name('dam-ngo.check');
+        Route::get('/chi-tiet', [DamNgoController::class, 'showDayDetails'])->name('dam-ngo.day.details');
+    });
+    //Xem ngày khai trương
+    Route::prefix('xem-ngay-khai-truong')->group(function () {
+        Route::get('/', [KhaiTruongController::class, 'showForm'])->name('khai-truong.form');
+        Route::post('/', [KhaiTruongController::class, 'checkDays'])->name('khai-truong.check');
+        Route::get('/chi-tiet/{date}', [KhaiTruongController::class, 'showDayDetails'])->name('khai-truong.details');
+    });
+    //Xem ngày động thổ
+    Route::prefix('xem-ngay-dong-tho')->group(function () {
+        Route::get('/', [DongThoController::class, 'showForm'])->name('breaking.form');
+        Route::post('/', [DongThoController::class, 'checkDays'])->name('breaking.check');
+        Route::get('/chi-tiet/{date}', [DongThoController::class, 'showDayDetails'])->name('breaking.details');
+    });
 
-//list xem ngày tốt
-Route::prefix('tools')->group(function () {
-    Route::get('/xem-ngay-tot',  [ListController::class, 'XemNgayTots'])->name('totxau.list');
-});
+    //Xem ngày nhập trạch
+    Route::prefix('xem-ngay-nhap-trach')->group(function () {
+        Route::get('/', [NhapTrachController::class, 'showForm'])->name('nhap-trach.form');
+        Route::post('/', [NhapTrachController::class, 'checkDays'])->name('nhap-trach.check');
+        Route::get('/chi-tiet/{date}', [NhapTrachController::class, 'showDayDetails'])->name('nhap-trach.details');
+    });
 
+    //Xem ngày xuất hành
+    Route::prefix('xem-ngay-xuat-hanh')->group(function () {
+        Route::get('/', [XuatHanhController::class, 'showForm'])->name('xuat-hanh.form');
+        Route::post('/', [XuatHanhController::class, 'checkDays'])->name('xuat-hanh.check');
+        Route::get('/chi-tiet/{date}', [XuatHanhController::class, 'showDayDetails'])->name('xuat-hanh.details');
+    });
+    // === ROUTE Xem ngày mua xe - nhận xe mới ===
+    Route::prefix('xem-ngay-mua-xe')->group(function () {
+        Route::get('/', [MuaXeController::class, 'showForm'])->name('mua-xe.form');
+        Route::post('/', [MuaXeController::class, 'checkDays'])->name('mua-xe.check');
+        Route::get('/chi-tiet/{date}', [MuaXeController::class, 'showDayDetails'])->name('mua-xe.details');
+    });
+    // === ROUTE Xem ngày thi cử phỏng vấn ===
+    Route::prefix('xem-ngay-thi-cu-phong-van')->group(function () {
+        Route::get('/', [ThiCuPhongVanController::class, 'showForm'])->name('thi-cu.form');
+        Route::post('/', [ThiCuPhongVanController::class, 'checkDays'])->name('thi-cu.check');
+        Route::get('/chi-tiet/{date}', [ThiCuPhongVanController::class, 'showDayDetails'])->name('thi-cu.details');
+    });
 
+    //Xem ngày ký hợp đồng
+    Route::prefix('xem-ngay-ky-hop-dong')->group(function () {
+        Route::get('/', [KyHopDongController::class, 'showForm'])->name('ky-hop-dong.form');
+        Route::post('/', [KyHopDongController::class, 'check'])->name('ky-hop-dong.check');
+        Route::get('/chi-tiet/{date}', [KyHopDongController::class, 'details'])->name('ky-hop-dong.details');
+    });
+    // Route cho chức năng xem ngày Cải táng
+    Route::prefix('xem-ngay-cai-tang')->group(function () {
+        Route::get('/', [CaiTangController::class, 'showForm'])->name('cai-tang.form');
+        Route::post('/', [CaiTangController::class, 'checkDays'])->name('cai-tang.check');
+        Route::get('/chi-tiet/{date}', [CaiTangController::class, 'details'])->name('cai-tang.details');
+    });
+    // === ROUTE XEM NGÀY DỜI BÀN THỜ ===
+    Route::prefix('xem-ngay-doi-ban-tho')->group(function () {
+        Route::get('/', [BanThoController::class, 'showForm'])->name('ban-tho.form');
+        Route::post('/', [BanThoController::class, 'checkDays'])->name('ban-tho.check');
+        Route::get('/chi-tiet/{date}', [BanThoController::class, 'details'])->name('ban-tho.details');
+    });
 
-//xem ngày tốt xấu
-Route::prefix('xem-ngay-tot-xau')->group(function () {
-    Route::get('/',  [TotXauController::class, 'showForm'])->name('totxau.form');
-    Route::post('/check-days', [TotXauController::class, 'checkDays'])->name('totxau.checkDays');
-    Route::get('/chi-tiet/{date}', [TotXauController::class, 'showDayDetails'])->name('totxau.dayDetails');
-});
-//Xem ngày mua nhà
-Route::prefix('xem-ngay-mua-nha')->group(function () {
-    Route::get('/', [BuyHouseController::class, 'showForm'])->name('buy-house.form');
-    Route::post('/', [BuyHouseController::class, 'checkDays'])->name('buy-house.check');
-    Route::get('/chi-tiet/{date}', [BuyHouseController::class, 'showDayDetails'])->name('buy-house.details');
-});
-// Xem tuổi để cưới hỏi
-Route::prefix('xem-ngay-ket-hon')->group(function () {
-    Route::get('/', [WeddingController::class, 'showForm'])->name('astrology.form');
-    Route::post('/', [WeddingController::class, 'check'])->name('astrology.check');
-    Route::get('/chi-tiet', [WeddingController::class, 'showDayDetails'])->name('wedding.day.details');
-});
-// Xem tuổi để cưới hỏi
-Route::prefix('xem-ngay-dam-ngo')->group(function () {
-    Route::get('/', [DamNgoController::class, 'showForm'])->name('dam-ngo.form');
-    Route::post('/', [DamNgoController::class, 'check'])->name('dam-ngo.check');
-    Route::get('/chi-tiet', [DamNgoController::class, 'showDayDetails'])->name('dam-ngo.day.details');
-});
-//Xem ngày khai trương
-Route::prefix('xem-ngay-khai-truong')->group(function () {
-    Route::get('/', [KhaiTruongController::class, 'showForm'])->name('khai-truong.form');
-    Route::post('/', [KhaiTruongController::class, 'checkDays'])->name('khai-truong.check');
-    Route::get('/chi-tiet/{date}', [KhaiTruongController::class, 'showDayDetails'])->name('khai-truong.details');
-});
-//Xem ngày động thổ
-Route::prefix('xem-ngay-dong-tho')->group(function () {
-    Route::get('/', [DongThoController::class, 'showForm'])->name('breaking.form');
-    Route::post('/', [DongThoController::class, 'checkDays'])->name('breaking.check');
-    Route::get('/chi-tiet/{date}', [DongThoController::class, 'showDayDetails'])->name('breaking.details');
-});
+    // === ROUTE XEM NGÀY Lập BÀN THỜ ===
+    Route::prefix('xem-ngay-lap-ban-tho')->group(function () {
+        Route::get('/', [LapBanThoController::class, 'showForm'])->name('lap-ban-tho.form');
+        Route::post('/', [LapBanThoController::class, 'checkDays'])->name('lap-ban-tho.check');
+        Route::get('/chi-tiet/{date}', [LapBanThoController::class, 'details'])->name('lap-ban-tho.details');
+    });
 
-//Xem ngày nhập trạch
-Route::prefix('xem-ngay-nhap-trach')->group(function () {
-    Route::get('/', [NhapTrachController::class, 'showForm'])->name('nhap-trach.form');
-    Route::post('/', [NhapTrachController::class, 'checkDays'])->name('nhap-trach.check');
-    Route::get('/chi-tiet/{date}', [NhapTrachController::class, 'showDayDetails'])->name('nhap-trach.details');
-});
+    // === ROUTE XEM NGÀY cung sao giải hạn ===
+    Route::prefix('xem-ngay-cung-sao-giai-han')->group(function () {
+        Route::get('/', [GiaiHanController::class, 'showForm'])->name('giai-han.form');
+        Route::post('/', [GiaiHanController::class, 'checkDays'])->name('giai-han.check');
+        Route::get('/chi-tiet/{date}', [GiaiHanController::class, 'showDayDetails'])->name('giai-han.details');
+    });
 
-//Xem ngày xuất hành
-Route::prefix('xem-ngay-xuat-hanh')->group(function () {
-    Route::get('/', [XuatHanhController::class, 'showForm'])->name('xuat-hanh.form');
-    Route::post('/', [XuatHanhController::class, 'checkDays'])->name('xuat-hanh.check');
-    Route::get('/chi-tiet/{date}', [XuatHanhController::class, 'showDayDetails'])->name('xuat-hanh.details');
-});
-// === ROUTE Xem ngày mua xe - nhận xe mới ===
-Route::prefix('xem-ngay-mua-xe')->group(function () {
-    Route::get('/', [MuaXeController::class, 'showForm'])->name('mua-xe.form');
-    Route::post('/', [MuaXeController::class, 'checkDays'])->name('mua-xe.check');
-    Route::get('/chi-tiet/{date}', [MuaXeController::class, 'showDayDetails'])->name('mua-xe.details');
-});
-// === ROUTE Xem ngày thi cử phỏng vấn ===
-Route::prefix('xem-ngay-thi-cu-phong-van')->group(function () {
-    Route::get('/', [ThiCuPhongVanController::class, 'showForm'])->name('thi-cu.form');
-    Route::post('/', [ThiCuPhongVanController::class, 'checkDays'])->name('thi-cu.check');
-    Route::get('/chi-tiet/{date}', [ThiCuPhongVanController::class, 'showDayDetails'])->name('thi-cu.details');
-});
+    // === ROUTE XEM NGÀY tRẤN TRẠCH ===
+    Route::prefix('xem-ngay-tran-trach')->group(function () {
+        Route::get('/', [TranTrachController::class, 'showForm'])->name('tran-trach.form');
+        Route::post('/', [TranTrachController::class, 'checkDays'])->name('tran-trach.check');
+        Route::get('/chi-tiet/{date}', [TranTrachController::class, 'details'])->name('tran-trach.details');
+    });
+    // Route::get('/xem-ngay-yem-tran-tran-trach', [TranTrachController::class, 'showForm'])->name('tran-trach.form');
+    // Route::post('/xem-ngay-yem-tran-tran-trach', [TranTrachController::class, 'checkDays'])->name('tran-trach.check');
 
-//Xem ngày ký hợp đồng
-Route::prefix('xem-ngay-ky-hop-dong')->group(function () {
-    Route::get('/', [KyHopDongController::class, 'showForm'])->name('ky-hop-dong.form');
-    Route::post('/', [KyHopDongController::class, 'check'])->name('ky-hop-dong.check');
-    Route::get('/chi-tiet/{date}', [KyHopDongController::class, 'details'])->name('ky-hop-dong.details');
-});
-// Route cho chức năng xem ngày Cải táng
-Route::prefix('xem-ngay-cai-tang')->group(function () {
-    Route::get('/', [CaiTangController::class, 'showForm'])->name('cai-tang.form');
-    Route::post('/', [CaiTangController::class, 'checkDays'])->name('cai-tang.check');
-    Route::get('/chi-tiet/{date}', [CaiTangController::class, 'details'])->name('cai-tang.details');
-});
-// === ROUTE XEM NGÀY DỜI BÀN THỜ ===
-Route::prefix('xem-ngay-doi-ban-tho')->group(function () {
-    Route::get('/', [BanThoController::class, 'showForm'])->name('ban-tho.form');
-    Route::post('/', [BanThoController::class, 'checkDays'])->name('ban-tho.check');
-    Route::get('/chi-tiet/{date}', [BanThoController::class, 'details'])->name('ban-tho.details');
-});
+    // === ROUTE Xem Ngày Cầu an - làm phúc - phóng sinh ===
+    Route::prefix('xem-ngay-cau-an-lam-phuc')->group(function () {
+        Route::get('/', [PhongSinhController::class, 'showForm'])->name('phong-sinh.form');
+        Route::post('/', [PhongSinhController::class, 'checkDays'])->name('phong-sinh.check');
+        Route::get('/chi-tiet/{date}', [PhongSinhController::class, 'showDayDetails'])->name('phong-sinh.details');
+    });
 
-// === ROUTE XEM NGÀY Lập BÀN THỜ ===
-Route::prefix('xem-ngay-lap-ban-tho')->group(function () {
-    Route::get('/', [LapBanThoController::class, 'showForm'])->name('lap-ban-tho.form');
-    Route::post('/', [LapBanThoController::class, 'checkDays'])->name('lap-ban-tho.check');
-    Route::get('/chi-tiet/{date}', [LapBanThoController::class, 'details'])->name('lap-ban-tho.details');
-});
+    // === ROUTE Xem ngày nhận công việc mới ===
+    Route::prefix('xem-ngay-nhan-cong-viec-moi')->group(function () {
+        Route::get('/', [NhanCongViecMoiController::class, 'showForm'])->name('cong-viec-moi.form');
+        Route::post('/', [NhanCongViecMoiController::class, 'checkDays'])->name('cong-viec-moi.check');
+        Route::get('/chi-tiet/{date}', [NhanCongViecMoiController::class, 'showDayDetails'])->name('cong-viec-moi.details');
+    });
 
-// === ROUTE XEM NGÀY cung sao giải hạn ===
-Route::prefix('xem-ngay-cung-sao-giai-han')->group(function () {
-    Route::get('/', [GiaiHanController::class, 'showForm'])->name('giai-han.form');
-    Route::post('/', [GiaiHanController::class, 'checkDays'])->name('giai-han.check');
-    Route::get('/chi-tiet/{date}', [GiaiHanController::class, 'showDayDetails'])->name('giai-han.details');
+    // === ROUTE Xem Ngày làm giấy tờ - cccd, hộ chiếu ===
+    Route::prefix('xem-ngay-lam-giay-to')->group(function () {
+        Route::get('/', [GiayToController::class, 'showForm'])->name('giay-to.form');
+        Route::post('/', [GiayToController::class, 'checkDays'])->name('giay-to.check');
+        Route::get('/chi-tiet/{date}', [GiayToController::class, 'showDayDetails'])->name('giay-to.details');
+    });
 });
-
-// === ROUTE XEM NGÀY tRẤN TRẠCH ===
-Route::prefix('xem-ngay-tran-trach')->group(function () {
-    Route::get('/', [TranTrachController::class, 'showForm'])->name('tran-trach.form');
-    Route::post('/', [TranTrachController::class, 'checkDays'])->name('tran-trach.check');
-    Route::get('/chi-tiet/{date}', [TranTrachController::class, 'details'])->name('tran-trach.details');
-});
-// Route::get('/xem-ngay-yem-tran-tran-trach', [TranTrachController::class, 'showForm'])->name('tran-trach.form');
-// Route::post('/xem-ngay-yem-tran-tran-trach', [TranTrachController::class, 'checkDays'])->name('tran-trach.check');
-
-// === ROUTE Xem Ngày Cầu an - làm phúc - phóng sinh ===
-Route::prefix('xem-ngay-cau-an-lam-phuc')->group(function () {
-    Route::get('/', [PhongSinhController::class, 'showForm'])->name('phong-sinh.form');
-    Route::post('/', [PhongSinhController::class, 'checkDays'])->name('phong-sinh.check');
-    Route::get('/chi-tiet/{date}', [PhongSinhController::class, 'showDayDetails'])->name('phong-sinh.details');
-});
-
-// === ROUTE Xem ngày nhận công việc mới ===
-Route::prefix('xem-ngay-nhan-cong-viec-moi')->group(function () {
-    Route::get('/', [NhanCongViecMoiController::class, 'showForm'])->name('cong-viec-moi.form');
-    Route::post('/', [NhanCongViecMoiController::class, 'checkDays'])->name('cong-viec-moi.check');
-    Route::get('/chi-tiet/{date}', [NhanCongViecMoiController::class, 'showDayDetails'])->name('cong-viec-moi.details');
-});
-
-// === ROUTE Xem Ngày làm giấy tờ - cccd, hộ chiếu ===
-Route::prefix('xem-ngay-lam-giay-to')->group(function () {
-    Route::get('/', [GiayToController::class, 'showForm'])->name('giay-to.form');
-    Route::post('/', [GiayToController::class, 'checkDays'])->name('giay-to.check');
-    Route::get('/chi-tiet/{date}', [GiayToController::class, 'showDayDetails'])->name('giay-to.details');
-});
-
 
 Route::get('/laso', [LasoController::class, 'create'])->name('laso.create');
 Route::get('/laso/edit', [LasoController::class, 'edit'])->name('laso.edit');
@@ -260,8 +256,8 @@ Route::prefix('xem-huong-ban-tho')->group(function () {
 });
 // === ROUTE Xem hướng nhà ===
 Route::prefix('xem-huong-nha')->group(function () {
-Route::get('/', [XemHuongNhaController::class, 'showForm'])->name('huong-nha.form');
-Route::post('/', [XemHuongNhaController::class, 'check'])->name('huong-nha.check');
+    Route::get('/', [XemHuongNhaController::class, 'showForm'])->name('huong-nha.form');
+    Route::post('/', [XemHuongNhaController::class, 'check'])->name('huong-nha.check');
 });
 
 // === ROUTE Xem hướng bếp ===

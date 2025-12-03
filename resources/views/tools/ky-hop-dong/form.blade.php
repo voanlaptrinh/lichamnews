@@ -197,24 +197,24 @@
                     </div>
                     <div class="box--bg-thang mt-3 mb-3">
                         <div class="text-box-tong-quan">
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Vì sao nên xem ngày trước khi ký hợp đồng?
                             </h2>
-                            <p class="mb-1">Ký hợp đồng là bước quan trọng trong kinh doanh, mua bán, đầu tư hoặc hợp tác
+                            <p class="mb-3">Ký hợp đồng là bước quan trọng trong kinh doanh, mua bán, đầu tư hoặc hợp tác
                                 giữa hai bên. Một hợp đồng được ký trong ngày – giờ tốt, hợp tuổi, hợp ngũ hành sẽ giúp:</p>
-                            <ul class="mb-1">
+                            <ul class="mb-3">
                                 <li>Tạo không khí thuận hòa, dễ đạt thỏa thuận</li>
                                 <li>Hạn chế tranh cãi, bất đồng quan điểm</li>
                                 <li>Giao dịch diễn ra nhanh, rõ ràng, ít phát sinh rủi ro</li>
                                 <li>Mang lại vận khí tốt cho tài chính và công việc về lâu dài</li>
                                 <li>Giúp tâm lý hai bên nhẹ nhàng, tự tin và thoải mái hơn</li>
                             </ul>
-                            <p class="mb-1">Chính vì vậy, xem ngày ký hợp đồng đã trở thành một thói quen phổ biến, mang
+                            <p class="mb-3">Chính vì vậy, xem ngày ký hợp đồng đã trở thành một thói quen phổ biến, mang
                                 tính “chuẩn bị tinh thần” và hỗ trợ phong thủy thực tế.</p>
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Khi nào bạn nên xem ngày ký hợp đồng?
                             </h2>
-                            <ul class="mb-1">
+                            <ul class="mb-2">
                                 <li>Ký hợp đồng mua bán nhà – đất</li>
                                 <li>Ký hợp đồng lao động</li>
                                 <li>Ký hợp đồng kinh doanh – thương mại</li>
@@ -222,50 +222,50 @@
                                 <li>Ký hợp đồng mua xe, mua tài sản lớn</li>
                                 <li>Ký văn bản quan trọng giữa hai tổ chức</li>
                             </ul>
-                            <p class="mb-1">Với các hợp đồng có giá trị lớn hoặc ảnh hưởng dài lâu, việc xem ngày chuẩn
+                            <p class="mb-3">Với các hợp đồng có giá trị lớn hoặc ảnh hưởng dài lâu, việc xem ngày chuẩn
                                 xác lại càng cần thiết.</p>
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Cách xem ngày ký hợp đồng: Những yếu tố quan trọng nhất
                             </h2>
-                            <ul class="mb-1" style="list-style-type: decimal;">
+                            <ul class="mb-3" style="list-style-type: decimal;">
                                 <li>
-                                    <h3 class="title-tong-quan-h4-log">Ưu tiên ngày Hoàng đạo</h3>
-                                    <p class="mb-1">Ngày Hoàng đạo mang năng lượng cát lành, giúp:</p>
-                                    <ul class="mb-1">
+                                    <h3 class="title-tong-quan-h4-log fst-italic">Ưu tiên ngày Hoàng đạo</h3>
+                                    <p class="mb-2">Ngày Hoàng đạo mang năng lượng cát lành, giúp:</p>
+                                    <ul class="mb-3">
                                         <li>Đối tác dễ đồng thuận</li>
                                         <li>Buổi làm việc diễn ra nhẹ nhàng, vui vẻ</li>
                                         <li>Ký kết nhanh gọn, hợp tác bền lâu</li>
                                     </ul>
                                 </li>
                                 <li>
-                                    <h3 class="title-tong-quan-h4-log">Chọn ngày có Trực tốt</h3>
-                                    <p class="mb-1">Các Trực dưới đây đặc biệt phù hợp cho ký hợp đồng:</p>
-                                    <ul class="mb-1">
+                                    <h3 class="title-tong-quan-h4-log fst-italic">Chọn ngày có Trực tốt</h3>
+                                    <p class="mb-2">Các Trực dưới đây đặc biệt phù hợp cho ký hợp đồng:</p>
+                                    <ul class="mb-2">
                                         <li>Trực Mãn → Sự việc đầy đủ, trọn vẹn, thích hợp giao dịch</li>
                                         <li>Trực Thành → Thành tựu, đại cát cho việc chốt hợp đồng</li>
                                         <li>Trực Khai → Mở đầu tốt, thuận lợi đạt thỏa thuận</li>
                                         <li>Trực Kiến → Thích hợp ký kết giấy tờ, khởi đầu mới</li>
                                     </ul>
-                                    <p class="mb-1">Với hợp đồng quan trọng, hãy ưu tiên Trực Thành hoặc Trực Khai.</p>
+                                    <p class="mb-3">Với hợp đồng quan trọng, hãy ưu tiên Trực Thành hoặc Trực Khai.</p>
                                 </li>
                                 <li>
-                                    <h3 class="title-tong-quan-h4-log">Chọn ngày hợp tuổi, ngũ hành sinh cho bản mệnh</h3>
-                                    <p class="mb-1">Ngày hợp tuổi giúp giảm xung khắc, tăng sự hòa hợp và dễ đạt thỏa
+                                    <h3 class="title-tong-quan-h4-log fst-italic">Chọn ngày hợp tuổi, ngũ hành sinh cho bản mệnh</h3>
+                                    <p class="mb-2">Ngày hợp tuổi giúp giảm xung khắc, tăng sự hòa hợp và dễ đạt thỏa
                                         thuận.</p>
-                                    <ul class="mb-1">
+                                    <ul class="mb-2">
                                         <li>Mệnh Mộc → chọn ngày Thủy hoặc Mộc</li>
                                         <li>Mệnh Hỏa → ngày Mộc hoặc Hỏa</li>
                                         <li>Mệnh Thổ → ngày Hỏa hoặc Thổ</li>
                                         <li>Mệnh Kim → ngày Thổ hoặc Kim</li>
                                         <li>Mệnh Thủy → ngày Kim hoặc Thủy</li>
                                     </ul>
-                                    <p class="mb-1">Sự tương sinh, tương hỗ này giúp tăng vận khí, hạn chế tranh chấp và
+                                    <p class="mb-3">Sự tương sinh, tương hỗ này giúp tăng vận khí, hạn chế tranh chấp và
                                         sai sót.</p>
                                 </li>
                                 <li>
-                                    <h3 class="title-tong-quan-h4-log">Chọn ngày có sao cát</h3>
-                                    <p class="mb-1">Một số sao cát rất tốt cho ký kết – làm ăn – giao dịch:</p>
-                                    <ul class="mb-1">
+                                    <h3 class="title-tong-quan-h4-log fst-italic">Chọn ngày có sao cát</h3>
+                                    <p class="mb-2">Một số sao cát rất tốt cho ký kết – làm ăn – giao dịch:</p>
+                                    <ul class="mb-3">
                                         <li>Thiên Đức, Nguyệt Đức → Quý nhân phù trợ, đàm phán thuận lợi</li>
                                         <li>Thiên Hỷ → Không khí vui vẻ, dễ đồng thuận</li>
                                         <li>Thiên Quan – Thiên Phúc → Hóa giải xung đột, giảm tranh chấp</li>
@@ -275,24 +275,24 @@
                                     </ul>
                                 </li>
                                 <li>
-                                    <h3 class="title-tong-quan-h4-log">Chọn giờ tốt</h3>
-                                    <p class="mb-1">Nếu có thể lựa chọn thời gian ký:</p>
-                                    <ul class="mb-1">
+                                    <h3 class="title-tong-quan-h4-log fst-italic">Chọn giờ tốt</h3>
+                                    <p class="mb-2">Nếu có thể lựa chọn thời gian ký:</p>
+                                    <ul class="mb-2">
                                         <li>Ưu tiên giờ Hoàng đạo</li>
                                         <li>Tránh giờ xung tuổi (ví dụ: tuổi Mão tránh giờ Dậu, tuổi Tý tránh giờ Ngọ…)</li>
 
                                     </ul>
-                                    <p class="mb-1">Giờ đẹp giúp buổi ký kết diễn ra thuận lợi, tinh thần đôi bên cũng
+                                    <p class="mb-3">Giờ đẹp giúp buổi ký kết diễn ra thuận lợi, tinh thần đôi bên cũng
                                         thoải mái hơn.
                                     </p>
                                 </li>
                             </ul>
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Những ngày KHÔNG nên ký hợp đồng
                             </h2>
-                            <ul class="mb-1" style="list-style-type: decimal;">
+                            <ul class="mb-3" style="list-style-type: decimal;">
                                 <li>
-                                    <h3 class="title-tong-quan-h4-log">
+                                    <h3 class="title-tong-quan-h4-log fst-italic">
                                         Ngày Hắc đạo
                                     </h3>
 
@@ -311,7 +311,7 @@
                                     </p>
                                 </li>
                                 <li>
-                                    <h3 class="title-tong-quan-h4-log">
+                                    <h3 class="title-tong-quan-h4-log fst-italic">
                                         Trực xấu
                                     </h3>
                                     <ul class="mb-1">
@@ -322,7 +322,7 @@
                                     </ul>
                                 </li>
                                 <li>
-                                    <h3 class="title-tong-quan-h4-log">
+                                    <h3 class="title-tong-quan-h4-log fst-italic">
                                         Ngày xung tuổi
                                     </h3>
                                     <p class="mb-1"><svg xmlns="http://www.w3.org/2000/svg" width="16"
@@ -333,7 +333,7 @@
                                         </svg> Hai bên dễ bất đồng, ký kết không thuận lợi.</p>
                                 </li>
                                 <li>
-                                    <h3 class="title-tong-quan-h4-log">
+                                    <h3 class="title-tong-quan-h4-log fst-italic">
                                         Tránh ngày kỵ
                                     </h3>
                                     <ul class="mb-1">
@@ -355,7 +355,7 @@
 
 
 
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Hướng dẫn sử dụng công cụ xem ngày ký hợp đồng trên Phong Lịch
                             </h2>
                             <ul style="	list-style-type: decimal;" class="mb-1">
@@ -372,9 +372,9 @@
                                 </li>
                                 <li>Công cụ gợi ý những ngày đẹp nhất, kèm điểm tốt – xấu và lưu ý chi tiết.</li>
                             </ul>
-                            <p class="mb-1">Bạn chỉ cần chọn ngày phù hợp nhất với kế hoạch làm việc của hai bên.
+                            <p class="mb-3 mt-2">Bạn chỉ cần chọn ngày phù hợp nhất với kế hoạch làm việc của hai bên.
                             </p>
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Chọn đúng ngày ký hợp đồng mang lại gì?
                             </h2>
                             <ul class="mb-1">

@@ -208,7 +208,7 @@
                     </div>
                     <div class="box--bg-thang mt-3 mb-3">
                         <div class="text-box-tong-quan">
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Vì sao khai trương cần xem ngày tốt?
                             </h2>
                             <p class="mb-1">
@@ -219,35 +219,35 @@
                             <p class="mb-1">
                                 Vì vậy, việc xem ngày khai trương mang ý nghĩa:
                             </p>
-                            <ul class="mb-1">
+                            <ul class="mb-3">
                                 <li>Tạo khí thế tốt ngay từ đầu, giúp công việc dễ thu hút may mắn.</li>
                                 <li>Tránh ngày xấu có thể mang lại cản trở, chậm trễ hoặc khó khăn ban đầu.</li>
                                 <li>Tăng sự tự tin và yên tâm cho chủ cửa hàng, doanh nghiệp khi bắt đầu hoạt động.</li>
                             </ul>
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Lợi ích của việc chọn ngày khai trương hợp tuổi
                             </h2>
                             <p class="mb-1">Không phải ngày nào cũng hợp với tất cả mọi người. Việc chọn ngày hợp tuổi
                                 giúp bạn:</p>
-                            <ul class="mb-1">
+                            <ul class="mb-3">
                                 <li>Hạn chế xung tuổi, tránh những ảnh hưởng không may trong kinh doanh.</li>
                                 <li>Chọn được ngày – giờ mang cát khí, tăng khả năng thu hút tài lộc.</li>
                                 <li>Mang lại tâm thế thoải mái, tự tin khi bước vào thị trường.</li>
                             </ul>
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Khi xem ngày khai trương, cần chú ý điều gì?
                             </h2>
-                            <ul style="	list-style-type: upper-alpha;">
+                            <ul style="	list-style-type: upper-alpha;" >
                                 <li>
-                                    <h3 class="title-tong-quan-h4-log">Các yếu tố cát lành nên ưu tiên</h3>
-                                    <ul>
+                                    <h3 class="title-tong-quan-h4-log fst-italic">Các yếu tố cát lành nên ưu tiên</h3>
+                                    <ul class="mb-3">
                                         <li>Ngày hoàng đạo, ngày hợp tuổi chủ kinh doanh.</li>
                                         <li>Trực tốt như Trực Khai (mở đầu), Trực Thành (hoàn thành), Trực Mãn.</li>
                                         <li>Giờ tốt hợp tuổi để tiến hành nghi lễ khai trương và mở cửa đón khách.</li>
                                     </ul>
                                 </li>
                                 <li>
-                                    <h3 class="title-tong-quan-h4-log">Các yếu tố xấu nên tránh</h3>
+                                    <h3 class="title-tong-quan-h4-log fst-italic">Các yếu tố xấu nên tránh</h3>
                                     <ul>
                                         <li>Ngày hắc đạo, ngày xung tuổi hoặc phạm Thái Tuế.</li>
                                         <li>Trực xấu như Trực Bế, Trực Phá gây kém suôn sẻ.</li>
@@ -255,7 +255,7 @@
                                     </ul>
                                 </li>
                             </ul>
-                             <h2 class="title-tong-quan-h3-log fw-bolder">
+                             <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                Cách sử dụng công cụ Xem Ngày Khai Trương trên Phong Lịch
                             </h2>
                             <ul style="	list-style-type: decimal;">
@@ -272,7 +272,7 @@
                                 </li>
                                 <li>So sánh lịch hoạt động thực tế để chọn ra ngày hợp tuổi – hợp việc – hợp thời điểm.</li>
                             </ul>
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                               Một ngày khai trương đẹp mang lại điều gì?
                             </h2>
                             <ul>

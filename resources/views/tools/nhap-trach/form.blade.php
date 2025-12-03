@@ -128,7 +128,7 @@
 
                                                 <!-- Gender Selection -->
                                                 <div class="mb-3">
-                                                    <div class="fw-bold title-tong-quan-h4-log">Giới tính</div>
+                                                    <div class="fw-bold title-tong-quan-h4-log fst-italic">Giới tính</div>
                                                     <div class="d-flex gap-4 ps-2">
                                                         <div class="form-check d-flex align-items-center">
                                                             <input type="radio" class="form-check-input" name="gender"
@@ -153,7 +153,7 @@
 
                                                 <!-- House Direction Selection -->
                                                 <div class="mb-3">
-                                                    <div class="fw-bold title-tong-quan-h4-log">Hướng nhà dự kiến</div>
+                                                    <div class="fw-bold title-tong-quan-h4-log fst-italic">Hướng nhà dự kiến</div>
                                                     <div class="position-relative">
                                                         <select class="form-select pe-5 --border-box-form"
                                                             id="houseDirectionSelect" name="house_direction"
@@ -174,7 +174,7 @@
                                                 </div>
 
                                                 <div class="input-group mb-4">
-                                                    <div for="date_range" class="fw-bold title-tong-quan-h4-log">Dự kiến
+                                                    <div for="date_range" class="fw-bold title-tong-quan-h4-log fst-italic">Dự kiến
                                                         thời gian nhập trạch</div>
                                                     <div class="input-group">
                                                         <input type="text"
@@ -237,35 +237,35 @@
                             <h2 class="title-tong-quan-h3-log fw-bolder">
                                 Vì sao nhập trạch cần chọn ngày tốt?
                             </h2>
-                            <p class="mb-1">Nhập trạch là nghi lễ quan trọng đánh dấu việc chuyển vào nhà mới, nơi gắn
+                            <p class="mb-2">Nhập trạch là nghi lễ quan trọng đánh dấu việc chuyển vào nhà mới, nơi gắn
                                 liền với cuộc sống
                                 gia đình và năng lượng phong thủy của căn nhà. Một ngày tốt giúp:</p>
-                            <ul class="mb-1">
+                            <ul class="mb-2">
                                 <li>Gia đình yên tâm và thuận lợi trong việc dọn về nhà mới.</li>
                                 <li>Tăng cát khí, mang lại may mắn, sức khỏe và tài lộc cho các thành viên.</li>
                                 <li>Tránh xung khắc, hạn chế rủi ro về phong thủy hoặc tâm lý khi chuyển nhà.</li>
                             </ul>
-                            <p class="mb-1">Ngày nhập trạch đẹp còn giúp lễ cúng đầy đủ, nghi thức trọn vẹn, tạo không
+                            <p class="mb-3">Ngày nhập trạch đẹp còn giúp lễ cúng đầy đủ, nghi thức trọn vẹn, tạo không
                                 gian hài hòa cho gia chủ.</p>
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Lợi ích của việc chọn ngày nhập trạch hợp tuổi
                             </h2>
-                            <ul class="mb-1">
+                            <ul class="mb-2">
                                 <li>Ngày hợp tuổi gia chủ: Tránh xung khắc tuổi, giúp gia đình yên tâm, thuận hòa.</li>
                                 <li>Ngày hoàng đạo và giờ hoàng đạo: Thuận lợi cho các nghi lễ, đi lại, vận chuyển đồ đạc.
                                 </li>
                                 <li>Sao tốt và trực tốt: Tăng cát khí, hạn chế những điều xui rủi trong ngày đầu về nhà mới.
                                 </li>
                             </ul>
-                            <p class="mb-1">Chọn đúng ngày nhập trạch không chỉ mang ý nghĩa phong thủy mà còn giúp gia
+                            <p class="mb-3">Chọn đúng ngày nhập trạch không chỉ mang ý nghĩa phong thủy mà còn giúp gia
                                 chủ cảm thấy tâm lý an toàn, tự tin khi bước vào ngôi nhà mới.</p>
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Khi xem ngày nhập trạch cần lưu ý điều gì?
                             </h2>
                             <ul style="	list-style-type: upper-alpha;">
                                 <li>
-                                    <h3 class="title-tong-quan-h4-log">Các yếu tố cát lành nên ưu tiên</h3>
-                                    <ul style="	list-style-type: decimal;">
+                                    <h3 class="title-tong-quan-h4-log fst-italic">Các yếu tố cát lành nên ưu tiên</h3>
+                                    <ul style="	list-style-type: decimal;" class="mb-2">
                                         <li>
                                             <p class="mb-0">Ngày hoàng đạo và trực tốt</p>
                                             <p class="mb-0">Ngày Hoàng Đạo, Trực Khai, Trực Thành, Trực Mãn thường được
@@ -286,8 +286,8 @@
                                     </ul>
                                 </li>
                                 <li>
-                                    <h3 class="title-tong-quan-h4-log">Các yếu tố xấu nên tránh</h3>
-                                    <ul class="mb-1">
+                                    <h3 class="title-tong-quan-h4-log fst-italic">Các yếu tố xấu nên tránh</h3>
+                                    <ul class="mb-2">
                                         <li>Ngày xung tuổi, phạm Thái Tuế.</li>
                                         <li>Ngày hắc đạo, trực xấu như Trực Phá, Trực Bế.</li>
                                         <li>Sao xấu như Bại, Hao, Thiên Cương.</li>
@@ -295,9 +295,9 @@
                                     </ul>
                                 </li>
                             </ul>
-                            <p class="mb-1"> Việc tránh những ngày này giúp lễ nhập trạch diễn ra thuận lợi, gia đình ổn
+                            <p class="mb-3"> Việc tránh những ngày này giúp lễ nhập trạch diễn ra thuận lợi, gia đình ổn
                                 định nhanh chóng, hạn chế phiền toái.</p>
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Hướng dẫn sử dụng công cụ Xem Ngày Nhập Trạch tại Phong Lịch
                             </h2>
                             <ul style="list-style-type: decimal;">
@@ -313,7 +313,7 @@
                                 </li>
                                 <li>Chọn ngày phù hợp dựa trên lịch trình thực tế và sự thuận tiện của gia đình.</li>
                             </ul>
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Một ngày nhập trạch đẹp mang lại lợi ích gì?
                             </h2>
                             <ul class="mb-1">

@@ -130,7 +130,7 @@
 
 
                                                 <div class="input-group mb-4">
-                                                    <div for="date_range" class="fw-bold title-tong-quan-h4-log"
+                                                    <div for="date_range" class="fw-bold title-tong-quan-h4-log fst-italic"
                                                         style="color: #192E52; padding-bottom: 12px;">Dự kiến
                                                         thời gian xuất hành</div>
                                                     <div class="input-group">
@@ -191,41 +191,41 @@
                             <h2 class="title-tong-quan-h3-log fw-bolder">
                                 Vì sao nên xem ngày xuất hành?
                             </h2>
-                            <p class="mb-1">Xuất hành là thời điểm bạn rời nhà để đi làm xa, công tác, du lịch, đi lễ
+                            <p class="mb-2">Xuất hành là thời điểm bạn rời nhà để đi làm xa, công tác, du lịch, đi lễ
                                 chùa hay thực hiện những công việc quan trọng cần di chuyển. Việc chọn đúng ngày – giờ không
                                 chỉ mang ý nghĩa tâm linh mà còn giúp:</p>
-                            <ul class="mb-1">
+                            <ul class="mb-2">
                                 <li>Đi đường thuận lợi, an toàn, ít gặp trở ngại</li>
                                 <li>Tâm lý thoải mái, tự tin</li>
                                 <li>Thu hút may mắn khi đi làm ăn, ký kết, gặp đối tác</li>
                                 <li>Gặp đúng người – đúng thời điểm, dễ thành công hơn</li>
                             </ul>
-                            <p class="mb-1">Vì vậy, nhiều người luôn ưu tiên xem ngày tốt trước khi khởi hành quan trọng.
+                            <p class="mb-3">Vì vậy, nhiều người luôn ưu tiên xem ngày tốt trước khi khởi hành quan trọng.
                             </p>
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Lợi ích khi chọn đúng ngày xuất hành
                             </h2>
-                            <ul class="mb-1">
+                            <ul class="mb-3">
                                 <li>Tăng cát khí – may mắn cho cả hành trình</li>
                                 <li>Hợp tuổi – hợp ngũ hành, dễ gặp thuận lợi</li>
                                 <li>Tránh xung khắc, hạn chế mệt mỏi hoặc chuyện bất ngờ</li>
                                 <li>Tối ưu cho các chuyến đi cầu tài, giải hạn, công việc</li>
                             </ul>
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Cách xem ngày xuất hành: Những yếu tố quan trọng cần biết
                             </h2>
                             <ul style="list-style-type: upper-alpha;">
                                 <li>
-                                    <h3 class="title-tong-quan-h4-log"> Nên chọn ngày có:</h3>
+                                    <h3 class="title-tong-quan-h4-log fst-italic"> Nên chọn ngày có:</h3>
                                     <ul style="list-style-type: decimal;">
                                         <li>
                                             <p class="mb-1">Ngày Hoàng đạo</p>
-                                            <p class="mb-1">Ngày cát lành, phù hợp để khởi đầu mọi hành động tốt.</p>
+                                            <p class="mb-2">Ngày cát lành, phù hợp để khởi đầu mọi hành động tốt.</p>
                                         </li>
                                         <li>
                                             <p class="mb-1">Sao tốt chiếu mệnh</p>
                                             <p class="mb-1"> Các sao phù trợ cho di chuyển – gặp gỡ – cầu tài:</p>
-                                            <ul class="mb-1" style="list-style-type: circle;">
+                                            <ul class="mb-2" style="list-style-type: circle;">
                                                 <li>Thanh Long: May mắn, thuận lợi.</li>
                                                 <li>Thiên Hỷ: Mang đến niềm vui, dễ gặp chuyện tốt đẹp.</li>
                                                 <li>Thiên Mã: Rất tốt cho việc đi xa, di chuyển, công tác.</li>
@@ -235,23 +235,23 @@
                                         <li>
                                             <p class="mb-1">Hướng xuất hành tốt</p>
                                             <p class="mb-1"> Khi xuất hành, nên đi theo hướng:</p>
-                                            <ul class="mb-1" style="list-style-type: circle;">
+                                            <ul class="mb-2" style="list-style-type: circle;">
                                                 <li>Hỷ Thần → Mang đến niềm vui, may mắn</li>
                                                 <li>Tài Thần → Tốt cho cầu tài, làm ăn, ký kết</li>
                                             </ul>
                                         </li>
                                         <li>
                                             <p class="mb-1">Ngũ hành hòa hợp với tuổi</p>
-                                            <p class="mb-1">Ngày có ngũ hành tương sinh hoặc tương hỗ giúp chuyến đi thêm
+                                            <p class="mb-3">Ngày có ngũ hành tương sinh hoặc tương hỗ giúp chuyến đi thêm
                                                 thuận lợi, tinh thần nhẹ nhàng.</p>
                                         </li>
                                     </ul>
                                 </li>
                                 <li>
-                                    <h3 class="title-tong-quan-h4-log">Tránh các ngày sau:</h3>
-                                    <ul style="list-style-type: decimal;">
+                                    <h3 class="title-tong-quan-h4-log fst-italic">Tránh các ngày sau:</h3>
+                                    <ul style="list-style-type: decimal;" class="mb-2">
                                         <li>Ngày đại kỵ:
-                                            <ul style="	list-style-type: circle;">
+                                            <ul style="	list-style-type: circle;" class="mb-2">
                                                 <li>Tam Nương</li>
                                                 <li>Sát Chủ, Thổ Phủ</li>
                                                 <li>Dương Công Kỵ Nhật</li>
@@ -268,7 +268,7 @@
                                     </ul>
                                 </li>
                             </ul>
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Hướng dẫn sử dụng công cụ xem ngày xuất hành trên Phong Lịch
                             </h2>
                             <ul style="list-style-type: decimal;">
@@ -285,7 +285,7 @@
                                 </li>
                                 <li>Bạn chỉ cần chọn ngày phù hợp nhất với lịch cá nhân để yên tâm lên đường.</li>
                             </ul>
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Một ngày xuất hành đẹp mang lại điều gì?
                             </h2>
                             <ul class="mb-1">

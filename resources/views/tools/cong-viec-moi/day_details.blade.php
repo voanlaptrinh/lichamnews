@@ -8,24 +8,25 @@
 
 
     <div class="container-setup">
-            <nav aria-label="breadcrumb" class="content-title-detail">
+        <nav aria-label="breadcrumb" class="content-title-detail">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="{{ route('home') }}"  style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
+                    <a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
                 </li>
                 <li class="breadcrumb-item" aria-current="page">
-                          <a href="{{ route('totxau.list') }}"  style="color: #2254AB; text-decoration: underline;">Xem ngày tốt</a>
+                    <a href="{{ route('totxau.list') }}" style="color: #2254AB; text-decoration: underline;">Xem ngày
+                        tốt</a>
                 </li>
-                 <li class="breadcrumb-item" aria-current="page">
-                  Xem ngày nhận công việc mới
+                <li class="breadcrumb-item" aria-current="page">
+                    Xem ngày nhận công việc mới
                 </li>
-                 <li class="breadcrumb-item active" aria-current="page">
-               Chi tiết
+                <li class="breadcrumb-item active" aria-current="page">
+                    Chi tiết
                 </li>
             </ol>
         </nav>
 
-       
+
 
         <h1 class="content-title-home-lich">Chi tiết xem ngày nhận công việc mới</h1>
 
@@ -101,7 +102,126 @@
                         <div class="card-body box1-con-year">
 
                             <div>
-                                <table class="table table-detail" style="table-layout: fixed;">
+
+                                <div class="row g-0 table rounded overflow-hidden analysis-box">
+
+                                    <!-- Cột 1: Yếu tố hỗ trợ (Tốt) -->
+                                    <div class="col-6 d-flex flex-column">
+                                        <!-- Header (Màu Xanh) -->
+                                        <div class="p-3 header-green">
+                                            <div class="mb-0 fw-bold">
+                                                Các yếu tố tốt hỗ trợ cho ngày
+                                            </div>
+                                        </div>
+                                        @php
+                                            $hopTuoi = $groomData['score']['hopttuoi'] ?? null;
+                                            $hopTuoiReason = $groomData['score']['hopTuoiReason'] ?? '';
+
+                                            $tabooIssues = collect($groomData['score']['issues'] ?? [])->filter(
+                                                fn($issue) => ($issue['source'] ?? '') === 'Taboo',
+                                            );
+                                            $names = $tabooIssues
+                                                ->map(fn($issue) => $issue['details']['tabooName'] ?? '')
+                                                ->filter()
+                                                ->implode(', ');
+                                        @endphp
+                                        <!-- Nội dung (Màu Xanh Nhạt) -->
+                                        <div class="p-4 content-green flex-grow-1">
+                                            <ul class="list-unstyled mb-0">
+                                                @if ($hopTuoi)
+                                                    <li class="mb-3">
+                                                        <span class="text-success fw-bold list-icon">✓</span>
+                                                        <span class="text-dark">Ngày hợp tuổi: {{ $hopTuoiReason }}</span>
+                                                    </li>
+                                                @endif
+                                                @if ($groomData['score']['tu']['details']['data']['nature'] == 'Tốt')
+                                                    <li class="mb-3">
+                                                        <span class="text-success fw-bold list-icon">✓</span>
+                                                        <span class="text-dark">Nhị thập bát tú: Sao
+                                                            {{ $groomData['score']['tu']['details']['data']['name'] }}
+                                                            (Tốt)</span>
+                                                    </li>
+                                                @endif
+                                                @if ($groomData['score']['tructot'])
+                                                    <li class="mb-3">
+                                                        <span class="text-success fw-bold list-icon">✓</span>
+                                                        <span class="text-dark">Thập Nhị Trực
+                                                            {{ $groomData['score']['truc']['details']['name'] }}
+                                                            (Tốt)
+                                                        </span>
+                                                    </li>
+                                                @endif
+                                                @if (!empty($groomData['score']['catHung']['details']['catStars']))
+                                                    <li class="mb-3">
+                                                        <span class="text-success fw-bold list-icon">✓</span>
+                                                        <span class="text-dark"> Sao tốt theo Ngọc Hạp Thông Thư:
+                                                            @foreach ($groomData['score']['catHung']['details']['catStars'] as $index => $sao)
+                                                                <span
+                                                                    class=" bg-success">{{ $sao['name'] }}</span>{{ $loop->last ? '' : ',' }}
+                                                            @endforeach
+                                                        </span>
+                                                    </li>
+                                                @endif
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <!-- Cột 2: Yếu tố cản trở (Xấu) -->
+                                    <div class="col-6 d-flex flex-column">
+                                        <!-- Header (Màu Đỏ) -->
+                                        <div class="p-3 header-red border-start">
+                                            <div class="mb-0 fw-bold text-danger">
+                                                Các yếu tố xấu/ cản trở cần xem xét
+                                            </div>
+                                        </div>
+
+                                        <!-- Nội dung (Trắng/Đỏ Nhạt) -->
+                                        <div class="p-4 content-red flex-grow-1 border-start">
+                                            <ul class="list-unstyled mb-0">
+                                                <!-- Các yếu tố Cảnh báo (Tam Nương, Kim Thần Thất Sát) -->
+                                                @if ($tabooIssues->isNotEmpty())
+                                                    <li class="mb-3">
+                                                        <!-- Dùng icon tam giác cảnh báo màu cam -->
+                                                     
+                                                        <span class="text-dark">
+                                                            {{ $names ? '⚠️ Phạm: ' . $names : '' }}</span>
+                                                    </li>
+                                                @endif
+                                                @if (!$groomData['score']['hopttuoi'] && $groomData['score']['hopTuoiReason'] != 'Ngày bình thường')
+                                                    <li class="mb-3">
+                                                        <!-- Dùng icon tam giác cảnh báo màu cam -->
+                                                        ❌ Ngày kỵ tuổi:
+                                                        {{ $groomData['score']['hopTuoiReason'] ?? 'Không hợp tuổi' }}
+                                                    </li>
+                                                @endif
+                                                @if ($groomData['score']['tu']['details']['data']['nature'] == 'Xấu')
+                                                    <li class="mb-3">
+                                                        <!-- Dùng icon tam giác cảnh báo màu cam -->
+                                                        ❌ Nhị thập bát tú: Sao
+                                                        {{ $groomData['score']['tu']['details']['data']['name'] }} (Xấu)
+                                                    </li>
+                                                @endif
+                                                @if ($groomData['score']['trucxau'])
+                                                    <li class="mb-3">
+                                                        ❌ Thập Nhị Trực
+                                                        {{ $groomData['score']['truc']['details']['name'] }}
+                                                        (Xấu)</li>
+                                                @endif
+                                                @if (!empty($groomData['score']['catHung']['details']['hungStars']))
+                                                    <li class="mb-3">
+                                                        ❌ Sao xấu theo Ngọc Hạp Thông Thư:
+                                                        @foreach ($groomData['score']['catHung']['details']['hungStars'] as $sao)
+                                                            <span
+                                                                class=" bg-danger">{{ $sao['name'] }}</span>{{ $loop->last ? '' : ',' }}
+                                                        @endforeach
+                                                    </li>
+                                                @endif
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{-- <table class="table table-detail" style="table-layout: fixed;">
                                     <tbody>
                                         <tr>
                                             <td style="font-weight: 600">
@@ -200,7 +320,7 @@
 
 
                                     </tbody>
-                                </table>
+                                </table> --}}
                             </div>
 
 
@@ -224,7 +344,7 @@
                             <div>
                                 <table class="table table-detail" style="table-layout: fixed;">
                                     <tbody>
-                                        <tr  style="font-weight: 600">
+                                        <tr style="font-weight: 600">
                                             <td>
                                                 Yếu tố đánh giá
                                             </td>
@@ -288,7 +408,7 @@
                                                 <button class="accordion-button collapsed" type="button"
                                                     data-bs-toggle="collapse"
                                                     data-bs-target="#collapse-canchi-{{ Str::slug($groomData['personTitle']) }}">
-                                                   Can chi - vận khí ngày so với tuổi
+                                                    Can chi - vận khí ngày so với tuổi
                                                 </button>
                                             </h2>
                                             <div id="collapse-canchi-{{ Str::slug($groomData['personTitle']) }}"
@@ -306,11 +426,11 @@
                                                         {!! $groomData['getVongKhiNgayThang']['analysis'] !!}
                                                     </ul>
                                                     <p> {!! $groomData['getVongKhiNgayThang']['conclusion'] !!}</p>
-                                                    <h6><b>* Cục khí - hợp xung</b></h6>
+                                                    {{-- <h6><b>* Cục khí - hợp xung</b></h6>
                                                     <ul>
                                                         <li>{!! $commonDayInfo['hopxungNgay']['hop'] !!}</li>
                                                         <li>{!! $commonDayInfo['hopxungNgay']['ky'] !!}</li>
-                                                    </ul>
+                                                    </ul> --}}
                                                     <h6><b>* So sánh ngày với mệnh tuổi của bạn:</b></h6>
                                                     @php $analyze = $groomData['analyzeNgayVoiTuoi']; @endphp
                                                     <ul class="list-unstyled">

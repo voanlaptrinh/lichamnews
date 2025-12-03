@@ -177,9 +177,10 @@
                                                                     {{ $day['date']->format('m') }}</div>
                                                                 <div class="hv-memorial-day-digit">
                                                                     {{ $day['date']->format('d') }}</div>
-                                                                <div class="hv-memorial-lunar-calendar-info">
-                                                                    {{ explode('/', $day['full_lunar_date_str'])[0] ?? '' }}/{{ explode('/', $day['full_lunar_date_str'])[1] ?? '' }}
-                                                                    ÂL <i class="bi bi-chevron-right"></i></div>
+                                                                <div class="hv-memorial-lunar-calendar-info d-flex">
+                                                                   <span>
+                                                                     {{ explode('/', $day['full_lunar_date_str'])[0] ?? '' }}/{{ explode('/', $day['full_lunar_date_str'])[1] ?? '' }}
+                                                                    ÂL</span> <i class="bi bi-chevron-right"></i></div>
                                                             </div>
                                                         </div>
                                                     </a>

@@ -223,6 +223,87 @@
                 if (btnText) btnText.textContent = loading ? 'Đang xử lý...' : 'Xem Kết Quả';
                 if (spinner) spinner.classList.toggle('d-none', !loading);
             };
+            form?.addEventListener('submit', e => {
+                e.preventDefault();
+
+                setLoadingState(true);
+                // Get form values
+                const ngayXemInput = document.getElementById('ngayXem');
+                const genderValue = document.querySelector('input[name="gender"]:checked')?.value;
+                const formattedBirthdate = ngayXemInput.value;
+
+                // For the API, check if the selected calendar is lunar and if the month is leap
+                const lunarRadio = document.getElementById('lunarCalendar');
+                const isLunar = lunarRadio?.checked;
+                const isLeapMonth = isLunar && dateSelector.isLeapMonth;
+
+                const formData = {
+                    birthdate: formattedBirthdate,
+                    gioi_tinh: genderValue,
+                    _token: '{{ csrf_token() }}'
+                };
+
+                const submitForm = async () => {
+                    try {
+                        const response = await fetch('{{ route('huong-nha.check') }}', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                'Accept': 'application/json'
+                            },
+                            body: JSON.stringify(formData)
+                        });
+
+                        if (!response.ok) throw new Error('Network response was not ok');
+
+                        const data = await response.json();
+
+
+                        if (data.success) {
+                            // Show results using modern approach
+                            if (resultsContainer) {
+                                resultsContainer.style.display = 'block';
+                                resultsContainer.innerHTML = data.html;
+                                setTimeout(() => {
+                                    const contentBoxSuccess = document.getElementById(
+                                        'content-box-success');
+                                    setLoadingState(false);
+                                    if (contentBoxSuccess) {
+                                        contentBoxSuccess.scrollIntoView({
+                                            behavior: 'smooth',
+                                            block: 'start'
+                                        });
+                                    } else {
+                                        resultsContainer.scrollIntoView({
+                                            behavior: 'smooth',
+                                            block: 'start'
+                                        });
+                                    }
+                                }, 600);
+
+                            }
+                        } else if (data.errors) {
+                            // Show validation errors using modern string formatting
+                            const errorMessages = Object.values(data.errors)
+                                .map(errors => errors[0])
+                                .join('\n- ');
+                            alert(`Vui lòng kiểm tra lại:\n- ${errorMessages}`);
+                        } else {
+                            alert(data.message || 'Có lỗi xảy ra. Vui lòng thử lại.');
+                        }
+                    } catch (error) {
+                        console.log(error.message);
+                        
+                        alert('Có lỗi xảy ra khi kết nối. Vui lòng thử lại.');
+                    }
+                };
+
+                submitForm();
+
+                console.log('Formatted Birthdate:', genderValue);
+                // AJAX call will go here
+            });
         });
     </script>
 @endpush

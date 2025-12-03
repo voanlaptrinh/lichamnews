@@ -886,7 +886,7 @@ html.daterangepicker-open {
 
 /* Tablet - 768px to 991.98px */
 @media screen and (min-width:768px) and (max-width:991.98px) {
-    .read-more-link-cotot{
+    .read-more-link-cotot {
         padding-right: 10px;
         padding-left: 10px;
         height: 48px;
@@ -986,7 +986,7 @@ html.daterangepicker-open {
 
 /* Large Phone - 480px to 767.98px */
 @media screen and (min-width: 480px) and (max-width: 767.98px) {
-    .read-more-link-cotot{
+    .read-more-link-cotot {
         padding-right: 10px;
         padding-left: 10px;
         height: 48px;
@@ -1116,7 +1116,8 @@ html.daterangepicker-open {
     .form--submit-totxau {
         padding: 14px 20px;
     }
-    .read-more-link-cotot{
+
+    .read-more-link-cotot {
         padding-right: 10px;
         padding-left: 10px;
         height: 48px;
@@ -2833,7 +2834,7 @@ th {
 
 /* Wedding - Dual Score Circles for Groom & Bride */
 .score-circles-wedding {
-    position: absolute;
+    /* position: absolute;
     top: 0;
     right: 8px;
     top: 50%;
@@ -2841,8 +2842,11 @@ th {
     transform: translate(-50%, -50%);
     display: flex;
     flex-direction: column;
-    gap: 5px;
-    z-index: 2;
+    gap: 0px;
+    z-index: 2; */
+    border-top: 2px solid #ffffff;
+    display: flex;
+    gap: 20px;
 }
 
 .score-circle-groom,
@@ -2940,7 +2944,7 @@ th {
 
     /* Tăng padding-right cho td chứa yếu tố hỗ trợ để tránh circle che text */
     .table-responsive td:nth-child(2) {
-        padding-right: 45px !important;
+        /* padding-right: 45px !important; */
     }
 
     .table-responsive th:nth-child(2) {
@@ -2965,11 +2969,12 @@ th {
     /* Wedding specific - hiện dual circles cho wedding page */
     .score-circles-wedding {
         display: flex !important;
+        justify-content: space-evenly;
     }
 
     /* Tăng padding để chứa 2 circles wedding */
     .table-responsive td:nth-child(2):has(.score-circles-wedding) {
-        padding-right: 45px !important;
+        /* padding-right: 45px !important; */
     }
 }
 
@@ -3148,15 +3153,19 @@ th {
         font-size: 10px;
     }
 }
-table.table-detail, 
-table.table-detail td, 
+
+table.table-detail,
+table.table-detail td,
 table.table-detail th {
-    border: 1px solid #ccc !important; /* cam */
+    border: 1px solid #ccc !important;
+    /* cam */
 }
-.content-title-home-lich-right{
+
+.content-title-home-lich-right {
     display: flex;
     align-items: center;
 }
+
 .content-title-home-lich-right::before {
     content: '';
     display: inline-block;
@@ -3166,11 +3175,52 @@ table.table-detail th {
     border-radius: 999px;
     margin-right: 12px
 }
-.box-siderbar-index{
+
+.box-siderbar-index {
     border: 1px solid #2149874D;
     border-radius: 16px;
-    background: #FFFFFF; 
+    background: #FFFFFF;
 }
-.box-siderbar-index .events-card{
+
+.box-siderbar-index .events-card {
     background: unset;
+}
+
+
+/* CSS tùy chỉnh để làm cho màu sắc gần với ảnh gốc hơn */
+.header-green {
+    background-color: #e6f7ef;
+    /* Màu xanh nhạt */
+    color: #28a745;
+    /* Màu chữ xanh lá cây */
+}
+
+.header-red {
+    background-color: #fff0f0;
+    /* Màu đỏ nhạt */
+    color: #dc3545;
+    /* Màu chữ đỏ */
+}
+
+.content-green {
+    background-color: #f7fffb;
+    /* Rất nhạt, gần như trắng */
+}
+
+.content-red {
+    background-color: #ffffff;
+}
+
+/* Đảm bảo đường viền cho toàn bộ khối */
+.analysis-box {
+    border: 1px solid #dee2e6;
+}
+
+/* Tăng cỡ font cho các icon check và x */
+.list-icon {
+    font-size: 1.2rem;
+    width: 1.5rem;
+    /* Cố định chiều rộng để căn chỉnh */
+    display: inline-block;
+    text-align: center;
 }

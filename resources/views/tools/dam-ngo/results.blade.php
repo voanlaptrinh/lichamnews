@@ -236,9 +236,10 @@
                                                                     {{ $day['date']->format('m') }}</div>
                                                                 <div class="hv-memorial-day-digit">
                                                                     {{ $day['date']->format('d') }}</div>
-                                                                <div class="hv-memorial-lunar-calendar-info">
-                                                                    {{ $day['al_name'][0] ?? '' }}/{{ $day['al_name'][1] ?? '' }}
-                                                                    ÂL <i class="bi bi-chevron-right"></i></div>
+                                                                <div class="hv-memorial-lunar-calendar-info d-flex">
+                                                                   <span>
+                                                                     {{ $day['al_name'][0] ?? '' }}/{{ $day['al_name'][1] ?? '' }}
+                                                                    ÂL</span> <i class="bi bi-chevron-right"></i></div>
                                                             </div>
 
                                                         </div>
@@ -385,13 +386,22 @@
                                                     @endif
 
                                                     <!-- Wedding - Dual Score Circles cho mobile -->
+                                                    
                                                     <div class="score-circles-wedding">
-                                                        <div class="score-circle-groom">
-                                                            {{ round($day['groom_score']['percentage']) }}%
+                                                        <div>
+                                                            <span>C.Rể</span>
+                                                            <div class="score-circle-groom">
+
+                                                                {{ round($day['groom_score']['percentage']) }}%
+                                                            </div>
                                                         </div>
-                                                        <div class="score-circle-bride">
-                                                            {{ round($day['bride_score']['percentage']) }}%
+                                                        <div>
+                                                            <span>C.Dâu</span>
+                                                            <div class="score-circle-bride">
+                                                                {{ round($day['bride_score']['percentage']) }}%
+                                                            </div>
                                                         </div>
+                                                       
                                                     </div>
                                                 </td>
                                                 <td class="text-center score-battery-pc">

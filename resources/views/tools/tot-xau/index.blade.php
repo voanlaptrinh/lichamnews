@@ -188,10 +188,10 @@
                                 – thuận thời
                                 điểm”. Ngược lại, những ngày có nhiều yếu tố xấu có thể khiến bạn do dự, hoặc muốn tránh để
                                 mọi việc diễn ra suôn sẻ hơn.</p>
-                            <p class="mb-1">Vì vậy, một công cụ xem ngày tốt – xấu chung giúp bạn linh hoạt lựa chọn thời
+                            <p class="mb-3">Vì vậy, một công cụ xem ngày tốt – xấu chung giúp bạn linh hoạt lựa chọn thời
                                 điểm phù hợp
                                 cho bất kỳ công việc, dự định hoặc hành động nào trong cuộc sống.</p>
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Lợi ích khi xem ngày tốt – xấu cho các việc khác nhau
                             </h2>
                             <ul class="mb-1">
@@ -222,27 +222,27 @@
                                     </p>
                                 </li>
                             </ul>
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-3 mb-3">
                                 Khi xem ngày tốt – xấu cần chú ý những yếu tố nào?
                             </h2>
                             <ul class="mb-1" style="list-style-type: decimal;">
                                 <li>
-                                    <h3 class="title-tong-quan-h4-log mb-1 mt-1"> Ngày Hoàng đạo – Hắc đạo</h3>
-                                    <p class="mb-1">Ngày Hoàng đạo thường mang năng lượng cát lành, phù hợp cho mọi việc.
+                                    <h3 class="title-tong-quan-h4-log fst-italic"> Ngày Hoàng đạo – Hắc đạo</h3>
+                                    <p class="mb-3">Ngày Hoàng đạo thường mang năng lượng cát lành, phù hợp cho mọi việc.
                                         <br>
                                         Ngày Hắc đạo nên cân nhắc nếu bạn có việc quan trọng.
                                     </p>
                                 </li>
                                 <li>
-                                    <h3 class="title-tong-quan-h4-log mb-1 mt-1">Trực của ngày</h3>
-                                    <ul class="mb-1">
+                                    <h3 class="title-tong-quan-h4-log fst-italic">Trực của ngày</h3>
+                                    <ul class="mb-3">
                                         <li>Trực tốt: Trực Khai, Thành, Mãn, Định → thuận lợi, dễ làm việc mới.</li>
                                         <li>Trực xấu: Trực Phá, Nguy, Bế, Thu → nên hạn chế làm việc lớn.</li>
                                     </ul>
                                 </li>
                                 <li>
-                                    <h3 class="title-tong-quan-h4-log mb-1 mt-1">Sao tốt – sao xấu trong ngày</h3>
-                                    <ul class="mb-1">
+                                    <h3 class="title-tong-quan-h4-log fst-italic">Sao tốt – sao xấu trong ngày</h3>
+                                    <ul class="mb-3">
                                         <li>Nhiều sao cát bổ trợ năng lượng như: Thiên Đức, Nguyệt Đức, Thiên Hỷ, Phúc Hỷ,
                                             Tam Hợp,
                                             Lục Hợp.</li>
@@ -252,15 +252,15 @@
                                     </ul>
                                 </li>
                                 <li>
-                                    <h3 class="title-tong-quan-h4-log mb-1 mt-1"> Ngày xung tuổi – hợp tuổi</h3>
-                                    <p class="mb-1">Ngày hợp tuổi giúp công việc thuận lợi. Ngược lại, ngày xung tuổi nên
+                                    <h3 class="title-tong-quan-h4-log fst-italic"> Ngày xung tuổi – hợp tuổi</h3>
+                                    <p class="mb-3">Ngày hợp tuổi giúp công việc thuận lợi. Ngược lại, ngày xung tuổi nên
                                         tránh
                                         nếu bạn định làm việc quan trọng.
                                     </p>
                                 </li>
                                 <li>
-                                    <h3 class="title-tong-quan-h4-log mb-1 mt-1">Ngày kiêng kỵ trong dân gian</h3>
-                                    <p class="mb-1">Nên chú ý các ngày: Tam Nương, Nguyệt Kỵ, Dương Công Kỵ Nhật. Đây là
+                                    <h3 class="title-tong-quan-h4-log fst-italic">Ngày kiêng kỵ trong dân gian</h3>
+                                    <p class="mb-3">Nên chú ý các ngày: Tam Nương, Nguyệt Kỵ, Dương Công Kỵ Nhật. Đây là
                                         những
                                         ngày thường được coi là ít may mắn.
                                     </p>
@@ -268,10 +268,10 @@
                             </ul>
 
 
-                            <h2 class="title-tong-quan-h3-log mb-1 mt-1 fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-3 mb-3">
                                 Hướng dẫn sử dụng công cụ Xem Ngày Tốt – Xấu tại Phong Lịch
                             </h2>
-                            <ul style="list-style-type: decimal;" class="mb-1">
+                            <ul style="list-style-type: decimal;" class="mb-3">
                                 <li>
                                     Nhập ngày hoặc khoảng thời gian bạn muốn xem.
                                 </li>
@@ -290,7 +290,7 @@
                                 </li>
                                 <li>Chọn ngày phù hợp nhất theo đánh giá của công cụ và lịch trình cá nhân của bạn.</li>
                             </ul>
-                            <h2 class="title-tong-quan-h3-log mb-1 mt-1 fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-3 mb-3">
                                 Một ngày đẹp giúp ích như thế nào?
                             </h2>
                             <ul>

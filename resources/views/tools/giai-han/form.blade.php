@@ -174,7 +174,7 @@
                     </div>
                     <div class="box--bg-thang mt-3 mb-3">
                         <div class="text-box-tong-quan">
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Vì sao cần xem ngày tốt để cúng sao giải hạn?
                             </h2>
                             <p class="mb-1">
@@ -186,16 +186,16 @@
                             <p class="mb-1">
                                 Chọn ngày tốt giúp:
                             </p>
-                            <ul class="mb-1">
+                            <ul class="mb-3">
                                 <li>Nghi lễ diễn ra trang nghiêm, đúng phong tục, thuận lợi cho việc cầu an.</li>
                                 <li>Hóa giải vận hạn, giảm những điều xui xẻo, tạo cảm giác bình an.</li>
                                 <li>Tăng sinh khí, giúp gia đạo hài hòa, vận khí tốt hơn.</li>
                                 <li>Gia chủ an tâm và tự tin hơn trong cuộc sống hàng ngày.</li>
                             </ul>
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Lợi ích khi chọn ngày cúng sao giải hạn hợp tuổi
                             </h2>
-                            <ul class="mb-1">
+                            <ul class="mb-2">
                                 <li>Không phạm xung tuổi: Giúp gia chủ thực hiện lễ cúng thuận hòa, tránh xung khắc.</li>
                                 <li>Ngày hoàng đạo và giờ hoàng đạo: Thuận lợi cho nghi lễ, giúp hóa giải hạn nhanh hơn.
                                 </li>
@@ -203,14 +203,14 @@
                                 <li>Ngũ hành ngày sinh tương sinh với tuổi: Tạo sự hòa hợp âm dương, tăng sự linh nghiệm.
                                 </li>
                             </ul>
-                            <p class="mb-1">Chọn đúng ngày không chỉ mang ý nghĩa phong thủy mà còn giúp gia chủ cảm thấy
+                            <p class="mb-3">Chọn đúng ngày không chỉ mang ý nghĩa phong thủy mà còn giúp gia chủ cảm thấy
                                 an tâm, nhẹ nhàng về tinh thần.</p>
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Khi xem ngày cúng sao giải hạn cần lưu ý điều gì?
                             </h2>
 
                             <p class="mb-1">Các yếu tố cát lành nên ưu tiên khi chọn ngày cúng sao giải hạn:</p>
-                            <ul style="	list-style-type: decimal;" class="mb-1">
+                            <ul style="	list-style-type: decimal;" class="mb-3">
                                 <li>
                                     <p class="mb-1"> Ngày hoàng đạo – trực tốt
                                     </p>
@@ -240,10 +240,10 @@
                                     </ul>
                                 </li>
                             </ul>
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Hướng dẫn sử dụng công cụ Xem Ngày Cúng Sao Giải Hạn tại Phong Lịch
                             </h2>
-                            <ul class="mb-1" style="	list-style-type: decimal;">
+                            <ul class="mb-3" style="list-style-type: decimal;">
                                 <li>Nhập tuổi gia chủ để hệ thống tính sao chiếu mệnh và hạn năm.</li>
                                 <li>Chọn khoảng thời gian dự định cúng sao.</li>
                                 <li>Công cụ sẽ tự động:
@@ -256,7 +256,7 @@
                                 </li>
                                 <li>Chọn ngày phù hợp dựa trên lịch trình và điểm đánh giá ngày tốt.</li>
                             </ul>
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Một ngày tốt để cúng sao giải hạn mang lại lợi ích gì?
                             </h2>
                             <ul class="mb-1">

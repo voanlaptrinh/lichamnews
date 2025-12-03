@@ -186,7 +186,7 @@
 
                     <div class="box--bg-thang mt-3 mb-3">
                         <div class="text-box-tong-quan">
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                Vì sao trấn trạch cần chọn ngày tốt?
                             </h2>
                             <p class="mb-1">
@@ -197,15 +197,15 @@
                             <p class="mb-1">
                                 Chọn ngày tốt để trấn trạch giúp:
                             </p>
-                            <ul class="mb-1">
+                            <ul class="mb-2">
                                 <li>Việc cúng lễ diễn ra suôn sẻ, dễ đạt được ý nguyện.</li>
                                 <li>Tăng sinh khí cho căn nhà, cải thiện vận tài lộc - sức khỏe của gia đình.</li>
                                 <li>Tránh phạm ngày xấu, hạn chế rủi ro về phong thủy hoặc tâm linh.</li>
                                 <li>Tạo cảm giác yên tâm và cân bằng tinh thần cho gia chủ.</li>
                             </ul>
-                            <p class="mb-1">Một ngày phù hợp là yếu tố quan trọng để buổi lễ trấn trạch đạt hiệu quả tốt
+                            <p class="mb-3">Một ngày phù hợp là yếu tố quan trọng để buổi lễ trấn trạch đạt hiệu quả tốt
                                 nhất.</p>
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Lợi ích của việc chọn ngày trấn trạch hợp tuổi
                             </h2>
                             <ul class="mb-1">
@@ -214,14 +214,14 @@
                                 <li>Ngũ hành – Can Chi tương sinh giúp tăng sự hòa hợp giữa gia chủ và mảnh đất.</li>
                                 <li>Sao tốt – trực tốt tạo điều kiện để hóa giải khí xấu, nâng cát khí.</li>
                             </ul>
-                            <p class="mb-1">Chọn ngày hợp tuổi không chỉ theo phong thủy mà còn giúp gia chủ cảm thấy yên
+                            <p class="mb-3">Chọn ngày hợp tuổi không chỉ theo phong thủy mà còn giúp gia chủ cảm thấy yên
                                 tâm, tự tin khi làm lễ.</p>
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Khi xem ngày trấn trạch cần lưu ý điều gì?
                             </h2>
-                            <ul class="mb-1" style="list-style-type: upper-alpha;">
+                            <ul class="mb-3" style="list-style-type: upper-alpha;">
                                 <li>
-                                    <h3 class="title-tong-quan-h4-log">Các yếu tố cát lành nên ưu tiên</h3>
+                                    <h3 class="title-tong-quan-h4-log fst-italic">Các yếu tố cát lành nên ưu tiên</h3>
                                     <ul style="	list-style-type: decimal;" class="mb-1">
                                         <li>
                                             <p class="mb-1">Ngày hoàng đạo và trực tốt
@@ -256,7 +256,7 @@
                                     </ul>
                                 </li>
                                 <li>
-                                    <h3 class="title-tong-quan-h4-log">Các yếu tố xấu nên tránh</h3>
+                                    <h3 class="title-tong-quan-h4-log fst-italic">Các yếu tố xấu nên tránh</h3>
                                     <ul style="list-style-type: decimal;">
                                         <li>
                                             <p class="mb-1">Ngày xung tuổi hoặc phạm hạn</p>
@@ -287,10 +287,10 @@
                                         những biến động xấu trong không gian sống.</p>
                                 </li>
                             </ul>
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Hướng dẫn sử dụng công cụ Xem Ngày Trấn Trạch tại Phong Lịch
                             </h2>
-                            <ul class="mb-1" style="list-style-type: decimal;">
+                            <ul class="mb-3" style="list-style-type: decimal;">
                                 <li>Nhập tuổi gia chủ (âm lịch hoặc dương lịch đều được).</li>
                                 <li>Chọn khoảng thời gian dự định làm lễ trấn trạch.</li>
                                 <li>
@@ -305,7 +305,7 @@
                                 <li>So sánh các ngày và lựa chọn ngày phù hợp nhất, dựa theo lịch gia đình và tình trạng
                                     ngôi nhà.</li>
                             </ul>
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Một ngày trấn trạch đẹp mang lại lợi ích gì?
                             </h2>
                             <ul class="mb-1">

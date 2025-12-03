@@ -286,7 +286,7 @@ class FengShuiHelper //cần xác định xem gia chủ thuộc Tây Tứ Mệnh
         return [
             ['Huong' => $huongTotGoc['sinh_khi'], 'Loai' => 'Sinh Khí', 'Y nghia' => $yNghia['sinh_khi'], 'Uu tien' => 'Ưu tiên 1'],
             ['Huong' => $huongTotGoc['thien_y'], 'Loai' => 'Thiên Y', 'Y nghia' => $yNghia['thien_y'], 'Uu tien' => 'Ưu tiên 2'],
-            ['Huong' => $huongTotGoc['phuoc_duc'], 'Loai' => 'Diên Niên', 'Y nghia' => $yNghia['phuoc_duc'], 'Uu tien' => 'Ưu tiên 3'],
+            ['Huong' => $huongTotGoc['phuoc_duc'], 'Loai' => 'Diên Niên (Phước Đức)', 'Y nghia' => $yNghia['phuoc_duc'], 'Uu tien' => 'Ưu tiên 3'],
             ['Huong' => $huongTotGoc['phuc_vi'], 'Loai' => 'Phục Vị', 'Y nghia' => $yNghia['phuc_vi'], 'Uu tien' => 'Ưu tiên 4'],
         ];
     }
@@ -410,7 +410,7 @@ class FengShuiHelper //cần xác định xem gia chủ thuộc Tây Tứ Mệnh
         // Sắp xếp lại theo thứ tự ưu tiên cho phòng ngủ
         return [
             ['Huong' => $huongTotGoc['thien_y'], 'Loai' => 'Thiên Y', 'Y_nghia' => $yNghia['thien_y'], 'Uu_tien' => 'Ưu tiên 1'],
-            ['Huong' => $huongTotGoc['phuoc_duc'], 'Loai' => 'Diên Niên', 'Y_nghia' => $yNghia['phuoc_duc'], 'Uu_tien' => 'Ưu tiên 2'],
+            ['Huong' => $huongTotGoc['phuoc_duc'], 'Loai' => 'Diên Niên (Phước Đức)', 'Y_nghia' => $yNghia['phuoc_duc'], 'Uu_tien' => 'Ưu tiên 2'],
             ['Huong' => $huongTotGoc['phuc_vi'], 'Loai' => 'Phục Vị', 'Y_nghia' => $yNghia['phuc_vi'], 'Uu_tien' => 'Ưu tiên 3'],
             ['Huong' => $huongTotGoc['sinh_khi'], 'Loai' => 'Sinh Khí', 'Y_nghia' => $yNghia['sinh_khi'], 'Uu_tien' => 'Ưu tiên 4'],
         ];
@@ -489,7 +489,7 @@ class FengShuiHelper //cần xác định xem gia chủ thuộc Tây Tứ Mệnh
         return [
             ['Huong' => $huongTotGoc['sinh_khi'], 'Loai' => 'Sinh Khí', 'Y_nghia' => $yNghia['sinh_khi'], 'Uu_tien' => 'Ưu tiên 1'],
             ['Huong' => $huongTotGoc['thien_y'], 'Loai' => 'Thiên Y', 'Y_nghia' => $yNghia['thien_y'], 'Uu_tien' => 'Ưu tiên 2'],
-            ['Huong' => $huongTotGoc['phuoc_duc'], 'Loai' => 'Diên Niên', 'Y_nghia' => $yNghia['phuoc_duc'], 'Uu_tien' => 'Ưu tiên 3'],
+            ['Huong' => $huongTotGoc['phuoc_duc'], 'Loai' => 'Diên Niên (Phước Đức)', 'Y_nghia' => $yNghia['phuoc_duc'], 'Uu_tien' => 'Ưu tiên 3'],
             ['Huong' => $huongTotGoc['phuc_vi'], 'Loai' => 'Phục Vị', 'Y_nghia' => $yNghia['phuc_vi'], 'Uu_tien' => 'Ưu tiên 4'],
         ];
     }

@@ -174,7 +174,7 @@
                 if (luanGiaiBtn) {
                     // Set button thành trạng thái loading
                     luanGiaiBtn.disabled = true;
-                    luanGiaiBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang luận giải...';
+                    luanGiaiBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>Bạn đợi một chút nhé! Chúng tôi đang phân tích lá số và chuẩn bị luận giải cho bạn';
                 }
 
                 // Hiển thị thông báo đang xử lý
@@ -257,7 +257,7 @@
                                     <span class="dot"></span>
                                 </div>
                             </div>
-                            <h4 class="text-primary mb-2 fade-in">Đang luận giải lá số tử vi...</h4>
+                            <h4 class="text-primary mb-2 fade-in">Bạn đợi một chút nhé! Chúng tôi đang phân tích lá số và chuẩn bị luận giải cho bạn</h4>
                             <div class="progress mt-3 mx-auto" style="width: 300px; height: 6px;">
                                 <div class="progress-bar bg-primary progress-bar-striped progress-bar-animated"
                                      role="progressbar" style="width: 100%"></div>

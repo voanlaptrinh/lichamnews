@@ -128,7 +128,7 @@
 
 
                                                 <div class="input-group mb-4">
-                                                    <div for="date_range" class="fw-bold title-tong-quan-h4-log"  style="color: #192E52; padding-bottom: 12px;">Dự kiến
+                                                    <div for="date_range" class="fw-bold title-tong-quan-h4-log fst-italic"  style="color: #192E52; padding-bottom: 12px;">Dự kiến
                                                         thời gian mua</div>
                                                     <div class="input-group">
                                                         <input type="text"
@@ -185,49 +185,49 @@
                     </div>
                     <div class="box--bg-thang mt-3 mb-3">
                         <div class="text-box-tong-quan">
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Vì sao mua xe cần xem ngày tốt?
                             </h2>
                             <p class="mb-1">Mua xe, dù là ô tô hay xe máy, không chỉ là giao dịch tài chính mà còn là
                                 bước khởi đầu của một hành trình mới. Trong văn hóa Á Đông, chọn ngày đẹp để nhận xe giúp:
                             </p>
-                            <ul class="mb-1">
+                            <ul class="mt-2 mb-2">
                                 <li>Khởi hành an toàn, mang lại may mắn cho hành trình đầu tiên.</li>
                                 <li>Thu hút cát khí, tăng sự thuận lợi trong công việc, di chuyển và đi lại.</li>
                                 <li>Tâm lý chủ xe yên tâm, tự tin khi sử dụng phương tiện mới.</li>
                             </ul>
-                            <p class="mb-1">Ngày nhận xe đẹp còn là ngày khai vận, tượng trưng cho sự thuận lợi, an toàn
+                            <p class="mb-3">Ngày nhận xe đẹp còn là ngày khai vận, tượng trưng cho sự thuận lợi, an toàn
                                 và hưng thịnh.</p>
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Lợi ích khi chọn ngày mua xe hợp tuổi
                             </h2>
-                            <ul class="mb-1">
+                            <ul class="mb-3">
                                 <li>Hạn chế xung khắc tuổi chủ xe với ngày, tránh các điều không may trong quá trình sử dụng
                                     xe.</li>
                                 <li>Chọn ngày hoàng đạo, giờ hoàng đạo, giúp xuất phát thuận lợi, giảm rủi ro tai nạn, trục
                                     trặc đầu tiên.</li>
                                 <li>Sao tốt và trực tốt tăng cát khí, hỗ trợ tài lộc, may mắn và sự an toàn.</li>
                             </ul>
-                            <p class="mb-1">Chọn ngày đẹp không chỉ mang ý nghĩa phong thủy mà còn giúp người mua tự tin,
+                            <p class="mb-3">Chọn ngày đẹp không chỉ mang ý nghĩa phong thủy mà còn giúp người mua tự tin,
                                 tâm lý thoải mái trong quá trình nhận và sử dụng xe.</p>
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Khi xem ngày mua xe cần chú ý điều gì?
                             </h2>
                             <ul class="mb-1" style="list-style-type: upper-alpha;">
                                 <li>
-                                    <h3 class="title-tong-quan-h4-log">Các yếu tố cát lành nên ưu tiên</h3>
+                                    <h3 class="title-tong-quan-h4-log fst-italic">Các yếu tố cát lành nên ưu tiên</h3>
                                     <ul style="list-style-type: decimal;">
-                                        <li>
+                                        <li class="mb-2">
                                             <p class="mb-0">Ngày hoàng đạo, trực tốt</p>
                                             <p class="mb-0">Ngày Hoàng Đạo, Trực Khai, Trực Thành, Trực Mãn giúp buổi
                                                 nhận xe suôn sẻ và thuận lợi.</p>
                                         </li>
-                                        <li>
+                                        <li class="mb-2">
                                             <p class="mb-0">Ngày hợp tuổi chủ xe</p>
                                             <p class="mb-0">Ngũ hành, Can Chi của ngày tương sinh hoặc tương hỗ với tuổi
                                                 chủ xe để tăng cát khí.</p>
                                         </li>
-                                        <li>
+                                        <li class="mb-2">
                                             <p class="mb-0">Sao tốt và giờ tốt</p>
                                             <ul style="	list-style-type: circle;">
                                                 <li>Sao Thiên Đức, Phúc Sinh, Hỷ Thần giúp vận khí thuận lợi.</li>
@@ -237,7 +237,7 @@
                                     </ul>
                                 </li>
                                 <li>
-                                    <h3 class="title-tong-quan-h4-log">Các yếu tố xấu nên tránh</h3>
+                                    <h3 class="title-tong-quan-h4-log fst-italic">Các yếu tố xấu nên tránh</h3>
                                     <ul class="mb-1">
                                         <li>Ngày xung tuổi, phạm Thái Tuế hoặc các ngày hình – hại – phá.</li>
                                         <li>Ngày hắc đạo hoặc trực xấu, ví dụ Trực Phá, Trực Bế.</li>
@@ -246,17 +246,17 @@
                                     </ul>
                                 </li>
                             </ul>
-                            <p class="mb-1">Việc tránh các yếu tố này giúp bạn nhận xe và xuất phát lần đầu an toàn,
+                            <p class="mb-3">Việc tránh các yếu tố này giúp bạn nhận xe và xuất phát lần đầu an toàn,
                                 thuận lợi.</p>
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Hướng dẫn sử dụng công cụ Xem Ngày Mua Xe tại Phong Lịch
                             </h2>
-                            <ul class="mb-1" style="list-style-type: decimal;">
+                            <ul class="mb-3" style="list-style-type: decimal;">
                                 <li>Nhập tuổi chủ xe (âm lịch hoặc dương lịch).</li>
                                 <li>Chọn khoảng thời gian dự định nhận xe.</li>
                                 <li>
                                     <p class="mb-1">Hệ thống sẽ:</p>
-                                    <ul style="list-style-type: circle;">
+                                    <ul style="list-style-type: circle;" class="mb-2">
                                         <li>Gợi ý những ngày nhận xe đẹp nhất,</li>
                                         <li>Hiển thị điểm tốt – xấu,</li>
                                         <li>Liệt kê sao tốt/xấu, trực, giờ hoàng đạo,</li>
@@ -265,7 +265,7 @@
                                 </li>
                                 <li>Chọn ngày phù hợp dựa trên lịch trình và tiện ích thực tế.</li>
                             </ul>
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Một ngày nhận xe đẹp mang lại lợi ích gì?
                             </h2>
                             <ul class="mb-1">
