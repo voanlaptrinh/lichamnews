@@ -77,4 +77,14 @@
             }
         });
     </script>
+    <script type="text/javascript">
+        const xla_init_date = {{ $dd }};
+
+        window.addEventListener('focus', function() {
+            const xla_today = new Date();
+            if (xla_init_date !== xla_today.getDate()) {
+                window.location.reload();
+            }
+        });
+    </script>
 @endpush
