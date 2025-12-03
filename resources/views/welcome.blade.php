@@ -113,17 +113,13 @@
     <link href="{{ asset('/css/style-date.css?v=6.5') }}" rel="stylesheet">
 
     <!-- Defer non-critical CSS -->
-    <link rel="preload" href="{{ asset('/css/bootstrap-icons.min.css?v=6.5') }}" as="style"
-        onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet" href="{{ asset('/css/bootstrap-icons.min.css?v=6.5') }}">
-    </noscript>
-    <link rel="preload" href="{{ asset('/css/repont.css?v=6.5') }}" as="style"
-        onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet" href="{{ asset('/css/repont.css?v=6.5') }}">
-    </noscript>
+   <link rel="preload" href="{{ asset('/css/bootstrap-icons.min.css?v=6.5') }}" as="style"
+      onload="this.rel='stylesheet'">
 
+<link rel="preload" href="{{ asset('/css/repont.css?v=6.5') }}" as="style"
+      onload="this.rel='stylesheet'">
+
+      
     {{-- <link rel="stylesheet" type="text/css" href="{{ asset('/css/daterangepicker.css') }}" /> --}}
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('/meta/icon.png') }}">
