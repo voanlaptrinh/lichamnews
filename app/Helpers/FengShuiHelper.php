@@ -26,7 +26,14 @@ class FengShuiHelper //cần xác định xem gia chủ thuộc Tây Tứ Mệnh
         if ($phongThuyCoBan === null) {
             return null;
         }
+        $today = now();
+        $solarDay = (int)$today->format('d');
+        $solarMonth = (int)$today->format('m');
+        $solarYear = (int)$today->format('Y');
 
+        // Đổi sang âm lịch hiện tại
+        $lunarToday = LunarHelper::convertSolar2Lunar($solarDay, $solarMonth, $solarYear);
+        $lunarYearNow = $lunarToday[2];  // Năm âm lịch hiện tại
         $cungMenh = $phongThuyCoBan['menh_trach'];
         $huongBanThoTotNhat = self::getBangHuongBanTho()[$cungMenh] ?? [];
 
@@ -36,6 +43,7 @@ class FengShuiHelper //cần xác định xem gia chủ thuộc Tây Tứ Mệnh
         $lunarDay = $lunarDob[0];
         $lunarMonth = $lunarDob[1];
         $lunarYear = $lunarDob[2]; // Năm âm lịch
+        $tuoiAm = $lunarYearNow - $lunarYear + 1;
 
         // Lấy Can Chi của năm sinh Âm lịch
         $canChiNamSinh = LunarHelper::canchiNam($lunarYear);
@@ -47,13 +55,15 @@ class FengShuiHelper //cần xác định xem gia chủ thuộc Tây Tứ Mệnh
                 'gioiTinh' => ucfirst(strtolower($gioiTinh)),
                 'menhQuai' => $phongThuyCoBan['menh_trach'] . ' - hành ' . $phongThuyCoBan['ngu_hanh'],
                 'thuocNhom' => $phongThuyCoBan['nhom'],
-
-                // --- THÔNG TIN MỚI THÊM ---
                 'ngaySinhAmLich' => sprintf('%02d/%02d/%d (%s)', $lunarDay, $lunarMonth, $lunarYear, $canChiNamSinh),
             ],
             'nguyenTacDatBanTho' => [
                 'Bàn thờ nên đặt tại vị trí cát (trong nhà) và quay mặt về hướng cát.',
                 'Đặc biệt, hướng nhìn ra (mặt bàn thờ) là yếu tố quan trọng nhất.',
+            ],
+            'ageInfo' => [
+                'tuoiAm' => $tuoiAm,
+                'namAmHienTai' => $lunarYearNow,
             ],
             'huongDatBanThoTotNhat' => $huongBanThoTotNhat,
 
@@ -210,7 +220,14 @@ class FengShuiHelper //cần xác định xem gia chủ thuộc Tây Tứ Mệnh
         if ($phongThuyCoBan === null) {
             return null;
         }
+        $today = now();
+        $solarDay = (int)$today->format('d');
+        $solarMonth = (int)$today->format('m');
+        $solarYear = (int)$today->format('Y');
 
+        // Đổi sang âm lịch hiện tại
+        $lunarToday = LunarHelper::convertSolar2Lunar($solarDay, $solarMonth, $solarYear);
+        $lunarYearNow = $lunarToday[2];  // Năm âm lịch hiện tại
         // --- Bắt đầu xây dựng cấu trúc dữ liệu mới theo yêu cầu ---
 
         // 2. Chuẩn bị dữ liệu cho mục "Thông tin cơ bản"
@@ -235,7 +252,8 @@ class FengShuiHelper //cần xác định xem gia chủ thuộc Tây Tứ Mệnh
         $huongTotGoc = $phongThuyCoBan['huong_tot'];
         $huongNhaTotChiTiet = self::getHuongTot($huongTotGoc);
         $huongNhaXauChiTiet = $phongThuyCoBan['huong_xau'];
-
+        $lunarYear = $lunarDob[2]; // Năm âm lịch
+        $tuoiAm = $lunarYearNow - $lunarYear + 1;
 
         // 5. Kết hợp tất cả lại thành kết quả cuối cùng
         return [
@@ -243,6 +261,10 @@ class FengShuiHelper //cần xác định xem gia chủ thuộc Tây Tứ Mệnh
             'nguyenTac' => $nguyenTac,
             'huongNhaTotChiTiet' => $huongNhaTotChiTiet, // Bảng chi tiết hướng tốt, rất hữu ích để hiển thị thêm
             'huongNhaXauChiTiet' => $huongNhaXauChiTiet, // Bảng chi tiết hướng xấu
+            'ageInfo' => [
+                'tuoiAm' => $tuoiAm,
+                'namAmHienTai' => $lunarYearNow,
+            ],
         ];
     }
     /**
@@ -530,14 +552,14 @@ class FengShuiHelper //cần xác định xem gia chủ thuộc Tây Tứ Mệnh
         // Chuẩn hóa chiNgay với chữ hoa đầu cho các mảng cần
         $chiNgayCapitalized = ucfirst(strtolower($chiNgay));
         $chiNgayLower = strtolower($chiNgay);
-        
+
         // Sử dụng dữ liệu Hợp-Xung từ các mảng riêng lẻ trong DataHelper
         $tamHop = DataHelper::$TAM_HOP_GROUPS[$chiNgayLower] ?? [];
         $lucHop = DataHelper::$LUC_HOP[$chiNgayLower] ?? '';
-        
+
         // Format tam hợp với chữ hoa đầu
         $tamHopFormatted = array_map('ucfirst', $tamHop);
-        
+
         // Tạo text cho hợp
         $hopParts = [];
         if (!empty($tamHopFormatted)) {
@@ -546,8 +568,8 @@ class FengShuiHelper //cần xác định xem gia chủ thuộc Tây Tứ Mệnh
         if (!empty($lucHop)) {
             $hopParts[] = ucfirst($lucHop) . ' (Lục hợp)';
         }
-        
-        $hopText = !empty($hopParts) 
+
+        $hopText = !empty($hopParts)
             ? "Ngày này <b>hợp</b> với các tuổi: " . implode(' và ', $hopParts)
             : "Ngày này không có tuổi hợp đặc biệt";
 
@@ -744,7 +766,7 @@ class FengShuiHelper //cần xác định xem gia chủ thuộc Tây Tứ Mệnh
                         return [
                             'score'       => (float)($fakeScore ?? 0.5),
                             'explanation' => $fakeExplanation ?? 'Hợp hóa nhưng không đủ điều kiện.',
-  'fakeHợpExplanation' => $relationBaseData['fakeHợpExplanation'] ?? 'Không có diễn giải giả.',
+                            'fakeHợpExplanation' => $relationBaseData['fakeHợpExplanation'] ?? 'Không có diễn giải giả.',
                             'rating'      => $fakeRating ?? 'Hợp hóa giả',
                             'relation'    => 'Hợp Hóa Giả',
                             'canNgay'    => $canNgay ?? '',

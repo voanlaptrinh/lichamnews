@@ -14,7 +14,7 @@ class XemHuongNhaController extends Controller
      */
     public function showForm()
     {
-        return view('huong-nha.index');
+        return view('huong-hop-tuoi.huong-nha.form');
     }
 
     /**
@@ -36,23 +36,35 @@ class XemHuongNhaController extends Controller
 
         $validated = $validator->validated();
         // $namSinh = (int)$validated['nam_sinh'];
-         $birthDateInput = $validated['nam_sinh']; // Giữ lại chuỗi 'd/m/Y'
+        $birthDateInput = $validated['nam_sinh']; // Giữ lại chuỗi 'd/m/Y'
         $birthDateObject = Carbon::createFromFormat('d/m/Y', $birthDateInput);
-        $gioiTinh = $validated['gioi_tinh'];
+        $gender = $validated['gioi_tinh'];
 
         // 2. Gọi Helper để lấy kết quả
-     $results = FengShuiHelper::layHuongNha(
+        $results = FengShuiHelper::layHuongNha(
             $birthDateObject->year,
             $birthDateObject->month,
             $birthDateObject->day,
-            $gioiTinh
+            $gender
         );
+        if ($request->ajax() || $request->wantsJson()) {
+            $html = view('huong-hop-tuoi.huong-ban-tho.results', [
+                'results' => $results,
+                'birthDate' => $birthDateInput, // Truyền chuỗi ngày sinh đã nhập
+                'gender' => $gender,             // Truyền giới tính đã chọn
+                'nam_sinh' => $birthDateObject->year,
+            ])->render();
 
+            return response()->json([
+                'success' => true,
+                'html' => $html,
+            ]);
+        }
         // 3. Trả về view với đầy đủ dữ liệu
-        return view('huong-nha.index', [
+        return view('huong-hop-tuoi.huong-nha.form', [
             'results' => $results,
             'nam_sinh' => $birthDateObject, // Truyền lại năm sinh đã nhập
-            'gioi_tinh' => $gioiTinh, // Truyền lại giới tính đã chọn
+            'gender' => $gender, // Truyền lại giới tính đã chọn
             'inputdate' => $birthDateInput,
         ]);
     }

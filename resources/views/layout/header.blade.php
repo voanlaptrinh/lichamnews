@@ -81,17 +81,15 @@
                 <li><a href="{{ route('convert.am.to.duong') }}">Đổi ngày</a></li>
                 <li><a href="{{ route('totxau.list') }}">Xem ngày tốt</a></li>
 
-                {{-- <li class="has-dropdown">
+                <li class="has-dropdown">
                     <span class="text-white">Tử vi & Phong thủy
 
                         <i class="bi bi-chevron-down"></i>
                     </span>
                     <ul class="dropdown-menu">
                         <li><a href="{{ route('laso.create') }}">Lá số tử vi</a></li>
-
-
                     </ul>
-                </li> --}}
+                </li>
                 <li class="has-dropdown">
                     <span class="text-white">Chiêm tinh & Huyền học
 
@@ -209,7 +207,7 @@
                 <a href="{{ route('totxau.list') }}">Xem ngày tốt</a>
             </li>
 
-            {{-- <li class="has-dropdown">
+            <li class="has-dropdown">
                 <span class="text-white">
                    Tử vi & Phong thuỷ
                     <i class="bi bi-chevron-down arrow-icon"></i>
@@ -219,7 +217,7 @@
                   
 
                 </ul>
-            </li> --}}
+            </li>
             <li class="has-dropdown">
                 <span class="text-white">
                     Chiêm tinh & Huyền học

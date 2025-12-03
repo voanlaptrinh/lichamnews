@@ -40,24 +40,19 @@ use Spatie\ResponseCache\Middlewares\CacheResponse;
 
 Route::post('/ajax/lich-thang', [LichController::class, 'getLichThangAjax'])->name('lich.thang.ajax');
 Route::post('/ajax/date-data', [LunarController::class, 'getDateDataAjax'])->name('lunar.getDateDataAjax');
+
 Route::get('/llms.txt', function () {
     $path = public_path('llms.txt');
     if (!file_exists($path)) {
         abort(404);
     }
-
     $contents = file_get_contents($path);
-
-    // N?u c� BOM ? d?u, lo?i b?
     if (substr($contents, 0, 3) === "\xEF\xBB\xBF") {
         $contents = substr($contents, 3);
     }
-
-    // �p ch?c UTF-8 (an to�n): chuy?n n?u detect kh�ng ph?i UTF-8
     if (!mb_check_encoding($contents, 'UTF-8')) {
         $contents = mb_convert_encoding($contents, 'UTF-8', 'auto');
     }
-
     return response($contents, 200)
         ->header('Content-Type', 'text/plain; charset=utf-8')
         ->header('X-Content-Type-Options', 'nosniff');
@@ -80,7 +75,7 @@ Route::get('/app', function () {
     $ios  = 'https://apps.apple.com/vn/app/l%E1%BB%8Bch-%C3%A2m-l%E1%BB%8Bch-v%E1%BA%A1n-ni%C3%AAn-2025/id6499255314?l=vi';
     $android  = 'https://play.google.com/store/apps/details?id=com.rvn.licham&hl=vi';
 
-     if (preg_match('/iphone|ipad|ipod/i', $ua)) {
+    if (preg_match('/iphone|ipad|ipod/i', $ua)) {
         return redirect()->away($ios);
     }
 
@@ -240,8 +235,8 @@ Route::prefix('xem-ngay-nhan-cong-viec-moi')->group(function () {
 
 // === ROUTE Xem Ngày làm giấy tờ - cccd, hộ chiếu ===
 Route::prefix('xem-ngay-lam-giay-to')->group(function () {
-Route::get('/', [GiayToController::class, 'showForm'])->name('giay-to.form');
-Route::post('/', [GiayToController::class, 'checkDays'])->name('giay-to.check');
+    Route::get('/', [GiayToController::class, 'showForm'])->name('giay-to.form');
+    Route::post('/', [GiayToController::class, 'checkDays'])->name('giay-to.check');
     Route::get('/chi-tiet/{date}', [GiayToController::class, 'showDayDetails'])->name('giay-to.details');
 });
 
@@ -259,12 +254,15 @@ Route::get('/laso/image-proxy', [LasoController::class, 'proxyImage'])->name('la
 
 
 // === ROUTE Xem hướng bàn thờ ===
-Route::get('/xem-huong-ban-tho', [XemHuongBanThoController::class, 'showForm'])->name('huong-ban-tho.form');
-Route::post('/xem-huong-ban-tho', [XemHuongBanThoController::class, 'check'])->name('huong-ban-tho.check');
-
+Route::prefix('xem-huong-ban-tho')->group(function () {
+    Route::get('/', [XemHuongBanThoController::class, 'showForm'])->name('huong-ban-tho.form');
+    Route::post('/', [XemHuongBanThoController::class, 'check'])->name('huong-ban-tho.check');
+});
 // === ROUTE Xem hướng nhà ===
-Route::get('/xem-huong-nha', [XemHuongNhaController::class, 'showForm'])->name('huong-nha.form');
-Route::post('/xem-huong-nha', [XemHuongNhaController::class, 'check'])->name('huong-nha.check');
+Route::prefix('xem-huong-nha')->group(function () {
+Route::get('/', [XemHuongNhaController::class, 'showForm'])->name('huong-nha.form');
+Route::post('/', [XemHuongNhaController::class, 'check'])->name('huong-nha.check');
+});
 
 // === ROUTE Xem hướng bếp ===
 Route::get('/xem-huong-bep', [XemHuongBepController::class, 'showForm'])->name('huong-bep.form');

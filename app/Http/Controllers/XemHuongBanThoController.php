@@ -12,7 +12,7 @@ class XemHuongBanThoController extends Controller
     public function showForm()
     {
         // Khi vào form lần đầu, không có dữ liệu gì cả
-        return view('huong-ban-tho.index');
+        return view('huong-hop-tuoi.huong-ban-tho.form');
     }
 
     public function check(Request $request) // Đổi tên hàm thành check cho đúng chuẩn REST
@@ -29,6 +29,9 @@ class XemHuongBanThoController extends Controller
         ]);
 
         if ($validator->fails()) {
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json(['success' => false, 'errors' => $validator->errors()], 422);
+            }
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
@@ -46,9 +49,22 @@ class XemHuongBanThoController extends Controller
             $birthDateObject->day,
             $gender
         );
+        if ($request->ajax() || $request->wantsJson()) {
+            $html = view('huong-hop-tuoi.huong-ban-tho.results', [
+                'results' => $results,
+                'birthDate' => $birthDateInput, // Truyền chuỗi ngày sinh đã nhập
+                'gender' => $gender,             // Truyền giới tính đã chọn
+                'nam_sinh' => $birthDateObject->year,
+            ])->render();
+
+            return response()->json([
+                'success' => true,
+                'html' => $html,
+            ]);
+        }
 
         // 4. Trả về view với đầy đủ dữ liệu
-        return view('huong-ban-tho.index', [
+        return view('huong-hop-tuoi.huong-ban-tho.form', [
             'results' => $results,
             'birthDate' => $birthDateInput, // Truyền chuỗi ngày sinh đã nhập
             'gender' => $gender,             // Truyền giới tính đã chọn
