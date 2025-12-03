@@ -510,7 +510,7 @@
                             </a>
 
                             <!-- Tiện ích 2 -->
-                            <a href="#" class="utility-item col-6 col-md-6 col-lg-3 mb-4">
+                            <a href="{{route('totxau.list')}}" class="utility-item col-6 col-md-6 col-lg-3 mb-4">
                                 <div class="utility-title">Xem ngày Tốt</div>
                                 <div class="icon-wrapper">
                                     <img src="{{ asset('icons/xem_ngay_tot.webp?v=2.0') }}" alt="Xem ngày Tốt"
