@@ -578,8 +578,8 @@
 
                     <div class="card border-0 mb-3 w-100 box-detial-year">
                         <div class="card-body box1-con-year">
-                            <div class="text-primary mb-2  text-dark d-flex align-items-center fw-bolder">
-                                Chú ý: Đây là các thông tin xem mang tính chất tham khảo, không thay thế cho các tư vấn
+                            <div class="text-primary mb-2  text-dark d-flex align-items-center">
+                                ⚠️ Chú ý: Đây là các thông tin xem mang tính chất tham khảo, không thay thế cho các tư vấn
                                 chuyên môn. Người dùng tự chịu trách nhiệm với mọi quyết định cá nhân dựa trên thông tin
                                 tham khảo tại Phong Lịch.
                             </div>

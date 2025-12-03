@@ -164,9 +164,10 @@
                                                                 <div class="hv-memorial-day-digit">
                                                                     {{ $day['date']->format('d') }}</div>
                                                                 <div class="hv-memorial-lunar-calendar-info d-flex">
-                                                                   <span>
-                                                                     {{ explode('/', $day['full_lunar_date_str'])[0] ?? '' }}/{{ explode('/', $day['full_lunar_date_str'])[1] ?? '' }}
-                                                                    ÂL</span> <i class="bi bi-chevron-right"></i></div>
+                                                                    <span>
+                                                                        {{ explode('/', $day['full_lunar_date_str'])[0] ?? '' }}/{{ explode('/', $day['full_lunar_date_str'])[1] ?? '' }}
+                                                                        ÂL</span> <i class="bi bi-chevron-right"></i>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </a>
@@ -299,6 +300,17 @@
                                         </button>
                                     </div>
                                 @endif
+
+                            </div>
+                            <div class="card-body box1-con-year pe-1 ps-1">
+                                <div class="text-primary mb-2  text-dark d-flex align-items-center">
+                                    ⚠️ Chú ý: Đây là các thông tin xem mang tính chất tham khảo, không thay thế cho các
+                                    tư vấn
+                                    chuyên môn. Người dùng tự chịu trách nhiệm với mọi quyết định cá nhân dựa trên thông
+                                    tin
+                                    tham khảo tại Phong Lịch.
+                                </div>
+
                             </div>
                         @else
                             <p class="text-muted text-center py-4">
