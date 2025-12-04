@@ -438,7 +438,7 @@ function initTabooFilter(resultsByYear) {
                 emptyRow.className = 'empty-filter-row';
                 emptyRow.innerHTML = `
                     <td colspan="3" class="text-center text-muted py-4">
-                        Tất cả ngày đều có taboo đã chọn để lọc.
+                       Không có ngày nào phù hợp với tiêu chí của bạn. Vui lòng chọn khoảng thời gian khác.
                     </td>
                 `;
                 tbody.appendChild(emptyRow);
