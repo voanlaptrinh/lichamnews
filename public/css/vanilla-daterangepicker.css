@@ -2965,7 +2965,7 @@ th {
 
     /* Tăng padding-right cho td chứa yếu tố hỗ trợ để tránh circle che text */
     .table-responsive td:nth-child(2) {
-        /* padding-right: 45px !important; */
+        padding-right: 45px !important;
     }
 
     .table-responsive th:nth-child(2) {
@@ -2995,7 +2995,7 @@ th {
 
     /* Tăng padding để chứa 2 circles wedding */
     .table-responsive td:nth-child(2):has(.score-circles-wedding) {
-        /* padding-right: 45px !important; */
+        padding-right: 0px !important;
     }
 }
 

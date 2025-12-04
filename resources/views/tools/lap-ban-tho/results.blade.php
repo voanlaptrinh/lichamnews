@@ -70,7 +70,7 @@
                             <div class="betwen-ds flex-wrap mb-3">
                                 <div class="text-primary mb-0 title-tong-quan-h4-log text-dark fw-bolder">
                                     <img src="{{ asset('icons/k_nen_1.svg') }}" alt="bảng điểm lập bàn thờ"
-                                        width="28" height="28" class="me-1"> Danh Sách Điểm Theo Ngày Lập Bàn
+                                        width="28" height="28" class="me-1"> Gợi ý ngày tốt cho bạn
                                     Thờ
                                 </div>
                                 <div class="d-flex flex-wrap" style="gap: 10px">

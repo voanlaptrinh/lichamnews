@@ -65,7 +65,7 @@
                     </div>
                 </div>
 
-                <!-- Danh sách điểm theo ngày -->
+                <!-- Gợi ý ngày tốt cho bạn -->
                 <div class="card border-0 mb-3 w-100 box-detial-year">
                     <div class="card-body">
                         @if (isset($yearData['days']) && count($yearData['days']) > 0)
@@ -73,7 +73,7 @@
                             <div class="betwen-ds flex-wrap mb-3">
                                 <div class="text-primary mb-0 title-tong-quan-h4-log text-dark fw-bolder">
                                     <img src="{{ asset('icons/k_nen_1.svg') }}" alt="bảng điểm cúng sao giải hạn"
-                                        width="28" height="28" class="me-1"> Danh Sách Điểm Theo Ngày Cúng Sao Giải Hạn
+                                        width="28" height="28" class="me-1"> Gợi ý ngày tốt cho bạn 
                                 </div>
                                 <div class="d-flex flex-wrap" style="gap: 10px">
                                     <div class="position-relative mb-3">

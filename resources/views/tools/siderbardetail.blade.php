@@ -63,7 +63,7 @@
                      </a>
                  </li> --}}
                  <li class="list-group-item pb-0">
-                     <a href="" class="">
+                     <a href="{{ route('laso.create') }}" class="">
 
                          <div class="event-details --padding-event-tot">
                              <div class="event-name" style="font-weight: unset">
