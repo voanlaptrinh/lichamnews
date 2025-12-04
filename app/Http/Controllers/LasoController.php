@@ -9,6 +9,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use App\Models\LaSoLuanGiai;
 
 class LasoController extends Controller
 {
@@ -239,13 +240,31 @@ class LasoController extends Controller
         $imageUrl = $results['imageUrl'];
         $normalizedData = $results['normalizedData'];
 
+        // Kiểm tra xem có cache luận giải trong database không
+        $lastInput = session('laso_last_input', []);
+        $cachedLuanGiai = null;
+
+        if (!empty($lastInput)) {
+            // Tạo laso_id từ thông tin người dùng
+            $lasoId = LaSoLuanGiai::generateLasoId(
+                $lastInput['ho_ten'] ?? '',
+                $lastInput['dl_date_processed'] ?? '',
+                $lastInput['dl_gio'] . ':' . $lastInput['dl_phut'] ?? '',
+                $lastInput['gioi_tinh'] ?? '',
+                $lastInput['nam_xem'] ?? ''
+            );
+
+            // Tìm cache luận giải
+            $cachedLuanGiai = LaSoLuanGiai::findByLasoId($lasoId);
+        }
+
         $metaTitle = "Lá Số Tử Vi Online – Luận Giải Tử Vi 12 Cung, Chính Xác & Miễn Phí";
         $metaDescription = "Xem lá số tử vi online theo ngày tháng năm sinh. Luận giải 12 cung, sao hạn, vận mệnh, tính cách, công danh – đầy đủ, dễ hiểu, miễn phí và chính xác.";
 
         // Lấy hash data từ session nếu có
         $urlHash = session('url_hash');
 
-        return view('la-so-tu-vi.results', compact('imageUrl', 'normalizedData', 'metaTitle', 'metaDescription', 'urlHash'));
+        return view('la-so-tu-vi.results', compact('imageUrl', 'normalizedData', 'metaTitle', 'metaDescription', 'urlHash', 'cachedLuanGiai'));
     }
 
     public function luanGiai(Request $request)
@@ -273,6 +292,30 @@ class LasoController extends Controller
                     'debug' => ['missing_field' => $field, 'available_fields' => array_keys($lastInput)]
                 ]);
             }
+        }
+
+        // Tạo laso_id từ thông tin người dùng
+        $lasoId = LaSoLuanGiai::generateLasoId(
+            $lastInput['ho_ten'],
+            $lastInput['dl_date_processed'],
+            $lastInput['dl_gio'] . ':' . $lastInput['dl_phut'],
+            $lastInput['gioi_tinh'],
+            $lastInput['nam_xem']
+        );
+
+        // Kiểm tra cache trong database trước
+        $cachedLuanGiai = LaSoLuanGiai::findByLasoId($lasoId);
+
+        if ($cachedLuanGiai) {
+            \Log::info('Returning cached luan giai', ['laso_id' => $lasoId]);
+
+            // Trả về kết quả từ cache
+            return response()->json([
+                'success' => true,
+                'data' => $cachedLuanGiai->luan_giai_content,
+                'message' => 'Luận giải từ cache!',
+                'cached' => true
+            ]);
         }
 
         // Parse ngày từ dl_date_processed (format: DD/MM/YYYY (DL) hoặc DD/MM/YYYY (ÂL))
@@ -378,10 +421,45 @@ class LasoController extends Controller
 
                 $luanGiaiResult = $luanGiaiResponse->json();
 
+                // Lưu kết quả luận giải vào database cache
+                try {
+                    // Parse ngày sinh từ dl_date_processed
+                    $dateProcessed = $lastInput['dl_date_processed'];
+                    $dateParts = explode('/', explode(' ', $dateProcessed)[0]);
+                    $ngaySinh = null;
+
+                    if (count($dateParts) === 3) {
+                        $ngaySinh = sprintf('%04d-%02d-%02d', $dateParts[2], $dateParts[1], $dateParts[0]);
+                    }
+
+                    // Tạo dữ liệu để lưu cache
+                    $cacheData = [
+                        'laso_id' => $lasoId,
+                        'ho_ten' => $lastInput['ho_ten'],
+                        'ngay_sinh' => $ngaySinh,
+                        'gio_sinh' => $lastInput['dl_gio'] . ':' . $lastInput['dl_phut'],
+                        'gioi_tinh' => $lastInput['gioi_tinh'],
+                        'nam_xem' => $lastInput['nam_xem'],
+                        'luan_giai_content' => $luanGiaiResult,
+                        'api_response' => $luanGiaiResult // Lưu cả response nguyên bản
+                    ];
+
+                    LaSoLuanGiai::createOrUpdateCache($cacheData);
+                    \Log::info('Saved luan giai to cache', ['laso_id' => $lasoId]);
+
+                } catch (\Exception $e) {
+                    \Log::error('Error saving luan giai cache', [
+                        'error' => $e->getMessage(),
+                        'laso_id' => $lasoId
+                    ]);
+                    // Không throw lỗi ở đây vì việc lưu cache thất bại không ảnh hưởng đến kết quả trả về
+                }
+
                 return response()->json([
                     'success' => true,
                     'data' => $luanGiaiResult,
-                    'message' => 'Luận giải thành công!'
+                    'message' => 'Luận giải thành công!',
+                    'cached' => false
                 ]);
 
             } else {

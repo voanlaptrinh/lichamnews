@@ -170,94 +170,29 @@
             // Tạo ID duy nhất cho lá số này
             const lasoId = generateLasoId();
 
-            // Auto chạy luận giải sau 1 giây (kiểm tra cache trước)
-            setTimeout(function() {
-                autoRunLuanGiai();
-            }, 500);
+            // Kiểm tra cache database và tự động hiển thị nếu có
+            @if(isset($cachedLuanGiai) && $cachedLuanGiai)
+                // Có cache trong database, hiển thị ngay
+                setTimeout(function() {
+                    console.log('Hiển thị luận giải từ database cache');
+                    const cachedContent = @json($cachedLuanGiai->luan_giai_content);
+                    showLuanGiaiResults(cachedContent);
+                }, 500);
+            @else
+                // Không có cache, tự động chạy luận giải
+                setTimeout(function() {
+                    autoRunLuanGiai();
+                }, 500);
+            @endif
 
-            // Function tạo ID consistent cho lá số
+            // Function tạo ID consistent cho lá số (giữ lại để tương thích với server)
             function generateLasoId() {
-                const hoTen = '{{ $normalizedData['ho_ten'] ?? '' }}';
-                const ngaySinh =
-                    '{{ isset($normalizedData['ngay_sinh']) ? $normalizedData['ngay_sinh']->format('Y-m-d') : '' }}';
-                const gioSinh = '{{ $normalizedData['gio_sinh'] ?? '' }}';
-                const gioiTinh = '{{ $normalizedData['gioi_tinh'] ?? '' }}';
-
-                // Tạo chuỗi unique từ thông tin người dùng
-                const dataString = `${hoTen}-${ngaySinh}-${gioSinh}-${gioiTinh}`;
-
-                // Tạo hash consistent từ chuỗi (không dùng timestamp)
-                let hash = 0;
-                for (let i = 0; i < dataString.length; i++) {
-                    const char = dataString.charCodeAt(i);
-                    hash = ((hash << 5) - hash) + char;
-                    hash = hash & hash; // Convert to 32-bit integer
-                }
-
-                return `laso_${Math.abs(hash)}`;
+                // Không còn cần thiết cho localStorage nhưng giữ lại để tương thích
+                return 'laso_placeholder';
             }
 
-            // Function kiểm tra và lấy cache
-            function getCachedLuanGiai(lasoId) {
-                try {
-                    const cached = localStorage.getItem(lasoId);
-                    if (cached) {
-                        const data = JSON.parse(cached);
-                        // Kiểm tra cache có hết hạn không (24 giờ)
-                        const cacheTime = new Date(data.timestamp);
-                        const now = new Date();
-                        const hoursDiff = (now - cacheTime) / (1000 * 60 * 60);
-
-                        if (hoursDiff < 24) {
-                            console.log('Loading luận giải from cache');
-                            return data.content;
-                        } else {
-                            // Xóa cache hết hạn
-                            localStorage.removeItem(lasoId);
-                        }
-                    }
-                } catch (e) {
-                    console.error('Error reading cache:', e);
-                }
-                return null;
-            }
-
-            // Function lưu cache
-            function setCachedLuanGiai(lasoId, content) {
-                try {
-                    const cacheData = {
-                        content: content,
-                        timestamp: new Date().toISOString(),
-                        lasoInfo: {
-                            hoTen: '{{ $normalizedData['ho_ten'] ?? '' }}',
-                            ngaySinh: '{{ isset($normalizedData['ngay_sinh']) ? $normalizedData['ngay_sinh']->format('d/m/Y') : '' }}',
-                            gioSinh: '{{ $normalizedData['gio_sinh'] ?? '' }}'
-                        }
-                    };
-                    localStorage.setItem(lasoId, JSON.stringify(cacheData));
-                    console.log('Luận giải cached with ID:', lasoId);
-                } catch (e) {
-                    console.error('Error saving cache:', e);
-                }
-            }
-
-            // Function tự động chạy luận giải với cache
+            // Function tự động chạy luận giải (không cache localStorage)
             function autoRunLuanGiai() {
-                // Kiểm tra cache trước
-                const cachedContent = getCachedLuanGiai(lasoId);
-                if (cachedContent) {
-                    console.log('Hiển thị luận giải từ cache, ID:', lasoId);
-
-                    // Hiển thị thông báo load từ cache
-                    showLuanGiaiCacheLoading();
-
-                    // Delay nhẹ để user thấy
-                    setTimeout(() => {
-                        showLuanGiaiResults(cachedContent);
-                    }, 800);
-                    return;
-                }
-
                 const luanGiaiBtn = document.getElementById('luanGiaiBtn');
                 if (luanGiaiBtn) {
                     // Set button thành trạng thái loading
@@ -269,25 +204,27 @@
                 // Hiển thị thông báo đang xử lý
                 showLuanGiaiLoading();
 
-                // Gọi API luận giải
+                // Gọi API luận giải (server sẽ kiểm tra database cache)
                 fetch('{{ route('laso.luan_giai') }}', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
                             'X-CSRF-TOKEN': '{{ csrf_token() }}'
                         },
-                        body: JSON.stringify({
-                            laso_id: lasoId // Gửi ID lá số để tracking
-                        })
+                        body: JSON.stringify({})
                     })
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
-                            // Lưu vào cache
-                            setCachedLuanGiai(lasoId, data.data);
-
                             // Hiển thị kết quả luận giải
                             showLuanGiaiResults(data.data);
+
+                            // Log xem có từ cache hay không
+                            if (data.cached) {
+                                console.log('Luận giải được trả về từ database cache');
+                            } else {
+                                console.log('Luận giải mới được tạo và lưu vào database');
+                            }
                         } else {
                             let errorMsg = 'Lỗi: ' + data.message;
                             if (data.debug) {
@@ -323,42 +260,6 @@
                 });
             }
 
-            function showLuanGiaiCacheLoading() {
-                let resultsSection = document.getElementById('luanGiaiResults');
-                if (!resultsSection) {
-                    resultsSection = document.createElement('div');
-                    resultsSection.id = 'luanGiaiResults';
-                    resultsSection.className = 'card mt-4';
-
-                    // Thêm vào vị trí cố định
-                    const targetElement = document.getElementById('luanGiaiResults');
-                    if (targetElement) {
-                        targetElement.parentNode.replaceChild(resultsSection, targetElement);
-                    }
-                }
-
-                // Hiển thị loading từ cache
-                const cacheLoadingHtml = `
-                    <div class="box--bg-thang mt-3 mb-3">
-                        <div class="loading-container text-center py-5">
-                            <div class="loading-animation mb-4">
-                                <div class="cache-loading">
-                                    <i class="fas fa-archive fa-3x text-success pulse-animation"></i>
-                                </div>
-                                <div class="dots-loading mt-3">
-                                    <span class="dot" style="background-color: #10B981;"></span>
-                                    <span class="dot" style="background-color: #10B981;"></span>
-                                    <span class="dot" style="background-color: #10B981;"></span>
-                                </div>
-                            </div>
-                            <h4 class="text-success mb-2 fade-in">Đang tải luận giải đã lưu của bạn...</h4>
-                            <p class="text-muted small">Lá số này đã được phân tích trước đó</p>
-                        </div>
-                    </div>
-                `;
-
-                resultsSection.innerHTML = cacheLoadingHtml;
-            }
 
             function showLuanGiaiLoading() {
                 let resultsSection = document.getElementById('luanGiaiResults');
