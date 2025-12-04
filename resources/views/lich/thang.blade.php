@@ -115,13 +115,28 @@
                                                                         @php
                                                                             // Sử dụng hàm getVietnamLunarEvent2 để kiểm tra sự kiện âm lịch
                                                                             $events = \App\Helpers\LunarHelper::getVietnamLunarEvent2($day['month'], $day['year']);
-                                                                            $lunar_event = isset($events[$day['day']]) ? $events[$day['day']]['ten_su_kien'] : null;
+                                                                            $lunar_event = null;
+                                                                            $lunar_event_title = null;
+
+                                                                            // Debug: kiểm tra cấu trúc dữ liệu
+                                                                            if (isset($events[$day['day']])) {
+                                                                                $eventData = $events[$day['day']];
+                                                                                // Kiểm tra xem eventData có đúng cấu trúc không
+                                                                                if (is_array($eventData) && isset($eventData['ten_su_kien'])) {
+                                                                                    $lunar_event = $eventData['ten_su_kien'];
+                                                                                    $lunar_event_title = isset($eventData['mo_ta']) ? $eventData['mo_ta'] : $lunar_event;
+                                                                                } else if (is_string($eventData)) {
+                                                                                    // Fallback nếu dữ liệu là string
+                                                                                    $lunar_event = $eventData;
+                                                                                    $lunar_event_title = $eventData;
+                                                                                }
+                                                                            }
+
+                                                                            // Debug removed - function now working correctly
                                                                         @endphp
 
-                                                                       
-
                                                                         @if($lunar_event)
-                                                                            <span class="hidden-xs" style="color:#8A1E31; font-weight:bold" title="{{ $lunar_event }}">{{ $lunar_event }}</span>
+                                                                            <span class="hidden-xs" style="color:#8A1E31; font-weight:bold" title="{{ $lunar_event_title }}">{{ $lunar_event }}</span>
                                                                         @else
                                                                            <span class="hidden-xs">{{ $day['canchi'] }}</span>
                                                                         @endif

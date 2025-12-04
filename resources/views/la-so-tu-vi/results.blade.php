@@ -2,6 +2,7 @@
 @section('content')
     @push('styles')
         <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=10.8') }}">
+        <link rel="stylesheet" href="{{ asset('/css/la-so.css?v=10.8') }}">
         <style>
             .main-content-wrapper {
                 background-image: url(../images/Quy_Trinh_Bg.png);
@@ -12,41 +13,52 @@
                 background-color: #ffffff;
                 /* Màu nền phía dưới */
             }
+
             .shimmer {
-    position: relative;
-    overflow: hidden;
-    background: #f0f0f0;
-    animation: pulse 1.5s infinite;
-    border-radius: 8px;
-}
+                position: relative;
+                overflow: hidden;
+                background: #f0f0f0;
+                animation: pulse 1.5s infinite;
+                border-radius: 8px;
+            }
 
-@keyframes pulse {
-    0% { opacity: 0.75; }
-    50% { opacity: 1; }
-    100% { opacity: 0.75; }
-}
+            @keyframes pulse {
+                0% {
+                    opacity: 0.75;
+                }
 
-.shimmer::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-        120deg,
-        rgba(255, 255, 255, 0.0) 0%,
-        rgba(255, 255, 255, 0.5) 50%,
-        rgba(255, 255, 255, 0.0) 100%
-    );
-    animation: shimmer 1.5s infinite;
-}
+                50% {
+                    opacity: 1;
+                }
 
-@keyframes shimmer {
-    0% { left: -100%; }
-    100% { left: 100%; }
-}
+                100% {
+                    opacity: 0.75;
+                }
+            }
 
+            .shimmer::after {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(120deg,
+                        rgba(255, 255, 255, 0.0) 0%,
+                        rgba(255, 255, 255, 0.5) 50%,
+                        rgba(255, 255, 255, 0.0) 100%);
+                animation: shimmer 1.5s infinite;
+            }
+
+            @keyframes shimmer {
+                0% {
+                    left: -100%;
+                }
+
+                100% {
+                    left: 100%;
+                }
+            }
         </style>
     @endpush
 
@@ -120,27 +132,22 @@
                             </div>
                         @endif
                         <div id="luanGiaiResults"></div>
+
+
+                        <!-- App Download Banner -->
+                        @include('la-so-tu-vi.app')
                     </div>
                     @include('tools.siderbardetail')
                 </div>
             </div>
         </div>
     </div>
-    <div id="qrcode"></div>
+
+
 
 @endsection
 
 @push('scripts')
-    <script src="{{ asset('/js/qrcode.js') }}"></script>
-    <script>
-        new QRCode(document.getElementById("qrcode"), {
-            text: "http://192.168.1.27:8000/app", // URL trung gian
-            width: 240,
-            height: 240,
-            correctLevel: QRCode.CorrectLevel.H
-        });
-    </script>
-
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Image zoom functionality (if needed)
@@ -174,7 +181,8 @@
                 if (luanGiaiBtn) {
                     // Set button thành trạng thái loading
                     luanGiaiBtn.disabled = true;
-                    luanGiaiBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>Bạn đợi một chút nhé! Chúng tôi đang phân tích lá số và chuẩn bị luận giải cho bạn';
+                    luanGiaiBtn.innerHTML =
+                        '<i class="fas fa-spinner fa-spin"></i>Bạn đợi một chút nhé! Chúng tôi đang phân tích lá số và chuẩn bị luận giải cho bạn';
                 }
 
                 // Hiển thị thông báo đang xử lý
@@ -258,10 +266,7 @@
                                 </div>
                             </div>
                             <h4 class="text-primary mb-2 fade-in">Bạn đợi một chút nhé! Chúng tôi đang phân tích lá số và chuẩn bị luận giải cho bạn</h4>
-                            <div class="progress mt-3 mx-auto" style="width: 300px; height: 6px;">
-                                <div class="progress-bar bg-primary progress-bar-striped progress-bar-animated"
-                                     role="progressbar" style="width: 100%"></div>
-                            </div>
+                           
                         </div>
                     </div>
 
@@ -324,10 +329,7 @@
                 resultsSection.innerHTML = loadingHtml;
 
                 // Scroll đến loading section
-                resultsSection.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
+
             }
 
             function showLuanGiaiError(errorMsg) {
@@ -397,11 +399,7 @@
 
                 resultsSection.innerHTML = resultsHtml;
 
-                // Scroll đến kết quả
-                resultsSection.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
+
             }
 
             function formatLuanGiaiContent(content) {

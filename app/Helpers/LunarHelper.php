@@ -1427,9 +1427,70 @@ class LunarHelper
         foreach ($events as $key => $eventData) {
             list($ed, $em) = explode('-', $key);
             if ((int)$em == (int)$lunarMonth) {
-                $result[(int)$ed] = $eventData;
+                // Bỏ qua sự kiện giao thừa cố định vì sẽ xử lý động
+                if (!($ed == 30 && $em == 12)) {
+                    $result[(int)$ed] = $eventData;
+                }
             }
         }
+
+        // Xử lý đặc biệt cho Tết Giao thừa (ngày cuối tháng Chạp)
+        // Tự động lấy ngày cuối cùng của tháng làm ngày giao thừa
+        if ($lunarMonth == 12) {
+            try {
+                // Sử dụng API để lấy số ngày chính xác trong tháng Chạp
+                $lunarMonthController = new \App\Http\Controllers\Api\LunarConvertController();
+                $request = new \Illuminate\Http\Request();
+                $request->merge([
+                    'month' => 12,
+                    'year' => $lunarYear,
+                    'isLeap' => 0
+                ]);
+
+                $response = $lunarMonthController->getLunarMonthDays($request);
+                $responseData = $response->getData(true);
+
+                if ($responseData['success'] && isset($responseData['days'])) {
+                    $lastDay = $responseData['days']; // Lấy số ngày chính xác từ API
+                } else {
+                    // Fallback nếu API lỗi: dùng logic convert cũ
+                    $day30Check = self::convertLunar2Solar(30, 12, $lunarYear, 0);
+                    $day29Check = self::convertLunar2Solar(29, 12, $lunarYear, 0);
+
+                    $lastDay = 29; // Mặc định 29 ngày
+
+                    if ($day30Check && $day29Check && $day30Check[0] > 0 && $day29Check[0] > 0) {
+                        $date29 = new \DateTime();
+                        $date29->setDate($day29Check[2], $day29Check[1], $day29Check[0]);
+
+                        $date30 = new \DateTime();
+                        $date30->setDate($day30Check[2], $day30Check[1], $day30Check[0]);
+
+                        $diff = $date29->diff($date30)->days;
+
+                        if ($diff == 1) {
+                            $lastDay = 30; // Tháng có 30 ngày
+                        }
+                    }
+                }
+
+                // Thêm sự kiện cho ngày cuối cùng của tháng (ngày giao thừa)
+                $result[$lastDay] = [
+                    'ten_su_kien' => 'Giao thừa',
+                    'loai_su_kien' => 'le_lon',
+                    'mo_ta' => 'Đêm giao thừa - ngày cuối năm âm lịch, đón năm mới. Tháng Chạp năm ' . $lunarYear . ' có ' . $lastDay . ' ngày.'
+                ];
+
+            } catch (\Exception $e) {
+                // Fallback: thêm ngày 29 làm giao thừa (phổ biến nhất)
+                $result[29] = [
+                    'ten_su_kien' => 'Giao thừa',
+                    'loai_su_kien' => 'le_lon',
+                    'mo_ta' => 'Đêm giao thừa, đón năm mới âm lịch.'
+                ];
+            }
+        }
+
         // Sắp xếp lại mảng kết quả theo key (ngày) để đảm bảo thứ tự
         ksort($result);
 

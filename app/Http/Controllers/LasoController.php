@@ -35,8 +35,8 @@ class LasoController extends Controller
         // Giữ nguyên session data để chỉnh sửa
         $lastInput = session('laso_last_input', []);
 
-        $metaTitle = "Chỉnh Sửa Lá Số Tử Vi - Cập Nhật Thông Tin";
-        $metaDescription = "Chỉnh sửa và cập nhật thông tin lá số tử vi. Thay đổi ngày sinh, giờ sinh, năm xem để có kết quả chính xác nhất.";
+        $metaTitle = "Lá Số Tử Vi Online – Luận Giải Tử Vi 12 Cung, Chính Xác & Miễn Phí";
+        $metaDescription = "Xem lá số tử vi online theo ngày tháng năm sinh. Luận giải 12 cung, sao hạn, vận mệnh, tính cách, công danh – đầy đủ, dễ hiểu, miễn phí và chính xác.";
 
         return view('la-so-tu-vi.form', compact('lastInput', 'metaTitle', 'metaDescription'))
             ->with('imageUrl', null)
@@ -233,8 +233,8 @@ class LasoController extends Controller
         $imageUrl = $results['imageUrl'];
         $normalizedData = $results['normalizedData'];
 
-        $metaTitle = "Kết Quả Lá Số Tử Vi - Luận Giải Tử Vi 12 Cung";
-        $metaDescription = "Xem kết quả lá số tử vi chi tiết theo ngày tháng năm sinh. Luận giải 12 cung, sao hạn, vận mệnh, tính cách, công danh.";
+        $metaTitle = "Lá Số Tử Vi Online – Luận Giải Tử Vi 12 Cung, Chính Xác & Miễn Phí";
+        $metaDescription = "Xem lá số tử vi online theo ngày tháng năm sinh. Luận giải 12 cung, sao hạn, vận mệnh, tính cách, công danh – đầy đủ, dễ hiểu, miễn phí và chính xác.";
 
         return view('la-so-tu-vi.results', compact('imageUrl', 'normalizedData', 'metaTitle', 'metaDescription'));
     }
