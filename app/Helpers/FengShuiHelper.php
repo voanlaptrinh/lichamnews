@@ -284,10 +284,10 @@ class FengShuiHelper //cần xác định xem gia chủ thuộc Tây Tứ Mệnh
         ];
 
         return [
-            ['Huong' => $huongTotGoc['sinh_khi'], 'Loai' => 'Sinh Khí', 'Y nghia' => $yNghia['sinh_khi'], 'Uu tien' => 'Ưu tiên 1'],
-            ['Huong' => $huongTotGoc['thien_y'], 'Loai' => 'Thiên Y', 'Y nghia' => $yNghia['thien_y'], 'Uu tien' => 'Ưu tiên 2'],
-            ['Huong' => $huongTotGoc['phuoc_duc'], 'Loai' => 'Diên Niên (Phước Đức)', 'Y nghia' => $yNghia['phuoc_duc'], 'Uu tien' => 'Ưu tiên 3'],
-            ['Huong' => $huongTotGoc['phuc_vi'], 'Loai' => 'Phục Vị', 'Y nghia' => $yNghia['phuc_vi'], 'Uu tien' => 'Ưu tiên 4'],
+            ['huong' => $huongTotGoc['sinh_khi'], 'loai' => 'Sinh Khí', 'y_nghia' => $yNghia['sinh_khi'], 'uu_tien' => 'Ưu tiên 1'],
+            ['huong' => $huongTotGoc['thien_y'], 'loai' => 'Thiên Y', 'y_nghia' => $yNghia['thien_y'], 'uu_tien' => 'Ưu tiên 2'],
+            ['huong' => $huongTotGoc['phuoc_duc'], 'loai' => 'Diên Niên (Phước Đức)', 'y_nghia' => $yNghia['phuoc_duc'], 'uu_tien' => 'Ưu tiên 3'],
+            ['huong' => $huongTotGoc['phuc_vi'], 'loai' => 'Phục Vị', 'y_nghia' => $yNghia['phuc_vi'], 'uu_tien' => 'Ưu tiên 4'],
         ];
     }
 

@@ -2,7 +2,7 @@
     <div class="banner-content">
         <!-- Header section -->
         <div class="banner-header">
-            <h2 class="banner-title">Trải nghiệm người dùng với phiên bản mobile</h2>
+            <h2 class="banner-title">Đừng bỏ lỡ: Tải App ngay để mở khóa toàn bộ luận giải 12 Cung Lá Số Tử Vi của bạn!</h2>
             <div class="banner-features">
                 <div class="box-title-la-so-tu-vi">
                     <span class="feature-item">

@@ -6,81 +6,89 @@
                 <img src="{{ asset('/icons/dac-diem1.svg') }}" alt="thông tin người xem" width="28" height="28"
                     class="me-1">Thông tin chủ nhà
             </div>
-
-
-        </div>
-    </div>
-
-    <h2 class="h4 mb-3">Kết quả xem hướng nhà cho gia chủ sinh ngày
-        {{ $results['basicInfo']['ngaySinhDuongLich'] }}</h2>
-
-   
-    <div class="card mb-4 border-primary">
-        <div class="card-header bg-primary text-white text-center"><strong>THÔNG TIN CƠ BẢN</strong></div>
-        <div class="card-body p-0">
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <span><i class="fas fa-calendar-day me-2 text-primary"></i>Ngày sinh dương lịch:</span>
-                    <span class="fw-bold">{{ $results['basicInfo']['ngaySinhDuongLich'] }}</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
+            <div class="info-grid">
+                <p class="mb-2">
+                    <strong>Ngày sinh:</strong>
+                    {{ $results['basicInfo']['ngaySinhDuongLich'] }} tức ngày
+                    {{ $results['basicInfo']['ngaySinhAmLich'] }} âm lịch
+                </p>
+                <p class="mb-2">
+                    <strong>Tuổi:</strong>
+                    <b> {{ $results['ageInfo']['tuoiAm'] }}</b>, mệnh:
+                    {{ $results['basicInfo']['menhQuai'] }}
+                </p>
+                <p class="mb-2">
+                    <strong>Giới tính:</strong>
+                    {{ $results['basicInfo']['gioiTinh'] }}
+                </p>
+                <p class="mb-2">
+                    <strong>Nhóm:</strong>
                     <span>
-                        <i class="fas fa-moon me-2 text-primary"></i>Ngày sinh âm lịch:</span>
-                    <span class="fw-bold">{{ $results['basicInfo']['ngaySinhAmLich'] }}</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <span><i class="fas fa-venus-mars me-2 text-primary"></i>Giới tính:</span>
-                    <span class="fw-bold">{{ $results['basicInfo']['gioiTinh'] }}</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <span><i class="fas fa-star-of-life me-2 text-primary"></i>Mệnh quái:</span>
-                    <span class="fw-bold">{{ $results['basicInfo']['menhQuai'] }}</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <span><i class="fas fa-users me-2 text-primary"></i>Thuộc nhóm:</span>
-                    <span class="fw-bold text-danger">{{ $results['basicInfo']['thuocNhom'] }}</span>
-                </li>
-            </ul>
+                        {{ $results['basicInfo']['thuocNhom'] }}
+                    </span>
+                </p>
+
+            </div>
+
+
         </div>
     </div>
+    <div class=" card border-0 mb-3 w-100 box-detial-year">
 
-    {{-- 2. NGUYÃŠN Táº®C CHá»ŒN HÆ¯á»šNG (THEO MáºªU HÃŒNH áº¢NH) --}}
-    <div class="card mb-4">
-        <div class="card-header text-center"><strong>NGUYÊN TẮC CHỌN HƯỚNG NHÀ</strong></div>
-        <div class="card-body">
-            <p><i class="fas fa-check-circle text-success me-2"></i><strong class="text-success">Chọn hướng
-                    cát:</strong> {{ implode(', ', $results['nguyenTac']['huongCat']) }}</p>
-            <p><i class="fas fa-times-circle text-danger me-2"></i><strong class="text-danger">Tránh hướng
-                    hung:</strong> {{ implode(', ', $results['nguyenTac']['huongHung']) }}</p>
+        <div class="card-body box1-con-year">
+            <div class="text-primary mb-3 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
+                <img src="{{ asset('/icons/dac-diem1.svg') }}" alt="thông tin người xem" width="28" height="28"
+                    class="me-1">Nguyên tắc chọn hướng nhà
+            </div>
+            <div class="info-grid">
+                <p class="mb-2">
+                    <strong class="text-success">Chọn hướng cát:</strong>
+                    <span>
+                        {{ implode(', ', $results['nguyenTac']['huongCat']) }}
+                    </span>
+                </p>
+                <p class="mb-2">
+                    <strong class="text-danger">Chọn hướng hung:</strong>
+                    <span>
+                        {{ implode(', ', $results['nguyenTac']['huongHung']) }}
+                    </span>
+                </p>
+            </div>
         </div>
     </div>
+   <div class=" card border-0 mb-3 w-100 box-detial-year">
 
-    {{-- 3. Báº¢NG CHI TIáº¾T HÆ¯á»šNG Tá»T (GIá»® Láº I VÃŒ Ráº¤T Há»®U ÃCH) --}}
-    <div class="card mb-3">
-        <div class="card-header bg-success text-white"><strong>PHÂN TÍCH CHI TIẾT CÁC HƯỚNG TỐT</strong></div>
-        <div class="table-responsive">
-            <table class="table table-bordered mb-0 text-center align-middle">
-                <thead class="table-light">
+        <div class="card-body box1-con-year">
+            <div class="text-primary mb-3 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
+                <img src="{{ asset('/icons/dac-diem1.svg') }}" alt="thông tin người xem" width="28" height="28"
+                    class="me-1">Hướng nhà tốt nhất cho {{ $results['basicInfo']['gioiTinh'] }}
+                {{ $nam_sinh }}
+            </div>
+
+            <table class="table align-middle">
+                <thead class="text-center" style="background-color: #e8ebee;">
                     <tr>
-                        <th>Hướng</th>
-                        <th> Loại Cát Tinh </th>
-                        <th>Ý nghĩa</th>
-                        <th>Mức độ tốt</th>
+                        <th style="border-radius: 8px 0 0 8px">Hướng</th>
+                        <th style="">Ý nghĩa</th>
+                        <th style="border-radius: 0 8px 8px 0">Ưu tiên</th>
                     </tr>
                 </thead>
+
                 <tbody>
-                    @foreach ($results['huongNhaTotChiTiet'] as $huong)
+                    @foreach ($results['huongNhaTotChiTiet'] as $item)
                         <tr>
-                            <td class="fw-bold fs-5">{{ $huong['Huong'] }}</td>
-                            <td>{{ $huong['Loai'] }}</td>
-                            <td class="text-start p-3">{{ $huong['Y nghia'] }}</td>
-                            <td><span class="badge bg-success fs-6">{{ $huong['Uu tien'] }}</span></td>
+                            <td>{{ $item['huong'] }} ({{ $item['loai'] }})</td>
+                            <td>{{ $item['y_nghia'] }}</td>
+                            <td>{{ $item['uu_tien'] }}</td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
+
     </div>
 
+
+ 
 
 </div>

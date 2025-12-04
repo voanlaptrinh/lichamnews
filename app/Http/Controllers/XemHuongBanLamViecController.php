@@ -14,7 +14,7 @@ class XemHuongBanLamViecController extends Controller
      */
     public function showForm()
     {
-        return view('ban-lam-viec.index');
+        return view('huong-hop-tuoi.ban-lam-viec.form');
     }
 
     /**
@@ -39,23 +39,36 @@ class XemHuongBanLamViecController extends Controller
         $validated = $validator->validated();
 
         // 2. Xử lý dữ liệu đầu vào
-        $birthdateInput = $validated['birthdate'];
-        $birthdateObject = Carbon::createFromFormat('d/m/Y', $birthdateInput);
-        $gioiTinh = $validated['gioi_tinh'];
+        $birthDateInput = $validated['birthdate'];
+        $birthdateObject = Carbon::createFromFormat('d/m/Y', $birthDateInput);
+        $gender = $validated['gioi_tinh'];
 
         // 3. Gọi Helper để lấy kết quả
         $results = FengShuiHelper::layHuongBanLamViec(
             $birthdateObject->year,
             $birthdateObject->month,
             $birthdateObject->day,
-            $gioiTinh
+            $gender
         );
+        if ($request->ajax() || $request->wantsJson()) {
+            $html = view('huong-hop-tuoi.ban-lam-viec.results', [
+                'results' => $results,
+                'birthDate' => $birthDateInput, // Truyền chuỗi ngày sinh đã nhập
+                'gender' => $gender,             // Truyền giới tính đã chọn
+                'nam_sinh' => $birthdateObject->year,
+            ])->render();
 
+            return response()->json([
+                'success' => true,
+                'html' => $html,
+            ]);
+        }
         // 4. Trả về view với đầy đủ dữ liệu
-        return view('ban-lam-viec.index', [
+        return view('huong-hop-tuoi.ban-lam-viec.form', [
             'results' => $results,
-            'birthdate' => $birthdateInput,
-            'gioi_tinh' => $gioiTinh,
+            'birthdate' => $birthDateInput,
+            'gender' => $gender, // Truyền lại giới tính đã chọn
+            'nam_sinh' => $birthdateObject->year,
         ]);
     }
 }

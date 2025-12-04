@@ -289,20 +289,20 @@
                                 .map(errors => errors[0])
                                 .join('\n- ');
                             alert(`Vui lòng kiểm tra lại:\n- ${errorMessages}`);
+                                  setLoadingState(false);
                         } else {
+                                  setLoadingState(false);
                             alert(data.message || 'Có lỗi xảy ra. Vui lòng thử lại.');
                         }
                     } catch (error) {
-                        console.log(error.message);
-                        
+                 
+                         setLoadingState(false);
                         alert('Có lỗi xảy ra khi kết nối. Vui lòng thử lại.');
                     }
                 };
 
                 submitForm();
 
-                console.log('Formatted Birthdate:', genderValue);
-                // AJAX call will go here
             });
         });
     </script>
