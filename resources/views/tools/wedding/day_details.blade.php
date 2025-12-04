@@ -16,14 +16,14 @@
                         tốt</a>
                 </li>
                 <li class="breadcrumb-item" aria-current="page">
-                    Xem ngày dạm ngõ
+                    Xem ngày cưới hỏi
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
                     Chi tiết
                 </li>
             </ol>
         </nav>
-        <h1 class="content-title-home-lich">Chi tiết xem dạm ngõ</h1>
+        <h1 class="content-title-home-lich">Chi tiết xem cưới hỏi</h1>
         <div>
             <div class="row g-lg-3 g-2 pt-lg-3 pt-2">
                 <div class="col-xl-9 col-sm-12 col-12 ">

@@ -35,7 +35,7 @@
                          class="{{ request()->routeIs('astrology.form') ? 'active-tools' : '' }}">
                          <div class="event-details  --padding-event-tot">
                              <div class="event-name" style="font-weight: unset">
-                                 Xem ngày kết hôn
+                                 Xem ngày cưới hỏi
                              </div>
                          </div>
                      </a>

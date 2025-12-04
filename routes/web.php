@@ -123,7 +123,7 @@ Route::prefix('xem-ngay-tot')->group(function () {
         Route::get('/chi-tiet/{date}', [BuyHouseController::class, 'showDayDetails'])->name('buy-house.details');
     });
     // Xem tuổi để cưới hỏi
-    Route::prefix('xem-ngay-ket-hon')->group(function () {
+    Route::prefix('xem-ngay-cuoi-hoi')->group(function () {
         Route::get('/', [WeddingController::class, 'showForm'])->name('astrology.form');
         Route::post('/', [WeddingController::class, 'check'])->name('astrology.check');
         Route::get('/chi-tiet', [WeddingController::class, 'showDayDetails'])->name('wedding.day.details');

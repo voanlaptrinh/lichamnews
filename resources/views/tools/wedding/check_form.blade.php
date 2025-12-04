@@ -18,7 +18,7 @@
                         tốt</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
-                    Xem ngày kết hôn
+                    Xem ngày cưới hỏi
                 </li>
             </ol>
         </nav>
