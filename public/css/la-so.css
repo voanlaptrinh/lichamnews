@@ -40,7 +40,7 @@
     width: 1454px;
     height: 1189px;
     background: url('../images/iphone_16_licham.png');
-    opacity: 0.8;
+    opacity: 1;
     z-index: 1;
     pointer-events: none;
     background-repeat: no-repeat;
@@ -352,12 +352,13 @@
     display: flex;
     border-radius: 25px;
     display: flex;
+    max-width: 600px;
     align-items: center;
 }
 .banner-stats-mb{
     display: none;
 }
- .feature-item{padding: 17px;}
+ .feature-item{padding: 17px 31px;}
  .banner-main{
         align-items: start;
  }

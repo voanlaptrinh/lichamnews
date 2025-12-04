@@ -418,8 +418,9 @@
 
 
                                                 <div class="d-flex justify-content-center">
-                                                    <button type="submit" class="btn btn-light-settup fw-bold w-100">
-                                                        Lập lá số tử vi
+                                                    <button type="submit" id="submitBtn" class="btn btn-light-settup fw-bold w-100">
+                                                        <span class="btn-text">Lập lá số tử vi</span>
+                                                        <span class="spinner-border spinner-border-sm d-none" role="status"></span>
                                                     </button>
                                                 </div>
                                             </form>
@@ -456,7 +457,125 @@
     </div>
 
     <script>
+        // Function kiểm tra và xử lý hash URL
+        function checkAndProcessHashData() {
+            const hash = window.location.hash;
+
+            if (hash && hash.startsWith('#')) {
+                try {
+                    // Decode base64 data từ hash
+                    const encodedData = hash.substring(1);
+                    const decodedData = JSON.parse(atob(encodedData));
+
+                    // Fill form với data từ hash
+                    fillFormWithData(decodedData);
+
+                    // Kiểm tra nếu đang ở trang results hoặc cần hiển thị kết quả
+                    if (window.location.pathname.includes('results') || shouldShowResults()) {
+                        // Đang ở trang results, chỉ cần fill form mà không submit lại
+                        return;
+                    }
+
+                    // Auto submit form sau khi đã fill data (chỉ khi ở trang form)
+                    setTimeout(() => {
+                        submitFormToServer(decodedData);
+                    }, 100);
+
+                } catch (e) {
+                    console.error('Lỗi decode hash data:', e);
+                }
+            }
+        }
+
+        // Function kiểm tra có nên hiển thị kết quả hay không
+        function shouldShowResults() {
+            // Kiểm tra xem có phần tử results trên trang không
+            return document.querySelector('[data-results="true"]') ||
+                   document.querySelector('.laso-results') ||
+                   document.querySelector('#luanGiaiResults');
+        }
+
+        // Function điền dữ liệu vào form
+        function fillFormWithData(data) {
+            // Fill các field cơ bản
+            if (data.ho_ten) document.getElementById('ho_ten').value = data.ho_ten;
+            if (data.nam_xem) document.getElementById('nam_xem').value = data.nam_xem;
+
+            // Fill giới tính
+            if (data.gioi_tinh) {
+                const genderRadio = document.querySelector(`input[name="gioi_tinh"][value="${data.gioi_tinh}"]`);
+                if (genderRadio) genderRadio.checked = true;
+            }
+
+            // Fill loại lịch
+            if (data.calendar_type) {
+                const calendarRadio = document.querySelector(`input[name="calendar_type"][value="${data.calendar_type}"]`);
+                if (calendarRadio) calendarRadio.checked = true;
+            }
+
+            // Fill giờ sinh
+            if (data.dl_zodiac_combined) {
+                const zodiacSelect = document.getElementById('dl_zodiac_combined');
+                if (zodiacSelect) zodiacSelect.value = data.dl_zodiac_combined;
+            }
+
+            // Fill ngày sinh nếu có
+            if (data.dl_date_processed) {
+                document.getElementById('ngayXem').value = data.dl_date_processed;
+            }
+        }
+
+        // Function submit form data lên server với POST và chuyển đến results với hash
+        function submitFormToServer(formData) {
+            // Hiển thị loading
+            const submitBtn = document.getElementById('submitBtn');
+            const btnText = submitBtn.querySelector('.btn-text');
+            const spinner = submitBtn.querySelector('.spinner-border');
+
+            submitBtn.disabled = true;
+            btnText.textContent = 'Đang xử lý...';
+            spinner.classList.remove('d-none');
+
+            // Tạo form element để submit POST
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '{{ route('laso.submit') }}';
+
+            // Thêm CSRF token
+            const csrfInput = document.createElement('input');
+            csrfInput.type = 'hidden';
+            csrfInput.name = '_token';
+            csrfInput.value = '{{ csrf_token() }}';
+            form.appendChild(csrfInput);
+
+            // Thêm các field vào form
+            Object.keys(formData).forEach(key => {
+                if (formData[key] !== null && formData[key] !== undefined && formData[key] !== '') {
+                    const input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = key;
+                    input.value = formData[key];
+                    form.appendChild(input);
+                }
+            });
+
+            // Thêm hash data để có thể sử dụng sau khi submit
+            const encodedData = btoa(JSON.stringify(formData));
+            const hashInput = document.createElement('input');
+            hashInput.type = 'hidden';
+            hashInput.name = 'url_hash';
+            hashInput.value = encodedData;
+            form.appendChild(hashInput);
+
+            // Append form và submit
+            document.body.appendChild(form);
+            form.submit();
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
+            // Kiểm tra hash URL ngay khi load trang
+            checkAndProcessHashData();
+
             const zodiacCombinedSelect = document.getElementById('dl_zodiac_combined');
             const dlGioHidden = document.getElementById('dl_gio_hidden');
             const dlPhutHidden = document.getElementById('dl_phut_hidden');
@@ -634,14 +753,28 @@
             const spinner = submitBtn.querySelector('.spinner-border');
 
             form.addEventListener('submit', function(e) {
+                e.preventDefault(); // Ngăn form submit thông thường
+
                 // Disable button và hiển thị loading
                 submitBtn.disabled = true;
                 submitBtn.classList.add('loading');
                 btnText.textContent = 'Đang xử lý...';
                 spinner.classList.remove('d-none');
 
-                // Form sẽ submit bình thường (không preventDefault)
-                // Controller sẽ xử lý và trả về cùng trang với kết quả
+                // Lấy dữ liệu form
+                const formData = new FormData(form);
+                const formObject = {};
+
+                // Chuyển FormData thành object
+                for (let [key, value] of formData.entries()) {
+                    formObject[key] = value;
+                }
+
+                // Loại bỏ CSRF token khỏi URL
+                delete formObject._token;
+
+                // Submit trực tiếp lên server để xử lý
+                submitFormToServer(formObject);
             });
         });
     </script>

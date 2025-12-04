@@ -2,7 +2,7 @@
 @section('content')
     @push('styles')
         <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=11.0') }}">
-        <link rel="stylesheet" href="{{ asset('/css/la-so.css?v=11.1') }}">
+        <link rel="stylesheet" href="{{ asset('/css/la-so.css?v=11.2') }}">
         <style>
             .main-content-wrapper {
                 background-image: url(../images/Quy_Trinh_Bg.png);
@@ -78,24 +78,24 @@
                     </li>
                 </ol>
             </nav>
-
+            <h1 class="content-title-home-lich " style="color: #192E52">
+                @if (isset($normalizedData['ho_ten']) && $normalizedData['ho_ten'])
+                    Tổng Quan Lá Số Tử Vi Của {{ $normalizedData['ho_ten'] }}
+                @else
+                    Tổng Quan Lá Số Tử Vi Của Bạn
+                @endif
+            </h1>
             <div class="mt-3">
                 <div class="row g-0 g-lg-3">
                     <div class="col-xl-9 col-sm-12 col-12 ">
                         @if (isset($imageUrl) && $imageUrl)
                             <!-- Tiêu đề Số tử vi của tên -->
-                            <h1 class="content-title-home-lich " style="color: #192E52">
-                                @if (isset($normalizedData['ho_ten']) && $normalizedData['ho_ten'])
-                                    Tổng Quan Lá Số Tử Vi Của {{ $normalizedData['ho_ten'] }}
-                                @else
-                                    Tổng Quan Lá Số Tử Vi Của Bạn
-                                @endif
-                            </h1>
 
 
 
 
-                            <div class="box--bg-thang mt-3 mb-3">
+
+                            <div class="box--bg-thang mb-3">
                                 <div class=" text-center">
                                     <div class="d-flex justify-content-center">
                                         <div class="img-zoom-container" id="img-zoom-container" style="position: relative;">
@@ -142,9 +142,6 @@
             </div>
         </div>
     </div>
-
-
-
 @endsection
 
 @push('scripts')
@@ -170,13 +167,97 @@
                 document.getElementById("laso-loading").style.display = "none";
             };
 
-            // Auto chạy luận giải sau 1 giây
+            // Tạo ID duy nhất cho lá số này
+            const lasoId = generateLasoId();
+
+            // Auto chạy luận giải sau 1 giây (kiểm tra cache trước)
             setTimeout(function() {
                 autoRunLuanGiai();
             }, 500);
 
-            // Function tự động chạy luận giải
+            // Function tạo ID consistent cho lá số
+            function generateLasoId() {
+                const hoTen = '{{ $normalizedData['ho_ten'] ?? '' }}';
+                const ngaySinh =
+                    '{{ isset($normalizedData['ngay_sinh']) ? $normalizedData['ngay_sinh']->format('Y-m-d') : '' }}';
+                const gioSinh = '{{ $normalizedData['gio_sinh'] ?? '' }}';
+                const gioiTinh = '{{ $normalizedData['gioi_tinh'] ?? '' }}';
+
+                // Tạo chuỗi unique từ thông tin người dùng
+                const dataString = `${hoTen}-${ngaySinh}-${gioSinh}-${gioiTinh}`;
+
+                // Tạo hash consistent từ chuỗi (không dùng timestamp)
+                let hash = 0;
+                for (let i = 0; i < dataString.length; i++) {
+                    const char = dataString.charCodeAt(i);
+                    hash = ((hash << 5) - hash) + char;
+                    hash = hash & hash; // Convert to 32-bit integer
+                }
+
+                return `laso_${Math.abs(hash)}`;
+            }
+
+            // Function kiểm tra và lấy cache
+            function getCachedLuanGiai(lasoId) {
+                try {
+                    const cached = localStorage.getItem(lasoId);
+                    if (cached) {
+                        const data = JSON.parse(cached);
+                        // Kiểm tra cache có hết hạn không (24 giờ)
+                        const cacheTime = new Date(data.timestamp);
+                        const now = new Date();
+                        const hoursDiff = (now - cacheTime) / (1000 * 60 * 60);
+
+                        if (hoursDiff < 24) {
+                            console.log('Loading luận giải from cache');
+                            return data.content;
+                        } else {
+                            // Xóa cache hết hạn
+                            localStorage.removeItem(lasoId);
+                        }
+                    }
+                } catch (e) {
+                    console.error('Error reading cache:', e);
+                }
+                return null;
+            }
+
+            // Function lưu cache
+            function setCachedLuanGiai(lasoId, content) {
+                try {
+                    const cacheData = {
+                        content: content,
+                        timestamp: new Date().toISOString(),
+                        lasoInfo: {
+                            hoTen: '{{ $normalizedData['ho_ten'] ?? '' }}',
+                            ngaySinh: '{{ isset($normalizedData['ngay_sinh']) ? $normalizedData['ngay_sinh']->format('d/m/Y') : '' }}',
+                            gioSinh: '{{ $normalizedData['gio_sinh'] ?? '' }}'
+                        }
+                    };
+                    localStorage.setItem(lasoId, JSON.stringify(cacheData));
+                    console.log('Luận giải cached with ID:', lasoId);
+                } catch (e) {
+                    console.error('Error saving cache:', e);
+                }
+            }
+
+            // Function tự động chạy luận giải với cache
             function autoRunLuanGiai() {
+                // Kiểm tra cache trước
+                const cachedContent = getCachedLuanGiai(lasoId);
+                if (cachedContent) {
+                    console.log('Hiển thị luận giải từ cache, ID:', lasoId);
+
+                    // Hiển thị thông báo load từ cache
+                    showLuanGiaiCacheLoading();
+
+                    // Delay nhẹ để user thấy
+                    setTimeout(() => {
+                        showLuanGiaiResults(cachedContent);
+                    }, 800);
+                    return;
+                }
+
                 const luanGiaiBtn = document.getElementById('luanGiaiBtn');
                 if (luanGiaiBtn) {
                     // Set button thành trạng thái loading
@@ -195,11 +276,16 @@
                             'Content-Type': 'application/json',
                             'X-CSRF-TOKEN': '{{ csrf_token() }}'
                         },
-                        body: JSON.stringify({})
+                        body: JSON.stringify({
+                            laso_id: lasoId // Gửi ID lá số để tracking
+                        })
                     })
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
+                            // Lưu vào cache
+                            setCachedLuanGiai(lasoId, data.data);
+
                             // Hiển thị kết quả luận giải
                             showLuanGiaiResults(data.data);
                         } else {
@@ -235,6 +321,43 @@
                 luanGiaiBtn.addEventListener('click', function() {
                     autoRunLuanGiai();
                 });
+            }
+
+            function showLuanGiaiCacheLoading() {
+                let resultsSection = document.getElementById('luanGiaiResults');
+                if (!resultsSection) {
+                    resultsSection = document.createElement('div');
+                    resultsSection.id = 'luanGiaiResults';
+                    resultsSection.className = 'card mt-4';
+
+                    // Thêm vào vị trí cố định
+                    const targetElement = document.getElementById('luanGiaiResults');
+                    if (targetElement) {
+                        targetElement.parentNode.replaceChild(resultsSection, targetElement);
+                    }
+                }
+
+                // Hiển thị loading từ cache
+                const cacheLoadingHtml = `
+                    <div class="box--bg-thang mt-3 mb-3">
+                        <div class="loading-container text-center py-5">
+                            <div class="loading-animation mb-4">
+                                <div class="cache-loading">
+                                    <i class="fas fa-archive fa-3x text-success pulse-animation"></i>
+                                </div>
+                                <div class="dots-loading mt-3">
+                                    <span class="dot" style="background-color: #10B981;"></span>
+                                    <span class="dot" style="background-color: #10B981;"></span>
+                                    <span class="dot" style="background-color: #10B981;"></span>
+                                </div>
+                            </div>
+                            <h4 class="text-success mb-2 fade-in">Đang tải luận giải đã lưu của bạn...</h4>
+                            <p class="text-muted small">Lá số này đã được phân tích trước đó</p>
+                        </div>
+                    </div>
+                `;
+
+                resultsSection.innerHTML = cacheLoadingHtml;
             }
 
             function showLuanGiaiLoading() {
@@ -434,6 +557,15 @@
 
                 return formatted;
             }
+
+            // Thêm hash vào URL khi load trang nếu có
+            @if (isset($urlHash) && $urlHash)
+                if (!window.location.hash) {
+                    const urlHash = '{{ $urlHash }}';
+                    window.history.replaceState({}, document.title, window.location.pathname + '#' + urlHash);
+                }
+            @endif
+
         });
     </script>
 @endpush

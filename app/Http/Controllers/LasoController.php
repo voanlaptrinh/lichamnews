@@ -185,6 +185,12 @@ class LasoController extends Controller
                     'normalizedData' => $normalizedData
                 ]);
 
+                // Kiểm tra nếu có hash data để thêm vào URL
+                $hashData = $request->input('url_hash');
+                if ($hashData) {
+                    return redirect()->route('laso.results')->with('url_hash', $hashData);
+                }
+
                 return redirect()->route('laso.results');
             } else {
                 // API trả về lỗi (ví dụ: validation thất bại bên phía API)
@@ -236,7 +242,10 @@ class LasoController extends Controller
         $metaTitle = "Lá Số Tử Vi Online – Luận Giải Tử Vi 12 Cung, Chính Xác & Miễn Phí";
         $metaDescription = "Xem lá số tử vi online theo ngày tháng năm sinh. Luận giải 12 cung, sao hạn, vận mệnh, tính cách, công danh – đầy đủ, dễ hiểu, miễn phí và chính xác.";
 
-        return view('la-so-tu-vi.results', compact('imageUrl', 'normalizedData', 'metaTitle', 'metaDescription'));
+        // Lấy hash data từ session nếu có
+        $urlHash = session('url_hash');
+
+        return view('la-so-tu-vi.results', compact('imageUrl', 'normalizedData', 'metaTitle', 'metaDescription', 'urlHash'));
     }
 
     public function luanGiai(Request $request)
