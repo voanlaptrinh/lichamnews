@@ -350,15 +350,16 @@
 .box-title-la-so-tu-vi {
     background: #2254AB;
     display: flex;
-    border-radius: 25px;
+    border-radius: 30px;
     display: flex;
     max-width: 600px;
+    font-size: 18px;
     align-items: center;
 }
 .banner-stats-mb{
     display: none;
 }
- .feature-item{padding: 17px 31px;}
+ .feature-item{padding: 17px 21px;}
  .banner-main{
         align-items: start;
  }

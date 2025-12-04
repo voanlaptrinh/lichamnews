@@ -11,7 +11,7 @@
                     </span>
                     <span class="feature-item">
                         <i class="check-icon">✓</i>
-                        Cá nhận hóa
+                        Cá nhân hóa
                     </span>
                 </div>
             </div>
