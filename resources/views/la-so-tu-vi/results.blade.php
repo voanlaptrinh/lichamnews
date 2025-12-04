@@ -1,8 +1,8 @@
 @extends('welcome')
 @section('content')
     @push('styles')
-        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=10.8') }}">
-        <link rel="stylesheet" href="{{ asset('/css/la-so.css?v=10.8') }}">
+        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=11.0') }}">
+        <link rel="stylesheet" href="{{ asset('/css/la-so.css?v=11.0') }}">
         <style>
             .main-content-wrapper {
                 background-image: url(../images/Quy_Trinh_Bg.png);

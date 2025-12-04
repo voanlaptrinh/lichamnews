@@ -11,7 +11,7 @@
 
                          <div class="event-details --padding-event-tot">
                              <div class="event-name" style="font-weight: unset">
-                                 Chuyển đổi ngày
+                                 Đổi ngày âm dương
                              </div>
 
                          </div>

@@ -177,6 +177,7 @@
     transition: all 0.3s ease;
     max-width: 160px;
     height: 44px;
+    width: 155px;
 }
 
 .btn-download:hover {

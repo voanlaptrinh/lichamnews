@@ -3,7 +3,7 @@
     @push('styles')
         <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=10.8') }}">
         <style>
-              .main-content-wrapper {
+            .main-content-wrapper {
                 background-image: url(../images/Quy_Trinh_Bg.png);
                 background-repeat: no-repeat;
                 background-position: top center;
@@ -36,12 +36,14 @@
                     </li>
                 </ol>
             </nav>
-
+            <h1 class="content-title-home-lich " style="color: #192E52">
+                Lập Lá Số Tử Vi và Luận Giải Vận Mệnh Miễn Phí
+            </h1>
             <div class="mt-3">
                 <div class="row g-0 g-lg-3">
                     <div class="col-xl-9 col-sm-12 col-12 ">
 
-                        <div class="backv-doi-lich ">
+                        <div class="backv-doi-lich">
                             <div class="row g-xl-5 g-lg-3 g-sm-5">
                                 <div class="col-lg-8">
                                     <div class="">
