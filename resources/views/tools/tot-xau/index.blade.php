@@ -1050,13 +1050,22 @@
 
                             if (remaining > 0) {
                                 btn.innerHTML = `
-                                    Xem thêm 
+                                    Xem thêm
                                 `;
+                                // Sử dụng module NextYearButtonHandler
+                                if (window.NextYearButtonHandler) {
+                                    window.NextYearButtonHandler.handleLoadMoreChange(year, true, 'index-pagination');
+                                }
                             } else {
                                 btn.style.display = 'none';
+                                // Sử dụng module NextYearButtonHandler
+                                if (window.NextYearButtonHandler) {
+                                    window.NextYearButtonHandler.handleLoadMoreChange(year, false, 'index-pagination');
+                                }
                             }
                         }
                     });
+
                 }
 
                 // ========== HELPER FUNCTIONS ==========
@@ -1180,4 +1189,5 @@
     </script>
 
     @include('components.taboo-filter-script')
+    @include('components.next-year-button-handler')
 @endpush

@@ -458,6 +458,27 @@
                                         </button>
                                     </div>
                                 @endif
+
+                                <!-- Nút xem năm tiếp theo -->
+                                @php
+                                    $currentYear = (int) $year;
+                                    $nextYear = $currentYear + 1;
+                                    $hasNextYear = false;
+                                    foreach ($resultsByYear as $checkYear => $checkData) {
+                                        if ((int) $checkYear === $nextYear) {
+                                            $hasNextYear = true;
+                                            break;
+                                        }
+                                    }
+                                @endphp
+                                @if ($hasNextYear)
+                                    <div class="text-center mt-3" id="next-year-container-{{ $year }}" style="display: none;">
+                                        <button type="button" class="btn btn-success next-year-btn"
+                                            data-current-year="{{ $year }}" data-next-year="{{ $nextYear }}">
+                                            <i class="fas fa-arrow-right me-2"></i>Xem năm tiếp theo ({{ $nextYear }})
+                                        </button>
+                                    </div>
+                                @endif
                                  <div class="card-body box1-con-year pe-1 ps-1">
                                 <div class="text-primary mb-2  text-dark d-flex align-items-center p-3" style="border: 1px solid rgb(173, 173, 173);border-radius: 10px">
                                     ⚠️ Chú ý: Đây là các thông tin xem mang tính chất tham khảo, không thay thế cho các

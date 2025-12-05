@@ -1166,5 +1166,6 @@
         // Component sẽ định nghĩa initTabooFilter function
     </script>
 
+    @include('components.next-year-button-handler')
     @include('components.taboo-filter-script')
 @endpush

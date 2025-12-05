@@ -337,6 +337,24 @@
                                         </button>
                                     </div>
                                 @endif
+
+                                <!-- Container cho nút xem năm tiếp theo -->
+                                <div class="text-center mt-3" id="next-year-container-{{ $year }}" style="display: none;">
+                                    @php
+                                        // Tìm năm tiếp theo
+                                        $years = array_keys($resultsByYear);
+                                        $currentIndex = array_search($year, $years);
+                                        $nextYear = isset($years[$currentIndex + 1]) ? $years[$currentIndex + 1] : null;
+                                    @endphp
+
+                                    @if($nextYear)
+                                        <button type="button" class="btn btn-success next-year-btn"
+                                            data-current-year="{{ $year }}" data-next-year="{{ $nextYear }}"
+                                            style="padding: 12px 20px; font-weight: 600; border-radius: 25px; box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);">
+                                            <i class="fas fa-arrow-right me-2"></i>Xem năm tiếp theo ({{ $nextYear }})
+                                        </button>
+                                    @endif
+                                </div>
                                  <div class="card-body box1-con-year pe-1 ps-1">
                                 <div class="text-primary mb-2  text-dark d-flex align-items-center p-3" style="border: 1px solid rgb(173, 173, 173);border-radius: 10px">
                                     ⚠️ Chú ý: Đây là các thông tin xem mang tính chất tham khảo, không thay thế cho các
@@ -457,3 +475,4 @@
 </div>
 
 @include('components.taboo-filter-script')
+@include('components.next-year-button-handler')

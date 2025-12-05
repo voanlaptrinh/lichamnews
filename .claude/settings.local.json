@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "Bash(php artisan serve:*)",
-      "Bash(php:*)"
+      "Bash(php:*)",
+      "Bash(grep:*)"
     ],
     "deny": [],
     "ask": []

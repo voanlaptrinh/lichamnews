@@ -342,14 +342,20 @@ function initTabooFilter(resultsByYear) {
 
         // Xác định số lượng hiện tại được hiển thị
         let currentLoaded = 10; // Default là 10
-        if (preserveCurrentLoaded && loadMoreBtn) {
-            // Lấy số đã load từ button hoặc đếm số rows visible hiện tại
+
+        if (!loadMoreBtn) {
+            // Không có nút "Xem thêm" → không có pagination (data ≤ 10)
+            console.log(`no pagination - no load more button found`);
+            currentLoaded = allRows.length; // Hiển thị tất cả
+        } else if (preserveCurrentLoaded && loadMoreBtn) {
+            // Có nút và cần preserve current loaded
             const loadedFromBtn = parseInt(loadMoreBtn.dataset.loaded);
             const currentVisible = allRows.filter(row => row.style.display !== 'none').length;
             currentLoaded = loadedFromBtn || currentVisible || 10;
-       
+            console.log(`has pagination - preserving loaded: ${currentLoaded}`);
         } else {
-            console.log(`no pagination`);
+            // Có nút nhưng reset về default
+            console.log(`has pagination - reset to default: ${currentLoaded}`);
         }
 
         // Ẩn tất cả rows trước
@@ -419,13 +425,27 @@ function initTabooFilter(resultsByYear) {
             if (remaining > 0 && actualTotal > 10) {
                 loadMoreBtn.style.display = '';
                 loadMoreBtn.innerHTML = `
-                   
+
                     Xem thêm
                 `;
-             
+                // Sử dụng module NextYearButtonHandler
+                const yearMatch = loadMoreBtn.dataset.year;
+                if (yearMatch && window.NextYearButtonHandler) {
+                    window.NextYearButtonHandler.handleLoadMoreChange(yearMatch, true, 'taboo-filter-result');
+                }
             } else {
                 loadMoreBtn.style.display = 'none';
-              
+                // Sử dụng module NextYearButtonHandler
+                const yearMatch = loadMoreBtn.dataset.year;
+                if (yearMatch && window.NextYearButtonHandler) {
+                    window.NextYearButtonHandler.handleLoadMoreChange(yearMatch, false, 'taboo-filter-result');
+                }
+            }
+        } else {
+            // Không có load more button → không có pagination → hiển thị nút "Xem năm tiếp theo"
+            const yearFromTable = tbody.id ? tbody.id.replace('table-', '').replace('-body', '') : null;
+            if (yearFromTable && window.NextYearButtonHandler) {
+                window.NextYearButtonHandler.show(yearFromTable, 'taboo-filter-no-pagination');
             }
         }
 
@@ -1077,11 +1097,19 @@ function initTabooFilter(resultsByYear) {
 
                     if (remaining > 0) {
                         btn.innerHTML = `
-                        
+
                             Xem thêm
                         `;
+                        // Sử dụng module NextYearButtonHandler
+                        if (window.NextYearButtonHandler) {
+                            window.NextYearButtonHandler.handleLoadMoreChange(year, true, 'taboo-filter-load-more');
+                        }
                     } else {
                         btn.style.display = 'none';
+                        // Sử dụng module NextYearButtonHandler
+                        if (window.NextYearButtonHandler) {
+                            window.NextYearButtonHandler.handleLoadMoreChange(year, false, 'taboo-filter-load-more');
+                        }
                     }
 
                   
@@ -1764,4 +1792,5 @@ function clearFilter() {
         clearBtn._tabooHandler();
     }
 }
+
 </script>

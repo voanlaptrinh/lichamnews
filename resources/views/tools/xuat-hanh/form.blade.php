@@ -1024,5 +1024,7 @@
 
             });
         </script>
+        @include('components.next-year-button-handler')
+        @include('components.taboo-filter-script')
     @endpush
 @endsection

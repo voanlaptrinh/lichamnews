@@ -316,7 +316,28 @@
                                         <button type="button" class="btn btn-outline-primary load-more-btn"
                                             data-year="{{ $year }}" data-loaded="10"
                                             data-total="{{ count($yearData['days']) }}">
-                                            Xem thêm 
+                                            Xem thêm
+                                        </button>
+                                    </div>
+                                @endif
+
+                                <!-- Nút xem năm tiếp theo -->
+                                @php
+                                    $currentYear = (int) $year;
+                                    $nextYear = $currentYear + 1;
+                                    $hasNextYear = false;
+                                    foreach ($resultsByYear as $checkYear => $checkData) {
+                                        if ((int) $checkYear === $nextYear) {
+                                            $hasNextYear = true;
+                                            break;
+                                        }
+                                    }
+                                @endphp
+                                @if ($hasNextYear)
+                                    <div class="text-center mt-3" id="next-year-container-{{ $year }}" style="display: none;">
+                                        <button type="button" class="btn btn-success next-year-btn"
+                                            data-current-year="{{ $year }}" data-next-year="{{ $nextYear }}">
+                                            <i class="fas fa-arrow-right me-2"></i>Xem năm tiếp theo ({{ $nextYear }})
                                         </button>
                                     </div>
                                 @endif
