@@ -30,11 +30,12 @@ class LaSoLuanGiai extends Model
     ];
 
     /**
-     * Generate unique ID for laso based on user info
+     * Generate unique ID for laso based on user info (excluding name)
      */
     public static function generateLasoId($hoTen, $ngaySinh, $gioSinh, $gioiTinh, $namXem)
     {
-        $dataString = "{$hoTen}-{$ngaySinh}-{$gioSinh}-{$gioiTinh}-{$namXem}";
+        // Bỏ tên ra, chỉ dựa vào thông tin sinh để tạo ID
+        $dataString = "{$ngaySinh}-{$gioSinh}-{$gioiTinh}-{$namXem}";
         return 'laso_' . abs(crc32($dataString));
     }
 

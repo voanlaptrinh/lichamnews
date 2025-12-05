@@ -59,6 +59,57 @@
                     left: 100%;
                 }
             }
+
+            /* Luan Giai Expand Styles */
+            .luan-giai-container {
+                position: relative;
+            }
+
+            .luan-giai-content {
+                max-height: 300px;
+                overflow: hidden;
+                transition: max-height 0.5s ease-in-out;
+            }
+
+            .luan-giai-content.expanded {
+                max-height: none;
+            }
+
+            .luan-giai-overlay {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 100px;
+                background: linear-gradient(transparent, rgba(255, 255, 255, 0.9));
+                display: flex;
+                align-items: flex-end;
+                justify-content: center;
+                padding-bottom: 15px;
+                transition: opacity 0.3s ease-in-out;
+            }
+
+            .luan-giai-overlay.hidden {
+                opacity: 0;
+                pointer-events: none;
+            }
+
+            .xem-them-btn {
+                background: linear-gradient(45deg, #2254AB, #4a90e2);
+                border: none;
+                padding: 10px 20px;
+                border-radius: 25px;
+                font-weight: 500;
+                color: white;
+                box-shadow: 0 4px 15px rgba(34, 84, 171, 0.3);
+                transition: all 0.3s ease;
+            }
+
+            .xem-them-btn:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(34, 84, 171, 0.4);
+                color: white;
+            }
         </style>
     @endpush
 
@@ -90,11 +141,6 @@
                     <div class="col-xl-9 col-sm-12 col-12 ">
                         @if (isset($imageUrl) && $imageUrl)
                             <!-- Tiêu đề Số tử vi của tên -->
-
-
-
-
-
                             <div class="box--bg-thang mb-3">
                                 <div class=" text-center">
                                     <div class="d-flex justify-content-center">
@@ -121,6 +167,7 @@
                                             <i class="fas fa-download"></i> Tải lá số
                                         </a>
 
+
                                         <a href="{{ route('laso.create') }}" class="btn btn-primary me-2  mt-2">
                                             <i class="fas fa-plus"></i> Tạo lá số mới
                                         </a>
@@ -128,6 +175,24 @@
                                             <i class="fas fa-edit"></i> Chỉnh sửa lá số
                                         </a>
                                     </div>
+                                </div>
+                            </div>
+                        @else
+                            <!-- Trường hợp đang load từ share link -->
+                            <div class="box--bg-thang mb-3">
+                                <div class="text-center py-5">
+                                    <div class="loading-animation mb-4">
+                                        <div class="brain-loading">
+                                            <i class="fas fa-brain fa-3x text-primary pulse-animation"></i>
+                                        </div>
+                                        <div class="dots-loading mt-3">
+                                            <span class="dot"></span>
+                                            <span class="dot"></span>
+                                            <span class="dot"></span>
+                                        </div>
+                                    </div>
+                                    <h4 class="text-primary mb-2 fade-in">Đang tải lá số được chia sẻ...</h4>
+                                    <p class="text-muted">Vui lòng đợi trong giây lát</p>
                                 </div>
                             </div>
                         @endif
@@ -147,7 +212,31 @@
 @push('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Image zoom functionality (if needed)
+            // Kiểm tra hash URL trước tiên
+            const hash = window.location.hash;
+            const hasShare = window.location.search.includes('share=');
+            const hasHashData = hash.includes('thong-tin=');
+
+            // Nếu không có session results nhưng có hash data, redirect với share param
+            @if(!isset($imageUrl) || !$imageUrl)
+                if (hasHashData && !hasShare) {
+                    const hashParts = hash.split('thong-tin=');
+                    if (hashParts.length > 1) {
+                        const hashData = hashParts[1];
+                        window.location.href = window.location.pathname + '?share=' + hashData + hash;
+                        return;
+                    }
+                }
+
+                // Nếu không có gì, redirect về form
+                if (!hasShare && !hasHashData) {
+                    window.location.href = "{{ route('laso.create') }}";
+                    return;
+                }
+            @endif
+
+            // Image zoom functionality (if needed) - chỉ khi có ảnh
+            @if(isset($imageUrl) && $imageUrl)
             const image = document.getElementById('laso-image');
             const container = document.getElementById('img-zoom-container');
             const lens = document.getElementById('img-zoom-lens');
@@ -166,6 +255,7 @@
                 // Ẩn loading
                 document.getElementById("laso-loading").style.display = "none";
             };
+            @endif
 
             // Tạo ID duy nhất cho lá số này
             const lasoId = generateLasoId();
@@ -175,7 +265,9 @@
                 // Có cache trong database, hiển thị ngay
                 setTimeout(function() {
                     console.log('Hiển thị luận giải từ database cache');
-                    const cachedContent = @json($cachedLuanGiai->luan_giai_content);
+                    const cachedContent = {
+                        responseObject: @json($cachedLuanGiai->luan_giai_content)
+                    };
                     showLuanGiaiResults(cachedContent);
                 }, 500);
             @else
@@ -219,12 +311,7 @@
                             // Hiển thị kết quả luận giải
                             showLuanGiaiResults(data.data);
 
-                            // Log xem có từ cache hay không
-                            if (data.cached) {
-                                console.log('Luận giải được trả về từ database cache');
-                            } else {
-                                console.log('Luận giải mới được tạo và lưu vào database');
-                            }
+                            
                         } else {
                             let errorMsg = 'Lỗi: ' + data.message;
                             if (data.debug) {
@@ -295,15 +382,7 @@
                     </div>
 
                     <style>
-                        .pulse-animation {
-                            animation: pulse 2s infinite;
-                        }
-
-                        @keyframes pulse {
-                            0% { transform: scale(1); opacity: 1; }
-                            50% { transform: scale(1.1); opacity: 0.7; }
-                            100% { transform: scale(1); opacity: 1; }
-                        }
+                       
 
                         .dots-loading {
                             display: flex;
@@ -318,35 +397,6 @@
                             background-color: #2254AB;
                             animation: dotPulse 1.5s infinite ease-in-out;
                         }
-
-                        .dot:nth-child(1) { animation-delay: 0s; }
-                        .dot:nth-child(2) { animation-delay: 0.3s; }
-                        .dot:nth-child(3) { animation-delay: 0.6s; }
-
-                        @keyframes dotPulse {
-                            0%, 80%, 100% {
-                                transform: scale(0.8);
-                                opacity: 0.5;
-                            }
-                            40% {
-                                transform: scale(1.2);
-                                opacity: 1;
-                            }
-                        }
-
-                        .fade-in {
-                            animation: fadeIn 1s ease-in;
-                        }
-
-                        .fade-in-delayed {
-                            animation: fadeIn 1s ease-in 0.5s both;
-                        }
-
-                        @keyframes fadeIn {
-                            from { opacity: 0; transform: translateY(10px); }
-                            to { opacity: 1; transform: translateY(0); }
-                        }
-                        
                     </style>
                 `;
 
@@ -412,19 +462,47 @@
 
                 // Tạo HTML hiển thị kết quả
                 const resultsHtml = `
-                   
+
                     <div class="box--bg-thang mt-3 mb-3">
-                       
-                        <div class="text-box-tong-quan">
-                            ${formattedContent}
+                        <h3 class="text-center mb-4" style="color: #2254AB; font-weight: 600;">
+                            <i class="fas fa-brain me-2"></i>Luận Giải Tổng Quan
+                        </h3>
+                        <div class="luan-giai-container">
+                            <div class="text-box-tong-quan luan-giai-content" id="luanGiaiContent">
+                                ${formattedContent}
+                            </div>
+                            <div class="luan-giai-overlay" id="luanGiaiOverlay">
+                                <button class="btn btn-primary xem-them-btn" onclick="showFullLuanGiai()">
+                                    <i class="fas fa-chevron-down"></i> Xem thêm
+                                </button>
+                            </div>
                         </div>
                     </div>
                 `;
 
                 resultsSection.innerHTML = resultsHtml;
 
-
+                // Kiểm tra xem có cần hiển thị nút "Xem thêm" không
+                setTimeout(() => {
+                    checkIfNeedExpandButton();
+                }, 100);
             }
+
+            // Function để kiểm tra và hiển thị nút xem thêm
+            function checkIfNeedExpandButton() {
+                const content = document.getElementById('luanGiaiContent');
+                const overlay = document.getElementById('luanGiaiOverlay');
+
+                if (content && overlay) {
+                    // Kiểm tra nếu nội dung cao hơn max-height
+                    if (content.scrollHeight > 300) {
+                        overlay.style.display = 'flex';
+                    } else {
+                        overlay.style.display = 'none';
+                    }
+                }
+            }
+
 
             function formatLuanGiaiContent(content) {
                 if (!content || typeof content !== 'string') {
@@ -461,12 +539,32 @@
 
             // Thêm hash vào URL khi load trang nếu có
             @if (isset($urlHash) && $urlHash)
-                if (!window.location.hash) {
+                if (!window.location.hash && !window.location.search.includes('share=')) {
                     const urlHash = '{{ $urlHash }}';
-                    window.history.replaceState({}, document.title, window.location.pathname + '#' + urlHash);
+                    window.history.replaceState({}, document.title, window.location.pathname + '#thong-tin=' + urlHash);
                 }
             @endif
 
+
         });
+
+        // Global function để xử lý nút "Xem thêm"
+        function showFullLuanGiai() {
+            const content = document.getElementById('luanGiaiContent');
+            const overlay = document.getElementById('luanGiaiOverlay');
+
+            if (content && overlay) {
+                content.classList.add('expanded');
+                overlay.classList.add('hidden');
+
+                // Scroll xuống một chút để người dùng thấy nội dung mở rộng
+                setTimeout(() => {
+                    content.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }, 100);
+            }
+        }
     </script>
 @endpush

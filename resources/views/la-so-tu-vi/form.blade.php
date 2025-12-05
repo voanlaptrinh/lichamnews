@@ -646,5 +646,18 @@
                 // Controller sẽ xử lý và trả về cùng trang với kết quả
             });
         });
+
+        // Kiểm tra hash URL khi load trang form
+        document.addEventListener('DOMContentLoaded', function() {
+            const hash = window.location.hash;
+            if (hash.includes('thong-tin=')) {
+                // Có hash data, redirect sang results với share param
+                const hashParts = hash.split('thong-tin=');
+                if (hashParts.length > 1) {
+                    const hashData = hashParts[1];
+                    window.location.href = "{{ route('laso.results') }}" + '?share=' + hashData + hash;
+                }
+            }
+        });
     </script>
 @endsection

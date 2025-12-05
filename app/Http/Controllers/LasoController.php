@@ -186,13 +186,24 @@ class LasoController extends Controller
                     'normalizedData' => $normalizedData
                 ]);
 
-                // Kiểm tra nếu có hash data để thêm vào URL
-                $hashData = $request->input('url_hash');
-                if ($hashData) {
-                    return redirect()->route('laso.results')->with('url_hash', $hashData);
+                // Tạo hash chứa thông tin lá số để chia sẻ
+                $hashData = [
+                    'ten' => $validatedData['ho_ten'],
+                    'gt' => $validatedData['gioi_tinh'],
+                    'ns' => $validatedData['dl_date_processed'],
+                    'gs' => $validatedData['dl_gio'] . ':' . str_pad($validatedData['dl_phut'], 2, '0', STR_PAD_LEFT),
+                    'nx' => $validatedData['nam_xem'],
+                    'lt' => $calendarType
+                ];
+                $encodedHash = base64_encode(json_encode($hashData));
+
+                // Kiểm tra nếu có hash data từ request
+                $requestHashData = $request->input('url_hash');
+                if ($requestHashData) {
+                    return redirect()->route('laso.results')->with('url_hash', $requestHashData);
                 }
 
-                return redirect()->route('laso.results');
+                return redirect()->route('laso.results')->with('url_hash', $encodedHash);
             } else {
                 // API trả về lỗi (ví dụ: validation thất bại bên phía API)
                 $errorMessage = $result['message'] ?? 'Có lỗi không xác định từ API.';
@@ -232,9 +243,81 @@ class LasoController extends Controller
     {
         $results = session('laso_results');
 
+        // Kiểm tra nếu có hash data từ URL để load lá số được chia sẻ
+        if (!$results && $request->has('share')) {
+            try {
+                $shareData = json_decode(base64_decode($request->get('share')), true);
+                if ($shareData && isset($shareData['ten'], $shareData['gt'], $shareData['ns'])) {
+                    // Tạo lại session từ dữ liệu chia sẻ
+                    session([
+                        'laso_last_input' => [
+                            'ho_ten' => $shareData['ten'],
+                            'gioi_tinh' => $shareData['gt'],
+                            'dl_date_processed' => $shareData['ns'],
+                            'dl_gio' => explode(':', $shareData['gs'])[0] ?? 0,
+                            'dl_phut' => explode(':', $shareData['gs'])[1] ?? 0,
+                            'nam_xem' => $shareData['nx'],
+                            'calendar_type' => $shareData['lt'] ?? 'solar'
+                        ]
+                    ]);
+
+                    // Gọi lại API để tạo lá số
+                    $apiInput = [
+                        'ho_ten' => $shareData['ten'],
+                        'gioi_tinh' => $shareData['gt'],
+                        'nam_xem' => $shareData['nx'],
+                        'dl_date_processed' => $shareData['ns'],
+                        'calendar_type' => $shareData['lt'] ?? 'solar',
+                        'dl_gio' => explode(':', $shareData['gs'])[0] ?? 0,
+                        'dl_phut' => explode(':', $shareData['gs'])[1] ?? 0
+                    ];
+
+                    // Parse ngày để gọi API
+                    $dateParts = explode('/', explode(' ', $shareData['ns'])[0]);
+                    if (count($dateParts) === 3) {
+                        $apiInput['dl_ngay'] = (int)$dateParts[0];
+                        $apiInput['dl_thang'] = (int)$dateParts[1];
+                        $apiInput['dl_nam'] = (int)$dateParts[2];
+                        $apiInput['app_name'] = "phonglich";
+
+                        try {
+                            $response = \Http::post('http://168.119.14.32/laso_v2/store_laso.php', $apiInput);
+                            if ($response->successful()) {
+                                $result = $response->json();
+                                if (isset($result['success']) && $result['success']) {
+                                    $imageUrl = $result['data']['image_url'] ?? null;
+                                    $normalizedData = $result['data']['input_summary'] ?? [];
+
+                                    if ($imageUrl) {
+                                        session()->put('laso_results', [
+                                            'imageUrl' => $imageUrl,
+                                            'normalizedData' => $normalizedData
+                                        ]);
+                                        $results = session('laso_results');
+                                    }
+                                }
+                            }
+                        } catch (\Exception $e) {
+                            \Log::error('Error loading shared laso', ['error' => $e->getMessage()]);
+                        }
+                    }
+                }
+            } catch (\Exception $e) {
+                \Log::error('Error parsing share data', ['error' => $e->getMessage()]);
+            }
+        }
+
         if (!$results) {
-            // No results found, redirect to form
-            return redirect()->route('laso.create')->with('error', 'Không tìm thấy kết quả lá số. Vui lòng tạo lá số mới.');
+            // Nếu không có results và không có share param, có thể là trường hợp có hash #thong-tin
+            // Trả về view để JavaScript xử lý hash URL
+            $metaTitle = "Lá Số Tử Vi Online – Luận Giải Tử Vi 12 Cung, Chính Xác & Miễn Phí";
+            $metaDescription = "Xem lá số tử vi online theo ngày tháng năm sinh. Luận giải 12 cung, sao hạn, vận mệnh, tính cách, công danh – đầy đủ, dễ hiểu, miễn phí và chính xác.";
+
+            return view('la-so-tu-vi.results', compact('metaTitle', 'metaDescription'))
+                ->with('imageUrl', null)
+                ->with('normalizedData', [])
+                ->with('urlHash', null)
+                ->with('cachedLuanGiai', null);
         }
 
         $imageUrl = $results['imageUrl'];
@@ -309,10 +392,12 @@ class LasoController extends Controller
         if ($cachedLuanGiai) {
             \Log::info('Returning cached luan giai', ['laso_id' => $lasoId]);
 
-            // Trả về kết quả từ cache
+            // Trả về kết quả từ cache với format giống API
             return response()->json([
                 'success' => true,
-                'data' => $cachedLuanGiai->luan_giai_content,
+                'data' => [
+                    'responseObject' => $cachedLuanGiai->luan_giai_content
+                ],
                 'message' => 'Luận giải từ cache!',
                 'cached' => true
             ]);
@@ -440,7 +525,7 @@ class LasoController extends Controller
                         'gio_sinh' => $lastInput['dl_gio'] . ':' . $lastInput['dl_phut'],
                         'gioi_tinh' => $lastInput['gioi_tinh'],
                         'nam_xem' => $lastInput['nam_xem'],
-                        'luan_giai_content' => $luanGiaiResult,
+                        'luan_giai_content' => $luanGiaiResult['responseObject'] ?? json_encode($luanGiaiResult),
                         'api_response' => $luanGiaiResult // Lưu cả response nguyên bản
                     ];
 
