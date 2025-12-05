@@ -163,17 +163,19 @@
 
                                     <div class="mb-3 ">
                                         <a href="{{ route('laso.download', ['url' => $imageUrl, 'ho_ten' => $normalizedData['ho_ten'] ?? '']) }}"
-                                            class="btn btn-success me-2 mt-2" download>
+                                            class="btn btn-success me-2 mt-2 "
+                                            style="background: linear-gradient(45deg, #22ab50, #1f9643); border: none; padding: 10px 20px; border-radius: 25px; font-weight: 500;color: white; box-shadow: 0 4px 15px rgba(34, 84, 171, 0.3);"
+                                            download>
                                             <i class="fas fa-download"></i> Tải lá số
                                         </a>
 
 
-                                        <a href="{{ route('laso.create') }}" class="btn btn-primary me-2  mt-2">
+                                        <a href="{{ route('laso.create') }}"
+                                            style="background: linear-gradient(45deg, #22ab50, #1f9643);border: none;padding: 10px 20px; border-radius: 25px;font-weight: 500; color: white; box-shadow: 0 4px 15px rgba(34, 84, 171, 0.3);"
+                                            class="btn btn-primary me-2  mt-2">
                                             <i class="fas fa-plus"></i> Tạo lá số mới
                                         </a>
-                                        <a href="{{ route('laso.edit') }}" class="btn btn-warning  mt-2">
-                                            <i class="fas fa-edit"></i> Chỉnh sửa lá số
-                                        </a>
+
                                     </div>
                                 </div>
                             </div>
@@ -218,7 +220,7 @@
             const hasHashData = hash.includes('thong-tin=');
 
             // Nếu không có session results nhưng có hash data, redirect với share param
-            @if(!isset($imageUrl) || !$imageUrl)
+            @if (!isset($imageUrl) || !$imageUrl)
                 if (hasHashData && !hasShare) {
                     const hashParts = hash.split('thong-tin=');
                     if (hashParts.length > 1) {
@@ -236,32 +238,32 @@
             @endif
 
             // Image zoom functionality (if needed) - chỉ khi có ảnh
-            @if(isset($imageUrl) && $imageUrl)
-            const image = document.getElementById('laso-image');
-            const container = document.getElementById('img-zoom-container');
-            const lens = document.getElementById('img-zoom-lens');
-            const result = document.getElementById('img-zoom-result');
-            const realImgUrl = "{{ route('laso.image_proxy', ['url' => $imageUrl]) }}";
+            @if (isset($imageUrl) && $imageUrl)
+                const image = document.getElementById('laso-image');
+                const container = document.getElementById('img-zoom-container');
+                const lens = document.getElementById('img-zoom-lens');
+                const result = document.getElementById('img-zoom-result');
+                const realImgUrl = "{{ route('laso.image_proxy', ['url' => $imageUrl]) }}";
 
-            const img = new Image();
-            img.src = realImgUrl;
+                const img = new Image();
+                img.src = realImgUrl;
 
-            img.onload = function() {
-                // Gắn src vào ảnh hiển thị
-                image.src = realImgUrl;
-                image.style.display = "block";
-                // Ẩn khung
-                document.getElementById("laso-frame").style.display = "none";
-                // Ẩn loading
-                document.getElementById("laso-loading").style.display = "none";
-            };
+                img.onload = function() {
+                    // Gắn src vào ảnh hiển thị
+                    image.src = realImgUrl;
+                    image.style.display = "block";
+                    // Ẩn khung
+                    document.getElementById("laso-frame").style.display = "none";
+                    // Ẩn loading
+                    document.getElementById("laso-loading").style.display = "none";
+                };
             @endif
 
             // Tạo ID duy nhất cho lá số này
             const lasoId = generateLasoId();
 
             // Kiểm tra cache database và tự động hiển thị nếu có
-            @if(isset($cachedLuanGiai) && $cachedLuanGiai)
+            @if (isset($cachedLuanGiai) && $cachedLuanGiai)
                 // Có cache trong database, hiển thị ngay
                 setTimeout(function() {
                     console.log('Hiển thị luận giải từ database cache');
@@ -311,7 +313,7 @@
                             // Hiển thị kết quả luận giải
                             showLuanGiaiResults(data.data);
 
-                            
+
                         } else {
                             let errorMsg = 'Lỗi: ' + data.message;
                             if (data.debug) {
@@ -541,7 +543,8 @@
             @if (isset($urlHash) && $urlHash)
                 if (!window.location.hash && !window.location.search.includes('share=')) {
                     const urlHash = '{{ $urlHash }}';
-                    window.history.replaceState({}, document.title, window.location.pathname + '#thong-tin=' + urlHash);
+                    window.history.replaceState({}, document.title, window.location.pathname + '#thong-tin=' +
+                        urlHash);
                 }
             @endif
 
