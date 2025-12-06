@@ -501,7 +501,7 @@
                                 class="utility-item col-6 col-md-6 col-lg-3 mb-4 ">
                                 <div class="utility-title">Đổi ngày Âm - Dương</div>
                                 <div class="icon-wrapper">
-                                    <img src="{{ asset('icons/doi_ngay_am_duong.webp?v=2.0') }}"
+                                    <img src="{{ asset('icons/doi_ngay_am_duong.svg?v=2.5') }}"
                                         alt="Đổi ngày Âm - Dương" width="77" height="76" class="img-fluid"
                                         loading="lazy">
                                 </div>
@@ -513,7 +513,7 @@
                             <a href="{{route('totxau.list')}}" class="utility-item col-6 col-md-6 col-lg-3 mb-4">
                                 <div class="utility-title">Xem ngày Tốt</div>
                                 <div class="icon-wrapper">
-                                    <img src="{{ asset('icons/xem_ngay_tot.webp?v=2.0') }}" alt="Xem ngày Tốt"
+                                    <img src="{{ asset('icons/xem_ngay_tot.svg?v=2.5') }}" alt="Xem ngày Tốt"
                                         width="77" height="76" class="img-fluid" loading="lazy">
                                 </div>
 
@@ -524,17 +524,17 @@
                             <a href="#" class="utility-item col-6 col-md-6 col-lg-3 mb-4">
                                 <div class="utility-title">Xem hướng hợp mệnh</div>
                                 <div class="icon-wrapper">
-                                    <img src="{{ asset('icons/huong_dep.webp?v=2.0') }}" alt="Xem hướng hợp mệnh"
+                                    <img src="{{ asset('icons/huong_dep.svg?v=2.5') }}" alt="Xem hướng hợp mệnh"
                                         width="77" height="76" class="img-fluid" loading="lazy">
                                 </div>
                                 <p class="utility-description">Tìm hướng hợp tuổi để làm nhà, đặt bàn thờ...</p>
                             </a>
 
                             <!-- Tiện ích 4 -->
-                            <a href="#" class="utility-item col-6 col-md-6 col-lg-3 mb-4">
+                            <a href="{{route('laso.create')}}" class="utility-item col-6 col-md-6 col-lg-3 mb-4">
                                 <div class="utility-title">Lá số tử vi</div>
                                 <div class="icon-wrapper">
-                                    <img src="{{ asset('icons/la_so_tu_vi.webp?v=2.0') }}" alt="Lá số tử vi"
+                                    <img src="{{ asset('icons/la_so_tu_vi.svg?v=2.5') }}" alt="Lá số tử vi"
                                         class="img-fluid" width="77" height="76" loading="lazy">
                                 </div>
 
