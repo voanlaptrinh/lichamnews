@@ -2,17 +2,18 @@
 
 @section('content')
     @push('styles')
-        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=11.0') }}">
+        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=11.3') }}">
     @endpush
 
     <div class="container-setup">
-           <nav aria-label="breadcrumb" class="content-title-detail">
+        <nav aria-label="breadcrumb" class="content-title-detail">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
                     <a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
                 </li>
                 <li class="breadcrumb-item" aria-current="page">
-                            <a href="{{ route('totxau.list') }}"  style="color: #2254AB; text-decoration: underline;">Xem ngày tốt</a>
+                    <a href="{{ route('totxau.list') }}" style="color: #2254AB; text-decoration: underline;">Xem ngày
+                        tốt</a>
                 </li>
                 <li class="breadcrumb-item" aria-current="page">
                     Xem ngày khai trương
@@ -22,8 +23,9 @@
                 </li>
             </ol>
         </nav>
-        
-        <h1 class="content-title-home-lich">Chi tiết xem ngày khai trương</h1>
+
+        <h1 class="content-title-home-lich">Chi tiết xem ngày khai trương
+            {{ $commonDayInfo['dateToCheck']->format('d/m/Y') }}</h1>
 
         <div>
             <div class="row g-lg-3 g-2 pt-lg-3 pt-2">
@@ -33,15 +35,15 @@
                             <div class="box-title-goback">
                                 <div
                                     class="text-primary mb-3 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
-                                    <img src="{{ asset('icons/dac-diem1.svg') }}" alt="thông tin người xem" width="28"
-                                        height="28" class="me-1"> <span>Thông Tin Ngày</span>
+                                    <img src="{{ asset('icons/dac-diem1.svg') }}" alt="Thông tin cơ bản của ngày"
+                                        width="28" height="28" class="me-1"> <span>Thông tin cơ bản của ngày</span>
                                 </div>
-                                <div class="mb-3">
+                                {{-- <div class="mb-3">
                                     <a href="#" class="btn btn-outline-primary btn-sm" id="backToListBtn"
                                         onclick="goBackToForm()">
                                         <i class="bi bi-arrow-left me-1"></i> Quay lại danh sách ngày
                                     </a>
-                                </div>
+                                </div> --}}
                             </div>
 
                             <div>
@@ -90,105 +92,137 @@
 
                     <div class="card border-0 mb-3 w-100 box-detial-year">
                         <div class="card-body box1-con-year">
+                            <div
+                                class="text-primary mb-3 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
+                                <img src="{{ asset('icons/dac-diem1.svg') }}" alt="thông tin người xem" width="28"
+                                    height="28" class="me-1"> <span>Các yếu tố hỗ trợ - cản trở
+                                    trong ngày</span>
+                            </div>
                             <div>
-                                <table class="table table-detail" style="table-layout: fixed;">
-                                    <tbody>
-                                        <tr>
-                                            <td style="font-weight: 600">
+                                <div class="row g-0 table rounded overflow-hidden analysis-box">
+
+                                    <!-- Cột 1: Yếu tố hỗ trợ (Tốt) -->
+                                    <div class="col-6 d-flex flex-column">
+                                        <!-- Header (Màu Xanh) -->
+                                        <div class="p-3 header-green">
+                                            <div class="mb-0 fw-bold">
                                                 Các yếu tố tốt hỗ trợ cho ngày
-                                            </td>
-                                            <td style="font-weight: 600">
-                                                Các yếu tố xấu/ cản trở cần xem xét
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            @php
-                                                $hopTuoi = $ownerData['score']['hopttuoi'] ?? null;
-                                                $hopTuoiReason = $ownerData['score']['hopTuoiReason'] ?? '';
-                                                $tabooIssues = collect($ownerData['score']['issues'] ?? [])->filter(
-                                                    fn($issue) => ($issue['source'] ?? '') === 'Taboo',
-                                                );
+                                            </div>
+                                        </div>
+                                        @php
+                                            $hopTuoi = $ownerData['score']['hopttuoi'] ?? null;
+                                            $hopTuoiReason = $ownerData['score']['hopTuoiReason'] ?? '';
 
-                                            @endphp
-
-                                            @if ($hopTuoi || $tabooIssues->isNotEmpty())
-                                        <tr>
-                                            <td>
-
-
+                                            $tabooIssues = collect($ownerData['score']['issues'] ?? [])->filter(
+                                                fn($issue) => ($issue['source'] ?? '') === 'Taboo',
+                                            );
+                                            $names = $tabooIssues
+                                                ->map(fn($issue) => $issue['details']['tabooName'] ?? '')
+                                                ->filter()
+                                                ->implode(', ');
+                                        @endphp
+                                        <!-- Nội dung (Màu Xanh Nhạt) -->
+                                        <div class="p-2 content-green flex-grow-1">
+                                            <ul class="list-unstyled mb-0">
                                                 @if ($hopTuoi)
-                                                    ✓ Ngày hợp tuổi: {{ $hopTuoiReason }}
+                                                    <li class="mb-3">
+                                                        <span class="text-success fw-bold list-icon">✓</span>
+                                                        <span class="text-dark">Ngày hợp tuổi: {{ $hopTuoiReason }}</span>
+                                                    </li>
                                                 @endif
-                                            </td>
-                                            <td>
-                                                {{ $tabooIssues->map(fn($issue) => '⚠️ Phạm ' . ($issue['details']['tabooName'] ?? ''))->implode(', ') }}
-                                            </td>
-                                        </tr>
-                                        @endif
-
-                                        </tr>
-                                        @if (!$ownerData['score']['hopttuoi'] && $ownerData['score']['hopTuoiReason'] != 'Ngày bình thường')
-                                            <tr>
-                                                <td></td>
-                                                <td>
-                                                    ❌ Ngày kỵ tuổi:
-                                                    {{ $ownerData['score']['hopTuoiReason'] ?? 'Không hợp tuổi' }}
-                                                </td>
-                                            </tr>
-                                        @endif
-                                        <tr>
-                                            <td>
                                                 @if ($ownerData['score']['tu']['details']['data']['nature'] == 'Tốt')
-                                                   ✓ Nhị thập bát tú: Sao
-                                                    {{ $ownerData['score']['tu']['details']['data']['name'] }} (Tốt)
+                                                    <li class="mb-3">
+                                                        <span class="text-success fw-bold list-icon">✓</span>
+                                                        <span class="text-dark">Nhị Thập Bát Tú: Sao
+                                                            {{ $ownerData['score']['tu']['details']['data']['name'] }}
+                                                            (Tốt)</span>
+                                                    </li>
                                                 @endif
-                                            </td>
-                                            <td>
-                                                @if ($ownerData['score']['tu']['details']['data']['nature'] == 'Xấu')
-                                                  ❌ Nhị thập bát tú: Sao
-                                                    {{ $ownerData['score']['tu']['details']['data']['name'] }} (Xấu)
+                                                @if ($ownerData['score']['tructot'])
+                                                    <li class="mb-3">
+                                                        <span class="text-success fw-bold list-icon">✓</span>
+                                                        <span class="text-dark">Thập Nhị Trực: Trực
+                                                            {{ $ownerData['score']['truc']['details']['name'] }}
+                                                            (Tốt)
+                                                        </span>
+                                                    </li>
                                                 @endif
-                                            </td>
-                                        </tr>
-                                        @if ($ownerData['score']['tructot'] || $ownerData['score']['trucxau'])
-                                            <tr>
-                                                <td>
-                                                    @if ($ownerData['score']['tructot'])
-                                                        ✓ Thập Nhị Trực {{ $ownerData['score']['truc']['details']['name'] }}
-                                                        (Tốt)
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    @if ($ownerData['score']['trucxau'])
-                                                        ❌ Thập Nhị Trực {{ $ownerData['score']['truc']['details']['name'] }}
-                                                        (Xấu)
-                                                    @endif
-                                                </td>
-                                            </tr>
-                                        @endif
-
-                                        <tr>
-                                            <td>
                                                 @if (!empty($ownerData['score']['catHung']['details']['catStars']))
-                                                    <strong>✓ Sao tốt theo Ngọc Hạp Thông Thư:</strong>
-                                                    @foreach ($ownerData['score']['catHung']['details']['catStars'] as $index => $sao)
-                                                        <span
-                                                            class=" bg-success">{{ $sao['name'] }}</span>{{ $loop->last ? '' : ',' }}
-                                                    @endforeach
+                                                    <li class="mb-3">
+                                                        <span class="text-success fw-bold list-icon">✓</span>
+                                                        <span class="text-dark"> Sao tốt theo Ngọc Hạp Thông Thư:
+                                                            @foreach ($ownerData['score']['catHung']['details']['catStars'] as $index => $sao)
+                                                                <span
+                                                                    class=" bg-success">{{ $sao['name'] }}</span>{{ $loop->last ? '' : ',' }}
+                                                            @endforeach
+                                                        </span>
+                                                    </li>
                                                 @endif
-                                            </td>
-                                            <td>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <!-- Cột 2: Yếu tố cản trở (Xấu) -->
+                                    <div class="col-6 d-flex flex-column">
+                                        <!-- Header (Màu Đỏ) -->
+                                        <div class="p-3 header-red border-start">
+                                            <div class="mb-0 fw-bold text-danger">
+                                                Các yếu tố xấu/ cản trở cần xem xét
+                                            </div>
+                                        </div>
+
+                                        <!-- Nội dung (Trắng/Đỏ Nhạt) -->
+                                        <div class="p-2 content-red flex-grow-1 border-start">
+                                            <ul class="list-unstyled mb-0">
+                                                <!-- Các yếu tố Cảnh báo (Tam Nương, Kim Thần Thất Sát) -->
+                                                @if ($tabooIssues->isNotEmpty())
+                                                    <li class="mb-3">
+                                                        <!-- Dùng icon tam giác cảnh báo màu cam -->
+
+                                                        <span class="text-dark">
+                                                            {{ $names ? '⚠️ Phạm: ' . $names : '' }}</span>
+                                                    </li>
+                                                @endif
+                                                @if (!$ownerData['score']['hopttuoi'] && $ownerData['score']['hopTuoiReason'] != 'Ngày bình thường')
+                                                    <li class="mb-3">
+                                                        <!-- Dùng icon tam giác cảnh báo màu cam -->
+                                                        ❌ Ngày kỵ tuổi:
+                                                        {{ $ownerData['score']['hopTuoiReason'] ?? 'Không hợp tuổi' }}
+                                                    </li>
+                                                @endif
+                                                @if ($ownerData['score']['tu']['details']['data']['nature'] == 'Xấu')
+                                                    <li class="mb-3">
+                                                        <!-- Dùng icon tam giác cảnh báo màu cam -->
+                                                        ❌ Nhị Thập Bát Tú: Sao
+                                                        {{ $ownerData['score']['tu']['details']['data']['name'] }} (Xấu)
+                                                    </li>
+                                                @endif
+                                                @if ($ownerData['score']['trucxau'])
+                                                    <li class="mb-3">
+                                                        ❌ Thập Nhị Trực: Trực
+                                                        {{ $ownerData['score']['truc']['details']['name'] }}
+                                                        (Xấu)</li>
+                                                @endif
                                                 @if (!empty($ownerData['score']['catHung']['details']['hungStars']))
-                                                    <strong>❌ Sao xấu theo Ngọc Hạp Thông Thư:</strong>
-                                                    @foreach ($ownerData['score']['catHung']['details']['hungStars'] as $sao)
-                                                        <span
-                                                            class=" bg-danger">{{ $sao['name'] }}</span>{{ $loop->last ? '' : ',' }}
-                                                    @endforeach
+                                                    <li class="mb-3">
+                                                        ❌ Sao xấu theo Ngọc Hạp Thông Thư:
+                                                        @foreach ($ownerData['score']['catHung']['details']['hungStars'] as $sao)
+                                                            <span
+                                                                class=" bg-danger">{{ $sao['name'] }}</span>{{ $loop->last ? '' : ',' }}
+                                                        @endforeach
+                                                    </li>
                                                 @endif
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+
+
                             </div>
                         </div>
                     </div>
@@ -196,31 +230,35 @@
                     <div class="card border-0 mb-3 w-100 box-detial-year">
                         <div class="card-body box1-con-year">
                             <div
-                                class="text-primary mb-3 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
+                                class="text-primary mb-2 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
                                 <img src="{{ asset('icons/dac-diem1.svg') }}" alt="thông tin người xem" width="28"
-                                    height="28" class="me-1"> <span>Đánh giá cho điểm các yếu tố ngày cho
+                                    height="28" class="me-1"> <span>Đánh giá điểm chỉ số ngày tốt cho
                                     @if (isset(request()->user_name) && !empty(request()->user_name))
                                         {{ request()->user_name }}
                                     @endif
                                     tuổi {{ $ownerData['personInfo']['can_chi_nam'] }}
-                                    ({{ $ownerData['personInfo']['dob']->format('d-m-Y') }}) khai trương:
+                                    ({{ $ownerData['personInfo']['dob']->format('Y') }})
+                                    {{-- khai trương:
                                     {{ round($ownerData['score']['percentage']) }}/100
-                                    ({{ round($ownerData['score']['percentage']) }}%)
+                                    ({{ round($ownerData['score']['percentage']) }}%) --}}
                                 </span>
                             </div>
+                            <p>Chúng tôi dựa trên các yếu tố về Thiên - Địa - Nhân và gán trọng số để đánh giá chỉ
+                                số tốt - xấu trong ngày.</p>
                             <div>
                                 <table class="table table-detail" style="table-layout: fixed;">
                                     <tbody>
-                                        <tr>
+                                          <tr style="font-weight: 600">
                                             <td>
                                                 Yếu tố đánh giá
                                             </td>
                                             <td>
-                                                Điểm đánh giá
-                                            </td>
-                                            <td>
                                                 Trọng số
                                             </td>
+                                            <td>
+                                                Điểm đánh giá
+                                            </td>
+
                                         </tr>
                                         @php
                                             $weights =
@@ -229,26 +267,37 @@
                                         @endphp
                                         <tr>
                                             <td>Can chi - vận khí ngày so với tuổi</td>
-                                            <td>{{ round($ownerData['score']['vanKhi']['percentage']) }}/100</td>
-                                            <td>{{ round(($weights['VanKhi'] / $totalWeight) * 100, 1) }}%</td>
+                                            <td>{{ $weights['VanKhi']  / 10 ?? 0 }}</td>
+                                            <td>{{ round($ownerData['score']['vanKhi']['percentage']) }}%</td>
                                         </tr>
                                         <tr>
                                             <td>Nhị Thập Bát Tú</td>
-                                            <td>{{ round($ownerData['score']['tu']['percentage']) }}/100</td>
-                                            <td>{{ round(($weights['28Tu'] / $totalWeight) * 100, 1) }}%</td>
+                                            <td>{{ $weights['28Tu'] / 10 ?? 0 }}</td>
+                                            <td>{{ round($ownerData['score']['tu']['percentage']) }}%</td>
                                         </tr>
                                         <tr>
                                             <td>Thập Nhị Trực</td>
-                                            <td>{{ round($ownerData['score']['truc']['percentage']) }}/100</td>
-                                            <td>{{ round(($weights['12Truc'] / $totalWeight) * 100, 1) }}%</td>
+                                            <td>{{ $weights['12Truc'] / 10 ?? 0 }}</td>
+                                            <td>{{ round($ownerData['score']['truc']['percentage']) }}%</td>
                                         </tr>
                                         <tr>
                                             <td>Sao Cát Hung - Ngọc Hạp Thông Thư</td>
-                                            <td>{{ round($ownerData['score']['catHung']['percentage']) }}/100</td>
-                                            <td>{{ round(($weights['CatHung'] / $totalWeight) * 100, 1) }}%</td>
+                                            <td>{{ $weights['CatHung'] / 10 ?? 0 }}</td>
+                                            <td>{{ round($ownerData['score']['catHung']['percentage']) }}%</td>
+                                        </tr>
+                                        <tr style="font-weight: 700">
+
+                                            <td>Đánh giá chung</td>
+                                            <td>1</td>
+                                            <td>({{ round($ownerData['score']['percentage']) }}%)
+                                                {{ $ownerData['score']['rating'] }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
+                                <div style="font-style: italic">
+                                    Lưu ý: Bạn có thể thay đổi trọng số khác với đề xuất phía trên của chúng tôi để
+                                    tự đánh giá chỉ số ngày tốt theo cách của riêng mình.
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -261,7 +310,7 @@
                                     <img src="{{ asset('icons/dac-diem1.svg') }}" alt="thông tin người xem" width="28"
                                         height="28" class="me-1">
                                 </div>
-                                <div>Các yếu tố</div>
+                                <div>Luận giải các yếu tố tốt xấu trong ngày</div>
                             </div>
                             <div>
                                 <div class="card-body p-0">
@@ -272,17 +321,17 @@
                                                 <button class="accordion-button collapsed" type="button"
                                                     data-bs-toggle="collapse"
                                                     data-bs-target="#collapse-canchi-{{ Str::slug($ownerData['personTitle']) }}">
-                                                   Can chi - vận khí ngày so với tuổi
+                                                    Can chi - vận khí ngày so với tuổi
                                                 </button>
                                             </h2>
                                             <div id="collapse-canchi-{{ Str::slug($ownerData['personTitle']) }}"
                                                 class="accordion-collapse collapse"
                                                 data-bs-parent="#accordion-{{ Str::slug($ownerData['personTitle']) }}">
                                                 <div class="accordion-body">
-                                                    <h6><b>* Quan hệ Can chi ngày (nội khí):</b></h6>
+                                                    <h6><b>Quan hệ Can chi ngày (nội khí):</b></h6>
                                                     <p>{!! $ownerData['noiKhiNgay'] !!}</p>
 
-                                                    <h6><b>* Vận khí ngày & tháng (khí tháng):</b></h6>
+                                                    <h6><b>Vận khí ngày & tháng (khí tháng):</b></h6>
                                                     <p>Ngày {{ $ownerData['getThongTinCanChiVaIcon']['can_chi_ngay'] }} -
                                                         Tháng {{ $ownerData['getThongTinCanChiVaIcon']['can_chi_thang'] }}
                                                     </p>
@@ -295,7 +344,7 @@
                                                         <li>{!! $commonDayInfo['hopxungNgay']['hop'] !!}</li>
                                                         <li>{!! $commonDayInfo['hopxungNgay']['ky'] !!}</li>
                                                     </ul> --}}
-                                                    <h6><b>* So sánh ngày với mệnh tuổi của bạn:</b></h6>
+                                                    <h6><b>So sánh ngày với mệnh tuổi của bạn:</b></h6>
                                                     @php $analyze = $ownerData['analyzeNgayVoiTuoi']; @endphp
                                                     <ul class="list-unstyled">
                                                         <li><strong>Thiên can:</strong> Can ngày
@@ -389,40 +438,41 @@
                                                 </div>
                                             </div>
 
-                                            <div class="accordion-item">
-                                                <h2 class="accordion-header">
-                                                    <button class="accordion-button collapsed" type="button"
-                                                        data-bs-toggle="collapse"
-                                                        data-bs-target="#collapse-sao-cat-hung-{{ Str::slug($ownerData['personTitle']) }}">
-                                                        Sao Cát Hung - Ngọc Hạp Thông Thư
-                                                    </button>
-                                                </h2>
-                                                <div id="collapse-sao-cat-hung-{{ Str::slug($ownerData['personTitle']) }}"
-                                                    class="accordion-collapse collapse"
-                                                    data-bs-parent="#accordion-{{ Str::slug($ownerData['personTitle']) }}">
-                                                    <div class="accordion-body">
-                                                        @php $getSaoTotXauInfo = $commonDayInfo['getSaoTotXauInfo']; @endphp
-                                                        <h6><i class="fas fa-star text-success"></i> Sao tốt:</h6>
-                                                        <ul class="list-unstyled ps-3">
-                                                            @forelse ($getSaoTotXauInfo['sao_tot'] as $tenSao => $yNghia)
-                                                                <li><strong>{{ $tenSao }}:</strong>
-                                                                    {{ $yNghia }}</li>
-                                                            @empty
-                                                                <li>Không có sao tốt nổi bật.</li>
-                                                            @endforelse
-                                                        </ul>
-                                                        <h6 class="mt-3"><i class="fas fa-moon text-danger"></i> Sao
-                                                            xấu:</h6>
-                                                        <ul class="list-unstyled ps-3">
-                                                            @forelse ($getSaoTotXauInfo['sao_xau'] as $tenSao => $yNghia)
-                                                                <li><strong>{{ $tenSao }}:</strong>
-                                                                    {{ $yNghia }}</li>
-                                                            @empty
-                                                                <li>Không có sao xấu đáng kể.</li>
-                                                            @endforelse
-                                                        </ul>
-                                                        <p class="mt-3 fst-italic">{{ $getSaoTotXauInfo['ket_luan'] }}</p>
-                                                    </div>
+
+                                        </div>
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header">
+                                                <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse"
+                                                    data-bs-target="#collapse-sao-cat-hung-{{ Str::slug($ownerData['personTitle']) }}">
+                                                    Sao Cát Hung - Ngọc Hạp Thông Thư
+                                                </button>
+                                            </h2>
+                                            <div id="collapse-sao-cat-hung-{{ Str::slug($ownerData['personTitle']) }}"
+                                                class="accordion-collapse collapse"
+                                                data-bs-parent="#accordion-{{ Str::slug($ownerData['personTitle']) }}">
+                                                <div class="accordion-body">
+                                                    @php $getSaoTotXauInfo = $commonDayInfo['getSaoTotXauInfo']; @endphp
+                                                    <h6><i class="fas fa-star text-success"></i> Sao tốt:</h6>
+                                                    <ul class="list-unstyled ps-3">
+                                                        @forelse ($getSaoTotXauInfo['sao_tot'] as $tenSao => $yNghia)
+                                                            <li><strong>{{ $tenSao }}:</strong>
+                                                                {{ $yNghia }}</li>
+                                                        @empty
+                                                            <li>Không có sao tốt nổi bật.</li>
+                                                        @endforelse
+                                                    </ul>
+                                                    <h6 class="mt-3"><i class="fas fa-moon text-danger"></i> Sao
+                                                        xấu:</h6>
+                                                    <ul class="list-unstyled ps-3">
+                                                        @forelse ($getSaoTotXauInfo['sao_xau'] as $tenSao => $yNghia)
+                                                            <li><strong>{{ $tenSao }}:</strong>
+                                                                {{ $yNghia }}</li>
+                                                        @empty
+                                                            <li>Không có sao xấu đáng kể.</li>
+                                                        @endforelse
+                                                    </ul>
+                                                    <p class="mt-3 fst-italic">{{ $getSaoTotXauInfo['ket_luan'] }}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -431,7 +481,12 @@
                             </div>
                         </div>
                     </div>
-
+                    <div class="mb-3" style="justify-content: center; display:flex">
+                        <a href="#" class="btn btn-outline-primary btn-sm" id="backToListBtn"
+                            onclick="goBackToForm()">
+                            <i class="bi bi-arrow-left me-1"></i> Xem ngày khác
+                        </a>
+                    </div>
                     <div class="card border-0 mb-3 w-100 box-detial-year">
                         <div class="card-body box1-con-year">
                             <div class="text-primary mb-2 text-dark d-flex align-items-center fw-bolder">

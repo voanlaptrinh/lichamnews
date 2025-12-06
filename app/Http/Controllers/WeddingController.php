@@ -90,30 +90,53 @@ class WeddingController extends Controller
         $startDate = Carbon::createFromFormat('d/m/Y', $validated['start_date'])->startOfDay();
         $endDate = Carbon::createFromFormat('d/m/Y', $validated['end_date'])->endOfDay();
 
-        // 2. Logic mới: Nhóm theo năm
+        // 2. Logic mới: Nhóm theo năm âm lịch (giống BuyHouseController)
         $period = CarbonPeriod::create($startDate, $endDate);
         $groomInfo = BadDayHelper::getPersonBasicInfo($groomDob);
         $brideInfo = BadDayHelper::getPersonBasicInfo($brideDob);
 
-        // Lấy danh sách các năm duy nhất trong khoảng đã chọn
-        $uniqueYears = [];
+        // Lấy danh sách các năm âm lịch duy nhất và tính khoảng ngày cho mỗi năm
+        $uniqueLunarYears = [];
+        $lunarYearRanges = []; // Lưu khoảng ngày cho mỗi năm âm
+
         foreach ($period as $date) {
-            $uniqueYears[$date->year] = true;
+            $lunarParts = LunarHelper::convertSolar2Lunar($date->day, $date->month, $date->year);
+            $lunarYear = $lunarParts[2];
+
+            if (!isset($uniqueLunarYears[$lunarYear])) {
+                $uniqueLunarYears[$lunarYear] = true;
+                // Tính toán ngày bắt đầu và kết thúc của năm âm này trong khoảng được chọn
+                $lunarYearRanges[$lunarYear] = ['start' => $date->copy(), 'end' => $date->copy()];
+            } else {
+                // Cập nhật ngày cuối của năm âm này
+                $lunarYearRanges[$lunarYear]['end'] = $date->copy();
+            }
         }
-        $uniqueYears = array_keys($uniqueYears);
+        $uniqueLunarYears = array_keys($uniqueLunarYears);
 
         $resultsByYear = [];
-        foreach ($uniqueYears as $year) {
-            // Với mỗi năm, ta phân tích hạn cho cả cô dâu và chú rể
-            // Lưu ý: hạn Tam Tai, Kim Lâu, Hoang Ốc là tính theo NĂM, nên chỉ cần tính 1 lần/năm.
-            $groomAnalysis = $this->calculateAstrologyResults($groomDob, $year, 'chú rể');
-            $brideAnalysis = $this->calculateAstrologyResults($brideDob, $year, 'cô dâu');
+        foreach ($uniqueLunarYears as $lunarYear) {
+            // Với mỗi năm âm, ta phân tích hạn cho cả cô dâu và chú rể
+            $groomAnalysis = $this->calculateAstrologyResults($groomDob, $lunarYear, 'chú rể');
+            $brideAnalysis = $this->calculateAstrologyResults($brideDob, $lunarYear, 'cô dâu');
 
-            $canChiNam = KhiVanHelper::canchiNam((int)$year);
-            $resultsByYear[$year] = [
+            $canChiNam = KhiVanHelper::canchiNam((int)$lunarYear);
+
+            // Tạo chuỗi hiển thị khoảng ngày (giống BuyHouseController)
+            $startDate = $lunarYearRanges[$lunarYear]['start'];
+            $endDate = $lunarYearRanges[$lunarYear]['end'];
+            $dateRange = '';
+            if ($startDate->format('Y-m-d') === $endDate->format('Y-m-d')) {
+                $dateRange = $startDate->format('d/m/Y');
+            } else {
+                $dateRange = $startDate->format('d/m') . ' - ' . $endDate->format('d/m/Y');
+            }
+
+            $resultsByYear[$lunarYear] = [
                 'groom_analysis' => $groomAnalysis,
                 'bride_analysis' => $brideAnalysis,
                 'canchi' => $canChiNam,
+                'date_range' => $dateRange, // Thêm date_range như BuyHouseController
                 'good_days' => [], // Mảng để lưu các ngày tốt trong năm này
                 'days' => [],
             ];
@@ -124,7 +147,10 @@ class WeddingController extends Controller
         // Mục đích (purpose) cho việc xem ngày cưới
         $purpose = 'CUOI_HOI';
         foreach ($period as $date) {
-            $year = $date->year;
+            // Lấy năm âm lịch của ngày này (giống BuyHouseController)
+            $lunarParts = LunarHelper::convertSolar2Lunar($date->day, $date->month, $date->year);
+            $lunarYear = $lunarParts[2];
+
             $birthdatealGrom = LunarHelper::convertSolar2Lunar($groomDob->day, $groomDob->month, $groomDob->year);
             $birthdatealBride = LunarHelper::convertSolar2Lunar($brideDob->day, $brideDob->month, $brideDob->year);
 
@@ -138,7 +164,6 @@ class WeddingController extends Controller
             // 1. Lấy TẤT CẢ các giờ tốt trong ngày
             $goodHours = LunarHelper::getGoodHours($dayChi, 'day');
             // c. Tạo chuỗi ngày Âm lịch đầy đủ để hiển thị
-            $lunarParts = LunarHelper::convertSolar2Lunar($date->day, $date->month, $date->year);
          $fullLunarDateStr = sprintf(
                 '%02d/%02d/%04d %s',
                 $lunarParts[0],
@@ -147,8 +172,8 @@ class WeddingController extends Controller
                 '(ÂL)'
             );
 
-            // Thêm kết quả chi tiết của ngày vào đúng năm của nó
-            $resultsByYear[$year]['days'][] = [
+            // Thêm kết quả chi tiết của ngày vào đúng năm âm lịch của nó
+            $resultsByYear[$lunarYear]['days'][] = [
                 'date' => $date->copy(), // Dùng copy() để đảm bảo đối tượng date không bị thay đổi
                 'weekday_name' => $date->isoFormat('dddd'),
                 // Dữ liệu mới để hiển thị

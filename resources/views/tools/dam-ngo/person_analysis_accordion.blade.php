@@ -22,10 +22,10 @@
                             class="accordion-collapse collapse"
                             data-bs-parent="#accordion-{{ Str::slug($personData['personTitle']) }}">
                             <div class="accordion-body">
-                                <h6><b>* Quan hệ Can chi ngày (nội khí):</b></h6>
+                                <h6><b>Quan hệ Can chi ngày (nội khí):</b></h6>
                                 <p>{!! $personData['noiKhiNgay'] !!}</p>
 
-                                <h6><b>* Vận khí ngày & tháng (khí tháng):</b></h6>
+                                <h6><b>Vận khí ngày & tháng (khí tháng):</b></h6>
                                 <p>Ngày {{ $personData['getThongTinCanChiVaIcon']['can_chi_ngay'] }} - Tháng
                                     {{ $personData['getThongTinCanChiVaIcon']['can_chi_thang'] }}</p>
                                 <ul class="mb-0 mt-0">

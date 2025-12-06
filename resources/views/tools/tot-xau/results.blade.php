@@ -2,6 +2,9 @@
     <!-- Tabs cho các năm -->
     @if (isset($resultsByYear) && count($resultsByYear) > 0)
         <div class="box-tab-white mb-3">
+             <div class="text-primary ms-2 mb-2 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
+                Khoảng thời gian xem
+            </div>
             <div class="year-tabs ">
                 <ul class="nav nav-pills">
                     @php $firstYear = true; @endphp

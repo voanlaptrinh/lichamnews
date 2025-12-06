@@ -2,7 +2,7 @@
 
 @section('content')
     @push('styles')
-        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=11.0') }}">
+        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=11.3') }}">
     @endpush
 
     <div class="container-setup">
@@ -317,7 +317,7 @@
 
 @push('scripts')
     <script src="{{ asset('js/lunar-solar-date-select.js?v=2.6') }}"></script>
-    <script src="{{ asset('/js/vanilla-daterangepicker.js?v=6.8') }}" defer></script>
+    <script src="{{ asset('/js/vanilla-daterangepicker.js?v=7.0') }}" defer></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const hasHashParams = window.location.hash && window.location.hash.includes('birthdate');

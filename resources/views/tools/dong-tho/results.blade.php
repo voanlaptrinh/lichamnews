@@ -1,25 +1,34 @@
 <div class="w-100" id="content-box-succes">
     <!-- Tabs cho các năm -->
     @if (isset($resultsByYear) && count($resultsByYear) > 0)
-          <div class="box-tab-white mb-3">
-          <div class="year-tabs ">
-            <ul class="nav nav-pills">
-                @php $firstYear = true; @endphp
-                @foreach ($resultsByYear as $year => $yearData)
-                    <li class="nav-item">
-                        <a class="nav-link {{ $firstYear ? 'active' : '' }}" data-bs-toggle="pill"
-                            href="#year-{{ $year }}"
-                            style="border-radius: 20px; margin: 0 5px; padding: 8px 20px;">
-                            {{ $year }}
-                            @if (isset($yearData['canchi']))
-                                ({{ $yearData['canchi'] }})
-                            @endif
-                        </a>
-                    </li>
-                    @php $firstYear = false; @endphp
-                @endforeach
-            </ul>
-        </div>        </div>
+
+        <div class="box-tab-white mb-3">
+            <div class="text-primary ms-2 mb-2 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
+                Khoảng thời gian xem
+            </div>
+            <div class="year-tabs ">
+
+                <ul class="nav nav-pills">
+                    @php $firstYear = true; @endphp
+                    @foreach ($resultsByYear as $year => $yearData)
+                        <li class="nav-item">
+                            <a class="nav-link {{ $firstYear ? 'active' : '' }}" data-bs-toggle="pill"
+                                href="#year-{{ $year }}"
+                                style="border-radius: 20px; margin: 0 5px; padding: 8px 20px;">
+                                <div class="text-center">
+                                    <div><strong>{{ $year }}</strong> ({{ $yearData['canchi'] }})</div>
+                                    @if (isset($yearData['date_range']))
+                                        <small
+                                            style="font-size: 0.8em; opacity: 0.8;">{{ $yearData['date_range'] }}</small>
+                                    @endif
+                                </div>
+                            </a>
+                        </li>
+                        @php $firstYear = false; @endphp
+                    @endforeach
+                </ul>
+            </div>
+        </div>
 
     @endif
 

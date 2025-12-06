@@ -114,17 +114,45 @@ class CaiTangController extends Controller
             'death_can_chi' => KhiVanHelper::canchiNam($deceasedDeathYear), // Thêm Can chi năm mất
         ];
 
-        // 3. Phân tích các năm trong khoảng thời gian đã chọn
-        $uniqueYears = collect($period)->map(fn($date) => $date->year)->unique()->values();
-        $resultsByYear = [];
+        // 3. Phân tích các năm âm lịch trong khoảng thời gian đã chọn
+        $uniqueLunarYears = [];
+        $lunarYearRanges = []; // Lưu khoảng ngày cho mỗi năm âm
 
-        foreach ($uniqueYears as $year) {
-            $hostYearAnalysis = $this->calculateHostAnalysis($hostDob, $year);
-            $deceasedYearAnalysis = AstrologyHelper::analyzeYearForDeceased($deceasedBirthYear, $year);
-            $canChiNam = KhiVanHelper::canchiNam((int)$year);
-            $resultsByYear[$year] = [
+        foreach ($period as $date) {
+            $lunarParts = LunarHelper::convertSolar2Lunar($date->day, $date->month, $date->year);
+            $lunarYear = $lunarParts[2];
+
+            if (!isset($uniqueLunarYears[$lunarYear])) {
+                $uniqueLunarYears[$lunarYear] = true;
+                // Tính toán ngày bắt đầu và kết thúc của năm âm này trong khoảng được chọn
+                $lunarYearRanges[$lunarYear] = ['start' => $date->copy(), 'end' => $date->copy()];
+            } else {
+                // Cập nhật ngày cuối của năm âm này
+                $lunarYearRanges[$lunarYear]['end'] = $date->copy();
+            }
+        }
+        $uniqueLunarYears = array_keys($uniqueLunarYears);
+
+        $resultsByYear = [];
+        foreach ($uniqueLunarYears as $lunarYear) {
+            $hostYearAnalysis = $this->calculateHostAnalysis($hostDob, $lunarYear);
+            $deceasedYearAnalysis = AstrologyHelper::analyzeYearForDeceased($deceasedBirthYear, $lunarYear);
+            $canChiNam = KhiVanHelper::canchiNam((int)$lunarYear);
+
+            // Tạo chuỗi hiển thị khoảng ngày
+            $startDate = $lunarYearRanges[$lunarYear]['start'];
+            $endDate = $lunarYearRanges[$lunarYear]['end'];
+            $dateRange = '';
+            if ($startDate->format('Y-m-d') === $endDate->format('Y-m-d')) {
+                $dateRange = $startDate->format('d/m/Y');
+            } else {
+                $dateRange = $startDate->format('d/m') . ' - ' . $endDate->format('d/m/Y');
+            }
+
+            $resultsByYear[$lunarYear] = [
                 'host_analysis' => $hostYearAnalysis,
                 'canchi' => $canChiNam,
+                'date_range' => $dateRange,
                 'deceased_analysis' => $deceasedYearAnalysis,
                 'days' => [],
             ];
@@ -133,7 +161,9 @@ class CaiTangController extends Controller
         // 4. Lặp qua từng ngày để chấm điểm chi tiết
         $purpose = 'SANG_CAT';
         foreach ($period as $date) {
-            $year = $date->year;
+            // Lấy năm âm lịch của ngày này
+            $lunarParts = LunarHelper::convertSolar2Lunar($date->day, $date->month, $date->year);
+            $lunarYear = $lunarParts[2];
 
             $dayScoreDetails = GoodBadDayHelper::calculateDayScore(
                 $date,
@@ -145,7 +175,6 @@ class CaiTangController extends Controller
             $dayCanChi = LunarHelper::canchiNgayByJD($jd);
             $dayChi = explode(' ', $dayCanChi)[1];
             $goodHours = LunarHelper::getGoodHours($dayChi, 'all');
-            $lunarParts = LunarHelper::convertSolar2Lunar($date->day, $date->month, $date->year);
             $fullLunarDateStr = sprintf(
                 '%02d/%02d/%04d %s',
                 $lunarParts[0],
@@ -154,8 +183,7 @@ class CaiTangController extends Controller
                 '(ÂL)'
             );
 
-
-            $resultsByYear[$year]['days'][] = [
+            $resultsByYear[$lunarYear]['days'][] = [
                 'al_name' => $lunarParts,
 
                 'date' => $date->copy(),

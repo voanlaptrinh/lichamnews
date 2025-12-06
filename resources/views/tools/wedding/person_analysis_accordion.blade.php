@@ -1,12 +1,14 @@
 {{-- File này nhận vào 2 biến: $personData và $commonData --}}
 <div class="card border-0 mb-3 w-100 box-detial-year">
     <div class="card-body p-0">
-        <div class="text-primary mb-2 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
+        <div class="text-primary mb-2 title-tong-quan-h4-log text-dark d-flex fw-bolder">
             <div>
                 <img src="{{ asset('icons/dac-diem1.svg') }}" alt="thông tin người xem" width="28" height="28"
                     class="me-1">
             </div>
-            <div>Các yếu tố</div>
+            <div>
+                <h2 class="title-tong-quan-h3-log">Luận giải các yếu tố tốt xấu trong ngày</h2>
+            </div>
         </div>
         <div>
             <div class="card-body p-0">
@@ -22,10 +24,10 @@
                             class="accordion-collapse collapse"
                             data-bs-parent="#accordion-{{ Str::slug($personData['personTitle']) }}">
                             <div class="accordion-body">
-                                <h6><b>* Quan hệ Can chi ngày (nội khí):</b></h6>
+                                <h6><b> Quan hệ Can chi ngày (nội khí):</b></h6>
                                 <p>{!! $personData['noiKhiNgay'] !!}</p>
 
-                                <h6><b>* Vận khí ngày & tháng (khí tháng):</b></h6>
+                                <h6><b> Vận khí ngày & tháng (khí tháng):</b></h6>
                                 <p>Ngày {{ $personData['getThongTinCanChiVaIcon']['can_chi_ngay'] }} - Tháng
                                     {{ $personData['getThongTinCanChiVaIcon']['can_chi_thang'] }}</p>
                                 <ul class="mb-0 mt-0">
@@ -37,7 +39,7 @@
                                     <li>{!! $commonData['hopxungNgay']['hop'] !!}</li>
                                     <li>{!! $commonData['hopxungNgay']['ky'] !!}</li>
                                 </ul> --}}
-                                <h6><b>* So sánh ngày với mệnh tuổi của bạn:</b></h6>
+                                <h6><b> So sánh ngày với mệnh tuổi của bạn:</b></h6>
                                 @php $analyze = $personData['analyzeNgayVoiTuoi']; @endphp
                                 <ul class="list-unstyled">
                                     <li><strong>Thiên can:</strong> Can ngày

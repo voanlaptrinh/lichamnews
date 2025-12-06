@@ -717,16 +717,18 @@ html.daterangepicker-open {
     .table-layout {
         table-layout: fixed;
     }
-     .accordion-flush .accordion-button{
+
+    .accordion-flush .accordion-button {
         font-size: 18.5px;
     }
 }
 
 /* Large Desktop - 1400px+ */
 @media screen and (min-width:1400px) {
-    .accordion-flush .accordion-button{
+    .accordion-flush .accordion-button {
         font-size: 18.5px;
     }
+
     .daterangepicker-container {
         max-width: 500px;
     }
@@ -782,9 +784,10 @@ html.daterangepicker-open {
 
 /* Desktop - 1200px to 1399.98px */
 @media screen and (min-width:1200px) and (max-width:1399.98px) {
-     .accordion-flush .accordion-button{
+    .accordion-flush .accordion-button {
         font-size: 18.5px;
     }
+
     .daterangepicker-container {
         /* min-width: 450px; */
         max-width: 500px;
@@ -836,9 +839,10 @@ html.daterangepicker-open {
 
 /* Laptop / Small Desktop - 992px to 1199.98px */
 @media screen and (min-width:992px) and (max-width:1199.98px) {
-     .accordion-flush .accordion-button{
+    .accordion-flush .accordion-button {
         font-size: 18.5px;
     }
+
     .daterangepicker-container {
         /* min-width: 500px; */
         max-width: 550px;
@@ -898,9 +902,10 @@ html.daterangepicker-open {
 
 /* Tablet - 768px to 991.98px */
 @media screen and (min-width:768px) and (max-width:991.98px) {
-     .accordion-flush .accordion-button{
+    .accordion-flush .accordion-button {
         font-size: 18px;
     }
+
     .read-more-link-cotot {
         padding-right: 10px;
         padding-left: 10px;
@@ -997,12 +1002,17 @@ html.daterangepicker-open {
         display: flex;
         justify-content: space-between;
     }
+  
 }
 
 /* Large Phone - 480px to 767.98px */
 @media screen and (min-width: 480px) and (max-width: 767.98px) {
-     .accordion-flush .accordion-button{
+    .accordion-flush .accordion-button {
         font-size: 18px;
+    }
+   .header-green,
+    .header-red {
+        height: 70px;
     }
     .read-more-link-cotot {
         padding-right: 10px;
@@ -1131,9 +1141,10 @@ html.daterangepicker-open {
 }
 
 @media (max-width:480px) {
-     .accordion-flush .accordion-button{
+    .accordion-flush .accordion-button {
         font-size: 17px;
     }
+
     .form--submit-totxau {
         padding: 14px 20px;
     }
@@ -1172,6 +1183,15 @@ html.daterangepicker-open {
         display: flex;
         justify-content: center;
         gap: 5px;
+    }
+
+}
+
+@media (max-width:376px) {
+
+    .header-green,
+    .header-red {
+        height: 120px;
     }
 }
 
@@ -3245,6 +3265,7 @@ table.table-detail th {
     display: inline-block;
     text-align: center;
 }
+
 .accordion-flush .accordion-item {
     border-bottom: 1px solid #dee2e6 !important;
 }
@@ -3255,6 +3276,7 @@ table.table-detail th {
 }
 
 .accordion-flush .accordion-button:not(.collapsed) {
-    background: #fff; /* giữ thuần, không đổ bóng */
+    background: #fff;
+    /* giữ thuần, không đổ bóng */
     box-shadow: none !important;
 }

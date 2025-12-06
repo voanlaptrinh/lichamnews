@@ -76,21 +76,45 @@ class DongThoController extends Controller
         $endDate = Carbon::createFromFormat('d/m/Y', $validated['end_date'])->endOfDay();
         $period = CarbonPeriod::create($startDate, $endDate);
 
-        // 2. Lấy thông tin cơ bản của gia chủ và phân tích các năm
+        // 2. Lấy thông tin cơ bản của gia chủ và phân tích các năm âm lịch
         $birthdateInfo = $this->getPersonBasicInfo($birthdate);
-        $uniqueYears = [];
+        $uniqueLunarYears = [];
+        $lunarYearRanges = []; // Lưu khoảng ngày cho mỗi năm âm
+
         foreach ($period as $date) {
-            $uniqueYears[$date->year] = true;
+            $lunarParts = LunarHelper::convertSolar2Lunar($date->day, $date->month, $date->year);
+            $lunarYear = $lunarParts[2];
+
+            if (!isset($uniqueLunarYears[$lunarYear])) {
+                $uniqueLunarYears[$lunarYear] = true;
+                // Tính toán ngày bắt đầu và kết thúc của năm âm này trong khoảng được chọn
+                $lunarYearRanges[$lunarYear] = ['start' => $date->copy(), 'end' => $date->copy()];
+            } else {
+                // Cập nhật ngày cuối của năm âm này
+                $lunarYearRanges[$lunarYear]['end'] = $date->copy();
+            }
         }
-        $uniqueYears = array_keys($uniqueYears);
+        $uniqueLunarYears = array_keys($uniqueLunarYears);
 
         $resultsByYear = [];
-        foreach ($uniqueYears as $year) {
-            $yearAnalysis = $this->calculateYearAnalysis($birthdate, $year);
-            $canChiNam = KhiVanHelper::canchiNam((int)$year);
-            $resultsByYear[$year] = [
+        foreach ($uniqueLunarYears as $lunarYear) {
+            $yearAnalysis = $this->calculateYearAnalysis($birthdate, $lunarYear);
+            $canChiNam = KhiVanHelper::canchiNam((int)$lunarYear);
+
+            // Tạo chuỗi hiển thị khoảng ngày
+            $startDate = $lunarYearRanges[$lunarYear]['start'];
+            $endDate = $lunarYearRanges[$lunarYear]['end'];
+            $dateRange = '';
+            if ($startDate->format('Y-m-d') === $endDate->format('Y-m-d')) {
+                $dateRange = $startDate->format('d/m/Y');
+            } else {
+                $dateRange = $startDate->format('d/m') . ' - ' . $endDate->format('d/m/Y');
+            }
+
+            $resultsByYear[$lunarYear] = [
                 'year_analysis' => $yearAnalysis,
                 'canchi' => $canChiNam,
+                'date_range' => $dateRange,
                 'days' => [], // Mảng để lưu kết quả chi tiết của từng ngày
             ];
         }
@@ -103,9 +127,11 @@ class DongThoController extends Controller
         $purpose = 'DONG_THO'; // Hoặc 'LAM_NHA', tùy theo bạn định nghĩa trong DataHelper
 
         foreach ($period as $date) {
-            $year = $date->year;
+            // Lấy năm âm lịch của ngày này
+            $lunarParts = LunarHelper::convertSolar2Lunar($date->day, $date->month, $date->year);
+            $lunarYear = $lunarParts[2];
+
             $birthdateal = LunarHelper::convertSolar2Lunar($birthdate->day, $birthdate->month, $birthdate->year);
-          
 
             // b. Tính toán điểm số của ngày dựa trên tuổi gia chủ
             $dayScoreDetails = GoodBadDayHelper::calculateDayScore($date, $birthdateal[2], $purpose);
@@ -118,7 +144,6 @@ class DongThoController extends Controller
             $goodHours = LunarHelper::getGoodHours($dayChi, 'day'); // 'day' để chỉ lấy giờ ban ngày
 
             // e. Tạo chuỗi ngày Âm lịch đầy đủ để hiển thị
-            $lunarParts = LunarHelper::convertSolar2Lunar($date->day, $date->month, $date->year);
            $fullLunarDateStr = sprintf(
                 '%02d/%02d/%04d %s',
                 $lunarParts[0],
@@ -127,9 +152,8 @@ class DongThoController extends Controller
                 '(ÂL)'
             );
 
-
-            // f. Thêm tất cả kết quả vào mảng `days` của năm tương ứng
-            $resultsByYear[$year]['days'][] = [
+            // f. Thêm tất cả kết quả vào mảng `days` của năm âm lịch tương ứng
+            $resultsByYear[$lunarYear]['days'][] = [
                 'date' => $date->copy(),
                 'weekday_name' => $date->isoFormat('dddd'),
                 'full_lunar_date_str' => $fullLunarDateStr,

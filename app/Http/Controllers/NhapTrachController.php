@@ -100,26 +100,49 @@ class NhapTrachController extends Controller
 );
         }
 
-        // 3. Phân tích các năm
-        $uniqueYears = [];
+        // 3. Phân tích các năm âm lịch
+        $uniqueLunarYears = [];
+        $lunarYearRanges = []; // Lưu khoảng ngày cho mỗi năm âm
+
         foreach ($period as $date) {
-            $uniqueYears[$date->year] = true;
+            $lunarParts = LunarHelper::convertSolar2Lunar($date->day, $date->month, $date->year);
+            $lunarYear = $lunarParts[2];
+
+            if (!isset($uniqueLunarYears[$lunarYear])) {
+                $uniqueLunarYears[$lunarYear] = true;
+                // Tính toán ngày bắt đầu và kết thúc của năm âm này trong khoảng được chọn
+                $lunarYearRanges[$lunarYear] = ['start' => $date->copy(), 'end' => $date->copy()];
+            } else {
+                // Cập nhật ngày cuối của năm âm này
+                $lunarYearRanges[$lunarYear]['end'] = $date->copy();
+            }
         }
-        $uniqueYears = array_keys($uniqueYears);
+        $uniqueLunarYears = array_keys($uniqueLunarYears);
 
         $resultsByYear = [];
-        foreach ($uniqueYears as $year) {
-            $yearAnalysis = $this->calculateYearAnalysis($birthdate, $year);
-            $canChiNam = KhiVanHelper::canchiNam((int)$year);
+        foreach ($uniqueLunarYears as $lunarYear) {
+            $yearAnalysis = $this->calculateYearAnalysis($birthdate, $lunarYear);
+            $canChiNam = KhiVanHelper::canchiNam((int)$lunarYear);
 
-            // Tính tuổi âm cho năm này
+            // Tính tuổi âm cho năm âm lịch này
             $lunarDob = LunarHelper::convertSolar2Lunar($birthdate->day, $birthdate->month, $birthdate->year);
             $lunarBirthYear = $lunarDob[2];
-            $lunarAge = AstrologyHelper::getLunarAge($lunarBirthYear, $year);
+            $lunarAge = AstrologyHelper::getLunarAge($lunarBirthYear, $lunarYear);
 
-            $resultsByYear[$year] = [
+            // Tạo chuỗi hiển thị khoảng ngày
+            $startDate = $lunarYearRanges[$lunarYear]['start'];
+            $endDate = $lunarYearRanges[$lunarYear]['end'];
+            $dateRange = '';
+            if ($startDate->format('Y-m-d') === $endDate->format('Y-m-d')) {
+                $dateRange = $startDate->format('d/m/Y');
+            } else {
+                $dateRange = $startDate->format('d/m') . ' - ' . $endDate->format('d/m/Y');
+            }
+
+            $resultsByYear[$lunarYear] = [
                 'year_analysis' => $yearAnalysis,
                 'canchi' => $canChiNam,
+                'date_range' => $dateRange,
                 'lunar_age' => $lunarAge, // Thêm tuổi âm
                 'days' => [], // Mảng để lưu kết quả chi tiết của từng ngày
             ];
@@ -129,7 +152,10 @@ class NhapTrachController extends Controller
         $purpose = 'NHAP_TRACH';
 
         foreach ($period as $date) {
-            $year = $date->year;
+            // Lấy năm âm lịch của ngày này
+            $lunarParts = LunarHelper::convertSolar2Lunar($date->day, $date->month, $date->year);
+            $lunarYear = $lunarParts[2];
+
             // Sử dụng năm âm lịch của ngày sinh thay vì năm dương lịch
             $lunarDob = LunarHelper::convertSolar2Lunar($birthdate->day, $birthdate->month, $birthdate->year);
             $lunarBirthYear = $lunarDob[2];
@@ -138,7 +164,6 @@ class NhapTrachController extends Controller
             $dayCanChi = LunarHelper::canchiNgayByJD($jd);
             $dayChi = explode(' ', $dayCanChi)[1];
             $goodHours = LunarHelper::getGoodHours($dayChi, 'day');
-            $lunarParts = LunarHelper::convertSolar2Lunar($date->day, $date->month, $date->year);
          $fullLunarDateStr = sprintf(
                 '%02d/%02d/%04d %s',
                 $lunarParts[0],
@@ -147,8 +172,7 @@ class NhapTrachController extends Controller
                 '(ÂL)'
             );
 
-
-            $resultsByYear[$year]['days'][] = [
+            $resultsByYear[$lunarYear]['days'][] = [
                 'date' => $date->copy(),
                 'weekday_name' => $date->isoFormat('dddd'),
                 'full_lunar_date_str' => $fullLunarDateStr,

@@ -153,10 +153,10 @@ class VanillaDateRangePicker {
             { label: '7 ngày tới', days: 6 },
             { label: '14 ngày tới', days: 13 },
             { label: '30 ngày tới', days: 29 },
-            { label: '3 tháng tới', type: 'next3Months' },
-            { label: '6 tháng tới', type: 'next6Months' },
             { label: 'Tháng này', type: 'thisMonth' },
             { label: 'Tháng sau', type: 'nextMonth' },
+            { label: '3 tháng tới', type: 'next3Months' },
+            { label: '6 tháng tới', type: 'next6Months' },
             { label: 'Năm nay', type: 'thisYear' },
             { label: 'Năm tới', type: 'nextYear' }
         ];
@@ -1401,12 +1401,12 @@ class VanillaDateRangePicker {
         quickList.className = 'mobile-quick-list';
 
         const quickOptions = [
-
             { label: '7 ngày tới', days: 6, icon: '📅' },
+            { label: '14 ngày tới', days: 13, icon: '📅' },
             { label: '30 ngày tới', days: 29, icon: '📅' },
             { label: 'Tháng này', type: 'thisMonth', icon: '📆' },
             { label: 'Tháng sau', type: 'nextMonth', icon: '📆' },
-                { label: '3 tháng tới', type: 'next3Months', icon: '📅' },
+            { label: '3 tháng tới', type: 'next3Months', icon: '📅' },
             { label: '6 tháng tới', type: 'next6Months', icon: '📅' },
             { label: 'Năm nay', type: 'thisYear', icon: '🗓️' },
             { label: 'Năm tới', type: 'nextYear', icon: '🗓️' }

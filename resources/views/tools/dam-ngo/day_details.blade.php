@@ -2,7 +2,7 @@
 
 @section('content')
     @push('styles')
-        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=11.0') }}">
+        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=11.3') }}">
     @endpush
 
     <div class="container-setup">
@@ -23,8 +23,8 @@
                 </li>
             </ol>
         </nav>
-        <h1 class="content-title-home-lich">Chi tiết xem dạm ngõ</h1>
-        <div>
+        <h1 class="content-title-home-lich">Chi tiết xem dạm ngõ  {{ $commonDayInfo['dateToCheck']->format('d/m/Y') }}</h1>
+       <div>
             <div class="row g-lg-3 g-2 pt-lg-3 pt-2">
                 <div class="col-xl-9 col-sm-12 col-12 ">
 
@@ -33,15 +33,15 @@
                             <div class="box-title-goback">
                                 <div
                                     class="text-primary mb-3 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
-                                    <img src="{{ asset('icons/dac-diem1.svg') }}" alt="thông tin người xem" width="28"
-                                        height="28" class="me-1"> <span>Thông Tin Ngày</span>
+                                    <img src="{{ asset('icons/dac-diem1.svg') }}" alt="Thông tin cơ bản của ngày"
+                                        width="28" height="28" class="me-1"> <span>Thông tin cơ bản của ngày</span>
                                 </div>
-                                <div class="mb-3">
+                                {{-- <div class="mb-3">
                                     <a href="#" class="btn btn-outline-primary btn-sm" id="backToListBtn"
                                         onclick="goBackToForm()">
                                         <i class="bi bi-arrow-left me-1"></i> Quay lại danh sách ngày
                                     </a>
-                                </div>
+                                </div> --}}
                             </div>
 
                             <div>
@@ -115,7 +115,8 @@
                                     <div
                                         class="text-primary mb-3 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
                                         <img src="{{ asset('icons/dac-diem1.svg') }}" alt="thông tin người xem"
-                                            width="28" height="28" class="me-1"> <span>Thông Tin Chú Rể</span>
+                                            width="28" height="28" class="me-1"> <span>Các yếu tố hỗ trợ - cản trở
+                                            trong ngày</span>
                                     </div>
 
                                     <div>
@@ -154,7 +155,7 @@
                                                         @if ($groomData['score']['tu']['details']['data']['nature'] == 'Tốt')
                                                             <li class="mb-3">
                                                                 <span class="text-success fw-bold list-icon">✓</span>
-                                                                <span class="text-dark">Nhị thập bát tú: Sao
+                                                                <span class="text-dark">Nhị Thập Bát Tú: Sao
                                                                     {{ $groomData['score']['tu']['details']['data']['name'] }}
                                                                     (Tốt)</span>
                                                             </li>
@@ -162,7 +163,7 @@
                                                         @if ($groomData['score']['tructot'])
                                                             <li class="mb-3">
                                                                 <span class="text-success fw-bold list-icon">✓</span>
-                                                                <span class="text-dark">Thập Nhị Trực
+                                                                <span class="text-dark">Thập Nhị Trực: Trực
                                                                     {{ $groomData['score']['truc']['details']['name'] }}
                                                                     (Tốt)
                                                                 </span>
@@ -214,14 +215,14 @@
                                                         @if ($groomData['score']['tu']['details']['data']['nature'] == 'Xấu')
                                                             <li class="mb-3">
                                                                 <!-- Dùng icon tam giác cảnh báo màu cam -->
-                                                                ❌ Nhị thập bát tú: Sao
+                                                                ❌ Nhị Thập Bát Tú: Sao
                                                                 {{ $groomData['score']['tu']['details']['data']['name'] }}
                                                                 (Xấu)
                                                             </li>
                                                         @endif
                                                         @if ($groomData['score']['trucxau'])
                                                             <li class="mb-3">
-                                                                ❌ Thập Nhị Trực
+                                                                ❌ Thập Nhị Trực: Trực
                                                                 {{ $groomData['score']['truc']['details']['name'] }}
                                                                 (Xấu)</li>
                                                         @endif
@@ -243,70 +244,83 @@
                                     </div>
                                 </div>
                             </div>
-
+                            @php
+                                $weights = \App\Helpers\DataHelper::$PURPOSE_WEIGHTS_PERSONALIZED['DINH_HON'];
+                                $totalWeight = array_sum($weights);
+                            @endphp
                             <div class="card border-0 mb-3 w-100 box-detial-year">
                                 <div class="card-body box1-con-year">
                                     <div
-                                        class="text-primary mb-3 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
+                                        class="text-primary mb-2 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
                                         <img src="{{ asset('icons/dac-diem1.svg') }}" alt="thông tin người xem"
-                                            width="28" height="28" class="me-1"> <span>Đánh giá điểm các yếu tố
-                                            ngày cho tuổi
+                                            width="28" height="28" class="me-1"> <span>
+                                            Đánh giá điểm chỉ số ngày tốt cho chú Rể sinh năm
                                             {{ $groomData['personInfo']['can_chi_nam'] }}
-                                            ({{ $groomData['personInfo']['dob']->format('d-m-Y') }}) chú rể:
-                                            {{ round($groomData['score']['percentage']) }}/100
-                                            ({{ round($groomData['score']['percentage']) }}%)</span>
-                                    </div>
-                                    <div>
+                                            ({{ $groomData['personInfo']['dob']->format('Y') }})
 
+                                        </span>
+                                    </div>
+                                    <p>Chúng tôi dựa trên các yếu tố về Thiên - Địa - Nhân và gán trọng số để đánh giá chỉ
+                                        số tốt - xấu trong ngày.</p>
+
+                                    <div>
                                         <table class="table table-detail" style="table-layout: fixed;">
                                             <tbody>
                                                 <tr style="font-weight: 600">
                                                     <td>Yếu tố đánh giá</td>
 
-                                                    <td>Điểm đánh giá</td>
                                                     <td>Trọng số</td>
+                                                    <td>Điểm đánh giá</td>
                                                 </tr>
-                                                @php
-                                                    $weights =
-                                                        \App\Helpers\DataHelper::$PURPOSE_WEIGHTS_PERSONALIZED[
-                                                            'CUOI_HOI'
-                                                        ];
-                                                    $totalWeight = array_sum($weights);
-                                                @endphp
-                                                <tr>
-                                                    <td>Can chi - vận khí ngày so với tuổi</td>
-                                                    <td>{{ round($groomData['score']['vanKhi']['percentage'] ?? 0) }}%</td>
-                                                    <td>
-                                                        {{ round((($weights['VanKhi'] ?? 0) / $totalWeight) * 100) }}%
-                                                    </td>
 
-                                                </tr>
                                                 <tr>
                                                     <td>Nhị Thập Bát Tú</td>
-                                                    <td>{{ round($groomData['score']['tu']['percentage'] ?? 0) }}%</td>
                                                     <td>
-                                                        {{ round((($weights['28Tu'] ?? 0) / $totalWeight) * 100) }}%</td>
+                                                        {{ $weights['28Tu'] / 10 ?? 0 }}</td>
+                                                    <td>{{ round($groomData['score']['tu']['percentage'] ?? 0) }}%</td>
 
                                                 </tr>
                                                 <tr>
                                                     <td>Thập Nhị Trực</td>
-                                                    <td>{{ round($groomData['score']['truc']['percentage'] ?? 0) }}%</td>
                                                     <td>
-                                                        {{ round((($weights['12Truc'] ?? 0) / $totalWeight) * 100) }}%</td>
+                                                        {{ $weights['12Truc'] / 10 ?? 0 }}</td>
+                                                    <td>{{ round($groomData['score']['truc']['percentage'] ?? 0) }}%</td>
 
                                                 </tr>
                                                 <tr>
-                                                    <td>Sao Cát Hung - Ngọc Hạp Thông Thư</td>
-                                                    <td>{{ round($groomData['score']['catHung']['percentage'] ?? 0) }}%
-                                                    </td>
+                                                    <td>Cát Hung (Sao tốt xấu)</td>
                                                     <td>
-                                                        {{ round((($weights['CatHung'] ?? 0) / $totalWeight) * 100) }}%
+                                                        {{ $weights['CatHung'] / 10 ?? 0 }}
+                                                    </td>
+                                                    <td>{{ round($groomData['score']['catHung']['percentage'] ?? 0) }}%
                                                     </td>
 
                                                 </tr>
+                                                <tr>
+                                                    <td>Văn Khí (Can Chi vận khí)</td>
+                                                    <td>
+                                                        {{ $weights['VanKhi'] / 10 ?? 0 }}
+                                                    </td>
+                                                    <td>{{ round($groomData['score']['vanKhi']['percentage'] ?? 0) }}%</td>
 
+                                                </tr>
+                                                <tr style="font-weight: 700">
+
+                                                    <td>Đánh giá chung</td>
+                                                    <td>1</td>
+                                                    <td>({{ round($groomData['score']['percentage']) }}%)
+                                                        {{ $groomData['score']['rating'] }}</td>
+                                                </tr>
                                             </tbody>
                                         </table>
+
+                                        <div style="font-style: italic">
+                                            Lưu ý: Bạn có thể thay đổi trọng số khác với đề xuất phía trên của chúng tôi để
+                                            tự đánh giá chỉ số ngày tốt theo cách của riêng mình.
+                                        </div>
+
+
+
                                     </div>
                                 </div>
                             </div>
@@ -329,8 +343,9 @@
                                 <div class="card-body box1-con-year">
                                     <div
                                         class="text-primary mb-3 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
-                                        <img src="{{ asset('icons/dac-diem1.svg') }}" alt="thông tin người xem"
-                                            width="28" height="28" class="me-1"> <span>Thông Tin Cô Dâu</span>
+                                        <img src="{{ asset('icons/dac-diem1.svg') }}"
+                                            alt="Các yếu tố hỗ trợ - cản trở trong ngày" width="28" height="28"
+                                            class="me-1"> <span>Các yếu tố hỗ trợ - cản trở trong ngày</span>
                                     </div>
 
                                     <div>
@@ -369,7 +384,7 @@
                                                         @if ($brideData['score']['tu']['details']['data']['nature'] == 'Tốt')
                                                             <li class="mb-3">
                                                                 <span class="text-success fw-bold list-icon">✓</span>
-                                                                <span class="text-dark">Nhị thập bát tú: Sao
+                                                                <span class="text-dark">Nhị Thập Bát Tú: Sao
                                                                     {{ $brideData['score']['tu']['details']['data']['name'] }}
                                                                     (Tốt)</span>
                                                             </li>
@@ -377,7 +392,7 @@
                                                         @if ($brideData['score']['tructot'])
                                                             <li class="mb-3">
                                                                 <span class="text-success fw-bold list-icon">✓</span>
-                                                                <span class="text-dark">Thập Nhị Trực
+                                                                <span class="text-dark">Thập Nhị Trực: Trực
                                                                     {{ $brideData['score']['truc']['details']['name'] }}
                                                                     (Tốt)
                                                                 </span>
@@ -429,14 +444,14 @@
                                                         @if ($brideData['score']['tu']['details']['data']['nature'] == 'Xấu')
                                                             <li class="mb-3">
                                                                 <!-- Dùng icon tam giác cảnh báo màu cam -->
-                                                                ❌ Nhị thập bát tú: Sao
+                                                                ❌ Nhị Thập Bát Tú: Sao
                                                                 {{ $brideData['score']['tu']['details']['data']['name'] }}
                                                                 (Xấu)
                                                             </li>
                                                         @endif
                                                         @if ($brideData['score']['trucxau'])
                                                             <li class="mb-3">
-                                                                ❌ Thập Nhị Trực
+                                                                ❌ Thập Nhị Trực: Trực
                                                                 {{ $brideData['score']['truc']['details']['name'] }}
                                                                 (Xấu)</li>
                                                         @endif
@@ -454,7 +469,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                       
+
                                     </div>
                                 </div>
                             </div>
@@ -462,58 +477,71 @@
                             <div class="card border-0 mb-3 w-100 box-detial-year">
                                 <div class="card-body box1-con-year">
                                     <div
-                                        class="text-primary mb-3 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
+                                        class="text-primary mb-2 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
                                         <img src="{{ asset('icons/dac-diem1.svg') }}" alt="thông tin người xem"
-                                            width="28" height="28" class="me-1"> <span>Đánh giá điểm các yếu tố
-                                            ngày cho tuổi
+                                            width="28" height="28" class="me-1"> <span>
+                                            Đánh giá điểm chỉ số ngày tốt cho cô Dâu sinh năm
                                             {{ $brideData['personInfo']['can_chi_nam'] }}
-                                            ({{ $brideData['personInfo']['dob']->format('d-m-Y') }}) cô dâu:
-                                            {{ round($brideData['score']['percentage']) }}/100
-                                            ({{ round($brideData['score']['percentage']) }}%)</span>
+                                            ({{ $brideData['personInfo']['dob']->format('Y') }})
+                                        </span>
                                     </div>
+                                    <p>Chúng tôi dựa trên các yếu tố về Thiên - Địa - Nhân và gán trọng số để đánh giá chỉ
+                                        số tốt - xấu trong ngày.</p>
+
                                     <div>
                                         <table class="table table-detail" style="table-layout: fixed;">
                                             <tbody>
                                                 <tr style="font-weight: 600">
                                                     <td>Yếu tố đánh giá</td>
 
-                                                    <td>Điểm đánh giá</td>
                                                     <td>Trọng số</td>
+                                                    <td>Điểm đánh giá</td>
                                                 </tr>
 
                                                 <tr>
-                                                    <td>Nhị thập bát tú</td>
+                                                    <td>Nhị Thập Bát Tú</td>
+                                                    <td>
+                                                        {{ $weights['28Tu'] / 10 }}</td>
                                                     <td>{{ round($brideData['score']['tu']['percentage'] ?? 0) }}%</td>
-                                                    <td>
-                                                        {{ round((($weights['28Tu'] ?? 0) / $totalWeight) * 100) }}%</td>
 
                                                 </tr>
                                                 <tr>
-                                                    <td>Thập Nhị Trực</td>
-                                                    <td>{{ round($brideData['score']['truc']['percentage'] ?? 0) }}%</td>
+                                                    <td>Thập Nhị Trực:</td>
                                                     <td>
-                                                        {{ round((($weights['12Truc'] ?? 0) / $totalWeight) * 100) }}%</td>
+                                                        {{$weights['12Truc'] / 10 ?? 0 }}</td>
+                                                    <td>{{ round($brideData['score']['truc']['percentage'] ?? 0) }}%</td>
 
                                                 </tr>
                                                 <tr>
                                                     <td>Cát Hung (Sao tốt xấu)</td>
-                                                    <td>{{ round($brideData['score']['catHung']['percentage'] ?? 0) }}%
-                                                    </td>
                                                     <td>
-                                                        {{ round((($weights['CatHung'] ?? 0) / $totalWeight) * 100) }}%
+                                                        {{$weights['CatHung'] / 10 ?? 0 }}
+                                                    </td>
+                                                    <td>{{ round($brideData['score']['catHung']['percentage'] ?? 0) }}%
                                                     </td>
 
                                                 </tr>
                                                 <tr>
                                                     <td>Văn Khí (Can Chi vận khí)</td>
-                                                    <td>{{ round($brideData['score']['vanKhi']['percentage'] ?? 0) }}%</td>
                                                     <td>
-                                                        {{ round((($weights['VanKhi'] ?? 0) / $totalWeight) * 100) }}%
+                                                        {{$weights['VanKhi'] / 10 ?? 0 }}
                                                     </td>
+                                                    <td>{{ round($brideData['score']['vanKhi']['percentage'] ?? 0) }}%</td>
 
+                                                </tr>
+                                                <tr style="font-weight: 700">
+
+                                                    <td>Đánh giá chung</td>
+                                                    <td>1</td>
+                                                    <td>({{ round($brideData['score']['percentage']) }}%)
+                                                        {{ $brideData['score']['rating'] }}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
+                                        <div style="font-style: italic">
+                                            Lưu ý: Bạn có thể thay đổi trọng số khác với đề xuất phía trên của chúng tôi để
+                                            tự đánh giá chỉ số ngày tốt theo cách của riêng mình.
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -527,10 +555,17 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="mb-3" style="justify-content: center; display:flex">
+                            <a href="#" class="btn btn-outline-primary btn-sm" id="backToListBtn"
+                                onclick="goBackToForm()">
+                                <i class="bi bi-arrow-left me-1"></i> Xem ngày khác
+                            </a>
+                        </div>
                         <div class="card border-0 mb-3 w-100 box-detial-year">
                             <div class="card-body box1-con-year">
                                 <div class="text-primary mb-2  text-dark d-flex align-items-center">
-                                    ⚠️ Chú ý: Đây là các thông tin xem mang tính chất tham khảo, không thay thế cho các tư vấn
+                                    ⚠️ Chú ý: Đây là các thông tin xem mang tính chất tham khảo, không thay thế cho các tư
+                                    vấn
                                     chuyên môn. Người dùng tự chịu trách nhiệm với mọi quyết định cá nhân dựa trên thông tin
                                     tham khảo tại Phong Lịch.
                                 </div>
