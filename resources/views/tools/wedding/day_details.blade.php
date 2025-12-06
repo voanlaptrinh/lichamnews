@@ -516,7 +516,7 @@
                                                 <tr>
                                                     <td>Cát Hung (Sao tốt xấu)</td>
                                                     <td>
-                                                        {{$weights['CatHung'] / 10 ?? 0 }}%
+                                                        {{$weights['CatHung'] / 10 ?? 0 }}
                                                     </td>
                                                     <td>{{ round($brideData['score']['catHung']['percentage'] ?? 0) }}%
                                                     </td>

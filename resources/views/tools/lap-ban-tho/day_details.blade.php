@@ -270,25 +270,25 @@
                                         @endphp
                                         <tr>
                                             <td>Can chi - vận khí ngày so với tuổi</td>
-                                            <td>{{ $weights['VanKhi'] ?? 0 }}%</td>
+                                            <td>{{ $weights['VanKhi'] / 10 ?? 0 }}</td>
                                             <td>{{ round($groomData['score']['vanKhi']['percentage']) }}%
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Nhị Thập Bát Tú</td>
-                                            <td>{{ $weights['28Tu'] / 10 ?? 0 }}%</td>
+                                            <td>{{ $weights['28Tu'] / 10 ?? 0 }}</td>
                                             <td>{{ round($groomData['score']['tu']['percentage']) }}%
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Thập Nhị Trực</td>
-                                            <td>{{ $weights['12Truc'] / 10 ?? 0 }}%</td>
+                                            <td>{{ $weights['12Truc'] / 10 ?? 0 }}</td>
                                             <td>{{ round($groomData['score']['truc']['percentage']) }}%
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Sao Cát Hung - Ngọc Hạp Thông Thư</td>
-                                            <td>{{ $weights['CatHung'] / 10 ?? 0 }}%</td>
+                                            <td>{{ $weights['CatHung'] / 10 ?? 0 }}</td>
                                             <td>{{ round($groomData['score']['catHung']['percentage']) }}%
                                             </td>
                                         </tr>

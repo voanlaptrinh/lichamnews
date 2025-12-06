@@ -258,11 +258,12 @@
                                                 Yếu tố đánh giá
                                             </td>
                                             <td>
-                                                Điểm đánh giá
-                                            </td>
-                                            <td>
                                                 Trọng số
                                             </td>
+                                            <td>
+                                                Điểm đánh giá
+                                            </td>
+                                            
                                         </tr>
                                         @php
                                             $weights =
