@@ -158,7 +158,7 @@
                                                 <span class="badge bg-danger ms-2">KHÔNG HỢP</span>
                                             @endif
                                         </div>
-                                        <p class="small mb-1">{{ $huongNhaAnalysis['description'] }}</p>
+                                        {{-- <p class="small mb-1">{{ $huongNhaAnalysis['description'] }}</p> --}}
 
                                         @if (!$huongNhaAnalysis['is_good'])
                                             <div class="mt-2">
