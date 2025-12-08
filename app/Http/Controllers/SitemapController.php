@@ -78,6 +78,27 @@ class SitemapController extends Controller
     public function tools()
     {
         $toolRoutes = [
+            'totxau.list',
+            'totxau.form',
+            'buy-house.form',
+            'astrology.form',
+            'dam-ngo.form',
+            'khai-truong.form',
+            'breaking.form',
+            'nhap-trach.form',
+            'xuat-hanh.form',
+            'mua-xe.form',
+            'thi-cu.form',
+            'ky-hop-dong.form',
+            'cai-tang.form',
+            'ban-tho.form',
+            'lap-ban-tho.form',
+            'giai-han.form',
+            'tran-trach.form',
+            'phong-sinh.form',
+            'cong-viec-moi.form',
+            'giay-to.form',
+            'laso.create',
             'horoscope.index',
             // ... các route khác nếu bật
         ];
