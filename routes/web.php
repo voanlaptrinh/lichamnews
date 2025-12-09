@@ -212,8 +212,6 @@ Route::prefix('xem-ngay-tot')->group(function () {
         Route::post('/', [TranTrachController::class, 'checkDays'])->name('tran-trach.check');
         Route::get('/chi-tiet/{date}', [TranTrachController::class, 'details'])->name('tran-trach.details');
     });
-    // Route::get('/xem-ngay-yem-tran-tran-trach', [TranTrachController::class, 'showForm'])->name('tran-trach.form');
-    // Route::post('/xem-ngay-yem-tran-tran-trach', [TranTrachController::class, 'checkDays'])->name('tran-trach.check');
 
     // === ROUTE Xem Ngày Cầu an - làm phúc - phóng sinh ===
     Route::prefix('xem-ngay-cau-an-lam-phuc')->group(function () {
@@ -239,7 +237,6 @@ Route::prefix('xem-ngay-tot')->group(function () {
 Route::prefix('la-so-tu-vi')->group(function () {
     Route::get('/', [LasoController::class, 'create'])->name('laso.create');
     Route::get('/edit', [LasoController::class, 'edit'])->name('laso.edit');
-
     // Route để nhận dữ liệu từ form và gọi API
     Route::post('/', [LaSoController::class, 'submitToApi'])->name('laso.submit');
     Route::get('/results', [LasoController::class, 'showResults'])->name('laso.results');
@@ -248,44 +245,38 @@ Route::prefix('la-so-tu-vi')->group(function () {
     Route::get('/image-proxy', [LasoController::class, 'proxyImage'])->name('laso.image_proxy');
 });
 
+Route::prefix('huong-hop-tuoi')->group(function () {
+    // === ROUTE Xem hướng danh sách hướng hợp tuổi ===
+    Route::get('/',  [ListController::class, 'XemHuongHopTuoi'])->name('hoptuoi.list');
 
-// === ROUTE Xem hướng bàn thờ ===
-Route::prefix('xem-huong-ban-tho')->group(function () {
-    Route::get('/', [XemHuongBanThoController::class, 'showForm'])->name('huong-ban-tho.form');
-    Route::post('/', [XemHuongBanThoController::class, 'check'])->name('huong-ban-tho.check');
+    // === ROUTE Xem hướng bàn thờ ===
+    Route::prefix('xem-huong-ban-tho')->group(function () {
+        Route::get('/', [XemHuongBanThoController::class, 'showForm'])->name('huong-ban-tho.form');
+        Route::post('/', [XemHuongBanThoController::class, 'check'])->name('huong-ban-tho.check');
+    });
+    // === ROUTE Xem hướng nhà ===
+    Route::prefix('xem-huong-nha')->group(function () {
+        Route::get('/', [XemHuongNhaController::class, 'showForm'])->name('huong-nha.form');
+        Route::post('/', [XemHuongNhaController::class, 'check'])->name('huong-nha.check');
+    });
+
+    // === ROUTE Xem hướng bếp ===
+    Route::prefix('xem-huong-bep')->group(function () {
+        Route::get('/', [XemHuongBepController::class, 'showForm'])->name('huong-bep.form');
+        Route::post('/', [XemHuongBepController::class, 'check'])->name('huong-bep.check');
+    });
+
+    // === ROUTE Xem hướng phòng ngủ ===
+    Route::prefix('xem-huong-phong-ngu')->group(function () {
+        Route::get('/', [XemHuongPhongNguController::class, 'showForm'])->name('huong-phong-ngu.form');
+        Route::post('/', [XemHuongPhongNguController::class, 'check'])->name('huong-phong-ngu.check');
+    });
+    // === ROUTE Xem hướng bàn làm việc ===
+    Route::prefix('xem-huong-ban-lam-viec')->group(function () {
+        Route::get('/', [XemHuongBanLamViecController::class, 'showForm'])->name('huong-ban-lam-viec.form');
+        Route::post('/', [XemHuongBanLamViecController::class, 'check'])->name('huong-ban-lam-viec.check');
+    });
 });
-// === ROUTE Xem hướng nhà ===
-Route::prefix('xem-huong-nha')->group(function () {
-    Route::get('/', [XemHuongNhaController::class, 'showForm'])->name('huong-nha.form');
-    Route::post('/', [XemHuongNhaController::class, 'check'])->name('huong-nha.check');
-});
-
-// === ROUTE Xem hướng bếp ===
-Route::get('/xem-huong-bep', [XemHuongBepController::class, 'showForm'])->name('huong-bep.form');
-Route::post('/xem-huong-bep', [XemHuongBepController::class, 'check'])->name('huong-bep.check');
-
-// === ROUTE Xem hướng phòng ngủ ===
-Route::get('/xem-huong-phong-ngu', [XemHuongPhongNguController::class, 'showForm'])->name('huong-phong-ngu.form');
-Route::post('/xem-huong-phong-ngu', [XemHuongPhongNguController::class, 'check'])->name('huong-phong-ngu.check');
-
-// === ROUTE Xem hướng bàn làm việc ===
-Route::get('/xem-huong-ban-lam-viec', [XemHuongBanLamViecController::class, 'showForm'])->name('huong-ban-lam-viec.form');
-Route::post('/xem-huong-ban-lam-viec', [XemHuongBanLamViecController::class, 'check'])->name('huong-ban-lam-viec.check');
-
-// === ROUTE Xem 12 cung hoàng đạo ===
-
-// Route hiển thị danh sách 12 cung hoàng đạo
-Route::get('/cung-hoang-dao', [HoroscopeController::class, 'index'])->name('horoscope.index');
-// Route hiển thị trang chi tiết của một cung (mặc định là hôm nay)
-Route::get('/cung-hoang-dao/{signSlug}', [HoroscopeController::class, 'showFromSlug'])->name('horoscope.show');
-// Route hiển thị trang chi tiết của một cung với type (cung-hoang-dao/bach-duong/hom-nay)
-Route::get('/cung-hoang-dao/{signSlug}/{typeSlug}', [HoroscopeController::class, 'showWithType'])->name('horoscope.show.type');
-// Route API nội bộ để JavaScript gọi đến, route này sẽ gọi API bên ngoài
-Route::get('/api/horoscope-data/{sign}/{type}', [HoroscopeController::class, 'fetchData'])->name('horoscope.data');
-
-//===End ROute xem 12 cung hoàng đạo ===
-
-
 
 Route::get('/thuoc-lo-ban', [ThuocLoBanController::class, 'index'])->name('thuoc-lo-ban.index');
 
@@ -311,3 +302,17 @@ Route::get('/sitemap-years.xml', [App\Http\Controllers\SitemapController::class,
 Route::get('/sitemap-months.xml', [App\Http\Controllers\SitemapController::class, 'months'])->name('sitemap.months');
 Route::get('/sitemap-days.xml', [SitemapController::class, 'daysIndex'])->name('sitemap.days.index');
 Route::get('/sitemap-days-{year}.xml', [SitemapController::class, 'daysByYear'])->name('sitemap.days.byYear');
+
+
+// === ROUTE Xem 12 cung hoàng đạo ===
+
+// Route hiển thị danh sách 12 cung hoàng đạo
+Route::get('/cung-hoang-dao', [HoroscopeController::class, 'index'])->name('horoscope.index');
+// Route hiển thị trang chi tiết của một cung (mặc định là hôm nay)
+Route::get('/cung-hoang-dao/{signSlug}', [HoroscopeController::class, 'showFromSlug'])->name('horoscope.show');
+// Route hiển thị trang chi tiết của một cung với type (cung-hoang-dao/bach-duong/hom-nay)
+Route::get('/cung-hoang-dao/{signSlug}/{typeSlug}', [HoroscopeController::class, 'showWithType'])->name('horoscope.show.type');
+// Route API nội bộ để JavaScript gọi đến, route này sẽ gọi API bên ngoài
+Route::get('/api/horoscope-data/{sign}/{type}', [HoroscopeController::class, 'fetchData'])->name('horoscope.data');
+
+//===End ROute xem 12 cung hoàng đạo ===

@@ -16,12 +16,12 @@
                         thuỷ</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
-                    Xem Hướng bàn làm việc
+                    Xem Hướng bếp
                 </li>
 
             </ol>
         </nav>
-        <h1 class="content-title-home-lich">Xem hướng bàn làm việc</h1>
+        <h1 class="content-title-home-lich">Xem hướng bếp</h1>
 
         <div>
             <div class="row g-lg-3 g-2 pt-lg-3 pt-2">
@@ -41,7 +41,7 @@
                                             ô dưới
                                             đây để xem ngày tốt xấu</p>
 
-                                        <form id="huongbanlamviecform">
+                                        <form id="huongbepform">
                                             @csrf
                                             <div class="mb-3">
                                                 <!-- Date Selects -->
@@ -160,7 +160,7 @@
                                 <div class="d-flex align-items-center justify-content-center h-100 w-100"
                                     style="padding: 32px 32px 32px 0px;">
                                     <div class="d-flex align-items-center justify-content-center h-100 w-100"
-                                        style=" background-image: url(../images/form_xem_huongbanlamviec.svg);
+                                        style=" background-image: url(../images/form_xem_huongbep.svg);
                                     background-repeat: no-repeat;
                                     background-size: cover;
                                     align-items: normal;
@@ -176,108 +176,73 @@
                     <div id="resultsContainer" class="--detail-success">
 
                     </div>
+
                     <div class="box--bg-thang mt-3 mb-3">
-                        <div class="text-box-tong-quan">
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
-                                Những điều cần lưu ý khi đặt bàn làm việc
-                            </h2>
-
-                            <div>
-                                <ul style="	list-style-type: decimal;">
-                                    <li>
-                                        <h3 class="title-tong-quan-h4-log">Tránh ngồi quay lưng vào cửa</h3>
-                                        <ul class="mb-1">
-                                            <li>
-                                                Gây mất cảm giác an toàn, dễ bị phân tâm và thiếu tập trung.
-                                            </li>
-                                            <li>
-                                                Có thể bị "người sau lưng" tác động, ảnh hưởng công việc.
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <h3 class="title-tong-quan-h4-log">Tránh đặt bàn đối diện nhà vệ sinh</h3>
-                                        <ul class="mb-1">
-                                            <li>
-                                                Uế khí từ nhà vệ sinh ảnh hưởng đến sức khỏe và tinh thần.
-                                            </li>
-                                            <li>
-                                                Gây khó tập trung, giảm hiệu quả công việc.
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <h3 class="title-tong-quan-h4-log">Tránh ngồi dưới xà ngang hoặc dầm trần
-                                        </h3>
-                                        <ul class="mb-1">
-                                            <li>
-                                                Gây áp lực tâm lý, đau đầu, stress.
-                                            </li>
-                                            <li>
-                                                Ảnh hưởng đến khả năng sáng tạo và ra quyết định.
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <h3 class="title-tong-quan-h4-log">Tránh đặt bàn ở giữa phòng không có tựa lưng
-                                        </h3>
-                                        <ul class="mb-1">
-                                            <li>
-                                                Thiếu cảm giác ổn định, không có "hậu thuẫn".
-                                            </li>
-                                            <li>
-                                                Dễ gặp khó khăn trong công việc, thiếu sự hỗ trợ.
-                                            </li>
-                                        </ul>
-
-                                    </li>
-                                    <li>
-                                        <h3 class="title-tong-quan-h4-log">Tránh đặt bàn gần bếp hoặc nơi có nhiều
-                                            tiếng ồn</h3>
-                                        <ul class="mb-1">
-                                            <li>
-                                                Hỏa khí và tiếng ồn gây mất tập trung, nóng nảy.
-                                            </li>
-                                            <li>
-                                                Ảnh hưởng đến chất lượng công việc và sức khỏe.
-                                            </li>
-                                        </ul>
-
-                                    </li>
-                                    <li>
-                                        <h3 class="title-tong-quan-h4-log">Tránh đặt bàn đối diện gương</h3>
-                                        <ul class="mb-1">
-                                            <li>
-                                                Gương phản chiếu ánh sáng gây chói mắt, mệt mỏi.
-                                            </li>
-                                            <li>
-                                                Có thể gây phân tâm và giảm hiệu suất làm việc.
-                                            </li>
-                                        </ul>
-
-                                    </li>
-                                    <li>
-                                        <h3 class="title-tong-quan-h4-log">Tránh để bàn làm việc lộn xộn, bừa bộn</h3>
-                                        <ul class="mb-1">
-                                            <li>
-                                                Môi trường lộn xộn ảnh hưởng đến tư duy và sáng tạo.
-                                            </li>
-                                            <li>
-                                                Gây stress và giảm động lực làm việc.
-                                            </li>
-                                        </ul>
-
-                                    </li>
-                                </ul>
-                                <div>
-                                    <h3 class="title-tong-quan-h4-log">Nguyên tắc vàng khi đặt bàn làm việc:</h3>
-                                    <p>Tựa vững – tầm nhìn rộng – ánh sáng đủ – không gian thoáng – hướng cát – tránh
-                                        sát khí.</p>
-                                </div>
-                            </div>
+                       <div class="text-box-tong-quan">
+                         <h5>
+                            NHỮNG ĐIỀU CẦN TRÁNH KHI ĐẶT BẾP
+                        </h5>
+                        <p>Phong thủy coi bếp là nơi “tàng hỏa” – giữ lửa, giữ tài lộc, nên vị trí và hướng đặt bếp cực kỳ
+                            quan trọng. Dưới đây là các điều cấm kỵ tuyệt đối cần tránh:</p>
+                        <div>
+                            <h6> 1. Đặt bếp đối diện cửa chính</h6>
+                            <ul>
+                                <li>Gọi là “Khai môn kiến táo” → mất tài lộc, gia đạo bất an.</li>
+                                <li>Người trong nhà dễ nóng nảy, tiêu tán của cải.</li>
+                            </ul>
                         </div>
+                        <div>
+                            <h6>2. Đặt bếp đối diện nhà vệ sinh </h6>
+                            <ul>
+                                <li> Uế khí từ WC xung thẳng vào bếp → thực phẩm bị ảnh hưởng, dễ sinh bệnh.</li>
+                                <li>Gây xung khí giữa Thủy (WC) – Hỏa (bếp) → bất ổn, khẩu thiệt.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h6>3. Đặt bếp gần hoặc trên giếng nước, bồn rửa, máy giặt</h6>
+                            <ul>
+                                <li>Thủy khắc Hỏa → bếp dễ tắt lửa, hao tài, tổn khí.</li>
+                                <li> Gọi là “Thủy Hỏa tương xung” → vợ chồng bất hòa.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h6>4. Đặt bếp ở giữa nhà (“Trung cung”)</h6>
+                            <ul>
+                                <li> Trung tâm nhà cần tĩnh, an ổn → đặt bếp vào giữa gây động, ảnh hưởng toàn cục. </li>
+                                <li> Phạm vào “hỏa thiêu trung cung” → nhà dễ ly tán, bệnh tật kéo dài. </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h6>5. Bếp không có chỗ tựa (lưng bếp trống)</h6>
+                            <ul>
+                                <li>Giống như “bếp trôi nổi” → không vững tài khí, dễ hao hụt.</li>
+                                <li>Bếp nên tựa vào tường vững chắc, kín đáo.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h6>6. Miệng bếp nhìn thẳng ra cửa hoặc đường đi</h6>
+                            <ul>
+                                <li>Bếp bị “khí xung” → đun nấu không yên, mất tập trung, tán khí.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h6>7. Đặt bếp dưới xà ngang</h6>
+                            <ul>
+                                <li>Gây “áp đỉnh sát” → ảnh hưởng tới người phụ nữ trong nhà: đau đầu, suy nhược.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h6>8. Đặt bếp trên hoặc dưới phòng ngủ</h6>
+                            <ul>
+                                <li>Gây “Hỏa thiêu nhân đinh” → bệnh tật kéo dài, xung đột trong nhà.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h6>Nguyên tắc vàng khi đặt bếp:</h6>
+                            <p>Tọa hung – hướng cát, tránh xung – tránh thủy – tránh động – tránh uế.</p>
+                        </div>
+                       </div>
                     </div>
-
                 </div>
 
 
@@ -291,7 +256,7 @@
     {{-- Date Range Picker JS (vanilla JS version) --}}
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const form = document.getElementById('huongbanlamviecform');
+            const form = document.getElementById('huongbepform');
             const submitBtn = document.getElementById('submitBtn');
             const resultsContainer = document.getElementById('resultsContainer');
             const btnText = submitBtn.querySelector('.btn-text');
@@ -348,7 +313,7 @@
 
                 const submitForm = async () => {
                     try {
-                        const response = await fetch('{{ route('huong-ban-lam-viec.check') }}', {
+                        const response = await fetch('{{ route('huong-bep.check') }}', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
@@ -370,7 +335,7 @@
                                 resultsContainer.innerHTML = data.html;
                                 setTimeout(() => {
                                     const contentBoxSuccess = document.getElementById(
-                                        'content-box-success');
+                                        'content-box-succes');
                                     setLoadingState(false);
                                     if (contentBoxSuccess) {
                                         contentBoxSuccess.scrollIntoView({
@@ -405,8 +370,7 @@
 
                 submitForm();
 
-                console.log('Formatted Birthdate:', genderValue);
-                // AJAX call will go here
+    
             });
         });
     </script>

@@ -314,7 +314,14 @@ class FengShuiHelper //cần xác định xem gia chủ thuộc Tây Tứ Mệnh
         // 2. Chuẩn bị dữ liệu cho mục "Thông tin cơ bản"
         $lunarDob = LunarHelper::convertSolar2Lunar($ngaySinh, $thangSinh, $namSinh);
         $canChiNamSinh = LunarHelper::canchiNam($lunarDob[2]);
+        $today = now();
+        $solarDay = (int)$today->format('d');
+        $solarMonth = (int)$today->format('m');
+        $solarYear = (int)$today->format('Y');
 
+        // Đổi sang âm lịch hiện tại
+        $lunarToday = LunarHelper::convertSolar2Lunar($solarDay, $solarMonth, $solarYear);
+        $lunarYearNow = $lunarToday[2];  // Năm âm lịch hiện tại
         $basicInfo = [
             'ngaySinhDuongLich' => sprintf('%02d/%02d/%d', $ngaySinh, $thangSinh, $namSinh),
             'ngaySinhAmLich' => sprintf('%02d/%02d/%d (%s)', $lunarDob[0], $lunarDob[1], $lunarDob[2], $canChiNamSinh),
@@ -322,7 +329,10 @@ class FengShuiHelper //cần xác định xem gia chủ thuộc Tây Tứ Mệnh
             'menhQuai' => $phongThuyCoBan['menh_trach'] . ' - hành ' . $phongThuyCoBan['ngu_hanh'],
             'thuocNhom' => $phongThuyCoBan['nhom'],
         ];
-
+        $lunarDay = $lunarDob[0];
+        $lunarMonth = $lunarDob[1];
+        $lunarYear = $lunarDob[2]; // Năm âm lịch
+        $tuoiAm = $lunarYearNow - $lunarYear + 1;
         // 3. Chuẩn bị dữ liệu cho mục "Nguyên tắc chọn hướng bếp"
         $nguyenTac = [
             'title' => 'Tọa hung - hướng cát',
@@ -343,6 +353,10 @@ class FengShuiHelper //cần xác định xem gia chủ thuộc Tây Tứ Mệnh
             'basicInfo' => $basicInfo,
             'nguyenTac' => $nguyenTac,
             'huongBepTotNhat' => $huongBepTotNhat,
+            'ageInfo' => [
+                'tuoiAm' => $tuoiAm,
+                'namAmHienTai' => $lunarYearNow,
+            ],
         ];
     }
 
@@ -373,7 +387,16 @@ class FengShuiHelper //cần xác định xem gia chủ thuộc Tây Tứ Mệnh
 
         // 3. Sắp xếp và diễn giải lại các hướng theo mục đích PHÒNG NGỦ
         $huongPhongNguChiTiet = self::getBangHuongPhongNgu($huongTotGoc);
+  $today = now();
+        $solarDay = (int)$today->format('d');
+        $solarMonth = (int)$today->format('m');
+        $solarYear = (int)$today->format('Y');
 
+        // Đổi sang âm lịch hiện tại
+        $lunarToday = LunarHelper::convertSolar2Lunar($solarDay, $solarMonth, $solarYear);
+        $lunarYearNow = $lunarToday[2];  // Năm âm lịch hiện tại
+          $lunarYear = $lunarDob[2]; // Năm âm lịch
+        $tuoiAm = $lunarYearNow - $lunarYear + 1;
         // 4. Định dạng kết quả trả về
         return [
             'basicInfo' => [
@@ -385,6 +408,10 @@ class FengShuiHelper //cần xác định xem gia chủ thuộc Tây Tứ Mệnh
             ],
             'huongTotChiTiet' => $huongPhongNguChiTiet,
             'huongXauChiTiet' => $phongThuyCoBan['huong_xau'],
+              'ageInfo' => [
+                'tuoiAm' => $tuoiAm,
+                'namAmHienTai' => $lunarYearNow,
+            ],
             'nguyenTac' => [
                 'Hướng đầu giường (hoặc hướng nhìn ra từ giường) nên quay về các hướng cát: Thiên Y, Phước Đức, Sinh Khí, Phục Vị'
             ]
@@ -409,10 +436,10 @@ class FengShuiHelper //cần xác định xem gia chủ thuộc Tây Tứ Mệnh
 
         // Sắp xếp lại theo thứ tự ưu tiên cho phòng ngủ
         return [
-            ['Huong' => $huongTotGoc['thien_y'], 'Loai' => 'Thiên Y', 'Y_nghia' => $yNghia['thien_y'], 'Uu_tien' => 'Ưu tiên 1'],
-            ['Huong' => $huongTotGoc['phuoc_duc'], 'Loai' => 'Diên Niên (Phước Đức)', 'Y_nghia' => $yNghia['phuoc_duc'], 'Uu_tien' => 'Ưu tiên 2'],
-            ['Huong' => $huongTotGoc['phuc_vi'], 'Loai' => 'Phục Vị', 'Y_nghia' => $yNghia['phuc_vi'], 'Uu_tien' => 'Ưu tiên 3'],
-            ['Huong' => $huongTotGoc['sinh_khi'], 'Loai' => 'Sinh Khí', 'Y_nghia' => $yNghia['sinh_khi'], 'Uu_tien' => 'Ưu tiên 4'],
+            ['huong' => $huongTotGoc['thien_y'], 'loai' => 'Thiên Y', 'y_nghia' => $yNghia['thien_y'], 'uu_tien' => 'Ưu tiên 1'],
+            ['huong' => $huongTotGoc['phuoc_duc'], 'loai' => 'Phước Đức', 'y_nghia' => $yNghia['phuoc_duc'], 'uu_tien' => 'Ưu tiên 2'],
+            ['huong' => $huongTotGoc['phuc_vi'], 'loai' => 'Phục Vị', 'y_nghia' => $yNghia['phuc_vi'], 'uu_tien' => 'Ưu tiên 3'],
+            ['huong' => $huongTotGoc['sinh_khi'], 'loai' => 'Sinh Khí', 'y_nghia' => $yNghia['sinh_khi'], 'uu_tien' => 'Ưu tiên 4'],
         ];
     }
 
@@ -487,10 +514,10 @@ class FengShuiHelper //cần xác định xem gia chủ thuộc Tây Tứ Mệnh
 
         // Sắp xếp lại theo thứ tự ưu tiên cho công việc
         return [
-            ['Huong' => $huongTotGoc['sinh_khi'], 'Loai' => 'Sinh Khí', 'Y_nghia' => $yNghia['sinh_khi'], 'Uu_tien' => 'Ưu tiên 1'],
-            ['Huong' => $huongTotGoc['thien_y'], 'Loai' => 'Thiên Y', 'Y_nghia' => $yNghia['thien_y'], 'Uu_tien' => 'Ưu tiên 2'],
-            ['Huong' => $huongTotGoc['phuoc_duc'], 'Loai' => 'Diên Niên (Phước Đức)', 'Y_nghia' => $yNghia['phuoc_duc'], 'Uu_tien' => 'Ưu tiên 3'],
-            ['Huong' => $huongTotGoc['phuc_vi'], 'Loai' => 'Phục Vị', 'Y_nghia' => $yNghia['phuc_vi'], 'Uu_tien' => 'Ưu tiên 4'],
+            ['huong' => $huongTotGoc['sinh_khi'], 'loai' => 'Sinh Khí', 'y_nghia' => $yNghia['sinh_khi'], 'uu_tien' => 'Ưu tiên 1'],
+            ['huong' => $huongTotGoc['thien_y'], 'loai' => 'Thiên Y', 'y_nghia' => $yNghia['thien_y'], 'uu_tien' => 'Ưu tiên 2'],
+            ['huong' => $huongTotGoc['phuoc_duc'], 'loai' => 'Phước Đức', 'y_nghia' => $yNghia['phuoc_duc'], 'uu_tien' => 'Ưu tiên 3'],
+            ['huong' => $huongTotGoc['phuc_vi'], 'loai' => 'Phục Vị', 'y_nghia' => $yNghia['phuc_vi'], 'uu_tien' => 'Ưu tiên 4'],
         ];
     }
 

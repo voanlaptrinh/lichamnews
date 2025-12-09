@@ -152,11 +152,11 @@ class CompatibilityHelper
      * @param string $type Loại xem ('capdoi' hoặc 'laman')
      * @return array
      */
-    public static function calculate($year1, $gender1, $year2, $gender2, $type = 'capdoi')
+    public static function calculate($year1, $gender1, $year2, $gender2, $type = 'capdoi', $dategenderA, $dategenderB, $lunarA, $lunarB)
     {
         // 1. Lấy thông tin cơ bản
-        $person1 = self::getPersonInfo($year1, $gender1);
-        $person2 = self::getPersonInfo($year2, $gender2);
+        $person1 = self::getPersonInfo($year1, $gender1, $dategenderA,  $lunarA);
+        $person2 = self::getPersonInfo($year2, $gender2, $dategenderB,  $lunarB);
 
         $results = [];
         $totalScore = 0;
@@ -199,7 +199,7 @@ class CompatibilityHelper
         ];
     }
 
-    private static function getPersonInfo($year, $gender)
+    private static function getPersonInfo($year, $gender, $ngaySinhDuongLich, $ngaySinhAmLich)
     {
         $canChi = self::getCanChi($year);
         $napAm = self::$napAmTable[$canChi] ?? 'Không rõ';
@@ -217,6 +217,8 @@ class CompatibilityHelper
             'nap_am_hanh' => $napAmHanh,
             'cung_phi' => $cungPhi,
             'cung_phi_hanh' => $cungPhiHanh,
+            'ngaySinhDuongLich' => $ngaySinhDuongLich,
+            'ngaySinhAmLich' => $ngaySinhAmLich
         ];
     }
 

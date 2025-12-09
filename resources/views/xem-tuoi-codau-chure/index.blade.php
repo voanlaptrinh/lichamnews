@@ -1,226 +1,463 @@
 @extends('welcome')
 
 @section('content')
-    <div class="container mt-5 mb-5">
-        <h1 class="text-center mb-4">Xem Tuổi Hợp Nhau</h1>
+    @push('styles')
+        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=10.8') }}">
+    @endpush
 
-        <!-- FORM NHẬP LIỆU -->
-        <div class="card form-card">
-            <div class="card-body">
-                <form action="{{ route('compatibility.calculate') }}" method="POST">
-                    @csrf
+    <div class="container-setup">
+        <nav aria-label="breadcrumb" class="content-title-detail">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
+                </li>
+                <li class="breadcrumb-item" aria-current="page">
+                    <a href="{{ route('totxau.list') }}" style="color: #2254AB; text-decoration: underline;">Tử vi & Phong
+                        thuỷ</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    Xem tuổi hợp nhau
+                </li>
+            </ol>
+        </nav>
+        <h1 class="content-title-home-lich">Xem tuổi hợp nhau</h1>
 
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
+        <div>
+            <div class="row g-lg-3 g-2 pt-lg-3 pt-2">
 
-                    <div class="row">
-                        <!-- Người thứ nhất -->
-                        <div class="col-md-6 border-end">
-                            <h5 class="mb-3">Thông tin người thứ nhất</h5>
-                            <div class="mb-3">
-                                <label for="dob1" class="form-label">Ngày sinh (Dương lịch)</label>
-                                <input type="text" class="form-control" id="dob1" name="dob1"
-                                    placeholder="Chọn ngày sinh" value="{{ old('dob1', $input['dob1'] ?? '') }}">
-                            </div>
-                            <div class="mb-3">
-                                <label for="gender1" class="form-label">Giới tính</label>
-                                <select class="form-select" id="gender1" name="gender1">
-                                    {{-- TỐI ƯU HÓA: Sử dụng old() để chọn đúng giá trị khi validation lỗi --}}
-                                    <option value="Nam" @if (old('gender1', $input['gender1'] ?? 'Nam') == 'Nam') selected @endif>Nam</option>
-                                    <option value="Nữ" @if (old('gender1', $input['gender1'] ?? 'Nam') == 'Nữ') selected @endif>Nữ</option>
-                                </select>
-                            </div>
-                        </div>
+                <div class="col-xl-9 col-sm-12 col-12">
+                    <div class="backv-doi-lich">
+                        <div class="row g-xl-5 g-lg-3 g-sm-5">
+                            <div class="col-lg-12">
+                                <div class="form--submit-totxau">
+                                    <div class="fw-bold title-tong-quan-h2-log" style="#192E52">
+                                        Thông tin hai người
+                                    </div>
+                                    <p class="" style="font-size: 14px; color: #212121;">Bạn hãy nhập thông tin
+                                        vào ô dưới đây để xem tuổi hợp nhau
+                                    </p>
 
-                        <!-- Người thứ hai -->
-                        <div class="col-md-6">
-                            <h5 class="mb-3">Thông tin người thứ hai</h5>
-                            <div class="mb-3">
-                                <label for="dob2" class="form-label">Ngày sinh (Dương lịch)</label>
-                                <input type="text" class="form-control" id="dob2" name="dob2"
-                                    placeholder="Chọn ngày sinh" value="{{ old('dob2', $input['dob2'] ?? '') }}">
-                            </div>
-                            <div class="mb-3">
-                                <label for="gender2" class="form-label">Giới tính</label>
-                                <select class="form-select" id="gender2" name="gender2">
-                                    {{-- TỐI ƯU HÓA: Sử dụng old() với giá trị mặc định là Nữ --}}
-                                    <option value="Nam" @if (old('gender2', $input['gender2'] ?? 'Nữ') == 'Nam') selected @endif>Nam</option>
-                                    <option value="Nữ" @if (old('gender2', $input['gender2'] ?? 'Nữ') == 'Nữ') selected @endif>Nữ</option>
-                                </select>
+                                    <form id="compatibilityForm">
+                                        @csrf
+                                        <div class="row">
+                                            <!-- Người A -->
+                                            <div class="col-md-6 border-end border-2 pe-4">
+                                                <h5 class="mb-3 fw-bold title-tong-quan-h4-log">Người A</h5>
+
+                                                <div class="mb-3">
+                                                    <div class="row g-2 mb-2">
+                                                        <div class="col-6 col-sm-4 col-lg-4 col-xl-4">
+                                                            <div class="position-relative">
+                                                                <select class="form-select pe-5 --border-box-form"
+                                                                    id="ngaySelectA" name="dayA"
+                                                                    style="padding: 12px 45px 12px 15px">
+                                                                    <option value="">Ngày</option>
+                                                                </select>
+                                                                <i class="bi bi-chevron-down position-absolute"
+                                                                    style="right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #6c757d;"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6 col-sm-4 col-lg-4 col-xl-4">
+                                                            <div class="position-relative">
+                                                                <select class="form-select pe-5 --border-box-form"
+                                                                    id="thangSelectA" name="monthA"
+                                                                    style="padding: 12px 45px 12px 15px">
+                                                                    <option value="">Tháng</option>
+                                                                </select>
+                                                                <i class="bi bi-chevron-down position-absolute"
+                                                                    style="right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #6c757d;"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12 col-sm-4 col-lg-4 col-xl-4">
+                                                            <div class="position-relative">
+                                                                <select class="form-select pe-5 --border-box-form"
+                                                                    id="namSelectA" name="yearA"
+                                                                    style="padding: 12px 45px 12px 15px">
+                                                                    <option value="">Năm</option>
+                                                                </select>
+                                                                <i class="bi bi-chevron-down position-absolute"
+                                                                    style="right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #6c757d;"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="d-flex gap-4 ps-2 mb-3">
+                                                        <div class="form-check d-flex align-items-center">
+                                                            <input type="radio" class="form-check-input" name="calendar_type_A"
+                                                                id="solarCalendarA" value="solar" checked
+                                                                style="width: 24px; height: 24px; cursor: pointer;">
+                                                            <label class="form-check-label ms-2" for="solarCalendarA"
+                                                                style="cursor: pointer; font-size: 15px; color: #333;">
+                                                                Dương lịch
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check d-flex align-items-center">
+                                                            <input type="radio" class="form-check-input" name="calendar_type_A"
+                                                                id="lunarCalendarA" value="lunar"
+                                                                style="width: 24px; height: 24px; cursor: pointer;">
+                                                            <label class="form-check-label ms-2" for="lunarCalendarA"
+                                                                style="cursor: pointer; font-size: 15px; color: #333;">
+                                                                Âm lịch
+                                                            </label>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-check mt-2" id="leapMonthContainerA" style="display: none;">
+                                                        <input class="form-check-input" type="checkbox" id="leapMonthA"
+                                                            name="leap_month_A">
+                                                        <label class="form-check-label" for="leapMonthA">
+                                                            Tháng nhuận
+                                                        </label>
+                                                    </div>
+
+                                                    <input type="hidden" id="ngayXemA" name="birthdateA" value="">
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <div class="fw-bold title-tong-quan-h4-log">Giới tính</div>
+                                                    <div class="d-flex gap-4 ps-2">
+                                                        <div class="form-check d-flex align-items-center">
+                                                            <input type="radio" class="form-check-input" name="genderA"
+                                                                id="maleGenderA" value="nam" checked
+                                                                style="width: 24px; height: 24px; cursor: pointer;">
+                                                            <label class="form-check-label ms-2" for="maleGenderA"
+                                                                style="cursor: pointer; font-size: 15px; color: #333;">
+                                                                Nam
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check d-flex align-items-center">
+                                                            <input type="radio" class="form-check-input" name="genderA"
+                                                                id="femaleGenderA" value="nữ"
+                                                                style="width: 24px; height: 24px; cursor: pointer;">
+                                                            <label class="form-check-label ms-2" for="femaleGenderA"
+                                                                style="cursor: pointer; font-size: 15px; color: #333;">
+                                                                Nữ
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Người B -->
+                                            <div class="col-md-6 ps-4">
+                                                <h5 class="mb-3 fw-bold title-tong-quan-h4-log">Người B</h5>
+
+                                                <div class="mb-3">
+                                                    <div class="row g-2 mb-2">
+                                                        <div class="col-6 col-sm-4 col-lg-4 col-xl-4">
+                                                            <div class="position-relative">
+                                                                <select class="form-select pe-5 --border-box-form"
+                                                                    id="ngaySelectB" name="dayB"
+                                                                    style="padding: 12px 45px 12px 15px">
+                                                                    <option value="">Ngày</option>
+                                                                </select>
+                                                                <i class="bi bi-chevron-down position-absolute"
+                                                                    style="right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #6c757d;"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6 col-sm-4 col-lg-4 col-xl-4">
+                                                            <div class="position-relative">
+                                                                <select class="form-select pe-5 --border-box-form"
+                                                                    id="thangSelectB" name="monthB"
+                                                                    style="padding: 12px 45px 12px 15px">
+                                                                    <option value="">Tháng</option>
+                                                                </select>
+                                                                <i class="bi bi-chevron-down position-absolute"
+                                                                    style="right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #6c757d;"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12 col-sm-4 col-lg-4 col-xl-4">
+                                                            <div class="position-relative">
+                                                                <select class="form-select pe-5 --border-box-form"
+                                                                    id="namSelectB" name="yearB"
+                                                                    style="padding: 12px 45px 12px 15px">
+                                                                    <option value="">Năm</option>
+                                                                </select>
+                                                                <i class="bi bi-chevron-down position-absolute"
+                                                                    style="right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #6c757d;"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="d-flex gap-4 ps-2 mb-3">
+                                                        <div class="form-check d-flex align-items-center">
+                                                            <input type="radio" class="form-check-input" name="calendar_type_B"
+                                                                id="solarCalendarB" value="solar" checked
+                                                                style="width: 24px; height: 24px; cursor: pointer;">
+                                                            <label class="form-check-label ms-2" for="solarCalendarB"
+                                                                style="cursor: pointer; font-size: 15px; color: #333;">
+                                                                Dương lịch
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check d-flex align-items-center">
+                                                            <input type="radio" class="form-check-input" name="calendar_type_B"
+                                                                id="lunarCalendarB" value="lunar"
+                                                                style="width: 24px; height: 24px; cursor: pointer;">
+                                                            <label class="form-check-label ms-2" for="lunarCalendarB"
+                                                                style="cursor: pointer; font-size: 15px; color: #333;">
+                                                                Âm lịch
+                                                            </label>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-check mt-2" id="leapMonthContainerB" style="display: none;">
+                                                        <input class="form-check-input" type="checkbox" id="leapMonthB"
+                                                            name="leap_month_B">
+                                                        <label class="form-check-label" for="leapMonthB">
+                                                            Tháng nhuận
+                                                        </label>
+                                                    </div>
+
+                                                    <input type="hidden" id="ngayXemB" name="birthdateB" value="">
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <div class="fw-bold title-tong-quan-h4-log">Giới tính</div>
+                                                    <div class="d-flex gap-4 ps-2">
+                                                        <div class="form-check d-flex align-items-center">
+                                                            <input type="radio" class="form-check-input" name="genderB"
+                                                                id="maleGenderB" value="nam"
+                                                                style="width: 24px; height: 24px; cursor: pointer;">
+                                                            <label class="form-check-label ms-2" for="maleGenderB"
+                                                                style="cursor: pointer; font-size: 15px; color: #333;">
+                                                                Nam
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check d-flex align-items-center">
+                                                            <input type="radio" class="form-check-input" name="genderB"
+                                                                id="femaleGenderB" value="nữ" checked
+                                                                style="width: 24px; height: 24px; cursor: pointer;">
+                                                            <label class="form-check-label ms-2" for="femaleGenderB"
+                                                                style="cursor: pointer; font-size: 15px; color: #333;">
+                                                                Nữ
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <hr>
+
+                                        <div class="row align-items-end">
+                                            <div class="col-md-8">
+                                                <label for="type" class="form-label fw-bold title-tong-quan-h4-log">Mục đích xem</label>
+                                                <div class="position-relative">
+                                                    <select class="form-select pe-5 --border-box-form" id="type" name="type"
+                                                        style="padding: 12px 45px 12px 15px">
+                                                        <option value="capdoi">Xem tuổi Vợ Chồng</option>
+                                                        <option value="laman">Xem tuổi Làm Ăn</option>
+                                                    </select>
+                                                    <i class="bi bi-chevron-down position-absolute"
+                                                        style="right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #6c757d;"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="d-flex justify-content-center">
+                                                    <button type="submit" class="btn btn-light-settup fw-bold w-100"
+                                                        id="submitBtn">
+                                                        <span class="btn-text">Xem Kết Quả</span>
+                                                        <span class="spinner-border spinner-border-sm ms-2 d-none"
+                                                            role="status"></span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
-
-                    <hr>
-
-                    <div class="row align-items-end">
-                        <div class="col-md-8">
-                            <label for="type" class="form-label">Mục đích xem</label>
-                            <select class="form-select" id="type" name="type">
-                                {{-- TỐI ƯU HÓA: Sử dụng old() --}}
-                                <option value="capdoi" @if (old('type', $input['type'] ?? 'capdoi') == 'capdoi') selected @endif>Xem tuổi Vợ Chồng
-                                </option>
-                                <option value="laman" @if (old('type', $input['type'] ?? 'capdoi') == 'laman') selected @endif>Xem tuổi Làm Ăn
-                                </option>
-                            </select>
-                        </div>
-                        <div class="col-md-4 text-end">
-                            <button type="submit" class="btn btn-primary w-100 mt-3 mt-md-0">Xem kết quả</button>
-                        </div>
+                    <div id="resultsContainer" class="--detail-success ">
                     </div>
-                </form>
+                </div>
             </div>
         </div>
-
-        <!-- PHẦN HIỂN THỊ KẾT QUẢ (giữ nguyên) -->
-        @if (isset($result))
-            @php
-                $criteriaNames = [
-                    'ngu_hanh_nap_am' => 'Ngũ Hành Nạp Âm',
-                    'thien_can' => 'Thiên Can',
-                    'dia_chi' => 'Địa Chi',
-                    'cung_phi' => 'Cung Phi Bát Trạch',
-                    'ngu_hanh_cung_phi' => 'Ngũ Hành Cung Phi',
-                ];
-                $personInfoMapping = [
-                    'ngu_hanh_nap_am' => 'nap_am_hanh',
-                    'thien_can' => 'thien_can',
-                    'dia_chi' => 'dia_chi',
-                    'cung_phi' => 'cung_phi',
-                    'ngu_hanh_cung_phi' => 'cung_phi_hanh',
-                ];
-            @endphp
-            <div class="card result-card">
-                <div class="card-header text-center bg-primary text-white">
-                    <h2>KẾT QUẢ PHÂN TÍCH</h2>
-                </div>
-                <div class="card-body">
-                    <div class="text-start p-3 mb-4 bg-light rounded">
-                        <p class="result-summary text-primary">{{ $result['conclusion']['title'] }}</p>
-                        <h3>Tổng điểm: <span class="badge bg-success score-badge">{{ $result['total_score'] }}/10</span>
-                        </h3>
-                        <p class="mt-2 fst-italic">Diễn giải: {!! $result['conclusion']['description'] !!}</p>
-                    </div>
-                    <div class="row text-center mb-4">
-                        <div class="col-md-6">
-                            <div class="p-3 border rounded">
-                                <h5>{{ $result['person1']['gender'] }} - {{ $result['person1']['year'] }}</h5>
-                                <p>Dương lịch: {{ $birthdate1->day }} / {{ $birthdate1->month }} / {{ $birthdate1->year }}
-                                </p>
-                                <p>Âm lịch: {{ $birthdateal1[0] }} / {{ $birthdateal1[1] }} / {{ $birthdateal1[2] }}</p>
-                                <p class="mb-0"><strong>Can Chi:</strong> {{ $result['person1']['can_chi'] }}</p>
-                                <p class="mb-0"><strong>Mệnh:</strong> {{ $result['person1']['nap_am'] }}
-                                    ({{ $result['person1']['nap_am_hanh'] }})</p>
-                                <p class="mb-0"><strong>Cung Phi:</strong> {{ $result['person1']['cung_phi'] }}
-                                    ({{ $result['person1']['cung_phi_hanh'] }})</p>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="p-3 border rounded">
-                                <h5>{{ $result['person2']['gender'] }} - {{ $result['person2']['year'] }}</h5>
-                                <p>Dương lịch: {{ $birthdate2->day }} / {{ $birthdate2->month }} /
-                                    {{ $birthdate2->year }}</p>
-                                <p>Âm lịch: {{ $birthdateal2[0] }} / {{ $birthdateal2[1] }} / {{ $birthdateal2[2] }}</p>
-                                <p class="mb-0"><strong>Can Chi:</strong> {{ $result['person2']['can_chi'] }}</p>
-                                <p class="mb-0"><strong>Mệnh:</strong> {{ $result['person2']['nap_am'] }}
-                                    ({{ $result['person2']['nap_am_hanh'] }})</p>
-                                <p class="mb-0"><strong>Cung Phi:</strong> {{ $result['person2']['cung_phi'] }}
-                                    ({{ $result['person2']['cung_phi_hanh'] }})</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-striped text-center">
-                            <thead class="table-dark">
-                                <tr>
-                                    <th>Tiêu chí</th>
-                                    <th>{{ $result['person1']['gender'] }} {{ $result['person1']['year'] }}</th>
-                                    <th>{{ $result['person2']['gender'] }} {{ $result['person2']['year'] }}</th>
-                                    <th>Mối quan hệ</th>
-                                    <th>Điểm</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($result['details'] as $key => $detail)
-                                    <tr>
-                                        <td><strong>{{ $criteriaNames[$key] ?? $key }}</strong></td>
-                                        <td>{{ $result['person1'][$personInfoMapping[$key]] }}</td>
-                                        <td>{{ $result['person2'][$personInfoMapping[$key]] }}</td>
-                                        <td>{{ $detail['relation'] }}</td>
-                                        <td> <span
-                                                class="badge {{ $detail['score'] == 2 ? 'bg-success' : ($detail['score'] == 1 ? 'bg-warning text-dark' : 'bg-danger') }}">
-                                                {{ $detail['score'] }} </span> </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        @endif
     </div>
-
-
-    @push('scripts')
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                // --- KHỞI TẠO FLATPCIKR ---
-                const flatpickrConfig = {
-                    locale: "vn",
-                    dateFormat: "d-m-Y",
-                    allowInput: true,
-                    maxDate: "today",
-                };
-                flatpickr("#dob1", flatpickrConfig);
-                flatpickr("#dob2", flatpickrConfig);
-
-                // --- XỬ LÝ LOGIC GIỚI TÍNH VÀ MỤC ĐÍCH XEM ---
-                const typeSelect = document.getElementById('type');
-                const gender1Select = document.getElementById('gender1');
-                const gender2Select = document.getElementById('gender2');
-
-                // Hàm này chỉ đồng bộ giới tính khi mục đích là 'Xem tuổi Vợ Chồng'
-                function syncGenders(sourceSelect) {
-                    // Nếu mục đích không phải xem vợ chồng, không làm gì cả
-                    if (typeSelect.value !== 'capdoi') return;
-
-                    // Nếu là xem vợ chồng, tự động đổi giới tính của người còn lại
-                    if (sourceSelect.id === 'gender1') {
-                        gender2Select.value = (gender1Select.value === 'Nam') ? 'Nữ' : 'Nam';
-                    } else if (sourceSelect.id === 'gender2') {
-                        gender1Select.value = (gender2Select.value === 'Nam') ? 'Nữ' : 'Nam';
-                    }
-                }
-
-                // Hàm này được gọi khi người dùng thay đổi mục đích xem
-                function handleTypeChange() {
-                    // Nếu chuyển sang chế độ 'Xem tuổi Vợ Chồng' và 2 giới tính đang giống nhau
-                    if (typeSelect.value === 'capdoi' && gender1Select.value === gender2Select.value) {
-                        // Tự động đổi giới tính người thứ 2
-                        gender2Select.value = (gender1Select.value === 'Nam') ? 'Nữ' : 'Nam';
-                    }
-                    // Nếu chuyển sang 'Xem tuổi Làm Ăn', không cần làm gì, hàm syncGenders sẽ tự động bị vô hiệu hóa
-                }
-
-                // Gán sự kiện cho các thẻ select
-                gender1Select.addEventListener('change', function() {
-                    syncGenders(this);
-                });
-                gender2Select.addEventListener('change', function() {
-                    syncGenders(this);
-                });
-                typeSelect.addEventListener('change', handleTypeChange);
-
-                // Chạy hàm này 1 lần khi tải trang để đảm bảo trạng thái ban đầu luôn đúng
-                handleTypeChange();
-            });
-        </script>
-    @endpush
 @endsection
+
+@push('scripts')
+    <script src="{{ asset('js/lunar-solar-date-select.js?v=2.6') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('compatibilityForm');
+            const submitBtn = document.getElementById('submitBtn');
+            const resultsContainer = document.getElementById('resultsContainer');
+            const btnText = submitBtn.querySelector('.btn-text');
+            const spinner = submitBtn.querySelector('.spinner-border');
+
+            const typeSelect = document.getElementById('type');
+            const genderARadios = document.querySelectorAll('input[name="genderA"]');
+            const genderBRadios = document.querySelectorAll('input[name="genderB"]');
+
+            const hasHashParams = window.location.hash && window.location.hash.includes('birthdate');
+
+            // Initialize date selectors for Person A
+            const dateSelectorA = new LunarSolarDateSelect({
+                daySelectId: 'ngaySelectA',
+                monthSelectId: 'thangSelectA',
+                yearSelectId: 'namSelectA',
+                hiddenInputId: 'ngayXemA',
+                solarRadioId: 'solarCalendarA',
+                lunarRadioId: 'lunarCalendarA',
+                leapCheckboxId: 'leapMonthA',
+                leapContainerId: 'leapMonthContainerA',
+                defaultDay: hasHashParams ? null : 1,
+                defaultMonth: hasHashParams ? null : 1,
+                defaultYear: hasHashParams ? null : 1990,
+                yearRangeStart: 1900,
+                yearRangeEnd: new Date().getFullYear(),
+                lunarApiUrl: '/api/lunar-solar-convert',
+                lunarMonthDaysUrl: '/api/get-lunar-month-days',
+                csrfToken: '{{ csrf_token() }}',
+            });
+
+            // Initialize date selectors for Person B
+            const dateSelectorB = new LunarSolarDateSelect({
+                daySelectId: 'ngaySelectB',
+                monthSelectId: 'thangSelectB',
+                yearSelectId: 'namSelectB',
+                hiddenInputId: 'ngayXemB',
+                solarRadioId: 'solarCalendarB',
+                lunarRadioId: 'lunarCalendarB',
+                leapCheckboxId: 'leapMonthB',
+                leapContainerId: 'leapMonthContainerB',
+                defaultDay: hasHashParams ? null : 1,
+                defaultMonth: hasHashParams ? null : 1,
+                defaultYear: hasHashParams ? null : 1995,
+                yearRangeStart: 1900,
+                yearRangeEnd: new Date().getFullYear(),
+                lunarApiUrl: '/api/lunar-solar-convert',
+                lunarMonthDaysUrl: '/api/get-lunar-month-days',
+                csrfToken: '{{ csrf_token() }}',
+            });
+
+            const setLoadingState = (loading = true) => {
+                if (submitBtn) submitBtn.disabled = loading;
+                if (btnText) btnText.textContent = loading ? 'Đang xử lý...' : 'Xem Kết Quả';
+                if (spinner) spinner.classList.toggle('d-none', !loading);
+            };
+
+            // Gender synchronization logic for couple compatibility
+            function syncGenders(sourceGender) {
+                if (typeSelect.value !== 'capdoi') return;
+
+                if (sourceGender === 'A') {
+                    const selectedValueA = document.querySelector('input[name="genderA"]:checked')?.value;
+                    const oppositeValue = selectedValueA === 'nam' ? 'nữ' : 'nam';
+                    document.querySelector(`input[name="genderB"][value="${oppositeValue}"]`).checked = true;
+                } else if (sourceGender === 'B') {
+                    const selectedValueB = document.querySelector('input[name="genderB"]:checked')?.value;
+                    const oppositeValue = selectedValueB === 'nam' ? 'nữ' : 'nam';
+                    document.querySelector(`input[name="genderA"][value="${oppositeValue}"]`).checked = true;
+                }
+            }
+
+            function handleTypeChange() {
+                if (typeSelect.value === 'capdoi') {
+                    const genderA = document.querySelector('input[name="genderA"]:checked')?.value;
+                    const genderB = document.querySelector('input[name="genderB"]:checked')?.value;
+
+                    if (genderA === genderB) {
+                        const oppositeValue = genderA === 'nam' ? 'nữ' : 'nam';
+                        document.querySelector(`input[name="genderB"][value="${oppositeValue}"]`).checked = true;
+                    }
+                }
+            }
+
+            // Add event listeners for gender synchronization
+            genderARadios.forEach(radio => {
+                radio.addEventListener('change', () => syncGenders('A'));
+            });
+            genderBRadios.forEach(radio => {
+                radio.addEventListener('change', () => syncGenders('B'));
+            });
+            typeSelect.addEventListener('change', handleTypeChange);
+
+            // Initialize gender state
+            handleTypeChange();
+
+            form?.addEventListener('submit', e => {
+                e.preventDefault();
+                setLoadingState(true);
+
+                // Get form values
+                const ngayXemInputA = document.getElementById('ngayXemA');
+                const ngayXemInputB = document.getElementById('ngayXemB');
+                const genderValueA = document.querySelector('input[name="genderA"]:checked')?.value;
+                const genderValueB = document.querySelector('input[name="genderB"]:checked')?.value;
+                const typeValue = document.getElementById('type')?.value;
+
+                const formattedBirthdateA = ngayXemInputA.value;
+                const formattedBirthdateB = ngayXemInputB.value;
+
+                const formData = {
+                    birthdateA: formattedBirthdateA,
+                    birthdateB: formattedBirthdateB,
+                    genderA: genderValueA,
+                    genderB: genderValueB,
+                    type: typeValue,
+                    _token: '{{ csrf_token() }}'
+                };
+
+                const submitForm = async () => {
+                    try {
+                        const response = await fetch('{{ route('compatibility.calculate') }}', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                'Accept': 'application/json'
+                            },
+                            body: JSON.stringify(formData)
+                        });
+
+                        if (!response.ok) throw new Error('Network response was not ok');
+
+                        const data = await response.json();
+
+                        if (data.success) {
+                            if (resultsContainer) {
+                                resultsContainer.style.display = 'block';
+                                resultsContainer.innerHTML = data.html;
+                                setTimeout(() => {
+                                    const contentBoxSuccess = document.getElementById(
+                                        'content-box-success');
+                                    setLoadingState(false);
+                                    if (contentBoxSuccess) {
+                                        contentBoxSuccess.scrollIntoView({
+                                            behavior: 'smooth',
+                                            block: 'start'
+                                        });
+                                    } else {
+                                        resultsContainer.scrollIntoView({
+                                            behavior: 'smooth',
+                                            block: 'start'
+                                        });
+                                    }
+                                }, 600);
+
+                            }
+                        } else if (data.errors) {
+                            const errorMessages = Object.values(data.errors)
+                                .map(errors => errors[0])
+                                .join('\n- ');
+                            setLoadingState(false);
+                            alert(`Vui lòng kiểm tra lại:\n- ${errorMessages}`);
+                        } else {
+                            setLoadingState(false);
+                            alert(data.message || 'Có lỗi xảy ra. Vui lòng thử lại.');
+                        }
+                    } catch (error) {
+                        setLoadingState(false);
+                        console.log(error.message);
+                        
+                        alert('Có lỗi xảy ra khi kết nối. Vui lòng thử lại.');
+                    }
+                };
+
+                submitForm();
+            });
+        });
+    </script>
+@endpush

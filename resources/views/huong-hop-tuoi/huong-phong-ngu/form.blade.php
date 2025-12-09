@@ -16,12 +16,12 @@
                         thuỷ</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
-                    Xem Hướng bàn làm việc
+                    Xem Hướng phòng ngủ
                 </li>
 
             </ol>
         </nav>
-        <h1 class="content-title-home-lich">Xem hướng bàn làm việc</h1>
+        <h1 class="content-title-home-lich">Xem hướng phòng ngủ</h1>
 
         <div>
             <div class="row g-lg-3 g-2 pt-lg-3 pt-2">
@@ -41,7 +41,7 @@
                                             ô dưới
                                             đây để xem ngày tốt xấu</p>
 
-                                        <form id="huongbanlamviecform">
+                                        <form id="huongphongnguform">
                                             @csrf
                                             <div class="mb-3">
                                                 <!-- Date Selects -->
@@ -160,7 +160,7 @@
                                 <div class="d-flex align-items-center justify-content-center h-100 w-100"
                                     style="padding: 32px 32px 32px 0px;">
                                     <div class="d-flex align-items-center justify-content-center h-100 w-100"
-                                        style=" background-image: url(../images/form_xem_huongbanlamviec.svg);
+                                        style=" background-image: url(../images/form_xem_huongphongngu.svg);
                                     background-repeat: no-repeat;
                                     background-size: cover;
                                     align-items: normal;
@@ -178,106 +178,94 @@
                     </div>
                     <div class="box--bg-thang mt-3 mb-3">
                         <div class="text-box-tong-quan">
-                            <h2 class="title-tong-quan-h3-log fw-bolder">
-                                Những điều cần lưu ý khi đặt bàn làm việc
-                            </h2>
+                              <h2 class="title-tong-quan-h3-log fw-bolder">
+                    Những điều cần tránh khi kê giường ngủ
+                </h2>
 
-                            <div>
-                                <ul style="	list-style-type: decimal;">
-                                    <li>
-                                        <h3 class="title-tong-quan-h4-log">Tránh ngồi quay lưng vào cửa</h3>
-                                        <ul class="mb-1">
-                                            <li>
-                                                Gây mất cảm giác an toàn, dễ bị phân tâm và thiếu tập trung.
-                                            </li>
-                                            <li>
-                                                Có thể bị "người sau lưng" tác động, ảnh hưởng công việc.
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <h3 class="title-tong-quan-h4-log">Tránh đặt bàn đối diện nhà vệ sinh</h3>
-                                        <ul class="mb-1">
-                                            <li>
-                                                Uế khí từ nhà vệ sinh ảnh hưởng đến sức khỏe và tinh thần.
-                                            </li>
-                                            <li>
-                                                Gây khó tập trung, giảm hiệu quả công việc.
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <h3 class="title-tong-quan-h4-log">Tránh ngồi dưới xà ngang hoặc dầm trần
-                                        </h3>
-                                        <ul class="mb-1">
-                                            <li>
-                                                Gây áp lực tâm lý, đau đầu, stress.
-                                            </li>
-                                            <li>
-                                                Ảnh hưởng đến khả năng sáng tạo và ra quyết định.
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <h3 class="title-tong-quan-h4-log">Tránh đặt bàn ở giữa phòng không có tựa lưng
-                                        </h3>
-                                        <ul class="mb-1">
-                                            <li>
-                                                Thiếu cảm giác ổn định, không có "hậu thuẫn".
-                                            </li>
-                                            <li>
-                                                Dễ gặp khó khăn trong công việc, thiếu sự hỗ trợ.
-                                            </li>
-                                        </ul>
+                <div>
+                    <ul style="	list-style-type: decimal;">
+                        <li>
+                            <h3 class="title-tong-quan-h4-log">Đầu giường không có điểm tựa</h3>
+                            <ul class="mb-1">
+                                <li>
+                                    Không nên để đầu giường trống không hoặc tựa vào cửa sổ, vách kính, rèm.
+                                </li>
+                                <li>
+                                    Gây mất cảm giác an toàn, dễ mất ngủ, mơ xấu.
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <h3 class="title-tong-quan-h4-log">Đầu giường hướng vào nhà vệ sinh</h3>
+                            <ul class="mb-1">
+                                <li>
+                                    Nhà vệ sinh có uế khí, thủy khí → gây đau đầu, khó ngủ, bệnh lâu ngày không rõ nguyên nhân.
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <h3 class="title-tong-quan-h4-log">Đầu giường hướng vào bếp hoặc sau bếp
+                            </h3>
+                            <ul class="mb-1">
+                                <li>
+                                    Hỏa khí mạnh gây nóng nảy, mệt mỏi, xung đột, đặc biệt là với trẻ nhỏ, phụ nữ mang thai.
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <h3 class="title-tong-quan-h4-log">Giường nằm dưới xà ngang, dầm trần </h3>
+                            <ul class="mb-1">
+                                <li>
+                                    Gây áp lực tâm lý, "trực sát" đè lên cơ thể, dẫn đến đau nhức, bệnh mãn tính.
+                                </li>
+                            </ul>
 
-                                    </li>
-                                    <li>
-                                        <h3 class="title-tong-quan-h4-log">Tránh đặt bàn gần bếp hoặc nơi có nhiều
-                                            tiếng ồn</h3>
-                                        <ul class="mb-1">
-                                            <li>
-                                                Hỏa khí và tiếng ồn gây mất tập trung, nóng nảy.
-                                            </li>
-                                            <li>
-                                                Ảnh hưởng đến chất lượng công việc và sức khỏe.
-                                            </li>
-                                        </ul>
+                        </li>
+                        <li>
+                            <h3 class="title-tong-quan-h4-log"> Giường đối diện gương soi</h3>
+                            <ul class="mb-1">
+                                <li>
+                                    Gương phản xạ năng lượng → gây giật mình, mất ngủ, dễ gặp ác mộng, ly tán.
+                                </li>
+                            </ul>
 
-                                    </li>
-                                    <li>
-                                        <h3 class="title-tong-quan-h4-log">Tránh đặt bàn đối diện gương</h3>
-                                        <ul class="mb-1">
-                                            <li>
-                                                Gương phản chiếu ánh sáng gây chói mắt, mệt mỏi.
-                                            </li>
-                                            <li>
-                                                Có thể gây phân tâm và giảm hiệu suất làm việc.
-                                            </li>
-                                        </ul>
+                        </li>
+                        <li>
+                            <h3 class="title-tong-quan-h4-log">Đặt giường sát cửa ra vào hoặc đối diện cửa phòng</h3>
+                            <ul class="mb-1">
+                                <li>
+                                    Khí vào phòng xung thẳng vào người nằm → bất an, bệnh tật.
+                                </li>
+                            </ul>
 
-                                    </li>
-                                    <li>
-                                        <h3 class="title-tong-quan-h4-log">Tránh để bàn làm việc lộn xộn, bừa bộn</h3>
-                                        <ul class="mb-1">
-                                            <li>
-                                                Môi trường lộn xộn ảnh hưởng đến tư duy và sáng tạo.
-                                            </li>
-                                            <li>
-                                                Gây stress và giảm động lực làm việc.
-                                            </li>
-                                        </ul>
+                        </li>
+                        <li>
+                            <h3 class="title-tong-quan-h4-log">Kê giường dưới cầu thang, góc khuất, hoặc nơi có vật chắn trên đầu</h3>
+                            <ul class="mb-1">
+                                <li>
+                                    Phong khí bế tắc, người ngủ ở đó dễ bị ức chế, lo lắng, căng thẳng.
+                                </li>
+                            </ul>
 
-                                    </li>
-                                </ul>
-                                <div>
-                                    <h3 class="title-tong-quan-h4-log">Nguyên tắc vàng khi đặt bàn làm việc:</h3>
-                                    <p>Tựa vững – tầm nhìn rộng – ánh sáng đủ – không gian thoáng – hướng cát – tránh
-                                        sát khí.</p>
-                                </div>
-                            </div>
+                        </li>
+                        <li>
+                            <h3 class="title-tong-quan-h4-log">Kê giường giữa phòng, không có điểm tựa</h3>
+                            <ul class="mb-1">
+                                <li>
+                                    Giống như "con thuyền trôi nổi", thiếu ổn định, dễ mất phương hướng trong cuộc sống.
+                                </li>
+                            </ul>
+
+                        </li>
+                    </ul>
+                    <div>
+                        <h3 class="title-tong-quan-h4-log">Ghi nhớ nguyên tắc vàng khi kê giường ngủ:</h3>
+                        <p>Đầu giường phải vững – không xung – không uế – không động – không phản chiếu.</p>
+                    </div>
+                </div>
+
                         </div>
                     </div>
-
                 </div>
 
 
@@ -291,7 +279,7 @@
     {{-- Date Range Picker JS (vanilla JS version) --}}
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const form = document.getElementById('huongbanlamviecform');
+            const form = document.getElementById('huongphongnguform');
             const submitBtn = document.getElementById('submitBtn');
             const resultsContainer = document.getElementById('resultsContainer');
             const btnText = submitBtn.querySelector('.btn-text');
@@ -348,7 +336,7 @@
 
                 const submitForm = async () => {
                     try {
-                        const response = await fetch('{{ route('huong-ban-lam-viec.check') }}', {
+                        const response = await fetch('{{ route('huong-phong-ngu.check') }}', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',

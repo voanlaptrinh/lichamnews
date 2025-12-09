@@ -160,7 +160,7 @@
                                 <div class="d-flex align-items-center justify-content-center h-100 w-100"
                                     style="padding: 32px 32px 32px 0px;">
                                     <div class="d-flex align-items-center justify-content-center h-100 w-100"
-                                        style=" background-image: url(../images/form_totxau.svg);
+                                        style=" background-image: url(../images/form_xem_huongbantho.svg);
                                     background-repeat: no-repeat;
                                     background-size: cover;
                                     align-items: normal;
@@ -289,12 +289,14 @@
                             const errorMessages = Object.values(data.errors)
                                 .map(errors => errors[0])
                                 .join('\n- ');
+                            setLoadingState(false);
                             alert(`Vui lòng kiểm tra lại:\n- ${errorMessages}`);
                         } else {
+                            setLoadingState(false);
                             alert(data.message || 'Có lỗi xảy ra. Vui lòng thử lại.');
                         }
                     } catch (error) {
-
+                        setLoadingState(false);
                         alert('Có lỗi xảy ra khi kết nối. Vui lòng thử lại.');
                     }
                 };

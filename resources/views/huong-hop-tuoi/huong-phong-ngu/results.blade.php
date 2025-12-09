@@ -35,14 +35,14 @@
         <div class="card-body box1-con-year">
             <div class="text-primary mb-3 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
                 <img src="{{ asset('/icons/dac-diem1.svg') }}" alt="thông tin người xem" width="28" height="28"
-                    class="me-1">Nguyên tắc chọn hướng bàn làm việc
+                    class="me-1">Nguyên tắc bố trí phòng ngủ
             </div>
 
-            <div>
+            <ul>
                 @foreach ($results['nguyenTac'] as $rule)
-                    {!! $rule !!}
+                    <li>{{ $rule }}</li>
                 @endforeach
-            </div>
+            </ul>
         </div>
     </div>
 
@@ -51,9 +51,10 @@
         <div class="card-body box1-con-year">
             <div class="text-primary mb-3 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
                 <img src="{{ asset('/icons/dac-diem1.svg') }}" alt="thông tin người xem" width="28" height="28"
-                    class="me-1">Hướng bàn làm việc tốt nhất cho {{ $results['basicInfo']['gioiTinh'] }}
+                    class="me-1">Hướng phòng ngủ tốt nhất cho {{ $results['basicInfo']['gioiTinh'] }}
                 {{ $nam_sinh }}
             </div>
+
             <table class="table align-middle">
                 <thead class="text-center" style="background-color: #e8ebee;">
                     <tr>
@@ -73,9 +74,8 @@
                     @endforeach
                 </tbody>
             </table>
-
         </div>
 
     </div>
-
+    
 </div>

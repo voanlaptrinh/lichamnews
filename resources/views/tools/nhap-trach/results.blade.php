@@ -101,7 +101,7 @@
                         </div>
                         @if (isset($birthdateInfo))
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
 
 
                                     <div class="info-grid">
@@ -135,7 +135,7 @@
                                         </p>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                {{-- <div class="col-md-6">
                                     <style>
                                         .text-danger{
                                             color: rgb(119 11 21) !important;
@@ -158,7 +158,7 @@
                                                 <span class="badge bg-danger ms-2">KHÔNG HỢP</span>
                                             @endif
                                         </div>
-                                        {{-- <p class="small mb-1">{{ $huongNhaAnalysis['description'] }}</p> --}}
+                                     
 
                                         @if (!$huongNhaAnalysis['is_good'])
                                             <div class="mt-2">
@@ -181,9 +181,8 @@
                                         @endif
 
                                     </div>
-                                </div>
-                                </div>
-
+                                </div> --}}
+                            </div>
                         @endif
                     </div>
                 </div>
@@ -306,8 +305,7 @@
                                                     $text_box = '#10B981';
                                                 }
                                             @endphp
-                                            <tr class="table-row-{{ $year }}"
-                                                data-index="{{ $index }}"
+                                            <tr class="table-row-{{ $year }}" data-index="{{ $index }}"
                                                 style="{{ $index >= 10 ? 'display: none;' : '' }}"
                                                 data-visible="{{ $index < 10 ? 'true' : 'false' }}"
                                                 data-taboo-days="{{ implode(',', $day['day_score']['taboo_details']['taboo_types'] ?? []) }}">

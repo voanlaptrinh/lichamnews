@@ -40,83 +40,77 @@ class CompatibilityController extends Controller
         $maxYear = date('Y');
 
         $validator = Validator::make($request->all(), [
-            // SỬA ĐỔI: Validation cho ngày sinh thay vì năm sinh
-            'dob1' => "required|date_format:$dateFormat",
-            'gender1' => 'required|in:Nam,Nữ',
-            'dob2' => "required|date_format:$dateFormat",
-            'gender2' => 'required|in:Nam,Nữ',
+            'birthdateA' => 'required|date_format:d/m/Y',
+            'birthdateB' => 'required|date_format:d/m/Y',
+            'genderA' => 'required|in:nam,nữ',
+            'genderB' => 'required|in:nam,nữ',
             'type' => 'required|in:capdoi,laman',
         ], [
             'required' => 'Thông tin :attribute là bắt buộc.',
-            'date_format' => 'Ngày sinh không đúng định dạng (dd-mm-yyyy).',
-            'in' => 'Giá trị của :attribute không hợp lệ.',
-        ], [
-            // SỬA ĐỔI: Đặt lại tên cho thân thiện hơn
-            'dob1' => 'ngày sinh người thứ nhất',
-            'dob2' => 'ngày sinh người thứ hai',
+            'date_format' => 'Định dạng ngày tháng không đúng.',
+            'in' => 'Giá trị :attribute không hợp lệ.',
         ]);
 
-        // Thêm quy tắc validation tùy chỉnh
-        $validator->after(function ($validator) use ($request, $dateFormat, $minYear, $maxYear) {
-            // Kiểm tra giới tính khi xem tuổi vợ chồng
-            if ($request->input('type') === 'capdoi' && $request->input('gender1') === $request->input('gender2')) {
-                $validator->errors()->add(
-                    'gender2',
-                    'Khi xem tuổi Vợ Chồng, giới tính của hai người phải khác nhau.'
-                );
-            }
-
-            // SỬA ĐỔI: Kiểm tra khoảng năm sinh sau khi định dạng ngày đã hợp lệ
-            if ($request->filled('dob1') && !$validator->errors()->has('dob1')) {
-                $year1 = Carbon::createFromFormat($dateFormat, $request->input('dob1'))->year;
-                if ($year1 < $minYear || $year1 > $maxYear) {
-                    $validator->errors()->add('dob1', "Năm sinh phải trong khoảng từ $minYear đến $maxYear.");
-                }
-            }
-
-            if ($request->filled('dob2') && !$validator->errors()->has('dob2')) {
-                $year2 = Carbon::createFromFormat($dateFormat, $request->input('dob2'))->year;
-                if ($year2 < $minYear || $year2 > $maxYear) {
-                    $validator->errors()->add('dob2', "Năm sinh phải trong khoảng từ $minYear đến $maxYear.");
-                }
-            }
-        });
-
-
         if ($validator->fails()) {
-            return redirect()->back()
-                        ->withErrors($validator)
-                        ->withInput(); // withInput() sẽ lưu tất cả input vào session để hàm old() có thể lấy ra
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'errors' => $validator->errors()
+                ], 422);
+            }
+            return redirect()->back()->withErrors($validator)->withInput();
         }
 
         $validated = $validator->validated();
+        $birthdate1 = Carbon::createFromFormat('d/m/Y', $validated['birthdateA']);
+        $birthdate2 = Carbon::createFromFormat('d/m/Y', $validated['birthdateB']);
+
 
         // SỬA ĐỔI: Lấy năm từ ngày sinh đã được validate
-        $year1 = Carbon::createFromFormat($dateFormat, $validated['dob1'])->year;
+        //  Carbon::createFromFormat($dateFormat, $validated['genderA'])->year;
 
-    //Ngày tháng năm sinh âm dương người 1
-        $birthdate1 =  Carbon::createFromFormat($dateFormat, $validated['dob1']); //ngày tháng năm sinh dương
+        //Ngày tháng năm sinh âm dương người 1
+
         $birthdateal1 =  LunarHelper::convertSolar2Lunar($birthdate1->day, $birthdate1->month, $birthdate1->year); //ngày tháng năm sinh dương
-    //end
-    //Ngày tháng năm sinh âm dương người 2
-        $birthdate2 =  Carbon::createFromFormat($dateFormat, $validated['dob2']); //ngày tháng năm sinh dương
+        //end
+        //Ngày tháng năm sinh âm dương người 2
+
         $birthdateal2 =  LunarHelper::convertSolar2Lunar($birthdate2->day, $birthdate2->month, $birthdate2->year); //ngày tháng năm sinh dương
-    //end
+        //end
 
+        $year1 = $birthdate1->year;
+        $year2 = $birthdate2->year;
 
-        $year2 = Carbon::createFromFormat($dateFormat, $validated['dob2'])->year;
         // 2. Gọi Helper để tính toán
         $result = CompatibilityHelper::calculate(
             $year1, // Truyền năm đã được trích xuất
-            $validated['gender1'],
+            $validated['genderA'],
             $year2, // Truyền năm đã được trích xuất
-            $validated['gender2'],
-            $validated['type']
+            $validated['genderB'],
+            $validated['type'],
+            $birthdate1,
+            $birthdate2,
+            $birthdateal1,
+            $birthdateal2
         );
+        if ($request->ajax() || $request->wantsJson()) {
+            $html = view('xem-tuoi-codau-chure.results', [
+                'results' => $result,
+                'input' => $validated, // Truyền lại toàn bộ dữ liệu đã nhập để fill lại form
+                'birthdate1' => $birthdate1,
+                'birthdateal1' => $birthdateal1,
+                'birthdate2' => $birthdate2,
+                'birthdateal2' => $birthdateal2,
+            ])->render();
 
+            return response()->json([
+                'success' => true,
+                'html' => $html,
+            ], 200, [], JSON_UNESCAPED_UNICODE);
+        }
         // 3. Trả về view với dữ liệu kết quả và dữ liệu đầu vào
         return view('xem-tuoi-codau-chure.index')->with([
-            'result' => $result,
+            'results' => $result,
             'input' => $validated, // Truyền lại toàn bộ dữ liệu đã nhập để fill lại form
             'birthdate1' => $birthdate1,
             'birthdateal1' => $birthdateal1,
