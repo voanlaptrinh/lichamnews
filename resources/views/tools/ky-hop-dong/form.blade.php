@@ -34,9 +34,7 @@
                                         <div class="fw-bold title-tong-quan-h2-log" style="color: #192E52">
                                             Thông tin người ký hợp đồng
                                         </div>
-                                        <p class="" style=" font-size: 14px; color: #212121;">Bạn hãy nhập thông tin
-                                            vào ô dưới đây để
-                                            xem ngày tốt ký hợp đồng</p>
+                                         <p class="mb-2" style=" font-size: 14px; color: #212121;">Nhập thông tin ngày sinh của người xem vào ô dưới đây.</p>
 
                                         <form id="contractSigningForm">
                                             @csrf

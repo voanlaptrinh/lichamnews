@@ -36,13 +36,10 @@
                                         <div class="fw-bold  title-tong-quan-h2-log"  style="color: #192E52">
                                             Thông tin gia chủ
                                         </div>
-                                        <p class=""  style=" font-size: 14px; color: #212121;">Bạn hãy nhập thông tin
-                                            vào
-                                            ô dưới
-                                            đây để xem ngày cúng sao giải hạn</p>
-
+                                         <p class="mb-2" style=" font-size: 14px; color: #212121;">Nhập thông tin ngày sinh của người xem vào ô dưới đây.</p>
                                         <form id="giaiHanForm">
                                             <div class="mb-3">
+                                                   <div for="birthdate" class="fw-bold title-tong-quan-h4-log mb-2">Ngày tháng năm sinh</div>
                                                 <!-- Date Selects -->
                                                 <div class="row g-2 mb-2">
                                                     <div class="col-6 col-sm-4 col-lg-4 col-xl-4">

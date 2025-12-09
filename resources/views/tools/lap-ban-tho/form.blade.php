@@ -31,19 +31,12 @@
                             <div class="col-lg-8">
                                 <div class="">
                                     <div class="form--submit-totxau">
+                                         <div class="fw-bold title-tong-quan-h2-log" style="color: #192E52">
+                                            Thông tin người ký hợp đồng
+                                        </div>
+                                         <p class="mb-2" style=" font-size: 14px; color: #212121;">Nhập thông tin ngày sinh của người xem vào ô dưới đây.</p>
                                         <form id="lapBanThoForm">
                                             @csrf
-
-                                            <div class="row g-1">
-                                                <div class="">
-                                                    <div class="fw-bold title-tong-quan-h2-log" style="color: #192E52">
-
-                                                        Thông tin gia chủ
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                            <hr>
                                             <div class="mb-3">
                                                 <div for="birthdate" class="fw-bold title-tong-quan-h4-log mb-2">Ngày
                                                     sinh</div>

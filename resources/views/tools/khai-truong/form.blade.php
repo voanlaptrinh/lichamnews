@@ -37,10 +37,7 @@
                                             Thông tin người
                                             xem
                                         </div>
-                                        <p class="" style=" font-size: 14px;">Bạn hãy nhập thông tin
-                                            vào
-                                            ô dưới
-                                            đây để xem ngày tốt xấu</p>
+                                    <p class="mb-2" style=" font-size: 14px; color: #212121;">Nhập thông tin ngày sinh của người xem vào ô dưới đây.</p>
 
                                         <form id="khaiTruongForm">
                                             @csrf
@@ -61,7 +58,7 @@
 
                                                 <div class="mb-3">
                                                     <!-- Date Selects -->
-                                                    <div class="fw-bold title-tong-quan-h4-log" style="color: #192E52; padding-bottom: 12px;">Ngày sinh của gia chủ</div>
+                                                    <div class="fw-bold title-tong-quan-h4-log" style="color: #192E52; padding-bottom: 12px;">Ngày tháng năm sinh</div>
                                                     <div class="row g-2 mb-2">
                                                         <div class="col-6 col-sm-4 col-lg-4 col-xl-4">
                                                             <div class="position-relative">

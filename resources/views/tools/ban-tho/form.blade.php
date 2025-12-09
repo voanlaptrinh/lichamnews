@@ -30,20 +30,19 @@
                             <div class="col-lg-8">
                                 <div class="">
                                     <div class="form--submit-totxau">
+                                     <div class="fw-bold  title-tong-quan-h2-log"  style="color: #192E52">
+                                            Thông tin người
+                                            xem
+                                        </div>
+                                        <p class="mb-2" style=" font-size: 14px; color: #212121;">Nhập thông tin ngày sinh của người xem vào ô dưới đây.</p>
                                         <form id="banThoForm">
                                             @csrf
 
                                             <div class="row g-1">
-                                                <div class="">
-                                                    <div class="fw-bold title-tong-quan-h2-log mb-3"
-                                                         style="color: #192E52">
-                                                        Thông tin gia chủ
-                                                    </div>
-                                                </div>
-<hr>
+                                               
+
                                                 <div class="mb-3">
-                                                    <div for="birthdate" class="fw-bold title-tong-quan-h4-log mb-2">Ngày
-                                                        sinh</div>
+                                                    <div for="birthdate" class="fw-bold title-tong-quan-h4-log mb-2">Ngày tháng năm sinh</div>
                                                     <!-- Date Selects -->
                                                     <div class="row g-2 mb-2">
                                                         <div class="col-6 col-sm-4 col-lg-4 col-xl-4">

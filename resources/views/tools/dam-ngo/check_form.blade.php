@@ -36,11 +36,8 @@
                                             Thông tin người
                                             xem
                                         </div>
-                                        <p class="" style=" font-size: 14px;color: #212121;">Bạn hãy nhập thông tin
-                                            vào
-                                            ô dưới
-                                            đây để xem ngày tốt xấu</p>
-
+                                        <p class="mb-2" style=" font-size: 14px; color: #212121;">Nhập thông tin ngày sinh
+                                            của người xem vào ô dưới đây.</p>
                                         <form action="{{ route('astrology.check') }}" method="POST">
                                             @csrf
 
@@ -214,7 +211,7 @@
                                                     @enderror
                                                 </div>
 
-                                
+
                                                 <div class="col-md-12 mb-3">
                                                     <div for="date_range" class="fw-bold title-tong-quan-h4-log"
                                                         style="color: #192E52; padding-bottom: 12px;">Khoảng
