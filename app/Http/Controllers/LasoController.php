@@ -281,7 +281,7 @@ class LasoController extends Controller
                         $apiInput['app_name'] = "phonglich";
 
                         try {
-                            $response = \Http::post('http://168.119.14.32/laso_v2/store_laso.php', $apiInput);
+                            $response = \Http::post('https://api32.xemlicham.com/laso_v2/store_laso.php', $apiInput);
                             if ($response->successful()) {
                                 $result = $response->json();
                                 if (isset($result['success']) && $result['success']) {
@@ -428,7 +428,7 @@ class LasoController extends Controller
 
         try {
             // Gọi API để lấy dữ liệu JSON đầy đủ (thay vì chỉ lấy ảnh)
-            $apiUrl = 'http://168.119.14.32/laso_v2/store_laso.php';
+            $apiUrl = 'https://api32.xemlicham.com/laso_v2/store_laso.php';
             $response = \Http::timeout(30)->post($apiUrl, $apiInput);
 
             if ($response->failed()) {
