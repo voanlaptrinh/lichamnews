@@ -50,7 +50,7 @@
                             </div>
                             <div class="col-lg-2 col-xl-2 col-md-4 col-6">
                                 <div class="box-tong-quan-tot-xau">
-                                    <a href="{{ route('breaking.form') }}" class=" p-2">
+                                    <a href="{{ route('huong-ban-tho.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
                                             <img src="{{ asset('icons/tool_xemhuongbantho.svg') }}" class="icon "

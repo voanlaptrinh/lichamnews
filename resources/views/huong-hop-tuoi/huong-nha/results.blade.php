@@ -48,7 +48,7 @@
                     </span>
                 </p>
                 <p class="mb-2">
-                    <strong class="text-danger">Chọn hướng hung:</strong>
+                    <strong class="text-danger">Tránh hướng hung:</strong>
                     <span>
                         {{ implode(', ', $results['nguyenTac']['huongHung']) }}
                     </span>

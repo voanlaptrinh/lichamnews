@@ -25,10 +25,10 @@
         <div>
             <div class="row g-lg-3 g-2 pt-lg-3 pt-2">
 
-                <div class="col-xl-9 col-sm-12 col-12">
+                <div class="col-xl-9 col-sm-12 col-12 ">
                     <div class="backv-doi-lich">
                         <div class="row g-xl-5 g-lg-3 g-sm-5">
-                            <div class="col-lg-12">
+                            <div class="col-lg-8">
                                 <div class="form--submit-totxau">
                                     <div class="fw-bold title-tong-quan-h2-log" style="#192E52">
                                         Thông tin hai người
@@ -41,8 +41,8 @@
                                         @csrf
                                         <div class="row">
                                             <!-- Người A -->
-                                            <div class="col-md-6 border-end border-2 pe-4">
-                                                <h5 class="mb-3 fw-bold title-tong-quan-h4-log">Người A</h5>
+                                            <div class="col-md-12">
+                                                <h5 id="labelPersonA" class="mb-3 fw-bold title-tong-quan-h4-log">Bạn</h5>
 
                                                 <div class="mb-3">
                                                     <div class="row g-2 mb-2">
@@ -139,8 +139,8 @@
                                             </div>
 
                                             <!-- Người B -->
-                                            <div class="col-md-6 ps-4">
-                                                <h5 class="mb-3 fw-bold title-tong-quan-h4-log">Người B</h5>
+                                            <div class="col-md-12">
+                                                <h5 id="labelPersonB" class="mb-3 fw-bold title-tong-quan-h4-log">Người ấy</h5>
 
                                                 <div class="mb-3">
                                                     <div class="row g-2 mb-2">
@@ -237,8 +237,6 @@
                                             </div>
                                         </div>
 
-                                        <hr>
-
                                         <div class="row align-items-end">
                                             <div class="col-md-8">
                                                 <label for="type" class="form-label fw-bold title-tong-quan-h4-log">Mục đích xem</label>
@@ -256,7 +254,7 @@
                                                 <div class="d-flex justify-content-center">
                                                     <button type="submit" class="btn btn-light-settup fw-bold w-100"
                                                         id="submitBtn">
-                                                        <span class="btn-text">Xem Kết Quả</span>
+                                                        <span class="btn-text">Xem Mức Độ Hợp Tuổi</span>
                                                         <span class="spinner-border spinner-border-sm ms-2 d-none"
                                                             role="status"></span>
                                                     </button>
@@ -304,7 +302,7 @@
                 leapContainerId: 'leapMonthContainerA',
                 defaultDay: hasHashParams ? null : 1,
                 defaultMonth: hasHashParams ? null : 1,
-                defaultYear: hasHashParams ? null : 1990,
+                defaultYear: hasHashParams ? null : 2000,
                 yearRangeStart: 1900,
                 yearRangeEnd: new Date().getFullYear(),
                 lunarApiUrl: '/api/lunar-solar-convert',
@@ -324,7 +322,7 @@
                 leapContainerId: 'leapMonthContainerB',
                 defaultDay: hasHashParams ? null : 1,
                 defaultMonth: hasHashParams ? null : 1,
-                defaultYear: hasHashParams ? null : 1995,
+                defaultYear: hasHashParams ? null : 2000,
                 yearRangeStart: 1900,
                 yearRangeEnd: new Date().getFullYear(),
                 lunarApiUrl: '/api/lunar-solar-convert',
@@ -338,43 +336,25 @@
                 if (spinner) spinner.classList.toggle('d-none', !loading);
             };
 
-            // Gender synchronization logic for couple compatibility
-            function syncGenders(sourceGender) {
-                if (typeSelect.value !== 'capdoi') return;
-
-                if (sourceGender === 'A') {
-                    const selectedValueA = document.querySelector('input[name="genderA"]:checked')?.value;
-                    const oppositeValue = selectedValueA === 'nam' ? 'nữ' : 'nam';
-                    document.querySelector(`input[name="genderB"][value="${oppositeValue}"]`).checked = true;
-                } else if (sourceGender === 'B') {
-                    const selectedValueB = document.querySelector('input[name="genderB"]:checked')?.value;
-                    const oppositeValue = selectedValueB === 'nam' ? 'nữ' : 'nam';
-                    document.querySelector(`input[name="genderA"][value="${oppositeValue}"]`).checked = true;
-                }
-            }
-
+            // Update labels based on compatibility type
             function handleTypeChange() {
-                if (typeSelect.value === 'capdoi') {
-                    const genderA = document.querySelector('input[name="genderA"]:checked')?.value;
-                    const genderB = document.querySelector('input[name="genderB"]:checked')?.value;
+                const labelA = document.getElementById('labelPersonA');
+                const labelB = document.getElementById('labelPersonB');
 
-                    if (genderA === genderB) {
-                        const oppositeValue = genderA === 'nam' ? 'nữ' : 'nam';
-                        document.querySelector(`input[name="genderB"][value="${oppositeValue}"]`).checked = true;
-                    }
+                if (typeSelect.value === 'capdoi') {
+                    // Xem tuổi vợ chồng
+                    labelA.textContent = 'Bạn';
+                    labelB.textContent = 'Người ấy';
+                } else if (typeSelect.value === 'laman') {
+                    // Xem tuổi làm ăn
+                    labelA.textContent = 'Bạn';
+                    labelB.textContent = 'Đối tác';
                 }
             }
 
-            // Add event listeners for gender synchronization
-            genderARadios.forEach(radio => {
-                radio.addEventListener('change', () => syncGenders('A'));
-            });
-            genderBRadios.forEach(radio => {
-                radio.addEventListener('change', () => syncGenders('B'));
-            });
             typeSelect.addEventListener('change', handleTypeChange);
 
-            // Initialize gender state
+            // Initialize without any gender restrictions
             handleTypeChange();
 
             form?.addEventListener('submit', e => {

@@ -12,9 +12,16 @@
                     {{ $results['basicInfo']['ngaySinhDuongLich'] }} tức ngày
                     {{ $results['basicInfo']['ngaySinhAmLich'] }} âm lịch
                 </p>
+                 <p class="mb-2">
+                    <strong>Giới tính:</strong>
+                    {{ $results['basicInfo']['gioiTinh'] }}
+                </p>
                 <p class="mb-2">
                     <strong>Tuổi:</strong>
-                    <b> {{ $results['ageInfo']['tuoiAm'] }}</b>, mệnh:
+                    <b> {{ $results['ageInfo']['tuoiAm'] }}</b>
+                </p>
+                <p class="mb-2">
+                    <strong> Mệnh Quái:</strong>
                     {{ $results['basicInfo']['menhQuai'] }}
                 </p>
 
@@ -172,9 +179,9 @@
 
                         </li>
                     </ul>
-                    
+
                 </div>
-              
+
             </div>
         </div>
     </div>
