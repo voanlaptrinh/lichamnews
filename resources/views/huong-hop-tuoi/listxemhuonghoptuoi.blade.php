@@ -11,7 +11,7 @@
                     <a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
-                    Xem ngày tốt
+                    Hướng hợp tuổi
                 </li>
             </ol>
         </nav>

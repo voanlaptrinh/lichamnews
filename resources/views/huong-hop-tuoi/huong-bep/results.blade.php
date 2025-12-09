@@ -12,17 +12,17 @@
                     {{ $results['basicInfo']['ngaySinhDuongLich'] }} tức ngày
                     {{ $results['basicInfo']['ngaySinhAmLich'] }} âm lịch
                 </p>
-                 <p class="mb-2">
+                <p class="mb-2">
                     <strong>Giới tính:</strong>
-                     {{ $gender }}
+                    {{ $gender }}
                 </p>
                 <p class="mb-2">
                     <strong>Tuổi:</strong>
                     <b> {{ $results['ageInfo']['tuoiAm'] }}</b>
                 </p>
-  <p class="mb-2">
+                <p class="mb-2">
                     <strong>Mệnh quái:</strong>
-                    
+
                     {{ $results['basicInfo']['menhQuai'] }}
                 </p>
 
@@ -87,12 +87,11 @@
 
     </div>
     <div class="col-lg-12">
-        <div class=" card border-0 mb-3 w-100 box-detial-year">
-
-            <div class="card-body box1-con-year">
-                <h2 class="title-tong-quan-h3-log fw-bolder">
-                    Những điều cần tránh khi đặt bếp
-                </h2>
+        <div class="box--bg-thang mt-3 mb-3">
+            <div class="text-box-tong-quan">
+                <h5>
+                    NHỮNG ĐIỀU CẦN TRÁNH KHI ĐẶT BẾP
+                </h5>
 
                 <div>
                     <ul style="	list-style-type: decimal;">

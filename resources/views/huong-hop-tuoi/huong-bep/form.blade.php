@@ -12,8 +12,7 @@
                     <a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
                 </li>
                 <li class="breadcrumb-item" aria-current="page">
-                    <a href="{{ route('totxau.list') }}" style="color: #2254AB; text-decoration: underline;">Tử vi & Phong
-                        thuỷ</a>
+                    <a href="{{ route('hoptuoi.list') }}" style="color: #2254AB; text-decoration: underline;">Hướng hợp tuổi</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
                     Xem Hướng bếp
@@ -177,72 +176,7 @@
 
                     </div>
 
-                    <div class="box--bg-thang mt-3 mb-3">
-                       <div class="text-box-tong-quan">
-                         <h5>
-                            NHỮNG ĐIỀU CẦN TRÁNH KHI ĐẶT BẾP
-                        </h5>
-                        <p>Phong thủy coi bếp là nơi “tàng hỏa” – giữ lửa, giữ tài lộc, nên vị trí và hướng đặt bếp cực kỳ
-                            quan trọng. Dưới đây là các điều cấm kỵ tuyệt đối cần tránh:</p>
-                        <div>
-                            <h6> 1. Đặt bếp đối diện cửa chính</h6>
-                            <ul>
-                                <li>Gọi là “Khai môn kiến táo” → mất tài lộc, gia đạo bất an.</li>
-                                <li>Người trong nhà dễ nóng nảy, tiêu tán của cải.</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h6>2. Đặt bếp đối diện nhà vệ sinh </h6>
-                            <ul>
-                                <li> Uế khí từ WC xung thẳng vào bếp → thực phẩm bị ảnh hưởng, dễ sinh bệnh.</li>
-                                <li>Gây xung khí giữa Thủy (WC) – Hỏa (bếp) → bất ổn, khẩu thiệt.</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h6>3. Đặt bếp gần hoặc trên giếng nước, bồn rửa, máy giặt</h6>
-                            <ul>
-                                <li>Thủy khắc Hỏa → bếp dễ tắt lửa, hao tài, tổn khí.</li>
-                                <li> Gọi là “Thủy Hỏa tương xung” → vợ chồng bất hòa.</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h6>4. Đặt bếp ở giữa nhà (“Trung cung”)</h6>
-                            <ul>
-                                <li> Trung tâm nhà cần tĩnh, an ổn → đặt bếp vào giữa gây động, ảnh hưởng toàn cục. </li>
-                                <li> Phạm vào “hỏa thiêu trung cung” → nhà dễ ly tán, bệnh tật kéo dài. </li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h6>5. Bếp không có chỗ tựa (lưng bếp trống)</h6>
-                            <ul>
-                                <li>Giống như “bếp trôi nổi” → không vững tài khí, dễ hao hụt.</li>
-                                <li>Bếp nên tựa vào tường vững chắc, kín đáo.</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h6>6. Miệng bếp nhìn thẳng ra cửa hoặc đường đi</h6>
-                            <ul>
-                                <li>Bếp bị “khí xung” → đun nấu không yên, mất tập trung, tán khí.</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h6>7. Đặt bếp dưới xà ngang</h6>
-                            <ul>
-                                <li>Gây “áp đỉnh sát” → ảnh hưởng tới người phụ nữ trong nhà: đau đầu, suy nhược.</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h6>8. Đặt bếp trên hoặc dưới phòng ngủ</h6>
-                            <ul>
-                                <li>Gây “Hỏa thiêu nhân đinh” → bệnh tật kéo dài, xung đột trong nhà.</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h6>Nguyên tắc vàng khi đặt bếp:</h6>
-                            <p>Tọa hung – hướng cát, tránh xung – tránh thủy – tránh động – tránh uế.</p>
-                        </div>
-                       </div>
-                    </div>
+                  
                 </div>
 
 

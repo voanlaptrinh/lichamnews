@@ -12,8 +12,7 @@
                     <a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
                 </li>
                 <li class="breadcrumb-item" aria-current="page">
-                    <a href="{{ route('totxau.list') }}" style="color: #2254AB; text-decoration: underline;">Tử vi & Phong
-                        thuỷ</a>
+                    <a href="{{ route('hoptuoi.list') }}" style="color: #2254AB; text-decoration: underline;">Hướng hợp tuổi</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
                     Xem Hướng ban thờ
