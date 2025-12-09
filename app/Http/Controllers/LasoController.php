@@ -100,7 +100,7 @@ class LasoController extends Controller
         $validatedData['app_name'] = "phonglich";
 
         // --- 2. GỌI ĐẾN API PHP THUẦN ---
-        $apiUrl = 'http://168.119.14.32/laso_v2/store_laso.php';
+        $apiUrl = 'https://api32.xemlicham.com/laso_v2/store_laso.php';
 
         try {
             $response = \Http::post($apiUrl, $validatedData);
