@@ -17,6 +17,7 @@ use App\Http\Controllers\LapBanThoController;
 use App\Http\Controllers\LasoController;
 use App\Http\Controllers\LichController;
 use App\Http\Controllers\ListController;
+use App\Http\Controllers\LuckyController;
 use App\Http\Controllers\LunarController;
 use App\Http\Controllers\MuaXeController;
 use App\Http\Controllers\NhanCongViecMoiController;
@@ -316,3 +317,34 @@ Route::get('/cung-hoang-dao/{signSlug}/{typeSlug}', [HoroscopeController::class,
 Route::get('/api/horoscope-data/{sign}/{type}', [HoroscopeController::class, 'fetchData'])->name('horoscope.data');
 
 //===End ROute xem 12 cung hoàng đạo ===
+
+// === THẦN SỐ HỌC (NUMEROLOGY) ROUTES ===
+Route::prefix('than-so-hoc')->name('numerology.')->group(function () {
+    // Main form
+    Route::get('/', [LuckyController::class, 'index'])->name('index');
+
+    // Calculate complete profile
+    Route::post('/tinh-toan', [LuckyController::class, 'calculate'])->name('calculate');
+
+    // Individual number interpretation pages
+    Route::get('/y-nghia-ngay-sinh/{number}', [LuckyController::class, 'birthDayDetail'])->name('birth_day.detail');
+    Route::get('/y-nghia-so-ten/{number}', [LuckyController::class, 'expressionDetail'])->name('expression.detail');
+    Route::get('/y-nghia-so-linh-hon/{number}', [LuckyController::class, 'soulUrgeDetail'])->name('soul_urge.detail');
+    Route::get('/y-nghia-so-tinh-cach/{number}', [LuckyController::class, 'personalityDetail'])->name('personality.detail');
+    Route::get('/y-nghia-so-thai-do/{number}', [LuckyController::class, 'attitudeDetail'])->name('attitude.detail');
+    Route::get('/y-nghia-so-truong-thanh/{number}', [LuckyController::class, 'maturityDetail'])->name('maturity.detail');
+    Route::get('/y-nghia-nam-ca-nhan/{number}', [LuckyController::class, 'personalYearDetail'])->name('personal_year.detail');
+
+    // API endpoints for partial calculations
+    Route::post('/api/co-ban', [LuckyController::class, 'calculateBasic'])->name('api.basic');
+    Route::post('/api/chu-ky', [LuckyController::class, 'calculateCycles'])->name('api.cycles');
+    Route::post('/api/bieu-do', [LuckyController::class, 'calculateCharts'])->name('api.charts');
+    Route::post('/api/may-man', [LuckyController::class, 'calculateLucky'])->name('api.lucky');
+    Route::post('/api/nang-luc', [LuckyController::class, 'calculateAbilities'])->name('api.abilities');
+    Route::post('/api/nghiep-qua', [LuckyController::class, 'calculateKarmic'])->name('api.karmic');
+
+    // PDF export (if needed in future)
+    Route::post('/xuat-pdf', [LuckyController::class, 'exportPdf'])->name('export.pdf');
+});
+
+//=== End Thần số học routes ===
