@@ -297,7 +297,7 @@
 
                                                 </tr>
                                                 <tr>
-                                                    <td>Văn Khí (Can Chi vận khí)</td>
+                                                    <td>Vận khí (Can Chi vận khí)</td>
                                                     <td>
                                                         {{ $weights['VanKhi'] / 10 ?? 0 }}
                                                     </td>
@@ -522,7 +522,7 @@
 
                                                 </tr>
                                                 <tr>
-                                                    <td>Văn Khí (Can Chi vận khí)</td>
+                                                    <td>Vận khí (Can Chi vận khí)</td>
                                                     <td>
                                                         {{$weights['VanKhi'] / 10 ?? 0 }}
                                                     </td>
