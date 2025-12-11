@@ -223,14 +223,13 @@
 @push('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Kiểm tra query parameters thay vì hash
+            // Kiểm tra query parameters trực tiếp
             const urlParams = new URLSearchParams(window.location.search);
-            const hasShare = urlParams.has('share');
-            const hasThongTin = urlParams.has('thong-tin');
+            const hasUserData = urlParams.has('ten') && urlParams.has('gt') && urlParams.has('ns');
 
-            // Nếu không có session results nhưng không có query params, redirect về form
+            // Nếu không có session results nhưng không có user data, redirect về form
             @if (!isset($imageUrl) || !$imageUrl)
-                if (!hasShare && !hasThongTin) {
+                if (!hasUserData) {
                     window.location.href = "{{ route('laso.create') }}";
                     return;
                 }
@@ -258,19 +257,20 @@
                 };
             @endif
 
-            // Kiểm tra cache database và hiển thị hoặc gọi API
+            // Kiểm tra DB trước, có thì hiển thị, không có thì gọi API
             @if (isset($cachedLuanGiai) && $cachedLuanGiai)
-                // Có cache trong database, hiển thị ngay
+                // Có trong DB - hiển thị ngay
                 setTimeout(function() {
-                    console.log('Hiển thị luận giải từ database cache');
+                    console.log('Lấy luận giải từ DB');
                     const cachedContent = {
                         responseObject: @json($cachedLuanGiai->luan_giai_content)
                     };
                     showLuanGiaiResults(cachedContent);
                 }, 500);
             @else
-                // Không có cache database, gọi API để luận giải
+                // Không có trong DB - gọi API luận giải
                 setTimeout(function() {
+                    console.log('Không có trong DB - gọi API luận giải');
                     autoRunLuanGiai();
                 }, 500);
             @endif
@@ -532,11 +532,14 @@
                 return formatted;
             }
 
-            // Thêm query parameter vào URL khi load trang nếu có
-            @if (isset($urlHash) && $urlHash)
-                if (!urlParams.has('thong-tin') && !urlParams.has('share')) {
-                    const urlData = '{{ $urlHash }}';
-                    urlParams.set('thong-tin', urlData);
+            // Thêm query parameters vào URL khi load trang nếu có
+            @if (isset($urlParams) && !empty($urlParams))
+                if (!hasUserData) {
+                    @foreach($urlParams as $key => $value)
+                        @if($value)
+                            urlParams.set('{{ $key }}', '{{ $value }}');
+                        @endif
+                    @endforeach
                     window.history.replaceState({}, document.title, window.location.pathname + '?' + urlParams.toString());
                 }
             @endif

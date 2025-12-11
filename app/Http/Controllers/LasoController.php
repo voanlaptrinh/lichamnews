@@ -186,8 +186,8 @@ class LasoController extends Controller
                     'normalizedData' => $normalizedData
                 ]);
 
-                // Tạo hash chứa thông tin lá số để chia sẻ
-                $hashData = [
+                // Tạo query parameters trực tiếp với thông tin lá số để chia sẻ
+                $queryParams = [
                     'ten' => $validatedData['ho_ten'],
                     'gt' => $validatedData['gioi_tinh'],
                     'ns' => $validatedData['dl_date_processed'],
@@ -195,15 +195,14 @@ class LasoController extends Controller
                     'nx' => $validatedData['nam_xem'],
                     'lt' => $calendarType
                 ];
-                $encodedHash = base64_encode(json_encode($hashData));
 
-                // Kiểm tra nếu có hash data từ request
-                $requestHashData = $request->input('url_hash');
-                if ($requestHashData) {
-                    return redirect()->route('laso.results')->with('url_hash', $requestHashData);
+                // Kiểm tra nếu có query params từ request
+                $hasExistingParams = $request->has(['ten', 'gt', 'ns', 'gs', 'nx']);
+                if ($hasExistingParams) {
+                    return redirect()->route('laso.results', $queryParams);
                 }
 
-                return redirect()->route('laso.results')->with('url_hash', $encodedHash);
+                return redirect()->route('laso.results', $queryParams);
             } else {
                 // API trả về lỗi (ví dụ: validation thất bại bên phía API)
                 $errorMessage = $result['message'] ?? 'Có lỗi không xác định từ API.';
@@ -241,15 +240,29 @@ class LasoController extends Controller
 
     public function showResults(Request $request)
     {
-        $results = session('laso_results');
+        $results = null;
 
-        // Kiểm tra nếu có data từ URL để load lá số được chia sẻ
-        if (!$results && ($request->has('share') || $request->has('thong-tin'))) {
+        // Nếu có URL parameters → LUÔN dùng data từ URL để tạo lá số
+        if ($request->has(['ten', 'gt', 'ns'])) {
+            \Log::info('URL parameters detected - using URL data for laso creation');
+            // Clear session cũ
+            session()->forget(['laso_results', 'laso_last_input']);
+
+            // LUÔN gọi tạo lá số từ URL parameters (không check results hay session)
             try {
-                $shareParam = $request->get('share') ?? $request->get('thong-tin');
-                $shareData = json_decode(base64_decode($shareParam), true);
-                if ($shareData && isset($shareData['ten'], $shareData['gt'], $shareData['ns'])) {
-                    // Tạo lại session từ dữ liệu chia sẻ
+                // Đọc trực tiếp từ query parameters
+                $shareData = [
+                    'ten' => $request->get('ten'),
+                    'gt' => $request->get('gt'),
+                    'ns' => $request->get('ns'),
+                    'gs' => $request->get('gs'),
+                    'nx' => $request->get('nx'),
+                    'lt' => $request->get('lt', 'solar')
+                ];
+
+                if ($shareData['ten'] && $shareData['gt'] && $shareData['ns']) {
+                    \Log::info('Creating laso from URL parameters', $shareData);
+                    // Tạo session từ dữ liệu URL
                     session([
                         'laso_last_input' => [
                             'ho_ten' => $shareData['ten'],
@@ -258,31 +271,32 @@ class LasoController extends Controller
                             'dl_gio' => explode(':', $shareData['gs'])[0] ?? 0,
                             'dl_phut' => explode(':', $shareData['gs'])[1] ?? 0,
                             'nam_xem' => $shareData['nx'],
-                            'calendar_type' => $shareData['lt'] ?? 'solar'
+                            'calendar_type' => $shareData['lt']
                         ]
                     ]);
-
-                    // Gọi lại API để tạo lá số
-                    $apiInput = [
-                        'ho_ten' => $shareData['ten'],
-                        'gioi_tinh' => $shareData['gt'],
-                        'nam_xem' => $shareData['nx'],
-                        'dl_date_processed' => $shareData['ns'],
-                        'calendar_type' => $shareData['lt'] ?? 'solar',
-                        'dl_gio' => explode(':', $shareData['gs'])[0] ?? 0,
-                        'dl_phut' => explode(':', $shareData['gs'])[1] ?? 0
-                    ];
 
                     // Parse ngày để gọi API
                     $dateParts = explode('/', explode(' ', $shareData['ns'])[0]);
                     if (count($dateParts) === 3) {
-                        $apiInput['dl_ngay'] = (int)$dateParts[0];
-                        $apiInput['dl_thang'] = (int)$dateParts[1];
-                        $apiInput['dl_nam'] = (int)$dateParts[2];
-                        $apiInput['app_name'] = "phonglich";
+                        // LUÔN gọi API để tạo lá số mới từ URL parameters
+                        $apiInput = [
+                            'ho_ten' => $shareData['ten'],
+                            'gioi_tinh' => $shareData['gt'],
+                            'nam_xem' => $shareData['nx'],
+                            'dl_date_processed' => $shareData['ns'],
+                            'calendar_type' => $shareData['lt'],
+                            'dl_gio' => explode(':', $shareData['gs'])[0] ?? 0,
+                            'dl_phut' => explode(':', $shareData['gs'])[1] ?? 0,
+                            'dl_ngay' => (int)$dateParts[0],
+                            'dl_thang' => (int)$dateParts[1],
+                            'dl_nam' => (int)$dateParts[2],
+                            'app_name' => "phonglich"
+                        ];
 
                         try {
+                            \Log::info('Calling laso API with URL data', $apiInput);
                             $response = \Http::post('https://api32.xemlicham.com/laso_v2/store_laso.php', $apiInput);
+
                             if ($response->successful()) {
                                 $result = $response->json();
                                 if (isset($result['success']) && $result['success']) {
@@ -290,22 +304,29 @@ class LasoController extends Controller
                                     $normalizedData = $result['data']['input_summary'] ?? [];
 
                                     if ($imageUrl) {
+                                        // Lưu vào session
                                         session()->put('laso_results', [
                                             'imageUrl' => $imageUrl,
                                             'normalizedData' => $normalizedData
                                         ]);
                                         $results = session('laso_results');
+                                        \Log::info('Successfully created laso from URL', ['imageUrl' => $imageUrl]);
                                     }
                                 }
+                            } else {
+                                \Log::error('Laso API failed', ['status' => $response->status(), 'body' => $response->body()]);
                             }
                         } catch (\Exception $e) {
-                            \Log::error('Error loading shared laso', ['error' => $e->getMessage()]);
+                            \Log::error('Error calling laso API', ['error' => $e->getMessage()]);
                         }
                     }
                 }
             } catch (\Exception $e) {
-                \Log::error('Error parsing share data', ['error' => $e->getMessage()]);
+                \Log::error('Error processing URL parameters', ['error' => $e->getMessage()]);
             }
+        } else {
+            // Không có URL parameters → Lấy từ session nếu có
+            $results = session('laso_results');
         }
 
         if (!$results) {
@@ -316,38 +337,72 @@ class LasoController extends Controller
             return view('la-so-tu-vi.results', compact('metaTitle', 'metaDescription'))
                 ->with('imageUrl', null)
                 ->with('normalizedData', [])
-                ->with('urlHash', null)
+                ->with('urlParams', [])
                 ->with('cachedLuanGiai', null);
         }
 
         $imageUrl = $results['imageUrl'];
         $normalizedData = $results['normalizedData'];
 
-        // Kiểm tra xem có cache luận giải trong database không
-        $lastInput = session('laso_last_input', []);
+        // Tìm luận giải trong DB dựa trên thông tin sinh (ưu tiên từ URL trước)
         $cachedLuanGiai = null;
 
-        if (!empty($lastInput)) {
-            // Tạo laso_id từ thông tin người dùng
-            $lasoId = LaSoLuanGiai::generateLasoId(
-                $lastInput['ho_ten'] ?? '',
-                $lastInput['dl_date_processed'] ?? '',
-                $lastInput['dl_gio'] . ':' . $lastInput['dl_phut'] ?? '',
-                $lastInput['gioi_tinh'] ?? '',
-                $lastInput['nam_xem'] ?? ''
-            );
+        // Lấy thông tin sinh từ URL nếu có
+        if ($request->has(['gt', 'ns', 'gs', 'nx'])) {
+            $birthData = [
+                'ns' => $request->get('ns'),
+                'gs' => $request->get('gs'),
+                'gt' => $request->get('gt'),
+                'nx' => $request->get('nx')
+            ];
+        } else {
+            // Fallback sang session nếu không có URL params
+            $lastInput = session('laso_last_input', []);
+            if (!empty($lastInput)) {
+                $birthData = [
+                    'ns' => $lastInput['dl_date_processed'] ?? '',
+                    'gs' => $lastInput['dl_gio'] . ':' . str_pad($lastInput['dl_phut'] ?? 0, 2, '0', STR_PAD_LEFT),
+                    'gt' => $lastInput['gioi_tinh'] ?? '',
+                    'nx' => $lastInput['nam_xem'] ?? ''
+                ];
+            } else {
+                $birthData = null;
+            }
+        }
 
-            // Tìm cache luận giải
-            $cachedLuanGiai = LaSoLuanGiai::findByLasoId($lasoId);
+        if ($birthData && $birthData['ns']) {
+            // Parse ngày từ ns
+            $dateParts = explode('/', explode(' ', $birthData['ns'])[0]);
+
+            if (count($dateParts) === 3) {
+                $ngaySinh = sprintf('%04d-%02d-%02d', $dateParts[2], $dateParts[1], $dateParts[0]);
+
+                // Tìm luận giải trong DB dựa vào thông tin sinh (KHÔNG có tên)
+                $searchData = [
+                    'ngay_sinh' => $ngaySinh,
+                    'gio_sinh' => $birthData['gs'],
+                    'gioi_tinh' => $birthData['gt'],
+                    'nam_xem' => $birthData['nx']
+                ];
+
+                \Log::info('Searching for luan giai in DB by birth info', $searchData);
+                $cachedLuanGiai = LaSoLuanGiai::where($searchData)->first();
+
+                if ($cachedLuanGiai) {
+                    \Log::info('Found existing luan giai', ['found_name' => $cachedLuanGiai->ho_ten]);
+                } else {
+                    \Log::info('No existing luan giai found in DB');
+                }
+            }
         }
 
         $metaTitle = "Lá Số Tử Vi Online – Luận Giải Tử Vi 12 Cung, Chính Xác & Miễn Phí";
         $metaDescription = "Xem lá số tử vi online theo ngày tháng năm sinh. Luận giải 12 cung, sao hạn, vận mệnh, tính cách, công danh – đầy đủ, dễ hiểu, miễn phí và chính xác.";
 
-        // Lấy hash data từ session nếu có
-        $urlHash = session('url_hash');
+        // Lấy query parameters để truyền vào view nếu có
+        $urlParams = $request->only(['ten', 'gt', 'ns', 'gs', 'nx', 'lt']);
 
-        return view('la-so-tu-vi.results', compact('imageUrl', 'normalizedData', 'metaTitle', 'metaDescription', 'urlHash', 'cachedLuanGiai'));
+        return view('la-so-tu-vi.results', compact('imageUrl', 'normalizedData', 'metaTitle', 'metaDescription', 'urlParams', 'cachedLuanGiai'));
     }
 
     public function luanGiai(Request $request)
@@ -377,35 +432,31 @@ class LasoController extends Controller
             }
         }
 
-        // Tạo laso_id từ thông tin người dùng
-        $lasoId = LaSoLuanGiai::generateLasoId(
-            $lastInput['ho_ten'],
-            $lastInput['dl_date_processed'],
-            $lastInput['dl_gio'] . ':' . $lastInput['dl_phut'],
-            $lastInput['gioi_tinh'],
-            $lastInput['nam_xem']
-        );
-
-        // Kiểm tra cache trong database trước
-        $cachedLuanGiai = LaSoLuanGiai::findByLasoId($lasoId);
-
-        if ($cachedLuanGiai) {
-            \Log::info('Returning cached luan giai', ['laso_id' => $lasoId]);
-
-            // Trả về kết quả từ cache với format giống API
-            return response()->json([
-                'success' => true,
-                'data' => [
-                    'responseObject' => $cachedLuanGiai->luan_giai_content
-                ],
-                'message' => 'Luận giải từ cache!',
-                'cached' => true
-            ]);
-        }
-
         // Parse ngày từ dl_date_processed (format: DD/MM/YYYY (DL) hoặc DD/MM/YYYY (ÂL))
         $dateProcessed = $lastInput['dl_date_processed'];
         $dateParts = explode('/', explode(' ', $dateProcessed)[0]);
+
+        // Kiểm tra trong DB dựa vào thông tin sinh (không có tên)
+        $existingLuanGiai = LaSoLuanGiai::where([
+            'ngay_sinh' => sprintf('%04d-%02d-%02d', $dateParts[2], $dateParts[1], $dateParts[0]),
+            'gio_sinh' => $lastInput['dl_gio'] . ':' . str_pad($lastInput['dl_phut'], 2, '0', STR_PAD_LEFT),
+            'gioi_tinh' => $lastInput['gioi_tinh'],
+            'nam_xem' => $lastInput['nam_xem']
+        ])->first();
+
+        if ($existingLuanGiai) {
+            \Log::info('Found existing luan giai in DB');
+
+            // Trả về kết quả từ DB
+            return response()->json([
+                'success' => true,
+                'data' => [
+                    'responseObject' => $existingLuanGiai->luan_giai_content
+                ],
+                'message' => 'Luận giải từ database!',
+                'from_db' => true
+            ]);
+        }
 
         if (count($dateParts) !== 3) {
             return response()->json([
@@ -506,45 +557,55 @@ class LasoController extends Controller
 
                 $luanGiaiResult = $luanGiaiResponse->json();
 
-                // Lưu kết quả luận giải vào database cache
+                // Lưu luận giải vào DB
                 try {
-                    // Parse ngày sinh từ dl_date_processed
-                    $dateProcessed = $lastInput['dl_date_processed'];
-                    $dateParts = explode('/', explode(' ', $dateProcessed)[0]);
-                    $ngaySinh = null;
+                    // Tìm record theo thông tin sinh để update luận giải
+                    $ngaySinh = sprintf('%04d-%02d-%02d', $dateParts[2], $dateParts[1], $dateParts[0]);
 
-                    if (count($dateParts) === 3) {
-                        $ngaySinh = sprintf('%04d-%02d-%02d', $dateParts[2], $dateParts[1], $dateParts[0]);
-                    }
-
-                    // Tạo dữ liệu để lưu cache
-                    $cacheData = [
-                        'laso_id' => $lasoId,
-                        'ho_ten' => $lastInput['ho_ten'],
+                    $existingRecord = LaSoLuanGiai::where([
                         'ngay_sinh' => $ngaySinh,
-                        'gio_sinh' => $lastInput['dl_gio'] . ':' . $lastInput['dl_phut'],
+                        'gio_sinh' => $lastInput['dl_gio'] . ':' . str_pad($lastInput['dl_phut'], 2, '0', STR_PAD_LEFT),
                         'gioi_tinh' => $lastInput['gioi_tinh'],
-                        'nam_xem' => $lastInput['nam_xem'],
-                        'luan_giai_content' => $luanGiaiResult['responseObject'] ?? json_encode($luanGiaiResult),
-                        'api_response' => $luanGiaiResult // Lưu cả response nguyên bản
-                    ];
+                        'nam_xem' => $lastInput['nam_xem']
+                    ])->first();
 
-                    LaSoLuanGiai::createOrUpdateCache($cacheData);
-                    \Log::info('Saved luan giai to cache', ['laso_id' => $lasoId]);
+                    if ($existingRecord) {
+                        // Update luận giải cho record có sẵn
+                        $existingRecord->update([
+                            'luan_giai_content' => $luanGiaiResult['responseObject'] ?? json_encode($luanGiaiResult)
+                        ]);
+                        \Log::info('Updated luan giai for existing record', ['id' => $existingRecord->id]);
+                    } else {
+                        // Tạo record mới nếu chưa có
+                        $lasoId = LaSoLuanGiai::generateLasoId(
+                            $lastInput['dl_date_processed'],
+                            $lastInput['dl_gio'] . ':' . str_pad($lastInput['dl_phut'], 2, '0', STR_PAD_LEFT),
+                            $lastInput['gioi_tinh'],
+                            $lastInput['nam_xem']
+                        );
 
+                        LaSoLuanGiai::create([
+                            'laso_id' => $lasoId,
+                            'ho_ten' => $lastInput['ho_ten'],
+                            'ngay_sinh' => $ngaySinh,
+                            'gio_sinh' => $lastInput['dl_gio'] . ':' . str_pad($lastInput['dl_phut'], 2, '0', STR_PAD_LEFT),
+                            'gioi_tinh' => $lastInput['gioi_tinh'],
+                            'nam_xem' => $lastInput['nam_xem'],
+                            'luan_giai_content' => $luanGiaiResult['responseObject'] ?? json_encode($luanGiaiResult),
+                            'api_response' => null // Chỉ lưu luận giải, không lưu lá số response
+                        ]);
+                        \Log::info('Created new record with luan giai', ['laso_id' => $lasoId]);
+                    }
                 } catch (\Exception $e) {
-                    \Log::error('Error saving luan giai cache', [
-                        'error' => $e->getMessage(),
-                        'laso_id' => $lasoId
-                    ]);
-                    // Không throw lỗi ở đây vì việc lưu cache thất bại không ảnh hưởng đến kết quả trả về
+                    \Log::error('Error saving luan giai to DB', ['error' => $e->getMessage()]);
                 }
 
+                // Trả về kết quả từ API
                 return response()->json([
                     'success' => true,
                     'data' => $luanGiaiResult,
-                    'message' => 'Luận giải thành công!',
-                    'cached' => false
+                    'message' => 'Luận giải từ API và đã lưu vào DB!',
+                    'from_api' => true
                 ]);
 
             } else {

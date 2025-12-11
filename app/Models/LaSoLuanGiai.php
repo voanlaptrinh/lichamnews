@@ -30,14 +30,15 @@ class LaSoLuanGiai extends Model
     ];
 
     /**
-     * Generate unique ID for laso based on user info (excluding name)
+     * Generate unique ID for laso based on birth info only (no name)
      */
-    public static function generateLasoId($hoTen, $ngaySinh, $gioSinh, $gioiTinh, $namXem)
+    public static function generateLasoId($ngaySinh, $gioSinh, $gioiTinh, $namXem)
     {
-        // Bỏ tên ra, chỉ dựa vào thông tin sinh để tạo ID
+        // Chỉ dựa vào thông tin sinh để tạo ID (không có tên)
         $dataString = "{$ngaySinh}-{$gioSinh}-{$gioiTinh}-{$namXem}";
         return 'laso_' . abs(crc32($dataString));
     }
+
 
     /**
      * Find cached luan giai by laso_id
@@ -46,6 +47,7 @@ class LaSoLuanGiai extends Model
     {
         return static::where('laso_id', $lasoId)->first();
     }
+
 
     /**
      * Create or update luan giai cache
