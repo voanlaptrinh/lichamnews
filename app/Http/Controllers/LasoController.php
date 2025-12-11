@@ -243,10 +243,11 @@ class LasoController extends Controller
     {
         $results = session('laso_results');
 
-        // Kiểm tra nếu có hash data từ URL để load lá số được chia sẻ
-        if (!$results && $request->has('share')) {
+        // Kiểm tra nếu có data từ URL để load lá số được chia sẻ
+        if (!$results && ($request->has('share') || $request->has('thong-tin'))) {
             try {
-                $shareData = json_decode(base64_decode($request->get('share')), true);
+                $shareParam = $request->get('share') ?? $request->get('thong-tin');
+                $shareData = json_decode(base64_decode($shareParam), true);
                 if ($shareData && isset($shareData['ten'], $shareData['gt'], $shareData['ns'])) {
                     // Tạo lại session từ dữ liệu chia sẻ
                     session([
@@ -308,8 +309,7 @@ class LasoController extends Controller
         }
 
         if (!$results) {
-            // Nếu không có results và không có share param, có thể là trường hợp có hash #thong-tin
-            // Trả về view để JavaScript xử lý hash URL
+            // Nếu không có results và không có query params, trả về view trống
             $metaTitle = "Lá Số Tử Vi Online – Luận Giải Tử Vi 12 Cung, Chính Xác & Miễn Phí";
             $metaDescription = "Xem lá số tử vi online theo ngày tháng năm sinh. Luận giải 12 cung, sao hạn, vận mệnh, tính cách, công danh – đầy đủ, dễ hiểu, miễn phí và chính xác.";
 

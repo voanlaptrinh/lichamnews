@@ -223,24 +223,14 @@
 @push('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Kiểm tra hash URL trước tiên
-            const hash = window.location.hash;
-            const hasShare = window.location.search.includes('share=');
-            const hasHashData = hash.includes('thong-tin=');
+            // Kiểm tra query parameters thay vì hash
+            const urlParams = new URLSearchParams(window.location.search);
+            const hasShare = urlParams.has('share');
+            const hasThongTin = urlParams.has('thong-tin');
 
-            // Nếu không có session results nhưng có hash data, redirect với share param
+            // Nếu không có session results nhưng không có query params, redirect về form
             @if (!isset($imageUrl) || !$imageUrl)
-                if (hasHashData && !hasShare) {
-                    const hashParts = hash.split('thong-tin=');
-                    if (hashParts.length > 1) {
-                        const hashData = hashParts[1];
-                        window.location.href = window.location.pathname + '?share=' + hashData + hash;
-                        return;
-                    }
-                }
-
-                // Nếu không có gì, redirect về form
-                if (!hasShare && !hasHashData) {
+                if (!hasShare && !hasThongTin) {
                     window.location.href = "{{ route('laso.create') }}";
                     return;
                 }
@@ -268,10 +258,7 @@
                 };
             @endif
 
-            // Tạo ID duy nhất cho lá số này
-            const lasoId = generateLasoId();
-
-            // Kiểm tra cache database và tự động hiển thị nếu có
+            // Kiểm tra cache database và hiển thị hoặc gọi API
             @if (isset($cachedLuanGiai) && $cachedLuanGiai)
                 // Có cache trong database, hiển thị ngay
                 setTimeout(function() {
@@ -282,19 +269,13 @@
                     showLuanGiaiResults(cachedContent);
                 }, 500);
             @else
-                // Không có cache, tự động chạy luận giải
+                // Không có cache database, gọi API để luận giải
                 setTimeout(function() {
                     autoRunLuanGiai();
                 }, 500);
             @endif
 
-            // Function tạo ID consistent cho lá số (giữ lại để tương thích với server)
-            function generateLasoId() {
-                // Không còn cần thiết cho localStorage nhưng giữ lại để tương thích
-                return 'laso_placeholder';
-            }
-
-            // Function tự động chạy luận giải (không cache localStorage)
+            // Function tự động chạy luận giải - gọi API
             function autoRunLuanGiai() {
                 const luanGiaiBtn = document.getElementById('luanGiaiBtn');
                 if (luanGiaiBtn) {
@@ -551,12 +532,12 @@
                 return formatted;
             }
 
-            // Thêm hash vào URL khi load trang nếu có
+            // Thêm query parameter vào URL khi load trang nếu có
             @if (isset($urlHash) && $urlHash)
-                if (!window.location.hash && !window.location.search.includes('share=')) {
-                    const urlHash = '{{ $urlHash }}';
-                    window.history.replaceState({}, document.title, window.location.pathname + '#thong-tin=' +
-                        urlHash);
+                if (!urlParams.has('thong-tin') && !urlParams.has('share')) {
+                    const urlData = '{{ $urlHash }}';
+                    urlParams.set('thong-tin', urlData);
+                    window.history.replaceState({}, document.title, window.location.pathname + '?' + urlParams.toString());
                 }
             @endif
 
