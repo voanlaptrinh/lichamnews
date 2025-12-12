@@ -124,7 +124,7 @@
                                                                     // Lưu ý: value của option là "giờ_phút" để JS dễ phân tích
                                                                     $zodiacTimeRanges = [
                                                                         [
-                                                                            'name' => 'Tý Khuya',
+                                                                            'name' => 'Tý sớm',
                                                                             'start_h' => 0,
                                                                             'start_m' => 0,
                                                                             'end_h' => 0,
@@ -208,7 +208,7 @@
                                                                             'end_m' => 59,
                                                                         ],
                                                                         [
-                                                                            'name' => 'Tý sớm',
+                                                                            'name' => 'Tý muộn',
                                                                             'start_h' => 23,
                                                                             'start_m' => 0,
                                                                             'end_h' => 23,
