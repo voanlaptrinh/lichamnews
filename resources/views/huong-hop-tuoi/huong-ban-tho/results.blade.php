@@ -10,7 +10,7 @@
                 <p class="mb-2">
                     <strong>Ngày sinh:</strong>
                     {{ $results['basicInfo']['ngaySinhDuongLich'] }} tức ngày
-                    {{ $results['basicInfo']['ngaySinhAmLich'] }} âm lịch
+                    {{ $results['basicInfo']['ngaySinhAmLich'] }} Âm lịch
                 </p>
                  <p class="mb-2">
                     <strong>Giới tính:</strong>
@@ -21,7 +21,7 @@
                     <b> {{ $results['ageInfo']['tuoiAm'] }}</b>
                 </p>
                 <p class="mb-2">
-                    <strong> Mệnh Quái:</strong>
+                    <strong> Cung phi:</strong>
                     {{ $results['basicInfo']['menhQuai'] }}
                 </p>
 
@@ -57,8 +57,7 @@
         <div class="card-body box1-con-year">
             <div class="text-primary mb-3 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
                 <img src="{{ asset('/icons/dac-diem1.svg') }}" alt="thông tin người xem" width="28" height="28"
-                    class="me-1">Hướng đặt bàn thờ tốt nhất cho {{ $results['basicInfo']['gioiTinh'] }}
-                {{ $nam_sinh }}
+                    class="me-1">Gợi ý hướng bàn thờ cho bạn
             </div>
 
             <table class="table align-middle">
@@ -73,7 +72,7 @@
                 <tbody>
                     @foreach ($results['huongDatBanThoTotNhat'] as $item)
                         <tr>
-                            <td>{{ $item['huong'] }}</td>
+                            <td><b>{{ $item['huong'] }}</b> ({{ $item['loai'] }})</td>
                             <td>{{ $item['y_nghia'] }}</td>
                             <td>{{ $item['uu_tien'] }}</td>
                         </tr>

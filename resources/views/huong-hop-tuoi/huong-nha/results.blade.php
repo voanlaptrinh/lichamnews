@@ -10,11 +10,15 @@
                 <p class="mb-2">
                     <strong>Ngày sinh:</strong>
                     {{ $results['basicInfo']['ngaySinhDuongLich'] }} tức ngày
-                    {{ $results['basicInfo']['ngaySinhAmLich'] }} âm lịch
+                    {{ $results['basicInfo']['ngaySinhAmLich'] }} Âm lịch
                 </p>
                 <p class="mb-2">
                     <strong>Tuổi:</strong>
-                    <b> {{ $results['ageInfo']['tuoiAm'] }}</b>, mệnh:
+                    <b> {{ $results['ageInfo']['tuoiAm'] }}</b>
+                </p>
+                 <p class="mb-2">
+                    <strong>Cung phi:</strong>
+                    
                     {{ $results['basicInfo']['menhQuai'] }}
                 </p>
                 <p class="mb-2">
@@ -61,8 +65,7 @@
         <div class="card-body box1-con-year">
             <div class="text-primary mb-3 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
                 <img src="{{ asset('/icons/dac-diem1.svg') }}" alt="thông tin người xem" width="28" height="28"
-                    class="me-1">Hướng nhà tốt nhất cho {{ $results['basicInfo']['gioiTinh'] }}
-                {{ $nam_sinh }}
+                    class="me-1">Gợi ý hướng nhà cho bạn
             </div>
 
             <table class="table align-middle">
@@ -77,7 +80,7 @@
                 <tbody>
                     @foreach ($results['huongNhaTotChiTiet'] as $item)
                         <tr>
-                            <td>{{ $item['huong'] }} ({{ $item['loai'] }})</td>
+                            <td><b>{{ $item['huong'] }}</b> ({{ $item['loai'] }})</td>
                             <td>{{ $item['y_nghia'] }}</td>
                             <td>{{ $item['uu_tien'] }}</td>
                         </tr>
@@ -90,7 +93,7 @@
 
     <div class="box--bg-thang mt-3 mb-3">
         <div class="text-box-tong-quan">
-            <h2 class="title-tong-quan-h2-log mb-3">Cách hoá giải không chọn được hướng nhà tốt</h2>
+            <h2 class="title-tong-quan-h3-log fw-bolder mb-3">Cách hoá giải không chọn được hướng nhà tốt</h2>
             <p class="mb-3">
                 Khi nhà không hợp hướng mệnh, tức phạm <b>"Trạch Mệnh tương khắc"</b>, bạn không nên quá lo lắng - phong
                 thuỷ hiện đại có nhiều cách hoá giải hiệu quả. Dưới đây là các giải pháp phổ biến và hiệu nghiệm:
@@ -157,7 +160,7 @@
                             Hướng không hợp - chọn phòng hợp. Của không tốt - điều tốt
                         </li>
                         <li>
-                            Trong phong thuỷ, hướng nhà là quan trọng, nhưng không quyết định tất cả - bạn hoàn toàn có thể điểu chỉnh bên trong để "hung hoá cat"
+                            Trong phong thuỷ, hướng nhà là quan trọng, nhưng không quyết định tất cả - bạn hoàn toàn có thể điểu chỉnh bên trong để "hung hoá cát"
                         </li>
                     </ul>
         </div>

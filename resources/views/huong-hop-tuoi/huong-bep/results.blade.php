@@ -10,7 +10,7 @@
                 <p class="mb-2">
                     <strong>Ngày sinh:</strong>
                     {{ $results['basicInfo']['ngaySinhDuongLich'] }} tức ngày
-                    {{ $results['basicInfo']['ngaySinhAmLich'] }} âm lịch
+                    {{ $results['basicInfo']['ngaySinhAmLich'] }} Âm lịch
                 </p>
                 <p class="mb-2">
                     <strong>Giới tính:</strong>
@@ -21,7 +21,7 @@
                     <b> {{ $results['ageInfo']['tuoiAm'] }}</b>
                 </p>
                 <p class="mb-2">
-                    <strong>Mệnh quái:</strong>
+                    <strong>Cung phi:</strong>
 
                     {{ $results['basicInfo']['menhQuai'] }}
                 </p>
@@ -47,9 +47,12 @@
             </div>
 
             <div>
-                @foreach ($results['nguyenTac']['rules'] as $rule)
-                    <p>{{ $rule }}</p>
-                @endforeach
+                <ul>
+                    @foreach ($results['nguyenTac']['rules'] as $rule)
+                        <li>{{ $rule }}</li>
+                    @endforeach
+                </ul>
+
                 <p><em>Lưu ý: {{ $results['nguyenTac']['note'] }}</em></p>
             </div>
         </div>
@@ -60,8 +63,7 @@
         <div class="card-body box1-con-year">
             <div class="text-primary mb-3 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
                 <img src="{{ asset('/icons/dac-diem1.svg') }}" alt="thông tin người xem" width="28" height="28"
-                    class="me-1">Hướng bếp tốt nhất cho {{ $results['basicInfo']['gioiTinh'] }}
-                {{ $nam_sinh }}
+                    class="me-1">Gợi ý hướng bếp cho bạn
             </div>
 
             <table class="table align-middle">
@@ -76,7 +78,7 @@
                 <tbody>
                     @foreach ($results['huongBepTotNhat'] as $item)
                         <tr>
-                            <td>{{ $item['huong'] }} ({{ $item['loai'] }})</td>
+                            <td><b>{{ $item['huong'] }}</b> ({{ $item['loai'] }})</td>
                             <td>{{ $item['y_nghia'] }}</td>
                             <td>{{ $item['uu_tien'] }}</td>
                         </tr>
@@ -89,9 +91,9 @@
     <div class="col-lg-12">
         <div class="box--bg-thang mt-3 mb-3">
             <div class="text-box-tong-quan">
-                <h5>
-                    NHỮNG ĐIỀU CẦN TRÁNH KHI ĐẶT BẾP
-                </h5>
+                <h2 class="title-tong-quan-h3-log fw-bolder">
+                    Những điều cần tránh khi đặt bếp
+                </h2>
 
                 <div>
                     <ul style="	list-style-type: decimal;">

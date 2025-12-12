@@ -152,53 +152,53 @@ class FengShuiHelper //cần xác định xem gia chủ thuộc Tây Tứ Mệnh
         return [
             // --- TÂY TỨ MỆNH ---
             'Khôn' => [
-                ['huong' => 'Tây Nam (Phục Vị)', 'y_nghia' => 'Được tổ tiên phù trì, vượng khí và tài lộc.', 'uu_tien' => 'Ưu tiên 1'],
-                ['huong' => 'Tây (Thiên Y)', 'y_nghia' => 'Công việc thuận lợi, hanh thông, cuộc sống tốt đẹp.', 'uu_tien' => 'Ưu tiên 2'], // Tên đã được tùy chỉnh cho giống ảnh
-                ['huong' => 'Tây Bắc (Phước Đức)', 'y_nghia' => 'Sức khỏe dồi dào, tránh ốm đau, gặp nhiều may mắn và quý nhân phù trợ.', 'uu_tien' => 'Ưu tiên 3'], // Tên đã được tùy chỉnh
-                ['huong' => 'Đông Bắc (Sinh Khí)', 'y_nghia' => 'Tình cảm vợ chồng, cha mẹ, con cái trở nên khăng khít và tốt đẹp.', 'uu_tien' => 'Ưu tiên 4'], // Tên đã được tùy chỉnh
+                ['huong' => 'Tây Nam', 'loai' => 'Phục Vị', 'y_nghia' => 'Được tổ tiên phù trì, vượng khí và tài lộc.', 'uu_tien' => 'Ưu tiên 1'],
+                ['huong' => 'Tây', 'loai' => 'Thiên Y', 'y_nghia' => 'Công việc thuận lợi, hanh thông, cuộc sống tốt đẹp.', 'uu_tien' => 'Ưu tiên 2'], // Tên đã được tùy chỉnh cho giống ảnh
+                ['huong' => 'Tây Bắc', 'loai' => 'Phước Đức', 'y_nghia' => 'Sức khỏe dồi dào, tránh ốm đau, gặp nhiều may mắn và quý nhân phù trợ.', 'uu_tien' => 'Ưu tiên 3'], // Tên đã được tùy chỉnh
+                ['huong' => 'Đông Bắc', 'loai' => 'Sinh Khí', 'y_nghia' => 'Tình cảm vợ chồng, cha mẹ, con cái trở nên khăng khít và tốt đẹp.', 'uu_tien' => 'Ưu tiên 4'], // Tên đã được tùy chỉnh
             ],
             'Càn' => [
-                ['huong' => 'Tây Bắc (Phục Vị)', 'y_nghia' => 'Được tổ tiên phù trì, vượng khí và tài lộc.', 'uu_tien' => 'Ưu tiên 1'],
-                ['huong' => 'Đông Bắc (Thiên Y)', 'y_nghia' => 'Sức khỏe dồi dào, gặp nhiều may mắn, quý nhân phù trợ.', 'uu_tien' => 'Ưu tiên 2'],
-                ['huong' => 'Tây Nam (Phước Đức)', 'y_nghia' => 'Gia đình hòa thuận, các mối quan hệ tốt đẹp.', 'uu_tien' => 'Ưu tiên 3'],
-                ['huong' => 'Tây (Sinh Khí)', 'y_nghia' => 'Thu hút tài lộc, công danh sự nghiệp phát triển.', 'uu_tien' => 'Ưu tiên 4'],
+                ['huong' => 'Tây Bắc', 'loai' => 'Phục Vị', 'y_nghia' => 'Được tổ tiên phù trì, vượng khí và tài lộc.', 'uu_tien' => 'Ưu tiên 1'],
+                ['huong' => 'Đông Bắc', 'loai' => 'Thiên Y', 'y_nghia' => 'Sức khỏe dồi dào, gặp nhiều may mắn, quý nhân phù trợ.', 'uu_tien' => 'Ưu tiên 2'],
+                ['huong' => 'Tây Nam', 'loai' => 'Phước Đức', 'y_nghia' => 'Gia đình hòa thuận, các mối quan hệ tốt đẹp.', 'uu_tien' => 'Ưu tiên 3'],
+                ['huong' => 'Tây', 'loai' => 'Sinh Khí', 'y_nghia' => 'Thu hút tài lộc, công danh sự nghiệp phát triển.', 'uu_tien' => 'Ưu tiên 4'],
             ],
             'Cấn' => [
-                ['huong' => 'Đông Bắc (Phục Vị)', 'y_nghia' => 'Được tổ tiên phù trì, vượng khí và tài lộc.', 'uu_tien' => 'Ưu tiên 1'],
-                ['huong' => 'Tây (Thiên Y)', 'y_nghia' => 'Sức khỏe dồi dào, gặp nhiều may mắn, quý nhân phù trợ.', 'uu_tien' => 'Ưu tiên 2'],
-                ['huong' => 'Tây Bắc (Phước Đức)', 'y_nghia' => 'Gia đình hòa thuận, các mối quan hệ tốt đẹp.', 'uu_tien' => 'Ưu tiên 3'],
-                ['huong' => 'Tây Nam (Sinh Khí)', 'y_nghia' => 'Thu hút tài lộc, công danh sự nghiệp phát triển.', 'uu_tien' => 'Ưu tiên 4'],
+                ['huong' => 'Đông Bắc', 'loai' => 'Phục Vị', 'y_nghia' => 'Được tổ tiên phù trì, vượng khí và tài lộc.', 'uu_tien' => 'Ưu tiên 1'],
+                ['huong' => 'Tây', 'loai' => 'Thiên Y', 'y_nghia' => 'Sức khỏe dồi dào, gặp nhiều may mắn, quý nhân phù trợ.', 'uu_tien' => 'Ưu tiên 2'],
+                ['huong' => 'Tây Bắc', 'loai' => 'Phước Đức', 'y_nghia' => 'Gia đình hòa thuận, các mối quan hệ tốt đẹp.', 'uu_tien' => 'Ưu tiên 3'],
+                ['huong' => 'Tây Nam', 'loai' => 'Sinh Khí', 'y_nghia' => 'Thu hút tài lộc, công danh sự nghiệp phát triển.', 'uu_tien' => 'Ưu tiên 4'],
             ],
             'Đoài' => [
-                ['huong' => 'Tây (Phục Vị)', 'y_nghia' => 'Được tổ tiên phù trì, vượng khí và tài lộc.', 'uu_tien' => 'Ưu tiên 1'],
-                ['huong' => 'Tây Nam (Thiên Y)', 'y_nghia' => 'Sức khỏe dồi dào, gặp nhiều may mắn, quý nhân phù trợ.', 'uu_tien' => 'Ưu tiên 2'],
-                ['huong' => 'Đông Bắc (Phước Đức)', 'y_nghia' => 'Gia đình hòa thuận, các mối quan hệ tốt đẹp.', 'uu_tien' => 'Ưu tiên 3'],
-                ['huong' => 'Tây Bắc (Sinh Khí)', 'y_nghia' => 'Thu hút tài lộc, công danh sự nghiệp phát triển.', 'uu_tien' => 'Ưu tiên 4'],
+                ['huong' => 'Tây', 'loai' => 'Phục Vị', 'y_nghia' => 'Được tổ tiên phù trì, vượng khí và tài lộc.', 'uu_tien' => 'Ưu tiên 1'],
+                ['huong' => 'Tây Nam', 'loai' => 'Thiên Y', 'y_nghia' => 'Sức khỏe dồi dào, gặp nhiều may mắn, quý nhân phù trợ.', 'uu_tien' => 'Ưu tiên 2'],
+                ['huong' => 'Đông Bắc', 'loai' => 'Phước Đức', 'y_nghia' => 'Gia đình hòa thuận, các mối quan hệ tốt đẹp.', 'uu_tien' => 'Ưu tiên 3'],
+                ['huong' => 'Tây Bắc', 'loai' => 'Sinh Khí', 'y_nghia' => 'Thu hút tài lộc, công danh sự nghiệp phát triển.', 'uu_tien' => 'Ưu tiên 4'],
             ],
             // --- ĐÔNG TỨ MỆNH ---
             'Khảm' => [
-                ['huong' => 'Bắc (Phục Vị)', 'y_nghia' => 'Được tổ tiên phù trì, vượng khí và tài lộc.', 'uu_tien' => 'Ưu tiên 1'],
-                ['huong' => 'Đông (Thiên Y)', 'y_nghia' => 'Sức khỏe dồi dào, gặp nhiều may mắn, quý nhân phù trợ.', 'uu_tien' => 'Ưu tiên 2'],
-                ['huong' => 'Nam (Phước Đức)', 'y_nghia' => 'Gia đình hòa thuận, các mối quan hệ tốt đẹp.', 'uu_tien' => 'Ưu tiên 3'],
-                ['huong' => 'Đông Nam (Sinh Khí)', 'y_nghia' => 'Thu hút tài lộc, công danh sự nghiệp phát triển.', 'uu_tien' => 'Ưu tiên 4'],
+                ['huong' => 'Bắc', 'loai' => 'Phục Vị', 'y_nghia' => 'Được tổ tiên phù trì, vượng khí và tài lộc.', 'uu_tien' => 'Ưu tiên 1'],
+                ['huong' => 'Đông', 'loai' => 'Thiên Y', 'y_nghia' => 'Sức khỏe dồi dào, gặp nhiều may mắn, quý nhân phù trợ.', 'uu_tien' => 'Ưu tiên 2'],
+                ['huong' => 'Nam', 'loai' => 'Phước Đức', 'y_nghia' => 'Gia đình hòa thuận, các mối quan hệ tốt đẹp.', 'uu_tien' => 'Ưu tiên 3'],
+                ['huong' => 'Đông Nam', 'loai' => 'Sinh Khí', 'y_nghia' => 'Thu hút tài lộc, công danh sự nghiệp phát triển.', 'uu_tien' => 'Ưu tiên 4'],
             ],
             'Ly' => [
-                ['huong' => 'Nam (Phục Vị)', 'y_nghia' => 'Được tổ tiên phù trì, vượng khí và tài lộc.', 'uu_tien' => 'Ưu tiên 1'],
-                ['huong' => 'Đông Nam (Thiên Y)', 'y_nghia' => 'Sức khỏe dồi dào, gặp nhiều may mắn, quý nhân phù trợ.', 'uu_tien' => 'Ưu tiên 2'],
-                ['huong' => 'Bắc (Phước Đức)', 'y_nghia' => 'Gia đình hòa thuận, các mối quan hệ tốt đẹp.', 'uu_tien' => 'Ưu tiên 3'],
-                ['huong' => 'Đông (Sinh Khí)', 'y_nghia' => 'Thu hút tài lộc, công danh sự nghiệp phát triển.', 'uu_tien' => 'Ưu tiên 4'],
+                ['huong' => 'Nam', 'loai' => 'Phục Vị', 'y_nghia' => 'Được tổ tiên phù trì, vượng khí và tài lộc.', 'uu_tien' => 'Ưu tiên 1'],
+                ['huong' => 'Đông Nam', 'loai' => 'Thiên Y', 'y_nghia' => 'Sức khỏe dồi dào, gặp nhiều may mắn, quý nhân phù trợ.', 'uu_tien' => 'Ưu tiên 2'],
+                ['huong' => 'Bắc', 'loai' => 'Phước Đức', 'y_nghia' => 'Gia đình hòa thuận, các mối quan hệ tốt đẹp.', 'uu_tien' => 'Ưu tiên 3'],
+                ['huong' => 'Đông', 'loai' => 'Sinh Khí', 'y_nghia' => 'Thu hút tài lộc, công danh sự nghiệp phát triển.', 'uu_tien' => 'Ưu tiên 4'],
             ],
             'Chấn' => [
-                ['huong' => 'Đông (Phục Vị)', 'y_nghia' => 'Được tổ tiên phù trì, vượng khí và tài lộc.', 'uu_tien' => 'Ưu tiên 1'],
-                ['huong' => 'Bắc (Thiên Y)', 'y_nghia' => 'Sức khỏe dồi dào, gặp nhiều may mắn, quý nhân phù trợ.', 'uu_tien' => 'Ưu tiên 2'],
-                ['huong' => 'Đông Nam (Phước Đức)', 'y_nghia' => 'Gia đình hòa thuận, các mối quan hệ tốt đẹp.', 'uu_tien' => 'Ưu tiên 3'],
-                ['huong' => 'Nam (Sinh Khí)', 'y_nghia' => 'Thu hút tài lộc, công danh sự nghiệp phát triển.', 'uu_tien' => 'Ưu tiên 4'],
+                ['huong' => 'Đông', 'loai' => 'Phục Vị', 'y_nghia' => 'Được tổ tiên phù trì, vượng khí và tài lộc.', 'uu_tien' => 'Ưu tiên 1'],
+                ['huong' => 'Bắc', 'loai' => 'Thiên Y', 'y_nghia' => 'Sức khỏe dồi dào, gặp nhiều may mắn, quý nhân phù trợ.', 'uu_tien' => 'Ưu tiên 2'],
+                ['huong' => 'Đông Nam', 'loai' => 'Phước Đức', 'y_nghia' => 'Gia đình hòa thuận, các mối quan hệ tốt đẹp.', 'uu_tien' => 'Ưu tiên 3'],
+                ['huong' => 'Nam', 'loai' => 'Sinh Khí', 'y_nghia' => 'Thu hút tài lộc, công danh sự nghiệp phát triển.', 'uu_tien' => 'Ưu tiên 4'],
             ],
             'Tốn' => [
-                ['huong' => 'Đông Nam (Phục Vị)', 'y_nghia' => 'Được tổ tiên phù trì, vượng khí và tài lộc.', 'uu_tien' => 'Ưu tiên 1'],
-                ['huong' => 'Nam (Thiên Y)', 'y_nghia' => 'Sức khỏe dồi dào, gặp nhiều may mắn, quý nhân phù trợ.', 'uu_tien' => 'Ưu tiên 2'],
-                ['huong' => 'Đông (Phước Đức)', 'y_nghia' => 'Gia đình hòa thuận, các mối quan hệ tốt đẹp.', 'uu_tien' => 'Ưu tiên 3'],
-                ['huong' => 'Bắc (Sinh Khí)', 'y_nghia' => 'Thu hút tài lộc, công danh sự nghiệp phát triển.', 'uu_tien' => 'Ưu tiên 4'],
+                ['huong' => 'Đông Nam', 'loai' => 'Phục Vị', 'y_nghia' => 'Được tổ tiên phù trì, vượng khí và tài lộc.', 'uu_tien' => 'Ưu tiên 1'],
+                ['huong' => 'Nam', 'loai' => 'Thiên Y', 'y_nghia' => 'Sức khỏe dồi dào, gặp nhiều may mắn, quý nhân phù trợ.', 'uu_tien' => 'Ưu tiên 2'],
+                ['huong' => 'Đông', 'loai' => 'Phước Đức', 'y_nghia' => 'Gia đình hòa thuận, các mối quan hệ tốt đẹp.', 'uu_tien' => 'Ưu tiên 3'],
+                ['huong' => 'Bắc', 'loai' => 'Sinh Khí', 'y_nghia' => 'Thu hút tài lộc, công danh sự nghiệp phát triển.', 'uu_tien' => 'Ưu tiên 4'],
             ],
         ];
     }
@@ -286,7 +286,7 @@ class FengShuiHelper //cần xác định xem gia chủ thuộc Tây Tứ Mệnh
         return [
             ['huong' => $huongTotGoc['sinh_khi'], 'loai' => 'Sinh Khí', 'y_nghia' => $yNghia['sinh_khi'], 'uu_tien' => 'Ưu tiên 1'],
             ['huong' => $huongTotGoc['thien_y'], 'loai' => 'Thiên Y', 'y_nghia' => $yNghia['thien_y'], 'uu_tien' => 'Ưu tiên 2'],
-            ['huong' => $huongTotGoc['phuoc_duc'], 'loai' => 'Diên Niên (Phước Đức)', 'y_nghia' => $yNghia['phuoc_duc'], 'uu_tien' => 'Ưu tiên 3'],
+            ['huong' => $huongTotGoc['phuoc_duc'], 'loai' => 'Phước Đức', 'y_nghia' => $yNghia['phuoc_duc'], 'uu_tien' => 'Ưu tiên 3'],
             ['huong' => $huongTotGoc['phuc_vi'], 'loai' => 'Phục Vị', 'y_nghia' => $yNghia['phuc_vi'], 'uu_tien' => 'Ưu tiên 4'],
         ];
     }
@@ -387,7 +387,7 @@ class FengShuiHelper //cần xác định xem gia chủ thuộc Tây Tứ Mệnh
 
         // 3. Sắp xếp và diễn giải lại các hướng theo mục đích PHÒNG NGỦ
         $huongPhongNguChiTiet = self::getBangHuongPhongNgu($huongTotGoc);
-  $today = now();
+        $today = now();
         $solarDay = (int)$today->format('d');
         $solarMonth = (int)$today->format('m');
         $solarYear = (int)$today->format('Y');
@@ -395,7 +395,7 @@ class FengShuiHelper //cần xác định xem gia chủ thuộc Tây Tứ Mệnh
         // Đổi sang âm lịch hiện tại
         $lunarToday = LunarHelper::convertSolar2Lunar($solarDay, $solarMonth, $solarYear);
         $lunarYearNow = $lunarToday[2];  // Năm âm lịch hiện tại
-          $lunarYear = $lunarDob[2]; // Năm âm lịch
+        $lunarYear = $lunarDob[2]; // Năm âm lịch
         $tuoiAm = $lunarYearNow - $lunarYear + 1;
         // 4. Định dạng kết quả trả về
         return [
@@ -408,7 +408,7 @@ class FengShuiHelper //cần xác định xem gia chủ thuộc Tây Tứ Mệnh
             ],
             'huongTotChiTiet' => $huongPhongNguChiTiet,
             'huongXauChiTiet' => $phongThuyCoBan['huong_xau'],
-              'ageInfo' => [
+            'ageInfo' => [
                 'tuoiAm' => $tuoiAm,
                 'namAmHienTai' => $lunarYearNow,
             ],

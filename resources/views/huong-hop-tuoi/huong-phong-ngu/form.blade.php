@@ -16,7 +16,7 @@
                         tuổi</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
-                    Xem Hướng phòng ngủ
+                    Xem hướng phòng ngủ
                 </li>
 
             </ol>
@@ -45,6 +45,7 @@
                                             @csrf
                                             <div class="mb-3">
                                                 <!-- Date Selects -->
+                                                 <div for="birthdate" class="fw-bold title-tong-quan-h4-log mb-2">Ngày tháng năm sinh</div>
                                                 <div class="row g-2 mb-2">
                                                     <div class="col-6 col-sm-4 col-lg-4 col-xl-4">
                                                         <div class="position-relative">
