@@ -98,7 +98,7 @@ class FengShuiHelper //cần xác định xem gia chủ thuộc Tây Tứ Mệnh
             6 => ['menh_trach' => 'Càn', 'nhom' => 'Tây Tứ Mệnh', 'ngu_hanh' => 'Kim', 'phuong_vi' => 'Tây Bắc', 'huong_tot' => ['sinh_khi' => 'Tây', 'thien_y' => 'Đông Bắc', 'phuoc_duc' => 'Tây Nam', 'phuc_vi' => 'Tây Bắc'], 'huong_xau' => ['tuyet_menh' => 'Nam', 'ngu_quy' => 'Đông', 'luc_sat' => 'Bắc', 'hoa_hai' => 'Đông Nam']],
             7 => ['menh_trach' => 'Đoài', 'nhom' => 'Tây Tứ Mệnh', 'ngu_hanh' => 'Kim', 'phuong_vi' => 'Tây', 'huong_tot' => ['sinh_khi' => 'Tây Bắc', 'thien_y' => 'Tây Nam', 'phuoc_duc' => 'Đông Bắc', 'phuc_vi' => 'Tây'], 'huong_xau' => ['tuyet_menh' => 'Đông', 'ngu_quy' => 'Nam', 'luc_sat' => 'Đông Nam', 'hoa_hai' => 'Bắc']],
             8 => ['menh_trach' => 'Cấn', 'nhom' => 'Tây Tứ Mệnh', 'ngu_hanh' => 'Thổ', 'phuong_vi' => 'Đông Bắc', 'huong_tot' => ['sinh_khi' => 'Tây Nam', 'thien_y' => 'Tây Bắc', 'phuoc_duc' => 'Tây', 'phuc_vi' => 'Đông Bắc'], 'huong_xau' => ['tuyet_menh' => 'Đông Nam', 'ngu_quy' => 'Bắc', 'luc_sat' => 'Đông', 'hoa_hai' => 'Nam']],
-            9 => ['menh_trach' => 'Ly', 'nhom' => 'Đông Tứ Mệnh', 'ngu_hanh' => 'Hỏa', 'phuong_vi' => 'Nam', 'huong_tot' => ['sinh_khi' => 'Đông', 'thien_y' => 'Đông Nam', 'phuoc_duc' => 'Bắc', 'phuc_vi' => 'Nam'], 'huong_xau' => ['tuyet_menh' => 'Tây Bắc', 'ngu_quy' => 'Tây', 'luc_sat' => 'Tây Nam', 'hoa_hai' => 'Đông Bắc']],
+            9 => ['menh_trach' => 'Ly', 'nhom' => 'Đông Tứ Mệnh', 'ngu_hanh' => 'Hỏa', 'phuong_vi' => 'Nam', 'huong_tot' => [ 'thien_y' => 'Đông Nam', 'phuoc_duc' => 'Bắc', 'sinh_khi' => 'Đông', 'phuc_vi' => 'Nam'], 'huong_xau' => ['tuyet_menh' => 'Tây Bắc', 'ngu_quy' => 'Tây', 'luc_sat' => 'Tây Nam', 'hoa_hai' => 'Đông Bắc']],
         ];
 
         // --- Bước 2: Tính toán Quái số ---
@@ -290,6 +290,23 @@ class FengShuiHelper //cần xác định xem gia chủ thuộc Tây Tứ Mệnh
             ['huong' => $huongTotGoc['phuc_vi'], 'loai' => 'Phục Vị', 'y_nghia' => $yNghia['phuc_vi'], 'uu_tien' => 'Ưu tiên 4'],
         ];
     }
+ private static function getHuongTotBep(array $huongTotGoc): array
+    {
+        $yNghia = [
+            'phuoc_duc' => 'Gia đạo tốt, hôn nhân bền vững, quan hệ tốt.', // phuoc_duc là Diên Niên
+
+            'thien_y' => 'Cát lợi về sức khoẻ, gặp nhiều may mắn.',
+            'sinh_khi' => 'Vượng nhất, hút tiền tài, sự nghiệp phát triển mạnh',
+            'phuc_vi' => 'Tốt cho tĩnh tại, nội tâm, phù hợp nơi thờ cúng.'
+        ];
+
+        return [
+            ['huong' => $huongTotGoc['phuoc_duc'], 'loai' => 'Phước Đức', 'y_nghia' => $yNghia['phuoc_duc'], 'uu_tien' => 'Ưu tiên 1'],
+            ['huong' => $huongTotGoc['thien_y'], 'loai' => 'Thiên Y', 'y_nghia' => $yNghia['thien_y'], 'uu_tien' => 'Ưu tiên 2'],
+            ['huong' => $huongTotGoc['sinh_khi'], 'loai' => 'Sinh Khí', 'y_nghia' => $yNghia['sinh_khi'], 'uu_tien' => 'Ưu tiên 3'],
+            ['huong' => $huongTotGoc['phuc_vi'], 'loai' => 'Phục Vị', 'y_nghia' => $yNghia['phuc_vi'], 'uu_tien' => 'Ưu tiên 4'],
+        ];
+    }
 
 
     /**
@@ -346,7 +363,7 @@ class FengShuiHelper //cần xác định xem gia chủ thuộc Tây Tứ Mệnh
 
         // 4. Lấy bảng các hướng tốt nhất để bếp quay về
         // Tái sử dụng hàm getHuongTot đã có, vì logic ưu tiên (Sinh Khí > Thiên Y...) là giống nhau
-        $huongBepTotNhat = self::getHuongTot($phongThuyCoBan['huong_tot']);
+        $huongBepTotNhat = self::getHuongTotBep($phongThuyCoBan['huong_tot']);
 
         // 5. Kết hợp tất cả lại
         return [
@@ -426,23 +443,42 @@ class FengShuiHelper //cần xác định xem gia chủ thuộc Tây Tứ Mệnh
      * @return array
      */
     private static function getBangHuongPhongNgu(array $huongTotGoc): array
-    {
-        $yNghia = [
-            'thien_y' => 'Cát lợi về sức khỏe, gặp nhiều may mắn',
-            'phuoc_duc' => 'Gia đạo tốt, hôn nhân bền vững, quan hệ tốt', // Diên Niên
-            'phuc_vi' => 'Tốt cho tĩnh tại, nội tâm, phù hợp nơi thờ cúng',
-            'sinh_khi' => 'Hút tiền tài, sự nghiệp phát triển mạnh'
-        ];
+{
+    $yNghia = [
+        'phuoc_duc' => 'Gia đạo tốt, hôn nhân bền vững, quan hệ tốt',
+        'thien_y' => 'Cát lợi về sức khỏe, gặp nhiều may mắn',
+        'sinh_khi' => 'Hút tiền tài, sự nghiệp phát triển mạnh',
+        'phuc_vi' => 'Tốt cho tĩnh tại, nội tâm, phù hợp nơi thờ cúng',
+    ];
 
-        // Sắp xếp lại theo thứ tự ưu tiên cho phòng ngủ
-        return [
-            ['huong' => $huongTotGoc['thien_y'], 'loai' => 'Thiên Y', 'y_nghia' => $yNghia['thien_y'], 'uu_tien' => 'Ưu tiên 1'],
-            ['huong' => $huongTotGoc['phuoc_duc'], 'loai' => 'Phước Đức', 'y_nghia' => $yNghia['phuoc_duc'], 'uu_tien' => 'Ưu tiên 2'],
-            ['huong' => $huongTotGoc['phuc_vi'], 'loai' => 'Phục Vị', 'y_nghia' => $yNghia['phuc_vi'], 'uu_tien' => 'Ưu tiên 3'],
-            ['huong' => $huongTotGoc['sinh_khi'], 'loai' => 'Sinh Khí', 'y_nghia' => $yNghia['sinh_khi'], 'uu_tien' => 'Ưu tiên 4'],
-        ];
-    }
-
+    return [
+         [
+            'huong' => $huongTotGoc['thien_y'],
+            'loai' => 'Thiên Y',
+            'y_nghia' => $yNghia['thien_y'],
+            'uu_tien' => 'Ưu tiên 1'
+        ],
+        [
+            'huong' => $huongTotGoc['phuoc_duc'],
+            'loai' => 'Phước Đức',
+            'y_nghia' => $yNghia['phuoc_duc'],
+            'uu_tien' => 'Ưu tiên 2'
+        ],
+       
+        [
+            'huong' => $huongTotGoc['sinh_khi'],
+            'loai' => 'Sinh Khí',
+            'y_nghia' => $yNghia['sinh_khi'],
+            'uu_tien' => 'Ưu tiên 3'
+        ],
+        [
+            'huong' => $huongTotGoc['phuc_vi'],
+            'loai' => 'Phục Vị',
+            'y_nghia' => $yNghia['phuc_vi'],
+            'uu_tien' => 'Ưu tiên 4'
+        ],
+    ];
+}
 
 
 
@@ -506,18 +542,18 @@ class FengShuiHelper //cần xác định xem gia chủ thuộc Tây Tứ Mệnh
     private static function getBangHuongBanLamViec(array $huongTotGoc): array
     {
         $yNghia = [
-            'sinh_khi' => 'Giúp bạn tăng cường năng lượng, thu hút tài lộc, danh tiếng và thăng tiến trong sự nghiệp.',
-            'thien_y' => 'Cải thiện sức khỏe để làm việc hiệu quả, được quý nhân (cấp trên, đồng nghiệp) giúp đỡ.',
-            'phuoc_duc' => 'Củng cố các mối quan hệ với đồng nghiệp, đối tác, khách hàng, tạo môi trường làm việc hòa thuận.', // phuoc_duc là Diên Niên
-            'phuc_vi' => 'Tăng cường sự tập trung, củng cố sức mạnh tinh thần, giúp công việc ổn định, vững chắc.'
+            'sinh_khi' => 'Hút tiền tài, sự nghiệp phát triển mạnh.',
+            'thien_y' => 'Cát lợi về sức khoẻ, gặp nhiều may mắn.',
+            'phuoc_duc' => 'Gia đạo tốt, hôn nhân bền vững, quan hệ tốt.',
+            'phuc_vi' => 'Tốt cho tĩnh tại, nội tâm, phù hợp nơi thờ cúng.'
         ];
 
-        // Sắp xếp lại theo thứ tự ưu tiên cho công việc
+        // Sắp xếp lại theo thứ tự ưu tiên cho bàn làm việc theo logic Dart
         return [
-            ['huong' => $huongTotGoc['sinh_khi'], 'loai' => 'Sinh Khí', 'y_nghia' => $yNghia['sinh_khi'], 'uu_tien' => 'Ưu tiên 1'],
+            ['huong' => $huongTotGoc['sinh_khi'], 'loai' => 'Sinh khí', 'y_nghia' => $yNghia['sinh_khi'], 'uu_tien' => 'Ưu tiên 1'],
             ['huong' => $huongTotGoc['thien_y'], 'loai' => 'Thiên Y', 'y_nghia' => $yNghia['thien_y'], 'uu_tien' => 'Ưu tiên 2'],
-            ['huong' => $huongTotGoc['phuoc_duc'], 'loai' => 'Phước Đức', 'y_nghia' => $yNghia['phuoc_duc'], 'uu_tien' => 'Ưu tiên 3'],
-            ['huong' => $huongTotGoc['phuc_vi'], 'loai' => 'Phục Vị', 'y_nghia' => $yNghia['phuc_vi'], 'uu_tien' => 'Ưu tiên 4'],
+            ['huong' => $huongTotGoc['phuoc_duc'], 'loai' => 'Phước đức', 'y_nghia' => $yNghia['phuoc_duc'], 'uu_tien' => 'Ưu tiên 3'],
+            ['huong' => $huongTotGoc['phuc_vi'], 'loai' => 'Phục vị', 'y_nghia' => $yNghia['phuc_vi'], 'uu_tien' => 'Ưu tiên 4'],
         ];
     }
 

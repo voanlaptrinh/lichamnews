@@ -521,10 +521,10 @@
                             </a>
 
                             <!-- Tiện ích 3 -->
-                            <a href="#" class="utility-item col-6 col-md-6 col-lg-3 mb-4">
-                                <div class="utility-title">Xem hướng hợp mệnh</div>
+                            <a href="{{ route('hoptuoi.list') }}" class="utility-item col-6 col-md-6 col-lg-3 mb-4">
+                                <div class="utility-title">Xem hướng hợp tuổi</div>
                                 <div class="icon-wrapper">
-                                    <img src="{{ asset('icons/huong_dep.svg?v=2.5') }}" alt="Xem hướng hợp mệnh"
+                                    <img src="{{ asset('icons/huong_dep.svg?v=2.5') }}" alt="Xem hướng hợp tuổi"
                                         width="77" height="76" class="img-fluid" loading="lazy">
                                 </div>
                                 <p class="utility-description">Tìm hướng hợp tuổi để làm nhà, đặt bàn thờ...</p>
