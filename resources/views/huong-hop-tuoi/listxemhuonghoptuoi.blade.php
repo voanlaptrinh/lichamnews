@@ -35,7 +35,7 @@
                                     <a href="{{ route('huong-nha.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('icons/tool_xemhuongnha.svg?v=1.0') }}" class="icon "
+                                            <img src="{{ asset('icons/tool_xemhuongnha.svg?v=1.0') }}" class="icon" alt="tool xem hướng nhà"
                                                 width="80px" height="80px">
                                         </div>
 
@@ -51,7 +51,7 @@
                                     <a href="{{ route('huong-ban-tho.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('icons/tool_xemhuongbantho.svg?v=1.0') }}" class="icon "
+                                            <img src="{{ asset('icons/tool_xemhuongbantho.svg?v=1.0') }}" class="icon " alt="tool xem hướng bàn thờ"
                                                 width="80px" height="80px">
                                         </div>
 
@@ -67,7 +67,7 @@
                                     <a href="{{ route('huong-bep.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('icons/tool_xemhuongbep.svg?v=1.0') }}" class="icon "
+                                            <img src="{{ asset('icons/tool_xemhuongbep.svg?v=1.0') }}" class="icon " alt="tool xem hướng bếp"
                                                 width="80px" height="80px">
                                         </div>
 
@@ -83,7 +83,7 @@
                                     <a href="{{ route('huong-phong-ngu.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('icons/tool_xemhuongphongngu.svg?v=1.0') }}" class="icon "
+                                            <img src="{{ asset('icons/tool_xemhuongphongngu.svg?v=1.0') }}" class="icon " alt="tool xem hướng phòng ngủ"
                                                 width="80px" height="80px">
                                         </div>
 
@@ -99,7 +99,7 @@
                                     <a href="{{ route('huong-ban-lam-viec.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('icons/tool_xemhuongbanlamviec.svg?v=1.0') }}" class="icon "
+                                            <img src="{{ asset('icons/tool_xemhuongbanlamviec.svg?v=1.0') }}" class="icon " alt="tool xem hướng bàn làm việc"
                                                 width="80px" height="80px">
                                         </div>
 

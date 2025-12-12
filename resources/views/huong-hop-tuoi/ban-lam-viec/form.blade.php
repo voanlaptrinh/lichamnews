@@ -11,7 +11,7 @@
                 <li class="breadcrumb-item">
                     <a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
                 </li>
-              <li class="breadcrumb-item" aria-current="page">
+                <li class="breadcrumb-item" aria-current="page">
                     <a href="{{ route('hoptuoi.list') }}" style="color: #2254AB; text-decoration: underline;">Hướng hợp
                         tuổi</a>
                 </li>
@@ -45,7 +45,8 @@
                                             @csrf
                                             <div class="mb-3">
                                                 <!-- Date Selects -->
-                                                 <div for="birthdate" class="fw-bold title-tong-quan-h4-log mb-2">Ngày tháng năm sinh</div>
+                                                <div for="birthdate" class="fw-bold title-tong-quan-h4-log mb-2">Ngày tháng
+                                                    năm sinh</div>
                                                 <div class="row g-2 mb-2">
                                                     <div class="col-6 col-sm-4 col-lg-4 col-xl-4">
                                                         <div class="position-relative">
@@ -238,17 +239,20 @@
                                 <li>Giảm áp lực, tinh thần thoải mái hơn.</li>
                                 <li>Không gian làm việc hài hòa, mang lại cảm giác dễ chịu.</li>
                             </ul>
-                             <h3 class="title-tong-quan-h4-log fst-italic fw-bolder">Áp dụng linh hoạt cho mọi không gian</h3>
+                            <h3 class="title-tong-quan-h4-log fst-italic fw-bolder">Áp dụng linh hoạt cho mọi không gian
+                            </h3>
                             <ul class="mb-3">
                                 <li>Nhà riêng: dễ xoay bàn theo hướng hợp tuổi.</li>
-                                <li>Văn phòng công ty: có thể xoay ghế hoặc điều chỉnh vị trí ngồi trong giới hạn cho phép.</li>
-                                <li>Phòng ngủ – phòng làm việc tại nhà: ưu tiên hướng mặt ngồi, vì vị trí bàn có thể cố định.</li>
+                                <li>Văn phòng công ty: có thể xoay ghế hoặc điều chỉnh vị trí ngồi trong giới hạn cho phép.
+                                </li>
+                                <li>Phòng ngủ – phòng làm việc tại nhà: ưu tiên hướng mặt ngồi, vì vị trí bàn có thể cố
+                                    định.</li>
                             </ul>
                         </div>
                     </div>
 
                 </div>
- @include('huong-hop-tuoi.sliderbarhoptuoi')
+                @include('huong-hop-tuoi.sliderbarhoptuoi')
 
             </div>
         </div>
@@ -334,9 +338,9 @@
 
                         if (data.success) {
                             // Show results using modern approach
-                              const contentcontent = document.getElementById(
-                                        'none-content');
-                                         contentcontent.style.display = 'none';
+                            const contentcontent = document.getElementById(
+                                'none-content');
+                            contentcontent.style.display = 'none';
                             if (resultsContainer) {
                                 resultsContainer.style.display = 'block';
                                 resultsContainer.innerHTML = data.html;

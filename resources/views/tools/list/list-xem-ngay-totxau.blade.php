@@ -36,7 +36,7 @@
                                     <a href="{{ route('astrology.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('images/tool_kethon.svg') }}" class="icon "
+                                            <img src="{{ asset('images/tool_kethon.svg') }}" class="icon " alt="tool xem ngày kết hôn"
                                                 width="80px" height="80px">
                                         </div>
 
@@ -52,7 +52,7 @@
                                     <a href="{{ route('dam-ngo.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('images/tool_damngo.svg') }}" class="icon "
+                                            <img src="{{ asset('images/tool_damngo.svg') }}" class="icon " alt="tool xem ngày dạm ngõ"
                                                 width="80px" height="80px">
                                         </div>
 
@@ -68,7 +68,7 @@
                                     <a href="{{ route('khai-truong.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('images/tool_khaitruong.svg') }}" class="icon "
+                                            <img src="{{ asset('images/tool_khaitruong.svg') }}" class="icon " alt="tool xem ngày khai trương"
                                                 width="80px" height="80px">
                                         </div>
 
@@ -84,7 +84,7 @@
                                     <a href="{{ route('breaking.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('images/tool_dongtho.svg') }}" class="icon "
+                                            <img src="{{ asset('images/tool_dongtho.svg') }}" class="icon " alt="tool xem ngày động thổ"
                                                 width="80px" height="80px">
                                         </div>
 
@@ -100,7 +100,7 @@
                                     <a href="{{ route('nhap-trach.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('images/tool_nhaptrach.svg') }}" class="icon "
+                                            <img src="{{ asset('images/tool_nhaptrach.svg') }}" class="icon " alt="tool xem ngày nhập trạch"
                                                 width="80px" height="80px">
                                         </div>
 
@@ -116,7 +116,7 @@
                                     <a href="{{ route('buy-house.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('images/tool_muanha.svg') }}" class="icon "
+                                            <img src="{{ asset('images/tool_muanha.svg') }}" class="icon " alt="tool xem ngày mua nhà"
                                                 width="80px" height="80px">
                                         </div>
 
@@ -132,7 +132,7 @@
                                     <a href="{{ route('mua-xe.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('images/tool_muaxe.svg') }}" class="icon "
+                                            <img src="{{ asset('images/tool_muaxe.svg') }}" class="icon " alt="tool xem ngày mua xe"
                                                 width="80px" height="80px">
                                         </div>
 
@@ -148,7 +148,7 @@
                                     <a href="{{ route('totxau.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('images/tool_totxau.svg') }}" class="icon "
+                                            <img src="{{ asset('images/tool_totxau.svg') }}" class="icon " alt="tool xem ngày tốt xấu"
                                                 width="80px" height="80px">
                                         </div>
 
@@ -167,7 +167,7 @@
                                     <a href="{{ route('xuat-hanh.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('images/tool_xuathanh.svg') }}" class="icon "
+                                            <img src="{{ asset('images/tool_xuathanh.svg') }}" class="icon " alt="tool xem ngày xuất hành"
                                                 width="80px" height="80px">
                                         </div>
 
@@ -183,7 +183,7 @@
                                     <a href="{{ route('ky-hop-dong.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('images/tool_hopdong.svg') }}" class="icon "
+                                            <img src="{{ asset('images/tool_hopdong.svg') }}" class="icon " alt="tool xem ngày ký hợp đồng"
                                                 width="80px" height="80px">
                                         </div>
 
@@ -199,7 +199,7 @@
                                     <a href="{{ route('cong-viec-moi.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('images/tool_nhancongviec.svg') }}" class="icon "
+                                            <img src="{{ asset('images/tool_nhancongviec.svg') }}" class="icon " alt="tool xem ngày nhận công việc mới"
                                                 width="80px" height="80px">
                                         </div>
 
@@ -215,7 +215,7 @@
                                     <a href="{{ route('giay-to.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('images/tool_giayto.svg') }}" class="icon "
+                                            <img src="{{ asset('images/tool_giayto.svg') }}" class="icon " alt="tool xem ngày làm giấy tờ"
                                                 width="80px" height="80px">
                                         </div>
 
@@ -231,7 +231,7 @@
                                     <a href="{{ route('thi-cu.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('images/tool_thicu.svg') }}" class="icon "
+                                            <img src="{{ asset('images/tool_thicu.svg') }}" class="icon " alt="tool xem ngày thi cử - phỏng vấn"
                                                 width="80px" height="80px">
                                         </div>
 
@@ -251,7 +251,7 @@
                                     <a href="{{ route('cai-tang.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('images/tool_sangcat.svg') }}" class="icon "
+                                            <img src="{{ asset('images/tool_sangcat.svg') }}" class="icon " alt="tool xem ngày cải táng sang cát"
                                                 width="80px" height="80px">
                                         </div>
 
@@ -267,7 +267,7 @@
                                     <a href="{{ route('tran-trach.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('images/tool_trantrach.svg') }}" class="icon "
+                                            <img src="{{ asset('images/tool_trantrach.svg') }}" class="icon " alt="tool xem ngày trấn trạch"
                                                 width="80px" height="80px">
                                         </div>
 
@@ -283,7 +283,7 @@
                                     <a href="{{ route('lap-ban-tho.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('images/tool_lapban.svg') }}" class="icon "
+                                            <img src="{{ asset('images/tool_lapban.svg') }}" class="icon " alt="tool xem ngày lập ban thờ"
                                                 width="80px" height="80px">
                                         </div>
 
@@ -299,7 +299,7 @@
                                     <a href="{{ route('ban-tho.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('images/tool_doiban.svg') }}" class="icon "
+                                            <img src="{{ asset('images/tool_doiban.svg') }}" class="icon " alt="tool xem ngày dời ban thờ"
                                                 width="80px" height="80px">
                                         </div>
 
@@ -315,7 +315,7 @@
                                     <a href="{{ route('giai-han.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('images/tool_giaihan.svg') }}" class="icon "
+                                            <img src="{{ asset('images/tool_giaihan.svg') }}" class="icon " alt="tool xem ngày giải hạn"
                                                 width="80px" height="80px">
                                         </div>
 
@@ -331,8 +331,8 @@
                                     <a href="{{ route('phong-sinh.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('images/tool_cauan.svg') }}" class="icon "
-                                                width="80px" height="80px">
+                                            <img src="{{ asset('images/tool_cauan.svg') }}" class="icon " alt="tool xem ngày cầu an - làm phúc"
+                                                width="80px" height="80px"> 
                                         </div>
 
                                         <div class="read-more-link-cotot">
