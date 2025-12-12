@@ -7,78 +7,50 @@
              <div class="card-title-right title-tong-quan-h5-log content-title-home-lich-right">Tiện ích Khác</div>
              <ul class="list-group list-group-flush events-list">
                  <li class="list-group-item pb-0">
-                     <a href="{{ route('convert.am.to.duong') }}" class="">
-
+                     <a href="{{ route('huong-nha.form') }}" class="">
                          <div class="event-details --padding-event-tot">
                              <div class="event-name" style="font-weight: unset">
-                                 Đổi ngày âm dương
-                             </div>
-
-                         </div>
-                     </a>
-                 </li>
-                    <li class="list-group-item pb-0">
-                     <a href="{{ route('totxau.list') }}" class="">
-
-                         <div class="event-details --padding-event-tot">
-                             <div class="event-name" style="font-weight: unset">
-                                 Xem ngày tốt 
-                             </div>
-
-                         </div>
-                     </a>
-                 </li>
-                 
-                 <li class="list-group-item pb-0">
-                     <a href="{{ route('horoscope.index') }}" class="">
-
-                         <div class="event-details --padding-event-tot">
-                             <div class="event-name" style="font-weight: unset">
-                                 Cung hoàng đạo
-                             </div>
-
-                         </div>
-                     </a>
-                 </li>
-                 {{-- <li class="list-group-item pb-0">
-                     <a href="" class="">
-
-                         <div class="event-details --padding-event-tot">
-                             <div class="event-name" style="font-weight: unset">
-                                 Văn khấn
+                                 Xem hướng nhà
                              </div>
 
                          </div>
                      </a>
                  </li>
                  <li class="list-group-item pb-0">
-                     <a href="" class="">
-
+                     <a href="{{ route('huong-ban-tho.form') }}" class="">
                          <div class="event-details --padding-event-tot">
                              <div class="event-name" style="font-weight: unset">
-                                 Thần số học
-                             </div>
-
-                         </div>
-                     </a>
-                 </li> --}}
-                 <li class="list-group-item pb-0">
-                     <a href="{{ route('laso.create') }}" class="">
-
-                         <div class="event-details --padding-event-tot">
-                             <div class="event-name" style="font-weight: unset">
-                                 Lá số tử vi
+                                 Xem Hướng Ban Thờ
                              </div>
 
                          </div>
                      </a>
                  </li>
                  <li class="list-group-item pb-0">
-                     <a href="{{ route('hoptuoi.list') }}" class="">
-
+                     <a href="{{ route('huong-bep.form') }}" class="">
                          <div class="event-details --padding-event-tot">
                              <div class="event-name" style="font-weight: unset">
-                                 Xem hướng hợp tuổi
+                                Xem Hướng Bếp Nấu
+                             </div>
+
+                         </div>
+                     </a>
+                 </li>
+                 <li class="list-group-item pb-0">
+                     <a href="{{ route('huong-phong-ngu.form') }}" class="">
+                         <div class="event-details --padding-event-tot">
+                             <div class="event-name" style="font-weight: unset">
+                                Xem Hướng Phòng Ngủ
+                             </div>
+
+                         </div>
+                     </a>
+                 </li>
+                  <li class="list-group-item pb-0">
+                     <a href="{{ route('huong-ban-lam-viec.form') }}" class="">
+                         <div class="event-details --padding-event-tot">
+                             <div class="event-name" style="font-weight: unset">
+                               Xem Hướng Bàn Làm Việc
                              </div>
 
                          </div>

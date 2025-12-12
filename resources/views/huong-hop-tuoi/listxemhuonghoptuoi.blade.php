@@ -35,7 +35,7 @@
                                     <a href="{{ route('huong-nha.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('icons/tool_xemhuongnha.svg') }}" class="icon "
+                                            <img src="{{ asset('icons/tool_xemhuongnha.svg?v=1.0') }}" class="icon "
                                                 width="80px" height="80px">
                                         </div>
 
@@ -51,7 +51,7 @@
                                     <a href="{{ route('huong-ban-tho.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('icons/tool_xemhuongbantho.svg') }}" class="icon "
+                                            <img src="{{ asset('icons/tool_xemhuongbantho.svg?v=1.0') }}" class="icon "
                                                 width="80px" height="80px">
                                         </div>
 
@@ -67,7 +67,7 @@
                                     <a href="{{ route('huong-bep.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('icons/tool_xemhuongbep.svg') }}" class="icon "
+                                            <img src="{{ asset('icons/tool_xemhuongbep.svg?v=1.0') }}" class="icon "
                                                 width="80px" height="80px">
                                         </div>
 
@@ -83,7 +83,7 @@
                                     <a href="{{ route('huong-phong-ngu.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('icons/tool_xemhuongphongngu.svg') }}" class="icon "
+                                            <img src="{{ asset('icons/tool_xemhuongphongngu.svg?v=1.0') }}" class="icon "
                                                 width="80px" height="80px">
                                         </div>
 
@@ -99,7 +99,7 @@
                                     <a href="{{ route('huong-ban-lam-viec.form') }}" class=" p-2">
 
                                         <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('icons/tool_xemhuongbanlamviec.svg') }}" class="icon "
+                                            <img src="{{ asset('icons/tool_xemhuongbanlamviec.svg?v=1.0') }}" class="icon "
                                                 width="80px" height="80px">
                                         </div>
 
@@ -119,7 +119,7 @@
                         <div class="text-box-tong-quan">
 
 
-                            <h2 class="title-tong-quan-h2-log fw-bolder">Giới thiệu Công Cụ Xem Hướng Hợp Tuổi – Chọn Đúng
+                            <h2 class="title-tong-quan-h3-log fw-bolder">Giới thiệu Công Cụ Xem Hướng Hợp Tuổi – Chọn Đúng
                                 Hướng, Đón Đủ Vượng Khí</h2>
 
 
@@ -132,7 +132,7 @@
                                 giúp bạn lựa chọn đúng hướng phong thủy mà không cần phải ghi nhớ công thức hay tự tính toán
                                 phức tạp.</p>
 
-                            <h3 class="title-tong-quan-h3-log fw-bolder">
+                            <h3 class="title-tong-quan-h4-log fw-bolder">
                                 Vì sao cần xem hướng hợp tuổi?
                             </h3>
                             <p class="mb-2">Hướng là yếu tố quan trọng trong phong thủy vì liên quan trực tiếp đến dòng
@@ -147,28 +147,28 @@
                                 <li>Hỗ trợ tinh thần và cảm giác yên tâm khi sinh hoạt trong ngôi nhà hoặc môi trường phù
                                     hợp phong thủy.</li>
                             </ul>
-                            <h3 class="title-tong-quan-h3-log fw-bolder">
+                            <h3 class="title-tong-quan-h4-log fw-bolder">
                                 Những yếu tố phong thủy dùng để xác định hướng hợp tuổi
                             </h3>
                             <p class="mb-2">Công cụ của chúng tôi dựa trên các nguyên tắc phong thủy truyền thống:</p>
-                            <h4 class="title-tong-quan-h4-log fst-italic">
+                            <h4 class="title-tong-quan-h5-log fs-6 fst-italic">
                                 1. Bát Trạch: Đông Tứ Mệnh và Tây Tứ Mệnh
                             </h4>
                             <p class="mb-3">Dựa vào năm sinh, người dùng được phân vào nhóm mệnh trạch tương ứng để xác
                                 định các hướng hợp – khắc.</p>
-                            <h4 class="title-tong-quan-h4-log fst-italic">
+                            <h4 class="title-tong-quan-h5-log fs-6 fst-italic">
                                 2. Sinh Khí, Thiên Y, Diên Niên, Phục Vị
                             </h4>
                             <p class="mb-3">Đây là bốn hướng cát khí quan trọng, mang lại từng ý nghĩa như tài lộc, sức
                                 khỏe, hòa thuận hay bình an.
                             </p>
-                            <h4 class="title-tong-quan-h4-log fst-italic">
+                            <h4 class="title-tong-quan-h5-log fs-6 fst-italic">
                                 3. Tuyệt Mệnh, Ngũ Quỷ, Lục Sát, Họa Hại
                             </h4>
                             <p class="mb-3">Bốn hướng xấu thường được công cụ tự động lọc và cảnh báo để người dùng tránh
                                 khi bố trí không gian.
                             </p>
-                            <h4 class="title-tong-quan-h4-log fst-italic">
+                            <h4 class="title-tong-quan-h5-log fs-6 fst-italic">
                                 4. Kết hợp mục đích sử dụng
                             </h4>
                             <p class="mb-2">Tùy loại không gian, hướng phù hợp cũng khác nhau:
@@ -180,7 +180,7 @@
                                 <li><b>Phòng ngủ:</b> hợp cung mệnh, tăng năng lượng phục hồi.</li>
                                 <li><b>Bàn làm việc:</b> giúp tập trung, thu hút cơ hội và quý nhân.</li>
                             </ul>
-                            <h3 class="title-tong-quan-h3-log fw-bolder">
+                            <h3 class="title-tong-quan-h4-log fw-bolder">
                                 Tính năng Xem Hướng Hợp Tuổi trên Phong Lịch hoạt động thế nào?
                             </h3>
                             <p>Bạn chỉ cần:</p>
@@ -199,7 +199,7 @@
                             </ul>
                             <p class="mb-3">Công cụ được tối ưu để người dùng chỉ mất vài giây là có kết quả rõ ràng và
                                 chính xác.</p>
-                            <h3 class="title-tong-quan-h3-log fw-bolder">
+                            <h3 class="title-tong-quan-h4-log fw-bolder">
                                 Ai nên sử dụng công cụ xem hướng hợp tuổi?
                             </h3>
                             <ul class="mb-3">
@@ -208,7 +208,7 @@
                                 <li>Người mới chuyển công ty, muốn đặt bàn làm việc hợp tuổi để thuận lợi công việc.</li>
                                 <li>Người muốn xem hướng tốt theo tuổi để tăng vượng khí, cải thiện sức khỏe – tài lộc.</li>
                             </ul>
-                            <h3 class="title-tong-quan-h3-log fw-bolder">
+                            <h3 class="title-tong-quan-h4-log fw-bolder">
                                 Lợi ích khi dùng tính năng Xem Hướng Hợp Tuổi tại Phong Lịch
                             </h3>
                             <ul class="mb-3">
@@ -218,7 +218,7 @@
                                 <li>Gợi ý chi tiết và các lưu ý phong thủy thực tế.</li>
                                 <li>Công cụ hoàn toàn miễn phí, dùng không giới hạn.</li>
                             </ul>
-                            <h3 class="title-tong-quan-h3-log fw-bolder">
+                            <h3 class="title-tong-quan-h4-log fw-bolder">
                                 Kết luận
                             </h3>
                             <p class="mb-3">Chọn hướng hợp tuổi là bước quan trọng giúp cân bằng không gian sống và tăng

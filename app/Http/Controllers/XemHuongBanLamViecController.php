@@ -14,7 +14,9 @@ class XemHuongBanLamViecController extends Controller
     public function showForm()
     {
         // Khi vào form lần đầu, không có dữ liệu gì cả
-        return view('huong-hop-tuoi.ban-lam-viec.form');
+         $metaTitle = "Xem Hướng Bàn Làm Việc Hợp Tuổi | Tăng Tập Trung và Thu Hút May Mắn";
+        $metaDescription = "Tra cứu hướng bàn làm việc hợp tuổi để nâng cao hiệu suất, thu hút cơ hội và kích hoạt tài lộc. Công cụ chọn hướng chi tiết theo tuổi và mệnh.";
+        return view('huong-hop-tuoi.ban-lam-viec.form', compact('metaTitle', 'metaDescription'));
     }
 
     public function check(Request $request) // Đổi tên hàm thành check cho đúng chuẩn REST

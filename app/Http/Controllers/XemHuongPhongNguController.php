@@ -12,7 +12,9 @@ class XemHuongPhongNguController extends Controller
     public function showForm()
     {
         // Khi vào form lần đầu, không có dữ liệu gì cả
-        return view('huong-hop-tuoi.huong-phong-ngu.form');
+         $metaTitle = "Xem Hướng Phòng Ngủ Hợp Tuổi | Tối Ưu Sức Khỏe và Tài Lộc";
+        $metaDescription = "Xác định hướng phòng ngủ hợp tuổi giúp ngủ ngon, tăng năng lượng và cải thiện vận khí. Công cụ xem hướng chuẩn phong thủy, hỗ trợ mọi tuổi.";
+        return view('huong-hop-tuoi.huong-phong-ngu.form', compact('metaTitle', 'metaDescription'));
     }
 
     public function check(Request $request) // Đổi tên hàm thành check cho đúng chuẩn REST

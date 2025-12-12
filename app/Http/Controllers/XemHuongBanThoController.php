@@ -12,7 +12,9 @@ class XemHuongBanThoController extends Controller
     public function showForm()
     {
         // Khi vào form lần đầu, không có dữ liệu gì cả
-        return view('huong-hop-tuoi.huong-ban-tho.form');
+            $metaTitle = "Xem Hướng Bếp Hợp Tuổi Chuẩn Phong Thủy | Đúng Tốt – Tránh Xấu";
+        $metaDescription = "Xác định hướng bếp hợp tuổi để kích hoạt tài lộc, giữ hòa khí gia đình và tránh các hướng xấu. Công cụ xem hướng bếp theo Bát Trạch đơn giản, chính xác.";
+        return view('huong-hop-tuoi.huong-ban-tho.form', compact('metaTitle', 'metaDescription'));
     }
 
     public function check(Request $request) // Đổi tên hàm thành check cho đúng chuẩn REST

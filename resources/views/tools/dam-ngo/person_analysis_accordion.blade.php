@@ -6,7 +6,7 @@
                 <img src="{{ asset('icons/dac-diem1.svg') }}" alt="thông tin người xem" width="28" height="28"
                     class="me-1">
             </div>
-            <div>Các yếu tố</div>
+            <div>Luận giải các yếu tố tốt xấu trong ngày</div>
         </div>
         <div>
             <div class="card-body p-0">

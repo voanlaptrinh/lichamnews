@@ -12,7 +12,8 @@
                     <a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
                 </li>
                 <li class="breadcrumb-item" aria-current="page">
-                    <a href="{{ route('hoptuoi.list') }}" style="color: #2254AB; text-decoration: underline;">Hướng hợp tuổi</a>
+                    <a href="{{ route('hoptuoi.list') }}" style="color: #2254AB; text-decoration: underline;">Hướng hợp
+                        tuổi</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
                     Xem Hướng ban thờ
@@ -20,7 +21,7 @@
 
             </ol>
         </nav>
-        <h1 class="content-title-home-lich">Xem hướng ban thờ</h1>
+        <h1 class="content-title-home-lich">Xem hướng bàn thờ hợp tuổi</h1>
 
         <div>
             <div class="row g-lg-3 g-2 pt-lg-3 pt-2">
@@ -159,7 +160,7 @@
                                 <div class="d-flex align-items-center justify-content-center h-100 w-100"
                                     style="padding: 32px 32px 32px 0px;">
                                     <div class="d-flex align-items-center justify-content-center h-100 w-100"
-                                        style=" background-image: url(../images/form_xem_huongbantho.svg);
+                                        style=" background-image: url(../images/form_xem_huongbantho.svg?v=1.0);
                                     background-repeat: no-repeat;
                                     background-size: cover;
                                     align-items: normal;
@@ -175,9 +176,77 @@
                     <div id="resultsContainer" class="--detail-success">
 
                     </div>
+
+                    <div class="box--bg-thang mt-3 mb-3" id="none-content">
+                        <div class="text-box-tong-quan">
+                            <h2 class="title-tong-quan-h3-log fw-bolder">Ý nghĩa của việc xem hướng bàn thờ theo tuổi</h2>
+                            <p class="mb-2">Hướng bàn thờ luôn được xem là yếu tố quan trọng trong phong thủy nhà ở, bởi
+                                đây là không
+                                gian linh thiêng, nơi kết nối gia chủ với tổ tiên và gìn giữ sự bình an trong gia đình. Khi
+                                bàn thờ được đặt đúng hướng hợp tuổi, sinh khí trong nhà trở nên ổn định, giúp cuộc sống và
+                                tinh thần của các thành viên được nâng đỡ tốt hơn.
+                            </p>
+                            <p class="mb-2">Chọn hướng bàn thờ hợp tuổi không chỉ là yếu tố phong thủy, mà còn tạo cảm
+                                giác an tâm cho gia đình. Việc này mang lại những lợi ích như:</p>
+                            <ul class="mb-2">
+                                <li>Giữ gìn sự tôn nghiêm và hài hòa trong không gian thờ cúng.</li>
+                                <li>Tăng thêm may mắn, sức khỏe và sự thuận lợi trong cuộc sống.</li>
+                                <li>Giúp gia đình cảm thấy yên ổn, tinh thần nhẹ nhàng hơn trong sinh hoạt hàng ngày.</li>
+                            </ul>
+                            <p class="mb-3">Ngược lại, nếu đặt bàn thờ lệch hướng hoặc rơi vào cung xấu, dòng khí trong
+                                nhà dễ bị ảnh hưởng, khiến gia chủ cảm thấy bất ổn hoặc kém may mắn.</p>
+                            <h3 class="title-tong-quan-h4-log fst-italic fw-bolder">Công cụ xem hướng bàn thờ hợp tuổi</h3>
+                            <p class="mb-2">Tính năng “Xem hướng bàn thờ hợp tuổi” giúp bạn nhanh chóng xác định hướng
+                                tốt dựa trên năm sinh và giới tính của gia chủ. Khi nhập thông tin, hệ thống sẽ:
+                            </p>
+                            <ul class="mb-2">
+                                <li>Chỉ ra các hướng tốt nên đặt bàn thờ theo Bát Trạch.</li>
+                                <li>Giải thích ý nghĩa các cung như Sinh Khí, Thiên Y, Diên Niên, Phục Vị.</li>
+                                <li>Lưu ý những điều cần tránh khi đặt bàn thờ</li>
+                            </ul>
+                            <p class="mb-3">Tất cả thông tin đều được hiển thị rõ ràng để bạn dễ hiểu và áp dụng ngay.
+                            </p>
+                            <h3 class="title-tong-quan-h4-log fst-italic fw-bolder">Cách sử dụng tính năng</h3>
+                            <ul class="mb-2">
+                                <li>Nhập năm sinh của gia chủ.</li>
+                                <li>Chọn giới tính.</li>
+                                <li>Nhận kết quả hướng tốt – xấu kèm phân tích chi tiết.</li>
+                            </ul>
+                            <p class="mb-3">Công cụ được xây dựng để ai cũng có thể sử dụng, kể cả người không am hiểu
+                                phong thủy.</p>
+                            <h3 class="title-tong-quan-h4-log fst-italic fw-bolder">Lưu ý khi đặt hướng bàn thờ</h3>
+                            <p class="mb-2">Bên cạnh việc chọn hướng, bạn cũng nên lưu ý một số nguyên tắc cơ bản để việc
+                                thờ cúng được trang nghiêm và thuận phong thủy:</p>
+                            <ul class="mb-3">
+                                <li>Ưu tiên chọn hướng hợp tuổi nằm trong nhóm Phục Vị, Sinh Khí, Thiên Y và Diên Niên (Phúc
+                                    Đức).</li>
+                                <li>Đặt bàn thờ ở vị trí yên tĩnh, tránh khu vực đi lại nhiều.</li>
+                                <li>Không đặt bàn thờ gần bếp, nhà vệ sinh hoặc dưới xà ngang.</li>
+                                <li>Với căn hộ chung cư, nên chú ý đến hướng mặt bàn thờ, vì bạn khó thay đổi vị trí tường
+                                    đặt bàn thờ.</li>
+                                <li>Giữ khu vực thờ tự sạch sẽ và thoáng khí.</li>
+                            </ul>
+                            <h3 class="title-tong-quan-h4-log fst-italic fw-bolder">Lợi ích khi chọn đúng hướng bàn thờ</h3>
+                            <ul class="mb-3">
+                                <li>Không gian thờ tự trang nghiêm, đúng phong thủy.</li>
+                                <li>Gia đạo yên ổn, hòa thuận hơn.</li>
+                                <li>Tăng thêm may mắn và tài lộc cho các thành viên.</li>
+                                <li>Giúp việc thờ cúng diễn ra thuận lợi và an tâm.</li>
+                            </ul>
+                            <h3 class="title-tong-quan-h4-log fst-italic fw-bolder">Áp dụng trong các loại nhà khác nhau</h3>
+                            <ul class="mb-3">
+                                <li>Nhà đang xây: Dễ bố trí hướng bàn thờ chuẩn ngay từ bản vẽ.</li>
+
+                                <li>Nhà đã hoàn thiện: Có thể xoay lại hướng hoặc điều chỉnh bố cục.</li>
+                                <li>Chung cư: Tập trung vào hướng quay của bàn thờ để tối ưu phong thủy.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+
+
                 </div>
-
-
+ @include('huong-hop-tuoi.sliderbarhoptuoi')
             </div>
         </div>
 
@@ -262,6 +331,9 @@
 
                         if (data.success) {
                             // Show results using modern approach
+                              const contentcontent = document.getElementById(
+                                        'none-content');
+                                         contentcontent.style.display = 'none';
                             if (resultsContainer) {
                                 resultsContainer.style.display = 'block';
                                 resultsContainer.innerHTML = data.html;

@@ -21,7 +21,7 @@
 
             </ol>
         </nav>
-        <h1 class="content-title-home-lich">Xem hướng phòng ngủ</h1>
+        <h1 class="content-title-home-lich">Xem hướng phòng ngủ hợp tuổi</h1>
 
         <div>
             <div class="row g-lg-3 g-2 pt-lg-3 pt-2">
@@ -160,7 +160,7 @@
                                 <div class="d-flex align-items-center justify-content-center h-100 w-100"
                                     style="padding: 32px 32px 32px 0px;">
                                     <div class="d-flex align-items-center justify-content-center h-100 w-100"
-                                        style=" background-image: url(../images/form_xem_huongphongngu.svg);
+                                        style=" background-image: url(../images/form_xem_huongphongngu.svg?v=1.0);
                                     background-repeat: no-repeat;
                                     background-size: cover;
                                     align-items: normal;
@@ -176,10 +176,73 @@
                     <div id="resultsContainer" class="--detail-success">
 
                     </div>
-               
+                    <div class="box--bg-thang mt-3 mb-3" id="none-content">
+                        <div class="text-box-tong-quan">
+                            <h2 class="title-tong-quan-h3-log fw-bolder">Vì sao nên xem hướng phòng ngủ theo tuổi?</h2>
+                            <p class="mb-2">
+                                Phòng ngủ là nơi nạp lại năng lượng và tái tạo sức khỏe, vì vậy hướng đặt phòng ngủ và
+                                giường ngủ có ảnh hưởng rất lớn đến giấc ngủ, tinh thần và sức khỏe của gia chủ. Khi chọn
+                                được hướng hợp tuổi, không gian nghỉ ngơi trở nên hài hòa hơn, giúp tinh thần thư thái và
+                                chất lượng giấc ngủ được cải thiện rõ rệt.
+                            </p>
+                            <p class="mb-2">Mỗi người có một cung mệnh khác nhau, vì vậy hướng tốt – xấu trong phong thủy
+                                cũng không giống nhau. Việc xem hướng phòng ngủ hợp tuổi đem lại nhiều giá trị thiết thực
+                                như:</p>
+                            <ul class="mb-2">
+                                <li>Tăng chất lượng giấc ngủ, tinh thần ổn định hơn.</li>
+                                <li>Hỗ trợ sức khỏe, giảm các trạng thái mệt mỏi hoặc ngủ không ngon.</li>
+                                <li>Tăng cát khí trong không gian sống, mang lại sự bình an cho gia đình.</li>
+                            </ul>
+                            <p class="mb-3">Ngược lại, ngủ sai hướng hoặc đặt giường vào cung xấu dễ gây cảm giác bất an,
+                                khó ngủ, tinh thần kém minh mẫn hoặc hay gặp mệt mỏi.</p>
+                            <h3 class="title-tong-quan-h4-log fw-bolder">Công cụ xem hướng phòng ngủ hợp tuổi</h3>
+                            <p class="mb-2">Tính năng “Xem hướng phòng ngủ hợp tuổi” giúp bạn nhanh chóng xác định hướng
+                                tốt để bố trí phòng ngủ và giường ngủ. Chỉ cần nhập năm sinh và giới tính, hệ thống sẽ:</p>
+                            <ul class="mb-2">
+                                <li>Hiển thị các hướng tốt theo Bát Trạch như Sinh Khí, Thiên Y, Diên Niên, Phục Vị</li>
+                                <li>Gợi ý hướng đặt giường ngủ sao cho hợp tuổi theo các mức độ ưu tiên</li>
+                                <li>Giải thích ý nghĩa từng cung để bạn dễ hiểu và tự điều chỉnh nếu cần</li>
+                                <li>Hiển thị những điều cần tránh khi kê giường ngủ.</li>
+                            </ul>
+                            <p class="mb-3">Tất cả đều được trình bày rõ ràng, dễ áp dụng cho mọi loại nhà.</p>
+                            <h3 class="title-tong-quan-h4-log fw-bolder">Cách sử dụng tính năng</h3>
+                            <ul style="	list-style-type: decimal;" class="mb-2">
+                                <li>Nhập năm sinh gia chủ hoặc người ngủ trong phòng</li>
+                                <li>Chọn giới tính</li>
+                                <li>Nhận kết quả hướng phù hợp kèm phân tích chi tiết.</li>
+                            </ul>
+                            <p class="mb-3">Công cụ hoạt động tự động, dễ dùng ngay cả với người không am hiểu phong
+                                thủy.</p>
+                            <h3 class="title-tong-quan-h4-log fw-bolder">Lưu ý khi đặt hướng phòng ngủ và giường ngủ</h3>
+                            <p class="mb-2">Ngoài việc xác định hướng hợp tuổi, bạn nên chú ý thêm một số nguyên tắc
+                                phong thủy cơ bản:</p>
+                            <ul class="mb-3">
+                                <li>Giường nên quay về hướng tốt thuộc nhóm Sinh Khí, Thiên Y, Diên Niên hoặc Phục Vị.</li>
+                                <li>Tránh đặt giường đối diện gương, cửa ra vào hoặc cạnh nhà vệ sinh.</li>
+                                <li>Đầu giường cần có điểm tựa chắc chắn (tường kín).</li>
+                                <li>Tránh đặt giường dưới xà ngang hoặc vị trí có nhiều đường đi qua.</li>
+                                <li>Phòng ngủ nên yên tĩnh, thoáng khí và ánh sáng vừa phải.</li>
+                            </ul>
+                            <h3 class="title-tong-quan-h4-log fw-bolder">Lợi ích khi chọn đúng hướng phòng ngủ</h3>
+                            <ul class="mb-3">
+                                <li>Giấc ngủ sâu và chất lượng hơn.</li>
+                                <li>Tăng cát khí cho sức khỏe và tinh thần.</li>
+                                <li>Giảm căng thẳng, giúp người ngủ dễ hồi phục năng lượng.</li>
+                                <li>Hài hòa phong thủy tổng thể của ngôi nhà.</li>
+                            </ul>
+                            <h3 class="title-tong-quan-h4-log fw-bolder">Áp dụng cho nhiều kiểu nhà</h3>
+                            <ul class="mb-3">
+                                <li>Với nhà phố: phòng ngủ thường có vị trí cố định, bạn có thể xoay giường theo hướng tốt.
+                                </li>
+                                <li>Với căn hộ chung cư: ưu tiên hướng đầu giường vì hướng phòng thường khó thay đổi.</li>
+                                <li>Với nhà nhiều tầng: mỗi tầng có thể xem theo tuổi người sử dụng phòng.</li>
+
+                            </ul>
+                        </div>
+                    </div>
+
                 </div>
-
-
+                @include('huong-hop-tuoi.sliderbarhoptuoi')
             </div>
         </div>
 
@@ -264,6 +327,9 @@
 
                         if (data.success) {
                             // Show results using modern approach
+                            const contentcontent = document.getElementById(
+                                'none-content');
+                            contentcontent.style.display = 'none';
                             if (resultsContainer) {
                                 resultsContainer.style.display = 'block';
                                 resultsContainer.innerHTML = data.html;

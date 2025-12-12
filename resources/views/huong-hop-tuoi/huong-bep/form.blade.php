@@ -12,7 +12,8 @@
                     <a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
                 </li>
                 <li class="breadcrumb-item" aria-current="page">
-                    <a href="{{ route('hoptuoi.list') }}" style="color: #2254AB; text-decoration: underline;">Hướng hợp tuổi</a>
+                    <a href="{{ route('hoptuoi.list') }}" style="color: #2254AB; text-decoration: underline;">Hướng hợp
+                        tuổi</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
                     Xem Hướng bếp
@@ -20,7 +21,7 @@
 
             </ol>
         </nav>
-        <h1 class="content-title-home-lich">Xem hướng bếp</h1>
+        <h1 class="content-title-home-lich">Xem hướng bếp hợp tuổi</h1>
 
         <div>
             <div class="row g-lg-3 g-2 pt-lg-3 pt-2">
@@ -159,7 +160,7 @@
                                 <div class="d-flex align-items-center justify-content-center h-100 w-100"
                                     style="padding: 32px 32px 32px 0px;">
                                     <div class="d-flex align-items-center justify-content-center h-100 w-100"
-                                        style=" background-image: url(../images/form_xem_huongbep.svg);
+                                        style=" background-image: url(../images/form_xem_huongbep.svg?v=1.0);
                                     background-repeat: no-repeat;
                                     background-size: cover;
                                     align-items: normal;
@@ -175,10 +176,83 @@
                     <div id="resultsContainer" class="--detail-success">
 
                     </div>
+                    <div class="box--bg-thang mt-3 mb-3" id="none-content">
+                        <div class="text-box-tong-quan">
+                            <h2 class="title-tong-quan-h3-log fw-bolder">Ý nghĩa của việc xem hướng bếp theo tuổi</h2>
+                            <p class="mb-2">
+                                Chọn hướng bếp hợp tuổi là bước quan trọng khi bố trí căn bếp, bởi đây được xem là nơi giữ
+                                lửa, nuôi dưỡng sức khỏe và tài lộc của cả gia đình. Một hướng bếp đúng phong thủy không chỉ
+                                giúp gia chủ an tâm mà còn góp phần cải thiện hòa khí, giảm xung đột và tăng sinh khí cho
+                                ngôi nhà.
+                            </p>
+                            <p class="mb-2">Trong phong thủy, bếp thuộc hành Hỏa – gắn với năng lượng sống, sự ấm áp và
+                                nguồn tài lộc. Khi hướng bếp hợp với cung mệnh của gia chủ, dòng khí tốt sẽ được dẫn vào,
+                                giúp:</p>
+                            <ul class="mb-3">
+                                <li>Hạn chế bệnh tật, tăng cường sức khỏe.</li>
+                                <li>Hỗ trợ công việc thuận lợi, tài lộc vững vàng.</li>
+                                <li>Tạo cảm giác yên ổn, hài hòa trong gia đình.</li>
+                                <li> Ngược lại, đặt bếp sai hướng có thể khiến nguồn năng lượng bị xung khắc, gây bất ổn
+                                    trong cuộc sống.</li>
+                            </ul>
+                            <h3 class="title-tong-quan-h4-log fw-bolder">Công cụ xem hướng bếp hợp tuổi – chính xác, dễ
+                                hiểu
+                            </h3>
+                            <p class="mb-2">
+                                Tính năng “Xem hướng bếp hợp tuổi” của Phong Lịch được xây dựng dựa trên phong thủy Bát
+                                Trạch, xác định hướng tốt – xấu theo quẻ mệnh của từng người. Chỉ với vài thông tin cơ bản
+                                như năm sinh và giới tính, công cụ sẽ phân tích và đưa ra:
+                            </p>
+                            <ul class="mb-2">
+                                <li>Hướng tốt để đặt bếp hoặc quay miệng bếp.</li>
+                                <li>Hướng xấu phù hợp để đặt tọa bếp nhằm trấn áp khí hung.</li>
+                                <li>Giải thích cụ thể từng cung như Sinh Khí, Thiên Y, Diên Niên, Phục Vị…</li>
+                            </ul>
+                            <p class="mb-3">Kết quả dễ hiểu, trực quan, giúp bạn áp dụng ngay trong thực tế khi xây nhà,
+                                sửa bếp hoặc bố trí lại không gian bếp trong căn hộ.</p>
+                            <h3 class="title-tong-quan-h4-log fw-bolder">Cách sử dụng công cụ </h3>
+                            <ul style="	list-style-type: decimal;" class="mb-2">
+                                <li>Nhập năm sinh.</li>
+                                <li>Chọn giới tính để công cụ xác định quẻ mệnh.</li>
+                                <li>Nhận kết quả hướng bếp tốt – xấu và đọc phần luận giải đi kèm.</li>
+                            </ul>
+                            <p class="mb-3">Mọi bước đều được thiết kế đơn giản để ai cũng dùng được, kể cả người mới tìm
+                                hiểu phong thủy.</p>
+                            <h3 class="title-tong-quan-h4-log fw-bolder">Những nguyên tắc quan trọng khi đặt hướng bếp</h3>
+                            <p class="mb-2">Dù có công cụ hỗ trợ, một số quy tắc căn bản dưới đây vẫn rất quan trọng khi
+                                bố trí bếp:</p>
+                            <ul class="mb-3">
+                                <li>Tọa hung – hướng cát: đặt bếp ở hướng xấu nhưng quay về hướng tốt, giúp hóa giải khí xấu
+                                    và thu hút năng lượng lành</li>
+                                <li>Tránh đặt bếp đối diện cửa chính, nhà vệ sinh hoặc quá gần chậu rửa (Thủy – Hỏa xung
+                                    khắc).</li>
+                                <li>Giữ không gian bếp thoáng đãng, nhiều ánh sáng tự nhiên để khí lưu thông.</li>
+                                <li>Với căn hộ chung cư, ưu tiên xoay miệng bếp theo hướng tốt nếu không thể thay đổi vị trí
+                                    cố định.</li>
 
-                  
+                            </ul>
+                            <h3 class="title-tong-quan-h4-log fw-bolder">Lợi ích khi xem hướng bếp hợp tuổi trước khi bố
+                                trí</h3>
+                            <ul class="mb-3">
+                                <li>Giúp gia chủ yên tâm về phong thủy nhà ở.</li>
+                                <li>Tiết kiệm thời gian và chi phí sửa chữa sai hướng.</li>
+                                <li>Tăng cường tài lộc, ổn định hòa khí gia đình.</li>
+                                <li>Phù hợp cho cả nhà mới xây, nhà đang cải tạo hoặc căn hộ chung cư.</li>
+
+                            </ul>
+                            <h3 class="title-tong-quan-h4-log fw-bolder">Tối ưu phong thủy bếp cho từng kiểu nhà</h3>
+                            <ul class="mb-3">
+                                <li>Nhà đất đang xây: dễ bố trí đúng từ ban đầu để mở vận khí tốt.</li>
+                                <li>Nhà cũ hoặc bếp sai hướng: có thể xoay hướng bếp, đặt vật phẩm phong thủy hoặc thay vị
+                                    trí miệng bếp để giảm xung khí.</li>
+                                <li>Căn hộ chung cư: tận dụng hướng nhìn bếp hoặc cửa bếp để chọn hướng phù hợp nhất.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+
                 </div>
-
+ @include('huong-hop-tuoi.sliderbarhoptuoi')
 
             </div>
         </div>
@@ -264,6 +338,9 @@
 
                         if (data.success) {
                             // Show results using modern approach
+                              const contentcontent = document.getElementById(
+                                        'none-content');
+                                         contentcontent.style.display = 'none';
                             if (resultsContainer) {
                                 resultsContainer.style.display = 'block';
                                 resultsContainer.innerHTML = data.html;
@@ -304,7 +381,7 @@
 
                 submitForm();
 
-    
+
             });
         });
     </script>

@@ -11,8 +11,9 @@
                 <li class="breadcrumb-item">
                     <a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
                 </li>
-              <li class="breadcrumb-item" aria-current="page">
-                    <a href="{{ route('hoptuoi.list') }}" style="color: #2254AB; text-decoration: underline;">Hướng hợp tuổi</a>
+                <li class="breadcrumb-item" aria-current="page">
+                    <a href="{{ route('hoptuoi.list') }}" style="color: #2254AB; text-decoration: underline;">Hướng hợp
+                        tuổi</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
                     Xem hướng nhà
@@ -20,7 +21,7 @@
 
             </ol>
         </nav>
-        <h1 class="content-title-home-lich">Xem hướng nhà</h1>
+        <h1 class="content-title-home-lich">Xem hướng nhà hợp tuổi</h1>
 
         <div>
             <div class="row g-lg-3 g-2 pt-lg-3 pt-2">
@@ -159,7 +160,7 @@
                                 <div class="d-flex align-items-center justify-content-center h-100 w-100"
                                     style="padding: 32px 32px 32px 0px;">
                                     <div class="d-flex align-items-center justify-content-center h-100 w-100"
-                                        style=" background-image: url(../images/form_xem_huongnha.svg);
+                                        style=" background-image: url(../images/form_xem_huongnha.svg?v=1.0);
                                     background-repeat: no-repeat;
                                     background-size: cover;
                                     align-items: normal;
@@ -175,8 +176,123 @@
                     <div id="resultsContainer" class="--detail-success">
 
                     </div>
-                </div>
 
+                    <div class="box--bg-thang mt-3 mb-3" id="none-content">
+                        <div class="text-box-tong-quan">
+                            <h2 class="title-tong-quan-h3-log fw-bolder">Khám Phá Hướng Nhà Hợp Tuổi – Bí Quyết Mang Lại
+                                May Mắn & Thịnh Vượng</h2>
+                            <p class="mb-2">Trong phong thủy, hướng nhà là yếu tố có ảnh hưởng mạnh nhất đến trường khí
+                                của nơi ở. Ngôi nhà hợp tuổi gia chủ thường giúp:
+                            </p>
+                            <ul class="mb-2">
+                                <li>Đón được sinh khí, mang lại tài lộc, sức khỏe và sự ổn định.</li>
+                                <li>Hạn chế xung khí, giảm rủi ro, tránh điều không may.</li>
+                                <li>Tạo cảm giác an tâm khi xây dựng hoặc chọn mua nhà mới.</li>
+                                <li>Hỗ trợ sự hòa thuận trong gia đình và công việc của gia chủ.</li>
+                            </ul>
+                            <p class="mb-3">Hướng nhà phù hợp không chỉ mang ý nghĩa phong thủy mà còn giúp gia chủ cảm
+                                nhận được sự hài hòa về tinh thần, nhận được thêm nguồn năng lượng tốt trong cuộc sống hàng
+                                ngày.</p>
+                            <h3 class="title-tong-quan-h4-log fst-italic fw-bolder">Các nguyên tắc chọn hướng nhà hợp tuổi
+                            </h3>
+                            <p class="mb-2">Tính năng Xem Hướng Nhà Hợp Tuổi trên Phong Lịch áp dụng đầy đủ các nguyên
+                                tắc phong thủy Bát Trạch:</p>
+                            <ul style="	list-style-type: decimal;">
+                                <li>
+                                    <h4 class="fs-6 fst-italic">Xác định mệnh trạch (Đông Tứ Mệnh – Tây Tứ Mệnh)</h4>
+                                    <p class="mb-2">Dựa vào năm sinh, gia chủ được chia thành hai nhóm lớn:</p>
+                                    <ul class="mb-2">
+                                        <li><b>Đông Tứ Mệnh:</b> hợp các hướng Đông, Đông Nam, Bắc, Nam</li>
+                                        <li><b>Tây Tứ Mệnh:</b> hợp các hướng Tây, Tây Bắc, Tây Nam, Đông Bắc</li>
+                                    </ul>
+                                    <p class="mb-3">Đây là bước giúp xác định nhóm hướng cát/hung phù hợp nhất với tuổi.
+                                    </p>
+                                </li>
+                                <li>
+                                    <h4 class="fs-6 fst-italic">Ưu tiên 4 hướng cát theo Bát Trạch</h4>
+                                    <ul class="mb-2">
+                                        <li>Sinh Khí: vượng tài, phát lộc</li>
+                                        <li>Thiên Y: tốt cho sức khỏe</li>
+                                        <li>Diên Niên: hòa thuận, ổn định</li>
+                                        <li>Phục Vị: bình an, thích hợp cho gia đạo</li>
+                                    </ul>
+                                    <p class="mb-3">Những người chuẩn bị xây nhà mới hoặc mua nhà thường ưu tiên chọn nhà
+                                        theo 2 hướng mạnh nhất: <b>Sinh Khí</b> và <b>Thiên Y</b>.</p>
+                                </li>
+                                <li>
+                                    <h4 class="fs-6 fst-italic"> Tránh 4 hướng hung</h4>
+                                    <ul class="mb-2">
+                                        <li>Tuyệt Mệnh</li>
+                                        <li>Lục Sát</li>
+                                        <li>Ngũ Quỷ</li>
+                                        <li>Hoạ Hại</li>
+                                    </ul>
+                                    <p class="mb-3">Nếu lỡ hướng nhà không hợp tuổi, đừng lo, bạn hoàn toàn có thể tìm
+                                        các cách hóa giải sát khí và tăng vượng khí.</p>
+                                </li>
+                                <li>
+                                    <h4 class="fs-6 fst-italic">Cân nhắc môi trường thực tế</h4>
+                                    <p class="mb-2">Phong thủy hướng nhà cần kết hợp với:</p>
+                                    <ul class="mb-2">
+                                        <li>Vị trí đường đi</li>
+                                        <li>Hình thế xung quanh</li>
+                                        <li>Ánh sáng – gió – không gian thực tế</li>
+                                    </ul>
+                                    <p class="mb-3"> Công cụ trên Phong Lịch giúp bạn biết họ hợp hướng nào, còn thực tế
+                                        sẽ được xem xét thêm khi lựa chọn vị trí nhà.</p>
+                                </li>
+                            </ul>
+                            <h3 class="title-tong-quan-h4-log fst-italic fw-bolder">Cách sử dụng công cụ Xem Hướng Nhà Hợp
+                                Tuổi
+                            </h3>
+                            <p class="mb-2">Bạn chỉ cần thực hiện 2 bước đơn giản:</p>
+                            <ul style="	list-style-type: decimal;" class="mb-2">
+                                <li>Nhập năm sinh (âm lịch hoặc dương lịch).</li>
+                                <li>Chọn giới tính</li>
+                            </ul>
+                            <p class="mb-2">Hệ thống sẽ tự động:
+                            </p>
+                            <ul class="mb-2">
+                                <li>Xác định mệnh trạch hợp tuổi.</li>
+                                <li>Hiển thị 4 hướng tốt và 4 hướng xấu.</li>
+                                <li>Gợi ý hướng nhà đẹp nhất cho tuổi của người dùng.</li>
+                                <li>Giải thích ý nghĩa từng hướng để dễ dàng lựa chọn.</li>
+                            </ul>
+                            <p class="mb-3">Kết quả được trình bày rõ ràng, dễ hiểu và không yêu cầu bất kỳ kiến thức
+                                phong thủy phức tạp nào.</p>
+                            <h3 class="title-tong-quan-h4-log fst-italic fw-bolder">Ai nên xem hướng nhà hợp tuổi?
+                            </h3>
+                            <ul class="mb-3">
+                                <li>Người chuẩn bị xây nhà hoặc thiết kế lại mặt tiền.</li>
+                                <li>Gia chủ đang cân nhắc mua nhà, mua đất.</li>
+                                <li>Người muốn hiểu hướng hợp tuổi để chọn chung cư, nhà phố, biệt thự…</li>
+                                <li>Những ai muốn xem lại hướng đang ở để biết tốt – xấu và tìm cách cải thiện phong thủy.
+                                </li>
+
+                            </ul>
+                            <h3 class="title-tong-quan-h4-log fst-italic fw-bolder">Lợi ích khi sử dụng công cụ trên
+                                website của chúng tôi
+                            </h3>
+                            <ul class="mb-3">
+                                <li>Kết quả chính xác dựa trên phong thủy Bát Trạch.</li>
+                                <li>Hiển thị rõ ràng hướng tốt, hướng xấu, giúp người dùng dễ lựa chọn.</li>
+                                <li>Có giải thích trực quan giúp người mới cũng hiểu được.</li>
+                                <li>Hoàn toàn miễn phí và tra cứu nhanh trong vài giây.</li>
+                                <li>Phù hợp với mọi loại hình nhà ở: chung cư, nhà đất, nhà cải tạo…</li>
+                            </ul>
+                            <h3 class="title-tong-quan-h4-log fst-italic fw-bolder">Kết luận
+                            </h3>
+                            <p class="mb-2">Xem hướng nhà hợp tuổi là bước quan trọng khi xây nhà, mua nhà hoặc chọn nơi
+                                an cư lâu dài. Tính năng Xem Hướng Nhà Hợp Tuổi trên Phong Lịch giúp gia chủ xác định hướng
+                                tốt – xấu một cách nhanh chóng, dễ hiểu và đáng tin cậy.</p>
+                            <p>Hãy nhập tuổi của bạn để xem đâu là hướng nhà hợp tuổi, mang lại may mắn, tài lộc và bình an
+                                cho cả gia đình.</p>
+                        </div>
+                    </div>
+
+
+                </div>
+ @include('huong-hop-tuoi.sliderbarhoptuoi')
 
             </div>
         </div>
@@ -261,6 +377,9 @@
 
                         if (data.success) {
                             // Show results using modern approach
+                              const contentcontent = document.getElementById(
+                                        'none-content');
+                                         contentcontent.style.display = 'none';
                             if (resultsContainer) {
                                 resultsContainer.style.display = 'block';
                                 resultsContainer.innerHTML = data.html;
@@ -288,14 +407,14 @@
                                 .map(errors => errors[0])
                                 .join('\n- ');
                             alert(`Vui lòng kiểm tra lại:\n- ${errorMessages}`);
-                                  setLoadingState(false);
+                            setLoadingState(false);
                         } else {
-                                  setLoadingState(false);
+                            setLoadingState(false);
                             alert(data.message || 'Có lỗi xảy ra. Vui lòng thử lại.');
                         }
                     } catch (error) {
-                 
-                         setLoadingState(false);
+
+                        setLoadingState(false);
                         alert('Có lỗi xảy ra khi kết nối. Vui lòng thử lại.');
                     }
                 };

@@ -88,7 +88,9 @@
                     </span>
                     <ul class="dropdown-menu">
                         <li><a href="{{ route('laso.create') }}">Lá số tử vi</a></li>
-                        <li><a href="{{ route('numerology.index') }}">Thần số học</a></li>
+                        <li><a href="{{ route('hoptuoi.list') }}">Xem hướng hợp tuổi</a></li>
+
+                        {{-- <li><a href="{{ route('numerology.index') }}">Thần số học</a></li> --}}
                     </ul>
                 </li>
                 <li class="has-dropdown">
@@ -215,7 +217,9 @@
                 </span>
                 <ul class="mobile-submenu">
                     <li><a href="{{ route('laso.create') }}">Lá số tử vi</a></li>
-                    <li><a href="{{ route('numerology.index') }}">Thần số học</a></li>
+                        <li><a href="{{ route('hoptuoi.list') }}">Xem hướng hợp tuổi</a></li>
+
+                    {{-- <li><a href="{{ route('numerology.index') }}">Thần số học</a></li> --}}
 
                 </ul>
             </li>

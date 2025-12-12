@@ -269,11 +269,17 @@
                                             <tbody>
                                                 <tr style="font-weight: 600">
                                                     <td>Yếu tố đánh giá</td>
-
                                                     <td>Trọng số</td>
                                                     <td>Điểm đánh giá</td>
                                                 </tr>
+ <tr>
+                                                    <td>Vận khí (Can Chi vận khí)</td>
+                                                    <td>
+                                                        {{ $weights['VanKhi'] / 10 ?? 0 }}
+                                                    </td>
+                                                    <td>{{ round($groomData['score']['vanKhi']['percentage'] ?? 0) }}%</td>
 
+                                                </tr>
                                                 <tr>
                                                     <td>Nhị Thập Bát Tú</td>
                                                     <td>
@@ -289,7 +295,7 @@
 
                                                 </tr>
                                                 <tr>
-                                                    <td>Cát Hung (Sao tốt xấu)</td>
+                                                    <td>Sao Cát Hung - Ngọc Hạp Thông Thư</td>
                                                     <td>
                                                         {{ $weights['CatHung'] / 10 ?? 0 }}
                                                     </td>
@@ -297,14 +303,7 @@
                                                     </td>
 
                                                 </tr>
-                                                <tr>
-                                                    <td>Vận khí (Can Chi vận khí)</td>
-                                                    <td>
-                                                        {{ $weights['VanKhi'] / 10 ?? 0 }}
-                                                    </td>
-                                                    <td>{{ round($groomData['score']['vanKhi']['percentage'] ?? 0) }}%</td>
-
-                                                </tr>
+                                               
                                                 <tr style="font-weight: 700">
 
                                                     <td>Đánh giá chung</td>

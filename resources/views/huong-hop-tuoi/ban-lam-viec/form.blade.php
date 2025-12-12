@@ -11,9 +11,9 @@
                 <li class="breadcrumb-item">
                     <a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
                 </li>
-                <li class="breadcrumb-item" aria-current="page">
-                    <a href="{{ route('totxau.list') }}" style="color: #2254AB; text-decoration: underline;">Tử vi & Phong
-                        thuỷ</a>
+              <li class="breadcrumb-item" aria-current="page">
+                    <a href="{{ route('hoptuoi.list') }}" style="color: #2254AB; text-decoration: underline;">Hướng hợp
+                        tuổi</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
                     Xem Hướng bàn làm việc
@@ -21,7 +21,7 @@
 
             </ol>
         </nav>
-        <h1 class="content-title-home-lich">Xem hướng bàn làm việc</h1>
+        <h1 class="content-title-home-lich">Xem hướng bàn làm việc hợp tuổi</h1>
 
         <div>
             <div class="row g-lg-3 g-2 pt-lg-3 pt-2">
@@ -160,7 +160,7 @@
                                 <div class="d-flex align-items-center justify-content-center h-100 w-100"
                                     style="padding: 32px 32px 32px 0px;">
                                     <div class="d-flex align-items-center justify-content-center h-100 w-100"
-                                        style=" background-image: url(../images/form_xem_huongbanlamviec.svg);
+                                        style=" background-image: url(../images/form_xem_huongbanlamviec.svg?v=1.0);
                                     background-repeat: no-repeat;
                                     background-size: cover;
                                     align-items: normal;
@@ -176,10 +176,78 @@
                     <div id="resultsContainer" class="--detail-success">
 
                     </div>
-                  
+
+                    <div class="box--bg-thang mt-3 mb-3" id="none-content">
+                        <div class="text-box-tong-quan">
+                            <h2 class="title-tong-quan-h3-log fw-bolder">Vì sao nên xem hướng bàn làm việc theo tuổi?</h2>
+                            <p class="mb-2">Bàn làm việc là nơi tạo ra ý tưởng, quyết định, sự tập trung và hiệu quả, vì
+                                vậy việc chọn hướng bàn hợp tuổi có thể giúp tăng sự minh mẫn, thu hút tài lộc, thuận lợi
+                                trong công việc và giảm bớt áp lực. Khi ngồi đúng hướng tốt theo phong thủy, dòng khí cát
+                                lành sẽ hỗ trợ tinh thần, giúp công việc thông suốt và dễ đạt thành tựu hơn.</p>
+                            <p class="mb-2">Mỗi người thuộc một cung mệnh, nhóm hướng tốt – xấu theo Bát Trạch đều khác
+                                nhau. <br>
+                                Chọn hướng bàn làm việc hợp tuổi mang lại nhiều lợi ích thiết thực như:</p>
+                            <ul class="mb-2">
+                                <li>Tăng khả năng tập trung, đầu óc sáng suốt.</li>
+                                <li>Hỗ trợ công việc thuận lợi, dễ thăng tiến, dễ gặp quý nhân.</li>
+                                <li>Giảm cảm giác căng thẳng, giúp tinh thần ổn định hơn.</li>
+                                <li>Hạn chế ảnh hưởng của các hướng xấu đến năng lượng làm việc.</li>
+                            </ul>
+                            <p class="mb-3">Ngược lại, ngồi sai hướng dễ khiến tâm trí phân tán, áp lực, dễ mắc lỗi hoặc
+                                khó đạt hiệu quả cao trong công việc.</p>
+                            <h3 class="title-tong-quan-h4-log fst-italic fw-bolder">Công cụ xem hướng bàn làm việc hợp tuổi
+                                trên Phong Lịch</h3>
+                            <p class="mb-2">Tính năng “Xem hướng bàn làm việc hợp tuổi” giúp bạn xác định nhanh các hướng
+                                phù hợp nhất theo năm sinh và giới tính. Khi nhập thông tin, hệ thống sẽ:</p>
+                            <ul class="mb-2">
+                                <li>Hiển thị hướng tốt theo Bát Trạch như Sinh Khí, Thiên Y, Diên Niên, Phục Vị – phù hợp
+                                    cho công việc, học tập hoặc kinh doanh.</li>
+                                <li>Gợi ý hướng ngồi và cách xoay bàn phù hợp với không gian.</li>
+                                <li>Giải thích ý nghĩa từng hướng để người dùng tự hiểu và ứng dụng dễ dàng.</li>
+                            </ul>
+                            <p class="mb-3">Tất cả được trình bày đơn giản, trực quan để bạn có thể áp dụng ngay.</p>
+                            <h3 class="title-tong-quan-h4-log fst-italic fw-bolder">Cách dùng công cụ xem hướng bàn làm
+                                việc</h3>
+                            <ul class="mb-2" style="	list-style-type: decimal;">
+                                <li>Nhập năm sinh của người sử dụng bàn làm việc.</li>
+                                <li>Chọn giới tính của người ngồi.</li>
+                                <li>Xem danh sách hướng tốt mà hệ thống gợi ý.</li>
+                                <li>Chọn hướng phù hợp với không gian phòng làm việc hoặc văn phòng.</li>
+                                <li>Xoay bàn/ghế để mặt ngồi hướng về hướng cát trong danh sách.</li>
+                            </ul>
+                            <p class="mb-3">Dù không am hiểu phong thủy, bạn vẫn có thể điều chỉnh dễ dàng trong vài
+                                phút.</p>
+                            <h3 class="title-tong-quan-h4-log fst-italic fw-bolder">Lưu ý phong thủy khi đặt bàn làm việc
+                            </h3>
+                            <p class="mb-2">Bên cạnh việc chọn hướng hợp tuổi, bạn nên lưu ý thêm một số nguyên tắc để
+                                tối ưu hóa không gian làm việc:</p>
+                            <ul class="mb-3">
+                                <li>Mặt ngồi nên hướng về Sinh Khí hoặc Thiên Y để tăng tài lộc và tập trung.</li>
+                                <li>Lưng ghế nên có điểm tựa vững (tường), tránh quay ra cửa hoặc lối đi.</li>
+                                <li>Tránh đặt bàn làm việc ngay dưới xà ngang, đối diện nhà vệ sinh hoặc sát bếp.</li>
+                                <li>Giữ bàn làm việc luôn gọn gàng, sáng sủa để tăng dòng khí tốt.</li>
+                                <li>Tránh ngồi quay lưng ra cửa chính – dễ phân tán, mất tập trung.</li>
+                            </ul>
+                            <h3 class="title-tong-quan-h4-log fst-italic fw-bolder">Lợi ích khi chọn đúng hướng bàn làm
+                                việc</h3>
+                            <ul class="mb-3">
+                                <li>Tăng hiệu suất và khả năng tập trung.</li>
+                                <li>Gặp nhiều thuận lợi, tự tin trong công việc.</li>
+                                <li>Dễ gặp quý nhân hỗ trợ hoặc có cơ hội thăng tiến.</li>
+                                <li>Giảm áp lực, tinh thần thoải mái hơn.</li>
+                                <li>Không gian làm việc hài hòa, mang lại cảm giác dễ chịu.</li>
+                            </ul>
+                             <h3 class="title-tong-quan-h4-log fst-italic fw-bolder">Áp dụng linh hoạt cho mọi không gian</h3>
+                            <ul class="mb-3">
+                                <li>Nhà riêng: dễ xoay bàn theo hướng hợp tuổi.</li>
+                                <li>Văn phòng công ty: có thể xoay ghế hoặc điều chỉnh vị trí ngồi trong giới hạn cho phép.</li>
+                                <li>Phòng ngủ – phòng làm việc tại nhà: ưu tiên hướng mặt ngồi, vì vị trí bàn có thể cố định.</li>
+                            </ul>
+                        </div>
+                    </div>
 
                 </div>
-
+ @include('huong-hop-tuoi.sliderbarhoptuoi')
 
             </div>
         </div>
@@ -265,6 +333,9 @@
 
                         if (data.success) {
                             // Show results using modern approach
+                              const contentcontent = document.getElementById(
+                                        'none-content');
+                                         contentcontent.style.display = 'none';
                             if (resultsContainer) {
                                 resultsContainer.style.display = 'block';
                                 resultsContainer.innerHTML = data.html;

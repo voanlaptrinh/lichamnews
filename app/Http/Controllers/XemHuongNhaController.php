@@ -14,7 +14,9 @@ class XemHuongNhaController extends Controller
      */
     public function showForm()
     {
-        return view('huong-hop-tuoi.huong-nha.form');
+            $metaTitle = "Xem Hướng Nhà Hợp Tuổi Chính Xác | Chọn Hướng Tốt Đón Tài Lộc";
+        $metaDescription = "Tra cứu hướng nhà hợp tuổi theo phong thủy Bát Trạch để mang lại may mắn, sức khỏe và tài lộc. Công cụ tính hướng nhà chuẩn, hỗ trợ đầy đủ các tuổi và mệnh.";
+        return view('huong-hop-tuoi.huong-nha.form', compact('metaTitle', 'metaDescription'));
     }
 
     /**
