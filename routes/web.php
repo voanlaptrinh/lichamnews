@@ -246,7 +246,7 @@ Route::prefix('la-so-tu-vi')->group(function () {
     Route::get('/image-proxy', [LasoController::class, 'proxyImage'])->name('laso.image_proxy');
 });
 
-Route::prefix('huong-hop-tuoi')->group(function () {
+Route::prefix('xem-huong-hop-tuoi')->group(function () {
     // === ROUTE Xem hướng danh sách hướng hợp tuổi ===
     Route::get('/',  [ListController::class, 'XemHuongHopTuoi'])->name('hoptuoi.list');
 
