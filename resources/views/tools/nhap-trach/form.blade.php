@@ -157,6 +157,7 @@
                                                             id="houseDirectionSelect" name="house_direction"
                                                             style="padding: 12px 45px 12px 15px">
 
+                                                            <option value="">Chọn hướng nhà</option>
                                                             <option value="bac">Bắc</option>
                                                             <option value="dong_bac">Đông Bắc</option>
                                                             <option value="dong">Đông</option>
@@ -165,6 +166,7 @@
                                                             <option value="tay_nam">Tây Nam</option>
                                                             <option value="tay">Tây</option>
                                                             <option value="tay_bac">Tây Bắc</option>
+                                                            <option value="unknown">Chưa biết hướng nhà</option>
                                                         </select>
                                                         <i class="bi bi-chevron-down position-absolute"
                                                             style="right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #6c757d;"></i>

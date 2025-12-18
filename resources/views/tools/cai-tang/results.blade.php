@@ -102,9 +102,9 @@
                                             ({{ $deceasedInfo['death_can_chi'] }})
                                         </p>
                                         <p class="mb-2">
-                                            <strong>Tuổi người mất:</strong>
-
-                                            {{ $deceasedInfo['napAm_birth']['napAm'] }}
+                                            <strong>Mệnh người mất:</strong>
+                                            {{ $deceasedInfo['napAm_birth']['hanh'] }}
+                                            ({{ $deceasedInfo['napAm_birth']['napAm'] }})
                                         </p>
                                     </div>
                                 @endif

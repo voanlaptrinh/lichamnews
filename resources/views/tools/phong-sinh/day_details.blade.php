@@ -127,7 +127,7 @@
                                         <!-- Nội dung (Màu Xanh Nhạt) -->
                                         <div class="p-2 content-green flex-grow-1">
                                             <ul class="list-unstyled mb-0">
-                                                @if ($hopTuoi)
+                                                @if ($hopTuoi && $hopTuoiReason != 'Trùng (Đồng Chi)')
                                                     <li class="mb-3">
                                                         <span class="text-success fw-bold list-icon">✓</span>
                                                         <span class="text-dark">Ngày hợp tuổi: {{ $hopTuoiReason }}</span>

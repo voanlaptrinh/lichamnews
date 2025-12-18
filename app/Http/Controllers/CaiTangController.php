@@ -66,16 +66,16 @@ class CaiTangController extends Controller
         $validator = Validator::make($request->all(), [
             'birthdate' => 'required|date_format:d/m/Y',
             'birth_mat' => 'required|integer|min:1800',
-            'nam_mat'   => 'required|integer|min:1800|gt:birth_mat',
+            'nam_mat'   => 'required|integer|min:1800|gte:birth_mat',
             'date_range' => 'required',
             'start_date' => 'required|date_format:d/m/Y',
             'end_date' => 'required|date_format:d/m/Y|after_or_equal:start_date',
         ], [
             'birthdate.required' => 'Vui lòng nhập ngày sinh của người đứng lễ.',
             'birthdate.date_format' => 'Định dạng ngày sinh không đúng (dd/mm/yyyy).',
-            'birth_mat.required' => 'Vui lòng chọn năm sinh âm lịch của người mất.',
-            'nam_mat.required' => 'Vui lòng chọn năm mất của người mất.',
-            'nam_mat.gt' => 'Năm mất phải lớn hơn năm sinh.',
+            'birth_mat.required' => 'Vui lòng nhập năm sinh âm lịch của người mất.',
+            'nam_mat.required' => 'Vui lòng nhập năm mất của người mất.',
+            'nam_mat.gte' => 'Năm mất phải lớn hơn hoặc bằng năm sinh.',
             'date_range.required' => 'Vui lòng chọn khoảng ngày dự định.',
             'start_date.*' => 'Định dạng ngày bắt đầu không hợp lệ.',
             'end_date.*' => 'Định dạng ngày kết thúc không hợp lệ hoặc trước ngày bắt đầu.',
@@ -192,6 +192,17 @@ class CaiTangController extends Controller
                 'good_hours' => $goodHours,
                 'day_score' => $dayScoreDetails,
             ];
+        }
+
+        // 4.5. Sắp xếp mặc định theo điểm giảm dần cho từng năm
+        foreach ($resultsByYear as $year => &$yearData) {
+            if (isset($yearData['days']) && count($yearData['days']) > 0) {
+                usort($yearData['days'], function($a, $b) {
+                    $scoreA = $a['day_score']['percentage'] ?? 0;
+                    $scoreB = $b['day_score']['percentage'] ?? 0;
+                    return $scoreB - $scoreA; // Giảm dần
+                });
+            }
         }
 
         // 5. Trả kết quả về cho view

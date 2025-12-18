@@ -38,8 +38,7 @@
                                             Thông tin người
                                             xem
                                         </div>
-                                        <p class="mb-2" style=" font-size: 14px; color: #212121;">Nhập thông tin ngày sinh
-                                            của người xem vào ô dưới đây.</p>
+                                        <p class="mb-2" style=" font-size: 14px; color: #212121;">Vui lòng điền thông tin ngày sinh và khoảng thời gian cần xem ngày tốt vào các ô dưới đây.</p>
                                         <form id="congViecMoiForm"> @csrf
 
                                             <div class="row">

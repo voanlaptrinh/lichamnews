@@ -127,7 +127,7 @@
                                         <!-- Nội dung (Màu Xanh Nhạt) -->
                                         <div class="p-2 content-green flex-grow-1">
                                             <ul class="list-unstyled mb-0">
-                                                @if ($hopTuoi)
+                                                @if ($hopTuoi && $hopTuoiReason != 'Trùng (Đồng Chi)')
                                                     <li class="mb-3">
                                                         <span class="text-success fw-bold list-icon">✓</span>
                                                         <span class="text-dark">Ngày hợp tuổi: {{ $hopTuoiReason }}</span>
@@ -301,7 +301,7 @@
                             <div
                                 class="text-primary mb-2 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
                                 <div>
-                                    <img src="{{ asset('icons/dac-diem1.svg') }}" alt="thông tin người xem" width="28"
+                                    <img src="{{ asset('icons/dac-diem1.svg') }}" alt="Luận giải các yếu tố tốt xấu trong ngày" width="28"
                                         height="28" class="me-1">
                                 </div>
                                 <div>Luận giải các yếu tố tốt xấu trong ngày</div>
@@ -322,10 +322,10 @@
                                                 class="accordion-collapse collapse"
                                                 data-bs-parent="#accordion-{{ Str::slug($groomData['personTitle']) }}">
                                                 <div class="accordion-body">
-                                                    <h6><b>* Quan hệ Can chi ngày (nội khí):</b></h6>
+                                                    <h6><b>Quan hệ Can chi ngày (nội khí):</b></h6>
                                                     <p>{!! $groomData['noiKhiNgay'] !!}</p>
 
-                                                    <h6><b>* Vận khí ngày & tháng (khí tháng):</b></h6>
+                                                    <h6><b>Vận khí ngày & tháng (khí tháng):</b></h6>
                                                     <p>Ngày {{ $groomData['getThongTinCanChiVaIcon']['can_chi_ngay'] }} -
                                                         Tháng
                                                         {{ $groomData['getThongTinCanChiVaIcon']['can_chi_thang'] }}</p>

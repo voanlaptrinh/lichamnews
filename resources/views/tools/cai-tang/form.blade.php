@@ -39,13 +39,15 @@
                                             <div class="row g-1">
                                                 <!-- Thông tin người đứng lễ -->
                                                 <div class="">
-                                                    <div class="fw-bold title-tong-quan-h2-log mb-3"
-                                                        style="color: rgba(25, 46, 82, 1); border-bottom: 1px solid #ddd; padding-bottom: 8px;">
+                                                    <div class="fw-bold  title-tong-quan-h2-log" style="color: #192E52">
                                                         Thông tin người đứng lễ
                                                     </div>
+
+                                                    <p class="mb-2" style=" font-size: 14px; color: #212121;">Vui lòng
+                                                        điền thông tin ngày sinh của người đứng lễ.</p>
                                                     <p class="mb-0" style="color: #000"><span style="color: red">Lưu
-                                                            ý:</span> Thông tin người đứng lễ là con trưởng hoặc người đại
-                                                        diện</p>
+                                                            ý:</span> Người đứng lễ cải táng thường là con trai trưởng hoặc
+                                                        người lớn tuổi, có vai vế nhất trong gia đình/dòng họ.</p>
                                                 </div>
 
                                                 <div class="mb-3">
@@ -131,10 +133,12 @@
 
                                                 <!-- Thông tin người mất -->
                                                 <div class="mb-0">
-                                                    <div class="fw-bold title-tong-quan-h2-log"
-                                                        style="color: rgba(25, 46, 82, 1); border-bottom: 1px solid #ddd; padding-bottom: 8px;">
+                                                    <div class="fw-bold  title-tong-quan-h2-log" style="color: #192E52">
                                                         Thông tin người mất
                                                     </div>
+                                                    <p class="mb-2" style=" font-size: 14px; color: #212121;">Vui lòng
+                                                        điền năm sinh và năm mất theo âm lịch của người được cải táng/ sang
+                                                        cát.</p>
                                                 </div>
 
 
@@ -143,26 +147,15 @@
                                                         style="color: #192E52; padding-bottom: 12px;">Năm
                                                         sinh âm lịch</div>
                                                     <div class="position-relative">
-                                                        <select name="birth_mat" id="birth_mat"
-                                                            class="form-select pe-5 --border-box-form"
-                                                            style="padding: 12px 45px 12px 15px">
-                                                            <option value="">Chọn năm sinh</option>
-                                                            @php
-                                                                $selectedBirthYear = old(
-                                                                    'birth_mat',
-                                                                    $inputs['birth_mat'] ?? null,
-                                                                );
-                                                            @endphp
-                                                            @for ($year = date('Y'); $year >= 1800; $year--)
-                                                                <option value="{{ $year }}"
-                                                                    {{ $selectedBirthYear == $year ? 'selected' : '' }}>
-                                                                    {{ $year }}
-                                                                </option>
-                                                            @endfor
-                                                        </select>
-                                                        <i class="bi bi-chevron-down position-absolute"
-                                                            style="right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #6c757d;"></i>
+                                                        <input type="number" name="birth_mat" id="birth_mat"
+                                                            class="form-control --border-box-form"
+                                                            style="padding: 12px 15px"
+                                                            placeholder="Nhập năm sinh (VD: 1985)"
+                                                            min="1900"
+                                                            max="{{ date('Y') }}"
+                                                            value="{{ old('birth_mat', $inputs['birth_mat'] ?? '') }}">
                                                     </div>
+                                                    <small class="text-muted">Từ năm 1900 đến {{ date('Y') }}</small>
                                                 </div>
 
                                                 <div class="col-6">
@@ -170,32 +163,22 @@
                                                         style="color: #192E52; padding-bottom: 12px;">
                                                         Năm mất âm lịch</div>
                                                     <div class="position-relative">
-                                                        <select name="nam_mat" id="nam_mat"
-                                                            class="form-select pe-5 --border-box-form"
-                                                            style="padding: 12px 45px 12px 15px">
-                                                            <option value="">Chọn năm mất</option>
-                                                            @php
-                                                                $selectedDeathYear = old(
-                                                                    'nam_mat',
-                                                                    $inputs['nam_mat'] ?? null,
-                                                                );
-                                                            @endphp
-                                                            @for ($year = date('Y'); $year >= 1800; $year--)
-                                                                <option value="{{ $year }}"
-                                                                    {{ $selectedDeathYear == $year ? 'selected' : '' }}>
-                                                                    {{ $year }}
-                                                                </option>
-                                                            @endfor
-                                                        </select>
-                                                        <i class="bi bi-chevron-down position-absolute"
-                                                            style="right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #6c757d;"></i>
+                                                        <input type="number" name="nam_mat" id="nam_mat"
+                                                            class="form-control --border-box-form"
+                                                            style="padding: 12px 15px"
+                                                            placeholder="Nhập năm mất (VD: 2020)"
+                                                            min="1900"
+                                                            max="{{ date('Y') }}"
+                                                            value="{{ old('nam_mat', $inputs['nam_mat'] ?? '') }}">
                                                     </div>
+                                                    <small class="text-muted">Từ năm 1900 đến {{ date('Y') }}</small>
                                                 </div>
 
 
                                                 <div class="input-group mb-4">
                                                     <div for="date_range" class="fw-bold title-tong-quan-h4-log mt-2"
-                                                        style="color: #192E52; padding-bottom: 12px;">Thời gian dự kiến cải táng sang cát</div>
+                                                        style="color: #192E52; padding-bottom: 12px;">Thời gian dự kiến cải
+                                                        táng sang cát</div>
                                                     <div class="input-group">
                                                         <input type="text"
                                                             class="form-control wedding_date_range --border-box-form @error('date_range') is-invalid @enderror"
@@ -649,9 +632,9 @@
 
                     // Restore nam_mat
                     if (params.nam_mat) {
-                        const namMatSelect = document.getElementById('nam_mat');
-                        if (namMatSelect) {
-                            namMatSelect.value = params.nam_mat;
+                        const namMatInput = document.getElementById('nam_mat');
+                        if (namMatInput) {
+                            namMatInput.value = params.nam_mat;
                         }
                         namMatSet = true;
                     } else {
@@ -698,6 +681,58 @@
             // Restore form from hash on page load
             setTimeout(restoreFromHash, 1000);
 
+            // Add real-time validation for birth year input
+            const birthMatInput = document.getElementById('birth_mat');
+            if (birthMatInput) {
+                birthMatInput.addEventListener('input', function() {
+                    validateYearInput(this, 'birth', 'Năm sinh phải từ 1900 đến');
+                });
+            }
+
+            // Add real-time validation for death year input
+            const namMatInput = document.getElementById('nam_mat');
+            if (namMatInput) {
+                namMatInput.addEventListener('input', function() {
+                    validateYearInput(this, 'death', 'Năm mất phải từ 1900 đến');
+                });
+            }
+
+            // Common validation function for year inputs
+            function validateYearInput(input, type, errorPrefix) {
+                const value = input.value;
+                const currentYear = new Date().getFullYear();
+
+                // Remove non-numeric characters
+                input.value = value.replace(/[^0-9]/g, '');
+
+                // Validate range
+                const year = parseInt(input.value);
+                const errorClass = `invalid-feedback-${type}`;
+
+                if (input.value && (isNaN(year) || year < 1900 || year > currentYear)) {
+                    input.style.borderColor = '#dc3545';
+                    if (!input.parentNode.querySelector(`.${errorClass}`)) {
+                        const errorDiv = document.createElement('div');
+                        errorDiv.className = `text-danger small mt-1 ${errorClass}`;
+                        errorDiv.textContent = `${errorPrefix} ${currentYear}`;
+                        input.parentNode.insertBefore(errorDiv, input.parentNode.querySelector('.text-muted'));
+                    }
+                } else {
+                    input.style.borderColor = '';
+                    const errorDiv = input.parentNode.querySelector(`.${errorClass}`);
+                    if (errorDiv) {
+                        errorDiv.remove();
+                    }
+                }
+            }
+
+            // Function to get Chi from year for taboo filter
+            function getUserChiFromYear(year) {
+                const chiArray = ['Thân', 'Dậu', 'Tuất', 'Hợi', 'Tý', 'Sửu', 'Dần', 'Mão', 'Thìn', 'Tỵ', 'Ngọ', 'Mùi'];
+                const index = (year - 4) % 12;
+                return chiArray[index];
+            }
+
             // ========== AJAX FORM SUBMISSION ==========
             const form = document.getElementById('caiTangForm');
             const submitBtn = document.getElementById('submitBtn');
@@ -717,21 +752,42 @@
                     return;
                 }
 
-                // Get birth_mat value
-                const birthMatSelect = document.getElementById('birth_mat');
-                const birthMatValue = birthMatSelect.value;
+                // Get birth_mat value and validate
+                const birthMatInput = document.getElementById('birth_mat');
+                const birthMatValue = birthMatInput.value;
 
                 if (!birthMatValue) {
-                    alert('Vui lòng chọn năm sinh của người mất');
+                    alert('Vui lòng nhập năm sinh của người mất');
                     return;
                 }
 
-                // Get nam_mat value
-                const namMatSelect = document.getElementById('nam_mat');
-                const namMatValue = namMatSelect.value;
+                // Validate birth year
+                const birthYear = parseInt(birthMatValue);
+                const currentYear = new Date().getFullYear();
+                if (isNaN(birthYear) || birthYear < 1900 || birthYear > currentYear) {
+                    alert(`Năm sinh phải là số từ 1900 đến ${currentYear}`);
+                    return;
+                }
+
+                // Get nam_mat value and validate
+                const namMatInput = document.getElementById('nam_mat');
+                const namMatValue = namMatInput.value;
 
                 if (!namMatValue) {
-                    alert('Vui lòng chọn năm mất của người mất');
+                    alert('Vui lòng nhập năm mất của người mất');
+                    return;
+                }
+
+                // Validate death year
+                const deathYear = parseInt(namMatValue);
+                if (isNaN(deathYear) || deathYear < 1900 || deathYear > currentYear) {
+                    alert(`Năm mất phải là số từ 1900 đến ${currentYear}`);
+                    return;
+                }
+
+                // Validate that death year is not before birth year
+                if (deathYear < birthYear) {
+                    alert('Năm mất phải lớn hơn hoặc bằng năm sinh');
                     return;
                 }
 
@@ -866,32 +922,34 @@
 
                             setTimeout(() => {
                                 resultsContainer.innerHTML = data.html;
+
+                                // Set up userChi for taboo filter (needed for Lục xung detection)
+                                let hostBirthYear = null;
+                                try {
+                                    // Parse the formatted date (dd/mm/yyyy format)
+                                    const dateParts = formattedBirthdate.split('/');
+                                    if (dateParts.length === 3) {
+                                        const day = parseInt(dateParts[0]);
+                                        const month = parseInt(dateParts[1]);
+                                        const year = parseInt(dateParts[2]);
+                                        hostBirthYear = year;
+                                    } else {
+                                        // Fallback to current year if parsing fails
+                                        hostBirthYear = new Date().getFullYear();
+                                    }
+                                } catch (e) {
+                                    hostBirthYear = new Date().getFullYear();
+                                }
+                                window.userChi = getUserChiFromYear(hostBirthYear);
+
                                 setTimeout(() => {
                                     if (data.resultsByYear && typeof initTabooFilter ===
                                         'function') {
-                                        const allDays = [];
-                                        Object.keys(data.resultsByYear).forEach(
-                                        year => {
-                                            if (data.resultsByYear[year] && data
-                                                .resultsByYear[year].days) {
-                                                allDays.push(...data
-                                                    .resultsByYear[year]
-                                                    .days);
-                                            }
-                                        });
-
-                                        const combinedData = {
-                                            'all': {
-                                                days: allDays
-                                            }
-                                        };
-
-                                        window.initTabooFilter(combinedData);
+                                        // Store data for taboo filter
+                                        window.resultsByYear = data.resultsByYear;
+                                        window.initTabooFilter(data.resultsByYear);
                                     }
 
-
-
-                                    
                                     initPagination();
                                     setupContainerEventDelegation();
                                 }, 200);

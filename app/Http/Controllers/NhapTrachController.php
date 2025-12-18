@@ -56,7 +56,7 @@ class NhapTrachController extends Controller
         $validator = Validator::make($request->all(), [
             'birthdate' => 'required|date',
             'gioi_tinh' => 'required|in:nam,nữ', // Sửa 'nu' thành 'nữ' để khớp với helper
-            'huong_nha' => 'required|string|in:bac,dong_bac,dong,dong_nam,nam,tay_nam,tay,tay_bac',
+            'huong_nha' => 'required|string|in:bac,dong_bac,dong,dong_nam,nam,tay_nam,tay,tay_bac,unknown',
             'date_range' => 'required',
             'start_date' => 'required|date_format:d/m/Y',
             'end_date' => 'required|date_format:d/m/Y|after_or_equal:start_date',
@@ -89,7 +89,7 @@ class NhapTrachController extends Controller
         
         // 2.1 Phân tích hướng nhà đã chọn
         $huongNhaAnalysis = null;
-        if (isset($birthdateInfo['phong_thuy'])) {
+        if (isset($birthdateInfo['phong_thuy']) && $validated['huong_nha'] !== 'unknown') {
            $lunarDob = LunarHelper::convertSolar2Lunar($birthdate->day, $birthdate->month, $birthdate->year);
            $lunarBirthYear = $lunarDob[2];
            $huongNhaAnalysis = $this->analyzeHouseDirection(
@@ -241,8 +241,8 @@ class NhapTrachController extends Controller
 
         $isBadYear = count($badFactors) > 0;
         $message = $isBadYear
-            ? "Năm {$yearToCheck}, gia chủ phạm phải: <strong>" . implode(', ', $badFactors) . "</strong>  - đại kỵ phong thủy khi làm việc trọng đại như động thổ, xây dựng. Vì vậy, không nên khởi công trong năm nay.
-Nếu buộc phải thực hiện, gia chủ nên mượn tuổi hợp để hóa giải vận xấu."
+            ? "Năm {$yearToCheck}, gia chủ phạm phải: <strong>" . implode(', ', $badFactors) . "</strong>  -  đại kỵ phong thủy, có thể mang lại điều không may cho gia chủ và gia đình. </br>
+            Để hóa giải, bạn nên mượn tuổi người thân hợp mệnh (không phạm các hạn này) đứng tên làm lễ nhập trạch. Nếu cần, hãy tham khảo thêm thầy phong thủy để chọn ngày tốt và thực hiện nghi lễ phù hợp, nhằm mang lại bình an và tài lộc."
             : "Năm {$yearToCheck}, gia chủ không phạm Kim Lâu, Hoang Ốc hay Tam Tai – đây là tín hiệu rất tốt trong phong thủy. Bạn hoàn toàn có thể an tâm tiến hành các công việc trọng đại liên quan đến nhà cửa như mua nhà/đất, xây dựng, hoặc chuyển về nhà mới trong năm nay.
 Thời điểm cát lợi, vận khí hanh thông – rất thích hợp để an cư, lập nghiệp.";
 
