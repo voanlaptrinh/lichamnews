@@ -142,8 +142,8 @@ class KhaiTruongController extends Controller
             ];
         }
 
-        // Sắp xếp kết quả theo điểm số
-        $sortOrder = $request->input('sort', 'desc');
+        // Sắp xếp mặc định theo điểm giảm dần cho từng năm
+        $sortOrder = $request->input('sort', 'desc'); // Mặc định là giảm dần
         foreach ($resultsByYear as &$yearData) {
             if (isset($yearData['days']) && is_array($yearData['days'])) {
                 usort($yearData['days'], function ($a, $b) use ($sortOrder) {

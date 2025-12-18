@@ -8,30 +8,41 @@
             </div>
             <div class="info-grid">
                 <p class="mb-2">
-                    <strong>Ngày sinh:</strong>
-                    {{ $results['basicInfo']['ngaySinhDuongLich'] }} tức ngày
-                    {{ $results['basicInfo']['ngaySinhAmLich'] }} Âm lịch
+                    <strong>Ngày sinh Dương Lịch:</strong>
+                    {{ $results['basicInfo']['ngaySinhDuongLich'] }}
                 </p>
                 <p class="mb-2">
-                    <strong>Tuổi:</strong>
-                    <b> {{ $results['ageInfo']['tuoiAm'] }}</b>
+                    <strong>Ngày sinh Âm Lịch:</strong>
+
+                    {{ $results['basicInfo']['ngaySinhAmLich'] }}
                 </p>
-                 <p class="mb-2">
-                    <strong>Cung phi:</strong>
-                    
-                    {{ $results['basicInfo']['menhQuai'] }}
-                </p>
+
                 <p class="mb-2">
                     <strong>Giới tính:</strong>
                     {{ $results['basicInfo']['gioiTinh'] }}
                 </p>
+
+                <p class="mb-2">
+                    <strong>Cung phi:</strong>
+
+                    {{ $results['basicInfo']['menhQuai'] }}
+                </p>
+
                 <p class="mb-2">
                     <strong>Nhóm:</strong>
                     <span>
                         {{ $results['basicInfo']['thuocNhom'] }}
                     </span>
                 </p>
-
+                <p class="mb-2">
+                    <strong>Hướng hợp mệnh:</strong>
+                    @php
+                        $huongHopMenh = array_map(function ($item) {
+                            return $item['huong'];
+                        }, $results['huongNhaTotChiTiet']);
+                    @endphp
+                    <span style="color: #28a745; font-weight: bold;">{{ implode(', ', $huongHopMenh) }}</span>
+                </p>
             </div>
 
 
@@ -100,14 +111,14 @@
             </p>
             <ul style="	list-style-type: decimal;">
                 <li>
-                    <h3 class="title-tong-quan-h4-log fw-bolder">Xoay hướng của chính (nếu có thể)</h3>
+                    <h3 class="title-tong-quan-h4-log">Xoay hướng của chính (nếu có thể)</h3>
                     <ul class="mb-3">
                         <li>Dùng vách chéo, bình phong, hành lang để "định hướng khí" đi vào nhà theo cửa tốt</li>
                         <li>Hoặc thiết kế của phụ / của lùi để chuyển hướng nạp khí</li>
                     </ul>
                 </li>
                 <li>
-                    <h3 class="title-tong-quan-h4-log fw-bolder">Dùng giường đặt quải treo trước cửa</h3>
+                    <h3 class="title-tong-quan-h4-log">Dùng giường đặt quải treo trước cửa</h3>
                     <ul class="mb-3">
                         <li>Treo giường đặt quải lớn hoặc phẳng ở phía trên cửa chính để trấn sát, chuyển hướng khí</li>
                         <li>Chỉ dùng khi thực sự cần, và phải đặt đúng loại - đúng vị trí (nên có người am hiểu hướng
@@ -115,7 +126,7 @@
                     </ul>
                 </li>
                 <li>
-                    <h3 class="title-tong-quan-h4-log fw-bolder">Xoay hướng bàn thờ, bếp, giường về hướng tốt</h3>
+                    <h3 class="title-tong-quan-h4-log">Xoay hướng bàn thờ, bếp, giường về hướng tốt</h3>
                     <p class="mb-2">Dù của chính xấu, bạn vẫn có thể:</p>
                     <ul class="mb-2">
                         <li>Đặt ban thờ quay về hướng cáy theo mệnh</li>
@@ -129,7 +140,7 @@
                         </svg> Việc này giúp bù lại khí xấu từ hướng nhà</p>
                 </li>
                 <li>
-                    <h3 class="title-tong-quan-h4-log fw-bolder">Dùng vật phẩm phong thuỷ hoá giải</h3>
+                    <h3 class="title-tong-quan-h4-log">Dùng vật phẩm phong thuỷ hoá giải</h3>
                     <ul class="mb-3">
                         <li>Tỳ hưu, thiềm thừ, long quy, hồ lô, đá thạch anh... đặt ở vị trí phù hợp giúp trấn sát -
                             chuyển hoá năng lượng</li>
@@ -138,7 +149,7 @@
 
                 </li>
                 <li>
-                    <h3 class="title-tong-quan-h4-log fw-bolder">Chia nhỏ dòng khí (khi khẩu)</h3>
+                    <h3 class="title-tong-quan-h4-log">Chia nhỏ dòng khí (khi khẩu)</h3>
                     <p class="mb-2">Thiết kế không gian như:</p>
 
                     <ul class="mb-3">
@@ -152,17 +163,18 @@
                                 d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
                         </svg> Nhằm làm chậm, tán khí xấu trước khi đi sâu và nhà.</p>
                 </li>
-              
+
             </ul>
-             <h3 class="title-tong-quan-h4-log fw-bolder">Ghi nhớ nguyên tắc</h3>
-                    <ul>
-                        <li>
-                            Hướng không hợp - chọn phòng hợp. Của không tốt - điều tốt
-                        </li>
-                        <li>
-                            Trong phong thuỷ, hướng nhà là quan trọng, nhưng không quyết định tất cả - bạn hoàn toàn có thể điểu chỉnh bên trong để "hung hoá cát"
-                        </li>
-                    </ul>
+            <h3 class="title-tong-quan-h4-log">Ghi nhớ nguyên tắc</h3>
+            <ul>
+                <li>
+                    Hướng không hợp - chọn phòng hợp. Cửa không tốt - điều tốt
+                </li>
+                <li>
+                    Trong phong thuỷ, hướng nhà là quan trọng, nhưng không quyết định tất cả - bạn hoàn toàn có thể điểu
+                    chỉnh bên trong để "hung hoá cát"
+                </li>
+            </ul>
         </div>
     </div>
 

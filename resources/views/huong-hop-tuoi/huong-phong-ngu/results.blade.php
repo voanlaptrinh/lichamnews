@@ -8,18 +8,19 @@
             </div>
             <div class="info-grid">
                 <p class="mb-2">
-                    <strong>Ngày sinh:</strong>
-                    {{ $results['basicInfo']['ngaySinhDuongLich'] }} tức ngày
-                    {{ $results['basicInfo']['ngaySinhAmLich'] }} Âm lịch
+                    <strong>Ngày sinh Dương Lịch:</strong>
+                    {{ $results['basicInfo']['ngaySinhDuongLich'] }}
+                </p>
+                <p class="mb-2">
+                    <strong>Ngày sinh Âm Lịch:</strong>
+                    {{ $results['basicInfo']['ngaySinhAmLich'] }}
                 </p>
                 <p class="mb-2">
                     <strong>Giới tính:</strong>
                     {{ $gender }}
                 </p>
-                <p class="mb-2">
-                    <strong>Tuổi:</strong>
-                    <b> {{ $results['ageInfo']['tuoiAm'] }}</b>
-                </p>
+
+
                 <p class="mb-2">
                     <strong>Cung phi:</strong>
 
@@ -32,7 +33,15 @@
                         {{ $results['basicInfo']['thuocNhom'] }}
                     </span>
                 </p>
-
+                <p class="mb-2">
+                    <strong>Hướng hợp mệnh:</strong>
+                    @php
+                        $huongHopMenh = array_map(function ($item) {
+                            return $item['huong'];
+                        }, $results['huongTotChiTiet']);
+                    @endphp
+                    <span style="color: #28a745; font-weight: bold;">{{ implode(', ', $huongHopMenh) }}</span>
+                </p>
             </div>
 
 

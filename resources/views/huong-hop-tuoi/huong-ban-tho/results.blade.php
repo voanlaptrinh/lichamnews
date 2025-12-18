@@ -8,18 +8,20 @@
             </div>
             <div class="info-grid">
                 <p class="mb-2">
-                    <strong>Ngày sinh:</strong>
-                    {{ $results['basicInfo']['ngaySinhDuongLich'] }} tức ngày
-                    {{ $results['basicInfo']['ngaySinhAmLich'] }} Âm lịch
+                    <strong>Ngày sinh Dương lịch:</strong>
+                    {{ $results['basicInfo']['ngaySinhDuongLich'] }}
                 </p>
-                 <p class="mb-2">
+                <p class="mb-2">
+                    <strong>Ngày sinh Âm lịch:</strong>
+                    {{ $results['basicInfo']['ngaySinhAmLich'] }}
+                </p>
+                <p class="mb-2">
                     <strong>Giới tính:</strong>
                     {{ $results['basicInfo']['gioiTinh'] }}
                 </p>
-                <p class="mb-2">
-                    <strong>Tuổi:</strong>
-                    <b> {{ $results['ageInfo']['tuoiAm'] }}</b>
-                </p>
+               
+                 
+               
                 <p class="mb-2">
                     <strong> Cung phi:</strong>
                     {{ $results['basicInfo']['menhQuai'] }}
@@ -31,7 +33,15 @@
                         {{ $results['basicInfo']['thuocNhom'] }}
                     </span>
                 </p>
-
+   <p class="mb-2">
+                        <strong>Hướng hợp mệnh:</strong>
+                        @php
+                            $huongHopMenh = array_map(function ($item) {
+                                return $item['huong'];
+                            }, $results['huongDatBanThoTotNhat']);
+                        @endphp
+                        <span style="color: #28a745; font-weight: bold;">{{ implode(', ', $huongHopMenh) }}</span>
+                    </p>
             </div>
 
 
@@ -59,6 +69,8 @@
                 <img src="{{ asset('/icons/dac-diem1.svg') }}" alt="thông tin người xem" width="28" height="28"
                     class="me-1">Gợi ý hướng bàn thờ cho bạn
             </div>
+
+
 
             <table class="table align-middle">
                 <thead class="text-center" style="background-color: #e8ebee;">
@@ -93,7 +105,7 @@
                 <div>
                     <ul style="	list-style-type: decimal;">
                         <li>
-                            <h3 class="title-tong-quan-h4-log">Bàn thờ đặt đối diện cửa ra vào hoặc cửa sổ lớn</h3>
+                            <h3 class="title-tong-quan-h4-log ">Bàn thờ đặt đối diện cửa ra vào hoặc cửa sổ lớn</h3>
                             <ul class="mb-1">
                                 <li>
                                     Làm khí bị xung, tán tài, mất linh khí, dễ động.
@@ -104,7 +116,7 @@
                             </ul>
                         </li>
                         <li>
-                            <h3 class="title-tong-quan-h4-log">Tựa lưng bàn thờ vào khoảng trống</h3>
+                            <h3 class="title-tong-quan-h4-log ">Tựa lưng bàn thờ vào khoảng trống</h3>
                             <ul class="mb-1">
                                 <li>
                                     Tượng trưng cho không có điểm tựa, tổ tiên không được “an vị”.
@@ -115,7 +127,7 @@
                             </ul>
                         </li>
                         <li>
-                            <h3 class="title-tong-quan-h4-log">Đặt bàn thờ dưới xà ngang, gầm cầu thang, nhà vệ sinh
+                            <h3 class="title-tong-quan-h4-log ">Đặt bàn thờ dưới xà ngang, gầm cầu thang, nhà vệ sinh
                             </h3>
                             <ul class="mb-1">
                                 <li>
@@ -127,7 +139,7 @@
                             </ul>
                         </li>
                         <li>
-                            <h3 class="title-tong-quan-h4-log">Đặt bàn thờ cạnh bếp, nhà tắm, hoặc nơi ô uế </h3>
+                            <h3 class="title-tong-quan-h4-log ">Đặt bàn thờ cạnh bếp, nhà tắm, hoặc nơi ô uế </h3>
                             <ul class="mb-1">
                                 <li>
                                     Hỏa khí, thủy khí và tạp khí phá hủy trường năng lượng tâm linh.
@@ -139,7 +151,7 @@
 
                         </li>
                         <li>
-                            <h3 class="title-tong-quan-h4-log"> Bài trí bàn thờ lộn xộn, bừa bộn</h3>
+                            <h3 class="title-tong-quan-h4-log "> Bài trí bàn thờ lộn xộn, bừa bộn</h3>
                             <ul class="mb-1">
                                 <li>
                                     Đồ thờ, ảnh thờ đặt sai thứ tự, hoa héo, hương tàn.
@@ -151,7 +163,7 @@
 
                         </li>
                         <li>
-                            <h3 class="title-tong-quan-h4-log">Bàn thờ quá cao hoặc quá thấp</h3>
+                            <h3 class="title-tong-quan-h4-log ">Bàn thờ quá cao hoặc quá thấp</h3>
                             <ul class="mb-1">
                                 <li>
                                     Cao quá → khó chăm sóc, cách xa con cháu.
@@ -163,7 +175,7 @@
 
                         </li>
                         <li>
-                            <h3 class="title-tong-quan-h4-log">Dưới bàn thờ làm tủ, nhà kho, hoặc để đồ linh tinh</h3>
+                            <h3 class="title-tong-quan-h4-log ">Dưới bàn thờ làm tủ, nhà kho, hoặc để đồ linh tinh</h3>
                             <ul class="mb-1">
                                 <li>
                                     Làm mất đi sự thanh tịnh, không khí trang nghiêm.
