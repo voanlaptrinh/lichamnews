@@ -240,17 +240,25 @@
                                                         'text' => '#10B981',
                                                     ];
                                                 }
+                                              
+                                                 $tabooTypes = [];
+                                                if (
+                                                    isset($day['groom_score']['checkTabooDays']['issues']) &&
+                                                    is_array($day['groom_score']['checkTabooDays']['issues'])
+                                                ) {
+                                                    foreach ($day['groom_score']['checkTabooDays']['issues'] as $issue) {
+                                                        if (isset($issue['details']['tabooName'])) {
+                                                            $tabooTypes[] = $issue['details']['tabooName'];
+                                                        }
+                                                    }
+                                                }
                                             @endphp
                                             <tr class="table-row-{{ $year }}" data-index="{{ $index }}"
                                                 style="{{ $index >= 10 ? 'display: none;' : '' }}"
                                                 data-visible="{{ $index < 10 ? 'true' : 'false' }}"
                                                 data-taboo-days="{{ implode(
-                                                    ',',
-                                                    array_merge(
-                                                        $day['groom_score']['taboo_details']['taboo_types'] ?? [],
-                                                        $day['bride_score']['taboo_details']['taboo_types'] ?? [],
-                                                    ),
-                                                ) }}">
+                                                    ',',$tabooTypes)
+                                                 }}">
                                                 <td style="text-align: start">
                                                     <a
                                                         href="{{ route('wedding.day.details', [
@@ -650,6 +658,9 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+        // Expose user's 'chi' to global scope for Luc Xung filter
+        window.userChi = '{{ explode(' ', $groomInfo['can_chi_nam'] ?? '')[1] ?? '' }}';
+
         // Khởi tạo taboo filter với dữ liệu từ backend
         const resultsByYear = @json($resultsByYear ?? []);
 

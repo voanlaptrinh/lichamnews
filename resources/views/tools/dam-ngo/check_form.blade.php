@@ -2,7 +2,7 @@
 
 @section('content')
     @push('styles')
-        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=11.3') }}">
+        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=11.5') }}">
     @endpush
 
 
@@ -38,7 +38,7 @@
                                         </div>
                                         <p class="mb-2" style=" font-size: 14px; color: #212121;">Nhập thông tin ngày sinh
                                             của người xem vào ô dưới đây.</p>
-                                        <form action="{{ route('astrology.check') }}" method="POST">
+                                        <form action="{{ route('dam-ngo.check') }}" method="POST">
                                             @csrf
 
                                             <div class="row">
@@ -214,8 +214,7 @@
 
                                                 <div class="col-md-12 mb-3">
                                                     <div for="date_range" class="fw-bold title-tong-quan-h4-log"
-                                                        style="color: #192E52; padding-bottom: 12px;">Khoảng
-                                                        ngày dự kiến dạm ngõ</div>
+                                                        style="color: #192E52; padding-bottom: 12px;">Thời gian dự kiến dạm ngõ</div>
                                                     <div class="input-group">
                                                         <input type="text"
                                                             class="form-control wedding_date_range --border-box-form @error('wedding_date_range') is-invalid @enderror"
@@ -1008,6 +1007,7 @@
                                         window.initTabooFilter(data.resultsByYear);
                                     }
                                     initPagination();
+                                    setupContainerEventDelegation();
                                 }, 200);
                             }, 500);
 
@@ -1046,7 +1046,7 @@
                                     };
 
                                     // Submit with new sort order
-                                    fetch('{{ route('astrology.check') }}', {
+                                    fetch('{{ route('dam-ngo.check') }}', {
                                             method: 'POST',
                                             headers: {
                                                 'Content-Type': 'application/json',
@@ -1128,27 +1128,17 @@
                     });
             });
 
-            // Sort function - follow mua-xe pattern
-            function applySortingToTable(sortValue, year) {
-                // Tìm tab hiện tại hoặc sử dụng year parameter
-                let activeTab = document.querySelector('.tab-pane.show.active');
-                if (!activeTab && year) {
-                    activeTab = document.querySelector(`#year-${year}`);
-                }
-                if (!activeTab) {
-                    console.log('No active tab found');
-                    return;
-                }
-
-                // Tìm table trong tab hiện tại
-                const table = activeTab.querySelector('#bang-chi-tiet table tbody');
+            // Sort function - updated for single table format
+            function applySortingToTable(sortValue) {
+                // Find single table (no tabs)
+                const table = document.querySelector('#table-all tbody');
                 if (!table) {
-                    console.log('No table found for sorting in active tab');
+                    console.log('No single table found for sorting');
                     return;
                 }
 
                 const rows = Array.from(table.querySelectorAll('tr'));
-                console.log(`Found ${rows.length} rows to sort in tab ${activeTab.id}`);
+                console.log(`Found ${rows.length} rows to sort in single table`);
 
                 rows.sort((a, b) => {
                     if (sortValue === 'date_asc' || sortValue === 'date_desc') {
@@ -1168,48 +1158,62 @@
                 table.innerHTML = '';
                 rows.forEach(row => table.appendChild(row));
 
-                // Maintain current pagination - pass year parameter
-                const currentYear = activeTab.id.replace('year-', '');
-                maintainCurrentPagination(table, currentYear);
+                // Maintain current pagination for single table
+                maintainCurrentPagination(table, 'all');
             }
 
-            // Event delegation for sorting - follow mua-xe pattern
-            const resultContainer = document.querySelector('.--detail-success');
-            resultContainer.addEventListener('change', function(event) {
-                if (event.target.matches('[name="sort"]')) {
-                    console.log('Sort changed to:', event.target.value);
+            // Event delegation for sorting - updated for single table
+            function setupContainerEventDelegation() {
+                console.log('Setting up container event delegation for dam-ngo');
+                const resultContainer = document.querySelector('.--detail-success');
+                if (resultContainer) {
+                    console.log('Result container found, setting up event delegation');
 
-                    // Tìm năm hiện tại từ tab active
-                    const activeTab = document.querySelector('.tab-pane.show.active');
-                    const currentYear = activeTab ? activeTab.id.replace('year-', '') : null;
+                    // Remove any existing event listeners
+                    const existingHandler = resultContainer.__sortHandler;
+                    if (existingHandler) {
+                        resultContainer.removeEventListener('change', existingHandler);
+                    }
 
-                    applySortingToTable(event.target.value, currentYear);
-                    setTimeout(() => {
-                        const bangChiTiet = activeTab?.querySelector('#bang-chi-tiet');
-                        bangChiTiet?.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }, 100);
+                    // Add new event handler
+                    const sortHandler = function(event) {
+                        if (event.target.matches('[name="sort"]')) {
+                            console.log('Sort changed to:', event.target.value);
+                            applySortingToTable(event.target.value);
+                            setTimeout(() => {
+                                const bangChiTiet = document.querySelector('#bang-chi-tiet');
+                                bangChiTiet?.scrollIntoView({
+                                    behavior: 'smooth',
+                                    block: 'start'
+                                });
+                            }, 100);
+                        }
+                    };
+
+                    resultContainer.addEventListener('change', sortHandler);
+                    resultContainer.__sortHandler = sortHandler;
+                    console.log('Sort event delegation setup complete');
+                } else {
+                    console.log('Result container not found');
                 }
-            });
+            }
 
-            // Pagination functions
+            // Pagination functions - updated for single table
             function initPagination() {
                 const resultsContainer = document.querySelector('.--detail-success');
                 resultsContainer.addEventListener('click', function(event) {
                     if (event.target.matches('.load-more-btn') || event.target.closest('.load-more-btn')) {
                         const btn = event.target.matches('.load-more-btn') ? event.target : event.target
                             .closest('.load-more-btn');
-                        const year = btn.getAttribute('data-year');
+                        const year = btn.getAttribute('data-year'); // Should be 'all' for single table
                         const currentLoaded = parseInt(btn.getAttribute('data-loaded'));
                         const total = parseInt(btn.getAttribute('data-total'));
                         const loadMore = Math.min(10, total - currentLoaded);
 
-                        // Show next 10 items
-                        const table = document.querySelector(`#table-${year} tbody`);
+                        // Show next 10 items in single table
+                        const table = document.querySelector('#table-all tbody');
                         if (table) {
-                            const allRows = table.querySelectorAll('.table-row-' + year);
+                            const allRows = table.querySelectorAll('.table-row-all');
                             for (let i = currentLoaded; i < currentLoaded + loadMore; i++) {
                                 if (allRows[i]) {
                                     allRows[i].style.display = '';
@@ -1224,8 +1228,7 @@
                             const remaining = total - newLoaded;
                             if (remaining > 0) {
                                 const nextLoad = Math.min(10, remaining);
-                                btn.innerHTML =
-                                    `Xem thêm`;
+                                btn.innerHTML = `Xem thêm`;
                             } else {
                                 btn.style.display = 'none';
                             }

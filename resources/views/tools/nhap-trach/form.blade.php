@@ -2,7 +2,7 @@
 
 @section('content')
     @push('styles')
-        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=11.3') }}">
+        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=11.5') }}">
     @endpush
 
     <div class="container-setup">
@@ -172,8 +172,7 @@
                                                 </div>
 
                                                 <div class="input-group mb-4">
-                                                    <div for="date_range" class="fw-bold title-tong-quan-h4-log ">Dự kiến
-                                                        thời gian nhập trạch</div>
+                                                    <div for="date_range" class="fw-bold title-tong-quan-h4-log ">Thời gian dự kiến nhập trạch</div>
                                                     <div class="input-group">
                                                         <input type="text"
                                                             class="form-control wedding_date_range --border-box-form @error('date_range') is-invalid @enderror"

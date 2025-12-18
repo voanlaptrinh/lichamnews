@@ -4,7 +4,7 @@
 
 @section('content')
 @push('styles')
-<link rel="stylesheet" href="{{ asset('/css/thansohoc.css?v=11.3') }}">
+<link rel="stylesheet" href="{{ asset('/css/thansohoc.css?v=11.5') }}">
 <!-- Tailwind CSS -->
 <script src="https://cdn.tailwindcss.com"></script>
 <script>

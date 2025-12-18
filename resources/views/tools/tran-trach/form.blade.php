@@ -2,7 +2,7 @@
 
 @section('content')
     @push('styles')
-        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=11.3') }}">
+        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=11.5') }}">
     @endpush
 
     <div class="container-setup">
@@ -126,8 +126,7 @@
 
 
                                                 <div class="input-group mb-4">
-                                                    <div for="date_range" class="fw-bold title-tong-quan-h4-log"  style="color: #192E52; padding-bottom: 12px;">Dự kiến
-                                                        thời gian trấn trạch</div>
+                                                    <div for="date_range" class="fw-bold title-tong-quan-h4-log"  style="color: #192E52; padding-bottom: 12px;">Thời gian dự kiến trấn trạch</div>
                                                     <div class="input-group">
                                                         <input type="text"
                                                             class="form-control wedding_date_range --border-box-form @error('date_range') is-invalid @enderror"
@@ -789,9 +788,23 @@
                             setTimeout(() => {
                                 // Sử dụng global initTabooFilter từ component
                                 if (typeof window.initTabooFilter === 'function') {
-                                    window.initTabooFilter(data.resultsByYear);
+                                    // Convert to single table format like other tools
+                                    const allDays = [];
+                                    Object.keys(data.resultsByYear).forEach(year => {
+                                        if (data.resultsByYear[year] && data.resultsByYear[year].days) {
+                                            allDays.push(...data.resultsByYear[year].days);
+                                        }
+                                    });
+
+                                    const combinedData = {
+                                        'all': {
+                                            days: allDays
+                                        }
+                                    };
+                                    window.initTabooFilter(combinedData);
                                 }
                                 initPagination();
+                                setupContainerEventDelegation();
                             }, 200);
                         } else if (data.errors) {
                             // Show validation errors
@@ -842,39 +855,12 @@
             function applySortingToTable(sortValue, year = null) {
                 console.log('applySortingToTable called with:', sortValue, 'year:', year);
 
-                // If no year specified, try to get active tab year
-                if (!year) {
-                    const activeTab = document.querySelector('.tab-pane.show.active');
-                    if (activeTab) {
-                        year = activeTab.id.replace('year-', '');
-                    }
-                }
-
-                console.log('Using year for sorting:', year);
-
-                // Find table for specific year first
                 let table = null;
+                // For single table structure
+                table = document.querySelector('#table-all tbody') ||
+                       document.querySelector('#bang-chi-tiet table tbody');
 
-                if (year) {
-                    // Year-specific table search
-                    const activeTabPane = document.querySelector(`#year-${year}`);
-                    if (activeTabPane) {
-                        table = activeTabPane.querySelector(`#table-${year} tbody`) ||
-                            activeTabPane.querySelector('.table tbody') ||
-                            activeTabPane.querySelector('tbody');
-                    }
-
-                    // Fallback: global search for year-specific table
-                    if (!table) {
-                        table = document.querySelector(`#table-${year} tbody`);
-                    }
-                }
-
-                // Fallback: general search
-                if (!table) {
-                    table = document.querySelector('#bang-chi-tiet table tbody');
-                }
-
+                // Method 2: Any table in results container
                 if (!table) {
                     const resultsContainer = document.querySelector('.--detail-success');
                     if (resultsContainer) {
@@ -984,6 +970,39 @@
             }
         };
 
+        // Setup container-level event delegation for sorting
+        function setupContainerEventDelegation() {
+            console.log('Setting up container event delegation for tran-trach');
+            const resultContainer = document.querySelector('.--detail-success');
+            if (resultContainer) {
+                console.log('Result container found, setting up event delegation');
+                // Remove existing listener to prevent duplicates
+                resultContainer.removeEventListener('change', handleContainerChange);
+                // Add new listener
+                resultContainer.addEventListener('change', handleContainerChange);
+                console.log('Container event delegation setup complete');
+            } else {
+                console.log('Result container not found');
+            }
+        }
+
+        function handleContainerChange(event) {
+            if (event.target.name === 'sort') {
+                console.log('Sort dropdown changed to:', event.target.value);
+                event.preventDefault();
+                event.stopPropagation();
+                // For single table structure - use 'all' year
+                applySortingToTable(event.target.value, 'all');
+                // Scroll to table after sort
+                setTimeout(() => {
+                    const table = document.querySelector('#table-all, #bang-chi-tiet table');
+                    if (table) {
+                        table.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }, 100);
+            }
+        }
+
         // ========== PAGINATION & SORT FUNCTIONS - GIỐNG TOT-XAU ==========
         function initPagination() {
             console.log('initPagination called');
@@ -997,7 +1016,7 @@
                     const year = btn.dataset.year;
                     const loaded = parseInt(btn.dataset.loaded);
                     const total = parseInt(btn.dataset.total);
-                    const tbody = document.querySelector(`.table-body-${year}`);
+                    const tbody = document.querySelector('.table-body-all') || document.querySelector(`#table-all tbody`);
 
                     if (!tbody) return;
 

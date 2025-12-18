@@ -2,7 +2,7 @@
 
 @section('content')
     @push('styles')
-        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=11.3') }}">
+        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=11.5') }}">
     @endpush
 
     <div class="container-setup">
@@ -125,8 +125,7 @@
 
 
                                                 <div class="input-group mb-4">
-                                                    <div for="date_range" class="fw-bold title-tong-quan-h4-log"  style="color: #192E52; padding-bottom: 12px;">Dự kiến
-                                                        thời gian thi cử - phỏng vấn</div>
+                                                    <div for="date_range" class="fw-bold title-tong-quan-h4-log"  style="color: #192E52; padding-bottom: 12px;">Thời gian dự kiến thi cử - phỏng vấn</div>
                                                     <div class="input-group">
                                                         <input type="text"
                                                             class="form-control wedding_date_range --border-box-form @error('date_range') is-invalid @enderror"
@@ -714,8 +713,22 @@
                                 setTimeout(() => {
                                     if (data.resultsByYear && typeof initTabooFilter ===
                                         'function') {
-                                        initTabooFilter(data.resultsByYear);
+                                        // Convert to single table format like other tools
+                                        const allDays = [];
+                                        Object.keys(data.resultsByYear).forEach(year => {
+                                            if (data.resultsByYear[year] && data.resultsByYear[year].days) {
+                                                allDays.push(...data.resultsByYear[year].days);
+                                            }
+                                        });
+
+                                        const combinedData = {
+                                            'all': {
+                                                days: allDays
+                                            }
+                                        };
+                                        initTabooFilter(combinedData);
                                     }
+                                    setupContainerEventDelegation();
                                 }, 200);
                             }, 300);
   setTimeout(() => {
@@ -851,31 +864,16 @@
             function applySortingToTable(sortValue, year = null) {
                 console.log('applySortingToTable called with:', sortValue, 'year:', year);
 
-                // If no year specified, try to get active tab year
-                if (!year) {
-                    const activeTab = document.querySelector('.tab-pane.show.active');
-                    if (activeTab) {
-                        year = activeTab.id.replace('year-', '');
-                    }
-                }
-
-                console.log('Using year for sorting:', year);
-
-                // Find table for specific year first
                 let table = null;
+                // For single table structure
+                table = document.querySelector('#table-all tbody') ||
+                       document.querySelector('#bang-chi-tiet table tbody');
 
-                if (year) {
-                    // Year-specific table search
-                    const activeTabPane = document.querySelector(`#year-${year}`);
-                    if (activeTabPane) {
-                        table = activeTabPane.querySelector(`#table-${year} tbody`) ||
-                            activeTabPane.querySelector('.table tbody') ||
-                            activeTabPane.querySelector('tbody');
-                    }
-
-                    // Fallback: global search for year-specific table
-                    if (!table) {
-                        table = document.querySelector(`#table-${year} tbody`);
+                // Method 2: Any table in results container
+                if (!table) {
+                    const resultsContainer = document.querySelector('.--detail-success');
+                    if (resultsContainer) {
+                        table = resultsContainer.querySelector('table tbody');
                     }
                 }
 
@@ -973,6 +971,39 @@
                 }
             });
 
+            // Setup container-level event delegation for sorting
+            function setupContainerEventDelegation() {
+                console.log('Setting up container event delegation for thi-cu');
+                const resultContainer = document.querySelector('.--detail-success');
+                if (resultContainer) {
+                    console.log('Result container found, setting up event delegation');
+                    // Remove existing listener to prevent duplicates
+                    resultContainer.removeEventListener('change', handleContainerChange);
+                    // Add new listener
+                    resultContainer.addEventListener('change', handleContainerChange);
+                    console.log('Container event delegation setup complete');
+                } else {
+                    console.log('Result container not found');
+                }
+            }
+
+            function handleContainerChange(event) {
+                if (event.target.name === 'sort') {
+                    console.log('Sort dropdown changed to:', event.target.value);
+                    event.preventDefault();
+                    event.stopPropagation();
+                    // For single table structure - use 'all' year
+                    applySortingToTable(event.target.value, 'all');
+                    // Scroll to table after sort
+                    setTimeout(() => {
+                        const table = document.querySelector('#table-all, #bang-chi-tiet table');
+                        if (table) {
+                            table.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
+                    }, 100);
+                }
+            }
+
             // Load more functionality
             resultsContainer.addEventListener('click', function(event) {
                 if (event.target.closest('.load-more-btn')) {
@@ -986,10 +1017,10 @@
                         `Load more for year ${year}: showing ${currentLoaded + loadAmount} out of ${total}`
                     );
 
-                    // Show more rows for this specific year
-                    const yearTab = document.querySelector(`#year-${year}`);
-                    if (yearTab) {
-                        const rows = yearTab.querySelectorAll(`.table-row-${year}`);
+                    // Show more rows for single table
+                    const table = document.querySelector('#table-all tbody') || document.querySelector('#bang-chi-tiet table tbody');
+                    if (table) {
+                        const rows = table.querySelectorAll('.table-row-all');
 
                         for (let i = currentLoaded; i < Math.min(currentLoaded + loadAmount, total); i++) {
                             if (rows[i]) {

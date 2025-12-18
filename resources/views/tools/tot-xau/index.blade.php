@@ -1,7 +1,7 @@
 @extends('welcome')
 @section('content')
     @push('styles')
-        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=11.3') }}">
+        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=11.5') }}">
     @endpush
 
 
@@ -117,7 +117,7 @@
                                             </div>
 
                                             <div class="fw-bold title-tong-quan-h4-log"
-                                                style="color: #192E52; padding-bottom: 12px;">Khoảng thời gian cần xem
+                                                style="color: #192E52; padding-bottom: 12px;">Dự kiến thời gian cần xem
                                             </div>
                                             <div class="mb-4">
                                                 <div class="input-group">
@@ -837,9 +837,23 @@
                             setTimeout(() => {
                                 // Sử dụng global initTabooFilter từ component
                                 if (typeof window.initTabooFilter === 'function') {
-                                    window.initTabooFilter(data.resultsByYear);
+                                    // Convert to single table format like other tools
+                                    const allDays = [];
+                                    Object.keys(data.resultsByYear).forEach(year => {
+                                        if (data.resultsByYear[year] && data.resultsByYear[year].days) {
+                                            allDays.push(...data.resultsByYear[year].days);
+                                        }
+                                    });
+
+                                    const combinedData = {
+                                        'all': {
+                                            days: allDays
+                                        }
+                                    };
+                                    window.initTabooFilter(combinedData);
                                 }
                                 initPagination();
+                                setupContainerEventDelegation();
                             }, 200);
 
                             // Scroll to results with delay to ensure content is rendered
@@ -914,32 +928,28 @@
                     return 0;
                 }
 
-                function applySortingToTable(sortValue) {
-                    // Tìm tab hiện tại đang active
-                    const activeTab = document.querySelector('.tab-pane.show.active');
-                    if (!activeTab) {
-                        // Fallback cho single table (không có tabs)
-                        const table = document.querySelector('#bang-chi-tiet table tbody');
-                        if (table) {
-                            applySortToSingleTable(table, sortValue);
+                function applySortingToTable(sortValue, year = null) {
+                    console.log('applySortingToTable called with:', sortValue, 'year:', year);
+
+                    let table = null;
+                    // For single table structure
+                    table = document.querySelector('#table-all tbody') ||
+                           document.querySelector('#bang-chi-tiet table tbody');
+
+                    // Method 2: Any table in results container
+                    if (!table) {
+                        const resultsContainer = document.querySelector('.--detail-success');
+                        if (resultsContainer) {
+                            table = resultsContainer.querySelector('table tbody');
                         }
-                        return;
                     }
-
-                    // Multi-tab case: Lấy năm từ active tab
-                    const activeYear = activeTab.id.replace('year-', '');
-                    console.log('Sorting for active year:', activeYear);
-
-                    // Tìm table trong active tab
-                    const table = activeTab.querySelector('table tbody') ||
-                        activeTab.querySelector('.table-body-' + activeYear) ||
-                        activeTab.querySelector('#table-' + activeYear + ' tbody');
 
                     if (!table) {
-                        console.log('No table found in active tab for year:', activeYear);
+                        console.log('No table found for sorting');
                         return;
                     }
 
+                    console.log('Table found for sorting:', table);
                     applySortToSingleTable(table, sortValue);
                 }
 
@@ -1179,7 +1189,38 @@
 
             });
 
+            // Setup container-level event delegation for sorting
+            function setupContainerEventDelegation() {
+                console.log('Setting up container event delegation for tot-xau');
+                const resultContainer = document.querySelector('.--detail-success');
+                if (resultContainer) {
+                    console.log('Result container found, setting up event delegation');
+                    // Remove existing listener to prevent duplicates
+                    resultContainer.removeEventListener('change', handleContainerChange);
+                    // Add new listener
+                    resultContainer.addEventListener('change', handleContainerChange);
+                    console.log('Container event delegation setup complete');
+                } else {
+                    console.log('Result container not found');
+                }
+            }
 
+            function handleContainerChange(event) {
+                if (event.target.name === 'sort') {
+                    console.log('Sort dropdown changed to:', event.target.value);
+                    event.preventDefault();
+                    event.stopPropagation();
+                    // For single table structure - use 'all' year
+                    applySortingToTable(event.target.value, 'all');
+                    // Scroll to table after sort
+                    setTimeout(() => {
+                        const table = document.querySelector('#table-all, #bang-chi-tiet table');
+                        if (table) {
+                            table.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
+                    }, 100);
+                }
+            }
         });
 
         // ========== INCLUDE TABOO FILTER COMPONENT ==========

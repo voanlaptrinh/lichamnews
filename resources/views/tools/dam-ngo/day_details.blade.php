@@ -2,7 +2,7 @@
 
 @section('content')
     @push('styles')
-        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=11.3') }}">
+        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=11.5') }}">
     @endpush
 
     <div class="container-setup">
@@ -23,7 +23,7 @@
                 </li>
             </ol>
         </nav>
-        <h1 class="content-title-home-lich">Chi tiết xem dạm ngõ  {{ $commonDayInfo['dateToCheck']->format('d/m/Y') }}</h1>
+        <h1 class="content-title-home-lich">Chi tiết xem ngày dạm ngõ  {{ $commonDayInfo['dateToCheck']->format('d/m/Y') }}</h1>
        <div>
             <div class="row g-lg-3 g-2 pt-lg-3 pt-2">
                 <div class="col-xl-9 col-sm-12 col-12 ">

@@ -2,7 +2,7 @@
 
 @section('content')
     @push('styles')
-        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=11.3') }}">
+        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=11.5') }}">
     @endpush
 
     <div class="container-setup">
@@ -12,7 +12,8 @@
                     <a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
                 </li>
                 <li class="breadcrumb-item" aria-current="page">
-                            <a href="{{ route('totxau.list') }}"  style="color: #2254AB; text-decoration: underline;">Xem ngày tốt</a>
+                    <a href="{{ route('totxau.list') }}" style="color: #2254AB; text-decoration: underline;">Xem ngày
+                        tốt</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
                     Xem ngày nhận việc mới
@@ -33,16 +34,18 @@
                             <div class="col-lg-8">
                                 <div class="">
                                     <div class="form--submit-totxau">
-                                        <div class="fw-bold  title-tong-quan-h2-log"  style="color: #192E52">
+                                        <div class="fw-bold  title-tong-quan-h2-log" style="color: #192E52">
                                             Thông tin người
                                             xem
                                         </div>
-                                        <p class="mb-2" style=" font-size: 14px; color: #212121;">Nhập thông tin ngày sinh của người xem vào ô dưới đây.</p>
+                                        <p class="mb-2" style=" font-size: 14px; color: #212121;">Nhập thông tin ngày sinh
+                                            của người xem vào ô dưới đây.</p>
                                         <form id="congViecMoiForm"> @csrf
 
                                             <div class="row">
                                                 <div class="mb-3">
-                                                       <div for="birthdate" class="fw-bold title-tong-quan-h4-log mb-2">Ngày tháng năm sinh</div>
+                                                    <div for="birthdate" class="fw-bold title-tong-quan-h4-log mb-2">Ngày
+                                                        tháng năm sinh</div>
                                                     <!-- Date Selects -->
                                                     <div class="row g-2 mb-2">
                                                         <div class="col-6 col-sm-4 col-lg-4 col-xl-4">
@@ -124,8 +127,8 @@
 
 
                                                 <div class="input-group mb-4">
-                                                    <div for="date_range" class="fw-bold title-tong-quan-h4-log"  style="color: #192E52; padding-bottom: 12px;">Dự kiến
-                                                        thời gian nhận việc mới</div>
+                                                    <div for="date_range" class="fw-bold title-tong-quan-h4-log"
+                                                        style="color: #192E52; padding-bottom: 12px;">Thời gian dự kiến nhận việc mới</div>
                                                     <div class="input-group">
                                                         <input type="text"
                                                             class="form-control wedding_date_range --border-box-form @error('date_range') is-invalid @enderror"
@@ -134,9 +137,10 @@
                                                             value="{{ old('date_range', $inputs['date_range'] ?? '') }}"
                                                             style="border-radius: 10px; border: none; padding: 12px 30px 12px 15px; background-color: rgba(255,255,255,0.95); cursor: pointer;">
                                                         <span class="input-group-text bg-transparent border-0"
-                                                        style="position: absolute; right: 2px; top: 50%; transform: translateY(-50%); z-index: 5; pointer-events: none;">
-                                                       <img src="{{ asset('images/date1-icon.svg') }}" alt="icon ngày tháng năm" class="img-fluid">
-                                                    </span>
+                                                            style="position: absolute; right: 2px; top: 50%; transform: translateY(-50%); z-index: 5; pointer-events: none;">
+                                                            <img src="{{ asset('images/date1-icon.svg') }}"
+                                                                alt="icon ngày tháng năm" class="img-fluid">
+                                                        </span>
                                                     </div>
                                                     @error('date_range')
                                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -157,17 +161,18 @@
 
                                 </div>
                             </div>
-                             <div class="col-lg-4 d-none d-lg-flex">
+                            <div class="col-lg-4 d-none d-lg-flex">
                                 <div class="d-flex align-items-center justify-content-center h-100 w-100"
                                     style="padding: 32px 32px 32px 0px;">
-                                    <div class="d-flex align-items-center justify-content-center h-100 w-100" style=" background-image: url(../images/form_congviec.svg);
+                                    <div class="d-flex align-items-center justify-content-center h-100 w-100"
+                                        style=" background-image: url(../images/form_congviec.svg);
                                     background-repeat: no-repeat;
                                     background-size: cover;
                                     align-items: normal;
                                     background-position: center center;
                                     overflow: hidden;
                                     border-radius: 12px">
-                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -304,7 +309,7 @@
                                 <li class="mb-2">Nhập tuổi người nhận việc (âm lịch hoặc dương lịch)</li>
                                 <li class="mb-2">Chọn khoảng thời gian dự kiến bắt đầu công việc</li>
                                 <li class="mb-2">
-                                  Hệ thống sẽ phân tích:
+                                    Hệ thống sẽ phân tích:
                                     <ul class="mb-1">
                                         <li>Hoàng đạo – hắc đạo.</li>
                                         <li>Trực tốt – trực xấu.</li>
@@ -313,7 +318,8 @@
                                         <li>Giờ hoàng đạo và giờ xung tuổi.</li>
                                     </ul>
                                 </li>
-                                <li class="mb-2">Bạn chỉ cần chọn ngày và giờ phù hợp để khởi đầu công việc thuận lợi và may mắn.</li>
+                                <li class="mb-2">Bạn chỉ cần chọn ngày và giờ phù hợp để khởi đầu công việc thuận lợi và
+                                    may mắn.</li>
                             </ul>
                             <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
                                 Lợi ích thực tế khi chọn đúng ngày nhận công việc mới
@@ -778,14 +784,32 @@
                                 setTimeout(() => {
                                     if (data.resultsByYear && typeof initTabooFilter ===
                                         'function') {
-                                        initTabooFilter(data.resultsByYear);
+                                        const allDays = [];
+                                        Object.keys(data.resultsByYear).forEach(
+                                        year => {
+                                            if (data.resultsByYear[year] && data
+                                                .resultsByYear[year].days) {
+                                                allDays.push(...data
+                                                    .resultsByYear[year]
+                                                    .days);
+                                            }
+                                        });
+
+                                        const combinedData = {
+                                            'all': {
+                                                days: allDays
+                                            }
+                                        };
+
+                                        window.initTabooFilter(combinedData);
                                     }
                                 }, 200);
                             }, 300);
 
                             // Scroll to results with delay to ensure content is rendered
-                             setTimeout(() => {
-                                const contentBoxSuccess = document.getElementById('content-box-success');
+                            setTimeout(() => {
+                                const contentBoxSuccess = document.getElementById(
+                                    'content-box-success');
                                 if (contentBoxSuccess) {
                                     contentBoxSuccess.scrollIntoView({
                                         behavior: 'smooth',
@@ -880,6 +904,5 @@
         });
     </script>
 
-    @include('components.next-year-button-handler')
     @include('components.taboo-filter-script')
 @endpush

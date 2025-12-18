@@ -2,7 +2,7 @@
 
 @section('content')
     @push('styles')
-        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=11.3') }}">
+        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=11.5') }}">
     @endpush
 
     <div class="container-setup">
@@ -139,8 +139,7 @@
 
                                                 <div class="input-group mb-4">
                                                     <div for="date_range" class="fw-bold title-tong-quan-h4-log"
-                                                        style="color: #192E52; padding-bottom: 12px;">Dự kiến
-                                                        thời gian ký hợp đồng</div>
+                                                        style="color: #192E52; padding-bottom: 12px;">Thời gian dự kiến ký hợp đồng</div>
                                                     <div class="input-group">
                                                         <input type="text"
                                                             class="form-control wedding_date_range --border-box-form @error('date_range') is-invalid @enderror"
@@ -849,45 +848,28 @@
 
                             // Scroll to results with delay to ensure content is rendered
                             setTimeout(() => {
-                                const contentBoxSuccess = document.getElementById(
-                                    'content-box-success');
-                                if (contentBoxSuccess) {
-                                    contentBoxSuccess.scrollIntoView({
-                                        behavior: 'smooth',
-                                        block: 'start'
+                                // Combine all days like khai-truong
+                                if (data.resultsByYear && typeof initTabooFilter === 'function') {
+                                    const allDays = [];
+                                    Object.keys(data.resultsByYear).forEach(year => {
+                                        if (data.resultsByYear[year] && data.resultsByYear[year].days) {
+                                            allDays.push(...data.resultsByYear[year].days);
+                                        }
                                     });
-                                } else {
-                                    resultsContainer.scrollIntoView({
-                                        behavior: 'smooth',
-                                        block: 'start'
-                                    });
+
+                                    const combinedData = {
+                                        'all': {
+                                            days: allDays
+                                        }
+                                    };
+
+                                    console.log('Initializing taboo filter for ky-hop-dong with combined data:', combinedData);
+                                    window.initTabooFilter(combinedData);
                                 }
+
+                                initPagination();
+                                setupContainerEventDelegation();
                             }, 600);
-                            // setTimeout(() => {
-                            //     resultsContainer.scrollIntoView({
-                            //         behavior: 'smooth',
-                            //         block: 'start'
-                            //     });
-
-
-                            // }, 500);
-
-                            // Re-initialize Bootstrap tabs if present
-                            const tabs = resultsContainer.querySelectorAll('[data-bs-toggle="tab"]');
-                            tabs.forEach(tab => {
-                                new bootstrap.Tab(tab);
-                            });
-                            setTimeout(() => {
-
-                                resultsContainer.innerHTML = data.html;
-                                setTimeout(() => {
-                                    if (typeof window.initTabooFilter === 'function') {
-                                        window.initTabooFilter(data.resultsByYear);
-                                    }
-                                    initPagination();
-                                    setupContainerEventDelegation();
-                                }, 200);
-                            }, 500);
                         } else if (data.errors) {
                             // Show validation errors
                             let errorMessage = 'Vui lòng kiểm tra lại:\\n';
@@ -1003,9 +985,10 @@
                     console.log('Looking for year-specific table:', `#table-${year} tbody`);
                 }
 
-                // Method 1: Direct search if no year or year-specific table not found
+                // Method 1: Try single table structure first (like khai-truong)
                 if (!table) {
-                    table = document.querySelector('#bang-chi-tiet table tbody');
+                    table = document.querySelector('#table-all tbody') ||
+                           document.querySelector('#bang-chi-tiet table tbody');
                 }
 
                 // Method 2: Any table in results container
@@ -1127,10 +1110,12 @@
                         const total = parseInt(btn.getAttribute('data-total'));
                         const loadMore = Math.min(10, total - currentLoaded);
 
-                        // Show next 10 items
-                        const table = document.querySelector(`#table-${year} tbody`);
+                        // Show next 10 items - updated for single table structure
+                        const table = document.querySelector(`#table-${year} tbody`) ||
+                                    document.querySelector('#table-all tbody') ||
+                                    document.querySelector('#bang-chi-tiet table tbody');
                         if (table) {
-                            const allRows = table.querySelectorAll('.table-row-' + year);
+                            const allRows = table.querySelectorAll('.table-row-' + year + ', .table-row-all');
                             for (let i = currentLoaded; i < currentLoaded + loadMore; i++) {
                                 if (allRows[i]) {
                                     allRows[i].style.display = '';
@@ -1145,8 +1130,7 @@
                             const remaining = total - newLoaded;
                             if (remaining > 0) {
                                 const nextLoad = Math.min(10, remaining);
-                                btn.innerHTML =
-                                    `Xem thêm`;
+                                btn.innerHTML = `Xem thêm`;
                             } else {
                                 btn.style.display = 'none';
                             }

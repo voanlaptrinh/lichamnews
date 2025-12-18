@@ -1,39 +1,30 @@
 <div class="w-100" id="content-box-succes">
-    <!-- Tabs cho các năm -->
+    <!-- Combine all days from all years into one array -->
+    @php
+        $allDays = [];
+        foreach ($resultsByYear as $year => $yearData) {
+            if (isset($yearData['days']) && count($yearData['days']) > 0) {
+                foreach ($yearData['days'] as $day) {
+                    // Add current year to calculate tuổi âm from current year
+                    $currentYear = date('Y');
+                    $birthYear = explode('/', $birthdateInfo['solar_date'])[2];
+                    $lunarAge = $currentYear - $birthYear + 1;
+                    $day['lunar_age'] = $lunarAge;
+                    $allDays[] = $day;
+                }
+            }
+        }
+
+        // Sort all days by date
+        usort($allDays, function ($a, $b) {
+            return $a['date'] <=> $b['date'];
+        });
+    @endphp
+
     @if (isset($resultsByYear) && count($resultsByYear) > 0)
-        <div class="box-tab-white mb-3">
-             <div class="text-primary ms-2 mb-2 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
-                Khoảng thời gian xem
-            </div>
-            <div class="year-tabs ">
-                <ul class="nav nav-pills">
-                    @php $firstYear = true; @endphp
-                    @foreach ($resultsByYear as $year => $yearData)
-                        <li class="nav-item">
-                            <a class="nav-link {{ $firstYear ? 'active' : '' }}" data-bs-toggle="pill"
-                                href="#year-{{ $year }}"
-                                style="border-radius: 20px; margin: 0 5px; padding: 8px 20px;">
-                                {{ $year }}
-                                @if (isset($yearData['canchi']))
-                                    ({{ $yearData['canchi'] }})
-                                @endif
-                            </a>
-                        </li>
-                        @php $firstYear = false; @endphp
-                    @endforeach
-                </ul>
-            </div>
-        </div>
-
-    @endif
-
-
-
-    <!-- Tab content -->
-    <div class="tab-content">
-        @php $firstYear = true; @endphp
-        @foreach ($resultsByYear as $year => $yearData)
-            <div class="tab-pane fade {{ $firstYear ? 'show active' : '' }}" id="year-{{ $year }}">
+     
+        <!-- Single table content -->
+        <div class="single-table-content">
 
                 <div class="card border-0 mb-3 w-100 box-detial-year">
                     <div class="card-body box1-con-year">
@@ -45,23 +36,30 @@
                         @if (isset($birthdateInfo))
                             <div class="info-grid">
                                 <p class="mb-2">
-                                    <strong>Ngày sinh:</strong>
-                                    {{ $birthdateInfo['solar_date'] ?? '' }} tức ngày
-                                    {{ $birthdateInfo['lunar_date'] ?? '' }} âm lịch
+                                    <strong>Ngày sinh dương lịch:</strong>
+                                    {{ $birthdateInfo['solar_date'] ?? '' }} 
+                                </p>
+                                  <p class="mb-2">
+                                    <strong>Ngày sinh âm lịch:</strong>
+                                   
+                                    {{ $birthdateInfo['lunar_date'] ?? '' }}
                                 </p>
                                 <p class="mb-2">
                                     <strong>Tuổi:</strong>
-                                    <b>{{ $birthdateInfo['can_chi'] ?? '' }}</b>, mệnh:
+                                    {{ $birthdateInfo['can_chi'] ?? '' }}
+                                </p>
+                          <p class="mb-2">
+                                    <strong>Mệnh:</strong>
+                                    
                                     {{ $birthdateInfo['menh']['hanh'] ?? '' }}
                                     ({{ $birthdateInfo['menh']['napAm'] ?? '' }})
                                 </p>
-                         
                                 <p class="mb-2">
                                     <strong>Tuổi âm:</strong>
-                                    <span id="tuoi-am-value-{{ $year }}">
+                                    <span id="tuoi-am-value-all">
                                         @php
                                             $birthYear = explode('/', $birthdateInfo['solar_date'])[2];
-                                            $tuoiAm = $year - $birthYear + 1;
+                                            $tuoiAm = $currentYear - $birthYear + 1;
                                         @endphp
                                         {{ $tuoiAm }} tuổi
                                     </span>
@@ -79,7 +77,7 @@
                 <div class="card border-0 mb-3 w-100 box-detial-year">
                     <div class="card-body">
 
-                        @if (isset($yearData['days']) && count($yearData['days']) > 0)
+                        @if (isset($allDays) && count($allDays) > 0)
                             <!-- Filter and Sort Controls - trực tiếp trên table -->
                             <div class="betwen-ds flex-wrap mb-3">
                                 <div class="text-primary mb-0 title-tong-quan-h4-log text-dark fw-bolder">
@@ -89,7 +87,7 @@
                                 <div class="d-flex flex-wrap" style="gap: 10px">
                                     <div class="position-relative mb-3">
                                         <button type="button" class="taboo-filter-btn form-select-sm sort-select"
-                                            data-year="{{ $year }}">
+                                            data-year="all">
                                             <span>Lọc ngày kỵ</span>
 
                                             <i class="bi bi-chevron-down ms-2"></i>
@@ -108,16 +106,16 @@
                                 </div>
                             </div>
 
-                            <!-- Filter Status for this tab -->
-                            <div id="filterStatus-{{ $year }}" class="alert alert-success d-none mb-3"
+                            <!-- Filter Status for single table -->
+                            <div id="filterStatus-all" class="alert alert-success d-none mb-3"
                                 role="alert">
                                 <i class="bi bi-funnel"></i>
-                                <span id="filterStatusText-{{ $year }}"></span>
+                                <span id="filterStatusText-all"></span>
                             </div>
 
                             <div class="table-responsive w-100" id="bang-chi-tiet">
                                 <table class="table table-hover align-middle w-100 table-layout"
-                                    id="table-{{ $year }}" style=" width: 100%;">
+                                    id="table-all" style=" width: 100%;">
                                     <thead class="text-center" style="background-color: #e8ebee;">
                                         <tr>
                                             <th style="border-radius: 8px 0 0 8px">Ngày</th>
@@ -125,8 +123,8 @@
                                             <th style=" border-radius: 0 8px 8px 0" class="score-header">Điểm</th>
                                         </tr>
                                     </thead>
-                                    <tbody class="text-center table-body-{{ $year }}">
-                                        @foreach ($yearData['days'] as $index => $day)
+                                    <tbody class="text-center table-body-all">
+                                        @foreach ($allDays as $index => $day)
                                             @php
                                                 $score =
                                                     $day['day_score']['score']['percentage'] ??
@@ -183,7 +181,7 @@
                                                     $text_box = '#10B981';
                                                 }
                                             @endphp
-                                            <tr class="table-row-{{ $year }}" data-index="{{ $index }}"
+                                            <tr class="table-row-all" data-index="{{ $index }}"
                                                 style="{{ $index >= 10 ? 'display: none;' : '' }}"
                                                 data-visible="{{ $index < 10 ? 'true' : 'false' }}"
                                                 data-taboo-days="{{ implode(',', $tabooTypes) }}">
@@ -331,33 +329,15 @@
                                 </table>
 
                                 <!-- Nút xem thêm -->
-                                @if (count($yearData['days']) > 10)
+                                @if (count($allDays) > 10)
                                     <div class="text-center mt-3">
                                         <button type="button" class="btn btn-outline-primary load-more-btn"
-                                            data-year="{{ $year }}" data-loaded="10"
-                                            data-total="{{ count($yearData['days']) }}">
+                                            data-year="all" data-loaded="10"
+                                            data-total="{{ count($allDays) }}">
                                             Xem thêm
                                         </button>
                                     </div>
                                 @endif
-
-                                <!-- Container cho nút xem năm tiếp theo -->
-                                <div class="text-center mt-3" id="next-year-container-{{ $year }}" style="display: none;">
-                                    @php
-                                        // Tìm năm tiếp theo
-                                        $years = array_keys($resultsByYear);
-                                        $currentIndex = array_search($year, $years);
-                                        $nextYear = isset($years[$currentIndex + 1]) ? $years[$currentIndex + 1] : null;
-                                    @endphp
-
-                                    @if($nextYear)
-                                        <button type="button" class="btn btn-success next-year-btn"
-                                            data-current-year="{{ $year }}" data-next-year="{{ $nextYear }}"
-                                            style="padding: 12px 20px; font-weight: 600; border-radius: 25px; box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);">
-                                            <i class="fas fa-arrow-right me-2"></i>Xem năm tiếp theo ({{ $nextYear }})
-                                        </button>
-                                    @endif
-                                </div>
                                  <div class="card-body box1-con-year pe-1 ps-1">
                                 <div class="text-primary mb-2  text-dark d-flex align-items-center p-3" style="border: 1px solid rgb(173, 173, 173);border-radius: 10px">
                                     ⚠️ Chú ý: Đây là các thông tin xem mang tính chất tham khảo, không thay thế cho các
@@ -376,11 +356,8 @@
                         @endif
                     </div>
                 </div>
-
-            </div>
-            @php $firstYear = false; @endphp
-        @endforeach
-    </div>
+        </div>
+    @endif
 
 
 

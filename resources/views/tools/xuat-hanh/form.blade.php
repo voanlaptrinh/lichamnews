@@ -2,7 +2,7 @@
 
 @section('content')
     @push('styles')
-        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=11.3') }}">
+        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=11.5') }}">
     @endpush
 
     <div class="container-setup">
@@ -128,8 +128,7 @@
 
                                                 <div class="input-group mb-4">
                                                     <div for="date_range" class="fw-bold title-tong-quan-h4-log fst-italic"
-                                                        style="color: #192E52; padding-bottom: 12px;">Dự kiến
-                                                        thời gian xuất hành</div>
+                                                        style="color: #192E52; padding-bottom: 12px;">Thời gian dự kiến xuất hành</div>
                                                     <div class="input-group">
                                                         <input type="text"
                                                             class="form-control wedding_date_range --border-box-form @error('date_range') is-invalid @enderror"
@@ -704,7 +703,20 @@
                                 setTimeout(() => {
                                     if (data.resultsByYear) {
                                         if (typeof window.initTabooFilter === 'function') {
-                                            window.initTabooFilter(data.resultsByYear);
+                                            // Convert to single table format like other tools
+                                            const allDays = [];
+                                            Object.keys(data.resultsByYear).forEach(year => {
+                                                if (data.resultsByYear[year] && data.resultsByYear[year].days) {
+                                                    allDays.push(...data.resultsByYear[year].days);
+                                                }
+                                            });
+
+                                            const combinedData = {
+                                                'all': {
+                                                    days: allDays
+                                                }
+                                            };
+                                            window.initTabooFilter(combinedData);
                                         }
                                     }
                                     initPagination();
@@ -759,20 +771,8 @@
                         event.preventDefault();
                         event.stopPropagation();
 
-                        // Find the current active year for multi-year support
-                        const activeTab = document.querySelector('.tab-pane.active');
-                        if (activeTab) {
-                            const yearMatch = activeTab.id.match(/year-(\d+)/);
-                            if (yearMatch) {
-                                const currentYear = yearMatch[1];
-                                console.log('Applying sort to year:', currentYear);
-                                applySortingToTable(event.target.value, currentYear);
-                            } else {
-                                applySortingToTable(event.target.value);
-                            }
-                        } else {
-                            applySortingToTable(event.target.value);
-                        }
+                        // For single table structure - use 'all' year
+                        applySortingToTable(event.target.value, 'all');
 
                         // Scroll to table after sort
                         setTimeout(() => {
@@ -814,33 +814,16 @@
                 function applySortingToTable(sortValue, year = null, maintainCurrentPagination = true) {
                     console.log('applySortingToTable called with:', sortValue, 'year:', year);
 
-                    // Try multiple ways to find the table like other working tools
                     let table = null;
-
-                    // If year is provided, target specific year table
-                    if (year) {
-                        table = document.querySelector(`#table-${year} tbody`);
-                        console.log('Looking for year-specific table:', `#table-${year} tbody`);
-                    }
-
-                    // Method 1: Direct search if no year or year-specific table not found
-                    if (!table) {
-                        table = document.querySelector('#bang-chi-tiet table tbody');
-                    }
+                    // For single table structure
+                    table = document.querySelector('#table-all tbody') ||
+                           document.querySelector('#bang-chi-tiet table tbody');
 
                     // Method 2: Any table in results container
                     if (!table) {
                         const resultsContainer = document.querySelector('.--detail-success');
                         if (resultsContainer) {
                             table = resultsContainer.querySelector('table tbody');
-                        }
-                    }
-
-                    // Method 3: Try to find table in active tab if still not found
-                    if (!table) {
-                        const activeTab = document.querySelector('.tab-pane.active');
-                        if (activeTab) {
-                            table = activeTab.querySelector('table tbody');
                         }
                     }
 
@@ -948,9 +931,9 @@
                             const loadMore = Math.min(10, total - currentLoaded);
 
                             // Show next 10 items
-                            const table = document.querySelector(`#table-${year} tbody`);
+                            const table = document.querySelector('#table-all tbody') || document.querySelector('#bang-chi-tiet table tbody');
                             if (table) {
-                                const allRows = table.querySelectorAll('.table-row-' + year);
+                                const allRows = table.querySelectorAll('.table-row-all');
                                 for (let i = currentLoaded; i < currentLoaded + loadMore; i++) {
                                     if (allRows[i]) {
                                         allRows[i].style.display = '';

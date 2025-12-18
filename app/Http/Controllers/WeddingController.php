@@ -295,7 +295,7 @@ class WeddingController extends Controller
         } else {
             $factorsString = implode(', ', $badFactors);
             $titlesString = implode(', ', $badFactorTitles);
-            $message = "Năm {$yearToCheck}, {$genderText} phạm {$factorsString}. Đây là một năm <strong>chưa thực sự tốt</strong>. Nếu tiến hành hôn sự cần cân nhắc hoặc tìm cách hóa giải các hạn: {$titlesString}.";
+            $message = "Năm {$yearToCheck}, {$genderText} phạm {$factorsString}. Đây là một năm <strong>chưa thực sự tốt</strong>. Nếu tiến hành hôn sự cần cân nhắc dời sang năm khác hoặc tìm cách hóa giải các hạn gặp phải.";
         }
 
         return [

@@ -107,10 +107,38 @@ function initTabooFilter(resultsByYear) {
         return lucXungMap[userChi] === dayChi;
     }
 
-    // Hàm kiểm tra xem ngày có chứa taboo không - Phiên bản hybrid tương thích
+    // Hàm kiểm tra xem ngày có chứa taboo không - Simplified để fix bug
     function hasTaboo(day, tabooNames) {
+        // SPECIAL CASE: Lục xung check
         if (tabooNames.includes('Lục xung') && isLucXung(window.userChi, day.full_lunar_date_str)) {
             return true;
+        }
+
+        // Check data-taboo-days in DOM directly
+        const tbody = document.querySelector('.table-body-all');
+        if (!tbody || !day.date) {
+            return false;
+        }
+
+        const allRows = tbody.querySelectorAll('tr[data-taboo-days]');
+        const dayDate = new Date(day.date);
+
+        for (let row of allRows) {
+            const rowDate = getDateFromRowForTabooCheck(row);
+
+            if (rowDate.toDateString() === dayDate.toDateString()) {
+                const tabooData = row.getAttribute('data-taboo-days');
+
+                if (tabooData && tabooData.trim()) {
+                    const rowTaboos = tabooData.split(',').map(t => t.trim()).filter(t => t);
+
+                    // Check if any selected taboo matches any row taboo
+                    const hasMatch = tabooNames.some(selectedTaboo => rowTaboos.includes(selectedTaboo));
+                    return hasMatch;
+                }
+
+                return false; // Found row but no taboo data
+            }
         }
       
         // Kiểm tra trong wedding tool - dual score structure (groom_score và bride_score)
@@ -292,7 +320,6 @@ function initTabooFilter(resultsByYear) {
             });
             if (found) return true;
         }
-
         return false;
     }
 
@@ -300,35 +327,29 @@ function initTabooFilter(resultsByYear) {
     function updateTable(year, filteredDays, preserveCurrentLoaded = false) {
       
 
-        // Tìm tbody theo nhiều selector để tương thích - chỉ trong tab đúng
-        const activeTabPane = document.querySelector(`#year-${year}`);
- 
-
+        // Enhanced tbody finding logic
         let tbody = null;
-        if (activeTabPane) {
-            // Tìm trong tab cụ thể trước
-            tbody = activeTabPane.querySelector(`.table-body-${year}`);
-            if (!tbody) {
-                tbody = activeTabPane.querySelector(`#table-${year} tbody`);
+
+
+        // Simplified tbody search for single table
+        if (year === 'all') {
+            tbody = document.querySelector('.table-body-all');
+        } else {
+            const activeTabPane = document.querySelector(`#year-${year}`);
+            if (activeTabPane) {
+                tbody = activeTabPane.querySelector(`.table-body-${year}`) ||
+                       activeTabPane.querySelector(`#table-${year} tbody`) ||
+                       activeTabPane.querySelector('.table tbody') ||
+                       activeTabPane.querySelector('tbody');
             }
+
             if (!tbody) {
-                tbody = activeTabPane.querySelector('.table tbody');
+                tbody = document.querySelector(`.table-body-${year}`) ||
+                       document.querySelector(`#table-${year} tbody`);
             }
         }
 
-        // Fallback: tìm global nếu không tìm thấy trong tab
         if (!tbody) {
-            tbody = document.querySelector(`.table-body-${year}`);
-            if (!tbody) {
-                tbody = document.querySelector(`#table-${year} tbody`);
-            }
-        }
-
-        if (!tbody) {
-            console.warn(`Không tìm thấy tbody cho năm ${year}`, {
-                activeTabPane: activeTabPane,
-                year: year
-            });
             return;
         }
 
@@ -344,24 +365,33 @@ function initTabooFilter(resultsByYear) {
         let currentLoaded = 10; // Default là 10
 
         if (!loadMoreBtn) {
-            // Không có nút "Xem thêm" → không có pagination (data ≤ 10)
-            console.log(`no pagination - no load more button found`);
-            currentLoaded = allRows.length; // Hiển thị tất cả
+            currentLoaded = allRows.length;
         } else if (preserveCurrentLoaded && loadMoreBtn) {
-            // Có nút và cần preserve current loaded
             const loadedFromBtn = parseInt(loadMoreBtn.dataset.loaded);
             const currentVisible = allRows.filter(row => row.style.display !== 'none').length;
             currentLoaded = loadedFromBtn || currentVisible || 10;
-            console.log(`has pagination - preserving loaded: ${currentLoaded}`);
         } else {
-            // Có nút nhưng reset về default
-            console.log(`has pagination - reset to default: ${currentLoaded}`);
+            currentLoaded = 10;
         }
 
-        // Ẩn tất cả rows trước
+        // Ẩn tất cả rows trước, và áp dụng filter taboo
         allRows.forEach(row => {
-            row.style.display = 'none';
-            row.dataset.visible = 'false';
+            const tabooData = row.getAttribute('data-taboo-days');
+
+            // Kiểm tra nếu row có taboo được chọn
+            let shouldHide = false;
+            if (tabooData && tabooData.trim() && window.currentSelectedTaboos && window.currentSelectedTaboos.length > 0) {
+                const rowTaboos = tabooData.split(',').map(t => t.trim()).filter(t => t);
+                shouldHide = window.currentSelectedTaboos.some(selectedTaboo => rowTaboos.includes(selectedTaboo));
+            }
+
+            if (shouldHide) {
+                row.style.display = 'none';
+                row.dataset.visible = 'false';
+            } else {
+                row.style.display = 'none'; // Ẩn tất cả trước, sẽ hiển thị lại theo filteredDays
+                row.dataset.visible = 'false';
+            }
         });
 
         // Hiển thị theo thứ tự của filteredDays với pagination
@@ -372,28 +402,57 @@ function initTabooFilter(resultsByYear) {
             if (visibleCount >= currentLoaded) return; // Dừng khi đã đủ items cho pagination
 
             // Tìm row DOM tương ứng với filteredDay
-            const originalIndex = originalData[year].findIndex(originalDay => {
+            // Use correct originalData key based on year parameter
+            const dataKey = year === 'all' ? 'all' : year;
+            const originalDataForYear = originalData[dataKey];
+
+            if (!originalDataForYear) {
+                console.warn(`No original data found for key ${dataKey}`);
+                return;
+            }
+
+            const originalIndex = originalDataForYear.findIndex(originalDay => {
                 if (filteredDay.date && originalDay.date) {
                     const filteredDateStr = new Date(filteredDay.date).toDateString();
                     const originalDateStr = new Date(originalDay.date).toDateString();
-                    const match = filteredDateStr === originalDateStr;
-                    // if (filteredIndex < 3) { // Log first few for debugging
-                    //     console.log(`Date comparison for year ${year}: ${filteredDateStr} vs ${originalDateStr} = ${match}`);
-                    // }
-                    return match;
+                    return filteredDateStr === originalDateStr;
                 }
                 return false;
             });
 
             if (originalIndex !== -1 && allRows[originalIndex]) {
-                allRows[originalIndex].style.display = '';
-                allRows[originalIndex].dataset.visible = 'true';
-                visibleCount++;
-                // if (visibleCount <= 3) { // Log first few visible rows
-                //     console.log(`Showing row ${originalIndex} for date ${filteredDay.date} in year ${year}`);
-                // }
-            } else {
-                console.warn(`Could not find row for date ${filteredDay.date} in year ${year}, originalIndex: ${originalIndex}, allRows.length: ${allRows.length}`);
+                const row = allRows[originalIndex];
+                const tabooData = row.getAttribute('data-taboo-days');
+
+                // Kiểm tra nếu row có taboo được chọn thì không hiển thị
+                let shouldHide = false;
+                if (tabooData && tabooData.trim() && window.currentSelectedTaboos && window.currentSelectedTaboos.length > 0) {
+                    const rowTaboos = tabooData.split(',').map(t => t.trim()).filter(t => t);
+                    shouldHide = window.currentSelectedTaboos.some(selectedTaboo => rowTaboos.includes(selectedTaboo));
+
+                    console.log(`🔍 Row filter check: data-taboo-days="${tabooData}", selected=[${window.currentSelectedTaboos.join(',')}], shouldHide=${shouldHide}`);
+                } else if (window.currentSelectedTaboos && window.currentSelectedTaboos.length > 0) {
+                    console.log(`🔍 Row filter check: data-taboo-days="${tabooData}" (empty), selected=[${window.currentSelectedTaboos.join(',')}], shouldHide=${shouldHide}`);
+                }
+
+                if (!shouldHide) {
+                    // Remove force hide styles and show
+                    row.style.removeProperty('visibility');
+                    row.style.removeProperty('position');
+                    row.style.removeProperty('left');
+                    row.style.setProperty('display', '', 'important');
+                    row.dataset.visible = 'true';
+                    visibleCount++;
+                    console.log(`✅ SHOWING row: data-taboo-days="${tabooData}" (selectedTaboos: [${window.currentSelectedTaboos?.join(', ') || 'NONE'}])`);
+                } else {
+                    // Force hide with multiple methods
+                    row.style.setProperty('display', 'none', 'important');
+                    row.style.visibility = 'hidden';
+                    row.style.position = 'absolute';
+                    row.style.left = '-9999px';
+                    row.dataset.visible = 'false';
+                    console.log(`❌ FORCE HIDING row: data-taboo-days="${tabooData}" (selectedTaboos: [${window.currentSelectedTaboos?.join(', ') || 'NONE'}])`);
+                }
             }
         });
 
@@ -588,12 +647,25 @@ function initTabooFilter(resultsByYear) {
 
       
 
+        // Debug: Log what buttons are actually found
+        console.log('🔍 BUTTON DEBUG: Found filter buttons:', allFilterBtns.length);
+        allFilterBtns.forEach((btn, index) => {
+            console.log(`Button ${index}:`, {
+                element: btn,
+                classes: btn.className,
+                dataset: btn.dataset,
+                id: btn.id
+            });
+        });
+
         // Bind event cho tất cả filter buttons tìm được
         allFilterBtns.forEach((filterBtn, index) => {
             if (filterBtn) {
+                // Remove existing listeners first to prevent duplicates
+                filterBtn.removeEventListener('click', openModal);
                 filterBtn.addEventListener('click', openModal);
                 const toolType = filterBtn.dataset.year || filterBtn.id || `button-${index}`;
-              
+                console.log(`✅ Event listener attached to button ${index} (${toolType})`);
             }
         });
 
@@ -681,12 +753,20 @@ function initTabooFilter(resultsByYear) {
            
 
             const selectedTaboos = [...new Set(Array.from(allCheckboxes).map(cb => cb.value))];
-        
 
-            // if (selectedTaboos.length === 0) {
-            //     alert('Vui lòng chọn ít nhất một loại taboo để lọc');
-            //     return;
-            // }
+            // Check if selection changed
+            const prevSelection = window.currentSelectedTaboos || [];
+            const selectionChanged = JSON.stringify(prevSelection.sort()) !== JSON.stringify(selectedTaboos.sort());
+
+            if (!selectionChanged) {
+                console.log('Filter selection unchanged, skipping re-filter');
+                return;
+            }
+
+            // Lưu vào global scope để updateTable có thể sử dụng
+            window.currentSelectedTaboos = selectedTaboos;
+
+            console.log('Filter selection changed:', prevSelection, '→', selectedTaboos);
 
             let totalFiltered = 0;
             let totalDays = 0;
@@ -702,11 +782,35 @@ function initTabooFilter(resultsByYear) {
 
                 totalDays += originalDays.length;
 
-                const filteredDays = originalDays.filter(day => {
-                    const hasTabooResult = hasTaboo(day, selectedTaboos);
-                    return !hasTabooResult;
-                });
-                totalFiltered += (originalDays.length - filteredDays.length);
+                // Skip hasTaboo filtering - we'll do it in updateTable via DOM
+                const filteredDays = originalDays;
+
+                // Calculate actual filtered count by checking DOM data-taboo-days
+                let actualFilteredCount = 0;
+                if (selectedTaboos.length > 0) {
+                    actualFilteredCount = originalDays.filter(day => {
+                        const tbody = document.querySelector('.table-body-all');
+                        if (!tbody) return false;
+
+                        const dayDate = new Date(day.date);
+                        const rows = tbody.querySelectorAll('tr[data-taboo-days]');
+
+                        for (let row of rows) {
+                            const rowDate = getDateFromRowForTabooCheck(row);
+                            if (rowDate.toDateString() === dayDate.toDateString()) {
+                                const tabooData = row.getAttribute('data-taboo-days');
+                                if (tabooData && tabooData.trim()) {
+                                    const rowTaboos = tabooData.split(',').map(t => t.trim()).filter(t => t);
+                                    return selectedTaboos.some(selected => rowTaboos.includes(selected));
+                                }
+                                break;
+                            }
+                        }
+                        return false;
+                    }).length;
+                }
+
+                totalFiltered += actualFilteredCount;
 
                 // Cập nhật dữ liệu hiện tại
                 currentFilteredData[year] = filteredDays;
@@ -721,15 +825,36 @@ function initTabooFilter(resultsByYear) {
             // Lưu trạng thái filter
             saveFilterState();
 
+            // Lưu selected taboos vào localStorage
+            localStorage.setItem('selectedTaboos', JSON.stringify(selectedTaboos));
+
             // Hiển thị trạng thái - tương thích với cả per-year và global filter status
             let totalDaysOriginal = 0;
             let totalDaysFiltered = 0;
             let totalDaysRemaining = 0;
 
+            // Recalculate actual visible rows from DOM
             Object.keys(resultsByYear).forEach(year => {
                 const currentYearDays = originalData[year]?.length || 0;
-                const currentYearFiltered = (originalData[year]?.length || 0) - (currentFilteredData[year]?.length || 0);
-                const currentYearRemaining = currentFilteredData[year]?.length || 0;
+
+                // Count visible rows in DOM instead of using filteredData
+                let actualVisibleRows = 0;
+                if (year === 'all') {
+                    const tbody = document.querySelector('.table-body-all');
+                    if (tbody) {
+                        const visibleRows = tbody.querySelectorAll('tr[data-taboo-days][data-visible="true"]');
+                        actualVisibleRows = visibleRows.length;
+                    }
+                } else {
+                    const tbody = document.querySelector(`.table-body-${year}`);
+                    if (tbody) {
+                        const visibleRows = tbody.querySelectorAll('tr[data-taboo-days][data-visible="true"]');
+                        actualVisibleRows = visibleRows.length;
+                    }
+                }
+
+                const currentYearFiltered = currentYearDays - actualVisibleRows;
+                const currentYearRemaining = actualVisibleRows;
 
                 totalDaysOriginal += currentYearDays;
                 totalDaysFiltered += currentYearFiltered;
@@ -769,7 +894,7 @@ function initTabooFilter(resultsByYear) {
 
                     // Ensure unique taboo names in message
                     const uniqueTaboos = [...new Set(selectedTaboos)];
-                    filterStatusText.textContent = `Đã lọc  ${uniqueTaboos.join(', ')} trong năm ${year}. Hiển thị ${currentVisibleCount}/${currentYearDays} ngày.`;
+                    filterStatusText.textContent = `Đã lọc  ${uniqueTaboos.join(', ')}`;
 
 
                 }
@@ -784,9 +909,9 @@ function initTabooFilter(resultsByYear) {
 
                 const uniqueTaboos = [...new Set(selectedTaboos)];
                 if (Object.keys(resultsByYear).length > 1) {
-                    globalFilterStatusText.textContent = `Đã lọc ${uniqueTaboos.join(', ')} trong ${Object.keys(resultsByYear).length} năm. Hiển thị ${totalDaysRemaining}/${totalDaysOriginal} ngày.`;
+                    globalFilterStatusText.textContent = `Đã lọc ${uniqueTaboos.join(', ')} trong ${Object.keys(resultsByYear).length} năm.`;
                 } else {
-                    globalFilterStatusText.textContent = `Đã lọc ${uniqueTaboos.join(', ')}. Hiển thị ${totalDaysRemaining}/${totalDaysOriginal} ngày.`;
+                    globalFilterStatusText.textContent = `Đã lọc ${uniqueTaboos.join(', ')}.`;
                 }
             }
 
@@ -817,12 +942,35 @@ function initTabooFilter(resultsByYear) {
             // Bỏ chọn tất cả checkbox
             document.querySelectorAll('.taboo-checkbox').forEach(cb => cb.checked = false);
 
+            // Clear global scope
+            window.currentSelectedTaboos = [];
+
             // Cập nhật badge
             updateFilterBadge();
 
+            // Clean up all force hide styles from all rows
+            const allTables = document.querySelectorAll('.table-body-all, [class*="table-body-"]');
+            allTables.forEach(tbody => {
+                const allRows = tbody.querySelectorAll('tr[data-taboo-days]');
+                allRows.forEach(row => {
+                    // Remove all force hide styles
+                    row.style.removeProperty('display');
+                    row.style.removeProperty('visibility');
+                    row.style.removeProperty('position');
+                    row.style.removeProperty('left');
+                    row.dataset.visible = 'false'; // Reset to false for pagination
+                });
+            });
+
             // Khôi phục hiển thị tất cả row cho tất cả năm với pagination ban đầu
             Object.keys(resultsByYear).forEach(year => {
-                const tbody = document.querySelector(`.table-body-${year}`);
+                let tbody;
+                if (year === 'all') {
+                    tbody = document.querySelector('.table-body-all');
+                } else {
+                    tbody = document.querySelector(`.table-body-${year}`);
+                }
+
                 if (tbody) {
                     // Hiển thị lại tất cả row gốc với pagination reset về 10
                     const allRows = tbody.querySelectorAll('tr:not(.empty-filter-row)');
@@ -871,6 +1019,9 @@ function initTabooFilter(resultsByYear) {
 
             // Lưu trạng thái filter (rỗng)
             saveFilterState();
+
+            // Clear localStorage
+            localStorage.removeItem('selectedTaboos');
 
             // Ẩn trạng thái cho tất cả tabs và global status
             Object.keys(resultsByYear).forEach(year => {
@@ -1078,45 +1229,112 @@ function initTabooFilter(resultsByYear) {
 
         
 
-                // Show more rows for this specific year
-                const yearTab = document.querySelector(`#year-${year}`);
-                if (yearTab) {
-                    const rows = yearTab.querySelectorAll(`.table-row-${year}`);
+                // Show more rows with filter preserved
+                let tbody, rows;
 
-                    for (let i = currentLoaded; i < Math.min(currentLoaded + loadAmount, total); i++) {
-                        if (rows[i]) {
-                            rows[i].style.display = '';
-                            rows[i].dataset.visible = 'true';
+                if (year === 'all') {
+                    // Single table
+                    tbody = document.querySelector('.table-body-all');
+                    rows = tbody ? tbody.querySelectorAll('.table-row-all') : [];
+                } else {
+                    // Multi-year table
+                    const yearTab = document.querySelector(`#year-${year}`);
+                    if (yearTab) {
+                        rows = yearTab.querySelectorAll(`.table-row-${year}`);
+                    }
+                }
+
+                if (rows && rows.length > 0) {
+                    let showCount = 0;
+
+                    console.log('🔧 LOAD MORE DEBUG START');
+                    console.log('Current filter:', window.currentSelectedTaboos);
+                    console.log('Total rows:', rows.length);
+
+                    let shownCount = 0;
+
+                    // First, log current state
+                    for (let i = 0; i < Math.min(rows.length, 10); i++) {
+                        const row = rows[i];
+                        const tabooData = row.getAttribute('data-taboo-days');
+                        const currentVisible = row.dataset.visible;
+                        const currentDisplay = row.style.display;
+                        console.log(`Row ${i}: taboo="${tabooData}" visible=${currentVisible} display=${currentDisplay}`);
+                    }
+
+                    // Loop through all rows to find next showable rows
+                    for (let i = 0; i < rows.length; i++) {
+                        const row = rows[i];
+
+                        // Check if row should be hidden due to filter
+                        let shouldHideByFilter = false;
+                        if (window.currentSelectedTaboos && window.currentSelectedTaboos.length > 0) {
+                            const tabooData = row.getAttribute('data-taboo-days');
+                            if (tabooData && tabooData.trim()) {
+                                const rowTaboos = tabooData.split(',').map(t => t.trim()).filter(t => t);
+                                shouldHideByFilter = window.currentSelectedTaboos.some(selectedTaboo => rowTaboos.includes(selectedTaboo));
+                            }
+                        }
+
+                        const wasVisible = row.dataset.visible === 'true';
+
+                        if (shouldHideByFilter) {
+                            // Force hide filtered rows with !important and remove from DOM flow
+                            row.style.setProperty('display', 'none', 'important');
+                            row.dataset.visible = 'false';
+                            row.style.visibility = 'hidden';
+                            row.style.position = 'absolute';
+                            row.style.left = '-9999px';
+                            if (wasVisible) {
+                                console.log(`❌ FORCE HIDING filtered row ${i}: ${row.getAttribute('data-taboo-days')}`);
+                            }
+                        } else {
+                            // Remove force hide styles first
+                            row.style.removeProperty('visibility');
+                            row.style.removeProperty('position');
+                            row.style.removeProperty('left');
+
+                            // Check if this row is currently hidden and can be shown
+                            if (row.dataset.visible !== 'true' && shownCount < loadAmount) {
+                                row.style.setProperty('display', '', 'important');
+                                row.dataset.visible = 'true';
+                                shownCount++;
+                                console.log(`✅ SHOWING new row ${i}: ${row.getAttribute('data-taboo-days')}`);
+                            } else if (row.dataset.visible === 'true') {
+                                // Keep existing display style
+                                console.log(`⚪ KEEPING visible row ${i}: ${row.getAttribute('data-taboo-days')}`);
+                            }
                         }
                     }
 
-                    // Update button
-                    const newLoaded = Math.min(currentLoaded + loadAmount, total);
-                    btn.dataset.loaded = newLoaded;
-                    const remaining = total - newLoaded;
+                    console.log(`🔧 LOAD MORE: Showed ${shownCount} new rows`);
+                    console.log('🔧 LOAD MORE DEBUG END');
 
-                    if (remaining > 0) {
-                        btn.innerHTML = `
+                    // Update button based on remaining hideable rows
+                    const visibleCount = Array.from(rows).filter(row => row.dataset.visible === 'true').length;
+                    const hiddenButShowableCount = Array.from(rows).filter(row => {
+                        if (row.dataset.visible === 'true') return false;
 
-                            Xem thêm
-                        `;
-                        // Sử dụng module NextYearButtonHandler
-                        if (window.NextYearButtonHandler) {
-                            window.NextYearButtonHandler.handleLoadMoreChange(year, true, 'taboo-filter-load-more');
+                        // Check if this hidden row can be shown (not filtered)
+                        let shouldHide = false;
+                        if (window.currentSelectedTaboos && window.currentSelectedTaboos.length > 0) {
+                            const tabooData = row.getAttribute('data-taboo-days');
+                            if (tabooData && tabooData.trim()) {
+                                const rowTaboos = tabooData.split(',').map(t => t.trim()).filter(t => t);
+                                shouldHide = window.currentSelectedTaboos.some(selectedTaboo => rowTaboos.includes(selectedTaboo));
+                            }
                         }
+
+                        return !shouldHide;
+                    }).length;
+
+                    btn.dataset.loaded = visibleCount;
+
+                    if (hiddenButShowableCount > 0) {
+                        btn.innerHTML = 'Xem thêm';
+                        btn.style.display = '';
                     } else {
                         btn.style.display = 'none';
-                        // Sử dụng module NextYearButtonHandler
-                        if (window.NextYearButtonHandler) {
-                            window.NextYearButtonHandler.handleLoadMoreChange(year, false, 'taboo-filter-load-more');
-                        }
-                    }
-
-                  
-
-                    // Update filter status for this year if filter is active
-                    if (typeof window.updateFilterStatusOnPagination === 'function') {
-                        window.updateFilterStatusOnPagination(year);
                     }
                 }
 
@@ -1182,6 +1400,7 @@ function initTabooFilter(resultsByYear) {
         const storageKey = `tabooFilter_${toolName}`;
         const savedFilter = localStorage.getItem(storageKey);
 
+
         if (savedFilter) {
             try {
                 selectedTaboos = JSON.parse(savedFilter);
@@ -1223,6 +1442,11 @@ function initTabooFilter(resultsByYear) {
     function applyFilterWithValues(selectedTaboos) {
         if (selectedTaboos.length === 0) return;
 
+        console.log('🔄 RESTORE: applyFilterWithValues called with:', selectedTaboos);
+
+        // Set global scope để updateTable có thể sử dụng - QUAN TRỌNG!
+        window.currentSelectedTaboos = selectedTaboos;
+
         let totalFiltered = 0;
         let totalDays = 0;
 
@@ -1263,7 +1487,7 @@ function initTabooFilter(resultsByYear) {
 
             if (filterStatus && filterStatusText) {
                 filterStatus.classList.remove('d-none');
-                filterStatusText.textContent = `Đã lọc ${selectedTaboos.join(', ')} trong năm ${year}. Hiển thị ${currentYearRemaining}/${currentYearDays} ngày.`;
+                filterStatusText.textContent = `Đã lọc ${selectedTaboos.join(', ')}`;
             }
         });
 
@@ -1275,9 +1499,9 @@ function initTabooFilter(resultsByYear) {
             globalFilterStatus.classList.remove('d-none');
 
             if (Object.keys(resultsByYear).length > 1) {
-                globalFilterStatusText.textContent = `Đã lọc  ${selectedTaboos.join(', ')} trong ${Object.keys(resultsByYear).length} năm. Hiển thị ${totalDaysRemaining}/${totalDaysOriginal} ngày.`;
+                globalFilterStatusText.textContent = `Đã lọc  ${selectedTaboos.join(', ')} trong ${Object.keys(resultsByYear).length} năm.`;
             } else {
-                globalFilterStatusText.textContent = `Đã lọc  ${selectedTaboos.join(', ')}. Hiển thị ${totalDaysRemaining}/${totalDaysOriginal} ngày.`;
+                globalFilterStatusText.textContent = `Đã lọc  ${selectedTaboos.join(', ')}.`;
             }
         }
     }
@@ -1592,7 +1816,7 @@ function initTabooFilter(resultsByYear) {
 
                 // Ensure unique taboo names in message
                 const uniqueTaboos = [...new Set(selectedTaboos)];
-                filterStatusText.textContent = `Đã lọc ${uniqueTaboos.join(', ')} trong năm ${year}. Hiển thị ${currentVisibleCount}/${currentYearDays} ngày.`;
+                filterStatusText.textContent = `Đã lọc ${uniqueTaboos.join(', ')}.`;
             }
         });
 
@@ -1605,9 +1829,9 @@ function initTabooFilter(resultsByYear) {
 
             const uniqueTaboos = [...new Set(selectedTaboos)];
             if (Object.keys(resultsByYear).length > 1) {
-                globalFilterStatusText.textContent = `Đã lọc  ${uniqueTaboos.join(', ')} trong ${Object.keys(resultsByYear).length} năm. Hiển thị ${totalDaysRemaining}/${totalDaysOriginal} ngày.`;
+                globalFilterStatusText.textContent = `Đã lọc  ${uniqueTaboos.join(', ')} trong ${Object.keys(resultsByYear).length} năm.`;
             } else {
-                globalFilterStatusText.textContent = `Đã lọc  ${uniqueTaboos.join(', ')}. Hiển thị ${totalDaysRemaining}/${totalDaysOriginal} ngày.`;
+                globalFilterStatusText.textContent = `Đã lọc  ${uniqueTaboos.join(', ')}.`;
             }
         }
     }
@@ -1728,7 +1952,7 @@ function updateFilterStatusOnPagination(year) {
         }
 
         const uniqueTaboos = [...new Set(selectedTaboos)];
-        filterStatusText.textContent = `Đã lọc ${uniqueTaboos.join(', ')} trong năm ${year}. Hiển thị ${actualVisibleCount}/${currentYearDays} ngày.`;
+        filterStatusText.textContent = `Đã lọc ${uniqueTaboos.join(', ')}.`;
 
      
     }
@@ -1791,6 +2015,55 @@ function clearFilter() {
     if (clearBtn && clearBtn._tabooHandler) {
         clearBtn._tabooHandler();
     }
+}
+
+// Helper function to get date from DOM row for taboo checking
+function getDateFromRowForTabooCheck(row) {
+    // Method 1: Look for date in strong elements first (most reliable for ban-tho)
+    const strongElements = row.querySelectorAll('strong');
+    for (let strong of strongElements) {
+        const text = strong.textContent.trim();
+        // Match date patterns like "Thứ Bảy, 21/12/2024"
+        let match = text.match(/(\d{1,2}\/\d{1,2}\/\d{4})/);
+        if (match) {
+            const dateStr = match[1];
+            const parts = dateStr.split('/');
+            const resultDate = new Date(parseInt(parts[2]), parseInt(parts[1]) - 1, parseInt(parts[0]));
+            return resultDate;
+        }
+    }
+
+    // Method 2: Check data attributes if available
+    if (row.dataset && row.dataset.date) {
+        const resultDate = new Date(row.dataset.date);
+        if (!isNaN(resultDate.getTime())) {
+            return resultDate;
+        }
+    }
+
+    // Method 3: Look for links with date patterns (ban-tho specific)
+    const links = row.querySelectorAll('a[href*="date="]');
+    for (let link of links) {
+        const href = link.getAttribute('href');
+        const urlMatch = href.match(/date=(\d{4}-\d{2}-\d{2})/);
+        if (urlMatch) {
+            const resultDate = new Date(urlMatch[1]);
+            return resultDate;
+        }
+    }
+
+    // Method 4: Fallback - look in all row text
+    const allText = row.textContent.trim();
+    const match = allText.match(/(\d{1,2}\/\d{1,2}\/\d{4})/);
+    if (match) {
+        const dateStr = match[1];
+        const parts = dateStr.split('/');
+        const resultDate = new Date(parseInt(parts[2]), parseInt(parts[1]) - 1, parseInt(parts[0]));
+        return resultDate;
+    }
+
+    console.warn('No valid date found in row, using epoch fallback');
+    return new Date(0); // Fallback to epoch
 }
 
 </script>

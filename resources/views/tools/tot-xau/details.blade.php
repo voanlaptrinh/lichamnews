@@ -3,7 +3,7 @@
 @section('content')
 
     @push('styles')
-        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=11.3') }}">
+        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=11.5') }}">
     @endpush
 
 
@@ -329,12 +329,8 @@
                             <div
                                 class="text-primary mb-3 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
                                 <img src="{{ asset('icons/dac-diem1.svg') }}" alt="thông tin người xem" width="28"
-                                    height="28" class="me-1"> <span>Đánh giá điểm chỉ số ngày tốt
-                                    {{ $groomData['personInfo']['can_chi_nam'] }}
-                                    ({{ $groomData['personInfo']['dob']->format('Y') }})
-                                    {{-- tốt xấu:
-                                    {{ round($groomData['score']['percentage']) }}/100
-                                    ({{ round($groomData['score']['percentage']) }}%) --}}
+                                    height="28" class="me-1"> <span>Đánh giá điểm chỉ số ngày tốt cho tuổi  {{ $groomData['personInfo']['can_chi_nam'] }} (Sinh ngày {{ $groomData['personInfo']['dob']->format('d-m-Y') }})
+                            
                                 </span>
                             </div>
                             <p>Chúng tôi dựa trên các yếu tố về Thiên - Địa - Nhân và gán trọng số để đánh giá chỉ

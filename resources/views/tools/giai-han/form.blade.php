@@ -1,7 +1,7 @@
 @extends('welcome')
 @section('content')
     @push('styles')
-        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=11.3') }}">
+        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=11.5') }}">
     @endpush
 
 
@@ -12,7 +12,8 @@
                     <a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
                 </li>
                 <li class="breadcrumb-item" aria-current="page">
-                            <a href="{{ route('totxau.list') }}"  style="color: #2254AB; text-decoration: underline;">Xem ngày tốt</a>
+                    <a href="{{ route('totxau.list') }}" style="color: #2254AB; text-decoration: underline;">Xem ngày
+                        tốt</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
                     Xem kết quả
@@ -33,13 +34,15 @@
                             <div class="col-lg-8">
                                 <div class="">
                                     <div class="form--submit-totxau">
-                                        <div class="fw-bold  title-tong-quan-h2-log"  style="color: #192E52">
+                                        <div class="fw-bold  title-tong-quan-h2-log" style="color: #192E52">
                                             Thông tin gia chủ
                                         </div>
-                                         <p class="mb-2" style=" font-size: 14px; color: #212121;">Nhập thông tin ngày sinh của người xem vào ô dưới đây.</p>
+                                        <p class="mb-2" style=" font-size: 14px; color: #212121;">Nhập thông tin ngày sinh
+                                            của người xem vào ô dưới đây.</p>
                                         <form id="giaiHanForm">
                                             <div class="mb-3">
-                                                   <div for="birthdate" class="fw-bold title-tong-quan-h4-log mb-2">Ngày tháng năm sinh</div>
+                                                <div for="birthdate" class="fw-bold title-tong-quan-h4-log mb-2">Ngày tháng
+                                                    năm sinh</div>
                                                 <!-- Date Selects -->
                                                 <div class="row g-2 mb-2">
                                                     <div class="col-6 col-sm-4 col-lg-4 col-xl-4">
@@ -113,19 +116,22 @@
                                                     value="{{ old('birthdate', $inputs['birthdate'] ?? '') }}">
                                             </div>
 
-                                            <div class="fw-bold title-tong-quan-h4-log"  style="color: #192E52; padding-bottom: 12px;">Khoảng thời gian cúng sao giải hạn
+                                            <div class="fw-bold title-tong-quan-h4-log"
+                                                style="color: #192E52; padding-bottom: 12px;">Thời gian dự kiến cúng sao giải
+                                                hạn
                                             </div>
                                             <div class="mb-4">
                                                 <div class="input-group">
                                                     <input type="text" readonly
                                                         class="form-control wedding_date_range --border-box-form"
-                                                        id="khoangNgay" name="date_range" placeholder="DD/MM/YY - DD/MM/YY"
-                                                        autocomplete="off"
+                                                        id="khoangNgay" name="date_range"
+                                                        placeholder="DD/MM/YY - DD/MM/YY" autocomplete="off"
                                                         value="{{ old('date_range', $inputs['date_range'] ?? '') }}"
                                                         style="border-radius: 10px; border: none; padding: 12px 30px 12px 15px; background-color: rgba(255,255,255,0.95); cursor: pointer;">
-                                                   <span class="input-group-text bg-transparent border-0"
+                                                    <span class="input-group-text bg-transparent border-0"
                                                         style="position: absolute; right: 2px; top: 50%; transform: translateY(-50%); z-index: 5; pointer-events: none;">
-                                                       <img src="{{ asset('images/date1-icon.svg') }}" alt="icon ngày tháng năm" class="img-fluid">
+                                                        <img src="{{ asset('images/date1-icon.svg') }}"
+                                                            alt="icon ngày tháng năm" class="img-fluid">
                                                     </span>
                                                 </div>
                                             </div>
@@ -141,17 +147,18 @@
 
                                 </div>
                             </div>
-                             <div class="col-lg-4 d-none d-lg-flex">
+                            <div class="col-lg-4 d-none d-lg-flex">
                                 <div class="d-flex align-items-center justify-content-center h-100 w-100"
                                     style="padding: 32px 32px 32px 0px;">
-                                    <div class="d-flex align-items-center justify-content-center h-100 w-100" style=" background-image: url(../images/form_giaihan.svg);
+                                    <div class="d-flex align-items-center justify-content-center h-100 w-100"
+                                        style=" background-image: url(../images/form_giaihan.svg);
                                     background-repeat: no-repeat;
                                     background-size: cover;
                                     align-items: normal;
                                     background-position: center center;
                                     overflow: hidden;
                                     border-radius: 12px">
-                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -793,7 +800,7 @@
                         // Reset button state
                         submitBtn.disabled = false;
                         submitBtn.innerHTML = originalBtnText;
-
+                        window.resultsByYear = data.resultsByYear;
                         if (data.success) {
                             // Update UI with results
                             const resultContainer = document.querySelector('.--detail-success');
@@ -802,15 +809,41 @@
                             // Initialize taboo filter and pagination after results are loaded
                             setTimeout(() => {
                                 // Sử dụng global initTabooFilter từ component
-                                if (typeof window.initTabooFilter === 'function') {
-                                    window.initTabooFilter(data.resultsByYear);
+                                if (data.resultsByYear && typeof initTabooFilter ===
+                                    'function') {
+                                    const allDays = [];
+                                    Object.keys(data.resultsByYear).forEach(
+                                        year => {
+                                            if (data.resultsByYear[year] && data
+                                                .resultsByYear[year].days) {
+                                                allDays.push(...data
+                                                    .resultsByYear[year]
+                                                    .days);
+                                            }
+                                        });
+
+                                    const combinedData = {
+                                        'all': {
+                                            days: allDays
+                                        }
+                                    };
+
+                                    window.initTabooFilter(combinedData);
                                 }
+
+
+
+
+                                // if (typeof window.initTabooFilter === 'function') {
+                                //     window.initTabooFilter(data.resultsByYear);
+                                // }
                                 initPagination();
                             }, 200);
 
                             // Scroll to results with delay to ensure content is rendered
-                             setTimeout(() => {
-                                const contentBoxSuccess = document.getElementById('content-box-success');
+                            setTimeout(() => {
+                                const contentBoxSuccess = document.getElementById(
+                                    'content-box-success');
                                 if (contentBoxSuccess) {
                                     contentBoxSuccess.scrollIntoView({
                                         behavior: 'smooth',
@@ -841,328 +874,328 @@
 
                         alert('Có lỗi xảy ra khi kết nối. Vui lòng thử lại.');
                     });
+            });
+            // Handle sorting change using event delegation
+            // This is already properly optimized with event delegation
 
-                // Handle sorting change using event delegation
-                // This is already properly optimized with event delegation
-
-                // Move sorting functions to be defined before use
-                function getScoreFromRow(row) {
-                    // Try to find score in battery element
-                    const battery = row.querySelector('.battery-label');
-                    if (battery) {
-                        return parseInt(battery.textContent.replace('%', '')) || 0;
-                    }
-
-                    // Try to find score in other score elements
-                    const scoreElement = row.querySelector('.diem-so, .score');
-                    if (scoreElement) {
-                        return parseInt(scoreElement.textContent.replace(/[^\d]/g, '')) || 0;
-                    }
-
-                    // Try to find score in any cell containing numbers
-                    const cells = row.querySelectorAll('td');
-                    for (let cell of cells) {
-                        const text = cell.textContent.trim();
-                        const match = text.match(/(\d+)/);
-                        if (match) {
-                            return parseInt(match[1]) || 0;
-                        }
-                    }
-
-                    return 0;
+            // Move sorting functions to be defined before use
+            function getScoreFromRow(row) {
+                // Try to find score in battery element
+                const battery = row.querySelector('.battery-label');
+                if (battery) {
+                    return parseInt(battery.textContent.replace('%', '')) || 0;
                 }
 
-                function applySortingToTable(sortValue, year = null) {
-                    console.log('applySortingToTable called with:', sortValue, 'year:', year);
+                // Try to find score in other score elements
+                const scoreElement = row.querySelector('.diem-so, .score');
+                if (scoreElement) {
+                    return parseInt(scoreElement.textContent.replace(/[^\d]/g, '')) || 0;
+                }
 
-                    // If no year specified, try to get active tab year
-                    if (!year) {
-                        const activeTab = document.querySelector('.tab-pane.show.active');
-                        if (activeTab) {
-                            year = activeTab.id.replace('year-', '');
-                        }
-                    }
-
-                    console.log('Using year for sorting:', year);
-
-                    // Find table for specific year first
-                    let table = null;
-
-                    if (year) {
-                        // Year-specific table search
-                        const activeTabPane = document.querySelector(`#year-${year}`);
-                        if (activeTabPane) {
-                            table = activeTabPane.querySelector(`#table-${year} tbody`) ||
-                                activeTabPane.querySelector('.table tbody') ||
-                                activeTabPane.querySelector('tbody');
-                        }
-
-                        // Fallback: global search for year-specific table
-                        if (!table) {
-                            table = document.querySelector(`#table-${year} tbody`);
-                        }
-                    }
-
-                    // Fallback: general search
-                    if (!table) {
-                        table = document.querySelector('#bang-chi-tiet table tbody');
-                    }
-
-                    if (!table) {
-                        const resultsContainer = document.querySelector('.--detail-success');
-                        if (resultsContainer) {
-                            table = resultsContainer.querySelector('table tbody');
-                        }
-                    }
-
-                    if (!table) {
-                        console.log('No table found for sorting');
-                        return;
-                    }
-
-                    console.log('Table found for sorting:', table);
-
-                    // Chỉ lấy các rows đang visible (không bị ẩn bởi taboo filter)
-                    const rows = Array.from(table.querySelectorAll('tr')).filter(row => {
-                        return row.style.display !== 'none' && !row.classList.contains(
-                            'empty-filter-row');
-                    });
-                    console.log(`Found ${rows.length} visible rows to sort`);
-
-                    rows.sort((a, b) => {
-                        if (sortValue === 'date_asc' || sortValue === 'date_desc') {
-                            const dateA = getDateFromRow(a);
-                            const dateB = getDateFromRow(b);
-                            const result = sortValue === 'date_asc' ? dateA - dateB : dateB -
-                                dateA;
-                            return result;
-                        } else {
-                            const scoreA = getScoreFromRow(a);
-                            const scoreB = getScoreFromRow(b);
-                            return sortValue === 'asc' ? scoreA - scoreB : scoreB - scoreA;
-                        }
-                    });
-
-                    // Lưu tất cả rows (bao gồm hidden) trước khi sort
-                    const allRows = Array.from(table.querySelectorAll('tr'));
-                    const hiddenRows = allRows.filter(row => {
-                        return row.style.display === 'none' || row.classList.contains(
-                            'empty-filter-row');
-                    });
-
-                    // Clear table và append lại: sorted visible rows + hidden rows
-                    table.innerHTML = '';
-                    rows.forEach(row => table.appendChild(row));
-                    hiddenRows.forEach(row => table.appendChild(row));
-
-                    // Giữ nguyên số lượng đang hiển thị thay vì reset về 10
-                    maintainCurrentPagination(table);
-
-                    // Update filter status for this year if taboo filter is active
-                    if (year && typeof window.updateFilterStatusOnPagination === 'function') {
-                        window.updateFilterStatusOnPagination(year);
+                // Try to find score in any cell containing numbers
+                const cells = row.querySelectorAll('td');
+                for (let cell of cells) {
+                    const text = cell.textContent.trim();
+                    const match = text.match(/(\d+)/);
+                    if (match) {
+                        return parseInt(match[1]) || 0;
                     }
                 }
 
-                // Handle sorting change using event delegation
-                const resultContainer = document.querySelector('.--detail-success');
-                resultContainer.addEventListener('change', function(event) {
-                    if (event.target.matches('[name="sort"]')) {
-                        console.log('Sort dropdown changed to:', event.target.value);
+                return 0;
+            }
 
-                        // Find the year from the parent tab
-                        const parentTabPane = event.target.closest('.tab-pane');
-                        const year = parentTabPane ? parentTabPane.id.replace('year-', '') :
-                            null;
+            function applySortingToTable(sortValue, year = null) {
+                console.log('applySortingToTable called with:', sortValue, 'year:', year);
 
-                        console.log('Sorting for year:', year);
+                // If no year specified, try to get active tab year
+                if (!year) {
+                    const activeTab = document.querySelector('.tab-pane.show.active');
+                    if (activeTab) {
+                        year = activeTab.id.replace('year-', '');
+                    }
+                }
 
-                        // Sync all sort dropdowns to same value
-                        const allSortSelects = document.querySelectorAll('[name="sort"]');
-                        allSortSelects.forEach(select => {
-                            if (select !== event.target) {
-                                select.value = event.target.value;
-                            }
-                        });
+                console.log('Using year for sorting:', year);
 
-                        applySortingToTable(event.target.value, year);
+                // Find table for specific year first
+                let table = null;
 
-                        // Scroll to active tab table after sort
-                        setTimeout(() => {
-                            if (year) {
-                                const yearTab = document.querySelector(`#year-${year}`);
-                                const bangChiTiet = yearTab?.querySelector(
-                                    '.table-responsive');
-                                bangChiTiet?.scrollIntoView({
-                                    behavior: 'smooth',
-                                    block: 'start'
-                                });
-                            } else {
-                                const activeTab = document.querySelector(
-                                    '.tab-pane.active');
-                                const bangChiTiet = activeTab?.querySelector(
-                                    '.table-responsive');
-                                bangChiTiet?.scrollIntoView({
-                                    behavior: 'smooth',
-                                    block: 'start'
-                                });
-                            }
-                        }, 100);
+                if (year) {
+                    // Year-specific table search
+                    const activeTabPane = document.querySelector(`#year-${year}`);
+                    if (activeTabPane) {
+                        table = activeTabPane.querySelector(`#table-${year} tbody`) ||
+                            activeTabPane.querySelector('.table tbody') ||
+                            activeTabPane.querySelector('tbody');
+                    }
+
+                    // Fallback: global search for year-specific table
+                    if (!table) {
+                        table = document.querySelector(`#table-${year} tbody`);
+                    }
+                }
+
+                // Fallback: general search
+                if (!table) {
+                    table = document.querySelector('#bang-chi-tiet table tbody');
+                }
+
+                if (!table) {
+                    const resultsContainer = document.querySelector('.--detail-success');
+                    if (resultsContainer) {
+                        table = resultsContainer.querySelector('table tbody');
+                    }
+                }
+
+                if (!table) {
+                    console.log('No table found for sorting');
+                    return;
+                }
+
+                console.log('Table found for sorting:', table);
+
+                // Chỉ lấy các rows đang visible (không bị ẩn bởi taboo filter)
+                const rows = Array.from(table.querySelectorAll('tr')).filter(row => {
+                    return row.style.display !== 'none' && !row.classList.contains(
+                        'empty-filter-row');
+                });
+                console.log(`Found ${rows.length} visible rows to sort`);
+
+                rows.sort((a, b) => {
+                    if (sortValue === 'date_asc' || sortValue === 'date_desc') {
+                        const dateA = getDateFromRow(a);
+                        const dateB = getDateFromRow(b);
+                        const result = sortValue === 'date_asc' ? dateA - dateB : dateB -
+                            dateA;
+                        return result;
+                    } else {
+                        const scoreA = getScoreFromRow(a);
+                        const scoreB = getScoreFromRow(b);
+                        return sortValue === 'asc' ? scoreA - scoreB : scoreB - scoreA;
                     }
                 });
 
-                // ========== PHÂN TRANG CHO BẢNG ==========
-                function initPagination() {
-                    // Sử dụng event delegation để handle động
-                    document.addEventListener('click', function(event) {
-                        if (event.target.matches('.load-more-btn') || event.target.closest(
-                                '.load-more-btn')) {
-                            const btn = event.target.matches('.load-more-btn') ? event.target :
-                                event.target.closest('.load-more-btn');
-                            const year = btn.dataset.year;
-                            const loaded = parseInt(btn.dataset.loaded);
-                            const total = parseInt(btn.dataset.total);
-                            const tbody = document.querySelector(`.table-body-${year}`);
+                // Lưu tất cả rows (bao gồm hidden) trước khi sort
+                const allRows = Array.from(table.querySelectorAll('tr'));
+                const hiddenRows = allRows.filter(row => {
+                    return row.style.display === 'none' || row.classList.contains(
+                        'empty-filter-row');
+                });
 
-                            if (!tbody) return;
+                // Clear table và append lại: sorted visible rows + hidden rows
+                table.innerHTML = '';
+                rows.forEach(row => table.appendChild(row));
+                hiddenRows.forEach(row => table.appendChild(row));
 
-                            const rows = tbody.querySelectorAll('tr');
-                            let newLoaded = loaded;
+                // Giữ nguyên số lượng đang hiển thị thay vì reset về 10
+                maintainCurrentPagination(table);
 
-                            // Hiển thị thêm 10 rows tiếp theo
-                            for (let i = loaded; i < Math.min(loaded + 10, total); i++) {
-                                if (rows[i]) {
-                                    rows[i].style.display = '';
-                                    rows[i].dataset.visible = 'true';
-                                    newLoaded++;
-                                }
+                // Update filter status for this year if taboo filter is active
+                if (year && typeof window.updateFilterStatusOnPagination === 'function') {
+                    window.updateFilterStatusOnPagination(year);
+                }
+            }
+
+            // Handle sorting change using event delegation
+            const resultContainer = document.querySelector('.--detail-success');
+            resultContainer.addEventListener('change', function(event) {
+                if (event.target.matches('[name="sort"]')) {
+                    console.log('Sort dropdown changed to:', event.target.value);
+
+                    // Find the year from the parent tab
+                    const parentTabPane = event.target.closest('.tab-pane');
+                    const year = parentTabPane ? parentTabPane.id.replace('year-', '') :
+                        null;
+
+                    console.log('Sorting for year:', year);
+
+                    // Sync all sort dropdowns to same value
+                    const allSortSelects = document.querySelectorAll('[name="sort"]');
+                    allSortSelects.forEach(select => {
+                        if (select !== event.target) {
+                            select.value = event.target.value;
+                        }
+                    });
+
+                    applySortingToTable(event.target.value, year);
+
+                    // Scroll to active tab table after sort
+                    setTimeout(() => {
+                        if (year) {
+                            const yearTab = document.querySelector(`#year-${year}`);
+                            const bangChiTiet = yearTab?.querySelector(
+                                '.table-responsive');
+                            bangChiTiet?.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                        } else {
+                            const activeTab = document.querySelector(
+                                '.tab-pane.active');
+                            const bangChiTiet = activeTab?.querySelector(
+                                '.table-responsive');
+                            bangChiTiet?.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                        }
+                    }, 100);
+                }
+            });
+
+            // ========== PHÂN TRANG CHO BẢNG ==========
+            function initPagination() {
+                // Sử dụng event delegation để handle động
+                document.addEventListener('click', function(event) {
+                    if (event.target.matches('.load-more-btn') || event.target.closest(
+                            '.load-more-btn')) {
+                        const btn = event.target.matches('.load-more-btn') ? event.target :
+                            event.target.closest('.load-more-btn');
+                        const year = btn.dataset.year;
+                        const loaded = parseInt(btn.dataset.loaded);
+                        const total = parseInt(btn.dataset.total);
+                        const tbody = document.querySelector(`.table-body-${year}`);
+
+                        if (!tbody) return;
+
+                        const rows = tbody.querySelectorAll('tr');
+                        let newLoaded = loaded;
+
+                        // Hiển thị thêm 10 rows tiếp theo
+                        for (let i = loaded; i < Math.min(loaded + 10, total); i++) {
+                            if (rows[i]) {
+                                rows[i].style.display = '';
+                                rows[i].dataset.visible = 'true';
+                                newLoaded++;
                             }
+                        }
 
-                            // Cập nhật dataset và text
-                            btn.dataset.loaded = newLoaded;
-                            const remaining = total - newLoaded;
+                        // Cập nhật dataset và text
+                        btn.dataset.loaded = newLoaded;
+                        const remaining = total - newLoaded;
 
-                            if (remaining > 0) {
-                                btn.innerHTML = `
+                        if (remaining > 0) {
+                            btn.innerHTML = `
                                    
                                     Xem thêm
                                 `;
-                            } else {
-                                btn.style.display = 'none';
-                            }
-                        }
-                    });
-                }
-
-                // ========== HELPER FUNCTIONS ==========
-                function resetPagination(table) {
-                    const rows = table.querySelectorAll('tr');
-
-                    // Hiển thị 10 đầu tiên, ẩn phần còn lại
-                    rows.forEach((row, index) => {
-                        if (index >= 10) {
-                            row.style.display = 'none';
-                            row.dataset.visible = 'false';
                         } else {
-                            row.style.display = '';
-                            row.dataset.visible = 'true';
+                            btn.style.display = 'none';
                         }
-                    });
+                    }
+                });
+            }
 
-                    // Reset load more button
-                    const loadMoreBtn = table.closest('.card-body').querySelector('.load-more-btn');
-                    if (loadMoreBtn && rows.length > 10) {
-                        loadMoreBtn.dataset.loaded = '10';
-                        loadMoreBtn.style.display = '';
-                        const remaining = rows.length - 10;
-                        loadMoreBtn.innerHTML = `
+            // ========== HELPER FUNCTIONS ==========
+            function resetPagination(table) {
+                const rows = table.querySelectorAll('tr');
+
+                // Hiển thị 10 đầu tiên, ẩn phần còn lại
+                rows.forEach((row, index) => {
+                    if (index >= 10) {
+                        row.style.display = 'none';
+                        row.dataset.visible = 'false';
+                    } else {
+                        row.style.display = '';
+                        row.dataset.visible = 'true';
+                    }
+                });
+
+                // Reset load more button
+                const loadMoreBtn = table.closest('.card-body').querySelector('.load-more-btn');
+                if (loadMoreBtn && rows.length > 10) {
+                    loadMoreBtn.dataset.loaded = '10';
+                    loadMoreBtn.style.display = '';
+                    const remaining = rows.length - 10;
+                    loadMoreBtn.innerHTML = `
                            
                             Xem thêm
                         `;
-                    }
+                }
+            }
+
+            function maintainCurrentPagination(table) {
+                // Kiểm tra xem có đang trong filter state không
+                const filterStatus = document.getElementById('filterStatus');
+                const isFilterActive = filterStatus && !filterStatus.classList.contains('d-none');
+
+                // Nếu filter đang active, không can thiệp vào pagination
+                // Vì taboo component đã quản lý rồi
+                if (isFilterActive) {
+                    return;
                 }
 
-                function maintainCurrentPagination(table) {
-                    // Kiểm tra xem có đang trong filter state không
-                    const filterStatus = document.getElementById('filterStatus');
-                    const isFilterActive = filterStatus && !filterStatus.classList.contains('d-none');
+                const loadMoreBtn = table.closest('.card-body').querySelector('.load-more-btn');
+                let currentLoaded = 10; // Default nếu không có button
 
-                    // Nếu filter đang active, không can thiệp vào pagination
-                    // Vì taboo component đã quản lý rồi
-                    if (isFilterActive) {
-                        return;
+                // Lấy số lượng hiện tại đang hiển thị
+                if (loadMoreBtn) {
+                    currentLoaded = parseInt(loadMoreBtn.dataset.loaded) || 10;
+                }
+
+                // Đếm TOTAL filtered rows TRƯỚC khi thay đổi pagination
+                const allRows = table.querySelectorAll('tr:not(.empty-filter-row)');
+                const totalFilteredRows = parseInt(loadMoreBtn?.getAttribute('data-total')) || Array
+                    .from(allRows).filter(row => {
+                        return row.style.display !== 'none';
+                    }).length;
+
+                // Hiển thị theo số lượng hiện tại, ẩn phần còn lại
+                allRows.forEach((row, index) => {
+                    if (index >= currentLoaded) {
+                        row.style.display = 'none';
+                        row.dataset.visible = 'false';
+                    } else {
+                        row.style.display = '';
+                        row.dataset.visible = 'true';
                     }
+                });
 
-                    const loadMoreBtn = table.closest('.card-body').querySelector('.load-more-btn');
-                    let currentLoaded = 10; // Default nếu không có button
+                // Cập nhật load more button với total filtered rows
+                if (loadMoreBtn) {
+                    loadMoreBtn.dataset.loaded = currentLoaded.toString();
+                    loadMoreBtn.dataset.total = totalFilteredRows.toString();
+                    const remaining = totalFilteredRows - currentLoaded;
 
-                    // Lấy số lượng hiện tại đang hiển thị
-                    if (loadMoreBtn) {
-                        currentLoaded = parseInt(loadMoreBtn.dataset.loaded) || 10;
-                    }
+                    console.log(
+                        `Maintaining pagination: ${currentLoaded} out of ${totalFilteredRows} filtered rows (${allRows.length} total)`
+                    );
 
-                    // Đếm TOTAL filtered rows TRƯỚC khi thay đổi pagination
-                    const allRows = table.querySelectorAll('tr:not(.empty-filter-row)');
-                    const totalFilteredRows = parseInt(loadMoreBtn?.getAttribute('data-total')) || Array
-                        .from(allRows).filter(row => {
-                            return row.style.display !== 'none';
-                        }).length;
-
-                    // Hiển thị theo số lượng hiện tại, ẩn phần còn lại
-                    allRows.forEach((row, index) => {
-                        if (index >= currentLoaded) {
-                            row.style.display = 'none';
-                            row.dataset.visible = 'false';
-                        } else {
-                            row.style.display = '';
-                            row.dataset.visible = 'true';
-                        }
-                    });
-
-                    // Cập nhật load more button với total filtered rows
-                    if (loadMoreBtn) {
-                        loadMoreBtn.dataset.loaded = currentLoaded.toString();
-                        loadMoreBtn.dataset.total = totalFilteredRows.toString();
-                        const remaining = totalFilteredRows - currentLoaded;
-
-                        console.log(
-                            `Maintaining pagination: ${currentLoaded} out of ${totalFilteredRows} filtered rows (${allRows.length} total)`
-                        );
-
-                        if (remaining > 0) {
-                            loadMoreBtn.style.display = '';
-                            loadMoreBtn.innerHTML = `
+                    if (remaining > 0) {
+                        loadMoreBtn.style.display = '';
+                        loadMoreBtn.innerHTML = `
                              
                                 Xem thêm
                             `;
-                        } else {
-                            loadMoreBtn.style.display = 'none';
-                        }
+                    } else {
+                        loadMoreBtn.style.display = 'none';
                     }
                 }
+            }
 
-                // Hàm helper lấy ngày từ row
-                function getDateFromRow(row) {
-                    const dateCell = row.querySelector('td:first-child a');
-                    if (dateCell) {
-                        const href = dateCell.getAttribute('href');
-                        const dateMatch = href.match(/\/(\d{4}-\d{2}-\d{2})/);
-                        if (dateMatch) {
-                            return new Date(dateMatch[1]);
-                        }
+            // Hàm helper lấy ngày từ row
+            function getDateFromRow(row) {
+                const dateCell = row.querySelector('td:first-child a');
+                if (dateCell) {
+                    const href = dateCell.getAttribute('href');
+                    const dateMatch = href.match(/\/(\d{4}-\d{2}-\d{2})/);
+                    if (dateMatch) {
+                        return new Date(dateMatch[1]);
                     }
-                    return new Date();
                 }
-
-            });
-
+                return new Date();
+            }
 
         });
+
+
+
 
         // ========== INCLUDE TABOO FILTER COMPONENT ==========
         // Component sẽ định nghĩa initTabooFilter function
     </script>
 
-    @include('components.next-year-button-handler')
+
     @include('components.taboo-filter-script')
 @endpush

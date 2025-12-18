@@ -1,34 +1,23 @@
 <div class="w-100" id="content-box-succes">
-    <!-- Tabs cho các năm -->
+    @php
+        // Combine all days from all years into one array
+        $allDays = [];
+        foreach ($resultsByYear as $year => $yearData) {
+            if (isset($yearData['days']) && count($yearData['days']) > 0) {
+                foreach ($yearData['days'] as $day) {
+                    $allDays[] = $day;
+                }
+            }
+        }
+
+        // Sort all days by date
+        usort($allDays, function($a, $b) {
+            return $a['date'] <=> $b['date'];
+        });
+    @endphp
+
     @if (isset($resultsByYear) && count($resultsByYear) > 0)
-        <div class="box-tab-white mb-3">
-          <div class="year-tabs ">
-            <ul class="nav nav-pills">
-                @php $firstYear = true; @endphp
-                @foreach ($resultsByYear as $year => $yearData)
-                    <li class="nav-item">
-                        <a class="nav-link {{ $firstYear ? 'active' : '' }}" data-bs-toggle="pill"
-                            href="#year-{{ $year }}"
-                            style="border-radius: 20px; margin: 0 5px; padding: 8px 20px;">
-                            {{ $year }}
-                            @if (isset($yearData['canchi']))
-                                ({{ $yearData['canchi'] }})
-                            @endif
-                        </a>
-                    </li>
-                    @php $firstYear = false; @endphp
-                @endforeach
-            </ul>
-        </div>
-        </div>
 
-    @endif
-
-    <!-- Tab content -->
-    <div class="tab-content">
-        @php $firstYear = true; @endphp
-        @foreach ($resultsByYear as $year => $yearData)
-            <div class="tab-pane fade {{ $firstYear ? 'show active' : '' }}" id="year-{{ $year }}">
 
                 <div class="card border-0 mb-3 w-100 box-detial-year">
                     <div class="card-body box1-con-year">
@@ -58,7 +47,11 @@
                                 </p>
                                 <p class="mb-2">
                                     <strong>Tuổi âm:</strong>
-                                    {{ $yearData['year_analysis']['lunar_age'] }} tuổi
+                                    @php
+                                        $currentYear = date('Y');
+                                        $lunarAge = $currentYear - $birthdateInfo['dob']->year + 1;
+                                    @endphp
+                                    {{ $lunarAge }} tuổi
                                 </p>
 
                                 <p class="mb-2">
@@ -73,17 +66,17 @@
                 <!-- Gợi ý ngày tốt cho bạn -->
                 <div class="card border-0 mb-3 w-100 box-detial-year">
                     <div class="card-body">
-                        @if (isset($yearData['days']) && count($yearData['days']) > 0)
-                            <!-- Filter and Sort Controls - trực tiếp trên table -->
+                        @if (count($allDays) > 0)
+                            <!-- Filter and Sort Controls -->
                             <div class="betwen-ds flex-wrap mb-3">
                                 <div class="text-primary mb-0 title-tong-quan-h4-log text-dark fw-bolder">
-                                    <img src="{{ asset('icons/k_nen_1.svg') }}" alt="thông tin người ký hợp đồng"
+                                    <img src="{{ asset('icons/k_nen_1.svg') }}" alt="gợi ý ngày ký hợp đồng"
                                         width="28" height="28" class="me-1"> Gợi ý ngày tốt cho bạn
                                 </div>
                                 <div class="d-flex flex-wrap" style="gap: 10px">
                                     <div class="position-relative mb-3">
                                         <button type="button" class="taboo-filter-btn form-select-sm sort-select"
-                                            data-year="{{ $year }}">
+                                            data-year="all">
                                             <span>Lọc ngày xấu</span>
                                             <i class="bi bi-chevron-down ms-2"></i>
                                         </button>
@@ -94,7 +87,6 @@
                                         <select name="sort" class="form-select-sm sort-select"
                                             style="width: auto; height: 40px;">
                                             <option value="desc" selected>Điểm giảm dần</option>
-                                        
                                             <option value="date_asc">Ngày tăng dần</option>
                                             <option value="date_desc">Ngày giảm dần</option>
                                         </select>
@@ -102,25 +94,23 @@
                                 </div>
                             </div>
 
-                            <!-- Filter Status for this tab -->
-                            <div id="filterStatus-{{ $year }}" class="alert alert-success d-none mb-3"
-                                role="alert">
+                            <!-- Filter Status -->
+                            <div id="filterStatus" class="alert alert-success d-none mb-3" role="alert">
                                 <i class="bi bi-funnel"></i>
-                                <span id="filterStatusText-{{ $year }}"></span>
+                                <span id="filterStatusText"></span>
                             </div>
                             <div class="table-responsive w-100" id="bang-chi-tiet">
                                 <table class="table table-hover align-middle w-100 table-layout"
-                                    id="table-{{ $year }}" style=" width: 100%;">
+                                    id="table-all" style=" width: 100%;">
                                     <thead class="text-center" style="background-color: #e8ebee;">
                                         <tr>
                                             <th style="border-radius: 8px 0 0 8px">Ngày</th>
                                             <th style="">Yếu tố hỗ trợ ký hợp đồng</th>
-                                            <th style="border-radius: 0 8px 8px 0" class="score-header">Điểm</th>
-                                            {{-- <th style="min-width: 120px;border-radius: 0 8px 8px 0">Chi tiết</th> --}}
+                                            <th style=" border-radius: 0 8px 8px 0" class="score-header">Điểm</th>
                                         </tr>
                                     </thead>
-                                    <tbody class="text-center table-body-{{ $year }}">
-                                        @foreach ($yearData['days'] as $index => $day)
+                                    <tbody class="text-center table-body-all">
+                                        @foreach ($allDays as $index => $day)
                                             @php
                                                 $score = $day['day_score']['percentage'] ?? 0;
                                                 $bgColor = '#D1FAE5'; // Green
@@ -141,12 +131,38 @@
                                                     $border = '#10B981';
                                                     $text_box = '#10B981';
                                                 }
+                                                 $tabooNames = [];
+
+                                        // Check for checkTabooDays structure
+                                        if (isset($day['day_score']['checkTabooDays']['issues']) && is_array($day['day_score']['checkTabooDays']['issues'])) {
+                                            foreach ($day['day_score']['checkTabooDays']['issues'] as $issue) {
+                                                if (isset($issue['details']['tabooName'])) {
+                                                    $tabooNames[] = $issue['details']['tabooName'];
+                                                }
+                                            }
+                                        }
+
+                                        // Check for issues structure (alternative path)
+                                        if (empty($tabooNames) && isset($day['day_score']['issues']) && is_array($day['day_score']['issues'])) {
+                                            foreach ($day['day_score']['issues'] as $issue) {
+                                                if (isset($issue['details']['tabooName'])) {
+                                                    $tabooNames[] = $issue['details']['tabooName'];
+                                                }
+                                            }
+                                        }
+
+                                        // Check for taboo_details.taboo_types as fallback
+                                        if (empty($tabooNames) && isset($day['day_score']['taboo_details']['taboo_types']) && is_array($day['day_score']['taboo_details']['taboo_types'])) {
+                                            $tabooNames = $day['day_score']['taboo_details']['taboo_types'];
+                                        }
+
+                                        // Remove duplicates
+                                        $tabooNames = array_unique($tabooNames);
                                             @endphp
-                                            <tr class="table-row-{{ $year }}"
-                                                data-index="{{ $index }}"
+                                            <tr class="table-row-all" data-index="{{ $index }}"
                                                 style="{{ $index >= 10 ? 'display: none;' : '' }}"
                                                 data-visible="{{ $index < 10 ? 'true' : 'false' }}"
-                                                data-taboo-days="{{ implode(',', $day['day_score']['taboo_details']['taboo_types'] ?? []) }}">
+                                                data-taboo-days="{{ implode(',', $tabooNames) }}">
                                                 <td style="text-align: start">
                                                     <a
                                                         href="{{ route('ky-hop-dong.details', [
@@ -299,67 +315,42 @@
                                 </table>
 
                                 <!-- Nút xem thêm -->
-                                @if(count($yearData['days']) > 10)
+                                @if(count($allDays) > 10)
                                     <div class="text-center mt-3">
-                                        <button type="button"
-                                                class="btn btn-outline-primary load-more-btn"
-                                                data-year="{{ $year }}"
-                                                data-loaded="10"
-                                                data-total="{{ count($yearData['days']) }}">
-
+                                        <button type="button" class="btn btn-outline-primary load-more-btn" data-year="all"
+                                            data-loaded="10" data-total="{{ count($allDays) }}">
                                             Xem thêm
                                         </button>
                                     </div>
                                 @endif
 
-                                <!-- Nút xem năm tiếp theo -->
-                                @php
-                                    $currentYear = (int) $year;
-                                    $nextYear = $currentYear + 1;
-                                    $hasNextYear = false;
-                                    foreach ($resultsByYear as $checkYear => $checkData) {
-                                        if ((int) $checkYear === $nextYear) {
-                                            $hasNextYear = true;
-                                            break;
-                                        }
-                                    }
-                                @endphp
-                                @if ($hasNextYear)
-                                    <div class="text-center mt-3" id="next-year-container-{{ $year }}" style="display: none;">
-                                        <button type="button" class="btn btn-success next-year-btn"
-                                            data-current-year="{{ $year }}" data-next-year="{{ $nextYear }}">
-                                            <i class="fas fa-arrow-right me-2"></i>Xem năm tiếp theo ({{ $nextYear }})
-                                        </button>
-                                    </div>
-                                @endif
-                                 <div class="card-body box1-con-year pe-1 ps-1">
-                                <div class="text-primary mb-2  text-dark d-flex align-items-center p-3" style="border: 1px solid rgb(173, 173, 173);border-radius: 10px">
-                                    ⚠️ Chú ý: Đây là các thông tin xem mang tính chất tham khảo, không thay thế cho các
-                                    tư vấn
-                                    chuyên môn. Người dùng tự chịu trách nhiệm với mọi quyết định cá nhân dựa trên thông
-                                    tin
-                                    tham khảo tại Phong Lịch.
-                                </div>
-
+                        <div class="card-body box1-con-year pe-1 ps-1">
+                            <div class="text-primary mb-2  text-dark d-flex align-items-center p-3"
+                                style="border: 1px solid rgb(173, 173, 173);border-radius: 10px">
+                                ⚠️ Chú ý: Đây là các thông tin xem mang tính chất tham khảo, không thay thế cho các
+                                tư vấn
+                                chuyên môn. Người dùng tự chịu trách nhiệm với mọi quyết định cá nhân dựa trên thông
+                                tin
+                                tham khảo tại Phong Lịch.
                             </div>
-                            </div>
-                        @else
-                            <p class="text-muted text-center py-4">
-                                Không có ngày nào trong khoảng thời gian đã chọn phù hợp để ký hợp đồng.
-                            </p>
-                        @endif
+                        </div>
                     </div>
-                </div>
+                @else
+                    <p class="text-muted text-center py-4">
+                        Không có ngày nào trong khoảng thời gian đã chọn.
+                    </p>
+                @endif
             </div>
-            @php $firstYear = false; @endphp
-        @endforeach
-    </div>
-</div>
+        </div>
+    @endif
 
-   <!-- Filter Modal/Dropdown - Global -->
+    <!-- Filter Modal/Dropdown - Global -->
     <div id="tabooFilterModal" class="taboo-filter-modal d-none">
         <div class="taboo-filter-header">
-            <h6 class="mb-0">Lọc ngày kỵ</h6>
+            <h6 class="mb-0">
+                <i class="bi bi-heart" style="color: #e91e63;"></i>
+                Lọc ngày xấu
+            </h6>
             <button type="button" id="closeFilterModal" class="btn-close-filter">
                 <i class="bi bi-x"></i>
             </button>
@@ -452,16 +443,37 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Khởi tạo taboo filter với dữ liệu từ backend
-        const resultsByYear = @json($resultsByYear ?? []);
+        // Expose user's 'chi' to global scope
+        window.userChi = '{{ explode(' ', ($birthdateInfo['can_chi_nam'] ?? ''))[1] ?? '' }}';
+
+        // Khởi tạo taboo filter với dữ liệu từ backend - combine all days
+        const resultsByYear = {
+            'all': {
+                days: @json($allDays ?? [])
+            }
+        };
 
         // Khởi tạo filter sau khi DOM loaded
         setTimeout(() => {
             if (typeof initTabooFilter === 'function') {
-                initTabooFilter(resultsByYear);
-            }
-        }, 300);
+                console.log('Initializing taboo filter for ky-hop-dong...');
+                const filterButton = document.querySelector('.taboo-filter-btn');
+                const modal = document.getElementById('tabooFilterModal');
+                const allTbodies = document.querySelectorAll('tbody');
 
-        // Không cần cập nhật links vì filter đã được lưu trong localStorage
+                console.log('Filter button found:', !!filterButton);
+                console.log('Modal found:', !!modal);
+
+                allTbodies.forEach((tbody, index) => {
+                    const rowsWithTaboo = tbody.querySelectorAll('tr[data-taboo-days]');
+                    console.log(`Found ${rowsWithTaboo.length} rows with taboo data in tbody ${index}`);
+                });
+
+                initTabooFilter(resultsByYear);
+                console.log('initTabooFilter called successfully for ky-hop-dong');
+            } else {
+                console.error('initTabooFilter function not found');
+            }
+        }, 500);
     });
 </script>

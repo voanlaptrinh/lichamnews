@@ -2,7 +2,7 @@
 
 @section('content')
     @push('styles')
-        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=11.3') }}">
+        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=11.5') }}">
     @endpush
 
     <div class="container-setup">
@@ -12,7 +12,8 @@
                     <a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
                 </li>
                 <li class="breadcrumb-item" aria-current="page">
-                            <a href="{{ route('totxau.list') }}"  style="color: #2254AB; text-decoration: underline;">Xem ngày tốt</a>
+                    <a href="{{ route('totxau.list') }}" style="color: #2254AB; text-decoration: underline;">Xem ngày
+                        tốt</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
                     Xem ngày ký giấy tờ
@@ -33,17 +34,19 @@
                             <div class="col-lg-8">
                                 <div class="">
                                     <div class="form--submit-totxau">
-                                        <div class="fw-bold  title-tong-quan-h2-log"  style="color: #192E52">
+                                        <div class="fw-bold  title-tong-quan-h2-log" style="color: #192E52">
                                             Thông tin người
                                             xem
                                         </div>
-                                        <p class="mb-2" style=" font-size: 14px; color: #212121;">Nhập thông tin ngày sinh của người xem vào ô dưới đây.</p>
+                                        <p class="mb-2" style=" font-size: 14px; color: #212121;">Nhập thông tin ngày sinh
+                                            của người xem vào ô dưới đây.</p>
 
                                         <form id="kyGiayToForm"> @csrf
 
                                             <div class="row">
                                                 <div class="mb-3">
-                                                       <div for="birthdate" class="fw-bold title-tong-quan-h4-log mb-2">Ngày tháng năm sinh</div>
+                                                    <div for="birthdate" class="fw-bold title-tong-quan-h4-log mb-2">Ngày
+                                                        tháng năm sinh</div>
                                                     <!-- Date Selects -->
                                                     <div class="row g-2 mb-2">
                                                         <div class="col-6 col-sm-4 col-lg-4 col-xl-4">
@@ -125,8 +128,8 @@
 
 
                                                 <div class="input-group mb-4">
-                                                    <div for="date_range" class="fw-bold title-tong-quan-h4-log"  style="color: #192E52; padding-bottom: 12px;">Dự kiến
-                                                        thời gian ký giấy tờ</div>
+                                                    <div for="date_range" class="fw-bold title-tong-quan-h4-log"
+                                                        style="color: #192E52; padding-bottom: 12px;">Thời gian dự kiến ký giấy tờ</div>
                                                     <div class="input-group">
                                                         <input type="text"
                                                             class="form-control wedding_date_range --border-box-form @error('date_range') is-invalid @enderror"
@@ -134,10 +137,11 @@
                                                             placeholder="DD/MM/YY - DD/MM/YY" autocomplete="off"
                                                             value="{{ old('date_range', $inputs['date_range'] ?? '') }}"
                                                             style="border-radius: 10px; border: none; padding: 12px 30px 12px 15px; background-color: rgba(255,255,255,0.95); cursor: pointer;">
-                                                       <span class="input-group-text bg-transparent border-0"
-                                                        style="position: absolute; right: 2px; top: 50%; transform: translateY(-50%); z-index: 5; pointer-events: none;">
-                                                       <img src="{{ asset('images/date1-icon.svg') }}" alt="icon ngày tháng năm" class="img-fluid">
-                                                    </span>
+                                                        <span class="input-group-text bg-transparent border-0"
+                                                            style="position: absolute; right: 2px; top: 50%; transform: translateY(-50%); z-index: 5; pointer-events: none;">
+                                                            <img src="{{ asset('images/date1-icon.svg') }}"
+                                                                alt="icon ngày tháng năm" class="img-fluid">
+                                                        </span>
                                                     </div>
                                                     @error('date_range')
                                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -158,17 +162,18 @@
 
                                 </div>
                             </div>
-                             <div class="col-lg-4 d-none d-lg-flex">
+                            <div class="col-lg-4 d-none d-lg-flex">
                                 <div class="d-flex align-items-center justify-content-center h-100 w-100"
                                     style="padding: 32px 32px 32px 0px;">
-                                    <div class="d-flex align-items-center justify-content-center h-100 w-100" style=" background-image: url(../images/form_giayto.svg);
+                                    <div class="d-flex align-items-center justify-content-center h-100 w-100"
+                                        style=" background-image: url(../images/form_giayto.svg);
                                     background-repeat: no-repeat;
                                     background-size: cover;
                                     align-items: normal;
                                     background-position: center center;
                                     overflow: hidden;
                                     border-radius: 12px">
-                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -233,8 +238,8 @@
                                 <li>Hệ thống phân tích Hoàng đạo, Trực, Sao cát – hung, Ngũ hành, giờ tốt/xung</li>
                                 <li>Chọn ngày phù hợp để thủ tục suôn sẻ và yên tâm</li>
                             </ul>
-                              <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
-                               Lợi ích khi chọn đúng ngày
+                            <h2 class="title-tong-quan-h3-log fw-bolder mt-1 mb-3">
+                                Lợi ích khi chọn đúng ngày
                             </h2>
                             <ul class="mb-1">
                                 <li>Thủ tục nhanh gọn, thuận lợi</li>
@@ -542,6 +547,7 @@
             const resultsContainer = document.getElementById('resultsContainer');
             const btnText = submitBtn.querySelector('.btn-text');
             const spinner = submitBtn.querySelector('.spinner-border');
+            const originalBtnText = submitBtn.innerHTML;
 
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
@@ -677,56 +683,63 @@
                     .then(data => {
                         // Reset button state
                         submitBtn.disabled = false;
-                        btnText.textContent = 'Xem Kết Quả';
-                        spinner.classList.add('d-none');
-
+                        submitBtn.innerHTML = originalBtnText;
+                        window.resultsByYear = data.resultsByYear;
                         if (data.success) {
-                            // Show results container
-                            resultsContainer.style.display = 'block';
+                            // Update UI with results
+                            const resultContainer = document.querySelector('.--detail-success');
+                            resultContainer.innerHTML = data.html;
 
+                            // Initialize taboo filter and pagination after results are loaded
                             setTimeout(() => {
-                                resultsContainer.innerHTML = data.html;
+                                // Sử dụng global initTabooFilter từ component
+                                if (data.resultsByYear && typeof initTabooFilter ===
+                                    'function') {
+                                    const allDays = [];
+                                    Object.keys(data.resultsByYear).forEach(
+                                        year => {
+                                            if (data.resultsByYear[year] && data
+                                                .resultsByYear[year].days) {
+                                                allDays.push(...data
+                                                    .resultsByYear[year]
+                                                    .days);
+                                            }
+                                        });
 
-                                // Cập nhật window.resultsByYear cho global access
-                                if (data.resultsByYear) {
-                                    window.resultsByYear = data.resultsByYear;
+                                    const combinedData = {
+                                        'all': {
+                                            days: allDays
+                                        }
+                                    };
+
+                                    window.initTabooFilter(combinedData);
                                 }
 
-                                setTimeout(() => {
-                                    if (data.resultsByYear && typeof initTabooFilter ===
-                                        'function') {
-                                        initTabooFilter(data.resultsByYear);
-                                    }
-                                }, 200);
-                            }, 300);
+
+
+
+                                // if (typeof window.initTabooFilter === 'function') {
+                                //     window.initTabooFilter(data.resultsByYear);
+                                // }
+                                initPagination();
+                            }, 200);
 
                             // Scroll to results with delay to ensure content is rendered
-                              setTimeout(() => {
-                                const contentBoxSuccess = document.getElementById('content-box-success');
+                            setTimeout(() => {
+                                const contentBoxSuccess = document.getElementById(
+                                    'content-box-success');
                                 if (contentBoxSuccess) {
                                     contentBoxSuccess.scrollIntoView({
                                         behavior: 'smooth',
                                         block: 'start'
                                     });
                                 } else {
-                                    resultsContainer.scrollIntoView({
+                                    resultContainer.scrollIntoView({
                                         behavior: 'smooth',
                                         block: 'start'
                                     });
                                 }
                             }, 600);
-                            // setTimeout(() => {
-                            //     resultsContainer.scrollIntoView({
-                            //         behavior: 'smooth',
-                            //         block: 'start'
-                            //     });
-                            // }, 100);
-
-                            // Re-initialize Bootstrap tabs if present
-                            const tabs = resultsContainer.querySelectorAll('[data-bs-toggle="tab"]');
-                            tabs.forEach(tab => {
-                                new bootstrap.Tab(tab);
-                            });
                         } else if (data.errors) {
                             // Show validation errors
                             let errorMessage = 'Vui lòng kiểm tra lại:\n';
@@ -734,8 +747,6 @@
                                 errorMessage += '- ' + data.errors[field][0] + '\n';
                             }
                             alert(errorMessage);
-                        } else if (data.message) {
-                            alert(data.message);
                         } else {
                             alert('Có lỗi xảy ra. Vui lòng thử lại.');
                         }
@@ -743,14 +754,51 @@
                     .catch(error => {
                         // Reset button state
                         submitBtn.disabled = false;
-                        btnText.textContent = 'Xem Kết Quả';
-                        spinner.classList.add('d-none');
+                        submitBtn.innerHTML = originalBtnText;
 
-                        console.error('Error:', error);
                         alert('Có lỗi xảy ra khi kết nối. Vui lòng thử lại.');
                     });
+
             });
 
+            function initPagination() {
+                const resultsContainer = document.querySelector('.--detail-success');
+                resultsContainer.addEventListener('click', function(event) {
+                    if (event.target.matches('.load-more-btn') || event.target.closest('.load-more-btn')) {
+                        const btn = event.target.matches('.load-more-btn') ? event.target : event.target
+                            .closest('.load-more-btn');
+                        const year = btn.getAttribute('data-year');
+                        const currentLoaded = parseInt(btn.getAttribute('data-loaded'));
+                        const total = parseInt(btn.getAttribute('data-total'));
+                        const loadMore = Math.min(10, total - currentLoaded);
+
+                        // Show next 10 items
+                        const table = document.querySelector(`#table-${year} tbody`);
+                        if (table) {
+                            const allRows = table.querySelectorAll('.table-row-' + year);
+                            for (let i = currentLoaded; i < currentLoaded + loadMore; i++) {
+                                if (allRows[i]) {
+                                    allRows[i].style.display = '';
+                                    allRows[i].setAttribute('data-visible', 'true');
+                                }
+                            }
+
+                            const newLoaded = currentLoaded + loadMore;
+                            btn.setAttribute('data-loaded', newLoaded);
+
+                            // Update button text
+                            const remaining = total - newLoaded;
+                            if (remaining > 0) {
+                                const nextLoad = Math.min(10, remaining);
+                                btn.innerHTML =
+                                    `Xem thêm`;
+                            } else {
+                                btn.style.display = 'none';
+                            }
+                        }
+                    }
+                });
+            }
             // Optimized sorting functions
             function getScoreFromRow(row) {
                 const battery = row.querySelector('.battery-label');
@@ -774,11 +822,9 @@
             }
 
             function applySortingToTable(sortValue) {
-                // Tìm table trong tab hiện tại đang active
-                const activeTab = document.querySelector('.tab-pane.active');
-                if (!activeTab) return;
-
-                const table = activeTab.querySelector('#bang-chi-tiet table tbody');
+                // Find the single table (no more tabs for giay-to)
+                const table = document.querySelector('.table-body-all') || document.querySelector(
+                    '#table-all tbody');
                 if (!table) return;
 
                 const rows = Array.from(table.querySelectorAll('tr'));
@@ -821,7 +867,7 @@
 
                         const dateA = getDateFromRow(a);
                         const dateB = getDateFromRow(b);
-                   
+
                         return sortValue === 'date-asc' ? dateA - dateB : dateB - dateA;
                     }
 
@@ -852,6 +898,5 @@
         });
     </script>
 
-    @include('components.next-year-button-handler')
     @include('components.taboo-filter-script')
 @endpush

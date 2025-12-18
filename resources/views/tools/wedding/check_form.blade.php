@@ -2,7 +2,7 @@
 
 @section('content')
     @push('styles')
-        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=11.3') }}">
+        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=11.5') }}">
     @endpush
 
 
@@ -36,7 +36,8 @@
                                             Thông tin người
                                             xem
                                         </div>
-                                         <p class="mb-2" style=" font-size: 14px; color: #212121;">Nhập thông tin ngày sinh của người xem vào ô dưới đây.</p> 
+                                        <p class="mb-2" style=" font-size: 14px; color: #212121;">Vui lòng điền ngày sinh
+                                            của cô Dâu, chú Rể và khoảng thời gian cần xem ngày tốt vào các ô dưới đây.</p>
 
                                         <form action="{{ route('astrology.check') }}" method="POST">
                                             @csrf
@@ -214,8 +215,8 @@
                                                 {{-- Khoảng ngày dự định cưới --}}
                                                 <div class="col-md-12 mb-3">
                                                     <div for="date_range" class="fw-bold title-tong-quan-h4-log"
-                                                        style="color: #192E52; padding-bottom: 12px;">Khoảng
-                                                        ngày dự kiến cưới</div>
+                                                        style="color: #192E52; padding-bottom: 12px;">Thời gian dự kiến
+                                                        cưới hỏi</div>
                                                     <div class="input-group">
                                                         <input type="text"
                                                             class="form-control wedding_date_range --border-box-form @error('wedding_date_range') is-invalid @enderror"
@@ -1098,6 +1099,7 @@
                                         window.initTabooFilter(data.resultsByYear);
                                     }
                                     initPagination();
+                                    setupContainerEventDelegation();
                                 }, 200);
                             }, 500);
                             setTimeout(() => {
@@ -1406,6 +1408,19 @@
                 } else {
                     loadMoreBtn.style.display = 'none';
                     console.log(`DEBUG BUTTON: Hiding button - no remaining items`);
+                }
+            }
+
+            // Setup container-level event delegation for filter buttons
+            function setupContainerEventDelegation() {
+                console.log('Setting up container event delegation for wedding');
+                const resultContainer = document.querySelector('.--detail-success');
+                if (resultContainer) {
+                    console.log('Result container found, setting up event delegation');
+                    // The filter button event is handled by the taboo-filter-script component
+                    console.log('Container event delegation setup complete');
+                } else {
+                    console.log('Result container not found');
                 }
             }
 

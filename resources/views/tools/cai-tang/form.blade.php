@@ -2,7 +2,7 @@
 
 @section('content')
     @push('styles')
-        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=11.3') }}">
+        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=11.5') }}">
     @endpush
 
     <div class="container-setup">
@@ -12,7 +12,8 @@
                     <a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
                 </li>
                 <li class="breadcrumb-item" aria-current="page">
-                            <a href="{{ route('totxau.list') }}"  style="color: #2254AB; text-decoration: underline;">Xem ngày tốt</a>
+                    <a href="{{ route('totxau.list') }}" style="color: #2254AB; text-decoration: underline;">Xem ngày
+                        tốt</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
                     Xem ngày cải táng
@@ -48,7 +49,7 @@
                                                 </div>
 
                                                 <div class="mb-3">
-                                                    <div for="birthdate" class="fw-bold title-tong-quan-h4-log mb-2" >Ngày
+                                                    <div for="birthdate" class="fw-bold title-tong-quan-h4-log mb-2">Ngày
                                                         sinh người đứng lễ</div>
                                                     <!-- Date Selects -->
                                                     <div class="row g-1 mb-2">
@@ -138,7 +139,8 @@
 
 
                                                 <div class="col-6">
-                                                    <div for="birth_mat" class="fw-bold title-tong-quan-h4-log"  style="color: #192E52; padding-bottom: 12px;">Năm
+                                                    <div for="birth_mat" class="fw-bold title-tong-quan-h4-log"
+                                                        style="color: #192E52; padding-bottom: 12px;">Năm
                                                         sinh âm lịch</div>
                                                     <div class="position-relative">
                                                         <select name="birth_mat" id="birth_mat"
@@ -164,7 +166,8 @@
                                                 </div>
 
                                                 <div class="col-6">
-                                                    <div for="nam_mat" class="fw-bold title-tong-quan-h4-log"  style="color: #192E52; padding-bottom: 12px;">
+                                                    <div for="nam_mat" class="fw-bold title-tong-quan-h4-log"
+                                                        style="color: #192E52; padding-bottom: 12px;">
                                                         Năm mất âm lịch</div>
                                                     <div class="position-relative">
                                                         <select name="nam_mat" id="nam_mat"
@@ -191,8 +194,8 @@
 
 
                                                 <div class="input-group mb-4">
-                                                    <div for="date_range" class="fw-bold title-tong-quan-h4-log mt-2"  style="color: #192E52; padding-bottom: 12px;">Dự kiến
-                                                        thời gian cải táng</div>
+                                                    <div for="date_range" class="fw-bold title-tong-quan-h4-log mt-2"
+                                                        style="color: #192E52; padding-bottom: 12px;">Thời gian dự kiến cải táng sang cát</div>
                                                     <div class="input-group">
                                                         <input type="text"
                                                             class="form-control wedding_date_range --border-box-form @error('date_range') is-invalid @enderror"
@@ -200,10 +203,11 @@
                                                             placeholder="DD/MM/YY - DD/MM/YY" autocomplete="off"
                                                             value="{{ old('date_range', $inputs['date_range'] ?? '') }}"
                                                             style="border-radius: 10px; border: none; padding: 12px 30px 12px 15px; background-color: rgba(255,255,255,0.95); cursor: pointer;">
-                                                       <span class="input-group-text bg-transparent border-0"
-                                                        style="position: absolute; right: 2px; top: 50%; transform: translateY(-50%); z-index: 5; pointer-events: none;">
-                                                       <img src="{{ asset('images/date1-icon.svg') }}" alt="icon ngày tháng năm" class="img-fluid">
-                                                    </span>
+                                                        <span class="input-group-text bg-transparent border-0"
+                                                            style="position: absolute; right: 2px; top: 50%; transform: translateY(-50%); z-index: 5; pointer-events: none;">
+                                                            <img src="{{ asset('images/date1-icon.svg') }}"
+                                                                alt="icon ngày tháng năm" class="img-fluid">
+                                                        </span>
                                                     </div>
                                                     @error('date_range')
                                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -222,17 +226,18 @@
                                     </div>
                                 </div>
                             </div>
-                           <div class="col-lg-4 d-none d-lg-flex">
+                            <div class="col-lg-4 d-none d-lg-flex">
                                 <div class="d-flex align-items-center justify-content-center h-100 w-100"
                                     style="padding: 32px 32px 32px 0px;">
-                                    <div class="d-flex align-items-center justify-content-center h-100 w-100" style=" background-image: url(../images/form_sangcat.svg);
+                                    <div class="d-flex align-items-center justify-content-center h-100 w-100"
+                                        style=" background-image: url(../images/form_sangcat.svg);
                                     background-repeat: no-repeat;
                                     background-size: cover;
                                     align-items: normal;
                                     background-position: center center;
                                     overflow: hidden;
                                     border-radius: 12px">
-                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -837,8 +842,9 @@
                             window.resultsByYear = data.resultsByYear;
 
                             // Scroll to results with delay to ensure content is rendered
-                             setTimeout(() => {
-                                const contentBoxSuccess = document.getElementById('content-box-success');
+                            setTimeout(() => {
+                                const contentBoxSuccess = document.getElementById(
+                                    'content-box-success');
                                 if (contentBoxSuccess) {
                                     contentBoxSuccess.scrollIntoView({
                                         behavior: 'smooth',
@@ -861,10 +867,31 @@
                             setTimeout(() => {
                                 resultsContainer.innerHTML = data.html;
                                 setTimeout(() => {
-                                    if (window.resultsByYear && typeof window
-                                        .initTabooFilter === 'function') {
-                                        window.initTabooFilter(window.resultsByYear);
+                                    if (data.resultsByYear && typeof initTabooFilter ===
+                                        'function') {
+                                        const allDays = [];
+                                        Object.keys(data.resultsByYear).forEach(
+                                        year => {
+                                            if (data.resultsByYear[year] && data
+                                                .resultsByYear[year].days) {
+                                                allDays.push(...data
+                                                    .resultsByYear[year]
+                                                    .days);
+                                            }
+                                        });
+
+                                        const combinedData = {
+                                            'all': {
+                                                days: allDays
+                                            }
+                                        };
+
+                                        window.initTabooFilter(combinedData);
                                     }
+
+
+
+                                    
                                     initPagination();
                                     setupContainerEventDelegation();
                                 }, 200);
@@ -1199,7 +1226,7 @@
 
                 // Update load more button với total filtered rows
                 const remaining = totalFilteredRows - currentLoaded;
-             
+
 
                 if (remaining > 0) {
                     const nextLoad = Math.min(10, remaining);
@@ -1207,10 +1234,10 @@
                         `Xem thêm`;
                     loadMoreBtn.style.display = '';
                     loadMoreBtn.setAttribute('data-total', totalFilteredRows);
-                    
+
                 } else {
                     loadMoreBtn.style.display = 'none';
-                  
+
                 }
             }
         });

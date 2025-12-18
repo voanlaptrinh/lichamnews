@@ -2,7 +2,7 @@
 
 @section('content')
     @push('styles')
-        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=11.3') }}">
+        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=11.5') }}">
     @endpush
 
     <div class="container-setup">
@@ -123,8 +123,7 @@
                                                 </div>
 
                                                 <div class="input-group mb-4">
-                                                    <div for="date_range" class="fw-bold title-tong-quan-h4-log"  style="color: #192E52; padding-bottom: 12px;">Dự kiến
-                                                        thời gian dời bàn thờ</div>
+                                                    <div for="date_range" class="fw-bold title-tong-quan-h4-log"  style="color: #192E52; padding-bottom: 12px;">Thời gian dự kiến dời ban thờ</div>
                                                     <div class="input-group">
                                                         <input type="text"
                                                             class="form-control wedding_date_range --border-box-form @error('date_range') is-invalid @enderror"
@@ -656,7 +655,21 @@
                                 setTimeout(() => {
                                     if (data.resultsByYear && typeof window
                                         .initTabooFilter === 'function') {
-                                        window.initTabooFilter(data.resultsByYear);
+                                        // Transform data to combined structure for ban-tho
+                                        const allDays = [];
+                                        Object.keys(data.resultsByYear).forEach(year => {
+                                            if (data.resultsByYear[year] && data.resultsByYear[year].days) {
+                                                allDays.push(...data.resultsByYear[year].days);
+                                            }
+                                        });
+
+                                        const combinedData = {
+                                            'all': {
+                                                days: allDays
+                                            }
+                                        };
+
+                                        window.initTabooFilter(combinedData);
                                     }
                                     initPagination();
                                     setupContainerEventDelegation();
@@ -820,9 +833,10 @@
                     }
                 }
 
-                // Fallback: general search
+                // Fallback: prioritize single table structure (like khai-truong)
                 if (!table) {
-                    table = document.querySelector('#bang-chi-tiet table tbody');
+                    table = document.querySelector('#table-all tbody') ||
+                           document.querySelector('#bang-chi-tiet table tbody');
                 }
 
                 if (!table) {
@@ -942,10 +956,12 @@
                         const total = parseInt(btn.getAttribute('data-total'));
                         const loadMore = Math.min(10, total - currentLoaded);
 
-                        // Show next 10 items
-                        const table = document.querySelector(`#table-${year} tbody`);
+                        // Show next 10 items - updated for single table structure
+                        const table = document.querySelector(`#table-${year} tbody`) ||
+                                    document.querySelector('#table-all tbody') ||
+                                    document.querySelector('#bang-chi-tiet table tbody');
                         if (table) {
-                            const allRows = table.querySelectorAll('.table-row-' + year);
+                            const allRows = table.querySelectorAll('.table-row-' + year + ', .table-row-all');
                             for (let i = currentLoaded; i < currentLoaded + loadMore; i++) {
                                 if (allRows[i]) {
                                     allRows[i].style.display = '';

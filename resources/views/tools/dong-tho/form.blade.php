@@ -2,7 +2,7 @@
 
 @section('content')
     @push('styles')
-        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=11.3') }}">
+        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=11.5') }}">
     @endpush
 
     <div class="container-setup">
@@ -37,7 +37,7 @@
                                             Thông tin người
                                             xem
                                         </div>
-                                        <p class="mb-2" style=" font-size: 14px; color: #212121;">Nhập thông tin ngày sinh của người xem vào ô dưới đây.</p>
+                                        <p class="mb-2" style=" font-size: 14px; color: #212121;">Vui lòng điền ngày sinh, giới tính và khoảng thời gian cần xem ngày tốt vào các ô dưới đây..</p>
 
                                         <form id="buildHouseForm">
                                             @csrf
@@ -149,8 +149,7 @@
                                                 </div>
 
                                                 <div class="input-group mb-4">
-                                                    <div for="date_range" class="fw-bold title-tong-quan-h4-log" style="color: #192E52; padding-bottom: 12px;">Dự kiến
-                                                        thời gian động thổ</div>
+                                                    <div for="date_range" class="fw-bold title-tong-quan-h4-log" style="color: #192E52; padding-bottom: 12px;">Thời gian dự kiến động thổ</div>
                                                     <div class="input-group">
                                                         <input type="text"
                                                             class="form-control wedding_date_range --border-box-form @error('date_range') is-invalid @enderror"

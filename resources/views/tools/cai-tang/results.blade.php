@@ -51,15 +51,22 @@
                                 @if (isset($hostInfo))
                                     <div class="info-grid">
                                         <p class="mb-2">
-                                            <strong>Ngày sinh:</strong>
-                                            {{ $hostInfo['dob_str'] }} tức ngày
-                                            {{ $hostInfo['lunar_dob_str'] }} âm lịch
+                                            <strong>Ngày sinh dương lịch:</strong>
+                                            {{ $hostInfo['dob_str'] }}
+                                        </p>
+                                        <p class="mb-2">
+                                            <strong>Ngày sinh âm lịch:</strong>
+                                           {{ $hostInfo['lunar_dob_str'] }}
                                         </p>
                                         <p class="mb-2">
                                             <strong>Tuổi:</strong>
-                                            <b>{{ $hostInfo['can_chi_nam'] }}</b>, Mệnh:
+                                            <b>{{ $hostInfo['can_chi_nam'] }}</b>
+                                        </p>
+                                           <p class="mb-2">
+                                            <strong>Mệnh:</strong>
+                                            <b>
                                             {{ $hostInfo['menh']['hanh'] ?? 'Không rõ' }}
-                                            ({{ $hostInfo['menh']['napAm'] ?? 'Không rõ' }})
+                                            ({{ $hostInfo['menh']['napAm'] ?? 'Không rõ' }})</b>
                                         </p>
                                         <p class="mb-2">
                                             <strong>Tuổi âm:</strong>
@@ -252,12 +259,25 @@
                                                     $border = '#10B981';
                                                     $text_box = '#10B981';
                                                 }
+
+                                                   $tabooNames = [];
+                                                if (isset($day['day_score']['checkTabooDays']['issues']) && is_array($day['day_score']['checkTabooDays']['issues'])) {
+                                                    foreach ($day['day_score']['checkTabooDays']['issues'] as $issue) {
+                                                        if (isset($issue['details']['tabooName'])) {
+                                                            $tabooNames[] = $issue['details']['tabooName'];
+                                                        }
+                                                    }
+                                                }
+                                                // Also check taboo_details.taboo_types as fallback
+                                                if (empty($tabooNames) && isset($day['day_score']['taboo_details']['taboo_types'])) {
+                                                    $tabooNames = $day['day_score']['taboo_details']['taboo_types'];
+                                                }
                                             @endphp
                                             <tr class="table-row-{{ $year }}"
                                                 data-index="{{ $index }}"
                                                 style="{{ $index >= 10 ? 'display: none;' : '' }}"
                                                 data-visible="{{ $index < 10 ? 'true' : 'false' }}"
-                                                data-taboo-days="{{ implode(',', $day['day_score']['taboo_details']['taboo_types'] ?? []) }}">
+                                                data-taboo-days="{{ implode(',', $tabooNames) }}">
                                                 <td style="text-align: start">
                                                     <a
                                                         href="{{ route('cai-tang.details', [

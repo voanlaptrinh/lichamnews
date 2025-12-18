@@ -1184,6 +1184,9 @@ html.daterangepicker-open {
         justify-content: center;
         gap: 5px;
     }
+    .table tbody td:first-child{
+        max-width: 100px;
+    }
 
 }
 
@@ -1191,7 +1194,7 @@ html.daterangepicker-open {
 
     .header-green,
     .header-red {
-        height: 120px;
+        height: 130px;
     }
 }
 

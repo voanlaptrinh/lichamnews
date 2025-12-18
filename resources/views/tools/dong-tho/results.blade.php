@@ -177,12 +177,30 @@
                                                     $border = '#10B981';
                                                     $text_box = '#10B981';
                                                 }
+                                                  $tabooNames = [];
+                                    if (
+                                        isset($day['day_score']['checkTabooDays']['issues']) &&
+                                        is_array($day['day_score']['checkTabooDays']['issues'])
+                                    ) {
+                                        foreach ($day['day_score']['checkTabooDays']['issues'] as $issue) {
+                                            if (isset($issue['details']['tabooName'])) {
+                                                $tabooNames[] = $issue['details']['tabooName'];
+                                            }
+                                        }
+                                    }
+                                    // Also check taboo_details.taboo_types as fallback
+                                    if (
+                                        empty($tabooNames) &&
+                                        isset($day['day_score']['taboo_details']['taboo_types'])
+                                    ) {
+                                        $tabooNames = $day['day_score']['taboo_details']['taboo_types'];
+                                    }
                                             @endphp
                                             <tr class="table-row-{{ $year }}"
                                                 data-index="{{ $index }}"
                                                 style="{{ $index >= 10 ? 'display: none;' : '' }}"
                                                 data-visible="{{ $index < 10 ? 'true' : 'false' }}"
-                                                data-taboo-days="{{ implode(',', $day['day_score']['taboo_details']['taboo_types'] ?? []) }}">
+                                                data-taboo-days="{{ implode(',', $tabooNames) }}">
                                                 <td style="text-align: start">
                                                     <a
                                                         href="{{ route('breaking.details', [

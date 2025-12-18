@@ -2,7 +2,7 @@
 
 @section('content')
     @push('styles')
-        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=11.3') }}">
+        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=11.5') }}">
     @endpush
 
     <div class="container-setup">
@@ -125,8 +125,7 @@
 
 
                                                 <div class="input-group mb-4">
-                                                    <div for="date_range" class="fw-bold title-tong-quan-h4-log"  style="color: #192E52; padding-bottom: 12px;">Dự kiến
-                                                        thời gian cầu an</div>
+                                                    <div for="date_range" class="fw-bold title-tong-quan-h4-log"  style="color: #192E52; padding-bottom: 12px;">Thời gian dự kiến cầu an - làm phúc</div>
                                                     <div class="input-group">
                                                         <input type="text"
                                                             class="form-control wedding_date_range --border-box-form @error('date_range') is-invalid @enderror"
@@ -707,14 +706,23 @@
                                 setTimeout(() => {
                                     if (data.resultsByYear && typeof initTabooFilter ===
                                         'function') {
-                                    
+                                        // Convert to single table format like other tools
+                                        const allDays = [];
+                                        Object.keys(data.resultsByYear).forEach(year => {
+                                            if (data.resultsByYear[year] && data.resultsByYear[year].days) {
+                                                allDays.push(...data.resultsByYear[year].days);
+                                            }
+                                        });
 
-                                        // Debug sort dropdown content
-                                        const sortDropdowns = document.querySelectorAll(
-                                            '[name="sort"]');
-                                       
-                                        initTabooFilter(data.resultsByYear);
-                                      
+                                        const combinedData = {
+                                            'all': {
+                                                days: allDays
+                                            }
+                                        };
+
+                                        initTabooFilter(combinedData);
+                                        setupContainerEventDelegation();
+
                                         // Check legacy system detection after init
                                         setTimeout(() => {
                                             const hasLegacy = document
@@ -855,34 +863,66 @@
             }
 
             // ========== SORT FUNCTIONALITY ==========
-            function setupSortHandlers() {
-                // Setup event listeners for sort dropdowns
-                const sortSelects = document.querySelectorAll('select[name="sort"]');
-
-                sortSelects.forEach(sortSelect => {
-                    sortSelect.addEventListener('change', function() {
-                        const sortValue = this.value;
-                        const year = this.closest('.tab-pane').id.replace('year-', '');
-                        applySortToTable(year, sortValue);
-                    });
-                });
+            function setupContainerEventDelegation() {
+                console.log('Setting up container event delegation for phong-sinh');
+                const resultContainer = document.querySelector('.--detail-success');
+                if (resultContainer) {
+                    console.log('Result container found, setting up event delegation');
+                    // Remove existing listener to prevent duplicates
+                    resultContainer.removeEventListener('change', handleContainerChange);
+                    // Add new listener
+                    resultContainer.addEventListener('change', handleContainerChange);
+                    console.log('Container event delegation setup complete');
+                } else {
+                    console.log('Result container not found');
+                }
             }
 
-            function applySortToTable(year, sortValue) {
-                const targetTab = document.getElementById(`year-${year}`);
-                if (!targetTab) return;
+            function handleContainerChange(event) {
+                if (event.target.name === 'sort') {
+                    console.log('Sort dropdown changed to:', event.target.value);
+                    event.preventDefault();
+                    event.stopPropagation();
+                    // For single table structure - use 'all' year
+                    applySortingToTable(event.target.value, 'all');
+                    // Scroll to table after sort
+                    setTimeout(() => {
+                        const table = document.querySelector('#table-all, #bang-chi-tiet table');
+                        if (table) {
+                            table.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
+                    }, 100);
+                }
+            }
 
-                const table = targetTab.querySelector('#bang-chi-tiet table tbody') ||
-                              targetTab.querySelector(`#table-${year} tbody`) ||
-                              targetTab.querySelector('.table tbody');
+            function applySortingToTable(sortValue, year = null) {
+                console.log('applySortingToTable called with:', sortValue, 'year:', year);
 
-                if (!table) return;
+                let table = null;
+                // For single table structure
+                table = document.querySelector('#table-all tbody') ||
+                       document.querySelector('#bang-chi-tiet table tbody');
+
+                // Method 2: Any table in results container
+                if (!table) {
+                    const resultsContainer = document.querySelector('.--detail-success');
+                    if (resultsContainer) {
+                        table = resultsContainer.querySelector('table tbody');
+                    }
+                }
+
+                if (!table) {
+                    console.log('No table found for sorting');
+                    return;
+                }
+
+                console.log('Table found for sorting:', table);
 
                 const rows = Array.from(table.querySelectorAll('tr'));
+                console.log(`Found ${rows.length} rows to sort`);
 
                 rows.sort((a, b) => {
                     if (sortValue === 'date_asc' || sortValue === 'date_desc') {
-                        // Sort theo ngày
                         const getDateFromRow = (row) => {
                             // Tìm ngày trong text content
                             const dateMatch = row.textContent.match(/(\d{1,2})\/(\d{1,2})\/(\d{4})/);
@@ -890,16 +930,16 @@
                                 const [, day, month, year] = dateMatch;
                                 return new Date(year, month - 1, day);
                             }
-                            return new Date(0); // Fallback date
+                            return new Date(0);
                         };
 
                         const dateA = getDateFromRow(a);
                         const dateB = getDateFromRow(b);
-                        return sortValue === 'date_asc' ? dateA - dateB : dateB - dateA;
+                        const result = sortValue === 'date_asc' ? dateA - dateB : dateB - dateA;
+                        console.log(`Sorting ${dateA} vs ${dateB} = ${result}`);
+                        return result;
                     } else {
-                        // Sort theo điểm (desc/asc - nếu có)
                         const getScoreFromRow = (row) => {
-                            // Tìm điểm trong các element có thể chứa điểm
                             const scoreText = row.querySelector('.battery-label')?.textContent ||
                                             row.querySelector('.score-circle-mobile')?.textContent ||
                                             row.textContent.match(/(\d+)%/)?.[1];
@@ -912,13 +952,11 @@
                     }
                 });
 
-                // Clear table và thêm lại rows đã sort
+                // Clear table and re-append sorted rows
                 table.innerHTML = '';
                 rows.forEach(row => table.appendChild(row));
             }
 
-            // Setup sort handlers sau khi nhận response
-            window.setupSortHandlers = setupSortHandlers;
 
         });
     </script>

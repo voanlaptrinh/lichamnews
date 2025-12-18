@@ -47,13 +47,21 @@
                         @if (isset($birthdateInfo))
                             <div class="info-grid">
                                 <p class="mb-2">
-                                    <strong>Ngày sinh:</strong>
-                                    {{ $birthdateInfo['dob']->format('d/m/Y') }} tức ngày
-                                    {{ $birthdateInfo['lunar_dob_str'] }} âm lịch
+                                    <strong>Ngày sinh dương lịch:</strong>
+                                    {{ $birthdateInfo['dob']->format('d/m/Y') }}
+                                </p>
+                                 <p class="mb-2">
+                                    <strong>Ngày sinh âm lịch:</strong>
+                
+                                    {{ $birthdateInfo['lunar_dob_str'] }} 
                                 </p>
                                 <p class="mb-2">
                                     <strong>Tuổi:</strong>
-                                    <b>{{ $birthdateInfo['can_chi_nam'] }}</b>, Mệnh:
+                                    <b>{{ $birthdateInfo['can_chi_nam'] }}</b>
+                                </p>
+                                 <p class="mb-2">
+                                    <strong>Mệnh:</strong>
+                                    
                                     {{ $birthdateInfo['menh']['hanh'] }}
                                     ({{ $birthdateInfo['menh']['napAm'] }})
                                 </p>
@@ -172,10 +180,40 @@
                                                     $border = '#10B981';
                                                     $text_box = '#10B981';
                                                 }
+
+                                                 // Collect taboo names from day score
+                                                $tabooNames = [];
+
+                                                // Check for checkTabooDays structure
+                                                if (isset($day['day_score']['checkTabooDays']['issues']) && is_array($day['day_score']['checkTabooDays']['issues'])) {
+                                                    foreach ($day['day_score']['checkTabooDays']['issues'] as $issue) {
+                                                        if (isset($issue['details']['tabooName'])) {
+                                                            $tabooNames[] = $issue['details']['tabooName'];
+                                                        }
+                                                    }
+                                                }
+
+                                                // Check for issues structure (alternative path)
+                                                if (empty($tabooNames) && isset($day['day_score']['issues']) && is_array($day['day_score']['issues'])) {
+                                                    foreach ($day['day_score']['issues'] as $issue) {
+                                                        if (isset($issue['details']['tabooName'])) {
+                                                            $tabooNames[] = $issue['details']['tabooName'];
+                                                        }
+                                                    }
+                                                }
+
+                                                // Check for taboo_details.taboo_types as fallback
+                                                if (empty($tabooNames) && isset($day['day_score']['taboo_details']['taboo_types']) && is_array($day['day_score']['taboo_details']['taboo_types'])) {
+                                                    $tabooNames = $day['day_score']['taboo_details']['taboo_types'];
+                                                }
+
+                                                // Remove duplicates
+                                                $tabooNames = array_unique($tabooNames);
                                             @endphp
                                             <tr class="table-row-{{ $year }}" data-index="{{ $index }}"
                                                 style="{{ $index >= 10 ? 'display: none;' : '' }}"
-                                                data-visible="{{ $index < 10 ? 'true' : 'false' }}">
+                                                data-visible="{{ $index < 10 ? 'true' : 'false' }}"
+                                                 data-taboo-days="{{ implode(',', $tabooNames) }}">
                                                 <td style="text-align: start">
                                                     <a
                                                         href="{{ route('buy-house.details', [

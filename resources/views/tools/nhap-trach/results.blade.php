@@ -304,11 +304,39 @@
                                                     $border = '#10B981';
                                                     $text_box = '#10B981';
                                                 }
+                                                  // Collect taboo names from day score
+                                                $tabooNames = [];
+
+                                                // Check for checkTabooDays structure
+                                                if (isset($day['day_score']['checkTabooDays']['issues']) && is_array($day['day_score']['checkTabooDays']['issues'])) {
+                                                    foreach ($day['day_score']['checkTabooDays']['issues'] as $issue) {
+                                                        if (isset($issue['details']['tabooName'])) {
+                                                            $tabooNames[] = $issue['details']['tabooName'];
+                                                        }
+                                                    }
+                                                }
+
+                                                // Check for issues structure (alternative path)
+                                                if (empty($tabooNames) && isset($day['day_score']['issues']) && is_array($day['day_score']['issues'])) {
+                                                    foreach ($day['day_score']['issues'] as $issue) {
+                                                        if (isset($issue['details']['tabooName'])) {
+                                                            $tabooNames[] = $issue['details']['tabooName'];
+                                                        }
+                                                    }
+                                                }
+
+                                                // Check for taboo_details.taboo_types as fallback
+                                                if (empty($tabooNames) && isset($day['day_score']['taboo_details']['taboo_types']) && is_array($day['day_score']['taboo_details']['taboo_types'])) {
+                                                    $tabooNames = $day['day_score']['taboo_details']['taboo_types'];
+                                                }
+
+                                                // Remove duplicates
+                                                $tabooNames = array_unique($tabooNames);
                                             @endphp
                                             <tr class="table-row-{{ $year }}" data-index="{{ $index }}"
                                                 style="{{ $index >= 10 ? 'display: none;' : '' }}"
                                                 data-visible="{{ $index < 10 ? 'true' : 'false' }}"
-                                                data-taboo-days="{{ implode(',', $day['day_score']['taboo_details']['taboo_types'] ?? []) }}">
+                                                data-taboo-days="{{ implode(',', $tabooNames) }}">
                                                 <td style="text-align: start">
                                                     <a
                                                         href="{{ route('nhap-trach.details', [
