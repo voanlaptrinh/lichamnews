@@ -1,7 +1,7 @@
 @extends('welcome')
 @section('content')
     @push('styles')
-        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=11.5') }}">
+        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=11.6') }}">
     @endpush
 
 
@@ -34,15 +34,18 @@
                             <div class="col-lg-8">
                                 <div class="">
                                     <div class="form--submit-totxau">
-                                        <div class="fw-bold  title-tong-quan-h2-log" style="#192E52">
+                                        <div class="--text-down-convert" style="#192E52">
                                             Thông tin người
                                             xem
                                         </div>
-                                          <p class="mb-2" style=" font-size: 14px; color: #212121;">Vui lòng điền ngày sinh và khoảng thời gian cần xem ngày tốt vào các ô dưới đây.</p>
+                                        <p class="mb-2" style=" font-size: 14px; color: #212121;">Vui lòng điền ngày sinh
+                                            và khoảng thời gian cần xem ngày tốt vào các ô dưới đây.</p>
 
                                         <form id="totXauForm">
                                             <div class="mb-3">
-                                                   <div for="birthdate" class="fw-bold title-tong-quan-h4-log mb-2">Ngày tháng năm sinh</div>
+                                                <label class="form-label fw-bold" style="color: #212121CC">Ngày tháng
+                                                    năm sinh</label>
+
                                                 <!-- Date Selects -->
                                                 <div class="row g-2 mb-2">
                                                     <div class="col-6 col-sm-4 col-lg-4 col-xl-4">
@@ -115,16 +118,15 @@
                                                 <input type="hidden" id="ngayXem" name="birthdate"
                                                     value="{{ old('birthdate', $inputs['birthdate'] ?? '') }}">
                                             </div>
+                                            <label class="form-label fw-bold" style="color: #212121CC">Dự kiến thời gian cần
+                                                xem</label>
 
-                                            <div class="fw-bold title-tong-quan-h4-log"
-                                                style="color: #192E52; padding-bottom: 12px;">Dự kiến thời gian cần xem
-                                            </div>
                                             <div class="mb-4">
                                                 <div class="input-group">
                                                     <input type="text" readonly
                                                         class="form-control wedding_date_range --border-box-form"
-                                                        id="khoangNgay" name="date_range" placeholder="DD/MM/YY - DD/MM/YY"
-                                                        autocomplete="off"
+                                                        id="khoangNgay" name="date_range"
+                                                        placeholder="DD/MM/YY - DD/MM/YY" autocomplete="off"
                                                         value="{{ old('date_range', $inputs['date_range'] ?? '') }}"
                                                         style="border-radius: 10px; border: none; padding: 12px 30px 12px 15px; background-color: rgba(255,255,255,0.95); cursor: pointer;">
                                                     <span class="input-group-text bg-transparent border-0"
@@ -136,7 +138,7 @@
                                             </div>
 
                                             <div class="d-flex justify-content-center">
-                                                <button type="submit" class="btn btn-light-settup fw-bold w-100">
+                                                <button type="submit" class="btn fw-bold btnd-nfay" style="background: #115097">
                                                     Xem Ngày Tốt
                                                 </button>
                                             </div>
@@ -840,8 +842,10 @@
                                     // Convert to single table format like other tools
                                     const allDays = [];
                                     Object.keys(data.resultsByYear).forEach(year => {
-                                        if (data.resultsByYear[year] && data.resultsByYear[year].days) {
-                                            allDays.push(...data.resultsByYear[year].days);
+                                        if (data.resultsByYear[year] && data
+                                            .resultsByYear[year].days) {
+                                            allDays.push(...data.resultsByYear[year]
+                                                .days);
                                         }
                                     });
 
@@ -934,7 +938,7 @@
                     let table = null;
                     // For single table structure
                     table = document.querySelector('#table-all tbody') ||
-                           document.querySelector('#bang-chi-tiet table tbody');
+                        document.querySelector('#bang-chi-tiet table tbody');
 
                     // Method 2: Any table in results container
                     if (!table) {
@@ -1062,13 +1066,15 @@
                                 `;
                                 // Sử dụng module NextYearButtonHandler
                                 if (window.NextYearButtonHandler) {
-                                    window.NextYearButtonHandler.handleLoadMoreChange(year, true, 'index-pagination');
+                                    window.NextYearButtonHandler.handleLoadMoreChange(year,
+                                        true, 'index-pagination');
                                 }
                             } else {
                                 btn.style.display = 'none';
                                 // Sử dụng module NextYearButtonHandler
                                 if (window.NextYearButtonHandler) {
-                                    window.NextYearButtonHandler.handleLoadMoreChange(year, false, 'index-pagination');
+                                    window.NextYearButtonHandler.handleLoadMoreChange(year,
+                                        false, 'index-pagination');
                                 }
                             }
                         }
@@ -1216,7 +1222,10 @@
                     setTimeout(() => {
                         const table = document.querySelector('#table-all, #bang-chi-tiet table');
                         if (table) {
-                            table.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            table.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
                         }
                     }, 100);
                 }

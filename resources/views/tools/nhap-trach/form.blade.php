@@ -2,7 +2,7 @@
 
 @section('content')
     @push('styles')
-        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=11.5') }}">
+        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=11.6') }}">
     @endpush
 
     <div class="container-setup">
@@ -34,18 +34,19 @@
                             <div class="col-lg-8">
                                 <div class="">
                                     <div class="form--submit-totxau">
-                                        <div class="fw-bold  title-tong-quan-h2-log" style="color: #192E52">
+                                        <div class="--text-down-convert" style="color: #192E52">
                                             Thông tin người
                                             xem
                                         </div>
-                                          <p class="mb-2" style=" font-size: 14px; color: #212121;">Nhập thông tin ngày sinh của người xem vào ô dưới đây.</p>
+                                          <p class="mb-2" style=" font-size: 14px; color: #212121;">Vui lòng điền ngày sinh, giới tính, hướng nhà dự kiến nhập trạch và khoảng thời gian cần xem ngày tốt vào các ô dưới đây.</p>
 
                                         <form id="buildHouseForm">
                                             @csrf
 
                                             <div class="row">
                                                 <div class="mb-3">
-                                                       <div for="birthdate" class="fw-bold title-tong-quan-h4-log mb-2">Ngày tháng năm sinh</div>
+                                                           <label class="form-label fw-bold" style="color: #212121CC">Ngày tháng năm sinh</label>
+                                                  
                                                     <!-- Date Selects -->
                                                     <div class="row g-2 mb-2">
                                                         <div class="col-6 col-sm-4 col-lg-4 col-xl-4">
@@ -126,7 +127,8 @@
 
                                                 <!-- Gender Selection -->
                                                 <div class="mb-3">
-                                                    <div class="fw-bold title-tong-quan-h4-log ">Giới tính</div>
+                                                     <label class="form-label fw-bold" style="color: #212121CC">Giới tính</label>
+                                                  
                                                     <div class="d-flex gap-4 ps-2">
                                                         <div class="form-check d-flex align-items-center">
                                                             <input type="radio" class="form-check-input" name="gender"
@@ -151,7 +153,8 @@
 
                                                 <!-- House Direction Selection -->
                                                 <div class="mb-3">
-                                                    <div class="fw-bold title-tong-quan-h4-log ">Hướng nhà dự kiến</div>
+                                                      <label class="form-label fw-bold" style="color: #212121CC">Hướng nhà dự kiến</label>
+                                                 
                                                     <div class="position-relative">
                                                         <select class="form-select pe-5 --border-box-form"
                                                             id="houseDirectionSelect" name="house_direction"
@@ -174,7 +177,8 @@
                                                 </div>
 
                                                 <div class="input-group mb-4">
-                                                    <div for="date_range" class="fw-bold title-tong-quan-h4-log ">Thời gian dự kiến nhập trạch</div>
+                                                     <label class="form-label fw-bold" style="color: #212121CC">Thời gian dự kiến nhập trạch</label>
+                                                   
                                                     <div class="input-group">
                                                         <input type="text"
                                                             class="form-control wedding_date_range --border-box-form @error('date_range') is-invalid @enderror"
@@ -194,7 +198,7 @@
                                                 </div>
                                             </div>
                                             <div class="d-flex justify-content-center">
-                                                <button type="submit" class="btn btn-light-settup fw-bold w-100"
+                                                <button type="submit" class="btn fw-bold btnd-nfay" style="background: #115097"
                                                     id="submitBtn">
                                                     <span class="btn-text">Xem Kết Quả</span>
                                                     <span class="spinner-border spinner-border-sm ms-2 d-none"

@@ -2,7 +2,7 @@
 
 @section('content')
     @push('styles')
-        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=11.5') }}">
+        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=11.6') }}">
     @endpush
 
     <div class="container-setup">
@@ -31,15 +31,17 @@
                             <div class="col-lg-8">
                                 <div class="">
                                     <div class="form--submit-totxau">
-                                         <div class="fw-bold title-tong-quan-h2-log" style="color: #192E52">
+                                        <div class="--text-down-convert" style="color: #192E52">
                                             Thông tin người xem
                                         </div>
-                                         <p class="mb-2" style=" font-size: 14px; color: #212121;">Vui lòng điền thông tin ngày sinh và khoảng thời gian cần xem ngày tốt vào các ô dưới đây.</p>
+                                        <p class="mb-2" style=" font-size: 14px; color: #212121;">Vui lòng điền thông tin
+                                            ngày sinh và khoảng thời gian cần xem ngày tốt vào các ô dưới đây.</p>
                                         <form id="lapBanThoForm">
                                             @csrf
                                             <div class="mb-3">
-                                                <div for="birthdate" class="fw-bold title-tong-quan-h4-log mb-2">Ngày
-                                                    sinh</div>
+                                                <label class="form-label fw-bold" style="color: #212121CC">Ngày tháng năm
+                                                    sinh</label>
+
                                                 <!-- Date Selects -->
                                                 <div class="row g-2 mb-2">
                                                     <div class="col-6 col-sm-4 col-lg-4 col-xl-4">
@@ -119,8 +121,9 @@
                                             </div>
 
                                             <div class="input-group mb-4">
-                                                <div for="date_range" class="fw-bold title-tong-quan-h4-log"
-                                                    style="color: #192E52; padding-bottom: 12px;">Thời gian dự kiến lập bàn thờ</div>
+                                                  <label class="form-label fw-bold" style="color: #212121CC">Thời gian dự kiến lập bàn
+                                                    thờ</label>
+                                              
                                                 <div class="input-group">
                                                     <input type="text"
                                                         class="form-control wedding_date_range --border-box-form @error('date_range') is-invalid @enderror"
@@ -140,7 +143,7 @@
                                             </div>
 
                                             <div class="d-flex justify-content-center">
-                                                <button type="submit" class="btn btn-light-settup fw-bold w-100"
+                                                <button type="submit" class="btn fw-bold btnd-nfay" style="background: #115097"
                                                     id="submitBtn">
                                                     <span class="btn-text">Xem Kết Quả</span>
                                                     <span class="spinner-border spinner-border-sm ms-2 d-none"
@@ -666,11 +669,16 @@
 
                                 setTimeout(() => {
                                     // Combine all days like other tools
-                                    if (data.resultsByYear && typeof window.initTabooFilter === 'function') {
+                                    if (data.resultsByYear && typeof window
+                                        .initTabooFilter === 'function') {
                                         const allDays = [];
-                                        Object.keys(data.resultsByYear).forEach(year => {
-                                            if (data.resultsByYear[year] && data.resultsByYear[year].days) {
-                                                allDays.push(...data.resultsByYear[year].days);
+                                        Object.keys(data.resultsByYear).forEach(
+                                        year => {
+                                            if (data.resultsByYear[year] && data
+                                                .resultsByYear[year].days) {
+                                                allDays.push(...data
+                                                    .resultsByYear[year]
+                                                    .days);
                                             }
                                         });
 
@@ -680,7 +688,9 @@
                                             }
                                         };
 
-                                        console.log('Initializing taboo filter for lap-ban-tho with combined data:', combinedData);
+                                        console.log(
+                                            'Initializing taboo filter for lap-ban-tho with combined data:',
+                                            combinedData);
                                         window.initTabooFilter(combinedData);
                                     }
                                     initPagination();
@@ -854,7 +864,7 @@
                 // Fallback: prioritize single table structure (like other tools)
                 if (!table) {
                     table = document.querySelector('#table-all tbody') ||
-                           document.querySelector('#bang-chi-tiet table tbody');
+                        document.querySelector('#bang-chi-tiet table tbody');
                 }
 
                 if (!table) {
@@ -976,10 +986,11 @@
 
                         // Show next 10 items - updated for single table structure
                         const table = document.querySelector(`#table-${year} tbody`) ||
-                                    document.querySelector('#table-all tbody') ||
-                                    document.querySelector('#bang-chi-tiet table tbody');
+                            document.querySelector('#table-all tbody') ||
+                            document.querySelector('#bang-chi-tiet table tbody');
                         if (table) {
-                            const allRows = table.querySelectorAll('.table-row-' + year + ', .table-row-all');
+                            const allRows = table.querySelectorAll('.table-row-' + year +
+                                ', .table-row-all');
                             for (let i = currentLoaded; i < currentLoaded + loadMore; i++) {
                                 if (allRows[i]) {
                                     allRows[i].style.display = '';

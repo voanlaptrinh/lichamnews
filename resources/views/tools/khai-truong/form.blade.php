@@ -2,7 +2,7 @@
 
 @section('content')
     @push('styles')
-        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=11.5') }}">
+        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=11.6') }}">
     @endpush
 
     <div class="container-setup">
@@ -33,7 +33,7 @@
                             <div class="col-lg-8">
                                 <div class="">
                                     <div class="form--submit-totxau">
-                                        <div class="fw-bold  title-tong-quan-h2-log" style="color: rgba(25, 46, 82, 1);">
+                                        <div class="--text-down-convert" style="color: rgba(25, 46, 82, 1);">
                                             Thông tin người
                                             xem
                                         </div>
@@ -45,7 +45,8 @@
                                             <div class="row">
                                                 <!-- Name field -->
                                                 <div class="mb-3">
-                                                    <div class="fw-bold title-tong-quan-h4-log" style="color: #192E52; padding-bottom: 12px;">Tên người xem</div>
+                                                     <label class="form-label fw-bold" style="color: #212121CC">Tên người xem</label>
+                                                   
                                                     <input type="text"
                                                         class="form-control --border-box-form @error('user_name') is-invalid @enderror"
                                                         id="user_name" name="user_name" placeholder="Nhập tên của bạn"
@@ -58,7 +59,8 @@
 
                                                 <div class="mb-3">
                                                     <!-- Date Selects -->
-                                                    <div class="fw-bold title-tong-quan-h4-log" style="color: #192E52; padding-bottom: 12px;">Ngày tháng năm sinh</div>
+                                                     <label class="form-label fw-bold" style="color: #212121CC">Ngày tháng năm sinh</label>
+                                                    
                                                     <div class="row g-2 mb-2">
                                                         <div class="col-6 col-sm-4 col-lg-4 col-xl-4">
                                                             <div class="position-relative">
@@ -139,7 +141,8 @@
 
 
                                                 <div class="input-group mb-4">
-                                                    <div for="date_range" class="fw-bold title-tong-quan-h4-log" >Thời gian dự kiến khai trương</div>
+                                                     <label class="form-label fw-bold" style="color: #212121CC">Thời gian dự kiến khai trương</label>
+                                                 
                                                     <div class="input-group">
                                                         <input type="text"
                                                             class="form-control wedding_date_range --border-box-form @error('date_range') is-invalid @enderror"
@@ -158,7 +161,7 @@
                                                 </div>
                                             </div>
                                             <div class="d-flex justify-content-center">
-                                                <button type="submit" class="btn btn-light-settup fw-bold w-100"
+                                                <button type="submit" class="btn fw-bold btnd-nfay" style="background: #115097"
                                                     id="submitBtn">
                                                     <span class="btn-text">Xem Kết Quả</span>
                                                     <span class="spinner-border spinner-border-sm ms-2 d-none"

@@ -143,7 +143,7 @@
 
 
                                             <div class="d-flex justify-content-center">
-                                                <button type="submit" class="btn btn-light-settup fw-bold w-100"
+                                                <button type="submit"  class="btn fw-bold btnd-nfay" style="background: #115097"
                                                     id="submitBtn">
                                                     <span class="btn-text">Xem Kết Quả</span>
                                                     <span class="spinner-border spinner-border-sm ms-2 d-none"

@@ -418,7 +418,7 @@
 
 
                                                 <div class="d-flex justify-content-center">
-                                                    <button type="submit" class="btn btn-light-settup fw-bold w-100" id="submitBtn">
+                                                    <button type="submit" class="btn fw-bold btnd-nfay" style="background: #115097" id="submitBtn">
                                                         <span class="btn-text"> Lập lá số tử vi</span>
                                                         <span class="spinner-border spinner-border-sm ms-2 d-none"
                                                             role="status"></span>

@@ -2,7 +2,7 @@
 
 @section('content')
     @push('styles')
-        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=11.5') }}">
+        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=11.6') }}">
     @endpush
 
 
@@ -32,7 +32,7 @@
                             <div class="col-lg-8">
                                 <div class="">
                                     <div class="form--submit-totxau">
-                                        <div class="fw-bold  title-tong-quan-h2-log" style="color: #192E52">
+                                        <div class="--text-down-convert" style="color: #192E52">
                                             Thông tin người
                                             xem
                                         </div>
@@ -44,9 +44,9 @@
                                             <div class="row">
                                                 {{-- Ngày sinh Chú rể --}}
                                                 <div class="col-md-12 mb-3">
-                                                    <div for="date_range" class="fw-bold title-tong-quan-h4-log"
-                                                        style="color: #192E52; padding-bottom: 12px;">Ngày sinh
-                                                        Chú rể</div>
+                                                       <label class="form-label fw-bold" style="color: #212121CC">Ngày sinh
+                                                        Chú rể</label>
+                                                   
 
                                                     {{-- Date Selects --}}
                                                     <div class="row g-2 mb-2">
@@ -128,10 +128,8 @@
 
                                                 {{-- Ngày sinh Cô dâu --}}
                                                 <div class="col-md-12 mb-3">
-                                                    <div for="date_range" class="fw-bold title-tong-quan-h4-log"
-                                                        style="color: #192E52; padding-bottom: 12px;">Ngày sinh
-                                                        Cô dâu</div>
-
+                                                       <label class="form-label fw-bold" style="color: #212121CC">Ngày sinh
+                                                        Cô dâu</label>
                                                     {{-- Date Selects --}}
                                                     <div class="row g-2 mb-2">
                                                         <div class="col-6 col-sm-4 col-lg-4 col-xl-4">
@@ -213,8 +211,8 @@
 
 
                                                 <div class="col-md-12 mb-3">
-                                                    <div for="date_range" class="fw-bold title-tong-quan-h4-log"
-                                                        style="color: #192E52; padding-bottom: 12px;">Thời gian dự kiến dạm ngõ</div>
+                                                     <label class="form-label fw-bold" style="color: #212121CC">Thời gian dự kiến dạm ngõ</label>
+                                                   
                                                     <div class="input-group">
                                                         <input type="text"
                                                             class="form-control wedding_date_range --border-box-form @error('wedding_date_range') is-invalid @enderror"
@@ -234,7 +232,7 @@
                                                 </div>
                                             </div>
                                             <div class="d-flex justify-content-center">
-                                                <button type="submit" class="btn btn-light-settup fw-bold w-100"
+                                                <button type="submit"class="btn fw-bold btnd-nfay" style="background: #115097"
                                                     id="submitBtn">
                                                     <span class="btn-text">Xem Kết Quả</span>
                                                     <span class="spinner-border spinner-border-sm ms-2 d-none"
