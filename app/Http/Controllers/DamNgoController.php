@@ -160,29 +160,23 @@ class DamNgoController extends Controller
 
         // 4. Sắp xếp theo yêu cầu
         $sortOrder = $request->input('sort', 'desc');
+
         foreach ($resultsByYear as &$yearData) {
             if (isset($yearData['days']) && is_array($yearData['days'])) {
-                usort($yearData['days'], function ($a, $b) use ($sortOrder) {
-                    $groomScoreA = $a['groom_score']['percentage'] ?? 0;
-                    $brideScoreA = $a['bride_score']['percentage'] ?? 0;
+                usort($yearData['days'], function ($a, $b) {
+                    $groomScoreA = floatval($a['groom_score']['percentage'] ?? 0);
+                    $brideScoreA = floatval($a['bride_score']['percentage'] ?? 0);
                     $totalScoreA = $groomScoreA + $brideScoreA;
 
-                    $groomScoreB = $b['groom_score']['percentage'] ?? 0;
-                    $brideScoreB = $b['bride_score']['percentage'] ?? 0;
+                    $groomScoreB = floatval($b['groom_score']['percentage'] ?? 0);
+                    $brideScoreB = floatval($b['bride_score']['percentage'] ?? 0);
                     $totalScoreB = $groomScoreB + $brideScoreB;
 
-                    // Sắp xếp theo tổng điểm trước
-                    if ($totalScoreA !== $totalScoreB) {
-                        return $sortOrder === 'asc' ? $totalScoreA <=> $totalScoreB : $totalScoreB <=> $totalScoreA;
-                    }
+                    // Debug: Log để kiểm tra
+                    error_log("SORT: {$a['date']->format('Y-m-d')}($totalScoreA) vs {$b['date']->format('Y-m-d')}($totalScoreB)");
 
-                    // Nếu tổng điểm bằng nhau, sắp xếp theo điểm cô dâu
-                    if ($brideScoreA !== $brideScoreB) {
-                        return $sortOrder === 'asc' ? $brideScoreA <=> $brideScoreB : $brideScoreB <=> $brideScoreA;
-                    }
-
-                    // Nếu điểm cô dâu cũng bằng nhau, sắp xếp theo điểm chú rể
-                    return $sortOrder === 'asc' ? $groomScoreA <=> $groomScoreB : $groomScoreB <=> $groomScoreA;
+                    // LUÔN sắp xếp điểm từ cao xuống thấp
+                    return $totalScoreB <=> $totalScoreA;
                 });
             }
         }

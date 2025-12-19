@@ -10,10 +10,8 @@
             }
         }
 
-        // Sort all days by date
-        usort($allDays, function($a, $b) {
-            return $a['date'] <=> $b['date'];
-        });
+        // GIỮ NGUYÊN thứ tự đã được sắp xếp trong controller
+        // Không sắp xếp lại để giữ thứ tự theo điểm
     @endphp
 
     @if (isset($resultsByYear) && count($resultsByYear) > 0)
