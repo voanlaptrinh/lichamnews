@@ -443,7 +443,7 @@ function initTabooFilter(resultsByYear) {
                     row.style.setProperty('display', '', 'important');
                     row.dataset.visible = 'true';
                     visibleCount++;
-                    console.log(`✅ SHOWING row: data-taboo-days="${tabooData}" (selectedTaboos: [${window.currentSelectedTaboos?.join(', ') || 'NONE'}])`);
+                   
                 } else {
                     // Force hide with multiple methods
                     row.style.setProperty('display', 'none', 'important');
@@ -451,7 +451,7 @@ function initTabooFilter(resultsByYear) {
                     row.style.position = 'absolute';
                     row.style.left = '-9999px';
                     row.dataset.visible = 'false';
-                    console.log(`❌ FORCE HIDING row: data-taboo-days="${tabooData}" (selectedTaboos: [${window.currentSelectedTaboos?.join(', ') || 'NONE'}])`);
+                    
                 }
             }
         });
@@ -647,16 +647,7 @@ function initTabooFilter(resultsByYear) {
 
       
 
-        // Debug: Log what buttons are actually found
-        console.log('🔍 BUTTON DEBUG: Found filter buttons:', allFilterBtns.length);
-        allFilterBtns.forEach((btn, index) => {
-            console.log(`Button ${index}:`, {
-                element: btn,
-                classes: btn.className,
-                dataset: btn.dataset,
-                id: btn.id
-            });
-        });
+       
 
         // Bind event cho tất cả filter buttons tìm được
         allFilterBtns.forEach((filterBtn, index) => {
@@ -665,7 +656,7 @@ function initTabooFilter(resultsByYear) {
                 filterBtn.removeEventListener('click', openModal);
                 filterBtn.addEventListener('click', openModal);
                 const toolType = filterBtn.dataset.year || filterBtn.id || `button-${index}`;
-                console.log(`✅ Event listener attached to button ${index} (${toolType})`);
+              
             }
         });
 
@@ -1247,9 +1238,7 @@ function initTabooFilter(resultsByYear) {
                 if (rows && rows.length > 0) {
                     let showCount = 0;
 
-                    console.log('🔧 LOAD MORE DEBUG START');
-                    console.log('Current filter:', window.currentSelectedTaboos);
-                    console.log('Total rows:', rows.length);
+          
 
                     let shownCount = 0;
 
@@ -1299,17 +1288,15 @@ function initTabooFilter(resultsByYear) {
                                 row.style.setProperty('display', '', 'important');
                                 row.dataset.visible = 'true';
                                 shownCount++;
-                                console.log(`✅ SHOWING new row ${i}: ${row.getAttribute('data-taboo-days')}`);
+                              
                             } else if (row.dataset.visible === 'true') {
                                 // Keep existing display style
-                                console.log(`⚪ KEEPING visible row ${i}: ${row.getAttribute('data-taboo-days')}`);
+                                
                             }
                         }
                     }
 
-                    console.log(`🔧 LOAD MORE: Showed ${shownCount} new rows`);
-                    console.log('🔧 LOAD MORE DEBUG END');
-
+                
                     // Update button based on remaining hideable rows
                     const visibleCount = Array.from(rows).filter(row => row.dataset.visible === 'true').length;
                     const hiddenButShowableCount = Array.from(rows).filter(row => {

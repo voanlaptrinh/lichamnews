@@ -145,7 +145,8 @@
                                                 </div>
                                             </div>
                                             <div class="d-flex justify-content-center">
-                                                <button type="submit" class="btn fw-bold btnd-nfay" style="background: #115097">
+                                                <button type="submit" class="btn fw-bold btnd-nfay" style="background: #115097"
+                                                    id="submitBtn">
                                                     <span class="btn-text">Xem Kết Quả</span>
                                                     <span class="spinner-border spinner-border-sm ms-2 d-none"
                                                         role="status"></span>
@@ -625,6 +626,7 @@
                             setTimeout(() => {
                                 const form = document.getElementById('buildHouseForm');
                                 if (form) {
+                                    
                                     form.requestSubmit();
                                 }
                             }, 500);

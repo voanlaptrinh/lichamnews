@@ -538,7 +538,7 @@
                             setTimeout(() => {
                                 const form = document.getElementById('examInterviewForm');
                                 if (form) {
-                                    console.log('Auto-submitting form from URL parameters');
+                                  
                                     form.requestSubmit();
                                 }
                             }, 500);

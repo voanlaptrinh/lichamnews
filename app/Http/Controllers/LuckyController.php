@@ -21,34 +21,63 @@ class LuckyController extends Controller
      */
     public function calculate(Request $request)
     {
+     
         try {
             // Validate input
             $request->validate([
                 'full_name' => 'required|string|min:2|max:100',
-                'birth_day' => 'required|integer|min:1|max:31',
-                'birth_month' => 'required|integer|min:1|max:12',
-                'birth_year' => 'required|integer|min:1900|max:' . (date('Y') + 1),
-                'gender' => 'required|in:male,female'
+                'birthdate' => 'required|string',
+                'gender' => 'required|in:nam,nữ,male,female'
             ], [
                 'full_name.required' => 'Vui lòng nhập họ tên đầy đủ',
                 'full_name.min' => 'Tên phải có ít nhất 2 ký tự',
-                'birth_day.required' => 'Vui lòng chọn ngày sinh',
-                'birth_month.required' => 'Vui lòng chọn tháng sinh',
-                'birth_year.required' => 'Vui lòng chọn năm sinh',
+                'birthdate.required' => 'Vui lòng chọn ngày sinh',
                 'gender.required' => 'Vui lòng chọn giới tính'
             ]);
 
+            // Parse birthdate (format: MM/DD/YYYY or YYYY-MM-DD)
+            $birthDateParts = [];
+            if (strpos($request->birthdate, '/') !== false) {
+                // Format: MM/DD/YYYY
+                $birthDateParts = explode('/', $request->birthdate);
+                if (count($birthDateParts) === 3) {
+                    $month = (int) $birthDateParts[0];
+                    $day = (int) $birthDateParts[1];
+                    $year = (int) $birthDateParts[2];
+                }
+            } else {
+                // Format: YYYY-MM-DD
+                $birthDateParts = explode('-', $request->birthdate);
+                if (count($birthDateParts) === 3) {
+                    $year = (int) $birthDateParts[0];
+                    $month = (int) $birthDateParts[1];
+                    $day = (int) $birthDateParts[2];
+                }
+            }
+
+            if (count($birthDateParts) !== 3) {
+                return back()->withErrors(['birthdate' => 'Ngày sinh không đúng định dạng'])->withInput();
+            }
+
             // Validate birth date
-            if (!checkdate($request->birth_month, $request->birth_day, $request->birth_year)) {
-                return back()->withErrors(['birth_date' => 'Ngày sinh không hợp lệ'])->withInput();
+            if (!checkdate($month, $day, $year)) {
+                return back()->withErrors(['birthdate' => 'Ngày sinh không hợp lệ'])->withInput();
             }
 
             // Prepare data
             $birthDate = [
-                'day' => $request->birth_day,
-                'month' => $request->birth_month,
-                'year' => $request->birth_year
+                'day' => $day,
+                'month' => $month,
+                'year' => $year
             ];
+
+            // Convert gender to English format for internal processing
+            $gender = $request->gender;
+            if ($gender === 'nam') {
+                $gender = 'male';
+            } elseif ($gender === 'nữ') {
+                $gender = 'female';
+            }
 
             $fullName = trim($request->full_name);
 
@@ -58,7 +87,7 @@ class LuckyController extends Controller
             // Calculate lucky elements
             $user = [
                 'birth_date' => $birthDate,
-                'gender' => $request->gender
+                'gender' => $gender
             ];
             $selectedDate = [
                 'year' => date('Y'),

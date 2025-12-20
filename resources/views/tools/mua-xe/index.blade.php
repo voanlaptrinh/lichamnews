@@ -559,7 +559,7 @@
                             setTimeout(() => {
                                 const form = document.getElementById('buyCarForm');
                                 if (form) {
-                                    console.log('Auto-submitting form from URL parameters');
+                                   
                                     form.requestSubmit();
                                 }
                             }, 500);
