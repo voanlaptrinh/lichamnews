@@ -12,26 +12,26 @@
 
         // GIỮ NGUYÊN thứ tự đã được sắp xếp trong controller
         // Không sắp xếp lại để giữ thứ tự theo điểm
+
     @endphp
 
     @if (isset($resultsByYear) && count($resultsByYear) > 0)
 
         <div class="card border-0 mb-3 w-100 box-detial-year">
             <div class="card-body box1-con-year">
-                <div
-                    class="text-primary mb-3 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
-                    <img src="{{ asset('icons/dac-diem1.svg') }}" alt="thông tin người xem" width="28"
-                        height="28" class="me-1"> Thông Tin Chú rể
+                <div class="text-primary mb-3 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
+                    <img src="{{ asset('icons/dac-diem1.svg') }}" alt="thông tin người xem" width="28" height="28"
+                        class="me-1"> Thông Tin Chú rể
                 </div>
                 <div class="info-grid">
                     <p class="mb-2">
                         <strong>Ngày sinh dương lịch:</strong>
                         {{ $groomInfo['dob']->format('d/m/Y') }}
                     </p>
-                     <p class="mb-2">
+                    <p class="mb-2">
                         <strong>Ngày sinh âm lịch:</strong>
-                        
-                        {{ $groomInfo['lunar_dob_str'] }} 
+
+                        {{ $groomInfo['lunar_dob_str'] }}
                     </p>
                     <p class="mb-2">
                         <strong>Tuổi âm:</strong>
@@ -52,8 +52,7 @@
 
         <div class="card border-0 mb-3 w-100 box-detial-year">
             <div class="card-body box1-con-year">
-                <div
-                    class="text-primary mb-3 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
+                <div class="text-primary mb-3 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
                     <img src="{{ asset('icons/dac-diem1.svg') }}" alt="thông tin người xem" width="28"
                         height="28" class="me-1"> Thông Tin Cô dâu
                 </div>
@@ -62,10 +61,10 @@
                         <strong>Ngày sinh dương lịch:</strong>
                         {{ $brideInfo['dob']->format('d/m/Y') }}
                     </p>
-                     <p class="mb-2">
+                    <p class="mb-2">
                         <strong>Ngày sinh âm lịch:</strong>
-                      
-                        {{ $brideInfo['lunar_dob_str'] }} 
+
+                        {{ $brideInfo['lunar_dob_str'] }}
                     </p>
                     <p class="mb-2">
                         <strong>Tuổi âm:</strong>
@@ -90,8 +89,8 @@
                     <!-- Filter and Sort Controls - trực tiếp trên table -->
                     <div class="betwen-ds flex-wrap mb-3">
                         <div class="text-primary mb-0 title-tong-quan-h4-log text-dark fw-bolder">
-                            <img src="{{ asset('icons/k_nen_1.svg') }}" alt="thông tin người xem"
-                                width="28" height="28" class="me-1"> Gợi ý ngày tốt cho bạn
+                            <img src="{{ asset('icons/k_nen_1.svg') }}" alt="thông tin người xem" width="28"
+                                height="28" class="me-1"> Gợi ý ngày tốt cho bạn
                         </div>
                         <div class="d-flex flex-wrap" style="gap: 10px">
                             <div class="position-relative mb-3">
@@ -121,8 +120,8 @@
                     </div>
 
                     <div class="table-responsive w-100" id="bang-chi-tiet">
-                        <table class="table table-hover align-middle w-100 table-layout"
-                            id="table-all" style=" width: 100%;">
+                        <table class="table table-hover align-middle w-100 table-layout" id="table-all"
+                            style=" width: 100%;">
                             <thead class="text-center" style="background-color: #e8ebee;">
                                 <tr>
                                     <th style="border-radius: 8px 0 0 8px">Ngày</th>
@@ -192,18 +191,19 @@
                                             ];
                                         }
                                         $tabooTypes = [];
-                                                if (
-                                                    isset($day['groom_score']['checkTabooDays']['issues']) &&
-                                                    is_array($day['groom_score']['checkTabooDays']['issues'])
-                                                ) {
-                                                    foreach ($day['groom_score']['checkTabooDays']['issues'] as $issue) {
-                                                        if (isset($issue['details']['tabooName'])) {
-                                                            $tabooTypes[] = $issue['details']['tabooName'];
-                                                        }
-                                                    }
+                                        if (
+                                            isset($day['groom_score']['checkTabooDays']['issues']) &&
+                                            is_array($day['groom_score']['checkTabooDays']['issues'])
+                                        ) {
+                                            foreach ($day['groom_score']['checkTabooDays']['issues'] as $issue) {
+                                                if (isset($issue['details']['tabooName'])) {
+                                                    $tabooTypes[] = $issue['details']['tabooName'];
                                                 }
+                                            }
+                                        }
                                     @endphp
-                                    <tr class="table-row-all {{ count($tabooTypes) > 0 ? 'has-taboo-days' : '' }}" data-index="{{ $index }}"
+                                    <tr class="table-row-all {{ count($tabooTypes) > 0 ? 'has-taboo-days' : '' }}"
+                                        data-index="{{ $index }}"
                                         style="{{ $index >= 10 ? 'display: none;' : '' }}"
                                         data-visible="{{ $index < 10 ? 'true' : 'false' }}"
                                         data-taboo-days="{{ implode(',', $tabooTypes) }}">
@@ -235,9 +235,10 @@
                                                         <div class="hv-memorial-day-digit">
                                                             {{ $day['date']->format('d') }}</div>
                                                         <div class="hv-memorial-lunar-calendar-info d-flex">
-                                                           <span>
-                                                             {{ $day['al_name'][0] ?? '' }}/{{ $day['al_name'][1] ?? '' }}
-                                                            ÂL</span> <i class="bi bi-chevron-right"></i></div>
+                                                            <span>
+                                                                {{ $day['al_name'][0] ?? '' }}/{{ $day['al_name'][1] ?? '' }}
+                                                                ÂL</span> <i class="bi bi-chevron-right"></i>
+                                                        </div>
                                                     </div>
 
                                                 </div>
@@ -245,202 +246,185 @@
                                         </td>
                                         <td style="text-align: start;position: relative">
 
-                                                    @php
-                                                        $supportFactors = [];
+                                            @php
+                                                $supportFactors = [];
 
-                                                        // Kiểm tra violations (phạm) trước
-                                                        $violations = $day['groom_score']['pham']['issues'] ?? [];
-                                                        if (is_string($violations)) {
-                                                            $violations = json_decode($violations, true) ?: [];
-                                                        }
-                                                        $validViolations = array_filter($violations, function ($v) {
-                                                            if (is_array($v)) {
-                                                                return !empty(array_filter($v));
-                                                            }
-                                                            return !empty($v);
-                                                        });
+                                                // Kiểm tra violations (phạm) trước
+                                                $violations = $day['groom_score']['pham']['issues'] ?? [];
+                                                if (is_string($violations)) {
+                                                    $violations = json_decode($violations, true) ?: [];
+                                                }
+                                                $validViolations = array_filter($violations, function ($v) {
+                                                    if (is_array($v)) {
+                                                        return !empty(array_filter($v));
+                                                    }
+                                                    return !empty($v);
+                                                });
 
-                                                        if (count($validViolations) > 0) {
-                                                            $supportFactors[] =
-                                                                'Phạm: ' . count($validViolations) . ' vấn đề';
-                                                        }
+                                                if (count($validViolations) > 0) {
+                                                    $supportFactors[] = 'Phạm: ' . count($validViolations) . ' vấn đề';
+                                                }
 
-                                                        if (
-                                                            $day['groom_score']['tu']['details']['data']['nature'] ==
-                                                            'Tốt'
-                                                        ) {
-                                                            $nameBatTu =
-                                                                $day['groom_score']['tu']['details']['data']['name'];
-                                                            $supportFactors[] = "Thập nhị bát tú: Sao {$nameBatTu}";
-                                                        }
+                                                if ($day['groom_score']['tu']['details']['data']['nature'] == 'Tốt') {
+                                                    $nameBatTu = $day['groom_score']['tu']['details']['data']['name'];
+                                                    $supportFactors[] = "Thập nhị bát tú: Sao {$nameBatTu}";
+                                                }
+                                                if (
+                                                    $day['groom_score']['hopttuoi'] === true &&
+                                                    $day['groom_score']['hopTuoiReason'] != 'Trùng (Đồng Chi)'
+                                                ) {
+                                                    $supportFactors[] =
+                                                        'Ngày hợp tuổi: ' . $day['groom_score']['hopTuoiReason'];
+                                                }
+                                                // Kiểm tra ngày hoàng đạo - sử dụng helper
+                                                if (
+                                                    isset($day['groom_score']['hoangdao']) &&
+                                                    $day['groom_score']['hoangdao'] === true
+                                                ) {
+                                                    $starName = \App\Helpers\GoodBadDayHelper::getHoangDaoStar(
+                                                        $day['date'],
+                                                    );
+                                                    if ($starName) {
+                                                        $supportFactors[] = "Ngày hoàng đạo: Sao {$starName}";
+                                                    }
+                                                }
 
-                                                        // Kiểm tra ngày hoàng đạo - sử dụng helper
-                                                        if (
-                                                            isset($day['groom_score']['hoangdao']) &&
-                                                            $day['groom_score']['hoangdao'] === true
-                                                        ) {
-                                                            $starName = \App\Helpers\GoodBadDayHelper::getHoangDaoStar(
-                                                                $day['date'],
-                                                            );
-                                                            if ($starName) {
-                                                                $supportFactors[] = "Ngày hoàng đạo: Sao {$starName}";
-                                                            }
-                                                        }
+                                                // Kiểm tra trực tốt
+                                                if (
+                                                    isset($day['groom_score']['tructot']) &&
+                                                    $day['groom_score']['tructot'] === true
+                                                ) {
+                                                    $trucName =
+                                                        $day['groom_score']['truc']['details']['name'] ??
+                                                        'Không xác định';
+                                                    $supportFactors[] = "Trực tốt: Trực {$trucName}";
+                                                }
 
-                                                        // Kiểm tra trực tốt
-                                                        if (
-                                                            isset($day['groom_score']['tructot']) &&
-                                                            $day['groom_score']['tructot'] === true
-                                                        ) {
-                                                            $trucName =
-                                                                $day['groom_score']['truc']['details']['name'] ??
-                                                                'Không xác định';
-                                                            $supportFactors[] = "Trực tốt: Trực {$trucName}";
-                                                        }
+                                                // Kiểm tra hợp tuổi chú rể
+                                                if (
+                                                    isset($day['groom_score']['hopttuoi']) &&
+                                                    $day['groom_score']['hopttuoi'] === true
+                                                ) {
+                                                    $hopType = \App\Helpers\GoodBadDayHelper::getHopTuoiDetail(
+                                                        $day['date'],
+                                                        $groomInfo['dob']->year,
+                                                    );
+                                                    $badTypes = ['Lục xung', 'Tương hại', 'Tương phá', 'Tự hình'];
 
-                                                        // Kiểm tra hợp tuổi chú rể
-                                                        if (
-                                                            isset($day['groom_score']['hopttuoi']) &&
-                                                            $day['groom_score']['hopttuoi'] === true
-                                                        ) {
-                                                            $hopType = \App\Helpers\GoodBadDayHelper::getHopTuoiDetail(
-                                                                $day['date'],
-                                                                $groomInfo['dob']->year,
-                                                            );
-                                                            $badTypes = [
-                                                                'Lục xung',
-                                                                'Tương hại',
-                                                                'Tương phá',
-                                                                'Tự hình',
-                                                            ];
+                                                    if (
+                                                        $hopType &&
+                                                        $hopType !== 'Trung bình (không xung, không hợp)' &&
+                                                        !in_array($hopType, $badTypes)
+                                                    ) {
+                                                        $supportFactors[] = "Hợp tuổi chú rể: {$hopType}";
+                                                    }
+                                                }
 
-                                                            if (
-                                                                $hopType &&
-                                                                $hopType !== 'Trung bình (không xung, không hợp)' &&
-                                                                !in_array($hopType, $badTypes)
-                                                            ) {
-                                                                $supportFactors[] = "Hợp tuổi chú rể: {$hopType}";
-                                                            }
-                                                        }
+                                                // Kiểm tra hợp tuổi cô dâu
+                                                if (
+                                                    isset($day['bride_score']['hopttuoi']) &&
+                                                    $day['bride_score']['hopttuoi'] === true
+                                                ) {
+                                                    $hopType = \App\Helpers\GoodBadDayHelper::getHopTuoiDetail(
+                                                        $day['date'],
+                                                        $brideInfo['dob']->year,
+                                                    );
+                                                    $badTypes = ['Lục xung', 'Tương hại', 'Tương phá', 'Tự hình'];
 
-                                                        // Kiểm tra hợp tuổi cô dâu
-                                                        if (
-                                                            isset($day['bride_score']['hopttuoi']) &&
-                                                            $day['bride_score']['hopttuoi'] === true
-                                                        ) {
-                                                            $hopType = \App\Helpers\GoodBadDayHelper::getHopTuoiDetail(
-                                                                $day['date'],
-                                                                $brideInfo['dob']->year,
-                                                            );
-                                                            $badTypes = [
-                                                                'Lục xung',
-                                                                'Tương hại',
-                                                                'Tương phá',
-                                                                'Tự hình',
-                                                            ];
+                                                    if (
+                                                        $hopType &&
+                                                        $hopType !== 'Trung bình (không xung, không hợp)' &&
+                                                        !in_array($hopType, $badTypes)
+                                                    ) {
+                                                        $supportFactors[] = "Hợp tuổi cô dâu: {$hopType}";
+                                                    }
+                                                }
 
-                                                            if (
-                                                                $hopType &&
-                                                                $hopType !== 'Trung bình (không xung, không hợp)' &&
-                                                                !in_array($hopType, $badTypes)
-                                                            ) {
-                                                                $supportFactors[] = "Hợp tuổi cô dâu: {$hopType}";
-                                                            }
-                                                        }
+                                                // Kiểm tra sao tốt chú rể
+                                                if (
+                                                    isset($day['groom_score']['good_stars']) &&
+                                                    !empty($day['groom_score']['good_stars'])
+                                                ) {
+                                                    $starNames = implode(', ', $day['groom_score']['good_stars']);
+                                                    $supportFactors[] = "Sao tốt: {$starNames}";
+                                                }
 
-                                                        // Kiểm tra sao tốt chú rể
-                                                        if (
-                                                            isset($day['groom_score']['good_stars']) &&
-                                                            !empty($day['groom_score']['good_stars'])
-                                                        ) {
-                                                            $starNames = implode(
-                                                                ', ',
-                                                                $day['groom_score']['good_stars'],
-                                                            );
-                                                            $supportFactors[] = "Sao tốt: {$starNames}";
-                                                        }
+                                                // Chỉ lấy tối đa 5 yếu tố
+                                                $supportFactors = array_slice(array_unique($supportFactors), 0, 5);
+                                                $supportCount = count($supportFactors);
+                                            @endphp
+                                            @if ($supportCount > 0)
+                                                <ul class="list-unstyled mb-0">
+                                                    @foreach ($supportFactors as $factor)
+                                                        <li class="d-flex align-items-center mb-1">
+                                                            <span class="small">{{ $factor }}</span>
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
+                                            @else
+                                                <span class="text-warning small" style="color: #2254AB !important">
+                                                    <i class="bi bi-exclamation-triangle-fill"></i> Không có
+                                                    yếu
+                                                    tố hỗ trợ
+                                                </span>
+                                            @endif
 
-                                                        // Chỉ lấy tối đa 5 yếu tố
-                                                        $supportFactors = array_slice(
-                                                            array_unique($supportFactors),
-                                                            0,
-                                                            5,
-                                                        );
-                                                        $supportCount = count($supportFactors);
-                                                    @endphp
-                                                    @if ($supportCount > 0)
-                                                        <ul class="list-unstyled mb-0">
-                                                            @foreach ($supportFactors as $factor)
-                                                                <li class="d-flex align-items-center mb-1">
-                                                                    <span class="small">{{ $factor }}</span>
-                                                                </li>
-                                                            @endforeach
-                                                        </ul>
-                                                    @else
-                                                        <span class="text-warning small"
-                                                            style="color: #2254AB !important">
-                                                            <i class="bi bi-exclamation-triangle-fill"></i> Không có
-                                                            yếu
-                                                            tố hỗ trợ
-                                                        </span>
-                                                    @endif
+                                            <!-- Wedding - Dual Score Circles cho mobile -->
+                                            <div class="score-circles-wedding">
+                                                <div>
+                                                    <span>C.Rể</span>
+                                                    <div class="score-circle-groom">
 
-                                                    <!-- Wedding - Dual Score Circles cho mobile -->
-                                                    <div class="score-circles-wedding">
-                                                        <div>
-                                                            <span>C.Rể</span>
-                                                            <div class="score-circle-groom">
-
-                                                                {{ round($day['groom_score']['percentage']) }}%
-                                                            </div>
-                                                        </div>
-                                                        <div>
-                                                            <span>C.Dâu</span>
-                                                            <div class="score-circle-bride">
-                                                                {{ round($day['bride_score']['percentage']) }}%
-                                                            </div>
-                                                        </div>
-
+                                                        {{ round($day['groom_score']['percentage']) }}%
                                                     </div>
-                                                </td>
+                                                </div>
+                                                <div>
+                                                    <span>C.Dâu</span>
+                                                    <div class="score-circle-bride">
+                                                        {{ round($day['bride_score']['percentage']) }}%
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </td>
                                         <td class="text-center score-battery-pc">
 
 
-                                                    <div class=" d-flex justify-content-center align-items-center">
-                                                        <div class="battery">
-                                                            <div>
-                                                                <span>Điểm Chú rể</span>
-                                                                <div class="battery-body"
-                                                                    style="border:1px solid {{ $groomColor['border'] }}">
-                                                                    <div class="battery-fill"
-                                                                        style="width: {{ round($day['groom_score']['percentage']) }}%; background-color: {{ $groomColor['bg'] }}; ">
-                                                                    </div>
-                                                                    <div class="battery-label">
-                                                                        {{ round($day['groom_score']['percentage']) }}%
-                                                                    </div>
-                                                                </div>
+                                            <div class=" d-flex justify-content-center align-items-center">
+                                                <div class="battery">
+                                                    <div>
+                                                        <span>Điểm Chú rể</span>
+                                                        <div class="battery-body"
+                                                            style="border:1px solid {{ $groomColor['border'] }}">
+                                                            <div class="battery-fill"
+                                                                style="width: {{ round($day['groom_score']['percentage']) }}%; background-color: {{ $groomColor['bg'] }}; ">
+                                                            </div>
+                                                            <div class="battery-label">
+                                                                {{ round($day['groom_score']['percentage']) }}%
                                                             </div>
                                                         </div>
+                                                    </div>
+                                                </div>
 
-                                                    </div>
-                                                    <div class=" d-flex justify-content-center align-items-center">
-                                                        <div class="battery">
-                                                            <div>
-                                                                <span>Điểm Cô dâu</span>
-                                                                <div class="battery-body"
-                                                                    style="border:1px solid  {{ $brideColor['border'] }}">
-                                                                    <div class="battery-fill"
-                                                                        style="width: {{ round($day['bride_score']['percentage']) }}%; background-color: {{ $brideColor['bg'] }}; ">
-                                                                    </div>
-                                                                    <div class="battery-label">
-                                                                        {{ round($day['bride_score']['percentage']) }}%
-                                                                    </div>
-                                                                </div>
+                                            </div>
+                                            <div class=" d-flex justify-content-center align-items-center">
+                                                <div class="battery">
+                                                    <div>
+                                                        <span>Điểm Cô dâu</span>
+                                                        <div class="battery-body"
+                                                            style="border:1px solid  {{ $brideColor['border'] }}">
+                                                            <div class="battery-fill"
+                                                                style="width: {{ round($day['bride_score']['percentage']) }}%; background-color: {{ $brideColor['bg'] }}; ">
+                                                            </div>
+                                                            <div class="battery-label">
+                                                                {{ round($day['bride_score']['percentage']) }}%
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </td>
-                                       
+                                                </div>
+                                            </div>
+                                        </td>
+
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -457,7 +441,8 @@
                         @endif
 
                         <div class="card-body box1-con-year pe-1 ps-1">
-                            <div class="text-primary mb-2  text-dark d-flex align-items-center p-3" style="border: 1px solid rgb(173, 173, 173);border-radius: 10px">
+                            <div class="text-primary mb-2  text-dark d-flex align-items-center p-3"
+                                style="border: 1px solid rgb(173, 173, 173);border-radius: 10px">
                                 ⚠️ Chú ý: Đây là các thông tin xem mang tính chất tham khảo, không thay thế cho các
                                 tư vấn
                                 chuyên môn. Người dùng tự chịu trách nhiệm với mọi quyết định cá nhân dựa trên thông
@@ -602,10 +587,11 @@
 
             allRows.forEach(row => {
                 const tabooData = row.getAttribute('data-taboo-days');
-                const rowTaboos = tabooData ? tabooData.split(',').map(t => t.trim()).filter(t => t) : [];
+                const rowTaboos = tabooData ? tabooData.split(',').map(t => t.trim()).filter(t =>
+                    t) : [];
 
                 const shouldFilter = selectedTaboos.length > 0 &&
-                                   selectedTaboos.some(selectedTaboo => rowTaboos.includes(selectedTaboo));
+                    selectedTaboos.some(selectedTaboo => rowTaboos.includes(selectedTaboo));
 
                 if (shouldFilter) {
                     row.classList.add('filtered-out');
@@ -648,4 +634,3 @@
         }
     });
 </script>
-

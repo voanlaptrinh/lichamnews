@@ -327,6 +327,10 @@
                                                             $supportFactors[] = "Thập nhị bát tú: Sao {$nameBatTu}";
                                                         }
 
+                                                        if($day['groom_score']['hopttuoi'] === true && $day['groom_score']['hopTuoiReason'] != 'Trùng (Đồng Chi)'){
+                                                            $supportFactors[] = "Ngày hợp tuổi: " . $day['groom_score']['hopTuoiReason'];
+                                                        }
+
                                                         // Kiểm tra ngày hoàng đạo - sử dụng helper
                                                         if (
                                                             isset($day['groom_score']['hoangdao']) &&

@@ -213,7 +213,13 @@
                                                     $supportFactors[] = "Ngày hoàng đạo: Sao {$starName}";
                                                 }
                                             }
-
+ if (
+                                                    $day['day_score']['hopttuoi'] === true &&
+                                                    $day['day_score']['hopTuoiReason'] != 'Trùng (Đồng Chi)'
+                                                ) {
+                                                    $supportFactors[] =
+                                                        'Ngày hợp tuổi: ' . $day['day_score']['hopTuoiReason'];
+                                                }
                                             // Kiểm tra trực tốt
                                             if (
                                                 isset($day['day_score']['tructot']) &&

@@ -201,7 +201,13 @@
                                                         $supportFactors[] = "Ngày hoàng đạo: Sao {$starName}";
                                                     }
                                                 }
-
+ if (
+                                                    $day['day_score']['score']['hopttuoi'] === true &&
+                                                    $day['day_score']['score']['hopTuoiReason'] != 'Trùng (Đồng Chi)'
+                                                ) {
+                                                    $supportFactors[] =
+                                                        'Ngày hợp tuổi: ' . $day['day_score']['score']['hopTuoiReason'];
+                                                }
                                                 // Kiểm tra trực tốt
                                                 if (isset($day['day_score']['score']['tructot']) && $day['day_score']['score']['tructot'] === true) {
                                                     $trucName = $day['day_score']['score']['truc']['details']['name'] ?? 'Không xác định';

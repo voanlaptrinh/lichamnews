@@ -12,7 +12,7 @@
                     <a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
                 </li>
                 <li class="breadcrumb-item" aria-current="page">
-                    <a href="{{ route('hoptuoi.list') }}" style="color: #2254AB; text-decoration: underline;">Hướng hợp
+                    <a href="{{ route('hoptuoi.list') }}" style="color: #2254AB; text-decoration: underline;">Xem hướng hợp
                         tuổi</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">

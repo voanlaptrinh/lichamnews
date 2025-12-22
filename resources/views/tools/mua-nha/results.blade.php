@@ -50,18 +50,18 @@
                                     <strong>Ngày sinh dương lịch:</strong>
                                     {{ $birthdateInfo['dob']->format('d/m/Y') }}
                                 </p>
-                                 <p class="mb-2">
+                                <p class="mb-2">
                                     <strong>Ngày sinh âm lịch:</strong>
-                
-                                    {{ $birthdateInfo['lunar_dob_str'] }} 
+
+                                    {{ $birthdateInfo['lunar_dob_str'] }}
                                 </p>
                                 <p class="mb-2">
                                     <strong>Tuổi:</strong>
                                     <b>{{ $birthdateInfo['can_chi_nam'] }}</b>
                                 </p>
-                                 <p class="mb-2">
+                                <p class="mb-2">
                                     <strong>Mệnh:</strong>
-                                    
+
                                     {{ $birthdateInfo['menh']['hanh'] }}
                                     ({{ $birthdateInfo['menh']['napAm'] }})
                                 </p>
@@ -181,11 +181,14 @@
                                                     $text_box = '#10B981';
                                                 }
 
-                                                 // Collect taboo names from day score
+                                                // Collect taboo names from day score
                                                 $tabooNames = [];
 
                                                 // Check for checkTabooDays structure
-                                                if (isset($day['day_score']['checkTabooDays']['issues']) && is_array($day['day_score']['checkTabooDays']['issues'])) {
+                                                if (
+                                                    isset($day['day_score']['checkTabooDays']['issues']) &&
+                                                    is_array($day['day_score']['checkTabooDays']['issues'])
+                                                ) {
                                                     foreach ($day['day_score']['checkTabooDays']['issues'] as $issue) {
                                                         if (isset($issue['details']['tabooName'])) {
                                                             $tabooNames[] = $issue['details']['tabooName'];
@@ -194,7 +197,11 @@
                                                 }
 
                                                 // Check for issues structure (alternative path)
-                                                if (empty($tabooNames) && isset($day['day_score']['issues']) && is_array($day['day_score']['issues'])) {
+                                                if (
+                                                    empty($tabooNames) &&
+                                                    isset($day['day_score']['issues']) &&
+                                                    is_array($day['day_score']['issues'])
+                                                ) {
                                                     foreach ($day['day_score']['issues'] as $issue) {
                                                         if (isset($issue['details']['tabooName'])) {
                                                             $tabooNames[] = $issue['details']['tabooName'];
@@ -203,7 +210,11 @@
                                                 }
 
                                                 // Check for taboo_details.taboo_types as fallback
-                                                if (empty($tabooNames) && isset($day['day_score']['taboo_details']['taboo_types']) && is_array($day['day_score']['taboo_details']['taboo_types'])) {
+                                                if (
+                                                    empty($tabooNames) &&
+                                                    isset($day['day_score']['taboo_details']['taboo_types']) &&
+                                                    is_array($day['day_score']['taboo_details']['taboo_types'])
+                                                ) {
                                                     $tabooNames = $day['day_score']['taboo_details']['taboo_types'];
                                                 }
 
@@ -213,7 +224,7 @@
                                             <tr class="table-row-{{ $year }}" data-index="{{ $index }}"
                                                 style="{{ $index >= 10 ? 'display: none;' : '' }}"
                                                 data-visible="{{ $index < 10 ? 'true' : 'false' }}"
-                                                 data-taboo-days="{{ implode(',', $tabooNames) }}">
+                                                data-taboo-days="{{ implode(',', $tabooNames) }}">
                                                 <td style="text-align: start">
                                                     <a
                                                         href="{{ route('buy-house.details', [
@@ -272,7 +283,10 @@
                                                                 $supportFactors[] = "Ngày hoàng đạo: Sao {$starName}";
                                                             }
                                                         }
-
+                                                        if ($day['day_score']['hopttuoi'] === true && $day['day_score']['hopTuoiReason'] != 'Trùng (Đồng Chi)') {
+                                                            $supportFactors[] =
+                                                                'Ngày hợp tuổi: ' . $day['day_score']['hopTuoiReason'];
+                                                        }
                                                         // Kiểm tra trực tốt
                                                         if (
                                                             isset($day['day_score']['tructot']) &&
@@ -395,10 +409,13 @@
                                     }
                                 @endphp
                                 @if ($hasNextYear)
-                                    <div class="text-center mt-3" id="next-year-container-{{ $year }}" style="display: none;">
+                                    <div class="text-center mt-3" id="next-year-container-{{ $year }}"
+                                        style="display: none;">
                                         <button type="button" class="btn btn-success next-year-btn"
-                                            data-current-year="{{ $year }}" data-next-year="{{ $nextYear }}">
-                                            <i class="fas fa-arrow-right me-2"></i>Xem năm tiếp theo ({{ $nextYear }})
+                                            data-current-year="{{ $year }}"
+                                            data-next-year="{{ $nextYear }}">
+                                            <i class="fas fa-arrow-right me-2"></i>Xem năm tiếp theo
+                                            ({{ $nextYear }})
                                         </button>
                                     </div>
                                 @endif

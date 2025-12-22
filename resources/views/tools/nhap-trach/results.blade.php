@@ -304,11 +304,14 @@
                                                     $border = '#10B981';
                                                     $text_box = '#10B981';
                                                 }
-                                                  // Collect taboo names from day score
+                                                // Collect taboo names from day score
                                                 $tabooNames = [];
 
                                                 // Check for checkTabooDays structure
-                                                if (isset($day['day_score']['checkTabooDays']['issues']) && is_array($day['day_score']['checkTabooDays']['issues'])) {
+                                                if (
+                                                    isset($day['day_score']['checkTabooDays']['issues']) &&
+                                                    is_array($day['day_score']['checkTabooDays']['issues'])
+                                                ) {
                                                     foreach ($day['day_score']['checkTabooDays']['issues'] as $issue) {
                                                         if (isset($issue['details']['tabooName'])) {
                                                             $tabooNames[] = $issue['details']['tabooName'];
@@ -317,7 +320,11 @@
                                                 }
 
                                                 // Check for issues structure (alternative path)
-                                                if (empty($tabooNames) && isset($day['day_score']['issues']) && is_array($day['day_score']['issues'])) {
+                                                if (
+                                                    empty($tabooNames) &&
+                                                    isset($day['day_score']['issues']) &&
+                                                    is_array($day['day_score']['issues'])
+                                                ) {
                                                     foreach ($day['day_score']['issues'] as $issue) {
                                                         if (isset($issue['details']['tabooName'])) {
                                                             $tabooNames[] = $issue['details']['tabooName'];
@@ -326,7 +333,11 @@
                                                 }
 
                                                 // Check for taboo_details.taboo_types as fallback
-                                                if (empty($tabooNames) && isset($day['day_score']['taboo_details']['taboo_types']) && is_array($day['day_score']['taboo_details']['taboo_types'])) {
+                                                if (
+                                                    empty($tabooNames) &&
+                                                    isset($day['day_score']['taboo_details']['taboo_types']) &&
+                                                    is_array($day['day_score']['taboo_details']['taboo_types'])
+                                                ) {
                                                     $tabooNames = $day['day_score']['taboo_details']['taboo_types'];
                                                 }
 
@@ -396,7 +407,13 @@
                                                                 $supportFactors[] = "Ngày hoàng đạo: Sao {$starName}";
                                                             }
                                                         }
-
+                                                        if (
+                                                            $day['day_score']['hopttuoi'] === true &&
+                                                            $day['day_score']['hopTuoiReason'] != 'Trùng (Đồng Chi)'
+                                                        ) {
+                                                            $supportFactors[] =
+                                                                'Ngày hợp tuổi: ' . $day['day_score']['hopTuoiReason'];
+                                                        }
                                                         // Kiểm tra trực tốt
                                                         if (
                                                             isset($day['day_score']['tructot']) &&

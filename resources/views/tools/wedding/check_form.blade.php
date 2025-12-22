@@ -1203,9 +1203,10 @@
                         console.log(`Sorting ${dateA} vs ${dateB} = ${result}`);
                         return result;
                     } else {
+                        log('Sorting by score:', sortValue);
                         const scoreA = getScoreFromRow(a);
                         const scoreB = getScoreFromRow(b);
-                        return sortValue === 'asc' ? scoreA - scoreB : scoreB - scoreA;
+                        return  scoreA - scoreB : scoreB - scoreA;
                     }
                 });
 

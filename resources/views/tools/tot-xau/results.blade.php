@@ -225,6 +225,9 @@
                                                            
                                                             $supportFactors[] = "Thập nhị bát tú: Sao {$nameBatTu}";
                                                         }
+                                                        if($day['day_score']['score']['hopttuoi'] === true && $day['day_score']['score']['hopTuoiReason'] != 'Trùng (Đồng Chi)'){
+                                                            $supportFactors[] = "Ngày hợp tuổi: " . $day['day_score']['score']['hopTuoiReason'];
+                                                        }
                                            
                                                         if (
                                                             isset($day['day_score']['score']['hoangdao']) &&

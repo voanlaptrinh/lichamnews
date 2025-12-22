@@ -327,18 +327,24 @@
                                                             $supportFactors[] = "Thập nhị bát tú: Sao {$nameBatTu}";
                                                         }
                                                         // Kiểm tra ngày hoàng đạo - sử dụng helper
-                                                        if (
-                                                            isset($day['day_score']['hoangdao']) &&
-                                                            $day['day_score']['hoangdao'] === true
-                                                        ) {
-                                                            $starName = \App\Helpers\GoodBadDayHelper::getHoangDaoStar(
-                                                                $day['date'],
-                                                            );
-                                                            if ($starName) {
-                                                                $supportFactors[] = "Ngày hoàng đạo: Sao {$starName}";
-                                                            }
-                                                        }
-
+                                                        // if (
+                                                        //     isset($day['day_score']['hoangdao']) &&
+                                                        //     $day['day_score']['hoangdao'] === true
+                                                        // ) {
+                                                        //     $starName = \App\Helpers\GoodBadDayHelper::getHoangDaoStar(
+                                                        //         $day['date'],
+                                                        //     );
+                                                        //     if ($starName) {
+                                                        //         $supportFactors[] = "Ngày hoàng đạo: Sao {$starName}";
+                                                        //     }
+                                                        // }
+ if (
+                                                    $day['day_score']['hopttuoi'] === true &&
+                                                    $day['day_score']['hopTuoiReason'] != 'Trùng (Đồng Chi)'
+                                                ) {
+                                                    $supportFactors[] =
+                                                        'Ngày hợp tuổi: ' . $day['day_score']['hopTuoiReason'];
+                                                }
                                                         // Kiểm tra trực tốt
                                                         if (
                                                             isset($day['day_score']['tructot']) &&
@@ -351,29 +357,29 @@
                                                         }
 
                                                         // Kiểm tra hợp tuổi - sử dụng helper
-                                                        if (
-                                                            isset($day['day_score']['hopttuoi']) &&
-                                                            $day['day_score']['hopttuoi'] === true
-                                                        ) {
-                                                            $hopType = \App\Helpers\GoodBadDayHelper::getHopTuoiDetail(
-                                                                $day['date'],
-                                                                $hostInfo['dob_obj']->year,
-                                                            );
-                                                            $badTypes = [
-                                                                'Lục xung',
-                                                                'Tương hại',
-                                                                'Tương phá',
-                                                                'Tự hình',
-                                                            ];
+                                                        // if (
+                                                        //     isset($day['day_score']['hopttuoi']) &&
+                                                        //     $day['day_score']['hopttuoi'] === true
+                                                        // ) {
+                                                        //     $hopType = \App\Helpers\GoodBadDayHelper::getHopTuoiDetail(
+                                                        //         $day['date'],
+                                                        //         $hostInfo['dob_obj']->year,
+                                                        //     );
+                                                        //     $badTypes = [
+                                                        //         'Lục xung',
+                                                        //         'Tương hại',
+                                                        //         'Tương phá',
+                                                        //         'Tự hình',
+                                                        //     ];
 
-                                                            if (
-                                                                $hopType &&
-                                                                $hopType !== 'Trung bình (không xung, không hợp)' &&
-                                                                !in_array($hopType, $badTypes)
-                                                            ) {
-                                                                $supportFactors[] = "Ngày hợp tuổi: {$hopType}";
-                                                            }
-                                                        }
+                                                        //     if (
+                                                        //         $hopType &&
+                                                        //         $hopType !== 'Trung bình (không xung, không hợp)' &&
+                                                        //         !in_array($hopType, $badTypes)
+                                                        //     ) {
+                                                        //         $supportFactors[] = "Ngày hợp tuổi: {$hopType}";
+                                                        //     }
+                                                        // }
 
                                                         // Kiểm tra sao tốt - gộp thành 1 dòng
                                                         if (
@@ -384,13 +390,13 @@
                                                             $supportFactors[] = "Sao tốt: {$starNames}";
                                                         }
 
-                                                        // Giờ tốt
-                                                        if (!empty($day['good_hours'])) {
-                                                            $goodHoursList = is_array($day['good_hours'])
-                                                                ? implode(', ', $day['good_hours'])
-                                                                : $day['good_hours'];
-                                                            $supportFactors[] = "Giờ hoàng đạo: {$goodHoursList}";
-                                                        }
+                                                        // // Giờ tốt
+                                                        // if (!empty($day['good_hours'])) {
+                                                        //     $goodHoursList = is_array($day['good_hours'])
+                                                        //         ? implode(', ', $day['good_hours'])
+                                                        //         : $day['good_hours'];
+                                                        //     $supportFactors[] = "Giờ hoàng đạo: {$goodHoursList}";
+                                                        // }
 
                                                         // Chỉ lấy tối đa 4 yếu tố
                                                         $supportFactors = array_slice(
