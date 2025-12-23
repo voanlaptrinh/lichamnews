@@ -806,6 +806,11 @@
 
                                 initPagination();
                                 setupContainerEventDelegation();
+
+                                // Tự động sắp xếp theo điểm cao nhất mặc định (với delay thêm)
+                                setTimeout(() => {
+                                    applySortingToTable('desc', 'all');
+                                }, 300);
                             }, 200);
 
                             // Scroll to results with delay to ensure content is rendered
@@ -890,31 +895,52 @@
             function applySortingToTable(sortValue, year = null, maintainCurrentPagination = true) {
                 console.log('applySortingToTable called with:', sortValue, 'year:', year);
 
-                // Find table using single table structure
+                // Find table using specific selectors for khai-truong
                 let table = null;
 
-                // Try single table first (khai-truong uses single table structure)
-                table = document.querySelector('#table-all tbody') ||
-                       document.querySelector('#bang-chi-tiet table tbody');
+                // Try multiple selectors to find the table
+                const selectors = [
+                    '#table-all tbody',
+                    '.table-body-all',
+                    '#bang-chi-tiet table tbody',
+                    '#bang-chi-tiet tbody',
+                    'table tbody'
+                ];
 
-                // Fallback: Any table in results container
+                for (const selector of selectors) {
+                    table = document.querySelector(selector);
+                    if (table) {
+                        console.log(`Table found using selector: ${selector}`, table);
+                        break;
+                    }
+                }
+
+                // Final fallback: search within results container
                 if (!table) {
                     const resultsContainer = document.querySelector('.--detail-success');
                     if (resultsContainer) {
-                        table = resultsContainer.querySelector('table tbody');
+                        table = resultsContainer.querySelector('tbody');
+                        if (table) {
+                            console.log('Table found in results container:', table);
+                        }
                     }
                 }
 
                 if (!table) {
-                    console.log('No table found for sorting');
+                    console.error('Cannot find table for year', year);
+                    console.log('Available elements:', {
+                        tableAll: document.querySelector('#table-all'),
+                        bangChiTiet: document.querySelector('#bang-chi-tiet'),
+                        tableBodyAll: document.querySelector('.table-body-all'),
+                        resultsContainer: document.querySelector('.--detail-success')
+                    });
                     return;
                 }
-
-                console.log('Table found for sorting:', table);
 
                 const rows = Array.from(table.querySelectorAll('tr'));
                 console.log(`Found ${rows.length} rows to sort`);
 
+                // Sort rows by score or date
                 rows.sort((a, b) => {
                     if (sortValue === 'date_asc' || sortValue === 'date_desc') {
                         const dateA = getDateFromRow(a);
@@ -925,9 +951,53 @@
                     } else {
                         const scoreA = getScoreFromRow(a);
                         const scoreB = getScoreFromRow(b);
+                        console.log(`Comparing scores: ${scoreA} vs ${scoreB}`);
                         return sortValue === 'asc' ? scoreA - scoreB : scoreB - scoreA;
                     }
                 });
+
+                // Lọc chỉ hiển thị điểm cao nhất khi sort theo desc (mặc định)
+                if (sortValue === 'desc') {
+                    console.log('Applying highest score filter for desc sort');
+                    const scores = rows.map(row => getScoreFromRow(row)).filter(score => score > 0);
+                    const maxScore = Math.max(...scores);
+                    const threshold = maxScore - 20; // Hiển thị trong khoảng 20 điểm so với cao nhất
+
+                    console.log(`Max score: ${maxScore}, threshold: ${threshold}`);
+
+                    let visibleCount = 0;
+                    rows.forEach(row => {
+                        const score = getScoreFromRow(row);
+                        if (score >= threshold && visibleCount < 10) {
+                            row.style.display = '';
+                            row.dataset.visible = 'true';
+                            visibleCount++;
+                            console.log(`Showing row with score: ${score}`);
+                        } else {
+                            row.style.display = 'none';
+                            row.dataset.visible = 'false';
+                        }
+                    });
+
+                    console.log(`Showing ${visibleCount} highest scoring rows (score >= ${threshold})`);
+
+                    // Hiển thị thông báo filter
+                    showHighScoreFilterNotice(threshold, maxScore);
+                } else {
+                    // Hiển thị tất cả với pagination thông thường cho các sort khác
+                    rows.forEach((row, index) => {
+                        if (index < 10) {
+                            row.style.display = '';
+                            row.dataset.visible = 'true';
+                        } else {
+                            row.style.display = 'none';
+                            row.dataset.visible = 'false';
+                        }
+                    });
+
+                    // Ẩn thông báo filter khi không sort theo desc
+                    hideHighScoreFilterNotice();
+                }
 
                 // Clear table and re-append sorted rows
                 table.innerHTML = '';

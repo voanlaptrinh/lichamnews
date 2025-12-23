@@ -36,8 +36,7 @@
                             <div class="info-grid">
                                 <p class="mb-2">
                                     <strong>Ngày sinh dương lịch:</strong>
-                                    {{ $birthdateInfo['dob']->format('d/m/Y') }} tức ngày
-                                    {{ $birthdateInfo['lunar_dob_str'] }} âm lịch
+                                    {{ $birthdateInfo['dob']->format('d/m/Y') }}
                                 </p>
                                 <p class="mb-2">
                                     <strong>Ngày sinh âm lịch:</strong>

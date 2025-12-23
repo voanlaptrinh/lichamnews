@@ -1203,12 +1203,44 @@
                         console.log(`Sorting ${dateA} vs ${dateB} = ${result}`);
                         return result;
                     } else {
-                        log('Sorting by score:', sortValue);
+                        console.log('Sorting by score:', sortValue);
                         const scoreA = getScoreFromRow(a);
                         const scoreB = getScoreFromRow(b);
-                        return  scoreA - scoreB : scoreB - scoreA;
+                        return sortValue === 'asc' ? scoreA - scoreB : scoreB - scoreA;
                     }
                 });
+
+                // Lọc chỉ hiển thị điểm cao nhất khi sort theo desc (mặc định)
+                if (sortValue === 'desc') {
+                    const maxScore = Math.max(...rows.map(row => getScoreFromRow(row)));
+                    const threshold = maxScore - 20; // Hiển thị trong khoảng 20 điểm
+
+                    let visibleCount = 0;
+                    rows.forEach(row => {
+                        const score = getScoreFromRow(row);
+                        if (score >= threshold && visibleCount < 10) {
+                            row.style.display = '';
+                            row.dataset.visible = 'true';
+                            visibleCount++;
+                        } else {
+                            row.style.display = 'none';
+                            row.dataset.visible = 'false';
+                        }
+                    });
+
+                    console.log(`Showing ${visibleCount} highest scoring rows (score >= ${threshold})`);
+                } else {
+                    // Hiển thị tất cả với pagination thông thường cho các sort khác
+                    rows.forEach((row, index) => {
+                        if (index < 10) {
+                            row.style.display = '';
+                            row.dataset.visible = 'true';
+                        } else {
+                            row.style.display = 'none';
+                            row.dataset.visible = 'false';
+                        }
+                    });
+                }
 
                 // Clear table and re-append sorted rows
                 table.innerHTML = '';

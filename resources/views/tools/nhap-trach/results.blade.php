@@ -1,59 +1,6 @@
 <div class="w-100" id="content-box-succes">
     @if (isset($resultsByYear) && count($resultsByYear) > 0)
-        <!-- Feng Shui Analysis Section -->
-        {{-- <div class="card border-0 mb-3 w-100 box-detial-year">
-            <div class="card-body box1-con-year">
-                <div class="text-primary mb-3 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
-                    <img src="{{ asset('icons/dac-diem1.svg') }}" alt="thông tin người xem" width="28" height="28"
-                        class="me-1"> Thông Tin Phong Thủy Nhà
-                </div>
-                @if (isset($birthdateInfo) && isset($huongNhaAnalysis))
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="info-grid">
-                                <p class="mb-2">
-                                    <strong>Ngày sinh:</strong>
-                                    {{ $birthdateInfo['dob']->format('d/m/Y') }} tức ngày
-                                    {{ $birthdateInfo['lunar_dob_str'] }} âm lịch
-                                </p>
-                                <p class="mb-2">
-                                    <strong>Tuổi:</strong>
-                                    <b>{{ $birthdateInfo['can_chi_nam'] }}</b>, Mệnh:
-                                    {{ $birthdateInfo['menh']['hanh'] }}
-                                    ({{ $birthdateInfo['menh']['napAm'] }})
-                                </p>
-                                <p class="mb-2">
-                                    <strong>Giới tính:</strong>
-                                    {{ $inputs['gioi_tinh'] === 'nam' ? 'Nam' : 'Nữ' }}
-                                </p>
-                                <p class="mb-2">
-                                    <strong>Năm sinh âm lịch:</strong>
-                                    {{ $birthdateInfo['lunar_birth_year'] }}
-                                </p>
-                                @php
-                                    $currentYear = date('Y');
-                                    $currentLunarAge = \App\Helpers\AstrologyHelper::getLunarAge(
-                                        $birthdateInfo['lunar_birth_year'],
-                                        $currentYear,
-                                    );
-                                @endphp
-                                <p class="mb-2">
-                                    <strong>Tuổi âm hiện tại:</strong>
-                                    {{ $currentLunarAge }} tuổi (năm {{ $currentYear }})
-                                </p>
-                                <p class="mb-2">
-                                    <strong>Cung mệnh:</strong>
-                                    {{ $birthdateInfo['phong_thuy']['cung_menh'] }}
-                                    ({{ $birthdateInfo['phong_thuy']['nhom'] }})
-                                </p>
-                            </div>
-                        </div>
-
-                    </div>
-                @endif
-            </div>
-        </div> --}}
-
+    
         <!-- Tabs cho các năm -->
         <div class="box-tab-white mb-3">
             <div class="text-primary ms-2 mb-2 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
@@ -106,9 +53,13 @@
 
                                     <div class="info-grid">
                                         <p class="mb-2">
-                                            <strong>Ngày sinh:</strong>
-                                            {{ $birthdateInfo['dob']->format('d/m/Y') }} tức ngày
-                                            {{ $birthdateInfo['lunar_dob_str'] }} âm lịch
+                                            <strong>Ngày sinh dương lịch:</strong>
+                                            {{ $birthdateInfo['dob']->format('d/m/Y') }} 
+                                        </p>
+                                        <p class="mb-2">
+                                            <strong>Ngày sinh âm lịch:</strong>
+                                        
+                                            {{ $birthdateInfo['lunar_dob_str'] }} 
                                         </p>
                                         <p class="mb-2">
                                             <strong>Tuổi:</strong>

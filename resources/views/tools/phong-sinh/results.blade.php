@@ -35,13 +35,21 @@
                         @if (isset($birthdateInfo))
                             <div class="info-grid">
                                 <p class="mb-2">
-                                    <strong>Ngày sinh:</strong>
-                                    {{ $birthdateInfo['dob']->format('d/m/Y') }} tức ngày
-                                    {{ $birthdateInfo['lunar_dob_str'] }} âm lịch
+                                    <strong>Ngày sinh dương lịch:</strong>
+                                    {{ $birthdateInfo['dob']->format('d/m/Y') }}
+                                </p>
+                                 <p class="mb-2">
+                                    <strong>Ngày sinh âm lịch:</strong>
+                                   
+                                    {{ $birthdateInfo['lunar_dob_str'] }} 
                                 </p>
                                 <p class="mb-2">
                                     <strong>Tuổi:</strong>
-                                    <b>{{ $birthdateInfo['can_chi_nam'] }}</b>, Mệnh:
+                                    <b>{{ $birthdateInfo['can_chi_nam'] }}</b>
+                                </p>
+                                 <p class="mb-2">
+                                    <strong>Mệnh:</strong>
+                                    
                                     {{ $birthdateInfo['menh']['hanh'] }}
                                     ({{ $birthdateInfo['menh']['napAm'] }})
                                 </p>

@@ -28,9 +28,13 @@
                 @if (isset($birthdateInfo))
                     <div class="info-grid">
                         <p class="mb-2">
-                            <strong>Ngày sinh:</strong>
-                            {{ $birthdateInfo['solar_date'] ?? '' }} tức ngày
-                            {{ $birthdateInfo['lunar_date'] ?? '' }} âm lịch
+                            <strong>Ngày sinh dương lịch:</strong>
+                            {{ $birthdateInfo['solar_date'] ?? '' }}
+                        </p>
+                          <p class="mb-2">
+                            <strong>Ngày sinh âm lịch:</strong>
+                           
+                            {{ $birthdateInfo['lunar_date'] ?? '' }}
                         </p>
                         <p class="mb-2">
                             <strong>Tuổi:</strong>

@@ -46,9 +46,12 @@
                         </div>
                         <div class="info-grid">
                             <p class="mb-2">
-                                <strong>Ngày sinh:</strong>
-                                {{ $groomInfo['dob']->format('d/m/Y') }} Dương lịch tức ngày
-                                {{ $groomInfo['lunar_dob_str'] }} Âm lịch
+                                <strong>Ngày sinh dương lịch:</strong>
+                                {{ $groomInfo['dob']->format('d/m/Y') }}
+                            </p>
+                            <p class="mb-2">
+                                <strong>Ngày sinh âm lịch:</strong>
+                                {{ $groomInfo['lunar_dob_str'] }}
                             </p>
                             {{-- <p class="mb-2">
                                     <strong>Tuổi:</strong>
@@ -66,7 +69,7 @@
                             </p>
                             <hr>
                             <p class="mb-1 fw-bolder">Kiểm tra hạn năm {{ $year }} của chú Rể
-                               </p>
+                            </p>
                             <p class="mb-0">
                                 Kiểm tra xem năm {{ $year }} {{ $yearData['canchi'] }} Chú rể tuổi
                                 {{ $groomInfo['can_chi_nam'] }} (
@@ -95,11 +98,14 @@
                         </div>
                         <div class="info-grid">
                             <p class="mb-2">
-                                <strong>Ngày sinh:</strong>
-                                {{ $brideInfo['dob']->format('d/m/Y') }} Dương lịch tức ngày
-                                {{ $brideInfo['lunar_dob_str'] }} Âm lịch
+                                <strong>Ngày sinh dương lịch:</strong>
+                                {{ $brideInfo['dob']->format('d/m/Y') }}
                             </p>
+                            <p class="mb-2">
+                                <strong>Ngày sinh âm lịch:</strong>
 
+                                {{ $brideInfo['lunar_dob_str'] }}
+                            </p>
                             <p class="mb-2">
                                 <strong>Tuổi âm:</strong>
                                 {{ $year - $brideInfo['dob']->year + 1 }} tuổi ({{ $brideInfo['can_chi_nam'] }})
@@ -111,7 +117,7 @@
                             </p>
                             <hr>
                             <p class="mb-1 fw-bolder">Kiểm tra hạn năm {{ $year }} của cô Dâu
-                                </p>
+                            </p>
                             <p class="mb-0">
                                 Kiểm tra xem năm {{ $year }} {{ $yearData['canchi'] }} Cô Dâu tuổi
                                 {{ $brideInfo['can_chi_nam'] }} (
@@ -240,13 +246,16 @@
                                                         'text' => '#10B981',
                                                     ];
                                                 }
-                                              
-                                                 $tabooTypes = [];
+
+                                                $tabooTypes = [];
                                                 if (
                                                     isset($day['groom_score']['checkTabooDays']['issues']) &&
                                                     is_array($day['groom_score']['checkTabooDays']['issues'])
                                                 ) {
-                                                    foreach ($day['groom_score']['checkTabooDays']['issues'] as $issue) {
+                                                    foreach (
+                                                        $day['groom_score']['checkTabooDays']['issues']
+                                                        as $issue
+                                                    ) {
                                                         if (isset($issue['details']['tabooName'])) {
                                                             $tabooTypes[] = $issue['details']['tabooName'];
                                                         }
@@ -256,9 +265,7 @@
                                             <tr class="table-row-{{ $year }}" data-index="{{ $index }}"
                                                 style="{{ $index >= 10 ? 'display: none;' : '' }}"
                                                 data-visible="{{ $index < 10 ? 'true' : 'false' }}"
-                                                data-taboo-days="{{ implode(
-                                                    ',',$tabooTypes)
-                                                 }}">
+                                                data-taboo-days="{{ implode(',', $tabooTypes) }}">
                                                 <td style="text-align: start">
                                                     <a
                                                         href="{{ route('wedding.day.details', [
@@ -327,8 +334,13 @@
                                                             $supportFactors[] = "Thập nhị bát tú: Sao {$nameBatTu}";
                                                         }
 
-                                                        if($day['groom_score']['hopttuoi'] === true && $day['groom_score']['hopTuoiReason'] != 'Trùng (Đồng Chi)'){
-                                                            $supportFactors[] = "Ngày hợp tuổi: " . $day['groom_score']['hopTuoiReason'];
+                                                        if (
+                                                            $day['groom_score']['hopttuoi'] === true &&
+                                                            $day['groom_score']['hopTuoiReason'] != 'Trùng (Đồng Chi)'
+                                                        ) {
+                                                            $supportFactors[] =
+                                                                'Ngày hợp tuổi: ' .
+                                                                $day['groom_score']['hopTuoiReason'];
                                                         }
 
                                                         // Kiểm tra ngày hoàng đạo - sử dụng helper
@@ -528,23 +540,29 @@
                                     }
                                 @endphp
                                 @if ($hasNextYear)
-                                    <div class="text-center mt-3" id="next-year-container-{{ $year }}" style="display: none;">
+                                    <div class="text-center mt-3" id="next-year-container-{{ $year }}"
+                                        style="display: none;">
                                         <button type="button" class="btn btn-success next-year-btn"
-                                            data-current-year="{{ $year }}" data-next-year="{{ $nextYear }}">
-                                            <i class="fas fa-arrow-right me-2"></i>Xem năm tiếp theo ({{ $nextYear }})
+                                            data-current-year="{{ $year }}"
+                                            data-next-year="{{ $nextYear }}">
+                                            <i class="fas fa-arrow-right me-2"></i>Xem năm tiếp theo
+                                            ({{ $nextYear }})
                                         </button>
                                     </div>
                                 @endif
-                                 <div class="card-body box1-con-year pe-1 ps-1">
-                                <div class="text-primary mb-2  text-dark d-flex align-items-center p-3" style="border: 1px solid rgb(173, 173, 173);border-radius: 10px">
-                                    ⚠️ Chú ý: Đây là các thông tin xem mang tính chất tham khảo, không thay thế cho các
-                                    tư vấn
-                                    chuyên môn. Người dùng tự chịu trách nhiệm với mọi quyết định cá nhân dựa trên thông
-                                    tin
-                                    tham khảo tại Phong Lịch.
-                                </div>
+                                <div class="card-body box1-con-year pe-1 ps-1">
+                                    <div class="text-primary mb-2  text-dark d-flex align-items-center p-3"
+                                        style="border: 1px solid rgb(173, 173, 173);border-radius: 10px">
+                                        ⚠️ Chú ý: Đây là các thông tin xem mang tính chất tham khảo, không thay thế cho
+                                        các
+                                        tư vấn
+                                        chuyên môn. Người dùng tự chịu trách nhiệm với mọi quyết định cá nhân dựa trên
+                                        thông
+                                        tin
+                                        tham khảo tại Phong Lịch.
+                                    </div>
 
-                            </div>
+                                </div>
                             </div>
                         @else
                             <p class="text-muted text-center py-4">

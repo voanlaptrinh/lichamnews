@@ -59,7 +59,7 @@
                             {{ $lunarAge }} tuổi
                         </p>
                         <p class="mb-2">
-                            <strong>Thời gian khai trương:</strong>
+                            <strong>Thời gian dự kiến khai trương:</strong>
                             {{ $inputs['date_range'] ?? '' }}
                         </p>
                     </div>
