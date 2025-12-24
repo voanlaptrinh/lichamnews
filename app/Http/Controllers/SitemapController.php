@@ -100,6 +100,12 @@ class SitemapController extends Controller
             'giay-to.form',
             'laso.create',
             'horoscope.index',
+            'hoptuoi.list',
+            'huong-ban-tho.form',
+            'huong-nha.form',
+            'huong-bep.form',
+            'huong-phong-ngu.form',
+            'huong-ban-lam-viec.form'
             // ... các route khác nếu bật
         ];
 

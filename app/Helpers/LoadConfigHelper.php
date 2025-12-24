@@ -273,7 +273,7 @@ class LoadConfigHelper
         array(
             'dd' => 1,
             'mm' => 1,
-            'name' => 'Tết Dương lịch'
+            'name' => '🥳Tết Dương lịch'
         ),
         array(
             'dd' => 14,
@@ -458,12 +458,12 @@ class LoadConfigHelper
         array(
             'dd' => 24,
             'mm' => 12,
-            'name' => 'Đêm Giáng sinh'
+            'name' => '🎅🏻 Đêm Giáng sinh'
         ),
         array(
             'dd' => 25,
             'mm' => 12,
-            'name' => 'Lễ Giáng sinh'
+            'name' => '🎁 Lễ Giáng sinh'
         ),
         array(
             'dd' => 22,
@@ -476,7 +476,7 @@ class LoadConfigHelper
         array(
             'dd' => 1,
             'mm' => 1,
-            'name' => 'Tết Nguyên Đán',
+            'name' => '🧧 Tết Nguyên Đán',
         ),
         array(
             'dd' => 2,

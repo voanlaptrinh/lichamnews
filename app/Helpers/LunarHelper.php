@@ -504,7 +504,7 @@ class LunarHelper
     {
         // Các sự kiện cố định theo ngày âm
         return [
-            '1-1' => '🌸 Tết Nguyên Đán',
+            '1-1' => '🧧 Tết Nguyên Đán',
             '1-2' => 'Mồng 2 Tết',
             '1-3' => 'Mồng 3 Tết',
             '1-10' => 'Vía Thần Tài',
@@ -1107,7 +1107,7 @@ class LunarHelper
         // Danh sách các sự kiện Dương lịch cố định theo định dạng 'mm-dd'
         $events = [
             // THÁNG 1
-            '1-1' => 'Tết Dương Lịch',
+            '1-1' => '🥳Tết Dương Lịch',
 
             // THÁNG 2
             '2-3' => 'Ngày thành lập Đảng Cộng sản Việt Nam',
@@ -1174,8 +1174,8 @@ class LunarHelper
             '12-1' => 'Ngày Thế giới phòng chống AIDS',
             '12-19' => 'Ngày Toàn quốc kháng chiến',
             '12-22' => 'Ngày thành lập Quân đội Nhân dân Việt Nam',
-            '12-24' => 'Đêm Giáng sinh',
-            '12-25' => 'Lễ Giáng sinh',
+            '12-24' => '🎅🏻 Đêm Giáng sinh',
+            '12-25' => '🎁Lễ Giáng sinh',
         ];
 
         $result = [];
@@ -1418,7 +1418,7 @@ class LunarHelper
             '8-12'  => ['ten_su_kien' => 'Lễ Phật Thành đạo', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày Đức Phật thành đạo dưới cây Bồ Đề.'],
             '15-12' => ['ten_su_kien' => '🌕 Rằm tháng Chạp', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Rằm cuối năm, cúng tổ tiên.'],
             '23-12' => ['ten_su_kien' => 'Ông Công, Ông Táo', 'loai_su_kien' => 'truyen_thong', 'mo_ta' => 'Ngày các vị thần Bếp lên chầu trời để báo cáo mọi việc trong năm.'],
-            '30-12' => ['ten_su_kien' => 'Giao thừa', 'loai_su_kien' => 'le_lon', 'mo_ta' => 'Đêm giao thừa, đón năm mới âm lịch.'],
+            '30-12' => ['ten_su_kien' => '🎆 Giao thừa', 'loai_su_kien' => 'le_lon', 'mo_ta' => 'Đêm giao thừa, đón năm mới âm lịch.'],
         ];
 
         $result = [];
@@ -1476,7 +1476,7 @@ class LunarHelper
 
                 // Thêm sự kiện cho ngày cuối cùng của tháng (ngày giao thừa)
                 $result[$lastDay] = [
-                    'ten_su_kien' => 'Giao thừa',
+                    'ten_su_kien' => '🎆 Giao thừa',
                     'loai_su_kien' => 'le_lon',
                     'mo_ta' => 'Đêm giao thừa - ngày cuối năm âm lịch, đón năm mới. Tháng Chạp năm ' . $lunarYear . ' có ' . $lastDay . ' ngày.'
                 ];
@@ -1484,7 +1484,7 @@ class LunarHelper
             } catch (\Exception $e) {
                 // Fallback: thêm ngày 29 làm giao thừa (phổ biến nhất)
                 $result[29] = [
-                    'ten_su_kien' => 'Giao thừa',
+                    'ten_su_kien' => '🎆 Giao thừa',
                     'loai_su_kien' => 'le_lon',
                     'mo_ta' => 'Đêm giao thừa, đón năm mới âm lịch.'
                 ];
