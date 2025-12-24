@@ -59,6 +59,110 @@
                 color: #FFFFFF;
 
             }
+
+            /* New Numerology Grid Styles */
+            .numerology-grid {
+                width: 100%;
+            }
+
+            .numerology-card {
+                background: #4285F4;
+                border-radius: 20px;
+                padding: 24px 16px;
+                text-align: center;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+                height: 100%;
+                min-height: 160px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .numerology-card:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            }
+
+            .numerology-card.master-number {
+                background: #4285F4;
+            }
+
+            .number-circle {
+                width: 90px;
+                height: 90px;
+                background-image: url('{{ asset('images/vong_sochudaonone.svg') }}');
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-position: center center;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-bottom: 12px;
+                position: relative;
+            }
+
+            .master-circle {
+                background-image: url('{{ asset('images/vong_sochudao.svg') }}');
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-position: center center;
+            }
+
+            .number-text {
+                color: #FFFFFF;
+                font-size: 36px;
+                font-weight: 700;
+                text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            }
+
+            .card-label {
+                color: #FFFFFF;
+                font-size: 14px;
+                font-weight: 600;
+                text-align: center;
+                line-height: 1.2;
+                text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            }
+
+            /* Responsive adjustments */
+            @media (max-width: 768px) {
+                .number-circle {
+                    width: 70px;
+                    height: 70px;
+                }
+
+                .number-text {
+                    font-size: 28px;
+                }
+
+                .card-label {
+                    font-size: 12px;
+                }
+
+                .numerology-card {
+                    padding: 20px 12px;
+                    min-height: 140px;
+                }
+            }
+
+            @media (max-width: 576px) {
+                .number-circle {
+                    width: 60px;
+                    height: 60px;
+                }
+
+                .number-text {
+                    font-size: 24px;
+                }
+
+                .numerology-card {
+                    padding: 16px 8px;
+                    min-height: 120px;
+                }
+            }
         </style>
     @endpush
 
@@ -105,87 +209,91 @@
                         <div class="tt--giaima">
                             Giải mã các chỉ số
                         </div>
-                        <div class="row mt-3">
-                            {{-- Số Chủ Đạo --}}
-                            <div class="col-lg-2 col-md-2 col-sm-4 col-6 mb-3">
-                                <div class="box-chi-so">
-                                    <div class="--so_backgroud">
-                                        <div class="sochudao">
-                                            {{ $profile['basic_numbers']['life_path']['number'] }}
+
+                        {{-- New Grid Layout --}}
+                        <div class="numerology-grid mt-4">
+                            {{-- Top Row --}}
+                            <div class="row g-3 mb-3">
+                                {{-- Số Chủ Đạo --}}
+                                <div class="col-lg col-md-4 col-sm-6 col-12">
+                                    <div class="numerology-card master-number">
+                                        <div class="number-circle master-circle">
+                                            <span class="number-text">{{ $profile['basic_numbers']['life_path']['number'] }}</span>
                                         </div>
+                                        <div class="card-label">Số Chủ Đạo</div>
                                     </div>
-                                    <div class="text-center text-white fw-bold py-2">
-                                        Số chủ đạo
+                                </div>
+
+                                {{-- Số Linh Hồn --}}
+                                <div class="col-lg col-md-4 col-sm-6 col-12">
+                                    <div class="numerology-card">
+                                        <div class="number-circle">
+                                            <span class="number-text">{{ $profile['basic_numbers']['soul_urge']['number'] }}</span>
+                                        </div>
+                                        <div class="card-label">Số Linh Hồn</div>
+                                    </div>
+                                </div>
+
+                                {{-- Số Tên --}}
+                                <div class="col-lg col-md-4 col-sm-6 col-12">
+                                    <div class="numerology-card">
+                                        <div class="number-circle">
+                                            <span class="number-text">{{ $profile['basic_numbers']['expression']['number'] }}</span>
+                                        </div>
+                                        <div class="card-label">Số Tên</div>
+                                    </div>
+                                </div>
+
+                                {{-- Số Tính Cách --}}
+                                <div class="col-lg col-md-4 col-sm-6 col-12">
+                                    <div class="numerology-card">
+                                        <div class="number-circle">
+                                            <span class="number-text">{{ $profile['basic_numbers']['personality']['number'] }}</span>
+                                        </div>
+                                        <div class="card-label">Số Tính Cách</div>
+                                    </div>
+                                </div>
+
+                                {{-- Năm Cá Nhân --}}
+                                <div class="col-lg col-md-4 col-sm-6 col-12">
+                                    <div class="numerology-card">
+                                        <div class="number-circle">
+                                            <span class="number-text">{{ $profile['cycles_and_pinnacles']['personal_year']['number'] }}</span>
+                                        </div>
+                                        <div class="card-label">Năm Cá Nhân</div>
                                     </div>
                                 </div>
                             </div>
 
-                            {{-- Số Tên --}}
-                            <div class="col-lg-2 col-md-2 col-sm-4 col-6 mb-3">
-                                <div class="box-chi-so">
-                                    <div class="--so_backgroud">
-                                        <div class="sochudao">
-                                            {{ $profile['basic_numbers']['expression']['number'] }}
+                            {{-- Bottom Row --}}
+                            <div class="row g-3">
+                                {{-- Thái Độ --}}
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-12">
+                                    <div class="numerology-card">
+                                        <div class="number-circle">
+                                            <span class="number-text">{{ $profile['basic_numbers']['attitude']['number'] }}</span>
                                         </div>
-                                    </div>
-                                    <div class="text-center text-white fw-bold py-2">
-                                        Số tên
+                                        <div class="card-label">Thái Độ</div>
                                     </div>
                                 </div>
-                            </div>
 
-                            {{-- Số Linh Hồn --}}
-                            <div class="col-lg-2 col-md-2 col-sm-4 col-6 mb-3">
-                                <div class="box-chi-so">
-                                    <div class="--so_backgroud">
-                                        <div class="sochudao">
-                                            {{ $profile['basic_numbers']['soul_urge']['number'] }}
+                                {{-- Tiềm Năng (Birth Day) --}}
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-12">
+                                    <div class="numerology-card">
+                                        <div class="number-circle">
+                                            <span class="number-text">{{ $profile['basic_numbers']['birth_day']['number'] }}</span>
                                         </div>
-                                    </div>
-                                    <div class="text-center text-white fw-bold py-2">
-                                        Số linh hồn
+                                        <div class="card-label">Tiềm Năng</div>
                                     </div>
                                 </div>
-                            </div>
 
-                            {{-- Số Tính Cách --}}
-                            <div class="col-lg-2 col-md-2 col-sm-4 col-6 mb-3">
-                                <div class="box-chi-so">
-                                    <div class="--so_backgroud">
-                                        <div class="sochudao">
-                                            {{ $profile['basic_numbers']['personality']['number'] }}
+                                {{-- Trưởng Thành --}}
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-12">
+                                    <div class="numerology-card">
+                                        <div class="number-circle">
+                                            <span class="number-text">{{ $profile['basic_numbers']['maturity']['number'] }}</span>
                                         </div>
-                                    </div>
-                                    <div class="text-center text-white fw-bold py-2">
-                                        Số tính cách
-                                    </div>
-                                </div>
-                            </div>
-
-                            {{-- Số Ngày Sinh --}}
-                            <div class="col-lg-2 col-md-2 col-sm-4 col-6 mb-3">
-                                <div class="box-chi-so">
-                                    <div class="--so_backgroud">
-                                        <div class="sochudao">
-                                            {{ $profile['basic_numbers']['birth_day']['number'] }}
-                                        </div>
-                                    </div>
-                                    <div class="text-center text-white fw-bold py-2">
-                                        Số ngày sinh
-                                    </div>
-                                </div>
-                            </div>
-
-                            {{-- Năm Cá Nhân --}}
-                            <div class="col-lg-2 col-md-2 col-sm-4 col-6 mb-3">
-                                <div class="box-chi-so">
-                                    <div class="--so_backgroud">
-                                        <div class="sochudao">
-                                            {{ $profile['cycles_and_pinnacles']['personal_year']['number'] }}
-                                        </div>
-                                    </div>
-                                    <div class="text-center text-white fw-bold py-2">
-                                        Năm cá nhân
+                                        <div class="card-label">Trưởng Thành</div>
                                     </div>
                                 </div>
                             </div>
