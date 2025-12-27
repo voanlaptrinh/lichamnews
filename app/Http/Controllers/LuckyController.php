@@ -58,11 +58,10 @@ class LuckyController extends Controller
             if (count($birthDateParts) !== 3) {
                 return back()->withErrors(['birthdate' => 'Ngày sinh không đúng định dạng'])->withInput();
             }
-
-            // Validate birth date
-            if (!checkdate($month, $day, $year)) {
-                return back()->withErrors(['birthdate' => 'Ngày sinh không hợp lệ'])->withInput();
-            }
+            // // Validate birth date
+            // if (!checkdate($month, $day, $year)) {
+            //     return back()->withErrors(['birthdate' => 'Ngày sinh không hợp lệ'])->withInput();
+            // }
 
             // Prepare data
             $birthDate = [
