@@ -1,0 +1,271 @@
+.tt--giaima::before {
+    content: '';
+    display: inline-block;
+    width: 7px;
+    height: 28px;
+    background-color: #4299e1;
+    border-radius: 999px;
+    margin-right: 12px;
+}
+
+.tt--giaima {
+    display: flex;
+    font-size: 20px;
+    font-weight: 700;
+    color: #2254AB;
+}
+
+.box-chi-so {
+    background: #2268D3;
+    border: 1px solid #FFFAED4D;
+    border-radius: 22px;
+
+}
+
+.sochudao {
+    background-image: url(../images/vongsochudao.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    align-items: normal;
+    background-position: center center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 48px;
+    height: 140px;
+    color: #FFFFFF;
+
+}
+
+/* New Numerology Grid Styles */
+.numerology-grid {
+    width: 100%;
+}
+
+.numerology-card {
+    background: #4285F4;
+    border-radius: 20px;
+    padding: 24px 16px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+    min-height: 160px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.numerology-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+a .numerology-card:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+a .number-text {
+    transition: all 0.3s ease;
+}
+
+a:hover .number-text {
+    transform: scale(1.1);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+
+.numerology-card.master-number {
+    background: #4285F4;
+}
+
+
+.number-circle {
+    width: 90px;
+    height: 90px;
+    background-image: url('../../images/vongsochudaonone.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 12px;
+    position: relative;
+}
+
+.master-circle {
+    background-image: url('../../images/vongsochudao.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+}
+
+.number-text {
+    color: #FFFFFF;
+    font-size: 36px;
+    font-weight: 700;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.card-label {
+    color: #FFFFFF;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    line-height: 1.2;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .number-circle {
+        width: 70px;
+        height: 70px;
+    }
+
+    .number-text {
+        font-size: 28px;
+    }
+
+    .card-label {
+        font-size: 12px;
+    }
+
+    .numerology-card {
+        padding: 20px 12px;
+        min-height: 140px;
+    }
+}
+
+@media (max-width: 576px) {
+    .number-circle {
+        width: 60px;
+        height: 60px;
+    }
+
+    .number-text {
+        font-size: 24px;
+    }
+
+    .numerology-card {
+        padding: 16px 8px;
+        min-height: 120px;
+    }
+}
+
+
+
+/*  */
+  :root {
+            --bg-blue: #1e62ca;
+            --green: #48ac7a;
+            --pink: #e8599c;
+            --light-blue: #4f96f0;
+            --red: #f35252;
+            --yellow: #ffff00;
+            --white: #ffffff;
+        }
+/* 
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        } */
+
+        .chart-container {
+            /* max-width: 700px;
+            max-height: 500px; */
+            background-color: var(--bg-blue);
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        /* Lớp vẽ đường nối bằng SVG */
+        .lines-svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .lines-svg line {
+            stroke: var(--white);
+            stroke-width: 2;
+        }
+
+        /* Thành phần vòng tròn (Node) */
+        .node {
+            position: absolute;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            border: 2px solid var(--white);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--white);
+            font-weight: bold;
+            font-size: 18px;
+            z-index: 2;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Chữ số La Mã (I, II, III, IV) */
+        .roman {
+            position: absolute;
+            top: -30px;
+            color: var(--yellow);
+            font-size: 16px;
+            font-weight: bold;
+            width: 100%;
+            text-align: center;
+        }
+
+        /* Nhãn chữ dưới các node đáy */
+        .label {
+            position: absolute;
+            bottom: -35px;
+            color: var(--white);
+            font-size: 18px;
+            width: 120px;
+            text-align: center;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* Các mốc năm trên đường nối */
+        .date-label {
+            position: absolute;
+            color: var(--white);
+            font-size: 18px;
+            z-index: 3;
+            white-space: nowrap;
+        }
+
+        /* Tọa độ các điểm (phần trăm) */
+        /* IV: 50%, 15% | III: 50%, 35% | I: 35%, 55% | II: 65%, 55% | đáy: 20%, 50%, 80% tại 80% height */
+        .n-iv { left: 50%; top: 18%; background-color: var(--red); }
+        .n-iii { left: 50%; top: 38%; background-color: var(--light-blue); }
+        .n-i { left: 35%; top: 56%; background-color: var(--pink); }
+        .n-ii { left: 65%; top: 56%; background-color: var(--pink); }
+        .n-base-l { left: 20%; top: 78%; background-color: var(--green); }
+        .n-base-m { left: 50%; top: 78%; background-color: var(--green); }
+        .n-base-r { left: 80%; top: 78%; background-color: var(--green); }
+
+        /* Vị trí cụ thể các nhãn ngày tháng năm */
+        .d-2056 { left: 55%; top: 15%; font-size: 20px; }
+        .d-2047 { left: 50%; top: 51%; transform: translateX(-50%); }
+        .d-2002 { left: 33%; top: 68%; transform: translateX(-50%); }
+        .d-2038 { left: 67%; top: 68%; transform: translateX(-50%); }

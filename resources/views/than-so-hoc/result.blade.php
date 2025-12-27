@@ -1,169 +1,9 @@
 @extends('welcome')
 
 @section('content')
-    {{-- @push('styles')
-        <link rel="stylesheet" href="{{ asset('/css/thansohoc.css?v=11.5') }}">
-        <!-- Tailwind CSS -->
-        <script src="https://cdn.tailwindcss.com"></script>
-        <script>
-            tailwind.config = {
-                theme: {
-                    extend: {
-                        colors: {
-                            primary: '#1e40af',
-                            secondary: '#7c3aed'
-                        }
-                    }
-                }
-            }
-        </script>
-    @endpush --}}
+
     @push('styles')
-        <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=11.6') }}">
-        <style>
-            .tt--giaima::before {
-                content: '';
-                display: inline-block;
-                width: 7px;
-                height: 28px;
-                background-color: #4299e1;
-                border-radius: 999px;
-                margin-right: 12px;
-            }
-
-            .tt--giaima {
-                display: flex;
-                font-size: 20px;
-                font-weight: 700;
-                color: #2254AB;
-            }
-
-            .box-chi-so {
-                background: #2268D3;
-                border: 1px solid #FFFAED4D;
-                border-radius: 22px;
-
-            }
-
-            .sochudao {
-                background-image: url(../images/vong_sochudao.svg);
-                background-repeat: no-repeat;
-                background-size: cover;
-                align-items: normal;
-                background-position: center center;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                font-size: 48px;
-                height: 140px;
-                color: #FFFFFF;
-
-            }
-
-            /* New Numerology Grid Styles */
-            .numerology-grid {
-                width: 100%;
-            }
-
-            .numerology-card {
-                background: #4285F4;
-                border-radius: 20px;
-                padding: 24px 16px;
-                text-align: center;
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-                transition: transform 0.3s ease, box-shadow 0.3s ease;
-                height: 100%;
-                min-height: 160px;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-            }
-
-            .numerology-card:hover {
-                transform: translateY(-4px);
-                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-            }
-
-            .numerology-card.master-number {
-                background: #4285F4;
-            }
-
-            .number-circle {
-                width: 90px;
-                height: 90px;
-                background-image: url('{{ asset('images/vong_sochudaonone.svg') }}');
-                background-repeat: no-repeat;
-                background-size: cover;
-                background-position: center center;
-                border-radius: 50%;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                margin-bottom: 12px;
-                position: relative;
-            }
-
-            .master-circle {
-                background-image: url('{{ asset('images/vong_sochudao.svg') }}');
-                background-repeat: no-repeat;
-                background-size: cover;
-                background-position: center center;
-            }
-
-            .number-text {
-                color: #FFFFFF;
-                font-size: 36px;
-                font-weight: 700;
-                text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            }
-
-            .card-label {
-                color: #FFFFFF;
-                font-size: 14px;
-                font-weight: 600;
-                text-align: center;
-                line-height: 1.2;
-                text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-            }
-
-            /* Responsive adjustments */
-            @media (max-width: 768px) {
-                .number-circle {
-                    width: 70px;
-                    height: 70px;
-                }
-
-                .number-text {
-                    font-size: 28px;
-                }
-
-                .card-label {
-                    font-size: 12px;
-                }
-
-                .numerology-card {
-                    padding: 20px 12px;
-                    min-height: 140px;
-                }
-            }
-
-            @media (max-width: 576px) {
-                .number-circle {
-                    width: 60px;
-                    height: 60px;
-                }
-
-                .number-text {
-                    font-size: 24px;
-                }
-
-                .numerology-card {
-                    padding: 16px 8px;
-                    min-height: 120px;
-                }
-            }
-        </style>
+        <link rel="stylesheet" href="{{ asset('/css/thansohoc.css?v=11.6') }}">
     @endpush
 
     <div class="container-setup">
@@ -204,7 +44,7 @@
                             với điều đó”</p>
                     </div>
                 </div>
-                <div class="box--bg-thang" style="border: unset">
+                <div class="box--bg-thang mb-3" style="border: unset">
                     <div class="text-box-tong-quan">
                         <div class="tt--giaima">
                             Giải mã các chỉ số
@@ -215,95 +55,201 @@
                             {{-- Top Row --}}
                             <div class="row g-3 mb-3">
                                 {{-- Số Chủ Đạo --}}
-                                <div class="col-lg col-md-4 col-sm-6 col-12">
-                                    <div class="numerology-card master-number">
+                                <div class="col-lg-2 col-md-4 col-sm-6 col-12">
+                                    <div class="numerology-card master-number" style="cursor: pointer;">
                                         <div class="number-circle master-circle">
-                                            <span class="number-text">{{ $profile['basic_numbers']['life_path']['number'] }}</span>
+                                            <span
+                                                class="number-text">{{ $profile['basic_numbers']['life_path']['number'] }}</span>
                                         </div>
                                         <div class="card-label">Số Chủ Đạo</div>
                                     </div>
                                 </div>
 
                                 {{-- Số Linh Hồn --}}
-                                <div class="col-lg col-md-4 col-sm-6 col-12">
-                                    <div class="numerology-card">
-                                        <div class="number-circle">
-                                            <span class="number-text">{{ $profile['basic_numbers']['soul_urge']['number'] }}</span>
+                                <div class="col-lg-2 col-md-4 col-sm-6 col-12">
+                                    <a href="{{ route('numerology.soul_urge.detail', $profile['basic_numbers']['soul_urge']['number']) }}"
+                                        class="text-decoration-none">
+                                        <div class="numerology-card" style="cursor: pointer;">
+                                            <div class="number-circle">
+                                                <span
+                                                    class="number-text">{{ $profile['basic_numbers']['soul_urge']['number'] }}</span>
+                                            </div>
+                                            <div class="card-label">Số Linh Hồn</div>
                                         </div>
-                                        <div class="card-label">Số Linh Hồn</div>
-                                    </div>
+                                    </a>
                                 </div>
 
                                 {{-- Số Tên --}}
-                                <div class="col-lg col-md-4 col-sm-6 col-12">
-                                    <div class="numerology-card">
-                                        <div class="number-circle">
-                                            <span class="number-text">{{ $profile['basic_numbers']['expression']['number'] }}</span>
+                                <div class="col-lg-2 col-md-4 col-sm-6 col-12">
+                                    <a href="{{ route('numerology.expression.detail', $profile['basic_numbers']['expression']['number']) }}"
+                                        class="text-decoration-none">
+                                        <div class="numerology-card" style="cursor: pointer;">
+                                            <div class="number-circle">
+                                                <span
+                                                    class="number-text">{{ $profile['basic_numbers']['expression']['number'] }}</span>
+                                            </div>
+                                            <div class="card-label">Số Tên</div>
                                         </div>
-                                        <div class="card-label">Số Tên</div>
-                                    </div>
+                                    </a>
                                 </div>
 
                                 {{-- Số Tính Cách --}}
-                                <div class="col-lg col-md-4 col-sm-6 col-12">
-                                    <div class="numerology-card">
-                                        <div class="number-circle">
-                                            <span class="number-text">{{ $profile['basic_numbers']['personality']['number'] }}</span>
+                                <div class="col-lg-2 col-md-4 col-sm-6 col-12">
+                                    <a href="{{ route('numerology.personality.detail', $profile['basic_numbers']['personality']['number']) }}"
+                                        class="text-decoration-none">
+                                        <div class="numerology-card" style="cursor: pointer;">
+                                            <div class="number-circle">
+                                                <span
+                                                    class="number-text">{{ $profile['basic_numbers']['personality']['number'] }}</span>
+                                            </div>
+                                            <div class="card-label">Số Tính Cách</div>
                                         </div>
-                                        <div class="card-label">Số Tính Cách</div>
-                                    </div>
+                                    </a>
                                 </div>
 
                                 {{-- Năm Cá Nhân --}}
-                                <div class="col-lg col-md-4 col-sm-6 col-12">
-                                    <div class="numerology-card">
-                                        <div class="number-circle">
-                                            <span class="number-text">{{ $profile['cycles_and_pinnacles']['personal_year']['number'] }}</span>
+                                <div class="col-lg-2 col-md-4 col-sm-6 col-12">
+                                    <a href="{{ route('numerology.personal_year.detail', $profile['cycles_and_pinnacles']['personal_year']['number']) }}"
+                                        class="text-decoration-none">
+                                        <div class="numerology-card" style="cursor: pointer;">
+                                            <div class="number-circle">
+                                                <span
+                                                    class="number-text">{{ $profile['cycles_and_pinnacles']['personal_year']['number'] }}</span>
+                                            </div>
+                                            <div class="card-label">Năm Cá Nhân</div>
                                         </div>
-                                        <div class="card-label">Năm Cá Nhân</div>
-                                    </div>
+                                    </a>
+                                </div>
+
+                                <div class="col-lg-2 col-md-4 col-sm-6 col-12">
+                                    <a href="{{ route('numerology.birth_day.detail', $profile['basic_numbers']['birth_day']['number']) }}"
+                                        class="text-decoration-none">
+                                        <div class="numerology-card" style="cursor: pointer;">
+                                            <div class="number-circle">
+                                                <span
+                                                    class="number-text">{{ $profile['basic_numbers']['birth_day']['number'] }}</span>
+                                            </div>
+                                            <div class="card-label">Số Ngày Sinh</div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-lg-2 col-md-4 col-sm-6 col-12">
+                                    <a href="{{ route('numerology.attitude.detail', $profile['basic_numbers']['attitude']['number']) }}"
+                                        class="text-decoration-none">
+                                        <div class="numerology-card" style="cursor: pointer;">
+                                            <div class="number-circle">
+                                                <span
+                                                    class="number-text">{{ $profile['basic_numbers']['attitude']['number'] }}</span>
+                                            </div>
+                                            <div class="card-label">Thái Độ</div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-lg-2 col-md-4 col-sm-6 col-12">
+                                    <a href="{{ route('numerology.birth_day.detail', $profile['basic_numbers']['birth_day']['number']) }}"
+                                        class="text-decoration-none">
+                                        <div class="numerology-card" style="cursor: pointer;">
+                                            <div class="number-circle">
+                                                <span
+                                                    class="number-text">{{ $profile['basic_numbers']['birth_day']['number'] }}</span>
+                                            </div>
+                                            <div class="card-label">Tiềm năng</div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-lg-2 col-md-4 col-sm-6 col-12">
+                                    <a href="{{ route('numerology.maturity.detail', $profile['basic_numbers']['maturity']['number']) }}"
+                                        class="text-decoration-none">
+                                        <div class="numerology-card" style="cursor: pointer;">
+                                            <div class="number-circle">
+                                                <span
+                                                    class="number-text">{{ $profile['basic_numbers']['maturity']['number'] }}</span>
+                                            </div>
+                                            <div class="card-label">Trưởng Thành</div>
+                                        </div>
+                                    </a>
                                 </div>
                             </div>
 
-                            {{-- Bottom Row --}}
-                            <div class="row g-3">
-                                {{-- Thái Độ --}}
-                                <div class="col-lg-4 col-md-4 col-sm-6 col-12">
-                                    <div class="numerology-card">
-                                        <div class="number-circle">
-                                            <span class="number-text">{{ $profile['basic_numbers']['attitude']['number'] }}</span>
-                                        </div>
-                                        <div class="card-label">Thái Độ</div>
-                                    </div>
-                                </div>
 
-                                {{-- Tiềm Năng (Birth Day) --}}
-                                <div class="col-lg-4 col-md-4 col-sm-6 col-12">
-                                    <div class="numerology-card">
-                                        <div class="number-circle">
-                                            <span class="number-text">{{ $profile['basic_numbers']['birth_day']['number'] }}</span>
-                                        </div>
-                                        <div class="card-label">Tiềm Năng</div>
-                                    </div>
-                                </div>
-
-                                {{-- Trưởng Thành --}}
-                                <div class="col-lg-4 col-md-4 col-sm-6 col-12">
-                                    <div class="numerology-card">
-                                        <div class="number-circle">
-                                            <span class="number-text">{{ $profile['basic_numbers']['maturity']['number'] }}</span>
-                                        </div>
-                                        <div class="card-label">Trưởng Thành</div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
+
+
+                    </div>
+                </div>
+                <div class="box--bg-thang" style="border: unset">
+                    <div class="text-box-tong-quan">
+                        <div class="tt--giaima">
+                           4 giai đoạn đỉnh cao cuộc đời
+                        </div>
+
+                        {{-- New Grid Layout --}}
+                        <div class="numerology-grid mt-4">
+                         
+<div class="chart-container">
+        <!-- Đường nối -->
+        <svg class="lines-svg">
+            <!-- Khung lớn bên ngoài -->
+            <line x1="20%" y1="78%" x2="50%" y2="18%" /> <!-- Trái lên đỉnh -->
+            <line x1="80%" y1="78%" x2="50%" y2="18%" /> <!-- Phải lên đỉnh -->
+            
+            <!-- Các khối kim tự tháp nhỏ -->
+            <line x1="20%" y1="78%" x2="35%" y2="56%" /> <!-- Base L -> I -->
+            <line x1="50%" y1="78%" x2="35%" y2="56%" /> <!-- Base M -> I -->
+            <line x1="50%" y1="78%" x2="65%" y2="56%" /> <!-- Base M -> II -->
+            <line x1="80%" y1="78%" x2="65%" y2="56%" /> <!-- Base R -> II -->
+            
+            <line x1="35%" y1="56%" x2="50%" y2="38%" /> <!-- I -> III -->
+            <line x1="65%" y1="56%" x2="50%" y2="38%" /> <!-- II -> III -->
+            
+            <line x1="50%" y1="38%" x2="50%" y2="18%" /> <!-- III -> IV -->
+        </svg>
+
+        <!-- Đỉnh IV -->
+        <div class="node n-iv">
+            <div class="roman">IV</div>1
+        </div>
+        <div class="date-label d-2056">2056 trở đi</div>
+
+        <!-- Tầng III -->
+        <div class="node n-iii">
+            <div class="roman">III</div>7
+        </div>
+        <div class="date-label d-2047">2047-2055</div>
+
+        <!-- Tầng I & II -->
+        <div class="node n-i">
+            <div class="roman">I</div>9
+        </div>
+        <div class="date-label d-2002">2002-2037</div>
+
+        <div class="node n-ii">
+            <div class="roman">II</div>7
+        </div>
+        <div class="date-label d-2038">2038-2046</div>
+
+        <!-- Hàng Đáy -->
+        <div class="node n-base-l">
+            6 <div class="label">Tháng 06</div>
+        </div>
+        <div class="node n-base-m">
+            3 <div class="label">Ngày 03</div>
+        </div>
+        <div class="node n-base-r">
+            4 <div class="label">2002</div>
+        </div>
+    </div>
+
+                        </div>
+
+
                     </div>
                 </div>
             </div>
-        </div>
 
+        </div>
     </div>
+
 
 
 
@@ -606,26 +552,30 @@
                                                 class="text-sm {{ $textColor }} font-mono">{{ implode('-', $arrow['numbers']) }}</span>
                                         </div>
                                         <div class="space-y-3">
-                                            <p class="text-sm {{ $textColor }}">{{ $arrow['interpretation']['description'] ?? '' }}</p>
+                                            <p class="text-sm {{ $textColor }}">
+                                                {{ $arrow['interpretation']['description'] ?? '' }}</p>
 
-                                            @if(isset($arrow['interpretation']['strengths']) && !empty($arrow['interpretation']['strengths']))
+                                            @if (isset($arrow['interpretation']['strengths']) && !empty($arrow['interpretation']['strengths']))
                                                 <div class="text-sm">
                                                     <span class="font-semibold {{ $textColor }}">✨ Điểm mạnh:</span>
-                                                    <span class="{{ $textColor }}">{{ implode(', ', $arrow['interpretation']['strengths']) }}</span>
+                                                    <span
+                                                        class="{{ $textColor }}">{{ implode(', ', $arrow['interpretation']['strengths']) }}</span>
                                                 </div>
                                             @endif
 
-                                            @if(isset($arrow['interpretation']['challenges']) && !empty($arrow['interpretation']['challenges']))
+                                            @if (isset($arrow['interpretation']['challenges']) && !empty($arrow['interpretation']['challenges']))
                                                 <div class="text-sm">
                                                     <span class="font-semibold {{ $textColor }}">⚡ Thách thức:</span>
-                                                    <span class="{{ $textColor }}">{{ implode(', ', $arrow['interpretation']['challenges']) }}</span>
+                                                    <span
+                                                        class="{{ $textColor }}">{{ implode(', ', $arrow['interpretation']['challenges']) }}</span>
                                                 </div>
                                             @endif
 
-                                            @if(isset($arrow['interpretation']['advice']) && !empty($arrow['interpretation']['advice']))
+                                            @if (isset($arrow['interpretation']['advice']) && !empty($arrow['interpretation']['advice']))
                                                 <div class="text-sm">
                                                     <span class="font-semibold {{ $textColor }}">💡 Lời khuyên:</span>
-                                                    <span class="{{ $textColor }}">{{ $arrow['interpretation']['advice'] }}</span>
+                                                    <span
+                                                        class="{{ $textColor }}">{{ $arrow['interpretation']['advice'] }}</span>
                                                 </div>
                                             @endif
                                         </div>
