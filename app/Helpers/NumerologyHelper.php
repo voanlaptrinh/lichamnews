@@ -413,21 +413,27 @@ class NumerologyHelper
         $frequencies = $birthChart['frequencies'] ?? [];
         $arrows = [];
 
-        // Định nghĩa các mui tên
+        // Định nghĩa các mui tên (8 mũi tên đầy đủ theo source_code)
         $arrowPatterns = [
-            'arrow_of_determination' => [1, 5, 9],
-            'arrow_of_activity' => [1, 2, 3],
-            'arrow_of_intellect' => [3, 6, 9],
-            'arrow_of_emotion' => [2, 5, 8],
-            'arrow_of_will' => [4, 5, 6],
-            'arrow_of_spirituality' => [7, 8, 9]
+            'arrow_of_planning' => [1, 2, 3],      // Mũi tên Kế hoạch
+            'arrow_of_will' => [4, 5, 6],          // Mũi tên Ý chí
+            'arrow_of_action' => [7, 8, 9],        // Mũi tên Hành động
+            'arrow_of_practical' => [1, 4, 7],     // Mũi tên Thực tế
+            'arrow_of_emotional' => [2, 5, 8],     // Mũi tên Cảm xúc
+            'arrow_of_intelligence' => [3, 6, 9],  // Mũi tên Trí tuệ
+            'arrow_of_determination' => [1, 5, 9], // Mũi tên Quyết tâm
+            'arrow_of_spiritual' => [3, 5, 7]      // Mũi tên Tâm linh
         ];
 
         $missingArrows = [
+            'missing_arrow_of_planning' => [1, 2, 3],
+            'missing_arrow_of_will' => [4, 5, 6],
+            'missing_arrow_of_action' => [7, 8, 9],
+            'missing_arrow_of_practical' => [1, 4, 7],
+            'missing_arrow_of_emotional' => [2, 5, 8],
+            'missing_arrow_of_intelligence' => [3, 6, 9],
             'missing_arrow_of_determination' => [1, 5, 9],
-            'missing_arrow_of_activity' => [1, 2, 3],
-            'missing_arrow_of_intellect' => [3, 6, 9],
-            'missing_arrow_of_emotion' => [2, 5, 8]
+            'missing_arrow_of_spiritual' => [3, 5, 7]
         ];
 
         // Kiểm tra mui tên có mặt
@@ -1193,9 +1199,223 @@ class NumerologyHelper
     private static function getBirthChartInterpretation($frequencies, $missing, $dominant) { return "Giải thích biểu đồ ngày sinh"; }
     private static function getBirthChartSections($frequencies, $missing, $dominant) { return []; }
 
-    private static function getArrowInterpretation($arrowName, $isPresent) { return "Giải thích mui tên {$arrowName}"; }
-    private static function getArrowsInterpretation($arrows) { return "Giải thích tổng quan mui tên"; }
-    private static function getArrowsSections($arrows) { return []; }
+    private static function getArrowInterpretation($arrowName, $isPresent)
+    {
+        $interpretations = [
+            'arrow_of_planning' => [
+                'present' => [
+                    'title' => 'Mũi Tên Kế Hoạch (1-2-3)',
+                    'description' => 'Bạn là người có tư duy logic, kỷ luật và khả năng tổ chức bẩm sinh. Việc lên kế hoạch, sắp xếp công việc, quản lý thời gian với bạn là điều hết sức tự nhiên.',
+                    'strengths' => ['Tư duy logic', 'Kỷ luật cao', 'Tổ chức giỏi', 'Quản lý thời gian tốt'],
+                    'advice' => 'Hãy tận dụng khả năng tổ chức để dẫn dắt và hướng dẫn người khác. Bạn có thể trở thành quản lý xuất sắc.'
+                ],
+                'missing' => [
+                    'title' => 'Thiếu Mũi Tên Kế Hoạch (1-2-3)',
+                    'description' => 'Bạn có thể gặp khó khăn trong việc lập kế hoạch, tổ chức và duy trì kỷ luật. Thường hành động theo cảm hứng.',
+                    'challenges' => ['Thiếu tổ chức', 'Kém kế hoạch', 'Thiếu kỷ luật'],
+                    'advice' => 'Hãy bắt đầu với thói quen nhỏ như lập danh sách việc cần làm. Học từ những người có kỹ năng tổ chức tốt.'
+                ]
+            ],
+            'arrow_of_will' => [
+                'present' => [
+                    'title' => 'Mũi Tên Ý Chí (4-5-6)',
+                    'description' => 'Bạn có ý chí mạnh mẽ và khả năng tự kiểm soát tốt. Có thể duy trì kỷ luật và theo đuổi mục tiêu một cách bền bỉ.',
+                    'strengths' => ['Ý chí mạnh', 'Tự kiểm soát', 'Kỷ luật cao', 'Bền bỉ'],
+                    'advice' => 'Hãy sử dụng ý chí mạnh mẽ này để vượt qua mọi thử thách và đạt được thành công.'
+                ],
+                'missing' => [
+                    'title' => 'Thiếu Mũi Tên Ý Chí (4-5-6)',
+                    'description' => 'Có thể thiếu ý chí hoặc khó duy trì kỷ luật. Thường dễ bị phân tâm hoặc bỏ cuộc giữa chừng.',
+                    'challenges' => ['Thiếu ý chí', 'Khó tự kiểm soát', 'Dễ bỏ cuộc'],
+                    'advice' => 'Hãy xây dựng thói quen tốt từng ngày và tìm động lực mạnh mẽ để duy trì ý chí.'
+                ]
+            ],
+            'arrow_of_action' => [
+                'present' => [
+                    'title' => 'Mũi Tên Hành Động (7-8-9)',
+                    'description' => 'Bạn là người sống năng động, nhiệt huyết và luôn sẵn sàng hành động. Khi có ý tưởng, bạn không ngồi chờ đợi mà bắt tay vào làm ngay.',
+                    'strengths' => ['Năng động', 'Quyết đoán', 'Chủ động', 'Hành động nhanh'],
+                    'advice' => 'Hãy kết hợp tốc độ với sự suy xét. Đôi khi chậm lại một chút để tính toán sẽ giúp bạn tiến xa hơn.'
+                ],
+                'missing' => [
+                    'title' => 'Thiếu Mũi Tên Hành Động (7-8-9)',
+                    'description' => 'Có thể gặp khó khăn trong việc duy trì động lực và sự chủ động. Thường trì hoãn, thiếu quyết đoán.',
+                    'challenges' => ['Trì hoãn', 'Thiếu quyết đoán', 'Chậm chạp'],
+                    'advice' => 'Hãy thiết lập mục tiêu nhỏ và thực tế. Tham gia hoạt động nhóm để tăng cường động lực hành động.'
+                ]
+            ],
+            'arrow_of_practical' => [
+                'present' => [
+                    'title' => 'Mũi Tên Thực Tế (1-4-7)',
+                    'description' => 'Bạn là người có tư duy thực tế, sống có nguyên tắc và chú trọng vào hành động cụ thể. Mọi việc bạn làm đều từ nền tảng chắc chắn.',
+                    'strengths' => ['Thực tế', 'Có nguyên tắc', 'Chắc chắn', 'Đáng tin cậy'],
+                    'advice' => 'Hãy mở lòng đón nhận cả yếu tố cảm xúc và sáng tạo để phát triển toàn diện hơn.'
+                ],
+                'missing' => [
+                    'title' => 'Thiếu Mũi Tên Thực Tế (1-4-7)',
+                    'description' => 'Có thể gặp khó khăn trong việc áp dụng kiến thức vào thực tiễn. Thường sống trong thế giới tưởng tượng.',
+                    'challenges' => ['Thiếu thực tế', 'Tưởng tượng quá', 'Khó áp dụng'],
+                    'advice' => 'Hãy tham gia các hoạt động thực tế như làm vườn, nấu ăn để tăng cường kết nối với thế giới thực.'
+                ]
+            ],
+            'arrow_of_emotional' => [
+                'present' => [
+                    'title' => 'Mũi Tên Cảm Xúc (2-5-8)',
+                    'description' => 'Bạn có khả năng cảm nhận và hiểu được cảm xúc của bản thân và người khác. Rất nhạy cảm và đồng cảm.',
+                    'strengths' => ['Nhạy cảm cao', 'Đồng cảm', 'Hiểu người', 'Cảm xúc phong phú'],
+                    'advice' => 'Hãy sử dụng trực giác và sự nhạy cảm để kết nối với mọi người xung quanh.'
+                ],
+                'missing' => [
+                    'title' => 'Thiếu Mũi Tên Cảm Xúc (2-5-8)',
+                    'description' => 'Có thể gặp khó khăn trong việc bày tỏ cảm xúc hoặc hiểu cảm xúc của người khác. Thường lý trí hơn cảm xúc.',
+                    'challenges' => ['Khô khan cảm xúc', 'Khó hiểu người', 'Thiếu đồng cảm'],
+                    'advice' => 'Hãy học cách bày tỏ cảm xúc tự nhiên và lắng nghe người khác nhiều hơn.'
+                ]
+            ],
+            'arrow_of_intelligence' => [
+                'present' => [
+                    'title' => 'Mũi Tên Trí Tuệ (3-6-9)',
+                    'description' => 'Bạn sở hữu trí tuệ sắc bén và khả năng tư duy logic xuất sắc. Có thể hiểu và phân tích vấn đề một cách sâu sắc.',
+                    'strengths' => ['Trí tuệ cao', 'Tư duy logic', 'Phân tích tốt', 'Thông minh'],
+                    'advice' => 'Hãy sử dụng trí tuệ để giải quyết những vấn đề phức tạp. Bạn có thể trở thành cố vấn tuyệt vời.'
+                ],
+                'missing' => [
+                    'title' => 'Thiếu Mũi Tên Trí Tuệ (3-6-9)',
+                    'description' => 'Có thể gặp khó khăn trong việc tư duy logic hoặc phân tích vấn đề. Thường dựa vào cảm xúc nhiều hơn logic.',
+                    'challenges' => ['Tư duy chậm', 'Khó phân tích', 'Dựa vào cảm xúc'],
+                    'advice' => 'Hãy rèn luyện kỹ năng tư duy logic thông qua đọc sách và giải quyết vấn đề.'
+                ]
+            ],
+            'arrow_of_determination' => [
+                'present' => [
+                    'title' => 'Mũi Tên Quyết Tâm (1-5-9)',
+                    'description' => 'Bạn sở hữu sức mạnh quyết tâm phi thường. Khi đã đặt mục tiêu, bạn sẽ không ngừng nỗ lực đến khi đạt được.',
+                    'strengths' => ['Quyết tâm cao', 'Kiên định', 'Tập trung', 'Không bỏ cuộc'],
+                    'advice' => 'Hãy đặt ra những mục tiêu rõ ràng và thực tế. Sức mạnh quyết tâm của bạn là vũ khí mạnh nhất.'
+                ],
+                'missing' => [
+                    'title' => 'Thiếu Mũi Tên Quyết Tâm (1-5-9)',
+                    'description' => 'Bạn có thể gặp khó khăn trong việc duy trì quyết tâm và kiên trì với mục tiêu dài hạn.',
+                    'challenges' => ['Thiếu kiên trì', 'Dễ bỏ cuộc', 'Khó tập trung lâu'],
+                    'advice' => 'Hãy chia nhỏ mục tiêu lớn thành các bước nhỏ. Tìm người đồng hành để duy trì động lực.'
+                ]
+            ],
+            'arrow_of_spiritual' => [
+                'present' => [
+                    'title' => 'Mũi Tên Tâm Linh (3-5-7)',
+                    'description' => 'Bạn có khả năng kết nối với thế giới tâm linh và có trực giác sâu sắc. Thường quan tâm đến ý nghĩa sâu xa của cuộc sống.',
+                    'strengths' => ['Trực giác mạnh', 'Tâm linh cao', 'Hiểu biết sâu', 'Khôn ngoan'],
+                    'advice' => 'Hãy tin vào trực giác của mình và tìm kiếm ý nghĩa sâu xa trong mọi việc.'
+                ],
+                'missing' => [
+                    'title' => 'Thiếu Mũi Tên Tâm Linh (3-5-7)',
+                    'description' => 'Có thể thiếu kết nối tâm linh hoặc trực giác không mạnh. Thường tập trung vào vật chất hơn tâm linh.',
+                    'challenges' => ['Thiếu trực giác', 'Không tâm linh', 'Quá vật chất'],
+                    'advice' => 'Hãy dành thời gian để thiền định, suy ngẫm và kết nối với bản thân sâu hơn.'
+                ]
+            ]
+        ];
+
+        $type = $isPresent ? 'present' : 'missing';
+        $arrowKey = str_replace('missing_', '', $arrowName);
+
+        return $interpretations[$arrowKey][$type] ?? [
+            'title' => 'Mũi tên không xác định',
+            'description' => 'Chưa có thông tin về mũi tên này.'
+        ];
+    }
+    private static function getArrowsInterpretation($arrows)
+    {
+        if (empty($arrows)) {
+            return 'Biểu đồ ngày sinh của bạn chưa thể hiện rõ các mũi tên cá tính. Điều này có nghĩa là bạn có tính cách cân bằng và linh hoạt.';
+        }
+
+        $presentArrows = array_filter($arrows, function($arrow) {
+            return $arrow['type'] === 'present';
+        });
+
+        $missingArrows = array_filter($arrows, function($arrow) {
+            return $arrow['type'] === 'missing';
+        });
+
+        $interpretation = '';
+
+        if (!empty($presentArrows)) {
+            $interpretation .= 'Bạn sở hữu ' . count($presentArrows) . ' mũi tên cá tính mạnh mẽ, thể hiện những khả năng đặc biệt: ';
+            $arrowNames = array_map(function($arrow) {
+                return $arrow['interpretation']['title'];
+            }, $presentArrows);
+            $interpretation .= implode(', ', $arrowNames) . '. ';
+        }
+
+        if (!empty($missingArrows)) {
+            $interpretation .= 'Đồng thời, bạn cũng cần chú ý đến ' . count($missingArrows) . ' lĩnh vực cần phát triển thêm để hoàn thiện bản thân. ';
+        }
+
+        $interpretation .= 'Hãy tận dụng những điểm mạnh và cải thiện những điểm yếu để đạt được sự cân bằng trong cuộc sống.';
+
+        return $interpretation;
+    }
+    private static function getArrowsSections($arrows)
+    {
+        if (empty($arrows)) {
+            return [
+                [
+                    'title' => '🎯 Tổng quan',
+                    'content' => 'Bạn có tính cách cân bằng, không có mũi tên nào đặc biệt nổi bật. Điều này cho thấy sự linh hoạt và khả năng thích ứng tốt.'
+                ]
+            ];
+        }
+
+        $sections = [];
+
+        $presentArrows = array_filter($arrows, function($arrow) {
+            return $arrow['type'] === 'present';
+        });
+
+        $missingArrows = array_filter($arrows, function($arrow) {
+            return $arrow['type'] === 'missing';
+        });
+
+        if (!empty($presentArrows)) {
+            $sections[] = [
+                'title' => '🌟 Điểm Mạnh - Mũi Tên Sở Hữu',
+                'content' => 'Bạn sở hữu những mũi tên cá tính mạnh mẽ sau:'
+            ];
+
+            foreach ($presentArrows as $arrow) {
+                $sections[] = [
+                    'title' => '▶️ ' . $arrow['interpretation']['title'],
+                    'content' => $arrow['interpretation']['description'] . '\n\n' .
+                                '✨ Điểm mạnh: ' . implode(', ', $arrow['interpretation']['strengths']) . '\n\n' .
+                                '💡 Lời khuyên: ' . $arrow['interpretation']['advice']
+                ];
+            }
+        }
+
+        if (!empty($missingArrows)) {
+            $sections[] = [
+                'title' => '⚠️ Cần Phát Triển - Mũi Tên Thiếu',
+                'content' => 'Những lĩnh vực bạn cần chú ý phát triển:'
+            ];
+
+            foreach ($missingArrows as $arrow) {
+                $sections[] = [
+                    'title' => '📍 ' . $arrow['interpretation']['title'],
+                    'content' => $arrow['interpretation']['description'] . '\n\n' .
+                                '⚡ Thách thức: ' . implode(', ', $arrow['interpretation']['challenges']) . '\n\n' .
+                                '🎯 Cách cải thiện: ' . $arrow['interpretation']['advice']
+                ];
+            }
+        }
+
+        $sections[] = [
+            'title' => '🌈 Lời Khuyên Tổng Hợp',
+            'content' => 'Mỗi mũi tên trong biểu đồ số học đều mang một ý nghĩa riêng. Hãy tận dụng những điểm mạnh bạn đang có và kiên trì phát triển những lĩnh vực còn yếu. Sự cân bằng giữa tất cả các mũi tên sẽ giúp bạn đạt được thành công và hạnh phúc trong cuộc sống.'
+        ];
+
+        return $sections;
+    }
 
     private static function getAttitudeInterpretation($number) { return "Giải thích số thái độ {$number}"; }
     private static function getAttitudeSections($number) { return []; }

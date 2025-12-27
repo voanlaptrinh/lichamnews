@@ -492,12 +492,35 @@
                                         <div class="flex items-center justify-between mb-2">
                                             <h4 class="font-bold {{ $textColor }}">
                                                 {{ $icon }}
-                                                {{ str_replace(['arrow_of_', 'missing_arrow_of_', '_'], ['Mui tên ', 'Thiếu mui tên ', ' '], $arrow['name']) }}
+                                                {{ $arrow['interpretation']['title'] ?? 'Mũi tên không xác định' }}
                                             </h4>
                                             <span
                                                 class="text-sm {{ $textColor }} font-mono">{{ implode('-', $arrow['numbers']) }}</span>
                                         </div>
-                                        <p class="text-sm {{ $textColor }}">{{ $arrow['interpretation'] }}</p>
+                                        <div class="space-y-3">
+                                            <p class="text-sm {{ $textColor }}">{{ $arrow['interpretation']['description'] ?? '' }}</p>
+
+                                            @if(isset($arrow['interpretation']['strengths']) && !empty($arrow['interpretation']['strengths']))
+                                                <div class="text-sm">
+                                                    <span class="font-semibold {{ $textColor }}">✨ Điểm mạnh:</span>
+                                                    <span class="{{ $textColor }}">{{ implode(', ', $arrow['interpretation']['strengths']) }}</span>
+                                                </div>
+                                            @endif
+
+                                            @if(isset($arrow['interpretation']['challenges']) && !empty($arrow['interpretation']['challenges']))
+                                                <div class="text-sm">
+                                                    <span class="font-semibold {{ $textColor }}">⚡ Thách thức:</span>
+                                                    <span class="{{ $textColor }}">{{ implode(', ', $arrow['interpretation']['challenges']) }}</span>
+                                                </div>
+                                            @endif
+
+                                            @if(isset($arrow['interpretation']['advice']) && !empty($arrow['interpretation']['advice']))
+                                                <div class="text-sm">
+                                                    <span class="font-semibold {{ $textColor }}">💡 Lời khuyên:</span>
+                                                    <span class="{{ $textColor }}">{{ $arrow['interpretation']['advice'] }}</span>
+                                                </div>
+                                            @endif
+                                        </div>
                                     </div>
                                 @endforeach
                             </div>
