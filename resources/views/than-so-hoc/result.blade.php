@@ -183,63 +183,122 @@
                            4 giai đoạn đỉnh cao cuộc đời
                         </div>
 
+
+
                         {{-- New Grid Layout --}}
-                        <div class="numerology-grid mt-4">
-                         
-<div class="chart-container">
-        <!-- Đường nối -->
-        <svg class="lines-svg">
-            <!-- Khung lớn bên ngoài -->
-            <line x1="20%" y1="78%" x2="50%" y2="18%" /> <!-- Trái lên đỉnh -->
-            <line x1="80%" y1="78%" x2="50%" y2="18%" /> <!-- Phải lên đỉnh -->
-            
-            <!-- Các khối kim tự tháp nhỏ -->
-            <line x1="20%" y1="78%" x2="35%" y2="56%" /> <!-- Base L -> I -->
-            <line x1="50%" y1="78%" x2="35%" y2="56%" /> <!-- Base M -> I -->
-            <line x1="50%" y1="78%" x2="65%" y2="56%" /> <!-- Base M -> II -->
-            <line x1="80%" y1="78%" x2="65%" y2="56%" /> <!-- Base R -> II -->
-            
-            <line x1="35%" y1="56%" x2="50%" y2="38%" /> <!-- I -> III -->
-            <line x1="65%" y1="56%" x2="50%" y2="38%" /> <!-- II -> III -->
-            
-            <line x1="50%" y1="38%" x2="50%" y2="18%" /> <!-- III -> IV -->
-        </svg>
+                        <div class="numerology-grid mt-4 d-flex justify-content-center">
+                            @php
+                                // Khởi tạo biến mặc định
+                                $pinnacleNumbers = [1, 2, 3, 4]; // fallback
+                                $pinnacleRanges = ['0-35 tuổi', '36-44 tuổi', '45-53 tuổi', '54+ tuổi']; // fallback
 
-        <!-- Đỉnh IV -->
-        <div class="node n-iv">
-            <div class="roman">IV</div>1
-        </div>
-        <div class="date-label d-2056">2056 trở đi</div>
+                                // Lấy dữ liệu từ backend
+                                $pinnacles = $profile['cycles_and_pinnacles']['life_pinnacles'] ?? null;
 
-        <!-- Tầng III -->
-        <div class="node n-iii">
-            <div class="roman">III</div>7
-        </div>
-        <div class="date-label d-2047">2047-2055</div>
+                                if ($pinnacles && isset($pinnacles['pinnacles'])) {
+                                    $pinnacleList = array_values($pinnacles['pinnacles']);
 
-        <!-- Tầng I & II -->
-        <div class="node n-i">
-            <div class="roman">I</div>9
-        </div>
-        <div class="date-label d-2002">2002-2037</div>
+                                    // Đảm bảo có đủ 4 phần tử
+                                    for ($i = 0; $i < 4; $i++) {
+                                        if (isset($pinnacleList[$i]['number'])) {
+                                            $pinnacleNumbers[$i] = $pinnacleList[$i]['number'];
+                                        }
+                                        if (isset($pinnacleList[$i]['age_range'])) {
+                                            $pinnacleRanges[$i] = $pinnacleList[$i]['age_range'];
+                                        }
+                                    }
+                                }
 
-        <div class="node n-ii">
-            <div class="roman">II</div>7
-        </div>
-        <div class="date-label d-2038">2038-2046</div>
+                                // Tính đáy kim tự tháp
+                                $birthMonth = $birthDate['month'] ?? 1;
+                                $birthDay = $birthDate['day'] ?? 1;
+                                $birthYear = $birthDate['year'] ?? 2000;
 
-        <!-- Hàng Đáy -->
-        <div class="node n-base-l">
-            6 <div class="label">Tháng 06</div>
-        </div>
-        <div class="node n-base-m">
-            3 <div class="label">Ngày 03</div>
-        </div>
-        <div class="node n-base-r">
-            4 <div class="label">2002</div>
-        </div>
-    </div>
+                                // Rút gọn đơn giản
+                                $monthSum = array_sum(str_split((string) $birthMonth));
+                                $daySum = array_sum(str_split((string) $birthDay));
+                                $yearSum = array_sum(str_split((string) $birthYear));
 
+                                while ($yearSum > 9) {
+                                    $yearSum = array_sum(str_split((string) $yearSum));
+                                }
+
+                                $baseComponents = [$monthSum, $daySum, $yearSum];
+                            @endphp
+
+                            <div class="chart-container">
+                                <!-- Đường nối -->
+                                <svg class="lines-svg">
+                                    <!-- Khung lớn bên ngoài -->
+                                    <line x1="10%" y1="78%" x2="50%" y2="18%" />
+                                    <!-- Trái lên đỉnh -->
+                                    <line x1="90%" y1="78%" x2="50%" y2="18%" />
+                                    <!-- Phải lên đỉnh -->
+
+                                    <!-- Các khối kim tự tháp nhỏ -->
+                                    <line x1="10%" y1="78%" x2="35%" y2="56%" />
+                                    <!-- Base L -> I -->
+                                    <line x1="50%" y1="78%" x2="35%" y2="56%" />
+                                    <!-- Base M -> I -->
+                                    <line x1="50%" y1="78%" x2="65%" y2="56%" />
+                                    <!-- Base M -> II -->
+                                    <line x1="90%" y1="78%" x2="65%" y2="56%" />
+                                    <!-- Base R -> II -->
+
+                                    <line x1="35%" y1="56%" x2="50%" y2="38%" />
+                                    <!-- I -> III -->
+                                    <line x1="65%" y1="56%" x2="50%" y2="38%" />
+                                    <!-- II -> III -->
+
+                                    <line x1="50%" y1="38%" x2="50%" y2="18%" />
+                                    <!-- III -> IV -->
+                                </svg>
+
+                                <!-- Đỉnh IV -->
+                                <div class="node n-iv">
+                                    <div class="roman">IV</div>{{ $pinnacleNumbers[3] }}
+                                </div>
+                                <div class="date-label d-2056">{{ $pinnacleRanges[3] }}</div>
+
+                                <!-- Tầng III -->
+                                <div class="node n-iii">
+                                    <div class="roman">III</div>{{ $pinnacleNumbers[2] }}
+                                </div>
+                                <div class="date-label d-2047">{{ $pinnacleRanges[2] }}</div>
+
+                                <!-- Tầng I & II -->
+                                <div class="node n-i">
+                                    <div class="roman">I</div>{{ $pinnacleNumbers[0] }}
+                                </div>
+                                <div class="date-label d-2002">{{ $pinnacleRanges[0] }}</div>
+
+                                <div class="node n-ii">
+                                    <div class="roman">II</div>{{ $pinnacleNumbers[1] }}
+                                </div>
+                                <div class="date-label d-2038">{{ $pinnacleRanges[1] }}</div>
+
+                                <!-- Hàng Đáy -->
+                                <div class="node n-base-l">
+                                    {{ $baseComponents[0] }} <div class="label">Tháng
+                                        {{ str_pad($birthMonth, 2, '0', STR_PAD_LEFT) }}</div>
+                                </div>
+                                <div class="node n-base-m">
+                                    {{ $baseComponents[1] }} <div class="label">Ngày
+                                        {{ str_pad($birthDay, 2, '0', STR_PAD_LEFT) }}</div>
+                                </div>
+                                <div class="node n-base-r">
+                                    {{ $baseComponents[2] }} <div class="label">{{ $birthYear }}</div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="pinnacle-overview-btn" style="text-align: center; margin: 15px 0;">
+                            <a href="{{ route('numerology.pinnacle.overview', ['day' => $birthDate['day'], 'month' => $birthDate['month'], 'year' => $birthDate['year']]) }}"
+                                class="btn btn-primary btn-lg">
+                                <i class="fas fa-chart-line"></i> Xem tổng quan cả 4 đỉnh cao cuộc đời
+                            </a>
                         </div>
 
 
@@ -989,43 +1048,5 @@
         </style>
     @endpush
 
-    @push('scripts')
-        <script>
-            function showTab(tabName) {
-                // Hide all content
-                document.querySelectorAll('.tab-content').forEach(content => {
-                    content.classList.add('hidden');
-                });
-
-                // Remove active class from all buttons
-                document.querySelectorAll('.tab-btn').forEach(btn => {
-                    btn.classList.remove('active');
-                });
-
-                // Show selected content
-                document.getElementById(tabName + '-content').classList.remove('hidden');
-                document.getElementById(tabName + '-tab').classList.add('active');
-            }
-
-            function shareResults() {
-                if (navigator.share) {
-                    navigator.share({
-                        title: 'Kết quả Thần Số Học - {{ $fullName }}',
-                        text: 'Xem kết quả thần số học của tôi',
-                        url: window.location.href
-                    });
-                } else {
-                    // Fallback: copy to clipboard
-                    navigator.clipboard.writeText(window.location.href).then(() => {
-                        alert('Đã sao chép liên kết vào clipboard!');
-                    });
-                }
-            }
-
-            // Initialize first tab
-            document.addEventListener('DOMContentLoaded', function() {
-                showTab('basic');
-            });
-        </script>
-    @endpush
+  
 @endsection

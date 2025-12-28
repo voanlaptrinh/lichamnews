@@ -5,7 +5,8 @@
       "Bash(php:*)",
       "Bash(grep:*)",
       "Bash(mkdir:*)",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "WebFetch(domain:127.0.0.1)"
     ],
     "deny": [],
     "ask": []

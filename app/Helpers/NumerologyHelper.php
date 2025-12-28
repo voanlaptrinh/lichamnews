@@ -11,75 +11,359 @@ class NumerologyHelper
     // Bảng chuyển đổi chữ cái sang số - Bao gồm tiếng Việt có dấu
     private static $letterToNumber = [
         // Chữ cái không dấu
-        'A' => 1, 'B' => 2, 'C' => 3, 'D' => 4, 'E' => 5, 'F' => 6, 'G' => 7, 'H' => 8, 'I' => 9,
-        'J' => 1, 'K' => 2, 'L' => 3, 'M' => 4, 'N' => 5, 'O' => 6, 'P' => 7, 'Q' => 8, 'R' => 9,
-        'S' => 1, 'T' => 2, 'U' => 3, 'V' => 4, 'W' => 5, 'X' => 6, 'Y' => 7, 'Z' => 8,
+        'A' => 1,
+        'B' => 2,
+        'C' => 3,
+        'D' => 4,
+        'E' => 5,
+        'F' => 6,
+        'G' => 7,
+        'H' => 8,
+        'I' => 9,
+        'J' => 1,
+        'K' => 2,
+        'L' => 3,
+        'M' => 4,
+        'N' => 5,
+        'O' => 6,
+        'P' => 7,
+        'Q' => 8,
+        'R' => 9,
+        'S' => 1,
+        'T' => 2,
+        'U' => 3,
+        'V' => 4,
+        'W' => 5,
+        'X' => 6,
+        'Y' => 7,
+        'Z' => 8,
 
         // Tiếng Việt có dấu - A
-        'À' => 1, 'Á' => 1, 'Ạ' => 1, 'Ả' => 1, 'Ã' => 1,
-        'Â' => 1, 'Ầ' => 1, 'Ấ' => 1, 'Ậ' => 1, 'Ẩ' => 1, 'Ẫ' => 1,
-        'Ă' => 1, 'Ằ' => 1, 'Ắ' => 1, 'ặ' => 1, 'Ẳ' => 1, 'Ẵ' => 1,
+        'À' => 1,
+        'Á' => 1,
+        'Ạ' => 1,
+        'Ả' => 1,
+        'Ã' => 1,
+        'Â' => 1,
+        'Ầ' => 1,
+        'Ấ' => 1,
+        'Ậ' => 1,
+        'Ẩ' => 1,
+        'Ẫ' => 1,
+        'Ă' => 1,
+        'Ằ' => 1,
+        'Ắ' => 1,
+        'ặ' => 1,
+        'Ẳ' => 1,
+        'Ẵ' => 1,
 
         // Tiếng Việt có dấu - E
-        'È' => 5, 'É' => 5, 'Ẹ' => 5, 'Ẻ' => 5, 'Ẽ' => 5,
-        'Ê' => 5, 'Ề' => 5, 'Ế' => 5, 'Ệ' => 5, 'Ể' => 5, 'Ễ' => 5,
+        'È' => 5,
+        'É' => 5,
+        'Ẹ' => 5,
+        'Ẻ' => 5,
+        'Ẽ' => 5,
+        'Ê' => 5,
+        'Ề' => 5,
+        'Ế' => 5,
+        'Ệ' => 5,
+        'Ể' => 5,
+        'Ễ' => 5,
 
         // Tiếng Việt có dấu - I
-        'Ì' => 9, 'Í' => 9, 'Ị' => 9, 'Ỉ' => 9, 'Ĩ' => 9,
+        'Ì' => 9,
+        'Í' => 9,
+        'Ị' => 9,
+        'Ỉ' => 9,
+        'Ĩ' => 9,
 
         // Tiếng Việt có dấu - O
-        'Ò' => 6, 'Ó' => 6, 'Ọ' => 6, 'Ỏ' => 6, 'Õ' => 6,
-        'Ô' => 6, 'Ồ' => 6, 'Ố' => 6, 'Ộ' => 6, 'Ổ' => 6, 'Ỗ' => 6,
-        'Ơ' => 6, 'Ờ' => 6, 'Ớ' => 6, 'Ợ' => 6, 'Ở' => 6, 'Ỡ' => 6,
+        'Ò' => 6,
+        'Ó' => 6,
+        'Ọ' => 6,
+        'Ỏ' => 6,
+        'Õ' => 6,
+        'Ô' => 6,
+        'Ồ' => 6,
+        'Ố' => 6,
+        'Ộ' => 6,
+        'Ổ' => 6,
+        'Ỗ' => 6,
+        'Ơ' => 6,
+        'Ờ' => 6,
+        'Ớ' => 6,
+        'Ợ' => 6,
+        'Ở' => 6,
+        'Ỡ' => 6,
 
         // Tiếng Việt có dấu - U
-        'Ù' => 3, 'Ú' => 3, 'Ụ' => 3, 'Ủ' => 3, 'Ũ' => 3,
-        'Ư' => 3, 'Ừ' => 3, 'Ứ' => 3, 'Ự' => 3, 'Ử' => 3, 'Ữ' => 3,
+        'Ù' => 3,
+        'Ú' => 3,
+        'Ụ' => 3,
+        'Ủ' => 3,
+        'Ũ' => 3,
+        'Ư' => 3,
+        'Ừ' => 3,
+        'Ứ' => 3,
+        'Ự' => 3,
+        'Ử' => 3,
+        'Ữ' => 3,
 
         // Tiếng Việt có dấu - Y
-        'Ỳ' => 7, 'Ý' => 7, 'Ỵ' => 7, 'Ỷ' => 7, 'Ỹ' => 7,
+        'Ỳ' => 7,
+        'Ý' => 7,
+        'Ỵ' => 7,
+        'Ỷ' => 7,
+        'Ỹ' => 7,
 
         // Tiếng Việt có dấu - Đ
         'Đ' => 4,
 
         // Chữ thường (lowercase)
-        'a' => 1, 'b' => 2, 'c' => 3, 'd' => 4, 'e' => 5, 'f' => 6, 'g' => 7, 'h' => 8, 'i' => 9,
-        'j' => 1, 'k' => 2, 'l' => 3, 'm' => 4, 'n' => 5, 'o' => 6, 'p' => 7, 'q' => 8, 'r' => 9,
-        's' => 1, 't' => 2, 'u' => 3, 'v' => 4, 'w' => 5, 'x' => 6, 'y' => 7, 'z' => 8,
+        'a' => 1,
+        'b' => 2,
+        'c' => 3,
+        'd' => 4,
+        'e' => 5,
+        'f' => 6,
+        'g' => 7,
+        'h' => 8,
+        'i' => 9,
+        'j' => 1,
+        'k' => 2,
+        'l' => 3,
+        'm' => 4,
+        'n' => 5,
+        'o' => 6,
+        'p' => 7,
+        'q' => 8,
+        'r' => 9,
+        's' => 1,
+        't' => 2,
+        'u' => 3,
+        'v' => 4,
+        'w' => 5,
+        'x' => 6,
+        'y' => 7,
+        'z' => 8,
 
         // Tiếng Việt chữ thường
-        'à' => 1, 'á' => 1, 'ạ' => 1, 'ả' => 1, 'ã' => 1,
-        'â' => 1, 'ầ' => 1, 'ấ' => 1, 'ậ' => 1, 'ẩ' => 1, 'ẫ' => 1,
-        'ă' => 1, 'ằ' => 1, 'ắ' => 1, 'ặ' => 1, 'ẳ' => 1, 'ẵ' => 1,
-        'è' => 5, 'é' => 5, 'ẹ' => 5, 'ẻ' => 5, 'ẽ' => 5,
-        'ê' => 5, 'ề' => 5, 'ế' => 5, 'ệ' => 5, 'ể' => 5, 'ễ' => 5,
-        'ì' => 9, 'í' => 9, 'ị' => 9, 'ỉ' => 9, 'ĩ' => 9,
-        'ò' => 6, 'ó' => 6, 'ọ' => 6, 'ỏ' => 6, 'õ' => 6,
-        'ô' => 6, 'ồ' => 6, 'ố' => 6, 'ộ' => 6, 'ổ' => 6, 'ỗ' => 6,
-        'ơ' => 6, 'ờ' => 6, 'ớ' => 6, 'ợ' => 6, 'ở' => 6, 'ỡ' => 6,
-        'ù' => 3, 'ú' => 3, 'ụ' => 3, 'ủ' => 3, 'ũ' => 3,
-        'ư' => 3, 'ừ' => 3, 'ứ' => 3, 'ự' => 3, 'ử' => 3, 'ữ' => 3,
-        'ỳ' => 7, 'ý' => 7, 'ỵ' => 7, 'ỷ' => 7, 'ỹ' => 7,
+        'à' => 1,
+        'á' => 1,
+        'ạ' => 1,
+        'ả' => 1,
+        'ã' => 1,
+        'â' => 1,
+        'ầ' => 1,
+        'ấ' => 1,
+        'ậ' => 1,
+        'ẩ' => 1,
+        'ẫ' => 1,
+        'ă' => 1,
+        'ằ' => 1,
+        'ắ' => 1,
+        'ặ' => 1,
+        'ẳ' => 1,
+        'ẵ' => 1,
+        'è' => 5,
+        'é' => 5,
+        'ẹ' => 5,
+        'ẻ' => 5,
+        'ẽ' => 5,
+        'ê' => 5,
+        'ề' => 5,
+        'ế' => 5,
+        'ệ' => 5,
+        'ể' => 5,
+        'ễ' => 5,
+        'ì' => 9,
+        'í' => 9,
+        'ị' => 9,
+        'ỉ' => 9,
+        'ĩ' => 9,
+        'ò' => 6,
+        'ó' => 6,
+        'ọ' => 6,
+        'ỏ' => 6,
+        'õ' => 6,
+        'ô' => 6,
+        'ồ' => 6,
+        'ố' => 6,
+        'ộ' => 6,
+        'ổ' => 6,
+        'ỗ' => 6,
+        'ơ' => 6,
+        'ờ' => 6,
+        'ớ' => 6,
+        'ợ' => 6,
+        'ở' => 6,
+        'ỡ' => 6,
+        'ù' => 3,
+        'ú' => 3,
+        'ụ' => 3,
+        'ủ' => 3,
+        'ũ' => 3,
+        'ư' => 3,
+        'ừ' => 3,
+        'ứ' => 3,
+        'ự' => 3,
+        'ử' => 3,
+        'ữ' => 3,
+        'ỳ' => 7,
+        'ý' => 7,
+        'ỵ' => 7,
+        'ỷ' => 7,
+        'ỹ' => 7,
         'đ' => 4
     ];
 
     // Nguyên âm - Bao gồm tiếng Việt
     private static $vowels = [
-        'A', 'E', 'I', 'O', 'U', 'Y',
-        'a', 'e', 'i', 'o', 'u', 'y',
+        'A',
+        'E',
+        'I',
+        'O',
+        'U',
+        'Y',
+        'a',
+        'e',
+        'i',
+        'o',
+        'u',
+        'y',
         // Tiếng Việt có dấu
-        'À', 'Á', 'Ạ', 'Ả', 'Ã', 'Â', 'Ầ', 'Ấ', 'Ậ', 'Ẩ', 'Ẫ', 'Ă', 'Ằ', 'Ắ', 'ặ', 'Ẳ', 'Ẵ',
-        'È', 'É', 'Ẹ', 'Ẻ', 'Ẽ', 'Ê', 'Ề', 'Ế', 'Ệ', 'Ể', 'Ễ',
-        'Ì', 'Í', 'Ị', 'Ỉ', 'Ĩ',
-        'Ò', 'Ó', 'Ọ', 'Ỏ', 'Õ', 'Ô', 'Ồ', 'Ố', 'Ộ', 'Ổ', 'Ỗ', 'Ơ', 'Ờ', 'Ớ', 'Ợ', 'Ở', 'Ỡ',
-        'Ù', 'Ú', 'Ụ', 'Ủ', 'Ũ', 'Ư', 'Ừ', 'Ứ', 'Ự', 'Ử', 'Ữ',
-        'Ỳ', 'Ý', 'Ỵ', 'Ỷ', 'Ỹ',
-        'à', 'á', 'ạ', 'ả', 'ã', 'â', 'ầ', 'ấ', 'ậ', 'ẩ', 'ẫ', 'ă', 'ằ', 'ắ', 'ặ', 'ẳ', 'ẵ',
-        'è', 'é', 'ẹ', 'ẻ', 'ẽ', 'ê', 'ề', 'ế', 'ệ', 'ể', 'ễ',
-        'ì', 'í', 'ị', 'ỉ', 'ĩ',
-        'ò', 'ó', 'ọ', 'ỏ', 'õ', 'ô', 'ồ', 'ố', 'ộ', 'ổ', 'ỗ', 'ơ', 'ờ', 'ớ', 'ợ', 'ở', 'ỡ',
-        'ù', 'ú', 'ụ', 'ủ', 'ũ', 'ư', 'ừ', 'ứ', 'ự', 'ử', 'ữ',
-        'ỳ', 'ý', 'ỵ', 'ỷ', 'ỹ'
+        'À',
+        'Á',
+        'Ạ',
+        'Ả',
+        'Ã',
+        'Â',
+        'Ầ',
+        'Ấ',
+        'Ậ',
+        'Ẩ',
+        'Ẫ',
+        'Ă',
+        'Ằ',
+        'Ắ',
+        'ặ',
+        'Ẳ',
+        'Ẵ',
+        'È',
+        'É',
+        'Ẹ',
+        'Ẻ',
+        'Ẽ',
+        'Ê',
+        'Ề',
+        'Ế',
+        'Ệ',
+        'Ể',
+        'Ễ',
+        'Ì',
+        'Í',
+        'Ị',
+        'Ỉ',
+        'Ĩ',
+        'Ò',
+        'Ó',
+        'Ọ',
+        'Ỏ',
+        'Õ',
+        'Ô',
+        'Ồ',
+        'Ố',
+        'Ộ',
+        'Ổ',
+        'Ỗ',
+        'Ơ',
+        'Ờ',
+        'Ớ',
+        'Ợ',
+        'Ở',
+        'Ỡ',
+        'Ù',
+        'Ú',
+        'Ụ',
+        'Ủ',
+        'Ũ',
+        'Ư',
+        'Ừ',
+        'Ứ',
+        'Ự',
+        'Ử',
+        'Ữ',
+        'Ỳ',
+        'Ý',
+        'Ỵ',
+        'Ỷ',
+        'Ỹ',
+        'à',
+        'á',
+        'ạ',
+        'ả',
+        'ã',
+        'â',
+        'ầ',
+        'ấ',
+        'ậ',
+        'ẩ',
+        'ẫ',
+        'ă',
+        'ằ',
+        'ắ',
+        'ặ',
+        'ẳ',
+        'ẵ',
+        'è',
+        'é',
+        'ẹ',
+        'ẻ',
+        'ẽ',
+        'ê',
+        'ề',
+        'ế',
+        'ệ',
+        'ể',
+        'ễ',
+        'ì',
+        'í',
+        'ị',
+        'ỉ',
+        'ĩ',
+        'ò',
+        'ó',
+        'ọ',
+        'ỏ',
+        'õ',
+        'ô',
+        'ồ',
+        'ố',
+        'ộ',
+        'ổ',
+        'ỗ',
+        'ơ',
+        'ờ',
+        'ớ',
+        'ợ',
+        'ở',
+        'ỡ',
+        'ù',
+        'ú',
+        'ụ',
+        'ủ',
+        'ũ',
+        'ư',
+        'ừ',
+        'ứ',
+        'ự',
+        'ử',
+        'ữ',
+        'ỳ',
+        'ý',
+        'ỵ',
+        'ỷ',
+        'ỹ'
     ];
 
     /**
@@ -610,14 +894,29 @@ class NumerologyHelper
         $lifePathData = self::calculateLifePath($birthDate);
         $lifePath = $lifePathData['number'];
 
-        // Tính 4 đỉnh cao
-        $pinnacle1 = self::reduceToSingleDigit($month + $day);
-        $pinnacle2 = self::reduceToSingleDigit($day + $year);
-        $pinnacle3 = self::reduceToSingleDigit($pinnacle1 + $pinnacle2);
-        $pinnacle4 = self::reduceToSingleDigit($month + $year);
+        // ✅ TÍNH ĐÚNG: Rút gọn từng thành phần TRƯỚC KHI CỘNG
+        $monthDigitsSum = self::sumDigits($month);
+        $dayDigitsSum = self::sumDigits($day);
 
-        // Tính độ tuổi chuyển giai đoạn
-        $age1End = 36 - $lifePath;
+        // Năm phải rút gọn HOÀN TOÀN về 1 chữ số
+        $yearReduced = self::sumDigits($year);
+        while ($yearReduced > 9) {
+            $yearReduced = self::sumDigits($yearReduced);
+        }
+
+        // Tính 4 đỉnh cao theo công thức CHUẨN
+        $pinnacle1 = self::reduceToSingleDigit($monthDigitsSum + $dayDigitsSum);
+        $pinnacle2 = self::reduceToSingleDigit($dayDigitsSum + $yearReduced);
+        $pinnacle3 = self::reduceToSingleDigit($pinnacle1 + $pinnacle2);
+        $pinnacle4 = self::reduceToSingleDigit($monthDigitsSum + $yearReduced);
+
+        // Tính độ tuổi chuyển giai đoạn (xử lý Master Numbers)
+        $lifePathForAge = $lifePath;
+        if ($lifePath == 11) $lifePathForAge = 2;
+        elseif ($lifePath == 22) $lifePathForAge = 4;
+        elseif ($lifePath == 33) $lifePathForAge = 6;
+
+        $age1End = 36 - $lifePathForAge;
         $age2End = $age1End + 9;
         $age3End = $age2End + 9;
 
@@ -636,34 +935,34 @@ class NumerologyHelper
 
         return [
             'pinnacles' => [
-                1 => [
+                0 => [ // Đổi thành 0-based để khớp frontend
                     'number' => $pinnacle1,
-                    'age_range' => "0 - {$age1End}",
+                    'age_range' => "0 - {$age1End} tuổi",
                     'phase' => 'Giai đoạn hình thành',
                     'interpretation' => self::getPinnacleInterpretation($pinnacle1, 1)
                 ],
-                2 => [
+                1 => [
                     'number' => $pinnacle2,
-                    'age_range' => ($age1End + 1) . " - {$age2End}",
+                    'age_range' => ($age1End + 1) . " - {$age2End} tuổi",
                     'phase' => 'Giai đoạn phát triển',
                     'interpretation' => self::getPinnacleInterpretation($pinnacle2, 2)
                 ],
-                3 => [
+                2 => [
                     'number' => $pinnacle3,
-                    'age_range' => ($age2End + 1) . " - {$age3End}",
+                    'age_range' => ($age2End + 1) . " - {$age3End} tuổi",
                     'phase' => 'Giai đoạn thu hoạch',
                     'interpretation' => self::getPinnacleInterpretation($pinnacle3, 3)
                 ],
-                4 => [
+                3 => [
                     'number' => $pinnacle4,
-                    'age_range' => ($age3End + 1) . "+",
+                    'age_range' => ($age3End + 1) . " tuổi trở đi",
                     'phase' => 'Giai đoạn trí tuệ',
                     'interpretation' => self::getPinnacleInterpretation($pinnacle4, 4)
                 ]
             ],
             'current_age' => $currentAge,
             'current_pinnacle' => $currentPinnacle,
-            'calculation' => "Đỉnh 1: ({$month}+{$day})→{$pinnacle1}, Đỉnh 2: ({$day}+{$year})→{$pinnacle2}, Đỉnh 3: ({$pinnacle1}+{$pinnacle2})→{$pinnacle3}, Đỉnh 4: ({$month}+{$year})→{$pinnacle4}"
+            'calculation' => "Tháng {$month}→{$monthDigitsSum}, Ngày {$day}→{$dayDigitsSum}, Năm {$year}→{$yearReduced}. Đỉnh 1:({$monthDigitsSum}+{$dayDigitsSum})→{$pinnacle1}, Đỉnh 2:({$dayDigitsSum}+{$yearReduced})→{$pinnacle2}, Đỉnh 3:({$pinnacle1}+{$pinnacle2})→{$pinnacle3}, Đỉnh 4:({$monthDigitsSum}+{$yearReduced})→{$pinnacle4}"
         ];
     }
 
@@ -1190,14 +1489,32 @@ class NumerologyHelper
         ];
     }
 
-    private static function getSoulUrgeInterpretation($number) { return "Giải thích số linh hồn {$number}"; }
-    private static function getSoulUrgeSections($number) { return []; }
+    private static function getSoulUrgeInterpretation($number)
+    {
+        return "Giải thích số linh hồn {$number}";
+    }
+    private static function getSoulUrgeSections($number)
+    {
+        return [];
+    }
 
-    private static function getPersonalityInterpretation($number) { return "Giải thích số tính cách {$number}"; }
-    private static function getPersonalitySections($number) { return []; }
+    private static function getPersonalityInterpretation($number)
+    {
+        return "Giải thích số tính cách {$number}";
+    }
+    private static function getPersonalitySections($number)
+    {
+        return [];
+    }
 
-    private static function getBirthChartInterpretation($frequencies, $missing, $dominant) { return "Giải thích biểu đồ ngày sinh"; }
-    private static function getBirthChartSections($frequencies, $missing, $dominant) { return []; }
+    private static function getBirthChartInterpretation($frequencies, $missing, $dominant)
+    {
+        return "Giải thích biểu đồ ngày sinh";
+    }
+    private static function getBirthChartSections($frequencies, $missing, $dominant)
+    {
+        return [];
+    }
 
     private static function getArrowInterpretation($arrowName, $isPresent)
     {
@@ -1330,11 +1647,11 @@ class NumerologyHelper
             return 'Biểu đồ ngày sinh của bạn chưa thể hiện rõ các mũi tên cá tính. Điều này có nghĩa là bạn có tính cách cân bằng và linh hoạt.';
         }
 
-        $presentArrows = array_filter($arrows, function($arrow) {
+        $presentArrows = array_filter($arrows, function ($arrow) {
             return $arrow['type'] === 'present';
         });
 
-        $missingArrows = array_filter($arrows, function($arrow) {
+        $missingArrows = array_filter($arrows, function ($arrow) {
             return $arrow['type'] === 'missing';
         });
 
@@ -1342,7 +1659,7 @@ class NumerologyHelper
 
         if (!empty($presentArrows)) {
             $interpretation .= 'Bạn sở hữu ' . count($presentArrows) . ' mũi tên cá tính mạnh mẽ, thể hiện những khả năng đặc biệt: ';
-            $arrowNames = array_map(function($arrow) {
+            $arrowNames = array_map(function ($arrow) {
                 return $arrow['interpretation']['title'];
             }, $presentArrows);
             $interpretation .= implode(', ', $arrowNames) . '. ';
@@ -1369,11 +1686,11 @@ class NumerologyHelper
 
         $sections = [];
 
-        $presentArrows = array_filter($arrows, function($arrow) {
+        $presentArrows = array_filter($arrows, function ($arrow) {
             return $arrow['type'] === 'present';
         });
 
-        $missingArrows = array_filter($arrows, function($arrow) {
+        $missingArrows = array_filter($arrows, function ($arrow) {
             return $arrow['type'] === 'missing';
         });
 
@@ -1387,8 +1704,8 @@ class NumerologyHelper
                 $sections[] = [
                     'title' => '▶️ ' . $arrow['interpretation']['title'],
                     'content' => $arrow['interpretation']['description'] . '\n\n' .
-                                '✨ Điểm mạnh: ' . implode(', ', $arrow['interpretation']['strengths']) . '\n\n' .
-                                '💡 Lời khuyên: ' . $arrow['interpretation']['advice']
+                        '✨ Điểm mạnh: ' . implode(', ', $arrow['interpretation']['strengths']) . '\n\n' .
+                        '💡 Lời khuyên: ' . $arrow['interpretation']['advice']
                 ];
             }
         }
@@ -1403,8 +1720,8 @@ class NumerologyHelper
                 $sections[] = [
                     'title' => '📍 ' . $arrow['interpretation']['title'],
                     'content' => $arrow['interpretation']['description'] . '\n\n' .
-                                '⚡ Thách thức: ' . implode(', ', $arrow['interpretation']['challenges']) . '\n\n' .
-                                '🎯 Cách cải thiện: ' . $arrow['interpretation']['advice']
+                        '⚡ Thách thức: ' . implode(', ', $arrow['interpretation']['challenges']) . '\n\n' .
+                        '🎯 Cách cải thiện: ' . $arrow['interpretation']['advice']
                 ];
             }
         }
@@ -1417,14 +1734,32 @@ class NumerologyHelper
         return $sections;
     }
 
-    private static function getAttitudeInterpretation($number) { return "Giải thích số thái độ {$number}"; }
-    private static function getAttitudeSections($number) { return []; }
+    private static function getAttitudeInterpretation($number)
+    {
+        return "Giải thích số thái độ {$number}";
+    }
+    private static function getAttitudeSections($number)
+    {
+        return [];
+    }
 
-    private static function getMaturityInterpretation($number) { return "Giải thích số trưởng thành {$number}"; }
-    private static function getMaturitySections($number) { return []; }
+    private static function getMaturityInterpretation($number)
+    {
+        return "Giải thích số trưởng thành {$number}";
+    }
+    private static function getMaturitySections($number)
+    {
+        return [];
+    }
 
-    private static function getPersonalYearInterpretation($number) { return "Giải thích năm cá nhân {$number}"; }
-    private static function getPersonalYearSections($number) { return []; }
+    private static function getPersonalYearInterpretation($number)
+    {
+        return "Giải thích năm cá nhân {$number}";
+    }
+    private static function getPersonalYearSections($number)
+    {
+        return [];
+    }
 
     // ========================
     // HELPER METHODS FOR NEW FEATURES
@@ -1459,22 +1794,291 @@ class NumerologyHelper
 
     private static function getPinnacleInterpretation($number, $pinnacle)
     {
-        $interpretations = [
+        $interpretations = self::getPinnacleDetailData();
+
+        if (isset($interpretations[$number][$pinnacle])) {
+            return $interpretations[$number][$pinnacle];
+        }
+
+        // Fallback
+        return [
+            'title' => "Đỉnh cao {$pinnacle}",
+            'subtitle' => "Đỉnh cao {$pinnacle} là số {$number}",
+            'content' => "Dữ liệu đang được cập nhật từ nguồn tài liệu chính thức."
+        ];
+    }
+
+    /**
+     * Dữ liệu chi tiết cho từng số trong từng đỉnh cao
+     */
+    private static function getPinnacleDetailData()
+    {
+        return [
             1 => [
-                1 => 'Giai đoạn học cách độc lập và tự tin.',
-                2 => 'Thời kỳ phát triển khả năng lãnh đạo.',
-                3 => 'Giai đoạn khẳng định bản thân và sáng tạo.',
-                4 => 'Thời kỳ trở thành người tiên phong trong lĩnh vực của mình.'
+                1 => [
+                    'title' => 'Đỉnh cao 1',
+                    'subtitle' => 'Đỉnh cao 1 là số 1 – Hành trình trở thành chính mình',
+                    'content' => 'Trong giai đoạn đầu đời, bạn được dẫn dắt bởi khát vọng tự lập, khẳng định bản thân và khởi xướng điều mới. Đây là thời điểm bạn cần học cách tin vào chính mình, xây dựng lòng tự tin, tinh thần tiên phong và năng lực lãnh đạo. Bạn có xu hướng muốn khác biệt, thích tự mình quyết định và tìm kiếm hướng đi riêng. Tuy nhiên, cũng cần học cách kiên nhẫn và lắng nghe – vì quá cứng đầu có thể khiến bạn cô lập. Thành công trong giai đoạn này đến từ việc biết mình là ai và dám hành động theo điều đó.'
+                ],
+                2 => [
+                    'title' => 'Đỉnh cao 2',
+                    'subtitle' => 'Đỉnh cao 2 là số 1: Khẳng định bản thân và vai trò lãnh đạo',
+                    'content' => 'Đây là giai đoạn bạn được kêu gọi bước ra ánh sáng, khẳng định vị trí cá nhân và phát triển sự nghiệp theo cách độc lập, chủ động nhất. Năng lượng của số 1 thúc đẩy bạn dẫn dắt thay vì theo sau, tạo dấu ấn riêng thay vì đi theo lối mòn. Bạn có cơ hội thử sức với những dự án mới, xây dựng thương hiệu cá nhân hoặc trở thành người khởi xướng. Tuy nhiên, để thành công, bạn cần học cách kết hợp sự tự tin với tinh thần cầu thị, tránh trở nên cứng đầu hoặc cô lập. Khi biết tin vào chính mình nhưng không ngừng học hỏi, bạn sẽ chạm đến những đỉnh cao thật sự trong giai đoạn này.'
+                ],
+                3 => [
+                    'title' => 'Đỉnh cao 3',
+                    'subtitle' => 'Đỉnh cao 3 là số 1 – Dẫn dắt bằng bản lĩnh và cá tính độc lập',
+                    'content' => 'Giai đoạn này đánh dấu bước ngoặt quan trọng: bạn được mời gọi trở thành người dẫn đầu thực thụ, không chỉ nhờ tài năng mà bởi sự trưởng thành nội tại. Năng lượng số 1 thúc đẩy bạn khẳng định bản thân qua sáng tạo, tiên phong và tự chủ hoàn toàn. Đây là lúc lý tưởng để bạn khởi xướng dự án riêng, xây dựng sự nghiệp cá nhân hoặc tạo dấu ấn độc đáo trong lĩnh vực mình theo đuổi.Tuy nhiên, đừng ngại học cách lắng nghe và hợp tác – bởi thành công thật sự đến khi bạn biết kết hợp sức mạnh ý chí với sự khiêm tốn và linh hoạt.'
+                ],
+                4 => [
+                    'title' => 'Đỉnh cao 4',
+                    'subtitle' => 'Đỉnh cao 4 là số 1 – Giai đoạn thứ tư: Khai phá bản thân bằng trí tuệ và lãnh đạo khôn ngoan',
+                    'content' => 'Trong giai đoạn cuối đời, bạn được mời gọi tiếp tục khoe sáng cá tính và khả năng lãnh đạo dựa trên kinh nghiệm, sự độc lập và trí tuệ vượt thời gian. Dù đã trải qua nhiều thử thách, năng lượng số 1 ở chu kỳ cuối thúc đẩy bạn khởi xướng dự án mới, tham gia công việc truyền cảm hứng hoặc làm cố vấn – thậm chí khi nhiều người khác chọn yên nghỉ. Đây là thời điểm để bạn: Phát huy sức mạnh cá nhân, thể hiện quan điểm có chiều sâu và tạo dựng di sản rõ rệt. Khéo léo chuyển hóa vai trò lãnh đạo thành định hướng khôn ngoan, giúp đỡ thế hệ sau mà không áp đặt. Tuy nhiên, cần mở lòng đón nhận sự hỗ trợ từ người thân và linh hoạt hơn, tránh kiệm lời khi đi vào nội tâm hoặc trở nên cứng nhắc trong cách sống. Thành công giai đoạn này đến khi bạn biết điều hòa tự chủ với kết nối yêu thương, truyền cảm hứng bằng trí tuệ và sự khiêm nhường.'
+                ]
             ],
             2 => [
-                1 => 'Giai đoạn học cách hợp tác và nhạy cảm.',
-                2 => 'Thời kỳ phát triển kỹ năng giao tiếp.',
-                3 => 'Giai đoạn xây dựng mối quan hệ bền vững.',
-                4 => 'Thời kỳ trở thành người hòa giải và cố vấn.'
+                1 => [
+                    'title' => 'Đỉnh cao 1',
+                    'subtitle' => 'Đỉnh cao 1 là số 2 – Giai đoạn khởi đầu bằng kết nối và thấu hiểu',
+                    'content' => 'Trong giai đoạn đầu đời, bạn được định hướng trải nghiệm thông qua mối quan hệ đầu tiên – với gia đình, bạn bè và môi trường xung quanh. Đây là thời kỳ bạn học cách hợp tác, kiên nhẫn, cảm thông, và phát triển kỹ năng ngoại giao, khéo léo trong xử lý tình huống. Bạn có khả năng làm "hòa giải viên tự nhiên", nhận ra tầm quan trọng của sự kết nối. Đồng thời, bạn cũng cần học cách duy trì ranh giới cảm xúc để không bị quá nhạy cảm, tránh sa vào trạng thái thiếu quyết đoán hay tự ti. Thành công giai đoạn này đến từ khi bạn kết nối và thấu hiểu, đồng thời biết giữ mình cân bằng giữa hòa hợp và tự tôn.'
+                ],
+                2 => [
+                    'title' => 'Đỉnh cao 2',
+                    'subtitle' => 'Đỉnh cao 2 là số 2: Sức mạnh của sự hợp tác và cân bằng',
+                    'content' => 'Đây là thời điểm bạn đóng vai trò một thành viên đáng tin cậy trong mọi nhóm – gia đình, công việc, cộng đồng. Năng lượng số 2 thúc đẩy bạn phát huy sự kiên nhẫn, tinh tế và kỹ năng ngoại giao tinh vi, giúp bạn kết nối sâu sắc và xây dựng mối quan hệ bền vững. Bạn có khả năng làm cầu nối, khuếch đại sức mạnh tập thể qua tinh thần "us over me" (đặt tập thể lên trên bản thân). Tuy nhiên, cũng cần chú ý giữ giới hạn cá nhân, tránh rơi vào trạng thái quá nhạy cảm, thiếu quyết đoán hoặc phụ thuộc quá nhiều vào người khác. Thành công trong giai đoạn này đến khi bạn biết hòa hợp mà không mất chính mình, tạo nên sự cân bằng giữa hợp tác và tự tin nội tại.'
+                ],
+                3 => [
+                    'title' => 'Đỉnh cao 3',
+                    'subtitle' => 'Đỉnh cao 3 là số 2 – Hành trình trưởng thành qua sự gắn kết và cân bằng',
+                    'content' => 'Giai đoạn này đánh dấu thời kỳ bạn bước vào vai trò gắn bó sâu sắc với người khác, đặt nền móng cho hợp tác hiệu quả và xây dựng môi trường nuôi dưỡng – cả trong gia đình lẫn sự nghiệp. Năng lượng số 2 thúc đẩy bạn phát triển sự kiên nhẫn, tinh tế và kỹ năng ngoại giao cao cấp, học cách làm "cầu nối" giữa các bên và điều phối sự hài hòa trong tập thể. Đây không chỉ đơn thuần là giúp đỡ, mà là nghệ thuật đem lại sự ổn định bằng cách thấu hiểu, trao quyền và hỗ trợ người khác. Tuy nhiên, bạn cũng cần giữ vững ranh giới cá nhân, để không bị kéo theo cảm xúc người khác hoặc mất phương hướng chính kiến. Thành công đến khi bạn biết hòa hợp mà vẫn giữ được chính mình, tạo ra sức mạnh cộng đồng mà không đánh mất bản sắc cá nhân.'
+                ],
+                4 => [
+                    'title' => 'Đỉnh cao 4',
+                    'subtitle' => 'Đỉnh cao 4 là số 2 – Giai đoạn cuối đời: Hội viên hài hòa & trí tuệ sáng suốt',
+                    'content' => 'Giai đoạn này mời bạn dành thời gian để kết nối sâu lắng, vun bồi hòa khí và chia sẻ sự tinh tế trong mối quan hệ – với bạn đời, gia đình, bạn bè hoặc cộng đồng. Năng lượng số 2 thúc đẩy sự khôn ngoan từ kinh nghiệm, giúp bạn trở thành nhân tố cân bằng, đem lại "trái tim hòa bình" cho tập thể. Bạn sẽ chú trọng đến từng chi tiết, thể hiện sự ăn ý và ôn tồn trong cách giao tiếp và hành xử. Tuy nhiên, bạn cần lưu ý giữ ranh giới cá nhân, tránh rơi vào trạng thái nhạy cảm quá mức hoặc trốn tránh các mâu thuẫn cần giải quyết. Thành công trong giai đoạn này đến khi bạn biết dưỡng yêu thương mà vẫn giữ được chính kiến, đem lại bình yên thực sự và sự thấu hiểu tinh tế cho thiên hạ.'
+                ]
             ],
-            // Thêm các số khác...
+            3 => [
+                1 => [
+                    'title' => 'Đỉnh cao 1',
+                    'subtitle' => 'Đỉnh cao 1 là số 3 – Giai đoạn chói sáng qua sáng tạo và giao tiếp',
+                    'content' => 'Trong giai đoạn đầu đời, bạn được dẫn dắt bởi năng lượng của sáng tạo, giao tiếp và niềm vui lan tỏa. Đây là lúc bạn khám phá giọng nói nội tại, rèn kỹ năng biểu đạt qua lời nói, viết lách hoặc nghệ thuật, đồng thời mở rộng mối quan hệ xã hội một cách tự nhiên. Tuổi trẻ của bạn có thể tràn ngập cảm hứng, sự hài hước và tinh thần lạc quan, giúp bạn trở thành người giao tiếp xuất sắc và truyền cảm hứng cho người khác. Tuy nhiên, cũng cần lưu ý tránh phân tán sự chú ý, sống hời hợt hoặc quá nhạy cảm với lời phê phán. Thành công trong giai đoạn này đến từ việc giữ được niềm vui, nhưng đi kèm trọng tâm và sâu sắc.'
+                ],
+                2 => [
+                    'title' => 'Đỉnh cao 2',
+                    'subtitle' => 'Đỉnh cao 2 là số 3: Tỏa sáng qua sáng tạo và giao tiếp',
+                    'content' => 'Trong giai đoạn thứ hai, bạn bước vào hành trình phát huy năng lượng sáng tạo, giao tiếp và sự kết nối xã hội. Đây là thời điểm bạn được khuyến khích chủ động bộc lộ bản thân, chia sẻ câu chuyện, ý tưởng và niềm vui với người khác. Bạn có thể được biết đến qua kỹ năng viết, nói, biểu diễn hoặc tổ chức các hoạt động truyền cảm hứng. Đồng thời, bạn cũng cần học cách gói năng lượng đa chiều vào trọng tâm, tránh tình trạng lan man hoặc quá chú trọng lời khen. Thành công thời này đến khi bạn cân bằng được niềm vui, sự sáng tạo và cam kết hoàn thành mục tiêu.'
+                ],
+                3 => [
+                    'title' => 'Đỉnh cao 3',
+                    'subtitle' => 'Đỉnh cao 3 là số 3: Tỏa sáng qua sáng tạo và kết nối xã hội',
+                    'content' => 'Qua chặng đường đã qua, bạn bước vào giai đoạn này với một sứ mệnh rõ ràng: chia sẻ ánh sáng và niềm vui cá nhân đến cộng đồng. Năng lượng số 3 khuyến khích bạn dùng sự sáng tạo, khả năng biểu đạt và giao tiếp để lan tỏa cảm hứng, xây dựng mối quan hệ sâu sắc và tạo ra giá trị tích cực. Đây có thể là thời điểm bạn viết sách, thuyết trình, giảng dạy, làm nghệ thuật hoặc phát triển nội dung có ảnh hưởng xã hội. Tuy nhiên, bạn cũng cần chú ý giữ sự tập trung và chiều sâu, tránh sa vào lan man hoặc phản ứng cảm xúc quá mạnh. Thành công đến khi bạn biết cân bằng giữa niềm vui, tính sáng tạo và cam kết kiên định, biến mỗi thông điệp của bạn đều mang sắc thái ý nghĩa và kết nối thực sự.'
+                ],
+                4 => [
+                    'title' => 'Đỉnh cao 4',
+                    'subtitle' => 'Đỉnh cao 4 là số 3 – Mùa thu của niềm vui, sáng tạo và kết nối xã hội',
+                    'content' => 'Giai đoạn này chính là "mùa thu" trong cuộc đời bạn – thời điểm bản lĩnh và trải nghiệm đã được tích lũy kỹ càng, giờ là lúc bạn tìm thấy niềm vui sâu sắc từ sáng tạo, giao tiếp chân thành và các mối quan hệ giàu ý nghĩa. Năng lượng số 3 mạnh mẽ thúc đẩy bạn khám phá lại nghệ thuật sống: có thể thông qua việc viết sách, kể chuyện cuộc đời, tham gia văn hóa nghệ thuật hoặc đơn giản là kết nối với người thân bằng niềm hạnh phúc chân thành. Đây cũng là giai đoạn để xây dựng di sản tinh thần: truyền đạt những câu chuyện đầy cảm hứng, kiến thức và sự lạc quan đến thế hệ sau. Tuy nhiên, bạn cần tránh "sa đà" vào sự hời hợt; hãy tập trung vào một vài hoạt động mang ý nghĩa sâu sắc – vì "bận rộn không bằng tận tâm". Thành công đỉnh cao khi bạn biết dưỡng sự vui tươi bằng chiều sâu, và thăng hoa bằng sự kết nối đầy cảm hứng.'
+                ],
+            ],
+            4 => [
+                1 => [
+                    'title' => 'Đỉnh cao 1',
+                    'subtitle' => 'Đỉnh cao 1 là số 4 – Giai đoạn xây nền móng bằng sự kiên trì và kỷ luật',
+                    'content' => 'Trong giai đoạn đầu đời, bạn được dẫn dắt bởi năng lượng của kỷ luật, thực tế và nền tảng vững chắc. Đây là khoảng thời gian bạn học cách xây dựng tổ chức, phát triển trách nhiệm và lao động cần mẫn. Bạn có thể trải qua những thử thách trong việc tuân thủ nguyên tắc, quản lý thời gian và tự kiểm soát bản thân. Khi bạn kiên nhẫn và tập trung trên từng bước đi, giai đoạn này sẽ giúp bạn không chỉ tồn tại, mà còn tồn tại một cách vững vàng và có phương hướng. Thành công không đến qua đêm – mà là từ từng bước đi đều đặn, xây nên tòa lâu đài kiên cố của cuộc đời bạn.',
+                ],
+                2 => [
+                    'title' => 'Đỉnh cao 2',
+                    'subtitle' => 'Đỉnh cao 2 là số 4: Xây dựng nền móng bền vững với tinh thần kỷ luật và tổ chức',
+                    'content' => 'Trong giai đoạn thứ hai, bạn được dẫn dắt bởi năng lượng của kỷ luật, trách nhiệm và sự kiên trì trong công việc. Đây là thời điểm bạn cần thiết lập hệ thống, quy trình và nền tảng vững chắc – có thể là sự nghiệp, tài chính hoặc tổ chức cá nhân. Bạn học cách biến mục tiêu xa thành những bước đi cụ thể, phát triển kỹ năng quản lý thời gian và duy trì sự ổn định trong mọi hoàn cảnh. Tuy nhiên, bạn cũng cần chú ý không trở nên quá cố định và cứng nhắc, vì đôi khi sự linh hoạt mới là chìa khóa để thích nghi. Thành công ở giai đoạn này đến khi bạn biết xây dựng chắc từng viên gạch nhưng vẫn mở cửa với cơ hội mới.'
+                ],
+                3 => [
+                    'title' => 'Đỉnh cao 3',
+                    'subtitle' => 'Đỉnh cao 3 là số 4: Xây nền tảng chắc chắn với kỷ luật và tổ chức',
+                    'content' => 'Bạn bước vào giai đoạn xây dựng sự nghiệp và tổ ấm với một nhiệm vụ rõ ràng: tạo dựng nền tảng vững bền cho cuộc sống. Năng lượng số 4 thúc đẩy bạn phát triển kỷ luật, khả năng tổ chức và tư duy thực tế, để đưa những ý tưởng trở thành kế hoạch cụ thể và có hệ thống. Đây là thời điểm bạn có thể thiết lập quy trình làm việc, ổn định tài chính và xây dựng uy tín cá nhân. Tuy nhiên, thách thức là không để bản thân trở nên cứng nhắc, hạn chế sáng tạo hay rơi vào "bẫy" công việc quá tải. Thành công sẽ đến khi bạn biết giữ cân bằng giữa kỷ luật và linh hoạt, biết làm chủ thời gian, ưu tiên sức khỏe và kết nối xã hội. Khi nền tảng rõ ràng, bạn sẽ có sức bật vững vàng cho sự phát triển tiếp theo.'
+                ],
+                4 => [
+                    'title' => 'Đỉnh cao 4',
+                    'subtitle' => 'Đỉnh cao 4 là số 4 – Giai đoạn cuối đời: Củng cố nền tảng và tìm bình yên thực sự',
+                    'content' => 'Ở giai đoạn này, bạn được mời gọi dành thời gian để giữ gìn và củng cố những cấu trúc bạn đã xây dựng cả đời – từ gia đình, tài sản, đến giá trị tinh thần. Năng lượng số 4 thúc đẩy bạn sống có tổ chức, thực tế và kiên định: bạn sẽ quản lý tài chính cẩn thận, duy trì thói quen lành mạnh, và có thể tiếp tục làm việc – không phải vì áp lực, mà vì niềm vui tạo ra sự ổn định và cảm giác có ích. Đây là thời điểm bạn tìm thấy niềm an yên trong thứ tự, sự đáng tin và nền tảng vững chãi, có thể thực hiện các dự án cựu sinh viên, hướng dẫn người trẻ, hoặc dấn thân vào các hoạt động cộng đồng nhỏ theo cách có hệ thống và bền bỉ. Tuy nhiên, áp lực cứng nhắc hoặc quá an toàn có thể khiến bạn bỏ lỡ cơ hội trải nghiệm mới. Thành công giai đoạn này đến khi bạn biết cân bằng giữa sự vững chắc và linh hoạt, vững trong cấu trúc nhưng vẫn mở lòng đón nhận những điều mới. Khi bạn kết hợp được "ổn định sâu" với sự uyển chuyển sáng tạo, giai đoạn cuối đời trở thành hành trình viên mãn, an yên và đầy ý nghĩa.'
+                ]
+            ],
+            5 => [
+                1 => [
+                    'title' => 'Đỉnh cao 1',
+                    'subtitle' => 'Đỉnh cao 1 – số 5: Giai đoạn nền tảng của sự tự do và khám phá',
+                    'content' => 'Trong giai đoạn đầu đời, bạn được dẫn dắt bởi khát vọng tự do, thay đổi và trải nghiệm cuộc sống qua hành động. Những năm tháng tuổi trẻ có thể giống như một cơn lốc – bạn không ngại thử thách bản thân qua việc di chuyển, đổi mới, gặp gỡ người mới, và học từ sai lầm. Đây là thời điểm bạn rèn tính linh hoạt, khả năng thích nghi và tư duy nhanh nhạy. Tuy nhiên, bạn cần học cách giữ trụ, tránh rơi vào trạng thái bấp bênh hoặc nông cạn khi muốn khám phá mọi thứ cùng lúc. Thành công giai đoạn này là khi bạn biết cách chuyển trải nghiệm thành bài học, sử dụng năng lượng tự do để xây dựng bản sắc chứ không chỉ chạy theo cảm giác nhất thời.'
+                ],
+                2 => [
+                    'title' => 'Đỉnh cao 2',
+                    'subtitle' => 'Đỉnh cao 2 là số 5: Mở rộng chân trời với sự linh hoạt và khám phá',
+                    'content' => 'Đây là thời kỳ bạn được mời gọi chấp nhận sự thay đổi, trải nghiệm phong phú và sống tự do theo cách bạn mong muốn. Đỉnh cao 2 số 5 là giai đoạn cổ điển của những "cơn lốc" chuyển mình: có thể là thay đổi nghề nghiệp, nơi sống, mối quan hệ, hoặc hành trình khám phá bản thân – đặc biệt phù hợp với những ai không thể gắn bó với vùng an toàn. Lúc này, bạn rèn luyện khả năng thích nghi, tư duy nhanh nhạy và giao tiếp hiệu quả, biến mọi trải nghiệm thành bài học sống động. Tuy nhiên, bạn cũng cần tránh sự bấp bênh, thiếu ổn định hoặc hành động vội vàng mà không suy xét. Thành công trong giai đoạn này đến khi bạn biết kết hợp tự do với trách nhiệm, tự do nhưng vẫn có định hướng rõ ràng.'
+                ],
+                3 => [
+                    'title' => 'Đỉnh cao 3',
+                    'subtitle' => 'Đỉnh cao 3 là số 5: Tự do thể hiện và khám phá đa chiều',
+                    'content' => 'Giai đoạn này mang đến một luồng sinh khí mới với năng lượng năng động, tự do và khao khát khám phá. Dưới tác động của số 5, bạn thường cảm thấy thôi thúc phá vỡ khuôn khổ, trải nghiệm những điều mới mẻ và mở rộng tầm nhìn qua du lịch, học hỏi hoặc thay đổi lĩnh vực làm việc. Đây là thời điểm hoàn hảo để bạn phát triển kỹ năng giao tiếp, thích nghi và tìm ra bản sắc độc đáo của riêng mình. Tuy nhiên, thách thức lớn nhất là giữ sự tập trung trong khi khám phá. Nếu bạn để bản thân phân tán quá nhiều hoặc đuổi theo mọi cơ hội mà không có chiến lược rõ ràng, bạn có thể mất phương hướng. Thành công đến khi bạn biết kết hợp tinh thần tự do với trách nhiệm, linh hoạt nhưng vẫn kiên định với mục tiêu dài hạn.'
+                ],
+                4 => [
+                    'title' => 'Đỉnh cao 4',
+                    'subtitle' => 'Đỉnh cao 4 là số 5 – Giai đoạn cuối đời: Linh hoạt, đổi mới và kết nối thế giới',
+                    'content' => 'Trong giai đoạn này, bạn bước vào hành trình của một nhà thám hiểm lớn tuổi nhưng giàu trải nghiệm, không ngừng khám phá, thích nghi và giao tiếp. Năng lượng số 5 ở chu kỳ cuối đời mang đến tinh thần tự do, khả năng chịu biến động và sự kết nối rộng mở – bạn có thể tiếp tục công việc part‑time, làm từ thiện, đi du lịch hoặc tham gia các hoạt động xã hội tích cực. Đây là thời điểm để áp dụng trí tuệ tích lũy suốt đời vào các trải nghiệm mới, truyền cảm hứng và gắn kết với nhiều tầng lớp tuổi tác. Tuy nhiên, thách thức là bạn cần giữ phản ứng linh hoạt nhưng vẫn theo đuổi hướng đi có giá trị, tránh cảm giác bấp bênh hoặc vội vàng. Thành công thực sự đạt được khi bạn biết kết hợp tự do với trách nhiệm, biến tuổi tác thành cơ hội để lan tỏa năng lượng tích cực mà không đánh mất bản sắc.'
+                ]
+            ],
+            6 => [
+                1 => [
+                    'title' => 'Đỉnh cao 1',
+                    'subtitle' => 'Đỉnh cao 1 là số 6 – Giai đoạn nền tảng của trách nhiệm và yêu thương',
+                    'content' => 'Trong giai đoạn đầu đời, bạn được dẫn dắt bởi năng lượng của trách nhiệm, chăm sóc và xây dựng tổ ấm. Đây là thời điểm bạn học cách vun vén cho gia đình, bạn bè hoặc cộng đồng – bước vào vai trò chăm lo và bảo vệ. Bạn phát triển khả năng đồng cảm, sự kiên nhẫn và tinh thần phục vụ sâu sắc. Tuy nhiên, cũng cần cảnh giác để không hy sinh bản thân, mất giới hạn cảm xúc hoặc trở nên kiểm soát quá mức. Thành công trong giai đoạn này đến từ khi bạn biết cân bằng giữa cho đi và chăm sóc chính mình, tạo dựng nền tảng tình cảm vững chắc cho hành trình phía trước.'
+                ],
+                2 => [
+                    'title' => 'Đỉnh cao 2',
+                    'subtitle' => 'Đỉnh cao 2 là số 6: Vương quốc trách nhiệm và yêu thương',
+                    'content' => 'Đây là thời điểm bạn được mời gọi ôm trọn trách nhiệm với tình thân, gia đình, cộng đồng và sự nghiệp chăm sóc. Năng lượng số 6 thúc đẩy bạn phát triển tinh thần nuôi dưỡng, hỗ trợ và chữa lành, trở thành chỗ dựa vững chắc cho những người xung quanh. Bạn có thể đảm nhiệm vai trò cha mẹ, đối tác, nhà lãnh đạo nhân đạo hoặc người điều hành một tổ chức vì cộng đồng. Tuy nhiên, cần cảnh giác để không hy sinh bản thân quá mức hoặc rơi vào xu hướng kiểm soát, áp đặt hoặc phụ thuộc cảm xúc. Thành công giai đoạn này đến khi bạn biết yêu thương mà không đánh mất mình, chăm sóc nhưng vẫn giữ được tự do nội tâm.'
+                ],
+                3 => [
+                    'title' => 'Đỉnh cao 3',
+                    'subtitle' => 'Đỉnh cao 3 là số 6: Nuôi dưỡng tình yêu và trách nhiệm vững bền',
+                    'content' => 'Bạn bước vào giai đoạn trọng tâm là gia đình, sự nghiệp ổn định và vai trò người chăm sóc. Năng lượng số 6 mang lại khao khát xây dựng tổ ấm hạnh phúc, phát triển các mối quan hệ sâu sắc và đóng góp vào cộng đồng. Đây là thời điểm bạn có thể trở thành trụ cột trong gia đình, người cố vấn đáng tin cậy hoặc người xây dựng môi trường làm việc hài hòa. Thách thức của giai đoạn này là cân bằng giữa cho đi và nhận lại, tránh hy sinh quá mức hoặc kiểm soát người khác dưới danh nghĩa yêu thương. Thành công đến khi bạn biết nuôi dưỡng bản thân song song với việc chăm sóc người khác, tạo ra sự hài hòa thực sự trong mọi mối quan hệ.'
+                ],
+                4 => [
+                    'title' => 'Đỉnh cao 4',
+                    'subtitle' => 'Đỉnh cao 4 là số 6 – Giai đoạn cuối đời: Di sản của sự chăm sóc và lòng bao dung',
+                    'content' => 'Giai đoạn này mời bạn bước vào vai trò trưởng thành với trái tim rộng mở, ưu tiên kết nối gia đình, cộng đồng và các giá trị nhân văn. Năng lượng số 6 giúp bạn tận hưởng niềm vui từ việc hỗ trợ, hướng dẫn và chăm sóc người khác – có thể qua làm ông bà, cố vấn, hoặc đảm nhiệm vai trò thiện nguyện. Đây là lúc bạn củng cố tổ ấm, tạo ra môi trường yêu thương và chia sẻ kinh nghiệm sống để truyền cảm hứng cho thế hệ sau. Tuy nhiên, cũng cần học cách giữ vững ranh giới cá nhân, tránh rơi vào trạng thái quá kiểm soát hoặc tự hy sinh. Thành công đạt được khi bạn biết yêu thương và hồi đáp, nhưng vẫn giữ bình yên trong chính mình, để đỉnh cao cuộc sống cuối cùng trở thành di sản của lòng nhân ái và trí tuệ sâu sắc.'
+                ]
+            ],
+            7 => [
+                1 => [
+                    'title' => 'Đỉnh cao 1',
+                    'subtitle' => 'Đỉnh cao 1 là số 7 – Giai đoạn hình thành của nội tâm sâu sắc',
+                    'content' => 'Trong giai đoạn đầu đời, bạn được dẫn dắt bởi năng lượng của nội tâm – tư duy – và hành trình tìm kiếm bản thể. Tuổi trẻ của bạn thường yên tĩnh, nghiêm túc, hướng vào việc học hỏi, nghiên cứu, suy ngẫm và phát triển trực giác. Bạn có thể cảm thấy "khác biệt", thích sự riêng tư, có xu hướng rút vào thế giới nội tâm để tìm kiếm câu trả lời sâu xa. Đây là thời gian bạn bắt đầu xây dựng nền tảng tinh thần và trí tuệ, tin tưởng vào trực giác như một phần nội lực quan trọng. Tuy nhiên, cần lưu ý tránh cô lập quá mức và rời xa xã hội. Thành công giai đoạn này đến từ khi bạn biết thấu hiểu mình từ bên trong và khai mở tiềm năng nội tại.'
+                ],
+                2 => [
+                    'title' => 'Đỉnh cao 2',
+                    'subtitle' => 'Đỉnh cao 2 là số 7: Hành trình nội tâm chuyên sâu',
+                    'content' => 'Đây là thời kỳ bạn được mời gọi đắm chìm vào sự tìm hiểu sâu sắc, kiến thức chuyên môn và sự phát triển tâm linh. Năng lượng số 7 giai đoạn này thúc đẩy bạn tĩnh lặng, phân tích, nghiên cứu, và đặt câu hỏi về bản chất cuộc sống. Bạn có thể dành nhiều thời gian cho nghiên cứu, thiền định, học hành hoặc phát triển trực giác – đôi khi bạn cần cả sự cô tĩnh để kết nối với thế giới nội tâm. Tuy nhiên, bạn cũng cần lưu ý đừng trốn tránh xã hội hoặc trở nên quá hoài nghi. Thành công ở giai đoạn này đến khi bạn biết kết hợp sự thấu hiểu từ bên trong với giao tiếp từ bên ngoài, dùng kiến thức sâu sắc để giải đáp những câu hỏi thay vì biến nó thành rào chắn. Khi bạn mang được nội lực tinh thần vào cuộc sống thực tế, bạn sẽ tạo ra ảnh hưởng sâu rộng hơn.'
+                ],
+                3 => [
+                    'title' => 'Đỉnh cao 3',
+                    'subtitle' => 'Đỉnh cao 3 là số 7: Hành trình nội tâm chuyên sâu và kiến thức tinh hoa',
+                    'content' => 'Giai đoạn này dẫn bạn vào điểm mạch nội tại, nơi trí tuệ và trực giác cùng phát triển song song. Dưới ảnh hưởng của số 7, bạn sẽ cảm nhận rõ nhu cầu tĩnh lặng, nghiên cứu chuyên sâu, kết nối với bản thể và tìm kiếm chân lý. Đây là thời điểm phù hợp để đắm chìm vào học vấn nâng cao, thiền định, hoặc phát triển trực giác, xây nền tảng tinh thần vững chắc từ cấu trúc nội tâm. Tuy nhiên bạn cũng cần cẩn trọng không để bản thân cô lập hẳn hoặc đi quá xa thiên hướng phân tích, dễ rơi vào nghi ngờ hoặc xa lánh xã hội. Thành công ở giai đoạn này đến khi bạn biết kết nối tri thức với trái tim, chia sẻ sâu sắc nhưng vẫn mở lòng với thế giới bên ngoài.'
+                ],
+                4 => [
+                    'title' => 'Đỉnh cao 4',
+                    'subtitle' => 'Đỉnh cao 4 là số 7 – Giai đoạn cuối đời: Trở về nội tâm và trí tuệ sâu sắc',
+                    'content' => 'Giai đoạn này mở ra một hành trình giữa bình yên và hiểu thấu, nơi bạn được mời gọi rút lui khỏi những lo toan bên ngoài để khám phá chiều sâu nội tâm, tri thức và trực giác. Dưới ảnh hưởng của số 7, bạn sẽ dành nhiều thời gian cho nghiên cứu, thiền định, và chiêm nghiệm cuộc sống – đây là lúc sự tĩnh lặng trở thành sức mạnh. Bạn có thể tìm thấy an yên trong thiên nhiên, dạy người trẻ những gì đã trải qua hoặc sử dụng trực giác để hỗ trợ cộng đồng. Tuy vậy, bạn cũng cần cân bằng: đừng để cô đơn hoặc hoài nghi khiến bạn mất kết nối. Thành công ở giai đoạn này đến khi bạn biết sử dụng trí tuệ để thấu cảm, tĩnh tại để truyền cảm hứng, và biết chia sẻ nét sâu sắc của nội tâm với thế giới bên ngoài.'
+                ]
+            ],
+            8 => [
+                1 => [
+                    'title' => 'Đỉnh cao 1',
+                    'subtitle' => 'Đỉnh cao 1 là số 8 – Giai đoạn hình thành của quyền lực và tham vọng',
+                    'content' => 'Trong giai đoạn đầu đời, bạn được dẫn dắt bởi mong muốn quyền lực, quản lý và thành tựu vật chất. Đây là thời điểm bạn bắt đầu khám phá cách xây dựng tầm ảnh hưởng, kết nối với giá trị tiền bạc và học cách chịu trách nhiệm với lớn hơn. Bạn có thể thấy sự thôi thúc mạnh mẽ trong sự nghiệp, vị thế và tham vọng – bạn không chỉ muốn tồn tại, mà muốn tỏa sáng và làm chủ. Tuy nhiên, giai đoạn này cũng thử thách bạn về phẩm chất đạo đức và cân bằng: sức mạnh thật sự đến từ sự liêm chính, trung thực và khả năng cho đi mà không toan tính. Thành công đến khi bạn biết dùng quyền lực để phục vụ, không phải thống trị'
+                ],
+                2 => [
+                    'title' => 'Đỉnh cao 2',
+                    'subtitle' => 'Đỉnh cao 2 là số 8: Khẳng định quyền lực và thành tựu thực tiễn',
+                    'content' => 'Đây là thời kỳ bạn được mời gọi thăng tiến mạnh mẽ trong sự nghiệp, làm chủ tài chính, quyền lực và phạm vi ảnh hưởng. Năng lượng số 8 thúc đẩy bạn thể hiện sức mạnh nội tại qua vai trò lãnh đạo, quản lý và phát triển hệ thống một cách chuyên sâu. Đây là lúc bạn được trao cơ hội lớn để tạo ra sự thay đổi thực tế, xây dựng uy tín và để lại dấu ấn. Tuy nhiên, cũng là giai đoạn kiểm nghiệm về đạo đức, liêm chính và cam kết – vì số 8 cũng "khuấy động" trách nhiệm và áp lực lớn. Thành công đạt được khi bạn biết dùng quyền lực để nâng đỡ người khác, giữ được cân bằng giữa khát vọng và sự chính trực.'
+                ],
+                3 => [
+                    'title' => 'Đỉnh cao 3',
+                    'subtitle' => 'Đỉnh cao 3 là số 8: Nắm giữ quyền lực vật chất và thành tựu lớn',
+                    'content' => 'Đây là giai đoạn quyền lực vật chất và thành tựu lớn lao đến với bạn. Năng lượng số 8 mang lại tham vọng mạnh mẽ, khả năng quản lý tài chính xuất sắc và tiềm năng đạt được vị trí cao trong xã hội. Bạn có thể thấy mình được thúc đẩy xây dựng đế chế kinh doanh, nắm giữ vai trò lãnh đạo quan trọng hoặc tạo ra sự thịnh vượng bền vững. Thách thức của giai đoạn này là cân bằng giữa vật chất và tinh thần, tránh để tham vọng che mờ các giá trị nhân văn. Thành công thực sự đến khi bạn sử dụng quyền lực và tài sản để phục vụ mục đích cao cả hơn, kết hợp thành tựu cá nhân với đóng góp cho cộng đồng.'
+                ],
+                4 => [
+                    'title' => 'Đỉnh cao 4',
+                    'subtitle' => 'Đỉnh cao 4 là số 8 – Cuối đời: Làm chủ thế giới vật chất bằng khôn ngoan và ảnh hưởng',
+                    'content' => 'Giai đoạn này bạn bước vào vai trò của "Chuyên gia – Người điều phối quyền lực", tiếp tục lãnh đạo, quản lý tài chính và kiến tạo di sản vật chất. Dưới ảnh hưởng của số 8, bạn vẫn giữ được khát vọng ghi dấu ấn bằng việc dùng kinh nghiệm để xây dựng hệ thống, hướng dẫn thế hệ sau hoặc đảm nhiệm vị trí chiến lược trong tổ chức. Tuy nhiên, đây cũng là lúc bạn không thể lơ là về đạo đức và sức khỏe tinh thần; tránh trở nên độc tài, ham quyền thế hoặc quá tập trung vào vật chất. Thành công giai đoạn này đến khi bạn biết dùng quyền lực một cách liêm chính, chia sẻ tài nguyên, nuôi dưỡng cộng đồng mà không mờ mắt trước danh vọng.'
+                ]
+            ],
+            9 => [
+                1 => [
+                    'title' => 'Đỉnh cao 1',
+                    'subtitle' => 'Đỉnh cao 1 là số 9 – Giai đoạn hình thành của lòng nhân ái và tầm nhìn toàn cầu',
+                    'content' => 'Trong giai đoạn đầu đời, bạn được dẫn dắt bởi năng lượng của tình yêu thương, sự vị tha và cái nhìn bao dung với thế giới. Từ khi còn trẻ, bạn có thể đã thể hiện lòng trắc ẩn sâu sắc, quan tâm đến người khác dù chưa được dạy dỗ. Giai đoạn này mời gọi bạn học cách chăm sóc bản thân khi đang chăm sóc người khác, cân bằng lý tưởng và thực tế. Bạn xây dựng nền tảng tinh thần qua trải nghiệm buông bỏ và trưởng thành qua từng kết thúc. Thành công trong chu kỳ đầu đời này đến khi bạn biết dùng trí tuệ nhân văn để làm thay đổi tích cực cho thế giới, đồng thời giữ gìn giới hạn để không bị hao mòn nội tâm.'
+                ],
+                2 => [
+                    'title' => 'Đỉnh cao 2',
+                    'subtitle' => 'Đỉnh cao 2 là số 9: Trái tim rộng mở và phục vụ nhân loại',
+                    'content' => 'Đây là thời kỳ bạn được mời gọi định hình tầm nhìn đem lại ảnh hưởng tích cực và tạo ra sự chuyển hóa thực sự cho cộng đồng. Năng lượng số 9 thúc đẩy bạn mở rộng lòng từ bi, tha thứ và buông bỏ những gì đã cạn năng lượng. Trong giai đoạn này, bạn có cơ hội phục vụ bằng trí tuệ, cảm xúc và lòng nhân ái, hướng đến mục đích mang tính toàn cầu. Tuy nhiên, cần chú ý giữ ranh giới để không bị kiệt quệ, cân bằng tầm nhìn với sức bền nội tâm. Thành công ở giai đoạn này đến khi bạn biết khai mở sức mạnh từ từ bi, nhưng vẫn biết tự chữa lành chính mình.'
+                ],
+                3 => [
+                    'title' => 'Đỉnh cao 3',
+                    'subtitle' => 'Đỉnh cao 3 là số 9: Giác ngộ qua lòng nhân ái và chuyển hóa',
+                    'content' => 'Đây là thời kỳ bạn được mời gọi mở rộng vòng tay để tiếp xúc với thế giới, thể hiện lòng nhân ái sâu sắc và theo đuổi mục tiêu phục vụ cộng đồng. Năng lượng số 9 thúc đẩy bạn hành động vì cái lớn hơn bản thân: từ công việc thiện nguyện, lãnh đạo nhân văn đến sáng tạo nghệ thuật có mục đích. Đây cũng là giai đoạn buông bỏ những gì không còn phù hợp, học cách tha thứ và chữa lành cảm xúc để trưởng thành tinh thần. Bạn có thể cảm thấy đa chiều cảm xúc, nhưng khi biết giữ ranh giới, cân bằng sự cống hiến và tự chăm sóc, bạn sẽ biến giai đoạn này thành hành trình đáng giá, với dấu ấn nhân văn sâu sắc và sự phát triển toàn diện.'
+                ],
+                4 => [
+                    'title' => 'Đỉnh cao 4',
+                    'subtitle' => 'Đỉnh cao 4 là số 9 – Giai đoạn cuối đời: Trở thành bậc trưởng lão nhân hậu và truyền cảm hứng toàn cầu',
+                    'content' => 'Giai đoạn này mời bạn bước vào vai trò của "Nhà hiền triết từ bi", nơi trái tim bạn mở rộng để phục vụ nhân loại. Năng lượng số 9 thúc đẩy sự tha thứ, buông bỏ và yêu thương vô điều kiện, tạo ra ảnh hưởng tích cực thông qua chia sẻ trí tuệ, trải nghiệm sống và tấm lòng nhân ái. Bạn có thể tham gia các hoạt động thiện nguyện, truyền dạy trí tuệ sống hoặc hỗ trợ cộng đồng theo một cách sâu sắc và trọn vẹn. Nhưng đây cũng là giai đoạn nhạy cảm – đòi hỏi bạn học cách giữ ranh giới để không bị kiệt quệ tinh thần, đồng thời không bỏ qua những giá trị cá nhân đã xây dựng. Thành công giai đoạn này đến khi bạn biết kết hợp trí tuệ thu được với sự bao dung cao cả, để di sản cuối đời vừa là tình thương lại vừa là bài học quý cho thế hệ mai sau.'
+                ]
+            ],
+            11 => [
+                1 => [
+                    'title' => 'Đỉnh cao 1',
+                    'subtitle' => 'Đỉnh cao 1 là số 11 – Giai đoạn thức tỉnh tâm linh và thấu cảm sâu sắc',
+                    'content' => 'Trong giai đoạn đầu đời, bạn bước vào hành trình mang năng lượng trực giác mạnh mẽ và cảm nhận tâm linh sâu sắc. Đây là thời kỳ bạn trải nghiệm sự nhạy cảm vượt trội, dễ cảm nhận những năng lượng tinh tế, và thường cảm thấy "khác biệt" so với đám đông. Bạn được kêu gọi khai mở khả năng chữa lành, truyền cảm hứng và soi sáng cho người khác. Tuy nhiên, vì dễ nhạy cảm, bạn cần giữ chân thực vào thực tế để tránh bị quá tải tinh thần hoặc cảm giác lạc lối. Thành công trong giai đoạn này đến khi bạn biết đối chiếu linh cảm với hành động thực tế, và cân bằng giữa nội tâm cao-vút và hiện thực hằng ngày.'
+                ],
+                2 => [
+                    'title' => 'Đỉnh cao 2',
+                    'subtitle' => 'Đỉnh cao 2 là số 11: Sứ mệnh linh thiêng và truyền cảm hứng',
+                    'content' => 'Đỉnh cao 2 số 11 là thời điểm bạn được mời gọi để bộc lộ tầm nhìn tâm linh và lãnh đạo bằng cảm hứng. Bạn trở thành người kết nối ý tưởng cao cả với thực tế, truyền năng lượng chữa lành và sáng tạo cho người xung quanh. Tuy nhiên, đừng để cảm xúc lấn át hoặc mất hướng giữa mênh mông ý tưởng. Đây là giai đoạn bạn học cách đứng vững giữa linh cảm mạnh mẽ và chân thực cuộc sống, giữ đôi chân trên mặt đất để truyền cảm hứng thực sự. Khi cân bằng trực giác với hành động thực tế, bạn sẽ là ngọn đèn dẫn đường cho người khác.'
+                ],
+                3 => [
+                    'title' => 'Đỉnh cao 3',
+                    'subtitle' => 'Đỉnh cao 3 là số 11: Sự khai sáng và lãnh đạo cảm hứng',
+                    'content' => 'Giai đoạn này đánh dấu sự thăng hoa nội tại và sứ mệnh truyền cảm hứng, nơi bạn được mời gọi đứng lên với tâm trí nhạy cảm và trực giác sắc bén. Năng lượng số 11 thúc đẩy bạn khởi xướng những dự án có ý nghĩa sâu xa, dẫn dắt người khác bằng cảm hứng – không chỉ bằng lời nói, mà qua chính hành động và tầm nhìn chân thành. Đây cũng là dịp bạn phát triển sự nhạy cảm cảm xúc, học cách đối mặt với áp lực nội tâm và cân bằng giữa tâm linh và thực tế. Thành công sẽ đến khi bạn biết dẫn dắt bằng trái tim thức tỉnh và giữ được đôi chân vững chãi giữa đời thường.'
+                ],
+                4 => [
+                    'title' => 'Đỉnh cao 4',
+                    'subtitle' => 'Đỉnh cao 4 là số 11 – Mùa thu của sự khai sáng và lễ hội nội tâm',
+                    'content' => 'Giai đoạn cuối đời này mời bạn đón nhận vai trò người truyền cảm hứng sâu sắc – một phiên bản trưởng thiện của chính mình. Dưới ảnh hưởng của số 11, bạn sở hữu trực giác mạnh mẽ và năng lực tâm linh nhạy bén, giúp bạn tạo ra các kết nối ý nghĩa thông qua sự hiểu biết sâu sắc và cảm xúc cao độ. Đó có thể là lúc bạn chia sẻ khoảnh khắc điềm đạm, hướng dẫn tinh thần, hoặc tạo ra không gian chứa đựng cho cộng đồng.Tuy nhiên, năng lượng Master số 11 cũng đi kèm với những thử thách cảm xúc và tinh thần – bạn có thể cảm thấy bối rối hoặc áp lực nếu không tỉnh táo. Thành công của giai đoạn này đạt được khi bạn biết kiểm soát độ nhạy bén nội tâm, kết nối trực giác với lòng bản lĩnh, và sử dụng sự nhạy cảm để truyền cảm hứng một cách cân bằng, chứ không lấn át chính mình.'
+                ]
+            ],
+            22 => [
+                1 => [
+                    'title' => 'Đỉnh cao 1',
+                    'subtitle' => 'Đỉnh cao 1 là số 22 – Giai đoạn nền tảng của Master Builder',
+                    'content' => 'Trong giai đoạn đầu đời, bạn mang năng lượng đặc biệt của số Master 22 - sự kết hợp giữa tầm nhìn tâm linh (11) và khả năng hiện thực hóa vững chắc (4). Đây là thời kỳ đầy thách thức nhưng cũng chứa tiềm năng phi thường. Bạn sớm nhận thức được khả năng xây dựng những điều có quy mô lớn, từ ý tưởng đến hiện thực. Tuổi trẻ của bạn có thể đầy áp lực vì kỳ vọng cao từ bản thân và người khác. Bạn cảm nhận được sứ mệnh lớn lao nhưng có thể chưa biết cách thể hiện. Điều quan trọng là học cách kiên nhẫn, xây dựng từng bước nền tảng vững chắc, và không để áp lực làm mất đi niềm vui sống. Thành công giai đoạn này đến khi bạn học được cách cân bằng giữa tầm nhìn vĩ mô và hành động cụ thể, biến những giấc mơ lớn thành kế hoạch khả thi, từng bước một xây dựng nền móng cho sứ mệnh Master Builder của mình.'
+                ],
+                2 => [
+                    'title' => 'Đỉnh cao 2',
+                    'subtitle' => 'Đỉnh cao 2 là số 22: Kiến tạo vĩ mô & tầm nhìn vì cộng đồng',
+                    'content' => 'Đỉnh cao 2 số 22 mời bạn bước vào vai trò "Master Builder" – người có khả năng biến tầm nhìn lớn thành hiện thực, xây dựng những hệ thống bền vững, quy mô và mang lại ảnh hưởng tích cực cho xã hội. Bạn sở hữu năng lực kết hợp giữa lý trí sắc bén (4), khả năng hợp tác nhạy bén (2) và sự trực giác sâu sắc (11) để hiện thực hóa những dự án lớn lao. Đây là giai đoạn bạn cần học cách chịu trách nhiệm trong tầm vĩ mô, định hướng tài chính – tổ chức – đội ngũ thật vững chãi. Đồng thời, bạn cần tránh sa vào cảm giác áp lực dư thừa hoặc tham vọng thiếu kiểm soát. Thành công trong giai đoạn này đến từ khi bạn biết xây dựng di sản tinh thần và vật chất, lãnh đạo bằng niềm tin và cam kết với giá trị cao cả.'
+                ],
+                3 => [
+                    'title' => 'Đỉnh cao 3',
+                    'subtitle' => 'Đỉnh cao 3 là số 22 – Kiến tạo di sản thực tiễn từ tầm nhìn vĩ mô',
+                    'content' => 'Giai đoạn này đánh dấu thời điểm bạn bước vào vai trò "Master Builder" – người có thể biến tầm nhìn lớn thành thực tế có quy mô, từ phong cách lãnh đạo có hệ thống đến đóng góp cộng đồng. Năng lượng 22 kết hợp giữa khả năng tổ chức thiết lập trật tự và sứ mệnh phục vụ nhân loại. Đó có thể là tạo dựng kinh doanh mang giá trị xã hội, hoặc xây dựng dự án vì cộng đồng với cấu trúc vững chắc. Đây cũng là thời điểm bạn được tập trung về thành tựu công nhận, thậm chí nhận những giải thưởng lớn . Mặc dù cơ hội rất lớn, nhưng bạn cũng cần chú trọng học cách cân bằng kỳ vọng áp lực – duy trì sự chính trực – và không quên vai trò truyền cảm hứng cho người khác.'
+                ],
+                4 => [
+                    'title' => 'Đỉnh cao 4',
+                    'subtitle' => 'Đỉnh cao 4 là số 22 – Giai đoạn cuối đời: Kiến tạo vĩ đại và nhân sinh toàn diện',
+                    'content' => 'Giai đoạn này mời bạn bước vào vai trò "Master Builder" thực thụ, dùng trí tuệ, kinh nghiệm và tầm nhìn để xây dựng di sản vật chất và tinh thần có ảnh hưởng lớn lao. Năng lượng số 22 kết hợp sứ mệnh cao cả (11) và năng lực tổ chức vững chắc (4), đưa bạn đến giai đoạn khả năng thiết lập hệ thống, doanh nghiệp hoặc tổ chức với mục tiêu phục vụ xã hội ở quy mô rộng. Đây là thời điểm bạn có thể được công nhận bằng giải thưởng hoặc ảnh hưởng lâu dài trong cộng đồng . Tuy nhiên, đi kèm là trách nhiệm lớn – bạn cần biết cân bằng tham vọng vật chất và mục đích cao cả, tránh trở nên áp lực hoặc xa rời giá trị cá nhân. Thành công giai đoạn này là khi bạn biết đưa tầm nhìn vào hành động thực sự, để lại dấu ấn bền lâu và truyền cảm hứng từ lòng nhân ái và trí tuệ kiên định.'
+                ]
+            ],
+            33 => [
+                1 => [
+                    'title' => 'Đỉnh cao 1',
+                    'subtitle' => 'Đỉnh cao 1 là số 33 – Giai đoạn nền tảng của Master Teacher',
+                    'content' => 'Trong giai đoạn đầu đời, bạn mang năng lượng hiếm có của số Master 33 - biểu tượng của tình yêu vô điều kiện và sự phục vụ cao cả. Đây là con số của "Thầy vĩ đại", kết hợp trực giác tâm linh (11) với trách nhiệm yêu thương (6) ở mức độ cao nhất. Từ nhỏ, bạn đã thể hiện sự nhạy cảm đặc biệt với nỗi đau của người khác, khả năng an ủi và chữa lành tự nhiên. Bạn có thể cảm thấy gánh nặng của việc muốn giúp đỡ tất cả mọi người, muốn làm cho thế giới tốt đẹp hơn. Năng lượng này có thể khiến tuổi trẻ của bạn nặng nề về mặt cảm xúc. Thách thức là học cách bảo vệ năng lượng của mình, không để sự nhạy cảm quá mức làm kiệt quệ. Bạn cần xây dựng ranh giới lành mạnh và hiểu rằng không thể cứu vớt cả thế giới một mình. Thành công đến khi bạn học được cách yêu thương có trí tuệ, phục vụ mà không đánh mất bản thân, và sử dụng khả năng chữa lành của mình một cách cân bằng và bền vững.'
+                ],
+                2 => [
+                    'title' => 'Đỉnh cao 2',
+                    'subtitle' => 'Đỉnh cao 2 là số 33: Thầy cả Vĩ đại & sự phụng sự nhân thế',
+                    'content' => 'Đỉnh cao 2 số 33 là một bước ngoặt vô cùng hiếm và đầy ý nghĩa – bạn được kêu gọi trở thành "Master Teacher", người hướng dẫn bằng tình yêu vô điều kiện và lòng trắc ẩn nhân loại. Đây là thời điểm bạn có thể chuyển hóa bản thân thành nguồn cảm hứng, chữa lành và nâng đỡ thế giới. Bạn sở hữu sự kết hợp giữa tài năng sáng tạo (3) và tình thương sâu sắc (6), nhưng được nâng tầm – yêu thương không giới hạn, chia sẻ không điều kiện, lan tỏa sự chữa lành như ánh sáng ấm áp. Tuy nhiên, trọng trách của số 33 rất lớn – nếu không biết giữ cân bằng, bạn dễ trở nên quá hi sinh, mệt mỏi hoặc đóng vai "người cứu rỗi". Thành công đỉnh cao khi bạn học được yêu thương mà không mất mình, dạy mà không bảo thủ, phục vụ mà vẫn vững nội lực riêng.'
+                ],
+                3 => [
+                    'title' => 'Đỉnh cao 3',
+                    'subtitle' => 'Đỉnh cao 3 là số 33: Sứ mệnh Thầy cả Vĩ đại & phục vụ nhân loại bằng trí tuệ',
+                    'content' => 'Giai đoạn này đánh dấu một cột mốc hiếm có: bạn được mời gọi trở thành "Master Teacher", người truyền dạy bằng tình yêu vô điều kiện, trí tuệ sâu sắc và sự phụng sự lớn lao. Năng lượng số 33 là sự kết hợp của trực giác 11 và trách nhiệm 6, giúp bạn hành động không chỉ từ cảm xúc mà từ một tầm nhìn nhân văn cao cả. Đây có thể là lúc bạn giảng dạy, chữa lành, hoặc truyền cảm hứng cộng đồng nhờ kiến thức và phẩm chất động viên. Tuy nhiên, vai trò này mang đến áp lực – cần học cách giữ giới hạn, điều tiết cảm xúc và chăm sóc bản thân để không đuối sức. Thành công đạt được khi bạn biết yêu thương nhưng vẫn vững rắn, dạy dỗ nhưng không tự cao, phục vụ mà không mất chính mình.'
+                ],
+                4 => [
+                    'title' => 'Đỉnh cao 4',
+                    'subtitle' => 'Đỉnh cao 4 là số 33 – Kỳ cuối của sứ mệnh Thầy cả Vĩ đại & phục vụ nhân loại',
+                    'content' => 'Giai đoạn này đánh dấu một hành trình rất hiếm và vô cùng sâu sắc—bạn được mời gọi đóng vai trò "Master Teacher" cuối cùng dùng cả trái tim, trí tuệ lẫn sự trải nghiệm đời để chữa lành, hướng dẫn và vun đắp nhân loại. Năng lượng số 33 kết hợp trực giác mạnh (11) và tinh thần phục vụ (6) đưa bạn đến khả năng chuyển hóa thử thách thành bài học sống và truyền cảm hứng không giới hạn. Đây có thể là lúc bạn: Là cố vấn, giảng viên, hoặc điều phối các dự án cộng đồng mang đậm năng lượng chữa lành. Được mọi người tìm đến nếu cần lời khuyên sâu sắc hoặc sự hiểu biết nhân văn. Thách thức lớn ở giai đoạn này là học cách giữ tâm trong – không tràn ngập cảm xúc, duy trì năng lượng cá nhân và giới hạn rõ ràng, để không bị kiệt sức trước yêu cầu phục vụ cực đại. Thành công thật sự là khi bạn biết phục vụ mà vẫn vững chãi, truyền cảm hứng bằng trí tuệ và tình thương mà không mất chính mình.'
+                ]
+            ]
         ];
-        return $interpretations[$number][$pinnacle] ?? "Giải thích đỉnh cao {$pinnacle} số {$number}";
     }
 
     private static function calculateCommunicationAbility($frequencies)
@@ -1653,7 +2257,10 @@ class NumerologyHelper
         return $debts[$number] ?? 'Nghiệp quả đặc biệt.';
     }
 
-    private static function getKarmicDebtSections($debts) { return []; }
+    private static function getKarmicDebtSections($debts)
+    {
+        return [];
+    }
 
     private static function getMissingNumbersInterpretation($missing, $passions)
     {
@@ -1662,7 +2269,10 @@ class NumerologyHelper
         return $result;
     }
 
-    private static function getMissingNumbersSections($missing, $passions) { return []; }
+    private static function getMissingNumbersSections($missing, $passions)
+    {
+        return [];
+    }
 
     /**
      * Lấy diễn giải theo tần suất xuất hiện
@@ -3133,25 +3743,153 @@ class NumerologyHelper
         foreach ($chars as $originalChar) {
             // Check both original character and its normalized version
             $normalizedChar = str_replace(
-                ['à', 'á', 'ả', 'ạ', 'ã', 'â', 'ầ', 'ấ', 'ẩ', 'ậ', 'ẫ', 'ă', 'ằ', 'ắ', 'ẳ', 'ặ', 'ẵ',
-                 'è', 'é', 'ẻ', 'ẹ', 'ẽ', 'ê', 'ề', 'ế', 'ể', 'ệ', 'ễ',
-                 'ì', 'í', 'ỉ', 'ị', 'ĩ',
-                 'ò', 'ó', 'ỏ', 'ọ', 'õ', 'ô', 'ồ', 'ố', 'ổ', 'ộ', 'ỗ', 'ơ', 'ờ', 'ớ', 'ở', 'ợ', 'ỡ',
-                 'ù', 'ú', 'ủ', 'ụ', 'ũ', 'ư', 'ừ', 'ứ', 'ử', 'ự', 'ữ',
-                 'ỳ', 'ý', 'ỷ', 'ỵ', 'ỹ', 'đ'],
-                ['a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a',
-                 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e',
-                 'i', 'i', 'i', 'i', 'i',
-                 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o',
-                 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u',
-                 'y', 'y', 'y', 'y', 'y', 'd'],
+                [
+                    'à',
+                    'á',
+                    'ả',
+                    'ạ',
+                    'ã',
+                    'â',
+                    'ầ',
+                    'ấ',
+                    'ẩ',
+                    'ậ',
+                    'ẫ',
+                    'ă',
+                    'ằ',
+                    'ắ',
+                    'ẳ',
+                    'ặ',
+                    'ẵ',
+                    'è',
+                    'é',
+                    'ẻ',
+                    'ẹ',
+                    'ẽ',
+                    'ê',
+                    'ề',
+                    'ế',
+                    'ể',
+                    'ệ',
+                    'ễ',
+                    'ì',
+                    'í',
+                    'ỉ',
+                    'ị',
+                    'ĩ',
+                    'ò',
+                    'ó',
+                    'ỏ',
+                    'ọ',
+                    'õ',
+                    'ô',
+                    'ồ',
+                    'ố',
+                    'ổ',
+                    'ộ',
+                    'ỗ',
+                    'ơ',
+                    'ờ',
+                    'ớ',
+                    'ở',
+                    'ợ',
+                    'ỡ',
+                    'ù',
+                    'ú',
+                    'ủ',
+                    'ụ',
+                    'ũ',
+                    'ư',
+                    'ừ',
+                    'ứ',
+                    'ử',
+                    'ự',
+                    'ữ',
+                    'ỳ',
+                    'ý',
+                    'ỷ',
+                    'ỵ',
+                    'ỹ',
+                    'đ'
+                ],
+                [
+                    'a',
+                    'a',
+                    'a',
+                    'a',
+                    'a',
+                    'a',
+                    'a',
+                    'a',
+                    'a',
+                    'a',
+                    'a',
+                    'a',
+                    'a',
+                    'a',
+                    'a',
+                    'a',
+                    'a',
+                    'e',
+                    'e',
+                    'e',
+                    'e',
+                    'e',
+                    'e',
+                    'e',
+                    'e',
+                    'e',
+                    'e',
+                    'e',
+                    'i',
+                    'i',
+                    'i',
+                    'i',
+                    'i',
+                    'o',
+                    'o',
+                    'o',
+                    'o',
+                    'o',
+                    'o',
+                    'o',
+                    'o',
+                    'o',
+                    'o',
+                    'o',
+                    'o',
+                    'o',
+                    'o',
+                    'o',
+                    'o',
+                    'o',
+                    'u',
+                    'u',
+                    'u',
+                    'u',
+                    'u',
+                    'u',
+                    'u',
+                    'u',
+                    'u',
+                    'u',
+                    'u',
+                    'y',
+                    'y',
+                    'y',
+                    'y',
+                    'y',
+                    'd'
+                ],
                 mb_strtolower($originalChar, 'UTF-8')
             );
 
             foreach ($letterGroups as $ability => $letters) {
-                if (in_array($originalChar, $letters) || in_array($normalizedChar, $letters) ||
+                if (
+                    in_array($originalChar, $letters) || in_array($normalizedChar, $letters) ||
                     in_array(mb_strtoupper($originalChar, 'UTF-8'), $letters) ||
-                    in_array(mb_strtoupper($normalizedChar, 'UTF-8'), $letters)) {
+                    in_array(mb_strtoupper($normalizedChar, 'UTF-8'), $letters)
+                ) {
                     $abilities[$ability]['count']++;
                     $abilities[$ability]['letters'][] = $originalChar;
                     break; // Each letter belongs to only one group
@@ -3165,22 +3903,142 @@ class NumerologyHelper
     private static function removeVietnameseAccents($str)
     {
         $accents = [
-            'à', 'á', 'ả', 'ạ', 'ã', 'â', 'ầ', 'ấ', 'ẩ', 'ậ', 'ẫ', 'ă', 'ằ', 'ắ', 'ẳ', 'ặ', 'ẵ',
-            'è', 'é', 'ẻ', 'ẹ', 'ẽ', 'ê', 'ề', 'ế', 'ể', 'ệ', 'ễ',
-            'ì', 'í', 'ỉ', 'ị', 'ĩ',
-            'ò', 'ó', 'ỏ', 'ọ', 'õ', 'ô', 'ồ', 'ố', 'ổ', 'ộ', 'ỗ', 'ơ', 'ờ', 'ớ', 'ở', 'ợ', 'ỡ',
-            'ù', 'ú', 'ủ', 'ụ', 'ũ', 'ư', 'ừ', 'ứ', 'ử', 'ự', 'ữ',
-            'ỳ', 'ý', 'ỷ', 'ỵ', 'ỹ',
+            'à',
+            'á',
+            'ả',
+            'ạ',
+            'ã',
+            'â',
+            'ầ',
+            'ấ',
+            'ẩ',
+            'ậ',
+            'ẫ',
+            'ă',
+            'ằ',
+            'ắ',
+            'ẳ',
+            'ặ',
+            'ẵ',
+            'è',
+            'é',
+            'ẻ',
+            'ẹ',
+            'ẽ',
+            'ê',
+            'ề',
+            'ế',
+            'ể',
+            'ệ',
+            'ễ',
+            'ì',
+            'í',
+            'ỉ',
+            'ị',
+            'ĩ',
+            'ò',
+            'ó',
+            'ỏ',
+            'ọ',
+            'õ',
+            'ô',
+            'ồ',
+            'ố',
+            'ổ',
+            'ộ',
+            'ỗ',
+            'ơ',
+            'ờ',
+            'ớ',
+            'ở',
+            'ợ',
+            'ỡ',
+            'ù',
+            'ú',
+            'ủ',
+            'ụ',
+            'ũ',
+            'ư',
+            'ừ',
+            'ứ',
+            'ử',
+            'ự',
+            'ữ',
+            'ỳ',
+            'ý',
+            'ỷ',
+            'ỵ',
+            'ỹ',
             'đ'
         ];
 
         $replaced = [
-            'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a',
-            'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e',
-            'i', 'i', 'i', 'i', 'i',
-            'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o',
-            'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u',
-            'y', 'y', 'y', 'y', 'y',
+            'a',
+            'a',
+            'a',
+            'a',
+            'a',
+            'a',
+            'a',
+            'a',
+            'a',
+            'a',
+            'a',
+            'a',
+            'a',
+            'a',
+            'a',
+            'a',
+            'a',
+            'e',
+            'e',
+            'e',
+            'e',
+            'e',
+            'e',
+            'e',
+            'e',
+            'e',
+            'e',
+            'e',
+            'i',
+            'i',
+            'i',
+            'i',
+            'i',
+            'o',
+            'o',
+            'o',
+            'o',
+            'o',
+            'o',
+            'o',
+            'o',
+            'o',
+            'o',
+            'o',
+            'o',
+            'o',
+            'o',
+            'o',
+            'o',
+            'o',
+            'u',
+            'u',
+            'u',
+            'u',
+            'u',
+            'u',
+            'u',
+            'u',
+            'u',
+            'u',
+            'u',
+            'y',
+            'y',
+            'y',
+            'y',
+            'y',
             'd'
         ];
 
@@ -3246,5 +4104,579 @@ class NumerologyHelper
         } else {
             return $abilityData['max'];
         }
+    }
+
+    /**
+     * Helper method: Tính tổng các chữ số
+     */
+    private static function sumDigits($number)
+    {
+        $sum = 0;
+        while ($number > 0) {
+            $sum += $number % 10;
+            $number = intval($number / 10);
+        }
+        return $sum;
+    }
+
+    /**
+     * Lấy dữ liệu diễn giải chi tiết cho Đỉnh cao cuộc đời
+     */
+    public static function getPinnacleInterpretationsData()
+    {
+        return [
+            1 => [
+                1 => [
+                    'title' => 'Đỉnh Cao 1 - Số 1: Khởi Đầu Hành Trình Lãnh Đạo',
+                    'calculation' => 'Số 1 xuất hiện tại giai đoạn hình thành (0-35 tuổi)',
+                    'description' => 'Giai đoạn này là thời kỳ bạn học cách trở nên độc lập và tự tin. Số 1 mang năng lượng của sự khởi đầu, lãnh đạo và cá tính mạnh mẽ.',
+                    'sections' => [
+                        ['title' => 'Đặc điểm chính', 'content' => 'Bạn sẽ phát triển khả năng lãnh đạo, tính độc lập và sáng kiến cá nhân.'],
+                        ['title' => 'Cơ hội', 'content' => 'Thời kỳ tuyệt vời để khởi nghiệp, tạo dựng sự nghiệp riêng.'],
+                        ['title' => 'Thách thức', 'content' => 'Tránh trở nên quá ích kỷ hoặc độc đoán.'],
+                        ['title' => 'Lời khuyên', 'content' => 'Hãy dũng cảm theo đuổi ý tưởng của mình, nhưng cũng học cách lắng nghe người khác.']
+                    ]
+                ],
+                2 => [
+                    'title' => 'Đỉnh Cao 2 - Số 1: Khẳng Định Năng Lực Lãnh Đạo',
+                    'calculation' => 'Số 1 xuất hiện tại giai đoạn phát triển (36-44 tuổi)',
+                    'description' => 'Trong giai đoạn trưởng thành này, bạn sẽ khẳng định vị thế lãnh đạo và phát triển sự nghiệp theo hướng độc lập.',
+                    'sections' => [
+                        ['title' => 'Đặc điểm chính', 'content' => 'Khả năng lãnh đạo được hoàn thiện, tự tin vào quyết định cá nhân.'],
+                        ['title' => 'Cơ hội', 'content' => 'Thăng tiến trong sự nghiệp, có thể đảm nhận vai trò điều hành.'],
+                        ['title' => 'Thách thức', 'content' => 'Cân bằng giữa công việc và gia đình.'],
+                        ['title' => 'Lời khuyên', 'content' => 'Tận dụng kinh nghiệm để dẫn dắt và truyền cảm hứng cho người khác.']
+                    ]
+                ],
+                3 => [
+                    'title' => 'Đỉnh Cao 3 - Số 1: Thu Hoạch Thành Quả Lãnh Đạo',
+                    'calculation' => 'Số 1 xuất hiện tại giai đoạn thu hoạch (45-53 tuổi)',
+                    'description' => 'Giai đoạn này bạn sẽ gặt hái những thành quả từ năng lực lãnh đạo và sự nghiệp đã xây dựng.',
+                    'sections' => [
+                        ['title' => 'Đặc điểm chính', 'content' => 'Vị thế lãnh đạo được củng cố, ảnh hưởng rộng rãi.'],
+                        ['title' => 'Cơ hội', 'content' => 'Thời kỳ đỉnh cao của sự nghiệp, có thể mở rộng tầm ảnh hưởng.'],
+                        ['title' => 'Thách thức', 'content' => 'Duy trì động lực và không ngừng đổi mới.'],
+                        ['title' => 'Lời khuyên', 'content' => 'Chia sẻ kinh nghiệm và tạo di sản cho thế hệ sau.']
+                    ]
+                ],
+                4 => [
+                    'title' => 'Đỉnh Cao 4 - Số 1: Trí Tuệ Lãnh Đạo Trọn Đời',
+                    'calculation' => 'Số 1 xuất hiện tại giai đoạn trí tuệ (54+ tuổi)',
+                    'description' => 'Giai đoạn cuối đời, bạn trở thành người cố vấn khôn ngoan với kinh nghiệm lãnh đạo phong phú.',
+                    'sections' => [
+                        ['title' => 'Đặc điểm chính', 'content' => 'Trí tuệ lãnh đạo được hoàn thiện, khả năng cố vấn xuất sắc.'],
+                        ['title' => 'Cơ hội', 'content' => 'Trở thành người cố vấn, mentor cho thế hệ trẻ.'],
+                        ['title' => 'Thách thức', 'content' => 'Chuyển từ vai trò chủ động sang vai trò hỗ trợ.'],
+                        ['title' => 'Lời khuyên', 'content' => 'Tận hưởng thành quả và chia sẻ trí tuệ cho đời.']
+                    ]
+                ]
+            ],
+            2 => [
+                1 => [
+                    'title' => 'Đỉnh Cao 1 - Số 2: Học Hỏi Hợp Tác',
+                    'calculation' => 'Số 2 xuất hiện tại giai đoạn hình thành (0-35 tuổi)',
+                    'description' => 'Giai đoạn này bạn học cách hợp tác, thấu hiểu và xây dựng mối quan hệ. Số 2 mang năng lượng của sự nhạy cảm, ngoại giao và hài hòa.',
+                    'sections' => [
+                        ['title' => 'Đặc điểm chính', 'content' => 'Phát triển khả năng thấu cảm, hợp tác và giải quyết xung đột.'],
+                        ['title' => 'Cơ hội', 'content' => 'Xây dựng mạng lưới quan hệ tốt, thành công trong công việc nhóm.'],
+                        ['title' => 'Thách thức', 'content' => 'Tránh quá phụ thuộc vào ý kiến người khác.'],
+                        ['title' => 'Lời khuyên', 'content' => 'Học cách lắng nghe và hỗ trợ người khác, nhưng cũng cần tự tin vào bản thân.']
+                    ]
+                ],
+                2 => [
+                    'title' => 'Đỉnh Cao 2 - Số 2: Làm Chủ Nghệ Thuật Ngoại Giao',
+                    'calculation' => 'Số 2 xuất hiện tại giai đoạn phát triển (36-44 tuổi)',
+                    'description' => 'Thời kỳ trưởng thành này, bạn trở thành chuyên gia về quan hệ và hợp tác.',
+                    'sections' => [
+                        ['title' => 'Đặc điểm chính', 'content' => 'Khả năng ngoại giao và hòa giải được hoàn thiện.'],
+                        ['title' => 'Cơ hội', 'content' => 'Thăng tiến thông qua khả năng làm việc nhóm và quản lý quan hệ.'],
+                        ['title' => 'Thách thức', 'content' => 'Cân bằng giữa việc giúp đỡ người khác và phát triển bản thân.'],
+                        ['title' => 'Lời khuyên', 'content' => 'Tận dụng khả năng kết nối để tạo ra những dự án có ý nghĩa.']
+                    ]
+                ],
+                3 => [
+                    'title' => 'Đỉnh Cao 3 - Số 2: Thu Hoạch Từ Mối Quan Hệ',
+                    'calculation' => 'Số 2 xuất hiện tại giai đoạn thu hoạch (45-53 tuổi)',
+                    'description' => 'Giai đoạn này bạn thu được thành quả từ những mối quan hệ và sự hợp tác đã xây dựng.',
+                    'sections' => [
+                        ['title' => 'Đặc điểm chính', 'content' => 'Mạng lưới quan hệ mạnh mẽ, khả năng ảnh hưởng qua sự thuyết phục.'],
+                        ['title' => 'Cơ hội', 'content' => 'Thời kỳ đỉnh cao của sự nghiệp thông qua hợp tác chiến lược.'],
+                        ['title' => 'Thách thức', 'content' => 'Duy trì cân bằng trong các mối quan hệ phức tạp.'],
+                        ['title' => 'Lời khuyên', 'content' => 'Chia sẻ kinh nghiệm về xây dựng mối quan hệ cho thế hệ trẻ.']
+                    ]
+                ],
+                4 => [
+                    'title' => 'Đỉnh Cao 4 - Số 2: Trí Tuệ Về Mối Quan Hệ',
+                    'calculation' => 'Số 2 xuất hiện tại giai đoạn trí tuệ (54+ tuổi)',
+                    'description' => 'Giai đoạn cuối đời, bạn trở thành người cố vấn khôn ngoan về các mối quan hệ và hợp tác.',
+                    'sections' => [
+                        ['title' => 'Đặc điểm chính', 'content' => 'Trí tuệ sâu sắc về bản chất con người và mối quan hệ.'],
+                        ['title' => 'Cơ hội', 'content' => 'Trở thành người hòa giải, tư vấn cho các cặp đôi và gia đình.'],
+                        ['title' => 'Thách thức', 'content' => 'Tìm thấy sự bình yên trong tâm hồn riêng.'],
+                        ['title' => 'Lời khuyên', 'content' => 'Tận hưởng những mối quan hệ ý nghĩa và chia sẻ tình yêu thương.']
+                    ]
+                ]
+            ],
+            3 => [
+                1 => [
+                    'title' => 'Đỉnh Cao 1 - Số 3: Khám Phá Sáng Tạo',
+                    'calculation' => 'Số 3 xuất hiện tại giai đoạn hình thành (0-35 tuổi)',
+                    'description' => 'Giai đoạn này bạn khám phá và phát triển khả năng sáng tạo, giao tiếp và biểu đạt.',
+                    'sections' => [
+                        ['title' => 'Đặc điểm chính', 'content' => 'Phát triển tài năng nghệ thuật, khả năng giao tiếp và tính sáng tạo.'],
+                        ['title' => 'Cơ hội', 'content' => 'Thời kỳ tuyệt vời để học hỏi và thể hiện các tài năng nghệ thuật.'],
+                        ['title' => 'Thách thức', 'content' => 'Tránh phân tán quá nhiều và thiếu tập trung.'],
+                        ['title' => 'Lời khuyên', 'content' => 'Hãy khám phá nhiều lĩnh vực sáng tạo để tìm ra đam mê thực sự.']
+                    ]
+                ],
+                2 => [
+                    'title' => 'Đỉnh Cao 2 - Số 3: Làm Chủ Khả Năng Biểu Đạt',
+                    'calculation' => 'Số 3 xuất hiện tại giai đoạn phát triển (36-44 tuổi)',
+                    'description' => 'Thời kỳ này bạn hoàn thiện khả năng biểu đạt và tạo ra tác động thông qua sáng tạo.',
+                    'sections' => [
+                        ['title' => 'Đặc điểm chính', 'content' => 'Khả năng giao tiếp và sáng tạo được hoàn thiện.'],
+                        ['title' => 'Cơ hội', 'content' => 'Thành công trong các lĩnh vực truyền thông, giải trí, nghệ thuật.'],
+                        ['title' => 'Thách thức', 'content' => 'Cân bằng giữa sáng tạo và tính thực tế.'],
+                        ['title' => 'Lời khuyên', 'content' => 'Sử dụng tài năng để truyền cảm hứng và mang lại niềm vui cho người khác.']
+                    ]
+                ],
+                3 => [
+                    'title' => 'Đỉnh Cao 3 - Số 3: Thu Hoạch Từ Sáng Tạo',
+                    'calculation' => 'Số 3 xuất hiện tại giai đoạn thu hoạch (45-53 tuổi)',
+                    'description' => 'Giai đoạn này bạn gặt hái thành quả từ các hoạt động sáng tạo và biểu đạt.',
+                    'sections' => [
+                        ['title' => 'Đặc điểm chính', 'content' => 'Tác phẩm và ảnh hưởng sáng tạo được công nhận rộng rãi.'],
+                        ['title' => 'Cơ hội', 'content' => 'Đỉnh cao sự nghiệp trong lĩnh vực sáng tạo và giao tiếp.'],
+                        ['title' => 'Thách thức', 'content' => 'Duy trì sự tươi mới trong sáng tạo.'],
+                        ['title' => 'Lời khuyên', 'content' => 'Chia sẻ kinh nghiệm sáng tạo và nuôi dưỡng tài năng trẻ.']
+                    ]
+                ],
+                4 => [
+                    'title' => 'Đỉnh Cao 4 - Số 3: Trí Tuệ Sáng Tạo',
+                    'calculation' => 'Số 3 xuất hiện tại giai đoạn trí tuệ (54+ tuổi)',
+                    'description' => 'Giai đoạn cuối đời, bạn trở thành nguồn cảm hứng sáng tạo cho nhiều thế hệ.',
+                    'sections' => [
+                        ['title' => 'Đặc điểm chính', 'content' => 'Trí tuệ sáng tạo được thăng hoa, khả năng truyền cảm hứng mạnh mẽ.'],
+                        ['title' => 'Cơ hội', 'content' => 'Trở thành thầy giáo, mentor trong lĩnh vực nghệ thuật và sáng tạo.'],
+                        ['title' => 'Thách thức', 'content' => 'Tìm kiếm ý nghĩa sâu sắc trong sáng tạo.'],
+                        ['title' => 'Lời khuyên', 'content' => 'Tận hưởng niềm vui sáng tạo và để lại di sản nghệ thuật.']
+                    ]
+                ]
+            ],
+            4 => [
+                1 => [
+                    'title' => 'Đỉnh Cao 1 - Số 4: Xây Dựng Nền Tảng',
+                    'calculation' => 'Số 4 xuất hiện tại giai đoạn hình thành (0-35 tuổi)',
+                    'description' => 'Giai đoạn này bạn học cách làm việc chăm chỉ, có kỷ luật và xây dựng nền tảng vững chắc.',
+                    'sections' => [
+                        ['title' => 'Đặc điểm chính', 'content' => 'Phát triển tính kỷ luật, chăm chỉ và khả năng tổ chức.'],
+                        ['title' => 'Cơ hội', 'content' => 'Xây dựng nền tảng vững chắc cho sự nghiệp và cuộc sống.'],
+                        ['title' => 'Thách thức', 'content' => 'Tránh trở nên quá cứng nhắc hoặc thiếu linh hoạt.'],
+                        ['title' => 'Lời khuyên', 'content' => 'Hãy kiên nhẫn và tập trung vào mục tiêu dài hạn.']
+                    ]
+                ],
+                2 => [
+                    'title' => 'Đỉnh Cao 2 - Số 4: Hoàn Thiện Hệ Thống',
+                    'calculation' => 'Số 4 xuất hiện tại giai đoạn phát triển (36-44 tuổi)',
+                    'description' => 'Thời kỳ này bạn hoàn thiện các hệ thống và quy trình trong công việc và cuộc sống.',
+                    'sections' => [
+                        ['title' => 'Đặc điểm chính', 'content' => 'Khả năng quản lý và tổ chức được hoàn thiện.'],
+                        ['title' => 'Cơ hội', 'content' => 'Thành công trong vai trò quản lý và điều hành.'],
+                        ['title' => 'Thách thức', 'content' => 'Cân bằng giữa hiệu quả và tính linh hoạt.'],
+                        ['title' => 'Lời khuyên', 'content' => 'Sử dụng kỹ năng tổ chức để tạo ra giá trị lâu dài.']
+                    ]
+                ],
+                3 => [
+                    'title' => 'Đỉnh Cao 3 - Số 4: Thu Hoạch Từ Công Sức',
+                    'calculation' => 'Số 4 xuất hiện tại giai đoạn thu hoạch (45-53 tuổi)',
+                    'description' => 'Giai đoạn này bạn gặt hái thành quả từ sự chăm chỉ và kỷ luật suốt nhiều năm.',
+                    'sections' => [
+                        ['title' => 'Đặc điểm chính', 'content' => 'Sự nghiệp ổn định, uy tín được xây dựng vững chắc.'],
+                        ['title' => 'Cơ hội', 'content' => 'Đỉnh cao của sự nghiệp, được công nhận về khả năng chuyên môn.'],
+                        ['title' => 'Thách thức', 'content' => 'Tìm kiếm sự cân bằng trong cuộc sống.'],
+                        ['title' => 'Lời khuyên', 'content' => 'Chia sẻ kinh nghiệm và hướng dẫn thế hệ trẻ về giá trị của công sức.']
+                    ]
+                ],
+                4 => [
+                    'title' => 'Đỉnh Cao 4 - Số 4: Trí Tuệ Thực Tiễn',
+                    'calculation' => 'Số 4 xuất hiện tại giai đoạn trí tuệ (54+ tuổi)',
+                    'description' => 'Giai đoạn cuối đời, bạn trở thành biểu tượng của sự chăm chỉ và thành công bền vững.',
+                    'sections' => [
+                        ['title' => 'Đặc điểm chính', 'content' => 'Trí tuệ thực tiễn được tôn trọng, khả năng tư vấn xuất sắc.'],
+                        ['title' => 'Cơ hội', 'content' => 'Trở thành cố vấn đáng tin cậy trong kinh doanh và cuộc sống.'],
+                        ['title' => 'Thách thức', 'content' => 'Học cách thư giãn và tận hưởng thành quả.'],
+                        ['title' => 'Lời khuyên', 'content' => 'Tận hưởng sự ổn định và chia sẻ kinh nghiệm quý báu.']
+                    ]
+                ]
+            ],
+            5 => [
+                1 => [
+                    'title' => 'Đỉnh Cao 1 - Số 5: Khám Phá Tự Do',
+                    'calculation' => 'Số 5 xuất hiện tại giai đoạn hình thành (0-35 tuổi)',
+                    'description' => 'Giai đoạn này bạn khám phá thế giới và tìm kiếm sự tự do trong nhiều khía cạnh của cuộc sống.',
+                    'sections' => [
+                        ['title' => 'Đặc điểm chính', 'content' => 'Phát triển tinh thần phiêu lưu, khả năng thích nghi và sự linh hoạt.'],
+                        ['title' => 'Cơ hội', 'content' => 'Thời kỳ tuyệt vời để du lịch, học hỏi và trải nghiệm.'],
+                        ['title' => 'Thách thức', 'content' => 'Tránh thiếu ổn định và không có định hướng rõ ràng.'],
+                        ['title' => 'Lời khuyên', 'content' => 'Hãy khám phá nhưng cũng học cách tập trung vào mục tiêu.']
+                    ]
+                ],
+                2 => [
+                    'title' => 'Đỉnh Cao 2 - Số 5: Làm Chủ Sự Thay Đổi',
+                    'calculation' => 'Số 5 xuất hiện tại giai đoạn phát triển (36-44 tuổi)',
+                    'description' => 'Thời kỳ này bạn học cách điều hướng và tận dụng những thay đổi trong cuộc sống.',
+                    'sections' => [
+                        ['title' => 'Đặc điểm chính', 'content' => 'Khả năng thích nghi và dẫn dắt thay đổi được hoàn thiện.'],
+                        ['title' => 'Cơ hội', 'content' => 'Thành công trong các lĩnh vực đòi hỏi sự linh hoạt và đổi mới.'],
+                        ['title' => 'Thách thức', 'content' => 'Cân bằng giữa thay đổi và ổn định.'],
+                        ['title' => 'Lời khuyên', 'content' => 'Sử dụng khả năng thích nghi để tạo ra cơ hội mới.']
+                    ]
+                ],
+                3 => [
+                    'title' => 'Đỉnh Cao 3 - Số 5: Thu Hoạch Từ Trải Nghiệm',
+                    'calculation' => 'Số 5 xuất hiện tại giai đoạn thu hoạch (45-53 tuổi)',
+                    'description' => 'Giai đoạn này bạn gặt hái thành quả từ những trải nghiệm phong phú.',
+                    'sections' => [
+                        ['title' => 'Đặc điểm chính', 'content' => 'Kinh nghiệm sống phong phú, khả năng tư vấn về thay đổi.'],
+                        ['title' => 'Cơ hội', 'content' => 'Đỉnh cao sự nghiệp thông qua việc chia sẻ kinh nghiệm.'],
+                        ['title' => 'Thách thức', 'content' => 'Tìm kiếm ý nghĩa sâu sắc từ các trải nghiệm.'],
+                        ['title' => 'Lời khuyên', 'content' => 'Chia sẻ câu chuyện và bài học từ hành trình của bạn.']
+                    ]
+                ],
+                4 => [
+                    'title' => 'Đỉnh Cao 4 - Số 5: Trí Tuệ Từ Kinh Nghiệm',
+                    'calculation' => 'Số 5 xuất hiện tại giai đoạn trí tuệ (54+ tuổi)',
+                    'description' => 'Giai đoạn cuối đời, bạn trở thành kho báu kinh nghiệm sống.',
+                    'sections' => [
+                        ['title' => 'Đặc điểm chính', 'content' => 'Trí tuệ từ nhiều trải nghiệm khác nhau.'],
+                        ['title' => 'Cơ hội', 'content' => 'Trở thành cố vấn về cuộc sống và thay đổi.'],
+                        ['title' => 'Thách thức', 'content' => 'Tìm sự bình yên sau nhiều biến động.'],
+                        ['title' => 'Lời khuyên', 'content' => 'Tận hưởng tự do và chia sẻ những câu chuyện quý giá.']
+                    ]
+                ]
+            ],
+            6 => [
+                1 => [
+                    'title' => 'Đỉnh Cao 1 - Số 6: Học Chăm Sóc',
+                    'calculation' => 'Số 6 xuất hiện tại giai đoạn hình thành (0-35 tuổi)',
+                    'description' => 'Giai đoạn này bạn học cách chăm sóc, nuôi dưỡng và xây dựng gia đình.',
+                    'sections' => [
+                        ['title' => 'Đặc điểm chính', 'content' => 'Phát triển lòng trách nhiệm, khả năng chăm sóc và tình yêu thương.'],
+                        ['title' => 'Cơ hội', 'content' => 'Xây dựng gia đình hạnh phúc và mối quan hệ ý nghĩa.'],
+                        ['title' => 'Thách thức', 'content' => 'Tránh hi sinh quá mức bản thân cho người khác.'],
+                        ['title' => 'Lời khuyên', 'content' => 'Học cách cân bằng giữa chăm sóc người khác và bản thân.']
+                    ]
+                ],
+                2 => [
+                    'title' => 'Đỉnh Cao 2 - Số 6: Hoàn Thiện Vai Trò Gia Đình',
+                    'calculation' => 'Số 6 xuất hiện tại giai đoạn phát triển (36-44 tuổi)',
+                    'description' => 'Thời kỳ này bạn hoàn thiện vai trò trong gia đình và cộng đồng.',
+                    'sections' => [
+                        ['title' => 'Đặc điểm chính', 'content' => 'Khả năng lãnh đạo gia đình và phục vụ cộng đồng được hoàn thiện.'],
+                        ['title' => 'Cơ hội', 'content' => 'Thành công trong các lĩnh vực liên quan đến chăm sóc và giáo dục.'],
+                        ['title' => 'Thách thức', 'content' => 'Cân bằng giữa gia đình và sự nghiệp.'],
+                        ['title' => 'Lời khuyên', 'content' => 'Sử dụng tài năng nuôi dưỡng để tạo ra tác động tích cực.']
+                    ]
+                ],
+                3 => [
+                    'title' => 'Đỉnh Cao 3 - Số 6: Thu Hoạch Tình Yêu Thương',
+                    'calculation' => 'Số 6 xuất hiện tại giai đoạn thu hoạch (45-53 tuổi)',
+                    'description' => 'Giai đoạn này bạn gặt hái thành quả từ tình yêu thương đã gieo trồng.',
+                    'sections' => [
+                        ['title' => 'Đặc điểm chính', 'content' => 'Gia đình hạnh phúc, được yêu thương và tôn trọng.'],
+                        ['title' => 'Cơ hội', 'content' => 'Đỉnh cao của hạnh phúc gia đình và ảnh hưởng cộng đồng.'],
+                        ['title' => 'Thách thức', 'content' => 'Học cách "buông tay" khi con cái trưởng thành.'],
+                        ['title' => 'Lời khuyên', 'content' => 'Tận hưởng thành quả và mở rộng tình yêu thương ra cộng đồng.']
+                    ]
+                ],
+                4 => [
+                    'title' => 'Đỉnh Cao 4 - Số 6: Trí Tuệ Yêu Thương',
+                    'calculation' => 'Số 6 xuất hiện tại giai đoạn trí tuệ (54+ tuổi)',
+                    'description' => 'Giai đoạn cuối đời, bạn trở thành biểu tượng của tình yêu thương và sự hy sinh.',
+                    'sections' => [
+                        ['title' => 'Đặc điểm chính', 'content' => 'Trí tuệ về tình yêu gia đình và lòng vị tha.'],
+                        ['title' => 'Cơ hội', 'content' => 'Trở thành người cố vấn gia đình và hôn nhân.'],
+                        ['title' => 'Thách thức', 'content' => 'Tìm kiếm mục đích mới khi vai trò nuôi dưỡng thay đổi.'],
+                        ['title' => 'Lời khuyên', 'content' => 'Tận hưởng tình yêu thương của gia đình và tiếp tục cho đi.']
+                    ]
+                ]
+            ],
+            7 => [
+                1 => [
+                    'title' => 'Đỉnh Cao 1 - Số 7: Tìm Kiếm Chân Lý',
+                    'calculation' => 'Số 7 xuất hiện tại giai đoạn hình thành (0-35 tuổi)',
+                    'description' => 'Giai đoạn này bạn khám phá tri thức, tâm linh và tìm kiếm ý nghĩa sâu sắc của cuộc sống.',
+                    'sections' => [
+                        ['title' => 'Đặc điểm chính', 'content' => 'Phát triển trí tuệ, khả năng nghiên cứu và tìm hiểu tâm linh.'],
+                        ['title' => 'Cơ hội', 'content' => 'Thời kỳ học hỏi sâu sắc và phát triển trí tuệ.'],
+                        ['title' => 'Thách thức', 'content' => 'Tránh trở nên cô lập hoặc quá lý thuyết.'],
+                        ['title' => 'Lời khuyên', 'content' => 'Cân bằng giữa học hỏi và thực hành, giữa cô độc và kết nối.']
+                    ]
+                ],
+                2 => [
+                    'title' => 'Đỉnh Cao 2 - Số 7: Làm Chủ Tri Thức',
+                    'calculation' => 'Số 7 xuất hiện tại giai đoạn phát triển (36-44 tuổi)',
+                    'description' => 'Thời kỳ này bạn trở thành chuyên gia trong lĩnh vực mình đam mê.',
+                    'sections' => [
+                        ['title' => 'Đặc điểm chính', 'content' => 'Chuyên môn sâu, khả năng phân tích và nghiên cứu xuất sắc.'],
+                        ['title' => 'Cơ hội', 'content' => 'Thành công trong các lĩnh vực đòi hỏi chuyên môn cao.'],
+                        ['title' => 'Thách thức', 'content' => 'Chia sẻ kiến thức một cách dễ hiểu.'],
+                        ['title' => 'Lời khuyên', 'content' => 'Sử dụng tri thức để giáo dục và nâng cao nhận thức.']
+                    ]
+                ],
+                3 => [
+                    'title' => 'Đỉnh Cao 3 - Số 7: Thu Hoạch Trí Tuệ',
+                    'calculation' => 'Số 7 xuất hiện tại giai đoạn thu hoạch (45-53 tuổi)',
+                    'description' => 'Giai đoạn này bạn gặt hái thành quả từ việc tìm tòi tri thức và tâm linh.',
+                    'sections' => [
+                        ['title' => 'Đặc điểm chính', 'content' => 'Trí tuệ được công nhận, khả năng tư vấn tâm linh.'],
+                        ['title' => 'Cơ hội', 'content' => 'Đỉnh cao trong nghiên cứu hoặc giáo dục.'],
+                        ['title' => 'Thách thức', 'content' => 'Tìm cách áp dụng tri thức vào thực tế.'],
+                        ['title' => 'Lời khuyên', 'content' => 'Chia sẻ trí tuệ và hướng dẫn người khác tìm kiếm chân lý.']
+                    ]
+                ],
+                4 => [
+                    'title' => 'Đỉnh Cao 4 - Số 7: Trí Tuệ Tâm Linh',
+                    'calculation' => 'Số 7 xuất hiện tại giai đoạn trí tuệ (54+ tuổi)',
+                    'description' => 'Giai đoạn cuối đời, bạn trở thành hiện thân của trí tuệ và sự giác ngộ.',
+                    'sections' => [
+                        ['title' => 'Đặc điểm chính', 'content' => 'Trí tuệ sâu sắc về cuộc sống và tâm linh.'],
+                        ['title' => 'Cơ hội', 'content' => 'Trở thành thầy giáo tâm linh và cố vấn khôn ngoan.'],
+                        ['title' => 'Thách thức', 'content' => 'Duy trì sự khiêm tốn trước tri thức.'],
+                        ['title' => 'Lời khuyên', 'content' => 'Tận hưởng sự bình yên nội tâm và chia sẻ trí tuệ.']
+                    ]
+                ]
+            ],
+            8 => [
+                1 => [
+                    'title' => 'Đỉnh Cao 1 - Số 8: Học Quản Lý Quyền Lực',
+                    'calculation' => 'Số 8 xuất hiện tại giai đoạn hình thành (0-35 tuổi)',
+                    'description' => 'Giai đoạn này bạn học cách quản lý tiền bạc, quyền lực và tạo dựng thành công vật chất.',
+                    'sections' => [
+                        ['title' => 'Đặc điểm chính', 'content' => 'Phát triển khả năng kinh doanh, quản lý và tầm nhìn chiến lược.'],
+                        ['title' => 'Cơ hội', 'content' => 'Xây dựng nền tảng tài chính và sự nghiệp vững chắc.'],
+                        ['title' => 'Thách thức', 'content' => 'Tránh ham muốn quyền lực và vật chất quá mức.'],
+                        ['title' => 'Lời khuyên', 'content' => 'Học cách cân bằng giữa thành công vật chất và giá trị tinh thần.']
+                    ]
+                ],
+                2 => [
+                    'title' => 'Đỉnh Cao 2 - Số 8: Làm Chủ Kinh Doanh',
+                    'calculation' => 'Số 8 xuất hiện tại giai đoạn phát triển (36-44 tuổi)',
+                    'description' => 'Thời kỳ này bạn trở thành lãnh đạo trong kinh doanh và quản lý.',
+                    'sections' => [
+                        ['title' => 'Đặc điểm chính', 'content' => 'Khả năng lãnh đạo kinh doanh và quản lý tài chính xuất sắc.'],
+                        ['title' => 'Cơ hội', 'content' => 'Thành công lớn trong kinh doanh và đầu tư.'],
+                        ['title' => 'Thách thức', 'content' => 'Cân bằng giữa thành công và mối quan hệ.'],
+                        ['title' => 'Lời khuyên', 'content' => 'Sử dụng quyền lực để tạo ra giá trị cho xã hội.']
+                    ]
+                ],
+                3 => [
+                    'title' => 'Đỉnh Cao 3 - Số 8: Thu Hoạch Thành Công',
+                    'calculation' => 'Số 8 xuất hiện tại giai đoạn thu hoạch (45-53 tuổi)',
+                    'description' => 'Giai đoạn này bạn gặt hái thành quả lớn từ những nỗ lực kinh doanh.',
+                    'sections' => [
+                        ['title' => 'Đặc điểm chính', 'content' => 'Thành công vật chất lớn, ảnh hưởng rộng rãi trong kinh doanh.'],
+                        ['title' => 'Cơ hội', 'content' => 'Đỉnh cao sự nghiệp, có thể tạo ra đế chế kinh doanh.'],
+                        ['title' => 'Thách thức', 'content' => 'Sử dụng thành công một cách có ý nghĩa.'],
+                        ['title' => 'Lời khuyên', 'content' => 'Chia sẻ thành công và tạo cơ hội cho người khác.']
+                    ]
+                ],
+                4 => [
+                    'title' => 'Đỉnh Cao 4 - Số 8: Trí Tuệ Kinh Doanh',
+                    'calculation' => 'Số 8 xuất hiện tại giai đoạn trí tuệ (54+ tuổi)',
+                    'description' => 'Giai đoạn cuối đời, bạn trở thành biểu tượng của thành công và trí tuệ kinh doanh.',
+                    'sections' => [
+                        ['title' => 'Đặc điểm chính', 'content' => 'Trí tuệ kinh doanh được tôn trọng, khả năng cố vấn xuất sắc.'],
+                        ['title' => 'Cơ hội', 'content' => 'Trở thành mentor trong kinh doanh và đầu tư.'],
+                        ['title' => 'Thách thức', 'content' => 'Tìm ý nghĩa vượt ra ngoài thành công vật chất.'],
+                        ['title' => 'Lời khuyên', 'content' => 'Tận hưởng thành quả và để lại di sản cho thế hệ sau.']
+                    ]
+                ]
+            ],
+            9 => [
+                1 => [
+                    'title' => 'Đỉnh Cao 1 - Số 9: Học Phục Vụ Nhân Loại',
+                    'calculation' => 'Số 9 xuất hiện tại giai đoạn hình thành (0-35 tuổi)',
+                    'description' => 'Giai đoạn này bạn phát triển lòng từ bi và khát khao phục vụ cộng đồng, nhân loại.',
+                    'sections' => [
+                        ['title' => 'Đặc điểm chính', 'content' => 'Phát triển lòng từ bi, tầm nhìn rộng và tinh thần phục vụ.'],
+                        ['title' => 'Cơ hội', 'content' => 'Tham gia các hoạt động từ thiện và phục vụ cộng đồng.'],
+                        ['title' => 'Thách thức', 'content' => 'Tránh hy sinh quá mức bản thân cho người khác.'],
+                        ['title' => 'Lời khuyên', 'content' => 'Học cách cân bằng giữa lòng từ bi và chăm sóc bản thân.']
+                    ]
+                ],
+                2 => [
+                    'title' => 'Đỉnh Cao 2 - Số 9: Hoàn Thiện Sứ Mệnh',
+                    'calculation' => 'Số 9 xuất hiện tại giai đoạn phát triển (36-44 tuổi)',
+                    'description' => 'Thời kỳ này bạn hoàn thiện sứ mệnh phục vụ nhân loại.',
+                    'sections' => [
+                        ['title' => 'Đặc điểm chính', 'content' => 'Khả năng lãnh đạo và tạo ra thay đổi tích cực cho xã hội.'],
+                        ['title' => 'Cơ hội', 'content' => 'Thành công trong các lĩnh vực giáo dục, y tế, từ thiện.'],
+                        ['title' => 'Thách thức', 'content' => 'Cân bằng giữa lý tưởng và thực tế.'],
+                        ['title' => 'Lời khuyên', 'content' => 'Sử dụng tài năng để tạo ra tác động lâu dài cho xã hội.']
+                    ]
+                ],
+                3 => [
+                    'title' => 'Đỉnh Cao 3 - Số 9: Thu Hoạch Từ Sự Phục Vụ',
+                    'calculation' => 'Số 9 xuất hiện tại giai đoạn thu hoạch (45-53 tuổi)',
+                    'description' => 'Giai đoạn này bạn gặt hái thành quả từ việc phục vụ nhân loại.',
+                    'sections' => [
+                        ['title' => 'Đặc điểm chính', 'content' => 'Được công nhận về những đóng góp cho xã hội.'],
+                        ['title' => 'Cơ hội', 'content' => 'Đỉnh cao của ảnh hưởng xã hội và tác động tích cực.'],
+                        ['title' => 'Thách thức', 'content' => 'Duy trì động lực khi gặp khó khăn.'],
+                        ['title' => 'Lời khuyên', 'content' => 'Tiếp tục lan tỏa tình yêu thương và tạo ra thay đổi.']
+                    ]
+                ],
+                4 => [
+                    'title' => 'Đỉnh Cao 4 - Số 9: Trí Tuệ Từ Bi',
+                    'calculation' => 'Số 9 xuất hiện tại giai đoạn trí tuệ (54+ tuổi)',
+                    'description' => 'Giai đoạn cuối đời, bạn trở thành biểu tượng của lòng từ bi và sự hy sinh.',
+                    'sections' => [
+                        ['title' => 'Đặc điểm chính', 'content' => 'Trí tuệ về lòng từ bi và tình yêu thương vô điều kiện.'],
+                        ['title' => 'Cơ hội', 'content' => 'Trở thành người cố vấn tâm linh và nhân đạo.'],
+                        ['title' => 'Thách thức', 'content' => 'Tìm sự bình yên sau những nỗ lực phục vụ.'],
+                        ['title' => 'Lời khuyên', 'content' => 'Tận hưởng tình yêu thương và tiếp tục là nguồn cảm hứng.']
+                    ]
+                ]
+            ],
+            11 => [
+                1 => [
+                    'title' => 'Đỉnh Cao 1 - Số 11: Khai Mở Trực Giác',
+                    'calculation' => 'Số 11 (Master Number) xuất hiện tại giai đoạn hình thành (0-35 tuổi)',
+                    'description' => 'Giai đoạn này bạn phát triển khả năng trực giác đặc biệt và tầm nhìn tâm linh.',
+                    'sections' => [
+                        ['title' => 'Đặc điểm chính', 'content' => 'Phát triển trực giác mạnh mẽ, khả năng cảm nhận và tầm nhìn sâu sắc.'],
+                        ['title' => 'Cơ hội', 'content' => 'Trở thành nguồn cảm hứng và dẫn dắt tinh thần cho người khác.'],
+                        ['title' => 'Thách thức', 'content' => 'Quản lý độ nhạy cảm cao và áp lực từ tài năng đặc biệt.'],
+                        ['title' => 'Lời khuyên', 'content' => 'Tin tưởng vào trực giác và học cách sử dụng tài năng một cách có trách nhiệm.']
+                    ]
+                ],
+                2 => [
+                    'title' => 'Đỉnh Cao 2 - Số 11: Làm Chủ Tầm Nhìn',
+                    'calculation' => 'Số 11 xuất hiện tại giai đoạn phát triển (36-44 tuổi)',
+                    'description' => 'Thời kỳ này bạn hoàn thiện khả năng tầm nhìn và trở thành người dẫn dắt tinh thần.',
+                    'sections' => [
+                        ['title' => 'Đặc điểm chính', 'content' => 'Tầm nhìn rộng, khả năng truyền cảm hứng và dẫn dắt người khác.'],
+                        ['title' => 'Cơ hội', 'content' => 'Thành công trong các lĩnh vực tâm linh, giáo dục, và nghệ thuật.'],
+                        ['title' => 'Thách thức', 'content' => 'Cân bằng giữa thế giới tâm linh và thực tế.'],
+                        ['title' => 'Lời khuyên', 'content' => 'Sử dụng tài năng để nâng cao ý thức của nhân loại.']
+                    ]
+                ],
+                3 => [
+                    'title' => 'Đỉnh Cao 3 - Số 11: Thu Hoạch Từ Tầm Nhìn',
+                    'calculation' => 'Số 11 xuất hiện tại giai đoạn thu hoạch (45-53 tuổi)',
+                    'description' => 'Giai đoạn này bạn gặt hái thành quả từ tầm nhìn và khả năng dẫn dắt tinh thần.',
+                    'sections' => [
+                        ['title' => 'Đặc điểm chính', 'content' => 'Được công nhận là người dẫn dắt tinh thần và có tầm ảnh hưởng lớn.'],
+                        ['title' => 'Cơ hội', 'content' => 'Đỉnh cao của sự nghiệp trong lĩnh vực tâm linh hoặc sáng tạo.'],
+                        ['title' => 'Thách thức', 'content' => 'Duy trì sự khiêm tốn trước tài năng đặc biệt.'],
+                        ['title' => 'Lời khuyên', 'content' => 'Chia sẻ tầm nhìn và tiếp tục nâng cao ý thức.']
+                    ]
+                ],
+                4 => [
+                    'title' => 'Đỉnh Cao 4 - Số 11: Thầy Giáo Tâm Linh',
+                    'calculation' => 'Số 11 xuất hiện tại giai đoạn trí tuệ (54+ tuổi)',
+                    'description' => 'Giai đoạn cuối đời, bạn trở thành thầy giáo tâm linh với trí tuệ sâu sắc.',
+                    'sections' => [
+                        ['title' => 'Đặc điểm chính', 'content' => 'Trí tuệ tâm linh cao, khả năng giáo dục và dẫn dắt xuất sắc.'],
+                        ['title' => 'Cơ hội', 'content' => 'Trở thành guru, thầy giáo tâm linh được kính trọng.'],
+                        ['title' => 'Thách thức', 'content' => 'Chuyển hóa kiến thức thành trí tuệ sống.'],
+                        ['title' => 'Lời khuyên', 'content' => 'Tận hưởng sự giác ngộ và chia sẻ ánh sáng với thế giới.']
+                    ]
+                ]
+            ],
+            22 => [
+                1 => [
+                    'title' => 'Đỉnh Cao 1 - Số 22: Xây Dựng Tầm Nhìn Lớn',
+                    'calculation' => 'Số 22 (Master Number) xuất hiện tại giai đoạn hình thành (0-35 tuổi)',
+                    'description' => 'Giai đoạn này bạn học cách biến tầm nhìn lớn thành hiện thực thông qua công việc thực tế.',
+                    'sections' => [
+                        ['title' => 'Đặc điểm chính', 'content' => 'Phát triển khả năng biến ý tưởng lớn thành hiện thực.'],
+                        ['title' => 'Cơ hội', 'content' => 'Tạo ra những dự án có tác động lớn đến xã hội.'],
+                        ['title' => 'Thách thức', 'content' => 'Quản lý áp lực từ tham vọng lớn và kỳ vọng cao.'],
+                        ['title' => 'Lời khuyên', 'content' => 'Kiên nhẫn xây dựng từng bước để đạt được mục tiêu lớn.']
+                    ]
+                ],
+                2 => [
+                    'title' => 'Đỉnh Cao 2 - Số 22: Làm Chủ Tầm Cỡ Lớn',
+                    'calculation' => 'Số 22 xuất hiện tại giai đoạn phát triển (36-44 tuổi)',
+                    'description' => 'Thời kỳ này bạn hoàn thiện khả năng quản lý và thực hiện các dự án tầm cỡ lớn.',
+                    'sections' => [
+                        ['title' => 'Đặc điểm chính', 'content' => 'Khả năng lãnh đạo và quản lý dự án quy mô lớn xuất sắc.'],
+                        ['title' => 'Cơ hội', 'content' => 'Thành công trong các vai trò lãnh đạo doanh nghiệp hoặc tổ chức lớn.'],
+                        ['title' => 'Thách thức', 'content' => 'Cân bằng giữa tầm nhìn và thực tế.'],
+                        ['title' => 'Lời khuyên', 'content' => 'Sử dụng khả năng để tạo ra thay đổi tích cực quy mô lớn.']
+                    ]
+                ],
+                3 => [
+                    'title' => 'Đỉnh Cao 3 - Số 22: Thu Hoạch Tác Động Lớn',
+                    'calculation' => 'Số 22 xuất hiện tại giai đoạn thu hoạch (45-53 tuổi)',
+                    'description' => 'Giai đoạn này bạn gặt hái thành quả từ những dự án và tầm nhìn lớn.',
+                    'sections' => [
+                        ['title' => 'Đặc điểm chính', 'content' => 'Những dự án lớn được hoàn thành và tạo ra tác động bền vững.'],
+                        ['title' => 'Cơ hội', 'content' => 'Đỉnh cao của sự nghiệp với những thành tựu được ghi nhận.'],
+                        ['title' => 'Thách thức', 'content' => 'Duy trì legacy và tiếp tục sáng tạo.'],
+                        ['title' => 'Lời khuyên', 'content' => 'Chia sẻ kinh nghiệm và tiếp tục xây dựng di sản.']
+                    ]
+                ],
+                4 => [
+                    'title' => 'Đỉnh Cao 4 - Số 22: Kiến Trúc Sư Thế Giới',
+                    'calculation' => 'Số 22 xuất hiện tại giai đoạn trí tuệ (54+ tuổi)',
+                    'description' => 'Giai đoạn cuối đời, bạn trở thành kiến trúc sư của những thay đổi lớn.',
+                    'sections' => [
+                        ['title' => 'Đặc điểm chính', 'content' => 'Trí tuệ về cách tạo ra thay đổi quy mô lớn và bền vững.'],
+                        ['title' => 'Cơ hội', 'content' => 'Trở thành cố vấn cho các tổ chức và dự án lớn.'],
+                        ['title' => 'Thách thức', 'content' => 'Tìm kiếm ý nghĩa sau những thành tựu lớn.'],
+                        ['title' => 'Lời khuyên', 'content' => 'Tận hưởng di sản và tiếp tục truyền cảm hứng.']
+                    ]
+                ]
+            ],
+            33 => [
+                1 => [
+                    'title' => 'Đỉnh Cao 1 - Số 33: Học Yêu Thương Vô Điều Kiện',
+                    'calculation' => 'Số 33 (Master Number) xuất hiện tại giai đoạn hình thành (0-35 tuổi)',
+                    'description' => 'Giai đoạn này bạn học cách yêu thương vô điều kiện và chữa lành cho thế giới.',
+                    'sections' => [
+                        ['title' => 'Đặc điểm chính', 'content' => 'Phát triển lòng từ bi sâu sắc và khả năng chữa lành.'],
+                        ['title' => 'Cơ hội', 'content' => 'Trở thành người chữa lành và giáo viên tâm linh.'],
+                        ['title' => 'Thách thức', 'content' => 'Quản lý độ nhạy cảm cao và khả năng cảm nhận đau khổ của người khác.'],
+                        ['title' => 'Lời khuyên', 'content' => 'Học cách bảo vệ năng lượng và sử dụng tài năng một cách khôn ngoan.']
+                    ]
+                ],
+                2 => [
+                    'title' => 'Đỉnh Cao 2 - Số 33: Làm Chủ Tình Yêu Thương',
+                    'calculation' => 'Số 33 xuất hiện tại giai đoạn phát triển (36-44 tuổi)',
+                    'description' => 'Thời kỳ này bạn hoàn thiện khả năng yêu thương và chữa lành.',
+                    'sections' => [
+                        ['title' => 'Đặc điểm chính', 'content' => 'Khả năng yêu thương vô điều kiện và chữa lành được hoàn thiện.'],
+                        ['title' => 'Cơ hội', 'content' => 'Thành công trong các lĩnh vực y tế, tâm linh, giáo dục.'],
+                        ['title' => 'Thách thức', 'content' => 'Cân bằng giữa cho đi và nhận lại.'],
+                        ['title' => 'Lời khuyên', 'content' => 'Sử dụng tài năng để chữa lành và nâng cao ý thức nhân loại.']
+                    ]
+                ],
+                3 => [
+                    'title' => 'Đỉnh Cao 3 - Số 33: Thu Hoạch Từ Tình Yêu',
+                    'calculation' => 'Số 33 xuất hiện tại giai đoạn thu hoạch (45-53 tuổi)',
+                    'description' => 'Giai đoạn này bạn gặt hái thành quả từ tình yêu thương đã gieo trồng.',
+                    'sections' => [
+                        ['title' => 'Đặc điểm chính', 'content' => 'Được yêu thương và tôn trọng rộng rãi vì sự hy sinh.'],
+                        ['title' => 'Cơ hội', 'content' => 'Đỉnh cao của ảnh hưởng tích cực và chữa lành.'],
+                        ['title' => 'Thách thức', 'content' => 'Tìm kiếm sự cân bằng và uống năng lượng.'],
+                        ['title' => 'Lời khuyên', 'content' => 'Tiếp tục chia sẻ tình yêu và chữa lành cho thế giới.']
+                    ]
+                ],
+                4 => [
+                    'title' => 'Đỉnh Cao 4 - Số 33: Thầy Giáo Tình Yêu',
+                    'calculation' => 'Số 33 xuất hiện tại giai đoạn trí tuệ (54+ tuổi)',
+                    'description' => 'Giai đoạn cuối đời, bạn trở thành hiện thân của tình yêu thương và lòng từ bi.',
+                    'sections' => [
+                        ['title' => 'Đặc điểm chính', 'content' => 'Trí tuệ về tình yêu vô điều kiện và sự chữa lành.'],
+                        ['title' => 'Cơ hội', 'content' => 'Trở thành biểu tượng của tình yêu thương và lòng từ bi.'],
+                        ['title' => 'Thách thức', 'content' => 'Tìm sự bình yên sau những hy sinh lớn.'],
+                        ['title' => 'Lời khuyên', 'content' => 'Tận hưởng tình yêu thuần khiết và tiếp tục là ánh sáng cho thế giới.']
+                    ]
+                ]
+            ]
+        ];
     }
 }

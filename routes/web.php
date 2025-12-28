@@ -335,6 +335,10 @@ Route::prefix('than-so-hoc')->name('numerology.')->group(function () {
     Route::get('/y-nghia-so-truong-thanh/{number}', [LuckyController::class, 'maturityDetail'])->name('maturity.detail');
     Route::get('/y-nghia-nam-ca-nhan/{number}', [LuckyController::class, 'personalYearDetail'])->name('personal_year.detail');
 
+    // Life Pinnacles detail pages
+    Route::get('/y-nghia-dinh-cao-{pinnacle}/{number}', [LuckyController::class, 'pinnacleDetail'])->name('pinnacle.detail');
+    Route::get('/tong-quan-4-dinh-cao-cuoc-doi/{day}/{month}/{year}', [LuckyController::class, 'pinnacleOverview'])->name('pinnacle.overview');
+
     // API endpoints for partial calculations
     Route::post('/api/co-ban', [LuckyController::class, 'calculateBasic'])->name('api.basic');
     Route::post('/api/chu-ky', [LuckyController::class, 'calculateCycles'])->name('api.cycles');

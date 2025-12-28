@@ -35,15 +35,15 @@ class LuckyController extends Controller
                 'gender.required' => 'Vui lòng chọn giới tính'
             ]);
 
-            // Parse birthdate (format: MM/DD/YYYY or YYYY-MM-DD)
+            // Parse birthdate (format: DD/MM/YYYY or YYYY-MM-DD)
             $birthDateParts = [];
             if (strpos($request->birthdate, '/') !== false) {
-                // Format: MM/DD/YYYY
+                // Format: DD/MM/YYYY (European format)
                 $birthDateParts = explode('/', $request->birthdate);
                 if (count($birthDateParts) === 3) {
-                    $month = (int) $birthDateParts[0];
-                    $day = (int) $birthDateParts[1];
-                    $year = (int) $birthDateParts[2];
+                    $day = (int) $birthDateParts[0];    // First part is day
+                    $month = (int) $birthDateParts[1];  // Second part is month
+                    $year = (int) $birthDateParts[2];   // Third part is year
                 }
             } else {
                 // Format: YYYY-MM-DD
@@ -82,6 +82,13 @@ class LuckyController extends Controller
 
             // Calculate complete numerology profile
             $profile = NumerologyHelper::getCompleteNumerologyProfile($birthDate, $fullName);
+            // DEBUG: Log pinnacles calculation for 31/1/2000
+            if ($birthDate['day'] == 31 && $birthDate['month'] == 1 && $birthDate['year'] == 2000) {
+                \Log::info('DEBUG: 31/1/2000 pinnacles calculation', [
+                    'pinnacles' => $profile['cycles_and_pinnacles']['life_pinnacles']['pinnacles'] ?? 'NOT_FOUND',
+                    'calculation' => $profile['cycles_and_pinnacles']['life_pinnacles']['calculation'] ?? 'CALCULATION_NOT_FOUND'
+                ]);
+            }
 
             // Calculate lucky elements
             $user = [
@@ -642,6 +649,135 @@ class LuckyController extends Controller
             'title' => $numberData['title'],
             'data' => $data,
             'pageTitle' => $numberData['title'] . ' | Thần Số Học'
+        ]);
+    }
+
+    /**
+     * Chi tiết ý nghĩa đỉnh cao cuộc đời
+     */
+    public function pinnacleDetail($pinnacle, $number)
+    {
+        // Validate pinnacle stage (1-4)
+        if (!in_array($pinnacle, [1, 2, 3, 4])) {
+            abort(404);
+        }
+
+        // Validate number (1-9, 11, 22, 33)
+        if (!is_numeric($number) || !in_array($number, [1,2,3,4,5,6,7,8,9,11,22,33])) {
+            abort(404);
+        }
+
+        $interpretationsData = NumerologyHelper::getPinnacleInterpretationsData();
+        $pinnacleData = $interpretationsData[$number][$pinnacle] ?? null;
+
+        if (!$pinnacleData) {
+            // Fallback if no specific data
+            $pinnacleData = $this->getDefaultPinnacleData($pinnacle, $number);
+        }
+
+        $pinnacleNames = [
+            1 => 'Đỉnh Cao 1 - Giai Đoạn Hình Thành',
+            2 => 'Đỉnh Cao 2 - Giai Đoạn Phát Triển',
+            3 => 'Đỉnh Cao 3 - Giai Đoạn Thu Hoạch',
+            4 => 'Đỉnh Cao 4 - Giai Đoạn Trí Tuệ'
+        ];
+
+        $data = [
+            'number' => $number,
+            'pinnacle' => $pinnacle,
+            'title' => $pinnacleData['title'],
+            'calculation' => $pinnacleData['calculation'],
+            'interpretation' => $pinnacleData['description'],
+            'sections' => $pinnacleData['sections'] ?? []
+        ];
+
+        return view('than-so-hoc.number-detail', [
+            'type' => 'pinnacle',
+            'number' => $number,
+            'pinnacle' => $pinnacle,
+            'pinnacle_name' => $pinnacleNames[$pinnacle],
+            'title' => $pinnacleNames[$pinnacle] . ' - Số ' . $number,
+            'data' => $data,
+            'pageTitle' => $pinnacleNames[$pinnacle] . ' - Số ' . $number . ' | Thần Số Học'
+        ]);
+    }
+
+    /**
+     * Get default pinnacle data when specific interpretation not available
+     */
+    private function getDefaultPinnacleData($pinnacle, $number)
+    {
+        $pinnacleNames = [
+            1 => 'Đỉnh Cao 1 - Giai Đoạn Hình Thành',
+            2 => 'Đỉnh Cao 2 - Giai Đoạn Phát Triển',
+            3 => 'Đỉnh Cao 3 - Giai Đoạn Thu Hoạch',
+            4 => 'Đỉnh Cao 4 - Giai Đoạn Trí Tuệ'
+        ];
+
+        $numberMeanings = [
+            1 => 'độc lập, lãnh đạo, khởi đầu',
+            2 => 'hợp tác, nhạy cảm, hòa hợp',
+            3 => 'sáng tạo, giao tiếp, biểu đạt',
+            4 => 'thực tế, tổ chức, ổn định',
+            5 => 'tự do, phiêu lưu, đa dạng',
+            6 => 'chăm sóc, trách nhiệm, gia đình',
+            7 => 'phân tích, tâm linh, trí tuệ',
+            8 => 'vật chất, quyền lực, thành công',
+            9 => 'nhân đạo, hoàn thiện, chia sẻ',
+            11 => 'trực giác, tâm linh, sứ mệnh',
+            22 => 'xây dựng, tầm nhìn lớn, thực hiện',
+            33 => 'tình yêu vô điều kiện, chữa lành, dạy dỗ'
+        ];
+
+        return [
+            'title' => $pinnacleNames[$pinnacle] . ' - Số ' . $number,
+            'calculation' => "Số {$number} xuất hiện tại {$pinnacleNames[$pinnacle]}",
+            'description' => "Trong giai đoạn này, năng lượng của số {$number} thể hiện qua việc {$numberMeanings[$number]}. Đây là thời kỳ quan trọng để phát triển những đặc điểm tích cực của số này.",
+            'sections' => [
+                [
+                    'title' => 'Đặc điểm chính',
+                    'content' => "Số {$number} mang năng lượng {$numberMeanings[$number]}."
+                ],
+                [
+                    'title' => 'Lời khuyên',
+                    'content' => "Hãy tận dụng năng lượng tích cực của số {$number} trong giai đoạn này."
+                ]
+            ]
+        ];
+    }
+
+    /**
+     * Tổng quan 4 đỉnh cao cuộc đời
+     */
+    public function pinnacleOverview($day, $month, $year)
+    {
+        $birthDate = [
+            'day' => (int) $day,
+            'month' => (int) $month,
+            'year' => (int) $year
+        ];
+
+        // Validate birth date
+        if (!checkdate($month, $day, $year)) {
+            abort(404);
+        }
+
+        // Calculate pinnacles
+        $pinnaclesData = NumerologyHelper::calculateLifePinnacles($birthDate);
+
+        $data = [
+            'birth_date' => $birthDate,
+            'pinnacles' => $pinnaclesData['pinnacles'],
+            'current_age' => $pinnaclesData['current_age'],
+            'current_pinnacle' => $pinnaclesData['current_pinnacle'],
+            'calculation' => $pinnaclesData['calculation']
+        ];
+
+        return view('than-so-hoc.pinnacle-overview', [
+            'data' => $data,
+            'birthDate' => $birthDate,
+            'title' => 'Tổng quan 4 đỉnh cao cuộc đời',
+            'pageTitle' => 'Tổng quan 4 đỉnh cao cuộc đời - Ngày sinh ' . $day . '/' . $month . '/' . $year . ' | Thần Số Học'
         ]);
     }
 }
