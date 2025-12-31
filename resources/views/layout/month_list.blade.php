@@ -1,5 +1,6 @@
 @php
     $currentYear = $header_lunar_months[0]['lunar_year'] ?? date('Y');
+    $currentMonth = date('m');
 
     // Tạo danh sách 12 tháng cơ bản
     $months = collect(range(1, 12))->map(function ($m) use ($currentYear) {
@@ -9,6 +10,20 @@
             'is_leap' => false,
         ];
     });
+   
+
+    // Nếu là tháng 12, 1, hoặc 2 dương lịch, thêm 3 tháng của năm sau
+    if (in_array($currentMonth, [12, 1, 2])) {
+        $nextYear = ($currentMonth == 12) ? $currentYear + 1 : $currentYear;
+        $nextYearMonths = collect(range(1, 3))->map(function ($m) use ($nextYear) {
+            return [
+                'lunar_month' => $m,
+                'lunar_year' => $nextYear,
+                'is_leap' => false,
+            ];
+        });
+        $months = $months->merge($nextYearMonths);
+    }
 
     // Nếu có dữ liệu tháng âm (có thể có nhuận), chèn tháng nhuận đúng vị trí
     if (isset($header_lunar_months) && count($header_lunar_months) > 0) {
