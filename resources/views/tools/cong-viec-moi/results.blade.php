@@ -1,4 +1,4 @@
-<div class="w-100" id="content-box-succes">
+<div class="w-100" id="content-box-success">
     @php
         // Combine all days from all years into one array
         $allDays = [];
@@ -81,18 +81,18 @@
                                 form="xuatHanhForm">
                                 <option value="desc" {{ ($sortOrder ?? 'desc') === 'desc' ? 'selected' : '' }}>Điểm
                                     giảm dần</option>
-                                <option value="asc" {{ ($sortOrder ?? 'desc') === 'asc' ? 'selected' : '' }}>Điểm
-                                    tăng dần</option>
-                                <option value="date-asc">Ngày tăng dần</option>
-                                <option value="date-desc">Ngày giảm dần</option>
+                             
+                                <option value="date_asc">Ngày tăng dần</option>
+                                <option value="date_desc">Ngày giảm dần</option>
                             </select>
                         </div>
                     </div>
 
                 </div>
-                <div id="filterStatus" class="alert alert-success d-none mb-3" role="alert">
+                <!-- Filter Status for single table -->
+                <div id="filterStatus-all" class="alert alert-success d-none mb-3" role="alert">
                     <i class="bi bi-funnel"></i>
-                    <span id="filterStatusText"></span>
+                    <span id="filterStatusText-all"></span>
                 </div>
 
 
@@ -130,24 +130,34 @@
                                             $border = '#10B981';
                                             $text_box = '#10B981';
                                         }
+                                        // Collect taboo names from day score
                                         $tabooNames = [];
-                                        if (
-                                            isset($day['day_score']['checkTabooDays']['issues']) &&
-                                            is_array($day['day_score']['checkTabooDays']['issues'])
-                                        ) {
+
+                                        // Check for checkTabooDays structure
+                                        if (isset($day['day_score']['checkTabooDays']['issues']) && is_array($day['day_score']['checkTabooDays']['issues'])) {
                                             foreach ($day['day_score']['checkTabooDays']['issues'] as $issue) {
                                                 if (isset($issue['details']['tabooName'])) {
                                                     $tabooNames[] = $issue['details']['tabooName'];
                                                 }
                                             }
                                         }
-                                        // Also check taboo_details.taboo_types as fallback
-                                        if (
-                                            empty($tabooNames) &&
-                                            isset($day['day_score']['taboo_details']['taboo_types'])
-                                        ) {
+
+                                        // Check for score.issues structure (alternative path)
+                                        if (empty($tabooNames) && isset($day['day_score']['score']['issues']) && is_array($day['day_score']['score']['issues'])) {
+                                            foreach ($day['day_score']['score']['issues'] as $issue) {
+                                                if (isset($issue['details']['tabooName'])) {
+                                                    $tabooNames[] = $issue['details']['tabooName'];
+                                                }
+                                            }
+                                        }
+
+                                        // Check for taboo_details.taboo_types as fallback
+                                        if (empty($tabooNames) && isset($day['day_score']['taboo_details']['taboo_types']) && is_array($day['day_score']['taboo_details']['taboo_types'])) {
                                             $tabooNames = $day['day_score']['taboo_details']['taboo_types'];
                                         }
+
+                                        // Remove duplicates
+                                        $tabooNames = array_unique($tabooNames);
                                     @endphp
                                     <tr class="table-row-all" style="{{ $index >= 10 ? 'display: none;' : '' }}"
                                         data-visible="{{ $index < 10 ? 'true' : 'false' }}"
@@ -337,7 +347,10 @@
 <!-- Filter Modal/Dropdown - Global -->
 <div id="tabooFilterModal" class="taboo-filter-modal d-none">
     <div class="taboo-filter-header">
-        <h6 class="mb-0">Lọc ngày kỵ</h6>
+        <h6 class="mb-0">
+            <i class="bi bi-heart" style="color: #e91e63;"></i>
+            Lọc ngày xấu
+        </h6>
         <button type="button" id="closeFilterModal" class="btn-close-filter">
             <i class="bi bi-x"></i>
         </button>
@@ -429,22 +442,29 @@
 @include('components.taboo-filter-script')
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Initialize filter with single "all" year data - follow ban-tho pattern exactly
-        const resultsByYear = {
-            'all': {
-                days: @json($allDays ?? [])
-            }
-        };
+document.addEventListener('DOMContentLoaded', function() {
+    // Expose user's 'chi' to global scope
+    window.userChi = '{{ explode(' ', ($birthdateInfo['can_chi_nam'] ?? ''))[1] ?? '' }}';
 
-        // Khởi tạo filter sau khi DOM loaded - exactly like ban-tho
-        setTimeout(() => {
-            if (typeof initTabooFilter === 'function') {
-             
-                initTabooFilter(resultsByYear);
-            } else {
-                console.error('❌ Cong-viec-moi: initTabooFilter function not found');
-            }
-        }, 300);
-    });
+    // Khởi tạo taboo filter với dữ liệu từ backend - combine all days
+    const resultsByYear = {
+        'all': {
+            days: @json($allDays ?? [])
+        }
+    };
+
+    // Khởi tạo filter sau khi DOM loaded
+    setTimeout(() => {
+        if (typeof initTabooFilter === 'function') {
+            const allTbodies = document.querySelectorAll('tbody');
+            allTbodies.forEach((tbody, index) => {
+                const rowsWithTaboo = tbody.querySelectorAll('tr[data-taboo-days]');
+            });
+            initTabooFilter(resultsByYear);
+        } else {
+            console.error('initTabooFilter function not found');
+        }
+    }, 300);
+
+});
 </script>

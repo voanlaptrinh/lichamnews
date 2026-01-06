@@ -904,9 +904,7 @@
 
         // Direct test for filter button
         document.addEventListener('click', function(e) {
-            console.log('Click detected on:', e.target.id, e.target.className);
             if (e.target.id === 'tabooFilterBtn') {
-                console.log('Direct click on filter button detected!');
             }
         });
 
@@ -922,7 +920,6 @@
 
         // ========== PAGINATION & SORT FUNCTIONS - GIỐNG TOT-XAU ==========
         function initPagination() {
-            console.log('initPagination called');
 
             // Event delegation cho load more button
             const resultsContainer = document.querySelector('.--detail-success');
@@ -937,7 +934,6 @@
                     // Check if taboo filter is active
                     const selectedTaboos = document.querySelectorAll('.taboo-checkbox:checked');
                     if (selectedTaboos.length > 0) {
-                        console.log('Taboo filter is active, updating filter status after pagination');
                         // Let taboo filter component handle the pagination update
                         if (typeof window.updateFilterStatusOnPagination === 'function') {
                             window.updateFilterStatusOnPagination(year);
@@ -980,7 +976,6 @@
             resultsContainer.addEventListener('change', function(event) {
                 if (event.target.matches('[name="sort"]') || event.target.matches('.sort-select')) {
                     const sortValue = event.target.value;
-                    console.log('Sort changed to:', sortValue);
                     applySortingToTable(sortValue);
                 }
             });
@@ -1020,12 +1015,10 @@
         }
 
         function applySortingToTable(sortValue) {
-            console.log('applySortingToTable called with:', sortValue);
 
             // Check if taboo filter is active - if so, let taboo filter handle sorting
             const selectedTaboos = document.querySelectorAll('.taboo-checkbox:checked');
             if (selectedTaboos.length > 0 && typeof window.applySortToYear === 'function') {
-                console.log('Taboo filter is active, delegating sort to taboo filter component');
 
                 // Find active year tabs and apply sort to each
                 const activeTabPanes = document.querySelectorAll('.tab-pane');
@@ -1040,13 +1033,11 @@
 
             // If no taboo filter, use regular sorting
             const tables = document.querySelectorAll('tbody');
-            console.log('Found tables:', tables.length);
 
             if (tables.length === 0) return;
 
             tables.forEach(table => {
                 const rows = Array.from(table.querySelectorAll('tr'));
-                console.log(`Sorting ${rows.length} rows`);
 
                 if (rows.length === 0) return;
 

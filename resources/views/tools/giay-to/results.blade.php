@@ -1,4 +1,4 @@
-<div class="w-100" id="content-box-succes">
+<div class="w-100" id="content-box-success">
     @php
         // Combine all days from all years into one array
         $allDays = [];
@@ -180,6 +180,7 @@
                                     <tr class="table-row-all" data-index="{{ $index }}"
                                         style="{{ $index >= 10 ? 'display: none;' : '' }}"
                                         data-visible="{{ $index < 10 ? 'true' : 'false' }}"
+                                        data-passed-filter="true" data-score="{{ round($score) }}"
                                         data-taboo-days="{{ implode(',', $tabooNames) }}">
                                         <td style="text-align: start">
                                             <a
@@ -452,35 +453,86 @@
     <div id="tabooFilterBackdrop" class="taboo-filter-backdrop d-none"></div>
 </div>
 
-{{-- @include('components.taboo-filter-script') --}}
+@include('components.taboo-filter-script')
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         // Expose user's 'chi' to global scope
         window.userChi = '{{ explode(' ', $birthdateInfo['can_chi_nam'] ?? '')[1] ?? '' }}';
 
-        // Khởi tạo taboo filter với dữ liệu từ backend - combine all days
+        // Khởi tạo taboo filter với dữ liệu từ backend
         const resultsByYear = {
             'all': {
                 days: @json($allDays ?? [])
             }
         };
 
-        // Khởi tạo filter sau khi DOM loaded
+        // Override initTabooFilter để tùy chỉnh cho giấy tờ
+        const originalInitTabooFilter = window.initTabooFilter;
+        window.initTabooFilter = function(resultsByYear) {
+            // Gọi hàm gốc
+            if (originalInitTabooFilter) {
+                originalInitTabooFilter.call(this, resultsByYear);
+            }
+
+            // Custom function cho giấy tờ
+            function updateTable(selectedTaboos = [], targetYear = 'all') {
+                const tableBody = document.querySelector('#table-all tbody');
+                if (!tableBody) return;
+
+                const allRows = tableBody.querySelectorAll('tr[data-taboo-days]');
+                let visibleCount = 0;
+                let filteredCount = 0;
+
+                allRows.forEach(row => {
+                    const tabooData = row.getAttribute('data-taboo-days') || '';
+                    const taboos = tabooData.split(',').filter(t => t.trim());
+                    let shouldHide = false;
+
+                    // Kiểm tra xem có taboo nào trong selectedTaboos không
+                    if (selectedTaboos.length > 0) {
+                        shouldHide = selectedTaboos.some(selectedTaboo =>
+                            taboos.some(taboo => taboo.trim() === selectedTaboo.trim())
+                        );
+                    }
+
+                    // Cập nhật classes
+                    row.classList.remove('filtered-out', 'filter-active');
+                    row.setAttribute('data-passed-filter', shouldHide ? 'false' : 'true');
+
+                    if (shouldHide) {
+                        row.classList.add('filtered-out');
+                        filteredCount++;
+                    } else {
+                        row.classList.add('filter-active');
+                        if (row.getAttribute('data-visible') === 'true') {
+                            visibleCount++;
+                        }
+                    }
+                });
+
+                // Cập nhật filter status
+                const filterStatus = document.getElementById('filterStatus');
+                const filterStatusText = document.getElementById('filterStatusText');
+
+                if (selectedTaboos.length > 0) {
+                    filterStatus.classList.remove('d-none');
+                    filterStatusText.textContent = `Đã ẩn ${filteredCount} ngày có: ${selectedTaboos.join(', ')}`;
+                } else {
+                    filterStatus.classList.add('d-none');
+                }
+            }
+
+            // Gán function vào window để các file khác có thể gọi
+            window.updateTable = updateTable;
+
+        };
+
+        // Khởi tạo sau khi DOM loaded
         setTimeout(() => {
             if (typeof initTabooFilter === 'function') {
-
-                const allTbodies = document.querySelectorAll('tbody');
-                allTbodies.forEach((tbody, index) => {
-                    const rowsWithTaboo = tbody.querySelectorAll('tr[data-taboo-days]');
-                    console.log(
-                        `Found ${rowsWithTaboo.length} rows with taboo data in tbody ${index}`
-                        );
-                });
                 initTabooFilter(resultsByYear);
-
             }
         }, 300);
-
     });
 </script>

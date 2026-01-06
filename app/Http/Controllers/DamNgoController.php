@@ -29,7 +29,7 @@ class DamNgoController extends Controller
     /**
      * Kiểm tra và trả về kết quả theo từng năm.
      */
-    public function check(Request $request)
+     public function check(Request $request)
     {
         // 1. Xử lý Input và Validation
         $input = $request->all();
@@ -86,30 +86,53 @@ class DamNgoController extends Controller
         $startDate = Carbon::createFromFormat('d/m/Y', $validated['start_date'])->startOfDay();
         $endDate = Carbon::createFromFormat('d/m/Y', $validated['end_date'])->endOfDay();
 
-        // 2. Logic mới: Nhóm theo năm
+        // 2. Logic mới: Nhóm theo năm âm lịch (giống BuyHouseController)
         $period = CarbonPeriod::create($startDate, $endDate);
         $groomInfo = BadDayHelper::getPersonBasicInfo($groomDob);
         $brideInfo = BadDayHelper::getPersonBasicInfo($brideDob);
 
-        // Lấy danh sách các năm duy nhất trong khoảng đã chọn
-        $uniqueYears = [];
+        // Lấy danh sách các năm âm lịch duy nhất và tính khoảng ngày cho mỗi năm
+        $uniqueLunarYears = [];
+        $lunarYearRanges = []; // Lưu khoảng ngày cho mỗi năm âm
+
         foreach ($period as $date) {
-            $uniqueYears[$date->year] = true;
+            $lunarParts = LunarHelper::convertSolar2Lunar($date->day, $date->month, $date->year);
+            $lunarYear = $lunarParts[2];
+
+            if (!isset($uniqueLunarYears[$lunarYear])) {
+                $uniqueLunarYears[$lunarYear] = true;
+                // Tính toán ngày bắt đầu và kết thúc của năm âm này trong khoảng được chọn
+                $lunarYearRanges[$lunarYear] = ['start' => $date->copy(), 'end' => $date->copy()];
+            } else {
+                // Cập nhật ngày cuối của năm âm này
+                $lunarYearRanges[$lunarYear]['end'] = $date->copy();
+            }
         }
-        $uniqueYears = array_keys($uniqueYears);
+        $uniqueLunarYears = array_keys($uniqueLunarYears);
 
         $resultsByYear = [];
-        foreach ($uniqueYears as $year) {
-            // Với mỗi năm, ta phân tích hạn cho cả cô dâu và chú rể
-            // Lưu ý: hạn Tam Tai, Kim Lâu, Hoang Ốc là tính theo NĂM, nên chỉ cần tính 1 lần/năm.
-            $groomAnalysis = $this->calculateAstrologyResults($groomDob, $year, 'chú rể');
-            $brideAnalysis = $this->calculateAstrologyResults($brideDob, $year, 'cô dâu');
+        foreach ($uniqueLunarYears as $lunarYear) {
+            // Với mỗi năm âm, ta phân tích hạn cho cả cô dâu và chú rể
+            $groomAnalysis = $this->calculateAstrologyResults($groomDob, $lunarYear, 'chú rể');
+            $brideAnalysis = $this->calculateAstrologyResults($brideDob, $lunarYear, 'cô dâu');
 
-            $canChiNam = KhiVanHelper::canchiNam((int)$year);
-            $resultsByYear[$year] = [
+            $canChiNam = KhiVanHelper::canchiNam((int)$lunarYear);
+
+            // Tạo chuỗi hiển thị khoảng ngày (giống BuyHouseController)
+            $startDate = $lunarYearRanges[$lunarYear]['start'];
+            $endDate = $lunarYearRanges[$lunarYear]['end'];
+            $dateRange = '';
+            if ($startDate->format('Y-m-d') === $endDate->format('Y-m-d')) {
+                $dateRange = $startDate->format('d/m/Y');
+            } else {
+                $dateRange = $startDate->format('d/m') . ' - ' . $endDate->format('d/m/Y');
+            }
+
+            $resultsByYear[$lunarYear] = [
                 'groom_analysis' => $groomAnalysis,
                 'bride_analysis' => $brideAnalysis,
                 'canchi' => $canChiNam,
+                'date_range' => $dateRange, // Thêm date_range như BuyHouseController
                 'good_days' => [], // Mảng để lưu các ngày tốt trong năm này
                 'days' => [],
             ];
@@ -118,9 +141,12 @@ class DamNgoController extends Controller
         // 3. Lọc ra các ngày tốt
         // Lặp lại qua khoảng thời gian để tìm ngày tốt CỤ THỂ
         // Mục đích (purpose) cho việc xem ngày cưới
-        $purpose = 'DINH_HON';
+        $purpose = 'DAM_NGO';
         foreach ($period as $date) {
-            $year = $date->year;
+            // Lấy năm âm lịch của ngày này (giống BuyHouseController)
+            $lunarParts = LunarHelper::convertSolar2Lunar($date->day, $date->month, $date->year);
+            $lunarYear = $lunarParts[2];
+
             $birthdatealGrom = LunarHelper::convertSolar2Lunar($groomDob->day, $groomDob->month, $groomDob->year);
             $birthdatealBride = LunarHelper::convertSolar2Lunar($brideDob->day, $brideDob->month, $brideDob->year);
 
@@ -134,8 +160,7 @@ class DamNgoController extends Controller
             // 1. Lấy TẤT CẢ các giờ tốt trong ngày
             $goodHours = LunarHelper::getGoodHours($dayChi, 'day');
             // c. Tạo chuỗi ngày Âm lịch đầy đủ để hiển thị
-            $lunarParts = LunarHelper::convertSolar2Lunar($date->day, $date->month, $date->year);
-           $fullLunarDateStr = sprintf(
+         $fullLunarDateStr = sprintf(
                 '%02d/%02d/%04d %s',
                 $lunarParts[0],
                 $lunarParts[1],
@@ -143,9 +168,8 @@ class DamNgoController extends Controller
                 '(ÂL)'
             );
 
-
-            // Thêm kết quả chi tiết của ngày vào đúng năm của nó
-            $resultsByYear[$year]['days'][] = [
+            // Thêm kết quả chi tiết của ngày vào đúng năm âm lịch của nó
+            $resultsByYear[$lunarYear]['days'][] = [
                 'date' => $date->copy(), // Dùng copy() để đảm bảo đối tượng date không bị thay đổi
                 'weekday_name' => $date->isoFormat('dddd'),
                 // Dữ liệu mới để hiển thị
@@ -160,28 +184,33 @@ class DamNgoController extends Controller
 
         // 4. Sắp xếp theo yêu cầu
         $sortOrder = $request->input('sort', 'desc');
-
         foreach ($resultsByYear as &$yearData) {
             if (isset($yearData['days']) && is_array($yearData['days'])) {
-                usort($yearData['days'], function ($a, $b) {
-                    $groomScoreA = floatval($a['groom_score']['percentage'] ?? 0);
-                    $brideScoreA = floatval($a['bride_score']['percentage'] ?? 0);
+                usort($yearData['days'], function ($a, $b) use ($sortOrder) {
+                    $groomScoreA = $a['groom_score']['percentage'] ?? 0;
+                    $brideScoreA = $a['bride_score']['percentage'] ?? 0;
                     $totalScoreA = $groomScoreA + $brideScoreA;
 
-                    $groomScoreB = floatval($b['groom_score']['percentage'] ?? 0);
-                    $brideScoreB = floatval($b['bride_score']['percentage'] ?? 0);
+                    $groomScoreB = $b['groom_score']['percentage'] ?? 0;
+                    $brideScoreB = $b['bride_score']['percentage'] ?? 0;
                     $totalScoreB = $groomScoreB + $brideScoreB;
 
-                    // Debug: Log để kiểm tra
-                    error_log("SORT: {$a['date']->format('Y-m-d')}($totalScoreA) vs {$b['date']->format('Y-m-d')}($totalScoreB)");
+                    // Sắp xếp theo tổng điểm trước
+                    if ($totalScoreA !== $totalScoreB) {
+                        return $sortOrder === 'asc' ? $totalScoreA <=> $totalScoreB : $totalScoreB <=> $totalScoreA;
+                    }
 
-                    // LUÔN sắp xếp điểm từ cao xuống thấp
-                    return $totalScoreB <=> $totalScoreA;
+                    // Nếu tổng điểm bằng nhau, sắp xếp theo điểm cô dâu
+                    if ($brideScoreA !== $brideScoreB) {
+                        return $sortOrder === 'asc' ? $brideScoreA <=> $brideScoreB : $brideScoreB <=> $brideScoreA;
+                    }
+
+                    // Nếu điểm cô dâu cũng bằng nhau, sắp xếp theo điểm chú rể
+                    return $sortOrder === 'asc' ? $groomScoreA <=> $groomScoreB : $groomScoreB <=> $groomScoreA;
                 });
             }
         }
         unset($yearData);
-
         // 5. Trả về kết quả
         if ($request->wantsJson()) {
             // AJAX request - trả về JSON với HTML rendered

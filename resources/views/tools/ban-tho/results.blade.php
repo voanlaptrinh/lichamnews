@@ -1,201 +1,226 @@
 <div class="w-100" id="content-box-succes">
-
+    <!-- Combine all days from all years into one array -->
     @php
-        // Combine all days from all years into single array
         $allDays = [];
-        $currentYear = now()->year;
-
         foreach ($resultsByYear as $year => $yearData) {
-            if (isset($yearData['days']) && is_array($yearData['days'])) {
+            if (isset($yearData['days']) && count($yearData['days']) > 0) {
                 foreach ($yearData['days'] as $day) {
-                    // Calculate lunar age from current year
-                    $birthYear = $birthdateInfo['dob']->year;
-                    $lunarAge = $currentYear - $birthYear;
+                    // Add current year to calculate tuổi âm from current year
+                    $currentYear = date('Y');
+                    $birthYear = $birthdateInfo['dob']->year ?? explode('/', $birthdateInfo['solar_date'] ?? $birthdateInfo['birthdate'] ?? '01/01/2000')[2];
+                    $lunarAge = $currentYear - $birthYear + 1;
                     $day['lunar_age'] = $lunarAge;
-                    $day['year'] = $year;
                     $allDays[] = $day;
                 }
             }
         }
 
-        // Sort all days by date
+        // Sort all days by score (descending by default)
         usort($allDays, function ($a, $b) {
-            return $a['date']->timestamp - $b['date']->timestamp;
+            $scoreA = $a['day_score']['score']['percentage'] ?? $a['day_score']['percentage'] ?? 0;
+            $scoreB = $b['day_score']['score']['percentage'] ?? $b['day_score']['percentage'] ?? 0;
+            return $scoreB <=> $scoreA; // Điểm cao xuống thấp
         });
     @endphp
-    <div class="card border-0 mb-3 w-100 box-detial-year">
-        <div class="card-body box1-con-year">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="text-primary mb-3 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
-                        <img src="{{ asset('icons/dac-diem1.svg') }}" alt="thông tin gia chủ" width="28" height="28"
-                            class="me-1"> Thông Tin Gia Chủ
-                    </div>
-                    <div class="info-grid">
-                        <p class="mb-2">
-                            <strong>Ngày sinh dương lịch:</strong>
-                            {{ $birthdateInfo['dob']->format('d/m/Y') }}
-                        </p>
-                        <p class="mb-2">
-                            <strong>Ngày sinh âm lịch:</strong>
 
-                            {{ $birthdateInfo['lunar_dob_str'] }}
-                        </p>
-                        <p class="mb-2">
-                            <strong>Tuổi:</strong>
-                            <b>{{ $birthdateInfo['can_chi_nam'] }}</b>
-                        </p>
-                        <p class="mb-2">
-                            <strong>Mệnh:</strong>
+    @if (isset($resultsByYear) && count($resultsByYear) > 0)
 
-                            {{ $birthdateInfo['menh']['hanh'] }} ({{ $birthdateInfo['menh']['napAm'] }})
-                        </p>
-                        <p class="mb-2">
-                            <strong>Tuổi âm:</strong>
-                            @php
-                                $currentYear = now()->year;
-                                $birthYear = $birthdateInfo['dob']->year;
-                                $lunarAge = $currentYear - $birthYear;
-                            @endphp
-                            {{ $lunarAge }} tuổi
-                        </p>
-                        <p class="mb-2">
-                            <strong>Thời gian dự kiến dời bàn thờ:</strong>
-                            {{ $inputs['date_range'] ?? '' }}
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+        <!-- Single table content -->
+        <div class="single-table-content">
 
-    <div class="card border-0 mb-3 w-100 box-detial-year">
-        <div class="card-body">
-            @if (count($allDays) > 0)
-                <!-- Filter and Sort Controls - trực tiếp trên table -->
-                <div class="betwen-ds flex-wrap mb-3">
-                    <div class="text-primary mb-0 title-tong-quan-h4-log text-dark fw-bolder">
-                        <img src="{{ asset('icons/k_nen_1.svg') }}" alt="bảng điểm dời bàn thờ" width="28"
-                            height="28" class="me-1"> Gợi ý ngày tốt cho bạn Dời Bàn Thờ
-                    </div>
-                    <div class="d-flex flex-wrap" style="gap: 10px">
-                        <div class="position-relative mb-3">
-                            <button type="button" class="taboo-filter-btn form-select-sm sort-select" data-year="all">
-                                <span>Lọc ngày xấu</span>
-                                <i class="bi bi-chevron-down ms-2"></i>
-                            </button>
+                <div class="card border-0 mb-3 w-100 box-detial-year">
+                    <div class="card-body box1-con-year">
+                        <div
+                            class="text-primary mb-3 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
+                            <img src="{{ asset('icons/dac-diem1.svg') }}" alt="thông tin người xem" width="28"
+                                height="28" class="me-1"> Thông Tin Người Xem
                         </div>
+                        @if (isset($birthdateInfo))
+                            <div class="info-grid">
+                                <p class="mb-2">
+                                    <strong>Ngày sinh dương lịch:</strong>
+                                    {{ $birthdateInfo['solar_date'] ?? $birthdateInfo['dob']->format('d/m/Y') ?? '' }}
+                                </p>
+                                  <p class="mb-2">
+                                    <strong>Ngày sinh âm lịch:</strong>
 
-                        <!-- Sắp xếp tích hợp điểm và ngày -->
-                        <div>
-                            <select name="sort" class="form-select-sm sort-select"
-                                style="width: auto; height: 40px;">
-                                <option value="desc" selected>Điểm giảm dần</option>
-                                <option value="date_asc">Ngày tăng dần</option>
-                                <option value="date_desc">Ngày giảm dần</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
+                                    {{ $birthdateInfo['lunar_date'] ?? '' }}
+                                </p>
+                                <p class="mb-2">
+                                    <strong>Tuổi:</strong>
+                                    {{ $birthdateInfo['can_chi'] ?? $birthdateInfo['can_chi_nam'] ?? '' }}
+                                </p>
+                          <p class="mb-2">
+                                    <strong>Mệnh:</strong>
 
-                <!-- Filter Status -->
-                <div id="filterStatus" class="alert alert-success d-none mb-3" role="alert">
-                    <i class="bi bi-funnel"></i>
-                    <span id="filterStatusText"></span>
-                </div>
-                <div class="table-responsive w-100" id="bang-chi-tiet">
-                    <table class="table table-hover align-middle w-100 table-layout" id="table-all"
-                        style=" width: 100%;">
-                        <thead class="text-center" style="background-color: #e8ebee;">
-                            <tr>
-                                <th style="border-radius: 8px 0 0 8px">Ngày</th>
-                                <th style="">Yếu tố hỗ trợ dời bàn thờ</th>
-                                <th style="border-radius: 0 8px 8px 0" class="score-header">Điểm</th>
-                            </tr>
-                        </thead>
-                        <tbody class="text-center table-body-all">
-                            @foreach ($allDays as $index => $day)
-                                @php
-                                    $score = $day['day_score']['percentage'] ?? 0;
-                                    $bgColor = '#D1FAE5'; // Green
-                                    $score = round($score);
-                                    if ($score <= 30) {
-                                        $bgColor = '#FEE2E2'; // Red
-                                        $border = '#DC2626';
-                                        $text_box = '#DC2626';
-                                    } elseif ($score <= 50) {
-                                        $bgColor = '#FFE3D5'; // Yellow
-                                        $border = '#FC6803';
-                                        $text_box = '#FC6803';
-                                    } elseif ($score < 70) {
-                                        $bgColor = '#FEF3C7'; // Orange
-                                        $border = '#F59E0B';
-                                        $text_box = '#F59E0B';
-                                    } else {
-                                        $border = '#10B981';
-                                        $text_box = '#10B981';
-                                    }
-
-                                    // Extract taboo names from checkTabooDays.issues for data-taboo-days attribute
-                                    $tabooNames = [];
-                                    if (
-                                        isset($day['day_score']['checkTabooDays']['issues']) &&
-                                        is_array($day['day_score']['checkTabooDays']['issues'])
-                                    ) {
-                                        foreach ($day['day_score']['checkTabooDays']['issues'] as $issue) {
-                                            if (isset($issue['details']['tabooName'])) {
-                                                $tabooNames[] = $issue['details']['tabooName'];
-                                            }
-                                        }
-                                    }
-                                    // Also check taboo_details.taboo_types as fallback
-                                    if (
-                                        empty($tabooNames) &&
-                                        isset($day['day_score']['taboo_details']['taboo_types'])
-                                    ) {
-                                        $tabooNames = $day['day_score']['taboo_details']['taboo_types'];
-                                    }
-                                @endphp
-                                <tr class="table-row-all" data-index="{{ $index }}"
-                                    style="{{ $index >= 10 ? 'display: none;' : '' }}"
-                                    data-visible="{{ $index < 10 ? 'true' : 'false' }}"
-                                    data-taboo-days="{{ implode(',', $tabooNames) }}">
-                                    <td style="text-align: start">
-                                        <a
-                                            href="{{ route('ban-tho.details', [
-                                                'date' => $day['date']->format('Y-m-d'),
-                                                'birthdate' => $birthdateInfo['dob']->format('Y-m-d'),
-                                                'date_range' => $inputs['date_range'] ?? '',
-                                                'calendar_type' => $inputs['calendar_type'] ?? 'solar',
-                                            ]) }}">
-                                            <div class="box-dtl-pc">
-                                                <div style="color: #0F172A;font-size: 18px">
-                                                    <strong
-                                                        style="text-transform:capitalize;">{{ $day['weekday_name'] ?? '' }},
-                                                        {{ $day['date']->format('d/m/Y') }}</strong>
-                                                </div>
-                                                <div class="text-muted small" style="color: #2254AB;font-size: 18px">
-                                                    {{ $day['full_lunar_date_str'] ?? '' }} <i
-                                                        class="bi bi-chevron-right"></i>
-                                                </div>
-                                            </div>
-                                            <div class="box-dtl-mb">
-                                                <div class="hv-memorial-date-panel">
-                                                    <div class="hv-memorial-month-text">Tháng
-                                                        {{ $day['date']->format('m') }}</div>
-                                                    <div class="hv-memorial-day-digit">
-                                                        {{ $day['date']->format('d') }}</div>
-                                                    <div class="hv-memorial-lunar-calendar-info d-flex">
-                                                        <span>
-                                                            {{ explode('/', $day['full_lunar_date_str'])[0] ?? '' }}/{{ explode('/', $day['full_lunar_date_str'])[1] ?? '' }}
-                                                            ÂL</span> <i class="bi bi-chevron-right"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </td>
-                                    <td style="text-align: start">
+                                    {{ $birthdateInfo['menh']['hanh'] ?? '' }}
+                                    @if(isset($birthdateInfo['menh']['napAm']))
+                                        ({{ $birthdateInfo['menh']['napAm'] }})
+                                    @endif
+                                </p>
+                                <p class="mb-2">
+                                    <strong>Tuổi âm:</strong>
+                                    <span id="tuoi-am-value-all">
                                         @php
+                                            $birthYear = $birthdateInfo['dob']->year ?? explode('/', $birthdateInfo['solar_date'] ?? $birthdateInfo['birthdate'] ?? '01/01/2000')[2];
+                                            $tuoiAm = $currentYear - $birthYear + 1;
+                                        @endphp
+                                        {{ $tuoiAm }} tuổi
+                                    </span>
+                                </p>
+                                <p class="mb-2">
+                                    <strong>Thời gian xem:</strong>
+                                    {{ $inputs['date_range'] ?? '' }}
+                                </p>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+
+                <!-- Gợi ý ngày tốt cho bạn -->
+                <div class="card border-0 mb-3 w-100 box-detial-year">
+                    <div class="card-body">
+
+                        @if (isset($allDays) && count($allDays) > 0)
+                            <!-- Filter and Sort Controls - trực tiếp trên table -->
+                            <div class="betwen-ds flex-wrap mb-3">
+                                <div class="text-primary mb-0 title-tong-quan-h4-log text-dark fw-bolder">
+                                    <img src="{{ asset('icons/k_nen_1.svg') }}" alt="thông tin người xem"
+                                        width="28" height="28" class="me-1"> Gợi ý ngày tốt di dời bàn thờ cho bạn
+                                </div>
+                                <div class="d-flex flex-wrap" style="gap: 10px">
+                                    <div class="position-relative mb-3">
+                                        <button type="button" class="taboo-filter-btn form-select-sm sort-select"
+                                            data-year="all">
+                                            <span>Lọc ngày kỵ</span>
+
+                                            <i class="bi bi-chevron-down ms-2"></i>
+                                        </button>
+                                    </div>
+
+                                    <!-- Sắp xếp tích hợp điểm và ngày -->
+                                    <div>
+                                        <select name="sort" class="form-select-sm sort-select"
+                                            style="width: auto; height: 40px;">
+                                            <option value="desc" selected>Điểm giảm dần</option>
+                                            <option value="date_asc">Ngày tăng dần</option>
+                                            <option value="date_desc">Ngày giảm dần</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Filter Status for single table -->
+                            <div id="filterStatus-all" class="alert alert-success d-none mb-3"
+                                role="alert">
+                                <i class="bi bi-funnel"></i>
+                                <span id="filterStatusText-all"></span>
+                            </div>
+
+                            <div class="table-responsive w-100" id="bang-chi-tiet">
+                                <table class="table table-hover align-middle w-100 table-layout"
+                                    id="table-all" style=" width: 100%;">
+                                    <thead class="text-center" style="background-color: #e8ebee;">
+                                        <tr>
+                                            <th style="border-radius: 8px 0 0 8px">Ngày</th>
+                                            <th style="">Yếu tố hỗ trợ</th>
+                                            <th style=" border-radius: 0 8px 8px 0" class="score-header">Điểm</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-center table-body-all">
+                                        @foreach ($allDays as $index => $day)
+                                            @php
+                                                $score =
+                                                    $day['day_score']['score']['percentage'] ??
+                                                    ($day['day_score']['percentage'] ?? 0);
+
+                                                // Lấy taboo days từ checkTabooDays issues
+                                                $tabooTypes = [];
+                                                if (
+                                                    isset($day['day_score']['score']['issues']) &&
+                                                    is_array($day['day_score']['score']['issues'])
+                                                ) {
+                                                    foreach ($day['day_score']['score']['issues'] as $issue) {
+                                                        if (
+                                                            isset($issue['source']) &&
+                                                            $issue['source'] === 'Taboo' &&
+                                                            isset($issue['details']['tabooName'])
+                                                        ) {
+                                                            $tabooTypes[] = $issue['details']['tabooName'];
+                                                        }
+                                                    }
+                                                }
+                                                // Fallback: kiểm tra trong day_score.issues (cấu trúc mới)
+                                                if (
+                                                    empty($tabooTypes) &&
+                                                    isset($day['day_score']['issues']) &&
+                                                    is_array($day['day_score']['issues'])
+                                                ) {
+                                                    foreach ($day['day_score']['issues'] as $issue) {
+                                                        if (
+                                                            isset($issue['source']) &&
+                                                            $issue['source'] === 'Taboo' &&
+                                                            isset($issue['details']['tabooName'])
+                                                        ) {
+                                                            $tabooTypes[] = $issue['details']['tabooName'];
+                                                        }
+                                                    }
+                                                }
+                                                $bgColor = '#D1FAE5'; // Green
+                                                $score = round($score);
+                                                if ($score <= 30) {
+                                                    $bgColor = '#FEE2E2'; // Red
+                                                    $border = '#DC2626';
+                                                    $text_box = '#DC2626';
+                                                } elseif ($score <= 50) {
+                                                    $bgColor = '#FFE3D5'; // Yellow
+                                                    $border = '#FC6803';
+                                                    $text_box = '#FC6803';
+                                                } elseif ($score < 70) {
+                                                    $bgColor = '#FEF3C7'; // Orange
+                                                    $border = '#F59E0B';
+                                                    $text_box = '#F59E0B';
+                                                } else {
+                                                    $border = '#10B981';
+                                                    $text_box = '#10B981';
+                                                }
+                                            @endphp
+                                            <tr class="table-row-all" data-index="{{ $index }}"
+                                                style="{{ $index >= 10 ? 'display: none;' : '' }}"
+                                                data-visible="{{ $index < 10 ? 'true' : 'false' }}"
+                                                data-taboo-days="{{ implode(',', $tabooTypes) }}">
+                                                <td style="text-align: start">
+                                                    <a
+                                                        href="{{ route('ban-tho.details', ['date' => $day['date']->format('Y-m-d'), 'birthdate' => $birthdateInfo['dob']->format('Y-m-d') ?? '', 'date_range' => $inputs['date_range'] ?? '', 'calendar_type' => $inputs['calendar_type'] ?? 'solar']) }}">
+                                                        <div class="box-dtl-pc">
+                                                            <div style="color: #0F172A;font-size: 18px">
+                                                                <strong
+                                                                    style="text-transform:capitalize;">{{ $day['weekday_name'] ?? '' }},
+                                                                    {{ $day['date']->format('d/m/Y') }}</strong>
+                                                            </div>
+                                                            <div class="text-muted small"
+                                                                style="color: #2254AB;font-size: 18px">
+                                                                {{ $day['full_lunar_date_str'] ?? '' }} <i
+                                                                    class="bi bi-chevron-right"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="box-dtl-mb">
+                                                            <div class="hv-memorial-date-panel">
+                                                                <div class="hv-memorial-month-text">Tháng
+                                                                    {{ $day['date']->format('m') }}</div>
+                                                                <div class="hv-memorial-day-digit">
+                                                                    {{ $day['date']->format('d') }}</div>
+                                                                <div class="hv-memorial-lunar-calendar-info d-flex">
+                                                                   <span>
+                                                                     {{ $day['al_name'][0] ?? '' }}/{{ $day['al_name'][1] ?? '' }}
+                                                                    ÂL</span> <i class="bi bi-chevron-right"></i></div>
+                                                            </div>
+
+                                                        </div>
+                                                    </a>
+                                                </td>
+                                                <td style="text-align: start">
+                                                     @php
                                             $supportFactors = [];
                                             if ($day['day_score']['tu']['details']['data']['nature'] == 'Tốt') {
                                                 $nameBatTu = $day['day_score']['tu']['details']['data']['name'];
@@ -261,173 +286,345 @@
                                             $supportFactors = array_slice(array_unique($supportFactors), 0, 4);
                                             $supportCount = count($supportFactors);
                                         @endphp
+                                                    @if ($supportCount > 0)
+                                                        <ul class="list-unstyled mb-0">
+                                                            @foreach ($supportFactors as $factor)
+                                                                <li class="d-flex align-items-center mb-1">
+                                                                    <span class="small">{{ $factor }}</span>
+                                                                </li>
+                                                            @endforeach
+                                                        </ul>
+                                                    @else
+                                                        <span class="text-warning small"
+                                                            style="color: #2254AB !important">
+                                                            <i class="bi bi-exclamation-triangle-fill"></i> Không có
+                                                            yếu
+                                                            tố hỗ trợ
+                                                        </span>
+                                                    @endif
 
-                                        @if ($supportCount > 0)
-                                            <ul class="list-unstyled mb-0">
-                                                @foreach ($supportFactors as $factor)
-                                                    <li class="d-flex align-items-center mb-1">
-                                                        <span class="small">{{ $factor }}</span>
-                                                    </li>
-                                                @endforeach
-                                            </ul>
-                                        @else
-                                            <span class="text-warning small" style="color: #2254AB !important">
-                                                <i class="bi bi-exclamation-triangle-fill"></i> Không có
-                                                yếu
-                                                tố hỗ trợ đặc biệt
-                                            </span>
-                                        @endif
-                                        <!-- Score hiển thị tròn cho mobile -->
-                                        <div class="score-circle-mobile"
-                                            style="background-color: white; border: 1px solid #2254AB">
-                                            {{ round($score) }}%
-                                        </div>
-                                    </td>
-                                    <td class="text-center score-battery-pc">
-                                        <div class=" d-flex justify-content-center align-items-center">
-                                            <div class="battery">
-                                                <div class="battery-body" style="border:1px solid {{ $border }}">
-                                                    <div class="battery-fill"
-                                                        style="width: {{ round($score) }}%; background-color: {{ $bgColor }}; ">
+                                                    <!-- Score hiển thị tròn cho mobile -->
+                                                    <div class="score-circle-mobile"
+                                                        style="background-color: white; border: 1px solid #2254AB">
+                                                        {{ round($score) }}%
                                                     </div>
-                                                    <div class="battery-label"> {{ round($score) }}%</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                                                </td>
+                                                <td class="text-center score-battery-pc">
 
-                    <!-- Nút xem thêm -->
-                    @if (count($allDays) > 10)
-                        <div class="text-center mt-3">
-                            <button type="button" class="btn btn-outline-primary load-more-btn" data-year="all"
-                                data-loaded="10" data-total="{{ count($allDays) }}">
-                                Xem thêm
-                            </button>
-                        </div>
-                    @endif
+                                                    <div class=" d-flex justify-content-center align-items-center">
+                                                        <div class="battery">
+                                                            <div class="battery-body"
+                                                                style="border:1px solid {{ $border }}">
+                                                                <div class="battery-fill"
+                                                                    style="width: {{ round($score) }}%; background-color: {{ $bgColor }}; ">
+                                                                </div>
+                                                                <div class="battery-label"> {{ round($score) }}%</div>
+                                                            </div>
 
-                </div>
-                <div class="card-body box1-con-year pe-1 ps-1">
-                    <div class="text-primary mb-2  text-dark d-flex align-items-center p-3"
-                        style="border: 1px solid rgb(173, 173, 173);border-radius: 10px">
-                        ⚠️ Chú ý: Đây là các thông tin xem mang tính chất tham khảo, không thay thế cho các
-                        tư vấn
-                        chuyên môn. Người dùng tự chịu trách nhiệm với mọi quyết định cá nhân dựa trên thông
-                        tin
-                        tham khảo tại Phong Lịch.
+                                                        </div>
+                                                    </div>
+                                                </td>
+
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+
+                                <!-- Nút xem thêm -->
+                                @if (count($allDays) > 10)
+                                    <div class="text-center mt-3">
+                                        <button type="button" class="btn btn-outline-primary load-more-btn"
+                                            data-year="all" data-loaded="10"
+                                            data-total="{{ count($allDays) }}">
+                                            Xem thêm
+                                        </button>
+                                    </div>
+                                @endif
+                                 <div class="card-body box1-con-year pe-1 ps-1">
+                                <div class="text-primary mb-2  text-dark d-flex align-items-center p-3" style="border: 1px solid rgb(173, 173, 173);border-radius: 10px">
+                                    ⚠️ Chú ý: Đây là các thông tin xem mang tính chất tham khảo, không thay thế cho các
+                                    tư vấn
+                                    chuyên môn. Người dùng tự chịu trách nhiệm với mọi quyết định cá nhân dựa trên thông
+                                    tin
+                                    tham khảo tại Phong Lịch.
+                                </div>
+
+                            </div>
+                            </div>
+                        @else
+                            <p class="text-muted text-center py-4">
+                                Không có ngày nào trong khoảng thời gian đã chọn.
+                            </p>
+                        @endif
                     </div>
                 </div>
-            @else
-                <p class="text-muted text-center py-4">
-                    Không có ngày nào trong khoảng thời gian đã chọn phù hợp để dời bàn thờ.
-                </p>
-            @endif
         </div>
-    </div>
-</div>
+    @endif
 
-<!-- Filter Modal/Dropdown - Global -->
-<div id="tabooFilterModal" class="taboo-filter-modal d-none">
-    <div class="taboo-filter-header">
-        <h6 class="mb-0">Lọc ngày kỵ</h6>
-        <button type="button" id="closeFilterModal" class="btn-close-filter">
-            <i class="bi bi-x"></i>
-        </button>
-    </div>
 
-    <div class="taboo-filter-body">
-        <!-- Categories -->
-        <div class="filter-section">
-            <!-- Quick Actions -->
-            <div class="filter-quick-actions">
-                <button type="button" id="selectCommon" class="btn-quick-action">Phổ biến</button>
-                <button type="button" id="selectAll" class="btn-quick-action">Tất cả</button>
 
-            </div>
+    <!-- Filter Modal/Dropdown - Global -->
+    <div id="tabooFilterModal" class="taboo-filter-modal d-none">
+        <div class="taboo-filter-header">
+            <h6 class="mb-0">Lọc ngày kỵ</h6>
+            <button type="button" id="closeFilterModal" class="btn-close-filter">
+                <i class="bi bi-x"></i>
+            </button>
+        </div>
 
-            <div class="filter-options">
-                <label class="filter-option">
-                    <input type="checkbox" class="taboo-checkbox" value="Tam Nương" id="taboo1">
-                    <span class="checkmark"></span>
-                    <span class="option-text">Tam Nương</span>
-                </label>
+        <div class="taboo-filter-body">
+            <!-- Categories -->
+            <div class="filter-section">
+                <!-- Quick Actions -->
+                <div class="filter-quick-actions">
+                    <button type="button" id="selectCommon" class="btn-quick-action">Phổ biến</button>
+                    <button type="button" id="selectAll" class="btn-quick-action">Tất cả</button>
 
-                <label class="filter-option">
-                    <input type="checkbox" class="taboo-checkbox" value="Nguyệt Kỵ" id="taboo2">
-                    <span class="checkmark"></span>
-                    <span class="option-text">Nguyệt Kỵ</span>
-                </label>
+                </div>
 
-                <label class="filter-option">
-                    <input type="checkbox" class="taboo-checkbox" value="Nguyệt Tận" id="taboo3">
-                    <span class="checkmark"></span>
-                    <span class="option-text">Nguyệt Tận</span>
-                </label>
+                <div class="filter-options">
+                    <label class="filter-option">
+                        <input type="checkbox" class="taboo-checkbox" value="Tam Nương" id="taboo1">
+                        <span class="checkmark"></span>
+                        <span class="option-text">Tam Nương</span>
+                    </label>
 
-                <label class="filter-option">
-                    <input type="checkbox" class="taboo-checkbox" value="Dương Công Kỵ Nhật" id="taboo4">
-                    <span class="checkmark"></span>
-                    <span class="option-text">Dương Công Kỵ Nhật</span>
-                </label>
+                    <label class="filter-option">
+                        <input type="checkbox" class="taboo-checkbox" value="Nguyệt Kỵ" id="taboo2">
+                        <span class="checkmark"></span>
+                        <span class="option-text">Nguyệt Kỵ</span>
+                    </label>
 
-                <label class="filter-option">
-                    <input type="checkbox" class="taboo-checkbox" value="Sát Chủ Âm" id="taboo5">
-                    <span class="checkmark"></span>
-                    <span class="option-text">Sát Chủ Âm</span>
-                </label>
+                    <label class="filter-option">
+                        <input type="checkbox" class="taboo-checkbox" value="Nguyệt Tận" id="taboo3">
+                        <span class="checkmark"></span>
+                        <span class="option-text">Nguyệt Tận</span>
+                    </label>
 
-                <label class="filter-option">
-                    <input type="checkbox" class="taboo-checkbox" value="Sát Chủ Dương" id="taboo6">
-                    <span class="checkmark"></span>
-                    <span class="option-text">Sát Chủ Dương</span>
-                </label>
+                    <label class="filter-option">
+                        <input type="checkbox" class="taboo-checkbox" value="Dương Công Kỵ Nhật" id="taboo4">
+                        <span class="checkmark"></span>
+                        <span class="option-text">Dương Công Kỵ Nhật</span>
+                    </label>
 
-                <label class="filter-option">
-                    <input type="checkbox" class="taboo-checkbox" value="Kim Thần Thất Sát" id="taboo7">
-                    <span class="checkmark"></span>
-                    <span class="option-text">Kim Thần Thất Sát</span>
-                </label>
+                    <label class="filter-option">
+                        <input type="checkbox" class="taboo-checkbox" value="Sát Chủ Âm" id="taboo5">
+                        <span class="checkmark"></span>
+                        <span class="option-text">Sát Chủ Âm</span>
+                    </label>
 
-                <label class="filter-option">
-                    <input type="checkbox" class="taboo-checkbox" value="Trùng Phục" id="taboo8">
-                    <span class="checkmark"></span>
-                    <span class="option-text">Trùng Phục</span>
-                </label>
+                    <label class="filter-option">
+                        <input type="checkbox" class="taboo-checkbox" value="Sát Chủ Dương" id="taboo6">
+                        <span class="checkmark"></span>
+                        <span class="option-text">Sát Chủ Dương</span>
+                    </label>
 
-                <label class="filter-option">
-                    <input type="checkbox" class="taboo-checkbox" value="Thụ Tử" id="taboo9">
-                    <span class="checkmark"></span>
-                    <span class="option-text">Thụ Tử</span>
-                </label>
+                    <label class="filter-option">
+                        <input type="checkbox" class="taboo-checkbox" value="Kim Thần Thất Sát" id="taboo7">
+                        <span class="checkmark"></span>
+                        <span class="option-text">Kim Thần Thất Sát</span>
+                    </label>
 
-                <label class="filter-option">
-                    <input type="checkbox" class="taboo-checkbox" value="Lục xung" id="taboo10">
-                    <span class="checkmark"></span>
-                    <span class="option-text">Lục Xung</span>
-                </label>
+                    <label class="filter-option">
+                        <input type="checkbox" class="taboo-checkbox" value="Trùng Phục" id="taboo8">
+                        <span class="checkmark"></span>
+                        <span class="option-text">Trùng Phục</span>
+                    </label>
+
+                    <label class="filter-option">
+                        <input type="checkbox" class="taboo-checkbox" value="Thụ Tử" id="taboo9">
+                        <span class="checkmark"></span>
+                        <span class="option-text">Thụ Tử</span>
+                    </label>
+
+                    <label class="filter-option">
+                        <input type="checkbox" class="taboo-checkbox" value="Lục xung" id="taboo10">
+                        <span class="checkmark"></span>
+                        <span class="option-text">Lục Xung</span>
+                    </label>
+                </div>
             </div>
         </div>
+
+        <div class="taboo-filter-footer">
+            <button type="button" id="clearTabooFilter" class="btn-cancel">Đặt lại</button>
+            <button type="button" id="applyTabooFilter" class="btn-apply">Áp dụng</button>
+        </div>
     </div>
 
-    <div class="taboo-filter-footer">
-        <button type="button" id="clearTabooFilter" class="btn-cancel">Đặt lại</button>
-        <button type="button"id="applyTabooFilter" class="btn-apply">Áp dụng</button>
-    </div>
+    <!-- Backdrop -->
+    <div id="tabooFilterBackdrop" class="taboo-filter-backdrop d-none"></div>
 </div>
 
-<!-- Backdrop -->
-<div id="tabooFilterBackdrop" class="taboo-filter-backdrop d-none"></div>
+<style>
+.pagination-hidden {
+    display: none;
+}
 
-@include('components.taboo-filter-script')
+/* Khi filter active, hiển thị tất cả rows để filter có thể truy cập */
+.filter-active .pagination-hidden {
+    display: table-row !important;
+}
+
+/* Class để ẩn rows bị filter */
+.filtered-out {
+    display: none !important;
+}
+</style>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Expose user's 'chi' to global scope
-        window.userChi = '{{ explode(' ', $birthdateInfo['can_chi_nam'] ?? '')[1] ?? '' }}';
+        // Define sorting functions first
+        function getScoreFromRow(row) {
+            // Try to find score in battery element
+            const battery = row.querySelector('.battery-label');
+            if (battery) {
+                return parseInt(battery.textContent.replace('%', '')) || 0;
+            }
+
+            // Try to find score in other score elements
+            const scoreElement = row.querySelector('.diem-so, .score');
+            if (scoreElement) {
+                return parseInt(scoreElement.textContent.replace(/[^\d]/g, '')) || 0;
+            }
+
+            // Try to find score in any cell containing numbers
+            const cells = row.querySelectorAll('td');
+            for (let cell of cells) {
+                const text = cell.textContent.trim();
+                const match = text.match(/(\d+)/);
+                if (match) {
+                    return parseInt(match[1]) || 0;
+                }
+            }
+
+            return 0;
+        }
+
+        function applySortingToTable(sortValue, year = null) {
+          
+
+            let table = null;
+            // For single table structure
+            table = document.querySelector('#table-all tbody') ||
+                document.querySelector('#bang-chi-tiet table tbody');
+
+            // Method 2: Any table in results container
+            if (!table) {
+                const resultsContainer = document.querySelector('.--detail-success');
+                if (resultsContainer) {
+                    table = resultsContainer.querySelector('table tbody');
+                }
+            }
+
+            if (!table) {
+              
+                return;
+            }
+
+            applySortToSingleTable(table, sortValue);
+        }
+
+        function applySortToSingleTable(table, sortValue) {
+            const rows = Array.from(table.querySelectorAll('tr'));
+
+            rows.sort((a, b) => {
+                if (sortValue === 'date_asc' || sortValue === 'date_desc') {
+                    // Sort by date
+                    const dateA = getDateFromRow(a);
+                    const dateB = getDateFromRow(b);
+                    return sortValue === 'date_asc' ? dateA - dateB : dateB - dateA;
+                } else {
+                    // Sort by score - default is desc (high to low)
+                    const scoreA = getScoreFromRow(a);
+                    const scoreB = getScoreFromRow(b);
+                    return sortValue === 'asc' ? scoreA - scoreB : scoreB - scoreA;
+                }
+            });
+
+            // Clear and append sorted rows
+            table.innerHTML = '';
+            rows.forEach(row => table.appendChild(row));
+
+            // Maintain current pagination instead of resetting to 10
+            maintainCurrentPagination(table);
+        }
+
+        function getDateFromRow(row) {
+            const dateCell = row.querySelector('td:first-child a');
+            if (dateCell) {
+                const href = dateCell.getAttribute('href');
+                const dateMatch = href.match(/\/(\d{4}-\d{2}-\d{2})/);
+                if (dateMatch) {
+                    return new Date(dateMatch[1]);
+                }
+            }
+            return new Date();
+        }
+
+        function maintainCurrentPagination(table) {
+            // Check for active filter for specific year tab and global
+            let isFilterActive = false;
+
+            // Check global filter status
+            const globalFilterStatus = document.getElementById('filterStatus-all');
+            if (globalFilterStatus && !globalFilterStatus.classList.contains('d-none')) {
+                isFilterActive = true;
+            }
+
+            // If filter is active, don't interfere with pagination
+            // Because taboo component is already managing it
+            if (isFilterActive) {
+                return;
+            }
+
+            const loadMoreBtn = document.querySelector('.load-more-btn');
+            let currentLoaded = 10; // Default if no button
+
+            // Get current number being displayed
+            if (loadMoreBtn) {
+                currentLoaded = parseInt(loadMoreBtn.dataset.loaded) || 10;
+            }
+
+            // Count TOTAL filtered rows BEFORE changing pagination
+            const allRows = table.querySelectorAll('tr:not(.empty-filter-row)');
+            const totalFilteredRows = parseInt(loadMoreBtn?.getAttribute('data-total')) || Array
+                .from(allRows).filter(row => {
+                    return row.style.display !== 'none';
+                }).length;
+
+            // Show according to current number, hide the rest
+            allRows.forEach((row, index) => {
+                if (index >= currentLoaded) {
+                    row.style.display = 'none';
+                    row.dataset.visible = 'false';
+                } else {
+                    row.style.display = '';
+                    row.dataset.visible = 'true';
+                }
+            });
+
+            // Update load more button with total filtered rows
+            if (loadMoreBtn) {
+                loadMoreBtn.dataset.loaded = currentLoaded.toString();
+                loadMoreBtn.dataset.total = totalFilteredRows.toString();
+                const remaining = totalFilteredRows - currentLoaded;
+
+                if (remaining > 0) {
+                    loadMoreBtn.style.display = '';
+                    loadMoreBtn.innerHTML = 'Xem thêm';
+                } else {
+                    loadMoreBtn.style.display = 'none';
+                }
+            }
+        }
+
+        // Make functions globally available
+        window.applySortingToTable = applySortingToTable;
+        window.getScoreFromRow = getScoreFromRow;
+        window.applySortToSingleTable = applySortToSingleTable;
+        window.getDateFromRow = getDateFromRow;
+        window.maintainCurrentPagination = maintainCurrentPagination;
 
         // Khởi tạo taboo filter với dữ liệu từ backend - combine all days
         const resultsByYear = {
@@ -436,19 +633,193 @@
             }
         };
 
-        // Khởi tạo filter sau khi DOM loaded
+        // Đảm bảo tất cả rows đều có trong DOM để taboo filter có thể truy cập
         setTimeout(() => {
-            if (typeof initTabooFilter === 'function') {
-            
-                const allTbodies = document.querySelectorAll('tbody');
-                allTbodies.forEach((tbody, index) => {
+            if (typeof window.initTabooFilter === 'function') {
 
-                    const rowsWithTaboo = tbody.querySelectorAll('tr[data-taboo-days]');
+                // Override updateTable function để đảm bảo filter hoạt động với tất cả rows
+                const originalInitTabooFilter = window.initTabooFilter;
+                window.initTabooFilter = function(resultsByYear) {
+                    // Gọi hàm gốc
+                    originalInitTabooFilter(resultsByYear);
 
-                });
-                initTabooFilter(resultsByYear);
+                    // Override applyTabooFilter để đảm bảo filter hoạt động đúng
+                    setTimeout(() => {
+                        const applyBtn = document.getElementById('applyTabooFilter');
+                        if (applyBtn && applyBtn._tabooHandler) {
+                            const originalHandler = applyBtn._tabooHandler;
+                            applyBtn._tabooHandler = function() {
+                                const selectedTaboos = Array.from(document.querySelectorAll('.taboo-checkbox:checked')).map(cb => cb.value);
+                                window.currentSelectedTaboos = selectedTaboos;
+
+                                if (selectedTaboos.length > 0) {
+                                    // Add filter-active class để CSS có thể hoạt động - QUAN TRỌNG!
+                                    const table = document.querySelector('.table');
+                                    if (table) {
+                                        table.classList.add('filter-active');
+                                    }
+
+                                    // Lấy tất cả rows bao gồm hidden ones
+                                    const tbody = document.querySelector('.table-body-all');
+                                    if (tbody) {
+                                        const allRows = tbody.querySelectorAll('tr[data-taboo-days]');
+                                      
+
+                                        // BƯỚC 1: Xóa tất cả classes cũ và reset
+                                        allRows.forEach(row => {
+                                            row.classList.remove('filtered-out', 'pagination-hidden');
+                                            row.style.removeProperty('display');
+                                        });
+
+                                        // BƯỚC 2: Apply filter trên TẤT CẢ rows
+                                        let unfilteredRows = [];
+                                        allRows.forEach((row, index) => {
+                                            const tabooData = row.getAttribute('data-taboo-days');
+                                            let shouldHide = false;
+
+                                            if (tabooData && tabooData.trim()) {
+                                                const rowTaboos = tabooData.split(',').map(t => t.trim()).filter(t => t);
+                                                shouldHide = selectedTaboos.some(selectedTaboo => rowTaboos.includes(selectedTaboo));
+
+                                               
+                                            }
+
+                                            if (shouldHide) {
+                                                row.classList.add('filtered-out');
+                                            } else {
+                                                unfilteredRows.push(row);
+                                            }
+                                        });
+
+                                        // BƯỚC 3: Apply pagination CHỈ trên các rows không bị filter
+                                      
+
+                                        unfilteredRows.forEach((row, unfilteredIndex) => {
+                                            if (unfilteredIndex >= 10) {
+                                                row.classList.add('pagination-hidden');
+                                            }
+                                        });
+
+                                        // BƯỚC 4: Update pagination button
+                                        const loadMoreBtn = document.querySelector('.load-more-btn');
+                                        if (loadMoreBtn) {
+                                            const visibleUnfilteredCount = Math.min(unfilteredRows.length, 10);
+                                            const totalUnfilteredCount = unfilteredRows.length;
+
+                                            loadMoreBtn.dataset.loaded = visibleUnfilteredCount;
+                                            loadMoreBtn.dataset.total = totalUnfilteredCount;
+
+                                            if (totalUnfilteredCount > 10) {
+                                                loadMoreBtn.style.display = '';
+                                                loadMoreBtn.innerHTML = 'Xem thêm';
+                                            } else {
+                                                loadMoreBtn.style.display = 'none';
+                                            }
+
+                                           
+                                        }
+                                    }
+                                }
+
+                                // Show filter status
+                                const filterStatus = document.getElementById('filterStatus-all');
+                                const filterStatusText = document.getElementById('filterStatusText-all');
+                                if (filterStatus && filterStatusText && selectedTaboos.length > 0) {
+                                    filterStatus.classList.remove('d-none');
+                                    filterStatusText.textContent = `Đã lọc ${selectedTaboos.join(', ')}.`;
+                                }
+
+                                // Close modal
+                                const modal = document.getElementById('tabooFilterModal');
+                                const backdrop = document.getElementById('tabooFilterBackdrop');
+                                if (modal) modal.classList.add('d-none');
+                                if (backdrop) backdrop.classList.add('d-none');
+                            };
+                        }
+
+                        // Override clearTabooFilter
+                        const clearBtn = document.getElementById('clearTabooFilter');
+                        if (clearBtn && clearBtn._tabooHandler) {
+                            clearBtn._tabooHandler = function() {
+                                window.currentSelectedTaboos = [];
+                                document.querySelectorAll('.taboo-checkbox').forEach(cb => cb.checked = false);
+
+                                // Remove filter-active class
+                                const table = document.querySelector('.table');
+                                if (table) {
+                                    table.classList.remove('filter-active');
+                                }
+
+                                // Reset all rows to normal pagination
+                                const tbody = document.querySelector('.table-body-all');
+                                if (tbody) {
+                                    const allRows = tbody.querySelectorAll('tr[data-taboo-days]');
+                                 
+
+                                    // BƯỚC 1: Reset tất cả về trạng thái ban đầu
+                                    allRows.forEach((row, index) => {
+                                        row.style.removeProperty('display');
+                                        row.classList.remove('filtered-out');
+
+                                        if (index < 10) {
+                                            row.classList.remove('pagination-hidden');
+                                        } else {
+                                            row.classList.add('pagination-hidden');
+                                        }
+                                    });
+
+                                    // BƯỚC 2: Reset pagination button
+                                    const loadMoreBtn = document.querySelector('.load-more-btn');
+                                    if (loadMoreBtn) {
+                                        loadMoreBtn.dataset.loaded = '10';
+                                        loadMoreBtn.dataset.total = allRows.length.toString();
+
+                                        if (allRows.length > 10) {
+                                            loadMoreBtn.style.display = '';
+                                            loadMoreBtn.innerHTML = 'Xem thêm';
+                                        } else {
+                                            loadMoreBtn.style.display = 'none';
+                                        }
+
+                                    }
+                                }
+
+                                // Hide filter status
+                                const filterStatus = document.getElementById('filterStatus-all');
+                                if (filterStatus) {
+                                    filterStatus.classList.add('d-none');
+                                }
+
+                                // Close modal
+                                const modal = document.getElementById('tabooFilterModal');
+                                const backdrop = document.getElementById('tabooFilterBackdrop');
+                                if (modal) modal.classList.add('d-none');
+                                if (backdrop) backdrop.classList.add('d-none');
+                            };
+                        }
+                    }, 100);
+                };
+
+                window.initTabooFilter(resultsByYear);
+               
+            } else {
+                console.error('initTabooFilter function not found');
             }
-        }, 300);
+        }, 500);
 
+        // Add sorting event handler
+        setTimeout(() => {
+            const sortDropdown = document.querySelector('select[name="sort"]');
+            if (sortDropdown) {
+                sortDropdown.addEventListener('change', function() {
+                    const sortValue = this.value;
+                  
+                    applySortingToTable(sortValue, 'all');
+                });
+            }
+        }, 1000);
     });
 </script>
+
+@include('components.taboo-filter-script')
+@include('components.next-year-button-handler')

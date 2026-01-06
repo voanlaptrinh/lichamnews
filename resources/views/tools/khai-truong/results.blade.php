@@ -11,9 +11,11 @@
             }
         }
 
-        // Sort all days by date
+        // Sort all days by score (descending by default)
         usort($allDays, function ($a, $b) {
-            return $a['date'] <=> $b['date'];
+            $scoreA = $a['day_score']['percentage'] ?? 0;
+            $scoreB = $b['day_score']['percentage'] ?? 0;
+            return $scoreB <=> $scoreA; // Điểm cao xuống thấp
         });
     @endphp
 
@@ -493,23 +495,18 @@
         // Khởi tạo filter sau khi DOM loaded
         setTimeout(() => {
             if (typeof initTabooFilter === 'function') {
-                console.log('Initializing taboo filter for khai-truong...');
                 const filterButton = document.querySelector('.taboo-filter-btn');
                 const modal = document.getElementById('tabooFilterModal');
                 const allTbodies = document.querySelectorAll('tbody');
 
-                console.log('Filter button found:', !!filterButton);
-                console.log('Modal found:', !!modal);
 
                 allTbodies.forEach((tbody, index) => {
                     const rowsWithTaboo = tbody.querySelectorAll('tr[data-taboo-days]');
-                    console.log(
                         `Found ${rowsWithTaboo.length} rows with taboo data in tbody ${index}`
                         );
                 });
 
                 initTabooFilter(resultsByYear);
-                console.log('initTabooFilter called successfully for khai-truong');
             } else {
                 console.error('initTabooFilter function not found');
             }

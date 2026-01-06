@@ -902,7 +902,6 @@
                         loadMoreBtn.dataset.total = totalFilteredRows.toString();
                         const remaining = totalFilteredRows - currentLoaded;
 
-                        console.log(`Maintaining pagination: ${currentLoaded} out of ${totalFilteredRows} filtered rows (${allRows.length} total)`);
 
                         if (remaining > 0) {
                             loadMoreBtn.style.display = '';

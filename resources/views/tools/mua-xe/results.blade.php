@@ -15,9 +15,11 @@
             }
         }
 
-        // Sort all days by date
+        // Sort all days by score (descending by default)
         usort($allDays, function ($a, $b) {
-            return $a['date'] <=> $b['date'];
+            $scoreA = $a['day_score']['percentage'] ?? 0;
+            $scoreB = $b['day_score']['percentage'] ?? 0;
+            return $scoreB <=> $scoreA; // Điểm cao xuống thấp
         });
     @endphp
 
@@ -137,50 +139,53 @@
                                                 $border = '#10B981';
                                                 $text_box = '#10B981';
                                             }
-                                            // Collect taboo names from day score
-                                            $tabooNames = [];
+                                            // Lấy taboo days từ issues - tương thích với xuất hành
+                                            $tabooTypes = [];
 
-                                            // Check for checkTabooDays structure
+                                            // Kiểm tra cấu trúc issues trong day_score
                                             if (
+                                                isset($day['day_score']['issues']) &&
+                                                is_array($day['day_score']['issues'])
+                                            ) {
+                                                foreach ($day['day_score']['issues'] as $issue) {
+                                                    if (
+                                                        isset($issue['source']) &&
+                                                        $issue['source'] === 'Taboo' &&
+                                                        isset($issue['details']['tabooName'])
+                                                    ) {
+                                                        $tabooTypes[] = $issue['details']['tabooName'];
+                                                    }
+                                                }
+                                            }
+
+                                            // Check for checkTabooDays structure (fallback)
+                                            if (
+                                                empty($tabooTypes) &&
                                                 isset($day['day_score']['checkTabooDays']['issues']) &&
                                                 is_array($day['day_score']['checkTabooDays']['issues'])
                                             ) {
                                                 foreach ($day['day_score']['checkTabooDays']['issues'] as $issue) {
                                                     if (isset($issue['details']['tabooName'])) {
-                                                        $tabooNames[] = $issue['details']['tabooName'];
-                                                    }
-                                                }
-                                            }
-
-                                            // Check for issues structure (alternative path)
-                                            if (
-                                                empty($tabooNames) &&
-                                                isset($day['day_score']['issues']) &&
-                                                is_array($day['day_score']['issues'])
-                                            ) {
-                                                foreach ($day['day_score']['issues'] as $issue) {
-                                                    if (isset($issue['details']['tabooName'])) {
-                                                        $tabooNames[] = $issue['details']['tabooName'];
+                                                        $tabooTypes[] = $issue['details']['tabooName'];
                                                     }
                                                 }
                                             }
 
                                             // Check for taboo_details.taboo_types as fallback
                                             if (
-                                                empty($tabooNames) &&
+                                                empty($tabooTypes) &&
                                                 isset($day['day_score']['taboo_details']['taboo_types']) &&
                                                 is_array($day['day_score']['taboo_details']['taboo_types'])
                                             ) {
-                                                $tabooNames = $day['day_score']['taboo_details']['taboo_types'];
+                                                $tabooTypes = $day['day_score']['taboo_details']['taboo_types'];
                                             }
 
                                             // Remove duplicates
-                                            $tabooNames = array_unique($tabooNames);
+                                            $tabooTypes = array_unique($tabooTypes);
                                         @endphp
-                                        <tr class="table-row-all" data-index="{{ $index }}"
-                                            style="{{ $index >= 10 ? 'display: none;' : '' }}"
+                                        <tr class="table-row-all {{ $index >= 10 ? 'pagination-hidden' : '' }}" data-index="{{ $index }}"
                                             data-visible="{{ $index < 10 ? 'true' : 'false' }}"
-                                            data-taboo-days="{{ implode(',', $tabooNames) }}">
+                                            data-taboo-days="{{ implode(',', $tabooTypes) }}">
                                             <td style="text-align: start">
                                                 <a
                                                     href="{{ route('mua-xe.details', [
@@ -453,6 +458,17 @@
 <!-- Backdrop -->
 <div id="tabooFilterBackdrop" class="taboo-filter-backdrop d-none"></div>
 
+<style>
+.pagination-hidden {
+    display: none;
+}
+
+/* Khi filter active, hiển thị tất cả rows để filter có thể truy cập */
+.filter-active .pagination-hidden {
+    display: table-row;
+}
+</style>
+
 @include('components.taboo-filter-script')
 
 <script>
@@ -464,13 +480,25 @@
             }
         };
 
-        // Khởi tạo filter sau khi DOM loaded
+        // Đảm bảo tất cả rows đều có trong DOM để taboo filter có thể truy cập
         setTimeout(() => {
-            if (typeof initTabooFilter === 'function') {
-                console.log('Initializing taboo filter for mua-xe...');
-                initTabooFilter(resultsByYear);
+            if (typeof window.initTabooFilter === 'function') {
+
+                const filterButton = document.querySelector('.taboo-filter-btn');
+                const modal = document.getElementById('tabooFilterModal');
+                const allTbodies = document.querySelectorAll('tbody');
+
+
+                allTbodies.forEach((tbody, index) => {
+                    const rowsWithTaboo = tbody.querySelectorAll('tr[data-taboo-days]');
+                    const totalRows = tbody.querySelectorAll('tr');
+                });
+
+                window.initTabooFilter(resultsByYear);
+            } else {
+                console.error('initTabooFilter function not found');
             }
-        }, 300);
+        }, 500);
 
         // Không cần cập nhật links vì filter đã được lưu trong localStorage
     });

@@ -778,8 +778,17 @@
                                             days: allDays
                                         }
                                     };
+
+
+                                    // Đảm bảo tất cả rows trong DOM đều có data-taboo-days
+                                    const allRows = document.querySelectorAll('tr[data-taboo-days]');
+
                                     window.initTabooFilter(combinedData);
                                 }
+
+                                // Áp dụng sắp xếp mặc định (điểm từ cao xuống thấp)
+                                applySortingToTable('desc');
+
                                 initPagination();
                                 setupContainerEventDelegation();
                             }, 200);
@@ -830,7 +839,6 @@
             }
 
             function applySortingToTable(sortValue, year = null) {
-                console.log('applySortingToTable called with:', sortValue, 'year:', year);
 
                 let table = null;
                 // For single table structure
@@ -846,21 +854,19 @@
                 }
 
                 if (!table) {
-                    console.log('No table found for sorting');
                     return;
                 }
 
                 const rows = Array.from(table.querySelectorAll('tr'));
-                console.log(`Found ${rows.length} rows to sort`);
 
                 rows.sort((a, b) => {
                     if (sortValue === 'date_asc' || sortValue === 'date_desc') {
                         const dateA = getDateFromRow(a);
                         const dateB = getDateFromRow(b);
                         const result = sortValue === 'date_asc' ? dateA - dateB : dateB - dateA;
-                        console.log(`Sorting ${dateA} vs ${dateB} = ${result}`);
                         return result;
                     } else {
+                        // Sắp xếp theo điểm - mặc định là desc (điểm cao xuống thấp)
                         const scoreA = getScoreFromRow(a);
                         const scoreB = getScoreFromRow(b);
                         return sortValue === 'asc' ? scoreA - scoreB : scoreB - scoreA;
@@ -879,7 +885,6 @@
             const resultContainer = document.querySelector('.--detail-success');
             resultContainer.addEventListener('change', function(event) {
                 if (event.target.matches('[name="sort"]')) {
-                    console.log('Sort changed to:', event.target.value);
 
                     // Find the current active year for multi-year support
                     const activeTab = document.querySelector('.tab-pane.active');
@@ -887,7 +892,6 @@
                         const yearMatch = activeTab.id.match(/year-(\d+)/);
                         if (yearMatch) {
                             const currentYear = yearMatch[1];
-                            console.log('Applying sort to year:', currentYear);
                             applySortingToTable(event.target.value, currentYear);
                         } else {
                             applySortingToTable(event.target.value);
@@ -907,23 +911,18 @@
 
             // Setup container-level event delegation for sorting
             function setupContainerEventDelegation() {
-                console.log('Setting up container event delegation for mua-xe');
                 const resultContainer = document.querySelector('.--detail-success');
                 if (resultContainer) {
-                    console.log('Result container found, setting up event delegation');
                     // Remove existing listener to prevent duplicates
                     resultContainer.removeEventListener('change', handleContainerChange);
                     // Add new listener
                     resultContainer.addEventListener('change', handleContainerChange);
-                    console.log('Container event delegation setup complete');
                 } else {
-                    console.log('Result container not found');
                 }
             }
 
             function handleContainerChange(event) {
                 if (event.target.name === 'sort') {
-                    console.log('Sort dropdown changed to:', event.target.value);
                     event.preventDefault();
                     event.stopPropagation();
                     // For single table structure - use 'all' year
@@ -950,14 +949,14 @@
                         const total = parseInt(btn.getAttribute('data-total'));
                         const loadMore = Math.min(10, total - currentLoaded);
 
-                        // Show next 10 items
+                        // Show next 10 items using class instead of style
                         const table = document.querySelector('#table-all tbody') ||
                                      document.querySelector('#bang-chi-tiet table tbody');
                         if (table) {
                             const allRows = table.querySelectorAll('.table-row-all');
                             for (let i = currentLoaded; i < currentLoaded + loadMore; i++) {
                                 if (allRows[i]) {
-                                    allRows[i].style.display = '';
+                                    allRows[i].classList.remove('pagination-hidden');
                                     allRows[i].setAttribute('data-visible', 'true');
                                 }
                             }
@@ -968,9 +967,7 @@
                             // Update button text
                             const remaining = total - newLoaded;
                             if (remaining > 0) {
-                                const nextLoad = Math.min(10, remaining);
-                                btn.innerHTML =
-                                    `Xem thêm`;
+                                btn.innerHTML = `Xem thêm`;
                             } else {
                                 btn.style.display = 'none';
                             }
@@ -986,13 +983,11 @@
                 let dateText = row.querySelector('a[href*="details"] strong');
                 if (dateText) {
                     const text = dateText.textContent;
-                    console.log('Method 1 - Date text found:', text);
                     const match = text.match(/(\d{1,2}\/\d{1,2}\/\d{4})/);
                     if (match) {
                         const dateStr = match[1];
                         const parts = dateStr.split('/');
                         const date = new Date(parts[2], parts[1] - 1, parts[0]);
-                        console.log('Parsed date:', dateStr, '->', date);
                         return date;
                     }
                 }
@@ -1003,11 +998,9 @@
                     const text = strong.textContent;
                     const match = text.match(/(\d{1,2}\/\d{1,2}\/\d{4})/);
                     if (match) {
-                        console.log('Method 2 - Date text found:', text);
                         const dateStr = match[1];
                         const parts = dateStr.split('/');
                         const date = new Date(parts[2], parts[1] - 1, parts[0]);
-                        console.log('Parsed date:', dateStr, '->', date);
                         return date;
                     }
                 }
@@ -1016,15 +1009,12 @@
                 const allText = row.textContent;
                 const match = allText.match(/(\d{1,2}\/\d{1,2}\/\d{4})/);
                 if (match) {
-                    console.log('Method 3 - Date found in row text:', match[1]);
                     const dateStr = match[1];
                     const parts = dateStr.split('/');
                     const date = new Date(parts[2], parts[1] - 1, parts[0]);
-                    console.log('Parsed date:', dateStr, '->', date);
                     return date;
                 }
 
-                console.log('No date found in row:', row.innerHTML.substring(0, 200));
                 return new Date();
             }
 
@@ -1052,42 +1042,34 @@
 
                 const loadMoreBtn = table.closest('.card-body').querySelector('.load-more-btn');
                 if (!loadMoreBtn) {
-                    console.log('No load more button found');
                     return;
                 }
 
                 let currentLoaded = parseInt(loadMoreBtn.dataset.loaded) || 10;
 
-                // Đếm TOTAL filtered rows TRƯỚC khi thay đổi pagination
-                const allRows = table.querySelectorAll('tr:not(.empty-filter-row)');
-                const totalFilteredRows = parseInt(loadMoreBtn.getAttribute('data-total')) || Array.from(allRows)
-                    .filter(row => {
-                        return row.style.display !== 'none';
-                    }).length;
+                // Lấy tất cả rows, bao gồm cả hidden ones
+                const allRows = table.querySelectorAll('tr.table-row-all');
 
-                console.log(
-                    `Maintaining pagination: ${currentLoaded} out of ${totalFilteredRows} filtered rows (${allRows.length} total)`
-                );
+                 
 
-                // Show rows according to current pagination state
+                // Sử dụng class thay vì inline style để control pagination
                 allRows.forEach((row, index) => {
                     if (index >= currentLoaded) {
-                        row.style.display = 'none';
+                        row.classList.add('pagination-hidden');
                         row.setAttribute('data-visible', 'false');
                     } else {
-                        row.style.display = '';
+                        row.classList.remove('pagination-hidden');
                         row.setAttribute('data-visible', 'true');
                     }
                 });
 
-                // Update load more button với total filtered rows
-                const remaining = totalFilteredRows - currentLoaded;
-                if (remaining > 0) {
-                    const nextLoad = Math.min(10, remaining);
-                    loadMoreBtn.innerHTML =
-                        `Xem thêm`;
+                // Update load more button
+                const remaining = allRows.length - currentLoaded;
+                if (remaining > 0 && allRows.length > 10) {
+                    loadMoreBtn.innerHTML = `Xem thêm`;
                     loadMoreBtn.style.display = '';
-                    loadMoreBtn.setAttribute('data-total', totalFilteredRows.toString());
+                    loadMoreBtn.setAttribute('data-total', allRows.length);
+                    loadMoreBtn.setAttribute('data-loaded', currentLoaded);
                 } else {
                     loadMoreBtn.style.display = 'none';
                 }

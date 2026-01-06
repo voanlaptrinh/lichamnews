@@ -883,7 +883,6 @@
             }
 
             function applySortingToTable(sortValue, year) {
-                console.log('applySortingToTable called with:', sortValue, 'year:', year);
 
                 // Tìm tab hiện tại hoặc sử dụng year parameter
                 let activeTab = document.querySelector('.tab-pane.show.active');
@@ -891,26 +890,22 @@
                     activeTab = document.querySelector(`#year-${year}`);
                 }
                 if (!activeTab) {
-                    console.log('No active tab found');
                     return;
                 }
 
                 // Tìm table trong tab hiện tại
                 const table = activeTab.querySelector('#bang-chi-tiet table tbody');
                 if (!table) {
-                    console.log('No table found for sorting in active tab');
                     return;
                 }
 
                 const rows = Array.from(table.querySelectorAll('tr'));
-                console.log(`Found ${rows.length} rows to sort in tab ${activeTab.id}`);
 
                 rows.sort((a, b) => {
                     if (sortValue === 'date_asc' || sortValue === 'date_desc') {
                         const dateA = getDateFromRow(a);
                         const dateB = getDateFromRow(b);
                         const result = sortValue === 'date_asc' ? dateA - dateB : dateB - dateA;
-                        console.log(`Sorting ${dateA} vs ${dateB} = ${result}`);
                         return result;
                     } else {
                         const scoreA = getScoreFromRow(a);
@@ -930,30 +925,22 @@
 
             // Setup container-level event delegation like mua-xe
             function setupContainerEventDelegation() {
-                console.log('Setting up container event delegation');
 
                 const resultContainer = document.querySelector('.--detail-success');
                 if (resultContainer) {
-                    console.log('Result container found, setting up event delegation');
 
                     // Remove any existing listeners first
                     resultContainer.removeEventListener('change', handleContainerChange);
 
                     // Add new listener
                     resultContainer.addEventListener('change', handleContainerChange);
-                    console.log('Container event delegation setup complete');
                 } else {
-                    console.log('Result container not found');
                 }
             }
 
             function handleContainerChange(event) {
-                console.log('Change event detected on:', event.target);
-                console.log('Target name:', event.target.name);
-                console.log('Target value:', event.target.value);
 
                 if (event.target.name === 'sort') {
-                    console.log('Sort dropdown changed to:', event.target.value);
                     event.preventDefault();
                     event.stopPropagation();
 
@@ -981,13 +968,11 @@
                 let dateText = row.querySelector('a[href*="details"] strong');
                 if (dateText) {
                     const text = dateText.textContent;
-                    console.log('Method 1 - Date text found:', text);
                     const match = text.match(/(\d{1,2}\/\d{1,2}\/\d{4})/);
                     if (match) {
                         const dateStr = match[1];
                         const parts = dateStr.split('/');
                         const date = new Date(parts[2], parts[1] - 1, parts[0]);
-                        console.log('Parsed date:', dateStr, '->', date);
                         return date;
                     }
                 }
@@ -998,11 +983,9 @@
                     const text = strong.textContent;
                     const match = text.match(/(\d{1,2}\/\d{1,2}\/\d{4})/);
                     if (match) {
-                        console.log('Method 2 - Date text found:', text);
                         const dateStr = match[1];
                         const parts = dateStr.split('/');
                         const date = new Date(parts[2], parts[1] - 1, parts[0]);
-                        console.log('Parsed date:', dateStr, '->', date);
                         return date;
                     }
                 }
@@ -1011,15 +994,12 @@
                 const allText = row.textContent;
                 const match = allText.match(/(\d{1,2}\/\d{1,2}\/\d{4})/);
                 if (match) {
-                    console.log('Method 3 - Date found in row text:', match[1]);
                     const dateStr = match[1];
                     const parts = dateStr.split('/');
                     const date = new Date(parts[2], parts[1] - 1, parts[0]);
-                    console.log('Parsed date:', dateStr, '->', date);
                     return date;
                 }
 
-                console.log('No date found in row:', row.innerHTML.substring(0, 200));
                 return new Date();
             }
 
@@ -1076,7 +1056,6 @@
 
                 const loadMoreBtn = table.closest('.card-body').querySelector('.load-more-btn');
                 if (!loadMoreBtn) {
-                    console.log('No load more button found');
                     return;
                 }
 
@@ -1089,10 +1068,7 @@
                         return row.style.display !== 'none';
                     }).length;
 
-                console.log(
-                    `Maintaining pagination: ${currentLoaded} out of ${totalFilteredRows} filtered rows (${allRows.length} total)`
-                );
-
+                 
                 // Show rows according to current pagination state
                 allRows.forEach((row, index) => {
                     if (index >= currentLoaded) {

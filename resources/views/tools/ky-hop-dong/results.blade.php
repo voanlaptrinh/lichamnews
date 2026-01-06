@@ -10,9 +10,11 @@
             }
         }
 
-        // Sort all days by date
-        usort($allDays, function($a, $b) {
-            return $a['date'] <=> $b['date'];
+        // Sort all days by score (descending by default)
+        usort($allDays, function ($a, $b) {
+            $scoreA = $a['day_score']['percentage'] ?? 0;
+            $scoreB = $b['day_score']['percentage'] ?? 0;
+            return $scoreB <=> $scoreA; // Điểm cao xuống thấp
         });
     @endphp
 
@@ -139,38 +141,53 @@
                                                     $border = '#10B981';
                                                     $text_box = '#10B981';
                                                 }
-                                                 $tabooNames = [];
+                                                // Lấy taboo days từ issues - tương thích với các tool khác
+                                                $tabooTypes = [];
 
-                                        // Check for checkTabooDays structure
-                                        if (isset($day['day_score']['checkTabooDays']['issues']) && is_array($day['day_score']['checkTabooDays']['issues'])) {
-                                            foreach ($day['day_score']['checkTabooDays']['issues'] as $issue) {
-                                                if (isset($issue['details']['tabooName'])) {
-                                                    $tabooNames[] = $issue['details']['tabooName'];
+                                                // Kiểm tra cấu trúc issues trong day_score
+                                                if (
+                                                    isset($day['day_score']['issues']) &&
+                                                    is_array($day['day_score']['issues'])
+                                                ) {
+                                                    foreach ($day['day_score']['issues'] as $issue) {
+                                                        if (
+                                                            isset($issue['source']) &&
+                                                            $issue['source'] === 'Taboo' &&
+                                                            isset($issue['details']['tabooName'])
+                                                        ) {
+                                                            $tabooTypes[] = $issue['details']['tabooName'];
+                                                        }
+                                                    }
                                                 }
-                                            }
-                                        }
 
-                                        // Check for issues structure (alternative path)
-                                        if (empty($tabooNames) && isset($day['day_score']['issues']) && is_array($day['day_score']['issues'])) {
-                                            foreach ($day['day_score']['issues'] as $issue) {
-                                                if (isset($issue['details']['tabooName'])) {
-                                                    $tabooNames[] = $issue['details']['tabooName'];
+                                                // Check for checkTabooDays structure (fallback)
+                                                if (
+                                                    empty($tabooTypes) &&
+                                                    isset($day['day_score']['checkTabooDays']['issues']) &&
+                                                    is_array($day['day_score']['checkTabooDays']['issues'])
+                                                ) {
+                                                    foreach ($day['day_score']['checkTabooDays']['issues'] as $issue) {
+                                                        if (isset($issue['details']['tabooName'])) {
+                                                            $tabooTypes[] = $issue['details']['tabooName'];
+                                                        }
+                                                    }
                                                 }
-                                            }
-                                        }
 
-                                        // Check for taboo_details.taboo_types as fallback
-                                        if (empty($tabooNames) && isset($day['day_score']['taboo_details']['taboo_types']) && is_array($day['day_score']['taboo_details']['taboo_types'])) {
-                                            $tabooNames = $day['day_score']['taboo_details']['taboo_types'];
-                                        }
+                                                // Check for taboo_details.taboo_types as fallback
+                                                if (
+                                                    empty($tabooTypes) &&
+                                                    isset($day['day_score']['taboo_details']['taboo_types']) &&
+                                                    is_array($day['day_score']['taboo_details']['taboo_types'])
+                                                ) {
+                                                    $tabooTypes = $day['day_score']['taboo_details']['taboo_types'];
+                                                }
 
-                                        // Remove duplicates
-                                        $tabooNames = array_unique($tabooNames);
+                                                // Remove duplicates
+                                                $tabooTypes = array_unique($tabooTypes);
                                             @endphp
-                                            <tr class="table-row-all" data-index="{{ $index }}"
-                                                style="{{ $index >= 10 ? 'display: none;' : '' }}"
+                                            <tr class="table-row-all {{ $index >= 10 ? 'pagination-hidden' : '' }}" data-index="{{ $index }}"
                                                 data-visible="{{ $index < 10 ? 'true' : 'false' }}"
-                                                data-taboo-days="{{ implode(',', $tabooNames) }}">
+                                                data-taboo-days="{{ implode(',', $tabooTypes) }}">
                                                 <td style="text-align: start">
                                                     <a
                                                         href="{{ route('ky-hop-dong.details', [
@@ -453,6 +470,22 @@
     <!-- Backdrop -->
     <div id="tabooFilterBackdrop" class="taboo-filter-backdrop d-none"></div>
 
+<style>
+.pagination-hidden {
+    display: none;
+}
+
+/* Khi filter active, hiển thị tất cả rows để filter có thể truy cập */
+.filter-active .pagination-hidden {
+    display: table-row !important;
+}
+
+/* Class để ẩn rows bị filter */
+.filtered-out {
+    display: none !important;
+}
+</style>
+
 @include('components.taboo-filter-script')
 
 <script>
@@ -467,24 +500,178 @@
             }
         };
 
-        // Khởi tạo filter sau khi DOM loaded
+        // Đảm bảo tất cả rows đều có trong DOM để taboo filter có thể truy cập
         setTimeout(() => {
-            if (typeof initTabooFilter === 'function') {
-                console.log('Initializing taboo filter for ky-hop-dong...');
+            if (typeof window.initTabooFilter === 'function') {
+
                 const filterButton = document.querySelector('.taboo-filter-btn');
                 const modal = document.getElementById('tabooFilterModal');
                 const allTbodies = document.querySelectorAll('tbody');
 
-                console.log('Filter button found:', !!filterButton);
-                console.log('Modal found:', !!modal);
-
                 allTbodies.forEach((tbody, index) => {
                     const rowsWithTaboo = tbody.querySelectorAll('tr[data-taboo-days]');
-                    console.log(`Found ${rowsWithTaboo.length} rows with taboo data in tbody ${index}`);
+                    const totalRows = tbody.querySelectorAll('tr');
                 });
 
-                initTabooFilter(resultsByYear);
-                console.log('initTabooFilter called successfully for ky-hop-dong');
+                // Override updateTable function để đảm bảo filter hoạt động với tất cả rows
+                const originalInitTabooFilter = window.initTabooFilter;
+                window.initTabooFilter = function(resultsByYear) {
+                    // Gọi hàm gốc
+                    originalInitTabooFilter(resultsByYear);
+
+                    // Override applyTabooFilter để đảm bảo filter hoạt động đúng
+                    setTimeout(() => {
+                        const applyBtn = document.getElementById('applyTabooFilter');
+                        if (applyBtn && applyBtn._tabooHandler) {
+                            const originalHandler = applyBtn._tabooHandler;
+                            applyBtn._tabooHandler = function() {
+                                const selectedTaboos = Array.from(document.querySelectorAll('.taboo-checkbox:checked')).map(cb => cb.value);
+                                window.currentSelectedTaboos = selectedTaboos;
+
+                                if (selectedTaboos.length > 0) {
+                                    // Add filter-active class để CSS có thể hoạt động - QUAN TRỌNG!
+                                    const table = document.querySelector('.table');
+                                    if (table) {
+                                        table.classList.add('filter-active');
+                                    }
+
+                                    // Lấy tất cả rows bao gồm hidden ones
+                                    const tbody = document.querySelector('.table-body-all');
+                                    if (tbody) {
+                                        const allRows = tbody.querySelectorAll('tr[data-taboo-days]');
+
+                                        // BƯỚC 1: Xóa tất cả classes cũ và reset
+                                        allRows.forEach(row => {
+                                            row.classList.remove('filtered-out', 'pagination-hidden');
+                                            row.style.removeProperty('display');
+                                        });
+
+                                        // BƯỚC 2: Apply filter trên TẤT CẢ rows
+                                        let unfilteredRows = [];
+                                        allRows.forEach((row, index) => {
+                                            const tabooData = row.getAttribute('data-taboo-days');
+                                            let shouldHide = false;
+
+                                            if (tabooData && tabooData.trim()) {
+                                                const rowTaboos = tabooData.split(',').map(t => t.trim()).filter(t => t);
+                                                shouldHide = selectedTaboos.some(selectedTaboo => rowTaboos.includes(selectedTaboo));
+
+                                            }
+
+                                            if (shouldHide) {
+                                                row.classList.add('filtered-out');
+                                            } else {
+                                                unfilteredRows.push(row);
+                                            }
+                                        });
+
+                                        // BƯỚC 3: Apply pagination CHỈ trên các rows không bị filter
+
+                                        unfilteredRows.forEach((row, unfilteredIndex) => {
+                                            if (unfilteredIndex >= 10) {
+                                                row.classList.add('pagination-hidden');
+                                            }
+                                        });
+
+                                        // BƯỚC 4: Update pagination button
+                                        const loadMoreBtn = document.querySelector('.load-more-btn');
+                                        if (loadMoreBtn) {
+                                            const visibleUnfilteredCount = Math.min(unfilteredRows.length, 10);
+                                            const totalUnfilteredCount = unfilteredRows.length;
+
+                                            loadMoreBtn.dataset.loaded = visibleUnfilteredCount;
+                                            loadMoreBtn.dataset.total = totalUnfilteredCount;
+
+                                            if (totalUnfilteredCount > 10) {
+                                                loadMoreBtn.style.display = '';
+                                                loadMoreBtn.innerHTML = 'Xem thêm';
+                                            } else {
+                                                loadMoreBtn.style.display = 'none';
+                                            }
+
+                                        }
+                                    }
+                                }
+
+                                // Show filter status
+                                const filterStatus = document.getElementById('filterStatus');
+                                const filterStatusText = document.getElementById('filterStatusText');
+                                if (filterStatus && filterStatusText && selectedTaboos.length > 0) {
+                                    filterStatus.classList.remove('d-none');
+                                    filterStatusText.textContent = `Đã lọc ${selectedTaboos.join(', ')}.`;
+                                }
+
+                                // Close modal
+                                const modal = document.getElementById('tabooFilterModal');
+                                const backdrop = document.getElementById('tabooFilterBackdrop');
+                                if (modal) modal.classList.add('d-none');
+                                if (backdrop) backdrop.classList.add('d-none');
+                            };
+                        }
+
+                        // Override clearTabooFilter
+                        const clearBtn = document.getElementById('clearTabooFilter');
+                        if (clearBtn && clearBtn._tabooHandler) {
+                            clearBtn._tabooHandler = function() {
+                                window.currentSelectedTaboos = [];
+                                document.querySelectorAll('.taboo-checkbox').forEach(cb => cb.checked = false);
+
+                                // Remove filter-active class
+                                const table = document.querySelector('.table');
+                                if (table) {
+                                    table.classList.remove('filter-active');
+                                }
+
+                                // Reset all rows to normal pagination
+                                const tbody = document.querySelector('.table-body-all');
+                                if (tbody) {
+                                    const allRows = tbody.querySelectorAll('tr[data-taboo-days]');
+
+                                    // BƯỚC 1: Reset tất cả về trạng thái ban đầu
+                                    allRows.forEach((row, index) => {
+                                        row.style.removeProperty('display');
+                                        row.classList.remove('filtered-out');
+
+                                        if (index < 10) {
+                                            row.classList.remove('pagination-hidden');
+                                        } else {
+                                            row.classList.add('pagination-hidden');
+                                        }
+                                    });
+
+                                    // BƯỚC 2: Reset pagination button
+                                    const loadMoreBtn = document.querySelector('.load-more-btn');
+                                    if (loadMoreBtn) {
+                                        loadMoreBtn.dataset.loaded = '10';
+                                        loadMoreBtn.dataset.total = allRows.length.toString();
+
+                                        if (allRows.length > 10) {
+                                            loadMoreBtn.style.display = '';
+                                            loadMoreBtn.innerHTML = 'Xem thêm';
+                                        } else {
+                                            loadMoreBtn.style.display = 'none';
+                                        }
+
+                                    }
+                                }
+
+                                // Hide filter status
+                                const filterStatus = document.getElementById('filterStatus');
+                                if (filterStatus) {
+                                    filterStatus.classList.add('d-none');
+                                }
+
+                                // Close modal
+                                const modal = document.getElementById('tabooFilterModal');
+                                const backdrop = document.getElementById('tabooFilterBackdrop');
+                                if (modal) modal.classList.add('d-none');
+                                if (backdrop) backdrop.classList.add('d-none');
+                            };
+                        }
+                    }, 100);
+                };
+
+                window.initTabooFilter(resultsByYear);
             } else {
                 console.error('initTabooFilter function not found');
             }

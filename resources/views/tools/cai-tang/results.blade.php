@@ -602,13 +602,38 @@
         // Khởi tạo taboo filter với dữ liệu từ backend
         const resultsByYear = @json($resultsByYear ?? []);
 
+        // Sử dụng global initTabooFilter từ component như tot-xau index
+        // Không override, để component tự handle multi-year
+
+        // Functions defined in form.blade.php will be available
+
         // Khởi tạo filter sau khi DOM loaded
         setTimeout(() => {
             if (typeof initTabooFilter === 'function') {
                 initTabooFilter(resultsByYear);
             }
         }, 300);
-
-        // Không cần cập nhật links vì filter đã được lưu trong localStorage
     });
 </script>
+
+<style>
+/* CSS cho filtering system - theo đúng tot-xau pattern */
+.pagination-hidden {
+    display: none;
+}
+
+/* Khi filter active, hiển thị tất cả rows để filter có thể truy cập */
+.filter-active .pagination-hidden {
+    display: table-row !important;
+}
+
+/* Class để ẩn rows bị filter - ưu tiên cao nhất */
+.filtered-out {
+    display: none !important;
+}
+
+/* Override for filtered rows - luôn ẩn khi có class filtered-out */
+.filter-active .filtered-out {
+    display: none !important;
+}
+</style>

@@ -13,7 +13,7 @@ window.NextYearButtonHandler = (function() {
         const container = document.getElementById(`next-year-container-${year}`);
         if (container) {
             container.style.display = 'block';
-            console.log(`Showing next year button for year ${year} (from ${source})`);
+           
             return true;
         }
         return false;
@@ -24,7 +24,7 @@ window.NextYearButtonHandler = (function() {
         const container = document.getElementById(`next-year-container-${year}`);
         if (container) {
             container.style.display = 'none';
-            console.log(`Hiding next year button for year ${year} (from ${source})`);
+         
             return true;
         }
         return false;
@@ -41,11 +41,11 @@ window.NextYearButtonHandler = (function() {
 
     // Chuyển sang tab năm tiếp theo
     function switchToNextYear(currentYear, nextYear, source = 'unknown') {
-        console.log(`Switching from year ${currentYear} to ${nextYear} (from ${source})`);
+      
 
         const nextYearTabLink = document.querySelector(`a[href="#year-${nextYear}"]`);
         if (!nextYearTabLink) {
-            console.log(`Tab link not found for year ${nextYear}`);
+        
             return false;
         }
 

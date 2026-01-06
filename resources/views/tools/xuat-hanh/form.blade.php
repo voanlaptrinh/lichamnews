@@ -717,9 +717,18 @@
                                                     days: allDays
                                                 }
                                             };
+
+
+                                            // Đảm bảo tất cả rows trong DOM đều có data-taboo-days
+                                            const allRows = document.querySelectorAll('tr[data-taboo-days]');
+
                                             window.initTabooFilter(combinedData);
                                         }
                                     }
+
+                                    // Áp dụng sắp xếp mặc định (điểm từ cao xuống thấp)
+                                    applySortingToTable('desc');
+
                                     initPagination();
                                     setupContainerEventDelegation();
                                 }, 200);
@@ -747,20 +756,16 @@
 
                 // Setup container-level event delegation like other working tools
                 function setupContainerEventDelegation() {
-                    console.log('Setting up container event delegation');
 
                     const resultContainer = document.querySelector('.--detail-success');
                     if (resultContainer) {
-                        console.log('Result container found, setting up event delegation');
 
                         // Remove any existing listeners first
                         resultContainer.removeEventListener('change', handleContainerChange);
 
                         // Add new listener
                         resultContainer.addEventListener('change', handleContainerChange);
-                        console.log('Container event delegation setup complete');
                     } else {
-                        console.log('Result container not found');
                     }
                 }
 
@@ -768,7 +773,6 @@
 
 
                     if (event.target.name === 'sort') {
-                        console.log('Sort dropdown changed to:', event.target.value);
                         event.preventDefault();
                         event.stopPropagation();
 
@@ -813,7 +817,6 @@
                 }
 
                 function applySortingToTable(sortValue, year = null, maintainCurrentPagination = true) {
-                    console.log('applySortingToTable called with:', sortValue, 'year:', year);
 
                     let table = null;
                     // For single table structure
@@ -829,7 +832,6 @@
                     }
 
                     if (!table) {
-                        console.log('No table found for sorting');
                         return;
                     }
 
@@ -837,16 +839,15 @@
                     const rows = Array.from(table.querySelectorAll('tr')).filter(row => {
                         return row.style.display !== 'none' && !row.classList.contains('empty-filter-row');
                     });
-                    console.log(`Found ${rows.length} visible rows to sort`);
 
                     rows.sort((a, b) => {
                         if (sortValue === 'date_asc' || sortValue === 'date_desc') {
                             const dateA = getDateFromRow(a);
                             const dateB = getDateFromRow(b);
                             const result = sortValue === 'date_asc' ? dateA - dateB : dateB - dateA;
-                            console.log(`Sorting ${dateA} vs ${dateB} = ${result}`);
                             return result;
                         } else {
+                            // Sắp xếp theo điểm - mặc định là desc (điểm cao xuống thấp)
                             const scoreA = getScoreFromRow(a);
                             const scoreB = getScoreFromRow(b);
                             return sortValue === 'asc' ? scoreA - scoreB : scoreB - scoreA;
@@ -877,13 +878,11 @@
                     let dateText = row.querySelector('a[href*="details"] strong');
                     if (dateText) {
                         const text = dateText.textContent;
-                        console.log('Method 1 - Date text found:', text);
                         const match = text.match(/(\d{1,2}\/\d{1,2}\/\d{4})/);
                         if (match) {
                             const dateStr = match[1];
                             const parts = dateStr.split('/');
                             const date = new Date(parts[2], parts[1] - 1, parts[0]);
-                            console.log('Parsed date:', dateStr, '->', date);
                             return date;
                         }
                     }
@@ -894,11 +893,9 @@
                         const text = strong.textContent;
                         const match = text.match(/(\d{1,2}\/\d{1,2}\/\d{4})/);
                         if (match) {
-                            console.log('Method 2 - Date text found:', text);
                             const dateStr = match[1];
                             const parts = dateStr.split('/');
                             const date = new Date(parts[2], parts[1] - 1, parts[0]);
-                            console.log('Parsed date:', dateStr, '->', date);
                             return date;
                         }
                     }
@@ -907,15 +904,12 @@
                     const allText = row.textContent;
                     const match = allText.match(/(\d{1,2}\/\d{1,2}\/\d{4})/);
                     if (match) {
-                        console.log('Method 3 - Date found in row text:', match[1]);
                         const dateStr = match[1];
                         const parts = dateStr.split('/');
                         const date = new Date(parts[2], parts[1] - 1, parts[0]);
-                        console.log('Parsed date:', dateStr, '->', date);
                         return date;
                     }
 
-                    console.log('No date found in row:', row.innerHTML.substring(0, 200));
                     return new Date();
                 }
 
@@ -931,26 +925,50 @@
                             const total = parseInt(btn.getAttribute('data-total'));
                             const loadMore = Math.min(10, total - currentLoaded);
 
-                            // Show next 10 items
+                            // Show next 10 items using class instead of style
                             const table = document.querySelector('#table-all tbody') || document.querySelector('#bang-chi-tiet table tbody');
                             if (table) {
                                 const allRows = table.querySelectorAll('.table-row-all');
-                                for (let i = currentLoaded; i < currentLoaded + loadMore; i++) {
-                                    if (allRows[i]) {
-                                        allRows[i].style.display = '';
-                                        allRows[i].setAttribute('data-visible', 'true');
+                                let shownCount = 0;
+
+                                // Load more: chỉ hiển thị các rows không bị filtered
+                                const unfilteredRows = Array.from(allRows).filter(row =>
+                                    !row.classList.contains('filtered-out')
+                                );
+
+                                // Đếm số unfiltered rows hiện tại đang visible
+                                const currentVisibleUnfiltered = unfilteredRows.filter(row =>
+                                    !row.classList.contains('pagination-hidden')
+                                ).length;
+
+
+                                // Hiển thị thêm loadMore rows từ unfiltered list
+                                for (let i = currentVisibleUnfiltered; i < Math.min(currentVisibleUnfiltered + loadMore, unfilteredRows.length); i++) {
+                                    const row = unfilteredRows[i];
+                                    if (row) {
+                                        row.classList.remove('pagination-hidden');
+                                        row.setAttribute('data-visible', 'true');
+                                        shownCount++;
                                     }
                                 }
 
-                                const newLoaded = currentLoaded + loadMore;
-                                btn.setAttribute('data-loaded', newLoaded);
+                                // Đếm số rows thực sự đang visible (không filtered + không pagination hidden)
+                                const actualVisibleCount = Array.from(allRows).filter(row =>
+                                    !row.classList.contains('filtered-out') && !row.classList.contains('pagination-hidden')
+                                ).length;
+
+                                // Đếm tổng số rows không bị filter
+                                const totalUnfilteredCount = Array.from(allRows).filter(row =>
+                                    !row.classList.contains('filtered-out')
+                                ).length;
+
+                                btn.setAttribute('data-loaded', actualVisibleCount);
+                                btn.setAttribute('data-total', totalUnfilteredCount);
 
                                 // Update button text
-                                const remaining = total - newLoaded;
+                                const remaining = totalUnfilteredCount - actualVisibleCount;
                                 if (remaining > 0) {
-                                    const nextLoad = Math.min(10, remaining);
-                                    btn.innerHTML =
-                                        `Xem thêm`;
+                                    btn.innerHTML = `Xem thêm`;
                                 } else {
                                     btn.style.display = 'none';
                                 }
@@ -960,44 +978,51 @@
                 }
 
                 function maintainCurrentPaginationState(table) {
-                    // Follow working pattern from other tools - simpler approach
                     const loadMoreBtn = table.closest('.card-body').querySelector('.load-more-btn');
                     if (!loadMoreBtn) {
-                        console.log('No load more button found');
                         return;
                     }
 
                     let currentLoaded = parseInt(loadMoreBtn.dataset.loaded) || 10;
 
-                    // Chỉ count visible rows (không bị ẩn bởi filter)
-                    const allRows = table.querySelectorAll('tr:not(.empty-filter-row)');
-                    const visibleRows = Array.from(allRows).filter(row => {
-                        return row.style.display !== 'none';
-                    });
+                    // Lấy tất cả rows, bao gồm cả hidden ones
+                    const allRows = table.querySelectorAll('tr.table-row-all');
 
-                    console.log(
-                        `Maintaining pagination: ${currentLoaded} out of ${visibleRows.length} visible rows (${allRows.length} total)`
-                    );
-
-                    // Show rows according to current pagination state cho visible rows only
-                    visibleRows.forEach((row, index) => {
-                        if (index >= currentLoaded) {
-                            row.style.display = 'none';
+                       
+                    // Sử dụng class thay vì inline style để control pagination, nhưng tôn trọng filter
+                    let visibleCount = 0;
+                    allRows.forEach((row, index) => {
+                        // Nếu row bị filter thì không hiển thị
+                        if (row.classList.contains('filtered-out')) {
+                            row.classList.add('pagination-hidden');
                             row.setAttribute('data-visible', 'false');
                         } else {
-                            row.style.display = '';
-                            row.setAttribute('data-visible', 'true');
+                            // Row không bị filter, áp dụng pagination logic
+                            if (visibleCount >= currentLoaded) {
+                                row.classList.add('pagination-hidden');
+                                row.setAttribute('data-visible', 'false');
+                            } else {
+                                row.classList.remove('pagination-hidden');
+                                row.setAttribute('data-visible', 'true');
+                            }
+                            visibleCount++;
                         }
                     });
 
-                    // Update load more button dựa trên visible rows
-                    const remaining = visibleRows.length - currentLoaded;
-                    if (remaining > 0 && visibleRows.length > 10) {
-                        const nextLoad = Math.min(10, remaining);
-                        loadMoreBtn.innerHTML =
-                            `Xem thêm`;
+                    // Update load more button - chỉ đếm rows không bị filter
+                    const totalUnfiltered = Array.from(allRows).filter(row =>
+                        !row.classList.contains('filtered-out')
+                    ).length;
+                    const visibleUnfiltered = Array.from(allRows).filter(row =>
+                        !row.classList.contains('filtered-out') && !row.classList.contains('pagination-hidden')
+                    ).length;
+
+                    const remaining = totalUnfiltered - visibleUnfiltered;
+                    if (remaining > 0 && totalUnfiltered > 10) {
+                        loadMoreBtn.innerHTML = `Xem thêm`;
                         loadMoreBtn.style.display = '';
-                        loadMoreBtn.setAttribute('data-total', visibleRows.length);
+                        loadMoreBtn.setAttribute('data-total', totalUnfiltered);
+                        loadMoreBtn.setAttribute('data-loaded', visibleUnfiltered);
                     } else {
                         loadMoreBtn.style.display = 'none';
                     }

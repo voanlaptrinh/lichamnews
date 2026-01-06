@@ -642,7 +642,6 @@
                             }
                         });
 
-                        console.log('Date range picker initialized successfully');
                     } catch (error) {
                         console.error('Error initializing date range picker:', error);
                         dateRangeInitAttempts = maxDateRangeAttempts;
@@ -1130,7 +1129,6 @@
                             const resultContainer = document.querySelector('.--detail-success');
                             resultContainer.addEventListener('change', function(event) {
                                 if (event.target.matches('[name="sort"]')) {
-                                    console.log('Sort changed to:', event.target.value);
                                     applySortingToTable(event.target.value);
                                     setTimeout(() => {
                                         const bangChiTiet = document.querySelector(
@@ -1169,12 +1167,10 @@
                 // Get active tab first to determine which table to sort
                 const activeTabPane = document.querySelector('.tab-pane.show.active');
                 if (!activeTabPane) {
-                    console.log('No active tab found');
                     return;
                 }
 
                 const activeYear = activeTabPane.id.replace('year-', '');
-                console.log(`Sorting table for active year: ${activeYear}`);
 
                 // Find table within the active tab pane
                 let table = activeTabPane.querySelector('#bang-chi-tiet table tbody');
@@ -1186,24 +1182,19 @@
                 }
 
                 if (!table) {
-                    console.log(`No table found for sorting in year ${activeYear}`);
                     return;
                 }
 
-                console.log(`Found table for year ${activeYear}:`, table);
 
                 const rows = Array.from(table.querySelectorAll('tr'));
-                console.log(`Found ${rows.length} rows to sort`);
 
                 rows.sort((a, b) => {
                     if (sortValue === 'date_asc' || sortValue === 'date_desc') {
                         const dateA = getDateFromRow(a);
                         const dateB = getDateFromRow(b);
                         const result = sortValue === 'date_asc' ? dateA - dateB : dateB - dateA;
-                        console.log(`Sorting ${dateA} vs ${dateB} = ${result}`);
                         return result;
                     } else {
-                        console.log('Sorting by score:', sortValue);
                         const scoreA = getScoreFromRow(a);
                         const scoreB = getScoreFromRow(b);
                         return sortValue === 'asc' ? scoreA - scoreB : scoreB - scoreA;
@@ -1228,7 +1219,6 @@
                         }
                     });
 
-                    console.log(`Showing ${visibleCount} highest scoring rows (score >= ${threshold})`);
                 } else {
                     // Hiển thị tất cả với pagination thông thường cho các sort khác
                     rows.forEach((row, index) => {
@@ -1308,13 +1298,11 @@
                 let dateText = row.querySelector('a[href*="details"] strong');
                 if (dateText) {
                     const text = dateText.textContent;
-                    console.log('Method 1 - Date text found:', text);
                     const match = text.match(/(\d{1,2}\/\d{1,2}\/\d{4})/);
                     if (match) {
                         const dateStr = match[1];
                         const parts = dateStr.split('/');
                         const date = new Date(parts[2], parts[1] - 1, parts[0]);
-                        console.log('Parsed date:', dateStr, '->', date);
                         return date;
                     }
                 }
@@ -1325,11 +1313,9 @@
                     const text = strong.textContent;
                     const match = text.match(/(\d{1,2}\/\d{1,2}\/\d{4})/);
                     if (match) {
-                        console.log('Method 2 - Date text found:', text);
                         const dateStr = match[1];
                         const parts = dateStr.split('/');
                         const date = new Date(parts[2], parts[1] - 1, parts[0]);
-                        console.log('Parsed date:', dateStr, '->', date);
                         return date;
                     }
                 }
@@ -1338,21 +1324,17 @@
                 const allText = row.textContent;
                 const match = allText.match(/(\d{1,2}\/\d{1,2}\/\d{4})/);
                 if (match) {
-                    console.log('Method 3 - Date found in row text:', match[1]);
                     const dateStr = match[1];
                     const parts = dateStr.split('/');
                     const date = new Date(parts[2], parts[1] - 1, parts[0]);
-                    console.log('Parsed date:', dateStr, '->', date);
                     return date;
                 }
 
-                console.log('No date found in row:', row.innerHTML.substring(0, 200));
                 return new Date();
             }
 
             function maintainCurrentPagination(table, activeYear = null) {
                 // Follow mua-xe pattern - simpler approach
-                console.log(`Maintaining pagination for year: ${activeYear || 'unknown'}`);
 
                 // Find load more button specific to the year if available
                 let loadMoreBtn = null;
@@ -1368,7 +1350,6 @@
                     loadMoreBtn = table.closest('.card-body').querySelector('.load-more-btn');
                 }
                 if (!loadMoreBtn) {
-                    console.log('No load more button found');
                     return;
                 }
 
@@ -1381,12 +1362,6 @@
                         return row.style.display !== 'none';
                     }).length;
 
-                console.log(
-                    `DEBUG: allRows=${allRows.length}, totalFilteredRows=${totalFilteredRows}, currentLoaded=${currentLoaded}`
-                );
-                console.log(
-                    `Maintaining pagination: ${currentLoaded} out of ${totalFilteredRows} filtered rows (${allRows.length} total)`
-                );
 
                 // Tìm tất cả rows được filter (không bị ẩn hoàn toàn)
                 const filteredRows = Array.from(allRows).filter(row => {
@@ -1426,9 +1401,6 @@
 
                 // Update load more button với total filtered rows
                 const remaining = totalFilteredRows - currentLoaded;
-                console.log(
-                    `DEBUG BUTTON: totalFilteredRows=${totalFilteredRows}, currentLoaded=${currentLoaded}, remaining=${remaining}`
-                );
 
                 if (remaining > 0) {
                     const nextLoad = Math.min(10, remaining);
@@ -1439,20 +1411,15 @@
 
                 } else {
                     loadMoreBtn.style.display = 'none';
-                    console.log(`DEBUG BUTTON: Hiding button - no remaining items`);
                 }
             }
 
             // Setup container-level event delegation for filter buttons
             function setupContainerEventDelegation() {
-                console.log('Setting up container event delegation for wedding');
                 const resultContainer = document.querySelector('.--detail-success');
                 if (resultContainer) {
-                    console.log('Result container found, setting up event delegation');
                     // The filter button event is handled by the taboo-filter-script component
-                    console.log('Container event delegation setup complete');
                 } else {
-                    console.log('Result container not found');
                 }
             }
 

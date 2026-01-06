@@ -15,9 +15,11 @@
             }
         }
 
-        // Sort all days by date
+        // Sort all days by score (descending by default)
         usort($allDays, function ($a, $b) {
-            return $a['date'] <=> $b['date'];
+            $scoreA = $a['day_score']['score']['percentage'] ?? $a['day_score']['percentage'] ?? 0;
+            $scoreB = $b['day_score']['score']['percentage'] ?? $b['day_score']['percentage'] ?? 0;
+            return $scoreB <=> $scoreA; // Điểm cao xuống thấp
         });
     @endphp
 
@@ -456,6 +458,300 @@
     <!-- Backdrop -->
     <div id="tabooFilterBackdrop" class="taboo-filter-backdrop d-none"></div>
 </div>
+
+<style>
+.pagination-hidden {
+    display: none;
+}
+
+/* Khi filter active, hiển thị tất cả rows để filter có thể truy cập */
+.filter-active .pagination-hidden {
+    display: table-row !important;
+}
+
+/* Class để ẩn rows bị filter */
+.filtered-out {
+    display: none !important;
+}
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Khởi tạo taboo filter với dữ liệu từ backend - combine all days
+        const resultsByYear = {
+            'all': {
+                days: @json($allDays ?? [])
+            }
+        };
+
+        // Đảm bảo tất cả rows đều có trong DOM để taboo filter có thể truy cập
+        setTimeout(() => {
+            if (typeof window.initTabooFilter === 'function') {
+              
+                // Override updateTable function để đảm bảo filter hoạt động với tất cả rows
+                const originalInitTabooFilter = window.initTabooFilter;
+                window.initTabooFilter = function(resultsByYear) {
+                    // Gọi hàm gốc
+                    originalInitTabooFilter(resultsByYear);
+
+                    // Override applyTabooFilter để đảm bảo filter hoạt động đúng
+                    setTimeout(() => {
+                        const applyBtn = document.getElementById('applyTabooFilter');
+                        if (applyBtn && applyBtn._tabooHandler) {
+                            const originalHandler = applyBtn._tabooHandler;
+                            applyBtn._tabooHandler = function() {
+                                const selectedTaboos = Array.from(document.querySelectorAll('.taboo-checkbox:checked')).map(cb => cb.value);
+                                window.currentSelectedTaboos = selectedTaboos;
+
+                                if (selectedTaboos.length > 0) {
+                                    // Add filter-active class để CSS có thể hoạt động - QUAN TRỌNG!
+                                    const table = document.querySelector('.table');
+                                    if (table) {
+                                        table.classList.add('filter-active');
+                                    }
+
+                                    // Lấy tất cả rows bao gồm hidden ones
+                                    const tbody = document.querySelector('.table-body-all');
+                                    if (tbody) {
+                                        const allRows = tbody.querySelectorAll('tr[data-taboo-days]');
+
+                                        // BƯỚC 1: Xóa tất cả classes cũ và reset
+                                        allRows.forEach(row => {
+                                            row.classList.remove('filtered-out', 'pagination-hidden');
+                                            row.style.removeProperty('display');
+                                        });
+
+                                        // BƯỚC 2: Apply filter trên TẤT CẢ rows
+                                        let unfilteredRows = [];
+                                        allRows.forEach((row, index) => {
+                                            const tabooData = row.getAttribute('data-taboo-days');
+                                            let shouldHide = false;
+
+                                            if (tabooData && tabooData.trim()) {
+                                                const rowTaboos = tabooData.split(',').map(t => t.trim()).filter(t => t);
+                                                shouldHide = selectedTaboos.some(selectedTaboo => rowTaboos.includes(selectedTaboo));
+
+                                            }
+
+                                            if (shouldHide) {
+                                                row.classList.add('filtered-out');
+                                            } else {
+                                                unfilteredRows.push(row);
+                                            }
+                                        });
+
+                                        // BƯỚC 3: Apply pagination CHỈ trên các rows không bị filter
+
+                                        unfilteredRows.forEach((row, unfilteredIndex) => {
+                                            if (unfilteredIndex >= 10) {
+                                                row.classList.add('pagination-hidden');
+                                            }
+                                        });
+
+                                        // BƯỚC 4: Update pagination button
+                                        const loadMoreBtn = document.querySelector('.load-more-btn');
+                                        if (loadMoreBtn) {
+                                            const visibleUnfilteredCount = Math.min(unfilteredRows.length, 10);
+                                            const totalUnfilteredCount = unfilteredRows.length;
+
+                                            loadMoreBtn.dataset.loaded = visibleUnfilteredCount;
+                                            loadMoreBtn.dataset.total = totalUnfilteredCount;
+
+                                            if (totalUnfilteredCount > 10) {
+                                                loadMoreBtn.style.display = '';
+                                                loadMoreBtn.innerHTML = 'Xem thêm';
+                                            } else {
+                                                loadMoreBtn.style.display = 'none';
+                                            }
+
+                                        }
+                                    }
+                                }
+
+                                // Show filter status
+                                const filterStatus = document.getElementById('filterStatus-all');
+                                const filterStatusText = document.getElementById('filterStatusText-all');
+                                if (filterStatus && filterStatusText && selectedTaboos.length > 0) {
+                                    filterStatus.classList.remove('d-none');
+                                    filterStatusText.textContent = `Đã lọc ${selectedTaboos.join(', ')}.`;
+                                }
+
+                                // Close modal
+                                const modal = document.getElementById('tabooFilterModal');
+                                const backdrop = document.getElementById('tabooFilterBackdrop');
+                                if (modal) modal.classList.add('d-none');
+                                if (backdrop) backdrop.classList.add('d-none');
+                            };
+                        }
+
+                        // Override clearTabooFilter
+                        const clearBtn = document.getElementById('clearTabooFilter');
+                        if (clearBtn && clearBtn._tabooHandler) {
+                            clearBtn._tabooHandler = function() {
+                                window.currentSelectedTaboos = [];
+                                document.querySelectorAll('.taboo-checkbox').forEach(cb => cb.checked = false);
+
+                                // Remove filter-active class
+                                const table = document.querySelector('.table');
+                                if (table) {
+                                    table.classList.remove('filter-active');
+                                }
+
+                                // Reset all rows to normal pagination
+                                const tbody = document.querySelector('.table-body-all');
+                                if (tbody) {
+                                    const allRows = tbody.querySelectorAll('tr[data-taboo-days]');
+
+                                    // BƯỚC 1: Reset tất cả về trạng thái ban đầu
+                                    allRows.forEach((row, index) => {
+                                        row.style.removeProperty('display');
+                                        row.classList.remove('filtered-out');
+
+                                        if (index < 10) {
+                                            row.classList.remove('pagination-hidden');
+                                        } else {
+                                            row.classList.add('pagination-hidden');
+                                        }
+                                    });
+
+                                    // BƯỚC 2: Reset pagination button
+                                    const loadMoreBtn = document.querySelector('.load-more-btn');
+                                    if (loadMoreBtn) {
+                                        loadMoreBtn.dataset.loaded = '10';
+                                        loadMoreBtn.dataset.total = allRows.length.toString();
+
+                                        if (allRows.length > 10) {
+                                            loadMoreBtn.style.display = '';
+                                            loadMoreBtn.innerHTML = 'Xem thêm';
+                                        } else {
+                                            loadMoreBtn.style.display = 'none';
+                                        }
+
+                                    }
+                                }
+
+                                // Hide filter status
+                                const filterStatus = document.getElementById('filterStatus-all');
+                                if (filterStatus) {
+                                    filterStatus.classList.add('d-none');
+                                }
+
+                                // Close modal
+                                const modal = document.getElementById('tabooFilterModal');
+                                const backdrop = document.getElementById('tabooFilterBackdrop');
+                                if (modal) modal.classList.add('d-none');
+                                if (backdrop) backdrop.classList.add('d-none');
+                            };
+                        }
+                    }, 100);
+                };
+
+                window.initTabooFilter(resultsByYear);
+            }
+        }, 500);
+
+        // Add sort functionality for results page
+        function applySortingToTable(sortValue, year = 'all') {
+            const tableBody = document.querySelector('#table-all tbody');
+            if (!tableBody) return;
+
+            const rows = Array.from(tableBody.querySelectorAll('tr[data-taboo-days]'));
+
+            rows.sort((a, b) => {
+                if (sortValue === 'date_asc' || sortValue === 'date_desc') {
+                    const dateA = getDateFromRow(a);
+                    const dateB = getDateFromRow(b);
+                    const result = dateA - dateB;
+                    return sortValue === 'date_asc' ? result : -result;
+                } else {
+                    // Score sorting
+                    const scoreA = getScoreFromRow(a);
+                    const scoreB = getScoreFromRow(b);
+                    return sortValue === 'asc' ? scoreA - scoreB : scoreB - scoreA;
+                }
+            });
+
+            // Clear existing rows
+            tableBody.innerHTML = '';
+
+            // Re-append sorted rows
+            rows.forEach(row => tableBody.appendChild(row));
+
+            // Reapply pagination
+            updatePagination(year);
+        }
+
+        function getScoreFromRow(row) {
+            const scoreText = row.querySelector('.battery-label')?.textContent || '0%';
+            return parseInt(scoreText.replace('%', '')) || 0;
+        }
+
+        function getDateFromRow(row) {
+            const dateCell = row.querySelector('td:first-child a');
+            if (dateCell) {
+                const href = dateCell.getAttribute('href');
+                const dateMatch = href.match(/\/(\d{4}-\d{2}-\d{2})/);
+                if (dateMatch) {
+                    return new Date(dateMatch[1]);
+                }
+            }
+
+            const strongElement = row.querySelector('td:first-child strong');
+            if (strongElement) {
+                const text = strongElement.textContent;
+                const dateMatch = text.match(/(\d{1,2})\/(\d{1,2})\/(\d{4})/);
+                if (dateMatch) {
+                    const [, day, month, year] = dateMatch;
+                    return new Date(year, month - 1, day);
+                }
+            }
+
+            return new Date(0);
+        }
+
+        function updatePagination(year) {
+            const tbody = document.querySelector('#table-all tbody');
+            if (!tbody) return;
+
+            const allRows = tbody.querySelectorAll('tr[data-taboo-days]');
+            const loadMoreBtn = document.querySelector('.load-more-btn');
+
+            // Reset pagination
+            allRows.forEach((row, index) => {
+                row.setAttribute('data-visible', index < 10 ? 'true' : 'false');
+                row.style.display = index < 10 ? '' : 'none';
+                row.classList.remove('pagination-hidden');
+                if (index >= 10) {
+                    row.classList.add('pagination-hidden');
+                }
+            });
+
+            // Update load more button
+            if (loadMoreBtn) {
+                loadMoreBtn.dataset.loaded = '10';
+                loadMoreBtn.dataset.total = allRows.length.toString();
+                if (allRows.length > 10) {
+                    loadMoreBtn.style.display = '';
+                } else {
+                    loadMoreBtn.style.display = 'none';
+                }
+            }
+        }
+
+        // Add sort event listener
+        document.addEventListener('change', function(event) {
+            if (event.target.name === 'sort') {
+                applySortingToTable(event.target.value, 'all');
+            }
+        });
+
+        // Expose functions to global scope
+        window.applySortingToTable = applySortingToTable;
+        window.getScoreFromRow = getScoreFromRow;
+        window.getDateFromRow = getDateFromRow;
+        window.updatePagination = updatePagination;
+    });
+</script>
 
 @include('components.taboo-filter-script')
 @include('components.next-year-button-handler')

@@ -370,7 +370,6 @@
 
                 submitForm();
 
-                console.log('Formatted Birthdate:', genderValue);
                 // AJAX call will go here
             });
         });

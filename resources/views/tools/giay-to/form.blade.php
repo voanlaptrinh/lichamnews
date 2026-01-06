@@ -541,7 +541,295 @@
             // ========== SOLAR DATE UPDATE IS HANDLED BY LunarSolarDateSelect MODULE ========== 
             // No need for additional logic here as the module handles all conversions automatically
 
-            // ========== AJAX FORM SUBMISSION ========== 
+            // Helper functions - define these first
+            function getScoreFromRow(row) {
+                // Try to find score in battery element
+                const battery = row.querySelector('.battery-label');
+                if (battery) {
+                    return parseInt(battery.textContent.replace('%', '')) || 0;
+                }
+
+                // Try to find score in other score elements
+                const scoreElement = row.querySelector('.diem-so, .score');
+                if (scoreElement) {
+                    return parseInt(scoreElement.textContent.replace(/[^\d]/g, '')) || 0;
+                }
+
+                // Try to find score in any cell containing numbers
+                const cells = row.querySelectorAll('td');
+                for (let cell of cells) {
+                    const text = cell.textContent.trim();
+                    const match = text.match(/(\d+)/);
+                    if (match) {
+                        return parseInt(match[1]) || 0;
+                    }
+                }
+
+                return 0;
+            }
+
+            function getDateFromRow(row) {
+                // Method 1: Try to find date in href
+                const dateCell = row.querySelector('td:first-child a');
+                if (dateCell) {
+                    const href = dateCell.getAttribute('href');
+                    const dateMatch = href.match(/\/date=(\d{4}-\d{2}-\d{2})/);
+                    if (dateMatch) {
+                        return new Date(dateMatch[1]);
+                    }
+                }
+
+                // Method 2: Try to find date in text content (dd/mm/yyyy format)
+                const strongElement = row.querySelector('td:first-child strong');
+                if (strongElement) {
+                    const text = strongElement.textContent;
+                    const dateMatch = text.match(/(\d{1,2})\/(\d{1,2})\/(\d{4})/);
+                    if (dateMatch) {
+                        const [, day, month, year] = dateMatch;
+                        return new Date(year, month - 1, day);
+                    }
+                }
+
+                // Method 3: Search in any text content in first cell
+                const firstCell = row.querySelector('td:first-child');
+                if (firstCell) {
+                    const text = firstCell.textContent;
+                    const dateMatch = text.match(/(\d{1,2})\/(\d{1,2})\/(\d{4})/);
+                    if (dateMatch) {
+                        const [, day, month, year] = dateMatch;
+                        return new Date(year, month - 1, day);
+                    }
+                }
+
+                return new Date(0); // Return epoch if no date found
+            }
+
+            function applySortToSingleTable(table, sortValue) {
+                const rows = Array.from(table.querySelectorAll('tr'));
+
+                rows.sort((a, b) => {
+                    if (sortValue === 'date_asc' || sortValue === 'date_desc') {
+                        // Sort by date
+                        const dateA = getDateFromRow(a);
+                        const dateB = getDateFromRow(b);
+                        return sortValue === 'date_asc' ? dateA - dateB : dateB - dateA;
+                    } else {
+                        // Sort by score - default is desc (high to low)
+                        const scoreA = getScoreFromRow(a);
+                        const scoreB = getScoreFromRow(b);
+                        return sortValue === 'asc' ? scoreA - scoreB : scoreB - scoreA;
+                    }
+                });
+
+                // Clear and append sorted rows
+                table.innerHTML = '';
+                rows.forEach(row => table.appendChild(row));
+
+                // Maintain current pagination instead of resetting to 10
+                maintainCurrentPagination(table);
+            }
+
+            function maintainCurrentPagination(table) {
+                // Check for active filter for specific year tab and global
+                let isFilterActive = false;
+
+                // Check global filter status
+                const globalFilterStatus = document.getElementById('filterStatus-all');
+                if (globalFilterStatus && !globalFilterStatus.classList.contains('d-none')) {
+                    isFilterActive = true;
+                }
+
+                // Check filter status for specific year tab if any
+                const activeTab = document.querySelector('.tab-pane.show.active');
+                if (activeTab) {
+                    const activeYear = activeTab.id.replace('year-', '');
+                    const yearFilterStatus = document.getElementById(`filterStatus-${activeYear}`);
+                    if (yearFilterStatus && !yearFilterStatus.classList.contains('d-none')) {
+                        isFilterActive = true;
+                    }
+                }
+
+                // If filter is active, don't interfere with pagination
+                // Because taboo component is already managing it
+                if (isFilterActive) {
+                    return;
+                }
+
+                const loadMoreBtn = table.closest('.card-body').querySelector('.load-more-btn');
+                let currentLoaded = 10; // Default if no button
+
+                // Get current number being displayed
+                if (loadMoreBtn) {
+                    currentLoaded = parseInt(loadMoreBtn.dataset.loaded) || 10;
+                }
+
+                // Count TOTAL filtered rows BEFORE changing pagination
+                const allRows = table.querySelectorAll('tr:not(.empty-filter-row)');
+                const totalFilteredRows = parseInt(loadMoreBtn?.getAttribute('data-total')) || Array
+                    .from(allRows).filter(row => {
+                        return row.style.display !== 'none';
+                    }).length;
+
+                // Show according to current number, hide the rest
+                allRows.forEach((row, index) => {
+                    if (index >= currentLoaded) {
+                        row.style.display = 'none';
+                        row.dataset.visible = 'false';
+                    } else {
+                        row.style.display = '';
+                        row.dataset.visible = 'true';
+                    }
+                });
+
+                // Update load more button with total filtered rows
+                if (loadMoreBtn) {
+                    loadMoreBtn.dataset.loaded = currentLoaded.toString();
+                    loadMoreBtn.dataset.total = totalFilteredRows.toString();
+                    const remaining = totalFilteredRows - currentLoaded;
+
+                    if (remaining > 0) {
+                        loadMoreBtn.style.display = '';
+                        loadMoreBtn.innerHTML = `
+                            Xem thêm
+                        `;
+                    } else {
+                        loadMoreBtn.style.display = 'none';
+                    }
+                }
+            }
+
+            function resetPagination(table) {
+                const rows = table.querySelectorAll('tr');
+
+                // Show first 10, hide the rest
+                rows.forEach((row, index) => {
+                    if (index >= 10) {
+                        row.style.display = 'none';
+                        row.dataset.visible = 'false';
+                    } else {
+                        row.style.display = '';
+                        row.dataset.visible = 'true';
+                    }
+                });
+
+                // Reset load more button
+                const loadMoreBtn = table.closest('.card-body').querySelector('.load-more-btn');
+                if (loadMoreBtn && rows.length > 10) {
+                    loadMoreBtn.dataset.loaded = '10';
+                    loadMoreBtn.style.display = '';
+                    const remaining = rows.length - 10;
+                    loadMoreBtn.innerHTML = `
+                        Xem thêm
+                    `;
+                }
+            }
+
+            window.applySortingToTable = function(sortValue, year = null) {
+
+                let table = null;
+                // For single table structure
+                table = document.querySelector('#table-all tbody') ||
+                    document.querySelector('#bang-chi-tiet table tbody');
+
+                // Method 2: Any table in results container
+                if (!table) {
+                    const resultsContainer = document.querySelector('.--detail-success');
+                    if (resultsContainer) {
+                        table = resultsContainer.querySelector('table tbody');
+                    }
+                }
+
+                if (!table) {
+                    return;
+                }
+
+                applySortToSingleTable(table, sortValue);
+            }
+
+            // Pagination for table
+            window.initPagination = function() {
+                // Use event delegation for dynamic handling
+                document.addEventListener('click', function(event) {
+                    if (event.target.matches('.load-more-btn') || event.target.closest(
+                            '.load-more-btn')) {
+                        const btn = event.target.matches('.load-more-btn') ? event.target :
+                            event.target.closest('.load-more-btn');
+                        const year = btn.dataset.year;
+                        const loaded = parseInt(btn.dataset.loaded);
+                        const total = parseInt(btn.dataset.total);
+                        const tbody = document.querySelector(`.table-body-${year}`);
+
+                        if (!tbody) return;
+
+                        const rows = tbody.querySelectorAll('tr');
+                        let newLoaded = loaded;
+
+                        // Show next 10 rows
+                        for (let i = loaded; i < Math.min(loaded + 10, total); i++) {
+                            if (rows[i]) {
+                                rows[i].style.display = '';
+                                rows[i].dataset.visible = 'true';
+                                newLoaded++;
+                            }
+                        }
+
+                        // Update dataset and text
+                        btn.dataset.loaded = newLoaded;
+                        const remaining = total - newLoaded;
+
+                        if (remaining > 0) {
+                            btn.innerHTML = `
+                                Xem thêm
+                            `;
+                            // Use NextYearButtonHandler module
+                            if (window.NextYearButtonHandler) {
+                                window.NextYearButtonHandler.handleLoadMoreChange(year,
+                                    true, 'index-pagination');
+                            }
+                        } else {
+                            btn.style.display = 'none';
+                            // Use NextYearButtonHandler module
+                            if (window.NextYearButtonHandler) {
+                                window.NextYearButtonHandler.handleLoadMoreChange(year,
+                                    false, 'index-pagination');
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Setup container-level event delegation for sorting
+            window.setupContainerEventDelegation = function() {
+                const resultContainer = document.querySelector('.--detail-success');
+                if (resultContainer) {
+                    // Remove existing listener to prevent duplicates
+                    resultContainer.removeEventListener('change', handleContainerChange);
+                    // Add new listener
+                    resultContainer.addEventListener('change', handleContainerChange);
+                } else {
+                }
+            }
+
+            function handleContainerChange(event) {
+                if (event.target.name === 'sort') {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    // For single table structure - use 'all' year
+                    window.applySortingToTable(event.target.value, 'all');
+                    // Scroll to table after sort
+                    setTimeout(() => {
+                        const table = document.querySelector('#table-all, #bang-chi-tiet table');
+                        if (table) {
+                            table.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                        }
+                    }, 100);
+                }
+            }
+
+            // ========== AJAX FORM SUBMISSION ==========
             const form = document.getElementById('kyGiayToForm');
             const submitBtn = document.getElementById('submitBtn');
             const resultsContainer = document.getElementById('resultsContainer');
@@ -570,7 +858,8 @@
                 }
 
                 // Get the date and calendar type based on current selection
-                let formattedBirthdate = '';
+                let formattedBirthdate = ''; // For form data (backend)
+                let urlBirthdate = ''; // For URL hash (sharing)
                 let calendarType = 'solar'; // default
                 let isLeapMonth = false;
 
@@ -584,27 +873,57 @@
                     calendarType = 'solar';
                 }
 
-                if (calendarType === 'lunar') {
-                    // For lunar date, use the converted solar date for URL (easier to read/share)
-                    const solarDay = ngayXemInput.dataset.solarDay;
-                    const solarMonth = ngayXemInput.dataset.solarMonth;
-                    const solarYear = ngayXemInput.dataset.solarYear;
-                    isLeapMonth = ngayXemInput.dataset.lunarLeap === '1';
+                // Form submission processing
 
-                    if (solarDay && solarMonth && solarYear) {
-                        formattedBirthdate =
-                            `${String(solarDay).padStart(2, '0')}/${String(solarMonth).padStart(2, '0')}/${solarYear}`;
+                if (calendarType === 'lunar') {
+                    // For lunar calendar:
+                    // - ngayXemValue is already SOLAR date (from hidden input .value)
+                    // - data-display-value contains the lunar display format
+
+                    const daySelect = document.getElementById('ngaySelect');
+                    const monthSelect = document.getElementById('thangSelect');
+                    const yearSelect = document.getElementById('namSelect');
+
+                    // Processing lunar mode
+
+                    // Get lunar date from selects (what user actually selected)
+                    if (daySelect.value && monthSelect.value && yearSelect.value) {
+                        const lunarDay = String(daySelect.value).padStart(2, '0');
+                        const lunarMonth = String(monthSelect.value).padStart(2, '0');
+                        const lunarYear = yearSelect.value;
+
+                        // Use dateSelector's leap month state instead of manual detection
+                        isLeapMonth = dateSelector.isLeapMonth;
+
+                        formattedBirthdate = `${lunarDay}/${lunarMonth}/${lunarYear}`;
                     } else {
-                        // Fallback to parsing lunar date from value
-                        formattedBirthdate = ngayXemValue.replace(' (ÂL)', '').replace(' (ÂL-Nhuận)', '');
-                        isLeapMonth = ngayXemValue.includes('(ÂL-Nhuận)');
+                        // Fallback: extract lunar from display value
+                        const displayValue = ngayXemInput.dataset.displayValue || '';
+                        formattedBirthdate = displayValue.replace(' (ÂL)', '').replace(' (ÂL-Nhuận)',
+                            '');
+                        isLeapMonth = displayValue.includes('(ÂL-Nhuận)');
                     }
+
+                    // For URL: use solar date from hidden input .value
+                    urlBirthdate = ngayXemValue; // This is already solar!
                 } else {
-                    // Solar date can be used directly
+                    // Solar date can be used directly for both
                     formattedBirthdate = ngayXemValue;
+                    urlBirthdate = ngayXemValue;
                 }
 
-                // Parse date range
+                // The LunarSolarDateSelect module automatically maintains solar date in hidden input
+                // No need for additional conversion here - just use the value that's already there
+                const finalSolarDate =
+                    ngayXemValue; // This is always solar date maintained by the module
+
+                // URL birthdate is the same as final solar date
+                if (calendarType === 'lunar') {
+                    urlBirthdate = finalSolarDate; // Use solar date for URL sharing
+                }
+
+                // Parse date range to get start and end dates
+                // Date range format: "28/10/25 - 30/10/25"
                 const dateRangeParts = dateRangeValue.split(' - ');
                 let startDate = '';
                 let endDate = '';
@@ -616,46 +935,79 @@
                         const day = startParts[0].padStart(2, '0');
                         const month = startParts[1].padStart(2, '0');
                         let year = startParts[2];
+                        // Convert 2-digit year to 4-digit
                         if (year.length === 2) {
                             year = '20' + year;
                         }
                         startDate = `${day}/${month}/${year}`;
                     }
 
-                    // Parse end date
+                    // Parse end date (format: dd/mm/yy)
                     const endParts = dateRangeParts[1].trim().split('/');
                     if (endParts.length === 3) {
                         const day = endParts[0].padStart(2, '0');
                         const month = endParts[1].padStart(2, '0');
                         let year = endParts[2];
+                        // Convert 2-digit year to 4-digit
                         if (year.length === 2) {
                             year = '20' + year;
                         }
                         endDate = `${day}/${month}/${year}`;
                     }
+                } else if (dateRangeParts.length === 1) {
+                    // Single date, use it for both start and end
+                    const dateParts = dateRangeParts[0].trim().split('/');
+                    if (dateParts.length === 3) {
+                        const day = dateParts[0].padStart(2, '0');
+                        const month = dateParts[1].padStart(2, '0');
+                        let year = dateParts[2];
+                        // Convert 2-digit year to 4-digit
+                        if (year.length === 2) {
+                            year = '20' + year;
+                        }
+                        startDate = endDate = `${day}/${month}/${year}`;
+                    }
                 }
 
-                // Get sort value if exists
-                const sortSelect = resultsContainer.querySelector('[name="sort"]');
+                const sortSelect = document.querySelector('[name="sort"]');
                 const sortValue = sortSelect ? sortSelect.value : 'desc';
 
-                // Prepare form data
-                const formData = {
-                    birthdate: formattedBirthdate,
-                    calendar_type: calendarType,
-                    leap_month: isLeapMonth,
-                    date_range: dateRangeValue,
-                    start_date: startDate,
-                    end_date: endDate,
-                    sort: sortValue,
-                    _token: '{{ csrf_token() }}'
-                };
+                // Process form data - birthdate is ALWAYS solar date for backend processing
+                let formData = {};
 
-                // Set hash parameters for URL state
+                if (calendarType === 'lunar') {
+                    // For lunar: send solar date as birthdate, lunar date as additional info
+                    formData = {
+                        birthdate: urlBirthdate, // ALWAYS solar date for backend
+                        calendar_type: 'lunar',
+                        leap_month: isLeapMonth,
+                        lunar_date: formattedBirthdate, // Additional info: what user selected in lunar
+                        date_range: dateRangeValue,
+                        start_date: startDate,
+                        end_date: endDate,
+                        sort: sortValue,
+                        _token: '{{ csrf_token() }}'
+                    };
+
+                } else {
+                    // For solar: send solar date as birthdate
+                    formData = {
+                        birthdate: urlBirthdate, // Solar date (same as what user selected)
+                        calendar_type: 'solar',
+                        leap_month: false,
+                        date_range: dateRangeValue,
+                        start_date: startDate,
+                        end_date: endDate,
+                        sort: sortValue,
+                        _token: '{{ csrf_token() }}'
+                    };
+                }
+
+                // Set hash parameters for URL state - preserve original calendar type
                 const hashParams = {
-                    birthdate: formattedBirthdate,
+                    birthdate: urlBirthdate, // Use solar date for URL (easier to share)
                     khoang: dateRangeValue,
-                    calendar_type: calendarType
+                    calendar_type: calendarType // This will be 'lunar' or 'solar' based on radio selection
                 };
                 setHashParams(hashParams);
 
@@ -664,7 +1016,7 @@
                 btnText.textContent = 'Đang xử lý...';
                 spinner.classList.remove('d-none');
 
-                // Submit via AJAX
+                // Submit to backend using AJAX
                 fetch('{{ route('giay-to.check') }}', {
                         method: 'POST',
                         headers: {
@@ -674,12 +1026,7 @@
                         },
                         body: JSON.stringify(formData)
                     })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Network response was not ok');
-                        }
-                        return response.json();
-                    })
+                    .then(response => response.json())
                     .then(data => {
                         // Reset button state
                         submitBtn.disabled = false;
@@ -692,36 +1039,31 @@
 
                             // Initialize taboo filter and pagination after results are loaded
                             setTimeout(() => {
-                                // Sử dụng global initTabooFilter từ component
-                                if (data.resultsByYear && typeof initTabooFilter ===
-                                    'function') {
+                                // Use global initTabooFilter from component
+                                if (typeof window.initTabooFilter === 'function') {
+                                    // Convert to single table format like other tools
                                     const allDays = [];
-                                    Object.keys(data.resultsByYear).forEach(
-                                        year => {
-                                            if (data.resultsByYear[year] && data
-                                                .resultsByYear[year].days) {
-                                                allDays.push(...data
-                                                    .resultsByYear[year]
-                                                    .days);
-                                            }
-                                        });
+                                    Object.keys(data.resultsByYear).forEach(year => {
+                                        if (data.resultsByYear[year] && data
+                                            .resultsByYear[year].days) {
+                                            allDays.push(...data.resultsByYear[year]
+                                                .days);
+                                        }
+                                    });
 
                                     const combinedData = {
                                         'all': {
                                             days: allDays
                                         }
                                     };
-
                                     window.initTabooFilter(combinedData);
                                 }
 
+                                // Apply default sorting (highest score first)
+                                window.applySortingToTable('desc');
 
-
-
-                                // if (typeof window.initTabooFilter === 'function') {
-                                //     window.initTabooFilter(data.resultsByYear);
-                                // }
-                                initPagination();
+                                window.initPagination();
+                                window.setupContainerEventDelegation();
                             }, 200);
 
                             // Scroll to results with delay to ensure content is rendered
@@ -761,139 +1103,6 @@
 
             });
 
-            function initPagination() {
-                const resultsContainer = document.querySelector('.--detail-success');
-                resultsContainer.addEventListener('click', function(event) {
-                    if (event.target.matches('.load-more-btn') || event.target.closest('.load-more-btn')) {
-                        const btn = event.target.matches('.load-more-btn') ? event.target : event.target
-                            .closest('.load-more-btn');
-                        const year = btn.getAttribute('data-year');
-                        const currentLoaded = parseInt(btn.getAttribute('data-loaded'));
-                        const total = parseInt(btn.getAttribute('data-total'));
-                        const loadMore = Math.min(10, total - currentLoaded);
-
-                        // Show next 10 items
-                        const table = document.querySelector(`#table-${year} tbody`);
-                        if (table) {
-                            const allRows = table.querySelectorAll('.table-row-' + year);
-                            for (let i = currentLoaded; i < currentLoaded + loadMore; i++) {
-                                if (allRows[i]) {
-                                    allRows[i].style.display = '';
-                                    allRows[i].setAttribute('data-visible', 'true');
-                                }
-                            }
-
-                            const newLoaded = currentLoaded + loadMore;
-                            btn.setAttribute('data-loaded', newLoaded);
-
-                            // Update button text
-                            const remaining = total - newLoaded;
-                            if (remaining > 0) {
-                                const nextLoad = Math.min(10, remaining);
-                                btn.innerHTML =
-                                    `Xem thêm`;
-                            } else {
-                                btn.style.display = 'none';
-                            }
-                        }
-                    }
-                });
-            }
-            // Optimized sorting functions
-            function getScoreFromRow(row) {
-                const battery = row.querySelector('.battery-label');
-                if (battery) {
-                    return parseInt(battery.textContent.replace('%', '')) || 0;
-                }
-
-                const scoreElement = row.querySelector('.diem-so, .score');
-                if (scoreElement) {
-                    return parseInt(scoreElement.textContent.replace(/[^\d]/g, '')) || 0;
-                }
-
-                const cells = row.querySelectorAll('td');
-                for (let cell of cells) {
-                    const match = cell.textContent.trim().match(/(\d+)/);
-                    if (match) {
-                        return parseInt(match[1]) || 0;
-                    }
-                }
-                return 0;
-            }
-
-            function applySortingToTable(sortValue) {
-                // Find the single table (no more tabs for giay-to)
-                const table = document.querySelector('.table-body-all') || document.querySelector(
-                    '#table-all tbody');
-                if (!table) return;
-
-                const rows = Array.from(table.querySelectorAll('tr'));
-
-                rows.sort((a, b) => {
-                    // Sắp xếp theo ngày
-                    if (sortValue === 'date-asc' || sortValue === 'date-desc') {
-                        const getDateFromRow = (row) => {
-                            // Tìm element chứa ngày - dùng selector đơn giản hơn
-                            const dateElement = row.querySelector('td:first-child strong');
-                            if (dateElement) {
-                                // Extract date from text like "Thứ 2, 01/12/2024"
-                                const text = dateElement.textContent.trim();
-                                console.log('Date text found:', text); // Debug log
-                                const dateMatch = text.match(/(\d{1,2})\/(\d{1,2})\/(\d{4})/);
-                                if (dateMatch) {
-                                    const [, day, month, year] = dateMatch;
-                                    const dateObj = new Date(year, month - 1, day);
-                                    console.log('Parsed date:', dateObj); // Debug log
-                                    return dateObj;
-                                }
-                            }
-
-                            // Alternative: Tìm trong link href nếu có
-                            const linkElement = row.querySelector('a[href]');
-                            if (linkElement) {
-                                const href = linkElement.getAttribute('href');
-                                const dateMatch = href.match(/date=(\d{4})-(\d{1,2})-(\d{1,2})/);
-                                if (dateMatch) {
-                                    const [, year, month, day] = dateMatch;
-                                    const dateObj = new Date(year, month - 1, day);
-                                    console.log('Date from href:', dateObj);
-                                    return dateObj;
-                                }
-                            }
-
-
-                            return new Date(0); // Default date nếu không tìm thấy
-                        };
-
-                        const dateA = getDateFromRow(a);
-                        const dateB = getDateFromRow(b);
-
-                        return sortValue === 'date-asc' ? dateA - dateB : dateB - dateA;
-                    }
-
-                    // Sắp xếp theo điểm (logic cũ)
-                    const scoreA = getScoreFromRow(a);
-                    const scoreB = getScoreFromRow(b);
-                    return sortValue === 'asc' ? scoreA - scoreB : scoreB - scoreA;
-                });
-
-                // Clear và thêm lại rows
-                table.innerHTML = '';
-                rows.forEach(row => table.appendChild(row));
-            }
-
-            // Event delegation for sorting
-            resultsContainer.addEventListener('change', function(event) {
-                if (event.target.matches('[name="sort"]')) {
-                    applySortingToTable(event.target.value);
-                    setTimeout(() => {
-                        document.getElementById('bang-chi-tiet')?.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }, 100);
-                }
-            });
 
         });
     </script>

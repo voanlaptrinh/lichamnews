@@ -1,4 +1,4 @@
-<div class="w-100" id="content-box-succes">
+<div class="w-100" id="content-box-success">
     <!-- Combine all days from all years into one array -->
     @php
         $allDays = [];
@@ -134,21 +134,40 @@
                                                     $text_box = '#10B981';
                                                 }
 
-                                                // Lấy taboo days từ checkTabooDays issues
-                                                $tabooTypes = [];
+                                                // Collect taboo names from day score
+                                                $tabooNames = [];
+
+                                                // Check for checkTabooDays structure
                                                 if (isset($day['day_score']['checkTabooDays']['issues']) && is_array($day['day_score']['checkTabooDays']['issues'])) {
                                                     foreach ($day['day_score']['checkTabooDays']['issues'] as $issue) {
                                                         if (isset($issue['details']['tabooName'])) {
-                                                            $tabooTypes[] = $issue['details']['tabooName'];
+                                                            $tabooNames[] = $issue['details']['tabooName'];
                                                         }
                                                     }
                                                 }
+
+                                                // Check for score.issues structure (alternative path)
+                                                if (empty($tabooNames) && isset($day['day_score']['score']['issues']) && is_array($day['day_score']['score']['issues'])) {
+                                                    foreach ($day['day_score']['score']['issues'] as $issue) {
+                                                        if (isset($issue['details']['tabooName'])) {
+                                                            $tabooNames[] = $issue['details']['tabooName'];
+                                                        }
+                                                    }
+                                                }
+
+                                                // Check for taboo_details.taboo_types as fallback
+                                                if (empty($tabooNames) && isset($day['day_score']['taboo_details']['taboo_types']) && is_array($day['day_score']['taboo_details']['taboo_types'])) {
+                                                    $tabooNames = $day['day_score']['taboo_details']['taboo_types'];
+                                                }
+
+                                                // Remove duplicates
+                                                $tabooNames = array_unique($tabooNames);
                                             @endphp
                                             <tr class="table-row-all"
                                                 data-index="{{ $index }}"
                                                 style="{{ $index >= 10 ? 'display: none;' : '' }}"
                                                 data-visible="{{ $index < 10 ? 'true' : 'false' }}"
-                                                data-taboo-days="{{ implode(',', $tabooTypes) }}">
+                                                data-taboo-days="{{ implode(',', $tabooNames) }}">
                                                 <td style="text-align: start">
                                                     <a
                                                         href="{{ route('thi-cu.details', [
@@ -343,7 +362,10 @@
    <!-- Filter Modal/Dropdown - Global -->
     <div id="tabooFilterModal" class="taboo-filter-modal d-none">
         <div class="taboo-filter-header">
-            <h6 class="mb-0">Lọc ngày kỵ</h6>
+            <h6 class="mb-0">
+                <i class="bi bi-heart" style="color: #e91e63;"></i>
+                Lọc ngày xấu
+            </h6>
             <button type="button" id="closeFilterModal" class="btn-close-filter">
                 <i class="bi bi-x"></i>
             </button>
@@ -437,6 +459,9 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // Expose user's 'chi' to global scope
+    window.userChi = '{{ explode(' ', ($birthdateInfo['can_chi_nam'] ?? ''))[1] ?? '' }}';
+
     // Khởi tạo taboo filter với dữ liệu từ backend - combine all days
     const resultsByYear = {
         'all': {
@@ -447,54 +472,15 @@ document.addEventListener('DOMContentLoaded', function() {
     // Khởi tạo filter sau khi DOM loaded
     setTimeout(() => {
         if (typeof initTabooFilter === 'function') {
-            console.log('Thi Cu: Initializing taboo filter for single table...');
+            const allTbodies = document.querySelectorAll('tbody');
+            allTbodies.forEach((tbody, index) => {
+                const rowsWithTaboo = tbody.querySelectorAll('tr[data-taboo-days]');
+            });
             initTabooFilter(resultsByYear);
+        } else {
+            console.error('initTabooFilter function not found');
         }
     }, 300);
 
-    // Không cần cập nhật links vì filter đã được lưu trong localStorage
-
-    // Load more functionality for thi-cu results - updated for single table
-    document.addEventListener('click', function(event) {
-        if (event.target.closest('.load-more-btn')) {
-            const btn = event.target.closest('.load-more-btn');
-            const currentLoaded = parseInt(btn.dataset.loaded) || 10;
-            const total = parseInt(btn.dataset.total) || 0;
-            const loadAmount = 10;
-
-            console.log(`Thi Cu Load more: showing ${currentLoaded + loadAmount} out of ${total}`);
-
-            // Show more rows for single table
-            const table = document.querySelector('#table-all tbody') || document.querySelector('#bang-chi-tiet table tbody');
-            if (table) {
-                const rows = table.querySelectorAll('.table-row-all');
-
-                for (let i = currentLoaded; i < Math.min(currentLoaded + loadAmount, total); i++) {
-                    if (rows[i]) {
-                        rows[i].style.display = '';
-                        rows[i].dataset.visible = 'true';
-                    }
-                }
-
-                // Update button
-                const newLoaded = Math.min(currentLoaded + loadAmount, total);
-                btn.dataset.loaded = newLoaded;
-                const remaining = total - newLoaded;
-
-                if (remaining > 0) {
-                    btn.innerHTML = 'Xem thêm';
-                } else {
-                    btn.style.display = 'none';
-                }
-
-                console.log(`Thi Cu Updated: loaded=${newLoaded}, remaining=${remaining}`);
-
-                // Update filter status if filter is active
-                if (typeof window.updateFilterStatusOnPagination === 'function') {
-                    window.updateFilterStatusOnPagination('all');
-                }
-            }
-        }
-    });
 });
 </script>

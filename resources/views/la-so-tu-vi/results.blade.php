@@ -261,7 +261,7 @@
             @if (isset($cachedLuanGiai) && $cachedLuanGiai)
                 // Có trong DB - hiển thị ngay
                 setTimeout(function() {
-                    console.log('Lấy luận giải từ DB');
+                   
                     const cachedContent = {
                         responseObject: @json($cachedLuanGiai->luan_giai_content)
                     };
@@ -270,7 +270,7 @@
             @else
                 // Không có trong DB - gọi API luận giải
                 setTimeout(function() {
-                    console.log('Không có trong DB - gọi API luận giải');
+                    
                     autoRunLuanGiai();
                 }, 500);
             @endif

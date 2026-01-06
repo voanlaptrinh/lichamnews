@@ -464,21 +464,16 @@
         // Khởi tạo filter sau khi DOM loaded
         setTimeout(() => {
             if (typeof initTabooFilter === 'function') {
-                console.log('Initializing taboo filter for lap-ban-tho...');
                 const filterButton = document.querySelector('.taboo-filter-btn');
                 const modal = document.getElementById('tabooFilterModal');
                 const allTbodies = document.querySelectorAll('tbody');
 
-                console.log('Filter button found:', !!filterButton);
-                console.log('Modal found:', !!modal);
 
                 allTbodies.forEach((tbody, index) => {
                     const rowsWithTaboo = tbody.querySelectorAll('tr[data-taboo-days]');
-                    console.log(`Found ${rowsWithTaboo.length} rows with taboo data in tbody ${index}`);
                 });
 
                 initTabooFilter(resultsByYear);
-                console.log('initTabooFilter called successfully for lap-ban-tho');
             } else {
                 console.error('initTabooFilter function not found');
             }

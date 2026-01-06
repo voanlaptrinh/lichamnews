@@ -1,4 +1,4 @@
-<div class="w-100" id="content-box-succes">
+<div class="w-100" id="content-box-success">
     @php
         // Combine all days from all years into one array
         $allDays = [];
@@ -415,14 +415,11 @@
         // Khởi tạo filter sau khi DOM loaded
         setTimeout(() => {
             if (typeof initTabooFilter === 'function') {
-                console.log('Initializing taboo filter for giai-han...');
                 const allTbodies = document.querySelectorAll('tbody');
                 allTbodies.forEach((tbody, index) => {
                     const rowsWithTaboo = tbody.querySelectorAll('tr[data-taboo-days]');
-                    console.log(`Found ${rowsWithTaboo.length} rows with taboo data in tbody ${index}`);
                 });
                 initTabooFilter(resultsByYear);
-                console.log('initTabooFilter called successfully for giai-han');
             } else {
                 console.error('initTabooFilter function not found');
             }

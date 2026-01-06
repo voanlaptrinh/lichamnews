@@ -384,6 +384,66 @@
     <script src="{{ asset('/js/vanilla-daterangepicker.js?v=7.0') }}" defer></script>
 
     <script>
+        // Define applySortingToTable immediately to avoid loading issues
+        window.applySortingToTable = function(sortValue, year) {
+            console.log('applySortingToTable called with:', sortValue, year);
+
+            // Handle multi-year structure của cai-tang
+            if (year && year !== 'all') {
+                const table = document.querySelector(`.table-body-${year}`) ||
+                            document.querySelector(`#table-${year} tbody`);
+                if (table) {
+                    sortTableRows(table, sortValue);
+                }
+            } else {
+                const allYearTables = document.querySelectorAll('[class*="table-body-"]');
+                allYearTables.forEach(table => {
+                    sortTableRows(table, sortValue);
+                });
+            }
+        };
+
+        function sortTableRows(table, sortValue) {
+            const rows = Array.from(table.querySelectorAll('tr[data-taboo-days]'));
+
+            rows.sort((a, b) => {
+                if (sortValue === 'date_asc' || sortValue === 'date_desc') {
+                    const dateA = getDateFromRow(a);
+                    const dateB = getDateFromRow(b);
+                    const result = dateA - dateB;
+                    return sortValue === 'date_asc' ? result : -result;
+                } else {
+                    const scoreA = getScoreFromRow(a);
+                    const scoreB = getScoreFromRow(b);
+                    return sortValue === 'asc' ? scoreA - scoreB : scoreB - scoreA;
+                }
+            });
+
+            // Clear table and re-append sorted rows
+            table.innerHTML = '';
+            rows.forEach(row => table.appendChild(row));
+
+            // Apply pagination while respecting taboo filter
+            let visibleCount = 0;
+            rows.forEach((row) => {
+                // Check if row is filtered out by taboo filter
+                if (row.classList.contains('taboo-filtered-out')) {
+                    row.style.display = 'none';
+                    row.setAttribute('data-visible', 'false');
+                } else {
+                    // Apply pagination only to non-filtered rows
+                    if (visibleCount < 10) {
+                        row.style.display = '';
+                        row.setAttribute('data-visible', 'true');
+                        visibleCount++;
+                    } else {
+                        row.style.display = 'none';
+                        row.setAttribute('data-visible', 'false');
+                    }
+                }
+            });
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             // Check if we have hash parameters to avoid setting defaults
             const hasHashParams = window.location.hash && window.location.hash.includes('birthdate');
@@ -971,37 +1031,34 @@
                         btnText.textContent = 'Xem Kết Quả';
                         spinner.classList.add('d-none');
 
-                        console.error('Error:', error);
                         alert('Có lỗi xảy ra khi kết nối. Vui lòng thử lại.');
                     });
             });
 
             // Setup container-level event delegation like other working tools
             function setupContainerEventDelegation() {
-                console.log('Setting up container event delegation');
+               
 
                 const resultContainer = document.querySelector('.--detail-success');
                 if (resultContainer) {
-                    console.log('Result container found, setting up event delegation');
+                  
 
                     // Remove any existing listeners first
                     resultContainer.removeEventListener('change', handleContainerChange);
 
                     // Add new listener
                     resultContainer.addEventListener('change', handleContainerChange);
-                    console.log('Container event delegation setup complete');
+                   
                 } else {
-                    console.log('Result container not found');
+                   
                 }
             }
 
             function handleContainerChange(event) {
-                console.log('Change event detected on:', event.target);
-                console.log('Target name:', event.target.name);
-                console.log('Target value:', event.target.value);
+              
 
                 if (event.target.name === 'sort') {
-                    console.log('Sort dropdown changed to:', event.target.value);
+                  
                     event.preventDefault();
                     event.stopPropagation();
 
@@ -1011,7 +1068,7 @@
                         const yearMatch = activeTab.id.match(/year-(\d+)/);
                         if (yearMatch) {
                             const currentYear = yearMatch[1];
-                            console.log('Applying sort to year:', currentYear);
+                           
                             applySortingToTable(event.target.value, currentYear);
                         } else {
                             applySortingToTable(event.target.value);
@@ -1057,57 +1114,34 @@
                 return 0;
             }
 
-            function applySortingToTable(sortValue, year = null, maintainCurrentPagination = true) {
-                console.log('applySortingToTable called with:', sortValue, 'year:', year);
-
-                // Try multiple ways to find the table like other working tools
-                let table = null;
-
-                // If year is provided, target specific year table
-                if (year) {
-                    table = document.querySelector(`#table-${year} tbody`);
-                    console.log('Looking for year-specific table:', `#table-${year} tbody`);
-                }
-
-                // Method 1: Direct search if no year or year-specific table not found
-                if (!table) {
-                    table = document.querySelector('#bang-chi-tiet table tbody');
-                }
-
-                // Method 2: Any table in results container
-                if (!table) {
-                    const resultsContainer = document.querySelector('.--detail-success');
-                    if (resultsContainer) {
-                        table = resultsContainer.querySelector('table tbody');
+            function applySortingToTable(sortValue, year = null) {
+                // Handle multi-year structure của cai-tang
+                if (year && year !== 'all') {
+                    // Sort specific year table
+                    const table = document.querySelector(`.table-body-${year}`) ||
+                                document.querySelector(`#table-${year} tbody`);
+                    if (table) {
+                        sortSingleTable(table, sortValue);
                     }
+                } else {
+                    // Sort tất cả year tables
+                    const allYearTables = document.querySelectorAll('[class*="table-body-"]');
+                    allYearTables.forEach(table => {
+                        sortSingleTable(table, sortValue);
+                    });
                 }
+            }
 
-                // Method 3: Try to find table in active tab if still not found
-                if (!table) {
-                    const activeTab = document.querySelector('.tab-pane.active');
-                    if (activeTab) {
-                        table = activeTab.querySelector('table tbody');
-                    }
-                }
-
-                if (!table) {
-                    console.log('No table found for sorting');
-                    return;
-                }
-
-                // Chỉ lấy các rows đang visible (không bị ẩn bởi taboo filter)
-                const rows = Array.from(table.querySelectorAll('tr')).filter(row => {
-                    return row.style.display !== 'none' && !row.classList.contains('empty-filter-row');
-                });
-                console.log(`Found ${rows.length} visible rows to sort`);
+            function sortSingleTable(table, sortValue) {
+                // Lấy TẤT CẢ rows bao gồm cả hidden pagination rows để sort
+                const rows = Array.from(table.querySelectorAll('tr[data-taboo-days]'));
 
                 rows.sort((a, b) => {
                     if (sortValue === 'date_asc' || sortValue === 'date_desc') {
                         const dateA = getDateFromRow(a);
                         const dateB = getDateFromRow(b);
-                        const result = sortValue === 'date_asc' ? dateA - dateB : dateB - dateA;
-                        console.log(`Sorting ${dateA} vs ${dateB} = ${result}`);
-                        return result;
+                        const result = dateA - dateB;
+                        return sortValue === 'date_asc' ? result : -result;
                     } else {
                         const scoreA = getScoreFromRow(a);
                         const scoreB = getScoreFromRow(b);
@@ -1115,21 +1149,35 @@
                     }
                 });
 
-                // Lưu tất cả rows (bao gồm hidden) trước khi sort
-                const allRows = Array.from(table.querySelectorAll('tr'));
-                const hiddenRows = allRows.filter(row => {
-                    return row.style.display === 'none' || row.classList.contains('empty-filter-row');
-                });
-
-                // Clear table và append lại: sorted visible rows + hidden rows
+                // Clear và re-append sorted rows
                 table.innerHTML = '';
                 rows.forEach(row => table.appendChild(row));
-                hiddenRows.forEach(row => table.appendChild(row));
 
-                // Maintain current pagination if specified
-                if (maintainCurrentPagination) {
-                    maintainCurrentPaginationState(table);
-                }
+                // Maintain current pagination while respecting taboo filter
+                maintainPaginationForTable(table);
+            }
+
+            function maintainPaginationForTable(table) {
+                const allRows = table.querySelectorAll('tr[data-taboo-days]');
+                let visibleCount = 0;
+
+                allRows.forEach((row) => {
+                    // Check if row is filtered out by taboo filter
+                    if (row.classList.contains('taboo-filtered-out')) {
+                        row.style.display = 'none';
+                        row.setAttribute('data-visible', 'false');
+                    } else {
+                        // Apply pagination only to non-filtered rows
+                        if (visibleCount < 10) {
+                            row.style.display = '';
+                            row.setAttribute('data-visible', 'true');
+                            visibleCount++;
+                        } else {
+                            row.style.display = 'none';
+                            row.setAttribute('data-visible', 'false');
+                        }
+                    }
+                });
             }
 
             function getDateFromRow(row) {
@@ -1139,13 +1187,11 @@
                 let dateText = row.querySelector('a[href*="details"] strong');
                 if (dateText) {
                     const text = dateText.textContent;
-                    console.log('Method 1 - Date text found:', text);
                     const match = text.match(/(\d{1,2}\/\d{1,2}\/\d{4})/);
                     if (match) {
                         const dateStr = match[1];
                         const parts = dateStr.split('/');
                         const date = new Date(parts[2], parts[1] - 1, parts[0]);
-                        console.log('Parsed date:', dateStr, '->', date);
                         return date;
                     }
                 }
@@ -1156,11 +1202,9 @@
                     const text = strong.textContent;
                     const match = text.match(/(\d{1,2}\/\d{1,2}\/\d{4})/);
                     if (match) {
-                        console.log('Method 2 - Date text found:', text);
                         const dateStr = match[1];
                         const parts = dateStr.split('/');
                         const date = new Date(parts[2], parts[1] - 1, parts[0]);
-                        console.log('Parsed date:', dateStr, '->', date);
                         return date;
                     }
                 }
@@ -1169,15 +1213,12 @@
                 const allText = row.textContent;
                 const match = allText.match(/(\d{1,2}\/\d{1,2}\/\d{4})/);
                 if (match) {
-                    console.log('Method 3 - Date found in row text:', match[1]);
                     const dateStr = match[1];
                     const parts = dateStr.split('/');
                     const date = new Date(parts[2], parts[1] - 1, parts[0]);
-                    console.log('Parsed date:', dateStr, '->', date);
                     return date;
                 }
 
-                console.log('No date found in row:', row.innerHTML.substring(0, 200));
                 return new Date();
             }
 
@@ -1224,7 +1265,6 @@
             function maintainCurrentPaginationState(table) {
                 const loadMoreBtn = table.closest('.card-body').querySelector('.load-more-btn');
                 if (!loadMoreBtn) {
-                    console.log('No load more button found');
                     return;
                 }
 
@@ -1237,12 +1277,6 @@
                         return row.style.display !== 'none';
                     }).length;
 
-                console.log(
-                    `DEBUG: allRows=${allRows.length}, totalFilteredRows=${totalFilteredRows}, currentLoaded=${currentLoaded}`
-                );
-                console.log(
-                    `Maintaining pagination: ${currentLoaded} out of ${totalFilteredRows} filtered rows (${allRows.length} total)`
-                );
 
                 // Tìm tất cả rows được filter (không bị ẩn hoàn toàn)
                 const filteredRows = Array.from(allRows).filter(row => {
@@ -1297,6 +1331,52 @@
                 }
             }
         });
+
+        // Expose functions to global scope with safety checks
+        if (typeof applySortingToTable === 'function') {
+            window.applySortingToTable = applySortingToTable;
+        } else {
+            console.error('applySortingToTable function not defined properly');
+            // Fallback simple function
+            window.applySortingToTable = function(sortValue, year) {
+                console.warn('Using fallback sort function');
+                const tables = year ? [document.querySelector(`.table-body-${year}`)] :
+                              document.querySelectorAll('[class*="table-body-"]');
+
+                tables.forEach(table => {
+                    if (!table) return;
+                    const rows = Array.from(table.querySelectorAll('tr[data-taboo-days]'));
+                    rows.sort((a, b) => {
+                        if (sortValue.includes('date')) {
+                            return sortValue === 'date_asc' ?
+                                new Date(a.dataset.date || 0) - new Date(b.dataset.date || 0) :
+                                new Date(b.dataset.date || 0) - new Date(a.dataset.date || 0);
+                        } else {
+                            const scoreA = parseInt(a.querySelector('.battery-label')?.textContent || '0');
+                            const scoreB = parseInt(b.querySelector('.battery-label')?.textContent || '0');
+                            return sortValue === 'asc' ? scoreA - scoreB : scoreB - scoreA;
+                        }
+                    });
+                    table.innerHTML = '';
+                    rows.forEach(row => table.appendChild(row));
+                });
+            };
+        }
+
+        if (typeof sortSingleTable === 'function') {
+            window.sortSingleTable = sortSingleTable;
+        }
+        if (typeof maintainPaginationForTable === 'function') {
+            window.maintainPaginationForTable = maintainPaginationForTable;
+        }
+        if (typeof getScoreFromRow === 'function') {
+            window.getScoreFromRow = getScoreFromRow;
+        }
+        if (typeof getDateFromRow === 'function') {
+            window.getDateFromRow = getDateFromRow;
+        }
+
+       
     </script>
     @include('components.next-year-button-handler')
     @include('components.taboo-filter-script')

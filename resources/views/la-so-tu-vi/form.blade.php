@@ -524,7 +524,7 @@
                 csrfToken: '{{ csrf_token() }}',
                 onChange: function(data) {
                     // Component tự động cập nhật input ẩn với giá trị dương lịch đã chuyển đổi
-                    console.log('Date changed:', data);
+                  
                 }
             });
 

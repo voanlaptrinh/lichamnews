@@ -807,10 +807,8 @@
                                 initPagination();
                                 setupContainerEventDelegation();
 
-                                // Tự động sắp xếp theo điểm cao nhất mặc định (với delay thêm)
-                                setTimeout(() => {
-                                    applySortingToTable('desc', 'all');
-                                }, 300);
+                                // Áp dụng sắp xếp mặc định (điểm từ cao xuống thấp)
+                                applySortingToTable('desc');
                             }, 200);
 
                             // Scroll to results with delay to ensure content is rendered
@@ -854,26 +852,21 @@
 
             // Setup container-level event delegation for sorting
             function setupContainerEventDelegation() {
-                console.log('Setting up container event delegation for khai-truong');
 
                 const resultContainer = document.querySelector('.--detail-success');
                 if (resultContainer) {
-                    console.log('Result container found, setting up event delegation');
 
                     // Remove any existing listeners first to prevent duplicates
                     resultContainer.removeEventListener('change', handleContainerChange);
 
                     // Add new listener
                     resultContainer.addEventListener('change', handleContainerChange);
-                    console.log('Container event delegation setup complete');
                 } else {
-                    console.log('Result container not found');
                 }
             }
 
             function handleContainerChange(event) {
                 if (event.target.name === 'sort') {
-                    console.log('Sort dropdown changed to:', event.target.value);
                     event.preventDefault();
                     event.stopPropagation();
 
@@ -891,9 +884,59 @@
                 }
             }
 
+            // Function to maintain current pagination state
+            function maintainCurrentPagination(table, year) {
+                // Kiểm tra xem có đang trong filter state không
+                const filterStatus = document.getElementById(`filterStatus-${year || ''}`);
+                const isFilterActive = filterStatus && !filterStatus.classList.contains('d-none');
+
+                // Nếu filter đang active, không can thiệp vào pagination
+                // Vì taboo component đã quản lý rồi
+                if (isFilterActive) {
+                    return;
+                }
+
+                const loadMoreBtn = table.closest('.card-body').querySelector('.load-more-btn');
+                if (!loadMoreBtn) {
+                    return;
+                }
+
+                let currentLoaded = parseInt(loadMoreBtn.dataset.loaded) || 10;
+
+                // Đếm TOTAL filtered rows TRƯỚC khi thay đổi pagination
+                const allRows = table.querySelectorAll('tr:not(.empty-filter-row)');
+                const totalFilteredRows = parseInt(loadMoreBtn.getAttribute('data-total')) || Array.from(allRows)
+                    .filter(row => {
+                        return row.style.display !== 'none';
+                    }).length;
+
+                // Show rows according to current pagination state
+                let visibleCount = 0;
+                allRows.forEach((row, index) => {
+                    if (visibleCount < currentLoaded) {
+                        row.style.display = '';
+                        row.setAttribute('data-visible', 'true');
+                        visibleCount++;
+                    } else {
+                        row.style.display = 'none';
+                        row.setAttribute('data-visible', 'false');
+                    }
+                });
+
+                // Update load more button với total filtered rows
+                const remaining = totalFilteredRows - currentLoaded;
+                if (remaining > 0) {
+                    const nextLoad = Math.min(10, remaining);
+                    loadMoreBtn.innerHTML = `Xem thêm`;
+                    loadMoreBtn.style.display = '';
+                    loadMoreBtn.setAttribute('data-total', totalFilteredRows.toString());
+                } else {
+                    loadMoreBtn.style.display = 'none';
+                }
+            }
+
             // Function to apply sorting without form submission
-            function applySortingToTable(sortValue, year = null, maintainCurrentPagination = true) {
-                console.log('applySortingToTable called with:', sortValue, 'year:', year);
+            function applySortingToTable(sortValue, year = null, shouldMaintainPagination = true) {
 
                 // Find table using specific selectors for khai-truong
                 let table = null;
@@ -910,7 +953,6 @@
                 for (const selector of selectors) {
                     table = document.querySelector(selector);
                     if (table) {
-                        console.log(`Table found using selector: ${selector}`, table);
                         break;
                     }
                 }
@@ -921,24 +963,16 @@
                     if (resultsContainer) {
                         table = resultsContainer.querySelector('tbody');
                         if (table) {
-                            console.log('Table found in results container:', table);
                         }
                     }
                 }
 
                 if (!table) {
-                    console.error('Cannot find table for year', year);
-                    console.log('Available elements:', {
-                        tableAll: document.querySelector('#table-all'),
-                        bangChiTiet: document.querySelector('#bang-chi-tiet'),
-                        tableBodyAll: document.querySelector('.table-body-all'),
-                        resultsContainer: document.querySelector('.--detail-success')
-                    });
+                  
                     return;
                 }
 
                 const rows = Array.from(table.querySelectorAll('tr'));
-                console.log(`Found ${rows.length} rows to sort`);
 
                 // Sort rows by score or date
                 rows.sort((a, b) => {
@@ -946,58 +980,25 @@
                         const dateA = getDateFromRow(a);
                         const dateB = getDateFromRow(b);
                         const result = sortValue === 'date_asc' ? dateA - dateB : dateB - dateA;
-                        console.log(`Sorting ${dateA} vs ${dateB} = ${result}`);
                         return result;
                     } else {
+                        // Sắp xếp theo điểm - mặc định là desc (điểm cao xuống thấp)
                         const scoreA = getScoreFromRow(a);
                         const scoreB = getScoreFromRow(b);
-                        console.log(`Comparing scores: ${scoreA} vs ${scoreB}`);
                         return sortValue === 'asc' ? scoreA - scoreB : scoreB - scoreA;
                     }
                 });
 
-                // Lọc chỉ hiển thị điểm cao nhất khi sort theo desc (mặc định)
-                if (sortValue === 'desc') {
-                    console.log('Applying highest score filter for desc sort');
-                    const scores = rows.map(row => getScoreFromRow(row)).filter(score => score > 0);
-                    const maxScore = Math.max(...scores);
-                    const threshold = maxScore - 20; // Hiển thị trong khoảng 20 điểm so với cao nhất
-
-                    console.log(`Max score: ${maxScore}, threshold: ${threshold}`);
-
-                    let visibleCount = 0;
-                    rows.forEach(row => {
-                        const score = getScoreFromRow(row);
-                        if (score >= threshold && visibleCount < 10) {
-                            row.style.display = '';
-                            row.dataset.visible = 'true';
-                            visibleCount++;
-                            console.log(`Showing row with score: ${score}`);
-                        } else {
-                            row.style.display = 'none';
-                            row.dataset.visible = 'false';
-                        }
-                    });
-
-                    console.log(`Showing ${visibleCount} highest scoring rows (score >= ${threshold})`);
-
-                    // Hiển thị thông báo filter
-                    showHighScoreFilterNotice(threshold, maxScore);
-                } else {
-                    // Hiển thị tất cả với pagination thông thường cho các sort khác
-                    rows.forEach((row, index) => {
-                        if (index < 10) {
-                            row.style.display = '';
-                            row.dataset.visible = 'true';
-                        } else {
-                            row.style.display = 'none';
-                            row.dataset.visible = 'false';
-                        }
-                    });
-
-                    // Ẩn thông báo filter khi không sort theo desc
-                    hideHighScoreFilterNotice();
-                }
+                // Áp dụng pagination cơ bản cho tất cả các sort mode
+                rows.forEach((row, index) => {
+                    if (index < 10) {
+                        row.style.display = '';
+                        row.dataset.visible = 'true';
+                    } else {
+                        row.style.display = 'none';
+                        row.dataset.visible = 'false';
+                    }
+                });
 
                 // Clear table and re-append sorted rows
                 table.innerHTML = '';
@@ -1041,13 +1042,11 @@
                 let dateText = row.querySelector('a[href*="details"] strong');
                 if (dateText) {
                     const text = dateText.textContent;
-                    console.log('Method 1 - Date text found:', text);
                     const match = text.match(/(\d{1,2}\/\d{1,2}\/\d{4})/);
                     if (match) {
                         const dateStr = match[1];
                         const parts = dateStr.split('/');
                         const date = new Date(parts[2], parts[1] - 1, parts[0]);
-                        console.log('Parsed date:', dateStr, '->', date);
                         return date;
                     }
                 }
@@ -1058,11 +1057,9 @@
                     const text = strong.textContent;
                     const match = text.match(/(\d{1,2}\/\d{1,2}\/\d{4})/);
                     if (match) {
-                        console.log('Method 2 - Date text found:', text);
                         const dateStr = match[1];
                         const parts = dateStr.split('/');
                         const date = new Date(parts[2], parts[1] - 1, parts[0]);
-                        console.log('Parsed date:', dateStr, '->', date);
                         return date;
                     }
                 }
@@ -1071,15 +1068,12 @@
                 const allText = row.textContent;
                 const match = allText.match(/(\d{1,2}\/\d{1,2}\/\d{4})/);
                 if (match) {
-                    console.log('Method 3 - Date found in row text:', match[1]);
                     const dateStr = match[1];
                     const parts = dateStr.split('/');
                     const date = new Date(parts[2], parts[1] - 1, parts[0]);
-                    console.log('Parsed date:', dateStr, '->', date);
                     return date;
                 }
 
-                console.log('No date found in row:', row.innerHTML.substring(0, 200));
                 return new Date();
             }
 
@@ -1097,9 +1091,7 @@
                         const total = parseInt(btn.getAttribute('data-total')) || 0;
                         const loadMore = Math.min(10, total - currentLoaded);
 
-                        console.log(
-                            `PAGINATION DEBUG: year=${year}, currentLoaded=${currentLoaded}, total=${total}, loadMore=${loadMore}`
-                        );
+                           
 
                         // Tìm table trong tab hiện tại của năm đó
                         const targetTab = document.querySelector(`#year-${year}`);
@@ -1108,16 +1100,12 @@
 
                         if (table) {
                             const allRows = table.querySelectorAll(`.table-row-${year}`);
-                            console.log(
-                                `Showing more rows for year ${year}: currentLoaded=${currentLoaded}, total=${total}, allRows=${allRows.length}`
-                            );
-
+                               
                             // Show next loadMore rows
                             for (let i = currentLoaded; i < currentLoaded + loadMore; i++) {
                                 if (allRows[i]) {
                                     allRows[i].style.display = '';
                                     allRows[i].setAttribute('data-visible', 'true');
-                                    console.log(`Showing row ${i}`);
                                 }
                             }
 
@@ -1148,64 +1136,155 @@
                 });
             }
 
-            function maintainCurrentPagination(table, year) {
-                // Kiểm tra xem có đang trong filter state không
-                const filterStatus = document.getElementById(`filterStatus-${year || ''}`);
-                const isFilterActive = filterStatus && !filterStatus.classList.contains('d-none');
 
-                // Nếu filter đang active, không can thiệp vào pagination
-                // Vì taboo component đã quản lý rồi
-                if (isFilterActive) {
-                    return;
-                }
+        });
+    </script>
 
-                const loadMoreBtn = table.closest('.card-body').querySelector('.load-more-btn');
-                if (!loadMoreBtn) {
-                    console.log('No load more button found');
-                    return;
-                }
+    <!-- Global function definitions -->
+    <script>
+        // Define functions globally so they're accessible immediately
+        window.maintainCurrentPagination = function(table, year) {
+            // Kiểm tra xem có đang trong filter state không
+            const filterStatus = document.getElementById(`filterStatus-${year || ''}`);
+            const isFilterActive = filterStatus && !filterStatus.classList.contains('d-none');
 
-                let currentLoaded = parseInt(loadMoreBtn.dataset.loaded) || 10;
+            // Nếu filter đang active, không can thiệp vào pagination
+            // Vì taboo component đã quản lý rồi
+            if (isFilterActive) {
+                return;
+            }
 
-                // Đếm TOTAL filtered rows TRƯỚC khi thay đổi pagination
-                const allRows = table.querySelectorAll('tr:not(.empty-filter-row)');
-                const totalFilteredRows = parseInt(loadMoreBtn.getAttribute('data-total')) || Array.from(allRows)
-                    .filter(row => {
-                        return row.style.display !== 'none';
-                    }).length;
+            const loadMoreBtn = table.closest('.card-body').querySelector('.load-more-btn');
+            if (!loadMoreBtn) {
+                return;
+            }
 
-                console.log(
-                    `DEBUG: Maintaining pagination for year ${year}: currentLoaded=${currentLoaded}, totalFilteredRows=${totalFilteredRows}, allRows=${allRows.length}`
-                );
+            let currentLoaded = parseInt(loadMoreBtn.dataset.loaded) || 10;
 
-                // Show rows according to current pagination state
-                let visibleCount = 0;
-                allRows.forEach((row, index) => {
-                    if (visibleCount < currentLoaded) {
-                        row.style.display = '';
-                        row.setAttribute('data-visible', 'true');
-                        visibleCount++;
-                        console.log(`DEBUG: Showing row ${index}`);
-                    } else {
-                        row.style.display = 'none';
-                        row.setAttribute('data-visible', 'false');
-                    }
-                });
+            // Đếm TOTAL filtered rows TRƯỚC khi thay đổi pagination
+            const allRows = table.querySelectorAll('tr:not(.empty-filter-row)');
+            const totalFilteredRows = parseInt(loadMoreBtn.getAttribute('data-total')) || Array.from(allRows)
+                .filter(row => {
+                    return row.style.display !== 'none';
+                }).length;
 
-                // Update load more button với total filtered rows
-                const remaining = totalFilteredRows - currentLoaded;
-                if (remaining > 0) {
-                    const nextLoad = Math.min(10, remaining);
-                    loadMoreBtn.innerHTML =
-                        `Xem thêm`;
-                    loadMoreBtn.style.display = '';
-                    loadMoreBtn.setAttribute('data-total', totalFilteredRows.toString());
+            // Show rows according to current pagination state
+            let visibleCount = 0;
+            allRows.forEach((row, index) => {
+                if (visibleCount < currentLoaded) {
+                    row.style.display = '';
+                    row.setAttribute('data-visible', 'true');
+                    visibleCount++;
                 } else {
-                    loadMoreBtn.style.display = 'none';
+                    row.style.display = 'none';
+                    row.setAttribute('data-visible', 'false');
+                }
+            });
+
+            // Update load more button với total filtered rows
+            const remaining = totalFilteredRows - currentLoaded;
+            if (remaining > 0) {
+                const nextLoad = Math.min(10, remaining);
+                loadMoreBtn.innerHTML = `Xem thêm`;
+                loadMoreBtn.style.display = '';
+                loadMoreBtn.setAttribute('data-total', totalFilteredRows.toString());
+            } else {
+                loadMoreBtn.style.display = 'none';
+            }
+        };
+
+        // Global helper functions
+        window.getScoreFromRow = function(row) {
+            // Try to find score in battery element
+            const battery = row.querySelector('.battery-label');
+            if (battery) {
+                return parseInt(battery.textContent.replace('%', '')) || 0;
+            }
+
+            // Try to find score in other score elements
+            const scoreElement = row.querySelector('.diem-so, .score');
+            if (scoreElement) {
+                const scoreText = scoreElement.textContent.match(/\d+/);
+                return scoreText ? parseInt(scoreText[0]) : 0;
+            }
+
+            return 0;
+        };
+
+        window.getDateFromRow = function(row) {
+            // Method 1: Try to find date in href
+            const dateCell = row.querySelector('td:first-child a');
+            if (dateCell) {
+                const href = dateCell.getAttribute('href');
+                const dateMatch = href.match(/\/(\d{4}-\d{2}-\d{2})/);
+                if (dateMatch) {
+                    return new Date(dateMatch[1]);
                 }
             }
 
-        });
+            // Method 2: Try to find date in text content (dd/mm/yyyy format)
+            const strongElement = row.querySelector('td:first-child strong');
+            if (strongElement) {
+                const text = strongElement.textContent;
+                const dateMatch = text.match(/(\d{1,2})\/(\d{1,2})\/(\d{4})/);
+                if (dateMatch) {
+                    const [, day, month, year] = dateMatch;
+                    return new Date(year, month - 1, day);
+                }
+            }
+
+            return new Date(0);
+        };
+
+        window.applySortingToTable = function(sortValue, year = null, shouldMaintainPagination = true) {
+            // Find table using specific selectors for khai-truong
+            let table = null;
+
+            // Try multiple selectors to find the table
+            const selectors = [
+                '#table-all tbody',
+                '.table-body-all',
+                '#bang-chi-tiet table tbody',
+                '#bang-chi-tiet tbody',
+                'table tbody'
+            ];
+
+            for (const selector of selectors) {
+                table = document.querySelector(selector);
+                if (table) {
+                    break;
+                }
+            }
+
+            if (!table) {
+                return;
+            }
+
+            const rows = Array.from(table.querySelectorAll('tr[data-taboo-days]'));
+
+            rows.sort((a, b) => {
+                if (sortValue === 'date_asc' || sortValue === 'date_desc') {
+                    const dateA = window.getDateFromRow(a);
+                    const dateB = window.getDateFromRow(b);
+                    const result = dateA - dateB;
+                    return sortValue === 'date_asc' ? result : -result;
+                } else {
+                    // Score sorting
+                    const scoreA = window.getScoreFromRow(a);
+                    const scoreB = window.getScoreFromRow(b);
+                    return sortValue === 'asc' ? scoreA - scoreB : scoreB - scoreA;
+                }
+            });
+
+            // Clear existing rows
+            table.innerHTML = '';
+
+            // Re-append sorted rows
+            rows.forEach(row => table.appendChild(row));
+
+            // Maintain current pagination for single table
+            window.maintainCurrentPagination(table, 'all');
+        };
     </script>
     @include('components.next-year-button-handler')
     @include('components.taboo-filter-script')
