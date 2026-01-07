@@ -1,38 +1,57 @@
 @php
-    $currentYear = $header_lunar_months[0]['lunar_year'] ?? date('Y');
-    $currentMonth = date('m');
+    // Tìm tháng hiện tại - lấy ngày hiện tại và chuyển sang âm lịch
+    $today = date('j/n/Y');
+    $todayParts = explode('/', $today);
+    $lunarToday = \App\Helpers\LunarHelper::convertSolar2Lunar($todayParts[0], $todayParts[1], $todayParts[2]);
+    $currentLunarMonth = $lunarToday[1];
+    $currentLunarYear = $lunarToday[2];
 
-    // Tạo danh sách 12 tháng cơ bản
-    $months = collect(range(1, 12))->map(function ($m) use ($currentYear) {
-        return [
-            'lunar_month' => $m,
-            'lunar_year' => $currentYear,
-            'is_leap' => false,
-        ];
-    });
-   
+    // Lùi lại 2 tháng từ tháng hiện tại
+    $startMonth = $currentLunarMonth - 2;
+    $startYear = $currentLunarYear;
 
-    // Nếu là tháng 12, 1, 2, 3 dương lịch, thêm 3 tháng đầu của năm âm tiếp theo
-    if (in_array($currentMonth, [12, 1, 2, 3])) {
-        // Luôn thêm 3 tháng của năm âm tiếp theo
-        $nextYear = $currentYear + 1;
-        $nextYearMonths = collect(range(1, 3))->map(function ($m) use ($nextYear) {
-            return [
-                'lunar_month' => $m,
-                'lunar_year' => $nextYear,
-                'is_leap' => false,
-            ];
-        });
-        $months = $months->merge($nextYearMonths);
+    // Xử lý trường hợp lùi về năm trước
+    if ($startMonth <= 0) {
+        $startMonth = $startMonth + 12; // Chuyển sang tháng của năm trước
+        $startYear = $currentLunarYear - 1;
     }
 
-    // Nếu có dữ liệu tháng âm (có thể có nhuận), chèn tháng nhuận đúng vị trí
-    if (isset($header_lunar_months) && count($header_lunar_months) > 0) {
-        foreach ($header_lunar_months as $info) {
-            if ($info['is_leap']) {
-                // Chèn sau tháng thường cùng số
-                $months->splice($info['lunar_month'], 0, [$info]);
+    // Tạo danh sách 12 tháng liên tiếp từ tháng bắt đầu
+    $months = collect();
+    $month = $startMonth;
+    $year = $startYear;
+
+    for ($i = 0; $i < 12; $i++) {
+        // Thêm tháng thường
+        $months->push([
+            'lunar_month' => $month,
+            'lunar_year' => $year,
+            'is_leap' => false,
+        ]);
+
+        // Kiểm tra tháng nhuận cho tháng này
+        // Sử dụng dữ liệu có sẵn từ header_lunar_months để kiểm tra tháng nhuận
+        if (isset($header_lunar_months)) {
+            foreach ($header_lunar_months as $info) {
+                if ($info['is_leap'] &&
+                    $info['lunar_month'] == $month &&
+                    $info['lunar_year'] == $year) {
+                    // Thêm tháng nhuận ngay sau tháng thường
+                    $months->push([
+                        'lunar_month' => $month,
+                        'lunar_year' => $year,
+                        'is_leap' => true,
+                    ]);
+                    break;
+                }
             }
+        }
+
+        // Chuyển sang tháng tiếp theo
+        $month++;
+        if ($month > 12) {
+            $month = 1;
+            $year++;
         }
     }
 @endphp
