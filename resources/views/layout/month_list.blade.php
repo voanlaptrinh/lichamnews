@@ -12,9 +12,10 @@
     });
    
 
-    // Nếu là tháng 12, 1, hoặc 2 dương lịch, thêm 3 tháng của năm sau
-    if (in_array($currentMonth, [12, 1, 2])) {
-        $nextYear = ($currentMonth == 12) ? $currentYear + 1 : $currentYear;
+    // Nếu là tháng 12, 1, 2, 3 dương lịch, thêm 3 tháng đầu của năm âm tiếp theo
+    if (in_array($currentMonth, [12, 1, 2, 3])) {
+        // Luôn thêm 3 tháng của năm âm tiếp theo
+        $nextYear = $currentYear + 1;
         $nextYearMonths = collect(range(1, 3))->map(function ($m) use ($nextYear) {
             return [
                 'lunar_month' => $m,

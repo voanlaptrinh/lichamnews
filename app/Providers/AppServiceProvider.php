@@ -31,8 +31,15 @@ class AppServiceProvider extends ServiceProvider
 
         // Share lunar months data with header view
         View::composer('layout.header', function ($view) {
-            $currentYear = date('Y');
-            $lunar_months = $this->generateLunarMonthsForYear($currentYear);
+           
+               $today = date('j/n/Y');
+            $todayParts = explode('/', $today);
+            $lunarToday = \App\Helpers\LunarHelper::convertSolar2Lunar($todayParts[0], $todayParts[1], $todayParts[2]);
+            $currentLunarYear = $lunarToday[2]; // Năm âm hiện tại
+
+            // Generate for current lunar year and previous lunar year
+            $lunar_months = [];
+            $lunar_months = $this->generateLunarMonthsForYear($currentLunarYear);
             $view->with('header_lunar_months', $lunar_months);
         });
     }
