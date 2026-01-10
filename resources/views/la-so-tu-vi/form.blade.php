@@ -27,9 +27,9 @@
                         <a href="{{ route('home') }}" style="color: #2254AB; text-decoration: underline;">Trang chủ</a>
                     </li>
 
-                    <li class="breadcrumb-item">
+                    {{-- <li class="breadcrumb-item">
                         Tử vi & Phong thuỷ
-                    </li>
+                    </li> --}}
 
                     <li class="breadcrumb-item active" aria-current="page">
                         Lá số tử vi
