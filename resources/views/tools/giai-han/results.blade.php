@@ -11,7 +11,7 @@
         }
 
         // Sort all days by date
-        usort($allDays, function($a, $b) {
+        usort($allDays, function ($a, $b) {
             return $a['date'] <=> $b['date'];
         });
     @endphp
@@ -20,10 +20,9 @@
 
         <div class="card border-0 mb-3 w-100 box-detial-year">
             <div class="card-body box1-con-year">
-                <div
-                    class="text-primary mb-3 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
-                    <img src="{{ asset('icons/dac-diem1.svg') }}" alt="thông tin gia chủ" width="28"
-                        height="28" class="me-1"> Thông Tin Gia Chủ
+                <div class="text-primary mb-3 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
+                    <img src="{{ asset('icons/dac-diem1.svg') }}" alt="thông tin gia chủ" width="28" height="28"
+                        class="me-1"> Thông Tin Gia Chủ
                 </div>
                 @if (isset($birthdateInfo))
                     <div class="info-grid">
@@ -31,9 +30,9 @@
                             <strong>Ngày sinh dương lịch:</strong>
                             {{ $birthdateInfo['solar_date'] ?? '' }}
                         </p>
-                          <p class="mb-2">
+                        <p class="mb-2">
                             <strong>Ngày sinh âm lịch:</strong>
-                           
+
                             {{ $birthdateInfo['lunar_date'] ?? '' }}
                         </p>
                         <p class="mb-2">
@@ -66,8 +65,8 @@
                     <!-- Filter and Sort Controls -->
                     <div class="betwen-ds flex-wrap mb-3">
                         <div class="text-primary mb-0 title-tong-quan-h4-log text-dark fw-bolder">
-                            <img src="{{ asset('icons/k_nen_1.svg') }}" alt="bảng điểm cúng sao giải hạn"
-                                width="28" height="28" class="me-1"> Gợi ý ngày tốt cho bạn
+                            <img src="{{ asset('icons/k_nen_1.svg') }}" alt="bảng điểm cúng sao giải hạn" width="28"
+                                height="28" class="me-1"> Gợi ý ngày tốt cho bạn
                         </div>
                         <div class="d-flex flex-wrap" style="gap: 10px">
                             <div class="position-relative mb-3">
@@ -80,7 +79,8 @@
 
                             <!-- Sắp xếp tích hợp điểm và ngày -->
                             <div>
-                                <select name="sort" class="form-select-sm sort-select" style="width: auto; height: 40px;">
+                                <select name="sort" class="form-select-sm sort-select"
+                                    style="width: auto; height: 40px;">
                                     <option value="desc" selected>Điểm giảm dần</option>
                                     <option value="date_asc">Ngày tăng dần</option>
                                     <option value="date_desc">Ngày giảm dần</option>
@@ -96,8 +96,8 @@
                     </div>
 
                     <div class="table-responsive w-100" id="bang-chi-tiet">
-                        <table class="table table-hover align-middle w-100 table-layout"
-                            id="table-all" style=" width: 100%;">
+                        <table class="table table-hover align-middle w-100 table-layout" id="table-all"
+                            style=" width: 100%;">
                             <thead class="text-center" style="background-color: #e8ebee;">
                                 <tr>
                                     <th style="border-radius: 8px 0 0 8px">Ngày</th>
@@ -108,7 +108,9 @@
                             <tbody class="text-center table-body-all">
                                 @foreach ($allDays as $index => $day)
                                     @php
-                                        $score = $day['day_score']['score']['percentage'] ?? ($day['day_score']['percentage'] ?? 0);
+                                        $score =
+                                            $day['day_score']['score']['percentage'] ??
+                                            ($day['day_score']['percentage'] ?? 0);
                                         $bgColor = '#D1FAE5'; // Green
                                         $score = round($score);
                                         if ($score <= 30) {
@@ -132,7 +134,10 @@
                                         $tabooNames = [];
 
                                         // Check for checkTabooDays structure
-                                        if (isset($day['day_score']['checkTabooDays']['issues']) && is_array($day['day_score']['checkTabooDays']['issues'])) {
+                                        if (
+                                            isset($day['day_score']['checkTabooDays']['issues']) &&
+                                            is_array($day['day_score']['checkTabooDays']['issues'])
+                                        ) {
                                             foreach ($day['day_score']['checkTabooDays']['issues'] as $issue) {
                                                 if (isset($issue['details']['tabooName'])) {
                                                     $tabooNames[] = $issue['details']['tabooName'];
@@ -141,7 +146,11 @@
                                         }
 
                                         // Check for score.issues structure (alternative path)
-                                        if (empty($tabooNames) && isset($day['day_score']['score']['issues']) && is_array($day['day_score']['score']['issues'])) {
+                                        if (
+                                            empty($tabooNames) &&
+                                            isset($day['day_score']['score']['issues']) &&
+                                            is_array($day['day_score']['score']['issues'])
+                                        ) {
                                             foreach ($day['day_score']['score']['issues'] as $issue) {
                                                 if (isset($issue['details']['tabooName'])) {
                                                     $tabooNames[] = $issue['details']['tabooName'];
@@ -150,7 +159,11 @@
                                         }
 
                                         // Check for taboo_details.taboo_types as fallback
-                                        if (empty($tabooNames) && isset($day['day_score']['taboo_details']['taboo_types']) && is_array($day['day_score']['taboo_details']['taboo_types'])) {
+                                        if (
+                                            empty($tabooNames) &&
+                                            isset($day['day_score']['taboo_details']['taboo_types']) &&
+                                            is_array($day['day_score']['taboo_details']['taboo_types'])
+                                        ) {
                                             $tabooNames = $day['day_score']['taboo_details']['taboo_types'];
                                         }
 
@@ -162,27 +175,34 @@
                                         data-visible="{{ $index < 10 ? 'true' : 'false' }}"
                                         data-taboo-days="{{ implode(',', $tabooNames) }}">
                                         <td style="text-align: start">
-                                            <a href="{{ route('giai-han.details', [
-                                                'date' => $day['date']->format('Y-m-d'),
-                                                'birthdate' => $birthdateInfo['dob']->format('Y-m-d') ?? '',
-                                                'date_range' => $inputs['date_range'] ?? '',
-                                                'calendar_type' => $inputs['calendar_type'] ?? 'solar'
-                                            ]) }}">
+                                            <a
+                                                href="{{ route('giai-han.details', [
+                                                    'date' => $day['date']->format('Y-m-d'),
+                                                    'birthdate' => $birthdateInfo['dob']->format('Y-m-d') ?? '',
+                                                    'date_range' => $inputs['date_range'] ?? '',
+                                                    'calendar_type' => $inputs['calendar_type'] ?? 'solar',
+                                                ]) }}">
                                                 <div class="box-dtl-pc">
                                                     <div style="color: #0F172A;font-size: 18px">
-                                                        <strong style="text-transform:capitalize;">{{ $day['weekday_name'] ?? '' }},
+                                                        <strong
+                                                            style="text-transform:capitalize;">{{ $day['weekday_name'] ?? '' }},
                                                             {{ $day['date']->format('d/m/Y') }}</strong>
                                                     </div>
-                                                    <div class="text-muted small" style="color: #2254AB;font-size: 18px">
-                                                        {{ $day['full_lunar_date_str'] ?? '' }} <i class="bi bi-chevron-right"></i>
+                                                    <div class="text-muted small"
+                                                        style="color: #2254AB;font-size: 18px">
+                                                        {{ $day['full_lunar_date_str'] ?? '' }} <i
+                                                            class="bi bi-chevron-right"></i>
                                                     </div>
                                                 </div>
                                                 <div class="box-dtl-mb">
                                                     <div class="hv-memorial-date-panel">
-                                                        <div class="hv-memorial-month-text">Tháng {{ $day['date']->format('m') }}</div>
-                                                        <div class="hv-memorial-day-digit">{{ $day['date']->format('d') }}</div>
+                                                        <div class="hv-memorial-month-text">Tháng
+                                                            {{ $day['date']->format('m') }}</div>
+                                                        <div class="hv-memorial-day-digit">
+                                                            {{ $day['date']->format('d') }}</div>
                                                         <div class="hv-memorial-lunar-calendar-info d-flex">
-                                                            <span>{{ $day['al_name'][0] ?? '' }}/{{ $day['al_name'][1] ?? '' }} ÂL</span>
+                                                            <span>{{ $day['al_name'][0] ?? '' }}/{{ $day['al_name'][1] ?? '' }}
+                                                                ÂL</span>
                                                             <i class="bi bi-chevron-right"></i>
                                                         </div>
                                                     </div>
@@ -193,44 +213,80 @@
                                         <td style="text-align: start">
                                             @php
                                                 $supportFactors = [];
-                                                if ($day['day_score']['score']['tu']['details']['data']['nature'] == 'Tốt') {
-                                                    $nameBatTu = $day['day_score']['score']['tu']['details']['data']['name'];
+                                                if (
+                                                    $day['day_score']['score']['tu']['details']['data']['nature'] ==
+                                                    'Tốt'
+                                                ) {
+                                                    $nameBatTu =
+                                                        $day['day_score']['score']['tu']['details']['data']['name'];
                                                     $supportFactors[] = "Thập nhị bát tú: Sao {$nameBatTu}";
                                                 }
 
                                                 // Kiểm tra ngày hoàng đạo
-                                                if (isset($day['day_score']['score']['hoangdao']) && $day['day_score']['score']['hoangdao'] === true) {
-                                                    $starName = \App\Helpers\GoodBadDayHelper::getHoangDaoStar($day['date']);
+                                                if (
+                                                    isset($day['day_score']['score']['hoangdao']) &&
+                                                    $day['day_score']['score']['hoangdao'] === true
+                                                ) {
+                                                    $starName = \App\Helpers\GoodBadDayHelper::getHoangDaoStar(
+                                                        $day['date'],
+                                                    );
                                                     if ($starName) {
                                                         $supportFactors[] = "Ngày hoàng đạo: Sao {$starName}";
                                                     }
                                                 }
- if (
+                                                if (
                                                     $day['day_score']['score']['hopttuoi'] === true &&
-                                                    $day['day_score']['score']['hopTuoiReason'] != 'Trùng (Đồng Chi)'
+                                                    $day['day_score']['score']['hopTuoiReason'] != 'Trùng (Đồng Chi)' &&
+                                                    !in_array($day['day_score']['hopTuoiReason'], [
+                                                        'Lục xung',
+                                                        'Tương hại',
+                                                        'Tương phá',
+                                                        'Tự hình',
+                                                    ])
                                                 ) {
                                                     $supportFactors[] =
                                                         'Ngày hợp tuổi: ' . $day['day_score']['score']['hopTuoiReason'];
                                                 }
                                                 // Kiểm tra trực tốt
-                                                if (isset($day['day_score']['score']['tructot']) && $day['day_score']['score']['tructot'] === true) {
-                                                    $trucName = $day['day_score']['score']['truc']['details']['name'] ?? 'Không xác định';
+                                                if (
+                                                    isset($day['day_score']['score']['tructot']) &&
+                                                    $day['day_score']['score']['tructot'] === true
+                                                ) {
+                                                    $trucName =
+                                                        $day['day_score']['score']['truc']['details']['name'] ??
+                                                        'Không xác định';
                                                     $supportFactors[] = "Trực tốt: Trực {$trucName}";
                                                 }
 
                                                 // Kiểm tra hợp tuổi
-                                                if (isset($day['day_score']['score']['hopttuoi']) && $day['day_score']['score']['hopttuoi'] === true) {
-                                                    $hopType = \App\Helpers\GoodBadDayHelper::getHopTuoiDetail($day['date'], $birthdateInfo['dob']->year);
+                                                if (
+                                                    isset($day['day_score']['score']['hopttuoi']) &&
+                                                    $day['day_score']['score']['hopttuoi'] === true
+                                                ) {
+                                                    $hopType = \App\Helpers\GoodBadDayHelper::getHopTuoiDetail(
+                                                        $day['date'],
+                                                        $birthdateInfo['dob']->year,
+                                                    );
                                                     $badTypes = ['Lục xung', 'Tương hại', 'Tương phá', 'Tự hình'];
 
-                                                    if ($hopType && $hopType !== 'Trung bình (không xung, không hợp)' && !in_array($hopType, $badTypes)) {
+                                                    if (
+                                                        $hopType &&
+                                                        $hopType !== 'Trung bình (không xung, không hợp)' &&
+                                                        !in_array($hopType, $badTypes)
+                                                    ) {
                                                         $supportFactors[] = "Ngày hợp tuổi: {$hopType}";
                                                     }
                                                 }
 
                                                 // Kiểm tra sao tốt
-                                                if (isset($day['day_score']['score']['good_stars']) && !empty($day['day_score']['score']['good_stars'])) {
-                                                    $starNames = implode(', ', $day['day_score']['score']['good_stars']);
+                                                if (
+                                                    isset($day['day_score']['score']['good_stars']) &&
+                                                    !empty($day['day_score']['score']['good_stars'])
+                                                ) {
+                                                    $starNames = implode(
+                                                        ', ',
+                                                        $day['day_score']['score']['good_stars'],
+                                                    );
                                                     $supportFactors[] = "Sao tốt: {$starNames}";
                                                 }
 
@@ -248,19 +304,22 @@
                                                 </ul>
                                             @else
                                                 <span class="text-warning small" style="color: #2254AB !important">
-                                                    <i class="bi bi-exclamation-triangle-fill"></i> Không có yếu tố hỗ trợ
+                                                    <i class="bi bi-exclamation-triangle-fill"></i> Không có yếu tố hỗ
+                                                    trợ
                                                 </span>
                                             @endif
 
                                             <!-- Score hiển thị tròn cho mobile -->
-                                            <div class="score-circle-mobile" style="background-color: white; border: 1px solid #2254AB">
+                                            <div class="score-circle-mobile"
+                                                style="background-color: white; border: 1px solid #2254AB">
                                                 {{ round($score) }}%
                                             </div>
                                         </td>
                                         <td class="text-center score-battery-pc">
                                             <div class=" d-flex justify-content-center align-items-center">
                                                 <div class="battery">
-                                                    <div class="battery-body" style="border:1px solid {{ $border }}">
+                                                    <div class="battery-body"
+                                                        style="border:1px solid {{ $border }}">
                                                         <div class="battery-fill"
                                                             style="width: {{ round($score) }}%; background-color: {{ $bgColor }}; ">
                                                         </div>
@@ -285,7 +344,8 @@
                         @endif
 
                         <div class="card-body box1-con-year pe-1 ps-1">
-                            <div class="text-primary mb-2  text-dark d-flex align-items-center p-3" style="border: 1px solid rgb(173, 173, 173);border-radius: 10px">
+                            <div class="text-primary mb-2  text-dark d-flex align-items-center p-3"
+                                style="border: 1px solid rgb(173, 173, 173);border-radius: 10px">
                                 ⚠️ Chú ý: Đây là các thông tin xem mang tính chất tham khảo, không thay thế cho các
                                 tư vấn
                                 chuyên môn. Người dùng tự chịu trách nhiệm với mọi quyết định cá nhân dựa trên thông
@@ -403,7 +463,7 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         // Expose user's 'chi' to global scope
-        window.userChi = '{{ explode(' ', ($birthdateInfo['can_chi'] ?? ''))[1] ?? '' }}';
+        window.userChi = '{{ explode(' ', $birthdateInfo['can_chi'] ?? '')[1] ?? '' }}';
 
         // Khởi tạo taboo filter với dữ liệu từ backend - combine all days
         const resultsByYear = {

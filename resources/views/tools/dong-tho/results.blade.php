@@ -51,10 +51,10 @@
                                     <strong>Ngày sinh dương lịch:</strong>
                                     {{ $birthdateInfo['dob']->format('d/m/Y') }}
                                 </p>
-                                 <p class="mb-2">
+                                <p class="mb-2">
                                     <strong>Ngày sinh âm lịch:</strong>
                                     {{ $birthdateInfo['lunar_dob_str'] }}
-                                  
+
                                 </p>
                                 <p class="mb-2">
                                     <strong>Tuổi:</strong>
@@ -119,8 +119,8 @@
                             <!-- Filter and Sort Controls - trực tiếp trên table -->
                             <div class="betwen-ds flex-wrap mb-3">
                                 <div class="text-primary mb-0 title-tong-quan-h4-log text-dark fw-bolder">
-                                    <img src="{{ asset('icons/k_nen_1.svg') }}" alt="thông tin người xem" width="28"
-                                        height="28" class="me-1"> Gợi ý ngày tốt cho bạn
+                                    <img src="{{ asset('icons/k_nen_1.svg') }}" alt="thông tin người xem"
+                                        width="28" height="28" class="me-1"> Gợi ý ngày tốt cho bạn
                                 </div>
                                 <div class="d-flex flex-wrap" style="gap: 10px">
                                     <div class="position-relative mb-3">
@@ -134,7 +134,8 @@
 
                                     <!-- Sắp xếp tích hợp điểm và ngày -->
                                     <div>
-                                        <select name="sort" class="form-select-sm sort-select" style="width: auto; height: 40px;">
+                                        <select name="sort" class="form-select-sm sort-select"
+                                            style="width: auto; height: 40px;">
                                             <option value="desc" selected>Điểm giảm dần</option>
                                             <option value="date_asc">Ngày tăng dần</option>
                                             <option value="date_desc">Ngày giảm dần</option>
@@ -144,7 +145,8 @@
                             </div>
 
                             <!-- Filter Status for this tab -->
-                            <div id="filterStatus-{{ $year }}" class="alert alert-success d-none mb-3" role="alert">
+                            <div id="filterStatus-{{ $year }}" class="alert alert-success d-none mb-3"
+                                role="alert">
                                 <i class="bi bi-funnel"></i>
                                 <span id="filterStatusText-{{ $year }}"></span>
                             </div>
@@ -181,27 +183,26 @@
                                                     $border = '#10B981';
                                                     $text_box = '#10B981';
                                                 }
-                                                  $tabooNames = [];
-                                    if (
-                                        isset($day['day_score']['checkTabooDays']['issues']) &&
-                                        is_array($day['day_score']['checkTabooDays']['issues'])
-                                    ) {
-                                        foreach ($day['day_score']['checkTabooDays']['issues'] as $issue) {
-                                            if (isset($issue['details']['tabooName'])) {
-                                                $tabooNames[] = $issue['details']['tabooName'];
-                                            }
-                                        }
-                                    }
-                                    // Also check taboo_details.taboo_types as fallback
-                                    if (
-                                        empty($tabooNames) &&
-                                        isset($day['day_score']['taboo_details']['taboo_types'])
-                                    ) {
-                                        $tabooNames = $day['day_score']['taboo_details']['taboo_types'];
-                                    }
+                                                $tabooNames = [];
+                                                if (
+                                                    isset($day['day_score']['checkTabooDays']['issues']) &&
+                                                    is_array($day['day_score']['checkTabooDays']['issues'])
+                                                ) {
+                                                    foreach ($day['day_score']['checkTabooDays']['issues'] as $issue) {
+                                                        if (isset($issue['details']['tabooName'])) {
+                                                            $tabooNames[] = $issue['details']['tabooName'];
+                                                        }
+                                                    }
+                                                }
+                                                // Also check taboo_details.taboo_types as fallback
+                                                if (
+                                                    empty($tabooNames) &&
+                                                    isset($day['day_score']['taboo_details']['taboo_types'])
+                                                ) {
+                                                    $tabooNames = $day['day_score']['taboo_details']['taboo_types'];
+                                                }
                                             @endphp
-                                            <tr class="table-row-{{ $year }}"
-                                                data-index="{{ $index }}"
+                                            <tr class="table-row-{{ $year }}" data-index="{{ $index }}"
                                                 style="{{ $index >= 10 ? 'display: none;' : '' }}"
                                                 data-visible="{{ $index < 10 ? 'true' : 'false' }}"
                                                 data-taboo-days="{{ implode(',', $tabooNames) }}">
@@ -212,7 +213,7 @@
                                                             'birthdate' => $birthdateInfo['dob']->format('Y-m-d'),
                                                             'date_range' => $inputs['date_range'] ?? '',
                                                             'gender' => $inputs['gender'] ?? 'male',
-                                                            'calendar_type' => $inputs['calendar_type'] ?? 'solar'
+                                                            'calendar_type' => $inputs['calendar_type'] ?? 'solar',
                                                         ]) }}">
                                                         <div class="box-dtl-pc">
                                                             <div style="color: #0F172A;font-size: 18px">
@@ -235,7 +236,8 @@
                                                                 <div class="hv-memorial-lunar-calendar-info d-flex">
                                                                     <span>
                                                                         {{ $day['al_name'][0] ?? '' }}/{{ $day['al_name'][1] ?? '' }}
-                                                                    ÂL </span><i class="bi bi-chevron-right"></i></div>
+                                                                        ÂL </span><i class="bi bi-chevron-right"></i>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </a>
@@ -243,7 +245,7 @@
                                                 <td style="text-align: start">
                                                     @php
                                                         $supportFactors = [];
- if (
+                                                        if (
                                                             $day['day_score']['tu']['details']['data']['nature'] ==
                                                             'Tốt'
                                                         ) {
@@ -264,13 +266,19 @@
                                                             }
                                                         }
 
-                                                         if (
-                                                    $day['day_score']['hopttuoi'] === true &&
-                                                    $day['day_score']['hopTuoiReason'] != 'Trùng (Đồng Chi)'
-                                                ) {
-                                                    $supportFactors[] =
-                                                        'Ngày hợp tuổi: ' . $day['day_score']['hopTuoiReason'];
-                                                }
+                                                        if (
+                                                            $day['day_score']['hopttuoi'] === true &&
+                                                            $day['day_score']['hopTuoiReason'] != 'Trùng (Đồng Chi)' &&
+                                                            !in_array($day['day_score']['hopTuoiReason'], [
+                                                                'Lục xung',
+                                                                'Tương hại',
+                                                                'Tương phá',
+                                                                'Tự hình',
+                                                            ])
+                                                        ) {
+                                                            $supportFactors[] =
+                                                                'Ngày hợp tuổi: ' . $day['day_score']['hopTuoiReason'];
+                                                        }
                                                         // Kiểm tra trực tốt
                                                         if (
                                                             isset($day['day_score']['tructot']) &&
@@ -291,7 +299,12 @@
                                                                 $day['date'],
                                                                 $birthdateInfo['dob']->year,
                                                             );
-                                                          $badTypes = ['Lục xung', 'Tương hại', 'Tương phá' , 'Tự hình'];
+                                                            $badTypes = [
+                                                                'Lục xung',
+                                                                'Tương hại',
+                                                                'Tương phá',
+                                                                'Tự hình',
+                                                            ];
 
                                                             if (
                                                                 $hopType &&
@@ -330,7 +343,8 @@
                                                     @else
                                                         <span class="text-warning small"
                                                             style="color: #2254AB !important">
-                                                            <i class="bi bi-exclamation-triangle-fill"></i> Không có yếu
+                                                            <i class="bi bi-exclamation-triangle-fill"></i> Không có
+                                                            yếu
                                                             tố hỗ trợ
                                                         </span>
                                                     @endif
@@ -364,13 +378,11 @@
                                 </table>
 
                                 <!-- Nút xem thêm -->
-                                @if(count($yearData['days']) > 10)
+                                @if (count($yearData['days']) > 10)
                                     <div class="text-center mt-3">
-                                        <button type="button"
-                                                class="btn btn-outline-primary load-more-btn"
-                                                data-year="{{ $year }}"
-                                                data-loaded="10"
-                                                data-total="{{ count($yearData['days']) }}">
+                                        <button type="button" class="btn btn-outline-primary load-more-btn"
+                                            data-year="{{ $year }}" data-loaded="10"
+                                            data-total="{{ count($yearData['days']) }}">
 
                                             Xem thêm
 
@@ -391,23 +403,29 @@
                                     }
                                 @endphp
                                 @if ($hasNextYear)
-                                    <div class="text-center mt-3" id="next-year-container-{{ $year }}" style="display: none;">
+                                    <div class="text-center mt-3" id="next-year-container-{{ $year }}"
+                                        style="display: none;">
                                         <button type="button" class="btn btn-success next-year-btn"
-                                            data-current-year="{{ $year }}" data-next-year="{{ $nextYear }}">
-                                            <i class="fas fa-arrow-right me-2"></i>Xem năm tiếp theo ({{ $nextYear }})
+                                            data-current-year="{{ $year }}"
+                                            data-next-year="{{ $nextYear }}">
+                                            <i class="fas fa-arrow-right me-2"></i>Xem năm tiếp theo
+                                            ({{ $nextYear }})
                                         </button>
                                     </div>
                                 @endif
-                                 <div class="card-body box1-con-year pe-1 ps-1">
-                                <div class="text-primary mb-2  text-dark d-flex align-items-center p-3" style="border: 1px solid rgb(173, 173, 173);border-radius: 10px">
-                                    ⚠️ Chú ý: Đây là các thông tin xem mang tính chất tham khảo, không thay thế cho các
-                                    tư vấn
-                                    chuyên môn. Người dùng tự chịu trách nhiệm với mọi quyết định cá nhân dựa trên thông
-                                    tin
-                                    tham khảo tại Phong Lịch.
-                                </div>
+                                <div class="card-body box1-con-year pe-1 ps-1">
+                                    <div class="text-primary mb-2  text-dark d-flex align-items-center p-3"
+                                        style="border: 1px solid rgb(173, 173, 173);border-radius: 10px">
+                                        ⚠️ Chú ý: Đây là các thông tin xem mang tính chất tham khảo, không thay thế cho
+                                        các
+                                        tư vấn
+                                        chuyên môn. Người dùng tự chịu trách nhiệm với mọi quyết định cá nhân dựa trên
+                                        thông
+                                        tin
+                                        tham khảo tại Phong Lịch.
+                                    </div>
 
-                            </div>
+                                </div>
                             </div>
                         @else
                             <p class="text-muted text-center py-4">
@@ -437,7 +455,7 @@
                 <div class="filter-quick-actions">
                     <button type="button" id="selectCommon" class="btn-quick-action">Phổ biến</button>
                     <button type="button" id="selectAll" class="btn-quick-action">Tất cả</button>
-                   
+
                 </div>
 
                 <div class="filter-options">

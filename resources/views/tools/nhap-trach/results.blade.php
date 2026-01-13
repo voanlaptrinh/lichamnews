@@ -1,6 +1,6 @@
 <div class="w-100" id="content-box-succes">
     @if (isset($resultsByYear) && count($resultsByYear) > 0)
-    
+
         <!-- Tabs cho các năm -->
         <div class="box-tab-white mb-3">
             <div class="text-primary ms-2 mb-2 title-tong-quan-h4-log text-dark d-flex align-items-center fw-bolder">
@@ -54,12 +54,12 @@
                                     <div class="info-grid">
                                         <p class="mb-2">
                                             <strong>Ngày sinh dương lịch:</strong>
-                                            {{ $birthdateInfo['dob']->format('d/m/Y') }} 
+                                            {{ $birthdateInfo['dob']->format('d/m/Y') }}
                                         </p>
                                         <p class="mb-2">
                                             <strong>Ngày sinh âm lịch:</strong>
-                                        
-                                            {{ $birthdateInfo['lunar_dob_str'] }} 
+
+                                            {{ $birthdateInfo['lunar_dob_str'] }}
                                         </p>
                                         <p class="mb-2">
                                             <strong>Tuổi:</strong>
@@ -360,7 +360,13 @@
                                                         }
                                                         if (
                                                             $day['day_score']['hopttuoi'] === true &&
-                                                            $day['day_score']['hopTuoiReason'] != 'Trùng (Đồng Chi)'
+                                                            $day['day_score']['hopTuoiReason'] != 'Trùng (Đồng Chi)' &&
+                                                            !in_array($day['day_score']['hopTuoiReason'], [
+                                                                'Lục xung',
+                                                                'Tương hại',
+                                                                'Tương phá',
+                                                                'Tự hình',
+                                                            ])
                                                         ) {
                                                             $supportFactors[] =
                                                                 'Ngày hợp tuổi: ' . $day['day_score']['hopTuoiReason'];

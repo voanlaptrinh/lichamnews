@@ -28,20 +28,20 @@
                     <div class="info-grid">
                         <p class="mb-2">
                             <strong>Ngày sinh dương lịch:</strong>
-                            {{ $birthdateInfo['dob']->format('d/m/Y') }} 
+                            {{ $birthdateInfo['dob']->format('d/m/Y') }}
                         </p>
-                         <p class="mb-2">
+                        <p class="mb-2">
                             <strong>Ngày sinh âm lịch:</strong>
-                         
+
                             {{ $birthdateInfo['lunar_dob_str'] }}
                         </p>
                         <p class="mb-2">
                             <strong>Tuổi:</strong>
                             <b>{{ $birthdateInfo['can_chi_nam'] }}</b>,
                         </p>
-                         <p class="mb-2">
+                        <p class="mb-2">
                             <strong>Mệnh:</strong>
-                           {{ $birthdateInfo['menh']['hanh'] }}
+                            {{ $birthdateInfo['menh']['hanh'] }}
                             ({{ $birthdateInfo['menh']['napAm'] }})
                         </p>
                         <p class="mb-2">
@@ -81,7 +81,7 @@
                                 form="xuatHanhForm">
                                 <option value="desc" {{ ($sortOrder ?? 'desc') === 'desc' ? 'selected' : '' }}>Điểm
                                     giảm dần</option>
-                             
+
                                 <option value="date_asc">Ngày tăng dần</option>
                                 <option value="date_desc">Ngày giảm dần</option>
                             </select>
@@ -134,7 +134,10 @@
                                         $tabooNames = [];
 
                                         // Check for checkTabooDays structure
-                                        if (isset($day['day_score']['checkTabooDays']['issues']) && is_array($day['day_score']['checkTabooDays']['issues'])) {
+                                        if (
+                                            isset($day['day_score']['checkTabooDays']['issues']) &&
+                                            is_array($day['day_score']['checkTabooDays']['issues'])
+                                        ) {
                                             foreach ($day['day_score']['checkTabooDays']['issues'] as $issue) {
                                                 if (isset($issue['details']['tabooName'])) {
                                                     $tabooNames[] = $issue['details']['tabooName'];
@@ -143,7 +146,11 @@
                                         }
 
                                         // Check for score.issues structure (alternative path)
-                                        if (empty($tabooNames) && isset($day['day_score']['score']['issues']) && is_array($day['day_score']['score']['issues'])) {
+                                        if (
+                                            empty($tabooNames) &&
+                                            isset($day['day_score']['score']['issues']) &&
+                                            is_array($day['day_score']['score']['issues'])
+                                        ) {
                                             foreach ($day['day_score']['score']['issues'] as $issue) {
                                                 if (isset($issue['details']['tabooName'])) {
                                                     $tabooNames[] = $issue['details']['tabooName'];
@@ -152,7 +159,11 @@
                                         }
 
                                         // Check for taboo_details.taboo_types as fallback
-                                        if (empty($tabooNames) && isset($day['day_score']['taboo_details']['taboo_types']) && is_array($day['day_score']['taboo_details']['taboo_types'])) {
+                                        if (
+                                            empty($tabooNames) &&
+                                            isset($day['day_score']['taboo_details']['taboo_types']) &&
+                                            is_array($day['day_score']['taboo_details']['taboo_types'])
+                                        ) {
                                             $tabooNames = $day['day_score']['taboo_details']['taboo_types'];
                                         }
 
@@ -217,9 +228,15 @@
                                                         $supportFactors[] = "Ngày hoàng đạo: Sao {$starName}";
                                                     }
                                                 }
- if (
+                                                if (
                                                     $day['day_score']['hopttuoi'] === true &&
-                                                    $day['day_score']['hopTuoiReason'] != 'Trùng (Đồng Chi)'
+                                                    $day['day_score']['hopTuoiReason'] != 'Trùng (Đồng Chi)' &&
+                                                    !in_array($day['day_score']['hopTuoiReason'], [
+                                                        'Lục xung',
+                                                        'Tương hại',
+                                                        'Tương phá',
+                                                        'Tự hình',
+                                                    ])
                                                 ) {
                                                     $supportFactors[] =
                                                         'Ngày hợp tuổi: ' . $day['day_score']['hopTuoiReason'];
@@ -442,29 +459,29 @@
 @include('components.taboo-filter-script')
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Expose user's 'chi' to global scope
-    window.userChi = '{{ explode(' ', ($birthdateInfo['can_chi_nam'] ?? ''))[1] ?? '' }}';
+    document.addEventListener('DOMContentLoaded', function() {
+        // Expose user's 'chi' to global scope
+        window.userChi = '{{ explode(' ', $birthdateInfo['can_chi_nam'] ?? '')[1] ?? '' }}';
 
-    // Khởi tạo taboo filter với dữ liệu từ backend - combine all days
-    const resultsByYear = {
-        'all': {
-            days: @json($allDays ?? [])
-        }
-    };
+        // Khởi tạo taboo filter với dữ liệu từ backend - combine all days
+        const resultsByYear = {
+            'all': {
+                days: @json($allDays ?? [])
+            }
+        };
 
-    // Khởi tạo filter sau khi DOM loaded
-    setTimeout(() => {
-        if (typeof initTabooFilter === 'function') {
-            const allTbodies = document.querySelectorAll('tbody');
-            allTbodies.forEach((tbody, index) => {
-                const rowsWithTaboo = tbody.querySelectorAll('tr[data-taboo-days]');
-            });
-            initTabooFilter(resultsByYear);
-        } else {
-            console.error('initTabooFilter function not found');
-        }
-    }, 300);
+        // Khởi tạo filter sau khi DOM loaded
+        setTimeout(() => {
+            if (typeof initTabooFilter === 'function') {
+                const allTbodies = document.querySelectorAll('tbody');
+                allTbodies.forEach((tbody, index) => {
+                    const rowsWithTaboo = tbody.querySelectorAll('tr[data-taboo-days]');
+                });
+                initTabooFilter(resultsByYear);
+            } else {
+                console.error('initTabooFilter function not found');
+            }
+        }, 300);
 
-});
+    });
 </script>

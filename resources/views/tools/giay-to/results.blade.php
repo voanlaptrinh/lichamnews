@@ -179,8 +179,8 @@
                                     @endphp
                                     <tr class="table-row-all" data-index="{{ $index }}"
                                         style="{{ $index >= 10 ? 'display: none;' : '' }}"
-                                        data-visible="{{ $index < 10 ? 'true' : 'false' }}"
-                                        data-passed-filter="true" data-score="{{ round($score) }}"
+                                        data-visible="{{ $index < 10 ? 'true' : 'false' }}" data-passed-filter="true"
+                                        data-score="{{ round($score) }}"
                                         data-taboo-days="{{ implode(',', $tabooNames) }}">
                                         <td style="text-align: start">
                                             <a
@@ -240,7 +240,13 @@
                                                 }
                                                 if (
                                                     $day['day_score']['hopttuoi'] === true &&
-                                                    $day['day_score']['hopTuoiReason'] != 'Trùng (Đồng Chi)'
+                                                    $day['day_score']['hopTuoiReason'] != 'Trùng (Đồng Chi)' &&
+                                                    !in_array($day['day_score']['hopTuoiReason'], [
+                                                        'Lục xung',
+                                                        'Tương hại',
+                                                        'Tương phá',
+                                                        'Tự hình',
+                                                    ])
                                                 ) {
                                                     $supportFactors[] =
                                                         'Ngày hợp tuổi: ' . $day['day_score']['hopTuoiReason'];
@@ -517,7 +523,8 @@
 
                 if (selectedTaboos.length > 0) {
                     filterStatus.classList.remove('d-none');
-                    filterStatusText.textContent = `Đã ẩn ${filteredCount} ngày có: ${selectedTaboos.join(', ')}`;
+                    filterStatusText.textContent =
+                        `Đã ẩn ${filteredCount} ngày có: ${selectedTaboos.join(', ')}`;
                 } else {
                     filterStatus.classList.add('d-none');
                 }

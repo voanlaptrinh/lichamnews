@@ -56,17 +56,17 @@
                                         </p>
                                         <p class="mb-2">
                                             <strong>Ngày sinh âm lịch:</strong>
-                                           {{ $hostInfo['lunar_dob_str'] }}
+                                            {{ $hostInfo['lunar_dob_str'] }}
                                         </p>
                                         <p class="mb-2">
                                             <strong>Tuổi:</strong>
                                             <b>{{ $hostInfo['can_chi_nam'] }}</b>
                                         </p>
-                                           <p class="mb-2">
+                                        <p class="mb-2">
                                             <strong>Mệnh:</strong>
                                             <b>
-                                            {{ $hostInfo['menh']['hanh'] ?? 'Không rõ' }}
-                                            ({{ $hostInfo['menh']['napAm'] ?? 'Không rõ' }})</b>
+                                                {{ $hostInfo['menh']['hanh'] ?? 'Không rõ' }}
+                                                ({{ $hostInfo['menh']['napAm'] ?? 'Không rõ' }})</b>
                                         </p>
                                         <p class="mb-2">
                                             <strong>Tuổi âm:</strong>
@@ -197,7 +197,7 @@
                             <div class="betwen-ds flex-wrap mb-3">
                                 <div class="text-primary mb-0 title-tong-quan-h4-log text-dark fw-bolder">
                                     <img src="{{ asset('icons/k_nen_1.svg') }}" alt="bảng điểm cải táng" width="28"
-                                        height="28" class="me-1"> Gợi ý ngày tốt cho bạn 
+                                        height="28" class="me-1"> Gợi ý ngày tốt cho bạn
                                 </div>
                                 <div class="d-flex flex-wrap" style="gap: 10px">
                                     <div class="position-relative mb-3">
@@ -260,8 +260,11 @@
                                                     $text_box = '#10B981';
                                                 }
 
-                                                   $tabooNames = [];
-                                                if (isset($day['day_score']['checkTabooDays']['issues']) && is_array($day['day_score']['checkTabooDays']['issues'])) {
+                                                $tabooNames = [];
+                                                if (
+                                                    isset($day['day_score']['checkTabooDays']['issues']) &&
+                                                    is_array($day['day_score']['checkTabooDays']['issues'])
+                                                ) {
                                                     foreach ($day['day_score']['checkTabooDays']['issues'] as $issue) {
                                                         if (isset($issue['details']['tabooName'])) {
                                                             $tabooNames[] = $issue['details']['tabooName'];
@@ -269,7 +272,10 @@
                                                     }
                                                 }
                                                 // Also check taboo_details.taboo_types as fallback
-                                                if (empty($tabooNames) && isset($day['day_score']['taboo_details']['taboo_types'])) {
+                                                if (
+                                                    empty($tabooNames) &&
+                                                    isset($day['day_score']['taboo_details']['taboo_types'])
+                                                ) {
                                                     $tabooNames = $day['day_score']['taboo_details']['taboo_types'];
                                                 }
                                             @endphp
@@ -327,24 +333,20 @@
                                                             $supportFactors[] = "Thập nhị bát tú: Sao {$nameBatTu}";
                                                         }
                                                         // Kiểm tra ngày hoàng đạo - sử dụng helper
-                                                        // if (
-                                                        //     isset($day['day_score']['hoangdao']) &&
-                                                        //     $day['day_score']['hoangdao'] === true
-                                                        // ) {
-                                                        //     $starName = \App\Helpers\GoodBadDayHelper::getHoangDaoStar(
-                                                        //         $day['date'],
-                                                        //     );
-                                                        //     if ($starName) {
-                                                        //         $supportFactors[] = "Ngày hoàng đạo: Sao {$starName}";
-                                                        //     }
-                                                        // }
- if (
-                                                    $day['day_score']['hopttuoi'] === true &&
-                                                    $day['day_score']['hopTuoiReason'] != 'Trùng (Đồng Chi)'
-                                                ) {
-                                                    $supportFactors[] =
-                                                        'Ngày hợp tuổi: ' . $day['day_score']['hopTuoiReason'];
-                                                }
+                                                      
+                                                        if (
+                                                            $day['day_score']['hopttuoi'] === true &&
+                                                            $day['day_score']['hopTuoiReason'] != 'Trùng (Đồng Chi)' &&
+                                                            !in_array($day['day_score']['hopTuoiReason'], [
+                                                                'Lục xung',
+                                                                'Tương hại',
+                                                                'Tương phá',
+                                                                'Tự hình',
+                                                            ])
+                                                        ) {
+                                                            $supportFactors[] =
+                                                                'Ngày hợp tuổi: ' . $day['day_score']['hopTuoiReason'];
+                                                        }
                                                         // Kiểm tra trực tốt
                                                         if (
                                                             isset($day['day_score']['tructot']) &&
@@ -356,31 +358,7 @@
                                                             $supportFactors[] = "Trực tốt: Trực {$trucName}";
                                                         }
 
-                                                        // Kiểm tra hợp tuổi - sử dụng helper
-                                                        // if (
-                                                        //     isset($day['day_score']['hopttuoi']) &&
-                                                        //     $day['day_score']['hopttuoi'] === true
-                                                        // ) {
-                                                        //     $hopType = \App\Helpers\GoodBadDayHelper::getHopTuoiDetail(
-                                                        //         $day['date'],
-                                                        //         $hostInfo['dob_obj']->year,
-                                                        //     );
-                                                        //     $badTypes = [
-                                                        //         'Lục xung',
-                                                        //         'Tương hại',
-                                                        //         'Tương phá',
-                                                        //         'Tự hình',
-                                                        //     ];
-
-                                                        //     if (
-                                                        //         $hopType &&
-                                                        //         $hopType !== 'Trung bình (không xung, không hợp)' &&
-                                                        //         !in_array($hopType, $badTypes)
-                                                        //     ) {
-                                                        //         $supportFactors[] = "Ngày hợp tuổi: {$hopType}";
-                                                        //     }
-                                                        // }
-
+                                                       
                                                         // Kiểm tra sao tốt - gộp thành 1 dòng
                                                         if (
                                                             isset($day['day_score']['good_stars']) &&
@@ -390,14 +368,7 @@
                                                             $supportFactors[] = "Sao tốt: {$starNames}";
                                                         }
 
-                                                        // // Giờ tốt
-                                                        // if (!empty($day['good_hours'])) {
-                                                        //     $goodHoursList = is_array($day['good_hours'])
-                                                        //         ? implode(', ', $day['good_hours'])
-                                                        //         : $day['good_hours'];
-                                                        //     $supportFactors[] = "Giờ hoàng đạo: {$goodHoursList}";
-                                                        // }
-
+                                                       
                                                         // Chỉ lấy tối đa 4 yếu tố
                                                         $supportFactors = array_slice(
                                                             array_unique($supportFactors),
@@ -471,15 +442,19 @@
                                     }
                                 @endphp
                                 @if ($hasNextYear)
-                                    <div class="text-center mt-3" id="next-year-container-{{ $year }}" style="display: none;">
+                                    <div class="text-center mt-3" id="next-year-container-{{ $year }}"
+                                        style="display: none;">
                                         <button type="button" class="btn btn-success next-year-btn"
-                                            data-current-year="{{ $year }}" data-next-year="{{ $nextYear }}">
-                                            <i class="fas fa-arrow-right me-2"></i>Xem năm tiếp theo ({{ $nextYear }})
+                                            data-current-year="{{ $year }}"
+                                            data-next-year="{{ $nextYear }}">
+                                            <i class="fas fa-arrow-right me-2"></i>Xem năm tiếp theo
+                                            ({{ $nextYear }})
                                         </button>
                                     </div>
                                 @endif
                                 <div class="card-body box1-con-year pe-1 ps-1">
-                                    <div class="text-primary mb-2  text-dark d-flex align-items-center p-3" style="border: 1px solid rgb(173, 173, 173);border-radius: 10px">
+                                    <div class="text-primary mb-2  text-dark d-flex align-items-center p-3"
+                                        style="border: 1px solid rgb(173, 173, 173);border-radius: 10px">
                                         ⚠️ Chú ý: Đây là các thông tin xem mang tính chất tham khảo, không thay thế cho
                                         các
                                         tư vấn
@@ -617,23 +592,23 @@
 </script>
 
 <style>
-/* CSS cho filtering system - theo đúng tot-xau pattern */
-.pagination-hidden {
-    display: none;
-}
+    /* CSS cho filtering system - theo đúng tot-xau pattern */
+    .pagination-hidden {
+        display: none;
+    }
 
-/* Khi filter active, hiển thị tất cả rows để filter có thể truy cập */
-.filter-active .pagination-hidden {
-    display: table-row !important;
-}
+    /* Khi filter active, hiển thị tất cả rows để filter có thể truy cập */
+    .filter-active .pagination-hidden {
+        display: table-row !important;
+    }
 
-/* Class để ẩn rows bị filter - ưu tiên cao nhất */
-.filtered-out {
-    display: none !important;
-}
+    /* Class để ẩn rows bị filter - ưu tiên cao nhất */
+    .filtered-out {
+        display: none !important;
+    }
 
-/* Override for filtered rows - luôn ẩn khi có class filtered-out */
-.filter-active .filtered-out {
-    display: none !important;
-}
+    /* Override for filtered rows - luôn ẩn khi có class filtered-out */
+    .filter-active .filtered-out {
+        display: none !important;
+    }
 </style>

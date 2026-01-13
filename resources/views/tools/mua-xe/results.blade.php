@@ -40,16 +40,16 @@
                                 <strong>Ngày sinh dương lịch:</strong>
                                 {{ $birthdateInfo['dob']->format('d/m/Y') }}
                             </p>
-                             <p class="mb-2">
+                            <p class="mb-2">
                                 <strong>Ngày sinh âm lịch:</strong>
-                             
-                                {{ $birthdateInfo['lunar_dob_str'] }} 
+
+                                {{ $birthdateInfo['lunar_dob_str'] }}
                             </p>
                             <p class="mb-2">
                                 <strong>Tuổi:</strong>
                                 {{ $birthdateInfo['can_chi_nam'] }}
                             </p>
-                              <p class="mb-2">
+                            <p class="mb-2">
                                 <strong>Mệnh:</strong>
                                 {{ $birthdateInfo['menh']['hanh'] }}
                                 ({{ $birthdateInfo['menh']['napAm'] }})
@@ -183,7 +183,8 @@
                                             // Remove duplicates
                                             $tabooTypes = array_unique($tabooTypes);
                                         @endphp
-                                        <tr class="table-row-all {{ $index >= 10 ? 'pagination-hidden' : '' }}" data-index="{{ $index }}"
+                                        <tr class="table-row-all {{ $index >= 10 ? 'pagination-hidden' : '' }}"
+                                            data-index="{{ $index }}"
                                             data-visible="{{ $index < 10 ? 'true' : 'false' }}"
                                             data-taboo-days="{{ implode(',', $tabooTypes) }}">
                                             <td style="text-align: start">
@@ -240,13 +241,19 @@
                                                             $supportFactors[] = "Ngày hoàng đạo: Sao {$starName}";
                                                         }
                                                     }
- if (
-                                                    $day['day_score']['hopttuoi'] === true &&
-                                                    $day['day_score']['hopTuoiReason'] != 'Trùng (Đồng Chi)'
-                                                ) {
-                                                    $supportFactors[] =
-                                                        'Ngày hợp tuổi: ' . $day['day_score']['hopTuoiReason'];
-                                                }
+                                                    if (
+                                                        $day['day_score']['hopttuoi'] === true &&
+                                                        $day['day_score']['hopTuoiReason'] != 'Trùng (Đồng Chi)' &&
+                                                        !in_array($day['day_score']['hopTuoiReason'], [
+                                                            'Lục xung',
+                                                            'Tương hại',
+                                                            'Tương phá',
+                                                            'Tự hình',
+                                                        ])
+                                                    ) {
+                                                        $supportFactors[] =
+                                                            'Ngày hợp tuổi: ' . $day['day_score']['hopTuoiReason'];
+                                                    }
                                                     // Kiểm tra trực tốt
                                                     if (
                                                         isset($day['day_score']['tructot']) &&
@@ -459,14 +466,14 @@
 <div id="tabooFilterBackdrop" class="taboo-filter-backdrop d-none"></div>
 
 <style>
-.pagination-hidden {
-    display: none;
-}
+    .pagination-hidden {
+        display: none;
+    }
 
-/* Khi filter active, hiển thị tất cả rows để filter có thể truy cập */
-.filter-active .pagination-hidden {
-    display: table-row;
-}
+    /* Khi filter active, hiển thị tất cả rows để filter có thể truy cập */
+    .filter-active .pagination-hidden {
+        display: table-row;
+    }
 </style>
 
 @include('components.taboo-filter-script')

@@ -238,7 +238,8 @@
                                                 }
                                                 if (
                                                     $day['day_score']['hopttuoi'] === true &&
-                                                    $day['day_score']['hopTuoiReason'] != 'Trùng (Đồng Chi)'
+                                                    $day['day_score']['hopTuoiReason'] != 'Trùng (Đồng Chi)' &&
+                                                    !in_array($day['day_score']['hopTuoiReason'], ['Lục xung', 'Tương hại', 'Tương phá', 'Tự hình'])
                                                 ) {
                                                     $supportFactors[] =
                                                         'Ngày hợp tuổi: ' . $day['day_score']['hopTuoiReason'];
@@ -264,7 +265,6 @@
                                                         $birthdateInfo['dob']->year,
                                                     );
                                                     $badTypes = ['Lục xung', 'Tương hại', 'Tương phá', 'Tự hình'];
-
                                                     if (
                                                         $hopType &&
                                                         $hopType !== 'Trung bình (không xung, không hợp)' &&
