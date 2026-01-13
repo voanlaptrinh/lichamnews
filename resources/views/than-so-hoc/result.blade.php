@@ -329,107 +329,87 @@
                                                 </div>
                                             @endforeach
 
-                                            {{-- Arrow Overlays using existing arrows data --}}
+                                            {{-- Arrow Overlays --}}
                                             <div class="arrows-overlay">
-                                                @foreach ($arrows['arrows'] as $arrow)
-                                                    @if ($arrow['type'] == 'present')
-                                                        {{-- Different arrow styles based on position --}}
-                                                        @php
-                                                            $arrowNumbers = $arrow['numbers'] ?? [];
-                                                            $arrowClass = '';
-                                                            $arrowStyle = '';
+                                                @php
+                                                    $arrowConfigs = [
+                                                        // Diagonals
+                                                        [
+                                                            'numbers' => [1, 5, 9],
+                                                            'class' => 'diagonal',
+                                                            'style' => 'top: 50%; left: 50%; width: 141%; transform: translate(-50%, -50%) rotate(-45deg);',
+                                                            'name' => 'Mũi tên Quyết tâm',
+                                                        ],
+                                                        [
+                                                            'numbers' => [3, 5, 7],
+                                                            'class' => 'diagonal-reverse',
+                                                            'style' => 'top: 50%; left: 50%; width: 141%; transform: translate(-50%, -50%) rotate(45deg);',
+                                                            'name' => 'Mũi tên Nhạy bén Tâm linh',
+                                                        ],
+                                                        // Verticals (based on displayed grid columns)
+                                                        [
+                                                            'numbers' => [1, 2, 3],
+                                                            'class' => 'vertical',
+                                                            'style' => 'left: 16.66%; top: 0; height: 100%; width: 5px;',
+                                                            'name' => 'Mũi tên Kế hoạch',
+                                                        ],
+                                                        [
+                                                            'numbers' => [4, 5, 6],
+                                                            'class' => 'vertical',
+                                                            'style' => 'left: 50%; top: 0; height: 100%; width: 5px; transform: translateX(-50%);',
+                                                            'name' => 'Mũi tên Ý chí',
+                                                        ],
+                                                        [
+                                                            'numbers' => [7, 8, 9],
+                                                            'class' => 'vertical',
+                                                            'style' => 'right: 16.66%; top: 0; height: 100%; width: 5px;',
+                                                            'name' => 'Mũi tên Hoạt động',
+                                                        ],
+                                                        // Horizontals (based on displayed grid rows)
+                                                        [
+                                                            'numbers' => [3, 6, 9],
+                                                            'class' => 'horizontal',
+                                                            'style' => 'top: 16.66%; left: 0; width: 100%; height: 5px;',
+                                                            'name' => 'Mũi tên Trí tuệ',
+                                                        ],
+                                                        [
+                                                            'numbers' => [2, 5, 8],
+                                                            'class' => 'horizontal',
+                                                            'style' => 'top: 50%; left: 0; width: 100%; height: 5px; transform: translateY(-50%);',
+                                                            'name' => 'Mũi tên Cảm xúc',
+                                                        ],
+                                                        [
+                                                            'numbers' => [1, 4, 7],
+                                                            'class' => 'horizontal',
+                                                            'style' => 'bottom: 16.66%; left: 0; width: 100%; height: 5px;',
+                                                            'name' => 'Mũi tên Thực tế',
+                                                        ],
+                                                    ];
 
-                                                            // Determine arrow direction based on numbers
-                                                            if (count($arrowNumbers) >= 3) {
-                                                                // Check for common arrow patterns based on actual grid layout:
-                                                                // Grid arrangement: [3,6,9] (top) [2,5,8] (middle) [1,4,7] (bottom)
+                                                    // Map server data to the correct arrow definitions
+                                                    $presentArrows = [];
+                                                    foreach ($arrows['arrows'] as $arrowFromServer) {
+                                                        if (($arrowFromServer['type'] ?? '') === 'present') {
+                                                            $presentArrows[] = $arrowFromServer['numbers'] ?? [];
+                                                        }
+                                                    }
+                                                @endphp
 
-                                                                // Diagonal from bottom-left to top-right (1-5-9)
-                                                                if (
-                                                                    in_array(1, $arrowNumbers) &&
-                                                                    in_array(5, $arrowNumbers) &&
-                                                                    in_array(9, $arrowNumbers)
-                                                                ) {
-                                                                    $arrowClass = 'diagonal';
-                                                                    $arrowStyle =
-                                                                        'top: 15%; left: 15%; width: 240px; transform: rotate(45deg);';
-                                                                }
-                                                                // Diagonal from top-left to bottom-right (3-5-7)
-                                                                elseif (
-                                                                    in_array(3, $arrowNumbers) &&
-                                                                    in_array(5, $arrowNumbers) &&
-                                                                    in_array(7, $arrowNumbers)
-                                                                ) {
-                                                                    $arrowClass = 'diagonal-reverse';
-                                                                    $arrowStyle =
-                                                                        'top: 15%; right: 15%; width: 240px; transform: rotate(-45deg);';
-                                                                }
-                                                                // Bottom row vertical (1-2-3)
-                                                                elseif (
-                                                                    in_array(1, $arrowNumbers) &&
-                                                                    in_array(2, $arrowNumbers) &&
-                                                                    in_array(3, $arrowNumbers)
-                                                                ) {
-                                                                    $arrowClass = 'vertical';
-                                                                    $arrowStyle = 'top: 13px;left:80px;height: 260px;transform: rotate(270deg);transform-origin: center;';
-                                                                }
-                                                                // Middle horizontal row (4-5-6)
-                                                                elseif (
-                                                                    in_array(4, $arrowNumbers) &&
-                                                                    in_array(5, $arrowNumbers) &&
-                                                                    in_array(6, $arrowNumbers)
-                                                                ) {
-                                                                    $arrowClass = 'horizontal';
-                                                                    $arrowStyle = 'top: 45%; left: 10%; width: 260px;';
-                                                                }
-                                                                // Top horizontal row (7-8-9)
-                                                                elseif (
-                                                                    in_array(7, $arrowNumbers) &&
-                                                                    in_array(8, $arrowNumbers) &&
-                                                                    in_array(9, $arrowNumbers)
-                                                                ) {
-                                                                    $arrowClass = 'horizontal';
-                                                                    $arrowStyle = 'top: 15%; left: 10%; width: 260px;';
-                                                                }
-                                                                // Left vertical column (1-4-7)
-                                                                elseif (
-                                                                    in_array(1, $arrowNumbers) &&
-                                                                    in_array(4, $arrowNumbers) &&
-                                                                    in_array(7, $arrowNumbers)
-                                                                ) {
-                                                                    $arrowClass = 'vertical';
-                                                                    $arrowStyle =
-                                                                        'left: 15%; top: 10%; height: 260px; transform: rotate(90deg);';
-                                                                }
-                                                                // Middle vertical column (2-5-8)
-                                                                elseif (
-                                                                    in_array(2, $arrowNumbers) &&
-                                                                    in_array(5, $arrowNumbers) &&
-                                                                    in_array(8, $arrowNumbers)
-                                                                ) {
-                                                                    $arrowClass = 'vertical';
-                                                                    $arrowStyle =
-                                                                        'left: 50%; top: 10%; height: 260px; transform: rotate(90deg); transform-origin: center;';
-                                                                }
-                                                                // Right vertical column (3-6-9)
-                                                                elseif (
-                                                                    in_array(3, $arrowNumbers) &&
-                                                                    in_array(6, $arrowNumbers) &&
-                                                                    in_array(9, $arrowNumbers)
-                                                                ) {
-                                                                    $arrowClass = 'vertical';
-                                                                    $arrowStyle =
-                                                                        'right: 15%; top: 10%; height: 260px; transform: rotate(90deg);';
-                                                                } else {
-                                                                    $arrowClass = 'horizontal';
-                                                                    $arrowStyle =
-                                                                        'top: 50%; left: 50%; width: 200px; transform: translate(-50%, -50%);';
-                                                                }
+                                                @foreach ($arrowConfigs as $config)
+                                                    @php
+                                                        $isPresent = false;
+                                                        foreach ($presentArrows as $presentArrow) {
+                                                            if (count(array_intersect($config['numbers'], $presentArrow)) === 3) {
+                                                                $isPresent = true;
+                                                                break;
                                                             }
-                                                        @endphp
-                                                        <div class="arrow-overlay {{ $arrowClass }}"
-                                                            data-arrow="{{ $arrow['interpretation']['title'] ?? '' }}"
-                                                            style="position: absolute; {{ $arrowStyle }}">
+                                                        }
+                                                    @endphp
+
+                                                    @if ($isPresent)
+                                                        <div class="arrow-overlay {{ $config['class'] }}"
+                                                            data-arrow="{{ $config['name'] }}"
+                                                            style="position: absolute; {{ $config['style'] }}">
                                                             <div class="arrow-visual-line active"></div>
                                                         </div>
                                                     @endif

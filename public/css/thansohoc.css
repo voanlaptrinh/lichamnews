@@ -590,7 +590,7 @@ a:hover .number-text {
 }
 
 .arrow-visual-line {
-    background: #ff6b6b;
+    background: #85FF60;
     height: 3px;
     border-radius: 2px;
     position: relative;
@@ -605,7 +605,7 @@ a:hover .number-text {
     transform: translateY(-50%);
     width: 0;
     height: 0;
-    border-left: 6px solid #ff6b6b;
+    border-left: 6px solid #85FF60;
     border-top: 4px solid transparent;
     border-bottom: 4px solid transparent;
 }
