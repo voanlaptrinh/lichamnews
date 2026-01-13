@@ -4,6 +4,52 @@
 
     @push('styles')
         <link rel="stylesheet" href="{{ asset('/css/thansohoc.css?v=11.6') }}">
+        <style>
+            .section-title.danger {
+                color: #dc3545;
+                border-bottom: 2px solid #dc3545;
+                padding-bottom: 8px;
+                margin-bottom: 16px;
+                font-size: 1.2rem;
+                display: flex;
+                align-items: center;
+            }
+            .interpretation-card.present {
+                border-left: 4px solid #28a745;
+                margin-bottom: 1rem;
+                border-radius: 0 4px 4px 0;
+                overflow: hidden;
+            }
+            .interpretation-card.absent {
+                border-left: 4px solid #dc3545;
+                margin-bottom: 1rem;
+                border-radius: 0 4px 4px 0;
+                overflow: hidden;
+            }
+            .interpretation-card .interpretation-header {
+                padding: 0.75rem 1.25rem;
+                margin-bottom: 0;
+            }
+            .interpretation-card.present .interpretation-header {
+                background-color: rgba(40, 167, 69, 0.1);
+            }
+            .interpretation-card.absent .interpretation-header {
+                background-color: rgba(220, 53, 69, 0.1);
+            }
+            .interpretation-card .interpretation-content {
+                padding: 1.25rem;
+                background: #fff;
+            }
+            .interpretation-content p {
+                margin-bottom: 0.5rem;
+            }
+            .interpretation-content p:last-child {
+                margin-bottom: 0;
+            }
+            .interpretation-content p strong {
+                color: #333;
+            }
+        </style>
     @endpush
 
     <div class="container-setup">
@@ -1384,6 +1430,94 @@
         </div>
     </div>
 
+    {{-- Custom Arrows Modal --}}
+    <div id="arrowsModal" class="custom-modal" style="display: none;">
+        <div class="custom-modal-overlay" onclick="closeArrowsModal()"></div>
+        <div class="custom-modal-content">
+            <div class="custom-modal-header">
+                <h3 class="custom-modal-title">
+                    <i class="bi bi-chat-text me-2"></i>Diễn Giải Mũi Tên Cá Tính
+                </h3>
+                <button type="button" class="custom-modal-close" onclick="closeArrowsModal()">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+            <div class="custom-modal-body">
+                @if (isset($profile['charts_and_patterns']['arrows']) && !empty($profile['charts_and_patterns']['arrows']['arrows']))
+                    @php $arrowsData = $profile['charts_and_patterns']['arrows']; @endphp
+
+                    {{-- Present Arrows --}}
+                    @php
+                        $presentArrows = array_filter($arrowsData['arrows'], function($arrow) { return $arrow['type'] == 'present'; });
+                    @endphp
+                    @if (count($presentArrows) > 0)
+                        <div class="modal-section">
+                            <h5 class="section-title success">
+                                <i class="bi bi-check-circle-fill me-2"></i>Mũi Tên Có Mặt (Điểm mạnh)
+                            </h5>
+                            @foreach ($presentArrows as $arrow)
+                                <div class="interpretation-card present">
+                                    <div class="interpretation-header">
+                                        <h6>{{ $arrow['interpretation']['title'] ?? '' }} ({{ implode('-', $arrow['numbers']) }})</h6>
+                                    </div>
+                                    <div class="interpretation-content">
+                                        <p><strong>Ý nghĩa:</strong> {{ $arrow['interpretation']['description'] ?? 'Chưa có diễn giải.' }}</p>
+                                        @if (!empty($arrow['interpretation']['strengths']))
+                                            <p><strong>Điểm mạnh:</strong> {{ implode(', ', $arrow['interpretation']['strengths']) }}</p>
+                                        @endif
+                                        @if (!empty($arrow['interpretation']['challenges']))
+                                            <p><strong>Thách thức:</strong> {{ implode(', ', $arrow['interpretation']['challenges']) }}</p>
+                                        @endif
+                                        @if (!empty($arrow['interpretation']['advice']))
+                                            <p><strong>Lời khuyên:</strong> {{ $arrow['interpretation']['advice'] }}</p>
+                                        @endif
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
+
+
+                    {{-- Absent Arrows --}}
+                    @php
+                        $absentArrows = array_filter($arrowsData['arrows'], function($arrow) { return $arrow['type'] == 'absent'; });
+                    @endphp
+                    @if (count($absentArrows) > 0)
+                        <div class="modal-section">
+                            <h5 class="section-title danger">
+                                <i class="bi bi-x-circle-fill me-2"></i>Mũi Tên Trống (Điểm yếu cần cải thiện)
+                            </h5>
+                            @foreach ($absentArrows as $arrow)
+                                <div class="interpretation-card absent">
+                                    <div class="interpretation-header">
+                                        <h6>{{ $arrow['interpretation']['title'] ?? '' }} ({{ implode('-', $arrow['numbers']) }})</h6>
+                                    </div>
+                                    <div class="interpretation-content">
+                                        <p><strong>Ý nghĩa:</strong> {{ $arrow['interpretation']['description'] ?? 'Chưa có diễn giải.' }}</p>
+                                        @if (!empty($arrow['interpretation']['advice']))
+                                            <p><strong>Lời khuyên để cải thiện:</strong> {{ $arrow['interpretation']['advice'] }}</p>
+                                        @endif
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
+
+                @else
+                    <div class="no-data text-center py-5">
+                        <i class="bi bi-info-circle fs-3"></i>
+                        <p class="mt-2">Không có dữ liệu diễn giải cho các mũi tên.</p>
+                    </div>
+                @endif
+            </div>
+            <div class="custom-modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closeArrowsModal()">
+                    <i class="bi bi-x-lg me-1"></i>Đóng
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script>
         function showTab(tabName) {
             // Hide all tab contents
@@ -1426,47 +1560,40 @@
         function openBirthChartModal() {
             const modal = document.getElementById('birthChartModal');
             if (!modal) return;
-
-            // Show modal
+            
             modal.style.display = 'flex';
-            modal.classList.add('modal-active');
-
-            // Lock body scroll without cutting content
-            document.body.style.overflow = 'hidden';
-            document.body.style.paddingRight = getScrollbarWidth() + 'px';
-
-            // Add modal-open class to html
+            setTimeout(() => modal.classList.add('modal-show'), 10);
             document.documentElement.classList.add('modal-open');
-
-            // Add fade-in animation
-            setTimeout(() => {
-                modal.classList.add('modal-show');
-            }, 10);
-
-            // Focus trap
-            trapFocus(modal);
         }
 
         function closeBirthChartModal() {
             const modal = document.getElementById('birthChartModal');
             if (!modal) return;
 
-            // Add fade-out animation
             modal.classList.remove('modal-show');
-
             setTimeout(() => {
                 modal.style.display = 'none';
-                modal.classList.remove('modal-active');
-
-                // Restore body styles completely
-                document.body.style.overflow = '';
-                document.body.style.paddingRight = '';
-
-                // Remove modal-open class
                 document.documentElement.classList.remove('modal-open');
+            }, 300);
+        }
 
-                // Remove focus trap
-                removeFocusTrap();
+        function openArrowsModal() {
+            const modal = document.getElementById('arrowsModal');
+            if (!modal) return;
+            
+            modal.style.display = 'flex';
+            setTimeout(() => modal.classList.add('modal-show'), 10);
+            document.documentElement.classList.add('modal-open');
+        }
+
+        function closeArrowsModal() {
+            const modal = document.getElementById('arrowsModal');
+            if (!modal) return;
+
+            modal.classList.remove('modal-show');
+            setTimeout(() => {
+                modal.style.display = 'none';
+                document.documentElement.classList.remove('modal-open');
             }, 300);
         }
 
@@ -1477,154 +1604,15 @@
             }, 350);
         }
 
-        function openArrowsModal() {
-            // For now, just redirect to arrows tab
-            showTab('charts');
-        }
-
-        // Utility function to get scrollbar width
-        function getScrollbarWidth() {
-            const outer = document.createElement('div');
-            outer.style.visibility = 'hidden';
-            outer.style.overflow = 'scroll';
-            outer.style.msOverflowStyle = 'scrollbar';
-            document.body.appendChild(outer);
-
-            const inner = document.createElement('div');
-            outer.appendChild(inner);
-
-            const scrollbarWidth = (outer.offsetWidth - inner.offsetWidth);
-            outer.parentNode.removeChild(outer);
-
-            return scrollbarWidth;
-        }
-
-        // Focus trap for accessibility
-        function trapFocus(element) {
-            const focusableElements = element.querySelectorAll(
-                'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-            );
-            const firstElement = focusableElements[0];
-            const lastElement = focusableElements[focusableElements.length - 1];
-
-            element.addEventListener('keydown', function(e) {
-                if (e.key === 'Tab') {
-                    if (e.shiftKey) {
-                        if (document.activeElement === firstElement) {
-                            lastElement.focus();
-                            e.preventDefault();
-                        }
-                    } else {
-                        if (document.activeElement === lastElement) {
-                            firstElement.focus();
-                            e.preventDefault();
-                        }
-                    }
-                }
-
-                if (e.key === 'Escape') {
-                    closeBirthChartModal();
-                }
-            });
-
-            // Focus first element
-            if (firstElement) {
-                firstElement.focus();
-            }
-        }
-
-        function removeFocusTrap() {
-            // Remove event listeners if needed
-        }
-
-        // Prevent scroll when modal is open, but allow scroll inside modal content
-        function preventBodyScroll(e) {
-            // Check if the scroll is happening inside modal content or modal itself
-            const modal = document.getElementById('birthChartModal');
-            const modalContent = document.querySelector('.custom-modal-body');
-            const isScrollingInsideModal = (modalContent && modalContent.contains(e.target)) ||
-                (modal && modal.contains(e.target) && !e.target.classList.contains('custom-modal-overlay'));
-
-            if (!isScrollingInsideModal) {
-                e.preventDefault();
-                e.stopPropagation();
-                return false;
-            }
-        }
-
-        function preventBodyTouch(e) {
-            // Check if touch is inside modal content or modal itself
-            const modal = document.getElementById('birthChartModal');
-            const modalContent = document.querySelector('.custom-modal-body');
-            const isInsideModal = (modalContent && modalContent.contains(e.target)) ||
-                (modal && modal.contains(e.target) && !e.target.classList.contains('custom-modal-overlay'));
-
-            if (!isInsideModal) {
-                e.preventDefault();
-                e.stopPropagation();
-                return false;
-            }
-        }
-
-        function disableScroll() {
-            // Prevent scroll via mouse wheel, touch, and keyboard - but allow inside modal
-            document.addEventListener('wheel', preventBodyScroll, {
-                passive: false
-            });
-            document.addEventListener('touchmove', preventBodyTouch, {
-                passive: false
-            });
-            document.addEventListener('keydown', preventScrollKeys, {
-                passive: false
-            });
-        }
-
-        function enableScroll() {
-            // Re-enable scroll
-            document.removeEventListener('wheel', preventBodyScroll);
-            document.removeEventListener('touchmove', preventBodyTouch);
-            document.removeEventListener('keydown', preventScrollKeys);
-        }
-
-        function preventScrollKeys(e) {
-            const keys = [32, 33, 34, 35, 36, 37, 38, 39, 40]; // Space, Page Up/Down, End, Home, Arrow keys
-            if (keys.includes(e.keyCode)) {
-                // Allow keyboard scroll if focus is inside modal content
-                const modalContent = document.querySelector('.custom-modal-body');
-                const isInsideModal = modalContent && (modalContent.contains(e.target) || modalContent.contains(document
-                    .activeElement));
-
-                if (!isInsideModal) {
-                    e.preventDefault();
-                    return false;
-                }
-            }
-        }
-
-        // Update modal functions to use scroll prevention
-        const originalOpenFunction = openBirthChartModal;
-        const originalCloseFunction = closeBirthChartModal;
-
-        // Override open function
-        openBirthChartModal = function() {
-            originalOpenFunction();
-            disableScroll();
-        };
-
-        // Override close function
-        closeBirthChartModal = function() {
-            enableScroll();
-            originalCloseFunction();
-        };
-
-        // Initialize
         document.addEventListener('DOMContentLoaded', function() {
             // Close modal on ESC key
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape') {
-                    const modal = document.getElementById('birthChartModal');
-                    if (modal && modal.classList.contains('modal-active')) {
+                    if (document.getElementById('birthChartModal')?.style.display === 'flex') {
                         closeBirthChartModal();
+                    }
+                    if (document.getElementById('arrowsModal')?.style.display === 'flex') {
+                        closeArrowsModal();
                     }
                 }
             });
