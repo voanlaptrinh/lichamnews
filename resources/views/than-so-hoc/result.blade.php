@@ -55,7 +55,7 @@
                             {{-- Top Row --}}
                             <div class="row g-3 mb-3">
                                 {{-- Số Chủ Đạo --}}
-                                <div class="col-lg-2 col-md-4 col-sm-6 col-12">
+                                <div class="col-lg-2 col-md-4 col-sm-6 col-6">
                                     <div class="numerology-card master-number" style="cursor: pointer;">
                                         <div class="number-circle master-circle">
                                             <span
@@ -66,7 +66,7 @@
                                 </div>
 
                                 {{-- Số Linh Hồn --}}
-                                <div class="col-lg-2 col-md-4 col-sm-6 col-12">
+                                <div class="col-lg-2 col-md-4 col-sm-6 col-6">
                                     <a href="{{ route('numerology.soul_urge.detail', $profile['basic_numbers']['soul_urge']['number']) }}"
                                         class="text-decoration-none">
                                         <div class="numerology-card" style="cursor: pointer;">
@@ -80,7 +80,7 @@
                                 </div>
 
                                 {{-- Số Tên --}}
-                                <div class="col-lg-2 col-md-4 col-sm-6 col-12">
+                                <div class="col-lg-2 col-md-4 col-sm-6 col-6">
                                     <a href="{{ route('numerology.expression.detail', $profile['basic_numbers']['expression']['number']) }}"
                                         class="text-decoration-none">
                                         <div class="numerology-card" style="cursor: pointer;">
@@ -94,7 +94,7 @@
                                 </div>
 
                                 {{-- Số Tính Cách --}}
-                                <div class="col-lg-2 col-md-4 col-sm-6 col-12">
+                                <div class="col-lg-2 col-md-4 col-sm-6 col-6">
                                     <a href="{{ route('numerology.personality.detail', $profile['basic_numbers']['personality']['number']) }}"
                                         class="text-decoration-none">
                                         <div class="numerology-card" style="cursor: pointer;">
@@ -108,7 +108,7 @@
                                 </div>
 
                                 {{-- Năm Cá Nhân --}}
-                                <div class="col-lg-2 col-md-4 col-sm-6 col-12">
+                                <div class="col-lg-2 col-md-4 col-sm-6 col-6">
                                     <a href="{{ route('numerology.personal_year.detail', $profile['cycles_and_pinnacles']['personal_year']['number']) }}"
                                         class="text-decoration-none">
                                         <div class="numerology-card" style="cursor: pointer;">
@@ -121,7 +121,7 @@
                                     </a>
                                 </div>
 
-                                <div class="col-lg-2 col-md-4 col-sm-6 col-12">
+                                <div class="col-lg-2 col-md-4 col-sm-6 col-6">
                                     <a href="{{ route('numerology.birth_day.detail', $profile['basic_numbers']['birth_day']['number']) }}"
                                         class="text-decoration-none">
                                         <div class="numerology-card" style="cursor: pointer;">
@@ -133,7 +133,7 @@
                                         </div>
                                     </a>
                                 </div>
-                                <div class="col-lg-2 col-md-4 col-sm-6 col-12">
+                                <div class="col-lg-2 col-md-4 col-sm-6 col-6">
                                     <a href="{{ route('numerology.attitude.detail', $profile['basic_numbers']['attitude']['number']) }}"
                                         class="text-decoration-none">
                                         <div class="numerology-card" style="cursor: pointer;">
@@ -145,7 +145,7 @@
                                         </div>
                                     </a>
                                 </div>
-                                <div class="col-lg-2 col-md-4 col-sm-6 col-12">
+                                <div class="col-lg-2 col-md-4 col-sm-6 col-6">
                                     <a href="{{ route('numerology.birth_day.detail', $profile['basic_numbers']['birth_day']['number']) }}"
                                         class="text-decoration-none">
                                         <div class="numerology-card" style="cursor: pointer;">
@@ -157,7 +157,7 @@
                                         </div>
                                     </a>
                                 </div>
-                                <div class="col-lg-2 col-md-4 col-sm-6 col-12">
+                                <div class="col-lg-2 col-md-4 col-sm-6 col-6">
                                     <a href="{{ route('numerology.maturity.detail', $profile['basic_numbers']['maturity']['number']) }}"
                                         class="text-decoration-none">
                                         <div class="numerology-card" style="cursor: pointer;">
@@ -177,10 +177,290 @@
 
                     </div>
                 </div>
+                <div class="box--bg-thang mb-3" style="border: unset">
+                    <div class="text-box-tong-quan">
+                        <div class="tt--giaima">
+                            Biểu đồ ngày sinh
+                        </div>
+
+                        {{-- Birth Date Chart Grid using existing logic --}}
+                        <div class="birth-chart-container mt-4 d-flex justify-content-center">
+                            @php
+                                $birthChart = $profile['charts_and_patterns']['birth_chart'] ?? null;
+                            @endphp
+
+                            @if ($birthChart)
+                                <div class="birth-chart-grid">
+
+
+                                    {{-- 3x3 Grid --}}
+                                    <div class="chart-grid mb-3">
+                                        @if (isset($birthChart['chart_grid']) && is_array($birthChart['chart_grid']))
+                                            @php
+                                                // Rearrange grid to match screenshot: [3,6,9], [2,5,8], [1,4,7]
+                                                // This represents bottom-to-top, left-to-right by column
+                                                $rearrangedGrid = [];
+                                                if (count($birthChart['chart_grid']) >= 3) {
+                                                    // Row 0: 3, 6, 9 (top row in display)
+                                                    $rearrangedGrid[0] = [
+                                                        $birthChart['chart_grid'][0][2], // 3
+                                                        $birthChart['chart_grid'][1][2], // 6
+                                                        $birthChart['chart_grid'][2][2], // 9
+                                                    ];
+                                                    // Row 1: 2, 5, 8 (middle row in display)
+                                                    $rearrangedGrid[1] = [
+                                                        $birthChart['chart_grid'][0][1], // 2
+                                                        $birthChart['chart_grid'][1][1], // 5
+                                                        $birthChart['chart_grid'][2][1], // 8
+                                                    ];
+                                                    // Row 2: 1, 4, 7 (bottom row in display)
+                                                    $rearrangedGrid[2] = [
+                                                        $birthChart['chart_grid'][0][0], // 1
+                                                        $birthChart['chart_grid'][1][0], // 4
+                                                        $birthChart['chart_grid'][2][0], // 7
+                                                    ];
+                                                }
+                                            @endphp
+                                            @foreach ($rearrangedGrid as $rowIndex => $row)
+                                                <div class="chart-row d-flex justify-content-center gap-1 mb-1">
+                                                    @foreach ($row as $cell)
+                                                        @php
+                                                            $freq = $cell['frequency'] ?? 0;
+                                                            $number = $cell['number'] ?? '';
+                                                            $hasCount = $freq > 0;
+                                                        @endphp
+                                                        <div class="chart-cell {{ $hasCount ? 'has-number' : 'empty' }}">
+                                                            @if ($hasCount)
+                                                                <div class="numbers-container">
+                                                                    @for ($i = 0; $i < $freq; $i++)
+                                                                        <span
+                                                                            class="number-item">{{ $number }}</span>
+                                                                    @endfor
+                                                                </div>
+                                                            @else
+                                                                <span class="empty-number">{{ $number }}</span>
+                                                            @endif
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+                                            @endforeach
+                                        @endif
+                                    </div>
+
+                                    {{-- View Details Button --}}
+                                    <div class="chart-actions text-center">
+                                        <button class="btn btn-primary btn-detail" onclick="openBirthChartModal()">
+                                            XEM CHI TIẾT
+                                        </button>
+                                    </div>
+                                </div>
+                            @endif
+                        </div>
+
+                    </div>
+                </div>
+
+                {{-- Mũi Tên Cá Tính Box --}}
+                <div class="box--bg-thang mb-3" style="border: unset">
+                    <div class="text-box-tong-quan">
+                        <div class="tt--giaima">
+                            Mũi tên cá tính
+                        </div>
+
+                        {{-- Arrows Chart Grid using existing logic --}}
+                        <div class="arrows-chart-container mt-4 d-flex justify-content-center">
+                            @if (isset($profile['charts_and_patterns']['arrows']) && !empty($profile['charts_and_patterns']['arrows']))
+                                @php
+                                    $birthChart = $profile['charts_and_patterns']['birth_chart'] ?? null;
+                                    $arrows = $profile['charts_and_patterns']['arrows'];
+                                @endphp
+
+                                <div class="arrows-chart-grid">
+                                    {{-- 3x3 Grid using birth chart data --}}
+                                    <div class="arrows-grid-visual mb-3">
+                                        @if (isset($birthChart['chart_grid']) && is_array($birthChart['chart_grid']))
+                                            @php
+                                                // Same rearrangement as birth chart
+                                                $rearrangedGrid = [];
+                                                if (count($birthChart['chart_grid']) >= 3) {
+                                                    // Row 0: 3, 6, 9 (top row in display)
+                                                    $rearrangedGrid[0] = [
+                                                        $birthChart['chart_grid'][0][2], // 3
+                                                        $birthChart['chart_grid'][1][2], // 6
+                                                        $birthChart['chart_grid'][2][2], // 9
+                                                    ];
+                                                    // Row 1: 2, 5, 8 (middle row in display)
+                                                    $rearrangedGrid[1] = [
+                                                        $birthChart['chart_grid'][0][1], // 2
+                                                        $birthChart['chart_grid'][1][1], // 5
+                                                        $birthChart['chart_grid'][2][1], // 8
+                                                    ];
+                                                    // Row 2: 1, 4, 7 (bottom row in display)
+                                                    $rearrangedGrid[2] = [
+                                                        $birthChart['chart_grid'][0][0], // 1
+                                                        $birthChart['chart_grid'][1][0], // 4
+                                                        $birthChart['chart_grid'][2][0], // 7
+                                                    ];
+                                                }
+                                            @endphp
+                                            @foreach ($rearrangedGrid as $rowIndex => $row)
+                                                <div class="arrows-row d-flex justify-content-center gap-1 mb-1">
+                                                    @foreach ($row as $cell)
+                                                        @php
+                                                            $freq = $cell['frequency'] ?? 0;
+                                                            $number = $cell['number'] ?? '';
+                                                            $hasCount = $freq > 0;
+                                                        @endphp
+                                                        <div class="arrows-cell {{ $hasCount ? 'has-number' : 'empty' }}"
+                                                            data-number="{{ $number }}">
+                                                            @if ($hasCount)
+                                                                <div class="arrows-numbers-container">
+                                                                    @for ($i = 0; $i < $freq; $i++)
+                                                                        <span
+                                                                            class="arrows-number-item">{{ $number }}</span>
+                                                                    @endfor
+                                                                </div>
+                                                            @else
+                                                                <span
+                                                                    class="arrows-empty-number">{{ $number }}</span>
+                                                            @endif
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+                                            @endforeach
+
+                                            {{-- Arrow Overlays using existing arrows data --}}
+                                            <div class="arrows-overlay">
+                                                @foreach ($arrows['arrows'] as $arrow)
+                                                    @if ($arrow['type'] == 'present')
+                                                        {{-- Different arrow styles based on position --}}
+                                                        @php
+                                                            $arrowNumbers = $arrow['numbers'] ?? [];
+                                                            $arrowClass = '';
+                                                            $arrowStyle = '';
+
+                                                            // Determine arrow direction based on numbers
+                                                            if (count($arrowNumbers) >= 3) {
+                                                                // Check for common arrow patterns based on actual grid layout:
+                                                                // Grid arrangement: [3,6,9] (top) [2,5,8] (middle) [1,4,7] (bottom)
+
+                                                                // Diagonal from bottom-left to top-right (1-5-9)
+                                                                if (
+                                                                    in_array(1, $arrowNumbers) &&
+                                                                    in_array(5, $arrowNumbers) &&
+                                                                    in_array(9, $arrowNumbers)
+                                                                ) {
+                                                                    $arrowClass = 'diagonal';
+                                                                    $arrowStyle =
+                                                                        'top: 15%; left: 15%; width: 240px; transform: rotate(45deg);';
+                                                                }
+                                                                // Diagonal from top-left to bottom-right (3-5-7)
+                                                                elseif (
+                                                                    in_array(3, $arrowNumbers) &&
+                                                                    in_array(5, $arrowNumbers) &&
+                                                                    in_array(7, $arrowNumbers)
+                                                                ) {
+                                                                    $arrowClass = 'diagonal-reverse';
+                                                                    $arrowStyle =
+                                                                        'top: 15%; right: 15%; width: 240px; transform: rotate(-45deg);';
+                                                                }
+                                                                // Bottom row vertical (1-2-3)
+                                                                elseif (
+                                                                    in_array(1, $arrowNumbers) &&
+                                                                    in_array(2, $arrowNumbers) &&
+                                                                    in_array(3, $arrowNumbers)
+                                                                ) {
+                                                                    $arrowClass = 'vertical';
+                                                                    $arrowStyle = 'top: 13px;left:80px;height: 260px;transform: rotate(270deg);transform-origin: center;';
+                                                                }
+                                                                // Middle horizontal row (4-5-6)
+                                                                elseif (
+                                                                    in_array(4, $arrowNumbers) &&
+                                                                    in_array(5, $arrowNumbers) &&
+                                                                    in_array(6, $arrowNumbers)
+                                                                ) {
+                                                                    $arrowClass = 'horizontal';
+                                                                    $arrowStyle = 'top: 45%; left: 10%; width: 260px;';
+                                                                }
+                                                                // Top horizontal row (7-8-9)
+                                                                elseif (
+                                                                    in_array(7, $arrowNumbers) &&
+                                                                    in_array(8, $arrowNumbers) &&
+                                                                    in_array(9, $arrowNumbers)
+                                                                ) {
+                                                                    $arrowClass = 'horizontal';
+                                                                    $arrowStyle = 'top: 15%; left: 10%; width: 260px;';
+                                                                }
+                                                                // Left vertical column (1-4-7)
+                                                                elseif (
+                                                                    in_array(1, $arrowNumbers) &&
+                                                                    in_array(4, $arrowNumbers) &&
+                                                                    in_array(7, $arrowNumbers)
+                                                                ) {
+                                                                    $arrowClass = 'vertical';
+                                                                    $arrowStyle =
+                                                                        'left: 15%; top: 10%; height: 260px; transform: rotate(90deg);';
+                                                                }
+                                                                // Middle vertical column (2-5-8)
+                                                                elseif (
+                                                                    in_array(2, $arrowNumbers) &&
+                                                                    in_array(5, $arrowNumbers) &&
+                                                                    in_array(8, $arrowNumbers)
+                                                                ) {
+                                                                    $arrowClass = 'vertical';
+                                                                    $arrowStyle =
+                                                                        'left: 50%; top: 10%; height: 260px; transform: rotate(90deg); transform-origin: center;';
+                                                                }
+                                                                // Right vertical column (3-6-9)
+                                                                elseif (
+                                                                    in_array(3, $arrowNumbers) &&
+                                                                    in_array(6, $arrowNumbers) &&
+                                                                    in_array(9, $arrowNumbers)
+                                                                ) {
+                                                                    $arrowClass = 'vertical';
+                                                                    $arrowStyle =
+                                                                        'right: 15%; top: 10%; height: 260px; transform: rotate(90deg);';
+                                                                } else {
+                                                                    $arrowClass = 'horizontal';
+                                                                    $arrowStyle =
+                                                                        'top: 50%; left: 50%; width: 200px; transform: translate(-50%, -50%);';
+                                                                }
+                                                            }
+                                                        @endphp
+                                                        <div class="arrow-overlay {{ $arrowClass }}"
+                                                            data-arrow="{{ $arrow['interpretation']['title'] ?? '' }}"
+                                                            style="position: absolute; {{ $arrowStyle }}">
+                                                            <div class="arrow-visual-line active"></div>
+                                                        </div>
+                                                    @endif
+                                                @endforeach
+                                            </div>
+                                        @endif
+                                    </div>
+
+                                  
+
+                                    {{-- View Details Button --}}
+                                    <div class="arrows-actions text-center">
+                                        <button class="btn btn-primary btn-detail" onclick="openArrowsModal()">
+                                            XEM CHI TIẾT
+                                        </button>
+                                    </div>
+                                </div>
+                            @else
+                                <div class="no-arrows text-center py-4">
+                                    <i class="bi bi-info-circle me-2"></i>
+                                    <span>Chưa có dữ liệu mũi tên cá tính</span>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+
                 <div class="box--bg-thang" style="border: unset">
                     <div class="text-box-tong-quan">
                         <div class="tt--giaima">
-                           4 giai đoạn đỉnh cao cuộc đời
+                            4 giai đoạn đỉnh cao cuộc đời
                         </div>
 
 
@@ -1021,32 +1301,354 @@
         </div>
     </div>
 
-    @push('styles')
-        <style>
-            .tab-btn {
-                @apply px-4 py-2 rounded-lg font-medium text-sm transition-all duration-200 whitespace-nowrap;
-                @apply text-gray-600 hover:text-blue-600 hover:bg-blue-50;
+    {{-- Custom Birth Chart Modal --}}
+    <div id="birthChartModal" class="custom-modal" style="display: none;">
+        <div class="custom-modal-overlay" onclick="closeBirthChartModal()"></div>
+        <div class="custom-modal-content">
+            <div class="custom-modal-header">
+                <h3 class="custom-modal-title">
+                    <i class="bi bi-chat-text me-2"></i>Diễn Giải Biểu Đồ Ngày Sinh
+                </h3>
+                <button type="button" class="custom-modal-close" onclick="closeBirthChartModal()">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+            <div class="custom-modal-body">
+                @if (isset($profile['charts_and_patterns']['birth_chart']))
+                    @php $birthChart = $profile['charts_and_patterns']['birth_chart']; @endphp
+
+                    {{-- Interpretations --}}
+                    @if (isset($birthChart['frequency_interpretations']) && !empty($birthChart['frequency_interpretations']))
+                        <div class="modal-section">
+                            <h5 class="section-title">
+                                <i class="bi bi-lightbulb me-2"></i>Phân Tích Tần Suất Các Số:
+                            </h5>
+                            @php
+                                $nonZeroInterpretations = array_filter(
+                                    $birthChart['frequency_interpretations'],
+                                    function ($interpretation) {
+                                        return ($interpretation['frequency'] ?? 0) > 0;
+                                    },
+                                );
+                            @endphp
+                            @if (!empty($nonZeroInterpretations))
+                                @foreach ($nonZeroInterpretations as $interpretation)
+                                    <div class="interpretation-card">
+                                        <div class="interpretation-header">
+                                            <h6>{{ $interpretation['interpretation']['summary'] ?? '' }}</h6>
+                                        </div>
+                                        <div class="interpretation-content">
+                                            <p>{{ $interpretation['interpretation']['meaning'] ?? '' }}</p>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @else
+                                <div class="no-data">
+                                    <i class="bi bi-info-circle me-2"></i>Không có phân tích chi tiết cho biểu đồ này.
+                                </div>
+                            @endif
+                        </div>
+                    @endif
+
+                    {{-- Dominant Numbers --}}
+                    @if (isset($birthChart['dominant_numbers']) && !empty($birthChart['dominant_numbers']))
+                        <div class="modal-section">
+                            <h5 class="section-title success">
+                                <i class="bi bi-star-fill me-2"></i>Số Có Tiềm Năng Đặc Biệt:
+                            </h5>
+                            <div class="dominant-numbers-grid">
+                                @foreach ($birthChart['dominant_numbers'] as $data)
+                                    <div class="dominant-number-item">
+                                        <strong>Số {{ $data['number'] ?? '' }}</strong> - Xuất hiện
+                                        {{ $data['frequency'] ?? 0 }} lần
+                                    </div>
+                                @endforeach
+                            </div>
+                            <div class="info-note success">
+                                <i class="bi bi-info-circle me-1"></i>Các số xuất hiện nhiều lần thể hiện năng lực nổi bật
+                                và tiềm năng cần phát triển.
+                            </div>
+                        </div>
+                    @endif
+
+                    {{-- Missing Numbers --}}
+                    @if (isset($birthChart['chart_grid']) && is_array($birthChart['chart_grid']))
+                        @php
+                            $missingNumbers = [];
+                            for ($i = 1; $i <= 9; $i++) {
+                                $found = false;
+                                foreach ($birthChart['chart_grid'] as $row) {
+                                    foreach ($row as $cell) {
+                                        if (($cell['number'] ?? 0) == $i && ($cell['frequency'] ?? 0) > 0) {
+                                            $found = true;
+                                            break 2;
+                                        }
+                                    }
+                                }
+                                if (!$found) {
+                                    $missingNumbers[] = $i;
+                                }
+                            }
+                        @endphp
+                    @endif
+                @endif
+            </div>
+            <div class="custom-modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closeBirthChartModal()">
+                    <i class="bi bi-x-lg me-1"></i>Đóng
+                </button>
+                <button type="button" class="btn btn-primary" onclick="showTabFromModal()">
+                    <i class="bi bi-arrow-right me-1"></i>Xem biểu đồ đầy đủ
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabName) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.add('hidden');
+            });
+
+            // Remove active class from all tab buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Show selected tab content
+            const targetContent = document.getElementById(tabName + '-content');
+            if (targetContent) {
+                targetContent.classList.remove('hidden');
             }
 
-            .tab-btn.active {
-                @apply bg-blue-500 text-white shadow-lg transform scale-105;
+            // Add active class to selected tab button
+            const targetButton = document.getElementById(tabName + '-tab');
+            if (targetButton) {
+                targetButton.classList.add('active');
             }
 
-            .tab-content {
-                @apply transition-all duration-300;
-            }
+            // Scroll to tab content
+            setTimeout(() => {
+                const targetContent = document.getElementById(tabName + '-content');
+                if (targetContent) {
+                    targetContent.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            }, 100);
+        }
 
-            @media print {
-                body {
-                    -webkit-print-color-adjust: exact;
+        // Custom Modal JavaScript
+        let originalScrollPosition = 0;
+
+        function openBirthChartModal() {
+            const modal = document.getElementById('birthChartModal');
+            if (!modal) return;
+
+            // Show modal
+            modal.style.display = 'flex';
+            modal.classList.add('modal-active');
+
+            // Lock body scroll without cutting content
+            document.body.style.overflow = 'hidden';
+            document.body.style.paddingRight = getScrollbarWidth() + 'px';
+
+            // Add modal-open class to html
+            document.documentElement.classList.add('modal-open');
+
+            // Add fade-in animation
+            setTimeout(() => {
+                modal.classList.add('modal-show');
+            }, 10);
+
+            // Focus trap
+            trapFocus(modal);
+        }
+
+        function closeBirthChartModal() {
+            const modal = document.getElementById('birthChartModal');
+            if (!modal) return;
+
+            // Add fade-out animation
+            modal.classList.remove('modal-show');
+
+            setTimeout(() => {
+                modal.style.display = 'none';
+                modal.classList.remove('modal-active');
+
+                // Restore body styles completely
+                document.body.style.overflow = '';
+                document.body.style.paddingRight = '';
+
+                // Remove modal-open class
+                document.documentElement.classList.remove('modal-open');
+
+                // Remove focus trap
+                removeFocusTrap();
+            }, 300);
+        }
+
+        function showTabFromModal() {
+            closeBirthChartModal();
+            setTimeout(() => {
+                showTab('charts');
+            }, 350);
+        }
+
+        function openArrowsModal() {
+            // For now, just redirect to arrows tab
+            showTab('charts');
+        }
+
+        // Utility function to get scrollbar width
+        function getScrollbarWidth() {
+            const outer = document.createElement('div');
+            outer.style.visibility = 'hidden';
+            outer.style.overflow = 'scroll';
+            outer.style.msOverflowStyle = 'scrollbar';
+            document.body.appendChild(outer);
+
+            const inner = document.createElement('div');
+            outer.appendChild(inner);
+
+            const scrollbarWidth = (outer.offsetWidth - inner.offsetWidth);
+            outer.parentNode.removeChild(outer);
+
+            return scrollbarWidth;
+        }
+
+        // Focus trap for accessibility
+        function trapFocus(element) {
+            const focusableElements = element.querySelectorAll(
+                'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+            );
+            const firstElement = focusableElements[0];
+            const lastElement = focusableElements[focusableElements.length - 1];
+
+            element.addEventListener('keydown', function(e) {
+                if (e.key === 'Tab') {
+                    if (e.shiftKey) {
+                        if (document.activeElement === firstElement) {
+                            lastElement.focus();
+                            e.preventDefault();
+                        }
+                    } else {
+                        if (document.activeElement === lastElement) {
+                            firstElement.focus();
+                            e.preventDefault();
+                        }
+                    }
                 }
 
-                .no-print {
-                    display: none !important;
+                if (e.key === 'Escape') {
+                    closeBirthChartModal();
+                }
+            });
+
+            // Focus first element
+            if (firstElement) {
+                firstElement.focus();
+            }
+        }
+
+        function removeFocusTrap() {
+            // Remove event listeners if needed
+        }
+
+        // Prevent scroll when modal is open, but allow scroll inside modal content
+        function preventBodyScroll(e) {
+            // Check if the scroll is happening inside modal content or modal itself
+            const modal = document.getElementById('birthChartModal');
+            const modalContent = document.querySelector('.custom-modal-body');
+            const isScrollingInsideModal = (modalContent && modalContent.contains(e.target)) ||
+                (modal && modal.contains(e.target) && !e.target.classList.contains('custom-modal-overlay'));
+
+            if (!isScrollingInsideModal) {
+                e.preventDefault();
+                e.stopPropagation();
+                return false;
+            }
+        }
+
+        function preventBodyTouch(e) {
+            // Check if touch is inside modal content or modal itself
+            const modal = document.getElementById('birthChartModal');
+            const modalContent = document.querySelector('.custom-modal-body');
+            const isInsideModal = (modalContent && modalContent.contains(e.target)) ||
+                (modal && modal.contains(e.target) && !e.target.classList.contains('custom-modal-overlay'));
+
+            if (!isInsideModal) {
+                e.preventDefault();
+                e.stopPropagation();
+                return false;
+            }
+        }
+
+        function disableScroll() {
+            // Prevent scroll via mouse wheel, touch, and keyboard - but allow inside modal
+            document.addEventListener('wheel', preventBodyScroll, {
+                passive: false
+            });
+            document.addEventListener('touchmove', preventBodyTouch, {
+                passive: false
+            });
+            document.addEventListener('keydown', preventScrollKeys, {
+                passive: false
+            });
+        }
+
+        function enableScroll() {
+            // Re-enable scroll
+            document.removeEventListener('wheel', preventBodyScroll);
+            document.removeEventListener('touchmove', preventBodyTouch);
+            document.removeEventListener('keydown', preventScrollKeys);
+        }
+
+        function preventScrollKeys(e) {
+            const keys = [32, 33, 34, 35, 36, 37, 38, 39, 40]; // Space, Page Up/Down, End, Home, Arrow keys
+            if (keys.includes(e.keyCode)) {
+                // Allow keyboard scroll if focus is inside modal content
+                const modalContent = document.querySelector('.custom-modal-body');
+                const isInsideModal = modalContent && (modalContent.contains(e.target) || modalContent.contains(document
+                    .activeElement));
+
+                if (!isInsideModal) {
+                    e.preventDefault();
+                    return false;
                 }
             }
-        </style>
-    @endpush
+        }
 
-  
+        // Update modal functions to use scroll prevention
+        const originalOpenFunction = openBirthChartModal;
+        const originalCloseFunction = closeBirthChartModal;
+
+        // Override open function
+        openBirthChartModal = function() {
+            originalOpenFunction();
+            disableScroll();
+        };
+
+        // Override close function
+        closeBirthChartModal = function() {
+            enableScroll();
+            originalCloseFunction();
+        };
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Close modal on ESC key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    const modal = document.getElementById('birthChartModal');
+                    if (modal && modal.classList.contains('modal-active')) {
+                        closeBirthChartModal();
+                    }
+                }
+            });
+        });
+    </script>
+
 @endsection
