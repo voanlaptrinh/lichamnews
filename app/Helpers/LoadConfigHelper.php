@@ -83,7 +83,8 @@ class LoadConfigHelper
         'Tân Dậu' => 'Trong quan niệm phương Đông, tuổi Dậu tượng trưng cho những người chăm chỉ, kỷ luật và đáng tin cậy. Vì thế, năm Tân Dậu thường được xem là gắn liền với các giá trị và ý nghĩa phong thủy đặc trưng.',
         'Nhâm Tuất' => 'Trong quan niệm phương Đông, tuổi Tuất tượng trưng cho những người trung thành, chính trực và giàu tình nghĩa. Vì thế, năm Nhâm Tuất thường được xem là gắn liền với các giá trị và ý nghĩa phong thủy đặc trưng.',
         'Quý Hợi' => 'Trong quan niệm phương Đông, tuổi Hợi tượng trưng cho những người hiền lành, chân thành và sống chan hòa. Vì thế, năm Quý Hợi thường được xem là gắn liền với các giá trị và ý nghĩa phong thủy đặc trưng.',
-
+        'Giáp Tý' => 'Trong quan niệm phương Đông, tuổi Tý tượng trưng cho sự khởi đầu, thông minh và nhanh nhẹn. Vì thế, năm Giáp Tý thường được xem là gắn liền với các giá trị và ý nghĩa phong thủy đặc trưng.',
+        'Ất Sửu' => 'Trong quan niệm phương Đông, tuổi Sửu tượng trưng cho sự cần cù, kiên nhẫn và bền bỉ. Vì thế, năm Ất Sửu thường được xem là gắn liền với các giá trị và ý nghĩa phong thủy đặc trưng.',
     );
     public static function generateMonthDescription($thang, $nam, $can_chi_nam, $is_leap = false)
     {
@@ -260,7 +261,7 @@ class LoadConfigHelper
                 </ul>
                 Với lịch âm tháng 12 {$text_nhuan} năm {$nam}, bạn không chỉ dễ dàng quản lý ngày tháng cuối năm mà còn có thể chọn được những ngày đẹp để khép lại một năm cũ và đón chào năm mới trọn vẹn, may mắn.
                 ";
-                
+
                 break;
             default:
                 $description = "Mô tả mặc định cho tháng {$thang} năm {$nam}.";
@@ -430,7 +431,7 @@ class LoadConfigHelper
             'mm' => 11,
             'name' => 'Ngày Pháp luật Việt Nam'
         ),
-          array(
+        array(
             'dd' => 19,
             'mm' => 11,
             'name' => 'Quốc tế Nam giới'
