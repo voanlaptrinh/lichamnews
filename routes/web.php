@@ -319,7 +319,7 @@ Route::get('/api/horoscope-data/{sign}/{type}', [HoroscopeController::class, 'fe
 //===End ROute xem 12 cung hoàng đạo ===
 
 // === THẦN SỐ HỌC (NUMEROLOGY) ROUTES ===
-Route::prefix('than-so-hoc')->name('numerology.')->group(function () {
+Route::prefix('than-so-hoc')->name('numerology.')->middleware('validate.numerology')->group(function () {
     // Main form
     Route::get('/', [LuckyController::class, 'index'])->name('index');
 
