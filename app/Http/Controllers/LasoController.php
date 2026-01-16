@@ -502,8 +502,7 @@ class LasoController extends Controller
             $result = $response->json();
 
             if (isset($result['success']) && $result['success']) {
-                // Lấy dữ liệu JSON từ kết quả API
-                $jsonData = $result['data']['laso_details']['info'] ?? null;
+                $jsonData = $result['data']['laso_details'] ?? null;
 
                 if (!$jsonData) {
                     return response()->json([
@@ -512,20 +511,23 @@ class LasoController extends Controller
                     ]);
                 }
 
-                // Log dữ liệu để debug
-                \Log::info('JSON data for luan giai', ['json_data' => $jsonData]);
+                // Xử lý dữ liệu để tạo payload đúng format
+                $infoTen = $this->createInfoTenFromData($jsonData, $lastInput);
+                $cungTongQuan = $this->createCungTongQuanFromData($jsonData);
 
-                // Chuẩn bị dữ liệu theo format mong đợi của API Flutter
+                // Chuẩn bị dữ liệu theo format mong đợi của API
                 $infoObject = [
                     'type' => 'tong_quan',
-                    'info_ten' => $jsonData
+                    'info_ten' => $infoTen,
+                    'cung_tongquan' => $cungTongQuan
                 ];
+
+    
 
                 // Convert thành JSON string như API mong đợi
                 $requestBody = [
                     'info' => json_encode($infoObject, JSON_UNESCAPED_UNICODE)
                 ];
-
                 // Log request body để debug
                 \Log::info('Request body for Flutter API', ['request_body' => $requestBody]);
 
@@ -735,5 +737,109 @@ class LasoController extends Controller
         } catch (\Exception $e) {
             return response('Đã xảy ra lỗi khi xử lý yêu cầu tải ảnh.', 500);
         }
+    }
+     private function createInfoTenFromData($jsonData, $lastInput)
+    {
+        $info = $jsonData['info'] ?? [];
+
+        return [
+            'ho_ten' => $info['ho_ten'] ?? $lastInput['ho_ten'] ?? 'Unknown',
+            'gioi_tinh' => $info['gioi_tinh'] ?? $lastInput['gioi_tinh'] ?? 'Nam',
+            'duong_lich_str' => $info['duong_lich_str'] ?? 'N/A',
+            'am_lich_str' => $info['am_lich_str'] ?? 'N/A',
+            'nam_xem' => $info['nam_xem'] ?? $lastInput['nam_xem'] ?? date('Y'),
+            'tuoi' => $info['tuoi'] ?? 0,
+            'am_duong' => $info['am_duong'] ?? 'Dương Nam',
+            'menh' => $info['menh'] ?? 'N/A',
+            'hanh_menh' => $info['hanh_menh'] ?? 'N/A',
+            'am_duong_nam_sinh' => $info['am_duong_nam_sinh'] ?? 'Dương',
+            'cuc' => $info['cuc'] ?? 'N/A',
+            'hanh_cuc' => $info['hanh_cuc'] ?? 'N/A',
+            'tieu_van_cung' => $info['tieu_van_cung'] ?? 'N/A',
+            'chu_menh' => $info['chu_menh'] ?? 'N/A',
+            'chu_than' => $info['chu_than'] ?? 'N/A',
+            'ket_luan' => $info['ket_luan'] ?? [],
+            'cuc_menh_relation' => $info['cuc_menh_relation'] ?? 'N/A'
+        ];
+    }
+
+    private function createCungTongQuanFromData($jsonData)
+    {
+        $palaces = $jsonData['palaces'] ?? [];
+        $cungTongQuan = [];
+
+        foreach ($palaces as $palaceName => $palaceData) {
+            // Extract chinh_tinh names
+            $chinhTinhNames = [];
+            if (isset($palaceData['chinh_tinh']) && is_array($palaceData['chinh_tinh'])) {
+                foreach ($palaceData['chinh_tinh'] as $star) {
+                    if (isset($star['name'])) {
+                        $chinhTinhNames[] = $star['name'];
+                    }
+                }
+            }
+
+            // Extract phu_tinh_cat names
+            $phuTinhCatNames = [];
+            if (isset($palaceData['phu_tinh_cat']) && is_array($palaceData['phu_tinh_cat'])) {
+                foreach ($palaceData['phu_tinh_cat'] as $star) {
+                    if (isset($star['name'])) {
+                        $phuTinhCatNames[] = $star['name'];
+                    }
+                }
+            }
+
+            // Extract phu_tinh_sat names
+            $phuTinhSatNames = [];
+            if (isset($palaceData['phu_tinh_sat']) && is_array($palaceData['phu_tinh_sat'])) {
+                foreach ($palaceData['phu_tinh_sat'] as $star) {
+                    if (isset($star['name'])) {
+                        $phuTinhSatNames[] = $star['name'];
+                    }
+                }
+            }
+
+            // Extract special names
+            $specialNames = [];
+            if (isset($palaceData['special']) && is_array($palaceData['special'])) {
+                foreach ($palaceData['special'] as $star) {
+                    if (isset($star['name'])) {
+                        $specialNames[] = $star['name'];
+                    }
+                }
+            }
+
+            // Create cung entry
+            $cungEntry = [
+                'ten_cung' => $palaceData['ten_cung'] ?? $palaceName,
+                'dv_chuc_nang' => $palaceData['dv_chuc_nang'] ?? 'N/A',
+                'vong_tuoi_chi' => $palaceData['vong_tuoi_chi'] ?? 'N/A',
+                'ln_chuc_nang' => $palaceData['ln_chuc_nang'] ?? 'N/A',
+                'thang_am' => $palaceData['thang_am'] ?? 0,
+                'can_chi_cung' => $palaceData['can_chi_cung'] ?? 'N/A',
+                'cung_chuc_nang' => $palaceData['cung_chuc_nang'] ?? 'N/A',
+                'dai_van' => $palaceData['dai_van'] ?? 0,
+                'chinh_tinh' => $chinhTinhNames,
+                'phu_tinh_cat' => $phuTinhCatNames,
+                'phu_tinh_sat' => $phuTinhSatNames,
+                'phu_tinh' => $palaceData['phu_tinh'] ?? [],
+                'vong_trang_sinh' => $palaceData['vong_trang_sinh'] ?? 'N/A',
+                'special' => $specialNames,
+                'luu' => $palaceData['luu'] ?? [],
+                'do_sang_sao' => $palaceData['do_sang_sao'] ?? []
+            ];
+
+            // Determine type based on cung_chuc_nang
+            $cungChucNang = $palaceData['cung_chuc_nang'] ?? '';
+            if (strpos($cungChucNang, 'MỆNH') !== false) {
+                $cungEntry['type'] = 'menh';
+            } else {
+                $cungEntry['type'] = 'normal';
+            }
+
+            $cungTongQuan[] = $cungEntry;
+        }
+
+        return $cungTongQuan;
     }
 }
