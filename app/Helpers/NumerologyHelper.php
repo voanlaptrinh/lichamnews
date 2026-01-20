@@ -390,12 +390,16 @@ class NumerologyHelper
         $totalSum = $daySum + $monthSum + $yearSum;
         $lifePathNumber = self::reduceToSingleDigit($totalSum);
 
+        // Keep track of intermediate steps for karmic debt detection
+        $calculationSteps = [$day, $month, $year, $daySum, $monthSum, $yearSum, $totalSum];
+
         $calculation = "Ngày: {$day} → {$daySum}, Tháng: {$month} → {$monthSum}, Năm: {$year} → {$yearSum}\n";
         $calculation .= "Tổng: {$daySum} + {$monthSum} + {$yearSum} = {$totalSum} → {$lifePathNumber}";
 
         return [
             'number' => $lifePathNumber,
             'calculation' => $calculation,
+            'calculation_steps' => $calculationSteps,
             'interpretation' => self::getLifePathInterpretation($lifePathNumber),
             'sections' => self::getLifePathSections($lifePathNumber)
         ];
@@ -1058,20 +1062,54 @@ class NumerologyHelper
 
         // Kiểm tra ngày
         if (in_array($day, $karmicDebtNumbers)) {
+            $debtData = self::getKarmicDebtInterpretation($day);
             $foundDebts[] = [
                 'number' => $day,
                 'source' => 'Ngày sinh',
-                'interpretation' => self::getKarmicDebtInterpretation($day)
+                'title' => $debtData['title'],
+                'number_nghiep' => $debtData['number'],
+                'essence' => $debtData['essence'],
+                'prominentCharacteristics' => $debtData['prominentCharacteristics'],
+                'commonSigns' => $debtData['commonSigns'],
+                'mainLesson' => $debtData['mainLesson'],
+                'rewards' => $debtData['rewards'],
+                // 'positive_outcomes' => $debtData['positive_outcomes']
             ];
+        }
+
+        // Kiểm tra trong số chủ đạo (Life Path intermediate steps) - theo Flutter source code
+        $lifePathKarmicDebts = self::detectKarmicFromLifePath($birthDate);
+        foreach ($lifePathKarmicDebts as $karmicNumber) {
+            if (!in_array($karmicNumber, array_column($foundDebts, 'number'))) {
+                $debtData = self::getKarmicDebtInterpretation($karmicNumber);
+                $foundDebts[] = [
+                    'number' => $karmicNumber,
+                    'source' => 'Số chủ đạo (bước trung gian)',
+                    'title' => $debtData['title'],
+                    'number_nghiep' => $karmicNumber,
+                    'essence' => $debtData['essence'],
+                    'prominentCharacteristics' => $debtData['prominentCharacteristics'],
+                    'commonSigns' => $debtData['commonSigns'],
+                    'mainLesson' => $debtData['mainLesson'],
+                    'rewards' => $debtData['rewards']
+                ];
+            }
         }
 
         // Kiểm tra trong tính toán tên
         $expressionData = self::calculateExpressionNumber($fullName);
         if (in_array($expressionData['total_value'], $karmicDebtNumbers)) {
+            $debtData = self::getKarmicDebtInterpretation($expressionData['total_value']);
             $foundDebts[] = [
                 'number' => $expressionData['total_value'],
                 'source' => 'Số tên (trước khi rút gọn)',
-                'interpretation' => self::getKarmicDebtInterpretation($expressionData['total_value'])
+                'title' => $debtData['title'],
+                'number_nghiep' => $expressionData['total_value'],
+                'essence' => $debtData['essence'],
+                'prominentCharacteristics' => $debtData['prominentCharacteristics'],
+                'commonSigns' => $debtData['commonSigns'],
+                'mainLesson' => $debtData['mainLesson'],
+                'rewards' => $debtData['rewards']
             ];
         }
 
@@ -1079,10 +1117,71 @@ class NumerologyHelper
             'karmic_debts' => $foundDebts,
             'has_karmic_debt' => !empty($foundDebts),
             'interpretation' => empty($foundDebts)
-                ? 'Bạn không mang theo nghiệp quả từ kiếp trước.'
-                : 'Bạn có một số nghiệp quả cần giải quyết trong kiếp này.',
+                ? 'Linh hồn bạn không mang theo "món nợ tinh thần" nào từ kiếp trước. Bạn có thể tự do phát triển mà không bị ràng buộc bởi các bài học nghiệp quả. Đây có thể có nghĩa: Linh hồn đã học được các bài học cần thiết trong những kiếp trước, bạn đã thanh toán xong các nghiệp quả trong kiếp này hoặc kiếp trước, bạn có cơ hội tập trung vào việc phát triển và giúp đỡ người khác.'
+                : 'Nghiệp quả (Karmic Debt) là những "món nợ tinh thần" mà linh hồn mang từ kiếp trước, thường xuất phát từ việc lạm dụng quyền lực, tự do, tình cảm hoặc đức tin. Việc có ' . count($foundDebts) . ' nghiệp quả cho thấy bạn cần học các bài học để thanh toán những "món nợ" này. Các nghiệp quả không phải là hình phạt mà là cơ hội để linh hồn trưởng thành và hoàn thiện.',
             'sections' => self::getKarmicDebtSections($foundDebts)
         ];
+    }
+
+    /**
+     * Detect karmic debts from Life Path intermediate calculation steps
+     * Based on Flutter source code logic
+     */
+    private static function detectKarmicFromLifePath($birthDate)
+    {
+        $karmicNumbers = [13, 14, 16, 19];
+        $foundKarmicDebts = [];
+
+        // Parse birth date
+        if (is_array($birthDate)) {
+            $day = $birthDate['day'];
+            $month = $birthDate['month'];
+            $year = $birthDate['year'];
+        } else {
+            $timestamp = strtotime($birthDate);
+            $day = date('d', $timestamp);
+            $month = date('m', $timestamp);
+            $year = date('Y', $timestamp);
+        }
+
+        // Get all digits from birth date
+        $dateString = sprintf("%02d%02d%d", $day, $month, $year);
+        $digits = [];
+        for ($i = 0; $i < strlen($dateString); $i++) {
+            $digits[] = intval($dateString[$i]);
+        }
+
+        // Calculate Life Path with intermediate step tracking
+        $intermediateSteps = [];
+
+        // First sum: add all digits
+        $currentSum = array_sum($digits);
+        $intermediateSteps[] = $currentSum;
+
+        // Check first sum for karmic debt
+        if (in_array($currentSum, $karmicNumbers)) {
+            $foundKarmicDebts[] = $currentSum;
+        }
+
+        // Continue reducing until single digit (but track all intermediate steps)
+        while ($currentSum > 9 && !in_array($currentSum, [11, 22, 33])) {
+            $sumDigits = [];
+            $digitStr = (string)$currentSum;
+            for ($i = 0; $i < strlen($digitStr); $i++) {
+                $sumDigits[] = intval($digitStr[$i]);
+            }
+
+            $currentSum = array_sum($sumDigits);
+            $intermediateSteps[] = $currentSum;
+
+            // Check this intermediate step for karmic debt
+            if (in_array($currentSum, $karmicNumbers)) {
+                $foundKarmicDebts[] = $currentSum;
+            }
+        }
+
+        // Remove duplicates and return
+        return array_unique($foundKarmicDebts);
     }
 
     /**
@@ -2248,13 +2347,119 @@ class NumerologyHelper
 
     private static function getKarmicDebtInterpretation($number)
     {
-        $debts = [
-            13 => 'Nghiệp quả từ sự lười biếng và thiếu trách nhiệm.',
-            14 => 'Nghiệp quả từ việc lạm dụng tự do.',
-            16 => 'Nghiệp quả từ sự kiêu ngạo và phá hoại tình yêu.',
-            19 => 'Nghiệp quả từ việc lạm dụng quyền lực.'
+
+        $interpretations = self::getKarmicDebtData();
+        return $interpretations[$number] ?? 'Nghiệp quả đặc biệt.';
+    }
+
+    /**
+     * Get detailed karmic debt data based on Flutter source code
+     */
+    private static function getKarmicDebtData()
+    {
+        return [
+            13 => [
+                'title' => 'Nghiệp Quả 13/4 - Bài Học về Kỷ Luật & Lao Động Có Trách Nhiệm',
+                'number' => '13/4',
+                'essence' => 'Nợ từ việc lười biếng, trì hoãn và tránh trách nhiệm',
+                'prominentCharacteristics' => 'Nếu bạn có 13/4 trong biểu đồ, điều này cho thấy bạn đang mang theo một "món nợ" từ quá khứ – liên quan đến việc đã từng trì hoãn, lạm dụng sự thoải mái, hoặc tránh né trách nhiệm. Số 13 mang thử thách liên tục: bạn có thể cảm thấy như mình luôn bị "chĩa mũi tên" vào sự lười biếng, dễ mất động lực và bỏ dở giữa chừng khi đối mặt với việc đòi hỏi nỗ lực liên tục.',
+                'commonSigns' => '
+                <ul>
+                    <li>Tiền vận chậm trễ: bạn phải dành nhiều thời gian và công sức hơn để đạt được điều mà người khác có thể làm nhanh chóng.</li>
+                    <li>Có xu hướng trì hoãn, lơ là, và dễ tìm "cửa thoát" khi việc bắt đầu trở nên khó khăn.</li>
+                    <li>Dễ bỏ cuộc giữa chừng, thường bắt đầu nhiều việc nhưng hiếm khi hoàn thành đến cuối cùng.</li>
+                </ul>',
+                'mainLesson' => '
+                Số 13/4 mời bạn tích hợp năng lượng số 4 – khả năng kỷ luật, kiên trì, xây dựng nền tảng và hoàn tất những gì đã bắt đầu:</br>
+                <ul>
+                    <li>Xây dựng cấu trúc – kỷ luật cá nhân: lập kế hoạch rõ ràng, chia công việc từng bước; tạo thói quen mạnh mẽ để duy trì tiến trình.</li>
+                    <li>Tập trung & chịu trách nhiệm: học cách quan sát những lúc mình muốn bỏ cuộc và tự nhắc: "Mình sẽ làm đến cùng".</li>
+                    <li>Hành động có ý thức, tránh lối tắt: kiên nhẫn, chăm chỉ thay vì tìm cách dễ dàng.</li>
+                    <li>Rèn tinh thần bền bỉ: những thử thách không phải để ngăn bạn, mà để bạn rèn nên sức mạnh nội tại qua từng bước đi chậm nhưng chắc.</li>
+                </ul>',
+                'rewards' => '
+                <ul>
+                <li>Bạn sẽ trở nên có nền tảng chắc chắn, tự tin vào năng lực và có thể hoàn thành những dự án lớn hoặc tạo dựng cái gì lâu dài.</li>
+                    <li> Hành trình rèn luyện kỷ luật sẽ mang lại niềm vui sâu sắc, gần gũi với phẩm chất số 4 – "tự do thông qua trật tự".</li>
+                     <li>Khi bạn làm chủ được bài học này, "món nợ" nghiệp sẽ được chuộc lại, khiến cuộc sống trở nên nhẹ nhõm hơn, đồng thời bạn truyền cảm hứng cho người khác qua sức mạnh bền bỉ của chính mình.</li>
+                     </ul>'
+            ],
+            14 => [
+                'title' => 'Nghiệp Quả 14/5 - Bài Học về Tự Do Có Trách Nhiệm',
+                'number' => '14/5',
+                'essence' => 'Nợ từ việc lạm dụng tự do và sống buông thả',
+                'prominentCharacteristics' => 'Nếu bạn có 14/5 trong biểu đồ, điều này cho thấy bạn đang mang theo một "món nợ" từ quá khứ – liên quan đến việc từng lạm dụng sự tự do, sống buông thả hoặc thiếu kiên định với lựa chọn của mình. Số 14 đưa đến một hành trình nhiều biến động: bạn có thể cảm thấy mình liên tục rơi vào trạng thái mất cân bằng, khó ổn định lâu dài và thường xuyên bị thử thách bởi những tình huống ngoài tầm kiểm soát.',
+                'commonSigns' => '
+                <ul>
+                <li>Thay đổi thất thường: cuộc sống có thể trải qua nhiều giai đoạn lên – xuống nhanh chóng, khó giữ được sự ổn định bền vững.</li>
+                    <li>Khó kiểm soát bản thân: dễ bị cuốn vào những ham muốn tức thời (mua sắm, ăn uống, yêu đương, công việc...) mà thiếu định hướng dài hạn. </li>
+                    <li>Thiếu kỷ luật và kiên định: bạn thường khởi đầu với sự phấn khích nhưng nhanh chóng mất hứng, từ bỏ giữa chừng hoặc dễ bị xao nhãng bởi cái mới.</li>
+                    </ul>',
+                'mainLesson' => '
+                Số 14/5 mời bạn học cách sử dụng tự do như một công cụ phát triển, chứ không phải là một cái cớ để trốn tránh kỷ luật. Năng lượng của số 5 khi chưa trưởng thành sẽ là phiêu lưu, bất định; nhưng khi trưởng thành sẽ trở thành tự do có định hướng, linh hoạt nhưng có cốt lõi.</br>
+                <ul>
+                <li>Rèn luyện sự cân bằng: xây dựng một nhịp sống ổn định – không quá bó buộc, cũng không buông thả.</li>
+                    <li>Chọn một hướng đi và cam kết với nó: đừng để sự ham thích cái mới làm bạn quên đi mục tiêu ban đầu.</li>
+                    <li>Thiết lập giới hạn lành mạnh: cho phép mình tận hưởng cuộc sống, nhưng trong ranh giới tự giác và có trách nhiệm.</li>
+                    <li>Dùng tự do để nâng mình lên: thay vì làm điều "mình thích", hãy làm điều "mình cần" để trưởng thành và vững chãi.</li>
+                </ul>',
+                'rewards' => '
+                <ul>
+                <li>Khi bạn học được cách sống có giới hạn trong tự do, giữ được sự nhất quán trong hành động và biết hướng nguồn năng lượng dồi dào của mình vào việc xây dựng, bạn sẽ trở nên thu hút, trưởng thành và đáng tin cậy.</li>
+                    <li>Bạn có thể trở thành người tạo cảm hứng thay đổi cho người khác, nhưng không phải bằng lời nói suông – mà bằng sự tự do nội tâm vững vàng, đã được tôi luyện qua kỷ luật và trải nghiệm.</li>
+                </ul>'
+            ],
+            16 => [
+                'title' => 'Nghiệp Quả 16/7 - Bài Học về Khiêm Tốn & Xây Lại từ Đống Tro Tàn',
+                'number' => '16/7',
+                'essence' => 'Nợ từ việc lạm dụng quyền lực và tình yêu',
+                'prominentCharacteristics' => 'Nếu bạn có 16/7 trong biểu đồ, điều này cho thấy bạn đang mang theo một "món nợ" từ quá khứ – liên quan đến việc từng lạm dụng quyền lực, tình yêu hoặc trách nhiệm, để rồi cuối cùng sự tự mãn và vô cảm đã đẩy bạn vào trạng thái sụp đổ. Số 16 thường đưa bạn qua những biến cố lớn với cảm giác như mọi thứ bạn xây dựng đang bị phá hủy – để rồi bạn phải học cách khiêm nhường, tin vào tâm linh và tái thiết từ con người thực sự của mình.',
+                'commonSigns' => '
+                <ul>
+                    <li>Sự sụp đổ bất ngờ: có thể là sự tan vỡ trong mối quan hệ, sự nghiệp, tài chính hoặc uy tín cá nhân. </li>
+                    <li>Cuộc đấu tay đôi với cái tôi: bạn có thể từng tự cao, dễ đánh giá người khác, và từ đó gây tổn thương hoặc xa cách về tình cảm.</li>
+                    <li>Không dễ mở lòng: cảm thấy không ai hiểu, dễ rơi vào cô lập, và có thể thiếu giao tiếp cảm xúc.</li>
+                </ul>',
+                'mainLesson' => 'Số 16/7 mời bạn học lại từ gốc sự khiêm nhường và tái thiết con người mình:
+                <ul>
+                    <li>Chấp nhận sự "sụp đổ, rồi học từ đó": mỗi cú vấp là bước dạy bạn cách bền trí hơn.</li>
+                    <li>Phát triển tâm linh và nội tâm: thiền, tĩnh tâm, hoặc tự vấn bản thân để xây dựng niềm tin từ bên trong.</li>
+                    <li>Tái định hình các mối quan hệ và trách nhiệm: sống có trách nhiệm, thấu cảm, không để ego chi phối vị trí bạn đứng trong tập thể.</li>
+                    <li>Tin vào con đường chân thật: thay vì xây dựng bằng quyền lực, hãy tạo dựng mọi thứ từ nền tảng gốc rễ – khiêm nhường, minh bạch và nhân ái.</li>
+                </ul>
+                ',
+                'rewards' => '
+                <ul>
+                    <li>Bạn sẽ tìm thấy sức mạnh nội tâm đích thực, không dựa vào danh tiếng hay vị thế.</li>
+                    <li>Bạn xây dựng được những mối quan hệ sâu sắc và kiên định, dựa trên sự tôn trọng và tin cậy.</li>
+                    <li>Quan trọng nhất, bạn đi vào con đường trưởng thành tinh thần, khai mở trí tuệ và sống đúng với bản chất của mình.</li>
+                </ul>'
+            ],
+            19 => [
+                'title' => 'Nghiệp Quả 19/1 - Bài Học về Sức Mạnh Cá Nhân, Khiêm Tốn & Gắn Kết',
+                'number' => '19/1',
+                'essence' => 'Nợ từ việc lạm dụng quyền lực và tự cao tự đại',
+                'prominentCharacteristics' => 'Nếu bạn có 19/1 trong biểu đồ, điều này chỉ ra bạn đang mang theo một "món nợ" từ quá khứ – do từng lạm dụng quyền lực, tự cao tự đại, hoặc dẫn đẩy người khác mà không quan tâm đến hậu quả. Số 19 thường dẫn dắt bạn qua những trải nghiệm cần bạn học cách độc lập thật sự, nhưng biết chấp nhận sự tương trợ từ người khác thay vì cô lập bản thân. Như một bài giảng: "Không ai là hòn đảo" — bạn phải học cách dùng sức mạnh để xây dựng, không phải phá hủy',
+                'commonSigns' => '
+                <ul>
+                    <li>Bạn có thể cực kỳ kiên định, đến mức cưỡng chế người khác hoặc khiến mọi người xung quanh cảm thấy khó tiếp cận.</li>
+                    <li>Thường xuyên cảm thấy cô đơn trong cuộc đấu tự thân, dù bạn luôn muốn "tự làm mọi thứ" mà không nhận hỗ trợ.</li>
+                    <li>Có xu hướng trở thành lãnh đạo độc đoán, mong muốn kiểm soát nhưng lại thiếu sự linh hoạt cần thiết</li>
+                </ul>',
+                'mainLesson' => 'Số 19/1 mời bạn học cách cân bằng giữa tự lực và sự liên kết với cộng đồng, giữa lãnh đạo và sự khiêm hạ:
+                <ul>
+                   <li>Phát triển "độc lập thật sự": xây dựng năng lực và tự tin để đứng vững, nhưng không ích kỷ.</li>
+                    <li>Biết đón nhận hỗ trợ: mở lòng để nhận giúp đỡ, ý kiến, và tình yêu từ người khác – đó không phải là yếu đuối mà là khôn ngoan.</li>
+                    <li>Lãnh đạo bằng mẫu mực: cho phép quyền lực đi cùng với sự phục vụ, tôn trọng và truyền cảm hứng – bạn là người dẫn đầu nhưng không xa cách.</li>
+                    <li>Rèn lòng vị tha và kết nối sâu sắc: hiểu rằng sức mạnh đích thực nằm ở mối quan hệ bền vững, tình người và sự gắn bó.</ul>',
+                'rewards' => '
+                <ul>
+                <li>Bạn trở thành người lãnh đạo có tầm, đủ sắc sảo nhưng vẫn ấm áp, được tin tưởng và kính trọng vì sự chân thành.</li>
+                    <li>Bạn xây dựng được sức mạnh nội tâm và sự tự lập đi đôi với mối liên kết cộng đồng vững chắc.</li>
+                    <li>Quan trọng nhất, bạn học được bài học của số 19/1: sức mạnh không nằm ở việc cô lập, mà ở khả năng kết nối và nâng đỡ nhau.</li>
+                    </ul>'
+            ]
         ];
-        return $debts[$number] ?? 'Nghiệp quả đặc biệt.';
     }
 
     private static function getKarmicDebtSections($debts)

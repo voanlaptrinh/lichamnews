@@ -1228,4 +1228,254 @@ html.modal-open body {
     .empty-text {
         font-size: 18px;
     }
+    .date-label{
+        font-size: 10px;
+    }
+    .d-2056{
+        left: 60%;
+    }
+}
+/* 9 Year Cycle --- New Styles */
+.personal-year-highlight {
+    background: #e3f2fd;
+    color: #2268D3;
+    padding: 12px 20px;
+    border-radius: 8px;
+    /* text-align: center; */
+    font-size: 18px;
+    margin-top: 20px;
+    font-weight: 700;
+    border: 1px solid #90caf9;
+}
+
+.personal-year-highlight strong {
+    font-weight: 700;
+    color: #1976d2;
+}
+.debt-title{
+    color: #000000;
+    font-weight: 700;
+    margin-top: 20px;
+    margin-bottom: 23px;
+}
+
+
+
+
+.nine-year-wrapper {
+    display: grid;
+    gap: 8px;
+    /* Mobile: 2 columns */
+    grid-template-columns: repeat(2, 1fr);
+}
+
+/* Tablet: 3 columns */
+@media (min-width: 768px) {
+    .nine-year-wrapper {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Desktop: 9 columns */
+@media (min-width: 992px) {
+    .nine-year-wrapper {
+        grid-template-columns: repeat(9, 1fr);
+    }
+}
+
+.nine-year-card {
+    padding: 1rem;
+    border-radius: 12px;
+    text-align: center;
+    background: #EDEDED;
+    /* border: 2px solid #e2e8f0; */
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.nine-year-card:hover {
+   
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    border-color: #4299e1;
+}
+
+.nine-year-card.current {
+    background: #D41CC2;
+    color: white;
+    border-color: #D41CC2;
+    box-shadow: 0 8px 25px rgba(66, 153, 225, 0.3);
+    /* transform: translateY(-5px); */
+}
+
+.nine-year-card .year-label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    opacity: 0.8;
+}
+
+.nine-year-card.current .year-label {
+    color: white;
+    opacity: 0.9;
+}
+
+.nine-year-card .personal-year-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0.5rem 0;
+    color: #000000;
+}
+
+.nine-year-card.current .personal-year-number {
+    color: white;
+}
+
+.nine-year-card .year-phase {
+    font-size: 0.75rem;
+    line-height: 1.3;
+    min-height: 2.5em; /* to prevent layout shifts */
+    opacity: 0.7;
+}
+
+.nine-year-card.current .year-phase {
+    color: white;
+    opacity: 1;
+}
+
+@media (max-width: 768px) {
+    .nine-year-card {
+        flex: 0 0 100px;
+    }
+    .nine-year-card .personal-year-number {
+        font-size: 2rem;
+    }
+}
+/* Karmic Influences Section */
+.karmic-section {
+    background: #f7fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.karmic-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid #cbd5e0;
+    padding-bottom: 1rem;
+}
+
+.karmic-header h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #2d3748;
+    margin: 0;
+}
+
+.karmic-icon {
+    font-size: 2rem;
+}
+
+.karmic-numbers-container p {
+    color: #4a5568;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+}
+
+.numbers-grid {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.karmic-number-card {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.karmic-number-card:hover {
+    transform: scale(1.05) translateY(-5px);
+}
+
+.karmic-number-card.lesson {
+    background: linear-gradient(135deg, #f6ad55, #ed8936);
+}
+
+.karmic-number-card.debt {
+    background: linear-gradient(135deg, #f56565, #e53e3e);
+}
+
+.karmic-number-card .number {
+    font-size: 3rem;
+    font-weight: 700;
+}
+
+.karmic-number-card .source {
+    font-size: 0.75rem;
+    opacity: 0.8;
+    margin-top: -5px;
+}
+
+.interpretations-list {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.interpretation-card.lesson-interp {
+    border-color: #ed8936;
+}
+
+.interpretation-card.debt-interp {
+    border-color: #e53e3e;
+}
+
+.interpretation-card .interp-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #2d3748;
+    margin-bottom: 0.75rem;
+}
+
+.interpretation-card .interp-meaning {
+    font-size: 1rem;
+    color: #4a5568;
+    line-height: 1.6;
+}
+
+.no-karmic-data {
+    text-align: center;
+    padding: 2rem 1rem;
+    background: #e2f2ff;
+    border-radius: 8px;
+}
+
+.no-karmic-data .icon {
+    font-size: 3rem;
+}
+
+.no-karmic-data .title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #2d3748;
+    margin-top: 1rem;
+}
+
+.no-karmic-data .description {
+    color: #4a5568;
+    max-width: 600px;
+    margin: 0.5rem auto 0 auto;
 }

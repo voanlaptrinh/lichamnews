@@ -4,52 +4,6 @@
 
     @push('styles')
         <link rel="stylesheet" href="{{ asset('/css/thansohoc.css?v=11.6') }}">
-        <style>
-            .section-title.danger {
-                color: #dc3545;
-                border-bottom: 2px solid #dc3545;
-                padding-bottom: 8px;
-                margin-bottom: 16px;
-                font-size: 1.2rem;
-                display: flex;
-                align-items: center;
-            }
-            .interpretation-card.present {
-                border-left: 4px solid #28a745;
-                margin-bottom: 1rem;
-                border-radius: 0 4px 4px 0;
-                overflow: hidden;
-            }
-            .interpretation-card.absent {
-                border-left: 4px solid #dc3545;
-                margin-bottom: 1rem;
-                border-radius: 0 4px 4px 0;
-                overflow: hidden;
-            }
-            .interpretation-card .interpretation-header {
-                padding: 0.75rem 1.25rem;
-                margin-bottom: 0;
-            }
-            .interpretation-card.present .interpretation-header {
-                background-color: rgba(40, 167, 69, 0.1);
-            }
-            .interpretation-card.absent .interpretation-header {
-                background-color: rgba(220, 53, 69, 0.1);
-            }
-            .interpretation-card .interpretation-content {
-                padding: 1.25rem;
-                background: #fff;
-            }
-            .interpretation-content p {
-                margin-bottom: 0.5rem;
-            }
-            .interpretation-content p:last-child {
-                margin-bottom: 0;
-            }
-            .interpretation-content p strong {
-                color: #333;
-            }
-        </style>
     @endpush
 
     <div class="container-setup">
@@ -383,51 +337,57 @@
                                                         [
                                                             'numbers' => [1, 5, 9],
                                                             'class' => 'diagonal',
-                                                            'style' => 'top: 50%; left: 50%; width: 141%; transform: translate(-50%, -50%) rotate(-45deg);',
+                                                            'style' =>
+                                                                'top: 50%; left: 50%; width: 141%; transform: translate(-50%, -50%) rotate(-45deg);',
                                                             'name' => 'Mũi tên Quyết tâm',
                                                         ],
                                                         [
                                                             'numbers' => [3, 5, 7],
                                                             'class' => 'diagonal-reverse',
-                                                            'style' => 'top: 50%; left: 50%; width: 141%; transform: translate(-50%, -50%) rotate(45deg);',
+                                                            'style' =>
+                                                                'top: 50%; left: 50%; width: 141%; transform: translate(-50%, -50%) rotate(45deg);',
                                                             'name' => 'Mũi tên Nhạy bén Tâm linh',
                                                         ],
                                                         // Verticals (based on displayed grid columns)
                                                         [
                                                             'numbers' => [1, 2, 3],
                                                             'class' => 'vertical',
-                                                            'style' => 'left: 16.66%; top: 0; height: 100%; width: 5px;',
+                                                            'style' => 'left: 51px; top: 141px; width: 100%;',
                                                             'name' => 'Mũi tên Kế hoạch',
                                                         ],
                                                         [
                                                             'numbers' => [4, 5, 6],
                                                             'class' => 'vertical',
-                                                            'style' => 'left: 50%; top: 0; height: 100%; width: 5px; transform: translateX(-50%);',
+                                                            'style' =>
+                                                                'left: 50%; top: 0; height: 100%; width: 100%;transform: rotate(270deg);',
                                                             'name' => 'Mũi tên Ý chí',
                                                         ],
                                                         [
                                                             'numbers' => [7, 8, 9],
                                                             'class' => 'vertical',
-                                                            'style' => 'right: 16.66%; top: 0; height: 100%; width: 5px;',
+                                                            'style' =>
+                                                                'right: 16.66%; top: 0; height: 100%; width: 5px;',
                                                             'name' => 'Mũi tên Hoạt động',
                                                         ],
                                                         // Horizontals (based on displayed grid rows)
                                                         [
                                                             'numbers' => [3, 6, 9],
                                                             'class' => 'horizontal',
-                                                            'style' => 'top: 16.66%; left: 0; width: 100%; height: 5px;',
+                                                            'style' => 'top: 16.66%; width: 100%; height: 5px;',
                                                             'name' => 'Mũi tên Trí tuệ',
                                                         ],
                                                         [
                                                             'numbers' => [2, 5, 8],
                                                             'class' => 'horizontal',
-                                                            'style' => 'top: 50%; left: 0; width: 100%; height: 5px; transform: translateY(-50%);',
+                                                            'style' =>
+                                                                'top: 50%; left: 0; width: 100%; height: 5px; transform: translateY(-50%);',
                                                             'name' => 'Mũi tên Cảm xúc',
                                                         ],
                                                         [
                                                             'numbers' => [1, 4, 7],
                                                             'class' => 'horizontal',
-                                                            'style' => 'bottom: 16.66%; left: 0; width: 100%; height: 5px;',
+                                                            'style' =>
+                                                                'right: 0; left: 32%; width: 100%; transform: translateY(270deg);',
                                                             'name' => 'Mũi tên Thực tế',
                                                         ],
                                                     ];
@@ -445,7 +405,11 @@
                                                     @php
                                                         $isPresent = false;
                                                         foreach ($presentArrows as $presentArrow) {
-                                                            if (count(array_intersect($config['numbers'], $presentArrow)) === 3) {
+                                                            if (
+                                                                count(
+                                                                    array_intersect($config['numbers'], $presentArrow),
+                                                                ) === 3
+                                                            ) {
                                                                 $isPresent = true;
                                                                 break;
                                                             }
@@ -464,11 +428,23 @@
                                         @endif
                                     </div>
 
-                                  
+
 
                                     {{-- View Details Button --}}
                                     <div class="arrows-actions text-center">
-                                        <button class="btn btn-primary btn-detail" onclick="openArrowsModal()">
+                                        @php
+                                            $hasPresentArrows = false;
+                                            foreach ($arrows['arrows'] as $arrowFromServer) {
+                                                if (($arrowFromServer['type'] ?? '') === 'present') {
+                                                    $hasPresentArrows = true;
+                                                    break;
+                                                }
+                                            }
+                                        @endphp
+                                        <button
+                                            class="btn btn-primary btn-detail {{ !$hasPresentArrows ? 'disabled' : '' }}"
+                                            onclick="{{ $hasPresentArrows ? 'openArrowsModal()' : '' }}"
+                                            {{ !$hasPresentArrows ? 'disabled' : '' }}>
                                             XEM CHI TIẾT
                                         </button>
                                     </div>
@@ -483,7 +459,7 @@
                     </div>
                 </div>
 
-                <div class="box--bg-thang" style="border: unset">
+                <div class="box--bg-thang mb-3" style="border: unset">
                     <div class="text-box-tong-quan">
                         <div class="tt--giaima">
                             4 giai đoạn đỉnh cao cuộc đời
@@ -600,13 +576,129 @@
                         </div>
 
 
-                        <div class="pinnacle-overview-btn" style="text-align: center; margin: 15px 0;">
+                        <div class="pinnacle-overview-btn" style="display: flex; justify-content: center;">
                             <a href="{{ route('numerology.pinnacle.overview', ['day' => $birthDate['day'], 'month' => $birthDate['month'], 'year' => $birthDate['year']]) }}"
-                                class="btn btn-primary btn-lg">
-                                <i class="fas fa-chart-line"></i> Xem tổng quan cả 4 đỉnh cao cuộc đời
+                                class="btn btn-primary btn-detail">
+                                XEM CHI TIẾT
                             </a>
                         </div>
 
+
+                    </div>
+                </div>
+
+                {{-- Chu kì 9 năm Box --}}
+                <div class="box--bg-thang mb-3" style="border: unset">
+                    <div class="text-box-tong-quan">
+                        <div class="tt--giaima">
+                            @php
+                                $cycle = $profile['cycles_and_pinnacles']['nine_year_cycle'] ?? null;
+                                $currentYear = date('Y');
+                                $personalYear = $profile['cycles_and_pinnacles']['personal_year']['number'] ?? 1;
+                            @endphp
+                            @if ($cycle)
+                                Chu kì 9 năm ({{ $cycle['start_year'] }} - {{ $cycle['end_year'] }})
+                            @else
+                                Chu kì 9 năm
+                            @endif
+                        </div>
+
+                        <div class="personal-year-highlight">
+                            Năm cá nhân hiện tại của bạn là: <strong>{{ $personalYear }}</strong>
+                        </div>
+
+                        <div class="nine-year-wrapper mt-4">
+                            @if ($cycle && isset($cycle['cycles']))
+                                @foreach ($cycle['cycles'] as $yearData)
+                                    @php
+                                        $isCurrent = $yearData['year'] == $currentYear;
+                                    @endphp
+                                    <div class="nine-year-card {{ $isCurrent ? 'current' : '' }}"
+                                        onclick="window.location.href='{{ route('numerology.personal_year.detail', $yearData['personal_year']) }}'">
+                                        <div class="year-label">{{ $yearData['year'] }}</div>
+                                        <div class="personal-year-number">{{ $yearData['personal_year'] }}</div>
+                                        <div class="year-phase">{{ $yearData['phase'] ?? '' }}</div>
+                                    </div>
+                                @endforeach
+                            @endif
+                        </div>
+
+                        <div class="cycle-actions text-center mt-4">
+                            {{-- <a href="{{ route('numerology.personal_year.overview', ['day' => $birthDate['day'], 'month' => $birthDate['month'], 'year' => $birthDate['year']]) }}"
+                                class="btn btn-primary btn-detail">
+                                XEM CHI TIẾT
+                            </a> --}}
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Nghiệp quả Box --}}
+                <div class="box--bg-thang mb-3" style="border: unset">
+                    <div class="text-box-tong-quan">
+                        <div class="tt--giaima">
+                            Nghiệp quả
+                        </div>
+
+                        @php
+                            $karmicDebt = $profile['karmic_influences']['karmic_debt'] ?? null;
+                        @endphp
+
+                        {{-- Karmic Debt Section --}}
+                        @if ($karmicDebt)
+                            @if ($karmicDebt['has_karmic_debt'])
+                                <div class="karmic-debt-detailed">
+                                    @foreach ($karmicDebt['karmic_debts'] as $debt)
+                                        <div class="personal-year-highlight">
+                                            Bạn có nghiệp quả:
+                                            <strong>{{ $debt['number_nghiep'] ?? 'Nghiệp Quả ' }}</strong>
+                                        </div>
+                                        <div class="karmic-debt-full-card">
+                                            <div class="debt-header">
+
+                                                <div class="debt-title">
+                                                    {{ $debt['title'] ?? 'Nghiệp Quả ' . $debt['number'] }}</div>
+
+                                            </div>
+
+
+                                            <div class="debt-content">
+                                                <div class="debt-interpretation">
+
+                                                    <p>{{ $debt['prominentCharacteristics'] }}</p>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            @else
+                                <div class="no-karmic-debt">
+                                    <div class="personal-year-highlight">
+                                        Bạn Không Có Số Nghiệp Quả
+                                    </div>
+                                    <div class="karmic-debt-full-card mt-3">
+                                        <div class="debt-content">
+                                            <div class="debt-interpretation">
+                                                <p>{{ $karmicDebt['interpretation'] ?? 'Điều này có nghĩa là bạn đã hoàn thành tốt các bài học từ những kiếp trước và không mang theo những nghiệp quả nặng nề cần giải quyết trong kiếp này.' }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            @endif
+
+                        @endif
+
+
+
+                        {{-- View Details Button --}}
+                        <div class="karmic-actions text-center mt-4">
+                            <button class="btn btn-primary btn-detail" onclick="openKarmicModal()">
+                                XEM CHI TIẾT
+                            </button>
+                        </div>
 
                     </div>
                 </div>
@@ -956,126 +1048,83 @@
                     @php
                         $karmicLessons = $profile['karmic_influences']['karmic_lessons'];
                         $karmicDebt = $profile['karmic_influences']['karmic_debt'];
-                        $missingFromName = $profile['charts_and_patterns']['missing_numbers_from_name'] ?? null;
                     @endphp
 
-                    {{-- Missing Numbers From Name --}}
-                    @if ($missingFromName)
-                        <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
-                            <h3 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
-                                <span class="mr-3">🔤</span>
-                                Số Thiếu Hụt Từ Tên
-                            </h3>
-
-                            @if (!empty($missingFromName['missing_numbers']))
-                                <div class="mb-6">
-                                    <h4 class="font-semibold text-orange-600 mb-3">Các số không có trong tên:</h4>
-                                    <div class="flex flex-wrap gap-2 mb-4">
-                                        @foreach ($missingFromName['missing_numbers'] as $num)
-                                            <span
-                                                class="bg-orange-500 text-white px-3 py-1 rounded-full font-bold">{{ $num }}</span>
-                                        @endforeach
-                                    </div>
-                                </div>
-                            @endif
-
-                            @if (!empty($missingFromName['hidden_passions']))
-                                <div class="mb-4">
-                                    <h4 class="font-semibold text-green-600 mb-3">Số tiềm ẩn trong tên:</h4>
-                                    <div class="flex flex-wrap gap-2 mb-4">
-                                        @foreach ($missingFromName['hidden_passions'] as $num)
-                                            <span
-                                                class="bg-green-500 text-white px-3 py-1 rounded-full font-bold">{{ $num }}</span>
-                                        @endforeach
-                                    </div>
-                                </div>
-                            @endif
-
-                            <div class="bg-orange-50 p-4 rounded-lg">
-                                <p class="text-sm text-orange-800">
-                                    {{ $missingFromName['interpretation'] ?? 'Phân tích các số thiếu hụt và tiềm ẩn từ chữ cái trong tên bạn.' }}
-                                </p>
-                            </div>
+                    {{-- BÀI HỌC CẦN HỌC --}}
+                    <div class="karmic-section">
+                        <div class="karmic-header">
+                            <span class="karmic-icon">📚</span>
+                            <h3>Bài Học Cần Học (Số Thiếu Hụt)</h3>
                         </div>
-                    @endif
 
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                        {{-- Karmic Lessons --}}
-                        <div class="bg-white rounded-xl shadow-lg p-8">
-                            <h3 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
-                                <span class="mr-3">📚</span>
-                                Bài Học Cần Học
-                            </h3>
-
-                            @if (!empty($karmicLessons['missing_numbers']))
-                                <div class="mb-6">
-                                    <h4 class="font-semibold text-yellow-600 mb-3">Số thiếu hụt trong tên:</h4>
-                                    <div class="flex flex-wrap gap-2 mb-4">
-                                        @foreach ($karmicLessons['missing_numbers'] as $num)
-                                            <span
-                                                class="bg-yellow-500 text-white px-3 py-1 rounded-full font-bold">{{ $num }}</span>
-                                        @endforeach
-                                    </div>
-                                </div>
-
-                                <div class="space-y-4">
-                                    @foreach ($karmicLessons['karmic_lessons'] as $lesson)
-                                        <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded">
-                                            <h5 class="font-bold text-yellow-800 mb-2">{{ $lesson['title'] }}</h5>
-                                            <p class="text-yellow-700 text-sm leading-relaxed">{{ $lesson['meaning'] }}
-                                            </p>
+                        @if (!empty($karmicLessons['missing_numbers']))
+                            <div class="karmic-numbers-container">
+                                <p>Các số bạn thiếu hụt trong tên, đại diện cho những bài học bạn cần tập trung trong
+                                    cuộc đời này:</p>
+                                <div class="numbers-grid">
+                                    @foreach ($karmicLessons['missing_numbers'] as $num)
+                                        <div class="karmic-number-card lesson">
+                                            <span class="number">{{ $num }}</span>
                                         </div>
                                     @endforeach
                                 </div>
-                            @else
-                                <div class="text-center py-8">
-                                    <div class="text-6xl mb-4">✅</div>
-                                    <p class="text-green-600 font-semibold">Bạn không có số thiếu hụt nào!</p>
-                                    <p class="text-gray-600 text-sm">Điều này cho thấy bạn đã có đầy đủ kinh nghiệm từ các
-                                        kiếp trước.</p>
-                                </div>
-                            @endif
+                            </div>
 
-                            @if (!empty($karmicLessons['hidden_passions']))
-                                <div class="mt-6 pt-6 border-t">
-                                    <h4 class="font-semibold text-green-600 mb-3">Số tiềm năng ẩn:</h4>
-                                    <div class="flex flex-wrap gap-2">
-                                        @foreach ($karmicLessons['hidden_passions'] as $num)
-                                            <span
-                                                class="bg-green-500 text-white px-3 py-1 rounded-full font-bold">{{ $num }}</span>
-                                        @endforeach
-                                    </div>
-                                </div>
-                            @endif
-                        </div>
-
-                        {{-- Karmic Debt --}}
-                        <div class="bg-white rounded-xl shadow-lg p-8">
-                            <h3 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
-                                <span class="mr-3">⚖️</span>
-                                Nghiệp Quả
-                            </h3>
-
-                            @if ($karmicDebt['has_karmic_debt'])
-                                @foreach ($karmicDebt['karmic_debts'] as $debt)
-                                    <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded mb-4">
-                                        <h4 class="text-xl font-bold text-red-800 mb-2">
-                                            Số {{ $debt['number'] }}
-                                        </h4>
-                                        <p class="text-red-700 mb-2">
-                                            <strong>Nguồn:</strong> {{ $debt['source'] }}
-                                        </p>
-                                        <p class="text-red-700">{{ $debt['interpretation'] }}</p>
+                            <div class="interpretations-list">
+                                @foreach ($karmicLessons['karmic_lessons'] as $lesson)
+                                    <div class="interpretation-card lesson-interp">
+                                        <h4 class="interp-title">{{ $lesson['title'] }}</h4>
+                                        <p class="interp-meaning">{{ $lesson['meaning'] }}</p>
                                     </div>
                                 @endforeach
-                            @else
-                                <div class="text-center py-8">
-                                    <div class="text-6xl mb-4">✨</div>
-                                    <p class="text-green-600 font-semibold text-lg">{{ $karmicDebt['interpretation'] }}
-                                    </p>
-                                </div>
-                            @endif
+                            </div>
+                        @else
+                            <div class="no-karmic-data">
+                                <span class="icon">✅</span>
+                                <p class="title">Bạn không có số thiếu hụt nào!</p>
+                                <p class="description">Điều này cho thấy bạn đã có đầy đủ kinh nghiệm từ các kiếp trước
+                                    và không có bài học nghiệp quả lớn nào cần phải giải quyết thông qua các con số bị
+                                    thiếu.</p>
+                            </div>
+                        @endif
+                    </div>
+
+                    {{-- NGHIỆP QUẢ --}}
+                    <div class="karmic-section">
+                        <div class="karmic-header">
+                            <span class="karmic-icon">⚖️</span>
+                            <h3>Nghiệp Quả (Nợ Nghiệp)</h3>
                         </div>
+
+                        {{-- @if ($karmicDebt['has_karmic_debt'])
+                            <div class="karmic-numbers-container">
+                                <p>Các số nợ nghiệp của bạn, cho thấy những thách thức cụ thể bạn cần vượt qua do những
+                                    hành động trong quá khứ:</p>
+                                <div class="numbers-grid">
+                                    @foreach ($karmicDebt['karmic_debts'] as $debt)
+                                        <div class="karmic-number-card debt">
+                                            <span class="number">{{ $debt['number'] }}</span>
+                                            <span class="source">Từ: {{ $debt['source'] }}</span>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                            <div class="interpretations-list">
+                                @foreach ($karmicDebt['karmic_debts'] as $debt)
+                                    <div class="interpretation-card debt-interp">
+                                        <h4 class="interp-title">Diễn giải cho Nợ Nghiệp {{ $debt['number'] }}</h4>
+                                        <p class="interp-meaning">{{ $debt['interpretation'] }}</p>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @else
+                            <div class="no-karmic-data">
+                                <span class="icon">✨</span>
+                                <p class="title">{{ $karmicDebt['interpretation'] }}</p>
+                                <p class="description">Bạn không mang theo gánh nặng của các con số nợ nghiệp lớn.
+                                    Điều này cho phép bạn tiến về phía trước với ít trở ngại nghiệp quả hơn.</p>
+                            </div>
+                        @endif --}}
                     </div>
                 </div>
 
@@ -1430,6 +1479,96 @@
         </div>
     </div>
 
+    {{-- Custom Karmic Modal --}}
+    <div id="karmicModal" class="custom-modal" style="display: none;">
+        <div class="custom-modal-overlay" onclick="closeKarmicModal()"></div>
+        <div class="custom-modal-content karmic-modal-content">
+            <div class="custom-modal-header">
+                <h3 class="custom-modal-title">
+                    <i class="bi bi-yin-yang me-2"></i>Chi Tiết Nghiệp Quả
+                </h3>
+                <button type="button" class="custom-modal-close" onclick="closeKarmicModal()">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+            <div class="custom-modal-body karmic-modal-body">
+                @if ($karmicDebt)
+                    @if ($karmicDebt['has_karmic_debt'])
+                        {{-- Each karmic debt detail --}}
+                        @foreach ($karmicDebt['karmic_debts'] as $index => $debt)
+                            <div class="karmic-debt-modal-card mb-4">
+
+
+                                <div class="debt-modal-content">
+                                    @if (isset($debt['commonSigns']))
+                                        <div class="debt-section lesson">
+                                            <div style="font-weight: 700">Những dấu hiệu phổ biến</div>
+                                            <p>{!! $debt['commonSigns'] !!}</p>
+                                        </div>
+                                    @endif
+                                    @if (isset($debt['mainLesson']))
+                                        <div class="debt-section lesson">
+                                            <div style="font-weight: 700">Bài học chính</div>
+                                            <p>{!! $debt['mainLesson'] !!}</p>
+                                        </div>
+                                    @endif
+                                    @if (isset($debt['rewards']))
+                                        <div class="debt-section lesson">
+                                            <div style="font-weight: 700">Phần thưởng khi vượt qua</div>
+                                            <p>{!! $debt['rewards'] !!}</p>
+                                        </div>
+                                    @endif
+
+                                </div>
+                            </div>
+                            @if (!$loop->last)
+                                <hr class="debt-separator">
+                            @endif
+                        @endforeach
+                    @else
+                        {{-- No karmic debt content --}}
+                        <div class="no-debt-modal">
+                            <div class="no-debt-icon-large">
+                                <i class="bi bi-shield-check"></i>
+                            </div>
+                            <h4 class="no-debt-title-modal">Bạn Không Có Số Nghiệp Quả</h4>
+                            <div class="no-debt-content">
+                                <p class="no-debt-meaning">{{ $karmicDebt['interpretation'] }}</p>
+
+                                <div class="positive-attributes-modal">
+                                    <h5>✨ Những điều tích cực này thể hiện:</h5>
+                                    <ul class="positive-list">
+                                        <li><strong>Tâm hồn thanh tịnh:</strong> Bạn có bản tính trong sáng, ít mang những
+                                            tiêu cực từ quá khứ</li>
+                                        <li><strong>Khởi đầu mới:</strong> Cuộc đời này là cơ hội để bạn tự do phát triển và
+                                            sáng tạo</li>
+                                        <li><strong>Năng lượng tích cực:</strong> Bạn dễ thu hút may mắn và những điều tốt
+                                            đẹp</li>
+                                        <li><strong>Tự do lựa chọn:</strong> Ít bị ràng buộc bởi những nghiệp quả, có thể tự
+                                            quyết định con đường đi</li>
+                                        <li><strong>Khả năng giúp đỡ:</strong> Bạn có thể trở thành người hỗ trợ những người
+                                            khác vượt qua khó khăn</li>
+                                    </ul>
+                                </div>
+
+                                <div class="advice-modal">
+                                    <h5>💡 Lời khuyên cho bạn:</h5>
+                                    <p>Hãy trân trọng món quà này và sử dụng năng lượng tích cực để làm những việc có ý
+                                        nghĩa, giúp đỡ người khác và tạo ra những giá trị tốt đẹp cho cộng đồng.</p>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                @endif
+            </div>
+            <div class="custom-modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closeKarmicModal()">
+                    <i class="bi bi-x-lg me-1"></i>Đóng
+                </button>
+            </div>
+        </div>
+    </div>
+
     {{-- Custom Arrows Modal --}}
     <div id="arrowsModal" class="custom-modal" style="display: none;">
         <div class="custom-modal-overlay" onclick="closeArrowsModal()"></div>
@@ -1448,7 +1587,9 @@
 
                     {{-- Present Arrows --}}
                     @php
-                        $presentArrows = array_filter($arrowsData['arrows'], function($arrow) { return $arrow['type'] == 'present'; });
+                        $presentArrows = array_filter($arrowsData['arrows'], function ($arrow) {
+                            return $arrow['type'] == 'present';
+                        });
                     @endphp
                     @if (count($presentArrows) > 0)
                         <div class="modal-section">
@@ -1458,15 +1599,20 @@
                             @foreach ($presentArrows as $arrow)
                                 <div class="interpretation-card present">
                                     <div class="interpretation-header">
-                                        <h6>{{ $arrow['interpretation']['title'] ?? '' }} ({{ implode('-', $arrow['numbers']) }})</h6>
+                                        <h6>{{ $arrow['interpretation']['title'] ?? '' }}
+                                            ({{ implode('-', $arrow['numbers']) }})
+                                        </h6>
                                     </div>
                                     <div class="interpretation-content">
-                                        <p><strong>Ý nghĩa:</strong> {{ $arrow['interpretation']['description'] ?? 'Chưa có diễn giải.' }}</p>
+                                        <p><strong>Ý nghĩa:</strong>
+                                            {{ $arrow['interpretation']['description'] ?? 'Chưa có diễn giải.' }}</p>
                                         @if (!empty($arrow['interpretation']['strengths']))
-                                            <p><strong>Điểm mạnh:</strong> {{ implode(', ', $arrow['interpretation']['strengths']) }}</p>
+                                            <p><strong>Điểm mạnh:</strong>
+                                                {{ implode(', ', $arrow['interpretation']['strengths']) }}</p>
                                         @endif
                                         @if (!empty($arrow['interpretation']['challenges']))
-                                            <p><strong>Thách thức:</strong> {{ implode(', ', $arrow['interpretation']['challenges']) }}</p>
+                                            <p><strong>Thách thức:</strong>
+                                                {{ implode(', ', $arrow['interpretation']['challenges']) }}</p>
                                         @endif
                                         @if (!empty($arrow['interpretation']['advice']))
                                             <p><strong>Lời khuyên:</strong> {{ $arrow['interpretation']['advice'] }}</p>
@@ -1480,7 +1626,9 @@
 
                     {{-- Absent Arrows --}}
                     @php
-                        $absentArrows = array_filter($arrowsData['arrows'], function($arrow) { return $arrow['type'] == 'absent'; });
+                        $absentArrows = array_filter($arrowsData['arrows'], function ($arrow) {
+                            return $arrow['type'] == 'absent';
+                        });
                     @endphp
                     @if (count($absentArrows) > 0)
                         <div class="modal-section">
@@ -1490,19 +1638,22 @@
                             @foreach ($absentArrows as $arrow)
                                 <div class="interpretation-card absent">
                                     <div class="interpretation-header">
-                                        <h6>{{ $arrow['interpretation']['title'] ?? '' }} ({{ implode('-', $arrow['numbers']) }})</h6>
+                                        <h6>{{ $arrow['interpretation']['title'] ?? '' }}
+                                            ({{ implode('-', $arrow['numbers']) }})
+                                        </h6>
                                     </div>
                                     <div class="interpretation-content">
-                                        <p><strong>Ý nghĩa:</strong> {{ $arrow['interpretation']['description'] ?? 'Chưa có diễn giải.' }}</p>
+                                        <p><strong>Ý nghĩa:</strong>
+                                            {{ $arrow['interpretation']['description'] ?? 'Chưa có diễn giải.' }}</p>
                                         @if (!empty($arrow['interpretation']['advice']))
-                                            <p><strong>Lời khuyên để cải thiện:</strong> {{ $arrow['interpretation']['advice'] }}</p>
+                                            <p><strong>Lời khuyên để cải thiện:</strong>
+                                                {{ $arrow['interpretation']['advice'] }}</p>
                                         @endif
                                     </div>
                                 </div>
                             @endforeach
                         </div>
                     @endif
-
                 @else
                     <div class="no-data text-center py-5">
                         <i class="bi bi-info-circle fs-3"></i>
@@ -1560,7 +1711,7 @@
         function openBirthChartModal() {
             const modal = document.getElementById('birthChartModal');
             if (!modal) return;
-            
+
             modal.style.display = 'flex';
             setTimeout(() => modal.classList.add('modal-show'), 10);
             document.documentElement.classList.add('modal-open');
@@ -1580,7 +1731,7 @@
         function openArrowsModal() {
             const modal = document.getElementById('arrowsModal');
             if (!modal) return;
-            
+
             modal.style.display = 'flex';
             setTimeout(() => modal.classList.add('modal-show'), 10);
             document.documentElement.classList.add('modal-open');
@@ -1588,6 +1739,31 @@
 
         function closeArrowsModal() {
             const modal = document.getElementById('arrowsModal');
+            if (!modal) return;
+
+            modal.classList.remove('modal-show');
+            setTimeout(() => {
+                modal.style.display = 'none';
+                document.documentElement.classList.remove('modal-open');
+            }, 300);
+        }
+
+        function openNineYearCycleModal() {
+            // For now, just show an alert. You can implement a proper modal later
+            alert('Chức năng xem chi tiết chu kì 9 năm sẽ được phát triển trong tương lai.');
+        }
+
+        function openKarmicModal() {
+            const modal = document.getElementById('karmicModal');
+            if (!modal) return;
+
+            modal.style.display = 'flex';
+            document.documentElement.classList.add('modal-open');
+            setTimeout(() => modal.classList.add('modal-show'), 10);
+        }
+
+        function closeKarmicModal() {
+            const modal = document.getElementById('karmicModal');
             if (!modal) return;
 
             modal.classList.remove('modal-show');
@@ -1613,6 +1789,9 @@
                     }
                     if (document.getElementById('arrowsModal')?.style.display === 'flex') {
                         closeArrowsModal();
+                    }
+                    if (document.getElementById('karmicModal')?.style.display === 'flex') {
+                        closeKarmicModal();
                     }
                 }
             });

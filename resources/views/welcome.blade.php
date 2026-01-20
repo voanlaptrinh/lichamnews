@@ -96,30 +96,29 @@
         }
 
         /* Disable animations initially */
-        * {
+        /* * {
             animation-duration: 0s !important;
             animation-delay: 0s !important;
             transition-duration: 0s !important;
             transition-delay: 0s !important;
-        }
+        } */
     </style>
 
     <!-- Preload CSS resources -->
-    <link rel="preload" href="{{ asset('/css/bootstrap.min.css?v=6.7') }}" as="style">
-    <link rel="preload" href="{{ asset('/css/style-date.css?v=6.7') }}" as="style">
+    <link rel="preload" href="{{ asset('/css/bootstrap.min.css?v=6.8') }}" as="style">
+    <link rel="preload" href="{{ asset('/css/style-date.css?v=6.8') }}" as="style">
 
     <!-- Load critical CSS -->
-    <link href="{{ asset('/css/bootstrap.min.css?v=6.7') }}" rel="stylesheet">
-    <link href="{{ asset('/css/style-date.css?v=6.7') }}" rel="stylesheet">
+    <link href="{{ asset('/css/bootstrap.min.css?v=6.8') }}" rel="stylesheet">
+    <link href="{{ asset('/css/style-date.css?v=6.8') }}" rel="stylesheet">
 
     <!-- Defer non-critical CSS -->
-   <link rel="preload" href="{{ asset('/css/bootstrap-icons.min.css?v=6.7') }}" as="style"
-      onload="this.rel='stylesheet'">
+    <link rel="preload" href="{{ asset('/css/bootstrap-icons.min.css?v=6.8') }}" as="style"
+        onload="this.rel='stylesheet'">
 
-<link rel="preload" href="{{ asset('/css/repont.css?v=6.7') }}" as="style"
-      onload="this.rel='stylesheet'">
+    <link rel="preload" href="{{ asset('/css/repont.css?v=6.8') }}" as="style" onload="this.rel='stylesheet'">
 
-      
+
     {{-- <link rel="stylesheet" type="text/css" href="{{ asset('/css/daterangepicker.css') }}" /> --}}
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('/meta/icon.png') }}">
@@ -201,6 +200,43 @@
     </div>
 
     @include('layout.footer')
+    
+
+    <div id="button-contact-vr" class="messenger">
+        <div id="gom-all-in-one">
+            <!-- v3 -->
+            <div id="zalo-vr" class="button-contact">
+                <div class="phone-vr">
+                    <div class="phone-vr-circle-fill"></div>
+                    <div class="phone-vr-img-circle">
+                        <a target="_blank" href="https://www.m.me/phonglich.official">
+                            <img src="{{ asset('/images/messenger.png') }}">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div><!-- end v3 class gom-all-in-one -->
+    </div>
+
+    <div id="button-contact-vr" class=" btn-zalo-right">
+        <div id="gom-all-in-one">
+            <!-- v3 -->
+            <!-- zalo -->
+            <div id="zalo-vr" class="button-contact">
+                <div class="phone-vr">
+                    <div class="phone-vr-circle-fill"></div>
+                    <div class="phone-vr-img-circle">
+                        <a target="_blank" href="https://zalo.me/2874857294377143746">
+                            <img src="{{ asset('/images/zalo.png') }}">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- end phone -->
+        </div>
+        <!-- end v3 class gom-all-in-one -->
+    </div>
+
 
     <!-- Nút gieo quẻ sticky, đặt ở đây cho dễ nhìn -->
 
@@ -208,14 +244,14 @@
     {{-- @include('gieo-que') --}}
     @if (request()->routeIs('home'))
         {{-- Sử dụng Simple Chart thay vì Chart.js 201KB --}}
-        <script src="{{ asset('/js/simple-chart.js?v=6.7') }}" defer></script>
+        <script src="{{ asset('/js/simple-chart.js?v=6.8') }}" defer></script>
     @endif
     {{-- <script src="{{ asset('/js/jquery-3.7.1.min.js?v=5.67') }}" defer></script> --}}
     <script src="{{ asset('/js/bootstrap.bundle.min.js?v=5.7') }}" defer></script>
     @stack('scripts')
 
     {{-- Vanilla Date Range Picker JS - Auto-initialize for all .wedding_date_range inputs --}}
-    {{-- <script src="{{ asset('/js/vanilla-daterangepicker.js?v=6.7') }}" defer></script> --}}
+    {{-- <script src="{{ asset('/js/vanilla-daterangepicker.js?v=6.8') }}" defer></script> --}}
 
     <!-- IMMEDIATE LCP optimization -->
     <script>
@@ -290,7 +326,7 @@
 
         gtag('config', 'G-KVKGWDRXSC');
     </script>
-   
+
 
 
 </body>
