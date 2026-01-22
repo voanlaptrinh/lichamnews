@@ -8,9 +8,27 @@
     position: relative;
 }
 
+.backgroud_qr::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, #2B7EE5 0%, #64B9F6 100%);
+    opacity: 0.8;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.backgroud_qr > * {
+    position: relative;
+    z-index: 2;
+}
+
 /* App Download Banner Styles */
 .app-download-banner {
-    background: linear-gradient(135deg, #4A90E2 0%, #357ABD 50%, #2E5BA8 100%);
+    /* background: linear-gradient(135deg, #4A90E2 0%, #357ABD 50%, #2E5BA8 100%); */
     border-radius: 20px;
     padding: 45px 70px;
     /* margin: 40px 0; */
@@ -18,7 +36,7 @@
     position: relative;
     overflow: hidden;
 }
-
+/* 
 .app-download-banner::before {
     content: '';
     position: absolute;
@@ -29,7 +47,7 @@
     background: url('../images/backgroud_qr.jpg') center/cover no-repeat;
     opacity: 0.1;
     z-index: 0;
-}
+} */
 
 .app-download-banner::after {
     content: '';
@@ -356,16 +374,24 @@
     font-size: 18px;
     align-items: center;
 }
-.banner-stats-mb{
+
+.banner-stats-mb {
     display: none;
 }
- .feature-item{padding: 17px 21px;}
- .banner-main{
-        align-items: start;
- }
- .text-qr-move{
+
+.feature-item {
+    padding: 17px 21px;
+}
+
+.banner-main {
+    align-items: start;
+}
+
+.text-qr-move {
     display: none;
- }
+}
+
+
 /* Responsive Design */
 @media screen and (min-width:1400px) {
     .banner-title {
@@ -379,7 +405,7 @@
 }
 
 @media screen and (min-width:1200px) and (max-width:1399.98px) {
-     .banner-title {
+    .banner-title {
         font-size: 32px;
         margin-bottom: 19px;
     }
@@ -387,6 +413,7 @@
     .stat-number {
         font-size: 32px;
     }
+
     .app-download-banner::after {
         top: 123%;
         right: -67%;
@@ -395,7 +422,7 @@
 }
 
 @media screen and (min-width:992px) and (max-width:1199.98px) {
-        .banner-title {
+    .banner-title {
         font-size: 32px;
         margin-bottom: 19px;
     }
@@ -403,6 +430,7 @@
     .stat-number {
         font-size: 32px;
     }
+
     .app-download-banner::after {
         top: 123%;
         right: -67%;
@@ -411,10 +439,11 @@
 }
 
 @media screen and (min-width:768px) and (max-width:991.98px) {
-    .app-download-banner{
+    .app-download-banner {
         padding: 26px 37px;
     }
-        .banner-title {
+
+    .banner-title {
         font-size: 28px;
         margin-bottom: 19px;
     }
@@ -422,18 +451,24 @@
     .stat-number {
         font-size: 28px;
     }
+
     .app-download-banner::after {
-     display: none;
+        display: none;
     }
-     .feature-item{font-size: 14px;padding: 7px;}
-     .banner-features{
+
+    .feature-item {
+        font-size: 14px;
+        padding: 7px;
+    }
+
+    .banner-features {
         margin-bottom: 18px;
-     }
-    
+    }
+
 }
 
 @media screen and (min-width: 480px) and (max-width: 767.98px) {
-        .banner-title {
+    .banner-title {
         font-size: 32px;
         margin-bottom: 15px;
     }
@@ -441,52 +476,67 @@
     .stat-number {
         font-size: 32px;
     }
+
     .app-download-banner::after {
-      display: none;
+        display: none;
     }
-    .app-download-banner{
+
+    .app-download-banner {
         padding: 16px 6px
     }
-    .banner-title{
+
+    .banner-title {
         font-size: 26px;
         text-align: center;
         line-height: 38px;
     }
-    .banner-features{
+
+    .banner-features {
         justify-content: center;
         margin-bottom: 14px;
     }
-    .banner-stats{
+
+    .banner-stats {
         display: none;
     }
-    .banner-stats-mb{
+
+    .banner-stats-mb {
         display: flex;
         justify-content: center;
         padding-bottom: 18px;
     }
-     .stat-group{
+
+    .stat-group {
         gap: 10px;
     }
-    .qr-placeholder{
+
+    .qr-placeholder {
         width: 91px;
         height: 91px;
     }
-    .qr-text-mobie{
+
+    .qr-text-mobie {
         display: none;
     }
-     .feature-item{font-size: 14px;padding: 7px;}
-     .banner-main{
-            gap: 15px;
-     }
-      .text-qr-move{
+
+    .feature-item {
+        font-size: 14px;
+        padding: 7px;
+    }
+
+    .banner-main {
+        gap: 15px;
+    }
+
+    .text-qr-move {
         display: block;
         font-size: 18px;
         padding-top: 16px;
-     }
+    }
 }
 
 @media (max-width:480px) {
-     .banner-title {
+    .banner-title {
         font-size: 32px;
         margin-bottom: 10px;
     }
@@ -494,48 +544,67 @@
     .stat-number {
         font-size: 22px;
     }
+
     .app-download-banner::after {
-      display: none;
+        display: none;
     }
-    .app-download-banner{
+
+    .app-download-banner {
         padding: 16px 6px
     }
-    .banner-title{
+
+    .banner-title {
         font-size: 22px;
         text-align: center;
         line-height: 26px;
     }
-    .banner-features{
+
+    .banner-features {
         justify-content: center;
         margin-bottom: 14px;
     }
-    .banner-stats{
+
+    .banner-stats {
         display: none;
     }
-    .banner-stats-mb{
+
+    .banner-stats-mb {
         display: flex;
         justify-content: center;
         padding-bottom: 18px;
     }
-    .stat-group{
+
+    .stat-group {
         gap: 10px;
     }
-    .qr-placeholder{
+
+    .qr-placeholder {
         width: 91px;
         height: 91px;
     }
-    .qr-text-mobie{ display: none;}
-    .banner-main{
+
+    .qr-text-mobie {
+        display: none;
+    }
+
+    .banner-main {
         gap: 10px;
     }
-    .feature-item{font-size: 13px;padding: 7px;}
-    .btn-title{
+
+    .feature-item {
+        font-size: 13px;
+        padding: 7px;
+    }
+
+    .btn-title {
         font-size: 12px;
     }
-    .google-play{
+
+    .google-play {
         margin-bottom: 12px;
     }
-    .download-buttons{
+
+    .download-buttons {
         display: block;
     }
 

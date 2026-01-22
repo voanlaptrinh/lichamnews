@@ -4,6 +4,7 @@ use App\Http\Controllers\BanThoController;
 use App\Http\Controllers\BuyHouseController;
 use App\Http\Controllers\CaiTangController;
 use App\Http\Controllers\CompatibilityController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DamNgoController;
 use App\Http\Controllers\DongThoController;
 use App\Http\Controllers\DuLichCongTacController;
@@ -352,3 +353,8 @@ Route::prefix('than-so-hoc')->name('numerology.')->middleware('validate.numerolo
 });
 
 //=== End Thần số học routes ===
+
+// === CUSTOMER INFO ROUTES ===
+Route::prefix('api/customer')->name('customer.')->group(function () {
+    Route::post('/', [CustomerController::class, 'store'])->name('store');
+});

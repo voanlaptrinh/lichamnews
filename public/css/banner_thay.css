@@ -1,0 +1,411 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+.thay-banner {
+    background-image: url(../img_thay/banner_androi.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 30px;
+
+    position: relative;
+    overflow: hidden;
+}
+
+.thay-iconphonglich {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 120px;
+    height: 120px;
+
+    background-image: url(../img_thay/icon_phonglich.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 1;
+}
+
+.avt_thay {
+    position: absolute;
+    /* left: -20px; */
+    bottom: 0;
+    right: 0;
+    width: 500px;
+    height: 468px;
+
+    /* border: 2px solid rgba(255, 255, 255, 0.05); */
+    /* border-radius: 50%; */
+    background-image: url(../img_thay/avt_thay.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 1;
+}
+
+.thay-title {
+    /* Figma Typography specs */
+    font-family: 'Inter', Arial, sans-serif;
+    font-weight: 900;
+    font-style: normal;
+    font-size: 40px;
+    line-height: 54.61px;
+    letter-spacing: -1%;
+    text-transform: none;
+    /* Title case */
+
+    /* Figma Colors - Linear Gradient */
+    background: linear-gradient(180deg, #FBF8F4 0%, #F5E3C0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+
+    /* Figma Shadows and blurs */
+    filter: drop-shadow(0px 4px 2.8px rgba(0, 0, 0, 0.35));
+    position: relative;
+}
+
+.thay-subtitle {
+    color: white;
+    font-size: 26px;
+}
+
+.thay-feature-item {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.thay-feature-item span {
+    color: white;
+    font-size: 20px;
+}
+
+.thay-slogan {
+    color: #FFE29C;
+    font-size: 18px;
+    font-style: italic;
+    font-weight: 600;
+}
+
+.thay-pricing {
+    z-index: 2;
+    background: #273375CC;
+    border-radius: 20px;
+    padding: 12px 22px;
+    margin: 20px 0;
+    backdrop-filter: blur(10px);
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15);
+
+    /* Gradient border */
+    position: relative;
+    max-width: 620px;
+}
+.box-thay-btncta{
+     max-width: 620px;
+}
+.popup_rel{
+    text-align: center;
+    font-size: 18px;
+    padding-bottom: 24px;
+}
+
+.thay-pricing::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    padding: 2px;
+    background: linear-gradient(135deg, #EFDEBE, #787878, #FAF0CA);
+    border-radius: 20px;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: xor;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+}
+
+.thay-pricing-item {
+    color: white;
+    font-size: 22px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+
+.thay-pricing-item:last-child {
+    margin-bottom: 0;
+}
+
+.thay-pricing-item strong {
+    color: #FFE29C;
+    font-weight: 700;
+}
+
+.thay-cta-button {
+    /* Figma Linear Gradient */
+    /* display: flex; */
+    /* justify-content: center; */
+    background: linear-gradient(180deg, #FECD63 0%, #FDD67C 100%);
+
+    /* Button styling */
+    border: none;
+    border-radius: 25px;
+    padding: 15px 30px;
+    cursor: pointer;
+
+    /* Typography */
+    color: #000000;
+    font-size: 16px;
+    font-weight: 700;
+    /* font-family: 'Inter', Arial, sans-serif; */
+    text-transform: none;
+
+    /* Figma Shadows */
+    /* Drop shadow: X:2, Y:3, Blur:4, Spread:0, Color:#000000 25% */
+    box-shadow:
+        2px 3px 4px 0px rgba(0, 0, 0, 0.25),
+        /* Inner shadow: X:0, Y:-3, Blur:0, Spread:0, Color:#9E610B */
+        inset 0px -3px 0px 0px #9E610B;
+
+    /* Transition */
+    transition: all 0.3s ease;
+
+    /* Positioning */
+    position: relative;
+    z-index: 2;
+}
+
+.thay-cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        4px 6px 8px 0px rgba(0, 0, 0, 0.3),
+        inset 0px -3px 0px 0px #9E610B;
+}
+
+.thay-cta-button:active {
+    transform: translateY(0px);
+    box-shadow:
+        1px 2px 2px 0px rgba(0, 0, 0, 0.25),
+        inset 0px -1px 0px 0px #9E610B;
+}
+.box-thay-btncta{
+    display: flex;
+    justify-content: center;
+}
+.form-select{
+    padding-right: 1.3rem !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 16px 12px;
+}
+
+@media screen and (min-width:1400px) {
+    .thay-banner {
+        height: 539px;
+    }
+
+    .thay-features {
+        margin-left: 125px;
+    }
+
+    .pt-16 {
+        padding-top: 16px;
+    }
+
+    .thay-slogan {
+        padding-top: 16px;
+        margin-left: 100px;
+    }
+.box-thay-btncta{
+       max-width: 665px;
+}
+    .thay-pricing {
+        margin-left: 50px;
+        max-width: 665px;
+    }
+
+    .thay-cta-button {
+        /* margin-left: 50px; */
+        padding: 14px 16px;
+        font-size: 18px;
+    }
+
+}
+
+@media screen and (min-width:1200px) and (max-width:1399.98px) {
+    .thay-banner {
+        height: 539px;
+    }
+
+    .pt-16 {
+        padding-top: 16px;
+    }
+
+    .thay-slogan {
+        padding-top: 16px;
+        margin-left: 100px;
+    }
+
+    .thay-pricing {
+        margin-left: 100px;
+        max-width: 400px;
+    }
+    .box-thay-btncta{
+         max-width: 400px;
+    }
+}
+
+@media screen and (min-width:992px) and (max-width:1199.98px) {
+    .thay-banner {
+        height: 539px;
+    }
+
+    .pt-16 {
+        padding-top: 16px;
+    }
+
+    .thay-slogan {
+        padding-top: 16px;
+        /* margin-left: 100px; */
+    }
+    .thay-pricing-item{
+        font-size: 20px;
+    }
+
+    .thay-cta-button {
+        font-size: 16px;
+        padding: 12px 25px;
+    }
+    
+}
+
+@media screen and (min-width:768px) and (max-width:991.98px) {
+    .avt_thay {
+        display: none;
+    }
+
+    .thay-iconphonglich {
+        display: none;
+    }
+
+    .thay-title {
+        font-size: 32px;
+        line-height: 40px;
+    }
+
+    .thay-subtitle {
+        font-size: 22px;
+    }
+
+    .thay-feature-item span {
+        font-size: 18px;
+    }
+
+    .thay-slogan {
+        padding-top: 10px;
+    }
+
+    .thay-pricing {
+        margin: 15px 0;
+        padding: 15px;
+    }
+
+    .thay-pricing-item {
+        font-size: 14px;
+    }
+    .thay-pricing-item{
+        font-size: 20px;
+    }
+
+    .thay-cta-button {
+        font-size: 14px;
+        padding: 12px 20px;
+    }
+}
+
+@media screen and (min-width: 480px) and (max-width: 767.98px) {
+    .avt_thay {
+        display: none;
+    }
+
+    .thay-iconphonglich {
+        display: none;
+    }
+
+    .thay-title {
+        font-size: 28px;
+        line-height: 36px;
+    }
+
+    .thay-subtitle {
+        font-size: 22px;
+    }
+
+    .thay-feature-item span {
+        font-size: 18px;
+    }
+
+    .thay-slogan {
+        padding-top: 10px;
+    }
+
+    .thay-pricing {
+        margin: 15px 0;
+        padding: 15px;
+    }
+
+    .thay-pricing-item {
+        font-size: 14px;
+    }
+
+    .thay-cta-button {
+        font-size: 14px;
+        padding: 10px 18px;
+    }
+}
+
+@media (max-width:480px) {
+    .avt_thay {
+        display: none;
+    }
+
+    .thay-iconphonglich {
+        display: none;
+    }
+
+    .thay-title {
+        font-size: 24px;
+        line-height: 32px;
+        text-align: left;
+    }
+
+    .thay-subtitle {
+        font-size: 20px;
+    }
+
+    .thay-feature-item span {
+        font-size: 18px;
+    }
+
+    .thay-slogan {
+        padding-top: 10px;
+    }
+
+    .thay-pricing {
+        margin: 10px 0;
+        padding: 12px;
+        border-radius: 12px;
+    }
+
+    .thay-pricing-item {
+        font-size: 13px;
+    }
+
+    .thay-cta-button {
+        font-size: 13px;
+        padding: 10px 16px;
+        border-radius: 20px;
+    }
+    .modal-title{
+        font-size: 16px !important;
+    }
+}

@@ -78,6 +78,24 @@ return [
             'sslmode' => 'prefer',
         ],
 
+        'secondary' => [
+            'driver' => 'mysql',
+            'host' => env('DB_SECONDARY_HOST', '127.0.0.1'),
+            'port' => env('DB_SECONDARY_PORT', '3306'),
+            'database' => env('DB_SECONDARY_DATABASE', 'tuvidaicat_dotvn_db'),
+            'username' => env('DB_SECONDARY_USERNAME', 'tuvidaicat_vn_db_user'),
+            'password' => env('DB_SECONDARY_PASSWORD', 'RiverNet9989@2026_'),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => true,
+            'engine' => null,
+            'options' => extension_loaded('pdo_mysql') ? array_filter([
+                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+            ]) : [],
+        ],
+
         'sqlsrv' => [
             'driver' => 'sqlsrv',
             'url' => env('DATABASE_URL'),

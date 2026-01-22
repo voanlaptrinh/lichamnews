@@ -2,7 +2,7 @@
 @section('content')
     @push('styles')
         <link rel="stylesheet" href="{{ asset('/css/vanilla-daterangepicker.css?v=11.6') }}">
-        <link rel="stylesheet" href="{{ asset('/css/la-so.css?v=11.5') }}">
+        <link rel="stylesheet" href="{{ asset('/css/la-so.css?v=11.6') }}">
         <style>
             .main-content-wrapper {
                 background-image: url(../images/Quy_Trinh_Bg.png);
@@ -12,6 +12,20 @@
                 /* Ảnh full-width, giữ đúng tỉ lệ */
                 background-color: #ffffff;
                 /* Màu nền phía dưới */
+            }
+
+            .alert-danger {
+                color: #721c24;
+                background-color: #f8d7da;
+                border-color: #f5c6cb;
+            }
+
+            .alert {
+                position: relative;
+                padding: .75rem 1.25rem;
+                margin-bottom: 1rem;
+                border: 1px solid transparent;
+                border-radius: .25rem;
             }
 
             .shimmer {
@@ -179,11 +193,15 @@
                                         <a href="{{ route('laso.create') }}"
                                             style="background: linear-gradient(45deg, #2254AB, #4a90e2);border: none;padding: 10px 20px; border-radius: 25px;font-weight: 500; color: white; box-shadow: 0 4px 15px rgba(34, 84, 171, 0.3);"
                                             class="btn btn-primary me-2  mt-2">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cloud-plus" viewBox="0 0 16 16">
-  <path fill-rule="evenodd" d="M8 5.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 .5-.5"/>
-  <path d="M4.406 3.342A5.53 5.53 0 0 1 8 2c2.69 0 4.923 2 5.166 4.579C14.758 6.804 16 8.137 16 9.773 16 11.569 14.502 13 12.687 13H3.781C1.708 13 0 11.366 0 9.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383m.653.757c-.757.653-1.153 1.44-1.153 2.056v.448l-.445.049C2.064 6.805 1 7.952 1 9.318 1 10.785 2.23 12 3.781 12h8.906C13.98 12 15 10.988 15 9.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 4.825 10.328 3 8 3a4.53 4.53 0 0 0-2.941 1.1z"/>
-</svg> Tạo lá số mới
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                fill="currentColor" class="bi bi-cloud-plus" viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd"
+                                                    d="M8 5.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 .5-.5" />
+                                                <path
+                                                    d="M4.406 3.342A5.53 5.53 0 0 1 8 2c2.69 0 4.923 2 5.166 4.579C14.758 6.804 16 8.137 16 9.773 16 11.569 14.502 13 12.687 13H3.781C1.708 13 0 11.366 0 9.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383m.653.757c-.757.653-1.153 1.44-1.153 2.056v.448l-.445.049C2.064 6.805 1 7.952 1 9.318 1 10.785 2.23 12 3.781 12h8.906C13.98 12 15 10.988 15 9.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 4.825 10.328 3 8 3a4.53 4.53 0 0 0-2.941 1.1z" />
+                                            </svg> Tạo lá số mới
                                         </a>
+
 
                                     </div>
                                 </div>
@@ -207,6 +225,7 @@
                                 </div>
                             </div>
                         @endif
+                        @include('la-so-tu-vi.thay')
                         <div id="luanGiaiResults"></div>
 
 
@@ -214,6 +233,251 @@
                         @include('la-so-tu-vi.app')
                     </div>
                     @include('tools.siderbardetail')
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Customer Info Modal -->
+    <div class="modal fade" id="customerModal" tabindex="-1" aria-labelledby="customerModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content" style="border-radius: 20px; overflow: hidden;">
+                <!-- Modal Header -->
+                <div class="modal-header"
+                    style="background: #4a90e2; color: white; padding: 20px 30px; border-bottom: none; display: flex; justify-content: center; align-items: center; position: relative;">
+                    <h5 class="modal-title" id="customerModalLabel"
+                        style="font-weight: 600; font-size: 20px; margin: 0; text-align: center; flex: 1;">
+                        ĐĂNG KÝ NHẬN LUẬN GIẢI CHI TIẾT
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"
+                        style="font-size: 20px;position: absolute;top: 14px;right: 12px;"></button>
+                </div>
+
+                <!-- Modal Body -->
+                <div class="modal-body" style="padding: 0; background: #f8f9fa;">
+
+                    <div class="row g-0" >
+                        <!-- Left Column - Form -->
+                        <div class="col-lg-7" style="padding: 20px; position: relative;">
+
+                            <div class="popup_rel">
+                                Vui lòng điền thông tin để chúng tôi gửi luận giải chi tiết cho bạn
+                            </div>
+                            <form id="customerForm">
+                                <!-- Họ tên và Giới tính -->
+                                <div class="row mb-2">
+                                    <div class="col-md-6">
+                                        <label for="ho_ten" class="form-label"
+                                            style="color: #333; font-weight: 500; margin-bottom: 8px;">Họ tên</label>
+                                        <input type="text" class="form-control" id="ho_ten" name="ho_ten"
+                                            placeholder="Nhập họ tên"
+                                            style="border-radius: 8px; padding: 12px; border: 1px solid #ddd; font-size: 14px;"
+                                            value="{{ $normalizedData['ho_ten'] ?? '' }}" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="gioi_tinh" class="form-label"
+                                            style="color: #333; font-weight: 500; margin-bottom: 8px;">
+                                            <i class="fas fa-venus-mars" style="margin-right: 8px; color: #4a90e2;"></i>Giới tính
+                                        </label>
+                                        <select class="form-select" id="gioi_tinh" name="gioi_tinh"
+                                            style="border-radius: 8px; padding: 12px; border: 1px solid #ddd; font-size: 14px;"
+                                            required>
+                                            <option value="">Nữ</option>
+                                            <option value="nam"
+                                                {{ isset($normalizedData['gioi_tinh']) && $normalizedData['gioi_tinh'] == 'Nam' ? 'selected' : '' }}>
+                                                Nam</option>
+                                            <option value="nu"
+                                                {{ isset($normalizedData['gioi_tinh']) && $normalizedData['gioi_tinh'] == 'Nữ' ? 'selected' : '' }}>
+                                                Nữ</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Giờ sinh và Năm xem -->
+                                <div class="row mb-2">
+                                    <div class="col-md-6">
+                                        <label for="gio_sinh" class="form-label"
+                                            style="color: #333; font-weight: 500; margin-bottom: 8px;">
+                                            <i class="fas fa-clock" style="margin-right: 8px; color: #4a90e2;"></i>Giờ sinh
+                                        </label>
+                                        <select class="form-select" id="gio_sinh" name="gio_sinh"
+                                            style="border-radius: 8px; padding: 12px; border: 1px solid #ddd; font-size: 14px;">
+                                            <option value="">Giờ Tý ( 23h - 1h )</option>
+                                            <option value="Tý sớm"
+                                                {{ isset($normalizedData['gio_am_sinh_chi_am']) && trim($normalizedData['gio_am_sinh_chi_am']) === 'Tý sớm' ? 'selected' : '' }}>
+                                                Tý sớm (00:00 - 00:59)</option>
+                                            <option value="Sửu"
+                                                {{ isset($normalizedData['gio_am_sinh_chi_am']) && trim($normalizedData['gio_am_sinh_chi_am']) === 'Sửu' ? 'selected' : '' }}>
+                                                Sửu (01:00 - 02:59)</option>
+                                            <option value="Dần"
+                                                {{ isset($normalizedData['gio_am_sinh_chi_am']) && trim($normalizedData['gio_am_sinh_chi_am']) === 'Dần' ? 'selected' : '' }}>
+                                                Dần (03:00 - 04:59)</option>
+                                            <option value="Mão"
+                                                {{ isset($normalizedData['gio_am_sinh_chi_am']) && trim($normalizedData['gio_am_sinh_chi_am']) === 'Mão' ? 'selected' : '' }}>
+                                                Mão (05:00 - 06:59)</option>
+                                            <option value="Thìn"
+                                                {{ isset($normalizedData['gio_am_sinh_chi_am']) && trim($normalizedData['gio_am_sinh_chi_am']) === 'Thìn' ? 'selected' : '' }}>
+                                                Thìn (07:00 - 08:59)</option>
+                                            <option value="Tỵ"
+                                                {{ isset($normalizedData['gio_am_sinh_chi_am']) && trim($normalizedData['gio_am_sinh_chi_am']) === 'Tỵ' ? 'selected' : '' }}>
+                                                Tỵ (09:00 - 10:59)</option>
+                                            <option value="Ngọ"
+                                                {{ isset($normalizedData['gio_am_sinh_chi_am']) && trim($normalizedData['gio_am_sinh_chi_am']) === 'Ngọ' ? 'selected' : '' }}>
+                                                Ngọ (11:00 - 12:59)</option>
+                                            <option value="Mùi"
+                                                {{ isset($normalizedData['gio_am_sinh_chi_am']) && trim($normalizedData['gio_am_sinh_chi_am']) === 'Mùi' ? 'selected' : '' }}>
+                                                Mùi (13:00 - 14:59)</option>
+                                            <option value="Thân"
+                                                {{ isset($normalizedData['gio_am_sinh_chi_am']) && trim($normalizedData['gio_am_sinh_chi_am']) === 'Thân' ? 'selected' : '' }}>
+                                                Thân (15:00 - 16:59)</option>
+                                            <option value="Dậu"
+                                                {{ isset($normalizedData['gio_am_sinh_chi_am']) && trim($normalizedData['gio_am_sinh_chi_am']) === 'Dậu' ? 'selected' : '' }}>
+                                                Dậu (17:00 - 18:59)</option>
+                                            <option value="Tuất"
+                                                {{ isset($normalizedData['gio_am_sinh_chi_am']) && trim($normalizedData['gio_am_sinh_chi_am']) === 'Tuất' ? 'selected' : '' }}>
+                                                Tuất (19:00 - 20:59)</option>
+                                            <option value="Hợi"
+                                                {{ isset($normalizedData['gio_am_sinh_chi_am']) && trim($normalizedData['gio_am_sinh_chi_am']) === 'Hợi' ? 'selected' : '' }}>
+                                                Hợi (21:00 - 22:59)</option>
+                                            <option value="Tý muộn"
+                                                {{ isset($normalizedData['gio_am_sinh_chi_am']) && trim($normalizedData['gio_am_sinh_chi_am']) === 'Tý muộn' ? 'selected' : '' }}>
+                                                Tý muộn (23:00 - 23:59)</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="nam_xem" class="form-label"
+                                            style="color: #333; font-weight: 500; margin-bottom: 8px;">
+                                            <i class="fas fa-calendar-alt" style="margin-right: 8px; color: #4a90e2;"></i>Năm xem
+                                        </label>
+                                        <select class="form-select" id="nam_xem" name="nam_xem"
+                                            style="border-radius: 8px; padding: 12px; border: 1px solid #ddd; font-size: 14px;"
+                                            required>
+                                            @php
+                                                $currentYear = 1900;
+                                                $years = range($currentYear, 2100);
+                                            @endphp
+                                            @foreach ($years as $year)
+                                                <option value="{{ $year }}"
+                                                    {{ isset($normalizedData['nam_xem']) && $normalizedData['nam_xem'] == $year ? 'selected' : ($year == $currentYear ? 'selected' : '') }}>
+                                                    {{ $year }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Ngày sinh -->
+                                <div class="row g-2 mb-2">
+                                    <div class="col-4">
+                                        <label class="form-label"
+                                            style="color: #333; font-weight: 500; margin-bottom: 8px;">
+                                            <i class="fas fa-birthday-cake" style="margin-right: 8px; color: #4a90e2;"></i>Ngày sinh
+                                        </label>
+                                        <select class="form-select" name="ngay"
+                                            style="border-radius: 8px; padding: 12px; border: 1px solid #ddd; font-size: 14px;">
+                                            @for ($i = 1; $i <= 31; $i++)
+                                                <option value="{{ $i }}"
+                                                    {{ isset($normalizedData['duong_lich']['day']) && $normalizedData['duong_lich']['day'] == $i ? 'selected' : '' }}>
+                                                    {{ $i }}</option>
+                                            @endfor
+                                        </select>
+                                    </div>
+                                    <div class="col-4">
+                                        <label class="form-label"
+                                            style="color: #333; font-weight: 500; margin-bottom: 8px;">&nbsp;</label>
+                                        <select class="form-select" name="thang"
+                                            style="border-radius: 8px; padding: 12px; border: 1px solid #ddd; font-size: 14px;">
+                                            @for ($i = 1; $i <= 12; $i++)
+                                                <option value="{{ $i }}"
+                                                    {{ isset($normalizedData['duong_lich']['month']) && $normalizedData['duong_lich']['month'] == $i ? 'selected' : '' }}>
+                                                     {{ $i }}</option>
+                                            @endfor
+                                        </select>
+                                    </div>
+                                    <div class="col-4">
+                                        <label class="form-label"
+                                            style="color: #333; font-weight: 500; margin-bottom: 8px;">&nbsp;</label>
+                                        <select class="form-select" name="nam"
+                                            style="border-radius: 8px; padding: 12px; border: 1px solid #ddd; font-size: 14px;">
+                                            @for ($i = 2025; $i >= 1950; $i--)
+                                                <option value="{{ $i }}"
+                                                    {{ isset($normalizedData['duong_lich']['year']) && $normalizedData['duong_lich']['year'] == $i ? 'selected' : '' }}>
+                                                    {{ $i }}</option>
+                                            @endfor
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Số điện thoại và Email -->
+                                <div class="row mb-4">
+                                    <div class="col-md-6">
+                                        <label for="so_dien_thoai" class="form-label"
+                                            style="color: #333; font-weight: 500; margin-bottom: 8px;">
+                                            Số điện thoại <span style="color: red;">*</span>
+                                        </label>
+                                        <input type="tel" class="form-control" id="so_dien_thoai"
+                                            name="so_dien_thoai" placeholder="Nhập số điện thoại" pattern="[0-9]{10,12}"
+                                            maxlength="12" inputmode="numeric"
+                                            style="border-radius: 8px; padding: 12px; border: 1px solid #ddd; font-size: 14px;"
+                                            required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="email" class="form-label"
+                                            style="color: #333; font-weight: 500; margin-bottom: 8px;">Email</label>
+                                        <input type="email" class="form-control" id="email" name="email"
+                                            placeholder="Nhập email"
+                                            style="border-radius: 8px; padding: 12px; border: 1px solid #ddd; font-size: 14px;">
+                                    </div>
+                                </div>
+
+                                <!-- Submit Button -->
+                                <button type="button" id="submitCustomerForm"
+                                    style="background: #4a90e2; color: white; border: none; border-radius: 25px; padding: 15px 0; width: 100%; font-size: 16px; font-weight: 600; transition: all 0.3s ease;">
+                                    Gửi thông tin luận giải
+                                </button>
+
+                                <!-- Message div - Position absolute để không đẩy layout -->
+                                <div id="submitMessage"
+                                    style="
+                                    display: none;
+                                    position: absolute;
+                                    top: 10px;
+                                    right: 10px;
+                                    left: 10px;
+                                    z-index: 1050;
+                                    border-radius: 8px;
+                                    padding: 12px;
+                                    font-size: 14px;
+                                    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+                                ">
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Right Column - Image -->
+                        <div class="col-lg-5">
+
+                            <div style="padding: 32px" class="h-100 w-100">
+                                <div class="d-flex align-items-center justify-content-center h-100 w-100"
+                                    style=" background-image: url(../images/form_laso.svg);
+                                    background-repeat: no-repeat;
+                                    background-size: cover;
+                                    align-items: normal;
+                                    background-position: center center;
+                                    overflow: hidden;
+                                    border-radius: 12px;
+                                  
+                                    ">
+
+                                </div>
+                            </div>
+                            {{-- <img src="{{ asset('img/astrology-cosmic.jpg') }}" alt="Tử vi"
+                                    style="max-width: 300px; width: 100%; border-radius: 15px; box-shadow: 0 20px 40px rgba(0,0,0,0.3);"
+                                    onerror="this.style.display='none'"> --}}
+
+
+
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -261,7 +525,7 @@
             @if (isset($cachedLuanGiai) && $cachedLuanGiai)
                 // Có trong DB - hiển thị ngay
                 setTimeout(function() {
-                   
+
                     const cachedContent = {
                         responseObject: @json($cachedLuanGiai->luan_giai_content)
                     };
@@ -270,7 +534,7 @@
             @else
                 // Không có trong DB - gọi API luận giải
                 setTimeout(function() {
-                    
+
                     autoRunLuanGiai();
                 }, 500);
             @endif
@@ -535,15 +799,211 @@
             // Thêm query parameters vào URL khi load trang nếu có
             @if (isset($urlParams) && !empty($urlParams))
                 if (!hasUserData) {
-                    @foreach($urlParams as $key => $value)
-                        @if($value)
+                    @foreach ($urlParams as $key => $value)
+                        @if ($value)
                             urlParams.set('{{ $key }}', '{{ $value }}');
                         @endif
                     @endforeach
-                    window.history.replaceState({}, document.title, window.location.pathname + '?' + urlParams.toString());
+                    window.history.replaceState({}, document.title, window.location.pathname + '?' + urlParams
+                        .toString());
                 }
             @endif
 
+            // Customer Modal Functions
+            window.openCustomerModal = function() {
+                // Debug: Log the current values
+                @if (isset($normalizedData['gio_am_sinh_chi_am']))
+                    console.log('Debug - gio_am_sinh_chi_am value:',
+                        '{{ $normalizedData['gio_am_sinh_chi_am'] }}');
+                    console.log('Debug - Trimmed value:', '{{ trim($normalizedData['gio_am_sinh_chi_am']) }}');
+                @endif
+
+                @if (isset($normalizedData['gio_am_sinh_am']))
+                    console.log('Debug - gio_am_sinh_am value:', '{{ $normalizedData['gio_am_sinh_am'] }}');
+                @endif
+
+                const modal = new bootstrap.Modal(document.getElementById('customerModal'));
+                modal.show();
+
+                // Check which option is selected after modal opens
+                setTimeout(() => {
+                    const gioSinhSelect = document.getElementById('gio_sinh');
+                    console.log('Debug - Selected value:', gioSinhSelect.value);
+                    console.log('Debug - Selected index:', gioSinhSelect.selectedIndex);
+                }, 100);
+            };
+
+            // Add event listeners to remove error styling when user starts typing
+            const inputFields = ['ho_ten', 'gioi_tinh', 'nam_xem', 'so_dien_thoai', 'email', 'gio_sinh'];
+            inputFields.forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                if (field) {
+                    field.addEventListener('input', function() {
+                        this.classList.remove('is-invalid');
+                    });
+                    field.addEventListener('change', function() {
+                        this.classList.remove('is-invalid');
+                    });
+                }
+            });
+
+            // Add phone number validation - only numbers and max 12 digits
+            const phoneField = document.getElementById('so_dien_thoai');
+            if (phoneField) {
+                phoneField.addEventListener('input', function(e) {
+                    // Remove non-numeric characters
+                    let value = e.target.value.replace(/[^0-9]/g, '');
+
+                    // Limit to 12 digits
+                    if (value.length > 12) {
+                        value = value.substring(0, 12);
+                    }
+
+                    e.target.value = value;
+                });
+
+                phoneField.addEventListener('keypress', function(e) {
+                    // Only allow numeric keys, backspace, delete, tab, etc.
+                    if (!/[0-9]/.test(e.key) && !['Backspace', 'Delete', 'Tab', 'ArrowLeft', 'ArrowRight']
+                        .includes(e.key)) {
+                        e.preventDefault();
+                    }
+                });
+            }
+
+            // Add event listeners for birth date dropdowns (by name)
+            const birthDateFields = ['ngay', 'thang', 'nam'];
+            birthDateFields.forEach(fieldName => {
+                const field = document.querySelector(`select[name="${fieldName}"]`);
+                if (field) {
+                    field.addEventListener('change', function() {
+                        this.classList.remove('is-invalid');
+                    });
+                }
+            });
+
+            // Submit customer form
+            document.getElementById('submitCustomerForm').addEventListener('click', function() {
+                submitCustomerForm();
+            });
+
+            function submitCustomerForm() {
+                const form = document.getElementById('customerForm');
+                const formData = new FormData(form);
+                const submitBtn = document.getElementById('submitCustomerForm');
+                const messageDiv = document.getElementById('submitMessage');
+
+                // Validate required fields
+                const requiredFields = ['ho_ten', 'gioi_tinh', 'nam_xem', 'so_dien_thoai'];
+                let isValid = true;
+                let errorMessage = 'Vui lòng điền đầy đủ thông tin bắt buộc';
+
+                requiredFields.forEach(field => {
+                    const input = document.getElementById(field);
+                    if (!input || !input.value.trim()) {
+                        if (input) input.classList.add('is-invalid');
+                        isValid = false;
+
+                        // Specific error message for phone number
+                        if (field === 'so_dien_thoai') {
+                            errorMessage = 'Vui lòng nhập số điện thoại';
+                        }
+                    } else {
+                        input.classList.remove('is-invalid');
+                    }
+                });
+
+                // Additional phone number validation
+                const phoneInput = document.getElementById('so_dien_thoai');
+                if (phoneInput && phoneInput.value.trim()) {
+                    const phoneValue = phoneInput.value.trim();
+                    // Check if phone number is only digits and between 10-12 characters
+                    if (!/^[0-9]{10,12}$/.test(phoneValue)) {
+                        phoneInput.classList.add('is-invalid');
+                        isValid = false;
+                        errorMessage = 'Số điện thoại phải có từ 10-12 chữ số';
+                    }
+                }
+
+                if (!isValid) {
+                    showMessage(errorMessage, 'error');
+                    return;
+                }
+
+                // Disable button and show loading
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Đang gửi...';
+
+                // Prepare data for API
+                const ngay = formData.get('ngay');
+                const thang = formData.get('thang');
+                const nam = formData.get('nam');
+                const ngay_sinh = `${nam}-${thang.toString().padStart(2, '0')}-${ngay.toString().padStart(2, '0')}`;
+
+                const customerData = {
+                    ho_ten: formData.get('ho_ten'),
+                    gioi_tinh: formData.get('gioi_tinh'),
+                    ngay_sinh: ngay_sinh,
+                    gio_sinh: formData.get('gio_sinh') || null,
+                    nam_xem: parseInt(formData.get('nam_xem')),
+                    so_dien_thoai: formData.get('so_dien_thoai'),
+                    email: formData.get('email') || null
+                };
+
+                // Send data to API
+                fetch('/api/customer', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        body: JSON.stringify(customerData)
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            showMessage(
+                                'Thông tin đã được gửi thành công! Chúng tôi sẽ liên hệ với bạn sớm nhất.',
+                                'success');
+                            setTimeout(() => {
+                                const modal = bootstrap.Modal.getInstance(document.getElementById(
+                                    'customerModal'));
+                                modal.hide();
+                                form.reset();
+                            }, 2000);
+                        } else {
+                            let errorMessage = 'Có lỗi xảy ra: ' + data.message;
+                            if (data.errors) {
+                                const errorList = Object.values(data.errors).flat();
+                                errorMessage += '<br>' + errorList.join('<br>');
+                            }
+                            showMessage(errorMessage, 'error');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        showMessage('Có lỗi xảy ra khi gửi thông tin. Vui lòng thử lại.', 'error');
+                    })
+                    .finally(() => {
+                        // Restore button
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = '<i class="fas fa-paper-plane me-2"></i>Gửi thông tin';
+                    });
+            }
+
+            function showMessage(message, type) {
+                const messageDiv = document.getElementById('submitMessage');
+                messageDiv.style.display = 'block';
+                messageDiv.className = `alert alert-${type === 'success' ? 'success' : 'danger'}`;
+                messageDiv.innerHTML = '<i class="fas fa-' + (type === 'success' ? 'check-circle' :
+                    'exclamation-triangle') + ' me-2"></i>' + message;
+
+                // Auto hide messages
+                const hideTimeout = type === 'success' ? 3000 : 5000; // Success: 3s, Error: 5s
+                setTimeout(() => {
+                    messageDiv.style.display = 'none';
+                }, hideTimeout);
+            }
 
         });
 
