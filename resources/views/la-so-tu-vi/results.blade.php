@@ -244,10 +244,10 @@
             <div class="modal-content" style="border-radius: 20px; overflow: hidden;">
                 <!-- Modal Header -->
                 <div class="modal-header"
-                    style="background: #4a90e2; color: white; padding: 20px 30px; border-bottom: none; display: flex; justify-content: center; align-items: center; position: relative;">
+                    style="background: #4a90e2; color: white; padding: 20px 40px; border-bottom: none; display: flex; justify-content: center; align-items: center; position: relative;">
                     <h5 class="modal-title" id="customerModalLabel"
                         style="font-weight: 600; font-size: 20px; margin: 0; text-align: center; flex: 1;">
-                        ĐĂNG KÝ NHẬN LUẬN GIẢI CHI TIẾT
+                        ĐĂNG KÝ NHẬN LUẬN GIẢI TỬ VI 1-1 CÙNG THẦY
                     </h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"
                         style="font-size: 20px;position: absolute;top: 14px;right: 12px;"></button>
@@ -256,7 +256,7 @@
                 <!-- Modal Body -->
                 <div class="modal-body" style="padding: 0; background: #f8f9fa;">
 
-                    <div class="row g-0" >
+                    <div class="row g-0">
                         <!-- Left Column - Form -->
                         <div class="col-lg-7" style="padding: 20px; position: relative;">
 
@@ -277,7 +277,8 @@
                                     <div class="col-md-6">
                                         <label for="gioi_tinh" class="form-label"
                                             style="color: #333; font-weight: 500; margin-bottom: 8px;">
-                                            <i class="fas fa-venus-mars" style="margin-right: 8px; color: #4a90e2;"></i>Giới tính
+                                            <i class="fas fa-venus-mars"
+                                                style="margin-right: 8px; color: #4a90e2;"></i>Giới tính
                                         </label>
                                         <select class="form-select" id="gioi_tinh" name="gioi_tinh"
                                             style="border-radius: 8px; padding: 12px; border: 1px solid #ddd; font-size: 14px;"
@@ -298,7 +299,8 @@
                                     <div class="col-md-6">
                                         <label for="gio_sinh" class="form-label"
                                             style="color: #333; font-weight: 500; margin-bottom: 8px;">
-                                            <i class="fas fa-clock" style="margin-right: 8px; color: #4a90e2;"></i>Giờ sinh
+                                            <i class="fas fa-clock" style="margin-right: 8px; color: #4a90e2;"></i>Giờ
+                                            sinh
                                         </label>
                                         <select class="form-select" id="gio_sinh" name="gio_sinh"
                                             style="border-radius: 8px; padding: 12px; border: 1px solid #ddd; font-size: 14px;">
@@ -347,7 +349,8 @@
                                     <div class="col-md-6">
                                         <label for="nam_xem" class="form-label"
                                             style="color: #333; font-weight: 500; margin-bottom: 8px;">
-                                            <i class="fas fa-calendar-alt" style="margin-right: 8px; color: #4a90e2;"></i>Năm xem
+                                            <i class="fas fa-calendar-alt"
+                                                style="margin-right: 8px; color: #4a90e2;"></i>Năm xem
                                         </label>
                                         <select class="form-select" id="nam_xem" name="nam_xem"
                                             style="border-radius: 8px; padding: 12px; border: 1px solid #ddd; font-size: 14px;"
@@ -370,7 +373,8 @@
                                     <div class="col-4">
                                         <label class="form-label"
                                             style="color: #333; font-weight: 500; margin-bottom: 8px;">
-                                            <i class="fas fa-birthday-cake" style="margin-right: 8px; color: #4a90e2;"></i>Ngày sinh
+                                            <i class="fas fa-birthday-cake"
+                                                style="margin-right: 8px; color: #4a90e2;"></i>Ngày sinh
                                         </label>
                                         <select class="form-select" name="ngay"
                                             style="border-radius: 8px; padding: 12px; border: 1px solid #ddd; font-size: 14px;">
@@ -389,7 +393,7 @@
                                             @for ($i = 1; $i <= 12; $i++)
                                                 <option value="{{ $i }}"
                                                     {{ isset($normalizedData['duong_lich']['month']) && $normalizedData['duong_lich']['month'] == $i ? 'selected' : '' }}>
-                                                     {{ $i }}</option>
+                                                    {{ $i }}</option>
                                             @endfor
                                         </select>
                                     </div>
@@ -408,7 +412,7 @@
                                 </div>
 
                                 <!-- Số điện thoại và Email -->
-                                <div class="row mb-4">
+                                <div class="row mb-2">
                                     <div class="col-md-6">
                                         <label for="so_dien_thoai" class="form-label"
                                             style="color: #333; font-weight: 500; margin-bottom: 8px;">
@@ -428,11 +432,16 @@
                                             style="border-radius: 8px; padding: 12px; border: 1px solid #ddd; font-size: 14px;">
                                     </div>
                                 </div>
+                                <div class="mb-2" style="font-size: 12px; font-style: italic;">
+                                    <div>- Số điện thoại dùng để Bộ phận tư vấn liên hệ kết nối bạn với Thầy</div>
+                                    <div>- Thông tin của bạn được bảo mật tuyệt đối, chỉ sử dụng cho mục đích tư vấn và luận
+                                        giải</div>
+                                </div>
 
                                 <!-- Submit Button -->
                                 <button type="button" id="submitCustomerForm"
                                     style="background: #4a90e2; color: white; border: none; border-radius: 25px; padding: 15px 0; width: 100%; font-size: 16px; font-weight: 600; transition: all 0.3s ease;">
-                                    Gửi thông tin luận giải
+                                    Gửi đăng ký nhận luận giải
                                 </button>
 
                                 <!-- Message div - Position absolute để không đẩy layout -->
@@ -449,6 +458,42 @@
                                     font-size: 14px;
                                     box-shadow: 0 4px 20px rgba(0,0,0,0.15);
                                 ">
+                                </div>
+                                <div class="pt-2">
+                                    <div class="text-center">
+                                        -- HOẶC --
+                                    </div>
+                                    <div class="text-center pb-1">
+                                        Trao đổi nhanh với bộ phận tư vấn
+                                    </div>
+                                    <div class="row g-2">
+                                        <div class="col-lg-6">
+                                            <a target="_blank" href="https://zalo.me/2874857294377143746">
+                                                <div class="bocxx-z_contacrt">
+                                                    <div>
+                                                        <img src="{{ asset('/images/zalo.png') }}" class="img-fluid">
+                                                    </div>
+                                                    <div>
+                                                        Đăng lý qua Zalo
+                                                    </div>
+                                                </div>
+                                            </a>
+
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <a target="_blank" href="https://www.m.me/phonglich.official">
+                                                <div class="bocxx-z_contacrt">
+                                                    <div>
+                                                        <img src="{{ asset('/images/messenger.png') }}" class="img-fluid">
+                                                    </div>
+                                                    <div>
+                                                        Đăng lý qua Facebook
+                                                    </div>
+                                                </div>
+                                            </a>
+
+                                        </div>
+                                    </div>
                                 </div>
                             </form>
                         </div>

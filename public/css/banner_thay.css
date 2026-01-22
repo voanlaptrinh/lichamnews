@@ -6,7 +6,7 @@
     background-repeat: no-repeat;
     background-position: center;
     padding: 30px;
-
+    border-radius: 18px;
     position: relative;
     overflow: hidden;
 }
@@ -103,6 +103,15 @@
 .box-thay-btncta{
      max-width: 620px;
 }
+.span-thay{
+    font-style: italic;
+    padding-top: 10px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 620px;
+}
 .popup_rel{
     text-align: center;
     font-size: 18px;
@@ -124,7 +133,7 @@
 
 .thay-pricing-item {
     color: white;
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 500;
     margin-bottom: 8px;
     line-height: 1.4;
@@ -197,10 +206,33 @@
     background-position: right 0.75rem center;
     background-size: 16px 12px;
 }
+.thay-subtitle-h4{
+    font-size: 17px;
+    color: white;
+}
+.bocxx-z_contacrt{
+    background: #4a90e2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+      padding: 12px 0;
+      color: white;
+      border-radius: 22px;
+    
+}
+.form-control.is-invalid{
+        border-color: #dc3545 !important; 
+}
+.bocxx-z_contacrt img{
+    width: 24px;
+    height: 24px;
+  
+}
 
 @media screen and (min-width:1400px) {
     .thay-banner {
-        height: 539px;
+        height: 553px;
     }
 
     .thay-features {
@@ -215,7 +247,7 @@
         padding-top: 16px;
         margin-left: 100px;
     }
-.box-thay-btncta{
+.box-thay-btncta, .span-thay{
        max-width: 665px;
 }
     .thay-pricing {
@@ -233,7 +265,7 @@
 
 @media screen and (min-width:1200px) and (max-width:1399.98px) {
     .thay-banner {
-        height: 539px;
+        height: 643px;
     }
 
     .pt-16 {
@@ -242,14 +274,14 @@
 
     .thay-slogan {
         padding-top: 16px;
-        margin-left: 100px;
+        margin-left: 0px;
     }
 
     .thay-pricing {
-        margin-left: 100px;
-        max-width: 400px;
+        margin-left: 1px;
+        max-width: 526px;
     }
-    .box-thay-btncta{
+    .box-thay-btncta , .span-thay{
          max-width: 400px;
     }
 }
@@ -313,7 +345,7 @@
         font-size: 14px;
     }
     .thay-pricing-item{
-        font-size: 20px;
+        font-size: 18px;
     }
 
     .thay-cta-button {
@@ -407,5 +439,8 @@
     }
     .modal-title{
         font-size: 16px !important;
+    }
+    .thay-banner {
+        padding: 20px;
     }
 }
