@@ -148,6 +148,34 @@
     font-weight: 700;
 }
 
+.thay-pricing-title {
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: 4px;
+}
+
+.thay-pricing-subtitle {
+    color: white;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.2;
+}
+
+.thay-pricing-original {
+    color: #CCCCCC;
+    font-size: 14px;
+    font-weight: 400;
+    margin-bottom: 4px;
+}
+
+.thay-pricing-final {
+    color: #FFE29C;
+    font-size: 20px;
+    font-weight: 500;
+}
+
 .thay-cta-button {
     /* Figma Linear Gradient */
     /* display: flex; */
@@ -207,7 +235,7 @@
     background-size: 16px 12px;
 }
 .thay-subtitle-h4{
-    font-size: 17px;
+    font-size: 20px;
     color: white;
 }
 .bocxx-z_contacrt{
@@ -303,6 +331,22 @@
         font-size: 20px;
     }
 
+    .thay-pricing-title {
+        font-size: 16px;
+    }
+
+    .thay-pricing-subtitle {
+        font-size: 14px;
+    }
+
+    .thay-pricing-original {
+        font-size: 12px;
+    }
+
+    .thay-pricing-final {
+        font-size: 18px;
+    }
+
     .thay-cta-button {
         font-size: 16px;
         padding: 12px 25px;
@@ -346,6 +390,22 @@
     }
     .thay-pricing-item{
         font-size: 18px;
+    }
+
+    .thay-pricing-title {
+        font-size: 15px;
+    }
+
+    .thay-pricing-subtitle {
+        font-size: 13px;
+    }
+
+    .thay-pricing-original {
+        font-size: 11px;
+    }
+
+    .thay-pricing-final {
+        font-size: 16px;
     }
 
     .thay-cta-button {
@@ -393,6 +453,40 @@
         font-size: 14px;
         padding: 10px 18px;
     }
+
+    .thay-pricing-title {
+        font-size: 14px;
+    }
+
+    .thay-pricing-subtitle {
+        font-size: 12px;
+    }
+
+    .thay-pricing-original {
+        font-size: 10px;
+    }
+
+    .thay-pricing-final {
+        font-size: 15px;
+    }
+}
+
+/* Mobile responsive layout for pricing - applies to all mobile media queries */
+@media (max-width: 767.98px) {
+    .thay-pricing div[style*="flex"] {
+        flex-direction: column !important;
+        text-align: center !important;
+        /* gap: 10px; */
+    }
+
+    .thay-pricing div[style*="text-align: right"] {
+        text-align: center !important;
+        margin-top: 0;
+    }
+
+    .thay-pricing div[style*="flex: 1"] {
+        margin-bottom: 10px;
+    }
 }
 
 @media (max-width:480px) {
@@ -430,6 +524,22 @@
 
     .thay-pricing-item {
         font-size: 13px;
+    }
+
+    .thay-pricing-title {
+        font-size: 13px;
+    }
+
+    .thay-pricing-subtitle {
+        font-size: 11px;
+    }
+
+    .thay-pricing-original {
+        font-size: 9px;
+    }
+
+    .thay-pricing-final {
+        font-size: 14px;
     }
 
     .thay-cta-button {

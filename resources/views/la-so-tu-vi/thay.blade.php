@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="{{ asset('css/banner_thay.css?v=1.1') }}">
+<link rel="stylesheet" href="{{ asset('css/banner_thay.css?v=1.2') }}">
 
 <div class="thay-banner">
     <!-- Background decorations -->
@@ -39,11 +39,15 @@
 
             <!-- Pricing info -->
             <div class="thay-pricing">
-                <div class="thay-pricing-item">
-                    COMBO LUẬN GIẢI CHUYÊN SÂU: <strong>Giá gốc: 1.400.000 VNĐ /người</strong>
-                </div>
-                <div class="thay-pricing-item">
-                    Tử Vi + Nhân Tướng + Chỉ Tay: <strong>Chỉ còn: 500.000 VNĐ/người</strong>
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+                    <div style="flex: 1;">
+                        <div class="thay-pricing-title">COMBO LUẬN GIẢI CHUYÊN SÂU</div>
+                        <div class="thay-pricing-subtitle">Tử Vi + Nhân Tướng + Chỉ Tay</div>
+                    </div>
+                    <div style="text-align: right;">
+                        <div class="thay-pricing-original">Giá gốc: <span style="text-decoration: line-through;">1.400.000 VNĐ</span></div>
+                        <div class="thay-pricing-final"><strong>500.000 VNĐ/người</strong></div>
+                    </div>
                 </div>
             </div>
 
