@@ -244,7 +244,7 @@
             <div class="modal-content" style="border-radius: 20px; overflow: hidden;">
                 <!-- Modal Header -->
                 <div class="modal-header"
-                    style="background: #4a90e2; color: white; padding: 20px 40px; border-bottom: none; display: flex; justify-content: center; align-items: center; position: relative;">
+                    style="background: linear-gradient(to right, #2268D3, #409BF1); color: white; padding: 20px 40px; border-bottom: none; display: flex; justify-content: center; align-items: center; position: relative;">
                     <h5 class="modal-title" id="customerModalLabel"
                         style="font-weight: 600; font-size: 20px; margin: 0; text-align: center; flex: 1;">
                         ĐĂNG KÝ NHẬN LUẬN GIẢI TỬ VI 1-1 CÙNG THẦY
@@ -440,7 +440,7 @@
 
                                 <!-- Submit Button -->
                                 <button type="button" id="submitCustomerForm"
-                                    style="background: #4a90e2; color: white; border: none; border-radius: 25px; padding: 15px 0; width: 100%; font-size: 16px; font-weight: 600; transition: all 0.3s ease;">
+                                    style="background: #2B7EE5; color: white; border: none; border-radius: 25px; padding: 15px 0; width: 100%; font-size: 16px; font-weight: 600; transition: all 0.3s ease;">
                                     Gửi đăng ký nhận luận giải
                                 </button>
 
