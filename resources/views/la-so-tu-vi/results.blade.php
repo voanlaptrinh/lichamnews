@@ -474,7 +474,7 @@
                                                         <img src="{{ asset('/images/zalo.png') }}" class="img-fluid">
                                                     </div>
                                                     <div>
-                                                        Đăng lý qua Zalo
+                                                        Đăng ký qua Zalo
                                                     </div>
                                                 </div>
                                             </a>
@@ -487,7 +487,7 @@
                                                         <img src="{{ asset('/images/messenger.png') }}" class="img-fluid">
                                                     </div>
                                                     <div>
-                                                        Đăng lý qua Facebook
+                                                        Đăng ký qua Facebook
                                                     </div>
                                                 </div>
                                             </a>
