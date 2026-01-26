@@ -1,4 +1,4 @@
-<div class="w-100" id="content-box-succes">
+<div class="w-100" id="content-box-success">
     <!-- Tabs cho các năm -->
     @if (isset($resultsByYear) && count($resultsByYear) > 0)
 
@@ -337,7 +337,7 @@
                                                         if (
                                                             $day['groom_score']['hopttuoi'] === true &&
                                                             $day['groom_score']['hopTuoiReason'] != 'Trùng (Đồng Chi)'&&
-                                                            !in_array($day['day_score']['hopTuoiReason'], [
+                                                            !in_array($day['groom_score']['hopTuoiReason'], [
                                                                 'Lục xung',
                                                                 'Tương hại',
                                                                 'Tương phá',
