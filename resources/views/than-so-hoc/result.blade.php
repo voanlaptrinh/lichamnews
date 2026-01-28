@@ -622,18 +622,81 @@
                                 @endforeach
                             @endif
                         </div>
-
-                        <div class="cycle-actions text-center mt-4">
-                            {{-- <a href="{{ route('numerology.personal_year.overview', ['day' => $birthDate['day'], 'month' => $birthDate['month'], 'year' => $birthDate['year']]) }}"
-                                class="btn btn-primary btn-detail">
-                                XEM CHI TIẾT
-                            </a> --}}
-                        </div>
                     </div>
                 </div>
 
                 {{-- Nghiệp quả Box --}}
                 <div class="box--bg-thang mb-3" style="border: unset">
+                    <div class="text-box-tong-quan">
+                        <div class="tt--giaima">
+                            Nghiệp quả
+                        </div>
+
+                        @php
+                            $karmicDebt = $profile['karmic_influences']['karmic_debt'] ?? null;
+                        @endphp
+
+                        {{-- Karmic Debt Section --}}
+                        @if ($karmicDebt)
+                            @if ($karmicDebt['has_karmic_debt'])
+                                <div class="karmic-debt-detailed">
+                                    @foreach ($karmicDebt['karmic_debts'] as $debt)
+                                        <div class="personal-year-highlight">
+                                            Bạn có nghiệp quả:
+                                            <strong>{{ $debt['number_nghiep'] ?? 'Nghiệp Quả ' }}</strong>
+                                        </div>
+                                        <div class="karmic-debt-full-card">
+                                            <div class="debt-header">
+
+                                                <div class="debt-title">
+                                                    {{ $debt['title'] ?? 'Nghiệp Quả ' . $debt['number'] }}</div>
+
+                                            </div>
+
+
+                                            <div class="debt-content">
+                                                <div class="debt-interpretation">
+
+                                                    <p>{{ $debt['prominentCharacteristics'] }}</p>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            @else
+                                <div class="no-karmic-debt">
+                                    <div class="personal-year-highlight">
+                                        Bạn Không Có Số Nghiệp Quả
+                                    </div>
+                                    <div class="karmic-debt-full-card mt-3">
+                                        <div class="debt-content">
+                                            <div class="debt-interpretation">
+                                                <p>{{ $karmicDebt['interpretation'] ?? 'Điều này có nghĩa là bạn đã hoàn thành tốt các bài học từ những kiếp trước và không mang theo những nghiệp quả nặng nề cần giải quyết trong kiếp này.' }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            @endif
+
+                        @endif
+
+
+
+                        {{-- View Details Button --}}
+                        <div class="karmic-actions text-center mt-4">
+                            <button class="btn btn-primary btn-detail" onclick="openKarmicModal()">
+                                XEM CHI TIẾT
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+
+                 <div class="box--bg-thang mb-3" style="border: unset">
                     <div class="text-box-tong-quan">
                         <div class="tt--giaima">
                             Nghiệp quả
